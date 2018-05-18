@@ -32,6 +32,43 @@ CREATE TABLE `accessory` (
 
 /*Data for the table `accessory` */
 
+/*Table structure for table `accessory_import` */
+
+DROP TABLE IF EXISTS `accessory_import`;
+
+CREATE TABLE `accessory_import` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `code` varchar(20) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `employee_id` int(11) DEFAULT NULL,
+  `created_date` date DEFAULT NULL,
+  `vendor_id` int(11) DEFAULT NULL,
+  `total` double DEFAULT NULL,
+  `paid` double DEFAULT NULL,
+  `debt` double DEFAULT NULL,
+  `payment_mode` int(1) DEFAULT '1',
+  `account_id` int(11) DEFAULT NULL,
+  `note` text COLLATE utf8_unicode_ci,
+  PRIMARY KEY (`id`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+/*Data for the table `accessory_import` */
+
+/*Table structure for table `accessory_import_detail` */
+
+DROP TABLE IF EXISTS `accessory_import_detail`;
+
+CREATE TABLE `accessory_import_detail` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `accessory_import_id` int(11) DEFAULT NULL,
+  `accessory_id` int(11) DEFAULT NULL,
+  `quantity` float DEFAULT NULL,
+  `price` double DEFAULT NULL,
+  `amount` double DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+/*Data for the table `accessory_import_detail` */
+
 /*Table structure for table `accessory_kind` */
 
 DROP TABLE IF EXISTS `accessory_kind`;
@@ -222,6 +259,7 @@ CREATE TABLE `expense` (
   `amount` double DEFAULT NULL,
   `content` text COLLATE utf8_unicode_ci,
   `payment_mode` int(1) DEFAULT '1' COMMENT '1: chuyen khoan, 2: tien mat',
+  `account_id` int(11) DEFAULT NULL,
   `from_date` date DEFAULT NULL,
   `to_date` date DEFAULT NULL,
   `is_usually` int(1) DEFAULT '0' COMMENT '0: khong thuong xuyen, 1: thuong xuyen',
@@ -254,8 +292,14 @@ DROP TABLE IF EXISTS `gas_export_wholesale`;
 CREATE TABLE `gas_export_wholesale` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `code` varchar(20) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `employee_id` int(11) DEFAULT NULL,
   `created_date` date DEFAULT NULL,
   `customer_id` int(11) DEFAULT NULL,
+  `total` double DEFAULT NULL,
+  `paid` double DEFAULT NULL,
+  `debt` double DEFAULT NULL,
+  `payment_mode` int(1) DEFAULT '1',
+  `account_id` int(11) DEFAULT NULL,
   `note` text COLLATE utf8_unicode_ci,
   PRIMARY KEY (`id`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
@@ -271,6 +315,8 @@ CREATE TABLE `gas_export_wholesale_detail` (
   `gas_export_wholesale_id` int(11) DEFAULT NULL,
   `shell_id` int(11) DEFAULT NULL,
   `quantity` int(5) DEFAULT NULL,
+  `price` double DEFAULT NULL,
+  `amount` double DEFAULT NULL,
   `note` text COLLATE utf8_unicode_ci,
   PRIMARY KEY (`id`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
@@ -388,56 +434,6 @@ CREATE TABLE `gas_return` (
   `quantity` float DEFAULT NULL,
   `amount` double DEFAULT NULL,
   `customer_id` int(11) DEFAULT NULL,
-  `note` text COLLATE utf8_unicode_ci,
-  PRIMARY KEY (`id`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
-
-/*Data for the table `gas_return` */
-
-/*Table structure for table `gas_shell_kind` */
-
-DROP TABLE IF EXISTS `gas_shell_kind`;
-
-CREATE TABLE `gas_shell_kind` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
-  `code` varchar(20) COLLATE utf8_unicode_ci DEFAULT NULL,
-  `name` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
-  `weight` float DEFAULT NULL,
-  `commission` float DEFAULT NULL,
-  `status` int(1) DEFAULT '1' COMMENT '0:bi khoa, 1:dang su dung',
-  PRIMARY KEY (`id`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
-
-/*Data for the table `gas_shell_kind` */
-
-/*Table structure for table `gas_shell_return_to_supplier` */
-
-DROP TABLE IF EXISTS `gas_shell_return_to_supplier`;
-
-CREATE TABLE `gas_shell_return_to_supplier` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
-  `employee_id` int(11) DEFAULT NULL,
-  `created_date` date DEFAULT NULL,
-  `vendor_id` int(11) DEFAULT NULL,
-  `shell_id` int(11) DEFAULT NULL,
-  `quantity` int(3) DEFAULT NULL,
-  `vehicle_id` int(11) DEFAULT NULL,
-  PRIMARY KEY (`id`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
-
-/*Data for the table `gas_shell_return_to_supplier` */
-
-/*Table structure for table `gas_shell_sale` */
-
-DROP TABLE IF EXISTS `gas_shell_sale`;
-
-CREATE TABLE `gas_shell_sale` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
-  `code` varchar(20) COLLATE utf8_unicode_ci DEFAULT NULL,
-  `employee_id` int(11) DEFAULT NULL,
-  `sale_date` date DEFAULT NULL,
-  `customer_id` int(11) DEFAULT NULL,
-  `total` double DEFAULT NULL,
   `paid` double DEFAULT NULL,
   `debt` double DEFAULT NULL,
   `payment_mode` int(1) DEFAULT '1' COMMENT '1:tien mat, 2:chuyen khoan',
@@ -446,23 +442,7 @@ CREATE TABLE `gas_shell_sale` (
   PRIMARY KEY (`id`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
-/*Data for the table `gas_shell_sale` */
-
-/*Table structure for table `gas_shell_sale_detail` */
-
-DROP TABLE IF EXISTS `gas_shell_sale_detail`;
-
-CREATE TABLE `gas_shell_sale_detail` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
-  `sale_id` int(11) DEFAULT NULL,
-  `shell_id` int(11) DEFAULT NULL,
-  `quantity` int(5) DEFAULT NULL,
-  `price` double DEFAULT NULL,
-  `amount` double DEFAULT NULL,
-  PRIMARY KEY (`id`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
-
-/*Data for the table `gas_shell_sale_detail` */
+/*Data for the table `gas_return` */
 
 /*Table structure for table `gas_wholesale` */
 
@@ -541,6 +521,8 @@ CREATE TABLE `income` (
   `employee_id` int(11) DEFAULT NULL,
   `created_date` date DEFAULT NULL,
   `amount` double DEFAULT NULL,
+  `payment_mode` int(1) DEFAULT '1' COMMENT '1:tien mat, 2:chuyen khoan',
+  `account_id` int(11) DEFAULT NULL,
   `note` text COLLATE utf8_unicode_ci,
   PRIMARY KEY (`id`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
@@ -570,43 +552,6 @@ CREATE TABLE `lpg_import` (
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 /*Data for the table `lpg_import` */
-
-/*Table structure for table `material_shell_return` */
-
-DROP TABLE IF EXISTS `material_shell_return`;
-
-CREATE TABLE `material_shell_return` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
-  `employee_id` int(11) DEFAULT NULL,
-  `created_date` date DEFAULT NULL,
-  `customer_id` int(11) DEFAULT NULL,
-  `shell_id` int(11) DEFAULT NULL,
-  `quantity` float DEFAULT NULL,
-  `vehicle_id` int(11) DEFAULT NULL,
-  PRIMARY KEY (`id`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
-
-/*Data for the table `material_shell_return` */
-
-/*Table structure for table `material_shell_sale` */
-
-DROP TABLE IF EXISTS `material_shell_sale`;
-
-CREATE TABLE `material_shell_sale` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
-  `employee_id` int(11) DEFAULT NULL,
-  `created_date` date DEFAULT NULL,
-  `customer_id` int(11) DEFAULT NULL,
-  `shell_id` int(11) DEFAULT NULL,
-  `quantity` float DEFAULT NULL,
-  `price` double DEFAULT NULL,
-  `amount` double DEFAULT NULL,
-  `vehicle_id` int(11) DEFAULT NULL,
-  `note` text COLLATE utf8_unicode_ci,
-  PRIMARY KEY (`id`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
-
-/*Data for the table `material_shell_sale` */
 
 /*Table structure for table `old_gas_shell` */
 
@@ -700,6 +645,88 @@ CREATE TABLE `petro` (
 
 /*Data for the table `petro` */
 
+/*Table structure for table `petro_import` */
+
+DROP TABLE IF EXISTS `petro_import`;
+
+CREATE TABLE `petro_import` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `code` varchar(20) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `created_date` date DEFAULT NULL,
+  `employee_id` int(11) DEFAULT NULL,
+  `store_id` int(11) DEFAULT NULL,
+  `vendor_id` int(11) DEFAULT NULL,
+  `total` double DEFAULT NULL,
+  `paid` double DEFAULT NULL,
+  `debt` double DEFAULT NULL,
+  `payment_mode` int(1) DEFAULT '1' COMMENT '1:tien mat, 2:chuyen khoan',
+  `account_id` int(11) DEFAULT NULL,
+  `note` text COLLATE utf8_unicode_ci,
+  PRIMARY KEY (`id`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+/*Data for the table `petro_import` */
+
+/*Table structure for table `petro_import_detail` */
+
+DROP TABLE IF EXISTS `petro_import_detail`;
+
+CREATE TABLE `petro_import_detail` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `petro_import_id` int(11) DEFAULT NULL,
+  `petro_id` int(11) DEFAULT NULL,
+  `quantity` float DEFAULT NULL,
+  `price` double DEFAULT NULL,
+  `amount` double DEFAULT NULL,
+  `note` text COLLATE utf8_unicode_ci,
+  PRIMARY KEY (`id`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+/*Data for the table `petro_import_detail` */
+
+/*Table structure for table `petro_sale` */
+
+DROP TABLE IF EXISTS `petro_sale`;
+
+CREATE TABLE `petro_sale` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `code` varchar(20) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `created_date` date DEFAULT NULL,
+  `employee_id` int(11) DEFAULT NULL,
+  `customer_id` int(11) DEFAULT NULL,
+  `store_id` int(11) DEFAULT NULL,
+  `amount` double DEFAULT NULL,
+  `discount` double DEFAULT NULL,
+  `total` double DEFAULT NULL,
+  `paid` double DEFAULT NULL,
+  `debt` double DEFAULT NULL,
+  `payment_mode` int(1) DEFAULT '1' COMMENT '1:tien mat, 2:chuyen khoan',
+  `account_id` int(11) DEFAULT NULL,
+  `note` text COLLATE utf8_unicode_ci,
+  PRIMARY KEY (`id`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+/*Data for the table `petro_sale` */
+
+/*Table structure for table `petro_sale_detail` */
+
+DROP TABLE IF EXISTS `petro_sale_detail`;
+
+CREATE TABLE `petro_sale_detail` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `petro_sale_id` int(11) DEFAULT NULL,
+  `petro_id` int(11) DEFAULT NULL,
+  `quantity` float DEFAULT NULL,
+  `price` double DEFAULT NULL,
+  `discount_percent` double DEFAULT NULL,
+  `discount_percent_amount` double DEFAULT NULL,
+  `discount_amount` double DEFAULT NULL,
+  `amount` double DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+/*Data for the table `petro_sale_detail` */
+
 /*Table structure for table `promotion_material` */
 
 DROP TABLE IF EXISTS `promotion_material`;
@@ -714,6 +741,43 @@ CREATE TABLE `promotion_material` (
 
 /*Data for the table `promotion_material` */
 
+/*Table structure for table `promotion_material_sale` */
+
+DROP TABLE IF EXISTS `promotion_material_sale`;
+
+CREATE TABLE `promotion_material_sale` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `code` varchar(20) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `created_date` date DEFAULT NULL,
+  `employee_id` int(11) DEFAULT NULL,
+  `vendor_id` int(11) DEFAULT NULL,
+  `total` double DEFAULT NULL,
+  `paid` double DEFAULT NULL,
+  `debt` double DEFAULT NULL,
+  `payment_mode` int(1) DEFAULT '1',
+  `account_id` int(11) DEFAULT NULL,
+  `note` text COLLATE utf8_unicode_ci,
+  PRIMARY KEY (`id`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+/*Data for the table `promotion_material_sale` */
+
+/*Table structure for table `promotion_material_sale_detail` */
+
+DROP TABLE IF EXISTS `promotion_material_sale_detail`;
+
+CREATE TABLE `promotion_material_sale_detail` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `sale_id` int(11) DEFAULT NULL,
+  `promotion_material_id` int(11) DEFAULT NULL,
+  `quantity` float DEFAULT NULL,
+  `price` double DEFAULT NULL,
+  `amount` double DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+/*Data for the table `promotion_material_sale_detail` */
+
 /*Table structure for table `retail_debt` */
 
 DROP TABLE IF EXISTS `retail_debt`;
@@ -726,6 +790,8 @@ CREATE TABLE `retail_debt` (
   `old_debt` double DEFAULT NULL,
   `paid` double DEFAULT NULL,
   `new_debt` double DEFAULT NULL,
+  `payment_mode` int(1) DEFAULT '1' COMMENT '1:tien mat, 2:chuyen khoan',
+  `account_id` int(11) DEFAULT NULL,
   `note` text COLLATE utf8_unicode_ci,
   PRIMARY KEY (`id`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
@@ -777,6 +843,95 @@ CREATE TABLE `shell_import` (
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 /*Data for the table `shell_import` */
+
+/*Table structure for table `shell_kind` */
+
+DROP TABLE IF EXISTS `shell_kind`;
+
+CREATE TABLE `shell_kind` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `code` varchar(20) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `name` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `weight` float DEFAULT NULL,
+  `commission` float DEFAULT NULL,
+  `status` int(1) DEFAULT '1' COMMENT '0:bi khoa, 1:dang su dung',
+  PRIMARY KEY (`id`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+/*Data for the table `shell_kind` */
+
+/*Table structure for table `shell_return` */
+
+DROP TABLE IF EXISTS `shell_return`;
+
+CREATE TABLE `shell_return` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `employee_id` int(11) DEFAULT NULL,
+  `created_date` date DEFAULT NULL,
+  `customer_id` int(11) DEFAULT NULL,
+  `shell_id` int(11) DEFAULT NULL,
+  `quantity` int(5) DEFAULT NULL,
+  `vehicle_id` int(11) DEFAULT NULL,
+  `note` text COLLATE utf8_unicode_ci,
+  PRIMARY KEY (`id`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+/*Data for the table `shell_return` */
+
+/*Table structure for table `shell_return_to_supplier` */
+
+DROP TABLE IF EXISTS `shell_return_to_supplier`;
+
+CREATE TABLE `shell_return_to_supplier` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `employee_id` int(11) DEFAULT NULL,
+  `created_date` date DEFAULT NULL,
+  `vendor_id` int(11) DEFAULT NULL,
+  `shell_id` int(11) DEFAULT NULL,
+  `quantity` int(5) DEFAULT NULL,
+  `vehicle_id` int(11) DEFAULT NULL,
+  `note` text COLLATE utf8_unicode_ci,
+  PRIMARY KEY (`id`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+/*Data for the table `shell_return_to_supplier` */
+
+/*Table structure for table `shell_sale` */
+
+DROP TABLE IF EXISTS `shell_sale`;
+
+CREATE TABLE `shell_sale` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `code` varchar(20) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `employee_id` int(11) DEFAULT NULL,
+  `sale_date` date DEFAULT NULL,
+  `customer_id` int(11) DEFAULT NULL,
+  `total` double DEFAULT NULL,
+  `paid` double DEFAULT NULL,
+  `debt` double DEFAULT NULL,
+  `payment_mode` int(1) DEFAULT '1' COMMENT '1:tien mat, 2:chuyen khoan',
+  `account_id` int(11) DEFAULT NULL,
+  `note` text COLLATE utf8_unicode_ci,
+  PRIMARY KEY (`id`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+/*Data for the table `shell_sale` */
+
+/*Table structure for table `shell_sale_detail` */
+
+DROP TABLE IF EXISTS `shell_sale_detail`;
+
+CREATE TABLE `shell_sale_detail` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `sale_id` int(11) DEFAULT NULL,
+  `shell_id` int(11) DEFAULT NULL,
+  `quantity` int(5) DEFAULT NULL,
+  `price` double DEFAULT NULL,
+  `amount` double DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+/*Data for the table `shell_sale_detail` */
 
 /*Table structure for table `shell_statistic` */
 
@@ -864,6 +1019,99 @@ CREATE TABLE `vehicle` (
 
 /*Data for the table `vehicle` */
 
+/*Table structure for table `vehicle_in` */
+
+DROP TABLE IF EXISTS `vehicle_in`;
+
+CREATE TABLE `vehicle_in` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `code` varchar(20) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `employee_id` int(11) DEFAULT NULL,
+  `created_date` date DEFAULT NULL,
+  `vehicle_id` int(11) DEFAULT NULL,
+  `note` text COLLATE utf8_unicode_ci,
+  PRIMARY KEY (`id`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+/*Data for the table `vehicle_in` */
+
+/*Table structure for table `vehicle_in_detail` */
+
+DROP TABLE IF EXISTS `vehicle_in_detail`;
+
+CREATE TABLE `vehicle_in_detail` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `verhicle_in_id` int(11) DEFAULT NULL,
+  `shell_id` int(11) DEFAULT NULL,
+  `quantity` int(5) DEFAULT NULL,
+  `note` text COLLATE utf8_unicode_ci,
+  PRIMARY KEY (`id`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+/*Data for the table `vehicle_in_detail` */
+
+/*Table structure for table `vehicle_in_empty_shell` */
+
+DROP TABLE IF EXISTS `vehicle_in_empty_shell`;
+
+CREATE TABLE `vehicle_in_empty_shell` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `verhicle_in_id` int(11) DEFAULT NULL,
+  `shell_id` int(11) DEFAULT NULL,
+  `quantity` int(5) DEFAULT NULL,
+  `note` text COLLATE utf8_unicode_ci,
+  PRIMARY KEY (`id`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+/*Data for the table `vehicle_in_empty_shell` */
+
+/*Table structure for table `vehicle_out` */
+
+DROP TABLE IF EXISTS `vehicle_out`;
+
+CREATE TABLE `vehicle_out` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `code` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `employee_id` int(11) DEFAULT NULL,
+  `created_date` date DEFAULT NULL,
+  `vehicle_id` int(11) DEFAULT NULL,
+  `note` text COLLATE utf8_unicode_ci,
+  PRIMARY KEY (`id`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+/*Data for the table `vehicle_out` */
+
+/*Table structure for table `vehicle_out_detail` */
+
+DROP TABLE IF EXISTS `vehicle_out_detail`;
+
+CREATE TABLE `vehicle_out_detail` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `verhicle_out_id` int(11) DEFAULT NULL,
+  `shell_id` int(11) DEFAULT NULL,
+  `quantity` int(5) DEFAULT NULL,
+  `price` double DEFAULT NULL,
+  `amount` double DEFAULT NULL,
+  `note` text COLLATE utf8_unicode_ci,
+  PRIMARY KEY (`id`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+/*Data for the table `vehicle_out_detail` */
+
+/*Table structure for table `vehicle_out_employee` */
+
+DROP TABLE IF EXISTS `vehicle_out_employee`;
+
+CREATE TABLE `vehicle_out_employee` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `vehicle_out_id` int(11) DEFAULT NULL,
+  `employee_id` int(11) DEFAULT NULL,
+  `note` text COLLATE utf8_unicode_ci,
+  PRIMARY KEY (`id`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+/*Data for the table `vehicle_out_employee` */
+
 /*Table structure for table `vendor` */
 
 DROP TABLE IF EXISTS `vendor`;
@@ -891,102 +1139,13 @@ CREATE TABLE `vendor_debt` (
   `old_debt` double DEFAULT NULL,
   `paid` double DEFAULT NULL,
   `new_debt` double DEFAULT NULL,
+  `payment_mode` int(1) DEFAULT '1' COMMENT '1:tien mat, 2:chuyen khoan',
+  `account_id` int(11) DEFAULT NULL,
   `note` text COLLATE utf8_unicode_ci,
   PRIMARY KEY (`id`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 /*Data for the table `vendor_debt` */
-
-/*Table structure for table `verhicle_in` */
-
-DROP TABLE IF EXISTS `verhicle_in`;
-
-CREATE TABLE `verhicle_in` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
-  `code` varchar(20) COLLATE utf8_unicode_ci DEFAULT NULL,
-  `created_date` date DEFAULT NULL,
-  `vehicle_id` int(11) DEFAULT NULL,
-  `note` text COLLATE utf8_unicode_ci,
-  PRIMARY KEY (`id`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
-
-/*Data for the table `verhicle_in` */
-
-/*Table structure for table `verhicle_in_detail` */
-
-DROP TABLE IF EXISTS `verhicle_in_detail`;
-
-CREATE TABLE `verhicle_in_detail` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
-  `verhicle_in_id` int(11) DEFAULT NULL,
-  `shell_id` int(11) DEFAULT NULL,
-  `quantity` int(5) DEFAULT NULL,
-  `note` text COLLATE utf8_unicode_ci,
-  PRIMARY KEY (`id`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
-
-/*Data for the table `verhicle_in_detail` */
-
-/*Table structure for table `verhicle_in_shell` */
-
-DROP TABLE IF EXISTS `verhicle_in_shell`;
-
-CREATE TABLE `verhicle_in_shell` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
-  `verhicle_in_id` int(11) DEFAULT NULL,
-  `shell_id` int(11) DEFAULT NULL,
-  `quantity` int(5) DEFAULT NULL,
-  `note` text COLLATE utf8_unicode_ci,
-  PRIMARY KEY (`id`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
-
-/*Data for the table `verhicle_in_shell` */
-
-/*Table structure for table `verhicle_out` */
-
-DROP TABLE IF EXISTS `verhicle_out`;
-
-CREATE TABLE `verhicle_out` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
-  `code` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
-  `created_date` date DEFAULT NULL,
-  `vehicle_id` int(11) DEFAULT NULL,
-  `note` text COLLATE utf8_unicode_ci,
-  PRIMARY KEY (`id`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
-
-/*Data for the table `verhicle_out` */
-
-/*Table structure for table `verhicle_out_detail` */
-
-DROP TABLE IF EXISTS `verhicle_out_detail`;
-
-CREATE TABLE `verhicle_out_detail` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
-  `verhicle_out_id` int(11) DEFAULT NULL,
-  `shell_id` int(11) DEFAULT NULL,
-  `quantity` int(5) DEFAULT NULL,
-  `price` double DEFAULT NULL,
-  `amount` double DEFAULT NULL,
-  `note` text COLLATE utf8_unicode_ci,
-  PRIMARY KEY (`id`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
-
-/*Data for the table `verhicle_out_detail` */
-
-/*Table structure for table `verhicle_out_employee` */
-
-DROP TABLE IF EXISTS `verhicle_out_employee`;
-
-CREATE TABLE `verhicle_out_employee` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
-  `verhicle_out_id` int(11) DEFAULT NULL,
-  `employee_id` int(11) DEFAULT NULL,
-  `note` text COLLATE utf8_unicode_ci,
-  PRIMARY KEY (`id`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
-
-/*Data for the table `verhicle_out_employee` */
 
 /*Table structure for table `wholesale_debt` */
 
@@ -1000,6 +1159,8 @@ CREATE TABLE `wholesale_debt` (
   `old_debt` double DEFAULT NULL,
   `paid` double DEFAULT NULL,
   `new_debt` double DEFAULT NULL,
+  `payment_mode` int(1) DEFAULT '1',
+  `account_id` int(11) DEFAULT NULL,
   `note` text COLLATE utf8_unicode_ci,
   PRIMARY KEY (`id`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
