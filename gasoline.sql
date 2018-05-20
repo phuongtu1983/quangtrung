@@ -169,17 +169,17 @@ DROP TABLE IF EXISTS `employee`;
 
 CREATE TABLE `employee` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
-  `full_name` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
-  `nick_name` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
-  `password` text COLLATE utf8_unicode_ci,
+  `fullname` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
   `email` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
   `salary` double DEFAULT NULL,
   `organization_id` int(11) DEFAULT NULL,
   `status` int(1) DEFAULT '1' COMMENT '0: da bi khoa, 1: dang su dung',
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=MyISAM AUTO_INCREMENT=2 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 /*Data for the table `employee` */
+
+insert  into `employee`(`id`,`fullname`,`email`,`salary`,`organization_id`,`status`) values (1,'Nguyễn Phương Tú','phuongtu1983@gmail.com',NULL,NULL,1);
 
 /*Table structure for table `employee_advance` */
 
@@ -1006,6 +1006,24 @@ CREATE TABLE `unit` (
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 /*Data for the table `unit` */
+
+/*Table structure for table `user` */
+
+DROP TABLE IF EXISTS `user`;
+
+CREATE TABLE `user` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `employee_id` int(11) DEFAULT NULL,
+  `username` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `password` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `menu` text COLLATE utf8_unicode_ci,
+  `status` int(1) DEFAULT '1' COMMENT '0:bi khoa, 1:dang su dung',
+  PRIMARY KEY (`id`)
+) ENGINE=MyISAM AUTO_INCREMENT=2 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+/*Data for the table `user` */
+
+insert  into `user`(`id`,`employee_id`,`username`,`password`,`menu`,`status`) values (1,1,'tu','7UInc07XXTQzILal/RbOVw==',NULL,1);
 
 /*Table structure for table `vehicle` */
 
