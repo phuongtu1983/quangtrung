@@ -91,5 +91,6 @@ public class PermissionUtil {
 //    public static int PER_EMPLOYEE = 3;
     public static int PER_USER = 4;
     public static int PER_PARAMTER = 5;
+    public static int PER_ORGANIZATION = 6;
 
 }

@@ -26,6 +26,8 @@
     <form-beans>
     <form-bean name="loginForm" type="com.stepup.gasoline.qt.auth.LoginForm"/>
     <form-bean name="permissionForm" type="com.stepup.gasoline.qt.permission.PermissionFormBean"/>
+    <form-bean name="parameterForm" type="com.stepup.gasoline.qt.parameter.ParameterFormBean"/>
+    <form-bean name="organizationForm" type="com.stepup.gasoline.qt.organization.OrganizationFormBean"/>
     </form-beans>
     
     <global-exceptions>
@@ -63,6 +65,34 @@
         <action path="/delPermission" type="com.stepup.gasoline.qt.permission.DeletePermissionAction" scope="request" validate="false" >
         </action>
         <!-- end permission -->
+        <!-- start parameter -->
+        <action path="/getParameterPanel" type="com.stepup.gasoline.qt.common.BaseStatusFormAction" scope="request" validate="false">
+            <forward name="success" path="/parameter/parameterspanel.jsp" />
+        </action>
+        <action path="/getParameterList" type="com.stepup.gasoline.qt.parameter.GetParameterListAction" scope="request" validate="false" >
+        </action>
+        <action path="/parameterForm" type="com.stepup.gasoline.qt.parameter.ParameterFormAction" scope="request" validate="false">
+            <forward name="success" path="/parameter/parameterdetail.jsp" />
+        </action>
+        <action path="/addParameter" name ="parameterForm" scope="request" type="com.stepup.gasoline.qt.parameter.AddParameterAction">
+        </action>
+        <!-- end parameter -->
+        <!-- start organization -->
+        <action path="/getOrganizationPanel" type="com.stepup.gasoline.qt.common.BaseStatusFormAction" scope="request" validate="false">
+            <forward name="success" path="/organization/organizationpanel.jsp" />
+        </action>
+        <action path="/getOrganizationList" type="com.stepup.gasoline.qt.organization.GetOrganizationListAction" scope="request" validate="false" >
+        </action>
+        <action path="/organizationForm" type="com.stepup.gasoline.qt.organization.OrganizationFormAction" scope="request" validate="false">
+            <forward name="success" path="/organization/organizationdetail.jsp" />
+        </action>
+        <action path="/addOrganization" name ="organizationForm" scope="request" type="com.stepup.gasoline.qt.organization.AddOrganizationAction" input="/organizationForm.do">
+        </action>
+        <!-- end organization -->
+        
+        
+        
+        
         <!-- start user -->
         <action path="/getUserPanel" type="com.stepup.gasoline.qt.user.GetUserPanelAction" scope="request" validate="false">
             <forward name="success" path="/user/userspanel.jsp" />

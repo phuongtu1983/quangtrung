@@ -29,7 +29,7 @@
 <table>
     <tr>
         <td>
-            <%if (!PermissionUtil.hasPermission(request, PermissionUtil.OPERATION_ADD, PermissionUtil.PER_PERMISSION)) {%> 
+            <%if (PermissionUtil.hasPermission(request, PermissionUtil.OPERATION_ADD, PermissionUtil.PER_PERMISSION)) {%> 
             <button class="i_create_write icon small green" onclick="return getPermission(0);"><bean:message key="message.add"/></button>
             <%}%>
         </td>

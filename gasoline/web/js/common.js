@@ -321,20 +321,21 @@ function clearPopupForm(data) {
     }
     return false;
 }
-//function showPopupForm(data){        
-//    var dialog=dijit.byId("popupDialog");
-//    if (dialog!=null) {
-//        dialog.attr('draggable',true);
-//        dialog.attr('content',data);    
-//        dialog.show();
-//        if(popupName!=''){
-//            dialog.attr('title',popupName);
-//            popupName='';
-//        }else dialog.attr('title','Phuong Nam Report');
-//        dialog=null;
-//    }    
-//    return false;
-//}
+function showPopupForm(data) {
+    var dialog = dijit.byId("popupDialog");
+    if (dialog != null) {
+        dialog.attr('draggable', true);
+        dialog.attr('content', data);
+        dialog.show();
+        if (popupName != '') {
+            dialog.attr('title', popupName);
+            popupName = '';
+        } else
+            dialog.attr('title', 'Phuong Nam Report');
+        dialog = null;
+    }
+    return false;
+}
 //function showPopupFormLoc(data){
 //    var dialog=dijit.byId("popupDialog");
 //    if (dialog!=null) {
@@ -373,24 +374,25 @@ function clearPopupForm(data) {
 //    dialog=null;
 //    return false;
 //}
-//function prepareHidePopup(divName){
-//    hidePopupForm();
-//    var div=document.getElementById(divName+"Content");
-//    if(div!=null){
-//        div.innerHTML="";
-//        div=null;
-//    }
-//    return false;
-//}
-//function hidePopupForm(id){
-//    if (id==null) id = 'popupDialog';
-//    var dialog=dijit.byId(id);
-//    if(dialog!=null){
-//        dialog.hide();
-//        dialog=null;
-//    }
-//    return false;
-//}
+function prepareHidePopup(divName) {
+    hidePopupForm();
+    var div = document.getElementById(divName + "Content");
+    if (div != null) {
+        div.innerHTML = "";
+        div = null;
+    }
+    return false;
+}
+function hidePopupForm(id) {
+    if (id == null)
+        id = 'popupDialog';
+    var dialog = dijit.byId(id);
+    if (dialog != null) {
+        dialog.hide();
+        dialog = null;
+    }
+    return false;
+}
 //var tabHandle;
 //function displayTabs(parent,childs,func){
 //    var tag;

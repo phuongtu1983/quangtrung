@@ -21,18 +21,23 @@ function createLayout() {
     });
 }
 function menuClick(id) {
-    if (id == 'userlist')
+    if (id == 'permissionlist')
+        loadPermissionPanel();
+    else if (id == 'parameter')
+        loadParameterPanel();
+    else if (id == 'organizationlist')
+        loadOrganizationPanel();
+    else if (id == 'organizationadd')
+        getOrganization(0, 'loadOrganizationPanel');
+    else if (id == 'userlist')
         loadUserPanel();
     else if (id == 'useradd')
         getUser(0, 'loadUserPanel');
     else if (id == 'logout')
         logout();
-    else if (id == 'parameter')
-        loadParameterPanel();
     else if (id == 'resetpassword')
         changePasswordForm();
-    else if (id == 'permissionlist')
-        loadPermissionPanel();
+
 }
 function clearContent() {
     var contentDiv = document.getElementById("contentDiv");
@@ -89,13 +94,16 @@ function loadPermissionList(name) {
     });
     return false;
 }
-function setUserSelectedForm(form,text,value){
-    if(value==null){
-        if(text!="") value="-1";
-        else value="0";
+function setUserSelectedForm(form, text, value) {
+    if (value == null) {
+        if (text != "")
+            value = "-1";
+        else
+            value = "0";
     }
-    if(document.forms[form].userSelectedTextHidden!=null) document.forms[form].userSelectedTextHidden.value=text;
-    document.forms[form].userSelectedHidden.value=value;
+    if (document.forms[form].userSelectedTextHidden != null)
+        document.forms[form].userSelectedTextHidden.value = text;
+    document.forms[form].userSelectedHidden.value = value;
 }
 function getPermission(id) {
     var url = "permissionForm.do";
@@ -228,9 +236,137 @@ function savePermission() {
     return false;
 }
 function delPermission() {
-    callAjaxCheckError('delPermission.do?ids=' + document.forms['permissionForm'].perId.value, null, null, loadPermissionPanel);
+    callAjaxCheckError('delPermission.do?perId=' + document.forms['permissionForm'].perId.value, null, null, loadPermissionPanel);
     return false;
 }
+function loadParameterPanel() {
+    callAjax("getParameterPanel.do", null, null, function(data) {
+        clearContent();
+        setAjaxData(data, "contentDiv");
+        loadParameterList();
+    });
+}
+function loadParameterList() {
+    var mygrid = new dhtmlXGridObject('parameterList');
+    mygrid.setImagePath("js/dhtmlx/grid/imgs/");
+    mygrid.setHeader("T\u00EAn tham s\u1ED1,Gi\u00E1 tr\u1ECB");
+    mygrid.attachHeader("#text_filter,#text_filter");
+    mygrid.setInitWidths("300,*");
+    mygrid.setColTypes("link,ro");
+    mygrid.setColSorting("str,str");
+    mygrid.setSkin("light");
+    var height = contentHeight - 210;
+    mygrid.al(true, height);//enableAutoHeight
+    mygrid.enablePaging(true, 10, 3, "recinfoArea");
+    mygrid.setPagingSkin("toolbar", "dhx_skyblue");
+    mygrid.init();
+    var url = "getParameterList.do";
+    callAjax(url, null, null, function(data) {
+        mygrid.parse(data);
+    });
+    return false;
+}
+function getParameter(name, handle) {
+    popupName = 'TH\u00D4NG TIN THAM S\u1ED0 H\u1EC6 TH\u1ED0NG';
+    var url = 'parameterForm.do';
+    if (name != 0)
+        url += "?parameterName=" + name;
+    callAjax(url, null, null, function(data) {
+        showPopupForm(data);
+        document.getElementById('callbackFunc').value = handle;
+    });
+}
+function saveParameter() {
+    if (scriptFunction == "saveParameter")
+        return false;
+    var field = document.forms['parameterForm'].value;
+    if (field.value == '') {
+        alert("Vui l\u00F2ng nh\u1EADp gi\u00E1 tr\u1ECB tham s\u1ED1");
+        field.focus();
+        field = null;
+        return false;
+    }
+    field = null;
+    scriptFunction = "saveParameter";
+    callAjaxCheckError("addParameter.do", null, document.forms['parameterForm'], function(data) {
+        scriptFunction = "";
+        var handle = document.getElementById('callbackFunc').value;
+        if (handle != '')
+            eval(handle + "()");
+        prepareHidePopup('parameterFormshowHelpHideDiv');
+    });
+    return false;
+}
+function loadOrganizationPanel(){
+    callAjax("getOrganizationPanel.do",null,null,function(data){
+        clearContent();
+        setAjaxData(data,"contentDiv");
+        loadOrganizationList();
+    });
+}
+function loadOrganizationList(){
+    var mygrid = new dhtmlXGridObject('organizationList');
+    mygrid.setImagePath("js/dhtmlx/grid/imgs/");
+    mygrid.setHeader("M\u00E3 \u0111\u01A1n v\u1ECB,T\u00EAn \u0111\u01A1n v\u1ECB,\u0110\u1ECBa ch\u1EC9,T\u00ECnh tr\u1EA1ng");
+    mygrid.attachHeader("#text_filter,#text_filter,#text_filter,#select_filter");
+    mygrid.setInitWidths("150,150,*,150");
+    mygrid.setColTypes("link,ro,ro,ro");
+    mygrid.setColSorting("str,str,str,str");
+    mygrid.setSkin("light");
+    var height=contentHeight-210;
+    mygrid.al(true,height);//enableAutoHeight
+    mygrid.enablePaging(true, 15, 3, "recinfoArea");
+    mygrid.setPagingSkin("toolbar", "dhx_skyblue");
+    mygrid.init();
+    var list=document.forms['organizationSearchForm'].statusCombobox;
+    if(list!=null && list.selectedIndex>-1) list=list.options[list.selectedIndex].value;
+    else list=0;
+    var url="getOrganizationList.do?status="+list;
+    callAjax(url,null,null,function(data){
+        mygrid.parse(data);
+    });
+    return false;
+}
+function getOrganization(id,handle){
+    popupName='TH\u00D4NG TIN \u0110\u01A0N V\u1ECA';
+    var url='organizationForm.do';
+    if(id!=0) url+='?organizationId='+id
+    callAjax(url,null,null,function(data){
+        showPopupForm(data);
+        document.getElementById('callbackFunc').value=handle;
+        document.forms['organizationForm'].code.focus();
+    });
+}
+function saveOrganization() {
+    if(scriptFunction=="saveOrganization") return false;
+    var field = document.forms['organizationForm'].code;
+    if(field.value==''){
+        alert("Vui l\u00F2ng nh\u1EADp m\u00E3 \u0111\u01A1n v\u1ECB");
+        field.focus();
+        field=null;
+        return false;
+    }
+    field = document.forms['organizationForm'].name;
+    if(field.value==''){
+        alert("Vui l\u00F2ng nh\u1EADp t\u00EAn \u0111\u01A1n v\u1ECB");
+        field.focus();
+        field=null;
+        return false;
+    }
+    field=null;
+    scriptFunction="saveOrganization";
+    callAjaxCheckError("addOrganization.do",null,document.forms['organizationForm'],function(data){
+        scriptFunction="";
+        var handle=document.getElementById('callbackFunc').value;
+        if(confirm('B\u1EA1n c\u00F3 mu\u1ED1n nh\u1EADp ti\u1EBFp th\u00F4ng tin kh\u00E1c ?')) getOrganization(0, handle);
+        else if(handle!='') eval(handle+"()");
+        prepareHidePopup('organizationFormshowHelpHideDiv');
+    });
+    return false;
+}
+
+
+
 function loadUserPanel() {
     callAjax("getUserPanel.do", null, null, function(data) {
         clearContent();

@@ -42,15 +42,16 @@ public class ParameterDAO {
 //        return list;
 //    }
 
-    public ParameterBean getParameter(String name) throws Exception {
+    public ParameterBean getParameter(String code) throws Exception {
         ResultSet rs = null;
-        String sql = "SELECT * FROM parameter where name='" + name + "'";
+        String sql = "SELECT * FROM parameter where code='" + code + "'";
 
         try {
             rs = DBUtil.executeQuery(sql);
             while (rs.next()) {
                 ParameterBean param = new ParameterBean();
                 param.setId(rs.getInt("id"));
+                param.setCode(rs.getString("code"));
                 param.setName(rs.getString("name"));
                 param.setValue(rs.getString("value"));
                 return param;
@@ -68,32 +69,33 @@ public class ParameterDAO {
         return null;
     }
 
-//    public ParameterBean getParameter(int id) throws Exception {
-//        ResultSet rs = null;
-//        String sql = "SELECT * FROM parameter where id=" + id;
-//
-//        try {
-//            rs = DBUtil.executeQuery(sql);
-//            while (rs.next()) {
-//                ParameterBean param = new ParameterBean();
-//                param.setId(rs.getInt("id"));
-//                param.setName(rs.getString("name"));
-//                param.setValue(rs.getString("value"));
-//                return param;
-//            }
-//        } catch (SQLException sqle) {
-//            throw new Exception(sqle.getMessage());
-//        } catch (Exception ex) {
-//            throw new Exception(ex.getMessage());
-//        } finally {
-//            if (rs != null) {
-//                DBUtil.closeConnection(rs);
-//            }
-//
-//        }
-//        return null;
-//    }
-//
+    public ParameterBean getParameter(int id) throws Exception {
+        ResultSet rs = null;
+        String sql = "SELECT * FROM parameter where id=" + id;
+
+        try {
+            rs = DBUtil.executeQuery(sql);
+            while (rs.next()) {
+                ParameterBean param = new ParameterBean();
+                param.setId(rs.getInt("id"));
+                param.setCode(rs.getString("code"));
+                param.setName(rs.getString("name"));
+                param.setValue(rs.getString("value"));
+                return param;
+            }
+        } catch (SQLException sqle) {
+            throw new Exception(sqle.getMessage());
+        } catch (Exception ex) {
+            throw new Exception(ex.getMessage());
+        } finally {
+            if (rs != null) {
+                DBUtil.closeConnection(rs);
+            }
+
+        }
+        return null;
+    }
+
 //    public int insertParameter(ParameterBean bean) throws Exception {
 //        if (bean == null) {
 //            return 0;
@@ -131,21 +133,17 @@ public class ParameterDAO {
 //            throw new Exception(ex.getMessage());
 //        }
 //    }
-//
-//    public void updateParameter(int id, String value) throws Exception {
-//        try {
-//            String sql = "update parameter set "
-//                    + " value='" + value + "'"
-//                    + " where id=" + id;
-//            ////System.out.println("sql=" + sql);
-//            DBUtil.executeUpdate(sql);
-//        } catch (SQLException sqle) {
-//            throw new Exception(sqle.getMessage());
-//        } catch (Exception ex) {
-//            throw new Exception(ex.getMessage());
-//        }
-//    }
-//
+    public void updateParameter(int id, String value) throws Exception {
+        try {
+            String sql = "update parameter set value='" + value + "' where id=" + id;
+            DBUtil.executeUpdate(sql);
+        } catch (SQLException sqle) {
+            throw new Exception(sqle.getMessage());
+        } catch (Exception ex) {
+            throw new Exception(ex.getMessage());
+        }
+    }
+
 //    public int deleteParameter(String name) throws Exception {
 //        int result = 0;
 //        try {
@@ -181,32 +179,32 @@ public class ParameterDAO {
 //        result = result.substring(1);
 //        return result;
 //    }
-//
-//    public ArrayList getParametersByNames(String names) throws Exception {
-//        ResultSet rs = null;
-//        String sql = "SELECT * FROM parameter where name in (" + names + ")";
-//
-//        ArrayList list = new ArrayList();
-//        try {
-//            rs = DBUtil.executeQuery(sql);
-//            ParameterBean param = null;
-//            while (rs.next()) {
-//                param = new ParameterBean();
-//                param.setId(rs.getInt("id"));
-//                param.setName(rs.getString("name"));
-//                param.setValue(rs.getString("value"));
-//                list.add(param);
-//            }
-//        } catch (SQLException sqle) {
-//            throw new Exception(sqle.getMessage());
-//        } catch (Exception ex) {
-//            throw new Exception(ex.getMessage());
-//        } finally {
-//            if (rs != null) {
-//                DBUtil.closeConnection(rs);
-//            }
-//
-//        }
-//        return list;
-//    }
+    public ArrayList getParametersByCodes(String codes) throws Exception {
+        ResultSet rs = null;
+        String sql = "SELECT * FROM parameter where code in (" + codes + ")";
+
+        ArrayList list = new ArrayList();
+        try {
+            rs = DBUtil.executeQuery(sql);
+            ParameterBean param = null;
+            while (rs.next()) {
+                param = new ParameterBean();
+                param.setId(rs.getInt("id"));
+                param.setCode(rs.getString("code"));
+                param.setName(rs.getString("name"));
+                param.setValue(rs.getString("value"));
+                list.add(param);
+            }
+        } catch (SQLException sqle) {
+            throw new Exception(sqle.getMessage());
+        } catch (Exception ex) {
+            throw new Exception(ex.getMessage());
+        } finally {
+            if (rs != null) {
+                DBUtil.closeConnection(rs);
+            }
+
+        }
+        return list;
+    }
 }

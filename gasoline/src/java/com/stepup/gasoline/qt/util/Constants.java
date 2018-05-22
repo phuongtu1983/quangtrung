@@ -22,7 +22,7 @@ public class Constants {
     public static final String PERMISSION = "permission";
     public static final String PERMISSION_EMP_LIST = "permissionEmpList";
     public static final String PERMISSION_FUNC_LIST = "permissionFuncList";
-//    public static final String AREA = "area";
+    public static final String ORGANIZATION = "organization";
 //    public static final String AREA_LIST = "areaList";
 //    public static final String AREA_EQUIPMENT = "areaEquipment";
 //    public static final String AREA_EMP_LIST = "areaEmpList";
@@ -45,9 +45,9 @@ public class Constants {
 //    public static final String TENNIS_PRICE = "tennisPrice";
 //    public static final String MASSAGE = "massage";
 //    public static final String MASSAGE_PRICE = "massagePrice";
-//    public static final String CONFIG_COMPANY_PHONE = "companyPhone";
+    public static final String CONFIG_SALARY_MONTH_DAY = "salarymonthday";
 //    public static final String CONFIG_COMPANY_NAME = "companyName";
-//    public static final String PARAMETER = "parameter";
+    public static final String PARAMETER = "parameter";
 //    public static final String OTHERSERVICE = "otherservice";
 //    public static final String PROMOTION = "promotion";
 //    public static final String SURCHARGE = "surcharge";

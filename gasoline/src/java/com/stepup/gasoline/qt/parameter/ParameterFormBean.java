@@ -1,16 +1,30 @@
-package com.stepup.gasoline.qt.bean;
+/*
+ * To change this template, choose Tools | Templates
+ * and open the template in the editor.
+ */
+package com.stepup.gasoline.qt.parameter;
+
+import com.stepup.gasoline.qt.bean.ParameterBean;
 
 /**
- * @author tunguyen
+ *
+ * @author phuongtu
  */
-public class ParameterBean {
+public class ParameterFormBean extends org.apache.struts.action.ActionForm {
 
     private int id;
     private String code;
     private String name;
     private String value;
 
-    public ParameterBean() {
+    public ParameterFormBean() {
+    }
+
+    public ParameterFormBean(ParameterBean bean) {
+        this.id = bean.getId();
+        this.code = bean.getCode();
+        this.name = bean.getName();
+        this.value = bean.getValue();
     }
 
     public int getId() {

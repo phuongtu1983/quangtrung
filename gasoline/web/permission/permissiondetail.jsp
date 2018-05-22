@@ -48,17 +48,17 @@
             <td colspan="2">
                 <p style="margin-top: 0; margin-bottom: 0">
                     <logic:equal name="<%=Constants.PERMISSION%>" property="perId" value="0">
-                        <%if (!PermissionUtil.hasPermission(request, PermissionUtil.OPERATION_ADD, PermissionUtil.PER_PERMISSION)) {%> 
+                        <%if (PermissionUtil.hasPermission(request, PermissionUtil.OPERATION_ADD, PermissionUtil.PER_PERMISSION)) {%> 
                         <button class="i_create_write icon small green" onclick="return savePermission();"><bean:message key="message.save"/></button>
                         <%}%>
                     </logic:equal>
                     <logic:notEqual name="<%=Constants.PERMISSION%>" property="perId" value="0">
-                        <%if (!PermissionUtil.hasPermission(request, PermissionUtil.OPERATION_EDIT, PermissionUtil.PER_PERMISSION)) {%> 
+                        <%if (PermissionUtil.hasPermission(request, PermissionUtil.OPERATION_EDIT, PermissionUtil.PER_PERMISSION)) {%> 
                         <button class="i_create_write icon small green" onclick="return savePermission();"><bean:message key="message.save"/></button>
                         <%}%>
                     </logic:notEqual>
                     <logic:greaterThan name="<%=Constants.PERMISSION%>" property="perId" value="0">
-                        <%if (!PermissionUtil.hasPermission(request, PermissionUtil.OPERATION_DELETE, PermissionUtil.PER_PERMISSION)) {%> 
+                        <%if (PermissionUtil.hasPermission(request, PermissionUtil.OPERATION_DELETE, PermissionUtil.PER_PERMISSION)) {%> 
                         <button class="i_trashcan icon small red" onclick="return delPermission();"><bean:message key="message.del"/></button>
                         <%}%>
                     </logic:greaterThan>

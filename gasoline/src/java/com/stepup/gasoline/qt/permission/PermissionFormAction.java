@@ -133,6 +133,15 @@ public class PermissionFormAction extends SpineAction {
         perBean.setCounter("2.1");
         perBean.setLevel(2);
         perBean.setSharedId(3);
+        perBean.setName(QTUtil.getBundleString("parameter.title"));
+        perBean.setValue(PermissionUtil.PER_PARAMTER);
+        perBean.setOperations("," + PermissionUtil.OPERATION_LIST + "," + PermissionUtil.OPERATION_ADD + "," + PermissionUtil.OPERATION_EDIT + "," + PermissionUtil.OPERATION_DELETE + ",");
+        arrFun.add(perBean);
+
+        perBean = new PermissionViewBean();
+        perBean.setCounter("2.1");
+        perBean.setLevel(2);
+        perBean.setSharedId(3);
         perBean.setName(QTUtil.getBundleString("user.title"));
         perBean.setValue(PermissionUtil.PER_USER);
         perBean.setOperations("," + PermissionUtil.OPERATION_LIST + "," + PermissionUtil.OPERATION_ADD + "," + PermissionUtil.OPERATION_EDIT + ",");

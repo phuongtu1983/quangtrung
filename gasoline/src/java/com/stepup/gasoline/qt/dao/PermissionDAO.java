@@ -31,7 +31,7 @@ public class PermissionDAO {
     public ArrayList<ApplicationPermissionBean> getPermissionsOfEmployee(int empId) throws Exception {
         ResultSet rs = null;
         String sql = "SELECT p.id, p.NAME, CONCAT(',',p.users,',') users, det.function, det.operation"
-                + " from permission_detail as det, permission as p where det.per_id=p.id ";
+                + " from permission_detail as det, permission as p where det.permission_id=p.id ";
         if (empId > 0) {
             sql += " AND CONCAT(',',p.users,',') LIKE CONCAT('%,'," + empId + ",',%')";
         }
@@ -91,7 +91,7 @@ public class PermissionDAO {
 
     public ArrayList getPermissionDetails(int perId) throws Exception {
         ResultSet rs = null;
-        String sql = "Select * From permission_detail Where per_id=" + perId;
+        String sql = "Select * From permission_detail Where permission_id=" + perId;
         ArrayList detailList = new ArrayList();
         try {
             rs = DBUtil.executeQuery(sql);
@@ -99,7 +99,7 @@ public class PermissionDAO {
             while (rs.next()) {
                 detail = new PermissionDetailBean();
                 detail.setId(rs.getInt("id"));
-                detail.setPerId(rs.getInt("per_id"));
+                detail.setPerId(rs.getInt("permission_id"));
                 detail.setFunction(rs.getString("function"));
                 detail.setOperation(rs.getInt("operation"));
                 detailList.add(detail);
@@ -128,7 +128,7 @@ public class PermissionDAO {
             }
             DBUtil.closeConnection(rs);
             if (!GenericValidator.isBlankOrNull(users)) {
-                sql = "select e.id, u.id as user_id, e.fullname from employee as e, user as u where e.id=u.emp_id and u.id in (" + users + ")";
+                sql = "select e.id, u.id as user_id, e.fullname from employee as e, user as u where e.id=u.employee_id and u.id in (" + users + ")";
                 rs = DBUtil.executeQuery(sql);
                 EmployeeBean emp = null;
                 while (rs.next()) {
@@ -217,7 +217,7 @@ public class PermissionDAO {
         int result = 0;
         try {
             String sql = "";
-            sql = "Insert Into permission_detail (per_id, function, operation)"
+            sql = "Insert Into permission_detail (permission_id, function, operation)"
                     + " Values (" + bean.getPerId() + ",'" + bean.getFunction() + "'," + bean.getOperation() + ")";
             result = DBUtil.executeInsert(sql);
         } catch (SQLException sqle) {
@@ -234,7 +234,7 @@ public class PermissionDAO {
         }
         try {
             String sql = "Update permission_detail Set function='" + bean.getFunction() + "'"
-                    + " Where per_id=" + bean.getPerId() + " and operation=" + bean.getOperation();
+                    + " Where permission_id=" + bean.getPerId() + " and operation=" + bean.getOperation();
             DBUtil.executeUpdate(sql);
         } catch (SQLException sqle) {
             throw new Exception(sqle.getMessage());
@@ -282,7 +282,7 @@ public class PermissionDAO {
     public int deletePermission(String ids) throws Exception {
         int result = 0;
         try {
-            String sql = "Delete From permission_detail Where per_id in (" + ids + ")";
+            String sql = "Delete From permission_detail Where permission_id in (" + ids + ")";
             DBUtil.executeUpdate(sql);
             sql = "Delete From permission Where id in (" + ids + ")";
             result = DBUtil.executeUpdate(sql);
