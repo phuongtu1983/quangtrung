@@ -1,0 +1,123 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<!DOCTYPE struts-config PUBLIC
+"-//Apache Software Foundation//DTD Struts Configuration 1.2//EN"
+"http://jakarta.apache.org/struts/dtds/struts-config_1_2.dtd">
+
+
+<struts-config>
+    <data-sources>
+        <data-source type="org.apache.tomcat.dbcp.dbcp.BasicDataSource" key="DBQTGA" id="DBQTGA">
+            <set-property property="driverClassName" value="com.mysql.jdbc.Driver" />                        
+            <set-property property="url" value="jdbc:mysql://localhost:3306/gasoline?useUnicode=true&amp;characterEncoding=utf-8&amp;zeroDateTimeBehavior=convertToNull" />
+            <set-property property="username" value="root" />
+            <set-property property="password" value="828006" />
+            <set-property property="maxActive" value="1000" />
+            <set-property property="maxWait" value="60000" />
+            <set-property property="defaultAutoCommit" value="true" />
+            <set-property property="defaultReadOnly" value="false" />
+            <set-property property="removeAbandoned" value="true" />
+            <set-property property="autoReconnect" value="true" />
+            <set-property property="logAbandoned" value="true" />
+            <set-property property="removeAbandonedTimeout" value="1000" />
+            <set-property property="maxIdle" value="100" />
+        </data-source>
+    </data-sources>
+    <form-beans>
+    <form-bean name="loginForm" type="com.stepup.gasoline.qt.auth.LoginForm"/>
+    <form-bean name="permissionForm" type="com.stepup.gasoline.qt.permission.PermissionFormBean"/>
+    </form-beans>
+    
+    <global-exceptions>
+    
+    </global-exceptions>
+
+    <global-forwards>
+        <forward name="welcome" path="/loginPage.do"/>
+    </global-forwards>
+
+    <action-mappings>
+        <action path="/loginPage" forward="/loginForm.jsp"/>
+        <action path="/logout" type="com.stepup.gasoline.qt.auth.LogoutAction" scope="request" validate="false" >
+            <forward name="success" redirect="true" path="/loginPage.do" />
+        </action>
+        <action path="/memberLogin" type="com.stepup.gasoline.qt.auth.LoginAction" name="loginForm" input="/loginPage.do" scope="session" validate="false">
+            <forward name="success" redirect="true" path="/index.do" />
+        </action>
+        <action path="/index" type="com.stepup.gasoline.qt.core.BaseAction" scope="request" validate="false">
+            <forward name="success" path="/homepage.jsp" />
+        </action>
+        <action path="/getMenu" type="com.stepup.gasoline.qt.gui.GetMenuAction" scope="request" validate="false" >
+        </action>
+        <!-- start permission -->
+        <action path="/getPermissionPanel" type="com.stepup.gasoline.qt.permission.GetPermissionPanelAction" scope="request" validate="false">
+            <forward name="success" path="/permission/permissionspanel.jsp" />
+        </action>
+        <action path="/getPermissionList" type="com.stepup.gasoline.qt.permission.GetPermissionListAction" scope="request" validate="false" >
+        </action>
+        <action path="/permissionForm" scope="request" validate="false" type="com.stepup.gasoline.qt.permission.PermissionFormAction">
+            <forward name="success" path="/permission/permissiondetail.jsp" />
+        </action>
+        <action path="/savePermission" name ="permissionForm" scope="request" type="com.stepup.gasoline.qt.permission.AddPermissionAction">
+        </action>
+        <action path="/delPermission" type="com.stepup.gasoline.qt.permission.DeletePermissionAction" scope="request" validate="false" >
+        </action>
+        <!-- end permission -->
+        <!-- start user -->
+        <action path="/getUserPanel" type="com.stepup.gasoline.qt.user.GetUserPanelAction" scope="request" validate="false">
+            <forward name="success" path="/user/userspanel.jsp" />
+        </action>
+        <action path="/getUserList" type="com.stepup.gasoline.qt.user.GetUserListAction" scope="request" validate="false" >
+        </action>
+        <action path="/userForm" type="com.stepup.gasoline.qt.user.UserFormAction" scope="request" validate="false">
+            <forward name="success" path="/user/userdetail.jsp" />
+        </action>
+        <action path="/addUser" name ="userForm" scope="request" type="com.stepup.gasoline.qt.user.AddUserAction" input="/userForm.do">
+        </action>
+        <!-- end user -->
+    </action-mappings>
+    
+    <controller processorClass="org.apache.struts.tiles.TilesRequestProcessor"/>
+
+    <message-resources parameter="resources"/>
+    
+    <!-- ========================= Tiles plugin ===============================-->
+    <!--
+    This plugin initialize Tiles definition factory. This later can takes some
+    parameters explained here after. The plugin first read parameters from
+    web.xml, thenoverload them with parameters defined here. All parameters
+    are optional.
+    The plugin should be declared in each struts-config file.
+    - definitions-config: (optional)
+    Specify configuration file names. There can be several comma
+    separated file names (default: ?? )
+    - moduleAware: (optional - struts1.1)
+    Specify if the Tiles definition factory is module aware. If true
+    (default), there will be one factory for each Struts module.
+    If false, there will be one common factory for all module. In this
+    later case, it is still needed to declare one plugin per module.
+    The factory will be initialized with parameters found in the first
+    initialized plugin (generally the one associated with the default
+    module).
+    true : One factory per module. (default)
+    false : one single shared factory for all modules
+    - definitions-parser-validate: (optional)
+    Specify if xml parser should validate the Tiles configuration file.
+    true : validate. DTD should be specified in file header (default)
+    false : no validation
+
+    Paths found in Tiles definitions are relative to the main context.
+    -->
+    <plug-in className="org.apache.struts.tiles.TilesPlugin" >
+        <set-property property="definitions-config" value="/WEB-INF/tiles-defs.xml" />      
+        <set-property property="moduleAware" value="true" />
+    </plug-in>
+    
+    <!-- ========================= Validator plugin ================================= -->
+    <plug-in className="org.apache.struts.validator.ValidatorPlugIn">
+        <set-property
+            property="pathnames"
+            value="/WEB-INF/validator-rules.xml,/WEB-INF/validation.xml"/>
+    </plug-in>
+  
+</struts-config>

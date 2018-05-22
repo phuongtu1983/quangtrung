@@ -1,0 +1,62 @@
+.header{
+    background: #000084;
+    color: white;
+    font-size: x-large;
+    text-align: center;
+    font-weight: bold;
+}
+.developInfo{
+    margin-top:8px; 
+    margin-bottom:0;
+    margin-left:0;
+    margin-right:10px;
+    position: relative;
+    z-index: 100;
+}
+table.its {
+/*    width: 80%;*/
+width:80%;
+float:left;
+border-top:1px solid #e0e0e0;
+border-right:1px solid #e0e0e0;
+margin-bottom:10px;
+}
+table.its thead {
+/*    background-color: #69c;    */
+background-color:#d7d7d7;
+}
+table.its thead td {
+/*    background-color: #69c;    */
+border:none;
+padding:6px 3px 6px 5px;
+font-weight:bold;
+border-left:1px #e0e0e0 solid;
+}
+table.its tbody td input {
+    border: 0 none;
+    height: 100%;
+    width: 100%;
+    border-radius: 0;
+    margin: 0;
+}
+table.its tbody td input.gray{
+    border: 0 none;
+    height: 100%;
+    width: 100%;
+    border-radius: 0;
+    margin: 0;
+    background-color: gray;
+    color: white;
+}
+table.its a {
+    color: #11427A;	
+    text-decoration: none;
+}
+table.its td {
+    font-size:10pt;
+    font-family:Tahoma;     
+    color:#000080;
+}
+table.its tr.even {
+    background-color: #def;
+}

@@ -1,0 +1,39 @@
+/AdapterRegistry.js/1.1.1.1/Mon Jul 20 11:14:57 2009//
+/DeferredList.js/1.1.1.1/Mon Jul 20 11:14:57 2009//
+/LICENSE/1.1.1.1/Mon Jul 20 11:14:57 2009//
+/NodeList-fx.js/1.1.1.1/Mon Jul 20 11:14:57 2009//
+/NodeList-html.js/1.1.1.1/Mon Jul 20 11:14:57 2009//
+/OpenAjax.js/1.1.1.1/Mon Jul 20 11:14:57 2009//
+/_base.js/1.1.1.1/Mon Jul 20 11:14:57 2009//
+/back.js/1.1.1.1/Mon Jul 20 11:14:57 2009//
+/behavior.js/1.1.1.1/Mon Jul 20 11:14:57 2009//
+/build.txt/1.2/Wed Aug 19 03:48:10 2009//
+/colors.js/1.1.1.1/Mon Jul 20 11:14:57 2009//
+/cookie.js/1.1.1.1/Mon Jul 20 11:14:57 2009//
+/currency.js/1.1.1.1/Mon Jul 20 11:14:57 2009//
+/date.js/1.1.1.1/Mon Jul 20 11:14:57 2009//
+/dojo.js/1.2/Wed Aug 19 03:48:10 2009//
+/dojo.js.uncompressed.js/1.2/Wed Aug 19 03:48:10 2009//
+/fx.js/1.1.1.1/Mon Jul 20 11:14:57 2009//
+/gears.js/1.1.1.1/Mon Jul 20 11:14:57 2009//
+/html.js/1.1.1.1/Mon Jul 20 11:14:57 2009//
+/i18n.js/1.1.1.1/Mon Jul 20 11:14:57 2009//
+/jaxer.js/1.1.1.1/Mon Jul 20 11:14:57 2009//
+/number.js/1.1.1.1/Mon Jul 20 11:14:57 2009//
+/parser.js/1.1.1.1/Mon Jul 20 11:14:57 2009//
+/regexp.js/1.1.1.1/Mon Jul 20 11:14:57 2009//
+/robot.js/1.1.1.1/Mon Jul 20 11:14:57 2009//
+/robotx.js/1.1.1.1/Mon Jul 20 11:14:57 2009//
+/string.js/1.1.1.1/Mon Jul 20 11:14:57 2009//
+D/_base////
+D/_firebug////
+D/cldr////
+D/data////
+D/date////
+D/dnd////
+D/fx////
+D/io////
+D/nls////
+D/resources////
+D/rpc////
+D/test////
