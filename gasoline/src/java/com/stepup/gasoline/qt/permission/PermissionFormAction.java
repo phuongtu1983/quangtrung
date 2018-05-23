@@ -123,7 +123,7 @@ public class PermissionFormAction extends SpineAction {
         perBean = new PermissionViewBean();
         perBean.setCounter("2");
         perBean.setLevel(0);
-        perBean.setSharedId(3);
+        perBean.setSharedId(2);
         perBean.setName(QTUtil.getBundleString("permission.list.title"));
         perBean.setValue(0);
         perBean.setOperations("," + PermissionUtil.OPERATION_LIST + "," + PermissionUtil.OPERATION_ADD + "," + PermissionUtil.OPERATION_EDIT + ",");
@@ -132,7 +132,7 @@ public class PermissionFormAction extends SpineAction {
         perBean = new PermissionViewBean();
         perBean.setCounter("2.1");
         perBean.setLevel(2);
-        perBean.setSharedId(3);
+        perBean.setSharedId(2);
         perBean.setName(QTUtil.getBundleString("parameter.title"));
         perBean.setValue(PermissionUtil.PER_PARAMTER);
         perBean.setOperations("," + PermissionUtil.OPERATION_LIST + "," + PermissionUtil.OPERATION_ADD + "," + PermissionUtil.OPERATION_EDIT + "," + PermissionUtil.OPERATION_DELETE + ",");
@@ -141,7 +141,43 @@ public class PermissionFormAction extends SpineAction {
         perBean = new PermissionViewBean();
         perBean.setCounter("2.1");
         perBean.setLevel(2);
-        perBean.setSharedId(3);
+        perBean.setSharedId(2);
+        perBean.setName(QTUtil.getBundleString("dynamicField.title"));
+        perBean.setValue(PermissionUtil.PER_DYNAMIC_FIELD);
+        perBean.setOperations("," + PermissionUtil.OPERATION_LIST + "," + PermissionUtil.OPERATION_ADD + "," + PermissionUtil.OPERATION_EDIT + "," + PermissionUtil.OPERATION_DELETE + ",");
+        arrFun.add(perBean);
+
+        perBean = new PermissionViewBean();
+        perBean.setCounter("2.1");
+        perBean.setLevel(2);
+        perBean.setSharedId(2);
+        perBean.setName(QTUtil.getBundleString("organization.title"));
+        perBean.setValue(PermissionUtil.PER_ORGANIZATION);
+        perBean.setOperations("," + PermissionUtil.OPERATION_LIST + "," + PermissionUtil.OPERATION_ADD + "," + PermissionUtil.OPERATION_EDIT + ",");
+        arrFun.add(perBean);
+
+        perBean = new PermissionViewBean();
+        perBean.setCounter("2.1");
+        perBean.setLevel(2);
+        perBean.setSharedId(2);
+        perBean.setName(QTUtil.getBundleString("store.title"));
+        perBean.setValue(PermissionUtil.PER_STORE);
+        perBean.setOperations("," + PermissionUtil.OPERATION_LIST + "," + PermissionUtil.OPERATION_ADD + "," + PermissionUtil.OPERATION_EDIT + ",");
+        arrFun.add(perBean);
+
+        perBean = new PermissionViewBean();
+        perBean.setCounter("2.1");
+        perBean.setLevel(2);
+        perBean.setSharedId(2);
+        perBean.setName(QTUtil.getBundleString("employee.title"));
+        perBean.setValue(PermissionUtil.PER_EMPLOYEE);
+        perBean.setOperations("," + PermissionUtil.OPERATION_LIST + "," + PermissionUtil.OPERATION_ADD + "," + PermissionUtil.OPERATION_EDIT + ",");
+        arrFun.add(perBean);
+
+        perBean = new PermissionViewBean();
+        perBean.setCounter("2.1");
+        perBean.setLevel(2);
+        perBean.setSharedId(2);
         perBean.setName(QTUtil.getBundleString("user.title"));
         perBean.setValue(PermissionUtil.PER_USER);
         perBean.setOperations("," + PermissionUtil.OPERATION_LIST + "," + PermissionUtil.OPERATION_ADD + "," + PermissionUtil.OPERATION_EDIT + ",");

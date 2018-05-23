@@ -37,7 +37,6 @@ public class GetOrganizationListAction extends BaseAction {
                     OrganizationBean bean = (OrganizationBean) list.get(i);
                     buff.append("<row id=\"").append(bean.getId()).append("\">");
                     buff.append("<cell>").append(bean.getCode()).append("^javascript:getOrganization(").append(bean.getId()).append(",\"loadOrganizationList\")^_self</cell>");
-                    buff.append("<cell>").append(StringUtil.encodeString(bean.getCode())).append("</cell>");
                     buff.append("<cell>").append(StringUtil.encodeString(bean.getName())).append("</cell>");
                     buff.append("<cell>").append(StringUtil.encodeString(bean.getAddress())).append("</cell>");
                     buff.append("<cell>").append(bean.getStatusName()).append("</cell>");

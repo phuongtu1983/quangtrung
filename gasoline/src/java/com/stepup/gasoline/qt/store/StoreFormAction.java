@@ -2,20 +2,16 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
-package com.stepup.gasoline.qt.user;
+package com.stepup.gasoline.qt.store;
 
 import com.stepup.gasoline.qt.bean.EmployeeBean;
-import com.stepup.gasoline.qt.bean.UserBean;
 import com.stepup.gasoline.qt.core.SpineAction;
-import com.stepup.gasoline.qt.dao.EmployeeDAO;
-import com.stepup.gasoline.qt.dao.UserDAO;
-import com.stepup.gasoline.qt.employee.EmployeeFormBean;
+import com.stepup.gasoline.qt.dao.OrganizationDAO;
 import com.stepup.gasoline.qt.util.Constants;
 import com.stepup.gasoline.qt.util.QTUtil;
 import java.util.ArrayList;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-
 import org.apache.commons.validator.GenericValidator;
 import org.apache.struts.action.ActionForm;
 import org.apache.struts.action.ActionMapping;
@@ -25,7 +21,7 @@ import org.apache.struts.util.LabelValueBean;
  *
  * @author phuongtu
  */
-public class UserFormAction extends SpineAction {
+public class StoreFormAction extends SpineAction {
 
     /**
      * This is the action called from the Struts framework.
@@ -40,41 +36,19 @@ public class UserFormAction extends SpineAction {
     @Override
     public boolean doAction(ActionMapping mapping, ActionForm form,
             HttpServletRequest request, HttpServletResponse response) {
-        UserBean bean = new UserBean();
-        String userid = request.getParameter("userId");
-        if (!GenericValidator.isBlankOrNull(userid)) {
-            UserDAO userDAO = new UserDAO();
+        StoreFormBean formBean = null;
+        String storeid = request.getParameter("storeId");
+        OrganizationDAO organizationDAO = new OrganizationDAO();
+        if (!GenericValidator.isBlankOrNull(storeid)) {
             try {
-                bean = userDAO.getUser(Integer.parseInt(userid));
+                formBean = organizationDAO.getStore(Integer.parseInt(storeid));
             } catch (Exception ex) {
             }
         }
-        UserFormBean formBean = null;
-        if (bean == null) {
-            formBean = new UserFormBean();
-        } else {
-            formBean = new UserFormBean(bean);
+        if (formBean == null) {
+            formBean = new StoreFormBean();
         }
-        request.setAttribute(Constants.USER, formBean);
-
-        ArrayList empList = null;
-        try {
-            EmployeeDAO empDAO = new EmployeeDAO();
-            if (formBean.getId() == 0) {
-                empList = empDAO.getEmployeeHasNotAccount(EmployeeBean.STATUS_ACTIVE);
-            } else {
-                EmployeeFormBean empBean = empDAO.getEmployee(formBean.getEmpId());
-                empList = new ArrayList();
-                empList.add(empBean);
-            }
-        } catch (Exception ex) {
-        }
-
-        if (empList == null) {
-            empList = new ArrayList();
-        }
-
-        request.setAttribute(Constants.USER_LIST, empList);
+        request.setAttribute(Constants.STORE, formBean);
 
         ArrayList arrStatus = new ArrayList();
         LabelValueBean value;
@@ -87,6 +61,17 @@ public class UserFormAction extends SpineAction {
         value.setValue(EmployeeBean.STATUS_INACTIVE + "");
         arrStatus.add(value);
         request.setAttribute(Constants.STATUS_LIST, arrStatus);
+
+        ArrayList arrOrganization = null;
+        try {
+            arrOrganization = organizationDAO.getOrganizations(EmployeeBean.STATUS_ACTIVE);
+        } catch (Exception ex) {
+        }
+        if (arrOrganization == null) {
+            arrOrganization = new ArrayList();
+        }
+        request.setAttribute(Constants.ORGANIZATION_LIST, arrOrganization);
+
         return true;
     }
 }

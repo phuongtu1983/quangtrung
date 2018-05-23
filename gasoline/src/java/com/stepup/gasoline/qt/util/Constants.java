@@ -23,10 +23,11 @@ public class Constants {
     public static final String PERMISSION_EMP_LIST = "permissionEmpList";
     public static final String PERMISSION_FUNC_LIST = "permissionFuncList";
     public static final String ORGANIZATION = "organization";
-//    public static final String AREA_LIST = "areaList";
-//    public static final String AREA_EQUIPMENT = "areaEquipment";
-//    public static final String AREA_EMP_LIST = "areaEmpList";
-//    public static final String STORE = "store";
+    public static final String ORGANIZATION_LIST = "organizationList";
+    public static final String DYNAMIC_FIELD_TABLE = "dynamicFieldTable";
+    public static final String DYNAMIC_FIELD = "dynamicField";
+    public static final String EMPLOYEE = "employee";
+    public static final String STORE = "store";
 //    public static final String STORE_LEVEL_LIST = "storeLevelList";
 //    public static final String STORE2 = "store2";
 //    public static final String TABLE = "table";

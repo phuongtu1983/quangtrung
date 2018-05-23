@@ -14,7 +14,8 @@ public class EmployeeBean {
     private String fullname;
     private int status;
     private String email;
-    private String statusName;
+    private int organizationId;
+    private double salary;
     private int userId;
 
     public String getEmail() {
@@ -49,12 +50,20 @@ public class EmployeeBean {
         this.status = status;
     }
 
-    public String getStatusName() {
-        return statusName;
+    public int getOrganizationId() {
+        return organizationId;
     }
 
-    public void setStatusName(String statusName) {
-        this.statusName = statusName;
+    public void setOrganizationId(int organizationId) {
+        this.organizationId = organizationId;
+    }
+
+    public double getSalary() {
+        return salary;
+    }
+
+    public void setSalary(double salary) {
+        this.salary = salary;
     }
 
     public int getUserId() {
@@ -64,6 +73,7 @@ public class EmployeeBean {
     public void setUserId(int userId) {
         this.userId = userId;
     }
+
     public static int STATUS_ACTIVE = 1;
     public static int STATUS_INACTIVE = 2;
 }

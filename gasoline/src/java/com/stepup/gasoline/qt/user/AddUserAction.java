@@ -6,11 +6,11 @@ package com.stepup.gasoline.qt.user;
 
 import com.stepup.core.sercurity.Encoder;
 import com.stepup.core.util.StringUtil;
-import com.stepup.gasoline.qt.bean.EmployeeBean;
 import com.stepup.gasoline.qt.bean.UserBean;
 import com.stepup.gasoline.qt.core.SpineAction;
 import com.stepup.gasoline.qt.dao.EmployeeDAO;
 import com.stepup.gasoline.qt.dao.UserDAO;
+import com.stepup.gasoline.qt.employee.EmployeeFormBean;
 import com.stepup.gasoline.qt.util.MailHandle;
 import com.stepup.gasoline.qt.util.QTUtil;
 import java.lang.reflect.Array;
@@ -32,6 +32,7 @@ public class AddUserAction extends SpineAction {
 
     /**
      * This is the action called from the Struts framework.
+     *
      * @param mapping The ActionMapping used to select this instance.
      * @param form The optional ActionForm bean for this request.
      * @param request The HTTP Request we are processing.
@@ -78,7 +79,7 @@ public class AddUserAction extends SpineAction {
         }
         HttpSession session = request.getSession();
         boolean isUpdate = false;
-        
+
         bean = new UserBean();
         bean.setId(formBean.getId());
         bean.setUsername(formBean.getUsername());
@@ -93,7 +94,7 @@ public class AddUserAction extends SpineAction {
                 userDAO.insertUser(bean);
                 try {
                     EmployeeDAO empDAO = new EmployeeDAO();
-                    EmployeeBean empBean = empDAO.getEmployee(formBean.getEmpId());
+                    EmployeeFormBean empBean = empDAO.getEmployee(formBean.getEmpId());
                     sendMail(formBean.getUsername(), formBean.getFullname(), empBean.getEmail(), newPass);
                 } catch (Exception ex) {
                 }
@@ -125,7 +126,6 @@ public class AddUserAction extends SpineAction {
         Random ran = new Random();
 
         //srand((double)microtime()*1000000);
-
         for (int i = 0; i < length; i++) {
             pass += chars[ran.nextInt(count)];
         }

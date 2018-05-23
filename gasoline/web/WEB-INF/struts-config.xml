@@ -28,6 +28,9 @@
     <form-bean name="permissionForm" type="com.stepup.gasoline.qt.permission.PermissionFormBean"/>
     <form-bean name="parameterForm" type="com.stepup.gasoline.qt.parameter.ParameterFormBean"/>
     <form-bean name="organizationForm" type="com.stepup.gasoline.qt.organization.OrganizationFormBean"/>
+    <form-bean name="storeForm" type="com.stepup.gasoline.qt.store.StoreFormBean"/>
+    <form-bean name="employeeForm" type="com.stepup.gasoline.qt.employee.EmployeeFormBean"/>
+    <form-bean name="dynamicFieldForm" type="com.stepup.gasoline.qt.dynamicfield.DynamicFieldFormBean"/>
     </form-beans>
     
     <global-exceptions>
@@ -89,7 +92,44 @@
         <action path="/addOrganization" name ="organizationForm" scope="request" type="com.stepup.gasoline.qt.organization.AddOrganizationAction" input="/organizationForm.do">
         </action>
         <!-- end organization -->
-        
+        <!-- start store -->
+        <action path="/getStorePanel" type="com.stepup.gasoline.qt.common.BaseStatusFormAction" scope="request" validate="false">
+            <forward name="success" path="/store/storepanel.jsp" />
+        </action>
+        <action path="/getStoreList" type="com.stepup.gasoline.qt.store.GetStoreListAction" scope="request" validate="false" >
+        </action>
+        <action path="/storeForm" type="com.stepup.gasoline.qt.store.StoreFormAction" scope="request" validate="false">
+            <forward name="success" path="/store/storedetail.jsp" />
+        </action>
+        <action path="/addStore" name ="storeForm" scope="request" type="com.stepup.gasoline.qt.store.AddStoreAction" input="/storeForm.do">
+        </action>
+        <!-- end store -->
+        <!-- start dynamic field-->
+        <action path="/getDynamicFieldPanel" type="com.stepup.gasoline.qt.dynamicfield.DynamicFieldPanelAction" scope="request" validate="false">
+            <forward name="success" path="/dynamicfield/dynamicfieldpanel.jsp" />
+        </action>
+        <action path="/getDynamicFieldList" type="com.stepup.gasoline.qt.dynamicfield.GetDynamicFieldListAction" scope="request" validate="false" >
+        </action>
+        <action path="/dynamicFieldForm" type="com.stepup.gasoline.qt.dynamicfield.DynamicFieldFormAction" scope="request" validate="false">
+            <forward name="success" path="/dynamicfield/dynamicfielddetail.jsp" />
+        </action>
+        <action path="/addDynamicField" name ="dynamicFieldForm" scope="request" type="com.stepup.gasoline.qt.dynamicfield.AddDynamicFieldAction" input="/dynamicFieldForm.do">
+        </action>
+        <action path="/delDynamicField" type="com.stepup.gasoline.qt.dynamicfield.DeleteDynamicFieldAction" scope="request" validate="false" >
+        </action>
+        <!-- end dynamicfield -->
+        <!-- start employee -->
+        <action path="/getEmployeePanel" type="com.stepup.gasoline.qt.common.BaseStatusFormAction" scope="request" validate="false">
+            <forward name="success" path="/employee/employeepanel.jsp" />
+        </action>
+        <action path="/getEmployeeList" type="com.stepup.gasoline.qt.employee.GetEmployeeListAction" scope="request" validate="false" >
+        </action>
+        <action path="/employeeForm" type="com.stepup.gasoline.qt.employee.EmployeeFormAction" scope="request" validate="false">
+            <forward name="success" path="/employee/employeedetail.jsp" />
+        </action>
+        <action path="/addEmployee" name ="employeeForm" scope="request" type="com.stepup.gasoline.qt.employee.AddEmployeeAction" input="/employeeForm.do">
+        </action>
+        <!-- end store -->
         
         
         

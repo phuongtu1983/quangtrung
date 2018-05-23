@@ -29,6 +29,16 @@ function menuClick(id) {
         loadOrganizationPanel();
     else if (id == 'organizationadd')
         getOrganization(0, 'loadOrganizationPanel');
+    else if (id == 'storelist')
+        loadStorePanel();
+    else if (id == 'storeadd')
+        getStore(0, 'loadStorePanel');
+    else if (id == 'employeefiellist')
+        loadDynamicFieldPanel("employee");
+    else if (id == 'employeelist')
+        loadEmployeePanel();
+    else if (id == 'employeedd')
+        getEmployee(0, 'loadEmployeePanel');
     else if (id == 'userlist')
         loadUserPanel();
     else if (id == 'useradd')
@@ -71,11 +81,11 @@ function loadPermissionPanel() {
 function loadPermissionList(name) {
     var mygrid = new dhtmlXGridObject('permissionList');
     mygrid.setImagePath("js/dhtmlx/grid/imgs/");
-    mygrid.setHeader(",T\u00EAn nh\u00F3m quy\u1EC1n,Ghi ch\u00FA,Nh\u00E2n vi\u00EAn");
-    mygrid.attachHeader("&nbsp;,#text_filter,&nbsp;,#text_filter");
-    mygrid.setInitWidths("50,150,150,*");
-    mygrid.setColTypes("ch,link,ro,ro");
-    mygrid.setColSorting("str,str,str,str");
+    mygrid.setHeader("T\u00EAn nh\u00F3m quy\u1EC1n,Ghi ch\u00FA,Nh\u00E2n vi\u00EAn");
+    mygrid.attachHeader("#text_filter,&nbsp;,#text_filter");
+    mygrid.setInitWidths("150,150,*");
+    mygrid.setColTypes("link,ro,ro");
+    mygrid.setColSorting("str,str,str");
     mygrid.setSkin("light");
     var height = contentHeight - 170;
     mygrid.al(true, height);//enableAutoHeight
@@ -297,14 +307,14 @@ function saveParameter() {
     });
     return false;
 }
-function loadOrganizationPanel(){
-    callAjax("getOrganizationPanel.do",null,null,function(data){
+function loadOrganizationPanel() {
+    callAjax("getOrganizationPanel.do", null, null, function(data) {
         clearContent();
-        setAjaxData(data,"contentDiv");
+        setAjaxData(data, "contentDiv");
         loadOrganizationList();
     });
 }
-function loadOrganizationList(){
+function loadOrganizationList() {
     var mygrid = new dhtmlXGridObject('organizationList');
     mygrid.setImagePath("js/dhtmlx/grid/imgs/");
     mygrid.setHeader("M\u00E3 \u0111\u01A1n v\u1ECB,T\u00EAn \u0111\u01A1n v\u1ECB,\u0110\u1ECBa ch\u1EC9,T\u00ECnh tr\u1EA1ng");
@@ -313,57 +323,306 @@ function loadOrganizationList(){
     mygrid.setColTypes("link,ro,ro,ro");
     mygrid.setColSorting("str,str,str,str");
     mygrid.setSkin("light");
-    var height=contentHeight-210;
-    mygrid.al(true,height);//enableAutoHeight
+    var height = contentHeight - 210;
+    mygrid.al(true, height);//enableAutoHeight
     mygrid.enablePaging(true, 15, 3, "recinfoArea");
     mygrid.setPagingSkin("toolbar", "dhx_skyblue");
     mygrid.init();
-    var list=document.forms['organizationSearchForm'].statusCombobox;
-    if(list!=null && list.selectedIndex>-1) list=list.options[list.selectedIndex].value;
-    else list=0;
-    var url="getOrganizationList.do?status="+list;
-    callAjax(url,null,null,function(data){
+    var list = document.forms['organizationSearchForm'].statusCombobox;
+    if (list != null && list.selectedIndex > -1)
+        list = list.options[list.selectedIndex].value;
+    else
+        list = 0;
+    var url = "getOrganizationList.do?status=" + list;
+    callAjax(url, null, null, function(data) {
         mygrid.parse(data);
     });
     return false;
 }
-function getOrganization(id,handle){
-    popupName='TH\u00D4NG TIN \u0110\u01A0N V\u1ECA';
-    var url='organizationForm.do';
-    if(id!=0) url+='?organizationId='+id
-    callAjax(url,null,null,function(data){
+function getOrganization(id, handle) {
+    popupName = 'TH\u00D4NG TIN \u0110\u01A0N V\u1ECA';
+    var url = 'organizationForm.do';
+    if (id != 0)
+        url += '?organizationId=' + id
+    callAjax(url, null, null, function(data) {
         showPopupForm(data);
-        document.getElementById('callbackFunc').value=handle;
+        document.getElementById('callbackFunc').value = handle;
         document.forms['organizationForm'].code.focus();
     });
 }
 function saveOrganization() {
-    if(scriptFunction=="saveOrganization") return false;
+    if (scriptFunction == "saveOrganization")
+        return false;
     var field = document.forms['organizationForm'].code;
-    if(field.value==''){
+    if (field.value == '') {
         alert("Vui l\u00F2ng nh\u1EADp m\u00E3 \u0111\u01A1n v\u1ECB");
         field.focus();
-        field=null;
+        field = null;
         return false;
     }
     field = document.forms['organizationForm'].name;
-    if(field.value==''){
+    if (field.value == '') {
         alert("Vui l\u00F2ng nh\u1EADp t\u00EAn \u0111\u01A1n v\u1ECB");
         field.focus();
-        field=null;
+        field = null;
         return false;
     }
-    field=null;
-    scriptFunction="saveOrganization";
-    callAjaxCheckError("addOrganization.do",null,document.forms['organizationForm'],function(data){
-        scriptFunction="";
-        var handle=document.getElementById('callbackFunc').value;
-        if(confirm('B\u1EA1n c\u00F3 mu\u1ED1n nh\u1EADp ti\u1EBFp th\u00F4ng tin kh\u00E1c ?')) getOrganization(0, handle);
-        else if(handle!='') eval(handle+"()");
+    field = null;
+    scriptFunction = "saveOrganization";
+    callAjaxCheckError("addOrganization.do", null, document.forms['organizationForm'], function(data) {
+        scriptFunction = "";
+        var handle = document.getElementById('callbackFunc').value;
+        if (confirm('B\u1EA1n c\u00F3 mu\u1ED1n nh\u1EADp ti\u1EBFp th\u00F4ng tin kh\u00E1c ?'))
+            getOrganization(0, handle);
+        else if (handle != '')
+            eval(handle + "()");
         prepareHidePopup('organizationFormshowHelpHideDiv');
     });
     return false;
 }
+function loadStorePanel() {
+    callAjax("getStorePanel.do", null, null, function(data) {
+        clearContent();
+        setAjaxData(data, "contentDiv");
+        loadStoreList();
+    });
+}
+function loadStoreList() {
+    var mygrid = new dhtmlXGridObject('storeList');
+    mygrid.setImagePath("js/dhtmlx/grid/imgs/");
+    mygrid.setHeader("M\u00E3 kho,T\u00EAn kho,\u0110\u01A1n v\u1ECB,T\u00ECnh tr\u1EA1ng");
+    mygrid.attachHeader("#text_filter,#text_filter,#select_filter,#select_filter");
+    mygrid.setInitWidths("100,*,250,150");
+    mygrid.setColTypes("link,ro,ro,ro");
+    mygrid.setColSorting("str,str,str,str");
+    mygrid.setSkin("light");
+    var height = contentHeight - 210;
+    mygrid.al(true, height);//enableAutoHeight
+    mygrid.enablePaging(true, 15, 3, "recinfoArea");
+    mygrid.setPagingSkin("toolbar", "dhx_skyblue");
+    mygrid.init();
+    var list = document.forms['storeSearchForm'].statusCombobox;
+    if (list != null && list.selectedIndex > -1)
+        list = list.options[list.selectedIndex].value;
+    else
+        list = 0;
+    var url = "getStoreList.do?status=" + list;
+    callAjax(url, null, null, function(data) {
+        mygrid.parse(data);
+    });
+    return false;
+}
+function getStore(id, handle) {
+    popupName = 'TH\u00D4NG TIN KHO';
+    var url = 'storeForm.do';
+    if (id != 0)
+        url += '?storeId=' + id
+    callAjax(url, null, null, function(data) {
+        showPopupForm(data);
+        document.getElementById('callbackFunc').value = handle;
+        document.forms['storeForm'].code.focus();
+    });
+}
+function saveStore() {
+    if (scriptFunction == "saveStore")
+        return false;
+    var field = document.forms['storeForm'].code;
+    if (field.value == '') {
+        alert("Vui l\u00F2ng nh\u1EADp m\u00E3 kho");
+        field.focus();
+        field = null;
+        return false;
+    }
+    field = document.forms['storeForm'].name;
+    if (field.value == '') {
+        alert("Vui l\u00F2ng nh\u1EADp t\u00EAn kho");
+        field.focus();
+        field = null;
+        return false;
+    }
+    field = null;
+    scriptFunction = "saveStore";
+    callAjaxCheckError("addStore.do", null, document.forms['storeForm'], function(data) {
+        scriptFunction = "";
+        var handle = document.getElementById('callbackFunc').value;
+        if (confirm('B\u1EA1n c\u00F3 mu\u1ED1n nh\u1EADp ti\u1EBFp th\u00F4ng tin kh\u00E1c ?'))
+            getStore(0, handle);
+        else if (handle != '')
+            eval(handle + "()");
+        prepareHidePopup('storeFormshowHelpHideDiv');
+    });
+    return false;
+}
+function loadDynamicFieldPanel(tableName) {
+    if (typeof (tableName) == "undefined" && tableName == null) {
+        tableName = document.getElementById("dynamicFieldTableName");
+        if (typeof (tableName) == "undefined" && tableName == null) {
+            return;
+        }
+        tableName = tableName.value;
+    }
+    callAjax("getDynamicFieldPanel.do?tableName=" + tableName, null, null, function(data) {
+        clearContent();
+        setAjaxData(data, "contentDiv");
+        loadDynamicFieldList(tableName);
+    });
+}
+function loadDynamicFieldList(tableName) {
+    if (typeof (tableName) == "undefined" && tableName == null) {
+        tableName = document.getElementById("dynamicFieldTableName");
+        if (typeof (tableName) == "undefined" && tableName == null) {
+            return;
+        }
+        tableName = tableName.value;
+    }
+    var mygrid = new dhtmlXGridObject('dynamicFieldList');
+    mygrid.setImagePath("js/dhtmlx/grid/imgs/");
+    mygrid.setHeader("T\u00EAn,\u0110\u01A1n v\u1ECB");
+    mygrid.attachHeader("#text_filter,#select_filter");
+    mygrid.setInitWidths("*,250");
+    mygrid.setColTypes("link,ro");
+    mygrid.setColSorting("str,str");
+    mygrid.setSkin("light");
+    var height = contentHeight - 210;
+    mygrid.al(true, height);//enableAutoHeight
+    mygrid.enablePaging(true, 15, 3, "recinfoArea");
+    mygrid.setPagingSkin("toolbar", "dhx_skyblue");
+    mygrid.init();
+    var url = "getDynamicFieldList.do?tableName=" + tableName;
+    callAjax(url, null, null, function(data) {
+        mygrid.parse(data);
+    });
+    return false;
+}
+function getDynamicField(id, handle) {
+    popupName = 'TH\u00D4NG TIN D\u1EEE LI\u1EC6U';
+    var url = 'dynamicFieldForm.do';
+    if (id != 0)
+        url += '?fieldId=' + id
+    else {
+        var tableName = document.getElementById("dynamicFieldTableName");
+        if (typeof (tableName) == "undefined" && tableName == null) {
+            return;
+        }
+        tableName = tableName.value;
+        url += '?tableName=' + tableName;
+    }
+    callAjax(url, null, null, function(data) {
+        showPopupForm(data);
+        document.getElementById('callbackFunc').value = handle;
+        document.forms['dynamicFieldForm'].name.focus();
+    });
+}
+function saveDynamicField() {
+    if (scriptFunction == "saveDynamicField")
+        return false;
+    var field = document.forms['dynamicFieldForm'].name;
+    if (field.value == '') {
+        alert("Vui l\u00F2ng nh\u1EADp t\u00EAn d\u1EEF li\u1EC7u");
+        field.focus();
+        field = null;
+        return false;
+    }
+    field = null;
+    scriptFunction = "saveDynamicField";
+    callAjaxCheckError("addDynamicField.do", null, document.forms['dynamicFieldForm'], function(data) {
+        scriptFunction = "";
+        var handle = document.getElementById('callbackFunc').value;
+        if (confirm('B\u1EA1n c\u00F3 mu\u1ED1n nh\u1EADp ti\u1EBFp th\u00F4ng tin kh\u00E1c ?'))
+            getDynamicField(0, handle);
+        else if (handle != '')
+            eval(handle + "()");
+        prepareHidePopup('dynamicFieldFormshowHelpHideDiv');
+    });
+    return false;
+}
+function delDynamicField() {
+    var tableName = document.getElementById("dynamicFieldTableName").value;
+    callAjaxCheckError('delDynamicField.do?fieldId=' + document.forms['dynamicFieldForm'].id.value, null, null, function() {
+        loadDynamicFieldPanel(tableName);
+        prepareHidePopup('dynamicFieldFormshowHelpHideDiv');
+    });
+    return false;
+}
+function loadEmployeePanel() {
+    callAjax("getEmployeePanel.do", null, null, function(data) {
+        clearContent();
+        setAjaxData(data, "contentDiv");
+        loadEmployeeList();
+    });
+}
+function loadEmployeeList() {
+    var mygrid = new dhtmlXGridObject('employeeList');
+    mygrid.setImagePath("js/dhtmlx/grid/imgs/");
+    mygrid.setHeader("M\u00E3 kho,T\u00EAn kho,\u0110\u01A1n v\u1ECB,T\u00ECnh tr\u1EA1ng");
+    mygrid.attachHeader("#text_filter,#text_filter,#select_filter,#select_filter");
+    mygrid.setInitWidths("100,*,250,150");
+    mygrid.setColTypes("link,ro,ro,ro");
+    mygrid.setColSorting("str,str,str,str");
+    mygrid.setSkin("light");
+    var height = contentHeight - 210;
+    mygrid.al(true, height);//enableAutoHeight
+    mygrid.enablePaging(true, 15, 3, "recinfoArea");
+    mygrid.setPagingSkin("toolbar", "dhx_skyblue");
+    mygrid.init();
+    var list = document.forms['employeeSearchForm'].statusCombobox;
+    if (list != null && list.selectedIndex > -1)
+        list = list.options[list.selectedIndex].value;
+    else
+        list = 0;
+    var url = "getEmployeeList.do?status=" + list;
+    callAjax(url, null, null, function(data) {
+        mygrid.parse(data);
+    });
+    return false;
+}
+function getEmployee(id, handle) {
+    popupName = 'TH\u00D4NG TIN NH\u00C2N VI\u00CAN';
+    var url = 'employeeForm.do';
+    if (id != 0)
+        url += '?employeeId=' + id
+    callAjax(url, null, null, function(data) {
+        showPopupForm(data);
+        document.getElementById('callbackFunc').value = handle;
+        document.forms['employeeForm'].fullname.focus();
+        tryNumberFormatCurrentcy(document.forms['employeeForm'].salary,"VND");
+    });
+}
+function saveEmployee() {
+    if (scriptFunction == "saveEmployee")
+        return false;
+    var field = document.forms['employeeForm'].fullname;
+    if (field.value == '') {
+        alert("Vui l\u00F2ng nh\u1EADp t\u00EAn nh\u00E2n vi\u00EAn");
+        field.focus();
+        field = null;
+        return false;
+    }
+    field = null;
+    scriptFunction = "saveEmployee";
+    callAjaxCheckError("addEmployee.do", null, document.forms['EmployeeForm'], function(data) {
+        scriptFunction = "";
+        var handle = document.getElementById('callbackFunc').value;
+        if (confirm('B\u1EA1n c\u00F3 mu\u1ED1n nh\u1EADp ti\u1EBFp th\u00F4ng tin kh\u00E1c ?'))
+            getEmployee(0, handle);
+        else if (handle != '')
+            eval(handle + "()");
+        prepareHidePopup('employeeFormshowHelpHideDiv');
+    });
+    return false;
+}
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 

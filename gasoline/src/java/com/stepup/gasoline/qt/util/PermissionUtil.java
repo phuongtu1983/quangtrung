@@ -88,9 +88,11 @@ public class PermissionUtil {
     //function
     public static int PER_PERMISSION = 1;
 //    public static int PER_LOG = 2;
-//    public static int PER_EMPLOYEE = 3;
+    public static int PER_EMPLOYEE = 3;
     public static int PER_USER = 4;
     public static int PER_PARAMTER = 5;
     public static int PER_ORGANIZATION = 6;
+    public static int PER_STORE = 7;
+    public static int PER_DYNAMIC_FIELD = 8;
 
 }

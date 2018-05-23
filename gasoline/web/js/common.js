@@ -725,21 +725,25 @@ function isBlank(field, strAlert) {
 //        if (keypressed != 8 && keypressed != 127 && keypressed != 0) return false;//Phím Delete và Phím Back
 //    }
 //}
-//function readonlyFloat(e){
-//    //Hàm dùng để ngăn người dùng nhập các ký tự khác ký tự số vào TextBox
-//    var keypressed = null;
-//    if (window.event) keypressed = window.event.keyCode; //IE
-//    else keypressed = e.which; //NON-IE, Standard
-//    if (keypressed < 48 || keypressed > 57){
-//        // //CharCode của 0 là 48 (Theo bảng mã ASCII)
-//        //CharCode của 9 là 57 (Theo bảng mã ASCII)
-//        if (keypressed != 8 && keypressed != 127 && keypressed != 0 && keypressed != 46) return false;//Phím Delete và Phím Back va phim .
-//        
-//    }else return true;
-//}
-//function readonly(e){
-//    return false;
-//}
+function readonlyFloat(e) {
+    //Hàm dùng để ngăn người dùng nhập các ký tự khác ký tự số vào TextBox
+    var keypressed = null;
+    if (window.event)
+        keypressed = window.event.keyCode; //IE
+    else
+        keypressed = e.which; //NON-IE, Standard
+    if (keypressed < 48 || keypressed > 57) {
+        // //CharCode của 0 là 48 (Theo bảng mã ASCII)
+        //CharCode của 9 là 57 (Theo bảng mã ASCII)
+        if (keypressed != 8 && keypressed != 127 && keypressed != 0 && keypressed != 46)
+            return false;//Phím Delete và Phím Back va phim .
+
+    } else
+        return true;
+}
+function readonly(e) {
+    return false;
+}
 //function xGetElementById(e) {
 //    if(typeof(e)!='string') return e;
 //    if(document.getElementById) e=document.getElementById(e);
@@ -942,19 +946,24 @@ function deepRemoveChildrenFromNode(e) {
 //        }else return false;//Phím Delete và Phím Back va phim .
 //    }
 //}
-//function try2FloatFormatOnKeyUp(obj,e){
-//    var keypressed = null;
-//    if (window.event) keypressed = window.event.keyCode; //IE
-//    else keypressed = e.which; //NON-IE, Standard
-//    if(keypressed >=48 && keypressed <=57){
-//        if(obj.value=="0.0") return;
-//        tryNumberFormatCurrentcy(obj,"USD");
-//    }else if (keypressed < 48 || keypressed > 57){ 
-//        // //CharCode của 0 là 48 (Theo bảng mã ASCII)
-//        //CharCode của 9 là 57 (Theo bảng mã ASCII)
-//        if (keypressed == 8 || keypressed == 46){
-//            if(obj.value=="0.0") return;
-//            tryNumberFormatCurrentcy(obj,"USD");
-//        }else return false;//Phím Delete và Phím Back va phim .
-//    }
-//}
+function try2FloatFormatOnKeyUp(obj, e) {
+    var keypressed = null;
+    if (window.event)
+        keypressed = window.event.keyCode; //IE
+    else
+        keypressed = e.which; //NON-IE, Standard
+    if (keypressed >= 48 && keypressed <= 57) {
+        if (obj.value == "0.0")
+            return;
+        tryNumberFormatCurrentcy(obj, "USD");
+    } else if (keypressed < 48 || keypressed > 57) {
+        // //CharCode của 0 là 48 (Theo bảng mã ASCII)
+        //CharCode của 9 là 57 (Theo bảng mã ASCII)
+        if (keypressed == 8 || keypressed == 46) {
+            if (obj.value == "0.0")
+                return;
+            tryNumberFormatCurrentcy(obj, "USD");
+        } else
+            return false;//Phím Delete và Phím Back va phim .
+    }
+}
