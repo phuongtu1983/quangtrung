@@ -24,5 +24,7 @@ public interface OnlineUser {
 
     public abstract String getIpAddress();
 
+    public abstract int getOrganizationId();
+
     public abstract boolean hasPermission(String func, String type);
 }

@@ -148,7 +148,8 @@ public class UserDAO {
 
     public UserBean getUserByName(String username) throws Exception {
         ResultSet rs = null;
-        String sql = "select u.*, e.fullname from user as u, employee as e where e.id=u.employee_id and u.username='" + username + "'";
+        String sql = "select u.*, e.fullname from user as u, employee as e where e.id=u.employee_id and u.username='" + username + "'"
+                + " and u.status=" + EmployeeBean.STATUS_ACTIVE + " and e.status=" + EmployeeBean.STATUS_ACTIVE;
         try {
             rs = DBUtil.executeQuery(sql);
             while (rs.next()) {
@@ -180,7 +181,7 @@ public class UserDAO {
             String sql = "";
             sql = "Insert Into user(employee_id, username, password, status)"
                     + " Values (" + bean.getEmpId() + ",'" + bean.getUsername() + "','" + bean.getPassword() + "'," + bean.getStatus() + ")";
-            DBUtil.executeUpdate(sql);
+            DBUtil.executeInsert(sql);
         } catch (SQLException sqle) {
             throw new Exception(sqle.getMessage());
         } catch (Exception ex) {

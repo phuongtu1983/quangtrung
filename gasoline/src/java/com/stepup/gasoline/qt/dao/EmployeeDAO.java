@@ -8,7 +8,6 @@ import com.stepup.core.auth.OnlineUser;
 import com.stepup.core.database.DBUtil;
 import com.stepup.gasoline.qt.auth.OnlineUserImpl;
 import com.stepup.gasoline.qt.bean.EmployeeBean;
-import com.stepup.gasoline.qt.bean.StoreBean;
 import com.stepup.gasoline.qt.employee.EmployeeFormBean;
 import com.stepup.gasoline.qt.util.QTUtil;
 import java.sql.ResultSet;
@@ -26,7 +25,7 @@ public class EmployeeDAO {
         OnlineUserImpl user = null;
         ResultSet rs = null;
 
-        String sql = "select u.id, e.id as empId, e.fullname, u.username, e.email"
+        String sql = "select u.id, e.id as empId, e.fullname, u.username, e.email, e.organization_id"
                 + " from employee as e left join user as u on e.id=u.employee_id "
                 + " where u.username='" + username + "'" + " and u.password='" + password + "'" + " and u.status=" + EmployeeBean.STATUS_ACTIVE
                 + " and e.status=" + EmployeeBean.STATUS_ACTIVE;
@@ -41,6 +40,7 @@ public class EmployeeDAO {
                 user.setFullName(rs.getString("fullname"));
                 user.setName(rs.getString("username"));
                 user.setEmail(rs.getString("email"));
+                user.setOrganizationId(rs.getInt("organization_id"));
             }
         } catch (SQLException sqle) {
             throw new Exception(sqle.getMessage());
@@ -64,6 +64,7 @@ public class EmployeeDAO {
                 employee.setId(rs.getInt("id"));
                 employee.setFullname(rs.getString("fullname"));
                 employee.setEmail(rs.getString("email"));
+                employee.setSalary(rs.getDouble("salary"));
                 employee.setStatus(rs.getInt("status"));
                 if (employee.getStatus() == EmployeeBean.STATUS_ACTIVE) {
                     employee.setStatusName(QTUtil.getBundleString("employee.detail.status.active"));
@@ -86,7 +87,8 @@ public class EmployeeDAO {
 
     public EmployeeFormBean getEmployeeByNameOrEmail(String fullname, String email) throws Exception {
         ResultSet rs = null;
-        String sql = "select * from employee where fullname='" + fullname + "' or email='" + email + "'";
+        String sql = "select * from employee where fullname='" + fullname + "' or email='" + email + "'"
+                + " and status=" + EmployeeBean.STATUS_ACTIVE;
         try {
             rs = DBUtil.executeQuery(sql);
             while (rs.next()) {
@@ -184,15 +186,15 @@ public class EmployeeDAO {
         return employeeList;
     }
 
-    public void insertEmployee(EmployeeBean bean) throws Exception {
+    public int insertEmployee(EmployeeBean bean) throws Exception {
         if (bean == null) {
-            return;
+            return 0;
         }
         try {
             String sql = "";
             sql = "Insert Into employee (fullname, email, salary, organization_id, status)"
                     + " Values ('" + bean.getFullname() + "','" + bean.getEmail() + "'," + bean.getSalary() + "," + bean.getOrganizationId() + "," + bean.getStatus() + ")";
-            DBUtil.executeUpdate(sql);
+            return DBUtil.executeInsert(sql);
         } catch (SQLException sqle) {
             throw new Exception(sqle.getMessage());
         } catch (Exception ex) {

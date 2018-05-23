@@ -5,12 +5,13 @@
 package com.stepup.gasoline.qt.employee;
 
 import com.stepup.gasoline.qt.bean.EmployeeBean;
+import com.stepup.gasoline.qt.dynamicfield.DynamicFieldValueParentFormBean;
 
 /**
  *
  * @author phuongtu
  */
-public class EmployeeFormBean extends org.apache.struts.action.ActionForm {
+public class EmployeeFormBean extends DynamicFieldValueParentFormBean {
 
     private int id;
     private String fullname;

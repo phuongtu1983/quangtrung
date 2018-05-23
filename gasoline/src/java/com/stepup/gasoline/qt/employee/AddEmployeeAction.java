@@ -5,7 +5,7 @@
 package com.stepup.gasoline.qt.employee;
 
 import com.stepup.gasoline.qt.bean.EmployeeBean;
-import com.stepup.gasoline.qt.core.SpineAction;
+import com.stepup.gasoline.qt.core.AddDynamicFieldValueAction;
 import com.stepup.gasoline.qt.dao.EmployeeDAO;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -18,7 +18,7 @@ import org.apache.struts.action.ActionMessages;
  *
  * @author phuongtu
  */
-public class AddEmployeeAction extends SpineAction {
+public class AddEmployeeAction extends AddDynamicFieldValueAction {
 
     /**
      * This is the action called from the Struts framework.
@@ -31,7 +31,7 @@ public class AddEmployeeAction extends SpineAction {
      * @return
      */
     @Override
-    public boolean doAction(ActionMapping mapping, ActionForm form,
+    public boolean doMainAction(ActionMapping mapping, ActionForm form,
             HttpServletRequest request, HttpServletResponse response) {
         EmployeeFormBean formBean = (EmployeeFormBean) form;
         EmployeeDAO employeeDAO = new EmployeeDAO();
@@ -96,7 +96,8 @@ public class AddEmployeeAction extends SpineAction {
         bean.setOrganizationId(formBean.getOrganizationId());
         try {
             if (bNew) {
-                employeeDAO.insertEmployee(bean);
+                employeeId = employeeDAO.insertEmployee(bean);
+                super.setParentId(employeeId);
             } else {
                 if (isUpdate) {
                     employeeDAO.updateEmployee(bean);
@@ -106,5 +107,10 @@ public class AddEmployeeAction extends SpineAction {
             ex.printStackTrace();
         }
         return true;
+    }
+
+    @Override
+    protected String getTableName() {
+        return "employee";
     }
 }

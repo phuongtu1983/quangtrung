@@ -24,7 +24,9 @@ public class QTUtil {
 
     final public static String storageRoot = "storage";
 
-    /** Creates a new instance of TMUtil */
+    /**
+     * Creates a new instance of TMUtil
+     */
     public QTUtil() {
     }
 
@@ -80,6 +82,15 @@ public class QTUtil {
             memberName = user.getName();
         }
         return memberName;
+    }
+
+    public static int getOrganizationId(HttpSession session) {
+        int organizationId = 0;
+        if ((session != null) && (session.getAttribute(Constants.EMPLOYEE_OBJ) != null)) {
+            OnlineUser user = (OnlineUser) session.getAttribute(Constants.EMPLOYEE_OBJ);
+            organizationId = user.getOrganizationId();
+        }
+        return organizationId;
     }
 
     public static OnlineUser getOnlineUser(HttpSession session) {

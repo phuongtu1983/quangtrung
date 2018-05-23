@@ -583,27 +583,32 @@ function hidePopupForm(id) {
 //    if(value!='') numstr+='.'+value;
 //    return numstr;
 //}
-//function reformatNumberMoney(o,fs,fv){
-//    if(fs!=null){
-//        if(fs==0) o.value=(parseFloat(o.value)).toFixed(fv);
-//        else o.value=(parseFloat(o.value)).toPrecision(fv);
-//    } 
-//    var ind=o.value.lastIndexOf('.');
-//    var value='';
-//    if(ind>-1){
-//        value=o.value.substring(ind+1);
-//        if(parseInt(value)==0) value='';
-//        o.value=o.value.substring(0,ind);
-//    }else ind=o.value.length-1;
-//    var str=o.value.substring(ind);
-//    ind=o.value.indexOf(',');
-//    while (ind>-1){
-//        o.value=o.value.replace(',','');
-//        ind=o.value.indexOf(',');
-//    }
-//    if(value!='') o.value+='.'+value;
-//    return o.value;
-//}
+function reformatNumberMoney(o, fs, fv) {
+    if (fs != null) {
+        if (fs == 0)
+            o.value = (parseFloat(o.value)).toFixed(fv);
+        else
+            o.value = (parseFloat(o.value)).toPrecision(fv);
+    }
+    var ind = o.value.lastIndexOf('.');
+    var value = '';
+    if (ind > -1) {
+        value = o.value.substring(ind + 1);
+        if (parseInt(value) == 0)
+            value = '';
+        o.value = o.value.substring(0, ind);
+    } else
+        ind = o.value.length - 1;
+    var str = o.value.substring(ind);
+    ind = o.value.indexOf(',');
+    while (ind > -1) {
+        o.value = o.value.replace(',', '');
+        ind = o.value.indexOf(',');
+    }
+    if (value != '')
+        o.value += '.' + value;
+    return o.value;
+}
 //function reformatNumberMoneyString(numstr){
 //    var ind=numstr.lastIndexOf('.');
 //    var value='';

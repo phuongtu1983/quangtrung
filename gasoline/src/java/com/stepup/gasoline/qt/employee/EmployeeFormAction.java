@@ -5,7 +5,7 @@
 package com.stepup.gasoline.qt.employee;
 
 import com.stepup.gasoline.qt.bean.EmployeeBean;
-import com.stepup.gasoline.qt.core.SpineAction;
+import com.stepup.gasoline.qt.core.DynamicFieldValueAction;
 import com.stepup.gasoline.qt.dao.EmployeeDAO;
 import com.stepup.gasoline.qt.dao.OrganizationDAO;
 import com.stepup.gasoline.qt.util.Constants;
@@ -22,7 +22,7 @@ import org.apache.struts.util.LabelValueBean;
  *
  * @author phuongtu
  */
-public class EmployeeFormAction extends SpineAction {
+public class EmployeeFormAction extends DynamicFieldValueAction {
 
     /**
      * This is the action called from the Struts framework.
@@ -35,7 +35,7 @@ public class EmployeeFormAction extends SpineAction {
      * @return
      */
     @Override
-    public boolean doAction(ActionMapping mapping, ActionForm form,
+    public boolean doMainAction(ActionMapping mapping, ActionForm form,
             HttpServletRequest request, HttpServletResponse response) {
         EmployeeFormBean formBean = null;
         String employeeid = request.getParameter("employeeId");
@@ -74,6 +74,12 @@ public class EmployeeFormAction extends SpineAction {
         }
         request.setAttribute(Constants.ORGANIZATION_LIST, arrOrganization);
 
+        super.setParentId(formBean.getId());
         return true;
+    }
+
+    @Override
+    protected String getTableName() {
+        return "employee";
     }
 }

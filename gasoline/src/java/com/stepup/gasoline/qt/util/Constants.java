@@ -25,6 +25,7 @@ public class Constants {
     public static final String ORGANIZATION = "organization";
     public static final String ORGANIZATION_LIST = "organizationList";
     public static final String DYNAMIC_FIELD_TABLE = "dynamicFieldTable";
+    public static final String DYNAMIC_FIELD_VALUE = "dynamicFieldValue";
     public static final String DYNAMIC_FIELD = "dynamicField";
     public static final String EMPLOYEE = "employee";
     public static final String STORE = "store";

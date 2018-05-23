@@ -599,8 +599,9 @@ function saveEmployee() {
         return false;
     }
     field = null;
+    reformatNumberMoney(document.forms['employeeForm'].salary);
     scriptFunction = "saveEmployee";
-    callAjaxCheckError("addEmployee.do", null, document.forms['EmployeeForm'], function(data) {
+    callAjaxCheckError("addEmployee.do", null, document.forms['employeeForm'], function(data) {
         scriptFunction = "";
         var handle = document.getElementById('callbackFunc').value;
         if (confirm('B\u1EA1n c\u00F3 mu\u1ED1n nh\u1EADp ti\u1EBFp th\u00F4ng tin kh\u00E1c ?'))

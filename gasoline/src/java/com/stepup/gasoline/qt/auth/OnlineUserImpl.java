@@ -21,9 +21,12 @@ public class OnlineUserImpl implements OnlineUser {
     private String fullName;
     private String email;
     private int employeeId;
+    private int organizationId;
     private String ipAddress;
 
-    /** Creates a new instance of OnlineUserImpl */
+    /**
+     * Creates a new instance of OnlineUserImpl
+     */
     public OnlineUserImpl() {
     }
 
@@ -78,6 +81,15 @@ public class OnlineUserImpl implements OnlineUser {
 
     public void setIpAddress(String ipAddress) {
         this.ipAddress = ipAddress;
+    }
+
+    @Override
+    public int getOrganizationId() {
+        return organizationId;
+    }
+
+    public void setOrganizationId(int organizationId) {
+        this.organizationId = organizationId;
     }
 
     @Override

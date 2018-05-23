@@ -635,7 +635,8 @@ form fieldset legend{
 	font-weight:bold;
 	line-height:25px;
 	text-align:center;
-	vertical-align:middle
+	vertical-align:middle;
+        color: blue;
 }
 form fieldset:first-child{
 	margin-top:4px;

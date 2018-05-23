@@ -149,7 +149,7 @@ CREATE TABLE `dynamic_field` (
 
 /*Data for the table `dynamic_field` */
 
-insert  into `dynamic_field`(`id`,`name`,`organization_id`,`table_name`) values (4,'b',1,'employee'),(5,'a',1,'employee'),(6,'c',1,'employee'),(7,'d',2,'employee');
+insert  into `dynamic_field`(`id`,`name`,`organization_id`,`table_name`) values (4,'Ngày vào làm',1,'employee'),(5,'Ngày sinh',1,'employee'),(6,'Số thẻ BHXH',1,'employee'),(7,'d',2,'employee');
 
 /*Table structure for table `dynamic_field_value` */
 
@@ -161,9 +161,11 @@ CREATE TABLE `dynamic_field_value` (
   `parent_id` int(11) DEFAULT NULL,
   `value` text COLLATE utf8_unicode_ci,
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=MyISAM AUTO_INCREMENT=4 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 /*Data for the table `dynamic_field_value` */
+
+insert  into `dynamic_field_value`(`id`,`field_id`,`parent_id`,`value`) values (1,5,7,'d1'),(2,4,7,'e1'),(3,6,7,'f1');
 
 /*Table structure for table `employee` */
 
@@ -177,11 +179,11 @@ CREATE TABLE `employee` (
   `organization_id` int(11) DEFAULT NULL,
   `status` int(1) DEFAULT '1' COMMENT '0: da bi khoa, 1: dang su dung',
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM AUTO_INCREMENT=3 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=MyISAM AUTO_INCREMENT=8 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 /*Data for the table `employee` */
 
-insert  into `employee`(`id`,`fullname`,`email`,`salary`,`organization_id`,`status`) values (1,'Nguyễn Phương Tú','phuongtu1983@gmail.com',NULL,NULL,1),(2,'Nguyễn Thị Hương','huong1963@gmail.com',NULL,NULL,1);
+insert  into `employee`(`id`,`fullname`,`email`,`salary`,`organization_id`,`status`) values (1,'Nguyễn Phương Tú','phuongtu1983@gmail.com',NULL,1,1),(2,'Nguyễn Thị Hương','huong1963@gmail.com',NULL,1,1),(6,'aa','bb',12345,1,1),(7,'a1','b1',31,1,1);
 
 /*Table structure for table `employee_advance` */
 

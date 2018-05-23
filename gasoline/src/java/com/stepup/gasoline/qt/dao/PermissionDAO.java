@@ -182,7 +182,6 @@ public class PermissionDAO {
             String sql = "";
             sql = "Insert Into permission (name, users, note)"
                     + " Values ('" + bean.getName() + "','" + bean.getUsers() + "','" + bean.getNote() + "')";
-
             result = DBUtil.executeInsert(sql);
         } catch (SQLException sqle) {
             throw new Exception(sqle.getMessage());

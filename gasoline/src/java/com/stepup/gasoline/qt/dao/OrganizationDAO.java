@@ -90,7 +90,8 @@ public class OrganizationDAO extends BasicDAO {
 
     public OrganizationBean getOrganizationByName(String name) throws Exception {
         ResultSet rs = null;
-        String sql = "select * from organization where name='" + name + "'";
+        String sql = "select * from organization where name='" + name + "'"
+                + " and status=" + EmployeeBean.STATUS_ACTIVE;
         try {
             rs = DBUtil.executeQuery(sql);
             while (rs.next()) {
@@ -127,7 +128,7 @@ public class OrganizationDAO extends BasicDAO {
             String sql = "";
             sql = "Insert Into organization (name, code, address, status)"
                     + " Values ('" + bean.getName() + "','" + bean.getCode() + "','" + bean.getAddress() + "'," + bean.getStatus() + ")";
-            DBUtil.executeUpdate(sql);
+            DBUtil.executeInsert(sql);
         } catch (SQLException sqle) {
             throw new Exception(sqle.getMessage());
         } catch (Exception ex) {
@@ -273,7 +274,7 @@ public class OrganizationDAO extends BasicDAO {
             String sql = "";
             sql = "Insert Into store (name, code, organization_id, status)"
                     + " Values ('" + bean.getName() + "','" + bean.getCode() + "'," + bean.getOrganizationId() + "," + bean.getStatus() + ")";
-            DBUtil.executeUpdate(sql);
+            DBUtil.executeInsert(sql);
         } catch (SQLException sqle) {
             throw new Exception(sqle.getMessage());
         } catch (Exception ex) {
