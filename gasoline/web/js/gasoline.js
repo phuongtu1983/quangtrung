@@ -585,7 +585,7 @@ function getEmployee(id, handle) {
         showPopupForm(data);
         document.getElementById('callbackFunc').value = handle;
         document.forms['employeeForm'].fullname.focus();
-        tryNumberFormatCurrentcy(document.forms['employeeForm'].salary,"VND");
+        tryNumberFormatCurrentcy(document.forms['employeeForm'].salary, "VND");
     });
 }
 function saveEmployee() {
@@ -612,21 +612,6 @@ function saveEmployee() {
     });
     return false;
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 function loadUserPanel() {
     callAjax("getUserPanel.do", null, null, function(data) {
         clearContent();
@@ -656,6 +641,136 @@ function loadUserList() {
     var url = "getUserList.do?status=" + list;
     callAjax(url, null, null, function(data) {
         mygrid.parse(data);
+    });
+    return false;
+}
+function getUser(id, handle) {
+    popupName = 'TH\u00D4NG TIN T\u00C0I KHO\u1EA2N';
+    callAjax('userForm.do?userId=' + id, null, null, function(data) {
+        showPopupForm(data);
+        document.getElementById('callbackFunc').value = handle;
+        document.forms['userForm'].username.focus();
+    });
+}
+function checkConfirmPassword() {
+    var password = document.forms['userForm'].password;
+    var confirmPassword = document.forms['userForm'].confirmPassword;
+    if (password.value != confirmPassword.value) {
+        alert('M\u1EADt kh\u1EA9u kh\u00F4ng kh\u1EDBp');
+        confirmPassword.value = '';
+    }
+    password = null;
+    confirmPassword = null;
+    return false;
+}
+function saveUser() {
+    if (scriptFunction == "saveUser")
+        return false;
+    var field = document.forms['userForm'].username;
+    if (field.value == '') {
+        alert("Vui l\u00F2ng nh\u1EADp t\u00EAn t\u00E0i kho\u1EA3n");
+        field.focus();
+        field = null;
+        return false;
+    }
+    field = null;
+    var list = document.forms['userForm'].empId;
+    if (list != null && list.selectedIndex > -1) {
+        list = list.options[list.selectedIndex].text;
+        document.forms['userForm'].fullname.value = list;
+    } else {
+        alert("Vui l\u00F2ng ch\u1ECDn nh\u00E2n vi\u00EAn");
+        list = null;
+        return false;
+    }
+    var id = document.forms['userForm'].id;
+    var password = document.forms['userForm'].password;
+    var confirmPassword = document.forms['userForm'].confirmPassword;
+    if (id == 0) {
+        if (password != null && confirmPassword != null) {
+            if (password.value == '') {
+                alert('Vui l\u00F2ng nh\u1EADp m\u1EADt kh\u1EA9u');
+                password.focus();
+                password = null;
+                confirmPassword = null;
+                return false;
+            }
+            if (confirmPassword.value == '') {
+                alert('Vui l\u00F2ng nh\u1EADp m\u1EADt kh\u1EA9u');
+                confirmPassword.focus();
+                password = null;
+                confirmPassword = null;
+                return false;
+            }
+        }
+    } else {
+        if (password != null && confirmPassword != null) {
+            if (password.value != confirmPassword.value) {
+                alert('M\u1EADt kh\u1EA9u kh\u00F4ng kh\u1EDBp');
+                password.focus();
+                password = null;
+                confirmPassword = null;
+                return false;
+            }
+        }
+    }
+    password = null;
+    confirmPassword = null;
+    scriptFunction = "saveUser";
+    callAjaxCheckError("addUser.do", null, document.forms['userForm'], function(data) {
+        scriptFunction = "";
+        var handle = document.getElementById('callbackFunc').value;
+        if (confirm('B\u1EA1n c\u00F3 mu\u1ED1n nh\u1EADp ti\u1EBFp th\u00F4ng tin kh\u00E1c ?'))
+            getUser(0, handle);
+        else if (handle != '')
+            eval(handle + "()");
+        prepareHidePopup('userFormshowHelpHideDiv');
+    });
+    return false;
+}
+function delUser() {
+    callAjaxCheckError('delUser.do?userId=' + document.forms['userForm'].id.value, null, null, function() {
+        loadUserPanel();
+        prepareHidePopup('userFormshowHelpHideDiv');
+    });
+    return false;
+}
+function changePasswordForm(){
+    popupName='THAY \u0110\u1ED4I M\u1EACT KH\u1EA8U';
+    callAjax('passwordForm.do',null,null,function(data){
+        showPopupForm(data);
+    });
+}
+function changePassword() {
+    var password = document.forms['passwordForm'].password;
+    if(password.value==''){
+        alert("M\u1EADt kh\u1EA9u kh\u00F4ng \u0111\u01B0\u1EE3c r\u1ED7ng");
+        password.focus();
+        password=null;
+        return false;
+    }
+    var newpassword = document.forms['passwordForm'].newpassword;
+    if(newpassword.value==''){
+        alert("M\u1EADt kh\u1EA9u kh\u00F4ng \u0111\u01B0\u1EE3c r\u1ED7ng");
+        newpassword.focus();
+        newpassword=null;
+        return false;
+    }
+    var retypepassword = document.forms['passwordForm'].retypepassword;
+    if (newpassword.value!=retypepassword.value) {
+        alert("M\u1EADt kh\u1EA9u kh\u00F4ng kh\u1EDBp");
+        newpassword=null;
+        retypepassword=null;
+        return false;
+    }
+    var md5 = document.forms['passwordForm'].md5pw; //document.getElementById('main:md5pw');            
+    pwtomd5(password, md5);
+    password=null;
+    newpassword=null;
+    retypepassword=null;
+    callAjaxCheckError("changePassword.do",null,document.forms['passwordForm'],function(data){
+        logout();
+        prepareHidePopup('passwordFormshowHelpHideDiv');
     });
     return false;
 }

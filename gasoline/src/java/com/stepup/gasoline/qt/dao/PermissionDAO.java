@@ -10,14 +10,8 @@ import com.stepup.core.util.StringUtil;
 import com.stepup.gasoline.qt.bean.EmployeeBean;
 import com.stepup.gasoline.qt.bean.PermissionBean;
 import com.stepup.gasoline.qt.bean.PermissionDetailBean;
-//import com.stepup.core.util.GenericValidator;
-//import com.stepup.core.util.StringUtil;
-//import com.stepup.gasoline.qt.bean.EmployeeBean;
-//import com.stepup.gasoline.qt.bean.PermissionBean;
-//import com.stepup.gasoline.qt.bean.PermissionDetailBean;
 import com.stepup.gasoline.qt.permission.ApplicationPermissionBean;
 import com.stepup.gasoline.qt.util.SQLSearchExpressionUtil;
-//import com.stepup.gasoline.qt.util.SQLSearchExpressionUtil;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -293,26 +287,6 @@ public class PermissionDAO {
         return result;
     }
 
-//    public String getPermissionName(String ids) throws Exception {
-//        ResultSet rs = null;
-//        String result = "";
-//        try {
-//            String sql = "SELECT GROUP_CONCAT(NAME) as name FROM permission WHERE id IN (" + ids + ")";
-//            rs = DBUtil.executeQuery(sql);
-//            while (rs.next()) {
-//                result = rs.getString("name");
-//            }
-//        } catch (SQLException sqle) {
-//            throw new Exception(sqle.getMessage());
-//        } catch (Exception ex) {
-//            throw new Exception(ex.getMessage());
-//        } finally {
-//            if (rs != null) {
-//                DBUtil.closeConnection(rs);
-//            }
-//        }
-//        return result;
-//    }
     public ArrayList searchPermissions(String name) throws Exception {
         ResultSet rs = null;
         String sql = "SELECT p.*"

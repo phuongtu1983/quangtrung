@@ -17,8 +17,6 @@ import java.lang.reflect.Array;
 import java.util.Random;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-
-import javax.servlet.http.HttpSession;
 import org.apache.struts.action.ActionForm;
 import org.apache.struts.action.ActionMapping;
 import org.apache.struts.action.ActionMessage;
@@ -77,7 +75,6 @@ public class AddUserAction extends SpineAction {
             saveErrors(request, errors);
             return false;
         }
-        HttpSession session = request.getSession();
         boolean isUpdate = false;
 
         bean = new UserBean();
@@ -150,6 +147,9 @@ public class AddUserAction extends SpineAction {
 
         content += "</body></html>";
         String mail_subject = "Quang Trung Copr, Reset Password for " + name;
-        MailHandle.sendMail(QTUtil.getBundleString("message.notify.senderMail"), mail_to, mail_subject, content);
+        MailHandle gmailRunnable = new MailHandle();
+        gmailRunnable.setParameters(QTUtil.getBundleString("message.notify.senderMail"), mail_to, "", "", mail_subject, content);
+        Thread t = new Thread(gmailRunnable);
+        t.start();
     }
 }

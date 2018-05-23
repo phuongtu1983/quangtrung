@@ -34,12 +34,29 @@ import javax.mail.internet.MimeMultipart;
  *
  * @author Administrator
  */
-public class MailHandle {
+public class MailHandle implements Runnable {
 
     public static final String EMAIL_DEFAULT = "tmadmin@ptsc.com.vn";
+    private String from = "";
+    private String to = "";
+    private String cc = "";
+    private String bcc = "";
+    private String subject = "";
+    private String message = "";
 
-    /** Creates a new instance of MailHandle */
+    /**
+     * Creates a new instance of MailHandle
+     */
     public MailHandle() {
+    }
+
+    @Override
+    public void run() {
+        try {
+            this.sendMail();
+        } catch (Exception ex) {
+
+        }
     }
 
     public static class Authenticator extends javax.mail.Authenticator {
@@ -206,7 +223,6 @@ public class MailHandle {
 //        String[] arrEmailCC = StringUtil.toTokensArray(mail_cc, ",");
 //        String[] arrEmailTO = StringUtil.toTokensArray(mail_to, ",");
 //        String[] arrFileAtt = StringUtil.toTokensArray(mail_att, ",");
-
         String[] arrEmailCC = mail_cc.split(",");
         String[] arrEmailTO = mail_to.split(",");
         String[] arrFileAtt = mail_att.split(";");
@@ -298,12 +314,10 @@ public class MailHandle {
 //        String[] arrEmailCC = StringUtil.toTokensArray(mail_cc, ",");
 //        String[] arrEmailTO = StringUtil.toTokensArray(mail_to, ",");
 //        String[] arrFileAtt = StringUtil.toTokensArray(mail_att, ",");
-
         String[] arrEmailCC = mail_cc.split(",");
         String[] arrEmailTO = mail_to.split(",");
         String[] arrFileAtt = mail_att.split(";");
 
-        String query_string = "";
         boolean result = true;
 
         try {
@@ -349,11 +363,26 @@ public class MailHandle {
         return result;
     }
 
+    public void setParameters(String from, String to, String cc, String bcc, String subject,
+            String message) {
+        this.from = from;
+        this.to = to;
+        this.cc = cc;
+        this.bcc = bcc;
+        this.subject = subject;
+        this.message = message;
+
+    }
+
     public static boolean sendMail(
             String mail_from,
             String mail_to,
             String mail_subject,
             String mail_content) throws Exception {
         return sendMail(mail_from, mail_to, "", mail_subject, mail_content, "", "", QTConfig.getMailServer());
+    }
+
+    public boolean sendMail() throws Exception {
+        return sendMail(this.from, this.to, "", this.subject, this.message, "", "", QTConfig.getMailServer());
     }
 }

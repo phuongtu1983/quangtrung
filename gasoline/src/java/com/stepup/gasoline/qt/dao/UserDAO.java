@@ -57,33 +57,6 @@ public class UserDAO {
         return userList;
     }
 
-//    public Object isExistMember(String userName, String email) throws Exception {
-//        ResultSet rs = null;
-//        String sql = "select u.id, u.emp_id, e.fullname, u.password"
-//                + " from user u, employee e"
-//                + " where u.emp_id=e.id and u.username='" + userName + "' and e.email='" + email + "'";
-//        try {
-//            rs = DBUtil.executeQuery(sql);
-//            UserBean employee = null;
-//            while (rs.next()) {
-//                employee = new UserBean();
-//                employee.setId(rs.getInt("id"));
-//                employee.setEmpId(rs.getInt("emp_id"));
-//                employee.setFullname(rs.getString("fullname"));
-//                employee.setPassword(rs.getString("password"));
-//                return employee;
-//            }
-//        } catch (SQLException sqle) {
-//            throw new Exception(sqle.getMessage());
-//        } catch (Exception ex) {
-//            throw new Exception(ex.getMessage());
-//        } finally {
-//            if (rs != null) {
-//                DBUtil.closeConnection(rs);
-//            }
-//        }
-//        return null;
-//    }
     public int changePassword(int userId, String newPassword)
             throws Exception {
         int result = 0;
@@ -100,22 +73,23 @@ public class UserDAO {
         return result;
     }
 
-//    public int changePassword(String username, String password, String newPassword)
-//            throws Exception {
-//        int result = 0;
-//        try {
-//            String sql = "update user set password='" + newPassword + "'"
-//                    + " where username='" + username + "'"
-//                    + " and password='" + password + "'";
-//            //System.out.println("sql=" + sql);
-//            result = DBUtil.executeUpdate(sql);
-//        } catch (SQLException sqle) {
-//            throw new Exception(sqle.getMessage());
-//        } catch (Exception ex) {
-//            throw new Exception(ex.getMessage());
-//        }
-//        return result;
-//    }
+    public int changePassword(String username, String password, String newPassword)
+            throws Exception {
+        int result = 0;
+        try {
+            String sql = "update user set password='" + newPassword + "'"
+                    + " where username='" + username + "'"
+                    + " and password='" + password + "'";
+            //System.out.println("sql=" + sql);
+            result = DBUtil.executeUpdate(sql);
+        } catch (SQLException sqle) {
+            throw new Exception(sqle.getMessage());
+        } catch (Exception ex) {
+            throw new Exception(ex.getMessage());
+        }
+        return result;
+    }
+
     public UserBean getUser(int userId) throws Exception {
         ResultSet rs = null;
         String sql = "select * from user where id=" + userId;
@@ -127,11 +101,6 @@ public class UserDAO {
                 user.setEmpId(rs.getInt("employee_id"));
                 user.setStatus(rs.getInt("status"));
                 user.setUsername(rs.getString("username"));
-//                if (user.getStatus() == EmployeeBean.STATUS_ACTIVE) {
-//                    user.setStatusName(PNUtil.getBundleString("employee.detail.status.active"));
-//                } else if (user.getStatus() == EmployeeBean.STATUS_INACTIVE) {
-//                    user.setStatusName(PNUtil.getBundleString("employee.detail.status.inactive"));
-//                }
                 return user;
             }
         } catch (SQLException sqle) {
@@ -252,5 +221,47 @@ public class UserDAO {
             }
         }
         return result;
+    }
+
+    public int deleteUser(String ids) throws Exception {
+        int result = 0;
+        try {
+            String sql = "Delete From user Where id in (" + ids + ")";
+            DBUtil.executeUpdate(sql);
+        } catch (SQLException sqle) {
+            throw new Exception(sqle.getMessage());
+        } catch (Exception ex) {
+            throw new Exception(ex.getMessage());
+        }
+        return result;
+    }
+
+    public Object isExistMember(String userName, String email) throws Exception {
+        ResultSet rs = null;
+        String sql = "select u.id, u.employee_id, e.fullname, u.password"
+                + " from user u, employee e"
+                + " where u.employee_id=e.id and u.username='" + userName + "' and e.email='" + email + "'"
+                + " and u.status=" + EmployeeBean.STATUS_ACTIVE + " and e.status=" + EmployeeBean.STATUS_ACTIVE;
+        try {
+            rs = DBUtil.executeQuery(sql);
+            UserBean employee = null;
+            while (rs.next()) {
+                employee = new UserBean();
+                employee.setId(rs.getInt("id"));
+                employee.setEmpId(rs.getInt("employee_id"));
+                employee.setFullname(rs.getString("fullname"));
+                employee.setPassword(rs.getString("password"));
+                return employee;
+            }
+        } catch (SQLException sqle) {
+            throw new Exception(sqle.getMessage());
+        } catch (Exception ex) {
+            throw new Exception(ex.getMessage());
+        } finally {
+            if (rs != null) {
+                DBUtil.closeConnection(rs);
+            }
+        }
+        return null;
     }
 }

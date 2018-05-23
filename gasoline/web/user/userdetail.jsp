@@ -59,6 +59,11 @@
                             <button class="i_create_write icon small green" onclick="return saveUser();"><bean:message key="message.save"/></button>
                             <%}%>
                         </logic:notEqual>
+                        <logic:greaterThan name="<%=Constants.USER%>" property="id" value="0">
+                            <%if (PermissionUtil.hasPermission(request, PermissionUtil.OPERATION_DELETE, PermissionUtil.PER_USER)) {%> 
+                            <button class="i_trashcan icon small red" onclick="return delUser();"><bean:message key="message.del"/></button>
+                            <%}%>
+                        </logic:greaterThan>
                         <button class="i_access_denied icon small yellow" onclick="return prepareHidePopup('userFormshowHelpHideDiv');"><bean:message key="message.close"/></button>
                     </p>
                 </td>

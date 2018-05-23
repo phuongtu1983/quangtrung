@@ -24,13 +24,16 @@
         </data-source>
     </data-sources>
     <form-beans>
-    <form-bean name="loginForm" type="com.stepup.gasoline.qt.auth.LoginForm"/>
-    <form-bean name="permissionForm" type="com.stepup.gasoline.qt.permission.PermissionFormBean"/>
-    <form-bean name="parameterForm" type="com.stepup.gasoline.qt.parameter.ParameterFormBean"/>
-    <form-bean name="organizationForm" type="com.stepup.gasoline.qt.organization.OrganizationFormBean"/>
-    <form-bean name="storeForm" type="com.stepup.gasoline.qt.store.StoreFormBean"/>
-    <form-bean name="employeeForm" type="com.stepup.gasoline.qt.employee.EmployeeFormBean"/>
-    <form-bean name="dynamicFieldForm" type="com.stepup.gasoline.qt.dynamicfield.DynamicFieldFormBean"/>
+        <form-bean name="loginForm" type="com.stepup.gasoline.qt.auth.LoginForm"/>
+        <form-bean name="permissionForm" type="com.stepup.gasoline.qt.permission.PermissionFormBean"/>
+        <form-bean name="parameterForm" type="com.stepup.gasoline.qt.parameter.ParameterFormBean"/>
+        <form-bean name="organizationForm" type="com.stepup.gasoline.qt.organization.OrganizationFormBean"/>
+        <form-bean name="storeForm" type="com.stepup.gasoline.qt.store.StoreFormBean"/>
+        <form-bean name="employeeForm" type="com.stepup.gasoline.qt.employee.EmployeeFormBean"/>
+        <form-bean name="dynamicFieldForm" type="com.stepup.gasoline.qt.dynamicfield.DynamicFieldFormBean"/>
+        <form-bean name="userForm" type="com.stepup.gasoline.qt.user.UserFormBean"/>
+        <form-bean name="passwordForm" type="com.stepup.gasoline.qt.auth.PasswordFormBean"/>
+        <form-bean name="resetPasswordForm" type="com.stepup.gasoline.qt.auth.ResetPasswordForm"/>
     </form-beans>
     
     <global-exceptions>
@@ -43,6 +46,10 @@
 
     <action-mappings>
         <action path="/loginPage" forward="/loginForm.jsp"/>
+        <action path="/forgetPass" forward="/forgetPass.jsp"/>
+        <action path="/resetPassword" type="com.stepup.gasoline.qt.auth.ResetPasswordAction" name="resetPasswordForm" input="/forgetPass.do" scope="session" validate="false">
+            <forward name="success" path="/loginPage.do" />
+        </action>
         <action path="/logout" type="com.stepup.gasoline.qt.auth.LogoutAction" scope="request" validate="false" >
             <forward name="success" redirect="true" path="/loginPage.do" />
         </action>
@@ -130,9 +137,6 @@
         <action path="/addEmployee" name ="employeeForm" scope="request" type="com.stepup.gasoline.qt.employee.AddEmployeeAction" input="/employeeForm.do">
         </action>
         <!-- end store -->
-        
-        
-        
         <!-- start user -->
         <action path="/getUserPanel" type="com.stepup.gasoline.qt.user.GetUserPanelAction" scope="request" validate="false">
             <forward name="success" path="/user/userspanel.jsp" />
@@ -143,6 +147,11 @@
             <forward name="success" path="/user/userdetail.jsp" />
         </action>
         <action path="/addUser" name ="userForm" scope="request" type="com.stepup.gasoline.qt.user.AddUserAction" input="/userForm.do">
+        </action>
+        <action path="/delUser" type="com.stepup.gasoline.qt.user.DeleteUserAction" scope="request" validate="false" >
+        </action>
+        <action path="/passwordForm" forward="/password.jsp" />
+        <action path="/changePassword" type="com.stepup.gasoline.qt.auth.ChangePasswordAction" input="/passwordForm.do" name="passwordForm" scope="request" >
         </action>
         <!-- end user -->
     </action-mappings>

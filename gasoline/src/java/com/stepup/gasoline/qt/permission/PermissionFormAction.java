@@ -180,7 +180,7 @@ public class PermissionFormAction extends SpineAction {
         perBean.setSharedId(2);
         perBean.setName(QTUtil.getBundleString("user.title"));
         perBean.setValue(PermissionUtil.PER_USER);
-        perBean.setOperations("," + PermissionUtil.OPERATION_LIST + "," + PermissionUtil.OPERATION_ADD + "," + PermissionUtil.OPERATION_EDIT + ",");
+        perBean.setOperations("," + PermissionUtil.OPERATION_LIST + "," + PermissionUtil.OPERATION_ADD + "," + PermissionUtil.OPERATION_EDIT + "," + PermissionUtil.OPERATION_DELETE + ",");
         arrFun.add(perBean);
 
         request.setAttribute(Constants.PERMISSION_FUNC_LIST, arrFun);
