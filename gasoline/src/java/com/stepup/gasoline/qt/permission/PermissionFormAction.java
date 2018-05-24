@@ -183,6 +183,33 @@ public class PermissionFormAction extends SpineAction {
         perBean.setOperations("," + PermissionUtil.OPERATION_LIST + "," + PermissionUtil.OPERATION_ADD + "," + PermissionUtil.OPERATION_EDIT + "," + PermissionUtil.OPERATION_DELETE + ",");
         arrFun.add(perBean);
 
+        perBean = new PermissionViewBean();
+        perBean.setCounter("2.1");
+        perBean.setLevel(2);
+        perBean.setSharedId(2);
+        perBean.setName(QTUtil.getBundleString("unit.title"));
+        perBean.setValue(PermissionUtil.PER_UNIT);
+        perBean.setOperations("," + PermissionUtil.OPERATION_LIST + "," + PermissionUtil.OPERATION_ADD + "," + PermissionUtil.OPERATION_EDIT + ",");
+        arrFun.add(perBean);
+        
+        perBean = new PermissionViewBean();
+        perBean.setCounter("2.1");
+        perBean.setLevel(2);
+        perBean.setSharedId(2);
+        perBean.setName(QTUtil.getBundleString("shellKind.title"));
+        perBean.setValue(PermissionUtil.PER_SHELL_KIND);
+        perBean.setOperations("," + PermissionUtil.OPERATION_LIST + "," + PermissionUtil.OPERATION_ADD + "," + PermissionUtil.OPERATION_EDIT + ",");
+        arrFun.add(perBean);
+        
+        perBean = new PermissionViewBean();
+        perBean.setCounter("2.1");
+        perBean.setLevel(2);
+        perBean.setSharedId(2);
+        perBean.setName(QTUtil.getBundleString("shell.title"));
+        perBean.setValue(PermissionUtil.PER_SHELL);
+        perBean.setOperations("," + PermissionUtil.OPERATION_LIST + "," + PermissionUtil.OPERATION_ADD + "," + PermissionUtil.OPERATION_EDIT + ",");
+        arrFun.add(perBean);
+
         request.setAttribute(Constants.PERMISSION_FUNC_LIST, arrFun);
 
         return true;

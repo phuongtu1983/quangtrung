@@ -94,5 +94,8 @@ public class PermissionUtil {
     public static int PER_ORGANIZATION = 6;
     public static int PER_STORE = 7;
     public static int PER_DYNAMIC_FIELD = 8;
+    public static int PER_UNIT = 9;
+    public static int PER_SHELL_KIND = 10;
+    public static int PER_SHELL = 11;
 
 }

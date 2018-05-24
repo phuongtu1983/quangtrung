@@ -28,12 +28,15 @@
         <form-bean name="permissionForm" type="com.stepup.gasoline.qt.permission.PermissionFormBean"/>
         <form-bean name="parameterForm" type="com.stepup.gasoline.qt.parameter.ParameterFormBean"/>
         <form-bean name="organizationForm" type="com.stepup.gasoline.qt.organization.OrganizationFormBean"/>
+        <form-bean name="shellKindForm" type="com.stepup.gasoline.qt.shellkind.ShellKindFormBean"/>
+        <form-bean name="shellForm" type="com.stepup.gasoline.qt.shell.ShellFormBean"/>
         <form-bean name="storeForm" type="com.stepup.gasoline.qt.store.StoreFormBean"/>
         <form-bean name="employeeForm" type="com.stepup.gasoline.qt.employee.EmployeeFormBean"/>
         <form-bean name="dynamicFieldForm" type="com.stepup.gasoline.qt.dynamicfield.DynamicFieldFormBean"/>
         <form-bean name="userForm" type="com.stepup.gasoline.qt.user.UserFormBean"/>
         <form-bean name="passwordForm" type="com.stepup.gasoline.qt.auth.PasswordFormBean"/>
         <form-bean name="resetPasswordForm" type="com.stepup.gasoline.qt.auth.ResetPasswordForm"/>
+        <form-bean name="unitForm" type="com.stepup.gasoline.qt.unit.UnitFormBean"/>
     </form-beans>
     
     <global-exceptions>
@@ -154,6 +157,42 @@
         <action path="/changePassword" type="com.stepup.gasoline.qt.auth.ChangePasswordAction" input="/passwordForm.do" name="passwordForm" scope="request" >
         </action>
         <!-- end user -->
+        <!-- start unit -->
+        <action path="/getUnitPanel" type="com.stepup.gasoline.qt.common.BaseStatusFormAction" scope="request" validate="false">
+            <forward name="success" path="/unit/unitpanel.jsp" />
+        </action>
+        <action path="/getUnitList" type="com.stepup.gasoline.qt.unit.GetUnitListAction" scope="request" validate="false" >
+        </action>
+        <action path="/unitForm" type="com.stepup.gasoline.qt.unit.UnitFormAction" scope="request" validate="false">
+            <forward name="success" path="/unit/unitdetail.jsp" />
+        </action>
+        <action path="/addUnit" name ="unitForm" scope="request" type="com.stepup.gasoline.qt.unit.AddUnitAction" input="/unitForm.do">
+        </action>
+        <!-- end unit -->
+        <!-- start shellKind -->
+        <action path="/getShellKindPanel" type="com.stepup.gasoline.qt.common.BaseStatusFormAction" scope="request" validate="false">
+            <forward name="success" path="/shellkind/shellkindpanel.jsp" />
+        </action>
+        <action path="/getShellKindList" type="com.stepup.gasoline.qt.shellkind.GetShellKindListAction" scope="request" validate="false" >
+        </action>
+        <action path="/shellKindForm" type="com.stepup.gasoline.qt.shellkind.ShellKindFormAction" scope="request" validate="false">
+            <forward name="success" path="/shellkind/shellkinddetail.jsp" />
+        </action>
+        <action path="/addShellKind" name ="shellKindForm" scope="request" type="com.stepup.gasoline.qt.shellkind.AddShellKindAction" input="/shellKindForm.do">
+        </action>
+        <!-- end shellKind -->
+        <!-- start shell -->
+        <action path="/getShellPanel" type="com.stepup.gasoline.qt.common.BaseStatusFormAction" scope="request" validate="false">
+            <forward name="success" path="/shell/shellpanel.jsp" />
+        </action>
+        <action path="/getShellList" type="com.stepup.gasoline.qt.shell.GetShellListAction" scope="request" validate="false" >
+        </action>
+        <action path="/shellForm" type="com.stepup.gasoline.qt.shell.ShellFormAction" scope="request" validate="false">
+            <forward name="success" path="/shell/shelldetail.jsp" />
+        </action>
+        <action path="/addShell" name ="shellForm" scope="request" type="com.stepup.gasoline.qt.shell.AddShellAction" input="/shellForm.do">
+        </action>
+        <!-- end shell -->
     </action-mappings>
     
     <controller processorClass="org.apache.struts.tiles.TilesRequestProcessor"/>

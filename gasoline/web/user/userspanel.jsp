@@ -3,7 +3,7 @@
 <%@ taglib uri="/WEB-INF/struts-bean.tld" prefix="bean" %>
 <%@ taglib uri="/WEB-INF/struts-html.tld" prefix="html" %>
 <%@ taglib uri="/WEB-INF/struts-logic.tld" prefix="logic" %>
-<div class="header"><bean:message key="user.header.title"/></div>
+<div class="header"><bean:message key="user.list.title"/></div>
 <%@ page import="com.stepup.gasoline.qt.util.PermissionUtil"%>
 <form name='userSearchForm' id='userSearchForm'>
     <fieldset>

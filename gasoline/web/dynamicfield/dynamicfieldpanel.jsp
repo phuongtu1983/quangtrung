@@ -4,7 +4,7 @@
 <%@ taglib uri="/WEB-INF/struts-html.tld" prefix="html" %>
 <%@ taglib uri="/WEB-INF/struts-logic.tld" prefix="logic" %>
 <%@ page import="com.stepup.gasoline.qt.util.Constants"%>
-<div class="header"><bean:message key="dynamicField.header.title"/></div>
+<div class="header"><bean:message key="dynamicField.list.title"/></div>
 <%@ page import="com.stepup.gasoline.qt.util.PermissionUtil"%>
 <table>
     <tr>

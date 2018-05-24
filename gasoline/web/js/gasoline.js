@@ -47,6 +47,18 @@ function menuClick(id) {
         logout();
     else if (id == 'resetpassword')
         changePasswordForm();
+    else if (id == 'unitlist')
+        loadUnitPanel();
+    else if (id == 'unitadd')
+        getUnit(0, 'loadUnitPanel');
+    else if (id == 'shellkindlist')
+        loadShellKindPanel();
+    else if (id == 'shellkindadd')
+        getShellKind(0, 'loadShellKindPanel');
+    else if (id == 'shelllist')
+        loadShellPanel();
+    else if (id == 'shelladd')
+        getShell(0, 'loadShellPanel');
 
 }
 function clearContent() {
@@ -735,42 +747,260 @@ function delUser() {
     });
     return false;
 }
-function changePasswordForm(){
-    popupName='THAY \u0110\u1ED4I M\u1EACT KH\u1EA8U';
-    callAjax('passwordForm.do',null,null,function(data){
+function changePasswordForm() {
+    popupName = 'THAY \u0110\u1ED4I M\u1EACT KH\u1EA8U';
+    callAjax('passwordForm.do', null, null, function(data) {
         showPopupForm(data);
     });
 }
 function changePassword() {
     var password = document.forms['passwordForm'].password;
-    if(password.value==''){
+    if (password.value == '') {
         alert("M\u1EADt kh\u1EA9u kh\u00F4ng \u0111\u01B0\u1EE3c r\u1ED7ng");
         password.focus();
-        password=null;
+        password = null;
         return false;
     }
     var newpassword = document.forms['passwordForm'].newpassword;
-    if(newpassword.value==''){
+    if (newpassword.value == '') {
         alert("M\u1EADt kh\u1EA9u kh\u00F4ng \u0111\u01B0\u1EE3c r\u1ED7ng");
         newpassword.focus();
-        newpassword=null;
+        newpassword = null;
         return false;
     }
     var retypepassword = document.forms['passwordForm'].retypepassword;
-    if (newpassword.value!=retypepassword.value) {
+    if (newpassword.value != retypepassword.value) {
         alert("M\u1EADt kh\u1EA9u kh\u00F4ng kh\u1EDBp");
-        newpassword=null;
-        retypepassword=null;
+        newpassword = null;
+        retypepassword = null;
         return false;
     }
     var md5 = document.forms['passwordForm'].md5pw; //document.getElementById('main:md5pw');            
     pwtomd5(password, md5);
-    password=null;
-    newpassword=null;
-    retypepassword=null;
-    callAjaxCheckError("changePassword.do",null,document.forms['passwordForm'],function(data){
+    password = null;
+    newpassword = null;
+    retypepassword = null;
+    callAjaxCheckError("changePassword.do", null, document.forms['passwordForm'], function(data) {
         logout();
         prepareHidePopup('passwordFormshowHelpHideDiv');
+    });
+    return false;
+}
+function loadUnitPanel() {
+    callAjax("getUnitPanel.do", null, null, function(data) {
+        clearContent();
+        setAjaxData(data, "contentDiv");
+        loadUnitList();
+    });
+}
+function loadUnitList() {
+    var mygrid = new dhtmlXGridObject('unitList');
+    mygrid.setImagePath("js/dhtmlx/grid/imgs/");
+    mygrid.setHeader("T\u00EAn \u0111\u01A1n v\u1ECB t\u00EDnh,T\u00ECnh tr\u1EA1ng");
+    mygrid.attachHeader("#text_filter,#select_filter");
+    mygrid.setInitWidths("*,250");
+    mygrid.setColTypes("link,ro");
+    mygrid.setColSorting("str,str");
+    mygrid.setSkin("light");
+    var height = contentHeight - 210;
+    mygrid.al(true, height);//enableAutoHeight
+    mygrid.enablePaging(true, 15, 3, "recinfoArea");
+    mygrid.setPagingSkin("toolbar", "dhx_skyblue");
+    mygrid.init();
+    var list = document.forms['unitSearchForm'].statusCombobox;
+    if (list != null && list.selectedIndex > -1)
+        list = list.options[list.selectedIndex].value;
+    else
+        list = 0;
+    var url = "getUnitList.do?status=" + list;
+    callAjax(url, null, null, function(data) {
+        mygrid.parse(data);
+    });
+    return false;
+}
+function getUnit(id, handle) {
+    popupName = 'TH\u00D4NG TIN \u0110\u01A0N V\u1ECA T\u00CDNH';
+    var url = 'unitForm.do';
+    if (id != 0)
+        url += '?unitId=' + id
+    callAjax(url, null, null, function(data) {
+        showPopupForm(data);
+        document.getElementById('callbackFunc').value = handle;
+        document.forms['unitForm'].name.focus();
+    });
+}
+function saveUnit() {
+    if (scriptFunction == "saveUnit")
+        return false;
+    var field = document.forms['unitForm'].name;
+    if (field.value == '') {
+        alert("Vui l\u00F2ng nh\u1EADp t\u00EAn \u0111\u01A1n v\u1ECB t\u00EDnh");
+        field.focus();
+        field = null;
+        return false;
+    }
+    field = null;
+    scriptFunction = "saveUnit";
+    callAjaxCheckError("addUnit.do", null, document.forms['unitForm'], function(data) {
+        scriptFunction = "";
+        var handle = document.getElementById('callbackFunc').value;
+        if (confirm('B\u1EA1n c\u00F3 mu\u1ED1n nh\u1EADp ti\u1EBFp th\u00F4ng tin kh\u00E1c ?'))
+            getUnit(0, handle);
+        else if (handle != '')
+            eval(handle + "()");
+        prepareHidePopup('unitFormshowHelpHideDiv');
+    });
+    return false;
+}
+function loadShellKindPanel() {
+    callAjax("getShellKindPanel.do", null, null, function(data) {
+        clearContent();
+        setAjaxData(data, "contentDiv");
+        loadShellKindList();
+    });
+}
+function loadShellKindList() {
+    var mygrid = new dhtmlXGridObject('shellKindList');
+    mygrid.setImagePath("js/dhtmlx/grid/imgs/");
+    mygrid.setHeader("M\u00E3 lo\u1EA1i v\u1ECF b\u00ECnh,T\u00EAn lo\u1EA1i v\u1ECF b\u00ECnh,T\u00ECnh tr\u1EA1ng");
+    mygrid.attachHeader("#text_filter,#text_filter,#select_filter");
+    mygrid.setInitWidths("150,*,150");
+    mygrid.setColTypes("link,ro,ro");
+    mygrid.setColSorting("str,str,str");
+    mygrid.setSkin("light");
+    var height = contentHeight - 210;
+    mygrid.al(true, height);//enableAutoHeight
+    mygrid.enablePaging(true, 15, 3, "recinfoArea");
+    mygrid.setPagingSkin("toolbar", "dhx_skyblue");
+    mygrid.init();
+    var list = document.forms['shellKindSearchForm'].statusCombobox;
+    if (list != null && list.selectedIndex > -1)
+        list = list.options[list.selectedIndex].value;
+    else
+        list = 0;
+    var url = "getShellKindList.do?status=" + list;
+    callAjax(url, null, null, function(data) {
+        mygrid.parse(data);
+    });
+    return false;
+}
+function getShellKind(id, handle) {
+    popupName = 'TH\u00D4NG TIN LO\u1EA0I V\u1ECE B\u00CCNH';
+    var url = 'shellKindForm.do';
+    if (id != 0)
+        url += '?kindId=' + id
+    callAjax(url, null, null, function(data) {
+        showPopupForm(data);
+        document.getElementById('callbackFunc').value = handle;
+        document.forms['shellKindForm'].code.focus();
+        tryNumberFormatCurrentcy(document.forms['shellKindForm'].weight, "VND");
+        tryNumberFormatCurrentcy(document.forms['shellKindForm'].commission, "VND");
+    });
+}
+function saveShellKind() {
+    if (scriptFunction == "saveShellKind")
+        return false;
+    var field = document.forms['shellKindForm'].code;
+    if (field.value == '') {
+        alert("Vui l\u00F2ng nh\u1EADp m\u00E3 lo\u1EA1i v\u1ECF b\u00ECnh");
+        field.focus();
+        field = null;
+        return false;
+    }
+    field = document.forms['shellKindForm'].name;
+    if (field.value == '') {
+        alert("Vui l\u00F2ng nh\u1EADp t\u00EAn lo\u1EA1i v\u1ECF b\u00ECnh");
+        field.focus();
+        field = null;
+        return false;
+    }
+    field = null;
+    reformatNumberMoney(document.forms['shellKindForm'].weight);
+    reformatNumberMoney(document.forms['shellKindForm'].commission);
+    scriptFunction = "saveShellKind";
+    callAjaxCheckError("addShellKind.do", null, document.forms['shellKindForm'], function(data) {
+        scriptFunction = "";
+        var handle = document.getElementById('callbackFunc').value;
+        if (confirm('B\u1EA1n c\u00F3 mu\u1ED1n nh\u1EADp ti\u1EBFp th\u00F4ng tin kh\u00E1c ?'))
+            getShellKind(0, handle);
+        else if (handle != '')
+            eval(handle + "()");
+        prepareHidePopup('shellKindFormshowHelpHideDiv');
+    });
+    return false;
+}
+function loadShellPanel() {
+    callAjax("getShellPanel.do", null, null, function(data) {
+        clearContent();
+        setAjaxData(data, "contentDiv");
+        loadShellList();
+    });
+}
+function loadShellList() {
+    var mygrid = new dhtmlXGridObject('shellList');
+    mygrid.setImagePath("js/dhtmlx/grid/imgs/");
+    mygrid.setHeader("M\u00E3 v\u1ECF b\u00ECnh,T\u00EAn v\u1ECF b\u00ECnh,Lo\u1EA1i v\u1ECF b\u00ECnh,T\u00ECnh tr\u1EA1ng");
+    mygrid.attachHeader("#text_filter,#text_filter,#text_filter,#select_filter");
+    mygrid.setInitWidths("150,*,200,150");
+    mygrid.setColTypes("link,ro,ro,ro");
+    mygrid.setColSorting("str,str,str,str");
+    mygrid.setSkin("light");
+    var height = contentHeight - 210;
+    mygrid.al(true, height);//enableAutoHeight
+    mygrid.enablePaging(true, 15, 3, "recinfoArea");
+    mygrid.setPagingSkin("toolbar", "dhx_skyblue");
+    mygrid.init();
+    var list = document.forms['shellSearchForm'].statusCombobox;
+    if (list != null && list.selectedIndex > -1)
+        list = list.options[list.selectedIndex].value;
+    else
+        list = 0;
+    var url = "getShellList.do?status=" + list;
+    callAjax(url, null, null, function(data) {
+        mygrid.parse(data);
+    });
+    return false;
+}
+function getShell(id, handle) {
+    popupName = 'TH\u00D4NG TIN V\u1ECE B\u00CCNH';
+    var url = 'shellForm.do';
+    if (id != 0)
+        url += '?kindId=' + id
+    callAjax(url, null, null, function(data) {
+        showPopupForm(data);
+        document.getElementById('callbackFunc').value = handle;
+        document.forms['shellForm'].code.focus();
+        tryNumberFormatCurrentcy(document.forms['shellForm'].price, "VND");
+    });
+}
+function saveShell() {
+    if (scriptFunction == "saveShell")
+        return false;
+    var field = document.forms['shellKind'].code;
+    if (field.value == '') {
+        alert("Vui l\u00F2ng nh\u1EADp m\u00E3 v\u1ECF b\u00ECnh");
+        field.focus();
+        field = null;
+        return false;
+    }
+    field = document.forms['shellForm'].name;
+    if (field.value == '') {
+        alert("Vui l\u00F2ng nh\u1EADp t\u00EAn v\u1ECF b\u00ECnh");
+        field.focus();
+        field = null;
+        return false;
+    }
+    field = null;
+    reformatNumberMoney(document.forms['shellForm'].price);
+    scriptFunction = "saveShell";
+    callAjaxCheckError("addShell.do", null, document.forms['shellForm'], function(data) {
+        scriptFunction = "";
+        var handle = document.getElementById('callbackFunc').value;
+        if (confirm('B\u1EA1n c\u00F3 mu\u1ED1n nh\u1EADp ti\u1EBFp th\u00F4ng tin kh\u00E1c ?'))
+            getShell(0, handle);
+        else if (handle != '')
+            eval(handle + "()");
+        prepareHidePopup('shellFormshowHelpHideDiv');
     });
     return false;
 }

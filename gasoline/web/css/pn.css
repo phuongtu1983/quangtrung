@@ -4,6 +4,7 @@
     font-size: x-large;
     text-align: center;
     font-weight: bold;
+    text-transform: uppercase;
 }
 .developInfo{
     margin-top:8px; 

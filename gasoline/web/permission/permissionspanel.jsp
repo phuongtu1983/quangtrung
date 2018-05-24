@@ -4,7 +4,7 @@
 <%@ taglib uri="/WEB-INF/struts-html.tld" prefix="html" %>
 <%@ taglib uri="/WEB-INF/struts-logic.tld" prefix="logic" %>
 <%@ page import="com.stepup.gasoline.qt.util.PermissionUtil"%>
-<div class="header"><bean:message key="permission.header.title"/></div>
+<div class="header"><bean:message key="permission.list.title"/></div>
 <form name='permissionSearchForm' id='permissionSearchForm'>
     <fieldset>
         <legend class="lbl10b"><bean:message key="search.title"/></legend>

@@ -85,7 +85,7 @@
     <body leftmargin="0" topmargin="0" class="tundra">
         <div id="popupDialog" dojoType="dijit.Dialog" title=""></div>
         <input type="hidden" id="clientIpAddress" value="<% out.print(request.getRemoteHost());%>"/>
-        <div style="display: none; margin-right: 30px;margin-top: 10px;position: absolute;text-align: right;width: 100%;z-index: 1000">
+        <div style="margin-right: 30px;margin-top: 10px;position: fixed;text-align: right;width: 30%;z-index: 1000;right: 0">
             <font face="Tahoma" size="2"><strong><i><bean:message key='wellcome.title'/>  <font style="color: #FF0000"><%=QTUtil.getMemberFullName(session)%></font></i></strong></font>
         </div>
     </body>

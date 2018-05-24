@@ -14,7 +14,9 @@ public class Constants {
     public static final String PERMISSION_USER = "permissionUser";
     public static final String USER_LIST = "userList";
     public static final String USER = "user";
-//    public static final String IDS = "ids";
+    public static final String SHELL_KIND = "shellKind";
+    public static final String SHELL_KIND_LIST = "shellKindList";
+    public static final String SHELL = "shell";
 //    public static final String CODES = "codes";
 //    public static final String EMPLOYEE = "employee";
     public static final String STATUS_LIST = "statusList";
@@ -35,7 +37,8 @@ public class Constants {
 //    public static final String FOOD = "food";
 //    public static final String FOOD2 = "food2";
 //    public static final String FOODGROUP = "foodgroup";
-//    public static final String UNIT = "unit";
+    public static final String UNIT = "unit";
+    public static final String UNIT_LIST = "unitList";
 //    public static final String UNIT_CONVERSION = "unitConversion";
 //    public static final String TYPE_LIST = "typeList";
 //    public static final String GAME = "game";
