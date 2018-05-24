@@ -29,11 +29,15 @@
         <form-bean name="parameterForm" type="com.stepup.gasoline.qt.parameter.ParameterFormBean"/>
         <form-bean name="organizationForm" type="com.stepup.gasoline.qt.organization.OrganizationFormBean"/>
         <form-bean name="vehicleForm" type="com.stepup.gasoline.qt.vehicle.VehicleFormBean"/>
+        <form-bean name="routeForm" type="com.stepup.gasoline.qt.route.RouteFormBean"/>
         <form-bean name="shellKindForm" type="com.stepup.gasoline.qt.shellkind.ShellKindFormBean"/>
         <form-bean name="shellForm" type="com.stepup.gasoline.qt.shell.ShellFormBean"/>
+        <form-bean name="promotionMaterialForm" type="com.stepup.gasoline.qt.promotionmaterial.PromotionMaterialFormBean"/>
+        <form-bean name="accessoryForm" type="com.stepup.gasoline.qt.accessory.AccessoryFormBean"/>
         <form-bean name="storeForm" type="com.stepup.gasoline.qt.store.StoreFormBean"/>
         <form-bean name="accountForm" type="com.stepup.gasoline.qt.account.AccountFormBean"/>
         <form-bean name="employeeForm" type="com.stepup.gasoline.qt.employee.EmployeeFormBean"/>
+        <form-bean name="accessoryKindForm" type="com.stepup.gasoline.qt.accessorykind.AccessoryKindFormBean"/>
         <form-bean name="vendorForm" type="com.stepup.gasoline.qt.vendor.VendorFormBean"/>
         <form-bean name="dynamicFieldForm" type="com.stepup.gasoline.qt.dynamicfield.DynamicFieldFormBean"/>
         <form-bean name="userForm" type="com.stepup.gasoline.qt.user.UserFormBean"/>
@@ -237,6 +241,56 @@
         <action path="/delVehicle" type="com.stepup.gasoline.qt.vehicle.DeleteVehicleAction" scope="request" validate="false" >
         </action>
         <!-- end vehicle -->
+        <!-- start route -->
+        <action path="/getRoutePanel" type="com.stepup.gasoline.qt.common.BaseStatusFormAction" scope="request" validate="false">
+            <forward name="success" path="/route/routepanel.jsp" />
+        </action>
+        <action path="/getRouteList" type="com.stepup.gasoline.qt.route.GetRouteListAction" scope="request" validate="false" >
+        </action>
+        <action path="/routeForm" type="com.stepup.gasoline.qt.route.RouteFormAction" scope="request" validate="false">
+            <forward name="success" path="/route/routedetail.jsp" />
+        </action>
+        <action path="/addRoute" name ="routeForm" scope="request" type="com.stepup.gasoline.qt.route.AddRouteAction" input="/routeForm.do">
+        </action>
+        <action path="/delRoute" type="com.stepup.gasoline.qt.route.DeleteRouteAction" scope="request" validate="false" >
+        </action>
+        <!-- end route -->
+        <!-- start accessorykind -->
+        <action path="/getAccessoryKindPanel" type="com.stepup.gasoline.qt.common.BaseStatusFormAction" scope="request" validate="false">
+            <forward name="success" path="/accessorykind/accessorykindpanel.jsp" />
+        </action>
+        <action path="/getAccessoryKindList" type="com.stepup.gasoline.qt.accessorykind.GetAccessoryKindListAction" scope="request" validate="false" >
+        </action>
+        <action path="/accessoryKindForm" type="com.stepup.gasoline.qt.accessorykind.AccessoryKindFormAction" scope="request" validate="false">
+            <forward name="success" path="/accessorykind/accessorykinddetail.jsp" />
+        </action>
+        <action path="/addAccessoryKind" name ="accessoryKindForm" scope="request" type="com.stepup.gasoline.qt.accessorykind.AddAccessoryKindAction" input="/accessoryKindForm.do">
+        </action>
+        <!-- end accessorykind -->
+        <!-- start accessory -->
+        <action path="/getAccessoryPanel" type="com.stepup.gasoline.qt.common.BaseStatusFormAction" scope="request" validate="false">
+            <forward name="success" path="/accessory/accessorypanel.jsp" />
+        </action>
+        <action path="/getAccessoryList" type="com.stepup.gasoline.qt.accessory.GetAccessoryListAction" scope="request" validate="false" >
+        </action>
+        <action path="/accessoryForm" type="com.stepup.gasoline.qt.accessory.AccessoryFormAction" scope="request" validate="false">
+            <forward name="success" path="/accessory/accessorydetail.jsp" />
+        </action>
+        <action path="/addAccessory" name ="accessoryForm" scope="request" type="com.stepup.gasoline.qt.accessory.AddAccessoryAction" input="/accessoryForm.do">
+        </action>
+        <!-- end accessory -->
+        <!-- start promotionmaterial -->
+        <action path="/getPromotionMaterialPanel" type="com.stepup.gasoline.qt.common.BaseStatusFormAction" scope="request" validate="false">
+            <forward name="success" path="/promotionmaterial/promotionmaterialpanel.jsp" />
+        </action>
+        <action path="/getPromotionMaterialList" type="com.stepup.gasoline.qt.promotionmaterial.GetPromotionMaterialListAction" scope="request" validate="false" >
+        </action>
+        <action path="/promotionMaterialForm" type="com.stepup.gasoline.qt.promotionmaterial.PromotionMaterialFormAction" scope="request" validate="false">
+            <forward name="success" path="/promotionmaterial/promotionmaterialdetail.jsp" />
+        </action>
+        <action path="/addPromotionMaterial" name ="promotionMaterialForm" scope="request" type="com.stepup.gasoline.qt.promotionmaterial.AddPromotionMaterialAction" input="/promotionMaterialForm.do">
+        </action>
+        <!-- end promotionmaterial -->
     </action-mappings>
     
     <controller processorClass="org.apache.struts.tiles.TilesRequestProcessor"/>

@@ -73,6 +73,22 @@ function menuClick(id) {
         loadVehiclePanel();
     else if (id == 'vehicleadd')
         getVehicle(0, 'loadVehiclePanel');
+    else if (id == 'routelist')
+        loadRoutePanel();
+    else if (id == 'routeadd')
+        getRoute(0, 'loadRoutePanel');
+    else if (id == 'accessorykindlist')
+        loadAccessoryKindPanel();
+    else if (id == 'accessorykindadd')
+        getAccessoryKind(0, 'loadAccessoryKindPanel');
+    else if (id == 'accessorylist')
+        loadAccessoryPanel();
+    else if (id == 'accessoryadd')
+        getAccessory(0, 'loadAccessoryPanel');
+    else if (id == 'promotionmateriallist')
+        loadPromotionMaterialPanel();
+    else if (id == 'promotionmaterialadd')
+        getPromotionMaterial(0, 'loadPromotionMaterialPanel');
 
 }
 function clearContent() {
@@ -907,7 +923,7 @@ function getShellKind(id, handle) {
         showPopupForm(data);
         document.getElementById('callbackFunc').value = handle;
         document.forms['shellKindForm'].code.focus();
-        tryNumberFormatCurrentcy(document.forms['shellKindForm'].weight, "VND");
+        tryNumberFormatCurrentcy(document.forms['shellKindForm'].weight, "");
         tryNumberFormatCurrentcy(document.forms['shellKindForm'].commission, "VND");
     });
 }
@@ -1249,4 +1265,279 @@ function delVehicle() {
     });
     return false;
 }
+function loadRoutePanel() {
+    callAjax("getRoutePanel.do", null, null, function(data) {
+        clearContent();
+        setAjaxData(data, "contentDiv");
+        loadRouteList();
+    });
+}
+function loadRouteList() {
+    var mygrid = new dhtmlXGridObject('routeList');
+    mygrid.setImagePath("js/dhtmlx/grid/imgs/");
+    mygrid.setHeader("B\u1EA3ng s\u1ED1 xe,Ghi ch\u00FA");
+    mygrid.attachHeader("#text_filter,#text_filter");
+    mygrid.setInitWidths("150,*");
+    mygrid.setColTypes("link,ro");
+    mygrid.setColSorting("str,str");
+    mygrid.setSkin("light");
+    var height = contentHeight - 210;
+    mygrid.al(true, height);//enableAutoHeight
+    mygrid.enablePaging(true, 15, 3, "recinfoArea");
+    mygrid.setPagingSkin("toolbar", "dhx_skyblue");
+    mygrid.init();
+    var url = "getRouteList.do";
+    callAjax(url, null, null, function(data) {
+        mygrid.parse(data);
+    });
+    return false;
+}
+function getRoute(id, handle) {
+    popupName = 'TH\u00D4NG TIN XE';
+    var url = 'routeForm.do';
+    if (id != 0)
+        url += '?routeId=' + id
+    callAjax(url, null, null, function(data) {
+        showPopupForm(data);
+        document.getElementById('callbackFunc').value = handle;
+        document.forms['routeForm'].name.focus();
+        tryNumberFormatCurrentcy(document.forms['routeForm'].distance, "");
+    });
+}
+function saveRoute() {
+    if (scriptFunction == "saveRoute")
+        return false;
+    var field = document.forms['routeForm'].name;
+    if (field.value == '') {
+        alert("Vui l\u00F2ng nh\u1EADp b\u1EA3ng s\u1ED1 xe");
+        field.focus();
+        field = null;
+        return false;
+    }
+    field = null;
+    reformatNumberMoney(document.forms['routeForm'].distance);
+    scriptFunction = "saveRoute";
+    callAjaxCheckError("addRoute.do", null, document.forms['routeForm'], function(data) {
+        scriptFunction = "";
+        var handle = document.getElementById('callbackFunc').value;
+        if (confirm('B\u1EA1n c\u00F3 mu\u1ED1n nh\u1EADp ti\u1EBFp th\u00F4ng tin kh\u00E1c ?'))
+            getRoute(0, handle);
+        else if (handle != '')
+            eval(handle + "()");
+        prepareHidePopup('routeFormshowHelpHideDiv');
+    });
+    return false;
+}
+function delRoute() {
+    callAjaxCheckError('delRoute.do?routeId=' + document.forms['routeForm'].id.value, null, null, function() {
+        loadRoutePanel();
+        prepareHidePopup('routeFormshowHelpHideDiv');
+    });
+    return false;
+}
+function loadAccessoryKindPanel() {
+    callAjax("getAccessoryKindPanel.do", null, null, function(data) {
+        clearContent();
+        setAjaxData(data, "contentDiv");
+        loadAccessoryKindList();
+    });
+}
+function loadAccessoryKindList() {
+    var mygrid = new dhtmlXGridObject('accessoryKindList');
+    mygrid.setImagePath("js/dhtmlx/grid/imgs/");
+    mygrid.setHeader("Tên loại phụ kiện,Chiết khấu bán hàng,Tình trạng");
+    mygrid.attachHeader("#text_filter,#text_filter,#select_filter");
+    mygrid.setInitWidths("*,200,200");
+    mygrid.setColTypes("link,ro");
+    mygrid.setColSorting("str,str");
+    mygrid.setSkin("light");
+    var height = contentHeight - 210;
+    mygrid.al(true, height);//enableAutoHeight
+    mygrid.enablePaging(true, 15, 3, "recinfoArea");
+    mygrid.setPagingSkin("toolbar", "dhx_skyblue");
+    mygrid.init();
+    var list = document.forms['accessoryKindSearchForm'].statusCombobox;
+    if (list != null && list.selectedIndex > -1)
+        list = list.options[list.selectedIndex].value;
+    else
+        list = 0;
+    var url = "getAccessoryKindList.do?status=" + list;
+    callAjax(url, null, null, function(data) {
+        mygrid.parse(data);
+    });
+    return false;
+}
+function getAccessoryKind(id, handle) {
+    popupName = 'TH\u00D4NG TIN LO\u1EA0I PH\u1EE4 KI\u1EC6N';
+    var url = 'accessoryKindForm.do';
+    if (id != 0)
+        url += '?kindId=' + id
+    callAjax(url, null, null, function(data) {
+        showPopupForm(data);
+        document.getElementById('callbackFunc').value = handle;
+        document.forms['accessoryKindForm'].name.focus();
+        tryNumberFormatCurrentcy(document.forms['accessoryKindForm'].commission, "");
+    });
+}
+function saveAccessoryKind() {
+    if (scriptFunction == "saveAccessoryKind")
+        return false;
+    var field = document.forms['accessoryKindForm'].name;
+    if (field.value == '') {
+        alert("Vui l\u00F2ng nh\u1EADp t\u00EAn lo\u1EA1i ph\u1EE5 ki\u1EC7n");
+        field.focus();
+        field = null;
+        return false;
+    }
+    field = null;
+    reformatNumberMoney(document.forms['accessoryKindForm'].commission);
+    scriptFunction = "saveAccessoryKind";
+    callAjaxCheckError("addAccessoryKind.do", null, document.forms['accessoryKindForm'], function(data) {
+        scriptFunction = "";
+        var handle = document.getElementById('callbackFunc').value;
+        if (confirm('B\u1EA1n c\u00F3 mu\u1ED1n nh\u1EADp ti\u1EBFp th\u00F4ng tin kh\u00E1c ?'))
+            getAccessoryKind(0, handle);
+        else if (handle != '')
+            eval(handle + "()");
+        prepareHidePopup('accessoryKindFormshowHelpHideDiv');
+    });
+    return false;
+}
+function loadAccessoryPanel() {
+    callAjax("getAccessoryPanel.do", null, null, function(data) {
+        clearContent();
+        setAjaxData(data, "contentDiv");
+        loadAccessoryList();
+    });
+}
+function loadAccessoryList() {
+    var mygrid = new dhtmlXGridObject('accessoryList');
+    mygrid.setImagePath("js/dhtmlx/grid/imgs/");
+    mygrid.setHeader("T\u00EAn ph\u1EE5 ki\u1EC7n,T\u00ECnh tr\u1EA1ng");
+    mygrid.attachHeader("#text_filter,#select_filter");
+    mygrid.setInitWidths("*,200");
+    mygrid.setColTypes("link,ro");
+    mygrid.setColSorting("str,str");
+    mygrid.setSkin("light");
+    var height = contentHeight - 210;
+    mygrid.al(true, height);//enableAutoHeight
+    mygrid.enablePaging(true, 15, 3, "recinfoArea");
+    mygrid.setPagingSkin("toolbar", "dhx_skyblue");
+    mygrid.init();
+    var list = document.forms['accessorySearchForm'].statusCombobox;
+    if (list != null && list.selectedIndex > -1)
+        list = list.options[list.selectedIndex].value;
+    else
+        list = 0;
+    var url = "getAccessoryList.do?status=" + list;
+    callAjax(url, null, null, function(data) {
+        mygrid.parse(data);
+    });
+    return false;
+}
+function getAccessory(id, handle) {
+    popupName = 'TH\u00D4NG TIN PH\u1EE4 KI\u1EC6N';
+    var url = 'accessoryForm.do';
+    if (id != 0)
+        url += '?accessoryId=' + id
+    callAjax(url, null, null, function(data) {
+        showPopupForm(data);
+        document.getElementById('callbackFunc').value = handle;
+        document.forms['accessoryForm'].name.focus();
+        tryNumberFormatCurrentcy(document.forms['accessoryForm'].price, "VND");
+    });
+}
+function saveAccessory() {
+    if (scriptFunction == "saveAccessory")
+        return false;
+    var field = document.forms['accessoryForm'].name;
+    if (field.value == '') {
+        alert("Vui l\u00F2ng nh\u1EADp t\u00EAn ph\u1EE5 ki\u1EC7n");
+        field.focus();
+        field = null;
+        return false;
+    }
+    field = null;
+    reformatNumberMoney(document.forms['accessoryForm'].price);
+    scriptFunction = "saveAccessory";
+    callAjaxCheckError("addAccessory.do", null, document.forms['accessoryForm'], function(data) {
+        scriptFunction = "";
+        var handle = document.getElementById('callbackFunc').value;
+        if (confirm('B\u1EA1n c\u00F3 mu\u1ED1n nh\u1EADp ti\u1EBFp th\u00F4ng tin kh\u00E1c ?'))
+            getAccessory(0, handle);
+        else if (handle != '')
+            eval(handle + "()");
+        prepareHidePopup('accessoryFormshowHelpHideDiv');
+    });
+    return false;
+}
+function loadPromotionMaterialPanel() {
+    callAjax("getPromotionMaterialPanel.do", null, null, function(data) {
+        clearContent();
+        setAjaxData(data, "contentDiv");
+        loadPromotionMaterialList();
+    });
+}
+function loadPromotionMaterialList() {
+    var mygrid = new dhtmlXGridObject('promotionMaterialList');
+    mygrid.setImagePath("js/dhtmlx/grid/imgs/");
+    mygrid.setHeader("T\u00EAn h\u00E0ng khuy\u1EBFn m\u00E3i,T\u00ECnh tr\u1EA1ng");
+    mygrid.attachHeader("#text_filter,#select_filter");
+    mygrid.setInitWidths("*,200");
+    mygrid.setColTypes("link,ro");
+    mygrid.setColSorting("str,str");
+    mygrid.setSkin("light");
+    var height = contentHeight - 210;
+    mygrid.al(true, height);//enableAutoHeight
+    mygrid.enablePaging(true, 15, 3, "recinfoArea");
+    mygrid.setPagingSkin("toolbar", "dhx_skyblue");
+    mygrid.init();
+    var list = document.forms['promotionMaterialSearchForm'].statusCombobox;
+    if (list != null && list.selectedIndex > -1)
+        list = list.options[list.selectedIndex].value;
+    else
+        list = 0;
+    var url = "getPromotionMaterialList.do?status=" + list;
+    callAjax(url, null, null, function(data) {
+        mygrid.parse(data);
+    });
+    return false;
+}
+function getPromotionMaterial(id, handle) {
+    popupName = 'TH\u00D4NG TIN V\u1ECE B\u00CCNH';
+    var url = 'promotionMaterialForm.do';
+    if (id != 0)
+        url += '?promotionMaterialId=' + id
+    callAjax(url, null, null, function(data) {
+        showPopupForm(data);
+        document.getElementById('callbackFunc').value = handle;
+        document.forms['promotionMaterialForm'].name.focus();
+    });
+}
+function savePromotionMaterial() {
+    if (scriptFunction == "savePromotionMaterial")
+        return false;
+    var field = document.forms['promotionMaterialForm'].name;
+    if (field.value == '') {
+        alert("Vui l\u00F2ng nh\u1EADp t\u00EAn h\u00E0ng khuy\u1EBFn m\u00E3i");
+        field.focus();
+        field = null;
+        return false;
+    }
+    field = null;
+    scriptFunction = "savePromotionMaterial";
+    callAjaxCheckError("addPromotionMaterial.do", null, document.forms['promotionMaterialForm'], function(data) {
+        scriptFunction = "";
+        var handle = document.getElementById('callbackFunc').value;
+        if (confirm('B\u1EA1n c\u00F3 mu\u1ED1n nh\u1EADp ti\u1EBFp th\u00F4ng tin kh\u00E1c ?'))
+            getPromotionMaterial(0, handle);
+        else if (handle != '')
+            eval(handle + "()");
+        prepareHidePopup('promotionMaterialFormshowHelpHideDiv');
+    });
+    return false;
+}
+
+
+
 

@@ -100,5 +100,9 @@ public class PermissionUtil {
     public static int PER_VENDOR = 12;
     public static int PER_ACCOUNT = 13;
     public static int PER_VEHICLE = 14;
+    public static int PER_ROUTE = 15;
+    public static int PER_ACCESSORY_KIND = 16;
+    public static int PER_ACCESSORY = 17;
+    public static int PER_PROMOTION_MATERIAL = 18;
 
 }

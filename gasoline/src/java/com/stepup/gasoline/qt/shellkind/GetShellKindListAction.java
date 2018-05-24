@@ -8,7 +8,7 @@ import com.stepup.core.util.NumberUtil;
 import com.stepup.core.util.OutputUtil;
 import com.stepup.core.util.StringUtil;
 import com.stepup.gasoline.qt.core.BaseAction;
-import com.stepup.gasoline.qt.dao.ShellDAO;
+import com.stepup.gasoline.qt.dao.GoodDAO;
 import java.util.ArrayList;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -28,8 +28,8 @@ public class GetShellKindListAction extends BaseAction {
         buff.append("<?xml version=\"1.0\" encoding=\"UTF-8\"?>");
         buff.append("<rows>");
         try {
-            ShellDAO shellDAO = new ShellDAO();
-            ArrayList list = shellDAO.getShellKinds(NumberUtil.parseInt(request.getParameter("status"), 0));
+            GoodDAO goodDAO = new GoodDAO();
+            ArrayList list = goodDAO.getShellKinds(NumberUtil.parseInt(request.getParameter("status"), 0));
             if (list != null) {
                 int length = list.size();
                 for (int i = 0; i < length; i++) {

@@ -36,5 +36,10 @@ public class Constants {
     public static final String PARAMETER = "parameter";
     public static final String ACCOUNT = "account";
     public static final String VEHICLE = "vehicle";
+    public static final String ROUTE = "route";
+    public static final String ACCESSORY_KIND = "accessoryKind";
+    public static final String ACCESSORY_KIND_LIST = "accessoryKindList";
+    public static final String ACCESSORY = "accessory";
+    public static final String PROMOTION_MATERIAL = "promotionMaterial";
 
 }

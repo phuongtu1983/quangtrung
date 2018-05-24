@@ -6,7 +6,7 @@ package com.stepup.gasoline.qt.shell;
 
 import com.stepup.gasoline.qt.bean.ShellBean;
 import com.stepup.gasoline.qt.core.SpineAction;
-import com.stepup.gasoline.qt.dao.ShellDAO;
+import com.stepup.gasoline.qt.dao.GoodDAO;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import org.apache.struts.action.ActionForm;
@@ -34,12 +34,12 @@ public class AddShellAction extends SpineAction {
     public boolean doAction(ActionMapping mapping, ActionForm form,
             HttpServletRequest request, HttpServletResponse response) {
         ShellFormBean formBean = (ShellFormBean) form;
-        ShellDAO shellDAO = new ShellDAO();
+        GoodDAO goodDAO = new GoodDAO();
         ShellBean bean = null;
         boolean bNew = false;
         boolean isExist = false;
         try {
-            bean = shellDAO.getShellByName(formBean.getName());
+            bean = goodDAO.getShellByName(formBean.getName());
         } catch (Exception ex) {
         }
         int shellId = formBean.getId();
@@ -55,7 +55,7 @@ public class AddShellAction extends SpineAction {
             }
             try {
                 if (bean == null) {
-                    bean = shellDAO.getShell(shellId);
+                    bean = goodDAO.getShell(shellId);
                 }
             } catch (Exception ex) {
             }
@@ -101,10 +101,10 @@ public class AddShellAction extends SpineAction {
         bean.setStatus(formBean.getStatus());
         try {
             if (bNew) {
-                shellDAO.insertShell(bean);
+                goodDAO.insertShell(bean);
             } else {
                 if (isUpdate) {
-                    shellDAO.updateShell(bean);
+                    goodDAO.updateShell(bean);
                 }
             }
         } catch (Exception ex) {

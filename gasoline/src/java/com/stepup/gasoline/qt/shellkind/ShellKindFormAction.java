@@ -7,7 +7,7 @@ package com.stepup.gasoline.qt.shellkind;
 import com.stepup.gasoline.qt.bean.EmployeeBean;
 import com.stepup.gasoline.qt.bean.ShellKindBean;
 import com.stepup.gasoline.qt.core.SpineAction;
-import com.stepup.gasoline.qt.dao.ShellDAO;
+import com.stepup.gasoline.qt.dao.GoodDAO;
 import com.stepup.gasoline.qt.util.Constants;
 import com.stepup.gasoline.qt.util.QTUtil;
 import java.util.ArrayList;
@@ -40,9 +40,9 @@ public class ShellKindFormAction extends SpineAction {
         ShellKindBean bean = null;
         String kindId = request.getParameter("kindId");
         if (!GenericValidator.isBlankOrNull(kindId)) {
-            ShellDAO shellDAO = new ShellDAO();
+            GoodDAO goodDAO = new GoodDAO();
             try {
-                bean = shellDAO.getShellKind(Integer.parseInt(kindId));
+                bean = goodDAO.getShellKind(Integer.parseInt(kindId));
             } catch (Exception ex) {
             }
         }

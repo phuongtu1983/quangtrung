@@ -7,7 +7,7 @@ package com.stepup.gasoline.qt.shell;
 import com.stepup.gasoline.qt.bean.EmployeeBean;
 import com.stepup.gasoline.qt.bean.ShellBean;
 import com.stepup.gasoline.qt.core.SpineAction;
-import com.stepup.gasoline.qt.dao.ShellDAO;
+import com.stepup.gasoline.qt.dao.GoodDAO;
 import com.stepup.gasoline.qt.dao.UnitDAO;
 import com.stepup.gasoline.qt.util.Constants;
 import com.stepup.gasoline.qt.util.QTUtil;
@@ -39,11 +39,11 @@ public class ShellFormAction extends SpineAction {
     public boolean doAction(ActionMapping mapping, ActionForm form,
             HttpServletRequest request, HttpServletResponse response) {
         ShellBean bean = null;
-        String kindId = request.getParameter("shellId");
-        if (!GenericValidator.isBlankOrNull(kindId)) {
-            ShellDAO shellDAO = new ShellDAO();
+        String shellId = request.getParameter("shellId");
+        if (!GenericValidator.isBlankOrNull(shellId)) {
+            GoodDAO goodDAO = new GoodDAO();
             try {
-                bean = shellDAO.getShell(Integer.parseInt(kindId));
+                bean = goodDAO.getShell(Integer.parseInt(shellId));
             } catch (Exception ex) {
             }
         }
@@ -77,8 +77,8 @@ public class ShellFormAction extends SpineAction {
 
         ArrayList arrShellKind = null;
         try {
-            ShellDAO shellDAO = new ShellDAO();
-            arrShellKind = shellDAO.getShellKinds(EmployeeBean.STATUS_ACTIVE);
+            GoodDAO goodDAO = new GoodDAO();
+            arrShellKind = goodDAO.getShellKinds(EmployeeBean.STATUS_ACTIVE);
         } catch (Exception ex) {
         }
         if (arrShellKind == null) {

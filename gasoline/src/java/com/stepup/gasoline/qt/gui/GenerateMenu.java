@@ -104,7 +104,8 @@ public class GenerateMenu {
             }
 
             if (isHasPermission(PermissionUtil.OPERATION_LIST + "," + PermissionUtil.OPERATION_ADD,
-                    PermissionUtil.PER_UNIT + "," + PermissionUtil.PER_SHELL_KIND + "," + PermissionUtil.PER_SHELL)) {
+                    PermissionUtil.PER_UNIT + "," + PermissionUtil.PER_SHELL_KIND + "," + PermissionUtil.PER_SHELL
+                    + "," + PermissionUtil.PER_ACCESSORY + "," + PermissionUtil.PER_ACCESSORY_KIND + "," + PermissionUtil.PER_PROMOTION_MATERIAL)) {
                 buffTemp.append("<item id=\"good\" complex=\"true\" text=\"").append(QTUtil.getBundleString("menu.good")).append("\">");//start good
                 if (isHasPermission(PermissionUtil.OPERATION_LIST + "," + PermissionUtil.OPERATION_ADD, PermissionUtil.PER_UNIT)) {
                     buffTemp.append("<item id=\"units\" complex=\"true\" text=\"").append(QTUtil.getBundleString("unit.title")).append("\">");//start units
@@ -136,6 +137,36 @@ public class GenerateMenu {
                     }
                     buffTemp.append("</item>");//end shells
                 }
+                if (isHasPermission(PermissionUtil.OPERATION_LIST + "," + PermissionUtil.OPERATION_ADD, PermissionUtil.PER_ACCESSORY_KIND)) {
+                    buffTemp.append("<item id=\"accessorykinds\" complex=\"true\" text=\"").append(QTUtil.getBundleString("accessoryKind.title")).append("\">");//start accessory kind
+                    if (isHasPermission(PermissionUtil.OPERATION_LIST, PermissionUtil.PER_ACCESSORY_KIND)) {
+                        buffTemp.append("<item id=\"accessorykindlist\" text=\"").append(QTUtil.getBundleString("accessoryKind.list.title")).append("\"/>");//list accessory kind
+                    }
+                    if (isHasPermission(PermissionUtil.OPERATION_ADD, PermissionUtil.PER_ACCESSORY_KIND)) {
+                        buffTemp.append("<item id=\"accessorykindadd\" text=\"").append(QTUtil.getBundleString("accessoryKind.detail.add.title")).append("\"/>");//add accessory kind
+                    }
+                    buffTemp.append("</item>");//end accessory kinds
+                }
+                if (isHasPermission(PermissionUtil.OPERATION_LIST + "," + PermissionUtil.OPERATION_ADD, PermissionUtil.PER_ACCESSORY)) {
+                    buffTemp.append("<item id=\"accessorys\" complex=\"true\" text=\"").append(QTUtil.getBundleString("accessory.title")).append("\">");//start accessory
+                    if (isHasPermission(PermissionUtil.OPERATION_LIST, PermissionUtil.PER_ACCESSORY)) {
+                        buffTemp.append("<item id=\"accessorylist\" text=\"").append(QTUtil.getBundleString("accessory.list.title")).append("\"/>");//list accessory
+                    }
+                    if (isHasPermission(PermissionUtil.OPERATION_ADD, PermissionUtil.PER_ACCESSORY)) {
+                        buffTemp.append("<item id=\"accessoryadd\" text=\"").append(QTUtil.getBundleString("accessory.detail.add.title")).append("\"/>");//add accessory
+                    }
+                    buffTemp.append("</item>");//end accessorys
+                }
+                if (isHasPermission(PermissionUtil.OPERATION_LIST + "," + PermissionUtil.OPERATION_ADD, PermissionUtil.PER_PROMOTION_MATERIAL)) {
+                    buffTemp.append("<item id=\"promotionmaterials\" complex=\"true\" text=\"").append(QTUtil.getBundleString("promotionMaterial.title")).append("\">");//start promotionmaterial
+                    if (isHasPermission(PermissionUtil.OPERATION_LIST, PermissionUtil.PER_PROMOTION_MATERIAL)) {
+                        buffTemp.append("<item id=\"promotionmateriallist\" text=\"").append(QTUtil.getBundleString("promotionMaterial.list.title")).append("\"/>");//list promotionmaterial
+                    }
+                    if (isHasPermission(PermissionUtil.OPERATION_ADD, PermissionUtil.PER_PROMOTION_MATERIAL)) {
+                        buffTemp.append("<item id=\"promotionmaterialadd\" text=\"").append(QTUtil.getBundleString("promotionMaterial.detail.add.title")).append("\"/>");//add promotionmaterial
+                    }
+                    buffTemp.append("</item>");//end promotionmaterials
+                }
                 buffTemp.append("</item>");//end good
             }
 
@@ -157,10 +188,10 @@ public class GenerateMenu {
                 }
                 buffTemp.append("</item>");//end vendor
             }
-            
+
             if (isHasPermission(PermissionUtil.OPERATION_LIST + "," + PermissionUtil.OPERATION_ADD,
-                    PermissionUtil.PER_VEHICLE)) {
-                buffTemp.append("<item id=\"other\" complex=\"true\" text=\"").append(QTUtil.getBundleString("menu.other")).append("\">");//start other
+                    PermissionUtil.PER_VEHICLE + "," + PermissionUtil.PER_ROUTE)) {
+                buffTemp.append("<item id=\"vehicle\" complex=\"true\" text=\"").append(QTUtil.getBundleString("vehicle.title")).append("\">");//start vehicle
                 if (isHasPermission(PermissionUtil.OPERATION_LIST + "," + PermissionUtil.OPERATION_ADD, PermissionUtil.PER_VEHICLE)) {
                     buffTemp.append("<item id=\"vehicles\" complex=\"true\" text=\"").append(QTUtil.getBundleString("vehicle.title")).append("\">");//start vehicles
                     if (isHasPermission(PermissionUtil.OPERATION_LIST, PermissionUtil.PER_VEHICLE)) {
@@ -171,7 +202,17 @@ public class GenerateMenu {
                     }
                     buffTemp.append("</item>");//end vehicles
                 }
-                buffTemp.append("</item>");//end other
+                if (isHasPermission(PermissionUtil.OPERATION_LIST + "," + PermissionUtil.OPERATION_ADD, PermissionUtil.PER_ROUTE)) {
+                    buffTemp.append("<item id=\"routes\" complex=\"true\" text=\"").append(QTUtil.getBundleString("route.title")).append("\">");//start routes
+                    if (isHasPermission(PermissionUtil.OPERATION_LIST, PermissionUtil.PER_ROUTE)) {
+                        buffTemp.append("<item id=\"routelist\" text=\"").append(QTUtil.getBundleString("route.list.title")).append("\"/>");//list route
+                    }
+                    if (isHasPermission(PermissionUtil.OPERATION_ADD, PermissionUtil.PER_ROUTE)) {
+                        buffTemp.append("<item id=\"routeadd\" text=\"").append(QTUtil.getBundleString("route.detail.add.title")).append("\"/>");//add route
+                    }
+                    buffTemp.append("</item>");//end routes
+                }
+                buffTemp.append("</item>");//end vehicle
             }
 
             if (buffTemp.length() > 0) {
