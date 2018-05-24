@@ -20,7 +20,7 @@ import java.util.ArrayList;
  *
  * @author phuongtu
  */
-public class PermissionDAO {
+public class PermissionDAO extends BasicDAO {
 
     public ArrayList<ApplicationPermissionBean> getPermissionsOfEmployee(int empId) throws Exception {
         ResultSet rs = null;

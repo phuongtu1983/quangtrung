@@ -9,10 +9,8 @@ import java.util.ArrayList;
 /**
  * @author Mai Vinh Loc
  */
-public class ParameterDAO {
+public class ParameterDAO extends BasicDAO {
 
-    public ParameterDAO() {
-    }
 //
 //    public ArrayList getParameters() throws Exception {
 //        ResultSet rs = null;
@@ -41,7 +39,6 @@ public class ParameterDAO {
 //        }
 //        return list;
 //    }
-
     public ParameterBean getParameter(String code) throws Exception {
         ResultSet rs = null;
         String sql = "SELECT * FROM parameter where code='" + code + "'";

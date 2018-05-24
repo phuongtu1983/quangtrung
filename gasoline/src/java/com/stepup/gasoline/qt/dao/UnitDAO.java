@@ -17,7 +17,7 @@ import java.util.ArrayList;
  *
  * @author phuongtu
  */
-public class UnitDAO {
+public class UnitDAO extends BasicDAO{
 
     public ArrayList getUnits(int status) throws Exception {
         ResultSet rs = null;

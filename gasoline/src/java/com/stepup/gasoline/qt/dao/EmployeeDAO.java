@@ -18,7 +18,7 @@ import java.util.ArrayList;
  *
  * @author phuongtu
  */
-public class EmployeeDAO {
+public class EmployeeDAO extends BasicDAO{
 
     public OnlineUser login(String username, String password)
             throws Exception {
@@ -65,6 +65,7 @@ public class EmployeeDAO {
                 employee.setFullname(rs.getString("fullname"));
                 employee.setEmail(rs.getString("email"));
                 employee.setSalary(rs.getDouble("salary"));
+                employee.setOrganizationId(rs.getInt("organization_id"));
                 employee.setStatus(rs.getInt("status"));
                 if (employee.getStatus() == EmployeeBean.STATUS_ACTIVE) {
                     employee.setStatusName(QTUtil.getBundleString("employee.detail.status.active"));

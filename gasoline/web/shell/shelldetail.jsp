@@ -21,7 +21,7 @@
                             <td><html:text property="price" size="40" name="<%=Constants.SHELL%>" onkeyup="try2FloatFormatOnKeyUp(this,event);" onkeypress="return readonlyFloat(event);"/></td>
                             <td style="padding-right: 20px;padding-left: 10px"><bean:message key="shellKind.title"/></td>
                             <td>
-                                <html:select property="shellKindId" name="<%=Constants.SHELL%>" style="width:260px">
+                                <html:select property="kindId" name="<%=Constants.SHELL%>" style="width:260px">
                                     <html:options collection="<%=Constants.SHELL_KIND_LIST%>" property="id" labelProperty="name"/>
                                 </html:select>
                             </td>
@@ -35,7 +35,7 @@
                             </td>
                             <td style="padding-left: 10px; padding-right: 20px"><bean:message key="employee.detail.status"/></td>
                             <td>
-                                <html:select property="status" name="<%=Constants.STORE%>" style="width:260px">
+                                <html:select property="status" name="<%=Constants.SHELL%>" style="width:260px">
                                     <html:options collection="<%=Constants.STATUS_LIST%>" property="value" labelProperty="label"/>
                                 </html:select>
                             </td>

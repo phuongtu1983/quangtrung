@@ -33,12 +33,12 @@ function menuClick(id) {
         loadStorePanel();
     else if (id == 'storeadd')
         getStore(0, 'loadStorePanel');
-    else if (id == 'employeefiellist')
-        loadDynamicFieldPanel("employee");
     else if (id == 'employeelist')
         loadEmployeePanel();
-    else if (id == 'employeedd')
+    else if (id == 'employeeadd')
         getEmployee(0, 'loadEmployeePanel');
+    else if (id == 'employeefiellist')
+        loadDynamicFieldPanel("employee");
     else if (id == 'userlist')
         loadUserPanel();
     else if (id == 'useradd')
@@ -59,6 +59,20 @@ function menuClick(id) {
         loadShellPanel();
     else if (id == 'shelladd')
         getShell(0, 'loadShellPanel');
+    else if (id == 'vendorlist')
+        loadVendorPanel();
+    else if (id == 'vendoradd')
+        getVendor(0, 'loadVendorPanel');
+    else if (id == 'vendorfiellist')
+        loadDynamicFieldPanel("vendor");
+    else if (id == 'accountlist')
+        loadAccountPanel();
+    else if (id == 'accountadd')
+        getAccount(0, 'loadAccountPanel');
+    else if (id == 'vehiclelist')
+        loadVehiclePanel();
+    else if (id == 'vehicleadd')
+        getVehicle(0, 'loadVehiclePanel');
 
 }
 function clearContent() {
@@ -965,7 +979,7 @@ function getShell(id, handle) {
     popupName = 'TH\u00D4NG TIN V\u1ECE B\u00CCNH';
     var url = 'shellForm.do';
     if (id != 0)
-        url += '?kindId=' + id
+        url += '?shellId=' + id
     callAjax(url, null, null, function(data) {
         showPopupForm(data);
         document.getElementById('callbackFunc').value = handle;
@@ -976,7 +990,7 @@ function getShell(id, handle) {
 function saveShell() {
     if (scriptFunction == "saveShell")
         return false;
-    var field = document.forms['shellKind'].code;
+    var field = document.forms['shellForm'].code;
     if (field.value == '') {
         alert("Vui l\u00F2ng nh\u1EADp m\u00E3 v\u1ECF b\u00ECnh");
         field.focus();
@@ -1004,3 +1018,235 @@ function saveShell() {
     });
     return false;
 }
+function loadVendorPanel() {
+    callAjax("getVendorPanel.do", null, null, function(data) {
+        clearContent();
+        setAjaxData(data, "contentDiv");
+        loadVendorList();
+    });
+}
+function loadVendorList() {
+    var mygrid = new dhtmlXGridObject('vendorList');
+    mygrid.setImagePath("js/dhtmlx/grid/imgs/");
+    mygrid.setHeader("M\u00E3 nh\u00E0 cung c\u1EA5p,T\u00EAn nh\u00E0 cung c\u1EA5p,\u0110\u01A1n v\u1ECB,T\u00ECnh tr\u1EA1ng");
+    mygrid.attachHeader("#text_filter,#text_filter,#select_filter,#select_filter");
+    mygrid.setInitWidths("100,*,250,150");
+    mygrid.setColTypes("link,ro,ro,ro");
+    mygrid.setColSorting("str,str,str,str");
+    mygrid.setSkin("light");
+    var height = contentHeight - 210;
+    mygrid.al(true, height);//enableAutoHeight
+    mygrid.enablePaging(true, 15, 3, "recinfoArea");
+    mygrid.setPagingSkin("toolbar", "dhx_skyblue");
+    mygrid.init();
+    var list = document.forms['vendorSearchForm'].statusCombobox;
+    if (list != null && list.selectedIndex > -1)
+        list = list.options[list.selectedIndex].value;
+    else
+        list = 0;
+    var url = "getVendorList.do?status=" + list;
+    callAjax(url, null, null, function(data) {
+        mygrid.parse(data);
+    });
+    return false;
+}
+function getVendor(id, handle) {
+    popupName = 'TH\u00D4NG TIN NH\u00C0 CUNG C\u1EA4P';
+    var url = 'vendorForm.do';
+    if (id != 0)
+        url += '?vendorId=' + id
+    callAjax(url, null, null, function(data) {
+        showPopupForm(data);
+        document.getElementById('callbackFunc').value = handle;
+        document.forms['vendorForm'].code.focus();
+    });
+}
+function saveVendor() {
+    if (scriptFunction == "saveVendor")
+        return false;
+    var field = document.forms['vendorForm'].code;
+    if (field.value == '') {
+        alert("Vui l\u00F2ng nh\u1EADp m\u00E3 nh\u00E0 cung c\u1EA5p");
+        field.focus();
+        field = null;
+        return false;
+    }
+    field = document.forms['vendorForm'].name;
+    if (field.value == '') {
+        alert("Vui l\u00F2ng nh\u1EADp t\u00EAn nh\u00E0 cung c\u1EA5p");
+        field.focus();
+        field = null;
+        return false;
+    }
+    field = null;
+    scriptFunction = "saveVendor";
+    callAjaxCheckError("addVendor.do", null, document.forms['vendorForm'], function(data) {
+        scriptFunction = "";
+        var handle = document.getElementById('callbackFunc').value;
+        if (confirm('B\u1EA1n c\u00F3 mu\u1ED1n nh\u1EADp ti\u1EBFp th\u00F4ng tin kh\u00E1c ?'))
+            getVendor(0, handle);
+        else if (handle != '')
+            eval(handle + "()");
+        prepareHidePopup('vendorFormshowHelpHideDiv');
+    });
+    return false;
+}
+function dynamicFieldOrganizationChanged(list, tableName, div) {
+    if (list.selectedIndex == -1)
+        return false;
+    var url = "getDynamicFieldByOrganization.do?tableName=" + tableName + "&organizationId=" + list.options[list.selectedIndex].value;
+    callAjax(url, div, null, null);
+    list = null;
+    return false;
+}
+function loadAccountPanel() {
+    callAjax("getAccountPanel.do", null, null, function(data) {
+        clearContent();
+        setAjaxData(data, "contentDiv");
+        loadAccountList();
+    });
+}
+function loadAccountList() {
+    var mygrid = new dhtmlXGridObject('accountList');
+    mygrid.setImagePath("js/dhtmlx/grid/imgs/");
+    mygrid.setHeader("S\u1ED1 t\u00E0i kho\u1EA3n,Ch\u1EE7 t\u00E0i kho\u1EA3n,Ng\u00E2n h\u00E0ng,Chi nh\u00E1nh");
+    mygrid.attachHeader("#text_filter,#text_filter,#text_filter,#text_filter");
+    mygrid.setInitWidths("150,150,250,*");
+    mygrid.setColTypes("link,ro,ro,ro");
+    mygrid.setColSorting("str,str,str,str");
+    mygrid.setSkin("light");
+    var height = contentHeight - 210;
+    mygrid.al(true, height);//enableAutoHeight
+    mygrid.enablePaging(true, 15, 3, "recinfoArea");
+    mygrid.setPagingSkin("toolbar", "dhx_skyblue");
+    mygrid.init();
+    var url = "getAccountList.do";
+    callAjax(url, null, null, function(data) {
+        mygrid.parse(data);
+    });
+    return false;
+}
+function getAccount(id, handle) {
+    popupName = 'TH\u00D4NG TIN T\u00C0I KHO\u1EA2N NG\u00C2N H\u00C0NG';
+    var url = 'accountForm.do';
+    if (id != 0)
+        url += '?accountId=' + id
+    callAjax(url, null, null, function(data) {
+        showPopupForm(data);
+        document.getElementById('callbackFunc').value = handle;
+        document.forms['accountForm'].number.focus();
+    });
+}
+function saveAccount() {
+    if (scriptFunction == "saveAccount")
+        return false;
+    var field = document.forms['accountForm'].number;
+    if (field.value == '') {
+        alert("Vui l\u00F2ng nh\u1EADp số tài khoản");
+        field.focus();
+        field = null;
+        return false;
+    }
+    field = document.forms['accountForm'].holder;
+    if (field.value == '') {
+        alert("Vui l\u00F2ng nh\u1EADp ch\u1EE7 t\u00E0i kho\u1EA3n");
+        field.focus();
+        field = null;
+        return false;
+    }
+    field = document.forms['accountForm'].bank;
+    if (field.value == '') {
+        alert("Vui l\u00F2ng nh\u1EADp ng\u00E2n h\u00E0ng");
+        field.focus();
+        field = null;
+        return false;
+    }
+    field = document.forms['accountForm'].branch;
+    if (field.value == '') {
+        alert("Vui l\u00F2ng nh\u1EADp chi nh\u00E1nh");
+        field.focus();
+        field = null;
+        return false;
+    }
+    field = null;
+    scriptFunction = "saveAccount";
+    callAjaxCheckError("addAccount.do", null, document.forms['accountForm'], function(data) {
+        scriptFunction = "";
+        var handle = document.getElementById('callbackFunc').value;
+        if (confirm('B\u1EA1n c\u00F3 mu\u1ED1n nh\u1EADp ti\u1EBFp th\u00F4ng tin kh\u00E1c ?'))
+            getAccount(0, handle);
+        else if (handle != '')
+            eval(handle + "()");
+        prepareHidePopup('accountFormshowHelpHideDiv');
+    });
+    return false;
+}
+function loadVehiclePanel() {
+    callAjax("getVehiclePanel.do", null, null, function(data) {
+        clearContent();
+        setAjaxData(data, "contentDiv");
+        loadVehicleList();
+    });
+}
+function loadVehicleList() {
+    var mygrid = new dhtmlXGridObject('vehicleList');
+    mygrid.setImagePath("js/dhtmlx/grid/imgs/");
+    mygrid.setHeader("B\u1EA3ng s\u1ED1 xe,Ghi ch\u00FA");
+    mygrid.attachHeader("#text_filter,#text_filter");
+    mygrid.setInitWidths("150,*");
+    mygrid.setColTypes("link,ro");
+    mygrid.setColSorting("str,str");
+    mygrid.setSkin("light");
+    var height = contentHeight - 210;
+    mygrid.al(true, height);//enableAutoHeight
+    mygrid.enablePaging(true, 15, 3, "recinfoArea");
+    mygrid.setPagingSkin("toolbar", "dhx_skyblue");
+    mygrid.init();
+    var url = "getVehicleList.do";
+    callAjax(url, null, null, function(data) {
+        mygrid.parse(data);
+    });
+    return false;
+}
+function getVehicle(id, handle) {
+    popupName = 'TH\u00D4NG TIN XE';
+    var url = 'vehicleForm.do';
+    if (id != 0)
+        url += '?vehicleId=' + id
+    callAjax(url, null, null, function(data) {
+        showPopupForm(data);
+        document.getElementById('callbackFunc').value = handle;
+        document.forms['vehicleForm'].plate.focus();
+    });
+}
+function saveVehicle() {
+    if (scriptFunction == "saveVehicle")
+        return false;
+    var field = document.forms['vehicleForm'].plate;
+    if (field.value == '') {
+        alert("Vui l\u00F2ng nh\u1EADp b\u1EA3ng s\u1ED1 xe");
+        field.focus();
+        field = null;
+        return false;
+    }
+    field = null;
+    scriptFunction = "saveVehicle";
+    callAjaxCheckError("addVehicle.do", null, document.forms['vehicleForm'], function(data) {
+        scriptFunction = "";
+        var handle = document.getElementById('callbackFunc').value;
+        if (confirm('B\u1EA1n c\u00F3 mu\u1ED1n nh\u1EADp ti\u1EBFp th\u00F4ng tin kh\u00E1c ?'))
+            getVehicle(0, handle);
+        else if (handle != '')
+            eval(handle + "()");
+        prepareHidePopup('vehicleFormshowHelpHideDiv');
+    });
+    return false;
+}
+function delVehicle() {
+    callAjaxCheckError('delVehicle.do?vehicleId=' + document.forms['vehicleForm'].id.value, null, null, function() {
+        loadVehiclePanel();
+        prepareHidePopup('vehicleFormshowHelpHideDiv');
+    });
+    return false;
+}
+

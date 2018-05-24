@@ -19,7 +19,7 @@
                         <tr>
                             <td height="30" style="padding-right: 20px"><bean:message key="organization.title"/></td>
                             <td>
-                                <html:select property="organizationId" name="<%=Constants.EMPLOYEE%>" style="width:255px">
+                                <html:select property="organizationId" name="<%=Constants.EMPLOYEE%>" style="width:255px" onchange="return dynamicFieldOrganizationChanged(this,'employee','employeeDynamicField')">
                                     <html:options collection="<%=Constants.ORGANIZATION_LIST%>" property="id" labelProperty="name"/>
                                 </html:select>
                             </td>
@@ -34,7 +34,11 @@
                             <td height="30" style="padding-right: 20px"><bean:message key="employee.detail.salary"/></td>
                             <td colspan="3"><html:text property="salary" size="40" name="<%=Constants.EMPLOYEE%>" onkeyup="try2FloatFormatOnKeyUp(this,event);" onkeypress="return readonlyFloat(event);"/></td>
                         </tr>
-                        <tr><td height="30" style="padding-right: 20px" colspan="4"><%@include  file="/dynamicfield/fieldvalues.jsp"%></td></tr>
+                        <tr>
+                            <td height="30" style="padding-right: 20px" colspan="4">
+                                <div id="employeeDynamicField"><%@include  file="/dynamicfield/fieldvalues.jsp"%></div>
+                            </td>
+                        </tr>
                     </table>
                 </td></tr>
             <tr>

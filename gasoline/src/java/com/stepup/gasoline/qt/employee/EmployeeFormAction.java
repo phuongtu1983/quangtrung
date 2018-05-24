@@ -5,6 +5,7 @@
 package com.stepup.gasoline.qt.employee;
 
 import com.stepup.gasoline.qt.bean.EmployeeBean;
+import com.stepup.gasoline.qt.bean.OrganizationBean;
 import com.stepup.gasoline.qt.core.DynamicFieldValueAction;
 import com.stepup.gasoline.qt.dao.EmployeeDAO;
 import com.stepup.gasoline.qt.dao.OrganizationDAO;
@@ -40,6 +41,7 @@ public class EmployeeFormAction extends DynamicFieldValueAction {
         EmployeeFormBean formBean = null;
         String employeeid = request.getParameter("employeeId");
         EmployeeDAO employeeDAO = new EmployeeDAO();
+        int seletecOrganizationId = 0;
         if (!GenericValidator.isBlankOrNull(employeeid)) {
             try {
                 formBean = employeeDAO.getEmployee(Integer.parseInt(employeeid));
@@ -49,6 +51,7 @@ public class EmployeeFormAction extends DynamicFieldValueAction {
         if (formBean == null) {
             formBean = new EmployeeFormBean();
         }
+        seletecOrganizationId = formBean.getOrganizationId();
         request.setAttribute(Constants.EMPLOYEE, formBean);
 
         ArrayList arrStatus = new ArrayList();
@@ -74,6 +77,13 @@ public class EmployeeFormAction extends DynamicFieldValueAction {
         }
         request.setAttribute(Constants.ORGANIZATION_LIST, arrOrganization);
 
+        if (seletecOrganizationId == 0) {
+            if (arrOrganization != null && arrOrganization.size() > 0) {
+                OrganizationBean orgBean = (OrganizationBean) arrOrganization.get(0);
+                seletecOrganizationId = orgBean.getId();
+            }
+        }
+        super.setOrganizationId(seletecOrganizationId);
         super.setParentId(formBean.getId());
         return true;
     }

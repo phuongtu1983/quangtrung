@@ -7,7 +7,6 @@ package com.stepup.gasoline.qt.core;
 
 import com.stepup.gasoline.qt.dao.DynamicFieldDAO;
 import com.stepup.gasoline.qt.util.Constants;
-import com.stepup.gasoline.qt.util.QTUtil;
 import java.util.ArrayList;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -21,6 +20,7 @@ import org.apache.struts.action.ActionMapping;
 public class DynamicFieldValueAction extends SpineAction {
 
     protected int parentId;
+    protected int organizationId;
 
     @Override
     public boolean doAction(ActionMapping mapping, ActionForm form,
@@ -39,12 +39,16 @@ public class DynamicFieldValueAction extends SpineAction {
         ArrayList arrField = null;
         try {
             DynamicFieldDAO dynamicFieldDAO = new DynamicFieldDAO();
-            arrField = dynamicFieldDAO.getDynamicFieldValues(this.parentId, getTableName(), QTUtil.getOrganizationId(request.getSession()));
+            arrField = dynamicFieldDAO.getDynamicFieldValues(this.parentId, getTableName(), this.organizationId);
         } catch (Exception ex) {
         }
         if (arrField != null && arrField.size() > 0) {
             request.setAttribute(Constants.DYNAMIC_FIELD_VALUE, arrField);
         }
+    }
+
+    public void setOrganizationId(int organizationId) {
+        this.organizationId = organizationId;
     }
 
     protected void setParentId(int id) {

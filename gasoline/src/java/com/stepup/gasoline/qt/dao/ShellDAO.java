@@ -7,7 +7,9 @@ package com.stepup.gasoline.qt.dao;
 
 import com.stepup.core.database.DBUtil;
 import com.stepup.gasoline.qt.bean.EmployeeBean;
+import com.stepup.gasoline.qt.bean.ShellBean;
 import com.stepup.gasoline.qt.bean.ShellKindBean;
+import com.stepup.gasoline.qt.shell.ShellFormBean;
 import com.stepup.gasoline.qt.shellkind.ShellKindFormBean;
 import com.stepup.gasoline.qt.util.QTUtil;
 import java.sql.ResultSet;
@@ -159,4 +161,149 @@ public class ShellDAO extends BasicDAO {
             }
         }
     }
+
+    public ArrayList getShells(int status) throws Exception {
+        ResultSet rs = null;
+        String sql = "select * from shell where 1";
+        if (status != 0) {
+            sql += " and status=" + status;
+        }
+        sql += " order by name";
+        ArrayList list = new ArrayList();
+        try {
+            rs = DBUtil.executeQuery(sql);
+            ShellFormBean bean = null;
+            while (rs.next()) {
+                bean = new ShellFormBean();
+                bean.setId(rs.getInt("id"));
+                bean.setName(rs.getString("name"));
+                bean.setCode(rs.getString("code"));
+                bean.setUnitId(rs.getInt("unit_id"));
+                bean.setKindId(rs.getInt("kind_id"));
+                bean.setPrice(rs.getDouble("price"));
+                bean.setStatus(rs.getInt("status"));
+                if (bean.getStatus() == EmployeeBean.STATUS_ACTIVE) {
+                    bean.setStatusName(QTUtil.getBundleString("employee.detail.status.active"));
+                } else if (bean.getStatus() == EmployeeBean.STATUS_INACTIVE) {
+                    bean.setStatusName(QTUtil.getBundleString("employee.detail.status.inactive"));
+                }
+                list.add(bean);
+            }
+        } catch (SQLException sqle) {
+            throw new Exception(sqle.getMessage());
+        } catch (Exception ex) {
+            throw new Exception(ex.getMessage());
+        } finally {
+            if (rs != null) {
+                DBUtil.closeConnection(rs);
+            }
+        }
+        return list;
+    }
+
+    public ShellBean getShell(int shellId) throws Exception {
+        ResultSet rs = null;
+        String sql = "select * from shell where id=" + shellId;
+        try {
+            rs = DBUtil.executeQuery(sql);
+            while (rs.next()) {
+                ShellBean bean = new ShellBean();
+                bean.setId(rs.getInt("id"));
+                bean.setName(rs.getString("name"));
+                bean.setCode(rs.getString("code"));
+                bean.setUnitId(rs.getInt("unit_id"));
+                bean.setKindId(rs.getInt("kind_id"));
+                bean.setPrice(rs.getDouble("price"));
+                bean.setStatus(rs.getInt("status"));
+                return bean;
+            }
+        } catch (SQLException sqle) {
+            throw new Exception(sqle.getMessage());
+        } catch (Exception ex) {
+            throw new Exception(ex.getMessage());
+        } finally {
+            if (rs != null) {
+                DBUtil.closeConnection(rs);
+            }
+        }
+        return null;
+    }
+
+    public ShellBean getShellByName(String name) throws Exception {
+        ResultSet rs = null;
+        String sql = "select * from shell where name='" + name + "'"
+                + " and status=" + EmployeeBean.STATUS_ACTIVE;
+        try {
+            rs = DBUtil.executeQuery(sql);
+            while (rs.next()) {
+                ShellBean bean = new ShellBean();
+                bean.setId(rs.getInt("id"));
+                bean.setName(rs.getString("name"));
+                bean.setCode(rs.getString("code"));
+                bean.setUnitId(rs.getInt("unit_id"));
+                bean.setKindId(rs.getInt("kind_id"));
+                bean.setPrice(rs.getDouble("price"));
+                bean.setStatus(rs.getInt("status"));
+                return bean;
+            }
+        } catch (SQLException sqle) {
+            throw new Exception(sqle.getMessage());
+        } catch (Exception ex) {
+            throw new Exception(ex.getMessage());
+        } finally {
+            if (rs != null) {
+                DBUtil.closeConnection(rs);
+            }
+        }
+        return null;
+    }
+
+    public void insertShell(ShellBean bean) throws Exception {
+        if (bean == null) {
+            return;
+        }
+        try {
+            String sql = "";
+            sql = "Insert Into shell (name, code, kind_id, unit_id, price, status)"
+                    + " Values ('" + bean.getName() + "','" + bean.getCode() + "'," + bean.getKindId() + "," + bean.getUnitId() + "," + bean.getPrice() + "," + bean.getStatus() + ")";
+            DBUtil.executeInsert(sql);
+        } catch (SQLException sqle) {
+            throw new Exception(sqle.getMessage());
+        } catch (Exception ex) {
+            throw new Exception(ex.getMessage());
+        } finally {
+            try {
+            } catch (Exception e) {
+                throw new Exception(e.getMessage());
+            }
+
+        }
+    }
+
+    public void updateShell(ShellBean bean) throws Exception {
+        if (bean == null) {
+            return;
+        }
+        try {
+            String sql = "Update shell Set "
+                    + " name='" + bean.getName() + "'"
+                    + ", code='" + bean.getCode() + "'"
+                    + ", unit_id=" + bean.getUnitId()
+                    + ", kind_id=" + bean.getKindId()
+                    + ", price=" + bean.getPrice()
+                    + ", status=" + bean.getStatus()
+                    + " Where id=" + bean.getId();
+            DBUtil.executeUpdate(sql);
+        } catch (SQLException sqle) {
+            throw new Exception(sqle.getMessage());
+        } catch (Exception ex) {
+            throw new Exception(ex.getMessage());
+        } finally {
+            try {
+            } catch (Exception e) {
+                throw new Exception(e.getMessage());
+            }
+        }
+    }
+
 }

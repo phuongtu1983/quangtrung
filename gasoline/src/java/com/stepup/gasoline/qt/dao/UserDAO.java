@@ -16,7 +16,7 @@ import java.util.ArrayList;
  *
  * @author phuongtu
  */
-public class UserDAO {
+public class UserDAO extends BasicDAO{
 
     public ArrayList getUsers(int status) throws Exception {
         ResultSet rs = null;

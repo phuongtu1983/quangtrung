@@ -97,5 +97,8 @@ public class PermissionUtil {
     public static int PER_UNIT = 9;
     public static int PER_SHELL_KIND = 10;
     public static int PER_SHELL = 11;
+    public static int PER_VENDOR = 12;
+    public static int PER_ACCOUNT = 13;
+    public static int PER_VEHICLE = 14;
 
 }
