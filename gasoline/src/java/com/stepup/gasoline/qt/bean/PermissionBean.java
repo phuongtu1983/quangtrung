@@ -10,6 +10,7 @@ public class PermissionBean {
     private int id; // primary key
     private String name;
     private String users;
+    private String organizations;
     private String note;
     private String userNames;
 
@@ -66,4 +67,13 @@ public class PermissionBean {
     public void setUsers(String users) {
         this.users = users;
     }
+
+    public String getOrganizations() {
+        return organizations;
+    }
+
+    public void setOrganizations(String organizations) {
+        this.organizations = organizations;
+    }
+
 }

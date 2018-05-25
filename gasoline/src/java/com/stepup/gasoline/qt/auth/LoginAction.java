@@ -90,6 +90,8 @@ public class LoginAction extends Action {
             PermissionDAO permissionDAO = new PermissionDAO();
             ArrayList<ApplicationPermissionBean> arrPer = permissionDAO.getPermissionsOfEmployee(QTUtil.getMemberID(session));
             session.setAttribute(Constants.PERMISSION_USER_LIST, arrPer);
+            String organizations = permissionDAO.getOrganizationManagedOfEmployee(QTUtil.getMemberID(session));
+            session.setAttribute(Constants.PERMISSION_ORGANIZATION_MANAGED, organizations);
         } catch (Exception ex) {
         }
     }

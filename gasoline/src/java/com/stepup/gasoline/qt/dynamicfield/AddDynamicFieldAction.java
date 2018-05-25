@@ -39,7 +39,7 @@ public class AddDynamicFieldAction extends SpineAction {
         boolean bNew = false;
         boolean isExist = false;
         try {
-            oldBean = dynamicFieldDAO.getDynamicFieldByName(formBean.getName());
+            oldBean = dynamicFieldDAO.getDynamicFieldByName(formBean.getName(), formBean.getTableName());
         } catch (Exception ex) {
         }
         int fieldId = formBean.getId();

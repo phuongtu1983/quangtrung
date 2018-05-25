@@ -76,9 +76,9 @@ public class DynamicFieldDAO extends BasicDAO {
         return null;
     }
 
-    public DynamicFieldFormBean getDynamicFieldByName(String name) throws Exception {
+    public DynamicFieldFormBean getDynamicFieldByName(String name, String tableName) throws Exception {
         ResultSet rs = null;
-        String sql = "select d.* from dynamic_field as d where d.name='" + name + "'";
+        String sql = "select d.* from dynamic_field as d where d.name='" + name + "' and table_name='" + tableName + "'";
         try {
             rs = DBUtil.executeQuery(sql);
             while (rs.next()) {

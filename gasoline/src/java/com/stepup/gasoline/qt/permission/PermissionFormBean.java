@@ -20,6 +20,7 @@ public class PermissionFormBean extends org.apache.struts.action.ActionForm {
     private String[] funcPrint;
     private String[] funcOther;
     private String[] permissionEmpId;
+    private String[] permissionOrgId;
 
     //constructure region
     public PermissionFormBean() {
@@ -119,4 +120,13 @@ public class PermissionFormBean extends org.apache.struts.action.ActionForm {
     public void setNote(String note) {
         this.note = note;
     }
+
+    public String[] getPermissionOrgId() {
+        return permissionOrgId;
+    }
+
+    public void setPermissionOrgId(String[] permissionOrgId) {
+        this.permissionOrgId = permissionOrgId;
+    }
+
 }

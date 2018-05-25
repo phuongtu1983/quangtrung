@@ -27,6 +27,7 @@ public class LogoutAction extends Action {
         session.removeAttribute(Constants.EMPLOYEE_OBJ);
         session.removeAttribute(Constants.PERMISSION_USER_LIST);
         session.removeAttribute(Constants.PERMISSION_USER);
+        session.removeAttribute(Constants.PERMISSION_ORGANIZATION_MANAGED);
         session.invalidate();
         return mapping.findForward(Constants.FORWARD_ACT_SUCCESS);
     }

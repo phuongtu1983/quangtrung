@@ -74,4 +74,6 @@ public class AccountBean {
         this.organizationId = organizationId;
     }
 
+    public static int PAYMENT_MODE_CASH = 1;
+    public static int PAYMENT_MODE_BANK = 2;
 }

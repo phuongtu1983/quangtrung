@@ -78,6 +78,16 @@ public class AddPermissionAction extends SpineAction {
             }
         }
         bean.setUsers(empIds);
+        
+        String orgIds = "";
+        if (formBean.getPermissionOrgId() != null) {
+            int length = formBean.getPermissionOrgId().length;
+            orgIds = formBean.getPermissionOrgId()[0];
+            for (int i = 1; i < length; i++) {
+                orgIds += "," + formBean.getPermissionOrgId()[i];
+            }
+        }
+        bean.setOrganizations(orgIds);
 
         try {
             if (bNew) {

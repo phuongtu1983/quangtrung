@@ -104,5 +104,8 @@ public class PermissionUtil {
     public static int PER_ACCESSORY_KIND = 16;
     public static int PER_ACCESSORY = 17;
     public static int PER_PROMOTION_MATERIAL = 18;
+    public static int PER_CUSTOMER = 19;
+    public static int PER_EMPLOYEE_ADVANCE = 20;
+    public static int PER_SALARY = 21;
 
 }

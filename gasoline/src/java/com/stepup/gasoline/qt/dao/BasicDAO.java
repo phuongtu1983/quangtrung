@@ -58,4 +58,6 @@ public class BasicDAO {
         }
         return result;
     }
+
+    public static String START_DATE = "01/01/2018";
 }

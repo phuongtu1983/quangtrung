@@ -93,6 +93,13 @@ public class QTUtil {
         return organizationId;
     }
 
+    public static String getOrganizationManageds(HttpSession session) {
+        if ((session != null) && (session.getAttribute(Constants.PERMISSION_ORGANIZATION_MANAGED) != null)) {
+            return (String) session.getAttribute(Constants.PERMISSION_ORGANIZATION_MANAGED);
+        }
+        return "";
+    }
+
     public static OnlineUser getOnlineUser(HttpSession session) {
         OnlineUser user = null;
         if ((session != null) && (session.getAttribute(Constants.EMPLOYEE_OBJ) != null)) {

@@ -34,11 +34,14 @@
         <form-bean name="shellForm" type="com.stepup.gasoline.qt.shell.ShellFormBean"/>
         <form-bean name="promotionMaterialForm" type="com.stepup.gasoline.qt.promotionmaterial.PromotionMaterialFormBean"/>
         <form-bean name="accessoryForm" type="com.stepup.gasoline.qt.accessory.AccessoryFormBean"/>
+        <form-bean name="employeeAdvanceForm" type="com.stepup.gasoline.qt.employeeadvance.EmployeeAdvanceFormBean"/>
+        <form-bean name="salaryForm" type="com.stepup.gasoline.qt.salary.salaryFormBean"/>
         <form-bean name="storeForm" type="com.stepup.gasoline.qt.store.StoreFormBean"/>
         <form-bean name="accountForm" type="com.stepup.gasoline.qt.account.AccountFormBean"/>
         <form-bean name="employeeForm" type="com.stepup.gasoline.qt.employee.EmployeeFormBean"/>
         <form-bean name="accessoryKindForm" type="com.stepup.gasoline.qt.accessorykind.AccessoryKindFormBean"/>
         <form-bean name="vendorForm" type="com.stepup.gasoline.qt.vendor.VendorFormBean"/>
+        <form-bean name="customerForm" type="com.stepup.gasoline.qt.customer.CustomerFormBean"/>
         <form-bean name="dynamicFieldForm" type="com.stepup.gasoline.qt.dynamicfield.DynamicFieldFormBean"/>
         <form-bean name="userForm" type="com.stepup.gasoline.qt.user.UserFormBean"/>
         <form-bean name="passwordForm" type="com.stepup.gasoline.qt.auth.PasswordFormBean"/>
@@ -212,7 +215,7 @@
         <action path="/vendorForm" type="com.stepup.gasoline.qt.vendor.VendorFormAction" scope="request" validate="false">
             <forward name="success" path="/vendor/vendordetail.jsp" />
         </action>
-        <action path="/addVendor" name ="vendorForm" scope="request" type="com.stepup.gasoline.qt.vendor.AddVendorAction" input="/employeeForm.do">
+        <action path="/addVendor" name ="vendorForm" scope="request" type="com.stepup.gasoline.qt.vendor.AddVendorAction" input="/vendorForm.do">
         </action>
         <!-- end vendor -->
         <!-- start account -->
@@ -291,6 +294,46 @@
         <action path="/addPromotionMaterial" name ="promotionMaterialForm" scope="request" type="com.stepup.gasoline.qt.promotionmaterial.AddPromotionMaterialAction" input="/promotionMaterialForm.do">
         </action>
         <!-- end promotionmaterial -->
+        <!-- start customer -->
+        <action path="/getCustomerPanel" type="com.stepup.gasoline.qt.common.BaseStatusFormAction" scope="request" validate="false">
+            <forward name="success" path="/customer/customerpanel.jsp" />
+        </action>
+        <action path="/getCustomerList" type="com.stepup.gasoline.qt.customer.GetCustomerListAction" scope="request" validate="false" >
+        </action>
+        <action path="/customerForm" type="com.stepup.gasoline.qt.customer.CustomerFormAction" scope="request" validate="false">
+            <forward name="success" path="/customer/customerdetail.jsp" />
+        </action>
+        <action path="/addCustomer" name ="customerForm" scope="request" type="com.stepup.gasoline.qt.customer.AddCustomerAction" input="/customerForm.do">
+        </action>
+        <!-- end customer -->
+        <!-- start employeeadvance -->
+        <action path="/getEmployeeAdvancePanel" type="com.stepup.gasoline.qt.common.BaseStatusFormAction" scope="request" validate="false">
+            <forward name="success" path="/employeeadvance/employeeadvancepanel.jsp" />
+        </action>
+        <action path="/getEmployeeAdvanceList" type="com.stepup.gasoline.qt.employeeadvance.GetEmployeeAdvanceListAction" scope="request" validate="false" >
+        </action>
+        <action path="/employeeAdvanceForm" type="com.stepup.gasoline.qt.employeeadvance.EmployeeAdvanceFormAction" scope="request" validate="false">
+            <forward name="success" path="/employeeadvance/employeeadvancedetail.jsp" />
+        </action>
+        <action path="/addEmployeeAdvance" name ="employeeAdvanceForm" scope="request" type="com.stepup.gasoline.qt.employeeadvance.AddEmployeeAdvanceAction" input="/employeeAdvanceForm.do">
+        </action>
+        <action path="/delEmployeeAdvance" type="com.stepup.gasoline.qt.employeeadvance.DeleteEmployeeAdvanceAction" scope="request" validate="false" >
+        </action>
+        <!-- end employeeadvance -->
+        <!-- start salary -->
+        <action path="/getSalaryPanel" type="com.stepup.gasoline.qt.common.BaseStatusFormAction" scope="request" validate="false">
+            <forward name="success" path="/salary/salarypanel.jsp" />
+        </action>
+        <action path="/getSalaryList" type="com.stepup.gasoline.qt.salary.GetSalaryListAction" scope="request" validate="false" >
+        </action>
+        <action path="/salaryForm" type="com.stepup.gasoline.qt.salary.SalaryFormAction" scope="request" validate="false">
+            <forward name="success" path="/salary/salarydetail.jsp" />
+        </action>
+        <action path="/addSalary" name ="salaryForm" scope="request" type="com.stepup.gasoline.qt.salary.AddSalaryAction" input="/salaryForm.do">
+        </action>
+        <action path="/delSalary" type="com.stepup.gasoline.qt.salary.DeleteSalaryAction" scope="request" validate="false" >
+        </action>
+        <!-- end salary -->
     </action-mappings>
     
     <controller processorClass="org.apache.struts.tiles.TilesRequestProcessor"/>

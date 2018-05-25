@@ -8,6 +8,7 @@ import com.stepup.core.database.DBUtil;
 import com.stepup.core.util.GenericValidator;
 import com.stepup.core.util.StringUtil;
 import com.stepup.gasoline.qt.bean.EmployeeBean;
+import com.stepup.gasoline.qt.bean.OrganizationBean;
 import com.stepup.gasoline.qt.bean.PermissionBean;
 import com.stepup.gasoline.qt.bean.PermissionDetailBean;
 import com.stepup.gasoline.qt.permission.ApplicationPermissionBean;
@@ -55,6 +56,32 @@ public class PermissionDAO extends BasicDAO {
 
         }
         return permissionList;
+    }
+
+    public String getOrganizationManagedOfEmployee(int empId) throws Exception {
+        ResultSet rs = null;
+        String sql = "SELECT GROUP_CONCAT('0,',p.organizations,',0') organizations FROM permission AS p where 1 ";
+        if (empId > 0) {
+            sql += " AND CONCAT(',',p.users,',') LIKE CONCAT('%,'," + empId + ",',%')";
+        }
+        String result = "";
+        try {
+            rs = DBUtil.executeQuery(sql);
+            while (rs.next()) {
+                result = rs.getString("organizations");
+                break;
+            }
+
+        } catch (SQLException sqle) {
+            throw new Exception(sqle.getMessage());
+        } catch (Exception ex) {
+            throw new Exception(ex.getMessage());
+        } finally {
+            if (rs != null) {
+                DBUtil.closeConnection(rs);
+            }
+        }
+        return result;
     }
 
     public PermissionBean getPermission(int id) throws Exception {
@@ -144,6 +171,40 @@ public class PermissionDAO extends BasicDAO {
         }
         return empList;
     }
+    
+    public ArrayList getPermissionOrg(int id) throws Exception {
+        ResultSet rs = null;
+        String sql = "select organizations from permission where id=" + id;
+        ArrayList orgList = new ArrayList();
+        try {
+            String organizations = "";
+            rs = DBUtil.executeQuery(sql);
+            while (rs.next()) {
+                organizations = rs.getString("organizations");
+            }
+            DBUtil.closeConnection(rs);
+            if (!GenericValidator.isBlankOrNull(organizations)) {
+                sql = "select id, name from organization where id in (" + organizations + ")";
+                rs = DBUtil.executeQuery(sql);
+                OrganizationBean org = null;
+                while (rs.next()) {
+                    org = new OrganizationBean();
+                    org.setId(rs.getInt("id"));
+                    org.setName(rs.getString("name"));
+                    orgList.add(org);
+                }
+            }
+        } catch (SQLException sqle) {
+            throw new Exception(sqle.getMessage());
+        } catch (Exception ex) {
+            throw new Exception(ex.getMessage());
+        } finally {
+            if (rs != null) {
+                DBUtil.closeConnection(rs);
+            }
+        }
+        return orgList;
+    }
 
     public PermissionBean getPermissionByName(String name) throws Exception {
         ResultSet rs = null;
@@ -174,8 +235,8 @@ public class PermissionDAO extends BasicDAO {
         int result = 0;
         try {
             String sql = "";
-            sql = "Insert Into permission (name, users, note)"
-                    + " Values ('" + bean.getName() + "','" + bean.getUsers() + "','" + bean.getNote() + "')";
+            sql = "Insert Into permission (name, users, organizations,  note)"
+                    + " Values ('" + bean.getName() + "','" + bean.getUsers() + "','" + bean.getOrganizations() + "','" + bean.getNote() + "')";
             result = DBUtil.executeInsert(sql);
         } catch (SQLException sqle) {
             throw new Exception(sqle.getMessage());
@@ -193,6 +254,7 @@ public class PermissionDAO extends BasicDAO {
             String sql = "Update permission Set "
                     + " name='" + bean.getName() + "'"
                     + ", users='" + bean.getUsers() + "'"
+                    + ", organizations='" + bean.getOrganizations() + "'"
                     + ", note='" + bean.getNote() + "'"
                     + " Where id=" + bean.getId();
             DBUtil.executeUpdate(sql);

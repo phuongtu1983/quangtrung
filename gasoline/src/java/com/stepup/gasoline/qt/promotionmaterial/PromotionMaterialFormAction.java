@@ -7,6 +7,7 @@ package com.stepup.gasoline.qt.promotionmaterial;
 import com.stepup.gasoline.qt.bean.EmployeeBean;
 import com.stepup.gasoline.qt.core.SpineAction;
 import com.stepup.gasoline.qt.dao.GoodDAO;
+import com.stepup.gasoline.qt.dao.UnitDAO;
 import com.stepup.gasoline.qt.util.Constants;
 import com.stepup.gasoline.qt.util.QTUtil;
 import java.util.ArrayList;
@@ -37,18 +38,18 @@ public class PromotionMaterialFormAction extends SpineAction {
     public boolean doAction(ActionMapping mapping, ActionForm form,
             HttpServletRequest request, HttpServletResponse response) {
         PromotionMaterialFormBean formBean = null;
-        String kindid = request.getParameter("kindId");
+        String promotionMaterialId = request.getParameter("promotionMaterialId");
         GoodDAO goodDAO = new GoodDAO();
-        if (!GenericValidator.isBlankOrNull(kindid)) {
+        if (!GenericValidator.isBlankOrNull(promotionMaterialId)) {
             try {
-                formBean = goodDAO.getPromotionMaterial(Integer.parseInt(kindid));
+                formBean = goodDAO.getPromotionMaterial(Integer.parseInt(promotionMaterialId));
             } catch (Exception ex) {
             }
         }
         if (formBean == null) {
             formBean = new PromotionMaterialFormBean();
         }
-        request.setAttribute(Constants.ACCESSORY_KIND, formBean);
+        request.setAttribute(Constants.PROMOTION_MATERIAL, formBean);
 
         ArrayList arrStatus = new ArrayList();
         LabelValueBean value;
@@ -62,6 +63,17 @@ public class PromotionMaterialFormAction extends SpineAction {
         arrStatus.add(value);
         request.setAttribute(Constants.STATUS_LIST, arrStatus);
 
+        ArrayList arrUnit = null;
+        try {
+            UnitDAO unitDAO = new UnitDAO();
+            arrUnit = unitDAO.getUnits(EmployeeBean.STATUS_ACTIVE);
+        } catch (Exception ex) {
+        }
+        if (arrUnit == null) {
+            arrUnit = new ArrayList();
+        }
+        request.setAttribute(Constants.UNIT_LIST, arrUnit);
+        
         return true;
     }
 

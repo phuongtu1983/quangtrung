@@ -28,7 +28,7 @@ public class GetAccountListAction extends BaseAction {
         buff.append("<rows>");
         try {
             AccountDAO accountDAO = new AccountDAO();
-            ArrayList list = accountDAO.getAccounts();
+            ArrayList list = accountDAO.getAccounts("");
             if (list != null) {
                 int length = list.size();
                 for (int i = 0; i < length; i++) {

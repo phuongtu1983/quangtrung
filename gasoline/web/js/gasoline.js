@@ -89,7 +89,24 @@ function menuClick(id) {
         loadPromotionMaterialPanel();
     else if (id == 'promotionmaterialadd')
         getPromotionMaterial(0, 'loadPromotionMaterialPanel');
-
+    else if (id == 'customerlist')
+        loadCustomerPanel();
+    else if (id == 'customeradd')
+        getCustomer(0, 'loadCustomerPanel');
+    else if (id == 'customerfiellist')
+        loadDynamicFieldPanel("customer");
+    else if (id == 'employeeadvancelist')
+        loadEmployeeAdvancePanel();
+    else if (id == 'employeeadvanceadd')
+        getEmployeeAdvance(0, 'loadEmployeeAdvancePanel');
+    else if (id == 'salarylist')
+        loadSalaryPanel();
+    else if (id == 'salaryadd')
+        getSalary(0, 'loadSalaryPanel');
+    else if (id == 'salaryfiellist')
+        loadDynamicFieldPanel("salary");
+    else if (id == 'timesheetfiellist')
+        loadDynamicFieldPanel("timesheet");
 }
 function clearContent() {
     var contentDiv = document.getElementById("contentDiv");
@@ -157,6 +174,17 @@ function setUserSelectedForm(form, text, value) {
         document.forms[form].userSelectedTextHidden.value = text;
     document.forms[form].userSelectedHidden.value = value;
 }
+function setOrganizationSelectedForm(form, text, value) {
+    if (value == null) {
+        if (text != "")
+            value = "-1";
+        else
+            value = "0";
+    }
+    if (document.forms[form].organizationSelectedTextHidden != null)
+        document.forms[form].organizationSelectedTextHidden.value = text;
+    document.forms[form].organizationSelectedHidden.value = value;
+}
 function getPermission(id) {
     var url = "permissionForm.do";
     if (id != null)
@@ -174,6 +202,16 @@ function getPermission(id) {
             z.selectOption(z.getIndexByValue(z.getSelectedValue()));
         });
         setUserSelectedForm('permissionForm', z.getComboText(), z.getSelectedValue());
+        
+        var o = dhtmlXComboFromSelect("organizationCombobox");
+        o.enableFilteringMode(true);
+        o.attachEvent("onSelectionChange", function() {
+            setOrganizationSelectedForm('permissionForm', o.getComboText(), o.getSelectedValue());
+        });
+        o.attachEvent("onBlur", function() {
+            o.selectOption(o.getIndexByValue(o.getSelectedValue()));
+        });
+        setOrganizationSelectedForm('permissionForm', o.getComboText(), o.getSelectedValue());
     });
 }
 function permissionLevel1Change(srcObject, name) {
@@ -226,6 +264,57 @@ function addPermissionEmp() {
     cell = row.insertCell(1);
     el = document.createElement('span');
     el.name = 'permissionEmp';
+    el.innerHTML = name;
+    cell.appendChild(el);
+
+    el = null
+    cell = null;
+    row = null;
+    tbl = null;
+    return false;
+}
+function addPermissionOrg() {
+    var organization = document.forms['permissionForm'].organizationSelectedHidden.value;
+    if (organization == -1)
+        return false;
+    var permissionOrgId = document.forms['permissionForm'].permissionOrgId;
+    var existed = false;
+    if (permissionOrgId != null) {
+        if (permissionOrgId.length != null) {
+            for (i = 0; i < permissionOrgId.length; i++) {
+                if (permissionOrgId[i].value == organization) {
+                    existed = true;
+                    break;
+                }
+            }
+        } else if (permissionOrgId.value == organization)
+            existed = true;
+    }
+    permissionOrgId = null;
+    if (existed == true) {
+        alert("\u0110\u01A1n v\u1ECB \u0111\u00E3 t\u1ED3n t\u1EA1i");
+        return false;
+    }
+
+    var name = document.forms['permissionForm'].organizationSelectedTextHidden.value;
+    var tbl = document.getElementById('permissionOrgTbl');
+    var row = document.createElement("tr");
+    tbl.tBodies[0].appendChild(row);
+    var cell = row.insertCell(0);
+    var el = document.createElement('input');
+    el.type = 'checkbox';
+    el.name = 'permissionOrgChk';
+    el.value = organization;
+    cell.appendChild(el);
+    el = document.createElement('input');
+    el.type = 'hidden';
+    el.name = 'permissionOrgId';
+    el.value = organization;
+    cell.appendChild(el);
+
+    cell = row.insertCell(1);
+    el = document.createElement('span');
+    el.name = 'permissionOrg';
     el.innerHTML = name;
     cell.appendChild(el);
 
@@ -1504,7 +1593,7 @@ function loadPromotionMaterialList() {
     return false;
 }
 function getPromotionMaterial(id, handle) {
-    popupName = 'TH\u00D4NG TIN V\u1ECE B\u00CCNH';
+    popupName = 'TH\u00D4NG TIN H\u00C0NG KHUY\u1EBEN M\u00C3I';
     var url = 'promotionMaterialForm.do';
     if (id != 0)
         url += '?promotionMaterialId=' + id
@@ -1537,7 +1626,210 @@ function savePromotionMaterial() {
     });
     return false;
 }
-
+function loadCustomerPanel() {
+    callAjax("getCustomerPanel.do", null, null, function(data) {
+        clearContent();
+        setAjaxData(data, "contentDiv");
+        loadCustomerList();
+    });
+}
+function loadCustomerList() {
+    var mygrid = new dhtmlXGridObject('customerList');
+    mygrid.setImagePath("js/dhtmlx/grid/imgs/");
+    mygrid.setHeader("M\u00E3 kh\u00E1ch h\u00E0ng,T\u00EAn kh\u00E1ch h\u00E0ng,\u0110\u01A1n v\u1ECB,T\u00ECnh tr\u1EA1ng");
+    mygrid.attachHeader("#text_filter,#text_filter,#select_filter,#select_filter");
+    mygrid.setInitWidths("100,*,250,150");
+    mygrid.setColTypes("link,ro,ro,ro");
+    mygrid.setColSorting("str,str,str,str");
+    mygrid.setSkin("light");
+    var height = contentHeight - 210;
+    mygrid.al(true, height);//enableAutoHeight
+    mygrid.enablePaging(true, 15, 3, "recinfoArea");
+    mygrid.setPagingSkin("toolbar", "dhx_skyblue");
+    mygrid.init();
+    var list = document.forms['customerSearchForm'].statusCombobox;
+    if (list != null && list.selectedIndex > -1)
+        list = list.options[list.selectedIndex].value;
+    else
+        list = 0;
+    var url = "getCustomerList.do?status=" + list;
+    callAjax(url, null, null, function(data) {
+        mygrid.parse(data);
+    });
+    return false;
+}
+function getCustomer(id, handle) {
+    popupName = 'TH\u00D4NG TIN KH\u00C1CH H\u00C0NG';
+    var url = 'customerForm.do';
+    if (id != 0)
+        url += '?customerId=' + id
+    callAjax(url, null, null, function(data) {
+        showPopupForm(data);
+        document.getElementById('callbackFunc').value = handle;
+        document.forms['customerForm'].code.focus();
+    });
+}
+function saveCustomer() {
+    if (scriptFunction == "saveCustomer")
+        return false;
+    var field = document.forms['customerForm'].code;
+    if (field.value == '') {
+        alert("Vui l\u00F2ng nh\u1EADp m\u00E3 kh\u00E1ch h\u00E0ng");
+        field.focus();
+        field = null;
+        return false;
+    }
+    field = document.forms['customerForm'].name;
+    if (field.value == '') {
+        alert("Vui l\u00F2ng nh\u1EADp t\u00EAn kh\u00E1ch h\u00E0ng");
+        field.focus();
+        field = null;
+        return false;
+    }
+    field = null;
+    scriptFunction = "saveCustomer";
+    callAjaxCheckError("addCustomer.do", null, document.forms['customerForm'], function(data) {
+        scriptFunction = "";
+        var handle = document.getElementById('callbackFunc').value;
+        if (confirm('B\u1EA1n c\u00F3 mu\u1ED1n nh\u1EADp ti\u1EBFp th\u00F4ng tin kh\u00E1c ?'))
+            getCustomer(0, handle);
+        else if (handle != '')
+            eval(handle + "()");
+        prepareHidePopup('customerFormshowHelpHideDiv');
+    });
+    return false;
+}
+function loadEmployeeAdvancePanel() {
+    callAjax("getEmployeeAdvancePanel.do", null, null, function(data) {
+        clearContent();
+        setAjaxData(data, "contentDiv");
+        var myCalendar = new dhtmlXCalendarObject(["fromDate", "toDate"]);
+        myCalendar.setSkin('dhx_web');
+        var currentTime = getCurrentDate();
+        document.forms['employeeAdvanceSearchForm'].fromDate.value = currentTime;
+        document.forms['employeeAdvanceSearchForm'].toDate.value = currentTime;
+        myCalendar.setDateFormat("%d/%m/%Y");
+        loadEmployeeAdvanceList(currentTime, currentTime);
+    });
+    return false;
+}
+function loadEmployeeAdvanceList(fromDate, toDate) {
+    var mygrid = new dhtmlXGridObject('employeeAdvanceList');
+    mygrid.setImagePath("js/dhtmlx/grid/imgs/");
+    mygrid.setHeader("S\u1ED1 phi\u1EBFu,Nh\u00E2n vi\u00EAn,Ng\u00E0y t\u1EA1m \u1EE9ng,S\u1ED1 ti\u1EC1n,Ghi ch\u00FA");
+    mygrid.attachHeader("#text_filter,#text_filter,#text_filter,#text_filter,#text_filter");
+    mygrid.setInitWidths("150,200,200,200,*");
+    mygrid.setColTypes("link,ro,ro,ro,ro");
+    mygrid.setColSorting("str,str,str,str,str");
+    mygrid.setSkin("light");
+    var height = contentHeight - 210;
+    mygrid.al(true, height);//enableAutoHeight
+    mygrid.enablePaging(true, 15, 3, "recinfoArea");
+    mygrid.setPagingSkin("toolbar", "dhx_skyblue");
+    mygrid.init();
+    var url = "getEmployeeAdvanceList.do?t=1";
+    if (fromDate != null)
+        url += "&fromDate=" + fromDate;
+    if (toDate != null)
+        url += "&toDate=" + toDate;
+    callAjax(url, null, null, function(data) {
+        mygrid.parse(data);
+    });
+    return false;
+}
+function getEmployeeAdvance(id, handle) {
+    popupName = 'TH\u00D4NG TIN T\u1EA0M \u1EE8NG';
+    var url = 'employeeAdvanceForm.do';
+    if (id != 0)
+        url += '?employeeAdvanceId=' + id
+    callAjax(url, null, null, function(data) {
+        showPopupForm(data);
+        document.getElementById('callbackFunc').value = handle;
+        document.forms['employeeAdvanceForm'].amount.focus();
+        tryNumberFormatCurrentcy(document.forms['employeeAdvanceForm'].amount, "VND");
+        var myCalendar = new dhtmlXCalendarObject(["employeeAdvanceDate"]);
+        myCalendar.setSkin('dhx_web');
+        var currentDate = getCurrentDate();
+        document.forms['employeeAdvanceForm'].employeeAdvanceDate.value = currentDate;
+        myCalendar.setDateFormat("%d/%m/%Y");
+    });
+}
+function saveEmployeeAdvance() {
+    if (scriptFunction == "saveEmployeeAdvance")
+        return false;
+    var field = document.forms['employeeAdvanceForm'].advanceDate;
+    if (field.value == '') {
+        alert("Vui l\u00F2ng nh\u1EADp ng\u00E0y t\u1EA1m \u1EE9ng");
+        field.focus();
+        field = null;
+        return false;
+    }
+    field = document.forms['employeeAdvanceForm'].amount;
+    if (field.value == '') {
+        alert("Vui l\u00F2ng nh\u1EADp s\u1ED1 ti\u1EC1n");
+        field.focus();
+        field = null;
+        return false;
+    }
+    field = null;
+    reformatNumberMoney(document.forms['employeeAdvanceForm'].amount);
+    scriptFunction = "saveEmployeeAdvance";
+    callAjaxCheckError("addEmployeeAdvance.do", null, document.forms['employeeAdvanceForm'], function(data) {
+        scriptFunction = "";
+        var handle = document.getElementById('callbackFunc').value;
+        if (confirm('B\u1EA1n c\u00F3 mu\u1ED1n nh\u1EADp ti\u1EBFp th\u00F4ng tin kh\u00E1c ?'))
+            getEmployeeAdvance(0, handle);
+        else if (handle != '')
+            eval(handle + "()");
+        prepareHidePopup('employeeAdvanceFormshowHelpHideDiv');
+    });
+    return false;
+}
+function delEmployeeAdvance() {
+    callAjaxCheckError('delEmployeeAdvance.do?employeeAdvanceId=' + document.forms['employeeAdvanceForm'].id.value, null, null, function() {
+        loadEmployeeAdvancePanel();
+        prepareHidePopup('employeeAdvanceFormshowHelpHideDiv');
+    });
+    return false;
+}
+function loadSalaryPanel() {
+    callAjax("getSalaryPanel.do", null, null, function(data) {
+        clearContent();
+        setAjaxData(data, "contentDiv");
+        var myCalendar = new dhtmlXCalendarObject(["fromDate", "toDate"]);
+        myCalendar.setSkin('dhx_web');
+        var currentTime = getCurrentDate();
+        document.forms['salarySearchForm'].fromDate.value = currentTime;
+        document.forms['salarySearchForm'].toDate.value = currentTime;
+        myCalendar.setDateFormat("%d/%m/%Y");
+        loadSalaryList(currentTime, currentTime);
+    });
+    return false;
+}
+function loadSalaryList(fromDate, toDate) {
+    var mygrid = new dhtmlXGridObject('salaryList');
+    mygrid.setImagePath("js/dhtmlx/grid/imgs/");
+    mygrid.setHeader("S\u1ED1 phi\u1EBFu,Nh\u00E2n vi\u00EAn,Th\u00E1ng,T\u1ED5ng l\u01B0\u01A1ng,Ghi ch\u00FA");
+    mygrid.attachHeader("#text_filter,#text_filter,#text_filter,#text_filter,#text_filter");
+    mygrid.setInitWidths("150,200,200,200,*");
+    mygrid.setColTypes("link,ro,ro,ro,ro");
+    mygrid.setColSorting("str,str,str,str,str");
+    mygrid.setSkin("light");
+    var height = contentHeight - 210;
+    mygrid.al(true, height);//enableAutoHeight
+    mygrid.enablePaging(true, 15, 3, "recinfoArea");
+    mygrid.setPagingSkin("toolbar", "dhx_skyblue");
+    mygrid.init();
+    var url = "getSalaryList.do?t=1";
+    if (fromDate != null)
+        url += "&fromDate=" + fromDate;
+    if (toDate != null)
+        url += "&toDate=" + toDate;
+    callAjax(url, null, null, function(data) {
+        mygrid.parse(data);
+    });
+    return false;
+}
 
 
 

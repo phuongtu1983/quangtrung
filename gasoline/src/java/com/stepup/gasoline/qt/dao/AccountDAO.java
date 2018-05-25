@@ -6,6 +6,7 @@
 package com.stepup.gasoline.qt.dao;
 
 import com.stepup.core.database.DBUtil;
+import com.stepup.core.util.StringUtil;
 import com.stepup.gasoline.qt.account.AccountFormBean;
 import com.stepup.gasoline.qt.bean.AccountBean;
 import com.stepup.gasoline.qt.bean.EmployeeBean;
@@ -19,10 +20,13 @@ import java.util.ArrayList;
  */
 public class AccountDAO extends BasicDAO {
 
-    public ArrayList getAccounts() throws Exception {
+    public ArrayList getAccounts(String organizationIds) throws Exception {
         ResultSet rs = null;
         String sql = "SELECT a.*, o.name as organization_name"
                 + " FROM account AS a, organization as o WHERE a.organization_id=o.id and o.status=" + EmployeeBean.STATUS_ACTIVE;
+        if (!StringUtil.isBlankOrNull(organizationIds)) {
+            sql += " and a.organization_id in(" + organizationIds + ")";
+        }
         sql += " order by a.number";
         ArrayList equipmentList = new ArrayList();
         try {

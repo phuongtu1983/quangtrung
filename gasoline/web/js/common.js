@@ -972,3 +972,13 @@ function try2FloatFormatOnKeyUp(obj, e) {
             return false;//Phím Delete và Phím Back va phim .
     }
 }
+function getCurrentDate(){
+    var currentDate = new Date();
+    var dd = currentDate.getDate();
+    var mm = currentDate.getMonth()+1;
+    var yyyy = currentDate.getFullYear();
+    if(dd < 10) dd='0'+dd;
+    if(mm < 10) mm='0'+mm;
+    currentDate = dd+'/'+mm+'/'+yyyy;
+    return currentDate;
+}

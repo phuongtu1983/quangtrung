@@ -24,6 +24,32 @@
         <tr>
             <td colspan="2">
                 <fieldset>
+                    <legend><bean:message key="organization.title"/></legend>
+                    <table>
+                        <tr>
+                            <td>
+                                <button class="i_cross icon small red" onclick="return delTableRow('permissionForm','permissionOrgChk','permissionOrgTbl');"><bean:message key="message.del"/></button>
+                                <button class="i_plus icon small green" onclick="return addPermissionOrg();"><bean:message key="message.add"/></button>
+                            </td>
+                            <td>
+                                <select style="width: 290px;" name="organizationCombobox" id="organizationCombobox">
+                                    <%@include  file="/combo/organization.jsp"%>
+                                </select>
+                            </td>
+                        </tr>
+                    </table>
+                </fieldset>
+            </td>
+        </tr>
+        <tr>
+            <td colspan="2"><div><%@include  file="/permission/organizations.jsp" %></div></td>
+        </tr>
+        
+        
+        
+        <tr>
+            <td colspan="2">
+                <fieldset>
                     <legend><bean:message key="employee.title"/></legend>
                     <table>
                         <tr>
@@ -69,6 +95,8 @@
     <html:hidden property="perId" name="<%=Constants.PERMISSION%>"/>
     <input type="hidden" name="userSelectedHidden" value="0"/>
     <input type="hidden" name="userSelectedTextHidden" value="0"/>
+    <input type="hidden" name="organizationSelectedHidden" value="0"/>
+    <input type="hidden" name="organizationSelectedTextHidden" value="0"/>
 </form>
 <div id="showHelpHideDiv" style="display:none">
     Ctrl+C : Đóng

@@ -8,6 +8,7 @@ import com.stepup.gasoline.qt.bean.EmployeeBean;
 import com.stepup.gasoline.qt.bean.PermissionBean;
 import com.stepup.gasoline.qt.bean.PermissionDetailBean;
 import com.stepup.gasoline.qt.core.SpineAction;
+import com.stepup.gasoline.qt.dao.OrganizationDAO;
 import com.stepup.gasoline.qt.dao.PermissionDAO;
 import com.stepup.gasoline.qt.dao.UserDAO;
 import com.stepup.gasoline.qt.util.Constants;
@@ -16,7 +17,6 @@ import com.stepup.gasoline.qt.util.PermissionUtil;
 import java.util.ArrayList;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-
 import org.apache.commons.validator.GenericValidator;
 import org.apache.struts.action.ActionForm;
 import org.apache.struts.action.ActionMapping;
@@ -94,6 +94,17 @@ public class PermissionFormAction extends SpineAction {
         }
         request.setAttribute(Constants.USER_LIST, arrEmp);
 
+        ArrayList arrOrg = new ArrayList();
+        try {
+            OrganizationDAO orgDAO = new OrganizationDAO();
+            arrOrg = orgDAO.getOrganizations(EmployeeBean.STATUS_ACTIVE);
+        } catch (Exception ex) {
+        }
+        if (arrOrg == null) {
+            arrOrg = new ArrayList();
+        }
+        request.setAttribute(Constants.ORGANIZATION_LIST, arrOrg);
+
         ArrayList arrPerEmp = null;
         if (formBean.getPerId() != 0) {
             try {
@@ -106,6 +117,19 @@ public class PermissionFormAction extends SpineAction {
             arrPerEmp = new ArrayList();
         }
         request.setAttribute(Constants.PERMISSION_EMP_LIST, arrPerEmp);
+        
+        ArrayList arrPerOrg = null;
+        if (formBean.getPerId() != 0) {
+            try {
+                arrPerOrg = permissionDAO.getPermissionOrg(formBean.getPerId());
+            } catch (Exception ex) {
+            }
+        }
+
+        if (arrPerOrg == null) {
+            arrPerOrg = new ArrayList();
+        }
+        request.setAttribute(Constants.PERMISSION_ORG_LIST, arrPerOrg);
 
         ArrayList arrFun = new ArrayList();
         PermissionViewBean perBean;
@@ -254,7 +278,7 @@ public class PermissionFormAction extends SpineAction {
         perBean.setValue(PermissionUtil.PER_ACCESSORY_KIND);
         perBean.setOperations("," + PermissionUtil.OPERATION_LIST + "," + PermissionUtil.OPERATION_ADD + "," + PermissionUtil.OPERATION_EDIT + ",");
         arrFun.add(perBean);
-        
+
         perBean = new PermissionViewBean();
         perBean.setCounter("2.1");
         perBean.setLevel(2);
@@ -263,7 +287,7 @@ public class PermissionFormAction extends SpineAction {
         perBean.setValue(PermissionUtil.PER_ACCESSORY);
         perBean.setOperations("," + PermissionUtil.OPERATION_LIST + "," + PermissionUtil.OPERATION_ADD + "," + PermissionUtil.OPERATION_EDIT + ",");
         arrFun.add(perBean);
-        
+
         perBean = new PermissionViewBean();
         perBean.setCounter("2.1");
         perBean.setLevel(2);
@@ -271,6 +295,33 @@ public class PermissionFormAction extends SpineAction {
         perBean.setName(QTUtil.getBundleString("promotionMaterial.title"));
         perBean.setValue(PermissionUtil.PER_PROMOTION_MATERIAL);
         perBean.setOperations("," + PermissionUtil.OPERATION_LIST + "," + PermissionUtil.OPERATION_ADD + "," + PermissionUtil.OPERATION_EDIT + ",");
+        arrFun.add(perBean);
+
+        perBean = new PermissionViewBean();
+        perBean.setCounter("2.1");
+        perBean.setLevel(2);
+        perBean.setSharedId(2);
+        perBean.setName(QTUtil.getBundleString("customer.title"));
+        perBean.setValue(PermissionUtil.PER_CUSTOMER);
+        perBean.setOperations("," + PermissionUtil.OPERATION_LIST + "," + PermissionUtil.OPERATION_ADD + "," + PermissionUtil.OPERATION_EDIT + ",");
+        arrFun.add(perBean);
+
+        perBean = new PermissionViewBean();
+        perBean.setCounter("2.1");
+        perBean.setLevel(2);
+        perBean.setSharedId(2);
+        perBean.setName(QTUtil.getBundleString("employeeAdvance.title"));
+        perBean.setValue(PermissionUtil.PER_EMPLOYEE_ADVANCE);
+        perBean.setOperations("," + PermissionUtil.OPERATION_LIST + "," + PermissionUtil.OPERATION_ADD + "," + PermissionUtil.OPERATION_EDIT + "," + PermissionUtil.OPERATION_DELETE + ",");
+        arrFun.add(perBean);
+
+        perBean = new PermissionViewBean();
+        perBean.setCounter("2.1");
+        perBean.setLevel(2);
+        perBean.setSharedId(2);
+        perBean.setName(QTUtil.getBundleString("salary.title"));
+        perBean.setValue(PermissionUtil.PER_SALARY);
+        perBean.setOperations("," + PermissionUtil.OPERATION_LIST + "," + PermissionUtil.OPERATION_ADD + "," + PermissionUtil.OPERATION_EDIT + "," + PermissionUtil.OPERATION_DELETE + ",");
         arrFun.add(perBean);
 
         request.setAttribute(Constants.PERMISSION_FUNC_LIST, arrFun);
