@@ -29,7 +29,7 @@
             <%}%>
     </tr>
 </table>
-<form name='storesForm' id='equipmentsForm'>
+<form name='storesForm' id='storesForm'>
     <div id='storeList' style="width:100%; height:768px;"></div>
     <div id="recinfoArea"></div>
 </form>

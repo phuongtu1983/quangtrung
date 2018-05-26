@@ -99,10 +99,16 @@ function menuClick(id) {
         loadEmployeeAdvancePanel();
     else if (id == 'employeeadvanceadd')
         getEmployeeAdvance(0, 'loadEmployeeAdvancePanel');
+    else if (id == 'employeetimesheetlist')
+        loadEmployeeTimesheetPanel();
+    else if (id == 'employeetimesheetadd')
+        getEmployeeTimesheet(0, 'loadEmployeeTimesheetPanel');
     else if (id == 'salarylist')
         loadSalaryPanel();
-    else if (id == 'salaryadd')
-        getSalary(0, 'loadSalaryPanel');
+    else if (id == 'employeesalarylist')
+        loadEmployeeSalaryPanel();
+    else if (id == 'organizationtimesheetlist')
+        loadOrganizationTimesheetPanel();
     else if (id == 'salaryfiellist')
         loadDynamicFieldPanel("salary");
     else if (id == 'timesheetfiellist')
@@ -202,7 +208,7 @@ function getPermission(id) {
             z.selectOption(z.getIndexByValue(z.getSelectedValue()));
         });
         setUserSelectedForm('permissionForm', z.getComboText(), z.getSelectedValue());
-        
+
         var o = dhtmlXComboFromSelect("organizationCombobox");
         o.enableFilteringMode(true);
         o.attachEvent("onSelectionChange", function() {
@@ -608,11 +614,11 @@ function loadDynamicFieldList(tableName) {
     }
     var mygrid = new dhtmlXGridObject('dynamicFieldList');
     mygrid.setImagePath("js/dhtmlx/grid/imgs/");
-    mygrid.setHeader("T\u00EAn,\u0110\u01A1n v\u1ECB");
-    mygrid.attachHeader("#text_filter,#select_filter");
-    mygrid.setInitWidths("*,250");
-    mygrid.setColTypes("link,ro");
-    mygrid.setColSorting("str,str");
+    mygrid.setHeader("T\u00EAn,M\u00E3,\u0110\u01A1n v\u1ECB");
+    mygrid.attachHeader("#text_filter,#text_filter,#select_filter");
+    mygrid.setInitWidths("*,250,250");
+    mygrid.setColTypes("link,ro,ro");
+    mygrid.setColSorting("str,str,str");
     mygrid.setSkin("light");
     var height = contentHeight - 210;
     mygrid.al(true, height);//enableAutoHeight
@@ -685,9 +691,9 @@ function loadEmployeePanel() {
 function loadEmployeeList() {
     var mygrid = new dhtmlXGridObject('employeeList');
     mygrid.setImagePath("js/dhtmlx/grid/imgs/");
-    mygrid.setHeader("M\u00E3 kho,T\u00EAn kho,\u0110\u01A1n v\u1ECB,T\u00ECnh tr\u1EA1ng");
+    mygrid.setHeader("H\u1ECD t\u00EAn,Email,\u0110\u01A1n v\u1ECB,T\u00ECnh tr\u1EA1ng");
     mygrid.attachHeader("#text_filter,#text_filter,#select_filter,#select_filter");
-    mygrid.setInitWidths("100,*,250,150");
+    mygrid.setInitWidths("200,200,*,150");
     mygrid.setColTypes("link,ro,ro,ro");
     mygrid.setColSorting("str,str,str,str");
     mygrid.setSkin("light");
@@ -1830,6 +1836,204 @@ function loadSalaryList(fromDate, toDate) {
     });
     return false;
 }
-
-
-
+function loadEmployeeSalaryPanel() {
+    callAjax("getEmployeeSalaryPanel.do", null, null, function(data) {
+        clearContent();
+        setAjaxData(data, "contentDiv");
+        loadEmployeeSalaryList();
+    });
+}
+function loadEmployeeSalaryList() {
+    var mygrid = new dhtmlXGridObject('employeeSalaryList');
+    mygrid.setImagePath("js/dhtmlx/grid/imgs/");
+    mygrid.setHeader("H\u1ECD t\u00EAn,Email,\u0110\u01A1n v\u1ECB,T\u00ECnh tr\u1EA1ng");
+    mygrid.attachHeader("#text_filter,#text_filter,#select_filter,#select_filter");
+    mygrid.setInitWidths("200,200,*,150");
+    mygrid.setColTypes("link,ro,ro,ro");
+    mygrid.setColSorting("str,str,str,str");
+    mygrid.setSkin("light");
+    var height = contentHeight - 210;
+    mygrid.al(true, height);//enableAutoHeight
+    mygrid.enablePaging(true, 15, 3, "recinfoArea");
+    mygrid.setPagingSkin("toolbar", "dhx_skyblue");
+    mygrid.init();
+    var url = "getEmployeeSalaryList.do";
+    callAjax(url, null, null, function(data) {
+        mygrid.parse(data);
+    });
+    return false;
+}
+function getEmployeeSalary(employeeId, handle) {
+    if (employeeId == 0)
+        return;
+    popupName = 'TH\u00D4NG TIN L\u01AF\u01A0NG NH\u00C2N VI\u00CAN';
+    callAjax('employeeSalaryForm.do?employeeId=' + employeeId, null, null, function(data) {
+        showPopupForm(data);
+        document.getElementById('callbackFunc').value = handle;
+        tryNumberFormatCurrentcy(document.forms['employeeSalaryForm'].salary, "VND");
+    });
+}
+function saveEmployeeSalary() {
+    if (scriptFunction == "saveEmployeeSalary")
+        return false;
+    reformatNumberMoney(document.forms['employeeSalaryForm'].salary);
+    scriptFunction = "saveEmployeeSalary";
+    callAjaxCheckError("addEmployeeSalary.do", null, document.forms['employeeSalaryForm'], function(data) {
+        scriptFunction = "";
+        var handle = document.getElementById('callbackFunc').value;
+        if (handle != '')
+            eval(handle + "()");
+        prepareHidePopup('employeeSalaryFormshowHelpHideDiv');
+    });
+    return false;
+}
+function loadOrganizationTimesheetPanel() {
+    callAjax("getOrganizationTimesheetPanel.do", null, null, function(data) {
+        clearContent();
+        setAjaxData(data, "contentDiv");
+        loadOrganizationTimesheetList();
+    });
+}
+function loadOrganizationTimesheetList() {
+    var mygrid = new dhtmlXGridObject('organizationTimesheetList');
+    mygrid.setImagePath("js/dhtmlx/grid/imgs/");
+    mygrid.setHeader("\u0110\u01A1n v\u1ECB,T\u00ECnh tr\u1EA1ng");
+    mygrid.attachHeader("#text_filter,#select_filter");
+    mygrid.setInitWidths("*,150");
+    mygrid.setColTypes("link,ro");
+    mygrid.setColSorting("str,str");
+    mygrid.setSkin("light");
+    var height = contentHeight - 210;
+    mygrid.al(true, height);//enableAutoHeight
+    mygrid.enablePaging(true, 15, 3, "recinfoArea");
+    mygrid.setPagingSkin("toolbar", "dhx_skyblue");
+    mygrid.init();
+    var url = "getOrganizationTimesheetList.do";
+    callAjax(url, null, null, function(data) {
+        mygrid.parse(data);
+    });
+    return false;
+}
+function getOrganizationTimesheet(employeeId, handle) {
+    if (employeeId == 0)
+        return;
+    popupName = 'TH\u00D4NG TIN CHI PH\u00CD';
+    callAjax('organizationTimesheetForm.do?organizationId=' + employeeId, null, null, function(data) {
+        showPopupForm(data);
+        document.getElementById('callbackFunc').value = handle;
+    });
+}
+function saveOrganizationTimesheet() {
+    if (scriptFunction == "saveOrganizationTimesheet")
+        return false;
+    scriptFunction = "saveOrganizationTimesheet";
+    callAjaxCheckError("addOrganizationTimesheet.do", null, document.forms['organizationTimesheetForm'], function(data) {
+        scriptFunction = "";
+        var handle = document.getElementById('callbackFunc').value;
+        if (handle != '')
+            eval(handle + "()");
+        prepareHidePopup('organizationTimesheetFormshowHelpHideDiv');
+    });
+    return false;
+}
+function loadEmployeeTimesheetPanel() {
+    callAjax("getEmployeeTimesheetPanel.do", null, null, function(data) {
+        clearContent();
+        setAjaxData(data, "contentDiv");
+        var myCalendar = new dhtmlXCalendarObject(["fromDate", "toDate"]);
+        myCalendar.setSkin('dhx_web');
+        var currentTime = getCurrentDate();
+        document.forms['employeeTimesheetSearchForm'].fromDate.value = currentTime;
+        document.forms['employeeTimesheetSearchForm'].toDate.value = currentTime;
+        myCalendar.setDateFormat("%d/%m/%Y");
+        loadEmployeeTimesheetList(currentTime, currentTime);
+    });
+    return false;
+}
+function loadEmployeeTimesheetList(fromDate, toDate) {
+    var mygrid = new dhtmlXGridObject('employeeTimesheetList');
+    mygrid.setImagePath("js/dhtmlx/grid/imgs/");
+    mygrid.setHeader("S\u1ED1 phi\u1EBFu,Nh\u00E2n vi\u00EAn,Ng\u00E0y t\u1EA1o,N\u1ED9i dung,S\u1ED1 l\u1EA7n,Ghi ch\u00FA");
+    mygrid.attachHeader("#text_filter,#text_filter,#text_filter,#text_filter,#text_filter,#text_filter");
+    mygrid.setInitWidths("150,200,200,200,200,*");
+    mygrid.setColTypes("link,ro,ro,ro,ro,ro");
+    mygrid.setColSorting("str,str,str,str,str,str");
+    mygrid.setSkin("light");
+    var height = contentHeight - 210;
+    mygrid.al(true, height);//enableAutoHeight
+    mygrid.enablePaging(true, 15, 3, "recinfoArea");
+    mygrid.setPagingSkin("toolbar", "dhx_skyblue");
+    mygrid.init();
+    var url = "getEmployeeTimesheetList.do?t=1";
+    if (fromDate != null)
+        url += "&fromDate=" + fromDate;
+    if (toDate != null)
+        url += "&toDate=" + toDate;
+    callAjax(url, null, null, function(data) {
+        mygrid.parse(data);
+    });
+    return false;
+}
+function getEmployeeTimesheet(id, handle) {
+    popupName = 'TH\u00D4NG TIN CH\u1EA4M C\u00D4NG';
+    var url = 'employeeTimesheetForm.do';
+    if (id != 0)
+        url += '?employeeTimesheetId=' + id
+    callAjax(url, null, null, function(data) {
+        showPopupForm(data);
+        document.getElementById('callbackFunc').value = handle;
+        document.forms['employeeTimesheetForm'].quantity.focus();
+        tryNumberFormatCurrentcy(document.forms['employeeTimesheetForm'].quantity, "VND");
+        var myCalendar = new dhtmlXCalendarObject(["employeeTimesheetDate"]);
+        myCalendar.setSkin('dhx_web');
+        var currentDate = getCurrentDate();
+        document.forms['employeeTimesheetForm'].employeeTimesheetDate.value = currentDate;
+        myCalendar.setDateFormat("%d/%m/%Y");
+    });
+}
+function saveEmployeeTimesheet() {
+    if (scriptFunction == "saveEmployeeTimesheet")
+        return false;
+    var field = document.forms['employeeTimesheetForm'].timesheetDate;
+    if (field.value == '') {
+        alert("Vui l\u00F2ng nh\u1EADp ng\u00E0y ch\u1EA5m c\u00F4ng");
+        field.focus();
+        field = null;
+        return false;
+    }
+    field = document.forms['employeeTimesheetForm'].quantity;
+    if (field.value == '') {
+        alert("Vui l\u00F2ng nh\u1EADp s\u1ED1 l\u1EA7n");
+        field.focus();
+        field = null;
+        return false;
+    }
+    field = null;
+    reformatNumberMoney(document.forms['employeeTimesheetForm'].quantity);
+    scriptFunction = "saveEmployeeTimesheet";
+    callAjaxCheckError("addEmployeeTimesheet.do", null, document.forms['employeeTimesheetForm'], function(data) {
+        scriptFunction = "";
+        var handle = document.getElementById('callbackFunc').value;
+        if (confirm('B\u1EA1n c\u00F3 mu\u1ED1n nh\u1EADp ti\u1EBFp th\u00F4ng tin kh\u00E1c ?'))
+            getEmployeeTimesheet(0, handle);
+        else if (handle != '')
+            eval(handle + "()");
+        prepareHidePopup('employeeTimesheetFormshowHelpHideDiv');
+    });
+    return false;
+}
+function delEmployeeTimesheet() {
+    callAjaxCheckError('delEmployeeTimesheet.do?employeeTimesheetId=' + document.forms['employeeTimesheetForm'].id.value, null, null, function() {
+        loadEmployeeTimesheetPanel();
+        prepareHidePopup('employeeTimesheetFormshowHelpHideDiv');
+    });
+    return false;
+}
+function timesheetOrganizationChanged(list) {
+    if (list.selectedIndex == -1)
+        return false;
+    var url = "getDynamicFieldByOrganizationInTimeSheet.do?employeeId=" + list.options[list.selectedIndex].value;
+    callAjax(url, "employeeTimeSheetField", null, null);
+    list = null;
+    return false;
+}

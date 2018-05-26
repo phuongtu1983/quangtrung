@@ -5,6 +5,7 @@
 package com.stepup.gasoline.qt.dao;
 
 import com.stepup.core.database.DBUtil;
+import com.stepup.core.database.SPUtil;
 import com.stepup.gasoline.qt.bean.DynamicFieldBean;
 import com.stepup.gasoline.qt.bean.DynamicFieldValueBean;
 import com.stepup.gasoline.qt.bean.EmployeeBean;
@@ -33,6 +34,7 @@ public class DynamicFieldDAO extends BasicDAO {
             while (rs.next()) {
                 bean = new DynamicFieldFormBean();
                 bean.setId(rs.getInt("id"));
+                bean.setCode(rs.getString("code"));
                 bean.setName(rs.getString("name"));
                 bean.setOrganizationId(rs.getInt("organization_id"));
                 bean.setOrganizationName(rs.getString("organization_name"));
@@ -59,6 +61,7 @@ public class DynamicFieldDAO extends BasicDAO {
             while (rs.next()) {
                 DynamicFieldFormBean bean = new DynamicFieldFormBean();
                 bean.setId(rs.getInt("id"));
+                bean.setCode(rs.getString("code"));
                 bean.setName(rs.getString("name"));
                 bean.setTableName(rs.getString("table_name"));
                 bean.setOrganizationId(rs.getInt("organization_id"));
@@ -84,6 +87,7 @@ public class DynamicFieldDAO extends BasicDAO {
             while (rs.next()) {
                 DynamicFieldFormBean bean = new DynamicFieldFormBean();
                 bean.setId(rs.getInt("id"));
+                bean.setCode(rs.getString("code"));
                 bean.setName(rs.getString("name"));
                 bean.setTableName(rs.getString("table_name"));
                 bean.setOrganizationId(rs.getInt("organization_id"));
@@ -107,8 +111,8 @@ public class DynamicFieldDAO extends BasicDAO {
         }
         try {
             String sql = "";
-            sql = "Insert Into dynamic_field (name, table_name, organization_id)"
-                    + " Values ('" + bean.getName() + "','" + bean.getTableName() + "'," + bean.getOrganizationId() + ")";
+            sql = "Insert Into dynamic_field (name, code, table_name, organization_id)"
+                    + " Values ('" + bean.getName() + "','" + bean.getCode() + "','" + bean.getTableName() + "'," + bean.getOrganizationId() + ")";
             DBUtil.executeInsert(sql);
         } catch (SQLException sqle) {
             throw new Exception(sqle.getMessage());
@@ -130,6 +134,7 @@ public class DynamicFieldDAO extends BasicDAO {
         try {
             String sql = "Update dynamic_field Set "
                     + " name='" + bean.getName() + "'"
+                    + ", code='" + bean.getCode()+ "'"
                     + ", organization_id=" + bean.getOrganizationId()
                     + " Where id=" + bean.getId();
             DBUtil.executeUpdate(sql);
@@ -145,19 +150,28 @@ public class DynamicFieldDAO extends BasicDAO {
         }
     }
 
-    public int deletePermission(String ids) throws Exception {
-        int result = 0;
+    public void deletePermission(String ids) throws Exception {
+        SPUtil spUtil = null;
         try {
-            String sql = "Delete From dynamic_field_value Where field_id in (" + ids + ")";
-            DBUtil.executeUpdate(sql);
-            sql = "Delete From dynamic_field Where id in (" + ids + ")";
-            result = DBUtil.executeUpdate(sql);
+            String sql = "{call deleteDynamicField(?)}";
+            spUtil = new SPUtil(sql);
+            if (spUtil != null) {
+                spUtil.getCallableStatement().setString("_ids", ids);
+                spUtil.execute();
+            }
         } catch (SQLException sqle) {
             throw new Exception(sqle.getMessage());
         } catch (Exception ex) {
             throw new Exception(ex.getMessage());
+        } finally {
+            try {
+                if (spUtil != null) {
+                    spUtil.closeConnection();
+                }
+            } catch (Exception e) {
+                throw new Exception(e.getMessage());
+            }
         }
-        return result;
     }
 
     public ArrayList getDynamicFieldValues(int parentId, String tableName, int organizationId) throws Exception {

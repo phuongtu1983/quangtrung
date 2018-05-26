@@ -30,7 +30,10 @@ public class Constants {
     public static final String DYNAMIC_FIELD_TABLE = "dynamicFieldTable";
     public static final String DYNAMIC_FIELD_VALUE = "dynamicFieldValue";
     public static final String DYNAMIC_FIELD = "dynamicField";
+    public static final String DYNAMIC_FIELD_LIST = "dynamicFieldList";
     public static final String EMPLOYEE = "employee";
+    public static final String EMPLOYEE_SALARY = "employeeSalary";
+    public static final String ORGANIZATION_TIMESHEET = "organizationTimesheet";
     public static final String EMPLOYEE_LIST = "employeeList";
     public static final String STORE = "store";
     public static final String UNIT = "unit";
@@ -48,6 +51,7 @@ public class Constants {
     public static final String CUSTOMER = "customer";
     public static final String CUSTOMER_KIND_LIST = "customerKindList";
     public static final String EMPLOYEE_ADVANCE = "employeeAdvance";
+    public static final String EMPLOYEE_TIMESHEET = "employeeTimesheet";
     public static final String PAYMENT_MODE_LIST = "paymentModeList";
     public static final String SALARY = "salary";
 

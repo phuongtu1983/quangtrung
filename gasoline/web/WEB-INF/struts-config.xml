@@ -35,10 +35,13 @@
         <form-bean name="promotionMaterialForm" type="com.stepup.gasoline.qt.promotionmaterial.PromotionMaterialFormBean"/>
         <form-bean name="accessoryForm" type="com.stepup.gasoline.qt.accessory.AccessoryFormBean"/>
         <form-bean name="employeeAdvanceForm" type="com.stepup.gasoline.qt.employeeadvance.EmployeeAdvanceFormBean"/>
+        <form-bean name="employeeTimesheetForm" type="com.stepup.gasoline.qt.employeetimesheet.EmployeeTimesheetFormBean"/>
         <form-bean name="salaryForm" type="com.stepup.gasoline.qt.salary.salaryFormBean"/>
         <form-bean name="storeForm" type="com.stepup.gasoline.qt.store.StoreFormBean"/>
         <form-bean name="accountForm" type="com.stepup.gasoline.qt.account.AccountFormBean"/>
         <form-bean name="employeeForm" type="com.stepup.gasoline.qt.employee.EmployeeFormBean"/>
+        <form-bean name="employeeSalaryForm" type="com.stepup.gasoline.qt.employee.EmployeeSalaryFormBean"/>
+        <form-bean name="organizationTimesheetForm" type="com.stepup.gasoline.qt.organization.OrganizationTimesheetFormBean"/>
         <form-bean name="accessoryKindForm" type="com.stepup.gasoline.qt.accessorykind.AccessoryKindFormBean"/>
         <form-bean name="vendorForm" type="com.stepup.gasoline.qt.vendor.VendorFormBean"/>
         <form-bean name="customerForm" type="com.stepup.gasoline.qt.customer.CustomerFormBean"/>
@@ -334,6 +337,47 @@
         <action path="/delSalary" type="com.stepup.gasoline.qt.salary.DeleteSalaryAction" scope="request" validate="false" >
         </action>
         <!-- end salary -->
+        <!-- start employee salary-->
+        <action path="/getEmployeeSalaryPanel" type="com.stepup.gasoline.qt.common.BaseStatusFormAction" scope="request" validate="false">
+            <forward name="success" path="/employee/employeesalarypanel.jsp" />
+        </action>
+        <action path="/getEmployeeSalaryList" type="com.stepup.gasoline.qt.employee.GetEmployeeSalaryListAction" scope="request" validate="false" >
+        </action>
+        <action path="/employeeSalaryForm" type="com.stepup.gasoline.qt.employee.EmployeeSalaryFormAction" scope="request" validate="false">
+            <forward name="success" path="/employee/employeesalarydetail.jsp" />
+        </action>
+        <action path="/addEmployeeSalary" name ="employeeSalaryForm" scope="request" type="com.stepup.gasoline.qt.employee.AddEmployeeSalaryAction" input="/employeeSalaryForm.do">
+        </action>
+        <!-- end employee salary-->
+        <!-- start organization timesheet-->
+        <action path="/getOrganizationTimesheetPanel" type="com.stepup.gasoline.qt.common.BaseStatusFormAction" scope="request" validate="false">
+            <forward name="success" path="/organization/organizationtimesheetpanel.jsp" />
+        </action>
+        <action path="/getOrganizationTimesheetList" type="com.stepup.gasoline.qt.organization.GetOrganizationTimesheetListAction" scope="request" validate="false" >
+        </action>
+        <action path="/organizationTimesheetForm" type="com.stepup.gasoline.qt.organization.OrganizationTimesheetFormAction" scope="request" validate="false">
+            <forward name="success" path="/organization/organizationtimesheetdetail.jsp" />
+        </action>
+        <action path="/addOrganizationTimesheet" name ="organizationTimesheetForm" scope="request" type="com.stepup.gasoline.qt.organization.AddOrganizationTimesheetAction" input="/organizationTimesheetForm.do">
+        </action>
+        <!-- end organization timesheet-->
+        <!-- start employeetimesheet -->
+        <action path="/getEmployeeTimesheetPanel" type="com.stepup.gasoline.qt.common.BaseStatusFormAction" scope="request" validate="false">
+            <forward name="success" path="/employeetimesheet/employeetimesheetpanel.jsp" />
+        </action>
+        <action path="/getEmployeeTimesheetList" type="com.stepup.gasoline.qt.employeetimesheet.GetEmployeeTimesheetListAction" scope="request" validate="false" >
+        </action>
+        <action path="/employeeTimesheetForm" type="com.stepup.gasoline.qt.employeetimesheet.EmployeeTimesheetFormAction" scope="request" validate="false">
+            <forward name="success" path="/employeetimesheet/employeetimesheetdetail.jsp" />
+        </action>
+        <action path="/addEmployeeTimesheet" name ="employeeTimesheetForm" scope="request" type="com.stepup.gasoline.qt.employeetimesheet.AddEmployeeTimesheetAction" input="/employeeTimesheetForm.do">
+        </action>
+        <action path="/delEmployeeTimesheet" type="com.stepup.gasoline.qt.employeetimesheet.DeleteEmployeeTimesheetAction" scope="request" validate="false" >
+        </action>
+        <action path="/getDynamicFieldByOrganizationInTimeSheet" type="com.stepup.gasoline.qt.employeetimesheet.GetDynamicFieldByOrganizationInTimeSheetAction" scope="request" validate="false">
+            <forward name="success" path="/employeetimesheet/dynamicfields.jsp" />
+        </action>
+        <!-- end employeetimesheet -->
     </action-mappings>
     
     <controller processorClass="org.apache.struts.tiles.TilesRequestProcessor"/>

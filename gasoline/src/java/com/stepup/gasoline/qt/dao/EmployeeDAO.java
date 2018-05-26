@@ -13,9 +13,12 @@ import com.stepup.core.util.StringUtil;
 import com.stepup.gasoline.qt.auth.OnlineUserImpl;
 import com.stepup.gasoline.qt.bean.EmployeeAdvanceBean;
 import com.stepup.gasoline.qt.bean.EmployeeBean;
-import com.stepup.gasoline.qt.bean.SalaryBean;
+import com.stepup.gasoline.qt.bean.EmployeeSalaryFieldBean;
+import com.stepup.gasoline.qt.bean.EmployeeTimesheetBean;
+import com.stepup.gasoline.qt.dynamicfield.DynamicFieldValueFormBean;
 import com.stepup.gasoline.qt.employee.EmployeeFormBean;
 import com.stepup.gasoline.qt.employeeadvance.EmployeeAdvanceFormBean;
+import com.stepup.gasoline.qt.employeetimesheet.EmployeeTimesheetFormBean;
 import com.stepup.gasoline.qt.salary.SalaryFormBean;
 import com.stepup.gasoline.qt.util.QTUtil;
 import java.sql.ResultSet;
@@ -65,7 +68,7 @@ public class EmployeeDAO extends BasicDAO {
 
     public EmployeeFormBean getEmployee(int empId) throws Exception {
         ResultSet rs = null;
-        String sql = "select * from employee where id=" + empId;
+        String sql = "select e.*, o.name as organization_name from employee as e, organization as o where e.organization_id=o.id and e.id=" + empId;
         try {
             rs = DBUtil.executeQuery(sql);
             while (rs.next()) {
@@ -75,6 +78,7 @@ public class EmployeeDAO extends BasicDAO {
                 employee.setEmail(rs.getString("email"));
                 employee.setSalary(rs.getDouble("salary"));
                 employee.setOrganizationId(rs.getInt("organization_id"));
+                employee.setOrganizationName(rs.getString("organization_name"));
                 employee.setStatus(rs.getInt("status"));
                 if (employee.getStatus() == EmployeeBean.STATUS_ACTIVE) {
                     employee.setStatusName(QTUtil.getBundleString("employee.detail.status.active"));
@@ -246,6 +250,25 @@ public class EmployeeDAO extends BasicDAO {
         }
     }
 
+    public void updateEmployeeSalary(EmployeeBean bean) throws Exception {
+        if (bean == null) {
+            return;
+        }
+        try {
+            String sql = "Update employee Set salary=" + bean.getSalary() + " Where id=" + bean.getId();
+            DBUtil.executeUpdate(sql);
+        } catch (SQLException sqle) {
+            throw new Exception(sqle.getMessage());
+        } catch (Exception ex) {
+            throw new Exception(ex.getMessage());
+        } finally {
+            try {
+            } catch (Exception e) {
+                throw new Exception(e.getMessage());
+            }
+        }
+    }
+
     public ArrayList searchEmployeeAdvance(String fromDate, String endDate) throws Exception {
         SPUtil spUtil = null;
         ArrayList list = new ArrayList();
@@ -381,17 +404,16 @@ public class EmployeeDAO extends BasicDAO {
             } else {
                 createdDate = bean.getAdvanceDate();
             }
-            String sql = "{call updateEmployeeAdvance(?,?,?,?,?,?,?,?)}";
+            String sql = "{call updateEmployeeAdvance(?,?,?,?,?,?,?)}";
             spUtil = new SPUtil(sql);
             if (spUtil != null) {
-                spUtil.getCallableStatement().setString("_code", bean.getCode());
+                spUtil.getCallableStatement().setInt("_id", bean.getId());
                 spUtil.getCallableStatement().setInt("_employee_id", bean.getEmployeeId());
                 spUtil.getCallableStatement().setString("_advance_date", createdDate);
                 spUtil.getCallableStatement().setDouble("_amount", bean.getAmount());
                 spUtil.getCallableStatement().setInt("_payment_mode", bean.getPaymentMode());
                 spUtil.getCallableStatement().setInt("_account_id", bean.getAccountId());
                 spUtil.getCallableStatement().setString("_note", bean.getNote());
-                spUtil.getCallableStatement().setInt("_id", bean.getId());
                 spUtil.execute();
             }
         } catch (SQLException sqle) {
@@ -517,6 +539,260 @@ public class EmployeeDAO extends BasicDAO {
         String result = "";
         try {
             result = this.getNextNumber(prefix, length, "code", "employee_salary");
+        } catch (Exception ex) {
+            throw new Exception(ex.getMessage());
+        }
+        return result;
+    }
+
+    public ArrayList getEmployeeSalaryField(int employeeId, int organizationId, String tableName) throws Exception {
+        ResultSet rs = null;
+        String sql = "SELECT COALESCE(s.id,0) AS id, f.id AS field_id, f.NAME, s.amount AS VALUE"
+                + " FROM dynamic_field AS f LEFT JOIN employee_salary_field AS s ON f.id=s.field_id AND s.employee_id=" + employeeId
+                + " WHERE f.organization_id=" + organizationId + " AND table_name='" + tableName + "'"
+                + " order by s.field_id";
+        ArrayList list = new ArrayList();
+        try {
+            rs = DBUtil.executeQuery(sql);
+            DynamicFieldValueFormBean bean = null;
+            while (rs.next()) {
+                bean = new DynamicFieldValueFormBean();
+                bean.setId(rs.getInt("id"));
+                bean.setFieldId(rs.getInt("field_id"));
+                bean.setName(rs.getString("name"));
+                bean.setValue(rs.getString("value"));
+                list.add(bean);
+            }
+        } catch (SQLException sqle) {
+            throw new Exception(sqle.getMessage());
+        } catch (Exception ex) {
+            throw new Exception(ex.getMessage());
+        } finally {
+            if (rs != null) {
+                DBUtil.closeConnection(rs);
+            }
+        }
+        return list;
+    }
+
+    public void insertEmployeeSalaryField(EmployeeSalaryFieldBean bean) throws Exception {
+        if (bean == null) {
+            return;
+        }
+        try {
+            String sql = "";
+            sql = "Insert Into employee_salary_field (employee_id, field_id, amount)"
+                    + " Values (" + bean.getEmployeeId() + "," + bean.getFieldId() + "," + bean.getAmount() + ")";
+            DBUtil.executeInsert(sql);
+        } catch (SQLException sqle) {
+            throw new Exception(sqle.getMessage());
+        } catch (Exception ex) {
+            throw new Exception(ex.getMessage());
+        } finally {
+            try {
+            } catch (Exception e) {
+                throw new Exception(e.getMessage());
+            }
+
+        }
+    }
+
+    public void updateEmployeeSalaryField(EmployeeSalaryFieldBean bean) throws Exception {
+        if (bean == null) {
+            return;
+        }
+        try {
+            String sql = "Update employee_salary_field Set  amount=" + bean.getAmount() + " Where id=" + bean.getId();
+            DBUtil.executeUpdate(sql);
+        } catch (SQLException sqle) {
+            throw new Exception(sqle.getMessage());
+        } catch (Exception ex) {
+            throw new Exception(ex.getMessage());
+        } finally {
+            try {
+            } catch (Exception e) {
+                throw new Exception(e.getMessage());
+            }
+        }
+    }
+
+    public ArrayList searchEmployeeTimesheet(String fromDate, String endDate) throws Exception {
+        SPUtil spUtil = null;
+        ArrayList list = new ArrayList();
+        ResultSet rs = null;
+        try {
+            String sql = "{call searchEmployeeTimesheet(?,?)}";
+            if (GenericValidator.isBlankOrNull(fromDate)) {
+                fromDate = DateUtil.today("dd/MM/yyyy");
+            }
+            if (GenericValidator.isBlankOrNull(endDate)) {
+                endDate = this.START_DATE;
+            }
+            spUtil = new SPUtil(sql);
+            if (spUtil != null) {
+                spUtil.getCallableStatement().setString("_start_date", fromDate);
+                spUtil.getCallableStatement().setString("_end_date", endDate);
+                rs = spUtil.executeQuery();
+                if (rs != null) {
+                    EmployeeTimesheetFormBean bean = null;
+                    while (rs.next()) {
+                        bean = new EmployeeTimesheetFormBean();
+                        bean.setId(rs.getInt("id"));
+                        bean.setCode(rs.getString("code"));
+                        bean.setTimesheetDate(DateUtil.formatDate(rs.getDate("timesheet_date"), "dd/MM/yyyy"));
+                        bean.setEmployeeName(rs.getString("employee_name"));
+                        bean.setFieldName(rs.getString("field_name"));
+                        bean.setQuantity(rs.getInt("quantity"));
+                        bean.setNote(rs.getString("note"));
+                        list.add(bean);
+                    }
+                }
+            }
+        } catch (SQLException sqle) {
+            throw new Exception(sqle.getMessage());
+        } catch (Exception ex) {
+            throw new Exception(ex.getMessage());
+        } finally {
+            try {
+                if (spUtil != null) {
+                    spUtil.closeConnection();
+                }
+                if (rs != null) {
+                    rs.close();
+                    rs = null;
+                }
+            } catch (Exception e) {
+                throw new Exception(e.getMessage());
+            }
+        }
+        return list;
+    }
+
+    public EmployeeTimesheetBean getEmployeeTimesheet(int id) throws Exception {
+        ResultSet rs = null;
+        String sql = "select * from timesheet where id=" + id;
+        try {
+            rs = DBUtil.executeQuery(sql);
+            while (rs.next()) {
+                EmployeeTimesheetBean bean = new EmployeeTimesheetBean();
+                bean.setId(rs.getInt("id"));
+                bean.setCode(rs.getString("code"));
+                bean.setEmployeeId(rs.getInt("employee_id"));
+                bean.setFieldId(rs.getInt("field_id"));
+                bean.setTimesheetDate(DateUtil.formatDate(rs.getDate("timesheet_date"), "dd/MM/yyyy"));
+                bean.setQuantity(rs.getInt("quantity"));
+                bean.setNote(rs.getString("note"));
+                return bean;
+            }
+        } catch (SQLException sqle) {
+            throw new Exception(sqle.getMessage());
+        } catch (Exception ex) {
+            throw new Exception(ex.getMessage());
+        } finally {
+            if (rs != null) {
+                DBUtil.closeConnection(rs);
+            }
+        }
+        return null;
+    }
+
+    public String getNextEmployeeTimesheetNumber(String prefix, int length) throws Exception {
+        String result = "";
+        try {
+            result = this.getNextNumber(prefix, length, "code", "timesheet");
+        } catch (Exception ex) {
+            throw new Exception(ex.getMessage());
+        }
+        return result;
+    }
+
+    public int insertEmployeeTimesheet(EmployeeTimesheetBean bean) throws Exception {
+        if (bean == null) {
+            return 0;
+        }
+        int result = 0;
+        SPUtil spUtil = null;
+        try {
+            String createdDate = "";
+            if (GenericValidator.isBlankOrNull(bean.getTimesheetDate())) {
+                createdDate = "null";
+            } else {
+                createdDate = bean.getTimesheetDate();
+            }
+            String sql = "{call insertEmployeeTimesheet(?,?,?,?,?,?,?)}";
+            spUtil = new SPUtil(sql);
+            if (spUtil != null) {
+                spUtil.getCallableStatement().setString("_code", bean.getCode());
+                spUtil.getCallableStatement().setInt("_employee_id", bean.getEmployeeId());
+                spUtil.getCallableStatement().setString("_timesheet_date", createdDate);
+                spUtil.getCallableStatement().setInt("_field_id", bean.getFieldId());
+                spUtil.getCallableStatement().setInt("_quantity", bean.getQuantity());
+                spUtil.getCallableStatement().setString("_note", bean.getNote());
+                spUtil.getCallableStatement().registerOutParameter("_id", Types.INTEGER);
+                spUtil.execute();
+                result = spUtil.getCallableStatement().getInt("_id");
+            }
+        } catch (SQLException sqle) {
+            throw new Exception(sqle.getMessage());
+        } catch (Exception ex) {
+            throw new Exception(ex.getMessage());
+        } finally {
+            try {
+                if (spUtil != null) {
+                    spUtil.closeConnection();
+                }
+            } catch (Exception e) {
+                throw new Exception(e.getMessage());
+            }
+        }
+        return result;
+    }
+
+    public void updateEmployeeTimesheet(EmployeeTimesheetBean bean) throws Exception {
+        if (bean == null) {
+            return;
+        }
+        SPUtil spUtil = null;
+        try {
+            String createdDate = "";
+            if (GenericValidator.isBlankOrNull(bean.getTimesheetDate())) {
+                createdDate = "null";
+            } else {
+                createdDate = bean.getTimesheetDate();
+            }
+            String sql = "{call updateEmployeeTimesheet(?,?,?,?,?,?)}";
+            spUtil = new SPUtil(sql);
+            if (spUtil != null) {
+                spUtil.getCallableStatement().setInt("_id", bean.getId());
+                spUtil.getCallableStatement().setInt("_employee_id", bean.getEmployeeId());
+                spUtil.getCallableStatement().setString("_timesheet_date", createdDate);
+                spUtil.getCallableStatement().setInt("_field_id", bean.getFieldId());
+                spUtil.getCallableStatement().setInt("_quantity", bean.getQuantity());
+                spUtil.getCallableStatement().setString("_note", bean.getNote());
+                spUtil.execute();
+            }
+        } catch (SQLException sqle) {
+            throw new Exception(sqle.getMessage());
+        } catch (Exception ex) {
+            throw new Exception(ex.getMessage());
+        } finally {
+            try {
+                if (spUtil != null) {
+                    spUtil.closeConnection();
+                }
+            } catch (Exception e) {
+                throw new Exception(e.getMessage());
+            }
+        }
+    }
+
+    public int deleteEmployeeTimesheet(String ids) throws Exception {
+        int result = 0;
+        try {
+            String sql = "Delete From timesheet Where id in (" + ids + ")";
+            DBUtil.executeUpdate(sql);
+        } catch (SQLException sqle) {
+            throw new Exception(sqle.getMessage());
         } catch (Exception ex) {
             throw new Exception(ex.getMessage());
         }

@@ -34,7 +34,7 @@ public class GetEmployeeAdvanceListAction extends BaseAction {
                 for (int i = 0; i < length; i++) {
                     EmployeeAdvanceFormBean bean = (EmployeeAdvanceFormBean) list.get(i);
                     buff.append("<row id=\"").append(bean.getId()).append("\">");
-                    buff.append("<cell>").append(bean.getCode()).append("^javascript:getEmployeeAdvance(").append(bean.getId()).append(",\"loadEmployeeAdvanceList\")^_self</cell>");
+                    buff.append("<cell>").append(bean.getCode()).append("^javascript:getEmployeeAdvance(").append(bean.getId()).append(",\"loadEmployeeAdvancePanel\")^_self</cell>");
                     buff.append("<cell>").append(bean.getAdvanceDate()).append("</cell>");
                     buff.append("<cell>").append(bean.getEmployeeName()).append("</cell>");
                     buff.append("<cell>").append(NumberUtil.formatMoneyDefault(bean.getAmount(), "VND")).append("</cell>");

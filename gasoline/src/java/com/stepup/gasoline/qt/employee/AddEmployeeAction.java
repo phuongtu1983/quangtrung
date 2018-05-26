@@ -4,6 +4,7 @@
  */
 package com.stepup.gasoline.qt.employee;
 
+import com.stepup.gasoline.qt.bean.DynamicFieldBean;
 import com.stepup.gasoline.qt.bean.EmployeeBean;
 import com.stepup.gasoline.qt.core.AddDynamicFieldValueAction;
 import com.stepup.gasoline.qt.dao.EmployeeDAO;
@@ -111,6 +112,6 @@ public class AddEmployeeAction extends AddDynamicFieldValueAction {
 
     @Override
     protected String getTableName() {
-        return "employee";
+        return DynamicFieldBean.EMPLOYEE;
     }
 }

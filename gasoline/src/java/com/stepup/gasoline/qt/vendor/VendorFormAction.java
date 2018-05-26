@@ -4,6 +4,7 @@
  */
 package com.stepup.gasoline.qt.vendor;
 
+import com.stepup.gasoline.qt.bean.DynamicFieldBean;
 import com.stepup.gasoline.qt.bean.EmployeeBean;
 import com.stepup.gasoline.qt.bean.OrganizationBean;
 import com.stepup.gasoline.qt.core.DynamicFieldValueAction;
@@ -91,6 +92,6 @@ public class VendorFormAction extends DynamicFieldValueAction {
 
     @Override
     protected String getTableName() {
-        return "vendor";
+        return DynamicFieldBean.VENDOR;
     }
 }

@@ -11,6 +11,7 @@ package com.stepup.gasoline.qt.bean;
 public class DynamicFieldBean {
 
     private int id;
+    private String code;
     private String name;
     private int organizationId;
     private String tableName;
@@ -46,5 +47,19 @@ public class DynamicFieldBean {
     public void setTableName(String tableName) {
         this.tableName = tableName;
     }
+
+    public String getCode() {
+        return code;
+    }
+
+    public void setCode(String code) {
+        this.code = code;
+    }
+    
+    public static String EMPLOYEE = "employee";
+    public static String VENDOR = "vendor";
+    public static String CUSTOMER = "customer";
+    public static String SALARY = "salary";
+    public static String TIMESHEET = "timesheet";
 
 }

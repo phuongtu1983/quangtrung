@@ -253,17 +253,31 @@ public class GenerateMenu {
                     }
                     buffTemp.append("</item>");
                 }
+                if (isHasPermission(PermissionUtil.OPERATION_LIST + "," + PermissionUtil.OPERATION_ADD, PermissionUtil.PER_EMPLOYEE_TIMESHEET)) {
+                    buffTemp.append("<item id=\"employeetimesheets\" complex=\"true\" text=\"").append(QTUtil.getBundleString("employeeTimesheet.title")).append("\">");
+                    if (isHasPermission(PermissionUtil.OPERATION_LIST, PermissionUtil.PER_EMPLOYEE_TIMESHEET)) {
+                        buffTemp.append("<item id=\"employeetimesheetlist\" text=\"").append(QTUtil.getBundleString("employeeTimesheet.list.title")).append("\"/>");
+                    }
+                    if (isHasPermission(PermissionUtil.OPERATION_ADD, PermissionUtil.PER_EMPLOYEE_TIMESHEET)) {
+                        buffTemp.append("<item id=\"employeetimesheetadd\" text=\"").append(QTUtil.getBundleString("employeeTimesheet.detail.add.title")).append("\"/>");
+                    }
+                    buffTemp.append("</item>");
+                }
                 if (isHasPermission(PermissionUtil.OPERATION_LIST + "," + PermissionUtil.OPERATION_ADD, PermissionUtil.PER_SALARY)) {
                     buffTemp.append("<item id=\"salarys\" complex=\"true\" text=\"").append(QTUtil.getBundleString("salary.title")).append("\">");
                     if (isHasPermission(PermissionUtil.OPERATION_LIST, PermissionUtil.PER_SALARY)) {
                         buffTemp.append("<item id=\"salarylist\" text=\"").append(QTUtil.getBundleString("salary.list.title")).append("\"/>");
                     }
-                    if (isHasPermission(PermissionUtil.OPERATION_ADD, PermissionUtil.PER_SALARY)) {
-                        buffTemp.append("<item id=\"salaryadd\" text=\"").append(QTUtil.getBundleString("salary.detail.add.title")).append("\"/>");
-                    }
                     if (isHasPermission(PermissionUtil.OPERATION_ADD, PermissionUtil.PER_DYNAMIC_FIELD)) {
+                        buffTemp.append("<item id=\"salarysalaryfiels\" complex=\"true\" text=\"").append(QTUtil.getBundleString("field.title")).append("\">");
                         buffTemp.append("<item id=\"salaryfiellist\" text=\"").append(QTUtil.getBundleString("salary.field.title")).append("\"/>");//add salary field
                         buffTemp.append("<item id=\"timesheetfiellist\" text=\"").append(QTUtil.getBundleString("timesheet.field.title")).append("\"/>");//add time sheet field
+                        buffTemp.append("</item>");
+                        
+                        buffTemp.append("<item id=\"dynamicfielvalues\" complex=\"true\" text=\"").append(QTUtil.getBundleString("field.value.title")).append("\">");
+                        buffTemp.append("<item id=\"employeesalarylist\" text=\"").append(QTUtil.getBundleString("salary.employee.list.title")).append("\"/>");
+                        buffTemp.append("<item id=\"organizationtimesheetlist\" text=\"").append(QTUtil.getBundleString("timesheet.organization.list.title")).append("\"/>");
+                        buffTemp.append("</item>");
                     }
                     buffTemp.append("</item>");
                 }

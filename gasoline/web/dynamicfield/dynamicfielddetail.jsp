@@ -11,6 +11,10 @@
             <tr><td>
                     <table cellspacing="0" cellpadding="0" style="border-width: 0px">
                         <tr>
+                            <td height="30" style="padding-right: 20px"><bean:message key="dynamicField.detail.code"/></td>
+                            <td><html:text property="code" size="40" name="<%=Constants.DYNAMIC_FIELD%>"/></td>
+                        </tr>
+                        <tr>
                             <td height="30" style="padding-right: 20px"><bean:message key="dynamicField.detail.name"/></td>
                             <td><html:text property="name" size="40" name="<%=Constants.DYNAMIC_FIELD%>"/></td>
                         </tr>

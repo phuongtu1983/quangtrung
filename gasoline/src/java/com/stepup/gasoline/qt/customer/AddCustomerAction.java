@@ -5,6 +5,7 @@
 package com.stepup.gasoline.qt.customer;
 
 import com.stepup.gasoline.qt.bean.CustomerBean;
+import com.stepup.gasoline.qt.bean.DynamicFieldBean;
 import com.stepup.gasoline.qt.core.AddDynamicFieldValueAction;
 import com.stepup.gasoline.qt.dao.CustomerDAO;
 import javax.servlet.http.HttpServletRequest;
@@ -111,6 +112,6 @@ public class AddCustomerAction extends AddDynamicFieldValueAction {
 
     @Override
     protected String getTableName() {
-        return "customer";
+        return DynamicFieldBean.CUSTOMER;
     }
 }

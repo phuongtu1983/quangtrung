@@ -5,6 +5,7 @@
 package com.stepup.gasoline.qt.customer;
 
 import com.stepup.gasoline.qt.bean.CustomerBean;
+import com.stepup.gasoline.qt.bean.DynamicFieldBean;
 import com.stepup.gasoline.qt.bean.EmployeeBean;
 import com.stepup.gasoline.qt.bean.OrganizationBean;
 import com.stepup.gasoline.qt.core.DynamicFieldValueAction;
@@ -103,6 +104,6 @@ public class CustomerFormAction extends DynamicFieldValueAction {
 
     @Override
     protected String getTableName() {
-        return "customer";
+        return DynamicFieldBean.CUSTOMER;
     }
 }

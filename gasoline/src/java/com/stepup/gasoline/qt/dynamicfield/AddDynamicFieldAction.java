@@ -69,6 +69,9 @@ public class AddDynamicFieldAction extends SpineAction {
         boolean isUpdate = false;
         try {
             if (!bNew) {
+                if (!formBean.getCode().equals(oldBean.getCode())) {
+                    isUpdate = true;
+                }
                 if (!formBean.getName().equals(oldBean.getName())) {
                     isUpdate = true;
                 }
@@ -80,6 +83,7 @@ public class AddDynamicFieldAction extends SpineAction {
         }
         DynamicFieldBean bean = new DynamicFieldBean();
         bean.setId(formBean.getId());
+        bean.setCode(formBean.getCode());
         bean.setName(formBean.getName());
         bean.setTableName(formBean.getTableName());
         bean.setOrganizationId(formBean.getOrganizationId());

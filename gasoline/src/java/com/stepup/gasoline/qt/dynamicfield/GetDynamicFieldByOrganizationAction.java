@@ -5,16 +5,12 @@
 package com.stepup.gasoline.qt.dynamicfield;
 
 import com.stepup.core.util.NumberUtil;
-import com.stepup.gasoline.qt.bean.EmployeeBean;
 import com.stepup.gasoline.qt.core.SpineAction;
 import com.stepup.gasoline.qt.dao.DynamicFieldDAO;
-import com.stepup.gasoline.qt.dao.OrganizationDAO;
 import com.stepup.gasoline.qt.util.Constants;
-import com.stepup.gasoline.qt.util.QTUtil;
 import java.util.ArrayList;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import org.apache.commons.validator.GenericValidator;
 import org.apache.struts.action.ActionForm;
 import org.apache.struts.action.ActionMapping;
 

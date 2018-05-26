@@ -13,6 +13,7 @@ import com.stepup.gasoline.qt.bean.DynamicFieldBean;
 public class DynamicFieldFormBean extends org.apache.struts.action.ActionForm {
 
     private int id;
+    private String code;
     private String name;
     private String tableName;
     private int organizationId;
@@ -24,6 +25,7 @@ public class DynamicFieldFormBean extends org.apache.struts.action.ActionForm {
     public DynamicFieldFormBean(DynamicFieldBean bean) {
         this.id = bean.getId();
         this.name = bean.getName();
+        this.code = bean.getCode();
         this.tableName = bean.getTableName();
         this.organizationId = bean.getOrganizationId();
     }
@@ -66,6 +68,14 @@ public class DynamicFieldFormBean extends org.apache.struts.action.ActionForm {
 
     public void setOrganizationName(String organizationName) {
         this.organizationName = organizationName;
+    }
+
+    public String getCode() {
+        return code;
+    }
+
+    public void setCode(String code) {
+        this.code = code;
     }
 
 }
