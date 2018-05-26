@@ -196,7 +196,7 @@ CREATE TABLE `employee` (
 
 /*Data for the table `employee` */
 
-insert  into `employee`(`id`,`fullname`,`email`,`salary`,`organization_id`,`status`) values (1,'Nguyễn Phương Tú','phuongtu1983@gmail.com',3,1,1),(2,'Nguyễn Thị Hương','huong1963@gmail.com',NULL,1,1),(6,'aa','bb',12345,2,1),(7,'a1','b1',31,2,1);
+insert  into `employee`(`id`,`fullname`,`email`,`salary`,`organization_id`,`status`) values (1,'Nguyễn Phương Tú','phuongtu1983@gmail.com',3,1,1),(2,'Nguyễn Thị Hương','huong1963@gmail.com',0,1,1),(6,'aa','bb',12345,2,1),(7,'a1','b1',31,2,1);
 
 /*Table structure for table `employee_advance` */
 
@@ -229,13 +229,14 @@ CREATE TABLE `employee_off` (
   `employee_id` int(11) DEFAULT NULL,
   `from_date` date DEFAULT NULL,
   `to_date` date DEFAULT NULL,
+  `actual_off_day` int(3) DEFAULT NULL,
   `note` text COLLATE utf8_unicode_ci,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 /*Data for the table `employee_off` */
 
-insert  into `employee_off`(`id`,`code`,`created_date`,`employee_id`,`from_date`,`to_date`,`note`) values (3,'20180525-EA-0003','2018-05-25',2,'2018-05-28','2018-05-31','abc');
+insert  into `employee_off`(`id`,`code`,`created_date`,`employee_id`,`from_date`,`to_date`,`actual_off_day`,`note`) values (3,'20180525-EA-0003','2018-05-25',2,'2018-05-20','2018-05-31',NULL,'abc'),(4,'20180526-EA-0001','2018-05-26',2,'2018-05-26','2018-06-07',NULL,''),(5,'20180526-EA-0002','2018-05-26',2,'2018-05-26','2018-06-12',0,''),(6,'20180526-EA-0003','2018-05-26',2,'2018-05-26','2018-06-10',0,''),(7,'20180526-EA-0004','2018-05-26',2,'2018-05-26','2018-06-10',13,'');
 
 /*Table structure for table `employee_salary` */
 
@@ -252,9 +253,11 @@ CREATE TABLE `employee_salary` (
   `month_day` int(2) DEFAULT NULL,
   `working_day` int(2) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=MyISAM AUTO_INCREMENT=25 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 /*Data for the table `employee_salary` */
+
+insert  into `employee_salary`(`id`,`code`,`employee_id`,`created_date`,`basic_salary`,`real_salary`,`total`,`month_day`,`working_day`) values (23,'20180526-ES-0003',6,'2018-05-25',12345,12345,12345,21,21),(22,'20180526-ES-0002',2,'2018-05-25',0,-0,-0,21,-2),(21,'20180526-ES-0001',1,'2018-05-25',3,3,3,21,21),(24,'20180526-ES-0004',7,'2018-05-25',31,31,31,21,21);
 
 /*Table structure for table `employee_salary_field` */
 
@@ -302,9 +305,11 @@ CREATE TABLE `employee_salary_timesheet_detail` (
   `amount` double DEFAULT NULL,
   `note` text COLLATE utf8_unicode_ci,
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=MyISAM AUTO_INCREMENT=26 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 /*Data for the table `employee_salary_timesheet_detail` */
+
+insert  into `employee_salary_timesheet_detail`(`id`,`employee_salary_id`,`field_id`,`field_name`,`quantity`,`price`,`amount`,`note`) values (25,22,18,'Giao bếp gas',134,33,4422,NULL),(24,22,17,'Thay van gas',3,22,66,NULL);
 
 /*Table structure for table `expense` */
 
@@ -1072,11 +1077,11 @@ CREATE TABLE `timesheet` (
   `quantity` int(2) DEFAULT NULL,
   `note` text COLLATE utf8_unicode_ci,
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM AUTO_INCREMENT=5 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=MyISAM AUTO_INCREMENT=6 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 /*Data for the table `timesheet` */
 
-insert  into `timesheet`(`id`,`code`,`employee_id`,`timesheet_date`,`field_id`,`field_name`,`quantity`,`note`) values (4,'20180525-TS-0002',2,'2018-05-25',18,'Giao bếp gas',123,'b'),(3,'20180525-TS-0001',2,'2018-05-25',18,'Giao bếp gas',11,'22');
+insert  into `timesheet`(`id`,`code`,`employee_id`,`timesheet_date`,`field_id`,`field_name`,`quantity`,`note`) values (4,'20180525-TS-0002',2,'2018-05-25',18,'Giao bếp gas',123,'b'),(3,'20180525-TS-0001',2,'2018-05-25',18,'Giao bếp gas',11,'22'),(5,'20180526-TS-0001',2,'2018-05-26',17,'Thay van gas',3,'');
 
 /*Table structure for table `trip_fee` */
 
@@ -1310,6 +1315,27 @@ BEGIN
     END */$$
 DELIMITER ;
 
+/* Procedure structure for procedure `getNotSalaryEmployee` */
+
+/*!50003 DROP PROCEDURE IF EXISTS  `getNotSalaryEmployee` */;
+
+DELIMITER $$
+
+/*!50003 CREATE DEFINER=`root`@`localhost` PROCEDURE `getNotSalaryEmployee`(IN _date VARCHAR(20))
+BEGIN
+	declare _search_date date;
+	select STR_TO_DATE(_date,'%d/%m/%Y') into _search_date;
+	select e.id, coalesce(e.salary,0) as salary
+	from employee as e
+	left join (SELECT s.employee_id
+				FROM employee_salary AS s
+				WHERE month(s.created_date)=month(_search_date) and year(s.created_date)=year(_search_date)) as salary_tbl
+		on e.id=salary_tbl.employee_id
+	where salary_tbl.employee_id is null
+	;
+    END */$$
+DELIMITER ;
+
 /* Procedure structure for procedure `insertEmployeeAdvance` */
 
 /*!50003 DROP PROCEDURE IF EXISTS  `insertEmployeeAdvance` */;
@@ -1332,11 +1358,47 @@ DELIMITER ;
 DELIMITER $$
 
 /*!50003 CREATE DEFINER=`root`@`localhost` PROCEDURE `insertEmployeeOff`(in _code varchar(20), in _employee_id int, in _created_date varchar(20), IN _from_date VARCHAR(20)
-	, IN _to_date VARCHAR(20), in _note text, OUT _id INT)
+	, IN _to_date VARCHAR(20), in _note text, in _actual_off_day int, OUT _id INT)
 BEGIN
-	insert into employee_off (code, employee_id, created_date, from_date, to_date, note)
-	values (_code, _employee_id, STR_TO_DATE(_created_date,'%d/%m/%Y'), STR_TO_DATE(_from_date,'%d/%m/%Y'), STR_TO_DATE(_to_date,'%d/%m/%Y'), _note);
+	insert into employee_off (code, employee_id, created_date, from_date, to_date, note, actual_off_day)
+	values (_code, _employee_id, STR_TO_DATE(_created_date,'%d/%m/%Y'), STR_TO_DATE(_from_date,'%d/%m/%Y'), STR_TO_DATE(_to_date,'%d/%m/%Y'), _note, _actual_off_day);
 	SELECT LAST_INSERT_ID() INTO _id;
+    END */$$
+DELIMITER ;
+
+/* Procedure structure for procedure `insertEmployeeSalary` */
+
+/*!50003 DROP PROCEDURE IF EXISTS  `insertEmployeeSalary` */;
+
+DELIMITER $$
+
+/*!50003 CREATE DEFINER=`root`@`localhost` PROCEDURE `insertEmployeeSalary`(IN _code VARCHAR(20), IN _employee_id INT, IN _created_date VARCHAR(20)
+	, IN _month_day int, in _basic_salary double, OUT _id INT)
+BEGIN
+	declare _real_salary, _total double default 0;
+	declare _off_day, _working_day int default 0;
+	declare _date date;
+	
+	select STR_TO_DATE(_created_date,'%d/%m/%Y') into _date;
+	
+	select COALESCE(SUM(actual_off_day),0) into _off_day
+	from employee_off
+	where month(created_date)=month(_date) and year(created_date)=year(_date) and employee_id=_employee_id;
+	
+	set _working_day = _month_day - _off_day;
+	
+	insert into employee_salary (code, employee_id, created_date, basic_salary, real_salary, total, month_day, working_day)
+	values (_code, _employee_id, _date, _basic_salary, basic_salary * _working_day / _month_day, basic_salary * _working_day / _month_day, _month_day, _working_day);
+	
+	SELECT LAST_INSERT_ID() INTO _id;
+	
+	insert into employee_salary_timesheet_detail (employee_salary_id, field_id, field_name, quantity, price, amount)
+	select _id, t.field_id, t.field_name, sum(t.quantity), f.amount, SUM(t.quantity) * f.amount
+	from timesheet t, salary_timesheet_field as f
+	where t.employee_id=_employee_id and month(t.timesheet_date)=month(_date) and year(t.timesheet_date)=year(_date) and t.field_id=f.field_id
+	group by t.employee_id, t.field_id
+	;
+	
     END */$$
 DELIMITER ;
 
@@ -1445,12 +1507,14 @@ DELIMITER ;
 
 DELIMITER $$
 
-/*!50003 CREATE DEFINER=`root`@`localhost` PROCEDURE `updateEmployeeOff`(IN _id INT, IN _employee_id INT, IN _from_date VARCHAR(20), IN _to_date VARCHAR(20), IN _note TEXT)
+/*!50003 CREATE DEFINER=`root`@`localhost` PROCEDURE `updateEmployeeOff`(IN _id INT, IN _employee_id INT, IN _from_date VARCHAR(20), IN _to_date VARCHAR(20)
+	, IN _note TEXT, IN _actual_off_day INT)
 BEGIN
 	UPDATE employee_off SET employee_id=_employee_id
 		, from_date=STR_TO_DATE(_from_date,'%d/%m/%Y')
 		, to_date=STR_TO_DATE(_to_date,'%d/%m/%Y')
 		, note=_note
+		, actual_off_day=_actual_off_day
 	WHERE id=_id;
     END */$$
 DELIMITER ;

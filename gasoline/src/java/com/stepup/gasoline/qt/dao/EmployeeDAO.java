@@ -16,6 +16,7 @@ import com.stepup.gasoline.qt.bean.EmployeeBean;
 import com.stepup.gasoline.qt.bean.EmployeeOffBean;
 import com.stepup.gasoline.qt.bean.EmployeeSalaryFieldBean;
 import com.stepup.gasoline.qt.bean.EmployeeTimesheetBean;
+import com.stepup.gasoline.qt.bean.SalaryBean;
 import com.stepup.gasoline.qt.dynamicfield.DynamicFieldValueFormBean;
 import com.stepup.gasoline.qt.employee.EmployeeFormBean;
 import com.stepup.gasoline.qt.employeeadvance.EmployeeAdvanceFormBean;
@@ -899,7 +900,7 @@ public class EmployeeDAO extends BasicDAO {
             } else {
                 toDate = bean.getToDate();
             }
-            String sql = "{call insertEmployeeOff(?,?,?,?,?,?,?)}";
+            String sql = "{call insertEmployeeOff(?,?,?,?,?,?,?,?)}";
             spUtil = new SPUtil(sql);
             if (spUtil != null) {
                 spUtil.getCallableStatement().setString("_code", bean.getCode());
@@ -908,6 +909,7 @@ public class EmployeeDAO extends BasicDAO {
                 spUtil.getCallableStatement().setString("_from_date", fromDate);
                 spUtil.getCallableStatement().setString("_to_date", toDate);
                 spUtil.getCallableStatement().setString("_note", bean.getNote());
+                spUtil.getCallableStatement().setInt("_actual_off_day", bean.getActualOffDay());
                 spUtil.getCallableStatement().registerOutParameter("_id", Types.INTEGER);
                 spUtil.execute();
                 result = spUtil.getCallableStatement().getInt("_id");
@@ -946,13 +948,14 @@ public class EmployeeDAO extends BasicDAO {
             } else {
                 toDate = bean.getToDate();
             }
-            String sql = "{call updateEmployeeOff(?,?,?,?,?)}";
+            String sql = "{call updateEmployeeOff(?,?,?,?,?,?)}";
             spUtil = new SPUtil(sql);
             if (spUtil != null) {
                 spUtil.getCallableStatement().setInt("_id", bean.getId());
                 spUtil.getCallableStatement().setInt("_employee_id", bean.getEmployeeId());
                 spUtil.getCallableStatement().setString("_from_date", fromDate);
                 spUtil.getCallableStatement().setString("_to_date", toDate);
+                spUtil.getCallableStatement().setInt("_actual_off_day", bean.getActualOffDay());
                 spUtil.getCallableStatement().setString("_note", bean.getNote());
                 spUtil.execute();
             }
@@ -1056,4 +1059,99 @@ public class EmployeeDAO extends BasicDAO {
         }
         return list;
     }
+
+    public ArrayList getNotSalaryEmployee(String date) throws Exception {
+        SPUtil spUtil = null;
+        ArrayList list = new ArrayList();
+        ResultSet rs = null;
+        try {
+            String sql = "{call getNotSalaryEmployee(?)}";
+            if (GenericValidator.isBlankOrNull(date)) {
+                date = DateUtil.today("dd/MM/yyyy");
+            }
+            spUtil = new SPUtil(sql);
+            if (spUtil != null) {
+                spUtil.getCallableStatement().setString("_date", date);
+                rs = spUtil.executeQuery();
+                if (rs != null) {
+                    EmployeeBean bean = null;
+                    while (rs.next()) {
+                        bean = new EmployeeBean();
+                        bean.setId(rs.getInt("id"));
+                        bean.setSalary(rs.getDouble("salary"));
+                        list.add(bean);
+                    }
+                }
+            }
+        } catch (SQLException sqle) {
+            throw new Exception(sqle.getMessage());
+        } catch (Exception ex) {
+            throw new Exception(ex.getMessage());
+        } finally {
+            try {
+                if (spUtil != null) {
+                    spUtil.closeConnection();
+                }
+                if (rs != null) {
+                    rs.close();
+                    rs = null;
+                }
+            } catch (Exception e) {
+                throw new Exception(e.getMessage());
+            }
+        }
+        return list;
+    }
+
+    public String getNextEmployeeSalaryNumber(String prefix, int length) throws Exception {
+        String result = "";
+        try {
+            result = this.getNextNumber(prefix, length, "code", "employee_salary");
+        } catch (Exception ex) {
+            throw new Exception(ex.getMessage());
+        }
+        return result;
+    }
+
+    public int insertEmployeeSalary(SalaryBean bean) throws Exception {
+        if (bean == null) {
+            return 0;
+        }
+        int result = 0;
+        SPUtil spUtil = null;
+        try {
+            String createdDate = "";
+            if (GenericValidator.isBlankOrNull(bean.getCreatedDate())) {
+                createdDate = "null";
+            } else {
+                createdDate = bean.getCreatedDate();
+            }
+            String sql = "{call insertEmployeeSalary(?,?,?,?,?,?)}";
+            spUtil = new SPUtil(sql);
+            if (spUtil != null) {
+                spUtil.getCallableStatement().setString("_code", bean.getCode());
+                spUtil.getCallableStatement().setInt("_employee_id", bean.getEmployeeId());
+                spUtil.getCallableStatement().setString("_created_date", createdDate);
+                spUtil.getCallableStatement().setInt("_month_day", bean.getMonthDay());
+                spUtil.getCallableStatement().setDouble("_basic_salary", bean.getBasicSalary());
+                spUtil.getCallableStatement().registerOutParameter("_id", Types.INTEGER);
+                spUtil.execute();
+                result = spUtil.getCallableStatement().getInt("_id");
+            }
+        } catch (SQLException sqle) {
+            throw new Exception(sqle.getMessage());
+        } catch (Exception ex) {
+            throw new Exception(ex.getMessage());
+        } finally {
+            try {
+                if (spUtil != null) {
+                    spUtil.closeConnection();
+                }
+            } catch (Exception e) {
+                throw new Exception(e.getMessage());
+            }
+        }
+        return result;
+    }
+
 }

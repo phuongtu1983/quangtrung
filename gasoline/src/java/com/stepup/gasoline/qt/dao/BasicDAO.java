@@ -59,5 +59,22 @@ public class BasicDAO {
         return result;
     }
 
+    public static void tryToConnectServer() throws Exception {
+        ResultSet rs = null;
+        String sql = "SELECT SYSDATE()";
+        try {
+            rs = DBUtil.executeQuery(sql);
+        } catch (SQLException sqle) {
+            throw new Exception(sqle.getMessage());
+        } catch (Exception ex) {
+            throw new Exception(ex.getMessage());
+        } finally {
+            if (rs != null) {
+                DBUtil.closeConnection(rs);
+
+            }
+        }
+    }
+
     public static String START_DATE = "01/01/2018";
 }

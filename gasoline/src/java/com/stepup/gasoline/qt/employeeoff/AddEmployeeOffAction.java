@@ -4,9 +4,11 @@
  */
 package com.stepup.gasoline.qt.employeeoff;
 
+import com.stepup.core.util.DateUtil;
 import com.stepup.gasoline.qt.bean.EmployeeOffBean;
 import com.stepup.gasoline.qt.core.SpineAction;
 import com.stepup.gasoline.qt.dao.EmployeeDAO;
+import java.util.Calendar;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import org.apache.struts.action.ActionForm;
@@ -46,6 +48,7 @@ public class AddEmployeeOffAction extends SpineAction {
         bean.setCode(formBean.getCode());
         bean.setToDate(formBean.getToDate());
         bean.setNote(formBean.getNote());
+        bean.setActualOffDay(getActualOff(formBean.getFromDate(), formBean.getToDate()));
         try {
             if (bNew) {
                 employeeDAO.insertEmployeeOff(bean);
@@ -56,5 +59,26 @@ public class AddEmployeeOffAction extends SpineAction {
             ex.printStackTrace();
         }
         return true;
+    }
+
+    private int getActualOff(String fromDate, String toDate) {
+        int result = 0;
+        try {
+            Calendar fromC = Calendar.getInstance();
+            fromC.setTime(DateUtil.convertStringToDate(fromDate, "dd/MM/yyyy"));
+
+            Calendar toC = Calendar.getInstance();
+            toC.setTime(DateUtil.convertStringToDate(toDate, "dd/MM/yyyy"));
+
+            while (toC.after(fromC)) {
+                if (fromC.get(Calendar.DAY_OF_WEEK) != Calendar.SUNDAY) {
+                    result++;
+                }
+                fromC.add(Calendar.DATE, 1);
+            }
+        } catch (Exception ex) {
+
+        }
+        return result;
     }
 }
