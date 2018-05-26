@@ -152,15 +152,16 @@ DROP TABLE IF EXISTS `dynamic_field`;
 
 CREATE TABLE `dynamic_field` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
+  `code` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
   `name` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
   `organization_id` int(11) DEFAULT NULL,
   `table_name` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM AUTO_INCREMENT=19 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=MyISAM AUTO_INCREMENT=20 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 /*Data for the table `dynamic_field` */
 
-insert  into `dynamic_field`(`id`,`name`,`organization_id`,`table_name`) values (4,'Ngày vào làm',1,'employee'),(5,'Ngày sinh',1,'employee'),(6,'Số thẻ BHXH',1,'employee'),(7,'d',2,'employee'),(8,'Mã số thuế',1,'vendor'),(9,'Tài khoản ngân hàng',1,'vendor'),(10,'Năm thành lập',2,'vendor'),(11,'Tài khoản ngân hàng',1,'customer'),(12,'Mã số thuế',1,'customer'),(13,'Giám đốc',2,'customer'),(14,'Thưởng làm đủ ngày',1,'salary'),(15,'Phụ cấp điện thoại',1,'salary'),(16,'Giao gas lẻ',1,'timesheet'),(17,'Thay van gas',1,'timesheet'),(18,'Giao bếp gas',1,'timesheet');
+insert  into `dynamic_field`(`id`,`code`,`name`,`organization_id`,`table_name`) values (4,NULL,'Ngày vào làm',1,'employee'),(5,NULL,'Ngày sinh',1,'employee'),(6,NULL,'Số thẻ BHXH',1,'employee'),(7,NULL,'d',2,'employee'),(8,'a','Mã số thuế',1,'vendor'),(9,NULL,'Tài khoản ngân hàng',1,'vendor'),(10,NULL,'Năm thành lập',2,'vendor'),(11,NULL,'Tài khoản ngân hàng',1,'customer'),(12,NULL,'Mã số thuế',1,'customer'),(13,NULL,'Giám đốc',2,'customer'),(14,NULL,'Thưởng làm đủ ngày',1,'salary'),(15,NULL,'Phụ cấp điện thoại',1,'salary'),(16,NULL,'Giao gas lẻ',1,'timesheet'),(17,NULL,'Thay van gas',1,'timesheet'),(18,NULL,'Giao bếp gas',1,'timesheet');
 
 /*Table structure for table `dynamic_field_value` */
 
@@ -194,7 +195,7 @@ CREATE TABLE `employee` (
 
 /*Data for the table `employee` */
 
-insert  into `employee`(`id`,`fullname`,`email`,`salary`,`organization_id`,`status`) values (1,'Nguyễn Phương Tú','phuongtu1983@gmail.com',NULL,1,1),(2,'Nguyễn Thị Hương','huong1963@gmail.com',NULL,1,1),(6,'aa','bb',12345,2,1),(7,'a1','b1',31,2,1);
+insert  into `employee`(`id`,`fullname`,`email`,`salary`,`organization_id`,`status`) values (1,'Nguyễn Phương Tú','phuongtu1983@gmail.com',3,1,1),(2,'Nguyễn Thị Hương','huong1963@gmail.com',NULL,1,1),(6,'aa','bb',12345,2,1),(7,'a1','b1',31,2,1);
 
 /*Table structure for table `employee_advance` */
 
@@ -234,6 +235,22 @@ CREATE TABLE `employee_salary` (
 
 /*Data for the table `employee_salary` */
 
+/*Table structure for table `employee_salary_field` */
+
+DROP TABLE IF EXISTS `employee_salary_field`;
+
+CREATE TABLE `employee_salary_field` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `employee_id` int(11) DEFAULT NULL,
+  `field_id` int(11) DEFAULT NULL,
+  `amount` double DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+/*Data for the table `employee_salary_field` */
+
+insert  into `employee_salary_field`(`id`,`employee_id`,`field_id`,`amount`) values (3,1,14,4),(4,1,15,5);
+
 /*Table structure for table `employee_salary_field_detail` */
 
 DROP TABLE IF EXISTS `employee_salary_field_detail`;
@@ -242,6 +259,7 @@ CREATE TABLE `employee_salary_field_detail` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `employee_salary_id` int(11) DEFAULT NULL,
   `field_id` int(11) DEFAULT NULL,
+  `field_name` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
   `amount` double DEFAULT NULL,
   `note` text COLLATE utf8_unicode_ci,
   PRIMARY KEY (`id`)
@@ -656,7 +674,7 @@ CREATE TABLE `permission_detail` (
 
 /*Data for the table `permission_detail` */
 
-insert  into `permission_detail`(`id`,`permission_id`,`operation`,`function`) values (17,8,2,'1,5,8,6,7,3,4,9,10,11,12,13,14,15,16,17,18,19,20,21'),(16,8,1,'1,5,8,6,7,3,4,9,10,11,12,13,14,15,16,17,18,19,20,21'),(18,8,3,'1,5,8,4,13,14,15,20,21'),(19,8,4,'1,5,8,6,7,3,4,9,10,11,12,13,14,15,16,17,18,19,20,21'),(20,8,6,'');
+insert  into `permission_detail`(`id`,`permission_id`,`operation`,`function`) values (17,8,2,'1,5,8,6,7,3,4,9,10,11,12,13,14,15,16,17,18,19,20,22,21'),(16,8,1,'1,5,8,6,7,3,4,9,10,11,12,13,14,15,16,17,18,19,20,22,21'),(18,8,3,'1,5,8,4,13,14,15,20,22,21'),(19,8,4,'1,5,8,6,7,3,4,9,10,11,12,13,14,15,16,17,18,19,20,22,21'),(20,8,6,'');
 
 /*Table structure for table `petro` */
 
@@ -845,6 +863,22 @@ CREATE TABLE `route` (
 
 insert  into `route`(`id`,`name`,`distance`,`note`) values (1,'a2',1234.5,'b2');
 
+/*Table structure for table `salary_timesheet_field` */
+
+DROP TABLE IF EXISTS `salary_timesheet_field`;
+
+CREATE TABLE `salary_timesheet_field` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `organization_id` int(11) DEFAULT NULL,
+  `field_id` int(11) DEFAULT NULL,
+  `amount` double DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+/*Data for the table `salary_timesheet_field` */
+
+insert  into `salary_timesheet_field`(`id`,`organization_id`,`field_id`,`amount`) values (1,1,16,11),(2,1,17,22),(3,1,18,33);
+
 /*Table structure for table `shell` */
 
 DROP TABLE IF EXISTS `shell`;
@@ -1008,15 +1042,19 @@ DROP TABLE IF EXISTS `timesheet`;
 
 CREATE TABLE `timesheet` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
+  `code` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
   `employee_id` int(11) DEFAULT NULL,
-  `date` date DEFAULT NULL,
+  `timesheet_date` date DEFAULT NULL,
   `field_id` int(11) DEFAULT NULL,
+  `field_name` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
   `quantity` int(2) DEFAULT NULL,
   `note` text COLLATE utf8_unicode_ci,
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=MyISAM AUTO_INCREMENT=5 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 /*Data for the table `timesheet` */
+
+insert  into `timesheet`(`id`,`code`,`employee_id`,`timesheet_date`,`field_id`,`field_name`,`quantity`,`note`) values (4,'20180525-TS-0002',2,'2018-05-25',18,'Giao bếp gas',123,'b'),(3,'20180525-TS-0001',2,'2018-05-25',18,'Giao bếp gas',11,'22');
 
 /*Table structure for table `trip_fee` */
 
@@ -1067,7 +1105,7 @@ CREATE TABLE `user` (
 
 /*Data for the table `user` */
 
-insert  into `user`(`id`,`employee_id`,`username`,`password`,`menu`,`status`) values (1,1,'tu','gdyb21LQTcIANtvYMT7QVQ==','<?xml version=\"1.0\"?><menu><item id=\"list\" complex=\"true\" text=\"Khai báo danh mục\"><item id=\"system\" complex=\"true\" text=\"Hệ thống\"><item id=\"users\" complex=\"true\" text=\"Tài khoản hệ thống\"><item id=\"userlist\" text=\"Danh sách tài khoản hệ thống\"/><item id=\"useradd\" text=\"Thêm tài khoản hệ thống\"/></item><item id=\"parameter\" text=\"Thông số hệ thống\"/><item id=\"permissionlist\" text=\"Phân quyền\"/></item><item id=\"organization\" complex=\"true\" text=\"Đơn vị\"><item id=\"organizations\" complex=\"true\" text=\"Đơn vị\"><item id=\"organizationlist\" text=\"Danh sách đơn vị\"/><item id=\"organizationadd\" text=\"Thêm đơn vị\"/></item><item id=\"stores\" complex=\"true\" text=\"Kho\"><item id=\"storelist\" text=\"Danh sách kho\"/><item id=\"storeadd\" text=\"Thêm kho\"/></item><item id=\"employees\" complex=\"true\" text=\"Nhân viên\"><item id=\"employeelist\" text=\"Danh sách nhân viên\"/><item id=\"employeeadd\" text=\"Thêm nhân viên\"/><item id=\"employeefiellist\" text=\"Thông tin động - Nhân viên\"/></item><item id=\"accounts\" complex=\"true\" text=\"Tài khoản ngân hàng\"><item id=\"accountlist\" text=\"Danh sách tài khoản ngân hàng\"/><item id=\"accountadd\" text=\"Thêm tài khoản ngân hàng\"/></item></item><item id=\"good\" complex=\"true\" text=\"Hàng hóa\"><item id=\"units\" complex=\"true\" text=\"Đơn vị tính\"><item id=\"unitlist\" text=\"Danh sách đơn vị tính\"/><item id=\"unitadd\" text=\"Thêm đơn vị tính\"/></item><item id=\"shellkinds\" complex=\"true\" text=\"Loại vỏ bình\"><item id=\"shellkindlist\" text=\"Danh sách loại vỏ bình\"/><item id=\"shellkindadd\" text=\"Thêm loại vỏ bình\"/></item><item id=\"shells\" complex=\"true\" text=\"Vỏ bình\"><item id=\"shelllist\" text=\"Danh sách vỏ bình\"/><item id=\"shelladd\" text=\"Thêm vỏ bình\"/></item><item id=\"accessorykinds\" complex=\"true\" text=\"Loại phụ kiện\"><item id=\"accessorykindlist\" text=\"Danh sách loại phụ kiện\"/><item id=\"accessorykindadd\" text=\"Thêm loại phụ kiện\"/></item><item id=\"accessorys\" complex=\"true\" text=\"Phụ kiện\"><item id=\"accessorylist\" text=\"Danh sách phụ kiện\"/><item id=\"accessoryadd\" text=\"Thêm phụ kiện\"/></item><item id=\"promotionmaterials\" complex=\"true\" text=\"Hàng khuyến mãi\"><item id=\"promotionmateriallist\" text=\"Danh sách hàng khuyến mãi\"/><item id=\"promotionmaterialadd\" text=\"Thêm hàng khuyến mãi\"/></item></item><item id=\"vendor\" complex=\"true\" text=\"Nhà cung cấp\"><item id=\"vendors\" complex=\"true\" text=\"Nhà cung cấp\"><item id=\"vendorlist\" text=\"Danh sách nhà cung cấp\"/><item id=\"vendoradd\" text=\"Thêm nhà cung cấp\"/><item id=\"vendorfiellist\" text=\"Thông tin động - Nhà cung cấp\"/></item></item><item id=\"customer\" complex=\"true\" text=\"Khách hàng\"><item id=\"customers\" complex=\"true\" text=\"Khách hàng\"><item id=\"customerlist\" text=\"Danh sách khách hàng\"/><item id=\"customeradd\" text=\"Thêm khách hàng\"/><item id=\"customerfiellist\" text=\"Thông tin động - Khách hàng\"/></item></item><item id=\"vehicle\" complex=\"true\" text=\"Xe\"><item id=\"vehicles\" complex=\"true\" text=\"Xe\"><item id=\"vehiclelist\" text=\"Danh sách xe\"/><item id=\"vehicleadd\" text=\"Thêm xe\"/></item><item id=\"routes\" complex=\"true\" text=\"Tuyến đường\"><item id=\"routelist\" text=\"Danh sách tuyến đường\"/><item id=\"routeadd\" text=\"Thêm tuyến đường\"/></item></item></item><item id=\"employeefunction\" complex=\"true\" text=\"Nghiệp vụ Nhân viên\"><item id=\"employeeadvances\" complex=\"true\" text=\"Nhân viên tạm ứng\"><item id=\"employeeadvancelist\" text=\"Danh sách tạm ứng\"/><item id=\"employeeadvanceadd\" text=\"Thêm tạm ứng\"/></item><item id=\"salarys\" complex=\"true\" text=\"Bảng lương\"><item id=\"salarylist\" text=\"Danh sách bảng lương\"/><item id=\"salaryadd\" text=\"Thêm bảng lương\"/><item id=\"salaryfiellist\" text=\"Thông tin động - Khoản lương cơ bản\"/><item id=\"timesheetfiellist\" text=\"Thông tin động - Khoản khác\"/></item></item><item id=\"setting\" complex=\"true\" text=\"Cấu hình\"><item id=\"resetpassword\" text=\"Đổi mật khẩu\"/></item><item id=\"logout\" text=\"Đăng xuất\"/></menu>',1),(2,2,'huong','7UInc07XXTQzILal/RbOVw==','<?xml version=\"1.0\"?><menu><item id=\"setting\" complex=\"true\" text=\"Cấu hình\"><item id=\"resetpassword\" text=\"Đổi mật khẩu\"/></item><item id=\"logout\" text=\"Đăng xuất\"/></menu>',1);
+insert  into `user`(`id`,`employee_id`,`username`,`password`,`menu`,`status`) values (1,1,'tu','gdyb21LQTcIANtvYMT7QVQ==','<?xml version=\"1.0\"?><menu><item id=\"list\" complex=\"true\" text=\"Khai báo danh mục\"><item id=\"system\" complex=\"true\" text=\"Hệ thống\"><item id=\"users\" complex=\"true\" text=\"Tài khoản hệ thống\"><item id=\"userlist\" text=\"Danh sách tài khoản hệ thống\"/><item id=\"useradd\" text=\"Thêm tài khoản hệ thống\"/></item><item id=\"parameter\" text=\"Thông số hệ thống\"/><item id=\"permissionlist\" text=\"Phân quyền\"/></item><item id=\"organization\" complex=\"true\" text=\"Đơn vị\"><item id=\"organizations\" complex=\"true\" text=\"Đơn vị\"><item id=\"organizationlist\" text=\"Danh sách đơn vị\"/><item id=\"organizationadd\" text=\"Thêm đơn vị\"/></item><item id=\"stores\" complex=\"true\" text=\"Kho\"><item id=\"storelist\" text=\"Danh sách kho\"/><item id=\"storeadd\" text=\"Thêm kho\"/></item><item id=\"employees\" complex=\"true\" text=\"Nhân viên\"><item id=\"employeelist\" text=\"Danh sách nhân viên\"/><item id=\"employeeadd\" text=\"Thêm nhân viên\"/><item id=\"employeefiellist\" text=\"Thông tin động - Nhân viên\"/></item><item id=\"accounts\" complex=\"true\" text=\"Tài khoản ngân hàng\"><item id=\"accountlist\" text=\"Danh sách tài khoản ngân hàng\"/><item id=\"accountadd\" text=\"Thêm tài khoản ngân hàng\"/></item></item><item id=\"good\" complex=\"true\" text=\"Hàng hóa\"><item id=\"units\" complex=\"true\" text=\"Đơn vị tính\"><item id=\"unitlist\" text=\"Danh sách đơn vị tính\"/><item id=\"unitadd\" text=\"Thêm đơn vị tính\"/></item><item id=\"shellkinds\" complex=\"true\" text=\"Loại vỏ bình\"><item id=\"shellkindlist\" text=\"Danh sách loại vỏ bình\"/><item id=\"shellkindadd\" text=\"Thêm loại vỏ bình\"/></item><item id=\"shells\" complex=\"true\" text=\"Vỏ bình\"><item id=\"shelllist\" text=\"Danh sách vỏ bình\"/><item id=\"shelladd\" text=\"Thêm vỏ bình\"/></item><item id=\"accessorykinds\" complex=\"true\" text=\"Loại phụ kiện\"><item id=\"accessorykindlist\" text=\"Danh sách loại phụ kiện\"/><item id=\"accessorykindadd\" text=\"Thêm loại phụ kiện\"/></item><item id=\"accessorys\" complex=\"true\" text=\"Phụ kiện\"><item id=\"accessorylist\" text=\"Danh sách phụ kiện\"/><item id=\"accessoryadd\" text=\"Thêm phụ kiện\"/></item><item id=\"promotionmaterials\" complex=\"true\" text=\"Hàng khuyến mãi\"><item id=\"promotionmateriallist\" text=\"Danh sách hàng khuyến mãi\"/><item id=\"promotionmaterialadd\" text=\"Thêm hàng khuyến mãi\"/></item></item><item id=\"vendor\" complex=\"true\" text=\"Nhà cung cấp\"><item id=\"vendors\" complex=\"true\" text=\"Nhà cung cấp\"><item id=\"vendorlist\" text=\"Danh sách nhà cung cấp\"/><item id=\"vendoradd\" text=\"Thêm nhà cung cấp\"/><item id=\"vendorfiellist\" text=\"Thông tin động - Nhà cung cấp\"/></item></item><item id=\"customer\" complex=\"true\" text=\"Khách hàng\"><item id=\"customers\" complex=\"true\" text=\"Khách hàng\"><item id=\"customerlist\" text=\"Danh sách khách hàng\"/><item id=\"customeradd\" text=\"Thêm khách hàng\"/><item id=\"customerfiellist\" text=\"Thông tin động - Khách hàng\"/></item></item><item id=\"vehicle\" complex=\"true\" text=\"Xe\"><item id=\"vehicles\" complex=\"true\" text=\"Xe\"><item id=\"vehiclelist\" text=\"Danh sách xe\"/><item id=\"vehicleadd\" text=\"Thêm xe\"/></item><item id=\"routes\" complex=\"true\" text=\"Tuyến đường\"><item id=\"routelist\" text=\"Danh sách tuyến đường\"/><item id=\"routeadd\" text=\"Thêm tuyến đường\"/></item></item></item><item id=\"employeefunction\" complex=\"true\" text=\"Nghiệp vụ Nhân viên\"><item id=\"employeeadvances\" complex=\"true\" text=\"Nhân viên tạm ứng\"><item id=\"employeeadvancelist\" text=\"Danh sách tạm ứng\"/><item id=\"employeeadvanceadd\" text=\"Thêm tạm ứng\"/></item><item id=\"employeetimesheets\" complex=\"true\" text=\"Chấm công nhân viên\"><item id=\"employeetimesheetlist\" text=\"Danh sách chấm công\"/><item id=\"employeetimesheetadd\" text=\"Thêm chấm công\"/></item><item id=\"salarys\" complex=\"true\" text=\"Bảng lương\"><item id=\"salarylist\" text=\"Danh sách bảng lương\"/><item id=\"salarysalaryfiels\" complex=\"true\" text=\"Thông tin động\"><item id=\"salaryfiellist\" text=\"Khoản lương cơ bản\"/><item id=\"timesheetfiellist\" text=\"Khoản khác\"/></item><item id=\"dynamicfielvalues\" complex=\"true\" text=\"Giá trị thông tin động\"><item id=\"employeesalarylist\" text=\"Danh sách lương cơ bản\"/><item id=\"organizationtimesheetlist\" text=\"Danh sách chi phí khoản khác\"/></item></item></item><item id=\"setting\" complex=\"true\" text=\"Cấu hình\"><item id=\"resetpassword\" text=\"Đổi mật khẩu\"/></item><item id=\"logout\" text=\"Đăng xuất\"/></menu>',1),(2,2,'huong','7UInc07XXTQzILal/RbOVw==','<?xml version=\"1.0\"?><menu><item id=\"setting\" complex=\"true\" text=\"Cấu hình\"><item id=\"resetpassword\" text=\"Đổi mật khẩu\"/></item><item id=\"logout\" text=\"Đăng xuất\"/></menu>',1);
 
 /*Table structure for table `vehicle` */
 
@@ -1234,6 +1272,22 @@ CREATE TABLE `wholesale_debt` (
 
 /*Data for the table `wholesale_debt` */
 
+/* Procedure structure for procedure `deleteDynamicField` */
+
+/*!50003 DROP PROCEDURE IF EXISTS  `deleteDynamicField` */;
+
+DELIMITER $$
+
+/*!50003 CREATE DEFINER=`root`@`localhost` PROCEDURE `deleteDynamicField`(IN _ids text)
+BEGIN
+	set _ids = concat(',',_ids,',');
+	DELETE FROM employee_salary_field WHERE _ids LIKE CONCAT('%,',field_id,',%');
+	delete from dynamic_field_value where _ids like CONCAT('%,',field_id,',%');
+	DELETE FROM salary_timesheet_field WHERE _ids LIKE CONCAT('%,',field_id,',%');
+	DELETE FROM dynamic_field WHERE _ids LIKE CONCAT('%,',id,',%');
+    END */$$
+DELIMITER ;
+
 /* Procedure structure for procedure `insertEmployeeAdvance` */
 
 /*!50003 DROP PROCEDURE IF EXISTS  `insertEmployeeAdvance` */;
@@ -1245,6 +1299,23 @@ DELIMITER $$
 BEGIN
 	insert into employee_advance (code, employee_id, advance_date, amount, payment_mode, account_id, note)
 	values (_code, _employee_id, STR_TO_DATE(_advance_date,'%d/%m/%Y'), _amount, _payment_mode, _account_id, _note);
+	SELECT LAST_INSERT_ID() INTO _id;
+    END */$$
+DELIMITER ;
+
+/* Procedure structure for procedure `insertEmployeeTimesheet` */
+
+/*!50003 DROP PROCEDURE IF EXISTS  `insertEmployeeTimesheet` */;
+
+DELIMITER $$
+
+/*!50003 CREATE DEFINER=`root`@`localhost` PROCEDURE `insertEmployeeTimesheet`(IN _code VARCHAR(20), IN _employee_id INT, IN _timesheet_date VARCHAR(20), in _field_id int
+	, IN _quantity int, IN _note TEXT, OUT _id INT)
+BEGIN
+	declare _field_name varchar(255) default '';
+	select name into _field_name from dynamic_field where id=_field_id;
+	INSERT INTO timesheet (CODE, employee_id, timesheet_date, field_id, field_name, quantity, note)
+	VALUES (_code, _employee_id, STR_TO_DATE(_timesheet_date,'%d/%m/%Y'), _field_id, _field_name, _quantity, _note);
 	SELECT LAST_INSERT_ID() INTO _id;
     END */$$
 DELIMITER ;
@@ -1261,6 +1332,22 @@ BEGIN
 	from employee_advance as a, employee as e
 	WHERE a.employee_id=e.id
 		and DATE(a.advance_date) >= STR_TO_DATE(_start_date,'%d/%m/%Y') AND DATE(a.advance_date) <= STR_TO_DATE(_end_date,'%d/%m/%Y')
+	;
+    END */$$
+DELIMITER ;
+
+/* Procedure structure for procedure `searchEmployeeTimesheet` */
+
+/*!50003 DROP PROCEDURE IF EXISTS  `searchEmployeeTimesheet` */;
+
+DELIMITER $$
+
+/*!50003 CREATE DEFINER=`root`@`localhost` PROCEDURE `searchEmployeeTimesheet`(IN _start_date VARCHAR(20), IN _end_date VARCHAR(20))
+BEGIN
+	SELECT t.id, t.CODE, t.timesheet_date, e.fullname AS employee_name, t.quantity, t.note, d.name as field_name
+	FROM timesheet AS t, employee AS e, dynamic_field as d
+	WHERE t.employee_id=e.id and t.field_id=d.id
+		AND DATE(t.timesheet_date) >= STR_TO_DATE(_start_date,'%d/%m/%Y') AND DATE(t.timesheet_date) <= STR_TO_DATE(_end_date,'%d/%m/%Y')
 	;
     END */$$
 DELIMITER ;
@@ -1286,7 +1373,7 @@ DELIMITER ;
 
 DELIMITER $$
 
-/*!50003 CREATE DEFINER=`root`@`localhost` PROCEDURE `updateEmployeeAdvance`(IN _id INT, IN _code VARCHAR(20), IN _employee_id INT, IN _advance_date VARCHAR(20), IN _amount DOUBLE
+/*!50003 CREATE DEFINER=`root`@`localhost` PROCEDURE `updateEmployeeAdvance`(IN _id INT, IN _employee_id INT, IN _advance_date VARCHAR(20), IN _amount DOUBLE
 	, IN _payment_mode INT, IN _account_id INT, IN _note TEXT)
 BEGIN
 	update employee_advance set employee_id=_employee_id
@@ -1296,6 +1383,27 @@ BEGIN
 		, account_id=_account_id
 		, note=_note
 	where id=_id;
+    END */$$
+DELIMITER ;
+
+/* Procedure structure for procedure `updateEmployeeTimesheet` */
+
+/*!50003 DROP PROCEDURE IF EXISTS  `updateEmployeeTimesheet` */;
+
+DELIMITER $$
+
+/*!50003 CREATE DEFINER=`root`@`localhost` PROCEDURE `updateEmployeeTimesheet`(IN _id INT, IN _employee_id INT, IN _timesheet_date VARCHAR(20), IN _field_id int
+	, IN _quantity INT, IN _note TEXT)
+BEGIN
+	declare _field_name varchar(255) default '';
+	select name into _field_name from dynamic_field where id=_field_id;
+	UPDATE timesheet SET employee_id=_employee_id
+		, timesheet_date=STR_TO_DATE(_timesheet_date,'%d/%m/%Y')
+		, field_id=_field_id
+		, field_name=_field_name
+		, quantity=_quantity
+		, note=_note
+	WHERE id=_id;
     END */$$
 DELIMITER ;
 
