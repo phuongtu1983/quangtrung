@@ -17,7 +17,8 @@ public class SalaryBean {
     private double basicSalary;
     private double realSalary;
     private double total;
-    private String note;
+    private int monthDay;
+    private int workingDay;
 
     public void setId(int id) {
         this.id = id;
@@ -75,12 +76,20 @@ public class SalaryBean {
         this.total = total;
     }
 
-    public String getNote() {
-        return note;
+    public int getMonthDay() {
+        return monthDay;
     }
 
-    public void setNote(String note) {
-        this.note = note;
+    public void setMonthDay(int monthDay) {
+        this.monthDay = monthDay;
+    }
+
+    public int getWorkingDay() {
+        return workingDay;
+    }
+
+    public void setWorkingDay(int workingDay) {
+        this.workingDay = workingDay;
     }
 
 }

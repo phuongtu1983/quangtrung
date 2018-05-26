@@ -4,29 +4,23 @@
  */
 package com.stepup.gasoline.qt.salary;
 
-import com.stepup.core.util.DateUtil;
 import com.stepup.gasoline.qt.bean.DynamicFieldBean;
-import com.stepup.gasoline.qt.bean.EmployeeBean;
-import com.stepup.gasoline.qt.bean.OrganizationBean;
-import com.stepup.gasoline.qt.core.DynamicFieldValueAction;
+import com.stepup.gasoline.qt.core.SpineAction;
+import com.stepup.gasoline.qt.dao.DynamicFieldDAO;
 import com.stepup.gasoline.qt.dao.EmployeeDAO;
-import com.stepup.gasoline.qt.dao.OrganizationDAO;
-import com.stepup.gasoline.qt.dao.VendorDAO;
 import com.stepup.gasoline.qt.util.Constants;
-import com.stepup.gasoline.qt.util.QTUtil;
 import java.util.ArrayList;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import org.apache.commons.validator.GenericValidator;
 import org.apache.struts.action.ActionForm;
 import org.apache.struts.action.ActionMapping;
-import org.apache.struts.util.LabelValueBean;
 
 /**
  *
  * @author phuongtu
  */
-public class SalaryFormAction extends DynamicFieldValueAction {
+public class SalaryFormAction extends SpineAction {
 
     /**
      * This is the action called from the Struts framework.
@@ -39,12 +33,11 @@ public class SalaryFormAction extends DynamicFieldValueAction {
      * @return
      */
     @Override
-    public boolean doMainAction(ActionMapping mapping, ActionForm form,
+    public boolean doAction(ActionMapping mapping, ActionForm form,
             HttpServletRequest request, HttpServletResponse response) {
         SalaryFormBean formBean = null;
         String salaryId = request.getParameter("salaryId");
         EmployeeDAO employeeDAO = new EmployeeDAO();
-        int seletecOrganizationId = 0;
         if (!GenericValidator.isBlankOrNull(salaryId)) {
             try {
                 formBean = employeeDAO.getSalary(Integer.parseInt(salaryId));
@@ -53,54 +46,42 @@ public class SalaryFormAction extends DynamicFieldValueAction {
         }
         if (formBean == null) {
             formBean = new SalaryFormBean();
-            try {
-                String prefix = "";
-                prefix = DateUtil.today("yyyyMMdd") + "-SA-";
-                String number = employeeDAO.getNextSalaryNumber(prefix, 4);
-                prefix += number;
-                formBean.setCode(prefix);
-            } catch (Exception ex) {
-            }
         }
 
         request.setAttribute(Constants.SALARY, formBean);
 
-        ArrayList arrStatus = new ArrayList();
-        LabelValueBean value;
-        value = new LabelValueBean();
-        value.setLabel(QTUtil.getBundleString("employee.detail.status.active"));
-        value.setValue(EmployeeBean.STATUS_ACTIVE + "");
-        arrStatus.add(value);
-        value = new LabelValueBean();
-        value.setLabel(QTUtil.getBundleString("employee.detail.status.inactive"));
-        value.setValue(EmployeeBean.STATUS_INACTIVE + "");
-        arrStatus.add(value);
-        request.setAttribute(Constants.STATUS_LIST, arrStatus);
-
-        ArrayList arrOrganization = null;
+        ArrayList arrTimesheetDetail = null;
         try {
-            OrganizationDAO organizationDAO = new OrganizationDAO();
-            arrOrganization = organizationDAO.getOrganizations(EmployeeBean.STATUS_ACTIVE);
+            arrTimesheetDetail = employeeDAO.getEmployeeSalaryTimesheetDetail(formBean.getId());
         } catch (Exception ex) {
         }
-        if (arrOrganization == null) {
-            arrOrganization = new ArrayList();
+        if (arrTimesheetDetail == null) {
+            arrTimesheetDetail = new ArrayList();
         }
-        request.setAttribute(Constants.ORGANIZATION_LIST, arrOrganization);
+        request.setAttribute(Constants.SALARY_TIMESHEET_LIST, arrTimesheetDetail);
 
-        if (seletecOrganizationId == 0) {
-            if (arrOrganization != null && arrOrganization.size() > 0) {
-                OrganizationBean orgBean = (OrganizationBean) arrOrganization.get(0);
-                seletecOrganizationId = orgBean.getId();
-            }
+        ArrayList arrFieldDetail = null;
+        try {
+            arrFieldDetail = employeeDAO.getEmployeeSalaryFieldDetail(formBean.getId());
+        } catch (Exception ex) {
         }
-        super.setOrganizationId(seletecOrganizationId);
-        super.setParentId(formBean.getId());
+        if (arrFieldDetail == null) {
+            arrFieldDetail = new ArrayList();
+        }
+        request.setAttribute(Constants.SALARY_FIELD_LIST, arrFieldDetail);
+
+        ArrayList arrTimesheetField = null;
+        try {
+            DynamicFieldDAO fieldDAO = new DynamicFieldDAO();
+            arrTimesheetField = fieldDAO.getDynamicFieldValues(0, DynamicFieldBean.TIMESHEET, formBean.getOrganizationId());
+        } catch (Exception ex) {
+        }
+        if (arrTimesheetField == null) {
+            arrTimesheetField = new ArrayList();
+        }
+        request.setAttribute(Constants.DYNAMIC_FIELD_LIST, arrTimesheetField);
+
         return true;
     }
 
-    @Override
-    protected String getTableName() {
-        return DynamicFieldBean.VENDOR;
-    }
 }

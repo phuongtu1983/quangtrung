@@ -35,6 +35,7 @@
         <form-bean name="promotionMaterialForm" type="com.stepup.gasoline.qt.promotionmaterial.PromotionMaterialFormBean"/>
         <form-bean name="accessoryForm" type="com.stepup.gasoline.qt.accessory.AccessoryFormBean"/>
         <form-bean name="employeeAdvanceForm" type="com.stepup.gasoline.qt.employeeadvance.EmployeeAdvanceFormBean"/>
+        <form-bean name="employeeOffForm" type="com.stepup.gasoline.qt.employeeoff.EmployeeOffFormBean"/>
         <form-bean name="employeeTimesheetForm" type="com.stepup.gasoline.qt.employeetimesheet.EmployeeTimesheetFormBean"/>
         <form-bean name="salaryForm" type="com.stepup.gasoline.qt.salary.salaryFormBean"/>
         <form-bean name="storeForm" type="com.stepup.gasoline.qt.store.StoreFormBean"/>
@@ -332,10 +333,6 @@
         <action path="/salaryForm" type="com.stepup.gasoline.qt.salary.SalaryFormAction" scope="request" validate="false">
             <forward name="success" path="/salary/salarydetail.jsp" />
         </action>
-        <action path="/addSalary" name ="salaryForm" scope="request" type="com.stepup.gasoline.qt.salary.AddSalaryAction" input="/salaryForm.do">
-        </action>
-        <action path="/delSalary" type="com.stepup.gasoline.qt.salary.DeleteSalaryAction" scope="request" validate="false" >
-        </action>
         <!-- end salary -->
         <!-- start employee salary-->
         <action path="/getEmployeeSalaryPanel" type="com.stepup.gasoline.qt.common.BaseStatusFormAction" scope="request" validate="false">
@@ -378,6 +375,20 @@
             <forward name="success" path="/employeetimesheet/dynamicfields.jsp" />
         </action>
         <!-- end employeetimesheet -->
+        <!-- start employeeoff -->
+        <action path="/getEmployeeOffPanel" type="com.stepup.gasoline.qt.common.BaseStatusFormAction" scope="request" validate="false">
+            <forward name="success" path="/employeeoff/employeeoffpanel.jsp" />
+        </action>
+        <action path="/getEmployeeOffList" type="com.stepup.gasoline.qt.employeeoff.GetEmployeeOffListAction" scope="request" validate="false" >
+        </action>
+        <action path="/employeeOffForm" type="com.stepup.gasoline.qt.employeeoff.EmployeeOffFormAction" scope="request" validate="false">
+            <forward name="success" path="/employeeoff/employeeoffdetail.jsp" />
+        </action>
+        <action path="/addEmployeeOff" name ="employeeOffForm" scope="request" type="com.stepup.gasoline.qt.employeeoff.AddEmployeeOffAction" input="/employeeOffForm.do">
+        </action>
+        <action path="/delEmployeeOff" type="com.stepup.gasoline.qt.employeeoff.DeleteEmployeeOffAction" scope="request" validate="false" >
+        </action>
+        <!-- end employeeoff -->
     </action-mappings>
     
     <controller processorClass="org.apache.struts.tiles.TilesRequestProcessor"/>

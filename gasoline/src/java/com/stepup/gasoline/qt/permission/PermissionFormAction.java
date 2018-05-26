@@ -117,7 +117,7 @@ public class PermissionFormAction extends SpineAction {
             arrPerEmp = new ArrayList();
         }
         request.setAttribute(Constants.PERMISSION_EMP_LIST, arrPerEmp);
-        
+
         ArrayList arrPerOrg = null;
         if (formBean.getPerId() != 0) {
             try {
@@ -314,7 +314,7 @@ public class PermissionFormAction extends SpineAction {
         perBean.setValue(PermissionUtil.PER_EMPLOYEE_ADVANCE);
         perBean.setOperations("," + PermissionUtil.OPERATION_LIST + "," + PermissionUtil.OPERATION_ADD + "," + PermissionUtil.OPERATION_EDIT + "," + PermissionUtil.OPERATION_DELETE + ",");
         arrFun.add(perBean);
-        
+
         perBean = new PermissionViewBean();
         perBean.setCounter("2.1");
         perBean.setLevel(2);
@@ -328,9 +328,18 @@ public class PermissionFormAction extends SpineAction {
         perBean.setCounter("2.1");
         perBean.setLevel(2);
         perBean.setSharedId(2);
+        perBean.setName(QTUtil.getBundleString("employeeOff.title"));
+        perBean.setValue(PermissionUtil.PER_EMPLOYEE_OFF);
+        perBean.setOperations("," + PermissionUtil.OPERATION_LIST + "," + PermissionUtil.OPERATION_ADD + "," + PermissionUtil.OPERATION_EDIT + "," + PermissionUtil.OPERATION_DELETE + ",");
+        arrFun.add(perBean);
+
+        perBean = new PermissionViewBean();
+        perBean.setCounter("2.1");
+        perBean.setLevel(2);
+        perBean.setSharedId(2);
         perBean.setName(QTUtil.getBundleString("salary.title"));
         perBean.setValue(PermissionUtil.PER_SALARY);
-        perBean.setOperations("," + PermissionUtil.OPERATION_LIST + "," + PermissionUtil.OPERATION_ADD + "," + PermissionUtil.OPERATION_EDIT + "," + PermissionUtil.OPERATION_DELETE + ",");
+        perBean.setOperations("," + PermissionUtil.OPERATION_LIST + ",");
         arrFun.add(perBean);
 
         request.setAttribute(Constants.PERMISSION_FUNC_LIST, arrFun);

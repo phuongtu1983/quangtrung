@@ -15,13 +15,14 @@ public class SalaryFormBean extends org.apache.struts.action.ActionForm {
     private int id;
     private String code;
     private String createdDate;
+    private int organizationId;
     private int employeeId;
     private String employeeName;
     private double basicSalary;
     private double realSalary;
     private double total;
-    private String note;
-    private int organizationId;
+    private int monthDay;
+    private int workingDay;
 
     public SalaryFormBean() {
     }
@@ -34,7 +35,8 @@ public class SalaryFormBean extends org.apache.struts.action.ActionForm {
         this.basicSalary = bean.getBasicSalary();
         this.realSalary = bean.getRealSalary();
         this.total = bean.getTotal();
-        this.note = bean.getNote();
+        this.monthDay = bean.getMonthDay();
+        this.workingDay = bean.getWorkingDay();
     }
 
     public String getCode() {
@@ -93,20 +95,28 @@ public class SalaryFormBean extends org.apache.struts.action.ActionForm {
         this.total = total;
     }
 
-    public String getNote() {
-        return note;
-    }
-
-    public void setNote(String note) {
-        this.note = note;
-    }
-
     public String getEmployeeName() {
         return employeeName;
     }
 
     public void setEmployeeName(String employeeName) {
         this.employeeName = employeeName;
+    }
+
+    public int getMonthDay() {
+        return monthDay;
+    }
+
+    public void setMonthDay(int monthDay) {
+        this.monthDay = monthDay;
+    }
+
+    public int getWorkingDay() {
+        return workingDay;
+    }
+
+    public void setWorkingDay(int workingDay) {
+        this.workingDay = workingDay;
     }
 
     public int getOrganizationId() {

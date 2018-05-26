@@ -242,7 +242,8 @@ public class GenerateMenu {
             buffTemp = new StringBuilder();
 
             if (isHasPermission(PermissionUtil.OPERATION_LIST + "," + PermissionUtil.OPERATION_ADD,
-                    PermissionUtil.PER_EMPLOYEE_ADVANCE + "," + PermissionUtil.PER_SALARY)) {
+                    PermissionUtil.PER_EMPLOYEE_ADVANCE + "," + PermissionUtil.PER_SALARY + "," + PermissionUtil.PER_EMPLOYEE_TIMESHEET
+                    + "," + PermissionUtil.PER_EMPLOYEE_OFF)) {
                 if (isHasPermission(PermissionUtil.OPERATION_LIST + "," + PermissionUtil.OPERATION_ADD, PermissionUtil.PER_EMPLOYEE_ADVANCE)) {
                     buffTemp.append("<item id=\"employeeadvances\" complex=\"true\" text=\"").append(QTUtil.getBundleString("employeeAdvance.title")).append("\">");
                     if (isHasPermission(PermissionUtil.OPERATION_LIST, PermissionUtil.PER_EMPLOYEE_ADVANCE)) {
@@ -263,6 +264,16 @@ public class GenerateMenu {
                     }
                     buffTemp.append("</item>");
                 }
+                if (isHasPermission(PermissionUtil.OPERATION_LIST + "," + PermissionUtil.OPERATION_ADD, PermissionUtil.PER_EMPLOYEE_OFF)) {
+                    buffTemp.append("<item id=\"employeeoffs\" complex=\"true\" text=\"").append(QTUtil.getBundleString("employeeOff.title")).append("\">");
+                    if (isHasPermission(PermissionUtil.OPERATION_LIST, PermissionUtil.PER_EMPLOYEE_OFF)) {
+                        buffTemp.append("<item id=\"employeeofflist\" text=\"").append(QTUtil.getBundleString("employeeOff.list.title")).append("\"/>");
+                    }
+                    if (isHasPermission(PermissionUtil.OPERATION_ADD, PermissionUtil.PER_EMPLOYEE_OFF)) {
+                        buffTemp.append("<item id=\"employeeoffadd\" text=\"").append(QTUtil.getBundleString("employeeOff.detail.add.title")).append("\"/>");
+                    }
+                    buffTemp.append("</item>");
+                }
                 if (isHasPermission(PermissionUtil.OPERATION_LIST + "," + PermissionUtil.OPERATION_ADD, PermissionUtil.PER_SALARY)) {
                     buffTemp.append("<item id=\"salarys\" complex=\"true\" text=\"").append(QTUtil.getBundleString("salary.title")).append("\">");
                     if (isHasPermission(PermissionUtil.OPERATION_LIST, PermissionUtil.PER_SALARY)) {
@@ -273,7 +284,7 @@ public class GenerateMenu {
                         buffTemp.append("<item id=\"salaryfiellist\" text=\"").append(QTUtil.getBundleString("salary.field.title")).append("\"/>");//add salary field
                         buffTemp.append("<item id=\"timesheetfiellist\" text=\"").append(QTUtil.getBundleString("timesheet.field.title")).append("\"/>");//add time sheet field
                         buffTemp.append("</item>");
-                        
+
                         buffTemp.append("<item id=\"dynamicfielvalues\" complex=\"true\" text=\"").append(QTUtil.getBundleString("field.value.title")).append("\">");
                         buffTemp.append("<item id=\"employeesalarylist\" text=\"").append(QTUtil.getBundleString("salary.employee.list.title")).append("\"/>");
                         buffTemp.append("<item id=\"organizationtimesheetlist\" text=\"").append(QTUtil.getBundleString("timesheet.organization.list.title")).append("\"/>");
@@ -298,26 +309,6 @@ public class GenerateMenu {
             userDAO.updateUserMenu(memberId, buff.toString());
         } catch (Exception ex) {
         }
-    }
-
-    private boolean isHasPermission(int operation, String functions) {
-        try {
-            ApplicationPermissionBean permission = null;
-            for (int i = 0; i < arrPer.size(); i++) {
-                permission = (ApplicationPermissionBean) arrPer.get(i);
-                if (permission.getOperation() == operation) {
-                    String[] p = functions.split(",");
-                    String func = "," + permission.getFunction() + ",";
-                    for (int j = 0; j < p.length; j++) {
-                        if (func.contains(',' + p[j] + ',')) {
-                            return true;
-                        }
-                    }
-                }
-            }
-        } catch (Exception ex) {
-        }
-        return false;
     }
 
     private boolean isHasPermission(String operations, String functions) {

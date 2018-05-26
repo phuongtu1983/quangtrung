@@ -21,15 +21,6 @@
         </table>
     </fieldset>
 </form>
-<table>
-    <tr>
-        <td>
-            <%if (PermissionUtil.hasPermission(request, PermissionUtil.OPERATION_ADD, PermissionUtil.PER_SALARY)) {%> 
-            <button class="i_create_write icon small green" onclick="return getSalary(0,'loadSalaryPanel');"><bean:message key="message.add"/></button>
-            <%}%>
-        </td>
-    </tr>
-</table>
 <form name='salarysForm' id='salarysForm'>
     <div id='salaryList' style="width:100%; height:768px;"></div>
     <div id="recinfoArea"></div>

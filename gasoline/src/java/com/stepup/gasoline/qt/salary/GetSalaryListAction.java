@@ -38,7 +38,6 @@ public class GetSalaryListAction extends BaseAction {
                     buff.append("<cell>").append(bean.getEmployeeName()).append("</cell>");
                     buff.append("<cell>").append(bean.getCreatedDate()).append("</cell>");
                     buff.append("<cell>").append(NumberUtil.formatMoneyDefault(bean.getTotal(), "VND")).append("</cell>");
-                    buff.append("<cell>").append(bean.getNote()).append("</cell>");
                     buff.append("</row>");
                 }
             }
