@@ -2,11 +2,13 @@
 <%@ page import="com.stepup.gasoline.qt.util.Constants"%>
 <%@ taglib uri="/WEB-INF/struts-logic.tld" prefix="logic" %>
 <%@ taglib uri="/WEB-INF/struts-bean.tld" prefix="bean" %>
+<%@ taglib uri="/WEB-INF/struts-html.tld" prefix="html" %>
 <table id="salaryFieldTbl" class="its"  style="width:100%">
     <thead>
         <tr>
-            <td width="30px"><bean:message key="message.del"/></td>
-            <td width="400px"><bean:message key="salary.field.title"/></td>
+            <td width="400px"><bean:message key="content.title"/></td>
+            <td width="200px"><bean:message key="amount.title"/></td>
+            <td width="400px"><bean:message key="note.title"/></td>
             <td></td>
         </tr>
     </thead>
@@ -14,12 +16,11 @@
         <logic:iterate id="field" name="<%=Constants.SALARY_FIELD_LIST%>">
             <tr>
                 <td>
-                    <div align="center">
-                        <input type="checkbox" name="salaryFieldChk" value="<%=((EmployeeSalaryFieldDetailFormBean) pageContext.getAttribute("field")).getId()%>">
-                        <input type="hidden" name="salaryFieldId" value='<bean:write name="field" property="fieldId"/>'/>
-                    </div>
+                    <input type="hidden" name="salaryFieldId" value='<bean:write name="field" property="id"/>'/>
+                    <span><bean:write name="field" property="fieldName"/></span>
                 </td>
-                <td><span name="salaryField"><bean:write name="field" property="fieldName"/></span></td>
+                <td><html:text name="field" property="amount" size="10" onblur="caculateSalaryTotal();" onkeyup="try2FloatFormatOnKeyUp(this,event);" onkeypress="return readonlyFloat(event);"/></td>
+                <td><html:text name="field" property="note" size="10"/></td>
             </tr>
         </logic:iterate>
     </tbody>

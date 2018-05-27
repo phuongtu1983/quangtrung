@@ -73,7 +73,7 @@ public class SalaryFormAction extends SpineAction {
         ArrayList arrTimesheetField = null;
         try {
             DynamicFieldDAO fieldDAO = new DynamicFieldDAO();
-            arrTimesheetField = fieldDAO.getDynamicFieldValues(0, DynamicFieldBean.TIMESHEET, formBean.getOrganizationId());
+            arrTimesheetField = fieldDAO.getDynamicFieldValues(0, DynamicFieldBean.SALARY, formBean.getOrganizationId());
         } catch (Exception ex) {
         }
         if (arrTimesheetField == null) {

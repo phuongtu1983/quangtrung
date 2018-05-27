@@ -609,23 +609,26 @@ function reformatNumberMoney(o, fs, fv) {
         o.value += '.' + value;
     return o.value;
 }
-//function reformatNumberMoneyString(numstr){
-//    var ind=numstr.lastIndexOf('.');
-//    var value='';
-//    if(ind>-1){
-//        value=numstr.substring(ind+1);
-//        if(parseInt(value)==0) value='';
-//        numstr=numstr.substring(0,ind);
-//    }else ind=numstr.length-1;
-//    var str=numstr.substring(ind);
-//    ind=numstr.indexOf(',');
-//    while (ind>-1){
-//        numstr=numstr.replace(',','');
-//        ind=numstr.indexOf(',');
-//    }
-//    if(value!='') numstr+='.'+value;
-//    return numstr;
-//}
+function reformatNumberMoneyString(numstr) {
+    var ind = numstr.lastIndexOf('.');
+    var value = '';
+    if (ind > -1) {
+        value = numstr.substring(ind + 1);
+        if (parseInt(value) == 0)
+            value = '';
+        numstr = numstr.substring(0, ind);
+    } else
+        ind = numstr.length - 1;
+    var str = numstr.substring(ind);
+    ind = numstr.indexOf(',');
+    while (ind > -1) {
+        numstr = numstr.replace(',', '');
+        ind = numstr.indexOf(',');
+    }
+    if (value != '')
+        numstr += '.' + value;
+    return numstr;
+}
 //function checkMaxValue(myfield, value){
 //    reformatNumberMoney(myfield);
 //    if(myfield.value*1>value){
@@ -972,13 +975,24 @@ function try2FloatFormatOnKeyUp(obj, e) {
             return false;//Phím Delete và Phím Back va phim .
     }
 }
-function getCurrentDate(){
+function getCurrentDate() {
     var currentDate = new Date();
     var dd = currentDate.getDate();
-    var mm = currentDate.getMonth()+1;
+    var mm = currentDate.getMonth() + 1;
     var yyyy = currentDate.getFullYear();
-    if(dd < 10) dd='0'+dd;
-    if(mm < 10) mm='0'+mm;
-    currentDate = dd+'/'+mm+'/'+yyyy;
+    if (dd < 10)
+        dd = '0' + dd;
+    if (mm < 10)
+        mm = '0' + mm;
+    currentDate = dd + '/' + mm + '/' + yyyy;
+    return currentDate;
+}
+function getCurrentMonth() {
+    var currentDate = new Date();
+    var mm = currentDate.getMonth() + 1;
+    var yyyy = currentDate.getFullYear();
+    if (mm < 10)
+        mm = '0' + mm;
+    currentDate = mm + '/' + yyyy;
     return currentDate;
 }

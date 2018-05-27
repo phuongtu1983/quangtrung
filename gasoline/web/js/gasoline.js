@@ -376,6 +376,8 @@ function delTableRow(form, chkbox, table) {
     return false;
 }
 function savePermission() {
+    if (scriptFunction == "savePermission")
+        return false;
     var name = document.forms['permissionForm'].name;
     if (name.value == '') {
         alert("Vui l\u00F2ng nh\u1EADp t\u00EAn nh\u00F3m ph\u00E2n quy\u1EC1n");
@@ -383,7 +385,12 @@ function savePermission() {
         name = null;
         return false;
     }
-    callAjaxCheckError("savePermission.do", null, document.forms['permissionForm'], loadPermissionPanel);
+    name=null;
+    scriptFunction = "savePermission";
+    callAjaxCheckError("savePermission.do", null, document.forms['permissionForm'], function(){
+        scriptFunction = "";
+        loadPermissionPanel();
+    });
     return false;
 }
 function delPermission() {
@@ -1832,7 +1839,7 @@ function loadEmployeeSalaryList() {
 function getEmployeeSalary(employeeId, handle) {
     if (employeeId == 0)
         return;
-    popupName = 'TH\u00D4NG TIN L\u01AF\u01A0NG NH\u00C2N VI\u00CAN';
+    popupName = 'TH\u00D4NG TIN PH\u1EE4 C\u1EA4P NH\u00C2N VI\u00CAN';
     callAjax('employeeSalaryForm.do?employeeId=' + employeeId, null, null, function(data) {
         showPopupForm(data);
         document.getElementById('callbackFunc').value = handle;
@@ -2100,17 +2107,16 @@ function loadSalaryPanel() {
     callAjax("getSalaryPanel.do", null, null, function(data) {
         clearContent();
         setAjaxData(data, "contentDiv");
-        var myCalendar = new dhtmlXCalendarObject(["fromDate", "toDate"]);
+        var myCalendar = new dhtmlXCalendarObject(["fromDate"]);
         myCalendar.setSkin('dhx_web');
-        var currentTime = getCurrentDate();
+        var currentTime = getCurrentMonth();
         document.forms['salarySearchForm'].fromDate.value = currentTime;
-        document.forms['salarySearchForm'].toDate.value = currentTime;
-        myCalendar.setDateFormat("%d/%m/%Y");
-        loadSalaryList(currentTime, currentTime);
+        myCalendar.setDateFormat("%m/%Y");
+        loadSalaryList(currentTime);
     });
     return false;
 }
-function loadSalaryList(fromDate, toDate) {
+function loadSalaryList(fromDate) {
     var mygrid = new dhtmlXGridObject('salaryList');
     mygrid.setImagePath("js/dhtmlx/grid/imgs/");
     mygrid.setHeader("S\u1ED1 phi\u1EBFu,Nh\u00E2n vi\u00EAn,Th\u00E1ng,T\u1ED5ng l\u01B0\u01A1ng,Ghi ch\u00FA");
@@ -2127,11 +2133,115 @@ function loadSalaryList(fromDate, toDate) {
     var url = "getSalaryList.do?t=1";
     if (fromDate != null)
         url += "&fromDate=" + fromDate;
-    if (toDate != null)
-        url += "&toDate=" + toDate;
     callAjax(url, null, null, function(data) {
         mygrid.parse(data);
     });
     return false;
 }
+function getSalary(id, handle) {
+    var url = 'salaryForm.do';
+    if (id != 0)
+        url += '?salaryId=' + id
+    callAjax(url, null, null, function(data) {
+        clearContent();
+        setAjaxData(data, 'contentDiv');
+        document.getElementById('callbackFunc').value = handle;
+        tryNumberFormatCurrentcy(document.forms['salaryForm'].total, "VND");
+        tryNumberFormatCurrentcy(document.forms['salaryForm'].monthDay, "VND");
+        tryNumberFormatCurrentcy(document.forms['salaryForm'].workingDay, "VND");
+        tryNumberFormatCurrentcy(document.forms['salaryForm'].basicSalary, "VND");
+        tryNumberFormatCurrentcy(document.forms['salaryForm'].realSalary, "VND");
+
+        var quantity = document.forms['salaryForm'].timesheetQuantity;
+        var price = document.forms['salaryForm'].timesheetPrice;
+        var amount = document.forms['salaryForm'].timesheetAmount;
+        if (quantity != null) {
+            if (quantity.length != null) {
+                for (var i = 0; i < quantity.length; i++) {
+                    tryNumberFormatCurrentcy(quantity[i], "VND");
+                    tryNumberFormatCurrentcy(price[i], "VND");
+                    tryNumberFormatCurrentcy(amount[i], "VND");
+                }
+            } else {
+                tryNumberFormatCurrentcy(quantity, "VND");
+                tryNumberFormatCurrentcy(price, "VND");
+                tryNumberFormatCurrentcy(amount, "VND");
+            }
+        }
+        quantity = null;
+        price = null;
+        amount = null;
+
+        amount = document.forms['salaryForm'].amount;
+        if (amount != null) {
+            if (amount.length != null) {
+                for (var i = 0; i < amount.length; i++) {
+                    tryNumberFormatCurrentcy(amount[i], "VND");
+                }
+            } else {
+                tryNumberFormatCurrentcy(amount, "VND");
+            }
+        }
+        amount = null;
+    });
+}
+function caculateSalaryTotal(){
+    var amount=document.forms['salaryForm'].amount;
+    var sum=0;
+    if(amount!=null){
+        if (amount.length!=null) {
+            for (i = 0; i < amount.length; i++) {
+                sum+=reformatNumberMoneyString(amount[i].value)*1;
+                tryNumberFormatCurrentcy(amount[i],"VND");
+            }
+        } else{
+            sum+=reformatNumberMoneyString(amount.value)*1;
+            tryNumberFormatCurrentcy(amount,"VND");
+        }
+    }
+    amount=null;
+    
+    amount=document.forms['salaryForm'].timesheetAmount;
+    if(amount!=null){
+        if (amount.length!=null) {
+            for (i = 0; i < amount.length; i++) {
+                sum+=reformatNumberMoneyString(amount[i].value)*1;
+                tryNumberFormatCurrentcy(amount[i],"VND");
+            }
+        } else{
+            sum+=reformatNumberMoneyString(amount.value)*1;
+            tryNumberFormatCurrentcy(amount,"VND");
+        }
+    }
+    amount=null;
+    
+    document.forms['salaryForm'].total.value=sum+reformatNumberMoneyString(document.forms['salaryForm'].realSalary.value)*1;
+    tryNumberFormatCurrentcy(document.forms['salaryForm'].total,"VND");
+    tryNumberFormatCurrentcy(document.forms['salaryForm'].realSalary,"VND");
+    return false;
+}
+function saveSalary(){
+    if (scriptFunction == "saveSalary")
+        return false;
+    reformatNumberMoney(document.forms['salaryForm'].total);
+    var amount=document.forms['salaryForm'].amount;
+    if(amount!=null){
+        if (amount.length!=null) {
+            for (i = 0; i < amount.length; i++) {
+                reformatNumberMoney(amount[i]);
+            }
+        } else{
+            reformatNumberMoney(amount);
+        }
+    }
+    amount=null;
+    scriptFunction = "saveSalary";
+    callAjaxCheckError("addSalary.do", null, document.forms['salaryForm'], function(){
+        scriptFunction = "";
+        loadSalaryPanel();
+    });
+    return false;
+}
+
+
 

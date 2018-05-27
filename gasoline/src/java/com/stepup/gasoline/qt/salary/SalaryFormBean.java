@@ -23,6 +23,9 @@ public class SalaryFormBean extends org.apache.struts.action.ActionForm {
     private double total;
     private int monthDay;
     private int workingDay;
+    private String[] salaryFieldId;
+    private String[] amount;
+    private String[] note;
 
     public SalaryFormBean() {
     }
@@ -125,6 +128,30 @@ public class SalaryFormBean extends org.apache.struts.action.ActionForm {
 
     public void setOrganizationId(int organizationId) {
         this.organizationId = organizationId;
+    }
+
+    public String[] getSalaryFieldId() {
+        return salaryFieldId;
+    }
+
+    public void setSalaryFieldId(String[] salaryFieldId) {
+        this.salaryFieldId = salaryFieldId;
+    }
+
+    public String[] getAmount() {
+        return amount;
+    }
+
+    public void setAmount(String[] amount) {
+        this.amount = amount;
+    }
+
+    public String[] getNote() {
+        return note;
+    }
+
+    public void setNote(String[] note) {
+        this.note = note;
     }
 
 }

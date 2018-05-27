@@ -339,7 +339,7 @@ public class PermissionFormAction extends SpineAction {
         perBean.setSharedId(2);
         perBean.setName(QTUtil.getBundleString("salary.title"));
         perBean.setValue(PermissionUtil.PER_SALARY);
-        perBean.setOperations("," + PermissionUtil.OPERATION_LIST + ",");
+        perBean.setOperations("," + PermissionUtil.OPERATION_LIST + "," + PermissionUtil.OPERATION_EDIT + ",");
         arrFun.add(perBean);
 
         request.setAttribute(Constants.PERMISSION_FUNC_LIST, arrFun);

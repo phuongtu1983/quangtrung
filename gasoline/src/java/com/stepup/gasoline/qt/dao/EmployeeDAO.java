@@ -459,22 +459,18 @@ public class EmployeeDAO extends BasicDAO {
         return result;
     }
 
-    public ArrayList searchSalary(String fromDate, String endDate) throws Exception {
+    public ArrayList searchSalary(String fromDate) throws Exception {
         SPUtil spUtil = null;
         ArrayList list = new ArrayList();
         ResultSet rs = null;
         try {
-            String sql = "{call searchSalary(?,?)}";
+            String sql = "{call searchSalary(?)}";
             if (GenericValidator.isBlankOrNull(fromDate)) {
                 fromDate = DateUtil.today("dd/MM/yyyy");
-            }
-            if (GenericValidator.isBlankOrNull(endDate)) {
-                endDate = this.START_DATE;
             }
             spUtil = new SPUtil(sql);
             if (spUtil != null) {
                 spUtil.getCallableStatement().setString("_start_date", fromDate);
-                spUtil.getCallableStatement().setString("_end_date", endDate);
                 rs = spUtil.executeQuery();
                 if (rs != null) {
                     SalaryFormBean bean = null;
@@ -1002,7 +998,7 @@ public class EmployeeDAO extends BasicDAO {
         String sql = "select d.id, d.field_name, d.quantity, d.price, d.amount, coalesce(d.note) as note"
                 + " from employee_salary_timesheet_detail as d"
                 + " where d.employee_salary_id=" + employeeSalaryId
-                + " order by f.name";
+                + " order by d.field_name";
         ArrayList list = new ArrayList();
         try {
             rs = DBUtil.executeQuery(sql);
@@ -1034,7 +1030,7 @@ public class EmployeeDAO extends BasicDAO {
         String sql = "select d.id, d.field_id, d.field_name, d.amount, coalesce(d.note) as note"
                 + " from employee_salary_field_detail as d"
                 + " where d.employee_salary_id=" + employeeSalaryId
-                + " order by f.name";
+                + " order by d.field_name";
         ArrayList list = new ArrayList();
         try {
             rs = DBUtil.executeQuery(sql);
@@ -1113,7 +1109,7 @@ public class EmployeeDAO extends BasicDAO {
         return result;
     }
 
-    public int insertEmployeeSalary(SalaryBean bean) throws Exception {
+    public int insertSalary(SalaryBean bean) throws Exception {
         if (bean == null) {
             return 0;
         }
@@ -1126,7 +1122,7 @@ public class EmployeeDAO extends BasicDAO {
             } else {
                 createdDate = bean.getCreatedDate();
             }
-            String sql = "{call insertEmployeeSalary(?,?,?,?,?,?)}";
+            String sql = "{call insertSalary(?,?,?,?,?,?)}";
             spUtil = new SPUtil(sql);
             if (spUtil != null) {
                 spUtil.getCallableStatement().setString("_code", bean.getCode());
@@ -1154,4 +1150,62 @@ public class EmployeeDAO extends BasicDAO {
         return result;
     }
 
+    public int updateSalary(SalaryBean bean) throws Exception {
+        if (bean == null) {
+            return 0;
+        }
+        int result = 0;
+        SPUtil spUtil = null;
+        try {
+            String sql = "{call updateSalary(?,?)}";
+            spUtil = new SPUtil(sql);
+            if (spUtil != null) {
+                spUtil.getCallableStatement().setInt("_id", bean.getId());
+                spUtil.getCallableStatement().setDouble("_total", bean.getTotal());
+                spUtil.execute();
+            }
+        } catch (SQLException sqle) {
+            throw new Exception(sqle.getMessage());
+        } catch (Exception ex) {
+            throw new Exception(ex.getMessage());
+        } finally {
+            try {
+                if (spUtil != null) {
+                    spUtil.closeConnection();
+                }
+            } catch (Exception e) {
+                throw new Exception(e.getMessage());
+            }
+        }
+        return result;
+    }
+
+    public void updateSalaryField(int id, double amount, String note) throws Exception {
+        if (id == 0) {
+            return;
+        }
+        SPUtil spUtil = null;
+        try {
+            String sql = "{call updateSalaryField(?,?,?)}";
+            spUtil = new SPUtil(sql);
+            if (spUtil != null) {
+                spUtil.getCallableStatement().setInt("_id", id);
+                spUtil.getCallableStatement().setDouble("_amount", amount);
+                spUtil.getCallableStatement().setString("_note", note);
+                spUtil.execute();
+            }
+        } catch (SQLException sqle) {
+            throw new Exception(sqle.getMessage());
+        } catch (Exception ex) {
+            throw new Exception(ex.getMessage());
+        } finally {
+            try {
+                if (spUtil != null) {
+                    spUtil.closeConnection();
+                }
+            } catch (Exception e) {
+                throw new Exception(e.getMessage());
+            }
+        }
+    }
 }

@@ -28,7 +28,7 @@ public class GetSalaryListAction extends BaseAction {
         buff.append("<rows>");
         try {
             EmployeeDAO employeeDAO = new EmployeeDAO();
-            ArrayList list = employeeDAO.searchSalary(request.getParameter("fromDate"), request.getParameter("toDate"));
+            ArrayList list = employeeDAO.searchSalary(request.getParameter("fromDate"));
             if (list != null) {
                 int length = list.size();
                 for (int i = 0; i < length; i++) {

@@ -37,7 +37,7 @@
         <form-bean name="employeeAdvanceForm" type="com.stepup.gasoline.qt.employeeadvance.EmployeeAdvanceFormBean"/>
         <form-bean name="employeeOffForm" type="com.stepup.gasoline.qt.employeeoff.EmployeeOffFormBean"/>
         <form-bean name="employeeTimesheetForm" type="com.stepup.gasoline.qt.employeetimesheet.EmployeeTimesheetFormBean"/>
-        <form-bean name="salaryForm" type="com.stepup.gasoline.qt.salary.salaryFormBean"/>
+        <form-bean name="salaryForm" type="com.stepup.gasoline.qt.salary.SalaryFormBean"/>
         <form-bean name="storeForm" type="com.stepup.gasoline.qt.store.StoreFormBean"/>
         <form-bean name="accountForm" type="com.stepup.gasoline.qt.account.AccountFormBean"/>
         <form-bean name="employeeForm" type="com.stepup.gasoline.qt.employee.EmployeeFormBean"/>
@@ -332,6 +332,8 @@
         </action>
         <action path="/salaryForm" type="com.stepup.gasoline.qt.salary.SalaryFormAction" scope="request" validate="false">
             <forward name="success" path="/salary/salarydetail.jsp" />
+        </action>
+        <action path="/addSalary" name ="salaryForm" scope="request" type="com.stepup.gasoline.qt.salary.AddSalaryAction" input="/salaryForm.do">
         </action>
         <!-- end salary -->
         <!-- start employee salary-->

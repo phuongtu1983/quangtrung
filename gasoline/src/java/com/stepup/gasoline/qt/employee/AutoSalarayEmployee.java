@@ -45,7 +45,7 @@ public class AutoSalarayEmployee implements Runnable {
                 salaryBean.setEmployeeId(bean.getId());
                 salaryBean.setMonthDay(workingDays);
                 salaryBean.setBasicSalary(bean.getSalary());
-                employeeDAO.insertEmployeeSalary(salaryBean);
+                employeeDAO.insertSalary(salaryBean);
             }
         } catch (Exception ex) {
 

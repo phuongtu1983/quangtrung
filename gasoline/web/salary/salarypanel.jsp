@@ -10,13 +10,11 @@
         <legend class="lbl10b"><bean:message key="search.title"/></legend>
         <table>
             <tr>
-                <td><bean:message key="fromDate.title"/></td>
+                <td><bean:message key="month.title"/></td>
                 <td colspan="2">
                     <input type="text" name="fromDate" id="fromDate" size="15">
-                    <bean:message key="toDate.title"/>
-                    <input type="text" name="toDate" id="toDate" size="15">
                 </td>
-                <td><button class="i_magnifying_glass icon small blue" onclick="return loadSalaryList(document.forms['salarySearchForm'].fromDate.value,document.forms['salarySearchForm'].toDate.value);"><bean:message key="message.search"/></button></td>
+                <td><button class="i_magnifying_glass icon small blue" onclick="return loadSalaryList(document.forms['salarySearchForm'].fromDate.value);"><bean:message key="message.search"/></button></td>
             </tr>
         </table>
     </fieldset>
@@ -29,5 +27,5 @@
     Ctrl+F : Tìm kiếm
     Ctrl+N : Thêm
 </div>
-<div id="shiftFFunctionHideDiv" style="display:none">loadSalaryList(document.forms['salarySearchForm'].fromDate.value,document.forms['salarySearchForm'].toDate.value)</div>
+<div id="shiftFFunctionHideDiv" style="display:none">loadSalaryList(document.forms['salarySearchForm'].fromDate.value)</div>
 <div id="shiftNFunctionHideDiv" style="display:none">getSalary(0)</div>

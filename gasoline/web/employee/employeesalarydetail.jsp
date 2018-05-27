@@ -31,7 +31,7 @@
                 <td align="center" height="30" colspan="4">
                     <p style="margin-top: 0; margin-bottom: 0">
                         <logic:notEqual name="<%=Constants.EMPLOYEE_SALARY%>" property="employeeId" value="0">
-                            <%if (PermissionUtil.hasPermission(request, PermissionUtil.OPERATION_EDIT, PermissionUtil.PER_SALARY)) {%> 
+                            <%if (PermissionUtil.hasPermission(request, PermissionUtil.OPERATION_EDIT, PermissionUtil.PER_DYNAMIC_FIELD)) {%> 
                             <button class="i_create_write icon small green" onclick="return saveEmployeeSalary();"><bean:message key="message.save"/></button>
                             <%}%>
                         </logic:notEqual>
