@@ -109,5 +109,8 @@ public class PermissionUtil {
     public static int PER_SALARY = 21;
     public static int PER_EMPLOYEE_TIMESHEET = 22;
     public static int PER_EMPLOYEE_OFF = 23;
+    public static int PER_PETRO = 24;
+    public static int PER_TRIP_FEE = 25;
+    public static int PER_SHELL_IMPORT = 26;
 
 }

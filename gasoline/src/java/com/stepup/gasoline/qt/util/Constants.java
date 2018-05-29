@@ -18,6 +18,8 @@ public class Constants {
     public static final String SHELL_KIND = "shellKind";
     public static final String SHELL_KIND_LIST = "shellKindList";
     public static final String SHELL = "shell";
+    public static final String SHELL_LIST = "shellList";
+    public static final String SHELL_IMPORT = "shellImport";
     public static final String VENDOR = "vendor";
     public static final String STATUS_LIST = "statusList";
     public static final String SELECTED = "selected";
@@ -43,6 +45,7 @@ public class Constants {
     public static final String ACCOUNT = "account";
     public static final String ACCOUNT_LIST = "accountList";
     public static final String VEHICLE = "vehicle";
+    public static final String VEHICLE_LIST = "vehicleList";
     public static final String ROUTE = "route";
     public static final String ACCESSORY_KIND = "accessoryKind";
     public static final String ACCESSORY_KIND_LIST = "accessoryKindList";
@@ -57,5 +60,7 @@ public class Constants {
     public static final String SALARY = "salary";
     public static final String SALARY_TIMESHEET_LIST = "salaryTimeSheetList";
     public static final String SALARY_FIELD_LIST = "salaryFieldList";
+    public static final String PETRO = "petro";
+    public static final String TRIP_FEE = "tripFee";
 
 }

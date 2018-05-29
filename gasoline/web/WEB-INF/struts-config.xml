@@ -32,9 +32,12 @@
         <form-bean name="routeForm" type="com.stepup.gasoline.qt.route.RouteFormBean"/>
         <form-bean name="shellKindForm" type="com.stepup.gasoline.qt.shellkind.ShellKindFormBean"/>
         <form-bean name="shellForm" type="com.stepup.gasoline.qt.shell.ShellFormBean"/>
+        <form-bean name="shellImportForm" type="com.stepup.gasoline.qt.shellimport.ShellImportFormBean"/>
         <form-bean name="promotionMaterialForm" type="com.stepup.gasoline.qt.promotionmaterial.PromotionMaterialFormBean"/>
         <form-bean name="accessoryForm" type="com.stepup.gasoline.qt.accessory.AccessoryFormBean"/>
+        <form-bean name="petroForm" type="com.stepup.gasoline.qt.petro.PetroFormBean"/>
         <form-bean name="employeeAdvanceForm" type="com.stepup.gasoline.qt.employeeadvance.EmployeeAdvanceFormBean"/>
+        <form-bean name="tripFeeForm" type="com.stepup.gasoline.qt.tripfee.TripFeeFormBean"/>
         <form-bean name="employeeOffForm" type="com.stepup.gasoline.qt.employeeoff.EmployeeOffFormBean"/>
         <form-bean name="employeeTimesheetForm" type="com.stepup.gasoline.qt.employeetimesheet.EmployeeTimesheetFormBean"/>
         <form-bean name="salaryForm" type="com.stepup.gasoline.qt.salary.SalaryFormBean"/>
@@ -391,6 +394,46 @@
         <action path="/delEmployeeOff" type="com.stepup.gasoline.qt.employeeoff.DeleteEmployeeOffAction" scope="request" validate="false" >
         </action>
         <!-- end employeeoff -->
+        <!-- start petro -->
+        <action path="/getPetroPanel" type="com.stepup.gasoline.qt.common.BaseStatusFormAction" scope="request" validate="false">
+            <forward name="success" path="/petro/petropanel.jsp" />
+        </action>
+        <action path="/getPetroList" type="com.stepup.gasoline.qt.petro.GetPetroListAction" scope="request" validate="false" >
+        </action>
+        <action path="/petroForm" type="com.stepup.gasoline.qt.petro.PetroFormAction" scope="request" validate="false">
+            <forward name="success" path="/petro/petrodetail.jsp" />
+        </action>
+        <action path="/addPetro" name ="petroForm" scope="request" type="com.stepup.gasoline.qt.petro.AddPetroAction" input="/petroForm.do">
+        </action>
+        <!-- end petro -->
+        <!-- start tripfee -->
+        <action path="/getTripFeePanel" type="com.stepup.gasoline.qt.common.BaseStatusFormAction" scope="request" validate="false">
+            <forward name="success" path="/tripfee/tripfeepanel.jsp" />
+        </action>
+        <action path="/getTripFeeList" type="com.stepup.gasoline.qt.tripfee.GetTripFeeListAction" scope="request" validate="false" >
+        </action>
+        <action path="/tripFeeForm" type="com.stepup.gasoline.qt.tripfee.TripFeeFormAction" scope="request" validate="false">
+            <forward name="success" path="/tripfee/tripfeedetail.jsp" />
+        </action>
+        <action path="/addTripFee" name ="tripFeeForm" scope="request" type="com.stepup.gasoline.qt.tripfee.AddTripFeeAction" input="/tripFeeForm.do">
+        </action>
+        <action path="/delTripFee" type="com.stepup.gasoline.qt.tripfee.DeleteTripFeeAction" scope="request" validate="false" >
+        </action>
+        <!-- end tripfee -->
+        <!-- start shell impot-->
+        <action path="/getShellImportPanel" type="com.stepup.gasoline.qt.common.BaseStatusFormAction" scope="request" validate="false">
+            <forward name="success" path="/shellimport/shellimportpanel.jsp" />
+        </action>
+        <action path="/getShellImportList" type="com.stepup.gasoline.qt.shellimport.GetShellImportListAction" scope="request" validate="false" >
+        </action>
+        <action path="/shellImportForm" type="com.stepup.gasoline.qt.shellimport.ShellImportFormAction" scope="request" validate="false">
+            <forward name="success" path="/shellimport/shellimportdetail.jsp" />
+        </action>
+        <action path="/addShellImport" name ="shellImportForm" scope="request" type="com.stepup.gasoline.qt.shellimport.AddShellImportAction" input="/shellImportForm.do">
+        </action>
+        <action path="/delShellImport" type="com.stepup.gasoline.qt.shellimport.DeleteShellImportAction" scope="request" validate="false" >
+        </action>
+        <!-- end shell import-->
     </action-mappings>
     
     <controller processorClass="org.apache.struts.tiles.TilesRequestProcessor"/>

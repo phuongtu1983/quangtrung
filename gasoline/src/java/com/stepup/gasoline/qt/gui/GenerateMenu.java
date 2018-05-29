@@ -167,6 +167,16 @@ public class GenerateMenu {
                     }
                     buffTemp.append("</item>");//end promotionmaterials
                 }
+                if (isHasPermission(PermissionUtil.OPERATION_LIST + "," + PermissionUtil.OPERATION_ADD, PermissionUtil.PER_PETRO)) {
+                    buffTemp.append("<item id=\"petros\" complex=\"true\" text=\"").append(QTUtil.getBundleString("petro.title")).append("\">");//start petro
+                    if (isHasPermission(PermissionUtil.OPERATION_LIST, PermissionUtil.PER_PETRO)) {
+                        buffTemp.append("<item id=\"petrolist\" text=\"").append(QTUtil.getBundleString("petro.list.title")).append("\"/>");//list petro
+                    }
+                    if (isHasPermission(PermissionUtil.OPERATION_ADD, PermissionUtil.PER_PETRO)) {
+                        buffTemp.append("<item id=\"petroadd\" text=\"").append(QTUtil.getBundleString("petro.detail.add.title")).append("\"/>");//add petro
+                    }
+                    buffTemp.append("</item>");//end petros
+                }
                 buffTemp.append("</item>");//end good
             }
 
@@ -239,8 +249,8 @@ public class GenerateMenu {
                 buff.append(buffTemp);
                 buff.append("</item>");//end list
             }
+            
             buffTemp = new StringBuilder();
-
             if (isHasPermission(PermissionUtil.OPERATION_LIST + "," + PermissionUtil.OPERATION_ADD,
                     PermissionUtil.PER_EMPLOYEE_ADVANCE + "," + PermissionUtil.PER_SALARY + "," + PermissionUtil.PER_EMPLOYEE_TIMESHEET
                     + "," + PermissionUtil.PER_EMPLOYEE_OFF)) {
@@ -297,6 +307,46 @@ public class GenerateMenu {
                 buff.append("<item id=\"employeefunction\" complex=\"true\" text=\"").append(QTUtil.getBundleString("menu.function.employee.title")).append("\">");//start function employee
                 buff.append(buffTemp);
                 buff.append("</item>");//end function employee
+            }
+            
+            buffTemp = new StringBuilder();
+            if (isHasPermission(PermissionUtil.OPERATION_LIST + "," + PermissionUtil.OPERATION_ADD,
+                    PermissionUtil.PER_TRIP_FEE )) {
+                if (isHasPermission(PermissionUtil.OPERATION_LIST + "," + PermissionUtil.OPERATION_ADD, PermissionUtil.PER_TRIP_FEE)) {
+                    buffTemp.append("<item id=\"tripfees\" complex=\"true\" text=\"").append(QTUtil.getBundleString("tripFee.title")).append("\">");
+                    if (isHasPermission(PermissionUtil.OPERATION_LIST, PermissionUtil.PER_TRIP_FEE)) {
+                        buffTemp.append("<item id=\"tripfeelist\" text=\"").append(QTUtil.getBundleString("tripFee.list.title")).append("\"/>");
+                    }
+                    if (isHasPermission(PermissionUtil.OPERATION_ADD, PermissionUtil.PER_TRIP_FEE)) {
+                        buffTemp.append("<item id=\"tripfeeadd\" text=\"").append(QTUtil.getBundleString("tripFee.detail.add.title")).append("\"/>");
+                    }
+                    buffTemp.append("</item>");
+                }
+            }
+            if (buffTemp.length() > 0) {
+                buff.append("<item id=\"vehiclefunction\" complex=\"true\" text=\"").append(QTUtil.getBundleString("menu.function.vehicle.title")).append("\">");//start function vehicle
+                buff.append(buffTemp);
+                buff.append("</item>");//end function vehicle
+            }
+            
+            buffTemp = new StringBuilder();
+            if (isHasPermission(PermissionUtil.OPERATION_LIST + "," + PermissionUtil.OPERATION_ADD,
+                    PermissionUtil.PER_SHELL_IMPORT )) {
+                if (isHasPermission(PermissionUtil.OPERATION_LIST + "," + PermissionUtil.OPERATION_ADD, PermissionUtil.PER_SHELL_IMPORT)) {
+                    buffTemp.append("<item id=\"shellimports\" complex=\"true\" text=\"").append(QTUtil.getBundleString("shellImport.title")).append("\">");
+                    if (isHasPermission(PermissionUtil.OPERATION_LIST, PermissionUtil.PER_SHELL_IMPORT)) {
+                        buffTemp.append("<item id=\"shellimportlist\" text=\"").append(QTUtil.getBundleString("shellImport.list.title")).append("\"/>");
+                    }
+                    if (isHasPermission(PermissionUtil.OPERATION_ADD, PermissionUtil.PER_SHELL_IMPORT)) {
+                        buffTemp.append("<item id=\"shellimportadd\" text=\"").append(QTUtil.getBundleString("shellImport.detail.add.title")).append("\"/>");
+                    }
+                    buffTemp.append("</item>");
+                }
+            }
+            if (buffTemp.length() > 0) {
+                buff.append("<item id=\"gasfunction\" complex=\"true\" text=\"").append(QTUtil.getBundleString("menu.function.gas.title")).append("\">");//start function gas
+                buff.append(buffTemp);
+                buff.append("</item>");//end function gas
             }
 
             buff.append("<item id=\"setting\" complex=\"true\" text=\"").append(QTUtil.getBundleString("menu.admin.setting.title")).append("\">");//start setting
