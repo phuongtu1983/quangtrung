@@ -39,6 +39,7 @@ public class Constants {
     public static final String ORGANIZATION_TIMESHEET = "organizationTimesheet";
     public static final String EMPLOYEE_LIST = "employeeList";
     public static final String STORE = "store";
+    public static final String STORE_LIST = "storeList";
     public static final String UNIT = "unit";
     public static final String UNIT_LIST = "unitList";
     public static final String CONFIG_SALARY_MONTH_DAY = "salarymonthday";
@@ -63,8 +64,11 @@ public class Constants {
     public static final String SALARY_FIELD_LIST = "salaryFieldList";
     public static final String PETRO = "petro";
     public static final String TRIP_FEE = "tripFee";
+    public static final String GAS_PRICE = "gasPrice";
     public static final String LPG_IMPORT = "lpgImport";
     public static final String FRACTION = "fraction";
+    public static final String GAS_IMPORT = "gasImport";
     public static final String FRACTION_SHELL = "fractionShell";
+    public static final String GAS_IMPORT_SHELL = "gasImportShell";
 
 }

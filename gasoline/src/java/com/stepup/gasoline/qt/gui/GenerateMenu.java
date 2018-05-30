@@ -331,7 +331,7 @@ public class GenerateMenu {
 
             buffTemp = new StringBuilder();
             if (isHasPermission(PermissionUtil.OPERATION_LIST + "," + PermissionUtil.OPERATION_ADD,
-                    PermissionUtil.PER_SHELL_IMPORT + "," + PermissionUtil.PER_LPG_IMPORT + "," + PermissionUtil.PER_FRACTION)) {
+                    PermissionUtil.PER_SHELL_IMPORT + "," + PermissionUtil.PER_LPG_IMPORT + "," + PermissionUtil.PER_FRACTION + "," + PermissionUtil.PER_GAS_PRICE)) {
                 if (isHasPermission(PermissionUtil.OPERATION_LIST + "," + PermissionUtil.OPERATION_ADD, PermissionUtil.PER_SHELL_IMPORT)) {
                     buffTemp.append("<item id=\"shellimports\" complex=\"true\" text=\"").append(QTUtil.getBundleString("shellImport.title")).append("\">");
                     if (isHasPermission(PermissionUtil.OPERATION_LIST, PermissionUtil.PER_SHELL_IMPORT)) {
@@ -359,6 +359,26 @@ public class GenerateMenu {
                     }
                     if (isHasPermission(PermissionUtil.OPERATION_ADD, PermissionUtil.PER_FRACTION)) {
                         buffTemp.append("<item id=\"fractionadd\" text=\"").append(QTUtil.getBundleString("fraction.detail.add.title")).append("\"/>");
+                    }
+                    buffTemp.append("</item>");
+                }
+                if (isHasPermission(PermissionUtil.OPERATION_LIST + "," + PermissionUtil.OPERATION_ADD, PermissionUtil.PER_GAS_PRICE)) {
+                    buffTemp.append("<item id=\"gasprices\" complex=\"true\" text=\"").append(QTUtil.getBundleString("gasPrice.title")).append("\">");
+                    if (isHasPermission(PermissionUtil.OPERATION_LIST, PermissionUtil.PER_GAS_PRICE)) {
+                        buffTemp.append("<item id=\"gaspricelist\" text=\"").append(QTUtil.getBundleString("gasPrice.list.title")).append("\"/>");
+                    }
+                    if (isHasPermission(PermissionUtil.OPERATION_ADD, PermissionUtil.PER_GAS_PRICE)) {
+                        buffTemp.append("<item id=\"gaspriceadd\" text=\"").append(QTUtil.getBundleString("gasPrice.detail.add.title")).append("\"/>");
+                    }
+                    buffTemp.append("</item>");
+                }
+                if (isHasPermission(PermissionUtil.OPERATION_LIST + "," + PermissionUtil.OPERATION_ADD, PermissionUtil.PER_GAS_IMPORT)) {
+                    buffTemp.append("<item id=\"gasimports\" complex=\"true\" text=\"").append(QTUtil.getBundleString("gasImport.title")).append("\">");
+                    if (isHasPermission(PermissionUtil.OPERATION_LIST, PermissionUtil.PER_GAS_IMPORT)) {
+                        buffTemp.append("<item id=\"gasimportlist\" text=\"").append(QTUtil.getBundleString("gasImport.list.title")).append("\"/>");
+                    }
+                    if (isHasPermission(PermissionUtil.OPERATION_ADD, PermissionUtil.PER_GAS_IMPORT)) {
+                        buffTemp.append("<item id=\"gasimportadd\" text=\"").append(QTUtil.getBundleString("gasImport.detail.add.title")).append("\"/>");
                     }
                     buffTemp.append("</item>");
                 }

@@ -15,6 +15,7 @@ public class ShellBean {
     private String code;
     private int kindId;
     private int unitId;
+    private String unitName;
     private double price;
     private int status;
 
@@ -72,6 +73,14 @@ public class ShellBean {
 
     public void setPrice(double price) {
         this.price = price;
+    }
+
+    public String getUnitName() {
+        return unitName;
+    }
+
+    public void setUnitName(String unitName) {
+        this.unitName = unitName;
     }
 
 }

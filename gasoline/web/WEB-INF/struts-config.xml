@@ -39,6 +39,7 @@
         <form-bean name="employeeAdvanceForm" type="com.stepup.gasoline.qt.employeeadvance.EmployeeAdvanceFormBean"/>
         <form-bean name="lpgImportForm" type="com.stepup.gasoline.qt.lpgimport.LpgImportFormBean"/>
         <form-bean name="tripFeeForm" type="com.stepup.gasoline.qt.tripfee.TripFeeFormBean"/>
+        <form-bean name="gasPriceForm" type="com.stepup.gasoline.qt.gasprice.GasPriceFormBean"/>
         <form-bean name="employeeOffForm" type="com.stepup.gasoline.qt.employeeoff.EmployeeOffFormBean"/>
         <form-bean name="employeeTimesheetForm" type="com.stepup.gasoline.qt.employeetimesheet.EmployeeTimesheetFormBean"/>
         <form-bean name="salaryForm" type="com.stepup.gasoline.qt.salary.SalaryFormBean"/>
@@ -56,6 +57,7 @@
         <form-bean name="resetPasswordForm" type="com.stepup.gasoline.qt.auth.ResetPasswordForm"/>
         <form-bean name="unitForm" type="com.stepup.gasoline.qt.unit.UnitFormBean"/>
         <form-bean name="fractionForm" type="com.stepup.gasoline.qt.fraction.FractionFormBean"/>
+        <form-bean name="gasImportForm" type="com.stepup.gasoline.qt.gasimport.GasImportFormBean"/>
     </form-beans>
     
     <global-exceptions>
@@ -461,12 +463,43 @@
         </action>
         <action path="/addFraction" name ="fractionForm" scope="request" type="com.stepup.gasoline.qt.fraction.AddFractionAction" input="/fractionForm.do">
         </action>
-        <action path="/getFractionFood" type="com.stepup.gasoline.qt.fraction.GetFractionShellAction" scope="request" validate="false">
+        <action path="/getFractionShell" type="com.stepup.gasoline.qt.fraction.GetFractionShellAction" scope="request" validate="false">
             <forward name="success" path="/fraction/shells.jsp" />
         </action>
         <action path="/delFraction" type="com.stepup.gasoline.qt.fraction.DeleteFractionAction" scope="request" validate="false" >
         </action>
         <!-- end fraction -->
+        <!-- start gas price -->
+        <action path="/getGasPricePanel" type="com.stepup.gasoline.qt.common.BaseStatusFormAction" scope="request" validate="false">
+            <forward name="success" path="/gasprice/gaspricepanel.jsp" />
+        </action>
+        <action path="/getGasPriceList" type="com.stepup.gasoline.qt.gasprice.GetGasPriceListAction" scope="request" validate="false" >
+        </action>
+        <action path="/gasPriceForm" type="com.stepup.gasoline.qt.gasprice.GasPriceFormAction" scope="request" validate="false">
+            <forward name="success" path="/gasprice/gaspricedetail.jsp" />
+        </action>
+        <action path="/addGasPrice" name ="gasPriceForm" scope="request" type="com.stepup.gasoline.qt.gasprice.AddGasPriceAction" input="/gasPriceForm.do">
+        </action>
+        <action path="/delGasPrice" type="com.stepup.gasoline.qt.gasprice.DeleteGasPriceAction" scope="request" validate="false" >
+        </action>
+        <!-- end gas price -->
+        <!-- start gasimport -->
+        <action path="/getGasImportPanel" type="com.stepup.gasoline.qt.common.BaseFormAction" scope="request" validate="false">
+            <forward name="success" path="/gasimport/gasimportpanel.jsp" />
+        </action>
+        <action path="/getGasImportList" type="com.stepup.gasoline.qt.gasimport.GetGasImportListAction" scope="request" validate="false" >
+        </action>
+        <action path="/gasImportForm" type="com.stepup.gasoline.qt.gasimport.GasImportFormAction" scope="request" validate="false">
+            <forward name="success" path="/gasimport/gasimportdetail.jsp" />
+        </action>
+        <action path="/addGasImport" name ="gasImportForm" scope="request" type="com.stepup.gasoline.qt.gasimport.AddGasImportAction" input="/gasImportForm.do">
+        </action>
+        <action path="/getGasImportShell" type="com.stepup.gasoline.qt.gasimport.GetGasImportShellAction" scope="request" validate="false">
+            <forward name="success" path="/gasimport/shells.jsp" />
+        </action>
+        <action path="/delGasImport" type="com.stepup.gasoline.qt.gasimport.DeleteGasImportAction" scope="request" validate="false" >
+        </action>
+        <!-- end gasimport -->
     </action-mappings>
     
     <controller processorClass="org.apache.struts.tiles.TilesRequestProcessor"/>

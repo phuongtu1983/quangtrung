@@ -5,6 +5,7 @@
 package com.stepup.gasoline.qt.dao;
 
 import com.stepup.core.database.DBUtil;
+import com.stepup.core.util.StringUtil;
 import com.stepup.gasoline.qt.bean.EmployeeBean;
 import com.stepup.gasoline.qt.bean.OrganizationBean;
 import com.stepup.gasoline.qt.bean.OrganizationTimesheetFieldBean;
@@ -208,6 +209,44 @@ public class OrganizationDAO extends BasicDAO {
                 + " FROM store AS s, organization as o WHERE s.organization_id=o.id and o.status=" + EmployeeBean.STATUS_ACTIVE;
         if (status != 0) {
             sql += " and s.status=" + status;
+        }
+        sql += " order by s.name";
+        ArrayList equipmentList = new ArrayList();
+        try {
+            rs = DBUtil.executeQuery(sql);
+            StoreFormBean bean = null;
+            while (rs.next()) {
+                bean = new StoreFormBean();
+                bean.setId(rs.getInt("id"));
+                bean.setName(rs.getString("name"));
+                bean.setCode(rs.getString("code"));
+                bean.setStatus(rs.getInt("status"));
+                if (bean.getStatus() == EmployeeBean.STATUS_ACTIVE) {
+                    bean.setStatusName(QTUtil.getBundleString("employee.detail.status.active"));
+                } else if (bean.getStatus() == EmployeeBean.STATUS_INACTIVE) {
+                    bean.setStatusName(QTUtil.getBundleString("employee.detail.status.inactive"));
+                }
+                bean.setOrganizationName(rs.getString("organization_name"));
+                equipmentList.add(bean);
+            }
+        } catch (SQLException sqle) {
+            throw new Exception(sqle.getMessage());
+        } catch (Exception ex) {
+            throw new Exception(ex.getMessage());
+        } finally {
+            if (rs != null) {
+                DBUtil.closeConnection(rs);
+            }
+        }
+        return equipmentList;
+    }
+
+    public ArrayList getStores(String organizationIds) throws Exception {
+        ResultSet rs = null;
+        String sql = "SELECT s.id, s.code, s.name, s.status, o.name as organization_name"
+                + " FROM store AS s, organization as o WHERE s.organization_id=o.id and o.status=" + EmployeeBean.STATUS_ACTIVE + " and s.status=" + EmployeeBean.STATUS_ACTIVE;
+        if (!StringUtil.isBlankOrNull(organizationIds)) {
+            sql += " and o.id in (" + organizationIds + ")";
         }
         sql += " order by s.name";
         ArrayList equipmentList = new ArrayList();

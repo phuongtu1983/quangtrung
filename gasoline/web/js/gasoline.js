@@ -137,6 +137,14 @@ function menuClick(id) {
         loadFractionPanel();
     else if (id == 'fractionadd')
         getFraction(0);
+    else if (id == 'gaspricelist')
+        loadGasPricePanel();
+    else if (id == 'gaspriceadd')
+        getGasPrice(0, 'loadGasPricePanel');
+    else if (id == 'gasimportlist')
+        loadGasImportPanel();
+    else if (id == 'gasimportadd')
+        getGasImport(0);
 }
 function clearContent() {
     var contentDiv = document.getElementById("contentDiv");
@@ -1786,8 +1794,10 @@ function getEmployeeAdvance(id, handle) {
         tryNumberFormatCurrentcy(document.forms['employeeAdvanceForm'].amount, "VND");
         var myCalendar = new dhtmlXCalendarObject(["employeeAdvanceDate"]);
         myCalendar.setSkin('dhx_web');
-        var currentDate = getCurrentDate();
-        document.forms['employeeAdvanceForm'].employeeAdvanceDate.value = currentDate;
+        if (id == 0) {
+            var currentDate = getCurrentDate();
+            document.forms['employeeAdvanceForm'].employeeAdvanceDate.value = currentDate;
+        }
         myCalendar.setDateFormat("%d/%m/%Y");
     });
 }
@@ -1979,8 +1989,10 @@ function getEmployeeTimesheet(id, handle) {
         tryNumberFormatCurrentcy(document.forms['employeeTimesheetForm'].quantity, "VND");
         var myCalendar = new dhtmlXCalendarObject(["employeeTimesheetDate"]);
         myCalendar.setSkin('dhx_web');
-        var currentDate = getCurrentDate();
-        document.forms['employeeTimesheetForm'].employeeTimesheetDate.value = currentDate;
+        if (id == 0) {
+            var currentDate = getCurrentDate();
+            document.forms['employeeTimesheetForm'].employeeTimesheetDate.value = currentDate;
+        }
         myCalendar.setDateFormat("%d/%m/%Y");
     });
 }
@@ -2389,8 +2401,10 @@ function getTripFee(id, handle) {
         tryNumberFormatCurrentcy(document.forms['tripFeeForm'].amount, "VND");
         var myCalendar = new dhtmlXCalendarObject(["tripFeeDate"]);
         myCalendar.setSkin('dhx_web');
-        var currentDate = getCurrentDate();
-        document.forms['tripFeeForm'].tripFeeDate.value = currentDate;
+        if (id == 0) {
+            var currentDate = getCurrentDate();
+            document.forms['tripFeeForm'].tripFeeDate.value = currentDate;
+        }
         myCalendar.setDateFormat("%d/%m/%Y");
     });
 }
@@ -2497,8 +2511,10 @@ function getShellImport(id, handle) {
         tryNumberFormatCurrentcy(document.forms['shellImportForm'].price, "VND");
         var myCalendar = new dhtmlXCalendarObject(["shellImportDate"]);
         myCalendar.setSkin('dhx_web');
-        var currentDate = getCurrentDate();
-        document.forms['shellImportForm'].shellImportDate.value = currentDate;
+        if (id == 0) {
+            var currentDate = getCurrentDate();
+            document.forms['shellImportForm'].shellImportDate.value = currentDate;
+        }
         myCalendar.setDateFormat("%d/%m/%Y");
     });
 }
@@ -2582,8 +2598,10 @@ function getLpgImport(id, handle) {
         tryNumberFormatCurrentcy(document.forms['lpgImportForm'].rate, "VND");
         var myCalendar = new dhtmlXCalendarObject(["lpgImportDate"]);
         myCalendar.setSkin('dhx_web');
-        var currentDate = getCurrentDate();
-        document.forms['lpgImportForm'].lpgImportDate.value = currentDate;
+        if (id == 0) {
+            var currentDate = getCurrentDate();
+            document.forms['lpgImportForm'].lpgImportDate.value = currentDate;
+        }
         myCalendar.setDateFormat("%d/%m/%Y");
     });
 }
@@ -2700,10 +2718,11 @@ function getFraction(id) {
         setAjaxData(data, 'contentDiv');
         var myCalendar = new dhtmlXCalendarObject(["fractionCreatedDate"]);
         myCalendar.setSkin('dhx_web');
-        var currentDate = getCurrentDate();
-        document.forms['fractionForm'].fractionCreatedDate.value = currentDate;
+        if (id == 0) {
+            var currentDate = getCurrentDate();
+            document.forms['fractionForm'].fractionCreatedDate.value = currentDate;
+        }
         myCalendar.setDateFormat("%d/%m/%Y");
-
         formatFractionDetail();
     });
 }
@@ -2782,7 +2801,7 @@ function addFractionShell() {
         alert("H\u00E0ng ho\u00E1 \u0111\u00E3 t\u1ED3n t\u1EA1i");
         return false;
     }
-    callAjax("getFractionFood.do?shellId=" + shell, null, null, function(data) {
+    callAjax("getFractionShell.do?shellId=" + shell, null, null, function(data) {
         setAjaxData(data, 'fractionShellHideDiv');
         var matTable = document.getElementById('fractionShellTbl');
         var detTable = document.getElementById('fractionDetailTbl');
@@ -2805,3 +2824,343 @@ function delFraction() {
     });
     return false;
 }
+function loadGasPricePanel() {
+    callAjax("getGasPricePanel.do", null, null, function(data) {
+        clearContent();
+        setAjaxData(data, "contentDiv");
+        var myCalendar = new dhtmlXCalendarObject(["fromDate", "toDate"]);
+        myCalendar.setSkin('dhx_web');
+        var currentTime = getCurrentDate();
+        document.forms['gasPriceSearchForm'].fromDate.value = currentTime;
+        document.forms['gasPriceSearchForm'].toDate.value = currentTime;
+        myCalendar.setDateFormat("%d/%m/%Y");
+        loadGasPriceList(currentTime, currentTime);
+    });
+    return false;
+}
+function loadGasPriceList(fromDate, toDate) {
+    var mygrid = new dhtmlXGridObject('gasPriceList');
+    mygrid.setImagePath("js/dhtmlx/grid/imgs/");
+    mygrid.setHeader("M\u00E3 phi\u1EBFu,H\u00ECnh th\u1EE9c b\u00E1n h\u00E0ng,T\u1EEB ng\u00E0y,\u0110\u1EBFn ng\u00E0y,Gi\u00E1 b\u00E1n,Ghi ch\u00FA");
+    mygrid.attachHeader("#text_filter,#select_filter,#text_filter,#text_filter,#text_filter,#text_filter");
+    mygrid.setInitWidths("150,200,150,150,150,*");
+    mygrid.setColTypes("link,ro,ro,ro,ro,ro");
+    mygrid.setColSorting("str,str,str,str,str,str");
+    mygrid.setSkin("light");
+    var height = contentHeight - 210;
+    mygrid.al(true, height);//enableAutoHeight
+    mygrid.enablePaging(true, 15, 3, "recinfoArea");
+    mygrid.setPagingSkin("toolbar", "dhx_skyblue");
+    mygrid.init();
+    var url = "getGasPriceList.do?t=1";
+    if (fromDate != null)
+        url += "&fromDate=" + fromDate;
+    if (toDate != null)
+        url += "&toDate=" + toDate;
+    callAjax(url, null, null, function(data) {
+        mygrid.parse(data);
+    });
+    return false;
+}
+function getGasPrice(id, handle) {
+    popupName = 'TH\u00D4NG TIN GI\u00C1 B\u00C1N';
+    var url = 'gasPriceForm.do';
+    if (id != 0)
+        url += '?gasPriceId=' + id
+    callAjax(url, null, null, function(data) {
+        showPopupForm(data);
+        document.getElementById('callbackFunc').value = handle;
+        document.forms['gasPriceForm'].price.focus();
+        tryNumberFormatCurrentcy(document.forms['gasPriceForm'].price, "VND");
+        var myCalendar = new dhtmlXCalendarObject(["gasPriceFromDate", "gasPriceToDate"]);
+        myCalendar.setSkin('dhx_web');
+        if (id == 0) {
+            var currentDate = getCurrentDate();
+            document.forms['gasPriceForm'].gasPriceFromDate.value = currentDate;
+            document.forms['gasPriceForm'].gasPriceToDate.value = currentDate;
+        }
+        myCalendar.setDateFormat("%d/%m/%Y");
+    });
+}
+function saveGasPrice() {
+    if (scriptFunction == "saveGasPrice")
+        return false;
+    var field = document.forms['gasPriceForm'].fromDate;
+    if (field.value == '') {
+        alert("Vui l\u00F2ng nh\u1EADp ng\u00E0y b\u1EAFt \u0111\u1EA7u");
+        field.focus();
+        field = null;
+        return false;
+    }
+    field = document.forms['gasPriceForm'].toDate;
+    if (field.value == '') {
+        alert("Vui l\u00F2ng nh\u1EADp ng\u00E0y k\u1EBFt th\u00FAc");
+        field.focus();
+        field = null;
+        return false;
+    }
+    field = document.forms['gasPriceForm'].price;
+    if (field.value == '') {
+        alert("Vui l\u00F2ng nh\u1EADp gi\u00E1 b\u00E1n");
+        field.focus();
+        field = null;
+        return false;
+    }
+    field = null;
+    reformatNumberMoney(document.forms['gasPriceForm'].price);
+    scriptFunction = "saveGasPrice";
+    callAjaxCheckError("addGasPrice.do", null, document.forms['gasPriceForm'], function(data) {
+        scriptFunction = "";
+        var handle = document.getElementById('callbackFunc').value;
+        if (confirm('B\u1EA1n c\u00F3 mu\u1ED1n nh\u1EADp ti\u1EBFp th\u00F4ng tin kh\u00E1c ?'))
+            getGasPrice(0, handle);
+        else if (handle != '')
+            eval(handle + "()");
+        prepareHidePopup('gasPriceFormshowHelpHideDiv');
+    });
+    return false;
+}
+function delGasPrice() {
+    callAjaxCheckError('delGasPrice.do?gasPriceId=' + document.forms['gasPriceForm'].id.value, null, null, function() {
+        loadGasPricePanel();
+        prepareHidePopup('gasPriceFormshowHelpHideDiv');
+    });
+    return false;
+}
+function loadGasImportPanel() {
+    callAjax("getGasImportPanel.do", null, null, function(data) {
+        clearContent();
+        setAjaxData(data, "contentDiv");
+        var myCalendar = new dhtmlXCalendarObject(["fromDate", "toDate"]);
+        myCalendar.setSkin('dhx_web');
+        var currentTime = getCurrentDate();
+        document.forms['gasImportSearchForm'].fromDate.value = currentTime;
+        document.forms['gasImportSearchForm'].toDate.value = currentTime;
+        myCalendar.setDateFormat("%d/%m/%Y");
+        loadGasImportList(currentTime, currentTime);
+    });
+    return false;
+}
+function loadGasImportList(fromDate, toDate) {
+    var mygrid = new dhtmlXGridObject('gasImportList');
+    mygrid.setImagePath("js/dhtmlx/grid/imgs/");
+    mygrid.setHeader("M\u00E3 phi\u1EBFu,Ng\u00E0y,Nh\u00E0 cung c\u1EA5p,Kho,T\u1ED5ng ti\u1EC1n,Thanh to\u00E1n,C\u00F2n n\u1EE3,Ghi ch\u00FA");
+    mygrid.attachHeader("#text_filter,#text_filter,#select_filter,#select_filter,#text_filter,#text_filter,#text_filter,#text_filter");
+    mygrid.setInitWidths("150,100,150,150,150,150,*");
+    mygrid.setColTypes("link,ro,ro,ro,ro,ro,ro");
+    mygrid.setColSorting("str,str,str,str,str,str,str");
+    mygrid.setSkin("light");
+    var height = contentHeight - 210;
+    mygrid.al(true, height);//enableAutoHeight
+    mygrid.enablePaging(true, 15, 3, "recinfoArea");
+    mygrid.setPagingSkin("toolbar", "dhx_skyblue");
+    mygrid.init();
+    var url = "getGasImportList.do?t=1";
+    if (fromDate != null)
+        url += "&fromDate=" + fromDate;
+    if (toDate != null)
+        url += "&toDate=" + toDate;
+    callAjax(url, null, null, function(data) {
+        mygrid.parse(data);
+    });
+    return false;
+}
+function getGasImport(id) {
+    var url = 'gasImportForm.do';
+    if (id != 0)
+        url += '?gasImportId=' + id
+    callAjax(url, null, null, function(data) {
+        clearContent();
+        setAjaxData(data, 'contentDiv');
+        var myCalendar = new dhtmlXCalendarObject(["gasImportCreatedDate"]);
+        myCalendar.setSkin('dhx_web');
+        if (id == 0) {
+            var currentDate = getCurrentDate();
+            document.forms['gasImportForm'].gasImportCreatedDate.value = currentDate;
+        }
+        myCalendar.setDateFormat("%d/%m/%Y");
+        tryNumberFormatCurrentcy(document.forms['gasImportForm'].total, "VND");
+        tryNumberFormatCurrentcy(document.forms['gasImportForm'].paid, "VND");
+        tryNumberFormatCurrentcy(document.forms['gasImportForm'].debt, "VND");
+        tryNumberFormatCurrentcy(document.forms['gasImportForm'].rate, "VND");
+        formatGasImportDetail();
+    });
+}
+function formatGasImportDetail() {
+    var quantity = document.forms['gasImportForm'].quantity;
+    var price = document.forms['gasImportForm'].price;
+    var amount = document.forms['gasImportForm'].amount;
+    if (quantity != null) {
+        if (quantity.length != null) {
+            for (var i = 0; i < quantity.length; i++) {
+                tryNumberFormatCurrentcy(quantity[i], "VND");
+                tryNumberFormatCurrentcy(price[i], "VND");
+                tryNumberFormatCurrentcy(amount[i], "VND");
+            }
+        } else {
+            tryNumberFormatCurrentcy(quantity, "VND");
+            tryNumberFormatCurrentcy(price, "VND");
+            tryNumberFormatCurrentcy(amount, "VND");
+        }
+    }
+    quantity = null;
+    price = null;
+    amount = null;
+}
+function saveGasImport() {
+    if (scriptFunction == "saveGasImport")
+        return false;
+    var quantity = document.forms['gasImportForm'].quantity;
+    if (quantity == null) {
+        alert('Vui l\u00F2ng ch\u1ECDn h\u00E0ng h\u00F3a');
+        return false;
+    }
+    var price = document.forms['gasImportForm'].price;
+    var amount = document.forms['gasImportForm'].amount;
+    if (quantity.length != null) {
+        for (var i = 0; i < quantity.length; i++) {
+            var number = Number(quantity[i].value);
+            if (number == 0) {
+                alert('Vui l\u00F2ng nh\u1EADp s\u1ED1 l\u01B0\u1EE3ng');
+                quantity[i].focus();
+                quantity = null;
+                return false;
+            }
+            reformatNumberMoney(quantity[i]);
+            reformatNumberMoney(price[i]);
+            reformatNumberMoney(amount[i]);
+        }
+    } else {
+        if (quantity.value == "0") {
+            alert('Vui l\u00F2ng nh\u1EADp s\u1ED1 l\u01B0\u1EE3ng');
+            quantity.focus();
+            quantity = null;
+            return false;
+        }
+        reformatNumberMoney(quantity);
+        reformatNumberMoney(price);
+        reformatNumberMoney(amount);
+    }
+    quantity = null;
+    price = null;
+    amount = null;
+    reformatNumberMoney(document.forms['gasImportForm'].total);
+    reformatNumberMoney(document.forms['gasImportForm'].paid);
+    reformatNumberMoney(document.forms['gasImportForm'].debt);
+    reformatNumberMoney(document.forms['gasImportForm'].rate);
+    scriptFunction = "saveGasImport";
+    callAjaxCheckError("addGasImport.do", null, document.forms['gasImportForm'], function(data) {
+        scriptFunction = "";
+        loadGasImportPanel();
+    });
+    return false;
+}
+function addGasImportShell() {
+    var shell = document.forms['gasImportForm'].shellIdCombobox;
+    if (shell == null && shell.selectedIndex == -1)
+        shell = null;
+    else
+        shell = shell.options[shell.selectedIndex].value;
+    if (shell == -1 || shell == 0)
+        return false;
+    var shellId = document.forms['gasImportForm'].shellId;
+    var existed = false;
+    if (shellId != null) {
+        if (shellId.length != null) {
+            for (i = 0; i < shellId.length; i++) {
+                if (shellId[i].value == shell) {
+                    existed = true;
+                    break;
+                }
+            }
+        } else if (shellId.value == shell)
+            existed = true;
+    }
+    shellId = null;
+    if (existed == true) {
+        alert("H\u00E0ng ho\u00E1 \u0111\u00E3 t\u1ED3n t\u1EA1i");
+        return false;
+    }
+    callAjax("getGasImportShell.do?shellId=" + shell, null, null, function(data) {
+        setAjaxData(data, 'gasImportShellHideDiv');
+        var matTable = document.getElementById('gasImportShellTbl');
+        var detTable = document.getElementById('gasImportDetailTbl');
+        if (matTable.tBodies[0] == null || detTable.tBodies[0] == null) {
+            matTable = null;
+            detTable = null;
+            return;
+        }
+        for (var i = matTable.tBodies[0].rows.length - 1; i >= 0; i--)
+            detTable.tBodies[0].appendChild(matTable.tBodies[0].rows[i]);
+        matTable = null;
+        detTable = null;
+        formatGasImportDetail();
+    });
+    return false;
+}
+function delGasImport() {
+    callAjaxCheckError('delGasImport.do?gasImportId=' + document.forms['gasImportForm'].id.value, null, null, function() {
+        loadGasImportPanel();
+    });
+    return false;
+}
+function caculateGasImportDetail(shellId) {
+    var quantity = document.getElementById("detquantity" + shellId);
+    var price = document.getElementById("detprice" + shellId);
+    var detTotal = document.getElementById("detamount" + shellId);
+    if (quantity == null || price == null || detTotal == null)
+        return false;
+    detTotal.value = reformatNumberMoneyString(quantity.value) * reformatNumberMoneyString(price.value);
+    quantity = null;
+    price = null;
+    detTotal = null;
+    caculateGasImportTotal();
+    return false;
+}
+function caculateGasImportTotal() {
+    var quantity = document.forms['gasImportForm'].quantity;
+    var price = document.forms['gasImportForm'].price;
+    var amount = document.forms['gasImportForm'].amount;
+    var sum = 0;
+    if (quantity != null) {
+        if (quantity.length != null) {
+            for (i = 0; i < quantity.length; i++) {
+                sum += reformatNumberMoneyString(amount[i].value) * 1;
+                tryNumberFormatCurrentcy(quantity[i], "USD");
+                tryNumberFormatCurrentcy(price[i], "VND");
+                tryNumberFormatCurrentcy(amount[i], "VND");
+            }
+        } else {
+            sum += reformatNumberMoneyString(amount.value) * 1;
+            tryNumberFormatCurrentcy(quantity, "USD");
+            tryNumberFormatCurrentcy(price, "VND");
+            tryNumberFormatCurrentcy(amount, "VND");
+        }
+    }
+    quantity = null;
+    price = null;
+    amount = null;
+    document.forms['gasImportForm'].total.value = sum;
+    document.forms['gasImportForm'].paid.value = sum;
+    document.forms['gasImportForm'].debt.value = 0;
+    tryNumberFormatCurrentcy(document.forms['gasImportForm'].total, "VND");
+    tryNumberFormatCurrentcy(document.forms['gasImportForm'].paid, "VND");
+    return false;
+}
+function gasImportPaidChanged() {
+    var total = document.forms['gasImportForm'].total;
+    var paid = document.forms['gasImportForm'].paid;
+    var debt = document.forms['gasImportForm'].debt;
+    if (total == null || paid == null || debt == null)
+        return false;
+    debt.value = reformatNumberMoneyString(total.value) * 1 - reformatNumberMoneyString(paid.value) * 1;
+    tryNumberFormatCurrentcy(total, "VND");
+    tryNumberFormatCurrentcy(paid, "VND");
+    tryNumberFormatCurrentcy(debt, "VND");
+    total = null;
+    paid = null;
+    debt = null;
+    return false;
+}
+
+

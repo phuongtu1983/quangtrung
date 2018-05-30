@@ -46,9 +46,9 @@ public class CustomerDAO extends BasicDAO {
                 }
                 bean.setKind(rs.getInt("kind"));
                 if (bean.getKind() == CustomerBean.KIND_RETAIL) {
-                    bean.setStatusName(QTUtil.getBundleString("customer.detail.kind.retail"));
+                    bean.setKindName(QTUtil.getBundleString("customer.detail.kind.retail"));
                 } else if (bean.getKind() == CustomerBean.KIND_WHOLESALE) {
-                    bean.setStatusName(QTUtil.getBundleString("customer.detail.kind.wholesale"));
+                    bean.setKindName(QTUtil.getBundleString("customer.detail.kind.wholesale"));
                 }
                 customerList.add(bean);
             }
