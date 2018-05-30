@@ -8,20 +8,13 @@ package com.stepup.gasoline.qt.bean;
  *
  * @author phuongtu
  */
-public class ShellImportBean {
+public class FractionBean {
 
     private int id;
-    private String createdDate;
     private String code;
-    private int shellId;
-    private int quantity;
-    private double price;
+    private String createdDate;
     private String note;
     private int canEdit;
-
-    public ShellImportBean() {
-        this.canEdit = 1;
-    }
 
     public void setId(int id) {
         this.id = id;
@@ -39,36 +32,12 @@ public class ShellImportBean {
         this.code = code;
     }
 
-    public double getPrice() {
-        return price;
-    }
-
-    public void setPrice(double price) {
-        this.price = price;
-    }
-
     public String getCreatedDate() {
         return createdDate;
     }
 
     public void setCreatedDate(String createdDate) {
         this.createdDate = createdDate;
-    }
-
-    public int getShellId() {
-        return shellId;
-    }
-
-    public void setShellId(int shellId) {
-        this.shellId = shellId;
-    }
-
-    public int getQuantity() {
-        return quantity;
-    }
-
-    public void setQuantity(int quantity) {
-        this.quantity = quantity;
     }
 
     public String getNote() {

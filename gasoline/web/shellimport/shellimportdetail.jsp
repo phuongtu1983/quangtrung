@@ -31,12 +31,12 @@
                         <tr>
                             <td height="30" style="padding-right: 20px"><bean:message key="quantity.title"/></td>
                             <td>
-                                <logic:present name="<%=Constants.CAN_EDIT%>">
+                                <logic:equal name="<%=Constants.SHELL_IMPORT%>" property="canEdit" value="1">
                                     <html:text property="quantity" size="40" name="<%=Constants.SHELL_IMPORT%>" onkeyup="try2FloatFormatOnKeyUp(this,event);" onkeypress="return readonlyFloat(event);"/>
-                                </logic:present>
-                                <logic:notPresent name="<%=Constants.CAN_EDIT%>">
+                                </logic:equal>
+                                <logic:equal name="<%=Constants.SHELL_IMPORT%>" property="canEdit" value="0">
                                     <html:text property="quantity" size="40" name="<%=Constants.SHELL_IMPORT%>" readonly="true"/>
-                                </logic:notPresent>
+                                </logic:equal>
                             </td>
                             <td style="padding-right: 20px;padding-left: 10px"><bean:message key="note.title"/></td>
                             <td><html:text property="note" size="40" name="<%=Constants.SHELL_IMPORT%>"/></td>
@@ -58,9 +58,9 @@
                         </logic:notEqual>
                         <logic:greaterThan name="<%=Constants.SHELL_IMPORT%>" property="id" value="0">
                             <%if (PermissionUtil.hasPermission(request, PermissionUtil.OPERATION_DELETE, PermissionUtil.PER_SHELL_IMPORT)) {%> 
-                            <logic:present name="<%=Constants.CAN_EDIT%>">
+                            <logic:equal name="<%=Constants.SHELL_IMPORT%>" property="canEdit" value="1">
                                 <button class="i_trashcan icon small red" onclick="return delShellImport();"><bean:message key="message.del"/></button>
-                            </logic:present>
+                            </logic:equal>
                             <%}%>
                         </logic:greaterThan>
                         <button class="i_access_denied icon small yellow" onclick="return prepareHidePopup('shellImportFormshowHelpHideDiv');"><bean:message key="message.close"/></button>

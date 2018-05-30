@@ -76,27 +76,5 @@ public class BasicDAO {
         }
     }
 
-    public boolean hasDataAfter(String tableName, int id) throws Exception {
-        ResultSet rs = null;
-        boolean result = false;
-        String sql = "SELECT id FROM " + tableName + " WHERE id > " + id + " LIMIT 1";
-        try {
-            rs = DBUtil.executeQuery(sql);
-            while (rs.next()) {
-                result = true;
-                break;
-            }
-        } catch (SQLException sqle) {
-            throw new Exception(sqle.getMessage());
-        } catch (Exception ex) {
-            throw new Exception(ex.getMessage());
-        } finally {
-            if (rs != null) {
-                DBUtil.closeConnection(rs);
-            }
-        }
-        return result;
-    }
-
     public static String START_DATE = "01/01/2018";
 }

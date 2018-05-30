@@ -64,6 +64,7 @@ public class Constants {
     public static final String PETRO = "petro";
     public static final String TRIP_FEE = "tripFee";
     public static final String LPG_IMPORT = "lpgImport";
-    public static final String CAN_EDIT = "canEdit";
+    public static final String FRACTION = "fraction";
+    public static final String FRACTION_SHELL = "fractionShell";
 
 }

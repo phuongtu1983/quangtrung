@@ -55,6 +55,7 @@
         <form-bean name="passwordForm" type="com.stepup.gasoline.qt.auth.PasswordFormBean"/>
         <form-bean name="resetPasswordForm" type="com.stepup.gasoline.qt.auth.ResetPasswordForm"/>
         <form-bean name="unitForm" type="com.stepup.gasoline.qt.unit.UnitFormBean"/>
+        <form-bean name="fractionForm" type="com.stepup.gasoline.qt.fraction.FractionFormBean"/>
     </form-beans>
     
     <global-exceptions>
@@ -449,6 +450,23 @@
         <action path="/delLpgImport" type="com.stepup.gasoline.qt.lpgimport.DeleteLpgImportAction" scope="request" validate="false" >
         </action>
         <!-- end lpg import -->
+        <!-- start fraction -->
+        <action path="/getFractionPanel" type="com.stepup.gasoline.qt.common.BaseFormAction" scope="request" validate="false">
+            <forward name="success" path="/fraction/fractionpanel.jsp" />
+        </action>
+        <action path="/getFractionList" type="com.stepup.gasoline.qt.fraction.GetFractionListAction" scope="request" validate="false" >
+        </action>
+        <action path="/fractionForm" type="com.stepup.gasoline.qt.fraction.FractionFormAction" scope="request" validate="false">
+            <forward name="success" path="/fraction/fractiondetail.jsp" />
+        </action>
+        <action path="/addFraction" name ="fractionForm" scope="request" type="com.stepup.gasoline.qt.fraction.AddFractionAction" input="/fractionForm.do">
+        </action>
+        <action path="/getFractionFood" type="com.stepup.gasoline.qt.fraction.GetFractionShellAction" scope="request" validate="false">
+            <forward name="success" path="/fraction/shells.jsp" />
+        </action>
+        <action path="/delFraction" type="com.stepup.gasoline.qt.fraction.DeleteFractionAction" scope="request" validate="false" >
+        </action>
+        <!-- end fraction -->
     </action-mappings>
     
     <controller processorClass="org.apache.struts.tiles.TilesRequestProcessor"/>

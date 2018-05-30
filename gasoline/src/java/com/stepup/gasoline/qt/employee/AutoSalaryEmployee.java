@@ -18,7 +18,7 @@ import java.util.Date;
  *
  * @author Administrator
  */
-public class AutoSalarayEmployee implements Runnable {
+public class AutoSalaryEmployee implements Runnable {
 
     @Override
     public void run() {

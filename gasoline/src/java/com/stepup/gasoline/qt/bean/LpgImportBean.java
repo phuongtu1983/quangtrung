@@ -24,6 +24,11 @@ public class LpgImportBean {
     private int paymentMode;
     private int accountId;
     private String note;
+    private int canEdit;
+
+    public LpgImportBean() {
+        this.canEdit = 1;
+    }
 
     public void setId(int id) {
         this.id = id;
@@ -135,6 +140,14 @@ public class LpgImportBean {
 
     public void setPaid(double paid) {
         this.paid = paid;
+    }
+
+    public int getCanEdit() {
+        return canEdit;
+    }
+
+    public void setCanEdit(int canEdit) {
+        this.canEdit = canEdit;
     }
 
 }

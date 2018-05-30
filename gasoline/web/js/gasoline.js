@@ -133,6 +133,10 @@ function menuClick(id) {
         loadLpgImportPanel();
     else if (id == 'lpgimportadd')
         getLpgImport(0, 'loadLpgImportPanel');
+    else if (id == 'fractionlist')
+        loadFractionPanel();
+    else if (id == 'fractionadd')
+        getFraction(0);
 }
 function clearContent() {
     var contentDiv = document.getElementById("contentDiv");
@@ -2620,8 +2624,8 @@ function lpgImportCaculateAmount() {
     var debt = document.forms['lpgImportForm'].debt;
 
     amount.value = reformatNumberMoneyString(quantity.value) * 1 * reformatNumberMoneyString(price.value) * 1;
-    paid.value=0;
-    debt.value=amount.value;
+    paid.value = 0;
+    debt.value = amount.value;
     tryNumberFormatCurrentcy(quantity, "VND");
     tryNumberFormatCurrentcy(price, "VND");
     tryNumberFormatCurrentcy(amount, "VND");
@@ -2640,7 +2644,7 @@ function lpgImportCaculateDebt() {
     var debt = document.forms['lpgImportForm'].debt;
 
     debt.value = reformatNumberMoneyString(amount.value) * 1 - reformatNumberMoneyString(paid.value) * 1;
-    
+
     tryNumberFormatCurrentcy(amount, "VND");
     tryNumberFormatCurrentcy(paid, "VND");
     tryNumberFormatCurrentcy(debt, "VND");
@@ -2649,4 +2653,155 @@ function lpgImportCaculateDebt() {
     debt = null;
     return false;
 }
+function loadFractionPanel() {
+    callAjax("getFractionPanel.do", null, null, function(data) {
+        clearContent();
+        setAjaxData(data, "contentDiv");
+        var myCalendar = new dhtmlXCalendarObject(["fromDate", "toDate"]);
+        myCalendar.setSkin('dhx_web');
+        var currentTime = getCurrentDate();
+        document.forms['fractionSearchForm'].fromDate.value = currentTime;
+        document.forms['fractionSearchForm'].toDate.value = currentTime;
+        myCalendar.setDateFormat("%d/%m/%Y");
+        loadFractionList(currentTime, currentTime);
+    });
+    return false;
+}
+function loadFractionList(fromDate, toDate) {
+    var mygrid = new dhtmlXGridObject('fractionList');
+    mygrid.setImagePath("js/dhtmlx/grid/imgs/");
+    mygrid.setHeader("S\u1ED1 phi\u1EBFu,Ng\u00E0y,Ghi ch\u00FA");
+    mygrid.attachHeader("#text_filter,#text_filter,#text_filter");
+    mygrid.setInitWidths("150,100,*");
+    mygrid.setColTypes("link,ro,ro");
+    mygrid.setColSorting("str,str,str");
+    mygrid.setSkin("light");
+    var height = contentHeight - 210;
+    mygrid.al(true, height);//enableAutoHeight
+    mygrid.enablePaging(true, 15, 3, "recinfoArea");
+    mygrid.setPagingSkin("toolbar", "dhx_skyblue");
+    mygrid.init();
+    var url = "getFractionList.do?t=1";
+    if (fromDate != null)
+        url += "&fromDate=" + fromDate;
+    if (toDate != null)
+        url += "&toDate=" + toDate;
+    callAjax(url, null, null, function(data) {
+        mygrid.parse(data);
+    });
+    return false;
+}
+function getFraction(id) {
+    var url = 'fractionForm.do';
+    if (id != 0)
+        url += '?fractionId=' + id
+    callAjax(url, null, null, function(data) {
+        clearContent();
+        setAjaxData(data, 'contentDiv');
+        var myCalendar = new dhtmlXCalendarObject(["fractionCreatedDate"]);
+        myCalendar.setSkin('dhx_web');
+        var currentDate = getCurrentDate();
+        document.forms['fractionForm'].fractionCreatedDate.value = currentDate;
+        myCalendar.setDateFormat("%d/%m/%Y");
 
+        formatFractionDetail();
+    });
+}
+function formatFractionDetail() {
+    var quantity = document.forms['fractionForm'].quantity;
+    if (quantity != null) {
+        if (quantity.length != null) {
+            for (var i = 0; i < quantity.length; i++) {
+                tryNumberFormatCurrentcy(quantity[i], "VND");
+            }
+        } else {
+            tryNumberFormatCurrentcy(quantity, "VND");
+        }
+    }
+    quantity = null;
+}
+function saveFraction() {
+    if (scriptFunction == "saveFraction")
+        return false;
+    var quantity = document.forms['fractionForm'].quantity;
+    if (quantity == null) {
+        alert('Vui l\u00F2ng ch\u1ECDn h\u00E0ng h\u00F3a');
+        return false;
+    }
+    if (quantity.length != null) {
+        for (var i = 0; i < quantity.length; i++) {
+            var number = Number(quantity[i].value);
+            if (number == 0) {
+                alert('Vui l\u00F2ng nh\u1EADp s\u1ED1 l\u01B0\u1EE3ng');
+                quantity[i].focus();
+                quantity = null;
+                return false;
+            }
+            reformatNumberMoney(quantity[i]);
+        }
+    } else {
+        if (quantity.value == "0") {
+            alert('Vui l\u00F2ng nh\u1EADp s\u1ED1 l\u01B0\u1EE3ng');
+            quantity.focus();
+            quantity = null;
+            return false;
+        }
+        reformatNumberMoney(quantity);
+    }
+    quantity = null;
+    scriptFunction = "saveFraction";
+    callAjaxCheckError("addFraction.do", null, document.forms['fractionForm'], function(data) {
+        scriptFunction = "";
+        loadFractionPanel();
+    });
+    return false;
+}
+function addFractionShell() {
+    var shell = document.forms['fractionForm'].shellIdCombobox;
+    if (shell == null && shell.selectedIndex == -1)
+        shell = null;
+    else
+        shell = shell.options[shell.selectedIndex].value;
+    if (shell == -1 || shell == 0)
+        return false;
+    var shellId = document.forms['fractionForm'].shellId;
+    var existed = false;
+    if (shellId != null) {
+        if (shellId.length != null) {
+            for (i = 0; i < shellId.length; i++) {
+                if (shellId[i].value == shell) {
+                    existed = true;
+                    break;
+                }
+            }
+        } else if (shellId.value == shell)
+            existed = true;
+    }
+    shellId = null;
+    if (existed == true) {
+        alert("H\u00E0ng ho\u00E1 \u0111\u00E3 t\u1ED3n t\u1EA1i");
+        return false;
+    }
+    callAjax("getFractionFood.do?shellId=" + shell, null, null, function(data) {
+        setAjaxData(data, 'fractionShellHideDiv');
+        var matTable = document.getElementById('fractionShellTbl');
+        var detTable = document.getElementById('fractionDetailTbl');
+        if (matTable.tBodies[0] == null || detTable.tBodies[0] == null) {
+            matTable = null;
+            detTable = null;
+            return;
+        }
+        for (var i = matTable.tBodies[0].rows.length - 1; i >= 0; i--)
+            detTable.tBodies[0].appendChild(matTable.tBodies[0].rows[i]);
+        matTable = null;
+        detTable = null;
+        formatFractionDetail();
+    });
+    return false;
+}
+function delFraction() {
+    callAjaxCheckError('delFraction.do?fractionId=' + document.forms['fractionForm'].id.value, null, null, function() {
+        loadFractionPanel();
+    });
+    return false;
+}

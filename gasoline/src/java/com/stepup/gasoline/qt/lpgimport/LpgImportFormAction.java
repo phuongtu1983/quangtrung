@@ -57,15 +57,6 @@ public class LpgImportFormAction extends SpineAction {
                 String number = gasDAO.getNextLpgImportNumber(prefix, 4);
                 prefix += number;
                 bean.setCode(prefix);
-                request.setAttribute(Constants.CAN_EDIT, true);
-            } catch (Exception ex) {
-            }
-        } else {
-            try {
-                boolean hasAfter = gasDAO.hasLpgImportAfter(Integer.parseInt(lpgImportId));
-                if (!hasAfter) {
-                    request.setAttribute(Constants.CAN_EDIT, true);
-                }
             } catch (Exception ex) {
             }
         }

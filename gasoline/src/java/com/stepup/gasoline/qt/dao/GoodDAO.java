@@ -929,7 +929,7 @@ public class GoodDAO extends BasicDAO {
 
     public ShellImportBean getShellImport(int id) throws Exception {
         ResultSet rs = null;
-        String sql = "select * from shell_import where id=" + id;
+        String sql = "select *, IF(DATEDIFF(created_date,SYSDATE())=0,1,0) as can_edit from shell_import where id=" + id;
         try {
             rs = DBUtil.executeQuery(sql);
             while (rs.next()) {
@@ -941,6 +941,7 @@ public class GoodDAO extends BasicDAO {
                 bean.setQuantity(rs.getInt("quantity"));
                 bean.setPrice(rs.getDouble("price"));
                 bean.setNote(rs.getString("note"));
+                bean.setCanEdit(rs.getInt("can_edit"));
                 return bean;
             }
         } catch (SQLException sqle) {
@@ -1065,16 +1066,6 @@ public class GoodDAO extends BasicDAO {
                 throw new Exception(e.getMessage());
             }
         }
-    }
-
-    public boolean hasShellImportAfter(int id) throws Exception {
-        boolean result = false;
-        try {
-            result = this.hasDataAfter("shell_import", id);
-        } catch (Exception ex) {
-            throw new Exception(ex.getMessage());
-        }
-        return result;
     }
 
 }
