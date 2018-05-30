@@ -6,6 +6,7 @@
 package com.stepup.gasoline.qt.dao;
 
 import com.stepup.core.database.DBUtil;
+import com.stepup.core.util.StringUtil;
 import com.stepup.gasoline.qt.bean.EmployeeBean;
 import com.stepup.gasoline.qt.bean.VendorBean;
 import com.stepup.gasoline.qt.util.QTUtil;
@@ -18,13 +19,52 @@ import java.util.ArrayList;
  *
  * @author Administrator
  */
-public class VendorDAO extends BasicDAO{
+public class VendorDAO extends BasicDAO {
 
     public ArrayList getVendors(int status) throws Exception {
         ResultSet rs = null;
         String sql = "select v.*, o.name as organization_name from vendor as v, organization as o where v.organization_id=o.id and o.status=" + EmployeeBean.STATUS_ACTIVE;
         if (status != 0) {
             sql += " and v.status=" + status;
+        }
+        sql += " order by v.name desc";
+        ArrayList vendorList = new ArrayList();
+        try {
+            rs = DBUtil.executeQuery(sql);
+            VendorFormBean bean = null;
+            while (rs.next()) {
+                bean = new VendorFormBean();
+                bean.setId(rs.getInt("id"));
+                bean.setName(rs.getString("name"));
+                bean.setCode(rs.getString("code"));
+                bean.setOrganizationId(rs.getInt("organization_id"));
+                bean.setOrganizationName(rs.getString("organization_name"));
+                bean.setStatus(rs.getInt("status"));
+                if (bean.getStatus() == EmployeeBean.STATUS_ACTIVE) {
+                    bean.setStatusName(QTUtil.getBundleString("employee.detail.status.active"));
+                } else if (bean.getStatus() == EmployeeBean.STATUS_INACTIVE) {
+                    bean.setStatusName(QTUtil.getBundleString("employee.detail.status.inactive"));
+                }
+                vendorList.add(bean);
+            }
+        } catch (SQLException sqle) {
+            throw new Exception(sqle.getMessage());
+        } catch (Exception ex) {
+            throw new Exception(ex.getMessage());
+        } finally {
+            if (rs != null) {
+                DBUtil.closeConnection(rs);
+            }
+        }
+        return vendorList;
+    }
+
+    public ArrayList getVendors(String organizationIds) throws Exception {
+        ResultSet rs = null;
+        String sql = "select v.*, o.name as organization_name from vendor as v, organization as o"
+                + " where v.organization_id=o.id and o.status=" + EmployeeBean.STATUS_ACTIVE + " and v.status=" + EmployeeBean.STATUS_ACTIVE;
+        if (!StringUtil.isBlankOrNull(organizationIds)) {
+            sql += " and v.organization_id in (" + organizationIds + ")";
         }
         sql += " order by v.name desc";
         ArrayList vendorList = new ArrayList();

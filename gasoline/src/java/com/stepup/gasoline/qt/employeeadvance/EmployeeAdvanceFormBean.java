@@ -31,7 +31,7 @@ public class EmployeeAdvanceFormBean extends org.apache.struts.action.ActionForm
         this.advanceDate = bean.getAdvanceDate();
         this.employeeId = bean.getEmployeeId();
         this.paymentMode = bean.getPaymentMode();
-        this.amount = bean.getAccountId();
+        this.amount = bean.getAmount();
         this.accountId = bean.getAccountId();
         this.note = bean.getNote();
     }

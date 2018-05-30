@@ -126,7 +126,7 @@ CREATE TABLE `account` (
 
 /*Data for the table `account` */
 
-insert  into `account`(`id`,`number`,`holder`,`bank`,`branch`,`organization_id`,`note`) values (1,'a2','b2','c2','d2',1,'e2'),(2,'1','2','3','4',2,'5');
+insert  into `account`(`id`,`number`,`holder`,`bank`,`branch`,`organization_id`,`note`) values (1,'0123456789','Hoàng','Agribank','Xuyên Mộc',1,''),(2,'987654321','Hoàng','Vietcombank','Xuyên Mộc',2,'');
 
 /*Table structure for table `customer` */
 
@@ -144,7 +144,7 @@ CREATE TABLE `customer` (
 
 /*Data for the table `customer` */
 
-insert  into `customer`(`id`,`code`,`name`,`organization_id`,`status`,`kind`) values (1,'a2','b2',1,1,1),(2,'a3','b3',2,1,2);
+insert  into `customer`(`id`,`code`,`name`,`organization_id`,`status`,`kind`) values (1,'LDH','Lẩu dê Hiên',1,1,1),(2,'HMB','Khách sạn Bình Minh',2,1,2);
 
 /*Table structure for table `dynamic_field` */
 
@@ -578,6 +578,21 @@ CREATE TABLE `gas_wholesale_return_shell` (
 
 /*Data for the table `gas_wholesale_return_shell` */
 
+/*Table structure for table `in_stock` */
+
+DROP TABLE IF EXISTS `in_stock`;
+
+CREATE TABLE `in_stock` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `name` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `value` float DEFAULT '0',
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+/*Data for the table `in_stock` */
+
+insert  into `in_stock`(`id`,`name`,`value`) values (1,'lpg',700);
+
 /*Table structure for table `income` */
 
 DROP TABLE IF EXISTS `income`;
@@ -601,11 +616,12 @@ DROP TABLE IF EXISTS `lpg_import`;
 
 CREATE TABLE `lpg_import` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
-  `employee_id` int(11) DEFAULT NULL,
+  `code` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
   `import_date` date DEFAULT NULL,
   `vendor_id` int(11) DEFAULT NULL,
   `paper_quantity` float DEFAULT NULL,
   `actual_quantity` float DEFAULT NULL,
+  `old_quantity` float DEFAULT NULL,
   `price` double DEFAULT NULL,
   `amount` double DEFAULT NULL,
   `paid` double DEFAULT NULL,
@@ -615,9 +631,11 @@ CREATE TABLE `lpg_import` (
   `payment_mode` int(1) DEFAULT '1' COMMENT '1: TM, 2: CK',
   `account_id` int(11) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=MyISAM AUTO_INCREMENT=5 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 /*Data for the table `lpg_import` */
+
+insert  into `lpg_import`(`id`,`code`,`import_date`,`vendor_id`,`paper_quantity`,`actual_quantity`,`old_quantity`,`price`,`amount`,`paid`,`debt`,`rate`,`note`,`payment_mode`,`account_id`) values (3,'20180529-LI-0001','2018-05-29',1,1000,700,0,2000,1400000,1000000,400000,22400,'',1,1);
 
 /*Table structure for table `old_gas_shell` */
 
@@ -649,11 +667,11 @@ CREATE TABLE `organization` (
   `address` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
   `status` int(1) DEFAULT '1' COMMENT '0:bi khoa, 1: dang su dung',
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM AUTO_INCREMENT=3 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=MyISAM AUTO_INCREMENT=4 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 /*Data for the table `organization` */
 
-insert  into `organization`(`id`,`code`,`name`,`address`,`status`) values (1,'a1','b1','c1',1),(2,'a2','b2','',1);
+insert  into `organization`(`id`,`code`,`name`,`address`,`status`) values (1,'QT','Công ty TNHH Quang Trung','Phước Lộc, Phước Bửu, Xuyên Mộc, BR-VT',1),(2,'HH','Công ty TNHH Gas Hiệp Hương','39/1, KP3, Phường Tam Hiệp, Biên Hòa, Đồng Nai',1),(3,'HT','Công ty TNHH KHL Hưng Thịnh','39/1, KP3, Phường Tam Hiệp, Biên Hòa, Đồng Nai',1);
 
 /*Table structure for table `parameter` */
 
@@ -703,7 +721,7 @@ CREATE TABLE `permission_detail` (
 
 /*Data for the table `permission_detail` */
 
-insert  into `permission_detail`(`id`,`permission_id`,`operation`,`function`) values (17,8,2,'1,5,8,6,7,3,4,9,10,11,12,13,14,15,16,17,18,19,20,22,23'),(16,8,1,'1,5,8,6,7,3,4,9,10,11,12,13,14,15,16,17,18,19,20,22,23,21'),(18,8,3,'1,5,8,4,13,14,15,20,22,23'),(19,8,4,'1,5,8,6,7,3,4,9,10,11,12,13,14,15,16,17,18,19,20,22,23,21'),(20,8,6,'');
+insert  into `permission_detail`(`id`,`permission_id`,`operation`,`function`) values (17,8,2,'1,5,8,6,7,3,4,9,10,11,12,13,14,15,16,17,18,19,20,22,23,24,25,26,27'),(16,8,1,'1,5,8,6,7,3,4,9,10,11,12,13,14,15,16,17,18,19,20,22,23,21,24,25,26,27'),(18,8,3,'1,5,8,4,13,14,15,20,22,23,25,26,27'),(19,8,4,'1,5,8,6,7,3,4,9,10,11,12,13,14,15,16,17,18,19,20,22,23,21,24,25,26,27'),(20,8,6,'');
 
 /*Table structure for table `petro` */
 
@@ -716,10 +734,13 @@ CREATE TABLE `petro` (
   `price` double DEFAULT NULL,
   `unit_id` int(11) DEFAULT NULL,
   `organization_id` int(11) DEFAULT NULL,
+  `status` int(1) DEFAULT '1' COMMENT '0:bi khoa,1:dang hoat dong',
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=MyISAM AUTO_INCREMENT=4 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 /*Data for the table `petro` */
+
+insert  into `petro`(`id`,`code`,`name`,`price`,`unit_id`,`organization_id`,`status`) values (1,'NW01','NIWA  AUTO 10W-40 SJ/CH4 -  4L ',1000,2,1,1),(2,'NW13','NIWA AUTO TURBO 15W-40 CF4/SJ - 18L',2000,2,1,1),(3,'NW37','NIWA NANO  SJ 0,8L',3000,2,1,1);
 
 /*Table structure for table `petro_import` */
 
@@ -817,7 +838,7 @@ CREATE TABLE `promotion_material` (
 
 /*Data for the table `promotion_material` */
 
-insert  into `promotion_material`(`id`,`name`,`unit_id`,`status`) values (1,'a',3,1),(2,'b',2,1);
+insert  into `promotion_material`(`id`,`name`,`unit_id`,`status`) values (1,'Đĩa thủy tinh + ly',2,1),(2,'Thố tráng men',2,1);
 
 /*Table structure for table `promotion_material_sale` */
 
@@ -920,12 +941,14 @@ CREATE TABLE `shell` (
   `price` double DEFAULT NULL,
   `unit_id` int(11) DEFAULT NULL,
   `status` int(1) DEFAULT '1' COMMENT '0:dang khoa, 1:dang hoat dong',
+  `in_stock` int(11) DEFAULT '0',
+  `gas_in_stock` int(11) DEFAULT '0',
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM AUTO_INCREMENT=2 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=MyISAM AUTO_INCREMENT=6 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 /*Data for the table `shell` */
 
-insert  into `shell`(`id`,`kind_id`,`code`,`name`,`price`,`unit_id`,`status`) values (1,1,'a2','b2',12342,1,1);
+insert  into `shell`(`id`,`kind_id`,`code`,`name`,`price`,`unit_id`,`status`,`in_stock`,`gas_in_stock`) values (1,1,'AG','A Gas',12342,1,1,2000,0),(2,2,'GDG','Gia Định Gas',2000,2,1,0,0),(3,1,'MKG','Mai Khê Gas',3000,2,1,0,0),(4,2,'STG12','Star Gas',300000,2,1,0,0),(5,1,'STG45','Star Gas 45',500000,2,1,2100,0);
 
 /*Table structure for table `shell_import` */
 
@@ -933,15 +956,18 @@ DROP TABLE IF EXISTS `shell_import`;
 
 CREATE TABLE `shell_import` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
+  `code` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
   `created_date` date DEFAULT NULL,
   `shell_id` int(11) DEFAULT NULL,
-  `quantity` int(5) DEFAULT NULL,
+  `quantity` int(5) DEFAULT '0',
   `price` double DEFAULT NULL,
   `note` text COLLATE utf8_unicode_ci,
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=MyISAM AUTO_INCREMENT=7 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 /*Data for the table `shell_import` */
+
+insert  into `shell_import`(`id`,`code`,`created_date`,`shell_id`,`quantity`,`price`,`note`) values (3,'20180528-SI-0001','2018-05-28',5,700,1234,'a'),(4,'20180528-SI-0002','2018-05-28',5,400,2345,'b'),(5,'20180529-SI-0001','2018-05-29',5,1000,11111,''),(6,'20180529-SI-0002','2018-05-29',1,2000,2222,'');
 
 /*Table structure for table `shell_kind` */
 
@@ -955,11 +981,11 @@ CREATE TABLE `shell_kind` (
   `commission` float DEFAULT NULL,
   `status` int(1) DEFAULT '1' COMMENT '0:bi khoa, 1:dang su dung',
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM AUTO_INCREMENT=2 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=MyISAM AUTO_INCREMENT=3 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 /*Data for the table `shell_kind` */
 
-insert  into `shell_kind`(`id`,`code`,`name`,`weight`,`commission`,`status`) values (1,'GAS45','Gas 45 kg',45,1000,1);
+insert  into `shell_kind`(`id`,`code`,`name`,`weight`,`commission`,`status`) values (1,'ST45','Gas 45 kg',45,1000,1),(2,'ST12','Gas 12 kg',12,500,1);
 
 /*Table structure for table `shell_return` */
 
@@ -1059,11 +1085,11 @@ CREATE TABLE `store` (
   `organization_id` int(11) DEFAULT NULL,
   `status` int(1) DEFAULT '1' COMMENT '0:bi khoa,1:dang hoat dong',
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM AUTO_INCREMENT=3 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=MyISAM AUTO_INCREMENT=4 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 /*Data for the table `store` */
 
-insert  into `store`(`id`,`code`,`name`,`organization_id`,`status`) values (1,'a','b',1,1),(2,'a1','b1',1,1);
+insert  into `store`(`id`,`code`,`name`,`organization_id`,`status`) values (1,'KQT','Kho Quang Trung',1,1),(2,'KHH','Kho Hiệp Hương',2,1),(3,'KHT','Kho Hưng Thịnh',3,1);
 
 /*Table structure for table `timesheet` */
 
@@ -1091,15 +1117,16 @@ DROP TABLE IF EXISTS `trip_fee`;
 
 CREATE TABLE `trip_fee` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
+  `code` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
   `vehicle_id` int(11) DEFAULT NULL,
   `created_date` date DEFAULT NULL,
-  `fee` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `fee` text COLLATE utf8_unicode_ci,
   `quantity` float DEFAULT NULL,
   `price` double DEFAULT NULL,
   `amount` double DEFAULT NULL,
   `note` text COLLATE utf8_unicode_ci,
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=MyISAM AUTO_INCREMENT=2 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 /*Data for the table `trip_fee` */
 
@@ -1134,7 +1161,7 @@ CREATE TABLE `user` (
 
 /*Data for the table `user` */
 
-insert  into `user`(`id`,`employee_id`,`username`,`password`,`menu`,`status`) values (1,1,'tu','gdyb21LQTcIANtvYMT7QVQ==','<?xml version=\"1.0\"?><menu><item id=\"list\" complex=\"true\" text=\"Khai báo danh mục\"><item id=\"system\" complex=\"true\" text=\"Hệ thống\"><item id=\"users\" complex=\"true\" text=\"Tài khoản hệ thống\"><item id=\"userlist\" text=\"Danh sách tài khoản hệ thống\"/><item id=\"useradd\" text=\"Thêm tài khoản hệ thống\"/></item><item id=\"parameter\" text=\"Thông số hệ thống\"/><item id=\"permissionlist\" text=\"Phân quyền\"/></item><item id=\"organization\" complex=\"true\" text=\"Đơn vị\"><item id=\"organizations\" complex=\"true\" text=\"Đơn vị\"><item id=\"organizationlist\" text=\"Danh sách đơn vị\"/><item id=\"organizationadd\" text=\"Thêm đơn vị\"/></item><item id=\"stores\" complex=\"true\" text=\"Kho\"><item id=\"storelist\" text=\"Danh sách kho\"/><item id=\"storeadd\" text=\"Thêm kho\"/></item><item id=\"employees\" complex=\"true\" text=\"Nhân viên\"><item id=\"employeelist\" text=\"Danh sách nhân viên\"/><item id=\"employeeadd\" text=\"Thêm nhân viên\"/><item id=\"employeefiellist\" text=\"Thông tin động - Nhân viên\"/></item><item id=\"accounts\" complex=\"true\" text=\"Tài khoản ngân hàng\"><item id=\"accountlist\" text=\"Danh sách tài khoản ngân hàng\"/><item id=\"accountadd\" text=\"Thêm tài khoản ngân hàng\"/></item></item><item id=\"good\" complex=\"true\" text=\"Hàng hóa\"><item id=\"units\" complex=\"true\" text=\"Đơn vị tính\"><item id=\"unitlist\" text=\"Danh sách đơn vị tính\"/><item id=\"unitadd\" text=\"Thêm đơn vị tính\"/></item><item id=\"shellkinds\" complex=\"true\" text=\"Loại vỏ bình\"><item id=\"shellkindlist\" text=\"Danh sách loại vỏ bình\"/><item id=\"shellkindadd\" text=\"Thêm loại vỏ bình\"/></item><item id=\"shells\" complex=\"true\" text=\"Vỏ bình\"><item id=\"shelllist\" text=\"Danh sách vỏ bình\"/><item id=\"shelladd\" text=\"Thêm vỏ bình\"/></item><item id=\"accessorykinds\" complex=\"true\" text=\"Loại phụ kiện\"><item id=\"accessorykindlist\" text=\"Danh sách loại phụ kiện\"/><item id=\"accessorykindadd\" text=\"Thêm loại phụ kiện\"/></item><item id=\"accessorys\" complex=\"true\" text=\"Phụ kiện\"><item id=\"accessorylist\" text=\"Danh sách phụ kiện\"/><item id=\"accessoryadd\" text=\"Thêm phụ kiện\"/></item><item id=\"promotionmaterials\" complex=\"true\" text=\"Hàng khuyến mãi\"><item id=\"promotionmateriallist\" text=\"Danh sách hàng khuyến mãi\"/><item id=\"promotionmaterialadd\" text=\"Thêm hàng khuyến mãi\"/></item></item><item id=\"vendor\" complex=\"true\" text=\"Nhà cung cấp\"><item id=\"vendors\" complex=\"true\" text=\"Nhà cung cấp\"><item id=\"vendorlist\" text=\"Danh sách nhà cung cấp\"/><item id=\"vendoradd\" text=\"Thêm nhà cung cấp\"/><item id=\"vendorfiellist\" text=\"Thông tin động - Nhà cung cấp\"/></item></item><item id=\"customer\" complex=\"true\" text=\"Khách hàng\"><item id=\"customers\" complex=\"true\" text=\"Khách hàng\"><item id=\"customerlist\" text=\"Danh sách khách hàng\"/><item id=\"customeradd\" text=\"Thêm khách hàng\"/><item id=\"customerfiellist\" text=\"Thông tin động - Khách hàng\"/></item></item><item id=\"vehicle\" complex=\"true\" text=\"Xe\"><item id=\"vehicles\" complex=\"true\" text=\"Xe\"><item id=\"vehiclelist\" text=\"Danh sách xe\"/><item id=\"vehicleadd\" text=\"Thêm xe\"/></item><item id=\"routes\" complex=\"true\" text=\"Tuyến đường\"><item id=\"routelist\" text=\"Danh sách tuyến đường\"/><item id=\"routeadd\" text=\"Thêm tuyến đường\"/></item></item></item><item id=\"employeefunction\" complex=\"true\" text=\"Nghiệp vụ Nhân viên\"><item id=\"employeeadvances\" complex=\"true\" text=\"Nhân viên tạm ứng\"><item id=\"employeeadvancelist\" text=\"Danh sách tạm ứng\"/><item id=\"employeeadvanceadd\" text=\"Thêm tạm ứng\"/></item><item id=\"employeetimesheets\" complex=\"true\" text=\"Chấm công nhân viên\"><item id=\"employeetimesheetlist\" text=\"Danh sách chấm công\"/><item id=\"employeetimesheetadd\" text=\"Thêm chấm công\"/></item><item id=\"employeeoffs\" complex=\"true\" text=\"Nghỉ phép\"><item id=\"employeeofflist\" text=\"Danh sách nghỉ phép\"/><item id=\"employeeoffadd\" text=\"Thêm nghỉ phép\"/></item><item id=\"salarys\" complex=\"true\" text=\"Bảng lương\"><item id=\"salarylist\" text=\"Danh sách bảng lương\"/><item id=\"salarysalaryfiels\" complex=\"true\" text=\"Thông tin động\"><item id=\"salaryfiellist\" text=\"Phụ cấp\"/><item id=\"timesheetfiellist\" text=\"Chấm công\"/></item><item id=\"dynamicfielvalues\" complex=\"true\" text=\"Giá trị thông tin động\"><item id=\"employeesalarylist\" text=\"Danh sách phụ cấp\"/><item id=\"organizationtimesheetlist\" text=\"Danh sách chi phí chấm công\"/></item></item></item><item id=\"setting\" complex=\"true\" text=\"Cấu hình\"><item id=\"resetpassword\" text=\"Đổi mật khẩu\"/></item><item id=\"logout\" text=\"Đăng xuất\"/></menu>',1),(2,2,'huong','7UInc07XXTQzILal/RbOVw==','<?xml version=\"1.0\"?><menu><item id=\"setting\" complex=\"true\" text=\"Cấu hình\"><item id=\"resetpassword\" text=\"Đổi mật khẩu\"/></item><item id=\"logout\" text=\"Đăng xuất\"/></menu>',1);
+insert  into `user`(`id`,`employee_id`,`username`,`password`,`menu`,`status`) values (1,1,'tu','gdyb21LQTcIANtvYMT7QVQ==','<?xml version=\"1.0\"?><menu><item id=\"list\" complex=\"true\" text=\"Khai báo danh mục\"><item id=\"system\" complex=\"true\" text=\"Hệ thống\"><item id=\"users\" complex=\"true\" text=\"Tài khoản hệ thống\"><item id=\"userlist\" text=\"Danh sách tài khoản hệ thống\"/><item id=\"useradd\" text=\"Thêm tài khoản hệ thống\"/></item><item id=\"parameter\" text=\"Thông số hệ thống\"/><item id=\"permissionlist\" text=\"Phân quyền\"/></item><item id=\"organization\" complex=\"true\" text=\"Đơn vị\"><item id=\"organizations\" complex=\"true\" text=\"Đơn vị\"><item id=\"organizationlist\" text=\"Danh sách đơn vị\"/><item id=\"organizationadd\" text=\"Thêm đơn vị\"/></item><item id=\"stores\" complex=\"true\" text=\"Kho\"><item id=\"storelist\" text=\"Danh sách kho\"/><item id=\"storeadd\" text=\"Thêm kho\"/></item><item id=\"employees\" complex=\"true\" text=\"Nhân viên\"><item id=\"employeelist\" text=\"Danh sách nhân viên\"/><item id=\"employeeadd\" text=\"Thêm nhân viên\"/><item id=\"employeefiellist\" text=\"Thông tin động - Nhân viên\"/></item><item id=\"accounts\" complex=\"true\" text=\"Tài khoản ngân hàng\"><item id=\"accountlist\" text=\"Danh sách tài khoản ngân hàng\"/><item id=\"accountadd\" text=\"Thêm tài khoản ngân hàng\"/></item></item><item id=\"good\" complex=\"true\" text=\"Hàng hóa\"><item id=\"units\" complex=\"true\" text=\"Đơn vị tính\"><item id=\"unitlist\" text=\"Danh sách đơn vị tính\"/><item id=\"unitadd\" text=\"Thêm đơn vị tính\"/></item><item id=\"shellkinds\" complex=\"true\" text=\"Loại vỏ bình\"><item id=\"shellkindlist\" text=\"Danh sách loại vỏ bình\"/><item id=\"shellkindadd\" text=\"Thêm loại vỏ bình\"/></item><item id=\"shells\" complex=\"true\" text=\"Vỏ bình\"><item id=\"shelllist\" text=\"Danh sách vỏ bình\"/><item id=\"shelladd\" text=\"Thêm vỏ bình\"/></item><item id=\"accessorykinds\" complex=\"true\" text=\"Loại phụ kiện\"><item id=\"accessorykindlist\" text=\"Danh sách loại phụ kiện\"/><item id=\"accessorykindadd\" text=\"Thêm loại phụ kiện\"/></item><item id=\"accessorys\" complex=\"true\" text=\"Phụ kiện\"><item id=\"accessorylist\" text=\"Danh sách phụ kiện\"/><item id=\"accessoryadd\" text=\"Thêm phụ kiện\"/></item><item id=\"promotionmaterials\" complex=\"true\" text=\"Hàng khuyến mãi\"><item id=\"promotionmateriallist\" text=\"Danh sách hàng khuyến mãi\"/><item id=\"promotionmaterialadd\" text=\"Thêm hàng khuyến mãi\"/></item><item id=\"petros\" complex=\"true\" text=\"Xăng dầu\"><item id=\"petrolist\" text=\"Danh sách hàng xăng dầu\"/><item id=\"petroadd\" text=\"Thêm hàng xăng dầu\"/></item></item><item id=\"vendor\" complex=\"true\" text=\"Nhà cung cấp\"><item id=\"vendors\" complex=\"true\" text=\"Nhà cung cấp\"><item id=\"vendorlist\" text=\"Danh sách nhà cung cấp\"/><item id=\"vendoradd\" text=\"Thêm nhà cung cấp\"/><item id=\"vendorfiellist\" text=\"Thông tin động - Nhà cung cấp\"/></item></item><item id=\"customer\" complex=\"true\" text=\"Khách hàng\"><item id=\"customers\" complex=\"true\" text=\"Khách hàng\"><item id=\"customerlist\" text=\"Danh sách khách hàng\"/><item id=\"customeradd\" text=\"Thêm khách hàng\"/><item id=\"customerfiellist\" text=\"Thông tin động - Khách hàng\"/></item></item><item id=\"vehicle\" complex=\"true\" text=\"Xe\"><item id=\"vehicles\" complex=\"true\" text=\"Xe\"><item id=\"vehiclelist\" text=\"Danh sách xe\"/><item id=\"vehicleadd\" text=\"Thêm xe\"/></item><item id=\"routes\" complex=\"true\" text=\"Tuyến đường\"><item id=\"routelist\" text=\"Danh sách tuyến đường\"/><item id=\"routeadd\" text=\"Thêm tuyến đường\"/></item></item></item><item id=\"employeefunction\" complex=\"true\" text=\"Nghiệp vụ Nhân viên\"><item id=\"employeeadvances\" complex=\"true\" text=\"Nhân viên tạm ứng\"><item id=\"employeeadvancelist\" text=\"Danh sách tạm ứng\"/><item id=\"employeeadvanceadd\" text=\"Thêm tạm ứng\"/></item><item id=\"employeetimesheets\" complex=\"true\" text=\"Chấm công nhân viên\"><item id=\"employeetimesheetlist\" text=\"Danh sách chấm công\"/><item id=\"employeetimesheetadd\" text=\"Thêm chấm công\"/></item><item id=\"employeeoffs\" complex=\"true\" text=\"Nghỉ phép\"><item id=\"employeeofflist\" text=\"Danh sách nghỉ phép\"/><item id=\"employeeoffadd\" text=\"Thêm nghỉ phép\"/></item><item id=\"salarys\" complex=\"true\" text=\"Bảng lương\"><item id=\"salarylist\" text=\"Danh sách bảng lương\"/><item id=\"salarysalaryfiels\" complex=\"true\" text=\"Thông tin động\"><item id=\"salaryfiellist\" text=\"Phụ cấp\"/><item id=\"timesheetfiellist\" text=\"Chấm công\"/></item><item id=\"dynamicfielvalues\" complex=\"true\" text=\"Giá trị thông tin động\"><item id=\"employeesalarylist\" text=\"Danh sách phụ cấp\"/><item id=\"organizationtimesheetlist\" text=\"Danh sách chi phí chấm công\"/></item></item></item><item id=\"vehiclefunction\" complex=\"true\" text=\"Nghiệp vụ Xe\"><item id=\"tripfees\" complex=\"true\" text=\"Chi phí xe\"><item id=\"tripfeelist\" text=\"Danh sách chi phí xe\"/><item id=\"tripfeeadd\" text=\"Thêm chi phí xe\"/></item></item><item id=\"gasfunction\" complex=\"true\" text=\"Nghiệp vụ gas\"><item id=\"shellimports\" complex=\"true\" text=\"Nhập vỏ bình\"><item id=\"shellimportlist\" text=\"Danh sách nhập vỏ bình\"/><item id=\"shellimportadd\" text=\"Thêm nhập vỏ bình\"/></item><item id=\"lpgimports\" complex=\"true\" text=\"Nhập LPG\"><item id=\"lpgimportlist\" text=\"Danh sách nhập LPG\"/><item id=\"lpgimportadd\" text=\"Thêm nhập LPG\"/></item></item><item id=\"setting\" complex=\"true\" text=\"Cấu hình\"><item id=\"resetpassword\" text=\"Đổi mật khẩu\"/></item><item id=\"logout\" text=\"Đăng xuất\"/></menu>',1),(2,2,'huong','7UInc07XXTQzILal/RbOVw==','<?xml version=\"1.0\"?><menu><item id=\"setting\" complex=\"true\" text=\"Cấu hình\"><item id=\"resetpassword\" text=\"Đổi mật khẩu\"/></item><item id=\"logout\" text=\"Đăng xuất\"/></menu>',1);
 
 /*Table structure for table `vehicle` */
 
@@ -1149,7 +1176,7 @@ CREATE TABLE `vehicle` (
 
 /*Data for the table `vehicle` */
 
-insert  into `vehicle`(`id`,`plate`,`note`) values (1,'1','1'),(2,'2','2');
+insert  into `vehicle`(`id`,`plate`,`note`) values (1,'72A-12345','Tài xế : Nguyễn Văn A'),(2,'60A-78945','Tài xế : Nguyễn Văn B');
 
 /*Table structure for table `vehicle_in` */
 
@@ -1259,7 +1286,7 @@ CREATE TABLE `vendor` (
 
 /*Data for the table `vendor` */
 
-insert  into `vendor`(`id`,`code`,`name`,`organization_id`,`status`) values (1,'a2','b2',1,1),(2,'1','2',2,1);
+insert  into `vendor`(`id`,`code`,`name`,`organization_id`,`status`) values (1,'TCP','Thanh Châu Phát',1,1),(2,'PVOMD','Pvoil MD',2,1);
 
 /*Table structure for table `vendor_debt` */
 
@@ -1314,6 +1341,40 @@ BEGIN
 	delete from dynamic_field_value where _ids like CONCAT('%,',field_id,',%');
 	DELETE FROM salary_timesheet_field WHERE _ids LIKE CONCAT('%,',field_id,',%');
 	DELETE FROM dynamic_field WHERE _ids LIKE CONCAT('%,',id,',%');
+    END */$$
+DELIMITER ;
+
+/* Procedure structure for procedure `deleteLpgImport` */
+
+/*!50003 DROP PROCEDURE IF EXISTS  `deleteLpgImport` */;
+
+DELIMITER $$
+
+/*!50003 CREATE DEFINER=`root`@`localhost` PROCEDURE `deleteLpgImport`(IN _id INT)
+BEGIN
+	DECLARE _quantity INT DEFAULT 0;
+	SELECT actual_quantity INTO _quantity FROM lpg_import WHERE id=_id;
+	
+	DELETE FROM lpg_import WHERE id=_id;
+	
+	UPDATE in_stock SET value = value - _quantity WHERE name='lpg';
+    END */$$
+DELIMITER ;
+
+/* Procedure structure for procedure `deleteShellImport` */
+
+/*!50003 DROP PROCEDURE IF EXISTS  `deleteShellImport` */;
+
+DELIMITER $$
+
+/*!50003 CREATE DEFINER=`root`@`localhost` PROCEDURE `deleteShellImport`(IN _id int)
+BEGIN
+	DECLARE _quantity, _shell_id INT DEFAULT 0;
+	SELECT shell_id, quantity INTO _shell_id, _quantity FROM shell_import WHERE id=_id;
+	
+	dELETE FROM shell_import WHERE id=_id;
+	
+	UPDATE shell SET in_stock = in_stock - _quantity WHERE id=_shell_id;
     END */$$
 DELIMITER ;
 
@@ -1385,6 +1446,27 @@ BEGIN
     END */$$
 DELIMITER ;
 
+/* Procedure structure for procedure `insertLpgImport` */
+
+/*!50003 DROP PROCEDURE IF EXISTS  `insertLpgImport` */;
+
+DELIMITER $$
+
+/*!50003 CREATE DEFINER=`root`@`localhost` PROCEDURE `insertLpgImport`(IN _code VARCHAR(20), IN _vendor_id INT, IN _import_date VARCHAR(20), IN _paper_quantity float
+	, IN _actual_quantity float, IN _price double, IN _amount double, IN _paid double, IN _debt double, IN _rate double, IN _payment_mode INT
+	, in _account_id int, IN _note TEXT, OUT _id INT)
+BEGIN
+	
+	INSERT INTO lpg_import (CODE, vendor_id, import_date, paper_quantity, actual_quantity, price, amount, paid, debt, rate
+		, payment_mode	, account_id, note)
+	VALUES (_code, _vendor_id, STR_TO_DATE(_import_date,'%d/%m/%Y'), _paper_quantity, _actual_quantity, _price, _amount, _paid, _debt, _rate
+		, _payment_mode	, account_id, note);
+	SELECT LAST_INSERT_ID() INTO _id;
+	
+	UPDATE in_stock SET value = value + _actual_quantity WHERE name='lpg';
+    END */$$
+DELIMITER ;
+
 /* Procedure structure for procedure `insertSalary` */
 
 /*!50003 DROP PROCEDURE IF EXISTS  `insertSalary` */;
@@ -1426,6 +1508,38 @@ declare _real_salary, _total, _timesheet_total, _field_total double default 0;
 	SELECT COALESCE(SUM(amount),0) INTO _field_total FROM employee_salary_field_detail WHERE employee_salary_id=_id;
 	
 	update employee_salary set total=total+_timesheet_total+_field_total where id=_id;
+    END */$$
+DELIMITER ;
+
+/* Procedure structure for procedure `insertShellImport` */
+
+/*!50003 DROP PROCEDURE IF EXISTS  `insertShellImport` */;
+
+DELIMITER $$
+
+/*!50003 CREATE DEFINER=`root`@`localhost` PROCEDURE `insertShellImport`(IN _code VARCHAR(20), IN _shell_id INT, IN _created_date VARCHAR(20), IN _quantity INT
+	, IN _price DOUBLE, IN _note TEXT, OUT _id INT)
+BEGIN
+	INSERT INTO shell_import (CODE, shell_id, created_date, quantity, price, note)
+	VALUES (_code, _shell_id, STR_TO_DATE(_created_date,'%d/%m/%Y'), _quantity, _price, _note);
+	SELECT LAST_INSERT_ID() INTO _id;
+	
+	UPDATE shell SET in_stock = in_stock + _quantity where id=_shell_id;
+    END */$$
+DELIMITER ;
+
+/* Procedure structure for procedure `insertTripFee` */
+
+/*!50003 DROP PROCEDURE IF EXISTS  `insertTripFee` */;
+
+DELIMITER $$
+
+/*!50003 CREATE DEFINER=`root`@`localhost` PROCEDURE `insertTripFee`(IN _code VARCHAR(20), IN _vehicle_id INT, IN _created_date VARCHAR(20), in _quantity int
+	, in _price double, IN _amount DOUBLE, in _fee text, IN _note TEXT, OUT _id INT)
+BEGIN
+	INSERT INTO trip_fee (CODE, vehicle_id, created_date, quantity, price, amount, fee, note)
+	VALUES (_code, _vehicle_id, STR_TO_DATE(_created_date,'%d/%m/%Y'), _quantity, _price, _amount, _fee, _note);
+	SELECT LAST_INSERT_ID() INTO _id;
     END */$$
 DELIMITER ;
 
@@ -1477,6 +1591,22 @@ BEGIN
     END */$$
 DELIMITER ;
 
+/* Procedure structure for procedure `searchLpgImport` */
+
+/*!50003 DROP PROCEDURE IF EXISTS  `searchLpgImport` */;
+
+DELIMITER $$
+
+/*!50003 CREATE DEFINER=`root`@`localhost` PROCEDURE `searchLpgImport`(IN _start_date VARCHAR(20), IN _end_date VARCHAR(20))
+BEGIN
+	SELECT i.id, i.CODE, v.name AS vendor_name, i.actual_quantity, i.price, i.amount, i.rate, i.note
+	FROM lpg_import AS i, vendor AS v
+	WHERE i.vendor_id=v.id
+		AND DATE(i.import_date) >= STR_TO_DATE(_start_date,'%d/%m/%Y') AND DATE(i.import_date) <= STR_TO_DATE(_end_date,'%d/%m/%Y')
+	;
+    END */$$
+DELIMITER ;
+
 /* Procedure structure for procedure `searchSalary` */
 
 /*!50003 DROP PROCEDURE IF EXISTS  `searchSalary` */;
@@ -1493,6 +1623,38 @@ BEGIN
 	FROM employee_salary AS s, employee AS e
 	WHERE s.employee_id=e.id
 		AND month(s.created_date) = month(_date) AND year(s.created_date) = year(_date);
+    END */$$
+DELIMITER ;
+
+/* Procedure structure for procedure `searchShellImport` */
+
+/*!50003 DROP PROCEDURE IF EXISTS  `searchShellImport` */;
+
+DELIMITER $$
+
+/*!50003 CREATE DEFINER=`root`@`localhost` PROCEDURE `searchShellImport`(IN _start_date VARCHAR(20), IN _end_date VARCHAR(20))
+BEGIN
+	SELECT i.id, i.CODE, s.name as shell_name, i.created_date, i.quantity, i.price, i.note
+	FROM shell_import AS i, shell AS s
+	WHERE i.shell_id=s.id
+		AND DATE(i.created_date) >= STR_TO_DATE(_start_date,'%d/%m/%Y') AND DATE(i.created_date) <= STR_TO_DATE(_end_date,'%d/%m/%Y')
+	;
+    END */$$
+DELIMITER ;
+
+/* Procedure structure for procedure `searchTripFee` */
+
+/*!50003 DROP PROCEDURE IF EXISTS  `searchTripFee` */;
+
+DELIMITER $$
+
+/*!50003 CREATE DEFINER=`root`@`localhost` PROCEDURE `searchTripFee`(IN _start_date VARCHAR(20), IN _end_date VARCHAR(20))
+BEGIN
+	select t.id, t.code, v.plate, t.created_date, t.fee, t.amount, t.note
+	from trip_fee as t, vehicle as v
+	WHERE t.vehicle_id=v.id
+		and DATE(t.created_date) >= STR_TO_DATE(_start_date,'%d/%m/%Y') AND DATE(t.created_date) <= STR_TO_DATE(_end_date,'%d/%m/%Y')
+	;
     END */$$
 DELIMITER ;
 
@@ -1554,6 +1716,36 @@ BEGIN
     END */$$
 DELIMITER ;
 
+/* Procedure structure for procedure `updateLpgImport` */
+
+/*!50003 DROP PROCEDURE IF EXISTS  `updateLpgImport` */;
+
+DELIMITER $$
+
+/*!50003 CREATE DEFINER=`root`@`localhost` PROCEDURE `updateLpgImport`(IN _id INT, IN _vendor_id INT, IN _import_date VARCHAR(20), IN _paper_quantity FLOAT
+	, IN _actual_quantity FLOAT, IN _price DOUBLE, IN _amount DOUBLE, IN _paid DOUBLE, IN _debt DOUBLE, IN _rate DOUBLE, IN _payment_mode INT
+	, IN _account_id INT, IN _note TEXT)
+BEGIN
+	DECLARE _old_quantity INT DEFAULT 0;
+	SELECT actual_quantity INTO _old_quantity FROM lpg_import WHERE id=_id;
+	
+	UPDATE lpg_import SET vendor_id=_vendor_id
+		, import_date=STR_TO_DATE(_import_date,'%d/%m/%Y')
+		, paper_quantity=_paper_quantity
+		, actual_quantity=_actual_quantity
+		, price=_price
+		, amount=_amount
+		, paid=_paid
+		, debt=_debt
+		, rate=_rate
+		, payment_mode=_payment_mode
+		, account_id=_account_id
+		, note=_note
+	WHERE id=_id;
+	UPDATE in_stock SET value = value - _old_quantity + _actual_quantity WHERE name='lpg';
+    END */$$
+DELIMITER ;
+
 /* Procedure structure for procedure `updateSalary` */
 
 /*!50003 DROP PROCEDURE IF EXISTS  `updateSalary` */;
@@ -1575,6 +1767,49 @@ DELIMITER $$
 /*!50003 CREATE DEFINER=`root`@`localhost` PROCEDURE `updateSalaryField`(in _id int, in _amount double, in _note text)
 BEGIN
 	update employee_salary_field_detail set amount=_amount, note=_note where id=_id;
+    END */$$
+DELIMITER ;
+
+/* Procedure structure for procedure `updateShellImport` */
+
+/*!50003 DROP PROCEDURE IF EXISTS  `updateShellImport` */;
+
+DELIMITER $$
+
+/*!50003 CREATE DEFINER=`root`@`localhost` PROCEDURE `updateShellImport`(IN _id INT, IN _shell_id INT, IN _created_date VARCHAR(20), IN _quantity INT
+	, IN _price DOUBLE, IN _note TEXT)
+BEGIN
+	declare _old_quantity int default 0;
+	select quantity into _old_quantity from shell_import where id=_id;
+	
+	UPDATE shell_import SET shell_id=_shell_id
+		, created_date=STR_TO_DATE(_created_date,'%d/%m/%Y')
+		, quantity=_quantity
+		, price=_price
+		, note=_note
+	WHERE id=_id;
+	UPDATE shell SET in_stock = in_stock - _old_quantity + _quantity where id=_shell_id;
+	
+    END */$$
+DELIMITER ;
+
+/* Procedure structure for procedure `updateTripFee` */
+
+/*!50003 DROP PROCEDURE IF EXISTS  `updateTripFee` */;
+
+DELIMITER $$
+
+/*!50003 CREATE DEFINER=`root`@`localhost` PROCEDURE `updateTripFee`(IN _id INT, IN _vehicle_id INT, IN _created_date VARCHAR(20), in _quantity int
+	, in _price double, IN _amount DOUBLE, IN _fee text, IN _note TEXT)
+BEGIN
+	UPDATE trip_fee SET vehicle_id=_vehicle_id
+		, created_date=STR_TO_DATE(_created_date,'%d/%m/%Y')
+		, quantity=_quantity
+		, price=_price	
+		, amount=_amount
+		, fee=_fee
+		, note=_note
+	WHERE id=_id;
     END */$$
 DELIMITER ;
 

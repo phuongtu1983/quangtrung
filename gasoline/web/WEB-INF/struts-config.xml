@@ -37,6 +37,7 @@
         <form-bean name="accessoryForm" type="com.stepup.gasoline.qt.accessory.AccessoryFormBean"/>
         <form-bean name="petroForm" type="com.stepup.gasoline.qt.petro.PetroFormBean"/>
         <form-bean name="employeeAdvanceForm" type="com.stepup.gasoline.qt.employeeadvance.EmployeeAdvanceFormBean"/>
+        <form-bean name="lpgImportForm" type="com.stepup.gasoline.qt.lpgimport.LpgImportFormBean"/>
         <form-bean name="tripFeeForm" type="com.stepup.gasoline.qt.tripfee.TripFeeFormBean"/>
         <form-bean name="employeeOffForm" type="com.stepup.gasoline.qt.employeeoff.EmployeeOffFormBean"/>
         <form-bean name="employeeTimesheetForm" type="com.stepup.gasoline.qt.employeetimesheet.EmployeeTimesheetFormBean"/>
@@ -434,6 +435,20 @@
         <action path="/delShellImport" type="com.stepup.gasoline.qt.shellimport.DeleteShellImportAction" scope="request" validate="false" >
         </action>
         <!-- end shell import-->
+        <!-- start lpg import -->
+        <action path="/getLpgImportPanel" type="com.stepup.gasoline.qt.common.BaseStatusFormAction" scope="request" validate="false">
+            <forward name="success" path="/lpgimport/lpgimportpanel.jsp" />
+        </action>
+        <action path="/getLpgImportList" type="com.stepup.gasoline.qt.lpgimport.GetLpgImportListAction" scope="request" validate="false" >
+        </action>
+        <action path="/lpgImportForm" type="com.stepup.gasoline.qt.lpgimport.LpgImportFormAction" scope="request" validate="false">
+            <forward name="success" path="/lpgimport/lpgimportdetail.jsp" />
+        </action>
+        <action path="/addLpgImport" name ="lpgImportForm" scope="request" type="com.stepup.gasoline.qt.lpgimport.AddLpgImportAction" input="/lpgImportForm.do">
+        </action>
+        <action path="/delLpgImport" type="com.stepup.gasoline.qt.lpgimport.DeleteLpgImportAction" scope="request" validate="false" >
+        </action>
+        <!-- end lpg import -->
     </action-mappings>
     
     <controller processorClass="org.apache.struts.tiles.TilesRequestProcessor"/>

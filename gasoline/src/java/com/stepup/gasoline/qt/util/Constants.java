@@ -21,6 +21,7 @@ public class Constants {
     public static final String SHELL_LIST = "shellList";
     public static final String SHELL_IMPORT = "shellImport";
     public static final String VENDOR = "vendor";
+    public static final String VENDOR_LIST = "vendorList";
     public static final String STATUS_LIST = "statusList";
     public static final String SELECTED = "selected";
     public static final String PERMISSION = "permission";
@@ -62,5 +63,7 @@ public class Constants {
     public static final String SALARY_FIELD_LIST = "salaryFieldList";
     public static final String PETRO = "petro";
     public static final String TRIP_FEE = "tripFee";
+    public static final String LPG_IMPORT = "lpgImport";
+    public static final String CAN_EDIT = "canEdit";
 
 }

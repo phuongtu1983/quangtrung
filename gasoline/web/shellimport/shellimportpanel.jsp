@@ -25,7 +25,7 @@
     <tr>
         <td>
             <%if (PermissionUtil.hasPermission(request, PermissionUtil.OPERATION_ADD, PermissionUtil.PER_SHELL_IMPORT)) {%> 
-            <button class="i_create_write icon small green" onclick="return getShellImport(0,'loadShellImportList');"><bean:message key="message.add"/></button>
+            <button class="i_create_write icon small green" onclick="return getShellImport(0,'loadShellImportPanel');"><bean:message key="message.add"/></button>
             <%}%>
         </td>
     </tr>

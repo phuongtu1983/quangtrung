@@ -1066,4 +1066,15 @@ public class GoodDAO extends BasicDAO {
             }
         }
     }
+
+    public boolean hasShellImportAfter(int id) throws Exception {
+        boolean result = false;
+        try {
+            result = this.hasDataAfter("shell_import", id);
+        } catch (Exception ex) {
+            throw new Exception(ex.getMessage());
+        }
+        return result;
+    }
+
 }

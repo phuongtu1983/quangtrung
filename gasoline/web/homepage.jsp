@@ -9,6 +9,7 @@
         <title><bean:message key='titlebar.title'/></title>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <meta content='no-cache' http-equiv='Pragma'/>
+        <link rel="stylesheet" type="text/css" href="css/buoctien/styles.css"/>
         <link rel="stylesheet" type="text/css" href="css/pn.css">
         <link rel="stylesheet" type="text/css" href="js/dhtmlx/layout/dhtmlxlayout.css">
         <link rel="stylesheet" type="text/css" href="js/dhtmlx/layout/skins/dhtmlxlayout_dhx_web.css">
@@ -25,7 +26,6 @@
         <link rel="STYLESHEET" type="text/css" href="js/dhtmlx/dataview/dhtmlxdataview.css" />
         <link rel="stylesheet" type="text/css" href="js/dojotoolkit/dijit/themes/tundra/tundra.css" />
         <link rel="stylesheet" type="text/css" href="css/ezcalendar.css"/>
-        <link rel="stylesheet" type="text/css" href="css/buoctien/styles.css"/>
         <link rel="stylesheet" type="text/css" href="css/timepicker.css" />
 
         <script type='text/javascript' src="js/dhtmlx/dhtmlxcommon.js"></script>

@@ -112,5 +112,7 @@ public class PermissionUtil {
     public static int PER_PETRO = 24;
     public static int PER_TRIP_FEE = 25;
     public static int PER_SHELL_IMPORT = 26;
+    public static int PER_LPG_IMPORT = 27;
+    public static int PER_FRACTION = 28;
 
 }

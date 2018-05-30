@@ -249,7 +249,7 @@ public class GenerateMenu {
                 buff.append(buffTemp);
                 buff.append("</item>");//end list
             }
-            
+
             buffTemp = new StringBuilder();
             if (isHasPermission(PermissionUtil.OPERATION_LIST + "," + PermissionUtil.OPERATION_ADD,
                     PermissionUtil.PER_EMPLOYEE_ADVANCE + "," + PermissionUtil.PER_SALARY + "," + PermissionUtil.PER_EMPLOYEE_TIMESHEET
@@ -308,10 +308,10 @@ public class GenerateMenu {
                 buff.append(buffTemp);
                 buff.append("</item>");//end function employee
             }
-            
+
             buffTemp = new StringBuilder();
             if (isHasPermission(PermissionUtil.OPERATION_LIST + "," + PermissionUtil.OPERATION_ADD,
-                    PermissionUtil.PER_TRIP_FEE )) {
+                    PermissionUtil.PER_TRIP_FEE)) {
                 if (isHasPermission(PermissionUtil.OPERATION_LIST + "," + PermissionUtil.OPERATION_ADD, PermissionUtil.PER_TRIP_FEE)) {
                     buffTemp.append("<item id=\"tripfees\" complex=\"true\" text=\"").append(QTUtil.getBundleString("tripFee.title")).append("\">");
                     if (isHasPermission(PermissionUtil.OPERATION_LIST, PermissionUtil.PER_TRIP_FEE)) {
@@ -328,10 +328,10 @@ public class GenerateMenu {
                 buff.append(buffTemp);
                 buff.append("</item>");//end function vehicle
             }
-            
+
             buffTemp = new StringBuilder();
             if (isHasPermission(PermissionUtil.OPERATION_LIST + "," + PermissionUtil.OPERATION_ADD,
-                    PermissionUtil.PER_SHELL_IMPORT )) {
+                    PermissionUtil.PER_SHELL_IMPORT + "," + PermissionUtil.PER_LPG_IMPORT + "," + PermissionUtil.PER_FRACTION)) {
                 if (isHasPermission(PermissionUtil.OPERATION_LIST + "," + PermissionUtil.OPERATION_ADD, PermissionUtil.PER_SHELL_IMPORT)) {
                     buffTemp.append("<item id=\"shellimports\" complex=\"true\" text=\"").append(QTUtil.getBundleString("shellImport.title")).append("\">");
                     if (isHasPermission(PermissionUtil.OPERATION_LIST, PermissionUtil.PER_SHELL_IMPORT)) {
@@ -339,6 +339,26 @@ public class GenerateMenu {
                     }
                     if (isHasPermission(PermissionUtil.OPERATION_ADD, PermissionUtil.PER_SHELL_IMPORT)) {
                         buffTemp.append("<item id=\"shellimportadd\" text=\"").append(QTUtil.getBundleString("shellImport.detail.add.title")).append("\"/>");
+                    }
+                    buffTemp.append("</item>");
+                }
+                if (isHasPermission(PermissionUtil.OPERATION_LIST + "," + PermissionUtil.OPERATION_ADD, PermissionUtil.PER_LPG_IMPORT)) {
+                    buffTemp.append("<item id=\"lpgimports\" complex=\"true\" text=\"").append(QTUtil.getBundleString("lpgImport.title")).append("\">");
+                    if (isHasPermission(PermissionUtil.OPERATION_LIST, PermissionUtil.PER_LPG_IMPORT)) {
+                        buffTemp.append("<item id=\"lpgimportlist\" text=\"").append(QTUtil.getBundleString("lpgImport.list.title")).append("\"/>");
+                    }
+                    if (isHasPermission(PermissionUtil.OPERATION_ADD, PermissionUtil.PER_LPG_IMPORT)) {
+                        buffTemp.append("<item id=\"lpgimportadd\" text=\"").append(QTUtil.getBundleString("lpgImport.detail.add.title")).append("\"/>");
+                    }
+                    buffTemp.append("</item>");
+                }
+                if (isHasPermission(PermissionUtil.OPERATION_LIST + "," + PermissionUtil.OPERATION_ADD, PermissionUtil.PER_FRACTION)) {
+                    buffTemp.append("<item id=\"fractions\" complex=\"true\" text=\"").append(QTUtil.getBundleString("fraction.title")).append("\">");
+                    if (isHasPermission(PermissionUtil.OPERATION_LIST, PermissionUtil.PER_FRACTION)) {
+                        buffTemp.append("<item id=\"fractionlist\" text=\"").append(QTUtil.getBundleString("fraction.list.title")).append("\"/>");
+                    }
+                    if (isHasPermission(PermissionUtil.OPERATION_ADD, PermissionUtil.PER_FRACTION)) {
+                        buffTemp.append("<item id=\"fractionadd\" text=\"").append(QTUtil.getBundleString("fraction.detail.add.title")).append("\"/>");
                     }
                     buffTemp.append("</item>");
                 }

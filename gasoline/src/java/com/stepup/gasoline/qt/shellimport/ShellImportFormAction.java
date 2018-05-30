@@ -53,6 +53,15 @@ public class ShellImportFormAction extends SpineAction {
                 String number = goodDAO.getNextShellImportNumber(prefix, 4);
                 prefix += number;
                 bean.setCode(prefix);
+                request.setAttribute(Constants.CAN_EDIT, true);
+            } catch (Exception ex) {
+            }
+        } else {
+            try {
+                boolean hasAfter = goodDAO.hasShellImportAfter(Integer.parseInt(shellImportId));
+                if (!hasAfter) {
+                    request.setAttribute(Constants.CAN_EDIT, true);
+                }
             } catch (Exception ex) {
             }
         }

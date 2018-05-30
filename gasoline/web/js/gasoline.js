@@ -129,6 +129,10 @@ function menuClick(id) {
         loadShellImportPanel();
     else if (id == 'shellimportadd')
         getShellImport(0, 'loadShellImportPanel');
+    else if (id == 'lpgimportlist')
+        loadLpgImportPanel();
+    else if (id == 'lpgimportadd')
+        getLpgImport(0, 'loadLpgImportPanel');
 }
 function clearContent() {
     var contentDiv = document.getElementById("contentDiv");
@@ -2518,5 +2522,131 @@ function delShellImport() {
     });
     return false;
 }
+function loadLpgImportPanel() {
+    callAjax("getLpgImportPanel.do", null, null, function(data) {
+        clearContent();
+        setAjaxData(data, "contentDiv");
+        var myCalendar = new dhtmlXCalendarObject(["fromDate", "toDate"]);
+        myCalendar.setSkin('dhx_web');
+        var currentTime = getCurrentDate();
+        document.forms['lpgImportSearchForm'].fromDate.value = currentTime;
+        document.forms['lpgImportSearchForm'].toDate.value = currentTime;
+        myCalendar.setDateFormat("%d/%m/%Y");
+        loadLpgImportList(currentTime, currentTime);
+    });
+    return false;
+}
+function loadLpgImportList(fromDate, toDate) {
+    var mygrid = new dhtmlXGridObject('lpgImportList');
+    mygrid.setImagePath("js/dhtmlx/grid/imgs/");
+    mygrid.setHeader("S\u1ED1 phi\u1EBFu,Nh\u00E0 cung c\u1EA5p,S\u1ED1 l\u01B0\u1EE3ng th\u1EF1c t\u1EBF,\u0110\u01A1n gi\u00E1,Th\u00E0nh ti\u1EC1n,T\u1EF7 gi\u00E1,Ghi ch\u00FA");
+    mygrid.attachHeader("#text_filter,#text_filter,#text_filter,#text_filter,#text_filter,#text_filter,#text_filter");
+    mygrid.setInitWidths("150,200,150,150,150,150,*");
+    mygrid.setColTypes("link,ro,ro,ro,ro,ro,ro");
+    mygrid.setColSorting("str,str,str,str,str,str,str");
+    mygrid.setSkin("light");
+    var height = contentHeight - 210;
+    mygrid.al(true, height);//enableAutoHeight
+    mygrid.enablePaging(true, 15, 3, "recinfoArea");
+    mygrid.setPagingSkin("toolbar", "dhx_skyblue");
+    mygrid.init();
+    var url = "getLpgImportList.do?t=1";
+    if (fromDate != null)
+        url += "&fromDate=" + fromDate;
+    if (toDate != null)
+        url += "&toDate=" + toDate;
+    callAjax(url, null, null, function(data) {
+        mygrid.parse(data);
+    });
+    return false;
+}
+function getLpgImport(id, handle) {
+    popupName = 'TH\u00D4NG TIN PHI\u1EBEU NH\u1EACP';
+    var url = 'lpgImportForm.do';
+    if (id != 0)
+        url += '?lpgImportId=' + id
+    callAjax(url, null, null, function(data) {
+        showPopupForm(data);
+        document.getElementById('callbackFunc').value = handle;
+        document.forms['lpgImportForm'].paperQuantity.focus();
+        tryNumberFormatCurrentcy(document.forms['lpgImportForm'].paperQuantity, "VND");
+        tryNumberFormatCurrentcy(document.forms['lpgImportForm'].actualQuantity, "VND");
+        tryNumberFormatCurrentcy(document.forms['lpgImportForm'].price, "VND");
+        tryNumberFormatCurrentcy(document.forms['lpgImportForm'].amount, "VND");
+        tryNumberFormatCurrentcy(document.forms['lpgImportForm'].paid, "VND");
+        tryNumberFormatCurrentcy(document.forms['lpgImportForm'].debt, "VND");
+        tryNumberFormatCurrentcy(document.forms['lpgImportForm'].rate, "VND");
+        var myCalendar = new dhtmlXCalendarObject(["lpgImportDate"]);
+        myCalendar.setSkin('dhx_web');
+        var currentDate = getCurrentDate();
+        document.forms['lpgImportForm'].lpgImportDate.value = currentDate;
+        myCalendar.setDateFormat("%d/%m/%Y");
+    });
+}
+function saveLpgImport() {
+    if (scriptFunction == "saveLpgImport")
+        return false;
+    reformatNumberMoney(document.forms['lpgImportForm'].paperQuantity);
+    reformatNumberMoney(document.forms['lpgImportForm'].actualQuantity);
+    reformatNumberMoney(document.forms['lpgImportForm'].price);
+    reformatNumberMoney(document.forms['lpgImportForm'].amount);
+    reformatNumberMoney(document.forms['lpgImportForm'].paid);
+    reformatNumberMoney(document.forms['lpgImportForm'].debt);
+    reformatNumberMoney(document.forms['lpgImportForm'].rate);
+    scriptFunction = "saveLpgImport";
+    callAjaxCheckError("addLpgImport.do", null, document.forms['lpgImportForm'], function(data) {
+        scriptFunction = "";
+        var handle = document.getElementById('callbackFunc').value;
+        if (confirm('B\u1EA1n c\u00F3 mu\u1ED1n nh\u1EADp ti\u1EBFp th\u00F4ng tin kh\u00E1c ?'))
+            getLpgImport(0, handle);
+        else if (handle != '')
+            eval(handle + "()");
+        prepareHidePopup('lpgImportFormshowHelpHideDiv');
+    });
+    return false;
+}
+function delLpgImport() {
+    callAjaxCheckError('delLpgImport.do?lpgImportId=' + document.forms['lpgImportForm'].id.value, null, null, function() {
+        loadLpgImportPanel();
+        prepareHidePopup('lpgImportFormshowHelpHideDiv');
+    });
+    return false;
+}
+function lpgImportCaculateAmount() {
+    var quantity = document.forms['lpgImportForm'].actualQuantity;
+    var price = document.forms['lpgImportForm'].price;
+    var amount = document.forms['lpgImportForm'].amount;
+    var paid = document.forms['lpgImportForm'].paid;
+    var debt = document.forms['lpgImportForm'].debt;
 
+    amount.value = reformatNumberMoneyString(quantity.value) * 1 * reformatNumberMoneyString(price.value) * 1;
+    paid.value=0;
+    debt.value=amount.value;
+    tryNumberFormatCurrentcy(quantity, "VND");
+    tryNumberFormatCurrentcy(price, "VND");
+    tryNumberFormatCurrentcy(amount, "VND");
+    tryNumberFormatCurrentcy(paid, "VND");
+    tryNumberFormatCurrentcy(debt, "VND");
+    quantity = null;
+    price = null;
+    amount = null;
+    paid = null;
+    debt = null;
+    return false;
+}
+function lpgImportCaculateDebt() {
+    var amount = document.forms['lpgImportForm'].amount;
+    var paid = document.forms['lpgImportForm'].paid;
+    var debt = document.forms['lpgImportForm'].debt;
+
+    debt.value = reformatNumberMoneyString(amount.value) * 1 - reformatNumberMoneyString(paid.value) * 1;
+    
+    tryNumberFormatCurrentcy(amount, "VND");
+    tryNumberFormatCurrentcy(paid, "VND");
+    tryNumberFormatCurrentcy(debt, "VND");
+    amount = null;
+    paid = null;
+    debt = null;
+    return false;
+}
 
