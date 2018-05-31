@@ -58,6 +58,9 @@
         <form-bean name="unitForm" type="com.stepup.gasoline.qt.unit.UnitFormBean"/>
         <form-bean name="fractionForm" type="com.stepup.gasoline.qt.fraction.FractionFormBean"/>
         <form-bean name="gasImportForm" type="com.stepup.gasoline.qt.gasimport.GasImportFormBean"/>
+        <form-bean name="petroImportForm" type="com.stepup.gasoline.qt.petroimport.PetroImportFormBean"/>
+        <form-bean name="accessoryImportForm" type="com.stepup.gasoline.qt.accessoryimport.AccessoryImportFormBean"/>
+        <form-bean name="promotionMaterialImportForm" type="com.stepup.gasoline.qt.promotionmaterialimport.PromotionMaterialImportFormBean"/>
     </form-beans>
     
     <global-exceptions>
@@ -500,6 +503,57 @@
         <action path="/delGasImport" type="com.stepup.gasoline.qt.gasimport.DeleteGasImportAction" scope="request" validate="false" >
         </action>
         <!-- end gasimport -->
+        <!-- start accessoryimport -->
+        <action path="/getAccessoryImportPanel" type="com.stepup.gasoline.qt.common.BaseFormAction" scope="request" validate="false">
+            <forward name="success" path="/accessoryimport/accessoryimportpanel.jsp" />
+        </action>
+        <action path="/getAccessoryImportList" type="com.stepup.gasoline.qt.accessoryimport.GetAccessoryImportListAction" scope="request" validate="false" >
+        </action>
+        <action path="/accessoryImportForm" type="com.stepup.gasoline.qt.accessoryimport.AccessoryImportFormAction" scope="request" validate="false">
+            <forward name="success" path="/accessoryimport/accessoryimportdetail.jsp" />
+        </action>
+        <action path="/addAccessoryImport" name ="accessoryImportForm" scope="request" type="com.stepup.gasoline.qt.accessoryimport.AddAccessoryImportAction" input="/accessoryImportForm.do">
+        </action>
+        <action path="/getAccessoryImportAccessory" type="com.stepup.gasoline.qt.accessoryimport.GetAccessoryImportAccessoryAction" scope="request" validate="false">
+            <forward name="success" path="/accessoryimport/accessorys.jsp" />
+        </action>
+        <action path="/delAccessoryImport" type="com.stepup.gasoline.qt.accessoryimport.DeleteAccessoryImportAction" scope="request" validate="false" >
+        </action>
+        <!-- end accessoryimport -->
+        <!-- start promotionmaterialimport -->
+        <action path="/getPromotionMaterialImportPanel" type="com.stepup.gasoline.qt.common.BaseFormAction" scope="request" validate="false">
+            <forward name="success" path="/promotionmaterialimport/promotionmaterialimportpanel.jsp" />
+        </action>
+        <action path="/getPromotionMaterialImportList" type="com.stepup.gasoline.qt.promotionmaterialimport.GetPromotionMaterialImportListAction" scope="request" validate="false" >
+        </action>
+        <action path="/promotionMaterialImportForm" type="com.stepup.gasoline.qt.promotionmaterialimport.PromotionMaterialImportFormAction" scope="request" validate="false">
+            <forward name="success" path="/promotionmaterialimport/promotionmaterialimportdetail.jsp" />
+        </action>
+        <action path="/addPromotionMaterialImport" name ="promotionMaterialImportForm" scope="request" type="com.stepup.gasoline.qt.promotionmaterialimport.AddPromotionMaterialImportAction" input="/promotionMaterialImportForm.do">
+        </action>
+        <action path="/getPromotionMaterialImportPromotionMaterial" type="com.stepup.gasoline.qt.promotionmaterialimport.GetPromotionMaterialImportPromotionMaterialAction" scope="request" validate="false">
+            <forward name="success" path="/promotionmaterialimport/promotionmaterials.jsp" />
+        </action>
+        <action path="/delPromotionMaterialImport" type="com.stepup.gasoline.qt.promotionmaterialimport.DeletePromotionMaterialImportAction" scope="request" validate="false" >
+        </action>
+        <!-- end promotionmaterialimport -->
+        <!-- start petroimport -->
+        <action path="/getPetroImportPanel" type="com.stepup.gasoline.qt.common.BaseFormAction" scope="request" validate="false">
+            <forward name="success" path="/petroimport/petroimportpanel.jsp" />
+        </action>
+        <action path="/getPetroImportList" type="com.stepup.gasoline.qt.petroimport.GetPetroImportListAction" scope="request" validate="false" >
+        </action>
+        <action path="/petroImportForm" type="com.stepup.gasoline.qt.petroimport.PetroImportFormAction" scope="request" validate="false">
+            <forward name="success" path="/petroimport/petroimportdetail.jsp" />
+        </action>
+        <action path="/addPetroImport" name ="petroImportForm" scope="request" type="com.stepup.gasoline.qt.petroimport.AddPetroImportAction" input="/petroImportForm.do">
+        </action>
+        <action path="/getPetroImportPetro" type="com.stepup.gasoline.qt.petroimport.GetPetroImportPetroAction" scope="request" validate="false">
+            <forward name="success" path="/petroimport/petros.jsp" />
+        </action>
+        <action path="/delPetroImport" type="com.stepup.gasoline.qt.petroimport.DeletePetroImportAction" scope="request" validate="false" >
+        </action>
+        <!-- end petroimport -->
     </action-mappings>
     
     <controller processorClass="org.apache.struts.tiles.TilesRequestProcessor"/>

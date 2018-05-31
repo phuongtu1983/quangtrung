@@ -15,6 +15,7 @@ public class PromotionMaterialFormBean extends org.apache.struts.action.ActionFo
     private int id;
     private String name;
     private int unitId;
+    private String unitName;
     private int status;
     private String statusName;
 
@@ -66,6 +67,14 @@ public class PromotionMaterialFormBean extends org.apache.struts.action.ActionFo
 
     public void setStatusName(String statusName) {
         this.statusName = statusName;
+    }
+
+    public String getUnitName() {
+        return unitName;
+    }
+
+    public void setUnitName(String unitName) {
+        this.unitName = unitName;
     }
 
 }

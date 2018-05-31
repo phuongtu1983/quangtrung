@@ -52,7 +52,9 @@ public class Constants {
     public static final String ACCESSORY_KIND = "accessoryKind";
     public static final String ACCESSORY_KIND_LIST = "accessoryKindList";
     public static final String ACCESSORY = "accessory";
+    public static final String ACCESSORY_LIST = "accessoryList";
     public static final String PROMOTION_MATERIAL = "promotionMaterial";
+    public static final String PROMOTION_MATERIAL_LIST = "promotionMaterialList";
     public static final String CUSTOMER = "customer";
     public static final String CUSTOMER_KIND_LIST = "customerKindList";
     public static final String EMPLOYEE_ADVANCE = "employeeAdvance";
@@ -63,12 +65,19 @@ public class Constants {
     public static final String SALARY_TIMESHEET_LIST = "salaryTimeSheetList";
     public static final String SALARY_FIELD_LIST = "salaryFieldList";
     public static final String PETRO = "petro";
+    public static final String PETRO_LIST = "petroList";
     public static final String TRIP_FEE = "tripFee";
     public static final String GAS_PRICE = "gasPrice";
     public static final String LPG_IMPORT = "lpgImport";
     public static final String FRACTION = "fraction";
     public static final String GAS_IMPORT = "gasImport";
+    public static final String PETRO_IMPORT = "petroImport";
+    public static final String PETRO_IMPORT_PETRO = "petroImportPetro";
+    public static final String ACCESSORY_IMPORT = "accessoryImport";
+    public static final String PROMOTION_MATERIAL_IMPORT = "promotionMaterialImport";
     public static final String FRACTION_SHELL = "fractionShell";
     public static final String GAS_IMPORT_SHELL = "gasImportShell";
+    public static final String ACCESSORY_IMPORT_ACCESSORY = "accessoryImportAccessory";
+    public static final String PROMOTION_MATERIAL_IMPORT_PROMOTION_MATERIAL = "promotionMaterialImportPromotionMaterial";
 
 }

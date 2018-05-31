@@ -145,6 +145,18 @@ function menuClick(id) {
         loadGasImportPanel();
     else if (id == 'gasimportadd')
         getGasImport(0);
+    else if (id == 'accessoryimportlist')
+        loadAccessoryImportPanel();
+    else if (id == 'accessoryimportadd')
+        getAccessoryImport(0);
+    else if (id == 'promotionmaterialimportlist')
+        loadPromotionMaterialImportPanel();
+    else if (id == 'promotionmaterialimportadd')
+        getPromotionMaterialImport(0);
+    else if (id == 'petroimportlist')
+        loadPetroImportPanel();
+    else if (id == 'petroimportadd')
+        getPetroImport(0);
 }
 function clearContent() {
     var contentDiv = document.getElementById("contentDiv");
@@ -3056,32 +3068,32 @@ function saveGasImport() {
     return false;
 }
 function addGasImportShell() {
-    var shell = document.forms['gasImportForm'].shellIdCombobox;
-    if (shell == null && shell.selectedIndex == -1)
-        shell = null;
+    var accessory = document.forms['gasImportForm'].accessoryIdCombobox;
+    if (accessory == null && accessory.selectedIndex == -1)
+        accessory = null;
     else
-        shell = shell.options[shell.selectedIndex].value;
-    if (shell == -1 || shell == 0)
+        accessory = accessory.options[accessory.selectedIndex].value;
+    if (accessory == -1 || accessory == 0)
         return false;
-    var shellId = document.forms['gasImportForm'].shellId;
+    var accessoryId = document.forms['gasImportForm'].accessoryId;
     var existed = false;
-    if (shellId != null) {
-        if (shellId.length != null) {
-            for (i = 0; i < shellId.length; i++) {
-                if (shellId[i].value == shell) {
+    if (accessoryId != null) {
+        if (accessoryId.length != null) {
+            for (i = 0; i < accessoryId.length; i++) {
+                if (accessoryId[i].value == accessory) {
                     existed = true;
                     break;
                 }
             }
-        } else if (shellId.value == shell)
+        } else if (accessoryId.value == accessory)
             existed = true;
     }
-    shellId = null;
+    accessoryId = null;
     if (existed == true) {
         alert("H\u00E0ng ho\u00E1 \u0111\u00E3 t\u1ED3n t\u1EA1i");
         return false;
     }
-    callAjax("getGasImportShell.do?shellId=" + shell, null, null, function(data) {
+    callAjax("getGasImportShell.do?accessoryId=" + accessory, null, null, function(data) {
         setAjaxData(data, 'gasImportShellHideDiv');
         var matTable = document.getElementById('gasImportShellTbl');
         var detTable = document.getElementById('gasImportDetailTbl');
@@ -3104,10 +3116,10 @@ function delGasImport() {
     });
     return false;
 }
-function caculateGasImportDetail(shellId) {
-    var quantity = document.getElementById("detquantity" + shellId);
-    var price = document.getElementById("detprice" + shellId);
-    var detTotal = document.getElementById("detamount" + shellId);
+function caculateGasImportDetail(accessoryId) {
+    var quantity = document.getElementById("detquantity" + accessoryId);
+    var price = document.getElementById("detprice" + accessoryId);
+    var detTotal = document.getElementById("detamount" + accessoryId);
     if (quantity == null || price == null || detTotal == null)
         return false;
     detTotal.value = reformatNumberMoneyString(quantity.value) * reformatNumberMoneyString(price.value);
@@ -3151,6 +3163,707 @@ function gasImportPaidChanged() {
     var total = document.forms['gasImportForm'].total;
     var paid = document.forms['gasImportForm'].paid;
     var debt = document.forms['gasImportForm'].debt;
+    if (total == null || paid == null || debt == null)
+        return false;
+    debt.value = reformatNumberMoneyString(total.value) * 1 - reformatNumberMoneyString(paid.value) * 1;
+    tryNumberFormatCurrentcy(total, "VND");
+    tryNumberFormatCurrentcy(paid, "VND");
+    tryNumberFormatCurrentcy(debt, "VND");
+    total = null;
+    paid = null;
+    debt = null;
+    return false;
+}
+function loadAccessoryImportPanel() {
+    callAjax("getAccessoryImportPanel.do", null, null, function(data) {
+        clearContent();
+        setAjaxData(data, "contentDiv");
+        var myCalendar = new dhtmlXCalendarObject(["fromDate", "toDate"]);
+        myCalendar.setSkin('dhx_web');
+        var currentTime = getCurrentDate();
+        document.forms['accessoryImportSearchForm'].fromDate.value = currentTime;
+        document.forms['accessoryImportSearchForm'].toDate.value = currentTime;
+        myCalendar.setDateFormat("%d/%m/%Y");
+        loadAccessoryImportList(currentTime, currentTime);
+    });
+    return false;
+}
+function loadAccessoryImportList(fromDate, toDate) {
+    var mygrid = new dhtmlXGridObject('accessoryImportList');
+    mygrid.setImagePath("js/dhtmlx/grid/imgs/");
+    mygrid.setHeader("M\u00E3 phi\u1EBFu,Ng\u00E0y,Nh\u00E0 cung c\u1EA5p,T\u1ED5ng ti\u1EC1n,Thanh to\u00E1n,C\u00F2n n\u1EE3,Ghi ch\u00FA");
+    mygrid.attachHeader("#text_filter,#text_filter,#select_filter,#text_filter,#text_filter,#text_filter,#text_filter");
+    mygrid.setInitWidths("150,100,150,150,150,*");
+    mygrid.setColTypes("link,ro,ro,ro,ro,ro");
+    mygrid.setColSorting("str,str,str,str,str,str");
+    mygrid.setSkin("light");
+    var height = contentHeight - 210;
+    mygrid.al(true, height);//enableAutoHeight
+    mygrid.enablePaging(true, 15, 3, "recinfoArea");
+    mygrid.setPagingSkin("toolbar", "dhx_skyblue");
+    mygrid.init();
+    var url = "getAccessoryImportList.do?t=1";
+    if (fromDate != null)
+        url += "&fromDate=" + fromDate;
+    if (toDate != null)
+        url += "&toDate=" + toDate;
+    callAjax(url, null, null, function(data) {
+        mygrid.parse(data);
+    });
+    return false;
+}
+function getAccessoryImport(id) {
+    var url = 'accessoryImportForm.do';
+    if (id != 0)
+        url += '?accessoryImportId=' + id
+    callAjax(url, null, null, function(data) {
+        clearContent();
+        setAjaxData(data, 'contentDiv');
+        var myCalendar = new dhtmlXCalendarObject(["accessoryImportCreatedDate"]);
+        myCalendar.setSkin('dhx_web');
+        if (id == 0) {
+            var currentDate = getCurrentDate();
+            document.forms['accessoryImportForm'].accessoryImportCreatedDate.value = currentDate;
+        }
+        myCalendar.setDateFormat("%d/%m/%Y");
+        tryNumberFormatCurrentcy(document.forms['accessoryImportForm'].total, "VND");
+        tryNumberFormatCurrentcy(document.forms['accessoryImportForm'].paid, "VND");
+        tryNumberFormatCurrentcy(document.forms['accessoryImportForm'].debt, "VND");
+        formatAccessoryImportDetail();
+    });
+}
+function formatAccessoryImportDetail() {
+    var quantity = document.forms['accessoryImportForm'].quantity;
+    var price = document.forms['accessoryImportForm'].price;
+    var amount = document.forms['accessoryImportForm'].amount;
+    if (quantity != null) {
+        if (quantity.length != null) {
+            for (var i = 0; i < quantity.length; i++) {
+                tryNumberFormatCurrentcy(quantity[i], "VND");
+                tryNumberFormatCurrentcy(price[i], "VND");
+                tryNumberFormatCurrentcy(amount[i], "VND");
+            }
+        } else {
+            tryNumberFormatCurrentcy(quantity, "VND");
+            tryNumberFormatCurrentcy(price, "VND");
+            tryNumberFormatCurrentcy(amount, "VND");
+        }
+    }
+    quantity = null;
+    price = null;
+    amount = null;
+}
+function saveAccessoryImport() {
+    if (scriptFunction == "saveAccessoryImport")
+        return false;
+    var quantity = document.forms['accessoryImportForm'].quantity;
+    if (quantity == null) {
+        alert('Vui l\u00F2ng ch\u1ECDn h\u00E0ng h\u00F3a');
+        return false;
+    }
+    var price = document.forms['accessoryImportForm'].price;
+    var amount = document.forms['accessoryImportForm'].amount;
+    if (quantity.length != null) {
+        for (var i = 0; i < quantity.length; i++) {
+            var number = Number(quantity[i].value);
+            if (number == 0) {
+                alert('Vui l\u00F2ng nh\u1EADp s\u1ED1 l\u01B0\u1EE3ng');
+                quantity[i].focus();
+                quantity = null;
+                return false;
+            }
+            reformatNumberMoney(quantity[i]);
+            reformatNumberMoney(price[i]);
+            reformatNumberMoney(amount[i]);
+        }
+    } else {
+        if (quantity.value == "0") {
+            alert('Vui l\u00F2ng nh\u1EADp s\u1ED1 l\u01B0\u1EE3ng');
+            quantity.focus();
+            quantity = null;
+            return false;
+        }
+        reformatNumberMoney(quantity);
+        reformatNumberMoney(price);
+        reformatNumberMoney(amount);
+    }
+    quantity = null;
+    price = null;
+    amount = null;
+    reformatNumberMoney(document.forms['accessoryImportForm'].total);
+    reformatNumberMoney(document.forms['accessoryImportForm'].paid);
+    reformatNumberMoney(document.forms['accessoryImportForm'].debt);
+    scriptFunction = "saveAccessoryImport";
+    callAjaxCheckError("addAccessoryImport.do", null, document.forms['accessoryImportForm'], function(data) {
+        scriptFunction = "";
+        loadAccessoryImportPanel();
+    });
+    return false;
+}
+function addAccessoryImportAccessory() {
+    var accessory = document.forms['accessoryImportForm'].accessoryIdCombobox;
+    if (accessory == null && accessory.selectedIndex == -1)
+        accessory = null;
+    else
+        accessory = accessory.options[accessory.selectedIndex].value;
+    if (accessory == -1 || accessory == 0)
+        return false;
+    var accessoryId = document.forms['accessoryImportForm'].accessoryId;
+    var existed = false;
+    if (accessoryId != null) {
+        if (accessoryId.length != null) {
+            for (i = 0; i < accessoryId.length; i++) {
+                if (accessoryId[i].value == accessory) {
+                    existed = true;
+                    break;
+                }
+            }
+        } else if (accessoryId.value == accessory)
+            existed = true;
+    }
+    accessoryId = null;
+    if (existed == true) {
+        alert("H\u00E0ng ho\u00E1 \u0111\u00E3 t\u1ED3n t\u1EA1i");
+        return false;
+    }
+    callAjax("getAccessoryImportAccessory.do?accessoryId=" + accessory, null, null, function(data) {
+        setAjaxData(data, 'accessoryImportAccessoryHideDiv');
+        var matTable = document.getElementById('accessoryImportAccessoryTbl');
+        var detTable = document.getElementById('accessoryImportDetailTbl');
+        if (matTable.tBodies[0] == null || detTable.tBodies[0] == null) {
+            matTable = null;
+            detTable = null;
+            return;
+        }
+        for (var i = matTable.tBodies[0].rows.length - 1; i >= 0; i--)
+            detTable.tBodies[0].appendChild(matTable.tBodies[0].rows[i]);
+        matTable = null;
+        detTable = null;
+        formatAccessoryImportDetail();
+    });
+    return false;
+}
+function delAccessoryImport() {
+    callAjaxCheckError('delAccessoryImport.do?accessoryImportId=' + document.forms['accessoryImportForm'].id.value, null, null, function() {
+        loadAccessoryImportPanel();
+    });
+    return false;
+}
+function caculateAccessoryImportDetail(accessoryId) {
+    var quantity = document.getElementById("detquantity" + accessoryId);
+    var price = document.getElementById("detprice" + accessoryId);
+    var detTotal = document.getElementById("detamount" + accessoryId);
+    if (quantity == null || price == null || detTotal == null)
+        return false;
+    detTotal.value = reformatNumberMoneyString(quantity.value) * reformatNumberMoneyString(price.value);
+    quantity = null;
+    price = null;
+    detTotal = null;
+    caculateAccessoryImportTotal();
+    return false;
+}
+function caculateAccessoryImportTotal() {
+    var quantity = document.forms['accessoryImportForm'].quantity;
+    var price = document.forms['accessoryImportForm'].price;
+    var amount = document.forms['accessoryImportForm'].amount;
+    var sum = 0;
+    if (quantity != null) {
+        if (quantity.length != null) {
+            for (i = 0; i < quantity.length; i++) {
+                sum += reformatNumberMoneyString(amount[i].value) * 1;
+                tryNumberFormatCurrentcy(quantity[i], "USD");
+                tryNumberFormatCurrentcy(price[i], "VND");
+                tryNumberFormatCurrentcy(amount[i], "VND");
+            }
+        } else {
+            sum += reformatNumberMoneyString(amount.value) * 1;
+            tryNumberFormatCurrentcy(quantity, "USD");
+            tryNumberFormatCurrentcy(price, "VND");
+            tryNumberFormatCurrentcy(amount, "VND");
+        }
+    }
+    quantity = null;
+    price = null;
+    amount = null;
+    document.forms['accessoryImportForm'].total.value = sum;
+    document.forms['accessoryImportForm'].paid.value = sum;
+    document.forms['accessoryImportForm'].debt.value = 0;
+    tryNumberFormatCurrentcy(document.forms['accessoryImportForm'].total, "VND");
+    tryNumberFormatCurrentcy(document.forms['accessoryImportForm'].paid, "VND");
+    return false;
+}
+function accessoryImportPaidChanged() {
+    var total = document.forms['accessoryImportForm'].total;
+    var paid = document.forms['accessoryImportForm'].paid;
+    var debt = document.forms['accessoryImportForm'].debt;
+    if (total == null || paid == null || debt == null)
+        return false;
+    debt.value = reformatNumberMoneyString(total.value) * 1 - reformatNumberMoneyString(paid.value) * 1;
+    tryNumberFormatCurrentcy(total, "VND");
+    tryNumberFormatCurrentcy(paid, "VND");
+    tryNumberFormatCurrentcy(debt, "VND");
+    total = null;
+    paid = null;
+    debt = null;
+    return false;
+}
+function loadPromotionMaterialImportPanel() {
+    callAjax("getPromotionMaterialImportPanel.do", null, null, function(data) {
+        clearContent();
+        setAjaxData(data, "contentDiv");
+        var myCalendar = new dhtmlXCalendarObject(["fromDate", "toDate"]);
+        myCalendar.setSkin('dhx_web');
+        var currentTime = getCurrentDate();
+        document.forms['promotionMaterialImportSearchForm'].fromDate.value = currentTime;
+        document.forms['promotionMaterialImportSearchForm'].toDate.value = currentTime;
+        myCalendar.setDateFormat("%d/%m/%Y");
+        loadPromotionMaterialImportList(currentTime, currentTime);
+    });
+    return false;
+}
+function loadPromotionMaterialImportList(fromDate, toDate) {
+    var mygrid = new dhtmlXGridObject('promotionMaterialImportList');
+    mygrid.setImagePath("js/dhtmlx/grid/imgs/");
+    mygrid.setHeader("M\u00E3 phi\u1EBFu,Ng\u00E0y,Nh\u00E0 cung c\u1EA5p,T\u1ED5ng ti\u1EC1n,Thanh to\u00E1n,C\u00F2n n\u1EE3,Ghi ch\u00FA");
+    mygrid.attachHeader("#text_filter,#text_filter,#select_filter,#text_filter,#text_filter,#text_filter,#text_filter");
+    mygrid.setInitWidths("150,100,150,150,150,*");
+    mygrid.setColTypes("link,ro,ro,ro,ro,ro");
+    mygrid.setColSorting("str,str,str,str,str,str");
+    mygrid.setSkin("light");
+    var height = contentHeight - 210;
+    mygrid.al(true, height);//enableAutoHeight
+    mygrid.enablePaging(true, 15, 3, "recinfoArea");
+    mygrid.setPagingSkin("toolbar", "dhx_skyblue");
+    mygrid.init();
+    var url = "getPromotionMaterialImportList.do?t=1";
+    if (fromDate != null)
+        url += "&fromDate=" + fromDate;
+    if (toDate != null)
+        url += "&toDate=" + toDate;
+    callAjax(url, null, null, function(data) {
+        mygrid.parse(data);
+    });
+    return false;
+}
+function getPromotionMaterialImport(id) {
+    var url = 'promotionMaterialImportForm.do';
+    if (id != 0)
+        url += '?promotionMaterialImportId=' + id
+    callAjax(url, null, null, function(data) {
+        clearContent();
+        setAjaxData(data, 'contentDiv');
+        var myCalendar = new dhtmlXCalendarObject(["promotionMaterialImportCreatedDate"]);
+        myCalendar.setSkin('dhx_web');
+        if (id == 0) {
+            var currentDate = getCurrentDate();
+            document.forms['promotionMaterialImportForm'].promotionMaterialImportCreatedDate.value = currentDate;
+        }
+        myCalendar.setDateFormat("%d/%m/%Y");
+        tryNumberFormatCurrentcy(document.forms['promotionMaterialImportForm'].total, "VND");
+        tryNumberFormatCurrentcy(document.forms['promotionMaterialImportForm'].paid, "VND");
+        tryNumberFormatCurrentcy(document.forms['promotionMaterialImportForm'].debt, "VND");
+        formatPromotionMaterialImportDetail();
+    });
+}
+function formatPromotionMaterialImportDetail() {
+    var quantity = document.forms['promotionMaterialImportForm'].quantity;
+    var price = document.forms['promotionMaterialImportForm'].price;
+    var amount = document.forms['promotionMaterialImportForm'].amount;
+    if (quantity != null) {
+        if (quantity.length != null) {
+            for (var i = 0; i < quantity.length; i++) {
+                tryNumberFormatCurrentcy(quantity[i], "VND");
+                tryNumberFormatCurrentcy(price[i], "VND");
+                tryNumberFormatCurrentcy(amount[i], "VND");
+            }
+        } else {
+            tryNumberFormatCurrentcy(quantity, "VND");
+            tryNumberFormatCurrentcy(price, "VND");
+            tryNumberFormatCurrentcy(amount, "VND");
+        }
+    }
+    quantity = null;
+    price = null;
+    amount = null;
+}
+function savePromotionMaterialImport() {
+    if (scriptFunction == "savePromotionMaterialImport")
+        return false;
+    var quantity = document.forms['promotionMaterialImportForm'].quantity;
+    if (quantity == null) {
+        alert('Vui l\u00F2ng ch\u1ECDn h\u00E0ng h\u00F3a');
+        return false;
+    }
+    var price = document.forms['promotionMaterialImportForm'].price;
+    var amount = document.forms['promotionMaterialImportForm'].amount;
+    if (quantity.length != null) {
+        for (var i = 0; i < quantity.length; i++) {
+            var number = Number(quantity[i].value);
+            if (number == 0) {
+                alert('Vui l\u00F2ng nh\u1EADp s\u1ED1 l\u01B0\u1EE3ng');
+                quantity[i].focus();
+                quantity = null;
+                return false;
+            }
+            reformatNumberMoney(quantity[i]);
+            reformatNumberMoney(price[i]);
+            reformatNumberMoney(amount[i]);
+        }
+    } else {
+        if (quantity.value == "0") {
+            alert('Vui l\u00F2ng nh\u1EADp s\u1ED1 l\u01B0\u1EE3ng');
+            quantity.focus();
+            quantity = null;
+            return false;
+        }
+        reformatNumberMoney(quantity);
+        reformatNumberMoney(price);
+        reformatNumberMoney(amount);
+    }
+    quantity = null;
+    price = null;
+    amount = null;
+    reformatNumberMoney(document.forms['promotionMaterialImportForm'].total);
+    reformatNumberMoney(document.forms['promotionMaterialImportForm'].paid);
+    reformatNumberMoney(document.forms['promotionMaterialImportForm'].debt);
+    scriptFunction = "savePromotionMaterialImport";
+    callAjaxCheckError("addPromotionMaterialImport.do", null, document.forms['promotionMaterialImportForm'], function(data) {
+        scriptFunction = "";
+        loadPromotionMaterialImportPanel();
+    });
+    return false;
+}
+function addPromotionMaterialImportPromotionMaterial() {
+    var promotionMaterial = document.forms['promotionMaterialImportForm'].promotionMaterialIdCombobox;
+    if (promotionMaterial == null && promotionMaterial.selectedIndex == -1)
+        promotionMaterial = null;
+    else
+        promotionMaterial = promotionMaterial.options[promotionMaterial.selectedIndex].value;
+    if (promotionMaterial == -1 || promotionMaterial == 0)
+        return false;
+    var promotionMaterialId = document.forms['promotionMaterialImportForm'].promotionMaterialId;
+    var existed = false;
+    if (promotionMaterialId != null) {
+        if (promotionMaterialId.length != null) {
+            for (i = 0; i < promotionMaterialId.length; i++) {
+                if (promotionMaterialId[i].value == promotionMaterial) {
+                    existed = true;
+                    break;
+                }
+            }
+        } else if (promotionMaterialId.value == promotionMaterial)
+            existed = true;
+    }
+    promotionMaterialId = null;
+    if (existed == true) {
+        alert("H\u00E0ng ho\u00E1 \u0111\u00E3 t\u1ED3n t\u1EA1i");
+        return false;
+    }
+    callAjax("getPromotionMaterialImportPromotionMaterial.do?promotionMaterialId=" + promotionMaterial, null, null, function(data) {
+        setAjaxData(data, 'promotionMaterialImportPromotionMaterialHideDiv');
+        var matTable = document.getElementById('promotionMaterialImportPromotionMaterialTbl');
+        var detTable = document.getElementById('promotionMaterialImportDetailTbl');
+        if (matTable.tBodies[0] == null || detTable.tBodies[0] == null) {
+            matTable = null;
+            detTable = null;
+            return;
+        }
+        for (var i = matTable.tBodies[0].rows.length - 1; i >= 0; i--)
+            detTable.tBodies[0].appendChild(matTable.tBodies[0].rows[i]);
+        matTable = null;
+        detTable = null;
+        formatPromotionMaterialImportDetail();
+    });
+    return false;
+}
+function delPromotionMaterialImport() {
+    callAjaxCheckError('delPromotionMaterialImport.do?promotionMaterialImportId=' + document.forms['promotionMaterialImportForm'].id.value, null, null, function() {
+        loadPromotionMaterialImportPanel();
+    });
+    return false;
+}
+function caculatePromotionMaterialImportDetail(promotionMaterialId) {
+    var quantity = document.getElementById("detquantity" + promotionMaterialId);
+    var price = document.getElementById("detprice" + promotionMaterialId);
+    var detTotal = document.getElementById("detamount" + promotionMaterialId);
+    if (quantity == null || price == null || detTotal == null)
+        return false;
+    detTotal.value = reformatNumberMoneyString(quantity.value) * reformatNumberMoneyString(price.value);
+    quantity = null;
+    price = null;
+    detTotal = null;
+    caculatePromotionMaterialImportTotal();
+    return false;
+}
+function caculatePromotionMaterialImportTotal() {
+    var quantity = document.forms['promotionMaterialImportForm'].quantity;
+    var price = document.forms['promotionMaterialImportForm'].price;
+    var amount = document.forms['promotionMaterialImportForm'].amount;
+    var sum = 0;
+    if (quantity != null) {
+        if (quantity.length != null) {
+            for (i = 0; i < quantity.length; i++) {
+                sum += reformatNumberMoneyString(amount[i].value) * 1;
+                tryNumberFormatCurrentcy(quantity[i], "USD");
+                tryNumberFormatCurrentcy(price[i], "VND");
+                tryNumberFormatCurrentcy(amount[i], "VND");
+            }
+        } else {
+            sum += reformatNumberMoneyString(amount.value) * 1;
+            tryNumberFormatCurrentcy(quantity, "USD");
+            tryNumberFormatCurrentcy(price, "VND");
+            tryNumberFormatCurrentcy(amount, "VND");
+        }
+    }
+    quantity = null;
+    price = null;
+    amount = null;
+    document.forms['promotionMaterialImportForm'].total.value = sum;
+    document.forms['promotionMaterialImportForm'].paid.value = sum;
+    document.forms['promotionMaterialImportForm'].debt.value = 0;
+    tryNumberFormatCurrentcy(document.forms['promotionMaterialImportForm'].total, "VND");
+    tryNumberFormatCurrentcy(document.forms['promotionMaterialImportForm'].paid, "VND");
+    return false;
+}
+function promotionMaterialImportPaidChanged() {
+    var total = document.forms['promotionMaterialImportForm'].total;
+    var paid = document.forms['promotionMaterialImportForm'].paid;
+    var debt = document.forms['promotionMaterialImportForm'].debt;
+    if (total == null || paid == null || debt == null)
+        return false;
+    debt.value = reformatNumberMoneyString(total.value) * 1 - reformatNumberMoneyString(paid.value) * 1;
+    tryNumberFormatCurrentcy(total, "VND");
+    tryNumberFormatCurrentcy(paid, "VND");
+    tryNumberFormatCurrentcy(debt, "VND");
+    total = null;
+    paid = null;
+    debt = null;
+    return false;
+}
+function loadPetroImportPanel() {
+    callAjax("getPetroImportPanel.do", null, null, function(data) {
+        clearContent();
+        setAjaxData(data, "contentDiv");
+        var myCalendar = new dhtmlXCalendarObject(["fromDate", "toDate"]);
+        myCalendar.setSkin('dhx_web');
+        var currentTime = getCurrentDate();
+        document.forms['petroImportSearchForm'].fromDate.value = currentTime;
+        document.forms['petroImportSearchForm'].toDate.value = currentTime;
+        myCalendar.setDateFormat("%d/%m/%Y");
+        loadPetroImportList(currentTime, currentTime);
+    });
+    return false;
+}
+function loadPetroImportList(fromDate, toDate) {
+    var mygrid = new dhtmlXGridObject('petroImportList');
+    mygrid.setImagePath("js/dhtmlx/grid/imgs/");
+    mygrid.setHeader("M\u00E3 phi\u1EBFu,Ng\u00E0y,Nh\u00E0 cung c\u1EA5p,Kho,T\u1ED5ng ti\u1EC1n,Thanh to\u00E1n,C\u00F2n n\u1EE3,Ghi ch\u00FA");
+    mygrid.attachHeader("#text_filter,#text_filter,#select_filter,#select_filter,#text_filter,#text_filter,#text_filter,#text_filter");
+    mygrid.setInitWidths("150,100,150,150,150,150,*");
+    mygrid.setColTypes("link,ro,ro,ro,ro,ro,ro");
+    mygrid.setColSorting("str,str,str,str,str,str,str");
+    mygrid.setSkin("light");
+    var height = contentHeight - 210;
+    mygrid.al(true, height);//enableAutoHeight
+    mygrid.enablePaging(true, 15, 3, "recinfoArea");
+    mygrid.setPagingSkin("toolbar", "dhx_skyblue");
+    mygrid.init();
+    var url = "getPetroImportList.do?t=1";
+    if (fromDate != null)
+        url += "&fromDate=" + fromDate;
+    if (toDate != null)
+        url += "&toDate=" + toDate;
+    callAjax(url, null, null, function(data) {
+        mygrid.parse(data);
+    });
+    return false;
+}
+function getPetroImport(id) {
+    var url = 'petroImportForm.do';
+    if (id != 0)
+        url += '?petroImportId=' + id
+    callAjax(url, null, null, function(data) {
+        clearContent();
+        setAjaxData(data, 'contentDiv');
+        var myCalendar = new dhtmlXCalendarObject(["petroImportCreatedDate"]);
+        myCalendar.setSkin('dhx_web');
+        if (id == 0) {
+            var currentDate = getCurrentDate();
+            document.forms['petroImportForm'].petroImportCreatedDate.value = currentDate;
+        }
+        myCalendar.setDateFormat("%d/%m/%Y");
+        tryNumberFormatCurrentcy(document.forms['petroImportForm'].total, "VND");
+        tryNumberFormatCurrentcy(document.forms['petroImportForm'].paid, "VND");
+        tryNumberFormatCurrentcy(document.forms['petroImportForm'].debt, "VND");
+        tryNumberFormatCurrentcy(document.forms['petroImportForm'].rate, "VND");
+        formatPetroImportDetail();
+    });
+}
+function formatPetroImportDetail() {
+    var quantity = document.forms['petroImportForm'].quantity;
+    var price = document.forms['petroImportForm'].price;
+    var amount = document.forms['petroImportForm'].amount;
+    if (quantity != null) {
+        if (quantity.length != null) {
+            for (var i = 0; i < quantity.length; i++) {
+                tryNumberFormatCurrentcy(quantity[i], "VND");
+                tryNumberFormatCurrentcy(price[i], "VND");
+                tryNumberFormatCurrentcy(amount[i], "VND");
+            }
+        } else {
+            tryNumberFormatCurrentcy(quantity, "VND");
+            tryNumberFormatCurrentcy(price, "VND");
+            tryNumberFormatCurrentcy(amount, "VND");
+        }
+    }
+    quantity = null;
+    price = null;
+    amount = null;
+}
+function savePetroImport() {
+    if (scriptFunction == "savePetroImport")
+        return false;
+    var quantity = document.forms['petroImportForm'].quantity;
+    if (quantity == null) {
+        alert('Vui l\u00F2ng ch\u1ECDn h\u00E0ng h\u00F3a');
+        return false;
+    }
+    var price = document.forms['petroImportForm'].price;
+    var amount = document.forms['petroImportForm'].amount;
+    if (quantity.length != null) {
+        for (var i = 0; i < quantity.length; i++) {
+            var number = Number(quantity[i].value);
+            if (number == 0) {
+                alert('Vui l\u00F2ng nh\u1EADp s\u1ED1 l\u01B0\u1EE3ng');
+                quantity[i].focus();
+                quantity = null;
+                return false;
+            }
+            reformatNumberMoney(quantity[i]);
+            reformatNumberMoney(price[i]);
+            reformatNumberMoney(amount[i]);
+        }
+    } else {
+        if (quantity.value == "0") {
+            alert('Vui l\u00F2ng nh\u1EADp s\u1ED1 l\u01B0\u1EE3ng');
+            quantity.focus();
+            quantity = null;
+            return false;
+        }
+        reformatNumberMoney(quantity);
+        reformatNumberMoney(price);
+        reformatNumberMoney(amount);
+    }
+    quantity = null;
+    price = null;
+    amount = null;
+    reformatNumberMoney(document.forms['petroImportForm'].total);
+    reformatNumberMoney(document.forms['petroImportForm'].paid);
+    reformatNumberMoney(document.forms['petroImportForm'].debt);
+    reformatNumberMoney(document.forms['petroImportForm'].rate);
+    scriptFunction = "savePetroImport";
+    callAjaxCheckError("addPetroImport.do", null, document.forms['petroImportForm'], function(data) {
+        scriptFunction = "";
+        loadPetroImportPanel();
+    });
+    return false;
+}
+function addPetroImportPetro() {
+    var petro = document.forms['petroImportForm'].petroIdCombobox;
+    if (petro == null && petro.selectedIndex == -1)
+        petro = null;
+    else
+        petro = petro.options[petro.selectedIndex].value;
+    if (petro == -1 || petro == 0)
+        return false;
+    var petroId = document.forms['petroImportForm'].petroId;
+    var existed = false;
+    if (petroId != null) {
+        if (petroId.length != null) {
+            for (i = 0; i < petroId.length; i++) {
+                if (petroId[i].value == petro) {
+                    existed = true;
+                    break;
+                }
+            }
+        } else if (petroId.value == petro)
+            existed = true;
+    }
+    petroId = null;
+    if (existed == true) {
+        alert("H\u00E0ng ho\u00E1 \u0111\u00E3 t\u1ED3n t\u1EA1i");
+        return false;
+    }
+    callAjax("getPetroImportPetro.do?petroId=" + petro, null, null, function(data) {
+        setAjaxData(data, 'petroImportPetroHideDiv');
+        var matTable = document.getElementById('petroImportPetroTbl');
+        var detTable = document.getElementById('petroImportDetailTbl');
+        if (matTable.tBodies[0] == null || detTable.tBodies[0] == null) {
+            matTable = null;
+            detTable = null;
+            return;
+        }
+        for (var i = matTable.tBodies[0].rows.length - 1; i >= 0; i--)
+            detTable.tBodies[0].appendChild(matTable.tBodies[0].rows[i]);
+        matTable = null;
+        detTable = null;
+        formatPetroImportDetail();
+    });
+    return false;
+}
+function delPetroImport() {
+    callAjaxCheckError('delPetroImport.do?petroImportId=' + document.forms['petroImportForm'].id.value, null, null, function() {
+        loadPetroImportPanel();
+    });
+    return false;
+}
+function caculatePetroImportDetail(petroId) {
+    var quantity = document.getElementById("detquantity" + petroId);
+    var price = document.getElementById("detprice" + petroId);
+    var detTotal = document.getElementById("detamount" + petroId);
+    if (quantity == null || price == null || detTotal == null)
+        return false;
+    detTotal.value = reformatNumberMoneyString(quantity.value) * reformatNumberMoneyString(price.value);
+    quantity = null;
+    price = null;
+    detTotal = null;
+    caculatePetroImportTotal();
+    return false;
+}
+function caculatePetroImportTotal() {
+    var quantity = document.forms['petroImportForm'].quantity;
+    var price = document.forms['petroImportForm'].price;
+    var amount = document.forms['petroImportForm'].amount;
+    var sum = 0;
+    if (quantity != null) {
+        if (quantity.length != null) {
+            for (i = 0; i < quantity.length; i++) {
+                sum += reformatNumberMoneyString(amount[i].value) * 1;
+                tryNumberFormatCurrentcy(quantity[i], "USD");
+                tryNumberFormatCurrentcy(price[i], "VND");
+                tryNumberFormatCurrentcy(amount[i], "VND");
+            }
+        } else {
+            sum += reformatNumberMoneyString(amount.value) * 1;
+            tryNumberFormatCurrentcy(quantity, "USD");
+            tryNumberFormatCurrentcy(price, "VND");
+            tryNumberFormatCurrentcy(amount, "VND");
+        }
+    }
+    quantity = null;
+    price = null;
+    amount = null;
+    document.forms['petroImportForm'].total.value = sum;
+    document.forms['petroImportForm'].paid.value = sum;
+    document.forms['petroImportForm'].debt.value = 0;
+    tryNumberFormatCurrentcy(document.forms['petroImportForm'].total, "VND");
+    tryNumberFormatCurrentcy(document.forms['petroImportForm'].paid, "VND");
+    return false;
+}
+function petroImportPaidChanged() {
+    var total = document.forms['petroImportForm'].total;
+    var paid = document.forms['petroImportForm'].paid;
+    var debt = document.forms['petroImportForm'].debt;
     if (total == null || paid == null || debt == null)
         return false;
     debt.value = reformatNumberMoneyString(total.value) * 1 - reformatNumberMoneyString(paid.value) * 1;

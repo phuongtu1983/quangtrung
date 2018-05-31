@@ -4,6 +4,7 @@
  */
 package com.stepup.gasoline.qt.gasimport;
 
+import com.stepup.core.util.NumberUtil;
 import com.stepup.core.util.OutputUtil;
 import com.stepup.core.util.StringUtil;
 import com.stepup.gasoline.qt.dao.GasDAO;
@@ -23,6 +24,7 @@ public class GetGasImportListAction extends Action {
 
     /**
      * This is the action called from the Struts framework.
+     *
      * @param mapping The ActionMapping used to select this instance.
      * @param form The optional ActionForm bean for this request.
      * @param request The HTTP Request we are processing.
@@ -47,6 +49,11 @@ public class GetGasImportListAction extends Action {
                     buff.append("<row id=\"").append(bean.getId()).append("\">");
                     buff.append("<cell>").append(bean.getCode()).append("^javascript:getGasImport(").append(bean.getId()).append(")^_self</cell>");
                     buff.append("<cell>").append(bean.getCreatedDate()).append("</cell>");
+                    buff.append("<cell>").append(bean.getVendorName()).append("</cell>");
+                    buff.append("<cell>").append(bean.getStoreName()).append("</cell>");
+                    buff.append("<cell>").append(NumberUtil.formatMoneyDefault(bean.getTotal(), "VND")).append("</cell>");
+                    buff.append("<cell>").append(NumberUtil.formatMoneyDefault(bean.getPaid(), "VND")).append("</cell>");
+                    buff.append("<cell>").append(NumberUtil.formatMoneyDefault(bean.getDebt(), "VND")).append("</cell>");
                     buff.append("<cell>").append(StringUtil.encodeString(bean.getNote())).append("</cell>");
                     buff.append("</row>");
                 }

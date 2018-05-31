@@ -16,10 +16,13 @@ import com.stepup.gasoline.qt.bean.GasImportBean;
 import com.stepup.gasoline.qt.bean.GasImportDetailBean;
 import com.stepup.gasoline.qt.bean.GasPriceBean;
 import com.stepup.gasoline.qt.bean.LpgImportBean;
+import com.stepup.gasoline.qt.bean.PetroImportBean;
+import com.stepup.gasoline.qt.bean.PetroImportDetailBean;
 import com.stepup.gasoline.qt.fraction.FractionFormBean;
 import com.stepup.gasoline.qt.gasimport.GasImportFormBean;
 import com.stepup.gasoline.qt.gasprice.GasPriceFormBean;
 import com.stepup.gasoline.qt.lpgimport.LpgImportFormBean;
+import com.stepup.gasoline.qt.petroimport.PetroImportFormBean;
 import com.stepup.gasoline.qt.util.QTUtil;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -894,17 +897,10 @@ public class GasDAO extends BasicDAO {
         }
         SPUtil spUtil = null;
         try {
-            String createdDate = "";
-            if (GenericValidator.isBlankOrNull(bean.getCreatedDate())) {
-                createdDate = "null";
-            } else {
-                createdDate = bean.getCreatedDate();
-            }
-            String sql = "{call updateGasImport(?,?,?,?,?,?,?,?,?,?,?)}";
+            String sql = "{call updateGasImport(?,?,?,?,?,?,?,?,?,?)}";
             spUtil = new SPUtil(sql);
             if (spUtil != null) {
                 spUtil.getCallableStatement().setInt("_id", bean.getId());
-                spUtil.getCallableStatement().setString("_created_date", createdDate);
                 spUtil.getCallableStatement().setInt("_vendor_id", bean.getVendorId());
                 spUtil.getCallableStatement().setInt("_store_id", bean.getStoreId());
                 spUtil.getCallableStatement().setDouble("_rate", bean.getRate());
@@ -1003,6 +999,309 @@ public class GasDAO extends BasicDAO {
         SPUtil spUtil = null;
         try {
             String sql = "{call updateGasImportDetail(?,?,?,?)}";
+            spUtil = new SPUtil(sql);
+            if (spUtil != null) {
+                spUtil.getCallableStatement().setInt("_id", bean.getId());
+                spUtil.getCallableStatement().setFloat("_quantity", bean.getQuantity());
+                spUtil.getCallableStatement().setDouble("_price", bean.getPrice());
+                spUtil.getCallableStatement().setDouble("_amount", bean.getAmount());
+                spUtil.execute();
+            }
+        } catch (SQLException sqle) {
+            throw new Exception(sqle.getMessage());
+        } catch (Exception ex) {
+            throw new Exception(ex.getMessage());
+        } finally {
+            try {
+                if (spUtil != null) {
+                    spUtil.closeConnection();
+                }
+            } catch (Exception e) {
+                throw new Exception(e.getMessage());
+            }
+        }
+    }
+
+    public ArrayList searchPetroImport(String fromDate, String endDate) throws Exception {
+        SPUtil spUtil = null;
+        ArrayList list = new ArrayList();
+        ResultSet rs = null;
+        try {
+            String sql = "{call searchPetroImport(?,?)}";
+            if (GenericValidator.isBlankOrNull(fromDate)) {
+                fromDate = DateUtil.today("dd/MM/yyyy");
+            }
+            if (GenericValidator.isBlankOrNull(endDate)) {
+                endDate = this.START_DATE;
+            }
+            spUtil = new SPUtil(sql);
+            if (spUtil != null) {
+                spUtil.getCallableStatement().setString("_start_date", fromDate);
+                spUtil.getCallableStatement().setString("_end_date", endDate);
+                rs = spUtil.executeQuery();
+                if (rs != null) {
+                    PetroImportFormBean bean = null;
+                    while (rs.next()) {
+                        bean = new PetroImportFormBean();
+                        bean.setId(rs.getInt("id"));
+                        bean.setCode(rs.getString("code"));
+                        bean.setCreatedDate(DateUtil.formatDate(rs.getDate("created_date"), "dd/MM/yyyy"));
+                        bean.setVendorId(rs.getInt("vendor_id"));
+                        bean.setVendorName(rs.getString("vendor_name"));
+                        bean.setStoreId(rs.getInt("store_id"));
+                        bean.setStoreName(rs.getString("store_name"));
+                        bean.setRate(rs.getDouble("rate"));
+                        bean.setTotal(rs.getDouble("total"));
+                        bean.setPaid(rs.getDouble("paid"));
+                        bean.setDebt(rs.getDouble("debt"));
+                        bean.setPaymentMode(rs.getInt("payment_mode"));
+                        bean.setAccountId(rs.getInt("account_id"));
+                        bean.setNote(rs.getString("note"));
+                        list.add(bean);
+                    }
+                }
+            }
+        } catch (SQLException sqle) {
+            throw new Exception(sqle.getMessage());
+        } catch (Exception ex) {
+            throw new Exception(ex.getMessage());
+        } finally {
+            try {
+                if (spUtil != null) {
+                    spUtil.closeConnection();
+                }
+                if (rs != null) {
+                    rs.close();
+                    rs = null;
+                }
+            } catch (Exception e) {
+                throw new Exception(e.getMessage());
+            }
+        }
+        return list;
+    }
+
+    public PetroImportBean getPetroImport(int id) throws Exception {
+        ResultSet rs = null;
+        String sql = "select *, IF(DATEDIFF(created_date,SYSDATE())=0,1,0) as can_edit from petro_import where id=" + id;
+        try {
+            rs = DBUtil.executeQuery(sql);
+            while (rs.next()) {
+                PetroImportBean bean = new PetroImportBean();
+                bean.setId(rs.getInt("id"));
+                bean.setCode(rs.getString("code"));
+                bean.setCreatedDate(DateUtil.formatDate(rs.getDate("created_date"), "dd/MM/yyyy"));
+                bean.setVendorId(rs.getInt("vendor_id"));
+                bean.setStoreId(rs.getInt("store_id"));
+                bean.setRate(rs.getDouble("rate"));
+                bean.setTotal(rs.getDouble("total"));
+                bean.setPaid(rs.getDouble("paid"));
+                bean.setDebt(rs.getDouble("debt"));
+                bean.setPaymentMode(rs.getInt("payment_mode"));
+                bean.setAccountId(rs.getInt("account_id"));
+                bean.setNote(rs.getString("note"));
+                bean.setCanEdit(rs.getInt("can_edit"));
+                return bean;
+            }
+        } catch (SQLException sqle) {
+            throw new Exception(sqle.getMessage());
+        } catch (Exception ex) {
+            throw new Exception(ex.getMessage());
+        } finally {
+            if (rs != null) {
+                DBUtil.closeConnection(rs);
+            }
+        }
+        return null;
+    }
+
+    public ArrayList getPetroImportDetail(int petroImportId) throws Exception {
+        ResultSet rs = null;
+        String sql = "select det.*, s.name as petro_name"
+                + " from petro_import_detail as det, petro as s"
+                + " where det.petro_id=s.id and det.petro_import_id=" + petroImportId;
+        ArrayList detailList = new ArrayList();
+        try {
+            rs = DBUtil.executeQuery(sql);
+            PetroImportDetailBean bean = null;
+            while (rs.next()) {
+                bean = new PetroImportDetailBean();
+                bean.setId(rs.getInt("id"));
+                bean.setPetroImportId(rs.getInt("petro_import_id"));
+                bean.setQuantity(rs.getFloat("quantity"));
+                bean.setPrice(rs.getDouble("price"));
+                bean.setAmount(rs.getDouble("amount"));
+                bean.setPetroId(rs.getInt("petro_id"));
+                bean.setPetroName(rs.getString("petro_name"));
+                detailList.add(bean);
+            }
+        } catch (SQLException sqle) {
+            throw new Exception(sqle.getMessage());
+        } catch (Exception ex) {
+            throw new Exception(ex.getMessage());
+        } finally {
+            if (rs != null) {
+                DBUtil.closeConnection(rs);
+            }
+        }
+        return detailList;
+    }
+
+    public int insertPetroImport(PetroImportBean bean) throws Exception {
+        if (bean == null) {
+            return 0;
+        }
+        int result = 0;
+        SPUtil spUtil = null;
+        try {
+            String createdDate = "";
+            if (GenericValidator.isBlankOrNull(bean.getCreatedDate())) {
+                createdDate = "null";
+            } else {
+                createdDate = bean.getCreatedDate();
+            }
+            String sql = "{call insertPetroImport(?,?,?,?,?,?,?,?,?,?,?,?)}";
+            spUtil = new SPUtil(sql);
+            if (spUtil != null) {
+                spUtil.getCallableStatement().setString("_code", bean.getCode());
+                spUtil.getCallableStatement().setString("_created_date", createdDate);
+                spUtil.getCallableStatement().setInt("_vendor_id", bean.getVendorId());
+                spUtil.getCallableStatement().setInt("_store_id", bean.getStoreId());
+                spUtil.getCallableStatement().setDouble("_rate", bean.getRate());
+                spUtil.getCallableStatement().setDouble("_total", bean.getTotal());
+                spUtil.getCallableStatement().setDouble("_paid", bean.getPaid());
+                spUtil.getCallableStatement().setDouble("_debt", bean.getDebt());
+                spUtil.getCallableStatement().setInt("_payment_mode", bean.getPaymentMode());
+                spUtil.getCallableStatement().setInt("_account_id", bean.getAccountId());
+                spUtil.getCallableStatement().setString("_note", bean.getNote());
+                spUtil.getCallableStatement().registerOutParameter("_id", Types.INTEGER);
+                spUtil.execute();
+                result = spUtil.getCallableStatement().getInt("_id");
+            }
+        } catch (SQLException sqle) {
+            throw new Exception(sqle.getMessage());
+        } catch (Exception ex) {
+            throw new Exception(ex.getMessage());
+        } finally {
+            try {
+                if (spUtil != null) {
+                    spUtil.closeConnection();
+                }
+            } catch (Exception e) {
+                throw new Exception(e.getMessage());
+            }
+        }
+        return result;
+    }
+
+    public void updatePetroImport(PetroImportBean bean) throws Exception {
+        if (bean == null) {
+            return;
+        }
+        SPUtil spUtil = null;
+        try {
+            String sql = "{call updatePetroImport(?,?,?,?,?,?,?,?,?,?)}";
+            spUtil = new SPUtil(sql);
+            if (spUtil != null) {
+                spUtil.getCallableStatement().setInt("_id", bean.getId());
+                spUtil.getCallableStatement().setInt("_vendor_id", bean.getVendorId());
+                spUtil.getCallableStatement().setInt("_store_id", bean.getStoreId());
+                spUtil.getCallableStatement().setDouble("_rate", bean.getRate());
+                spUtil.getCallableStatement().setDouble("_total", bean.getTotal());
+                spUtil.getCallableStatement().setDouble("_paid", bean.getPaid());
+                spUtil.getCallableStatement().setDouble("_debt", bean.getDebt());
+                spUtil.getCallableStatement().setInt("_payment_mode", bean.getPaymentMode());
+                spUtil.getCallableStatement().setInt("_account_id", bean.getAccountId());
+                spUtil.getCallableStatement().setString("_note", bean.getNote());
+                spUtil.execute();
+            }
+        } catch (SQLException sqle) {
+            throw new Exception(sqle.getMessage());
+        } catch (Exception ex) {
+            throw new Exception(ex.getMessage());
+        } finally {
+            try {
+                if (spUtil != null) {
+                    spUtil.closeConnection();
+                }
+            } catch (Exception e) {
+                throw new Exception(e.getMessage());
+            }
+        }
+    }
+
+    public String getNextPetroImportNumber(String prefix, int length) throws Exception {
+        String result = "";
+        try {
+            result = this.getNextNumber(prefix, length, "code", "petro_import");
+        } catch (Exception ex) {
+            throw new Exception(ex.getMessage());
+        }
+        return result;
+    }
+
+    public void deletePetroImport(int id) throws Exception {
+        SPUtil spUtil = null;
+        try {
+            String sql = "{call deletePetroImport(?)}";
+            spUtil = new SPUtil(sql);
+            if (spUtil != null) {
+                spUtil.getCallableStatement().setInt("_id", id);
+                spUtil.execute();
+            }
+        } catch (Exception ex) {
+            throw new Exception(ex.getMessage());
+        } finally {
+            try {
+                if (spUtil != null) {
+                    spUtil.closeConnection();
+                }
+            } catch (Exception e) {
+                throw new Exception(e.getMessage());
+            }
+        }
+    }
+
+    public int insertPetroImportDetail(PetroImportDetailBean bean) throws Exception {
+        if (bean == null) {
+            return 0;
+        }
+        int result = 0;
+        SPUtil spUtil = null;
+        try {
+            String sql = "{call insertPetroImportDetail(?,?,?,?,?)}";
+            spUtil = new SPUtil(sql);
+            if (spUtil != null) {
+                spUtil.getCallableStatement().setInt("_petro_import_id", bean.getPetroImportId());
+                spUtil.getCallableStatement().setInt("_petro_id", bean.getPetroId());
+                spUtil.getCallableStatement().setFloat("_quantity", bean.getQuantity());
+                spUtil.getCallableStatement().setDouble("_price", bean.getPrice());
+                spUtil.getCallableStatement().setDouble("_amount", bean.getAmount());
+                spUtil.execute();
+            }
+        } catch (SQLException sqle) {
+            throw new Exception(sqle.getMessage());
+        } catch (Exception ex) {
+            throw new Exception(ex.getMessage());
+        } finally {
+            try {
+                if (spUtil != null) {
+                    spUtil.closeConnection();
+                }
+            } catch (Exception e) {
+                throw new Exception(e.getMessage());
+            }
+        }
+        return result;
+    }
+
+    public void updatePetroImportDetail(PetroImportDetailBean bean) throws Exception {
+        if (bean == null) {
+            return;
+        }
+        SPUtil spUtil = null;
+        try {
+            String sql = "{call updatePetroImportDetail(?,?,?,?)}";
             spUtil = new SPUtil(sql);
             if (spUtil != null) {
                 spUtil.getCallableStatement().setInt("_id", bean.getId());

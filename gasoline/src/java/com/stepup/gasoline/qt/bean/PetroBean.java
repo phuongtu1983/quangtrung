@@ -16,6 +16,7 @@ public class PetroBean {
     private double price;
     private int organizationId;
     private int unitId;
+    private String unitName;
     private int status;
 
     public void setId(int id) {
@@ -72,6 +73,14 @@ public class PetroBean {
 
     public void setOrganizationId(int organizationId) {
         this.organizationId = organizationId;
+    }
+
+    public String getUnitName() {
+        return unitName;
+    }
+
+    public void setUnitName(String unitName) {
+        this.unitName = unitName;
     }
 
 }

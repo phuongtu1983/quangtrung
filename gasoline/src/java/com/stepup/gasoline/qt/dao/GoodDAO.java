@@ -9,17 +9,23 @@ import com.stepup.core.database.DBUtil;
 import com.stepup.core.database.SPUtil;
 import com.stepup.core.util.DateUtil;
 import com.stepup.gasoline.qt.accessory.AccessoryFormBean;
+import com.stepup.gasoline.qt.accessoryimport.AccessoryImportFormBean;
 import com.stepup.gasoline.qt.accessorykind.AccessoryKindFormBean;
 import com.stepup.gasoline.qt.bean.AccessoryBean;
+import com.stepup.gasoline.qt.bean.AccessoryImportBean;
+import com.stepup.gasoline.qt.bean.AccessoryImportDetailBean;
 import com.stepup.gasoline.qt.bean.AccessoryKindBean;
 import com.stepup.gasoline.qt.bean.EmployeeBean;
 import com.stepup.gasoline.qt.bean.PetroBean;
 import com.stepup.gasoline.qt.bean.PromotionMaterialBean;
+import com.stepup.gasoline.qt.bean.PromotionMaterialImportBean;
+import com.stepup.gasoline.qt.bean.PromotionMaterialImportDetailBean;
 import com.stepup.gasoline.qt.bean.ShellBean;
 import com.stepup.gasoline.qt.bean.ShellImportBean;
 import com.stepup.gasoline.qt.bean.ShellKindBean;
 import com.stepup.gasoline.qt.petro.PetroFormBean;
 import com.stepup.gasoline.qt.promotionmaterial.PromotionMaterialFormBean;
+import com.stepup.gasoline.qt.promotionmaterialimport.PromotionMaterialImportFormBean;
 import com.stepup.gasoline.qt.shell.ShellFormBean;
 import com.stepup.gasoline.qt.shellimport.ShellImportFormBean;
 import com.stepup.gasoline.qt.shellkind.ShellKindFormBean;
@@ -497,7 +503,7 @@ public class GoodDAO extends BasicDAO {
 
     public AccessoryBean getAccessory(int accessoryId) throws Exception {
         ResultSet rs = null;
-        String sql = "select * from accessory where id=" + accessoryId;
+        String sql = "select a.*, u.name as unit_name from accessory as a, unit as u where a.unit_id=u.id and a.id=" + accessoryId;
         try {
             rs = DBUtil.executeQuery(sql);
             while (rs.next()) {
@@ -508,6 +514,7 @@ public class GoodDAO extends BasicDAO {
                 bean.setKindId(rs.getInt("kind_id"));
                 bean.setPrice(rs.getDouble("price"));
                 bean.setStatus(rs.getInt("status"));
+                bean.setUnitName(rs.getString("unit_name"));
                 return bean;
             }
         } catch (SQLException sqle) {
@@ -635,7 +642,7 @@ public class GoodDAO extends BasicDAO {
 
     public PromotionMaterialFormBean getPromotionMaterial(int promotionMaterialId) throws Exception {
         ResultSet rs = null;
-        String sql = "select * from promotion_material where id=" + promotionMaterialId;
+        String sql = "select p.*, u.name as unit_name from promotion_material as p, unit as u where p.unit_id=u.id and p.id=" + promotionMaterialId;
         try {
             rs = DBUtil.executeQuery(sql);
             while (rs.next()) {
@@ -643,6 +650,7 @@ public class GoodDAO extends BasicDAO {
                 bean.setId(rs.getInt("id"));
                 bean.setName(rs.getString("name"));
                 bean.setUnitId(rs.getInt("unit_id"));
+                bean.setUnitName(rs.getString("unit_name"));
                 bean.setStatus(rs.getInt("status"));
                 return bean;
             }
@@ -773,7 +781,7 @@ public class GoodDAO extends BasicDAO {
 
     public PetroBean getPetro(int petroId) throws Exception {
         ResultSet rs = null;
-        String sql = "select * from petro where id=" + petroId;
+        String sql = "select p.*, u.name as unit_name from petro as p, unit as u where p.unit_id=u.id and p.id=" + petroId;
         try {
             rs = DBUtil.executeQuery(sql);
             while (rs.next()) {
@@ -782,6 +790,7 @@ public class GoodDAO extends BasicDAO {
                 bean.setCode(rs.getString("code"));
                 bean.setName(rs.getString("name"));
                 bean.setUnitId(rs.getInt("unit_id"));
+                bean.setUnitName(rs.getString("unit_name"));
                 bean.setOrganizationId(rs.getInt("organization_id"));
                 bean.setPrice(rs.getDouble("price"));
                 bean.setStatus(rs.getInt("status"));
@@ -1056,6 +1065,594 @@ public class GoodDAO extends BasicDAO {
                 spUtil.getCallableStatement().setInt("_id", id);
                 spUtil.execute();
             }
+        } catch (Exception ex) {
+            throw new Exception(ex.getMessage());
+        } finally {
+            try {
+                if (spUtil != null) {
+                    spUtil.closeConnection();
+                }
+            } catch (Exception e) {
+                throw new Exception(e.getMessage());
+            }
+        }
+    }
+
+    public ArrayList searchAccessoryImport(String fromDate, String endDate) throws Exception {
+        SPUtil spUtil = null;
+        ArrayList list = new ArrayList();
+        ResultSet rs = null;
+        try {
+            String sql = "{call searchAccessoryImport(?,?)}";
+            if (GenericValidator.isBlankOrNull(fromDate)) {
+                fromDate = DateUtil.today("dd/MM/yyyy");
+            }
+            if (GenericValidator.isBlankOrNull(endDate)) {
+                endDate = this.START_DATE;
+            }
+            spUtil = new SPUtil(sql);
+            if (spUtil != null) {
+                spUtil.getCallableStatement().setString("_start_date", fromDate);
+                spUtil.getCallableStatement().setString("_end_date", endDate);
+                rs = spUtil.executeQuery();
+                if (rs != null) {
+                    AccessoryImportFormBean bean = null;
+                    while (rs.next()) {
+                        bean = new AccessoryImportFormBean();
+                        bean.setId(rs.getInt("id"));
+                        bean.setCode(rs.getString("code"));
+                        bean.setCreatedDate(DateUtil.formatDate(rs.getDate("created_date"), "dd/MM/yyyy"));
+                        bean.setVendorId(rs.getInt("vendor_id"));
+                        bean.setVendorName(rs.getString("vendor_name"));
+                        bean.setTotal(rs.getDouble("total"));
+                        bean.setPaid(rs.getDouble("paid"));
+                        bean.setDebt(rs.getDouble("debt"));
+                        bean.setPaymentMode(rs.getInt("payment_mode"));
+                        bean.setAccountId(rs.getInt("account_id"));
+                        bean.setNote(rs.getString("note"));
+                        list.add(bean);
+                    }
+                }
+            }
+        } catch (SQLException sqle) {
+            throw new Exception(sqle.getMessage());
+        } catch (Exception ex) {
+            throw new Exception(ex.getMessage());
+        } finally {
+            try {
+                if (spUtil != null) {
+                    spUtil.closeConnection();
+                }
+                if (rs != null) {
+                    rs.close();
+                    rs = null;
+                }
+            } catch (Exception e) {
+                throw new Exception(e.getMessage());
+            }
+        }
+        return list;
+    }
+
+    public AccessoryImportBean getAccessoryImport(int id) throws Exception {
+        ResultSet rs = null;
+        String sql = "select *, IF(DATEDIFF(created_date,SYSDATE())=0,1,0) as can_edit from accessory_import where id=" + id;
+        try {
+            rs = DBUtil.executeQuery(sql);
+            while (rs.next()) {
+                AccessoryImportBean bean = new AccessoryImportBean();
+                bean.setId(rs.getInt("id"));
+                bean.setCode(rs.getString("code"));
+                bean.setCreatedDate(DateUtil.formatDate(rs.getDate("created_date"), "dd/MM/yyyy"));
+                bean.setVendorId(rs.getInt("vendor_id"));
+                bean.setTotal(rs.getDouble("total"));
+                bean.setPaid(rs.getDouble("paid"));
+                bean.setDebt(rs.getDouble("debt"));
+                bean.setPaymentMode(rs.getInt("payment_mode"));
+                bean.setAccountId(rs.getInt("account_id"));
+                bean.setNote(rs.getString("note"));
+                bean.setCanEdit(rs.getInt("can_edit"));
+                return bean;
+            }
+        } catch (SQLException sqle) {
+            throw new Exception(sqle.getMessage());
+        } catch (Exception ex) {
+            throw new Exception(ex.getMessage());
+        } finally {
+            if (rs != null) {
+                DBUtil.closeConnection(rs);
+            }
+        }
+        return null;
+    }
+
+    public ArrayList getAccessoryImportDetail(int accessoryImportId) throws Exception {
+        ResultSet rs = null;
+        String sql = "select det.*, s.name as accessory_name"
+                + " from accessory_import_detail as det, accessory as s"
+                + " where det.accessory_id=s.id and det.accessory_import_id=" + accessoryImportId;
+        ArrayList detailList = new ArrayList();
+        try {
+            rs = DBUtil.executeQuery(sql);
+            AccessoryImportDetailBean bean = null;
+            while (rs.next()) {
+                bean = new AccessoryImportDetailBean();
+                bean.setId(rs.getInt("id"));
+                bean.setAccessoryImportId(rs.getInt("accessory_import_id"));
+                bean.setQuantity(rs.getFloat("quantity"));
+                bean.setPrice(rs.getDouble("price"));
+                bean.setAmount(rs.getDouble("amount"));
+                bean.setAccessoryId(rs.getInt("accessory_id"));
+                bean.setAccessoryName(rs.getString("accessory_name"));
+                detailList.add(bean);
+            }
+        } catch (SQLException sqle) {
+            throw new Exception(sqle.getMessage());
+        } catch (Exception ex) {
+            throw new Exception(ex.getMessage());
+        } finally {
+            if (rs != null) {
+                DBUtil.closeConnection(rs);
+            }
+        }
+        return detailList;
+    }
+
+    public int insertAccessoryImport(AccessoryImportBean bean) throws Exception {
+        if (bean == null) {
+            return 0;
+        }
+        int result = 0;
+        SPUtil spUtil = null;
+        try {
+            String createdDate = "";
+            if (GenericValidator.isBlankOrNull(bean.getCreatedDate())) {
+                createdDate = "null";
+            } else {
+                createdDate = bean.getCreatedDate();
+            }
+            String sql = "{call insertAccessoryImport(?,?,?,?,?,?,?,?,?,?)}";
+            spUtil = new SPUtil(sql);
+            if (spUtil != null) {
+                spUtil.getCallableStatement().setString("_code", bean.getCode());
+                spUtil.getCallableStatement().setString("_created_date", createdDate);
+                spUtil.getCallableStatement().setInt("_vendor_id", bean.getVendorId());
+                spUtil.getCallableStatement().setDouble("_total", bean.getTotal());
+                spUtil.getCallableStatement().setDouble("_paid", bean.getPaid());
+                spUtil.getCallableStatement().setDouble("_debt", bean.getDebt());
+                spUtil.getCallableStatement().setInt("_payment_mode", bean.getPaymentMode());
+                spUtil.getCallableStatement().setInt("_account_id", bean.getAccountId());
+                spUtil.getCallableStatement().setString("_note", bean.getNote());
+                spUtil.getCallableStatement().registerOutParameter("_id", Types.INTEGER);
+                spUtil.execute();
+                result = spUtil.getCallableStatement().getInt("_id");
+            }
+        } catch (SQLException sqle) {
+            throw new Exception(sqle.getMessage());
+        } catch (Exception ex) {
+            throw new Exception(ex.getMessage());
+        } finally {
+            try {
+                if (spUtil != null) {
+                    spUtil.closeConnection();
+                }
+            } catch (Exception e) {
+                throw new Exception(e.getMessage());
+            }
+        }
+        return result;
+    }
+
+    public void updateAccessoryImport(AccessoryImportBean bean) throws Exception {
+        if (bean == null) {
+            return;
+        }
+        SPUtil spUtil = null;
+        try {
+            String sql = "{call updateAccessoryImport(?,?,?,?,?,?,?,?)}";
+            spUtil = new SPUtil(sql);
+            if (spUtil != null) {
+                spUtil.getCallableStatement().setInt("_id", bean.getId());
+                spUtil.getCallableStatement().setInt("_vendor_id", bean.getVendorId());
+                spUtil.getCallableStatement().setDouble("_total", bean.getTotal());
+                spUtil.getCallableStatement().setDouble("_paid", bean.getPaid());
+                spUtil.getCallableStatement().setDouble("_debt", bean.getDebt());
+                spUtil.getCallableStatement().setInt("_payment_mode", bean.getPaymentMode());
+                spUtil.getCallableStatement().setInt("_account_id", bean.getAccountId());
+                spUtil.getCallableStatement().setString("_note", bean.getNote());
+                spUtil.execute();
+            }
+        } catch (SQLException sqle) {
+            throw new Exception(sqle.getMessage());
+        } catch (Exception ex) {
+            throw new Exception(ex.getMessage());
+        } finally {
+            try {
+                if (spUtil != null) {
+                    spUtil.closeConnection();
+                }
+            } catch (Exception e) {
+                throw new Exception(e.getMessage());
+            }
+        }
+    }
+
+    public String getNextAccessoryImportNumber(String prefix, int length) throws Exception {
+        String result = "";
+        try {
+            result = this.getNextNumber(prefix, length, "code", "accessory_import");
+        } catch (Exception ex) {
+            throw new Exception(ex.getMessage());
+        }
+        return result;
+    }
+
+    public void deleteAccessoryImport(int id) throws Exception {
+        SPUtil spUtil = null;
+        try {
+            String sql = "{call deleteAccessoryImport(?)}";
+            spUtil = new SPUtil(sql);
+            if (spUtil != null) {
+                spUtil.getCallableStatement().setInt("_id", id);
+                spUtil.execute();
+            }
+        } catch (Exception ex) {
+            throw new Exception(ex.getMessage());
+        } finally {
+            try {
+                if (spUtil != null) {
+                    spUtil.closeConnection();
+                }
+            } catch (Exception e) {
+                throw new Exception(e.getMessage());
+            }
+        }
+    }
+
+    public int insertAccessoryImportDetail(AccessoryImportDetailBean bean) throws Exception {
+        if (bean == null) {
+            return 0;
+        }
+        int result = 0;
+        SPUtil spUtil = null;
+        try {
+            String sql = "{call insertAccessoryImportDetail(?,?,?,?,?)}";
+            spUtil = new SPUtil(sql);
+            if (spUtil != null) {
+                spUtil.getCallableStatement().setInt("_accessory_import_id", bean.getAccessoryImportId());
+                spUtil.getCallableStatement().setInt("_accessory_id", bean.getAccessoryId());
+                spUtil.getCallableStatement().setFloat("_quantity", bean.getQuantity());
+                spUtil.getCallableStatement().setDouble("_price", bean.getPrice());
+                spUtil.getCallableStatement().setDouble("_amount", bean.getAmount());
+                spUtil.execute();
+            }
+        } catch (SQLException sqle) {
+            throw new Exception(sqle.getMessage());
+        } catch (Exception ex) {
+            throw new Exception(ex.getMessage());
+        } finally {
+            try {
+                if (spUtil != null) {
+                    spUtil.closeConnection();
+                }
+            } catch (Exception e) {
+                throw new Exception(e.getMessage());
+            }
+        }
+        return result;
+    }
+
+    public void updateAccessoryImportDetail(AccessoryImportDetailBean bean) throws Exception {
+        if (bean == null) {
+            return;
+        }
+        SPUtil spUtil = null;
+        try {
+            String sql = "{call updateAccessoryImportDetail(?,?,?,?)}";
+            spUtil = new SPUtil(sql);
+            if (spUtil != null) {
+                spUtil.getCallableStatement().setInt("_id", bean.getId());
+                spUtil.getCallableStatement().setFloat("_quantity", bean.getQuantity());
+                spUtil.getCallableStatement().setDouble("_price", bean.getPrice());
+                spUtil.getCallableStatement().setDouble("_amount", bean.getAmount());
+                spUtil.execute();
+            }
+        } catch (SQLException sqle) {
+            throw new Exception(sqle.getMessage());
+        } catch (Exception ex) {
+            throw new Exception(ex.getMessage());
+        } finally {
+            try {
+                if (spUtil != null) {
+                    spUtil.closeConnection();
+                }
+            } catch (Exception e) {
+                throw new Exception(e.getMessage());
+            }
+        }
+    }
+
+    public ArrayList searchPromotionMaterialImport(String fromDate, String endDate) throws Exception {
+        SPUtil spUtil = null;
+        ArrayList list = new ArrayList();
+        ResultSet rs = null;
+        try {
+            String sql = "{call searchPromotionMaterialImport(?,?)}";
+            if (GenericValidator.isBlankOrNull(fromDate)) {
+                fromDate = DateUtil.today("dd/MM/yyyy");
+            }
+            if (GenericValidator.isBlankOrNull(endDate)) {
+                endDate = this.START_DATE;
+            }
+            spUtil = new SPUtil(sql);
+            if (spUtil != null) {
+                spUtil.getCallableStatement().setString("_start_date", fromDate);
+                spUtil.getCallableStatement().setString("_end_date", endDate);
+                rs = spUtil.executeQuery();
+                if (rs != null) {
+                    PromotionMaterialImportFormBean bean = null;
+                    while (rs.next()) {
+                        bean = new PromotionMaterialImportFormBean();
+                        bean.setId(rs.getInt("id"));
+                        bean.setCode(rs.getString("code"));
+                        bean.setCreatedDate(DateUtil.formatDate(rs.getDate("created_date"), "dd/MM/yyyy"));
+                        bean.setVendorId(rs.getInt("vendor_id"));
+                        bean.setVendorName(rs.getString("vendor_name"));
+                        bean.setTotal(rs.getDouble("total"));
+                        bean.setPaid(rs.getDouble("paid"));
+                        bean.setDebt(rs.getDouble("debt"));
+                        bean.setPaymentMode(rs.getInt("payment_mode"));
+                        bean.setAccountId(rs.getInt("account_id"));
+                        bean.setNote(rs.getString("note"));
+                        list.add(bean);
+                    }
+                }
+            }
+        } catch (SQLException sqle) {
+            throw new Exception(sqle.getMessage());
+        } catch (Exception ex) {
+            throw new Exception(ex.getMessage());
+        } finally {
+            try {
+                if (spUtil != null) {
+                    spUtil.closeConnection();
+                }
+                if (rs != null) {
+                    rs.close();
+                    rs = null;
+                }
+            } catch (Exception e) {
+                throw new Exception(e.getMessage());
+            }
+        }
+        return list;
+    }
+
+    public PromotionMaterialImportBean getPromotionMaterialImport(int id) throws Exception {
+        ResultSet rs = null;
+        String sql = "select *, IF(DATEDIFF(created_date,SYSDATE())=0,1,0) as can_edit from promotion_material_import where id=" + id;
+        try {
+            rs = DBUtil.executeQuery(sql);
+            while (rs.next()) {
+                PromotionMaterialImportBean bean = new PromotionMaterialImportBean();
+                bean.setId(rs.getInt("id"));
+                bean.setCode(rs.getString("code"));
+                bean.setCreatedDate(DateUtil.formatDate(rs.getDate("created_date"), "dd/MM/yyyy"));
+                bean.setVendorId(rs.getInt("vendor_id"));
+                bean.setTotal(rs.getDouble("total"));
+                bean.setPaid(rs.getDouble("paid"));
+                bean.setDebt(rs.getDouble("debt"));
+                bean.setPaymentMode(rs.getInt("payment_mode"));
+                bean.setAccountId(rs.getInt("account_id"));
+                bean.setNote(rs.getString("note"));
+                bean.setCanEdit(rs.getInt("can_edit"));
+                return bean;
+            }
+        } catch (SQLException sqle) {
+            throw new Exception(sqle.getMessage());
+        } catch (Exception ex) {
+            throw new Exception(ex.getMessage());
+        } finally {
+            if (rs != null) {
+                DBUtil.closeConnection(rs);
+            }
+        }
+        return null;
+    }
+
+    public ArrayList getPromotionMaterialImportDetail(int promotionMaterialImportId) throws Exception {
+        ResultSet rs = null;
+        String sql = "select det.*, s.name as promotion_material_name"
+                + " from promotion_material_import_detail as det, promotion_material as s"
+                + " where det.promotion_material_id=s.id and det.import_id=" + promotionMaterialImportId;
+        ArrayList detailList = new ArrayList();
+        try {
+            rs = DBUtil.executeQuery(sql);
+            PromotionMaterialImportDetailBean bean = null;
+            while (rs.next()) {
+                bean = new PromotionMaterialImportDetailBean();
+                bean.setId(rs.getInt("id"));
+                bean.setPromotionMaterialImportId(rs.getInt("import_id"));
+                bean.setQuantity(rs.getFloat("quantity"));
+                bean.setPrice(rs.getDouble("price"));
+                bean.setAmount(rs.getDouble("amount"));
+                bean.setPromotionMaterialId(rs.getInt("promotion_material_id"));
+                bean.setPromotionMaterialName(rs.getString("promotion_material_name"));
+                detailList.add(bean);
+            }
+        } catch (SQLException sqle) {
+            throw new Exception(sqle.getMessage());
+        } catch (Exception ex) {
+            throw new Exception(ex.getMessage());
+        } finally {
+            if (rs != null) {
+                DBUtil.closeConnection(rs);
+            }
+        }
+        return detailList;
+    }
+
+    public int insertPromotionMaterialImport(PromotionMaterialImportBean bean) throws Exception {
+        if (bean == null) {
+            return 0;
+        }
+        int result = 0;
+        SPUtil spUtil = null;
+        try {
+            String createdDate = "";
+            if (GenericValidator.isBlankOrNull(bean.getCreatedDate())) {
+                createdDate = "null";
+            } else {
+                createdDate = bean.getCreatedDate();
+            }
+            String sql = "{call insertPromotionMaterialImport(?,?,?,?,?,?,?,?,?,?)}";
+            spUtil = new SPUtil(sql);
+            if (spUtil != null) {
+                spUtil.getCallableStatement().setString("_code", bean.getCode());
+                spUtil.getCallableStatement().setString("_created_date", createdDate);
+                spUtil.getCallableStatement().setInt("_vendor_id", bean.getVendorId());
+                spUtil.getCallableStatement().setDouble("_total", bean.getTotal());
+                spUtil.getCallableStatement().setDouble("_paid", bean.getPaid());
+                spUtil.getCallableStatement().setDouble("_debt", bean.getDebt());
+                spUtil.getCallableStatement().setInt("_payment_mode", bean.getPaymentMode());
+                spUtil.getCallableStatement().setInt("_account_id", bean.getAccountId());
+                spUtil.getCallableStatement().setString("_note", bean.getNote());
+                spUtil.getCallableStatement().registerOutParameter("_id", Types.INTEGER);
+                spUtil.execute();
+                result = spUtil.getCallableStatement().getInt("_id");
+            }
+        } catch (SQLException sqle) {
+            throw new Exception(sqle.getMessage());
+        } catch (Exception ex) {
+            throw new Exception(ex.getMessage());
+        } finally {
+            try {
+                if (spUtil != null) {
+                    spUtil.closeConnection();
+                }
+            } catch (Exception e) {
+                throw new Exception(e.getMessage());
+            }
+        }
+        return result;
+    }
+
+    public void updatePromotionMaterialImport(PromotionMaterialImportBean bean) throws Exception {
+        if (bean == null) {
+            return;
+        }
+        SPUtil spUtil = null;
+        try {
+            String sql = "{call updatePromotionMaterialImport(?,?,?,?,?,?,?,?)}";
+            spUtil = new SPUtil(sql);
+            if (spUtil != null) {
+                spUtil.getCallableStatement().setInt("_id", bean.getId());
+                spUtil.getCallableStatement().setInt("_vendor_id", bean.getVendorId());
+                spUtil.getCallableStatement().setDouble("_total", bean.getTotal());
+                spUtil.getCallableStatement().setDouble("_paid", bean.getPaid());
+                spUtil.getCallableStatement().setDouble("_debt", bean.getDebt());
+                spUtil.getCallableStatement().setInt("_payment_mode", bean.getPaymentMode());
+                spUtil.getCallableStatement().setInt("_account_id", bean.getAccountId());
+                spUtil.getCallableStatement().setString("_note", bean.getNote());
+                spUtil.execute();
+            }
+        } catch (SQLException sqle) {
+            throw new Exception(sqle.getMessage());
+        } catch (Exception ex) {
+            throw new Exception(ex.getMessage());
+        } finally {
+            try {
+                if (spUtil != null) {
+                    spUtil.closeConnection();
+                }
+            } catch (Exception e) {
+                throw new Exception(e.getMessage());
+            }
+        }
+    }
+
+    public String getNextPromotionMaterialImportNumber(String prefix, int length) throws Exception {
+        String result = "";
+        try {
+            result = this.getNextNumber(prefix, length, "code", "promotion_material_import");
+        } catch (Exception ex) {
+            throw new Exception(ex.getMessage());
+        }
+        return result;
+    }
+
+    public void deletePromotionMaterialImport(int id) throws Exception {
+        SPUtil spUtil = null;
+        try {
+            String sql = "{call deletePromotionMaterialImport(?)}";
+            spUtil = new SPUtil(sql);
+            if (spUtil != null) {
+                spUtil.getCallableStatement().setInt("_id", id);
+                spUtil.execute();
+            }
+        } catch (Exception ex) {
+            throw new Exception(ex.getMessage());
+        } finally {
+            try {
+                if (spUtil != null) {
+                    spUtil.closeConnection();
+                }
+            } catch (Exception e) {
+                throw new Exception(e.getMessage());
+            }
+        }
+    }
+
+    public int insertPromotionMaterialImportDetail(PromotionMaterialImportDetailBean bean) throws Exception {
+        if (bean == null) {
+            return 0;
+        }
+        int result = 0;
+        SPUtil spUtil = null;
+        try {
+            String sql = "{call insertPromotionMaterialImportDetail(?,?,?,?,?)}";
+            spUtil = new SPUtil(sql);
+            if (spUtil != null) {
+                spUtil.getCallableStatement().setInt("_promotion_material_import_id", bean.getPromotionMaterialImportId());
+                spUtil.getCallableStatement().setInt("_promotion_material_id", bean.getPromotionMaterialId());
+                spUtil.getCallableStatement().setFloat("_quantity", bean.getQuantity());
+                spUtil.getCallableStatement().setDouble("_price", bean.getPrice());
+                spUtil.getCallableStatement().setDouble("_amount", bean.getAmount());
+                spUtil.execute();
+            }
+        } catch (SQLException sqle) {
+            throw new Exception(sqle.getMessage());
+        } catch (Exception ex) {
+            throw new Exception(ex.getMessage());
+        } finally {
+            try {
+                if (spUtil != null) {
+                    spUtil.closeConnection();
+                }
+            } catch (Exception e) {
+                throw new Exception(e.getMessage());
+            }
+        }
+        return result;
+    }
+
+    public void updatePromotionMaterialImportDetail(PromotionMaterialImportDetailBean bean) throws Exception {
+        if (bean == null) {
+            return;
+        }
+        SPUtil spUtil = null;
+        try {
+            String sql = "{call updatePromotionMaterialImportDetail(?,?,?,?)}";
+            spUtil = new SPUtil(sql);
+            if (spUtil != null) {
+                spUtil.getCallableStatement().setInt("_id", bean.getId());
+                spUtil.getCallableStatement().setFloat("_quantity", bean.getQuantity());
+                spUtil.getCallableStatement().setDouble("_price", bean.getPrice());
+                spUtil.getCallableStatement().setDouble("_amount", bean.getAmount());
+                spUtil.execute();
+            }
+        } catch (SQLException sqle) {
+            throw new Exception(sqle.getMessage());
         } catch (Exception ex) {
             throw new Exception(ex.getMessage());
         } finally {

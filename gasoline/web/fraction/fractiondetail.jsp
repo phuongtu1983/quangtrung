@@ -54,7 +54,9 @@
                 </logic:equal>
                 <logic:notEqual name="<%=Constants.FRACTION%>" property="id" value="0">
                     <%if (PermissionUtil.hasPermission(request, PermissionUtil.OPERATION_EDIT, PermissionUtil.PER_FRACTION)) {%> 
-                    <button class="i_create_write icon small green" onclick="return saveFraction();"><bean:message key="message.save"/></button>
+                    <logic:equal name="<%=Constants.FRACTION%>" property="canEdit" value="1">
+                        <button class="i_create_write icon small green" onclick="return saveFraction();"><bean:message key="message.save"/></button>
+                    </logic:equal>
                     <%}%>
                 </logic:notEqual>
                 <logic:greaterThan name="<%=Constants.FRACTION%>" property="id" value="0">

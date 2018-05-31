@@ -53,7 +53,9 @@
                         </logic:equal>
                         <logic:notEqual name="<%=Constants.SHELL_IMPORT%>" property="id" value="0">
                             <%if (PermissionUtil.hasPermission(request, PermissionUtil.OPERATION_EDIT, PermissionUtil.PER_SHELL_IMPORT)) {%> 
-                            <button class="i_create_write icon small green" onclick="return saveShellImport();"><bean:message key="message.save"/></button>
+                            <logic:equal name="<%=Constants.SHELL_IMPORT%>" property="canEdit" value="1">
+                                <button class="i_create_write icon small green" onclick="return saveShellImport();"><bean:message key="message.save"/></button>
+                            </logic:equal>
                             <%}%>
                         </logic:notEqual>
                         <logic:greaterThan name="<%=Constants.SHELL_IMPORT%>" property="id" value="0">
