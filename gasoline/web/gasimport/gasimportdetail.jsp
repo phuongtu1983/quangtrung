@@ -9,10 +9,10 @@
 <form name="gasImportForm">
     <table style="width: 100%">
         <tr>
-            <td width="160" height="30"><bean:message key="gasImport.detail.code"/></td>
+            <td width="160" height="30"><bean:message key="code.title"/></td>
             <td width="160"><html:text property="code" size="30" name="<%=Constants.GAS_IMPORT%>" readonly="true"/></td>
             <td width="170"  style="padding-right: 20px;padding-left: 10px"><bean:message key="date.title"/></td>
-            <td><html:text property="createdDate" size="30" name="<%=Constants.GAS_IMPORT%>" styleId="gasImportCreatedDate"/></td>
+            <td><html:text property="createdDate" size="30" name="<%=Constants.GAS_IMPORT%>" styleId="gasImportCreatedDate" readonly="true"/></td>
         </tr>
         <tr>
             <td height="30" style="padding-right: 20px"><bean:message key="vendor.title"/></td>
@@ -36,7 +36,7 @@
         </tr>
         <tr>
             <td height="30" style="padding-right: 20px"><bean:message key="paid.title"/></td>
-            <td><html:text property="paid" size="30" name="<%=Constants.GAS_IMPORT%>" onblur="return gasImportPaidChanged();" onkeyup="try2FloatFormatOnKeyUp(this,event);" onkeypress="return readonlyFloat(event);"/></td>
+            <td><html:text property="paid" size="30" name="<%=Constants.GAS_IMPORT%>" onblur="return formPaidChanged('gasImportForm');" onkeyup="try2FloatFormatOnKeyUp(this,event);" onkeypress="return readonlyFloat(event);"/></td>
             <td style="padding-right: 20px;padding-left: 10px"><bean:message key="debt.title"/></td>
             <td><html:text property="debt" size="30" name="<%=Constants.GAS_IMPORT%>" readonly="true"/></td>
         </tr>

@@ -9,10 +9,10 @@
 <form name="accessoryImportForm">
     <table style="width: 100%">
         <tr>
-            <td width="160" height="30"><bean:message key="accessoryImport.detail.code"/></td>
+            <td width="160" height="30"><bean:message key="code.title"/></td>
             <td width="160"><html:text property="code" size="30" name="<%=Constants.ACCESSORY_IMPORT%>" readonly="true"/></td>
             <td width="170"  style="padding-right: 20px;padding-left: 10px"><bean:message key="date.title"/></td>
-            <td><html:text property="createdDate" size="30" name="<%=Constants.ACCESSORY_IMPORT%>" styleId="accessoryImportCreatedDate"/></td>
+            <td><html:text property="createdDate" size="30" name="<%=Constants.ACCESSORY_IMPORT%>" styleId="accessoryImportCreatedDate" readonly="true"/></td>
         </tr>
         <tr>
             <td height="30" style="padding-right: 20px"><bean:message key="vendor.title"/></td>
@@ -26,7 +26,7 @@
         </tr>
         <tr>
             <td height="30" style="padding-right: 20px"><bean:message key="paid.title"/></td>
-            <td><html:text property="paid" size="30" name="<%=Constants.ACCESSORY_IMPORT%>" onblur="return accessoryImportPaidChanged();" onkeyup="try2FloatFormatOnKeyUp(this,event);" onkeypress="return readonlyFloat(event);"/></td>
+            <td><html:text property="paid" size="30" name="<%=Constants.ACCESSORY_IMPORT%>" onblur="return formPaidChanged('accessoryImportForm');" onkeyup="try2FloatFormatOnKeyUp(this,event);" onkeypress="return readonlyFloat(event);"/></td>
             <td style="padding-right: 20px;padding-left: 10px"><bean:message key="debt.title"/></td>
             <td><html:text property="debt" size="30" name="<%=Constants.ACCESSORY_IMPORT%>" readonly="true"/></td>
         </tr>

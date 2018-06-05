@@ -61,6 +61,7 @@
         <form-bean name="petroImportForm" type="com.stepup.gasoline.qt.petroimport.PetroImportFormBean"/>
         <form-bean name="accessoryImportForm" type="com.stepup.gasoline.qt.accessoryimport.AccessoryImportFormBean"/>
         <form-bean name="promotionMaterialImportForm" type="com.stepup.gasoline.qt.promotionmaterialimport.PromotionMaterialImportFormBean"/>
+        <form-bean name="gasWholesaleForm" type="com.stepup.gasoline.qt.gaswholesale.GasWholesaleFormBean"/>
     </form-beans>
     
     <global-exceptions>
@@ -554,6 +555,29 @@
         <action path="/delPetroImport" type="com.stepup.gasoline.qt.petroimport.DeletePetroImportAction" scope="request" validate="false" >
         </action>
         <!-- end petroimport -->
+        <!-- start gas wholesale -->
+        <action path="/getGasWholesalePanel" type="com.stepup.gasoline.qt.common.BaseFormAction" scope="request" validate="false">
+            <forward name="success" path="/gaswholesale/gaswholesalepanel.jsp" />
+        </action>
+        <action path="/getGasWholesaleList" type="com.stepup.gasoline.qt.gaswholesale.GetGasWholesaleListAction" scope="request" validate="false" >
+        </action>
+        <action path="/gasWholesaleForm" type="com.stepup.gasoline.qt.gaswholesale.GasWholesaleFormAction" scope="request" validate="false">
+            <forward name="success" path="/gaswholesale/gaswholesaledetail.jsp" />
+        </action>
+        <action path="/addGasWholesale" name ="gasWholesaleForm" scope="request" type="com.stepup.gasoline.qt.gaswholesale.AddGasWholesaleAction" input="/gasWholesaleForm.do">
+        </action>
+        <action path="/getGasWholesaleShell" type="com.stepup.gasoline.qt.gaswholesale.GetGasWholesaleShellAction" scope="request" validate="false">
+            <forward name="success" path="/gaswholesale/shells.jsp" />
+        </action>
+        <action path="/delGasWholesale" type="com.stepup.gasoline.qt.gaswholesale.DeleteGasWholesaleAction" scope="request" validate="false" >
+        </action>
+        <action path="/getGasWholesalePromotionMaterial" type="com.stepup.gasoline.qt.gaswholesale.GetGasWholesalePromotionMaterialAction" scope="request" validate="false">
+            <forward name="success" path="/gaswholesale/promotionmaterials.jsp" />
+        </action>
+        <action path="/getGasWholesaleReturnShell" type="com.stepup.gasoline.qt.gaswholesale.GetGasWholesaleReturnShellAction" scope="request" validate="false">
+            <forward name="success" path="/gaswholesale/returnshells.jsp" />
+        </action>
+        <!-- end gas wholesale -->
     </action-mappings>
     
     <controller processorClass="org.apache.struts.tiles.TilesRequestProcessor"/>

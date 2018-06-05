@@ -11,10 +11,10 @@
             <tr><td>
                     <table cellspacing="0" cellpadding="0" style="border-width: 0px">
                         <tr>
-                            <td height="30" style="padding-right: 20px"><bean:message key="lpgImport.detail.code"/></td>
+                            <td height="30" style="padding-right: 20px"><bean:message key="code.title"/></td>
                             <td><html:text property="code" size="30" name="<%=Constants.LPG_IMPORT%>" readonly="true"/></td>
                             <td style="padding-right: 20px;padding-left: 10px"><bean:message key="date.title"/></td>
-                            <td><html:text property="importDate" styleId="lpgImportDate" size="30" name="<%=Constants.LPG_IMPORT%>"/></td>
+                            <td><html:text property="importDate" styleId="lpgImportDate" size="30" name="<%=Constants.LPG_IMPORT%>" readonly="true"/></td>
                         </tr>
                         <tr>
                             <td height="30" style="padding-right: 20px"><bean:message key="vendor.title"/></td>
@@ -43,7 +43,7 @@
                             <td height="30" style="padding-right: 20px"><bean:message key="amount.title"/></td>
                             <td><html:text property="amount" size="30" name="<%=Constants.LPG_IMPORT%>" readonly="true"/></td>
                             <td style="padding-right: 20px;padding-left: 10px"><bean:message key="paid.title"/></td>
-                            <td><html:text property="paid" size="30" name="<%=Constants.LPG_IMPORT%>" onblur="return lpgImportCaculateDebt();" onkeyup="try2FloatFormatOnKeyUp(this,event);" onkeypress="return readonlyFloat(event);"/></td>
+                            <td><html:text property="paid" size="30" name="<%=Constants.LPG_IMPORT%>" onblur="return formPaidChanged('lpgImportForm');" onkeyup="try2FloatFormatOnKeyUp(this,event);" onkeypress="return readonlyFloat(event);"/></td>
                         </tr>
                         <tr>
                             <td height="30" style="padding-right: 20px"><bean:message key="debt.title"/></td>

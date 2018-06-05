@@ -333,7 +333,7 @@ public class GenerateMenu {
             if (isHasPermission(PermissionUtil.OPERATION_LIST + "," + PermissionUtil.OPERATION_ADD,
                     PermissionUtil.PER_SHELL_IMPORT + "," + PermissionUtil.PER_LPG_IMPORT + "," + PermissionUtil.PER_FRACTION + "," + PermissionUtil.PER_GAS_PRICE
                     + "," + PermissionUtil.PER_GAS_IMPORT + "," + PermissionUtil.PER_ACCESSORY_IMPORT + "," + PermissionUtil.PER_PROMOTION_MATERIAL_IMPORT
-                    + "," + PermissionUtil.PER_PETRO_IMPORT)) {
+                    + "," + PermissionUtil.PER_PETRO_IMPORT + "," + PermissionUtil.PER_GAS_WHOLESALE)) {
                 if (isHasPermission(PermissionUtil.OPERATION_LIST + "," + PermissionUtil.OPERATION_ADD, PermissionUtil.PER_SHELL_IMPORT)) {
                     buffTemp.append("<item id=\"shellimports\" complex=\"true\" text=\"").append(QTUtil.getBundleString("shellImport.title")).append("\">");
                     if (isHasPermission(PermissionUtil.OPERATION_LIST, PermissionUtil.PER_SHELL_IMPORT)) {
@@ -411,6 +411,16 @@ public class GenerateMenu {
                     }
                     if (isHasPermission(PermissionUtil.OPERATION_ADD, PermissionUtil.PER_PETRO_IMPORT)) {
                         buffTemp.append("<item id=\"petroimportadd\" text=\"").append(QTUtil.getBundleString("petroImport.detail.add.title")).append("\"/>");
+                    }
+                    buffTemp.append("</item>");
+                }
+                if (isHasPermission(PermissionUtil.OPERATION_LIST + "," + PermissionUtil.OPERATION_ADD, PermissionUtil.PER_GAS_WHOLESALE)) {
+                    buffTemp.append("<item id=\"gaswholesales\" complex=\"true\" text=\"").append(QTUtil.getBundleString("gasWholesale.title")).append("\">");
+                    if (isHasPermission(PermissionUtil.OPERATION_LIST, PermissionUtil.PER_GAS_WHOLESALE)) {
+                        buffTemp.append("<item id=\"gaswholesalelist\" text=\"").append(QTUtil.getBundleString("gasWholesale.list.title")).append("\"/>");
+                    }
+                    if (isHasPermission(PermissionUtil.OPERATION_ADD, PermissionUtil.PER_GAS_WHOLESALE)) {
+                        buffTemp.append("<item id=\"gaswholesaleadd\" text=\"").append(QTUtil.getBundleString("gasWholesale.detail.add.title")).append("\"/>");
                     }
                     buffTemp.append("</item>");
                 }

@@ -6,6 +6,7 @@
 package com.stepup.gasoline.qt.dao;
 
 import com.stepup.core.database.DBUtil;
+import com.stepup.core.util.StringUtil;
 import com.stepup.gasoline.qt.bean.EmployeeBean;
 import com.stepup.gasoline.qt.bean.CustomerBean;
 import com.stepup.gasoline.qt.util.QTUtil;
@@ -25,6 +26,51 @@ public class CustomerDAO extends BasicDAO {
         String sql = "select c.*, o.name as organization_name from customer as c, organization as o where c.organization_id=o.id and o.status=" + EmployeeBean.STATUS_ACTIVE;
         if (status != 0) {
             sql += " and c.status=" + status;
+        }
+        sql += " order by c.name desc";
+        ArrayList customerList = new ArrayList();
+        try {
+            rs = DBUtil.executeQuery(sql);
+            CustomerFormBean bean = null;
+            while (rs.next()) {
+                bean = new CustomerFormBean();
+                bean.setId(rs.getInt("id"));
+                bean.setName(rs.getString("name"));
+                bean.setCode(rs.getString("code"));
+                bean.setOrganizationId(rs.getInt("organization_id"));
+                bean.setOrganizationName(rs.getString("organization_name"));
+                bean.setStatus(rs.getInt("status"));
+                if (bean.getStatus() == EmployeeBean.STATUS_ACTIVE) {
+                    bean.setStatusName(QTUtil.getBundleString("employee.detail.status.active"));
+                } else if (bean.getStatus() == EmployeeBean.STATUS_INACTIVE) {
+                    bean.setStatusName(QTUtil.getBundleString("employee.detail.status.inactive"));
+                }
+                bean.setKind(rs.getInt("kind"));
+                if (bean.getKind() == CustomerBean.KIND_RETAIL) {
+                    bean.setKindName(QTUtil.getBundleString("customer.detail.kind.retail"));
+                } else if (bean.getKind() == CustomerBean.KIND_WHOLESALE) {
+                    bean.setKindName(QTUtil.getBundleString("customer.detail.kind.wholesale"));
+                }
+                customerList.add(bean);
+            }
+        } catch (SQLException sqle) {
+            throw new Exception(sqle.getMessage());
+        } catch (Exception ex) {
+            throw new Exception(ex.getMessage());
+        } finally {
+            if (rs != null) {
+                DBUtil.closeConnection(rs);
+            }
+        }
+        return customerList;
+    }
+
+    public ArrayList getCustomers(String organizationIds) throws Exception {
+        ResultSet rs = null;
+        String sql = "select c.*, o.name as organization_name from customer as c, organization as o where c.organization_id=o.id and o.status=" + EmployeeBean.STATUS_ACTIVE
+                + " and c.status=" + EmployeeBean.STATUS_ACTIVE;
+        if (!StringUtil.isBlankOrNull(organizationIds)) {
+            sql += " and c.organization_id in (" + organizationIds + ")";
         }
         sql += " order by c.name desc";
         ArrayList customerList = new ArrayList();

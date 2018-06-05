@@ -9,10 +9,10 @@
 <form name="fractionForm">
     <table style="width: 100%">
         <tr>
-            <td width="80" height="30"><bean:message key="fraction.detail.code"/></td>
+            <td width="80" height="30"><bean:message key="code.title"/></td>
             <td width="160"><html:text property="code" size="20" name="<%=Constants.FRACTION%>" readonly="true"/></td>
             <td width="100"><bean:message key="date.title"/></td>
-            <td><html:text property="createdDate" size="10" name="<%=Constants.FRACTION%>" styleId="fractionCreatedDate"/></td>
+            <td><html:text property="createdDate" size="10" name="<%=Constants.FRACTION%>" styleId="fractionCreatedDate" readonly="true"/></td>
         </tr>
         <tr>
             <td height="30"><bean:message key="note.title"/></td>

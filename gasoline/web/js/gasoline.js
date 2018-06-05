@@ -157,6 +157,10 @@ function menuClick(id) {
         loadPetroImportPanel();
     else if (id == 'petroimportadd')
         getPetroImport(0);
+    else if (id == 'gaswholesalelist')
+        loadGasWholesalePanel();
+    else if (id == 'gaswholesaleadd')
+        getGasWholesale(0);
 }
 function clearContent() {
     var contentDiv = document.getElementById("contentDiv");
@@ -165,6 +169,134 @@ function clearContent() {
         contentDiv = null;
     }
     clearPopupForm('');
+}
+function formPaidChanged(formName) {
+    var total = document.forms[formName].total;
+    var paid = document.forms[formName].paid;
+    var debt = document.forms[formName].debt;
+    if (total == null || paid == null || debt == null)
+        return false;
+    debt.value = reformatNumberMoneyString(total.value) * 1 - reformatNumberMoneyString(paid.value) * 1;
+    tryNumberFormatCurrentcy(total, "VND");
+    tryNumberFormatCurrentcy(paid, "VND");
+    tryNumberFormatCurrentcy(debt, "VND");
+    total = null;
+    paid = null;
+    debt = null;
+    return false;
+}
+function formatFormDetail(formName) {
+    var quantity = document.forms[formName].quantity;
+    var price = document.forms[formName].price;
+    var amount = document.forms[formName].amount;
+    if (quantity != null) {
+        if (quantity.length != null) {
+            for (var i = 0; i < quantity.length; i++) {
+                tryNumberFormatCurrentcy(quantity[i], "VND");
+                tryNumberFormatCurrentcy(price[i], "VND");
+                tryNumberFormatCurrentcy(amount[i], "VND");
+            }
+        } else {
+            tryNumberFormatCurrentcy(quantity, "VND");
+            tryNumberFormatCurrentcy(price, "VND");
+            tryNumberFormatCurrentcy(amount, "VND");
+        }
+    }
+    quantity = null;
+    price = null;
+    amount = null;
+}
+function formatFormOldQuantityDetail(formName) {
+    var oldQuantity = document.forms[formName].oldQuantity;
+    var quantity = document.forms[formName].quantity;
+    var price = document.forms[formName].price;
+    var amount = document.forms[formName].amount;
+    if (quantity != null) {
+        if (quantity.length != null) {
+            for (var i = 0; i < quantity.length; i++) {
+                tryNumberFormatCurrentcy(oldQuantity[i], "VND");
+                tryNumberFormatCurrentcy(quantity[i], "VND");
+                tryNumberFormatCurrentcy(price[i], "VND");
+                tryNumberFormatCurrentcy(amount[i], "VND");
+            }
+        } else {
+            tryNumberFormatCurrentcy(oldQuantity, "VND");
+            tryNumberFormatCurrentcy(quantity, "VND");
+            tryNumberFormatCurrentcy(price, "VND");
+            tryNumberFormatCurrentcy(amount, "VND");
+        }
+    }
+    oldQuantity = null;
+    quantity = null;
+    price = null;
+    amount = null;
+}
+function caculateFormListDetail(goodId, formName) {
+    var quantity = document.getElementById("detquantity" + goodId);
+    var price = document.getElementById("detprice" + goodId);
+    var detTotal = document.getElementById("detamount" + goodId);
+    if (quantity == null || price == null || detTotal == null)
+        return false;
+    detTotal.value = reformatNumberMoneyString(quantity.value) * reformatNumberMoneyString(price.value);
+    quantity = null;
+    price = null;
+    detTotal = null;
+    caculateListTotal(formName);
+    return false;
+}
+function caculateFormListOldQuantityDetail(goodId, formName) {
+    var oldQuantity = document.getElementById("detoldquantity" + goodId);
+    var quantity = document.getElementById("detquantity" + goodId);
+    var price = document.getElementById("detprice" + goodId);
+    var detTotal = document.getElementById("detamount" + goodId);
+    if (quantity == null || price == null || detTotal == null)
+        return false;
+    var oldQuantityFormat = reformatNumberMoneyString(oldQuantity.value) * 1;
+    var quantityFormat = reformatNumberMoneyString(quantity.value) * 1;
+    if (quantityFormat > oldQuantityFormat) {
+        alert("S\u1ED1 l\u01B0\u1EE3ng l\u1EDBn h\u01A1n s\u1ED1 l\u01B0\u1EE3ng hi\u1EC7n t\u1EA1i");
+        quantity.value = oldQuantity.value;
+        quantityFormat = oldQuantityFormat;
+    }
+    var priceFormat = reformatNumberMoneyString(price.value) * 1;
+    detTotal.value = quantityFormat * priceFormat;
+    tryNumberFormatCurrentcy(oldQuantity, "VND");
+    oldQuantity = null;
+    quantity = null;
+    price = null;
+    detTotal = null;
+    caculateListTotal(formName);
+    return false;
+}
+function caculateListTotal(formName) {
+    var quantity = document.forms[formName].quantity;
+    var price = document.forms[formName].price;
+    var amount = document.forms[formName].amount;
+    var sum = 0;
+    if (quantity != null) {
+        if (quantity.length != null) {
+            for (i = 0; i < quantity.length; i++) {
+                sum += reformatNumberMoneyString(amount[i].value) * 1;
+                tryNumberFormatCurrentcy(quantity[i], "VND");
+                tryNumberFormatCurrentcy(price[i], "VND");
+                tryNumberFormatCurrentcy(amount[i], "VND");
+            }
+        } else {
+            sum += reformatNumberMoneyString(amount.value) * 1;
+            tryNumberFormatCurrentcy(quantity, "VND");
+            tryNumberFormatCurrentcy(price, "VND");
+            tryNumberFormatCurrentcy(amount, "VND");
+        }
+    }
+    quantity = null;
+    price = null;
+    amount = null;
+    document.forms[formName].total.value = sum;
+    document.forms[formName].paid.value = sum;
+    document.forms[formName].debt.value = 0;
+    tryNumberFormatCurrentcy(document.forms[formName].total, "VND");
+    tryNumberFormatCurrentcy(document.forms[formName].paid, "VND");
+    return false;
 }
 function logout() {
     window.location = "logout.do";
@@ -2492,7 +2624,7 @@ function loadShellImportList(fromDate, toDate) {
     mygrid.setImagePath("js/dhtmlx/grid/imgs/");
     mygrid.setHeader("S\u1ED1 phi\u1EBFu,Ng\u00E0y nh\u1EADp,Lo\u1EA1i v\u1ECF b\u00ECnh,S\u1ED1 l\u01B0\u1EE3ng,Gi\u00E1 nh\u1EADp,Ghi ch\u00FA");
     mygrid.attachHeader("#text_filter,#text_filter,#text_filter,#text_filter,#text_filter,#text_filter");
-    mygrid.setInitWidths("150,150,200,100,100,*");
+    mygrid.setInitWidths("150,150,200,100,200,*");
     mygrid.setColTypes("link,ro,ro,ro,ro,ro");
     mygrid.setColSorting("str,str,str,str,str,str");
     mygrid.setSkin("light");
@@ -2521,13 +2653,13 @@ function getShellImport(id, handle) {
         document.getElementById('callbackFunc').value = handle;
         tryNumberFormatCurrentcy(document.forms['shellImportForm'].quantity, "VND");
         tryNumberFormatCurrentcy(document.forms['shellImportForm'].price, "VND");
-        var myCalendar = new dhtmlXCalendarObject(["shellImportDate"]);
-        myCalendar.setSkin('dhx_web');
+//        var myCalendar = new dhtmlXCalendarObject(["shellImportDate"]);
+//        myCalendar.setSkin('dhx_web');
         if (id == 0) {
             var currentDate = getCurrentDate();
             document.forms['shellImportForm'].shellImportDate.value = currentDate;
         }
-        myCalendar.setDateFormat("%d/%m/%Y");
+//        myCalendar.setDateFormat("%d/%m/%Y");
     });
 }
 function saveShellImport() {
@@ -2608,13 +2740,13 @@ function getLpgImport(id, handle) {
         tryNumberFormatCurrentcy(document.forms['lpgImportForm'].paid, "VND");
         tryNumberFormatCurrentcy(document.forms['lpgImportForm'].debt, "VND");
         tryNumberFormatCurrentcy(document.forms['lpgImportForm'].rate, "VND");
-        var myCalendar = new dhtmlXCalendarObject(["lpgImportDate"]);
-        myCalendar.setSkin('dhx_web');
+//        var myCalendar = new dhtmlXCalendarObject(["lpgImportDate"]);
+//        myCalendar.setSkin('dhx_web');
         if (id == 0) {
             var currentDate = getCurrentDate();
             document.forms['lpgImportForm'].lpgImportDate.value = currentDate;
         }
-        myCalendar.setDateFormat("%d/%m/%Y");
+//        myCalendar.setDateFormat("%d/%m/%Y");
     });
 }
 function saveLpgImport() {
@@ -2654,30 +2786,14 @@ function lpgImportCaculateAmount() {
     var debt = document.forms['lpgImportForm'].debt;
 
     amount.value = reformatNumberMoneyString(quantity.value) * 1 * reformatNumberMoneyString(price.value) * 1;
-    paid.value = 0;
-    debt.value = amount.value;
+    paid.value = amount.value;
+    debt.value = 0;
     tryNumberFormatCurrentcy(quantity, "VND");
     tryNumberFormatCurrentcy(price, "VND");
     tryNumberFormatCurrentcy(amount, "VND");
     tryNumberFormatCurrentcy(paid, "VND");
-    tryNumberFormatCurrentcy(debt, "VND");
     quantity = null;
     price = null;
-    amount = null;
-    paid = null;
-    debt = null;
-    return false;
-}
-function lpgImportCaculateDebt() {
-    var amount = document.forms['lpgImportForm'].amount;
-    var paid = document.forms['lpgImportForm'].paid;
-    var debt = document.forms['lpgImportForm'].debt;
-
-    debt.value = reformatNumberMoneyString(amount.value) * 1 - reformatNumberMoneyString(paid.value) * 1;
-
-    tryNumberFormatCurrentcy(amount, "VND");
-    tryNumberFormatCurrentcy(paid, "VND");
-    tryNumberFormatCurrentcy(debt, "VND");
     amount = null;
     paid = null;
     debt = null;
@@ -2728,13 +2844,13 @@ function getFraction(id) {
     callAjax(url, null, null, function(data) {
         clearContent();
         setAjaxData(data, 'contentDiv');
-        var myCalendar = new dhtmlXCalendarObject(["fractionCreatedDate"]);
-        myCalendar.setSkin('dhx_web');
+//        var myCalendar = new dhtmlXCalendarObject(["fractionCreatedDate"]);
+//        myCalendar.setSkin('dhx_web');
         if (id == 0) {
             var currentDate = getCurrentDate();
             document.forms['fractionForm'].fractionCreatedDate.value = currentDate;
         }
-        myCalendar.setDateFormat("%d/%m/%Y");
+//        myCalendar.setDateFormat("%d/%m/%Y");
         formatFractionDetail();
     });
 }
@@ -2984,40 +3100,19 @@ function getGasImport(id) {
     callAjax(url, null, null, function(data) {
         clearContent();
         setAjaxData(data, 'contentDiv');
-        var myCalendar = new dhtmlXCalendarObject(["gasImportCreatedDate"]);
-        myCalendar.setSkin('dhx_web');
+//        var myCalendar = new dhtmlXCalendarObject(["gasImportCreatedDate"]);
+//        myCalendar.setSkin('dhx_web');
         if (id == 0) {
             var currentDate = getCurrentDate();
             document.forms['gasImportForm'].gasImportCreatedDate.value = currentDate;
         }
-        myCalendar.setDateFormat("%d/%m/%Y");
+//        myCalendar.setDateFormat("%d/%m/%Y");
         tryNumberFormatCurrentcy(document.forms['gasImportForm'].total, "VND");
         tryNumberFormatCurrentcy(document.forms['gasImportForm'].paid, "VND");
         tryNumberFormatCurrentcy(document.forms['gasImportForm'].debt, "VND");
         tryNumberFormatCurrentcy(document.forms['gasImportForm'].rate, "VND");
-        formatGasImportDetail();
+        formatFormDetail('gasImportForm');
     });
-}
-function formatGasImportDetail() {
-    var quantity = document.forms['gasImportForm'].quantity;
-    var price = document.forms['gasImportForm'].price;
-    var amount = document.forms['gasImportForm'].amount;
-    if (quantity != null) {
-        if (quantity.length != null) {
-            for (var i = 0; i < quantity.length; i++) {
-                tryNumberFormatCurrentcy(quantity[i], "VND");
-                tryNumberFormatCurrentcy(price[i], "VND");
-                tryNumberFormatCurrentcy(amount[i], "VND");
-            }
-        } else {
-            tryNumberFormatCurrentcy(quantity, "VND");
-            tryNumberFormatCurrentcy(price, "VND");
-            tryNumberFormatCurrentcy(amount, "VND");
-        }
-    }
-    quantity = null;
-    price = null;
-    amount = null;
 }
 function saveGasImport() {
     if (scriptFunction == "saveGasImport")
@@ -3106,7 +3201,7 @@ function addGasImportShell() {
             detTable.tBodies[0].appendChild(matTable.tBodies[0].rows[i]);
         matTable = null;
         detTable = null;
-        formatGasImportDetail();
+        formatFormDetail('gasImportForm');
     });
     return false;
 }
@@ -3114,64 +3209,6 @@ function delGasImport() {
     callAjaxCheckError('delGasImport.do?gasImportId=' + document.forms['gasImportForm'].id.value, null, null, function() {
         loadGasImportPanel();
     });
-    return false;
-}
-function caculateGasImportDetail(accessoryId) {
-    var quantity = document.getElementById("detquantity" + accessoryId);
-    var price = document.getElementById("detprice" + accessoryId);
-    var detTotal = document.getElementById("detamount" + accessoryId);
-    if (quantity == null || price == null || detTotal == null)
-        return false;
-    detTotal.value = reformatNumberMoneyString(quantity.value) * reformatNumberMoneyString(price.value);
-    quantity = null;
-    price = null;
-    detTotal = null;
-    caculateGasImportTotal();
-    return false;
-}
-function caculateGasImportTotal() {
-    var quantity = document.forms['gasImportForm'].quantity;
-    var price = document.forms['gasImportForm'].price;
-    var amount = document.forms['gasImportForm'].amount;
-    var sum = 0;
-    if (quantity != null) {
-        if (quantity.length != null) {
-            for (i = 0; i < quantity.length; i++) {
-                sum += reformatNumberMoneyString(amount[i].value) * 1;
-                tryNumberFormatCurrentcy(quantity[i], "USD");
-                tryNumberFormatCurrentcy(price[i], "VND");
-                tryNumberFormatCurrentcy(amount[i], "VND");
-            }
-        } else {
-            sum += reformatNumberMoneyString(amount.value) * 1;
-            tryNumberFormatCurrentcy(quantity, "USD");
-            tryNumberFormatCurrentcy(price, "VND");
-            tryNumberFormatCurrentcy(amount, "VND");
-        }
-    }
-    quantity = null;
-    price = null;
-    amount = null;
-    document.forms['gasImportForm'].total.value = sum;
-    document.forms['gasImportForm'].paid.value = sum;
-    document.forms['gasImportForm'].debt.value = 0;
-    tryNumberFormatCurrentcy(document.forms['gasImportForm'].total, "VND");
-    tryNumberFormatCurrentcy(document.forms['gasImportForm'].paid, "VND");
-    return false;
-}
-function gasImportPaidChanged() {
-    var total = document.forms['gasImportForm'].total;
-    var paid = document.forms['gasImportForm'].paid;
-    var debt = document.forms['gasImportForm'].debt;
-    if (total == null || paid == null || debt == null)
-        return false;
-    debt.value = reformatNumberMoneyString(total.value) * 1 - reformatNumberMoneyString(paid.value) * 1;
-    tryNumberFormatCurrentcy(total, "VND");
-    tryNumberFormatCurrentcy(paid, "VND");
-    tryNumberFormatCurrentcy(debt, "VND");
-    total = null;
-    paid = null;
-    debt = null;
     return false;
 }
 function loadAccessoryImportPanel() {
@@ -3219,39 +3256,18 @@ function getAccessoryImport(id) {
     callAjax(url, null, null, function(data) {
         clearContent();
         setAjaxData(data, 'contentDiv');
-        var myCalendar = new dhtmlXCalendarObject(["accessoryImportCreatedDate"]);
-        myCalendar.setSkin('dhx_web');
+//        var myCalendar = new dhtmlXCalendarObject(["accessoryImportCreatedDate"]);
+//        myCalendar.setSkin('dhx_web');
         if (id == 0) {
             var currentDate = getCurrentDate();
             document.forms['accessoryImportForm'].accessoryImportCreatedDate.value = currentDate;
         }
-        myCalendar.setDateFormat("%d/%m/%Y");
+//        myCalendar.setDateFormat("%d/%m/%Y");
         tryNumberFormatCurrentcy(document.forms['accessoryImportForm'].total, "VND");
         tryNumberFormatCurrentcy(document.forms['accessoryImportForm'].paid, "VND");
         tryNumberFormatCurrentcy(document.forms['accessoryImportForm'].debt, "VND");
-        formatAccessoryImportDetail();
+        formatFormDetail('accessoryImportForm');
     });
-}
-function formatAccessoryImportDetail() {
-    var quantity = document.forms['accessoryImportForm'].quantity;
-    var price = document.forms['accessoryImportForm'].price;
-    var amount = document.forms['accessoryImportForm'].amount;
-    if (quantity != null) {
-        if (quantity.length != null) {
-            for (var i = 0; i < quantity.length; i++) {
-                tryNumberFormatCurrentcy(quantity[i], "VND");
-                tryNumberFormatCurrentcy(price[i], "VND");
-                tryNumberFormatCurrentcy(amount[i], "VND");
-            }
-        } else {
-            tryNumberFormatCurrentcy(quantity, "VND");
-            tryNumberFormatCurrentcy(price, "VND");
-            tryNumberFormatCurrentcy(amount, "VND");
-        }
-    }
-    quantity = null;
-    price = null;
-    amount = null;
 }
 function saveAccessoryImport() {
     if (scriptFunction == "saveAccessoryImport")
@@ -3339,7 +3355,7 @@ function addAccessoryImportAccessory() {
             detTable.tBodies[0].appendChild(matTable.tBodies[0].rows[i]);
         matTable = null;
         detTable = null;
-        formatAccessoryImportDetail();
+        formatFormDetail('accessoryImportForm');
     });
     return false;
 }
@@ -3347,64 +3363,6 @@ function delAccessoryImport() {
     callAjaxCheckError('delAccessoryImport.do?accessoryImportId=' + document.forms['accessoryImportForm'].id.value, null, null, function() {
         loadAccessoryImportPanel();
     });
-    return false;
-}
-function caculateAccessoryImportDetail(accessoryId) {
-    var quantity = document.getElementById("detquantity" + accessoryId);
-    var price = document.getElementById("detprice" + accessoryId);
-    var detTotal = document.getElementById("detamount" + accessoryId);
-    if (quantity == null || price == null || detTotal == null)
-        return false;
-    detTotal.value = reformatNumberMoneyString(quantity.value) * reformatNumberMoneyString(price.value);
-    quantity = null;
-    price = null;
-    detTotal = null;
-    caculateAccessoryImportTotal();
-    return false;
-}
-function caculateAccessoryImportTotal() {
-    var quantity = document.forms['accessoryImportForm'].quantity;
-    var price = document.forms['accessoryImportForm'].price;
-    var amount = document.forms['accessoryImportForm'].amount;
-    var sum = 0;
-    if (quantity != null) {
-        if (quantity.length != null) {
-            for (i = 0; i < quantity.length; i++) {
-                sum += reformatNumberMoneyString(amount[i].value) * 1;
-                tryNumberFormatCurrentcy(quantity[i], "USD");
-                tryNumberFormatCurrentcy(price[i], "VND");
-                tryNumberFormatCurrentcy(amount[i], "VND");
-            }
-        } else {
-            sum += reformatNumberMoneyString(amount.value) * 1;
-            tryNumberFormatCurrentcy(quantity, "USD");
-            tryNumberFormatCurrentcy(price, "VND");
-            tryNumberFormatCurrentcy(amount, "VND");
-        }
-    }
-    quantity = null;
-    price = null;
-    amount = null;
-    document.forms['accessoryImportForm'].total.value = sum;
-    document.forms['accessoryImportForm'].paid.value = sum;
-    document.forms['accessoryImportForm'].debt.value = 0;
-    tryNumberFormatCurrentcy(document.forms['accessoryImportForm'].total, "VND");
-    tryNumberFormatCurrentcy(document.forms['accessoryImportForm'].paid, "VND");
-    return false;
-}
-function accessoryImportPaidChanged() {
-    var total = document.forms['accessoryImportForm'].total;
-    var paid = document.forms['accessoryImportForm'].paid;
-    var debt = document.forms['accessoryImportForm'].debt;
-    if (total == null || paid == null || debt == null)
-        return false;
-    debt.value = reformatNumberMoneyString(total.value) * 1 - reformatNumberMoneyString(paid.value) * 1;
-    tryNumberFormatCurrentcy(total, "VND");
-    tryNumberFormatCurrentcy(paid, "VND");
-    tryNumberFormatCurrentcy(debt, "VND");
-    total = null;
-    paid = null;
-    debt = null;
     return false;
 }
 function loadPromotionMaterialImportPanel() {
@@ -3452,39 +3410,18 @@ function getPromotionMaterialImport(id) {
     callAjax(url, null, null, function(data) {
         clearContent();
         setAjaxData(data, 'contentDiv');
-        var myCalendar = new dhtmlXCalendarObject(["promotionMaterialImportCreatedDate"]);
-        myCalendar.setSkin('dhx_web');
+//        var myCalendar = new dhtmlXCalendarObject(["promotionMaterialImportCreatedDate"]);
+//        myCalendar.setSkin('dhx_web');
         if (id == 0) {
             var currentDate = getCurrentDate();
             document.forms['promotionMaterialImportForm'].promotionMaterialImportCreatedDate.value = currentDate;
         }
-        myCalendar.setDateFormat("%d/%m/%Y");
+//        myCalendar.setDateFormat("%d/%m/%Y");
         tryNumberFormatCurrentcy(document.forms['promotionMaterialImportForm'].total, "VND");
         tryNumberFormatCurrentcy(document.forms['promotionMaterialImportForm'].paid, "VND");
         tryNumberFormatCurrentcy(document.forms['promotionMaterialImportForm'].debt, "VND");
-        formatPromotionMaterialImportDetail();
+        formatFormDetail('promotionMaterialImportForm');
     });
-}
-function formatPromotionMaterialImportDetail() {
-    var quantity = document.forms['promotionMaterialImportForm'].quantity;
-    var price = document.forms['promotionMaterialImportForm'].price;
-    var amount = document.forms['promotionMaterialImportForm'].amount;
-    if (quantity != null) {
-        if (quantity.length != null) {
-            for (var i = 0; i < quantity.length; i++) {
-                tryNumberFormatCurrentcy(quantity[i], "VND");
-                tryNumberFormatCurrentcy(price[i], "VND");
-                tryNumberFormatCurrentcy(amount[i], "VND");
-            }
-        } else {
-            tryNumberFormatCurrentcy(quantity, "VND");
-            tryNumberFormatCurrentcy(price, "VND");
-            tryNumberFormatCurrentcy(amount, "VND");
-        }
-    }
-    quantity = null;
-    price = null;
-    amount = null;
 }
 function savePromotionMaterialImport() {
     if (scriptFunction == "savePromotionMaterialImport")
@@ -3572,7 +3509,7 @@ function addPromotionMaterialImportPromotionMaterial() {
             detTable.tBodies[0].appendChild(matTable.tBodies[0].rows[i]);
         matTable = null;
         detTable = null;
-        formatPromotionMaterialImportDetail();
+        formatFormDetail('promotionMaterialImportForm');
     });
     return false;
 }
@@ -3580,64 +3517,6 @@ function delPromotionMaterialImport() {
     callAjaxCheckError('delPromotionMaterialImport.do?promotionMaterialImportId=' + document.forms['promotionMaterialImportForm'].id.value, null, null, function() {
         loadPromotionMaterialImportPanel();
     });
-    return false;
-}
-function caculatePromotionMaterialImportDetail(promotionMaterialId) {
-    var quantity = document.getElementById("detquantity" + promotionMaterialId);
-    var price = document.getElementById("detprice" + promotionMaterialId);
-    var detTotal = document.getElementById("detamount" + promotionMaterialId);
-    if (quantity == null || price == null || detTotal == null)
-        return false;
-    detTotal.value = reformatNumberMoneyString(quantity.value) * reformatNumberMoneyString(price.value);
-    quantity = null;
-    price = null;
-    detTotal = null;
-    caculatePromotionMaterialImportTotal();
-    return false;
-}
-function caculatePromotionMaterialImportTotal() {
-    var quantity = document.forms['promotionMaterialImportForm'].quantity;
-    var price = document.forms['promotionMaterialImportForm'].price;
-    var amount = document.forms['promotionMaterialImportForm'].amount;
-    var sum = 0;
-    if (quantity != null) {
-        if (quantity.length != null) {
-            for (i = 0; i < quantity.length; i++) {
-                sum += reformatNumberMoneyString(amount[i].value) * 1;
-                tryNumberFormatCurrentcy(quantity[i], "USD");
-                tryNumberFormatCurrentcy(price[i], "VND");
-                tryNumberFormatCurrentcy(amount[i], "VND");
-            }
-        } else {
-            sum += reformatNumberMoneyString(amount.value) * 1;
-            tryNumberFormatCurrentcy(quantity, "USD");
-            tryNumberFormatCurrentcy(price, "VND");
-            tryNumberFormatCurrentcy(amount, "VND");
-        }
-    }
-    quantity = null;
-    price = null;
-    amount = null;
-    document.forms['promotionMaterialImportForm'].total.value = sum;
-    document.forms['promotionMaterialImportForm'].paid.value = sum;
-    document.forms['promotionMaterialImportForm'].debt.value = 0;
-    tryNumberFormatCurrentcy(document.forms['promotionMaterialImportForm'].total, "VND");
-    tryNumberFormatCurrentcy(document.forms['promotionMaterialImportForm'].paid, "VND");
-    return false;
-}
-function promotionMaterialImportPaidChanged() {
-    var total = document.forms['promotionMaterialImportForm'].total;
-    var paid = document.forms['promotionMaterialImportForm'].paid;
-    var debt = document.forms['promotionMaterialImportForm'].debt;
-    if (total == null || paid == null || debt == null)
-        return false;
-    debt.value = reformatNumberMoneyString(total.value) * 1 - reformatNumberMoneyString(paid.value) * 1;
-    tryNumberFormatCurrentcy(total, "VND");
-    tryNumberFormatCurrentcy(paid, "VND");
-    tryNumberFormatCurrentcy(debt, "VND");
-    total = null;
-    paid = null;
-    debt = null;
     return false;
 }
 function loadPetroImportPanel() {
@@ -3685,40 +3564,19 @@ function getPetroImport(id) {
     callAjax(url, null, null, function(data) {
         clearContent();
         setAjaxData(data, 'contentDiv');
-        var myCalendar = new dhtmlXCalendarObject(["petroImportCreatedDate"]);
-        myCalendar.setSkin('dhx_web');
+//        var myCalendar = new dhtmlXCalendarObject(["petroImportCreatedDate"]);
+//        myCalendar.setSkin('dhx_web');
         if (id == 0) {
             var currentDate = getCurrentDate();
             document.forms['petroImportForm'].petroImportCreatedDate.value = currentDate;
         }
-        myCalendar.setDateFormat("%d/%m/%Y");
+//        myCalendar.setDateFormat("%d/%m/%Y");
         tryNumberFormatCurrentcy(document.forms['petroImportForm'].total, "VND");
         tryNumberFormatCurrentcy(document.forms['petroImportForm'].paid, "VND");
         tryNumberFormatCurrentcy(document.forms['petroImportForm'].debt, "VND");
         tryNumberFormatCurrentcy(document.forms['petroImportForm'].rate, "VND");
-        formatPetroImportDetail();
+        formatFormDetail('petroImportForm');
     });
-}
-function formatPetroImportDetail() {
-    var quantity = document.forms['petroImportForm'].quantity;
-    var price = document.forms['petroImportForm'].price;
-    var amount = document.forms['petroImportForm'].amount;
-    if (quantity != null) {
-        if (quantity.length != null) {
-            for (var i = 0; i < quantity.length; i++) {
-                tryNumberFormatCurrentcy(quantity[i], "VND");
-                tryNumberFormatCurrentcy(price[i], "VND");
-                tryNumberFormatCurrentcy(amount[i], "VND");
-            }
-        } else {
-            tryNumberFormatCurrentcy(quantity, "VND");
-            tryNumberFormatCurrentcy(price, "VND");
-            tryNumberFormatCurrentcy(amount, "VND");
-        }
-    }
-    quantity = null;
-    price = null;
-    amount = null;
 }
 function savePetroImport() {
     if (scriptFunction == "savePetroImport")
@@ -3807,7 +3665,7 @@ function addPetroImportPetro() {
             detTable.tBodies[0].appendChild(matTable.tBodies[0].rows[i]);
         matTable = null;
         detTable = null;
-        formatPetroImportDetail();
+        formatFormDetail('petroImportForm');
     });
     return false;
 }
@@ -3817,63 +3675,270 @@ function delPetroImport() {
     });
     return false;
 }
-function caculatePetroImportDetail(petroId) {
-    var quantity = document.getElementById("detquantity" + petroId);
-    var price = document.getElementById("detprice" + petroId);
-    var detTotal = document.getElementById("detamount" + petroId);
-    if (quantity == null || price == null || detTotal == null)
-        return false;
-    detTotal.value = reformatNumberMoneyString(quantity.value) * reformatNumberMoneyString(price.value);
-    quantity = null;
-    price = null;
-    detTotal = null;
-    caculatePetroImportTotal();
+function loadGasWholesalePanel() {
+    callAjax("getGasWholesalePanel.do", null, null, function(data) {
+        clearContent();
+        setAjaxData(data, "contentDiv");
+        var myCalendar = new dhtmlXCalendarObject(["fromDate", "toDate"]);
+        myCalendar.setSkin('dhx_web');
+        var currentTime = getCurrentDate();
+        document.forms['gasWholesaleSearchForm'].fromDate.value = currentTime;
+        document.forms['gasWholesaleSearchForm'].toDate.value = currentTime;
+        myCalendar.setDateFormat("%d/%m/%Y");
+        loadGasWholesaleList(currentTime, currentTime);
+    });
     return false;
 }
-function caculatePetroImportTotal() {
-    var quantity = document.forms['petroImportForm'].quantity;
-    var price = document.forms['petroImportForm'].price;
-    var amount = document.forms['petroImportForm'].amount;
-    var sum = 0;
-    if (quantity != null) {
-        if (quantity.length != null) {
-            for (i = 0; i < quantity.length; i++) {
-                sum += reformatNumberMoneyString(amount[i].value) * 1;
-                tryNumberFormatCurrentcy(quantity[i], "USD");
-                tryNumberFormatCurrentcy(price[i], "VND");
-                tryNumberFormatCurrentcy(amount[i], "VND");
-            }
-        } else {
-            sum += reformatNumberMoneyString(amount.value) * 1;
-            tryNumberFormatCurrentcy(quantity, "USD");
-            tryNumberFormatCurrentcy(price, "VND");
-            tryNumberFormatCurrentcy(amount, "VND");
+function loadGasWholesaleList(fromDate, toDate) {
+    var mygrid = new dhtmlXGridObject('gasWholesaleList');
+    mygrid.setImagePath("js/dhtmlx/grid/imgs/");
+    mygrid.setHeader("M\u00E3 phi\u1EBFu,Ng\u00E0y,Kh\u00E1ch h\u00E0ng,T\u1ED5ng ti\u1EC1n,Thanh to\u00E1n,C\u00F2n n\u1EE3,Ghi ch\u00FA");
+    mygrid.attachHeader("#text_filter,#text_filter,#select_filter,#text_filter,#text_filter,#text_filter,#text_filter");
+    mygrid.setInitWidths("150,100,150,150,150,*");
+    mygrid.setColTypes("link,ro,ro,ro,ro,ro");
+    mygrid.setColSorting("str,str,str,str,str,str");
+    mygrid.setSkin("light");
+    var height = contentHeight - 210;
+    mygrid.al(true, height);//enableAutoHeight
+    mygrid.enablePaging(true, 15, 3, "recinfoArea");
+    mygrid.setPagingSkin("toolbar", "dhx_skyblue");
+    mygrid.init();
+    var url = "getGasWholesaleList.do?t=1";
+    if (fromDate != null)
+        url += "&fromDate=" + fromDate;
+    if (toDate != null)
+        url += "&toDate=" + toDate;
+    callAjax(url, null, null, function(data) {
+        mygrid.parse(data);
+    });
+    return false;
+}
+function getGasWholesale(id) {
+    var url = 'gasWholesaleForm.do';
+    if (id != 0)
+        url += '?gasWholesaleId=' + id
+    callAjax(url, null, null, function(data) {
+        clearContent();
+        setAjaxData(data, 'contentDiv');
+//        var myCalendar = new dhtmlXCalendarObject(["gasWholesaleCreatedDate"]);
+//        myCalendar.setSkin('dhx_web');
+        if (id == 0) {
+            var currentDate = getCurrentDate();
+            document.forms['gasWholesaleForm'].gasWholesaleCreatedDate.value = currentDate;
         }
+//        myCalendar.setDateFormat("%d/%m/%Y");
+        tryNumberFormatCurrentcy(document.forms['gasWholesaleForm'].total, "VND");
+        tryNumberFormatCurrentcy(document.forms['gasWholesaleForm'].paid, "VND");
+        tryNumberFormatCurrentcy(document.forms['gasWholesaleForm'].debt, "VND");
+        formatFormOldQuantityDetail('gasWholesaleForm');
+    });
+}
+function saveGasWholesale() {
+    if (scriptFunction == "saveGasWholesale")
+        return false;
+    var quantity = document.forms['gasWholesaleForm'].quantity;
+    if (quantity == null) {
+        alert('Vui l\u00F2ng ch\u1ECDn h\u00E0ng h\u00F3a');
+        return false;
+    }
+    var price = document.forms['gasWholesaleForm'].price;
+    var amount = document.forms['gasWholesaleForm'].amount;
+    if (quantity.length != null) {
+        for (var i = 0; i < quantity.length; i++) {
+            var number = Number(quantity[i].value);
+            if (number == 0) {
+                alert('Vui l\u00F2ng nh\u1EADp s\u1ED1 l\u01B0\u1EE3ng');
+                quantity[i].focus();
+                quantity = null;
+                return false;
+            }
+            reformatNumberMoney(quantity[i]);
+            reformatNumberMoney(price[i]);
+            reformatNumberMoney(amount[i]);
+        }
+    } else {
+        if (quantity.value == "0") {
+            alert('Vui l\u00F2ng nh\u1EADp s\u1ED1 l\u01B0\u1EE3ng');
+            quantity.focus();
+            quantity = null;
+            return false;
+        }
+        reformatNumberMoney(quantity);
+        reformatNumberMoney(price);
+        reformatNumberMoney(amount);
     }
     quantity = null;
     price = null;
     amount = null;
-    document.forms['petroImportForm'].total.value = sum;
-    document.forms['petroImportForm'].paid.value = sum;
-    document.forms['petroImportForm'].debt.value = 0;
-    tryNumberFormatCurrentcy(document.forms['petroImportForm'].total, "VND");
-    tryNumberFormatCurrentcy(document.forms['petroImportForm'].paid, "VND");
+    reformatNumberMoney(document.forms['gasWholesaleForm'].total);
+    reformatNumberMoney(document.forms['gasWholesaleForm'].paid);
+    reformatNumberMoney(document.forms['gasWholesaleForm'].debt);
+    reformatNumberMoney(document.forms['gasWholesaleForm'].rate);
+    scriptFunction = "saveGasWholesale";
+    callAjaxCheckError("addGasWholesale.do", null, document.forms['gasWholesaleForm'], function(data) {
+        scriptFunction = "";
+        loadGasWholesalePanel();
+    });
     return false;
 }
-function petroImportPaidChanged() {
-    var total = document.forms['petroImportForm'].total;
-    var paid = document.forms['petroImportForm'].paid;
-    var debt = document.forms['petroImportForm'].debt;
-    if (total == null || paid == null || debt == null)
+function addGasWholesaleShell() {
+    var shell = document.forms['gasWholesaleForm'].shellIdCombobox;
+    if (shell == null && shell.selectedIndex == -1)
+        shell = null;
+    else
+        shell = shell.options[shell.selectedIndex].value;
+    if (shell == -1 || shell == 0)
         return false;
-    debt.value = reformatNumberMoneyString(total.value) * 1 - reformatNumberMoneyString(paid.value) * 1;
-    tryNumberFormatCurrentcy(total, "VND");
-    tryNumberFormatCurrentcy(paid, "VND");
-    tryNumberFormatCurrentcy(debt, "VND");
-    total = null;
-    paid = null;
-    debt = null;
+    var shellId = document.forms['gasWholesaleForm'].shellId;
+    var existed = false;
+    if (shellId != null) {
+        if (shellId.length != null) {
+            for (i = 0; i < shellId.length; i++) {
+                if (shellId[i].value == shell) {
+                    existed = true;
+                    break;
+                }
+            }
+        } else if (shellId.value == shell)
+            existed = true;
+    }
+    shellId = null;
+    if (existed == true) {
+        alert("H\u00E0ng ho\u00E1 \u0111\u00E3 t\u1ED3n t\u1EA1i");
+        return false;
+    }
+    callAjax("getGasWholesaleShell.do?shellId=" + shell, null, null, function(data) {
+        setAjaxData(data, 'gasWholesaleShellHideDiv');
+        var matTable = document.getElementById('gasWholesaleShellTbl');
+        var detTable = document.getElementById('gasWholesaleDetailTbl');
+        if (matTable.tBodies[0] == null || detTable.tBodies[0] == null) {
+            matTable = null;
+            detTable = null;
+            return;
+        }
+        for (var i = matTable.tBodies[0].rows.length - 1; i >= 0; i--)
+            detTable.tBodies[0].appendChild(matTable.tBodies[0].rows[i]);
+        matTable = null;
+        detTable = null;
+        formatFormOldQuantityDetail('gasWholesaleForm');
+    });
     return false;
 }
-
-
+function delGasWholesale() {
+    callAjaxCheckError('delGasWholesale.do?gasWholesaleId=' + document.forms['gasWholesaleForm'].id.value, null, null, function() {
+        loadGasWholesalePanel();
+    });
+    return false;
+}
+function addGasWholesalePromotionMaterial() {
+    var promotionMaterial = document.forms['gasWholesaleForm'].promotionMaterialIdCombobox;
+    if (promotionMaterial == null && promotionMaterial.selectedIndex == -1)
+        promotionMaterial = null;
+    else
+        promotionMaterial = promotionMaterial.options[promotionMaterial.selectedIndex].value;
+    if (promotionMaterial == -1 || promotionMaterial == 0)
+        return false;
+    var promotionMaterialId = document.forms['gasWholesaleForm'].promotionMaterialId;
+    var existed = false;
+    if (promotionMaterialId != null) {
+        if (promotionMaterialId.length != null) {
+            for (i = 0; i < promotionMaterialId.length; i++) {
+                if (promotionMaterialId[i].value == promotionMaterial) {
+                    existed = true;
+                    break;
+                }
+            }
+        } else if (promotionMaterialId.value == promotionMaterial)
+            existed = true;
+    }
+    promotionMaterialId = null;
+    if (existed == true) {
+        alert("H\u00E0ng ho\u00E1 \u0111\u00E3 t\u1ED3n t\u1EA1i");
+        return false;
+    }
+    callAjax("getGasWholesalePromotionMaterial.do?promotionMaterialId=" + promotionMaterial, null, null, function(data) {
+        setAjaxData(data, 'gasWholesalePromotionMaterialHideDiv');
+        var matTable = document.getElementById('gasWholesalePromotionMaterialTbl');
+        var detTable = document.getElementById('gasWholesalePromotionMaterialDetailTbl');
+        if (matTable.tBodies[0] == null || detTable.tBodies[0] == null) {
+            matTable = null;
+            detTable = null;
+            return;
+        }
+        for (var i = matTable.tBodies[0].rows.length - 1; i >= 0; i--)
+            detTable.tBodies[0].appendChild(matTable.tBodies[0].rows[i]);
+        matTable = null;
+        detTable = null;
+        formatGasWholesalePromotionMaterialQuantityDetail();
+    });
+    return false;
+}
+function addGasWholesaleReturnShell() {
+    var shell = document.forms['gasWholesaleForm'].returnShellIdCombobox;
+    if (shell == null && shell.selectedIndex == -1)
+        shell = null;
+    else
+        shell = shell.options[shell.selectedIndex].value;
+    if (shell == -1 || shell == 0)
+        return false;
+    var shellId = document.forms['gasWholesaleForm'].returnShellId;
+    var existed = false;
+    if (shellId != null) {
+        if (shellId.length != null) {
+            for (i = 0; i < shellId.length; i++) {
+                if (shellId[i].value == shell) {
+                    existed = true;
+                    break;
+                }
+            }
+        } else if (shellId.value == shell)
+            existed = true;
+    }
+    shellId = null;
+    if (existed == true) {
+        alert("H\u00E0ng ho\u00E1 \u0111\u00E3 t\u1ED3n t\u1EA1i");
+        return false;
+    }
+    callAjax("getGasWholesaleReturnShell.do?shellId=" + shell, null, null, function(data) {
+        setAjaxData(data, 'gasWholesaleReturnShellHideDiv');
+        var matTable = document.getElementById('gasWholesaleReturnShellTbl');
+        var detTable = document.getElementById('gasWholesaleReturnShellDetailTbl');
+        if (matTable.tBodies[0] == null || detTable.tBodies[0] == null) {
+            matTable = null;
+            detTable = null;
+            return;
+        }
+        for (var i = matTable.tBodies[0].rows.length - 1; i >= 0; i--)
+            detTable.tBodies[0].appendChild(matTable.tBodies[0].rows[i]);
+        matTable = null;
+        detTable = null;
+        formatGasWholesaleReturnShellQuantityDetail();
+    });
+    return false;
+}
+function formatGasWholesalePromotionMaterialQuantityDetail() {
+    var quantity = document.forms['gasWholesaleForm'].promotionMaterialQuantity;
+    if (quantity != null) {
+        if (quantity.length != null) {
+            for (var i = 0; i < quantity.length; i++) {
+                tryNumberFormatCurrentcy(quantity[i], "VND");
+            }
+        } else {
+            tryNumberFormatCurrentcy(quantity, "VND");
+        }
+    }
+    quantity = null;
+}
+function formatGasWholesaleReturnShellQuantityDetail() {
+    var quantity = document.forms['gasWholesaleForm'].returnShellQuantity;
+    if (quantity != null) {
+        if (quantity.length != null) {
+            for (var i = 0; i < quantity.length; i++) {
+                tryNumberFormatCurrentcy(quantity[i], "VND");
+            }
+        } else {
+            tryNumberFormatCurrentcy(quantity, "VND");
+        }
+    }
+    quantity = null;
+}

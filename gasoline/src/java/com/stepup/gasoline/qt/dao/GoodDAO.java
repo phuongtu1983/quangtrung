@@ -236,6 +236,8 @@ public class GoodDAO extends BasicDAO {
                 bean.setKindId(rs.getInt("kind_id"));
                 bean.setPrice(rs.getDouble("price"));
                 bean.setStatus(rs.getInt("status"));
+                bean.setInStock(rs.getFloat("in_stock"));
+                bean.setGasInStock(rs.getFloat("gas_in_stock"));
                 return bean;
             }
         } catch (SQLException sqle) {
@@ -939,7 +941,7 @@ public class GoodDAO extends BasicDAO {
 
     public ShellImportBean getShellImport(int id) throws Exception {
         ResultSet rs = null;
-        String sql = "select *, IF(DATEDIFF(created_date,SYSDATE())=0,1,0) as can_edit from shell_import where id=" + id;
+        String sql = "select *, IF(MONTH(created_date)=MONTH(SYSDATE()) AND YEAR(created_date)=YEAR(SYSDATE()),1,0) as can_edit from shell_import where id=" + id;
         try {
             rs = DBUtil.executeQuery(sql);
             while (rs.next()) {

@@ -1083,3 +1083,6 @@ nav.expanded{
     box-shadow: none;
     padding: 3px 2px;
 }
+money {
+    text-align: right;
+}

@@ -11,7 +11,7 @@
             <tr><td>
                     <table cellspacing="0" cellpadding="0" style="border-width: 0px">
                         <tr>
-                            <td height="30" style="padding-right: 20px"><bean:message key="employeeAdvance.detail.code"/></td>
+                            <td height="30" style="padding-right: 20px"><bean:message key="code.title"/></td>
                             <td><html:text property="code" size="30" name="<%=Constants.EMPLOYEE_ADVANCE%>" readonly="true"/></td>
                             <td style="padding-right: 20px;padding-left: 10px"><bean:message key="date.title"/></td>
                             <td><html:text property="advanceDate" styleId="employeeAdvanceDate" size="30" name="<%=Constants.EMPLOYEE_ADVANCE%>"/></td>
