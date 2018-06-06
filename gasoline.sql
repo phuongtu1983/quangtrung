@@ -85,11 +85,11 @@ CREATE TABLE `accessory_in_stock` (
   `accessory_id` int(11) DEFAULT NULL,
   `in_stock` int(11) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 /*Data for the table `accessory_in_stock` */
 
-insert  into `accessory_in_stock`(`id`,`day`,`accessory_id`,`in_stock`) values (1,'2018-06-01',1,1),(2,'2018-06-02',1,1),(3,'2018-06-04',1,1);
+insert  into `accessory_in_stock`(`id`,`day`,`accessory_id`,`in_stock`) values (1,'2018-06-01',1,1),(2,'2018-06-02',1,1),(3,'2018-06-04',1,1),(4,'2018-06-05',1,1);
 
 /*Table structure for table `accessory_kind` */
 
@@ -157,11 +157,11 @@ CREATE TABLE `auto` (
   `auto_date` date DEFAULT NULL,
   `auto_name` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=11 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=12 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 /*Data for the table `auto` */
 
-insert  into `auto`(`id`,`auto_date`,`auto_name`) values (4,'2018-05-30','employee_salary'),(5,'2018-05-30','in_stock'),(6,'2018-05-31','in_stock'),(7,'2018-06-01','employee_salary'),(8,'2018-06-01','in_stock'),(9,'2018-06-02','in_stock'),(10,'2018-06-04','in_stock');
+insert  into `auto`(`id`,`auto_date`,`auto_name`) values (4,'2018-05-30','employee_salary'),(5,'2018-05-30','in_stock'),(6,'2018-05-31','in_stock'),(7,'2018-06-01','employee_salary'),(8,'2018-06-01','in_stock'),(9,'2018-06-02','in_stock'),(10,'2018-06-04','in_stock'),(11,'2018-06-05','in_stock');
 
 /*Table structure for table `customer` */
 
@@ -695,6 +695,22 @@ CREATE TABLE `in_stock_day_20180604` (
 
 insert  into `in_stock_day_20180604`(`day`,`shell_id`,`in_stock`,`gas_in_stock`) values ('2018-06-04',1,0,0),('2018-06-04',2,0,0),('2018-06-04',3,0,0),('2018-06-04',4,120,180),('2018-06-04',5,450,150);
 
+/*Table structure for table `in_stock_day_20180605` */
+
+DROP TABLE IF EXISTS `in_stock_day_20180605`;
+
+CREATE TABLE `in_stock_day_20180605` (
+  `day` date DEFAULT NULL,
+  `shell_id` int(11) DEFAULT NULL,
+  `in_stock` int(11) DEFAULT '0',
+  `gas_in_stock` int(11) DEFAULT '0',
+  KEY `shell_id` (`shell_id`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+/*Data for the table `in_stock_day_20180605` */
+
+insert  into `in_stock_day_20180605`(`day`,`shell_id`,`in_stock`,`gas_in_stock`) values ('2018-06-05',1,0,0),('2018-06-05',2,0,0),('2018-06-05',3,0,0),('2018-06-05',4,120,180),('2018-06-05',5,450,150);
+
 /*Table structure for table `in_stock_day_name` */
 
 DROP TABLE IF EXISTS `in_stock_day_name`;
@@ -704,11 +720,11 @@ CREATE TABLE `in_stock_day_name` (
   `day` date DEFAULT NULL,
   `name` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 /*Data for the table `in_stock_day_name` */
 
-insert  into `in_stock_day_name`(`id`,`day`,`name`) values (1,'2018-06-01','in_stock_day_20180601'),(2,'2018-06-02','in_stock_day_20180602'),(3,'2018-06-04','in_stock_day_20180604');
+insert  into `in_stock_day_name`(`id`,`day`,`name`) values (1,'2018-06-01','in_stock_day_20180601'),(2,'2018-06-02','in_stock_day_20180602'),(3,'2018-06-04','in_stock_day_20180604'),(4,'2018-06-05','in_stock_day_20180605');
 
 /*Table structure for table `income` */
 
@@ -763,11 +779,11 @@ CREATE TABLE `lpg_in_stock` (
   `day` date DEFAULT NULL,
   `in_stock` int(11) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 /*Data for the table `lpg_in_stock` */
 
-insert  into `lpg_in_stock`(`id`,`day`,`in_stock`) values (1,'2018-06-01',10000),(2,'2018-06-02',10000),(3,'2018-06-04',10000);
+insert  into `lpg_in_stock`(`id`,`day`,`in_stock`) values (1,'2018-06-01',10000),(2,'2018-06-02',10000),(3,'2018-06-04',10000),(4,'2018-06-05',10000);
 
 /*Table structure for table `old_gas_shell` */
 
@@ -924,11 +940,11 @@ CREATE TABLE `petro_in_stock` (
   `petro_id` int(11) DEFAULT NULL,
   `in_stock` int(11) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=10 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=13 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 /*Data for the table `petro_in_stock` */
 
-insert  into `petro_in_stock`(`id`,`day`,`petro_id`,`in_stock`) values (1,'2018-06-01',1,0),(2,'2018-06-01',2,0),(3,'2018-06-01',3,0),(4,'2018-06-02',1,0),(5,'2018-06-02',2,0),(6,'2018-06-02',3,0),(7,'2018-06-04',1,0),(8,'2018-06-04',2,0),(9,'2018-06-04',3,0);
+insert  into `petro_in_stock`(`id`,`day`,`petro_id`,`in_stock`) values (1,'2018-06-01',1,0),(2,'2018-06-01',2,0),(3,'2018-06-01',3,0),(4,'2018-06-02',1,0),(5,'2018-06-02',2,0),(6,'2018-06-02',3,0),(7,'2018-06-04',1,0),(8,'2018-06-04',2,0),(9,'2018-06-04',3,0),(10,'2018-06-05',1,0),(11,'2018-06-05',2,0),(12,'2018-06-05',3,0);
 
 /*Table structure for table `petro_sale` */
 
@@ -1040,11 +1056,11 @@ CREATE TABLE `promotion_material_in_stock` (
   `promotion_material_id` int(11) DEFAULT NULL,
   `in_stock` int(11) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=10 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 /*Data for the table `promotion_material_in_stock` */
 
-insert  into `promotion_material_in_stock`(`id`,`day`,`promotion_material_id`,`in_stock`) values (1,'2018-06-01',1,600),(2,'2018-06-01',2,1400),(3,'2018-06-02',1,600),(4,'2018-06-02',2,1400),(5,'2018-06-04',1,600),(6,'2018-06-04',2,1400);
+insert  into `promotion_material_in_stock`(`id`,`day`,`promotion_material_id`,`in_stock`) values (1,'2018-06-01',1,600),(2,'2018-06-01',2,1400),(3,'2018-06-02',1,600),(4,'2018-06-02',2,1400),(5,'2018-06-04',1,600),(6,'2018-06-04',2,1400),(7,'2018-06-05',1,600),(8,'2018-06-05',2,1400);
 
 /*Table structure for table `promotion_material_sale` */
 
