@@ -18,9 +18,9 @@
                 <td>
                     <input type="checkbox" name="gasWholesaleReturnShellChk" tabindex="-1" value="<%=((GasWholesaleReturnShellDetailBean) pageContext.getAttribute("returnShell")).getId()%>">
                     <input type="hidden" name="gasWholesaleReturnShellDetailId" value='<bean:write name="returnShell" property="id"/>'/>
-                    <input type="hidden" name="returnShellId" value='<bean:write name="returnShell" property="returnShellId"/>'/>
+                    <input type="hidden" name="returnShellId" value='<bean:write name="returnShell" property="shellId"/>'/>
                 </td>
-                <td><span><bean:write name="returnShell" property="returnShellName"/></span></td>
+                <td><span><bean:write name="returnShell" property="shellName"/></span></td>
                 <td><span><bean:write name="returnShell" property="unitName"/></span></td>
                 <td><input type="text" size="20" name="returnShellQuantity" value="${returnShell.quantity}" onkeyup="try2FloatFormatOnKeyUp(this,event);" onkeypress="return readonlyFloat(event);"/></td>
             </tr>

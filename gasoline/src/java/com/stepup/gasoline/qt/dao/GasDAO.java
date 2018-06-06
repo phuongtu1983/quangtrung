@@ -1420,9 +1420,10 @@ public class GasDAO extends BasicDAO {
 
     public ArrayList getGasWholesaleDetail(int gasWholesaleId) throws Exception {
         ResultSet rs = null;
-        String sql = "select det.*, s.name as shell_name, u.name as unit_name"
+        String sql = "select det.*, s.name as shell_name, s.unit_id, u.name as unit_name"
                 + " from gas_wholesale_detail as det, shell as s, unit as u"
-                + " where det.shell_id=s.id and s.unit_id=u.id and det.gas_wholesale_id=" + gasWholesaleId;
+                + " where det.shell_id=s.id and s.unit_id=u.id and det.gas_wholesale_id=" + gasWholesaleId
+                + " order by det.id";
         ArrayList detailList = new ArrayList();
         try {
             rs = DBUtil.executeQuery(sql);
@@ -1572,12 +1573,11 @@ public class GasDAO extends BasicDAO {
         int result = 0;
         SPUtil spUtil = null;
         try {
-            String sql = "{call insertGasWholesaleDetail(?,?,?,?,?,?)}";
+            String sql = "{call insertGasWholesaleDetail(?,?,?,?,?)}";
             spUtil = new SPUtil(sql);
             if (spUtil != null) {
                 spUtil.getCallableStatement().setInt("_gas_wholesale_id", bean.getGasWholesaleId());
                 spUtil.getCallableStatement().setInt("_shell_id", bean.getShellId());
-                spUtil.getCallableStatement().setFloat("_old_quantity", bean.getOldQuantity());
                 spUtil.getCallableStatement().setFloat("_quantity", bean.getQuantity());
                 spUtil.getCallableStatement().setDouble("_price", bean.getPrice());
                 spUtil.getCallableStatement().setDouble("_amount", bean.getAmount());
@@ -1631,9 +1631,10 @@ public class GasDAO extends BasicDAO {
 
     public ArrayList getGasWholesalePromotionMaterialDetail(int gasWholesaleId) throws Exception {
         ResultSet rs = null;
-        String sql = "select det.*, s.name as shell_name, u.name as unit_name"
+        String sql = "select det.*, s.name as promotion_material_name, s.unit_id, u.name as unit_name"
                 + " from gas_wholesale_promotion as det, promotion_material as s, unit as u"
-                + " where det.shell_id=s.id and s.unit_id=u.id and det.gas_wholesale_id=" + gasWholesaleId;
+                + " where det.promotion_material_id=s.id and s.unit_id=u.id and det.gas_wholesale_id=" + gasWholesaleId
+                + " order by det.id";
         ArrayList detailList = new ArrayList();
         try {
             rs = DBUtil.executeQuery(sql);
@@ -1663,9 +1664,10 @@ public class GasDAO extends BasicDAO {
 
     public ArrayList getGasWholesaleReturnShellDetail(int gasWholesaleId) throws Exception {
         ResultSet rs = null;
-        String sql = "select det.*, s.name as shell_name, u.name as unit_name"
+        String sql = "select det.*, s.name as shell_name, s.unit_id, u.name as unit_name"
                 + " from gas_wholesale_return_shell as det, shell as s, unit as u"
-                + " where det.shell_id=s.id and s.unit_id=u.id and det.gas_wholesale_id=" + gasWholesaleId;
+                + " where det.shell_id=s.id and s.unit_id=u.id and det.gas_wholesale_id=" + gasWholesaleId
+                +" order by det.id";
         ArrayList detailList = new ArrayList();
         try {
             rs = DBUtil.executeQuery(sql);

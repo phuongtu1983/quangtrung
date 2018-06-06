@@ -35,7 +35,7 @@ public class AutoDAO {
 
     public boolean hasAutoInStock() throws Exception {
         ResultSet rs = null;
-        String sql = "SELECT id FROM auto WHERE DATEDIFF(auto_date,SYSDATE())=0 AND auto_name='" + AUTO_IN_STOCK + "'";
+        String sql = "SELECT id FROM auto WHERE MONTH(auto_date)=MONTH(SYSDATE()) AND YEAR(auto_date)=YEAR(SYSDATE()) AND auto_name='" + AUTO_IN_STOCK + "'";
         try {
             rs = DBUtil.executeQuery(sql);
             while (rs.next()) {

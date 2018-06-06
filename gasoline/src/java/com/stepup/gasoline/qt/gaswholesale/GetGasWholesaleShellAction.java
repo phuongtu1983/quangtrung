@@ -46,7 +46,6 @@ public class GetGasWholesaleShellAction extends SpineAction {
                 bean.setShellId(shellBean.getId());
                 bean.setUnitId(shellBean.getUnitId());
                 bean.setUnitName(shellBean.getUnitName());
-                bean.setOldQuantity(shellBean.getGasInStock());
             }
         } catch (Exception ex) {
         }

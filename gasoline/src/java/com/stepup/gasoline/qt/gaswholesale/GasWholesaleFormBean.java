@@ -27,7 +27,6 @@ public class GasWholesaleFormBean extends org.apache.struts.action.ActionForm {
     private int canEdit;
     private String[] gasWholesaleDetailId;
     private String[] shellId;
-    private String[] oldQuantity;
     private String[] quantity;
     private String[] price;
     private String[] amount;
@@ -201,14 +200,6 @@ public class GasWholesaleFormBean extends org.apache.struts.action.ActionForm {
 
     public void setVehicleId(int vehicleId) {
         this.vehicleId = vehicleId;
-    }
-
-    public String[] getOldQuantity() {
-        return oldQuantity;
-    }
-
-    public void setOldQuantity(String[] oldQuantity) {
-        this.oldQuantity = oldQuantity;
     }
 
     public String[] getGasWholesalePromotionMaterialDetailId() {

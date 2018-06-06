@@ -16,8 +16,6 @@ public class ShellBean {
     private int kindId;
     private int unitId;
     private String unitName;
-    private float inStock;
-    private float gasInStock;
     private double price;
     private int status;
 
@@ -83,22 +81,6 @@ public class ShellBean {
 
     public void setUnitName(String unitName) {
         this.unitName = unitName;
-    }
-
-    public float getInStock() {
-        return inStock;
-    }
-
-    public void setInStock(float inStock) {
-        this.inStock = inStock;
-    }
-
-    public float getGasInStock() {
-        return gasInStock;
-    }
-
-    public void setGasInStock(float gasInStock) {
-        this.gasInStock = gasInStock;
     }
 
 }

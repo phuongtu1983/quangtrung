@@ -16,7 +16,6 @@ public class GasWholesaleDetailBean {
     private String shellName;
     private int unitId;
     private String unitName;
-    private float oldQuantity;
     private float quantity;
     private double price;
     private double amount;
@@ -91,14 +90,6 @@ public class GasWholesaleDetailBean {
 
     public void setUnitName(String unitName) {
         this.unitName = unitName;
-    }
-
-    public float getOldQuantity() {
-        return oldQuantity;
-    }
-
-    public void setOldQuantity(float oldQuantity) {
-        this.oldQuantity = oldQuantity;
     }
 
 }

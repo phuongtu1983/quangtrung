@@ -91,7 +91,6 @@ public class AddGasWholesaleAction extends SpineAction {
                 if (id == 0) {
                     GasWholesaleDetailBean bean = new GasWholesaleDetailBean();
                     bean.setShellId(NumberUtil.parseInt(formBean.getShellId()[i], 0));
-                    bean.setOldQuantity(NumberUtil.parseFloat(formBean.getOldQuantity()[i], 0));
                     bean.setQuantity(NumberUtil.parseFloat(formBean.getQuantity()[i], 0));
                     bean.setPrice(NumberUtil.parseFloat(formBean.getPrice()[i], 0));
                     bean.setAmount(NumberUtil.parseFloat(formBean.getAmount()[i], 0));
@@ -139,11 +138,11 @@ public class AddGasWholesaleAction extends SpineAction {
             int id = 0;
             boolean isUpdate = false;
             for (int i = 0; i < length; i++) {
-                id = NumberUtil.parseInt(formBean.getGasWholesaleDetailId()[i], 0);
+                id = NumberUtil.parseInt(formBean.getGasWholesalePromotionMaterialDetailId()[i], 0);
                 if (id == 0) {
                     GasWholesalePromotionMaterialDetailBean bean = new GasWholesalePromotionMaterialDetailBean();
                     bean.setPromotionMaterialId(NumberUtil.parseInt(formBean.getPromotionMaterialId()[i], 0));
-                    bean.setQuantity(NumberUtil.parseFloat(formBean.getQuantity()[i], 0));
+                    bean.setQuantity(NumberUtil.parseFloat(formBean.getPromotionMaterialQuantity()[i], 0));
                     bean.setGasWholesaleId(formBean.getId());
                     gasDAO.insertGasWholesalePromotionMaterialDetail(bean);
                 } else {
@@ -158,9 +157,9 @@ public class AddGasWholesaleAction extends SpineAction {
                     }
                     if (j < arrDetail.size()) {
                         arrDetail.remove(j);
-                        if (oldBean.getQuantity() != NumberUtil.parseDouble(formBean.getQuantity()[i], 0)) {
+                        if (oldBean.getQuantity() != NumberUtil.parseDouble(formBean.getPromotionMaterialQuantity()[i], 0)) {
                             isUpdate = true;
-                            oldBean.setQuantity(NumberUtil.parseFloat(formBean.getQuantity()[i], 0));
+                            oldBean.setQuantity(NumberUtil.parseFloat(formBean.getPromotionMaterialQuantity()[i], 0));
                         }
                         if (isUpdate) {
                             gasDAO.updateGasWholesalePromotionMaterialDetail(oldBean);
@@ -180,11 +179,11 @@ public class AddGasWholesaleAction extends SpineAction {
             int id = 0;
             boolean isUpdate = false;
             for (int i = 0; i < length; i++) {
-                id = NumberUtil.parseInt(formBean.getGasWholesaleDetailId()[i], 0);
+                id = NumberUtil.parseInt(formBean.getGasWholesaleReturnShellDetailId()[i], 0);
                 if (id == 0) {
                     GasWholesaleReturnShellDetailBean bean = new GasWholesaleReturnShellDetailBean();
-                    bean.setShellId(NumberUtil.parseInt(formBean.getShellId()[i], 0));
-                    bean.setQuantity(NumberUtil.parseFloat(formBean.getQuantity()[i], 0));
+                    bean.setShellId(NumberUtil.parseInt(formBean.getReturnShellId()[i], 0));
+                    bean.setQuantity(NumberUtil.parseFloat(formBean.getReturnShellQuantity()[i], 0));
                     bean.setGasWholesaleId(formBean.getId());
                     gasDAO.insertGasWholesaleReturnShellDetail(bean);
                 } else {
@@ -199,9 +198,9 @@ public class AddGasWholesaleAction extends SpineAction {
                     }
                     if (j < arrDetail.size()) {
                         arrDetail.remove(j);
-                        if (oldBean.getQuantity() != NumberUtil.parseDouble(formBean.getQuantity()[i], 0)) {
+                        if (oldBean.getQuantity() != NumberUtil.parseDouble(formBean.getReturnShellQuantity()[i], 0)) {
                             isUpdate = true;
-                            oldBean.setQuantity(NumberUtil.parseFloat(formBean.getQuantity()[i], 0));
+                            oldBean.setQuantity(NumberUtil.parseFloat(formBean.getReturnShellQuantity()[i], 0));
                         }
                         if (isUpdate) {
                             gasDAO.updateGasWholesaleReturnShellDetail(oldBean);

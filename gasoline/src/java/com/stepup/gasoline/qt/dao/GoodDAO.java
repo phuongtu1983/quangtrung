@@ -236,8 +236,6 @@ public class GoodDAO extends BasicDAO {
                 bean.setKindId(rs.getInt("kind_id"));
                 bean.setPrice(rs.getDouble("price"));
                 bean.setStatus(rs.getInt("status"));
-                bean.setInStock(rs.getFloat("in_stock"));
-                bean.setGasInStock(rs.getFloat("gas_in_stock"));
                 return bean;
             }
         } catch (SQLException sqle) {

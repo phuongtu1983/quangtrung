@@ -27,13 +27,12 @@ CREATE TABLE `accessory` (
   `price` double DEFAULT NULL,
   `unit_id` int(11) DEFAULT NULL,
   `status` int(1) DEFAULT '1' COMMENT '0:bi khoa,1:dang hoat dong',
-  `in_stock` int(11) DEFAULT '0',
   PRIMARY KEY (`id`)
 ) ENGINE=MyISAM AUTO_INCREMENT=2 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 /*Data for the table `accessory` */
 
-insert  into `accessory`(`id`,`kind_id`,`name`,`price`,`unit_id`,`status`,`in_stock`) values (1,1,'Bếp khè tay ngăn2',100000,2,1,1);
+insert  into `accessory`(`id`,`kind_id`,`name`,`price`,`unit_id`,`status`) values (1,1,'Bếp khè tay ngăn2',100000,2,1);
 
 /*Table structure for table `accessory_import` */
 
@@ -85,11 +84,11 @@ CREATE TABLE `accessory_in_stock` (
   `accessory_id` int(11) DEFAULT NULL,
   `in_stock` int(11) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=9 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 /*Data for the table `accessory_in_stock` */
 
-insert  into `accessory_in_stock`(`id`,`day`,`accessory_id`,`in_stock`) values (1,'2018-06-01',1,1),(2,'2018-06-02',1,1),(3,'2018-06-04',1,1),(4,'2018-06-05',1,1);
+insert  into `accessory_in_stock`(`id`,`day`,`accessory_id`,`in_stock`) values (8,'2018-06-06',1,0);
 
 /*Table structure for table `accessory_kind` */
 
@@ -157,11 +156,11 @@ CREATE TABLE `auto` (
   `auto_date` date DEFAULT NULL,
   `auto_name` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=12 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=13 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 /*Data for the table `auto` */
 
-insert  into `auto`(`id`,`auto_date`,`auto_name`) values (4,'2018-05-30','employee_salary'),(5,'2018-05-30','in_stock'),(6,'2018-05-31','in_stock'),(7,'2018-06-01','employee_salary'),(8,'2018-06-01','in_stock'),(9,'2018-06-02','in_stock'),(10,'2018-06-04','in_stock'),(11,'2018-06-05','in_stock');
+insert  into `auto`(`id`,`auto_date`,`auto_name`) values (4,'2018-05-30','employee_salary'),(5,'2018-05-30','in_stock'),(6,'2018-05-31','in_stock'),(7,'2018-06-01','employee_salary'),(8,'2018-06-01','in_stock'),(9,'2018-06-02','in_stock'),(10,'2018-06-04','in_stock'),(11,'2018-06-05','in_stock'),(12,'2018-06-06','in_stock');
 
 /*Table structure for table `customer` */
 
@@ -581,9 +580,11 @@ CREATE TABLE `gas_wholesale` (
   `vehicle_id` int(11) DEFAULT NULL,
   `note` text COLLATE utf8_unicode_ci,
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=MyISAM AUTO_INCREMENT=4 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 /*Data for the table `gas_wholesale` */
+
+insert  into `gas_wholesale`(`id`,`code`,`created_date`,`customer_id`,`total`,`paid`,`debt`,`payment_mode`,`account_id`,`vehicle_id`,`note`) values (3,'20180606-GW-0001','2018-06-06',1,1502,1502,0,1,1,0,'abc1');
 
 /*Table structure for table `gas_wholesale_detail` */
 
@@ -593,16 +594,15 @@ CREATE TABLE `gas_wholesale_detail` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `gas_wholesale_id` int(11) DEFAULT NULL,
   `shell_id` int(11) DEFAULT NULL,
-  `old_quantity` float DEFAULT NULL,
   `quantity` float DEFAULT NULL,
   `price` double DEFAULT NULL,
   `amount` double DEFAULT NULL,
-  `discount` double DEFAULT NULL,
-  `total` double DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=MyISAM AUTO_INCREMENT=7 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 /*Data for the table `gas_wholesale_detail` */
+
+insert  into `gas_wholesale_detail`(`id`,`gas_wholesale_id`,`shell_id`,`quantity`,`price`,`amount`) values (6,3,4,31,41,1271),(5,3,5,11,21,231);
 
 /*Table structure for table `gas_wholesale_promotion` */
 
@@ -614,9 +614,11 @@ CREATE TABLE `gas_wholesale_promotion` (
   `promotion_material_id` int(11) DEFAULT NULL,
   `quantity` int(3) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=MyISAM AUTO_INCREMENT=3 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 /*Data for the table `gas_wholesale_promotion` */
+
+insert  into `gas_wholesale_promotion`(`id`,`gas_wholesale_id`,`promotion_material_id`,`quantity`) values (2,3,1,51);
 
 /*Table structure for table `gas_wholesale_return_shell` */
 
@@ -628,103 +630,11 @@ CREATE TABLE `gas_wholesale_return_shell` (
   `shell_id` int(11) DEFAULT NULL,
   `quantity` int(3) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=MyISAM AUTO_INCREMENT=4 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 /*Data for the table `gas_wholesale_return_shell` */
 
-/*Table structure for table `in_stock` */
-
-DROP TABLE IF EXISTS `in_stock`;
-
-CREATE TABLE `in_stock` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
-  `name` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
-  `value` float DEFAULT '0',
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
-
-/*Data for the table `in_stock` */
-
-insert  into `in_stock`(`id`,`name`,`value`) values (1,'lpg',10000);
-
-/*Table structure for table `in_stock_day_20180601` */
-
-DROP TABLE IF EXISTS `in_stock_day_20180601`;
-
-CREATE TABLE `in_stock_day_20180601` (
-  `day` date DEFAULT NULL,
-  `shell_id` int(11) DEFAULT NULL,
-  `in_stock` int(11) DEFAULT '0',
-  `gas_in_stock` int(11) DEFAULT '0',
-  KEY `shell_id` (`shell_id`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
-
-/*Data for the table `in_stock_day_20180601` */
-
-insert  into `in_stock_day_20180601`(`day`,`shell_id`,`in_stock`,`gas_in_stock`) values ('2018-06-01',1,0,0),('2018-06-01',2,0,0),('2018-06-01',3,0,0),('2018-06-01',4,120,180),('2018-06-01',5,450,150);
-
-/*Table structure for table `in_stock_day_20180602` */
-
-DROP TABLE IF EXISTS `in_stock_day_20180602`;
-
-CREATE TABLE `in_stock_day_20180602` (
-  `day` date DEFAULT NULL,
-  `shell_id` int(11) DEFAULT NULL,
-  `in_stock` int(11) DEFAULT '0',
-  `gas_in_stock` int(11) DEFAULT '0',
-  KEY `shell_id` (`shell_id`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
-
-/*Data for the table `in_stock_day_20180602` */
-
-insert  into `in_stock_day_20180602`(`day`,`shell_id`,`in_stock`,`gas_in_stock`) values ('2018-06-02',1,0,0),('2018-06-02',2,0,0),('2018-06-02',3,0,0),('2018-06-02',4,120,180),('2018-06-02',5,450,150);
-
-/*Table structure for table `in_stock_day_20180604` */
-
-DROP TABLE IF EXISTS `in_stock_day_20180604`;
-
-CREATE TABLE `in_stock_day_20180604` (
-  `day` date DEFAULT NULL,
-  `shell_id` int(11) DEFAULT NULL,
-  `in_stock` int(11) DEFAULT '0',
-  `gas_in_stock` int(11) DEFAULT '0',
-  KEY `shell_id` (`shell_id`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
-
-/*Data for the table `in_stock_day_20180604` */
-
-insert  into `in_stock_day_20180604`(`day`,`shell_id`,`in_stock`,`gas_in_stock`) values ('2018-06-04',1,0,0),('2018-06-04',2,0,0),('2018-06-04',3,0,0),('2018-06-04',4,120,180),('2018-06-04',5,450,150);
-
-/*Table structure for table `in_stock_day_20180605` */
-
-DROP TABLE IF EXISTS `in_stock_day_20180605`;
-
-CREATE TABLE `in_stock_day_20180605` (
-  `day` date DEFAULT NULL,
-  `shell_id` int(11) DEFAULT NULL,
-  `in_stock` int(11) DEFAULT '0',
-  `gas_in_stock` int(11) DEFAULT '0',
-  KEY `shell_id` (`shell_id`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
-
-/*Data for the table `in_stock_day_20180605` */
-
-insert  into `in_stock_day_20180605`(`day`,`shell_id`,`in_stock`,`gas_in_stock`) values ('2018-06-05',1,0,0),('2018-06-05',2,0,0),('2018-06-05',3,0,0),('2018-06-05',4,120,180),('2018-06-05',5,450,150);
-
-/*Table structure for table `in_stock_day_name` */
-
-DROP TABLE IF EXISTS `in_stock_day_name`;
-
-CREATE TABLE `in_stock_day_name` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
-  `day` date DEFAULT NULL,
-  `name` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
-
-/*Data for the table `in_stock_day_name` */
-
-insert  into `in_stock_day_name`(`id`,`day`,`name`) values (1,'2018-06-01','in_stock_day_20180601'),(2,'2018-06-02','in_stock_day_20180602'),(3,'2018-06-04','in_stock_day_20180604'),(4,'2018-06-05','in_stock_day_20180605');
+insert  into `gas_wholesale_return_shell`(`id`,`gas_wholesale_id`,`shell_id`,`quantity`) values (3,3,1,61);
 
 /*Table structure for table `income` */
 
@@ -768,7 +678,7 @@ CREATE TABLE `lpg_import` (
 
 /*Data for the table `lpg_import` */
 
-insert  into `lpg_import`(`id`,`code`,`import_date`,`vendor_id`,`paper_quantity`,`actual_quantity`,`old_quantity`,`price`,`amount`,`paid`,`debt`,`rate`,`note`,`payment_mode`,`account_id`) values (7,'20180530-LI-0001','2018-05-30',1,20000,10000,NULL,3333,33330000,0,33330000,0,NULL,1,NULL);
+insert  into `lpg_import`(`id`,`code`,`import_date`,`vendor_id`,`paper_quantity`,`actual_quantity`,`old_quantity`,`price`,`amount`,`paid`,`debt`,`rate`,`note`,`payment_mode`,`account_id`) values (7,'20180530-LI-0001','2018-06-13',1,20000,10000,NULL,3333,33330000,0,33330000,0,NULL,1,NULL);
 
 /*Table structure for table `lpg_in_stock` */
 
@@ -779,11 +689,11 @@ CREATE TABLE `lpg_in_stock` (
   `day` date DEFAULT NULL,
   `in_stock` int(11) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 /*Data for the table `lpg_in_stock` */
 
-insert  into `lpg_in_stock`(`id`,`day`,`in_stock`) values (1,'2018-06-01',10000),(2,'2018-06-02',10000),(3,'2018-06-04',10000),(4,'2018-06-05',10000);
+insert  into `lpg_in_stock`(`id`,`day`,`in_stock`) values (3,'2018-06-06',10000);
 
 /*Table structure for table `old_gas_shell` */
 
@@ -883,13 +793,12 @@ CREATE TABLE `petro` (
   `unit_id` int(11) DEFAULT NULL,
   `organization_id` int(11) DEFAULT NULL,
   `status` int(1) DEFAULT '1' COMMENT '0:bi khoa,1:dang hoat dong',
-  `in_stock` int(11) DEFAULT '0',
   PRIMARY KEY (`id`)
 ) ENGINE=MyISAM AUTO_INCREMENT=4 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 /*Data for the table `petro` */
 
-insert  into `petro`(`id`,`code`,`name`,`price`,`unit_id`,`organization_id`,`status`,`in_stock`) values (1,'NW01','NIWA  AUTO 10W-40 SJ/CH4 -  4L ',1000,2,1,1,0),(2,'NW13','NIWA AUTO TURBO 15W-40 CF4/SJ - 18L',2000,2,1,1,0),(3,'NW37','NIWA NANO  SJ 0,8L',3000,2,1,1,0);
+insert  into `petro`(`id`,`code`,`name`,`price`,`unit_id`,`organization_id`,`status`) values (1,'NW01','NIWA  AUTO 10W-40 SJ/CH4 -  4L ',1000,2,1,1),(2,'NW13','NIWA AUTO TURBO 15W-40 CF4/SJ - 18L',2000,2,1,1),(3,'NW37','NIWA NANO  SJ 0,8L',3000,2,1,1);
 
 /*Table structure for table `petro_import` */
 
@@ -940,11 +849,11 @@ CREATE TABLE `petro_in_stock` (
   `petro_id` int(11) DEFAULT NULL,
   `in_stock` int(11) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=13 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=25 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 /*Data for the table `petro_in_stock` */
 
-insert  into `petro_in_stock`(`id`,`day`,`petro_id`,`in_stock`) values (1,'2018-06-01',1,0),(2,'2018-06-01',2,0),(3,'2018-06-01',3,0),(4,'2018-06-02',1,0),(5,'2018-06-02',2,0),(6,'2018-06-02',3,0),(7,'2018-06-04',1,0),(8,'2018-06-04',2,0),(9,'2018-06-04',3,0),(10,'2018-06-05',1,0),(11,'2018-06-05',2,0),(12,'2018-06-05',3,0);
+insert  into `petro_in_stock`(`id`,`day`,`petro_id`,`in_stock`) values (22,'2018-06-06',1,0),(23,'2018-06-06',2,0),(24,'2018-06-06',3,0);
 
 /*Table structure for table `petro_sale` */
 
@@ -998,13 +907,12 @@ CREATE TABLE `promotion_material` (
   `name` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
   `unit_id` int(11) DEFAULT NULL,
   `status` int(1) DEFAULT '1' COMMENT '0:bi khoa,1:dang hoat dong',
-  `in_stock` int(11) DEFAULT '0',
   PRIMARY KEY (`id`)
 ) ENGINE=MyISAM AUTO_INCREMENT=3 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 /*Data for the table `promotion_material` */
 
-insert  into `promotion_material`(`id`,`name`,`unit_id`,`status`,`in_stock`) values (1,'Đĩa thủy tinh + ly',2,1,600),(2,'Thố tráng men',2,1,1400);
+insert  into `promotion_material`(`id`,`name`,`unit_id`,`status`) values (1,'Đĩa thủy tinh + ly',2,1),(2,'Thố tráng men',2,1);
 
 /*Table structure for table `promotion_material_import` */
 
@@ -1056,11 +964,11 @@ CREATE TABLE `promotion_material_in_stock` (
   `promotion_material_id` int(11) DEFAULT NULL,
   `in_stock` int(11) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=10 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=20 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 /*Data for the table `promotion_material_in_stock` */
 
-insert  into `promotion_material_in_stock`(`id`,`day`,`promotion_material_id`,`in_stock`) values (1,'2018-06-01',1,600),(2,'2018-06-01',2,1400),(3,'2018-06-02',1,600),(4,'2018-06-02',2,1400),(5,'2018-06-04',1,600),(6,'2018-06-04',2,1400),(7,'2018-06-05',1,600),(8,'2018-06-05',2,1400);
+insert  into `promotion_material_in_stock`(`id`,`day`,`promotion_material_id`,`in_stock`) values (17,'2018-06-06',1,-51),(18,'2018-06-06',2,0);
 
 /*Table structure for table `promotion_material_sale` */
 
@@ -1163,14 +1071,12 @@ CREATE TABLE `shell` (
   `price` double DEFAULT NULL,
   `unit_id` int(11) DEFAULT NULL,
   `status` int(1) DEFAULT '1' COMMENT '0:dang khoa, 1:dang hoat dong',
-  `in_stock` int(11) DEFAULT '0' COMMENT 'binh gas rong',
-  `gas_in_stock` int(11) DEFAULT '0' COMMENT 'binh gas day',
   PRIMARY KEY (`id`)
 ) ENGINE=MyISAM AUTO_INCREMENT=6 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 /*Data for the table `shell` */
 
-insert  into `shell`(`id`,`kind_id`,`code`,`name`,`price`,`unit_id`,`status`,`in_stock`,`gas_in_stock`) values (1,1,'AG','A Gas',12342,1,1,0,0),(2,2,'GDG','Gia Định Gas',2000,2,1,0,0),(3,1,'MKG','Mai Khê Gas',3000,2,1,0,0),(4,2,'STG12','Star Gas',300000,2,1,120,180),(5,1,'STG45','Star Gas 45',500000,2,1,450,150);
+insert  into `shell`(`id`,`kind_id`,`code`,`name`,`price`,`unit_id`,`status`) values (1,1,'AG','A Gas',12342,1,1),(2,2,'GDG','Gia Định Gas',2000,2,1),(3,1,'MKG','Mai Khê Gas',3000,2,1),(4,2,'STG12','Star Gas',300000,2,1),(5,1,'STG45','Star Gas 45',500000,2,1);
 
 /*Table structure for table `shell_import` */
 
@@ -1190,6 +1096,22 @@ CREATE TABLE `shell_import` (
 /*Data for the table `shell_import` */
 
 insert  into `shell_import`(`id`,`code`,`created_date`,`shell_id`,`quantity`,`price`,`note`) values (12,'20180530-SI-0002','2018-05-30',4,120,2222,''),(11,'20180530-SI-0001','2018-05-30',5,450,1111,'');
+
+/*Table structure for table `shell_in_stock` */
+
+DROP TABLE IF EXISTS `shell_in_stock`;
+
+CREATE TABLE `shell_in_stock` (
+  `day` date DEFAULT NULL,
+  `shell_id` int(11) DEFAULT NULL,
+  `in_stock` int(11) DEFAULT '0',
+  `gas_in_stock` int(11) DEFAULT '0',
+  KEY `shell_id` (`shell_id`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+/*Data for the table `shell_in_stock` */
+
+insert  into `shell_in_stock`(`day`,`shell_id`,`in_stock`,`gas_in_stock`) values ('2018-06-06',5,0,-11),('2018-06-06',4,0,-31),('2018-06-06',3,0,0),('2018-06-06',2,0,0),('2018-06-06',1,61,0);
 
 /*Table structure for table `shell_kind` */
 
@@ -1550,32 +1472,6 @@ CREATE TABLE `wholesale_debt` (
 
 /*Data for the table `wholesale_debt` */
 
-/* Procedure structure for procedure `created_in_stock_day` */
-
-/*!50003 DROP PROCEDURE IF EXISTS  `created_in_stock_day` */;
-
-DELIMITER $$
-
-/*!50003 CREATE DEFINER=`root`@`localhost` PROCEDURE `created_in_stock_day`(IN _name VARCHAR(25))
-BEGIN
-	DECLARE _is_exist_table INT;
-	
-	SELECT COUNT(*) INTO _is_exist_table FROM information_schema.TABLES WHERE BINARY table_name = BINARY _name AND table_schema = 'gasoline';
-	IF _is_exist_table=0 THEN
-		SET @str_created_in_stock_day=CONCAT("
-			CREATE TABLE `",_name,"` (
-			`day` date DEFAULT NULL,
-			`shell_id` int(11) DEFAULT NULL,
-			`in_stock` int DEFAULT '0',
-			`gas_in_stock` int DEFAULT '0',
-			KEY `shell_id` (`shell_id`)
-			) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;");
-		PREPARE stmt1 FROM @str_created_in_stock_day;
-		EXECUTE stmt1;
-	END IF;
-    END */$$
-DELIMITER ;
-
 /* Procedure structure for procedure `deleteAccessoryImport` */
 
 /*!50003 DROP PROCEDURE IF EXISTS  `deleteAccessoryImport` */;
@@ -1584,9 +1480,6 @@ DELIMITER $$
 
 /*!50003 CREATE DEFINER=`root`@`localhost` PROCEDURE `deleteAccessoryImport`(IN _id INT)
 BEGIN
-	UPDATE accessory AS a, accessory_import_detail AS d
-	SET a.in_stock=a.in_stock-d.quantity WHERE a.id=d.accessory_id AND d.accessory_import_id=_id;
-	
 	DELETE FROM accessory_import_detail WHERE accessory_import_id=_id;
 	DELETE FROM accessory_import WHERE id=_id;
     END */$$
@@ -1616,15 +1509,6 @@ DELIMITER $$
 
 /*!50003 CREATE DEFINER=`root`@`localhost` PROCEDURE `deleteFraction`(IN _id INT)
 BEGIN
-	UPDATE shell AS s, fraction_gas_detail AS d
-	SET s.in_stock=s.in_stock+d.quantity, s.gas_in_stock=s.gas_in_stock-d.quantity WHERE s.id=d.shell_id AND d.fraction_id=_id;
-	
-	UPDATE in_stock AS s
-		, (SELECT COALESCE(SUM(d.quantity * k.weight),0) AS quantity 
-			FROM fraction_gas_detail AS d, shell AS s, shell_kind AS k
-			WHERE d.fraction_id=_id AND d.shell_id=s.id AND s.kind_id=k.id) AS tbl
-	SET s.VALUE = s.VALUE + tbl.quantity WHERE NAME='lpg';
-	
 	delete from fraction_gas_detail where fraction_id=_id;
 	DELETE FROM fraction_gas WHERE id=_id;
     END */$$
@@ -1638,9 +1522,6 @@ DELIMITER $$
 
 /*!50003 CREATE DEFINER=`root`@`localhost` PROCEDURE `deleteGasImport`(IN _id INT)
 BEGIN
-	UPDATE shell AS s, gas_import_detail AS d
-	SET s.gas_in_stock=s.gas_in_stock-d.quantity WHERE s.id=d.shell_id AND d.gas_import_id=_id;
-	
 	DELETE FROM gas_import_detail WHERE gas_import_id=_id;
 	DELETE FROM gas_import WHERE id=_id;
     END */$$
@@ -1654,10 +1535,9 @@ DELIMITER $$
 
 /*!50003 CREATE DEFINER=`root`@`localhost` PROCEDURE `deleteGasWholesale`(IN _id INT)
 BEGIN
-	UPDATE shell AS s, gas_wholesale_detail AS d
-	SET s.gas_in_stock=s.gas_in_stock+d.quantity WHERE s.id=d.shell_id AND d.gas_wholesale_id=_id;
-	
 	DELETE FROM gas_wholesale_detail WHERE gas_wholesale_id=_id;
+	delete from gas_wholesale_promotion where gas_wholesale_id=_id;
+	DELETE FROM gas_wholesale_return_shell WHERE gas_wholesale_id=_id;
 	DELETE FROM gas_wholesale WHERE id=_id;
     END */$$
 DELIMITER ;
@@ -1670,12 +1550,7 @@ DELIMITER $$
 
 /*!50003 CREATE DEFINER=`root`@`localhost` PROCEDURE `deleteLpgImport`(IN _id INT)
 BEGIN
-	DECLARE _quantity INT DEFAULT 0;
-	SELECT actual_quantity INTO _quantity FROM lpg_import WHERE id=_id;
-	
 	DELETE FROM lpg_import WHERE id=_id;
-	
-	UPDATE in_stock SET value = value - _quantity WHERE name='lpg';
     END */$$
 DELIMITER ;
 
@@ -1687,9 +1562,6 @@ DELIMITER $$
 
 /*!50003 CREATE DEFINER=`root`@`localhost` PROCEDURE `deletePetroImport`(IN _id INT)
 BEGIN
-	UPDATE petro AS s, petro_import_detail AS d
-	SET s.in_stock=s.in_stock-d.quantity WHERE s.id=d.petro_id AND d.petro_import_id=_id;
-	
 	DELETE FROM petro_import_detail WHERE petro_import_id=_id;
 	DELETE FROM petro_import WHERE id=_id;
     END */$$
@@ -1703,9 +1575,6 @@ DELIMITER $$
 
 /*!50003 CREATE DEFINER=`root`@`localhost` PROCEDURE `deletePromotionMaterialImport`(IN _id INT)
 BEGIN
-	UPDATE promotion_material AS a, promotion_material_import_detail AS d
-	SET a.in_stock=a.in_stock-d.quantity WHERE a.id=d.promotion_material_id AND d.import_id=_id;
-	
 	DELETE FROM promotion_material_import_detail WHERE import_id=_id;
 	DELETE FROM promotion_material_import WHERE id=_id;
     END */$$
@@ -1719,12 +1588,7 @@ DELIMITER $$
 
 /*!50003 CREATE DEFINER=`root`@`localhost` PROCEDURE `deleteShellImport`(IN _id int)
 BEGIN
-	DECLARE _quantity, _shell_id INT DEFAULT 0;
-	SELECT shell_id, quantity INTO _shell_id, _quantity FROM shell_import WHERE id=_id;
-	
 	dELETE FROM shell_import WHERE id=_id;
-	
-	UPDATE shell SET in_stock = in_stock - _quantity WHERE id=_shell_id;
     END */$$
 DELIMITER ;
 
@@ -1774,8 +1638,6 @@ DELIMITER $$
 BEGIN
 	INSERT INTO accessory_import_detail(accessory_import_id, accessory_id, quantity, price, amount) 
 	VALUES (_accessory_import_id, _accessory_id, _quantity, _price, _amount);
-	
-	UPDATE accessory SET in_stock = in_stock + _quantity WHERE id=_accessory_id;
     END */$$
 DELIMITER ;
 
@@ -1848,15 +1710,7 @@ DELIMITER $$
 
 /*!50003 CREATE DEFINER=`root`@`localhost` PROCEDURE `insertFractionDetail`(in _fraction_id int, in _shell_id int, in _quantity int)
 BEGIN
-	declare _actual_quantity float default 0;
-	select k.weight*_quantity into _actual_quantity from shell as s, shell_kind as k where s.kind_id=k.id and s.id=_shell_id;
-	
 	insert into fraction_gas_detail(fraction_id, shell_id, quantity) values (_fraction_id, _shell_id, _quantity);
-	
-	UPDATE in_stock SET VALUE = VALUE - _actual_quantity WHERE NAME='lpg';
-	
-	update shell set in_stock = in_stock - _quantity, gas_in_stock = gas_in_stock + _quantity where id=_shell_id;
-	
     END */$$
 DELIMITER ;
 
@@ -1884,8 +1738,6 @@ DELIMITER $$
 /*!50003 CREATE DEFINER=`root`@`localhost` PROCEDURE `insertGasImportDetail`(IN _gas_import_id INT, IN _shell_id INT, IN _quantity INT, in _price double, in _amount double)
 BEGIN
 	INSERT INTO gas_import_detail(gas_import_id, shell_id, quantity, price, amount) VALUES (_gas_import_id, _shell_id, _quantity, _price, _amount);
-	
-	UPDATE shell SET gas_in_stock = gas_in_stock + _quantity WHERE id=_shell_id;
     END */$$
 DELIMITER ;
 
@@ -1925,13 +1777,10 @@ DELIMITER ;
 
 DELIMITER $$
 
-/*!50003 CREATE DEFINER=`root`@`localhost` PROCEDURE `insertGasWholesaleDetail`(IN _gas_wholesale_id INT, IN _shell_id INT, IN _old_quantity INT, IN _quantity INT
-	, IN _price DOUBLE, IN _amount DOUBLE)
+/*!50003 CREATE DEFINER=`root`@`localhost` PROCEDURE `insertGasWholesaleDetail`(IN _gas_wholesale_id INT, IN _shell_id INT, IN _quantity INT, IN _price DOUBLE, IN _amount DOUBLE)
 BEGIN
-	INSERT INTO gas_wholesale_detail(gas_wholesale_id, shell_id, old_quantity, quantity, price, amount) 
-	VALUES (_gas_wholesale_id, _shell_id, _old_quantity, _quantity, _price, _amount);
-	
-	UPDATE shell SET gas_in_stock = gas_in_stock - _quantity WHERE id=_shell_id;
+	INSERT INTO gas_wholesale_detail(gas_wholesale_id, shell_id, quantity, price, amount) 
+	VALUES (_gas_wholesale_id, _shell_id, _quantity, _price, _amount);
     END */$$
 DELIMITER ;
 
@@ -1973,35 +1822,109 @@ DELIMITER $$
 
 /*!50003 CREATE DEFINER=`root`@`localhost` PROCEDURE `insertInStockDay`()
 BEGIN
-	DECLARE _name, _today_name VARCHAR(255);
 	DECLARE _date DATE;
+	declare _month, _year, _last_month, _last_year int;
 	
 	SELECT sysdate() INTO _date;
-	SELECT CONCAT('in_stock_day_',DATE_FORMAT(_date,"%Y%m%d")) INTO _today_name;
+	select month(_date), year(_date) into _month, _year;
 	
-	SELECT NAME INTO _name FROM in_stock_day_name WHERE `day`=_date;
-	IF _name IS NULL THEN
-		INSERT INTO in_stock_day_name(`day`,`name`) VALUES(_date, _today_name);
-	END IF;
-	CALL created_in_stock_day(_today_name);
+	if _month=1 then
+		set _last_month = 12;
+		SET _last_year = _year - 1;
+	else
+		SET _last_month = _month - 1;
+		SET _last_year = _year;
+	end if;
+	DELETE FROM shell_in_stock WHERE MONTH(`DAY`)=_month AND YEAR(`DAY`)=_year;
 	
-	SET @str_createInStock=CONCAT("
-			INSERT INTO ",_today_name," (`day`, shell_id, in_stock, gas_in_stock)
-			select '",_date,"',id,in_stock,gas_in_stock from shell where status=1");
-		PREPARE stmt1 FROM @str_createInStock;
-		EXECUTE stmt1;
+	insert into shell_in_stock(day, shell_id, in_stock, gas_in_stock)
+	SELECT _date, s.id, COALESCE(sum(tbl.in_stock),0) , COALESCE(sum(tbl.gas_in_stock),0) 
+	FROM shell AS s
+	LEFT JOIN (
+		SELECT i.shell_id, coalesce(SUM(i.quantity),0) AS in_stock, 0 as gas_in_stock
+		FROM shell_import as i
+		WHERE MONTH(i.created_date)=_month AND YEAR(i.created_date)=_year
+		GROUP BY i.shell_id
+		union all
+		SELECT f_det.shell_id,  -SUM(f_det.quantity) AS in_stock, SUM(f_det.quantity) AS gas_in_stock
+		FROM fraction_gas_detail AS f_det, fraction_gas AS f 
+		WHERE f_det.fraction_id=f.id AND MONTH(f.created_date)=_month AND YEAR(f.created_date)=_year
+		GROUP BY f_det.shell_id
+		union all
+		SELECT i_det.shell_id, 0 as in_stock, SUM(i_det.quantity) AS gas_in_stock
+		FROM gas_import_detail AS i_det, gas_import AS i 
+		WHERE i_det.gas_import_id=i.id AND MONTH(i.created_date)=_month AND YEAR(i.created_date)=_year
+		GROUP BY i_det.shell_id
+		union all
+		SELECT i_det.shell_id, 0 as in_stock, -SUM(i_det.quantity) AS gas_in_stock
+		FROM gas_wholesale_detail AS i_det, gas_wholesale AS i 
+		WHERE i_det.gas_wholesale_id=i.id AND MONTH(i.created_date)=_month AND YEAR(i.created_date)=_year
+		GROUP BY i_det.shell_id
+		UNION ALL
+		SELECT i_det.shell_id, SUM(i_det.quantity) AS in_stock, 0 AS gas_in_stock
+		FROM gas_wholesale_return_shell AS i_det, gas_wholesale AS i 
+		WHERE i_det.gas_wholesale_id=i.id AND MONTH(i.created_date)=_month AND YEAR(i.created_date)=_year
+		GROUP BY i_det.shell_id
+	) AS tbl ON tbl.shell_id=s.id
+	WHERE s.STATUS=1 group by s.id;
+	delete from lpg_in_stock where MONTH(`DAY`)=_month AND YEAR(`DAY`)=_year;
 	
-	insert into lpg_in_stock(`day`,in_stock)
-	select _date, `value` from in_stock where name='lpg';
+	insert into lpg_in_stock(day, in_stock)
+	SELECT _date, COALESCE(tbl_lpg_in_stock.tbl_old_stock_quantity,0) + COALESCE(tbl_lpg_in_stock.tbl_import_quantity,0) - COALESCE(tbl_lpg_in_stock.tbl_fraction_quantity,0)
+	from (
+		SELECT * FROM (SELECT 0 AS virtual) AS tbl
+		left join (select COALESCE(SUM(actual_quantity),0) as tbl_import_quantity FROM lpg_import WHERE MONTH(import_date)=_month AND YEAR(import_date)=_year) as tbl_import on 1
+		LEFT JOIN (select COALESCE(in_stock,0) as tbl_old_stock_quantity from lpg_in_stock where MONTH(DAY)=_last_month AND YEAR(DAY)=_last_year) as tbl_old_stock ON 1
+		LEFT JOIN (
+			SELECT COALESCE(sum(f_det.quantity*k.weight),0) AS tbl_fraction_quantity 
+			FROM fraction_gas_detail AS f_det, fraction_gas AS f, shell as s, shell_kind as k
+			WHERE f_det.fraction_id=f.id AND MONTH(f.created_date)=_month AND YEAR(f.created_date)=_year
+				and f_det.shell_id=s.id and s.kind_id=k.id
+		) AS tbl_fraction ON 1
+	) as tbl_lpg_in_stock;
 	
-	INSERT INTO accessory_in_stock(`day`,accessory_id,in_stock)
-	SELECT _date, id, in_stock FROM accessory WHERE status=1;
+	DELETE FROM accessory_in_stock WHERE MONTH(`DAY`)=_month AND YEAR(`DAY`)=_year;
 	
-	INSERT INTO promotion_material_in_stock(`day`,promotion_material_id,in_stock)
-	SELECT _date, id, in_stock FROM promotion_material WHERE STATUS=1;
+	INSERT INTO accessory_in_stock(DAY, accessory_id, in_stock)
+	SELECT _date, s.id, COALESCE(SUM(tbl.in_stock),0)
+	FROM accessory AS s
+	LEFT JOIN (
+		SELECT i_det.accessory_id, SUM(i_det.quantity) AS in_stock
+		FROM accessory_import_detail AS i_det, accessory_import AS i 
+		WHERE i_det.accessory_import_id=i.id AND MONTH(i.created_date)=_month AND YEAR(i.created_date)=_year
+		GROUP BY i_det.accessory_id
+	) AS tbl ON tbl.accessory_id=s.id
+	WHERE s.STATUS=1 GROUP BY s.id;
+	DELETE FROM promotion_material_in_stock WHERE MONTH(`DAY`)=_month AND YEAR(`DAY`)=_year;
 	
-	INSERT INTO petro_in_stock(`day`,petro_id,in_stock)
-	SELECT _date, id, in_stock FROM petro WHERE STATUS=1;
+	INSERT INTO promotion_material_in_stock(DAY, promotion_material_id, in_stock)
+	SELECT _date, s.id, COALESCE(SUM(tbl.in_stock),0)
+	FROM promotion_material AS s
+	LEFT JOIN (
+		SELECT i_det.promotion_material_id, SUM(i_det.quantity) AS in_stock
+		FROM promotion_material_import_detail AS i_det, promotion_material_import AS i 
+		WHERE i_det.promotion_material_id=i.id AND MONTH(i.created_date)=_month AND YEAR(i.created_date)=_year
+		GROUP BY i_det.promotion_material_id
+		UNION ALL
+		SELECT i_det.promotion_material_id, -SUM(i_det.quantity) AS in_stock
+		FROM gas_wholesale_promotion AS i_det, gas_wholesale AS i 
+		WHERE i_det.gas_wholesale_id=i.id AND MONTH(i.created_date)=_month AND YEAR(i.created_date)=_year
+		GROUP BY i_det.promotion_material_id
+	) AS tbl ON tbl.promotion_material_id=s.id
+	WHERE s.STATUS=1 GROUP BY s.id;
+	
+	DELETE FROM petro_in_stock WHERE MONTH(`DAY`)=_month AND YEAR(`DAY`)=_year;
+	
+	INSERT INTO petro_in_stock(DAY, petro_id, in_stock)
+	SELECT _date, s.id, COALESCE(SUM(tbl.in_stock),0)
+	FROM petro AS s
+	LEFT JOIN (
+		SELECT i_det.petro_id, SUM(i_det.quantity) AS in_stock
+		FROM petro_import_detail AS i_det, petro_import AS i 
+		WHERE i_det.petro_id=i.id AND MONTH(i.created_date)=_month AND YEAR(i.created_date)=_year
+		GROUP BY i_det.petro_id
+	) AS tbl ON tbl.petro_id=s.id
+	WHERE s.STATUS=1 GROUP BY s.id;
 	
     END */$$
 DELIMITER ;
@@ -2022,8 +1945,6 @@ BEGIN
 	VALUES (_code, _vendor_id, STR_TO_DATE(_import_date,'%d/%m/%Y'), _paper_quantity, _actual_quantity, _price, _amount, _paid, _debt, _rate
 		, _payment_mode	, account_id, note);
 	SELECT LAST_INSERT_ID() INTO _id;
-	
-	UPDATE in_stock SET value = value + _actual_quantity WHERE name='lpg';
     END */$$
 DELIMITER ;
 
@@ -2051,8 +1972,6 @@ DELIMITER $$
 /*!50003 CREATE DEFINER=`root`@`localhost` PROCEDURE `insertPetroImportDetail`(IN _petro_import_id INT, IN _petro_id INT, IN _quantity INT, IN _price DOUBLE, IN _amount DOUBLE)
 BEGIN
 	INSERT INTO petro_import_detail(petro_import_id, petro_id, quantity, price, amount) VALUES (_petro_import_id, _petro_id, _quantity, _price, _amount);
-	
-	UPDATE petro SET in_stock = in_stock + _quantity WHERE id=_petro_id;
     END */$$
 DELIMITER ;
 
@@ -2081,8 +2000,6 @@ DELIMITER $$
 BEGIN
 	INSERT INTO promotion_material_import_detail(import_id, promotion_material_id, quantity, price, amount) 
 	VALUES (_promotion_material_import_id, _promotion_material_id, _quantity, _price, _amount);
-	
-	UPDATE promotion_material SET in_stock = in_stock + _quantity WHERE id=_promotion_material_id;
     END */$$
 DELIMITER ;
 
@@ -2142,8 +2059,6 @@ BEGIN
 	INSERT INTO shell_import (CODE, shell_id, created_date, quantity, price, note)
 	VALUES (_code, _shell_id, STR_TO_DATE(_created_date,'%d/%m/%Y'), _quantity, _price, _note);
 	SELECT LAST_INSERT_ID() INTO _id;
-	
-	UPDATE shell SET in_stock = in_stock + _quantity where id=_shell_id;
     END */$$
 DELIMITER ;
 
@@ -2415,13 +2330,7 @@ DELIMITER $$
 
 /*!50003 CREATE DEFINER=`root`@`localhost` PROCEDURE `updateAccessoryImportDetail`(IN _id INT, IN _quantity INT, IN _price DOUBLE, IN _amount DOUBLE)
 BEGIN
-	DECLARE _old_quantity, _accessory_id INT DEFAULT 0;
-	
-	SELECT quantity, accessory_id INTO _old_quantity, _accessory_id FROM accessory_import_detail WHERE id=_id;
-	
 	UPDATE accessory_import_detail SET quantity=_quantity, price=_price, amount=_amount WHERE id=_id;
-	
-	UPDATE accessory SET in_stock = in_stock - _old_quantity + _quantity WHERE id=_accessory_id;
     END */$$
 DELIMITER ;
 
@@ -2505,19 +2414,7 @@ DELIMITER $$
 
 /*!50003 CREATE DEFINER=`root`@`localhost` PROCEDURE `updateFractionDetail`(in _id int, in _quantity int)
 BEGIN
-	declare _old_quantity, _shell_id int default 0;
-	declare _weight float default 0;
-	
-	select quantity, shell_id into _old_quantity, _shell_id from fraction_gas_detail where id=_id;
-	
-	SELECT k.weight INTO _weight FROM shell AS s, shell_kind AS k WHERE s.kind_id=k.id AND s.id=_shell_id;
-	
 	update fraction_gas_detail set quantity=_quantity where id=_id;
-	
-	UPDATE in_stock SET VALUE = VALUE + (_old_quantity - _quantity) * _weight WHERE NAME='lpg';
-	
-	UPDATE shell SET in_stock = in_stock + _old_quantity - _quantity, gas_in_stock = gas_in_stock - _old_quantity + _quantity WHERE id=_shell_id;
-	
     END */$$
 DELIMITER ;
 
@@ -2551,13 +2448,7 @@ DELIMITER $$
 
 /*!50003 CREATE DEFINER=`root`@`localhost` PROCEDURE `updateGasImportDetail`(IN _id INT, IN _quantity INT, IN _price DOUBLE, IN _amount DOUBLE)
 BEGIN
-	DECLARE _old_quantity, _shell_id INT DEFAULT 0;
-	
-	SELECT quantity, shell_id INTO _old_quantity, _shell_id FROM gas_import_detail WHERE id=_id;
-	
 	UPDATE gas_import_detail SET quantity=_quantity, price=_price, amount=_amount WHERE id=_id;
-	
-	UPDATE shell SET gas_in_stock = gas_in_stock - _old_quantity + _quantity WHERE id=_shell_id;
     END */$$
 DELIMITER ;
 
@@ -2607,13 +2498,7 @@ DELIMITER $$
 
 /*!50003 CREATE DEFINER=`root`@`localhost` PROCEDURE `updateGasWholesaleDetail`(IN _id INT, IN _quantity INT, IN _price DOUBLE, IN _amount DOUBLE)
 BEGIN
-	DECLARE _old_quantity, _shell_id INT DEFAULT 0;
-	
-	SELECT quantity, shell_id INTO _old_quantity, _shell_id FROM gas_wholesale_detail WHERE id=_id;
-	
 	UPDATE gas_wholesale_detail SET quantity=_quantity, price=_price, amount=_amount WHERE id=_id;
-	
-	UPDATE shell SET gas_in_stock = gas_in_stock + _old_quantity - _quantity WHERE id=_shell_id;
     END */$$
 DELIMITER ;
 
@@ -2623,15 +2508,9 @@ DELIMITER ;
 
 DELIMITER $$
 
-/*!50003 CREATE DEFINER=`root`@`localhost` PROCEDURE `updateGasWholesalePromotionMaterialDetail`(IN _id INT, IN _quantity INT, IN _price DOUBLE, IN _amount DOUBLE)
+/*!50003 CREATE DEFINER=`root`@`localhost` PROCEDURE `updateGasWholesalePromotionMaterialDetail`(IN _id INT, IN _quantity INT)
 BEGIN
-	DECLARE _old_quantity, _promotion_material_id INT DEFAULT 0;
-	
-	SELECT quantity, promotion_material_id INTO _old_quantity, _promotion_material_id FROM gas_wholesale_promotion WHERE id=_id;
-	
 	UPDATE gas_wholesale_promotion SET quantity=_quantity WHERE id=_id;
-	
-	UPDATE promotion_material SET in_stock = in_stock + _old_quantity - _quantity WHERE id=_promotion_material_id;
     END */$$
 DELIMITER ;
 
@@ -2663,9 +2542,6 @@ DELIMITER $$
 	, IN _actual_quantity FLOAT, IN _price DOUBLE, IN _amount DOUBLE, IN _paid DOUBLE, IN _debt DOUBLE, IN _rate DOUBLE, IN _payment_mode INT
 	, IN _account_id INT, IN _note TEXT)
 BEGIN
-	DECLARE _old_quantity INT DEFAULT 0;
-	SELECT actual_quantity INTO _old_quantity FROM lpg_import WHERE id=_id;
-	
 	UPDATE lpg_import SET vendor_id=_vendor_id
 		, import_date=STR_TO_DATE(_import_date,'%d/%m/%Y')
 		, paper_quantity=_paper_quantity
@@ -2679,7 +2555,6 @@ BEGIN
 		, account_id=_account_id
 		, note=_note
 	WHERE id=_id;
-	UPDATE in_stock SET value = value - _old_quantity + _actual_quantity WHERE name='lpg';
     END */$$
 DELIMITER ;
 
@@ -2713,13 +2588,7 @@ DELIMITER $$
 
 /*!50003 CREATE DEFINER=`root`@`localhost` PROCEDURE `updatePetroImportDetail`(IN _id INT, IN _quantity INT, IN _price DOUBLE, IN _amount DOUBLE)
 BEGIN
-	DECLARE _old_quantity, _petro_id INT DEFAULT 0;
-	
-	SELECT quantity, petro_id INTO _old_quantity, _petro_id FROM petro_import_detail WHERE id=_id;
-	
 	UPDATE petro_import_detail SET quantity=_quantity, price=_price, amount=_amount WHERE id=_id;
-	
-	UPDATE petro SET in_stock = in_stock - _old_quantity + _quantity WHERE id=_petro_id;
     END */$$
 DELIMITER ;
 
@@ -2750,13 +2619,7 @@ DELIMITER $$
 
 /*!50003 CREATE DEFINER=`root`@`localhost` PROCEDURE `updatePromotionMaterialImportDetail`(IN _id INT, IN _quantity INT, IN _price DOUBLE, IN _amount DOUBLE)
 BEGIN
-	DECLARE _old_quantity, _promotion_material_id INT DEFAULT 0;
-	
-	SELECT quantity, promotion_material_id INTO _old_quantity, _promotion_material_id FROM promotion_material_import_detail WHERE id=_id;
-	
 	UPDATE promotion_material_import_detail SET quantity=_quantity, price=_price, amount=_amount WHERE id=_id;
-	
-	UPDATE promotion_material SET in_stock = in_stock - _old_quantity + _quantity WHERE id=_promotion_material_id;
     END */$$
 DELIMITER ;
 
@@ -2793,17 +2656,12 @@ DELIMITER $$
 /*!50003 CREATE DEFINER=`root`@`localhost` PROCEDURE `updateShellImport`(IN _id INT, IN _shell_id INT, IN _created_date VARCHAR(20), IN _quantity INT
 	, IN _price DOUBLE, IN _note TEXT)
 BEGIN
-	declare _old_quantity int default 0;
-	select quantity into _old_quantity from shell_import where id=_id;
-	
 	UPDATE shell_import SET shell_id=_shell_id
 		, created_date=STR_TO_DATE(_created_date,'%d/%m/%Y')
 		, quantity=_quantity
 		, price=_price
 		, note=_note
 	WHERE id=_id;
-	UPDATE shell SET in_stock = in_stock - _old_quantity + _quantity where id=_shell_id;
-	
     END */$$
 DELIMITER ;
 

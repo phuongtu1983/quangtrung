@@ -206,31 +206,6 @@ function formatFormDetail(formName) {
     price = null;
     amount = null;
 }
-function formatFormOldQuantityDetail(formName) {
-    var oldQuantity = document.forms[formName].oldQuantity;
-    var quantity = document.forms[formName].quantity;
-    var price = document.forms[formName].price;
-    var amount = document.forms[formName].amount;
-    if (quantity != null) {
-        if (quantity.length != null) {
-            for (var i = 0; i < quantity.length; i++) {
-                tryNumberFormatCurrentcy(oldQuantity[i], "VND");
-                tryNumberFormatCurrentcy(quantity[i], "VND");
-                tryNumberFormatCurrentcy(price[i], "VND");
-                tryNumberFormatCurrentcy(amount[i], "VND");
-            }
-        } else {
-            tryNumberFormatCurrentcy(oldQuantity, "VND");
-            tryNumberFormatCurrentcy(quantity, "VND");
-            tryNumberFormatCurrentcy(price, "VND");
-            tryNumberFormatCurrentcy(amount, "VND");
-        }
-    }
-    oldQuantity = null;
-    quantity = null;
-    price = null;
-    amount = null;
-}
 function caculateFormListDetail(goodId, formName) {
     var quantity = document.getElementById("detquantity" + goodId);
     var price = document.getElementById("detprice" + goodId);
@@ -238,30 +213,6 @@ function caculateFormListDetail(goodId, formName) {
     if (quantity == null || price == null || detTotal == null)
         return false;
     detTotal.value = reformatNumberMoneyString(quantity.value) * reformatNumberMoneyString(price.value);
-    quantity = null;
-    price = null;
-    detTotal = null;
-    caculateListTotal(formName);
-    return false;
-}
-function caculateFormListOldQuantityDetail(goodId, formName) {
-    var oldQuantity = document.getElementById("detoldquantity" + goodId);
-    var quantity = document.getElementById("detquantity" + goodId);
-    var price = document.getElementById("detprice" + goodId);
-    var detTotal = document.getElementById("detamount" + goodId);
-    if (quantity == null || price == null || detTotal == null)
-        return false;
-    var oldQuantityFormat = reformatNumberMoneyString(oldQuantity.value) * 1;
-    var quantityFormat = reformatNumberMoneyString(quantity.value) * 1;
-    if (quantityFormat > oldQuantityFormat) {
-        alert("S\u1ED1 l\u01B0\u1EE3ng l\u1EDBn h\u01A1n s\u1ED1 l\u01B0\u1EE3ng hi\u1EC7n t\u1EA1i");
-        quantity.value = oldQuantity.value;
-        quantityFormat = oldQuantityFormat;
-    }
-    var priceFormat = reformatNumberMoneyString(price.value) * 1;
-    detTotal.value = quantityFormat * priceFormat;
-    tryNumberFormatCurrentcy(oldQuantity, "VND");
-    oldQuantity = null;
     quantity = null;
     price = null;
     detTotal = null;
@@ -3730,7 +3681,9 @@ function getGasWholesale(id) {
         tryNumberFormatCurrentcy(document.forms['gasWholesaleForm'].total, "VND");
         tryNumberFormatCurrentcy(document.forms['gasWholesaleForm'].paid, "VND");
         tryNumberFormatCurrentcy(document.forms['gasWholesaleForm'].debt, "VND");
-        formatFormOldQuantityDetail('gasWholesaleForm');
+        formatFormDetail('gasWholesaleForm');
+        formatGasWholesalePromotionMaterialQuantityDetail();
+        formatGasWholesaleReturnShellQuantityDetail();
     });
 }
 function saveGasWholesale() {
@@ -3773,7 +3726,6 @@ function saveGasWholesale() {
     reformatNumberMoney(document.forms['gasWholesaleForm'].total);
     reformatNumberMoney(document.forms['gasWholesaleForm'].paid);
     reformatNumberMoney(document.forms['gasWholesaleForm'].debt);
-    reformatNumberMoney(document.forms['gasWholesaleForm'].rate);
     scriptFunction = "saveGasWholesale";
     callAjaxCheckError("addGasWholesale.do", null, document.forms['gasWholesaleForm'], function(data) {
         scriptFunction = "";
@@ -3820,7 +3772,7 @@ function addGasWholesaleShell() {
             detTable.tBodies[0].appendChild(matTable.tBodies[0].rows[i]);
         matTable = null;
         detTable = null;
-        formatFormOldQuantityDetail('gasWholesaleForm');
+        formatFormDetail('gasWholesaleForm');
     });
     return false;
 }

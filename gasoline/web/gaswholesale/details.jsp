@@ -8,7 +8,6 @@
             <td width="30px"><bean:message key="message.del"/></td>
             <td width="170px"><bean:message key="shell.detail.name"/></td>
             <td width="100px"><bean:message key="unit.title"/></td>
-            <td width="120px"><bean:message key="quantity.old.title"/></td>
             <td width="100px"><bean:message key="quantity.title"/></td>
             <td width="100px"><bean:message key="price.title"/></td>
             <td width="200px"><bean:message key="amount.title"/></td>
@@ -25,9 +24,8 @@
                 </td>
                 <td><span><bean:write name="shell" property="shellName"/></span></td>
                 <td><span><bean:write name="shell" property="unitName"/></span></td>
-                <td><input type="text" size="20" name="oldQuantity" value="${shell.oldQuantity}" id="detoldquantity${shell.shellId}" readonly="readonly"/></td>
-                <td><input type="text" size="20" name="quantity" value="${shell.quantity}" id="detquantity${shell.shellId}" onblur="return caculateFormListOldQuantityDetail('${shell.shellId}','gasWholesaleForm');" onkeyup="try2FloatFormatOnKeyUp(this,event);" onkeypress="return readonlyFloat(event);"/></td>
-                <td><input type="text" size="20" name="price" value="${shell.price}" id="detprice${shell.shellId}" onblur="return caculateFormListOldQuantityDetail('${shell.shellId}','gasWholesaleForm');" onkeyup="try2FloatFormatOnKeyUp(this,event);" onkeypress="return readonlyFloat(event);"/></td>
+                <td><input type="text" size="20" name="quantity" value="${shell.quantity}" id="detquantity${shell.shellId}" onblur="return caculateFormListDetail('${shell.shellId}','gasWholesaleForm');" onkeyup="try2FloatFormatOnKeyUp(this,event);" onkeypress="return readonlyFloat(event);"/></td>
+                <td><input type="text" size="20" name="price" value="${shell.price}" id="detprice${shell.shellId}" onblur="return caculateFormListDetail('${shell.shellId}','gasWholesaleForm');" onkeyup="try2FloatFormatOnKeyUp(this,event);" onkeypress="return readonlyFloat(event);"/></td>
                 <td><input type="text" size="20" name="amount" value="${shell.amount}" id="detamount${shell.shellId}" readonly="readonly"/></td>
             </tr>
         </logic:iterate>
