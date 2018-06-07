@@ -1798,11 +1798,13 @@ function loadCustomerList() {
     });
     return false;
 }
-function getCustomer(id, handle) {
+function getCustomer(id, handle, kind) {
     popupName = 'TH\u00D4NG TIN KH\u00C1CH H\u00C0NG';
-    var url = 'customerForm.do';
+    var url = 'customerForm.do?temp=1';
     if (id != 0)
-        url += '?customerId=' + id
+        url += '&customerId=' + id;
+    if (typeof (kind) != "undefined" && kind != null)
+        url += '&kind=' + kind;
     callAjax(url, null, null, function(data) {
         showPopupForm(data);
         document.getElementById('callbackFunc').value = handle;
@@ -3893,4 +3895,12 @@ function formatGasWholesaleReturnShellQuantityDetail() {
         }
     }
     quantity = null;
+}
+function addCustomerWholesale(){
+    getCustomer(0, 'loadCustomerGasWholesale', 2);
+    return false;
+}
+function loadCustomerGasWholesale(){
+    callAjax("getCustomerListWholesale.do", "gasWholesaleCustomerId", null, null);
+    return false;
 }

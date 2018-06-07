@@ -6,6 +6,7 @@ package com.stepup.gasoline.qt.gaswholesale;
 
 import com.stepup.core.util.DateUtil;
 import com.stepup.gasoline.qt.bean.AccountBean;
+import com.stepup.gasoline.qt.bean.CustomerBean;
 import com.stepup.gasoline.qt.bean.EmployeeBean;
 import com.stepup.gasoline.qt.bean.GasWholesaleBean;
 import com.stepup.gasoline.qt.core.SpineAction;
@@ -81,12 +82,12 @@ public class GasWholesaleFormAction extends SpineAction {
             arrDetail = new ArrayList();
         }
         request.setAttribute(Constants.GAS_WHOLESALE_SHELL, arrDetail);
-        
+
         if (arrPromotionMaterialDetail == null) {
             arrPromotionMaterialDetail = new ArrayList();
         }
         request.setAttribute(Constants.GAS_WHOLESALE_PROMOTION_MATERIAL, arrPromotionMaterialDetail);
-        
+
         if (arrReturnShellDetail == null) {
             arrReturnShellDetail = new ArrayList();
         }
@@ -141,7 +142,7 @@ public class GasWholesaleFormAction extends SpineAction {
         ArrayList arrCustomer = null;
         try {
             CustomerDAO customerDAO = new CustomerDAO();
-            arrCustomer = customerDAO.getCustomers(organizationIds);
+            arrCustomer = customerDAO.getCustomers(organizationIds, CustomerBean.KIND_WHOLESALE);
         } catch (Exception ex) {
         }
         if (arrCustomer == null) {

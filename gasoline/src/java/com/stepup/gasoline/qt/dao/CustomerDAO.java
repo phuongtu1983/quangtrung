@@ -110,6 +110,44 @@ public class CustomerDAO extends BasicDAO {
         return customerList;
     }
 
+    public ArrayList getCustomers(String organizationIds, int kind) throws Exception {
+        ResultSet rs = null;
+        String sql = "select c.*, o.name as organization_name from customer as c, organization as o where c.organization_id=o.id and o.status=" + EmployeeBean.STATUS_ACTIVE
+                + " and c.status=" + EmployeeBean.STATUS_ACTIVE;
+        if (!StringUtil.isBlankOrNull(organizationIds)) {
+            sql += " and c.organization_id in (" + organizationIds + ")";
+        }
+        if (kind != 0) {
+            sql += " and c.kind=" + kind;
+        }
+        sql += " order by c.name desc";
+        ArrayList customerList = new ArrayList();
+        try {
+            rs = DBUtil.executeQuery(sql);
+            CustomerFormBean bean = null;
+            while (rs.next()) {
+                bean = new CustomerFormBean();
+                bean.setId(rs.getInt("id"));
+                bean.setName(rs.getString("name"));
+                bean.setCode(rs.getString("code"));
+                bean.setOrganizationId(rs.getInt("organization_id"));
+                bean.setOrganizationName(rs.getString("organization_name"));
+                bean.setStatus(rs.getInt("status"));
+                bean.setKind(rs.getInt("kind"));
+                customerList.add(bean);
+            }
+        } catch (SQLException sqle) {
+            throw new Exception(sqle.getMessage());
+        } catch (Exception ex) {
+            throw new Exception(ex.getMessage());
+        } finally {
+            if (rs != null) {
+                DBUtil.closeConnection(rs);
+            }
+        }
+        return customerList;
+    }
+
     public CustomerFormBean getCustomer(int customerId) throws Exception {
         ResultSet rs = null;
         String sql = "select * from customer where id=" + customerId;

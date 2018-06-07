@@ -424,6 +424,16 @@ public class GenerateMenu {
                     }
                     buffTemp.append("</item>");
                 }
+                if (isHasPermission(PermissionUtil.OPERATION_LIST + "," + PermissionUtil.OPERATION_ADD, PermissionUtil.PER_GAS_RETAIL)) {
+                    buffTemp.append("<item id=\"gasretails\" complex=\"true\" text=\"").append(QTUtil.getBundleString("gasRetail.title")).append("\">");
+                    if (isHasPermission(PermissionUtil.OPERATION_LIST, PermissionUtil.PER_GAS_RETAIL)) {
+                        buffTemp.append("<item id=\"gasretaillist\" text=\"").append(QTUtil.getBundleString("gasRetail.list.title")).append("\"/>");
+                    }
+                    if (isHasPermission(PermissionUtil.OPERATION_ADD, PermissionUtil.PER_GAS_RETAIL)) {
+                        buffTemp.append("<item id=\"gasretailadd\" text=\"").append(QTUtil.getBundleString("gasRetail.detail.add.title")).append("\"/>");
+                    }
+                    buffTemp.append("</item>");
+                }
             }
             if (buffTemp.length() > 0) {
                 buff.append("<item id=\"gasfunction\" complex=\"true\" text=\"").append(QTUtil.getBundleString("menu.function.gas.title")).append("\">");//start function gas

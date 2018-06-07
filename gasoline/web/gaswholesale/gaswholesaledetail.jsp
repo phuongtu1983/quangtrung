@@ -10,16 +10,24 @@
     <table style="width: 100%">
         <tr>
             <td width="160" height="30"><bean:message key="code.title"/></td>
-            <td width="160"><html:text property="code" size="30" name="<%=Constants.GAS_WHOLESALE%>" readonly="true"/></td>
+            <%if (PermissionUtil.hasPermission(request, PermissionUtil.OPERATION_ADD, PermissionUtil.PER_CUSTOMER)) {%> 
+            <td width="260">
+                <%} else {%>
+            <td width="160">
+                <%}%>
+                <html:text property="code" size="30" name="<%=Constants.GAS_WHOLESALE%>" readonly="true"/></td>
             <td width="170"  style="padding-right: 20px;padding-left: 10px"><bean:message key="date.title"/></td>
             <td><html:text property="createdDate" size="30" name="<%=Constants.GAS_WHOLESALE%>" styleId="gasWholesaleCreatedDate" readonly="true"/></td>
         </tr>
         <tr>
             <td height="30" style="padding-right: 20px"><bean:message key="customer.title"/></td>
             <td>
-                <html:select property="customerId" name="<%=Constants.GAS_WHOLESALE%>" style="width:195px">
+                <html:select property="customerId" name="<%=Constants.GAS_WHOLESALE%>" style="width:195px" styleId="gasWholesaleCustomerId">
                     <html:options collection="<%=Constants.CUSTOMER_LIST%>" property="id" labelProperty="name"/>
                 </html:select>
+                <%if (PermissionUtil.hasPermission(request, PermissionUtil.OPERATION_ADD, PermissionUtil.PER_CUSTOMER)) {%> 
+                <button class="i_create_write icon small green" onclick="return addCustomerWholesale()"><bean:message key="message.add"/></button>
+                <%}%>
             </td>
             <td style="padding-right: 20px;padding-left: 10px"><bean:message key="total.title"/></td>
             <td><html:text property="total" size="30" name="<%=Constants.GAS_WHOLESALE%>" readonly="true"/></td>

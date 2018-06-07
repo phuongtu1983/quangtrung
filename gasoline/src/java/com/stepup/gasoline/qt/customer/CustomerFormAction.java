@@ -4,6 +4,7 @@
  */
 package com.stepup.gasoline.qt.customer;
 
+import com.stepup.core.util.NumberUtil;
 import com.stepup.gasoline.qt.bean.CustomerBean;
 import com.stepup.gasoline.qt.bean.DynamicFieldBean;
 import com.stepup.gasoline.qt.bean.EmployeeBean;
@@ -70,22 +71,44 @@ public class CustomerFormAction extends DynamicFieldValueAction {
         request.setAttribute(Constants.STATUS_LIST, arrStatus);
 
         ArrayList arrKind = new ArrayList();
-        value = new LabelValueBean();
-        value.setLabel(QTUtil.getBundleString("customer.detail.kind.wholesale"));
-        value.setValue(CustomerBean.KIND_WHOLESALE + "");
-        arrKind.add(value);
-        value = new LabelValueBean();
-        value.setLabel(QTUtil.getBundleString("customer.detail.kind.retail"));
-        value.setValue(CustomerBean.KIND_RETAIL + "");
-        arrKind.add(value);
+        ArrayList arrOrganization = null;
+        String kind = request.getParameter("kind");
+        if (GenericValidator.isBlankOrNull(kind)) {
+            value = new LabelValueBean();
+            value.setLabel(QTUtil.getBundleString("customer.detail.kind.wholesale"));
+            value.setValue(CustomerBean.KIND_WHOLESALE + "");
+            arrKind.add(value);
+            value = new LabelValueBean();
+            value.setLabel(QTUtil.getBundleString("customer.detail.kind.retail"));
+            value.setValue(CustomerBean.KIND_RETAIL + "");
+            arrKind.add(value);
+            try {
+                OrganizationDAO organizationDAO = new OrganizationDAO();
+                arrOrganization = organizationDAO.getOrganizations(EmployeeBean.STATUS_ACTIVE);
+            } catch (Exception ex) {
+            }
+        } else {
+            int kindNum = NumberUtil.parseInt(kind, 0);
+            if (kindNum == CustomerBean.KIND_WHOLESALE) {
+                value = new LabelValueBean();
+                value.setLabel(QTUtil.getBundleString("customer.detail.kind.wholesale"));
+                value.setValue(CustomerBean.KIND_WHOLESALE + "");
+                arrKind.add(value);
+            } else if (kindNum == CustomerBean.KIND_RETAIL) {
+                value = new LabelValueBean();
+                value.setLabel(QTUtil.getBundleString("customer.detail.kind.retail"));
+                value.setValue(CustomerBean.KIND_RETAIL + "");
+                arrKind.add(value);
+            }
+            try {
+                String organizationIds = QTUtil.getOrganizationManageds(request.getSession());
+                OrganizationDAO organizationDAO = new OrganizationDAO();
+                arrOrganization = organizationDAO.getOrganizations(organizationIds);
+            } catch (Exception ex) {
+            }
+        }
         request.setAttribute(Constants.CUSTOMER_KIND_LIST, arrKind);
 
-        ArrayList arrOrganization = null;
-        try {
-            OrganizationDAO organizationDAO = new OrganizationDAO();
-            arrOrganization = organizationDAO.getOrganizations(EmployeeBean.STATUS_ACTIVE);
-        } catch (Exception ex) {
-        }
         if (arrOrganization == null) {
             arrOrganization = new ArrayList();
         }

@@ -577,6 +577,9 @@
         <action path="/getGasWholesaleReturnShell" type="com.stepup.gasoline.qt.gaswholesale.GetGasWholesaleReturnShellAction" scope="request" validate="false">
             <forward name="success" path="/gaswholesale/returnshells.jsp" />
         </action>
+        <action path="/getCustomerListWholesale" type="com.stepup.gasoline.qt.gaswholesale.GetCustomerListWholesaleAction" scope="request" validate="false">
+            <forward name="success" path="/gaswholesale/customers.jsp" />
+        </action>
         <!-- end gas wholesale -->
     </action-mappings>
     
