@@ -950,6 +950,8 @@ public class GoodDAO extends BasicDAO {
                 bean.setCreatedDate(DateUtil.formatDate(rs.getDate("created_date"), "dd/MM/yyyy"));
                 bean.setQuantity(rs.getInt("quantity"));
                 bean.setPrice(rs.getDouble("price"));
+                bean.setAmount(rs.getDouble("amount"));
+                bean.setAccountId(rs.getInt("account_id"));
                 bean.setNote(rs.getString("note"));
                 bean.setCanEdit(rs.getInt("can_edit"));
                 return bean;
@@ -979,7 +981,7 @@ public class GoodDAO extends BasicDAO {
             } else {
                 createdDate = bean.getCreatedDate();
             }
-            String sql = "{call insertShellImport(?,?,?,?,?,?,?)}";
+            String sql = "{call insertShellImport(?,?,?,?,?,?,?,?,?)}";
             spUtil = new SPUtil(sql);
             if (spUtil != null) {
                 spUtil.getCallableStatement().setString("_code", bean.getCode());
@@ -987,6 +989,8 @@ public class GoodDAO extends BasicDAO {
                 spUtil.getCallableStatement().setString("_created_date", createdDate);
                 spUtil.getCallableStatement().setInt("_quantity", bean.getQuantity());
                 spUtil.getCallableStatement().setDouble("_price", bean.getPrice());
+                spUtil.getCallableStatement().setDouble("_amount", bean.getAmount());
+                spUtil.getCallableStatement().setInt("_account_id", bean.getAccountId());
                 spUtil.getCallableStatement().setString("_note", bean.getNote());
                 spUtil.getCallableStatement().registerOutParameter("_id", Types.INTEGER);
                 spUtil.execute();
@@ -1020,7 +1024,7 @@ public class GoodDAO extends BasicDAO {
             } else {
                 createdDate = bean.getCreatedDate();
             }
-            String sql = "{call updateShellImport(?,?,?,?,?,?)}";
+            String sql = "{call updateShellImport(?,?,?,?,?,?,?,?)}";
             spUtil = new SPUtil(sql);
             if (spUtil != null) {
                 spUtil.getCallableStatement().setInt("_id", bean.getId());
@@ -1028,6 +1032,8 @@ public class GoodDAO extends BasicDAO {
                 spUtil.getCallableStatement().setString("_created_date", createdDate);
                 spUtil.getCallableStatement().setInt("_quantity", bean.getQuantity());
                 spUtil.getCallableStatement().setDouble("_price", bean.getPrice());
+                spUtil.getCallableStatement().setDouble("_amount", bean.getAmount());
+                spUtil.getCallableStatement().setInt("_account_id", bean.getAccountId());
                 spUtil.getCallableStatement().setString("_note", bean.getNote());
                 spUtil.execute();
             }
@@ -1107,7 +1113,6 @@ public class GoodDAO extends BasicDAO {
                         bean.setTotal(rs.getDouble("total"));
                         bean.setPaid(rs.getDouble("paid"));
                         bean.setDebt(rs.getDouble("debt"));
-                        bean.setPaymentMode(rs.getInt("payment_mode"));
                         bean.setAccountId(rs.getInt("account_id"));
                         bean.setNote(rs.getString("note"));
                         list.add(bean);
@@ -1148,7 +1153,6 @@ public class GoodDAO extends BasicDAO {
                 bean.setTotal(rs.getDouble("total"));
                 bean.setPaid(rs.getDouble("paid"));
                 bean.setDebt(rs.getDouble("debt"));
-                bean.setPaymentMode(rs.getInt("payment_mode"));
                 bean.setAccountId(rs.getInt("account_id"));
                 bean.setNote(rs.getString("note"));
                 bean.setCanEdit(rs.getInt("can_edit"));
@@ -1211,7 +1215,7 @@ public class GoodDAO extends BasicDAO {
             } else {
                 createdDate = bean.getCreatedDate();
             }
-            String sql = "{call insertAccessoryImport(?,?,?,?,?,?,?,?,?,?)}";
+            String sql = "{call insertAccessoryImport(?,?,?,?,?,?,?,?,?)}";
             spUtil = new SPUtil(sql);
             if (spUtil != null) {
                 spUtil.getCallableStatement().setString("_code", bean.getCode());
@@ -1220,7 +1224,6 @@ public class GoodDAO extends BasicDAO {
                 spUtil.getCallableStatement().setDouble("_total", bean.getTotal());
                 spUtil.getCallableStatement().setDouble("_paid", bean.getPaid());
                 spUtil.getCallableStatement().setDouble("_debt", bean.getDebt());
-                spUtil.getCallableStatement().setInt("_payment_mode", bean.getPaymentMode());
                 spUtil.getCallableStatement().setInt("_account_id", bean.getAccountId());
                 spUtil.getCallableStatement().setString("_note", bean.getNote());
                 spUtil.getCallableStatement().registerOutParameter("_id", Types.INTEGER);
@@ -1249,7 +1252,7 @@ public class GoodDAO extends BasicDAO {
         }
         SPUtil spUtil = null;
         try {
-            String sql = "{call updateAccessoryImport(?,?,?,?,?,?,?,?)}";
+            String sql = "{call updateAccessoryImport(?,?,?,?,?,?,?)}";
             spUtil = new SPUtil(sql);
             if (spUtil != null) {
                 spUtil.getCallableStatement().setInt("_id", bean.getId());
@@ -1257,7 +1260,6 @@ public class GoodDAO extends BasicDAO {
                 spUtil.getCallableStatement().setDouble("_total", bean.getTotal());
                 spUtil.getCallableStatement().setDouble("_paid", bean.getPaid());
                 spUtil.getCallableStatement().setDouble("_debt", bean.getDebt());
-                spUtil.getCallableStatement().setInt("_payment_mode", bean.getPaymentMode());
                 spUtil.getCallableStatement().setInt("_account_id", bean.getAccountId());
                 spUtil.getCallableStatement().setString("_note", bean.getNote());
                 spUtil.execute();
@@ -1401,7 +1403,6 @@ public class GoodDAO extends BasicDAO {
                         bean.setTotal(rs.getDouble("total"));
                         bean.setPaid(rs.getDouble("paid"));
                         bean.setDebt(rs.getDouble("debt"));
-                        bean.setPaymentMode(rs.getInt("payment_mode"));
                         bean.setAccountId(rs.getInt("account_id"));
                         bean.setNote(rs.getString("note"));
                         list.add(bean);
@@ -1442,7 +1443,6 @@ public class GoodDAO extends BasicDAO {
                 bean.setTotal(rs.getDouble("total"));
                 bean.setPaid(rs.getDouble("paid"));
                 bean.setDebt(rs.getDouble("debt"));
-                bean.setPaymentMode(rs.getInt("payment_mode"));
                 bean.setAccountId(rs.getInt("account_id"));
                 bean.setNote(rs.getString("note"));
                 bean.setCanEdit(rs.getInt("can_edit"));
@@ -1505,7 +1505,7 @@ public class GoodDAO extends BasicDAO {
             } else {
                 createdDate = bean.getCreatedDate();
             }
-            String sql = "{call insertPromotionMaterialImport(?,?,?,?,?,?,?,?,?,?)}";
+            String sql = "{call insertPromotionMaterialImport(?,?,?,?,?,?,?,?,?)}";
             spUtil = new SPUtil(sql);
             if (spUtil != null) {
                 spUtil.getCallableStatement().setString("_code", bean.getCode());
@@ -1514,7 +1514,6 @@ public class GoodDAO extends BasicDAO {
                 spUtil.getCallableStatement().setDouble("_total", bean.getTotal());
                 spUtil.getCallableStatement().setDouble("_paid", bean.getPaid());
                 spUtil.getCallableStatement().setDouble("_debt", bean.getDebt());
-                spUtil.getCallableStatement().setInt("_payment_mode", bean.getPaymentMode());
                 spUtil.getCallableStatement().setInt("_account_id", bean.getAccountId());
                 spUtil.getCallableStatement().setString("_note", bean.getNote());
                 spUtil.getCallableStatement().registerOutParameter("_id", Types.INTEGER);
@@ -1543,7 +1542,7 @@ public class GoodDAO extends BasicDAO {
         }
         SPUtil spUtil = null;
         try {
-            String sql = "{call updatePromotionMaterialImport(?,?,?,?,?,?,?,?)}";
+            String sql = "{call updatePromotionMaterialImport(?,?,?,?,?,?,?)}";
             spUtil = new SPUtil(sql);
             if (spUtil != null) {
                 spUtil.getCallableStatement().setInt("_id", bean.getId());
@@ -1551,7 +1550,6 @@ public class GoodDAO extends BasicDAO {
                 spUtil.getCallableStatement().setDouble("_total", bean.getTotal());
                 spUtil.getCallableStatement().setDouble("_paid", bean.getPaid());
                 spUtil.getCallableStatement().setDouble("_debt", bean.getDebt());
-                spUtil.getCallableStatement().setInt("_payment_mode", bean.getPaymentMode());
                 spUtil.getCallableStatement().setInt("_account_id", bean.getAccountId());
                 spUtil.getCallableStatement().setString("_note", bean.getNote());
                 spUtil.execute();

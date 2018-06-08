@@ -33,20 +33,20 @@
             <td><html:text property="total" size="30" name="<%=Constants.GAS_WHOLESALE%>" readonly="true"/></td>
         </tr>
         <tr>
+            <td height="30" style="padding-right: 20px"><bean:message key="discount.title"/></td>
+            <td><html:text property="discount" size="30" name="<%=Constants.GAS_WHOLESALE%>" onblur="return formPaidDiscountChanged('gasWholesaleForm');" onkeyup="try2FloatFormatOnKeyUp(this,event);" onkeypress="return readonlyFloat(event);"/></td>
+            <td style="padding-right: 20px;padding-left: 10px"><bean:message key="amount.title"/></td>
+            <td><html:text property="totalPay" size="30" name="<%=Constants.GAS_WHOLESALE%>" readonly="true"/></td>
+        </tr>
+        <tr>
             <td height="30" style="padding-right: 20px"><bean:message key="paid.title"/></td>
-            <td><html:text property="paid" size="30" name="<%=Constants.GAS_WHOLESALE%>" onblur="return formPaidChanged('gasWholesaleForm');" onkeyup="try2FloatFormatOnKeyUp(this,event);" onkeypress="return readonlyFloat(event);"/></td>
+            <td><html:text property="paid" size="30" name="<%=Constants.GAS_WHOLESALE%>" onblur="return formPaidDiscountChanged('gasWholesaleForm');" onkeyup="try2FloatFormatOnKeyUp(this,event);" onkeypress="return readonlyFloat(event);"/></td>
             <td style="padding-right: 20px;padding-left: 10px"><bean:message key="debt.title"/></td>
             <td><html:text property="debt" size="30" name="<%=Constants.GAS_WHOLESALE%>" readonly="true"/></td>
         </tr>
         <tr>
-            <td height="30" style="padding-right: 20px"><bean:message key="pamentMode.title"/></td>
-            <td>
-                <html:select property="paymentMode" name="<%=Constants.GAS_WHOLESALE%>" style="width:195px">
-                    <html:options collection="<%=Constants.PAYMENT_MODE_LIST%>" property="value" labelProperty="label"/>
-                </html:select>
-            </td>
-            <td style="padding-right: 20px;padding-left: 10px"><bean:message key="account.title"/></td>
-            <td>
+            <td height="30" style="padding-right: 20px"><bean:message key="account.title"/></td>
+            <td colspan="3">
                 <html:select property="accountId" name="<%=Constants.GAS_WHOLESALE%>" style="width:195px">
                     <html:options collection="<%=Constants.ACCOUNT_LIST%>" property="id" labelProperty="number"/>
                 </html:select>

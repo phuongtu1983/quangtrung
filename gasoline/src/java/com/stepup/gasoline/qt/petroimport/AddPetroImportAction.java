@@ -62,7 +62,6 @@ public class AddPetroImportAction extends SpineAction {
         bean.setTotal(formBean.getTotal());
         bean.setPaid(formBean.getPaid());
         bean.setDebt(formBean.getDebt());
-        bean.setPaymentMode(formBean.getPaymentMode());
         bean.setAccountId(formBean.getAccountId());
         try {
             if (bNew) {

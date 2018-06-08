@@ -23,7 +23,6 @@ public class GasImportFormBean extends org.apache.struts.action.ActionForm {
     private double total;
     private double paid;
     private double debt;
-    private int paymentMode;
     private int accountId;
     private String note;
     private int canEdit;
@@ -47,7 +46,6 @@ public class GasImportFormBean extends org.apache.struts.action.ActionForm {
         this.total = bean.getTotal();
         this.paid = bean.getPaid();
         this.debt = bean.getDebt();
-        this.paymentMode = bean.getPaymentMode();
         this.accountId = bean.getAccountId();
         this.note = bean.getNote();
         this.canEdit = bean.getCanEdit();
@@ -179,14 +177,6 @@ public class GasImportFormBean extends org.apache.struts.action.ActionForm {
 
     public void setDebt(double debt) {
         this.debt = debt;
-    }
-
-    public int getPaymentMode() {
-        return paymentMode;
-    }
-
-    public void setPaymentMode(int paymentMode) {
-        this.paymentMode = paymentMode;
     }
 
     public int getAccountId() {

@@ -62,6 +62,7 @@
         <form-bean name="accessoryImportForm" type="com.stepup.gasoline.qt.accessoryimport.AccessoryImportFormBean"/>
         <form-bean name="promotionMaterialImportForm" type="com.stepup.gasoline.qt.promotionmaterialimport.PromotionMaterialImportFormBean"/>
         <form-bean name="gasWholesaleForm" type="com.stepup.gasoline.qt.gaswholesale.GasWholesaleFormBean"/>
+        <form-bean name="gasRetailForm" type="com.stepup.gasoline.qt.gasretail.GasRetailFormBean"/>
     </form-beans>
     
     <global-exceptions>
@@ -581,6 +582,32 @@
             <forward name="success" path="/gaswholesale/customers.jsp" />
         </action>
         <!-- end gas wholesale -->
+        <!-- start gas retail -->
+        <action path="/getGasRetailPanel" type="com.stepup.gasoline.qt.common.BaseFormAction" scope="request" validate="false">
+            <forward name="success" path="/gasretail/gasretailpanel.jsp" />
+        </action>
+        <action path="/getGasRetailList" type="com.stepup.gasoline.qt.gasretail.GetGasRetailListAction" scope="request" validate="false" >
+        </action>
+        <action path="/gasRetailForm" type="com.stepup.gasoline.qt.gasretail.GasRetailFormAction" scope="request" validate="false">
+            <forward name="success" path="/gasretail/gasretaildetail.jsp" />
+        </action>
+        <action path="/addGasRetail" name ="gasRetailForm" scope="request" type="com.stepup.gasoline.qt.gasretail.AddGasRetailAction" input="/gasRetailForm.do">
+        </action>
+        <action path="/getGasRetailShell" type="com.stepup.gasoline.qt.gasretail.GetGasRetailShellAction" scope="request" validate="false">
+            <forward name="success" path="/gasretail/shells.jsp" />
+        </action>
+        <action path="/delGasRetail" type="com.stepup.gasoline.qt.gasretail.DeleteGasRetailAction" scope="request" validate="false" >
+        </action>
+        <action path="/getGasRetailPromotionMaterial" type="com.stepup.gasoline.qt.gasretail.GetGasRetailPromotionMaterialAction" scope="request" validate="false">
+            <forward name="success" path="/gasretail/promotionmaterials.jsp" />
+        </action>
+        <action path="/getGasRetailReturnShell" type="com.stepup.gasoline.qt.gasretail.GetGasRetailReturnShellAction" scope="request" validate="false">
+            <forward name="success" path="/gasretail/returnshells.jsp" />
+        </action>
+        <action path="/getCustomerListRetail" type="com.stepup.gasoline.qt.gasretail.GetCustomerListRetailAction" scope="request" validate="false">
+            <forward name="success" path="/gaswholesale/customers.jsp" />
+        </action>
+        <!-- end gas retail -->
     </action-mappings>
     
     <controller processorClass="org.apache.struts.tiles.TilesRequestProcessor"/>

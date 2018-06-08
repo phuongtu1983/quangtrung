@@ -9,7 +9,7 @@
 <form name="salaryForm">
     <table width="100%">
         <tr>
-            <td height="30" style="padding-right: 20px"><bean:message key="employeeOff.detail.code"/></td>
+            <td height="30" style="padding-right: 20px"><bean:message key="code.title"/></td>
             <td><html:text property="code" size="30" name="<%=Constants.SALARY%>" readonly="true"/></td>
             <td style="padding-right: 20px;padding-left: 10px"><bean:message key="employeeOff.detail.total"/></td>
             <td><html:text property="total" size="30" name="<%=Constants.SALARY%>" readonly="true"/></td>

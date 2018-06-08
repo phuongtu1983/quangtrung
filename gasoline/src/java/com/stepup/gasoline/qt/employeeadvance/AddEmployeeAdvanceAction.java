@@ -46,7 +46,6 @@ public class AddEmployeeAdvanceAction extends SpineAction {
         bean.setCode(formBean.getCode());
         bean.setEmployeeId(formBean.getEmployeeId());
         bean.setNote(formBean.getNote());
-        bean.setPaymentMode(formBean.getPaymentMode());
         try {
             if (bNew) {
                 employeeDAO.insertEmployeeAdvance(bean);

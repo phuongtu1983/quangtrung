@@ -14,7 +14,7 @@
                             <td height="30" style="padding-right: 20px"><bean:message key="code.title"/></td>
                             <td><html:text property="code" size="40" name="<%=Constants.SHELL_IMPORT%>" readonly="true"/></td>
                             <td style="padding-right: 20px;padding-left: 10px"><bean:message key="date.title"/></td>
-                            <td><html:text property="createdDate" styleId="shellImportDate" size="40" name="<%=Constants.SHELL_IMPORT%>" readonly="true"/></td>
+                            <td><html:text property="createdDate" styleId="shellImportDate" size="30" name="<%=Constants.SHELL_IMPORT%>" readonly="true"/></td>
                         </tr>
                         <tr>
                             <td height="30" style="padding-right: 20px"><bean:message key="shell.title"/></td>
@@ -23,23 +23,26 @@
                                     <html:options collection="<%=Constants.SHELL_LIST%>" property="id" labelProperty="name"/>
                                 </html:select>
                             </td>
-                            <td style="padding-right: 20px;padding-left: 10px"><bean:message key="price.import.title"/></td>
-                            <td>
-                                <html:text property="price" size="40" name="<%=Constants.SHELL_IMPORT%>" onkeyup="try2FloatFormatOnKeyUp(this,event);" onkeypress="return readonlyFloat(event);"/>
+                            <td style="padding-right: 20px;padding-left: 10px"><bean:message key="quantity.title"/></td>
+                            <td><html:text property="quantity" size="30" name="<%=Constants.SHELL_IMPORT%>" onblur="return formCaculateAmount('shellImportForm');" onkeyup="try2FloatFormatOnKeyUp(this,event);" onkeypress="return readonlyFloat(event);"/></td>
+                        </tr>
+                        <tr>
+                            <td height="30" style="padding-right: 20px"><bean:message key="price.import.title"/></td>
+                            <td><html:text property="price" size="40" name="<%=Constants.SHELL_IMPORT%>" onblur="return formCaculateAmount('shellImportForm');" onkeyup="try2FloatFormatOnKeyUp(this,event);" onkeypress="return readonlyFloat(event);"/></td>
+                            <td style="padding-right: 20px;padding-left: 10px"><bean:message key="amount.title"/></td>
+                            <td><html:text property="amount" size="30" name="<%=Constants.SHELL_IMPORT%>" readonly="true"/></td>
+                        </tr>
+                        <tr>
+                            <td height="30" style="padding-right: 20px"><bean:message key="account.title"/></td>
+                            <td colspan="3">
+                                <html:select property="accountId" name="<%=Constants.SHELL_IMPORT%>" style="width:255px">
+                                    <html:options collection="<%=Constants.ACCOUNT_LIST%>" property="id" labelProperty="number"/>
+                                </html:select>
                             </td>
                         </tr>
                         <tr>
-                            <td height="30" style="padding-right: 20px"><bean:message key="quantity.title"/></td>
-                            <td>
-                                <logic:equal name="<%=Constants.SHELL_IMPORT%>" property="canEdit" value="1">
-                                    <html:text property="quantity" size="40" name="<%=Constants.SHELL_IMPORT%>" onkeyup="try2FloatFormatOnKeyUp(this,event);" onkeypress="return readonlyFloat(event);"/>
-                                </logic:equal>
-                                <logic:equal name="<%=Constants.SHELL_IMPORT%>" property="canEdit" value="0">
-                                    <html:text property="quantity" size="40" name="<%=Constants.SHELL_IMPORT%>" readonly="true"/>
-                                </logic:equal>
-                            </td>
-                            <td style="padding-right: 20px;padding-left: 10px"><bean:message key="note.title"/></td>
-                            <td><html:text property="note" size="40" name="<%=Constants.SHELL_IMPORT%>"/></td>
+                            <td height="30" style="padding-right: 20px"><bean:message key="note.title"/></td>
+                            <td colspan="3"><html:text property="note" size="93" name="<%=Constants.SHELL_IMPORT%>" /></td>
                         </tr>
                     </table>
                 </td></tr>

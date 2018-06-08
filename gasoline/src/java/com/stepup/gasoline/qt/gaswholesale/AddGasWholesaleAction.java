@@ -62,7 +62,8 @@ public class AddGasWholesaleAction extends SpineAction {
         bean.setTotal(formBean.getTotal());
         bean.setPaid(formBean.getPaid());
         bean.setDebt(formBean.getDebt());
-        bean.setPaymentMode(formBean.getPaymentMode());
+        bean.setDiscount(formBean.getDiscount());
+        bean.setTotalPay(formBean.getTotalPay());
         bean.setAccountId(formBean.getAccountId());
         try {
             if (bNew) {
@@ -129,7 +130,7 @@ public class AddGasWholesaleAction extends SpineAction {
         } catch (Exception ex) {
         }
     }
-    
+
     private void addGasWholesalePromotionMaterial(GasWholesaleFormBean formBean) {
         try {
             GasDAO gasDAO = new GasDAO();
@@ -170,7 +171,7 @@ public class AddGasWholesaleAction extends SpineAction {
         } catch (Exception ex) {
         }
     }
-    
+
     private void addGasWholesaleReturnShellDetail(GasWholesaleFormBean formBean) {
         try {
             GasDAO gasDAO = new GasDAO();

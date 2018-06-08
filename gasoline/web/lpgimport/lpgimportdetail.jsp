@@ -52,14 +52,8 @@
                             <td><html:text property="rate" size="30" name="<%=Constants.LPG_IMPORT%>" onkeyup="try2FloatFormatOnKeyUp(this,event);" onkeypress="return readonlyFloat(event);"/></td>
                         </tr>
                         <tr>
-                            <td height="30" style="padding-right: 20px"><bean:message key="pamentMode.title"/></td>
-                            <td>
-                                <html:select property="paymentMode" name="<%=Constants.LPG_IMPORT%>" style="width:195px">
-                                    <html:options collection="<%=Constants.PAYMENT_MODE_LIST%>" property="value" labelProperty="label"/>
-                                </html:select>
-                            </td>
-                            <td style="padding-right: 20px;padding-left: 10px"><bean:message key="account.title"/></td>
-                            <td>
+                            <td height="30" style="padding-right: 20px"><bean:message key="account.title"/></td>
+                            <td colspan="3">
                                 <html:select property="accountId" name="<%=Constants.LPG_IMPORT%>" style="width:195px">
                                     <html:options collection="<%=Constants.ACCOUNT_LIST%>" property="id" labelProperty="number"/>
                                 </html:select>
@@ -67,7 +61,7 @@
                         </tr>
                         <tr>
                             <td height="30" style="padding-right: 20px"><bean:message key="note.title"/></td>
-                            <td colspan="3"><html:text property="note" size="93" name="<%=Constants.LPG_IMPORT%>" /></td>
+                            <td colspan="3"><html:text property="note" size="86" name="<%=Constants.LPG_IMPORT%>" /></td>
                         </tr>
                     </table>
                 </td></tr>

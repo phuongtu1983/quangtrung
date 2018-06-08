@@ -28,9 +28,9 @@
                         </tr>
                         <tr>
                             <td height="30" style="padding-right: 20px"><bean:message key="quantity.title"/></td>
-                            <td><html:text property="quantity" size="30" name="<%=Constants.TRIP_FEE%>" onblur="return tripFeeCaculateAmount();" onkeyup="try2FloatFormatOnKeyUp(this,event);" onkeypress="return readonlyFloat(event);"/></td>
+                            <td><html:text property="quantity" size="30" name="<%=Constants.TRIP_FEE%>" onblur="return formCaculateAmount('tripFeeForm');" onkeyup="try2FloatFormatOnKeyUp(this,event);" onkeypress="return readonlyFloat(event);"/></td>
                             <td style="padding-right: 20px;padding-left: 10px"><bean:message key="price.title"/></td>
-                            <td><html:text property="price" size="30" name="<%=Constants.TRIP_FEE%>" onblur="return tripFeeCaculateAmount();" onkeyup="try2FloatFormatOnKeyUp(this,event);" onkeypress="return readonlyFloat(event);"/></td>
+                            <td><html:text property="price" size="30" name="<%=Constants.TRIP_FEE%>" onblur="return formCaculateAmount('tripFeeForm');" onkeyup="try2FloatFormatOnKeyUp(this,event);" onkeypress="return readonlyFloat(event);"/></td>
                         </tr>
                         <tr>
                             <td height="30" style="padding-right: 20px"><bean:message key="amount.title"/></td>

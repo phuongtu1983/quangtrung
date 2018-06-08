@@ -5,7 +5,6 @@
 package com.stepup.gasoline.qt.petroimport;
 
 import com.stepup.core.util.DateUtil;
-import com.stepup.gasoline.qt.bean.AccountBean;
 import com.stepup.gasoline.qt.bean.EmployeeBean;
 import com.stepup.gasoline.qt.bean.PetroImportBean;
 import com.stepup.gasoline.qt.core.SpineAction;
@@ -19,11 +18,9 @@ import com.stepup.gasoline.qt.util.QTUtil;
 import java.util.ArrayList;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-
 import org.apache.commons.validator.GenericValidator;
 import org.apache.struts.action.ActionForm;
 import org.apache.struts.action.ActionMapping;
-import org.apache.struts.util.LabelValueBean;
 
 /**
  *
@@ -101,18 +98,6 @@ public class PetroImportFormAction extends SpineAction {
         }
         request.setAttribute(Constants.ACCOUNT_LIST, arrAccount);
 
-        ArrayList arrPaymentMode = new ArrayList();
-        LabelValueBean value;
-        value = new LabelValueBean();
-        value.setLabel(QTUtil.getBundleString("paymentMode.cash"));
-        value.setValue(AccountBean.PAYMENT_MODE_CASH + "");
-        arrPaymentMode.add(value);
-        value = new LabelValueBean();
-        value.setLabel(QTUtil.getBundleString("paymentMode.bank"));
-        value.setValue(AccountBean.PAYMENT_MODE_BANK + "");
-        arrPaymentMode.add(value);
-        request.setAttribute(Constants.PAYMENT_MODE_LIST, arrPaymentMode);
-        
         ArrayList arrVendor = null;
         try {
             VendorDAO vendorDAO = new VendorDAO();

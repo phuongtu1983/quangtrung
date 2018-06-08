@@ -21,7 +21,8 @@ public class GasWholesaleFormBean extends org.apache.struts.action.ActionForm {
     private double total;
     private double paid;
     private double debt;
-    private int paymentMode;
+    private double discount;
+    private double totalPay;
     private int accountId;
     private String note;
     private int canEdit;
@@ -52,7 +53,8 @@ public class GasWholesaleFormBean extends org.apache.struts.action.ActionForm {
         this.total = bean.getTotal();
         this.paid = bean.getPaid();
         this.debt = bean.getDebt();
-        this.paymentMode = bean.getPaymentMode();
+        this.discount = bean.getDiscount();
+        this.totalPay = bean.getTotalPay();
         this.accountId = bean.getAccountId();
         this.note = bean.getNote();
         this.canEdit = bean.getCanEdit();
@@ -128,14 +130,6 @@ public class GasWholesaleFormBean extends org.apache.struts.action.ActionForm {
 
     public void setDebt(double debt) {
         this.debt = debt;
-    }
-
-    public int getPaymentMode() {
-        return paymentMode;
-    }
-
-    public void setPaymentMode(int paymentMode) {
-        this.paymentMode = paymentMode;
     }
 
     public int getAccountId() {
@@ -248,6 +242,22 @@ public class GasWholesaleFormBean extends org.apache.struts.action.ActionForm {
 
     public void setReturnShellQuantity(String[] returnShellQuantity) {
         this.returnShellQuantity = returnShellQuantity;
+    }
+
+    public double getDiscount() {
+        return discount;
+    }
+
+    public void setDiscount(double discount) {
+        this.discount = discount;
+    }
+
+    public double getTotalPay() {
+        return totalPay;
+    }
+
+    public void setTotalPay(double totalPay) {
+        this.totalPay = totalPay;
     }
 
 }

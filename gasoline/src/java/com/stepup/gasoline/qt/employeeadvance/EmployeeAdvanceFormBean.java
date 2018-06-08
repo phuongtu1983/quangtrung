@@ -17,7 +17,6 @@ public class EmployeeAdvanceFormBean extends org.apache.struts.action.ActionForm
     private String advanceDate;
     private int employeeId;
     private String employeeName;
-    private int paymentMode;
     private double amount;
     private int accountId;
     private String note;
@@ -30,7 +29,6 @@ public class EmployeeAdvanceFormBean extends org.apache.struts.action.ActionForm
         this.code = bean.getCode();
         this.advanceDate = bean.getAdvanceDate();
         this.employeeId = bean.getEmployeeId();
-        this.paymentMode = bean.getPaymentMode();
         this.amount = bean.getAmount();
         this.accountId = bean.getAccountId();
         this.note = bean.getNote();
@@ -66,14 +64,6 @@ public class EmployeeAdvanceFormBean extends org.apache.struts.action.ActionForm
 
     public void setEmployeeId(int employeeId) {
         this.employeeId = employeeId;
-    }
-
-    public int getPaymentMode() {
-        return paymentMode;
-    }
-
-    public void setPaymentMode(int paymentMode) {
-        this.paymentMode = paymentMode;
     }
 
     public double getAmount() {

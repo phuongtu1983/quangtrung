@@ -5,7 +5,6 @@
 package com.stepup.gasoline.qt.lpgimport;
 
 import com.stepup.core.util.DateUtil;
-import com.stepup.gasoline.qt.bean.AccountBean;
 import com.stepup.gasoline.qt.bean.LpgImportBean;
 import com.stepup.gasoline.qt.core.SpineAction;
 import com.stepup.gasoline.qt.dao.AccountDAO;
@@ -84,18 +83,6 @@ public class LpgImportFormAction extends SpineAction {
             arrAccount = new ArrayList();
         }
         request.setAttribute(Constants.ACCOUNT_LIST, arrAccount);
-
-        ArrayList arrPaymentMode = new ArrayList();
-        LabelValueBean value;
-        value = new LabelValueBean();
-        value.setLabel(QTUtil.getBundleString("paymentMode.cash"));
-        value.setValue(AccountBean.PAYMENT_MODE_CASH + "");
-        arrPaymentMode.add(value);
-        value = new LabelValueBean();
-        value.setLabel(QTUtil.getBundleString("paymentMode.bank"));
-        value.setValue(AccountBean.PAYMENT_MODE_BANK + "");
-        arrPaymentMode.add(value);
-        request.setAttribute(Constants.PAYMENT_MODE_LIST, arrPaymentMode);
 
         return true;
     }

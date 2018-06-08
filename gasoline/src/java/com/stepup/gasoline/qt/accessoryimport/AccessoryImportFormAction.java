@@ -6,7 +6,6 @@ package com.stepup.gasoline.qt.accessoryimport;
 
 import com.stepup.core.util.DateUtil;
 import com.stepup.gasoline.qt.bean.AccessoryImportBean;
-import com.stepup.gasoline.qt.bean.AccountBean;
 import com.stepup.gasoline.qt.bean.EmployeeBean;
 import com.stepup.gasoline.qt.core.SpineAction;
 import com.stepup.gasoline.qt.dao.AccountDAO;
@@ -21,7 +20,6 @@ import javax.servlet.http.HttpServletResponse;
 import org.apache.commons.validator.GenericValidator;
 import org.apache.struts.action.ActionForm;
 import org.apache.struts.action.ActionMapping;
-import org.apache.struts.util.LabelValueBean;
 
 /**
  *
@@ -98,18 +96,6 @@ public class AccessoryImportFormAction extends SpineAction {
         }
         request.setAttribute(Constants.ACCOUNT_LIST, arrAccount);
 
-        ArrayList arrPaymentMode = new ArrayList();
-        LabelValueBean value;
-        value = new LabelValueBean();
-        value.setLabel(QTUtil.getBundleString("paymentMode.cash"));
-        value.setValue(AccountBean.PAYMENT_MODE_CASH + "");
-        arrPaymentMode.add(value);
-        value = new LabelValueBean();
-        value.setLabel(QTUtil.getBundleString("paymentMode.bank"));
-        value.setValue(AccountBean.PAYMENT_MODE_BANK + "");
-        arrPaymentMode.add(value);
-        request.setAttribute(Constants.PAYMENT_MODE_LIST, arrPaymentMode);
-        
         ArrayList arrVendor = null;
         try {
             VendorDAO vendorDAO = new VendorDAO();

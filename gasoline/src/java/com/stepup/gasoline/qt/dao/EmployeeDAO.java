@@ -337,7 +337,6 @@ public class EmployeeDAO extends BasicDAO {
                 bean.setEmployeeId(rs.getInt("employee_id"));
                 bean.setAdvanceDate(DateUtil.formatDate(rs.getDate("advance_date"), "dd/MM/yyyy"));
                 bean.setAmount(rs.getDouble("amount"));
-                bean.setPaymentMode(rs.getInt("payment_mode"));
                 bean.setAccountId(rs.getInt("account_id"));
                 bean.setNote(rs.getString("note"));
                 return bean;
@@ -367,14 +366,13 @@ public class EmployeeDAO extends BasicDAO {
             } else {
                 createdDate = bean.getAdvanceDate();
             }
-            String sql = "{call insertEmployeeAdvance(?,?,?,?,?,?,?,?)}";
+            String sql = "{call insertEmployeeAdvance(?,?,?,?,?,?,?)}";
             spUtil = new SPUtil(sql);
             if (spUtil != null) {
                 spUtil.getCallableStatement().setString("_code", bean.getCode());
                 spUtil.getCallableStatement().setInt("_employee_id", bean.getEmployeeId());
                 spUtil.getCallableStatement().setString("_advance_date", createdDate);
                 spUtil.getCallableStatement().setDouble("_amount", bean.getAmount());
-                spUtil.getCallableStatement().setInt("_payment_mode", bean.getPaymentMode());
                 spUtil.getCallableStatement().setInt("_account_id", bean.getAccountId());
                 spUtil.getCallableStatement().setString("_note", bean.getNote());
                 spUtil.getCallableStatement().registerOutParameter("_id", Types.INTEGER);
@@ -409,14 +407,13 @@ public class EmployeeDAO extends BasicDAO {
             } else {
                 createdDate = bean.getAdvanceDate();
             }
-            String sql = "{call updateEmployeeAdvance(?,?,?,?,?,?,?)}";
+            String sql = "{call updateEmployeeAdvance(?,?,?,?,?,?)}";
             spUtil = new SPUtil(sql);
             if (spUtil != null) {
                 spUtil.getCallableStatement().setInt("_id", bean.getId());
                 spUtil.getCallableStatement().setInt("_employee_id", bean.getEmployeeId());
                 spUtil.getCallableStatement().setString("_advance_date", createdDate);
                 spUtil.getCallableStatement().setDouble("_amount", bean.getAmount());
-                spUtil.getCallableStatement().setInt("_payment_mode", bean.getPaymentMode());
                 spUtil.getCallableStatement().setInt("_account_id", bean.getAccountId());
                 spUtil.getCallableStatement().setString("_note", bean.getNote());
                 spUtil.execute();

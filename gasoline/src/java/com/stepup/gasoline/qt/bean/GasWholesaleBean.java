@@ -18,7 +18,8 @@ public class GasWholesaleBean {
     private double total;
     private double paid;
     private double debt;
-    private int paymentMode;
+    private double discount;
+    private double totalPay;
     private int accountId;
     private String note;
     private int canEdit;
@@ -95,14 +96,6 @@ public class GasWholesaleBean {
         this.debt = debt;
     }
 
-    public int getPaymentMode() {
-        return paymentMode;
-    }
-
-    public void setPaymentMode(int paymentMode) {
-        this.paymentMode = paymentMode;
-    }
-
     public int getAccountId() {
         return accountId;
     }
@@ -117,6 +110,22 @@ public class GasWholesaleBean {
 
     public void setVehicleId(int vehicleId) {
         this.vehicleId = vehicleId;
+    }
+
+    public double getDiscount() {
+        return discount;
+    }
+
+    public void setDiscount(double discount) {
+        this.discount = discount;
+    }
+
+    public double getTotalPay() {
+        return totalPay;
+    }
+
+    public void setTotalPay(double totalPay) {
+        this.totalPay = totalPay;
     }
 
 }

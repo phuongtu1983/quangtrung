@@ -61,7 +61,6 @@ public class Constants {
     public static final String EMPLOYEE_ADVANCE = "employeeAdvance";
     public static final String EMPLOYEE_TIMESHEET = "employeeTimesheet";
     public static final String EMPLOYEE_OFF = "employeeOff";
-    public static final String PAYMENT_MODE_LIST = "paymentModeList";
     public static final String SALARY = "salary";
     public static final String SALARY_TIMESHEET_LIST = "salaryTimeSheetList";
     public static final String SALARY_FIELD_LIST = "salaryFieldList";
@@ -84,5 +83,11 @@ public class Constants {
     public static final String GAS_WHOLESALE_SHELL = "gasWholesaleShell";
     public static final String GAS_WHOLESALE_RETURN_SHELL = "gasWholesaleReturnShell";
     public static final String GAS_WHOLESALE_PROMOTION_MATERIAL = "gasWholesalePromotionMaterial";
+    public static final String GAS_RETAIL = "gasRetail";
+    public static final String GAS_RETAIL_SHELL = "gasRetailShell";
+    public static final String GAS_RETAIL_RETURN_SHELL = "gasRetailReturnShell";
+    public static final String GAS_RETAIL_PROMOTION_MATERIAL = "gasRetailPromotionMaterial";
+    public static final String SALE_ACCESSORY = "saleAccessory";
+    public static final String GOOD_LIST = "goodList";
 
 }

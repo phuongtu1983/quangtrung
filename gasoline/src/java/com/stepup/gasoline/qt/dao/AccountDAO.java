@@ -27,7 +27,7 @@ public class AccountDAO extends BasicDAO {
         if (!StringUtil.isBlankOrNull(organizationIds)) {
             sql += " and a.organization_id in(" + organizationIds + ")";
         }
-        sql += " order by a.number";
+        sql += " order by a.number desc";
         ArrayList equipmentList = new ArrayList();
         try {
             rs = DBUtil.executeQuery(sql);

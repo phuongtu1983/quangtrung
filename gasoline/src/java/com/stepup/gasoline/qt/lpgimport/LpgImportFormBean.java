@@ -17,7 +17,6 @@ public class LpgImportFormBean extends org.apache.struts.action.ActionForm {
     private String importDate;
     private int vendorId;
     private String vendorName;
-    private int paymentMode;
     private float paperQuantity;
     private float actualQuantity;
     private double price;
@@ -36,7 +35,6 @@ public class LpgImportFormBean extends org.apache.struts.action.ActionForm {
         this.code = bean.getCode();
         this.importDate = bean.getImportDate();
         this.vendorId = bean.getVendorId();
-        this.paymentMode = bean.getPaymentMode();
         this.paperQuantity = bean.getPaperQuantity();
         this.actualQuantity = bean.getActualQuantity();
         this.price = bean.getPrice();
@@ -62,14 +60,6 @@ public class LpgImportFormBean extends org.apache.struts.action.ActionForm {
 
     public void setId(int id) {
         this.id = id;
-    }
-
-    public int getPaymentMode() {
-        return paymentMode;
-    }
-
-    public void setPaymentMode(int paymentMode) {
-        this.paymentMode = paymentMode;
     }
 
     public double getAmount() {

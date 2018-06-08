@@ -41,14 +41,8 @@
             <td><html:text property="debt" size="30" name="<%=Constants.GAS_IMPORT%>" readonly="true"/></td>
         </tr>
         <tr>
-            <td height="30" style="padding-right: 20px"><bean:message key="pamentMode.title"/></td>
-            <td>
-                <html:select property="paymentMode" name="<%=Constants.GAS_IMPORT%>" style="width:195px">
-                    <html:options collection="<%=Constants.PAYMENT_MODE_LIST%>" property="value" labelProperty="label"/>
-                </html:select>
-            </td>
-            <td style="padding-right: 20px;padding-left: 10px"><bean:message key="account.title"/></td>
-            <td>
+            <td height="30" style="padding-right: 20px"><bean:message key="account.title"/></td>
+            <td colspan="3">
                 <html:select property="accountId" name="<%=Constants.GAS_IMPORT%>" style="width:195px">
                     <html:options collection="<%=Constants.ACCOUNT_LIST%>" property="id" labelProperty="number"/>
                 </html:select>

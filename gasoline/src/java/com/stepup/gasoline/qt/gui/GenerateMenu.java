@@ -332,8 +332,7 @@ public class GenerateMenu {
             buffTemp = new StringBuilder();
             if (isHasPermission(PermissionUtil.OPERATION_LIST + "," + PermissionUtil.OPERATION_ADD,
                     PermissionUtil.PER_SHELL_IMPORT + "," + PermissionUtil.PER_LPG_IMPORT + "," + PermissionUtil.PER_FRACTION + "," + PermissionUtil.PER_GAS_PRICE
-                    + "," + PermissionUtil.PER_GAS_IMPORT + "," + PermissionUtil.PER_ACCESSORY_IMPORT + "," + PermissionUtil.PER_PROMOTION_MATERIAL_IMPORT
-                    + "," + PermissionUtil.PER_PETRO_IMPORT + "," + PermissionUtil.PER_GAS_WHOLESALE)) {
+                    + "," + PermissionUtil.PER_GAS_IMPORT + "," + PermissionUtil.PER_GAS_RETAIL + "," + PermissionUtil.PER_GAS_WHOLESALE)) {
                 if (isHasPermission(PermissionUtil.OPERATION_LIST + "," + PermissionUtil.OPERATION_ADD, PermissionUtil.PER_SHELL_IMPORT)) {
                     buffTemp.append("<item id=\"shellimports\" complex=\"true\" text=\"").append(QTUtil.getBundleString("shellImport.title")).append("\">");
                     if (isHasPermission(PermissionUtil.OPERATION_LIST, PermissionUtil.PER_SHELL_IMPORT)) {
@@ -384,6 +383,37 @@ public class GenerateMenu {
                     }
                     buffTemp.append("</item>");
                 }
+                if (isHasPermission(PermissionUtil.OPERATION_LIST + "," + PermissionUtil.OPERATION_ADD, PermissionUtil.PER_GAS_WHOLESALE)) {
+                    buffTemp.append("<item id=\"gaswholesales\" complex=\"true\" text=\"").append(QTUtil.getBundleString("gasWholesale.title")).append("\">");
+                    if (isHasPermission(PermissionUtil.OPERATION_LIST, PermissionUtil.PER_GAS_WHOLESALE)) {
+                        buffTemp.append("<item id=\"gaswholesalelist\" text=\"").append(QTUtil.getBundleString("gasWholesale.list.title")).append("\"/>");
+                    }
+                    if (isHasPermission(PermissionUtil.OPERATION_ADD, PermissionUtil.PER_GAS_WHOLESALE)) {
+                        buffTemp.append("<item id=\"gaswholesaleadd\" text=\"").append(QTUtil.getBundleString("gasWholesale.detail.add.title")).append("\"/>");
+                    }
+                    buffTemp.append("</item>");
+                }
+                if (isHasPermission(PermissionUtil.OPERATION_LIST + "," + PermissionUtil.OPERATION_ADD, PermissionUtil.PER_GAS_RETAIL)) {
+                    buffTemp.append("<item id=\"gasretails\" complex=\"true\" text=\"").append(QTUtil.getBundleString("gasRetail.title")).append("\">");
+                    if (isHasPermission(PermissionUtil.OPERATION_LIST, PermissionUtil.PER_GAS_RETAIL)) {
+                        buffTemp.append("<item id=\"gasretaillist\" text=\"").append(QTUtil.getBundleString("gasRetail.list.title")).append("\"/>");
+                    }
+                    if (isHasPermission(PermissionUtil.OPERATION_ADD, PermissionUtil.PER_GAS_RETAIL)) {
+                        buffTemp.append("<item id=\"gasretailadd\" text=\"").append(QTUtil.getBundleString("gasRetail.detail.add.title")).append("\"/>");
+                    }
+                    buffTemp.append("</item>");
+                }
+            }
+            if (buffTemp.length() > 0) {
+                buff.append("<item id=\"gasfunction\" complex=\"true\" text=\"").append(QTUtil.getBundleString("menu.function.gas.title")).append("\">");//start function gas
+                buff.append(buffTemp);
+                buff.append("</item>");//end function gas
+            }
+
+            buffTemp = new StringBuilder();
+            if (isHasPermission(PermissionUtil.OPERATION_LIST + "," + PermissionUtil.OPERATION_ADD,
+                    PermissionUtil.PER_ACCESSORY_IMPORT + "," + PermissionUtil.PER_PROMOTION_MATERIAL_IMPORT + "," + PermissionUtil.PER_PETRO_IMPORT
+                    + "," + PermissionUtil.PER_SALE_ACCESSORY)) {
                 if (isHasPermission(PermissionUtil.OPERATION_LIST + "," + PermissionUtil.OPERATION_ADD, PermissionUtil.PER_ACCESSORY_IMPORT)) {
                     buffTemp.append("<item id=\"accessoryimports\" complex=\"true\" text=\"").append(QTUtil.getBundleString("accessoryImport.title")).append("\">");
                     if (isHasPermission(PermissionUtil.OPERATION_LIST, PermissionUtil.PER_ACCESSORY_IMPORT)) {
@@ -414,31 +444,21 @@ public class GenerateMenu {
                     }
                     buffTemp.append("</item>");
                 }
-                if (isHasPermission(PermissionUtil.OPERATION_LIST + "," + PermissionUtil.OPERATION_ADD, PermissionUtil.PER_GAS_WHOLESALE)) {
-                    buffTemp.append("<item id=\"gaswholesales\" complex=\"true\" text=\"").append(QTUtil.getBundleString("gasWholesale.title")).append("\">");
-                    if (isHasPermission(PermissionUtil.OPERATION_LIST, PermissionUtil.PER_GAS_WHOLESALE)) {
-                        buffTemp.append("<item id=\"gaswholesalelist\" text=\"").append(QTUtil.getBundleString("gasWholesale.list.title")).append("\"/>");
+                if (isHasPermission(PermissionUtil.OPERATION_LIST + "," + PermissionUtil.OPERATION_ADD, PermissionUtil.PER_SALE_ACCESSORY)) {
+                    buffTemp.append("<item id=\"saleaccessorys\" complex=\"true\" text=\"").append(QTUtil.getBundleString("saleAccessory.title")).append("\">");
+                    if (isHasPermission(PermissionUtil.OPERATION_LIST, PermissionUtil.PER_SALE_ACCESSORY)) {
+                        buffTemp.append("<item id=\"saleaccessorylist\" text=\"").append(QTUtil.getBundleString("saleAccessory.list.title")).append("\"/>");
                     }
-                    if (isHasPermission(PermissionUtil.OPERATION_ADD, PermissionUtil.PER_GAS_WHOLESALE)) {
-                        buffTemp.append("<item id=\"gaswholesaleadd\" text=\"").append(QTUtil.getBundleString("gasWholesale.detail.add.title")).append("\"/>");
-                    }
-                    buffTemp.append("</item>");
-                }
-                if (isHasPermission(PermissionUtil.OPERATION_LIST + "," + PermissionUtil.OPERATION_ADD, PermissionUtil.PER_GAS_RETAIL)) {
-                    buffTemp.append("<item id=\"gasretails\" complex=\"true\" text=\"").append(QTUtil.getBundleString("gasRetail.title")).append("\">");
-                    if (isHasPermission(PermissionUtil.OPERATION_LIST, PermissionUtil.PER_GAS_RETAIL)) {
-                        buffTemp.append("<item id=\"gasretaillist\" text=\"").append(QTUtil.getBundleString("gasRetail.list.title")).append("\"/>");
-                    }
-                    if (isHasPermission(PermissionUtil.OPERATION_ADD, PermissionUtil.PER_GAS_RETAIL)) {
-                        buffTemp.append("<item id=\"gasretailadd\" text=\"").append(QTUtil.getBundleString("gasRetail.detail.add.title")).append("\"/>");
+                    if (isHasPermission(PermissionUtil.OPERATION_ADD, PermissionUtil.PER_SALE_ACCESSORY)) {
+                        buffTemp.append("<item id=\"saleaccessoryadd\" text=\"").append(QTUtil.getBundleString("saleAccessory.detail.add.title")).append("\"/>");
                     }
                     buffTemp.append("</item>");
                 }
             }
             if (buffTemp.length() > 0) {
-                buff.append("<item id=\"gasfunction\" complex=\"true\" text=\"").append(QTUtil.getBundleString("menu.function.gas.title")).append("\">");//start function gas
+                buff.append("<item id=\"goodfunction\" complex=\"true\" text=\"").append(QTUtil.getBundleString("menu.function.good.title")).append("\">");//start function good
                 buff.append(buffTemp);
-                buff.append("</item>");//end function gas
+                buff.append("</item>");//end function good
             }
 
             buff.append("<item id=\"setting\" complex=\"true\" text=\"").append(QTUtil.getBundleString("menu.admin.setting.title")).append("\">");//start setting

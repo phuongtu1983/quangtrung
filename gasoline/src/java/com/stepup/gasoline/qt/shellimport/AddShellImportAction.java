@@ -77,6 +77,8 @@ public class AddShellImportAction extends SpineAction {
         bean.setPrice(formBean.getPrice());
         bean.setQuantity(formBean.getQuantity());
         bean.setNote(formBean.getNote());
+        bean.setAccountId(formBean.getAccountId());
+        bean.setAmount(formBean.getAmount());
         try {
             if (bNew) {
                 goodDAO.insertShellImport(bean);

@@ -19,7 +19,6 @@ public class PetroImportBean {
     private double total;
     private double paid;
     private double debt;
-    private int paymentMode;
     private int accountId;
     private String note;
     private int canEdit;
@@ -110,14 +109,6 @@ public class PetroImportBean {
 
     public void setDebt(double debt) {
         this.debt = debt;
-    }
-
-    public int getPaymentMode() {
-        return paymentMode;
-    }
-
-    public void setPaymentMode(int paymentMode) {
-        this.paymentMode = paymentMode;
     }
 
     public int getAccountId() {

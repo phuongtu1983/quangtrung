@@ -52,7 +52,6 @@ public class AddLpgImportAction extends SpineAction {
         bean.setRate(formBean.getRate());
         bean.setAccountId(formBean.getAccountId());
         bean.setNote(formBean.getNote());
-        bean.setPaymentMode(formBean.getPaymentMode());
         try {
             if (bNew) {
                 gasDAO.insertLpgImport(bean);

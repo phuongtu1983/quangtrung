@@ -8,8 +8,10 @@ import com.stepup.core.util.DateUtil;
 import com.stepup.gasoline.qt.bean.EmployeeBean;
 import com.stepup.gasoline.qt.bean.ShellImportBean;
 import com.stepup.gasoline.qt.core.SpineAction;
+import com.stepup.gasoline.qt.dao.AccountDAO;
 import com.stepup.gasoline.qt.dao.GoodDAO;
 import com.stepup.gasoline.qt.util.Constants;
+import com.stepup.gasoline.qt.util.QTUtil;
 import java.util.ArrayList;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -67,6 +69,18 @@ public class ShellImportFormAction extends SpineAction {
             arrShell = new ArrayList();
         }
         request.setAttribute(Constants.SHELL_LIST, arrShell);
+
+        ArrayList arrAccount = null;
+        try {
+            String organizationIds = QTUtil.getOrganizationManageds(request.getSession());
+            AccountDAO accountDAO = new AccountDAO();
+            arrAccount = accountDAO.getAccounts(organizationIds);
+        } catch (Exception ex) {
+        }
+        if (arrAccount == null) {
+            arrAccount = new ArrayList();
+        }
+        request.setAttribute(Constants.ACCOUNT_LIST, arrAccount);
 
         return true;
     }

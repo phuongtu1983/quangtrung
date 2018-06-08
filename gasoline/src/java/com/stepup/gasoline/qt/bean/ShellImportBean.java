@@ -16,6 +16,8 @@ public class ShellImportBean {
     private int shellId;
     private int quantity;
     private double price;
+    private double amount;
+    private int accountId;
     private String note;
     private int canEdit;
 
@@ -85,6 +87,22 @@ public class ShellImportBean {
 
     public void setCanEdit(int canEdit) {
         this.canEdit = canEdit;
+    }
+
+    public double getAmount() {
+        return amount;
+    }
+
+    public void setAmount(double amount) {
+        this.amount = amount;
+    }
+
+    public int getAccountId() {
+        return accountId;
+    }
+
+    public void setAccountId(int accountId) {
+        this.accountId = accountId;
     }
 
 }

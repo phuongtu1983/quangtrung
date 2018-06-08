@@ -16,7 +16,6 @@ public class EmployeeAdvanceBean {
     private int employeeId;
     private int accountId;
     private double amount;
-    private int paymentMode;
     private String note;
 
     public void setId(int id) {
@@ -65,14 +64,6 @@ public class EmployeeAdvanceBean {
 
     public void setAmount(double amount) {
         this.amount = amount;
-    }
-
-    public int getPaymentMode() {
-        return paymentMode;
-    }
-
-    public void setPaymentMode(int paymentMode) {
-        this.paymentMode = paymentMode;
     }
 
     public String getNote() {

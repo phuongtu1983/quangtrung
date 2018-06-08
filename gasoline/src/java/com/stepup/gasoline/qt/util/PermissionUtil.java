@@ -121,4 +121,5 @@ public class PermissionUtil {
     public static int PER_PETRO_IMPORT = 33;
     public static int PER_GAS_WHOLESALE = 34;
     public static int PER_GAS_RETAIL = 35;
+    public static int PER_SALE_ACCESSORY = 36;
 }
