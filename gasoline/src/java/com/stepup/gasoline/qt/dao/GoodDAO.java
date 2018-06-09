@@ -20,12 +20,19 @@ import com.stepup.gasoline.qt.bean.PetroBean;
 import com.stepup.gasoline.qt.bean.PromotionMaterialBean;
 import com.stepup.gasoline.qt.bean.PromotionMaterialImportBean;
 import com.stepup.gasoline.qt.bean.PromotionMaterialImportDetailBean;
+import com.stepup.gasoline.qt.bean.SaleAccessoryBean;
+import com.stepup.gasoline.qt.bean.SaleAccessoryChangeDetailBean;
+import com.stepup.gasoline.qt.bean.SaleAccessoryDetailBean;
+import com.stepup.gasoline.qt.bean.SalePetroBean;
+import com.stepup.gasoline.qt.bean.SalePetroDetailBean;
 import com.stepup.gasoline.qt.bean.ShellBean;
 import com.stepup.gasoline.qt.bean.ShellImportBean;
 import com.stepup.gasoline.qt.bean.ShellKindBean;
 import com.stepup.gasoline.qt.petro.PetroFormBean;
 import com.stepup.gasoline.qt.promotionmaterial.PromotionMaterialFormBean;
 import com.stepup.gasoline.qt.promotionmaterialimport.PromotionMaterialImportFormBean;
+import com.stepup.gasoline.qt.saleaccessory.SaleAccessoryFormBean;
+import com.stepup.gasoline.qt.salepetro.SalePetroFormBean;
 import com.stepup.gasoline.qt.shell.ShellFormBean;
 import com.stepup.gasoline.qt.shellimport.ShellImportFormBean;
 import com.stepup.gasoline.qt.shellkind.ShellKindFormBean;
@@ -1141,7 +1148,7 @@ public class GoodDAO extends BasicDAO {
 
     public AccessoryImportBean getAccessoryImport(int id) throws Exception {
         ResultSet rs = null;
-        String sql = "select *, IF(DATEDIFF(created_date,SYSDATE())=0,1,0) as can_edit from accessory_import where id=" + id;
+        String sql = "select *, IF(MONTH(created_date)=MONTH(SYSDATE()) AND YEAR(created_date)=YEAR(SYSDATE()),1,0)) as can_edit from accessory_import where id=" + id;
         try {
             rs = DBUtil.executeQuery(sql);
             while (rs.next()) {
@@ -1431,7 +1438,7 @@ public class GoodDAO extends BasicDAO {
 
     public PromotionMaterialImportBean getPromotionMaterialImport(int id) throws Exception {
         ResultSet rs = null;
-        String sql = "select *, IF(DATEDIFF(created_date,SYSDATE())=0,1,0) as can_edit from promotion_material_import where id=" + id;
+        String sql = "select *, IF(MONTH(created_date)=MONTH(SYSDATE()) AND YEAR(created_date)=YEAR(SYSDATE()),1,0) as can_edit from promotion_material_import where id=" + id;
         try {
             rs = DBUtil.executeQuery(sql);
             while (rs.next()) {
@@ -1641,6 +1648,699 @@ public class GoodDAO extends BasicDAO {
         SPUtil spUtil = null;
         try {
             String sql = "{call updatePromotionMaterialImportDetail(?,?,?,?)}";
+            spUtil = new SPUtil(sql);
+            if (spUtil != null) {
+                spUtil.getCallableStatement().setInt("_id", bean.getId());
+                spUtil.getCallableStatement().setFloat("_quantity", bean.getQuantity());
+                spUtil.getCallableStatement().setDouble("_price", bean.getPrice());
+                spUtil.getCallableStatement().setDouble("_amount", bean.getAmount());
+                spUtil.execute();
+            }
+        } catch (SQLException sqle) {
+            throw new Exception(sqle.getMessage());
+        } catch (Exception ex) {
+            throw new Exception(ex.getMessage());
+        } finally {
+            try {
+                if (spUtil != null) {
+                    spUtil.closeConnection();
+                }
+            } catch (Exception e) {
+                throw new Exception(e.getMessage());
+            }
+        }
+    }
+
+    public ArrayList searchSaleAccessory(String fromDate, String endDate) throws Exception {
+        SPUtil spUtil = null;
+        ArrayList list = new ArrayList();
+        ResultSet rs = null;
+        try {
+            String sql = "{call searchSaleAccessory(?,?)}";
+            if (GenericValidator.isBlankOrNull(fromDate)) {
+                fromDate = DateUtil.today("dd/MM/yyyy");
+            }
+            if (GenericValidator.isBlankOrNull(endDate)) {
+                endDate = this.START_DATE;
+            }
+            spUtil = new SPUtil(sql);
+            if (spUtil != null) {
+                spUtil.getCallableStatement().setString("_start_date", fromDate);
+                spUtil.getCallableStatement().setString("_end_date", endDate);
+                rs = spUtil.executeQuery();
+                if (rs != null) {
+                    SaleAccessoryFormBean bean = null;
+                    while (rs.next()) {
+                        bean = new SaleAccessoryFormBean();
+                        bean.setId(rs.getInt("id"));
+                        bean.setCode(rs.getString("code"));
+                        bean.setCreatedDate(DateUtil.formatDate(rs.getDate("created_date"), "dd/MM/yyyy"));
+                        bean.setTotal(rs.getDouble("total"));
+                        bean.setPaid(rs.getDouble("paid"));
+                        bean.setDebt(rs.getDouble("debt"));
+                        bean.setAccountId(rs.getInt("account_id"));
+                        bean.setNote(rs.getString("note"));
+                        list.add(bean);
+                    }
+                }
+            }
+        } catch (SQLException sqle) {
+            throw new Exception(sqle.getMessage());
+        } catch (Exception ex) {
+            throw new Exception(ex.getMessage());
+        } finally {
+            try {
+                if (spUtil != null) {
+                    spUtil.closeConnection();
+                }
+                if (rs != null) {
+                    rs.close();
+                    rs = null;
+                }
+            } catch (Exception e) {
+                throw new Exception(e.getMessage());
+            }
+        }
+        return list;
+    }
+
+    public SaleAccessoryBean getSaleAccessory(int id) throws Exception {
+        ResultSet rs = null;
+        String sql = "select *, IF(MONTH(created_date)=MONTH(SYSDATE()) AND YEAR(created_date)=YEAR(SYSDATE()),1,0) as can_edit from accessory_sale where id=" + id;
+        try {
+            rs = DBUtil.executeQuery(sql);
+            while (rs.next()) {
+                SaleAccessoryBean bean = new SaleAccessoryBean();
+                bean.setId(rs.getInt("id"));
+                bean.setCode(rs.getString("code"));
+                bean.setCreatedDate(DateUtil.formatDate(rs.getDate("created_date"), "dd/MM/yyyy"));
+                bean.setTotal(rs.getDouble("total"));
+                bean.setPaid(rs.getDouble("paid"));
+                bean.setDebt(rs.getDouble("debt"));
+                bean.setTotalPay(rs.getDouble("total_pay"));
+                bean.setDiscount(rs.getDouble("discount"));
+                bean.setAccountId(rs.getInt("account_id"));
+                bean.setNote(rs.getString("note"));
+                bean.setCanEdit(rs.getInt("can_edit"));
+                return bean;
+            }
+        } catch (SQLException sqle) {
+            throw new Exception(sqle.getMessage());
+        } catch (Exception ex) {
+            throw new Exception(ex.getMessage());
+        } finally {
+            if (rs != null) {
+                DBUtil.closeConnection(rs);
+            }
+        }
+        return null;
+    }
+
+    public ArrayList getSaleAccessoryDetail(int saleAccessoryId) throws Exception {
+        ResultSet rs = null;
+        String sql = "select det.*, s.name as accessory_name, s.unit_id, u.name as unit_name"
+                + " from accessory_sale_detail as det, accessory as s, unit as u"
+                + " where det.accessory_id=s.id and s.unit_id=u.id and det.accessory_sale_id=" + saleAccessoryId
+                + " order by det.id";
+        ArrayList detailList = new ArrayList();
+        try {
+            rs = DBUtil.executeQuery(sql);
+            SaleAccessoryDetailBean bean = null;
+            while (rs.next()) {
+                bean = new SaleAccessoryDetailBean();
+                bean.setId(rs.getInt("id"));
+                bean.setSaleAccessoryId(rs.getInt("accessory_sale_id"));
+                bean.setQuantity(rs.getFloat("quantity"));
+                bean.setPrice(rs.getDouble("price"));
+                bean.setAmount(rs.getDouble("amount"));
+                bean.setAccessoryId(rs.getInt("accessory_id"));
+                bean.setAccessoryName(rs.getString("accessory_name"));
+                bean.setUnitId(rs.getInt("unit_id"));
+                bean.setUnitName(rs.getString("unit_name"));
+                detailList.add(bean);
+            }
+        } catch (SQLException sqle) {
+            throw new Exception(sqle.getMessage());
+        } catch (Exception ex) {
+            throw new Exception(ex.getMessage());
+        } finally {
+            if (rs != null) {
+                DBUtil.closeConnection(rs);
+            }
+        }
+        return detailList;
+    }
+
+    public int insertSaleAccessory(SaleAccessoryBean bean) throws Exception {
+        if (bean == null) {
+            return 0;
+        }
+        int result = 0;
+        SPUtil spUtil = null;
+        try {
+            String createdDate = "";
+            if (GenericValidator.isBlankOrNull(bean.getCreatedDate())) {
+                createdDate = "null";
+            } else {
+                createdDate = bean.getCreatedDate();
+            }
+            String sql = "{call insertSaleAccessory(?,?,?,?,?,?,?,?,?,?)}";
+            spUtil = new SPUtil(sql);
+            if (spUtil != null) {
+                spUtil.getCallableStatement().setString("_code", bean.getCode());
+                spUtil.getCallableStatement().setString("_created_date", createdDate);
+                spUtil.getCallableStatement().setDouble("_total", bean.getTotal());
+                spUtil.getCallableStatement().setDouble("_paid", bean.getPaid());
+                spUtil.getCallableStatement().setDouble("_debt", bean.getDebt());
+                spUtil.getCallableStatement().setDouble("_discount", bean.getDiscount());
+                spUtil.getCallableStatement().setDouble("_total_pay", bean.getTotalPay());
+                spUtil.getCallableStatement().setInt("_account_id", bean.getAccountId());
+                spUtil.getCallableStatement().setString("_note", bean.getNote());
+                spUtil.getCallableStatement().registerOutParameter("_id", Types.INTEGER);
+                spUtil.execute();
+                result = spUtil.getCallableStatement().getInt("_id");
+            }
+        } catch (SQLException sqle) {
+            throw new Exception(sqle.getMessage());
+        } catch (Exception ex) {
+            throw new Exception(ex.getMessage());
+        } finally {
+            try {
+                if (spUtil != null) {
+                    spUtil.closeConnection();
+                }
+            } catch (Exception e) {
+                throw new Exception(e.getMessage());
+            }
+        }
+        return result;
+    }
+
+    public void updateSaleAccessory(SaleAccessoryBean bean) throws Exception {
+        if (bean == null) {
+            return;
+        }
+        SPUtil spUtil = null;
+        try {
+            String sql = "{call updateSaleAccessory(?,?,?,?,?,?,?,?)}";
+            spUtil = new SPUtil(sql);
+            if (spUtil != null) {
+                spUtil.getCallableStatement().setInt("_id", bean.getId());
+                spUtil.getCallableStatement().setDouble("_total", bean.getTotal());
+                spUtil.getCallableStatement().setDouble("_paid", bean.getPaid());
+                spUtil.getCallableStatement().setDouble("_debt", bean.getDebt());
+                spUtil.getCallableStatement().setDouble("_discount", bean.getDiscount());
+                spUtil.getCallableStatement().setDouble("_total_pay", bean.getTotalPay());
+                spUtil.getCallableStatement().setInt("_account_id", bean.getAccountId());
+                spUtil.getCallableStatement().setString("_note", bean.getNote());
+                spUtil.execute();
+            }
+        } catch (SQLException sqle) {
+            throw new Exception(sqle.getMessage());
+        } catch (Exception ex) {
+            throw new Exception(ex.getMessage());
+        } finally {
+            try {
+                if (spUtil != null) {
+                    spUtil.closeConnection();
+                }
+            } catch (Exception e) {
+                throw new Exception(e.getMessage());
+            }
+        }
+    }
+
+    public String getNextSaleAccessoryNumber(String prefix, int length) throws Exception {
+        String result = "";
+        try {
+            result = this.getNextNumber(prefix, length, "code", "accessory_sale");
+        } catch (Exception ex) {
+            throw new Exception(ex.getMessage());
+        }
+        return result;
+    }
+
+    public void deleteSaleAccessory(int id) throws Exception {
+        SPUtil spUtil = null;
+        try {
+            String sql = "{call deleteSaleAccessory(?)}";
+            spUtil = new SPUtil(sql);
+            if (spUtil != null) {
+                spUtil.getCallableStatement().setInt("_id", id);
+                spUtil.execute();
+            }
+        } catch (Exception ex) {
+            throw new Exception(ex.getMessage());
+        } finally {
+            try {
+                if (spUtil != null) {
+                    spUtil.closeConnection();
+                }
+            } catch (Exception e) {
+                throw new Exception(e.getMessage());
+            }
+        }
+    }
+
+    public int insertSaleAccessoryDetail(SaleAccessoryDetailBean bean) throws Exception {
+        if (bean == null) {
+            return 0;
+        }
+        int result = 0;
+        SPUtil spUtil = null;
+        try {
+            String sql = "{call insertSaleAccessoryDetail(?,?,?,?,?)}";
+            spUtil = new SPUtil(sql);
+            if (spUtil != null) {
+                spUtil.getCallableStatement().setInt("_accessory_sale_id", bean.getSaleAccessoryId());
+                spUtil.getCallableStatement().setInt("_accessory_id", bean.getAccessoryId());
+                spUtil.getCallableStatement().setFloat("_quantity", bean.getQuantity());
+                spUtil.getCallableStatement().setDouble("_price", bean.getPrice());
+                spUtil.getCallableStatement().setDouble("_amount", bean.getAmount());
+                spUtil.execute();
+            }
+        } catch (SQLException sqle) {
+            throw new Exception(sqle.getMessage());
+        } catch (Exception ex) {
+            throw new Exception(ex.getMessage());
+        } finally {
+            try {
+                if (spUtil != null) {
+                    spUtil.closeConnection();
+                }
+            } catch (Exception e) {
+                throw new Exception(e.getMessage());
+            }
+        }
+        return result;
+    }
+
+    public void updateSaleAccessoryDetail(SaleAccessoryDetailBean bean) throws Exception {
+        if (bean == null) {
+            return;
+        }
+        SPUtil spUtil = null;
+        try {
+            String sql = "{call updateSaleAccessoryDetail(?,?,?,?)}";
+            spUtil = new SPUtil(sql);
+            if (spUtil != null) {
+                spUtil.getCallableStatement().setInt("_id", bean.getId());
+                spUtil.getCallableStatement().setFloat("_quantity", bean.getQuantity());
+                spUtil.getCallableStatement().setDouble("_price", bean.getPrice());
+                spUtil.getCallableStatement().setDouble("_amount", bean.getAmount());
+                spUtil.execute();
+            }
+        } catch (SQLException sqle) {
+            throw new Exception(sqle.getMessage());
+        } catch (Exception ex) {
+            throw new Exception(ex.getMessage());
+        } finally {
+            try {
+                if (spUtil != null) {
+                    spUtil.closeConnection();
+                }
+            } catch (Exception e) {
+                throw new Exception(e.getMessage());
+            }
+        }
+    }
+
+    public ArrayList getSaleAccessoryChangeDetail(int saleAccessoryId) throws Exception {
+        ResultSet rs = null;
+        String sql = "select det.*, s.name as accessory_name, s.unit_id, u.name as unit_name"
+                + " from accessory_sale_change_detail as det, accessory as s, unit as u"
+                + " where det.accessory_id=s.id and s.unit_id=u.id and det.accessory_sale_id=" + saleAccessoryId
+                + " order by det.id";
+        ArrayList detailList = new ArrayList();
+        try {
+            rs = DBUtil.executeQuery(sql);
+            SaleAccessoryChangeDetailBean bean = null;
+            while (rs.next()) {
+                bean = new SaleAccessoryChangeDetailBean();
+                bean.setId(rs.getInt("id"));
+                bean.setSaleAccessoryId(rs.getInt("accessory_sale_id"));
+                bean.setQuantity(rs.getFloat("quantity"));
+                bean.setAccessoryId(rs.getInt("accessory_id"));
+                bean.setAccessoryName(rs.getString("accessory_name"));
+                bean.setUnitId(rs.getInt("unit_id"));
+                bean.setUnitName(rs.getString("unit_name"));
+                bean.setQuantity(rs.getInt("quantity"));
+                bean.setPrice(rs.getDouble("price"));
+                bean.setAmount(rs.getDouble("amount"));
+                detailList.add(bean);
+            }
+        } catch (SQLException sqle) {
+            throw new Exception(sqle.getMessage());
+        } catch (Exception ex) {
+            throw new Exception(ex.getMessage());
+        } finally {
+            if (rs != null) {
+                DBUtil.closeConnection(rs);
+            }
+        }
+        return detailList;
+    }
+
+    public int insertSaleAccessoryChangeDetail(SaleAccessoryChangeDetailBean bean) throws Exception {
+        if (bean == null) {
+            return 0;
+        }
+        int result = 0;
+        SPUtil spUtil = null;
+        try {
+            String sql = "{call insertSaleAccessoryChangeDetail(?,?,?,?,?)}";
+            spUtil = new SPUtil(sql);
+            if (spUtil != null) {
+                spUtil.getCallableStatement().setInt("_accessory_sale_id", bean.getSaleAccessoryId());
+                spUtil.getCallableStatement().setInt("_accessory_id", bean.getAccessoryId());
+                spUtil.getCallableStatement().setFloat("_quantity", bean.getQuantity());
+                spUtil.getCallableStatement().setDouble("_price", bean.getPrice());
+                spUtil.getCallableStatement().setDouble("_amount", bean.getAmount());
+                spUtil.execute();
+            }
+        } catch (SQLException sqle) {
+            throw new Exception(sqle.getMessage());
+        } catch (Exception ex) {
+            throw new Exception(ex.getMessage());
+        } finally {
+            try {
+                if (spUtil != null) {
+                    spUtil.closeConnection();
+                }
+            } catch (Exception e) {
+                throw new Exception(e.getMessage());
+            }
+        }
+        return result;
+    }
+
+    public void updateSaleAccessoryChangeDetail(SaleAccessoryChangeDetailBean bean) throws Exception {
+        if (bean == null) {
+            return;
+        }
+        SPUtil spUtil = null;
+        try {
+            String sql = "{call updateSaleAccessoryChnageDetail(?,?,?,?)}";
+            spUtil = new SPUtil(sql);
+            if (spUtil != null) {
+                spUtil.getCallableStatement().setInt("_id", bean.getId());
+                spUtil.getCallableStatement().setFloat("_quantity", bean.getQuantity());
+                spUtil.getCallableStatement().setDouble("_price", bean.getPrice());
+                spUtil.getCallableStatement().setDouble("_amount", bean.getAmount());
+                spUtil.execute();
+            }
+        } catch (SQLException sqle) {
+            throw new Exception(sqle.getMessage());
+        } catch (Exception ex) {
+            throw new Exception(ex.getMessage());
+        } finally {
+            try {
+                if (spUtil != null) {
+                    spUtil.closeConnection();
+                }
+            } catch (Exception e) {
+                throw new Exception(e.getMessage());
+            }
+        }
+    }
+
+    public ArrayList searchSalePetro(String fromDate, String endDate) throws Exception {
+        SPUtil spUtil = null;
+        ArrayList list = new ArrayList();
+        ResultSet rs = null;
+        try {
+            String sql = "{call searchSalePetro(?,?)}";
+            if (GenericValidator.isBlankOrNull(fromDate)) {
+                fromDate = DateUtil.today("dd/MM/yyyy");
+            }
+            if (GenericValidator.isBlankOrNull(endDate)) {
+                endDate = this.START_DATE;
+            }
+            spUtil = new SPUtil(sql);
+            if (spUtil != null) {
+                spUtil.getCallableStatement().setString("_start_date", fromDate);
+                spUtil.getCallableStatement().setString("_end_date", endDate);
+                rs = spUtil.executeQuery();
+                if (rs != null) {
+                    SalePetroFormBean bean = null;
+                    while (rs.next()) {
+                        bean = new SalePetroFormBean();
+                        bean.setId(rs.getInt("id"));
+                        bean.setCode(rs.getString("code"));
+                        bean.setCreatedDate(DateUtil.formatDate(rs.getDate("created_date"), "dd/MM/yyyy"));
+                        bean.setTotal(rs.getDouble("total"));
+                        bean.setPaid(rs.getDouble("paid"));
+                        bean.setDebt(rs.getDouble("debt"));
+                        bean.setAccountId(rs.getInt("account_id"));
+                        bean.setNote(rs.getString("note"));
+                        list.add(bean);
+                    }
+                }
+            }
+        } catch (SQLException sqle) {
+            throw new Exception(sqle.getMessage());
+        } catch (Exception ex) {
+            throw new Exception(ex.getMessage());
+        } finally {
+            try {
+                if (spUtil != null) {
+                    spUtil.closeConnection();
+                }
+                if (rs != null) {
+                    rs.close();
+                    rs = null;
+                }
+            } catch (Exception e) {
+                throw new Exception(e.getMessage());
+            }
+        }
+        return list;
+    }
+
+    public SalePetroBean getSalePetro(int id) throws Exception {
+        ResultSet rs = null;
+        String sql = "select *, IF(MONTH(created_date)=MONTH(SYSDATE()) AND YEAR(created_date)=YEAR(SYSDATE()),1,0) as can_edit from petro_sale where id=" + id;
+        try {
+            rs = DBUtil.executeQuery(sql);
+            while (rs.next()) {
+                SalePetroBean bean = new SalePetroBean();
+                bean.setId(rs.getInt("id"));
+                bean.setCode(rs.getString("code"));
+                bean.setCreatedDate(DateUtil.formatDate(rs.getDate("created_date"), "dd/MM/yyyy"));
+                bean.setTotal(rs.getDouble("total"));
+                bean.setPaid(rs.getDouble("paid"));
+                bean.setDebt(rs.getDouble("debt"));
+                bean.setTotalPay(rs.getDouble("total_pay"));
+                bean.setDiscount(rs.getDouble("discount"));
+                bean.setAccountId(rs.getInt("account_id"));
+                bean.setNote(rs.getString("note"));
+                bean.setCanEdit(rs.getInt("can_edit"));
+                bean.setStoreId(rs.getInt("store_id"));
+                bean.setCustomerId(rs.getInt("customer_id"));
+                return bean;
+            }
+        } catch (SQLException sqle) {
+            throw new Exception(sqle.getMessage());
+        } catch (Exception ex) {
+            throw new Exception(ex.getMessage());
+        } finally {
+            if (rs != null) {
+                DBUtil.closeConnection(rs);
+            }
+        }
+        return null;
+    }
+
+    public ArrayList getSalePetroDetail(int salePetroId) throws Exception {
+        ResultSet rs = null;
+        String sql = "select det.*, s.name as petro_name, s.unit_id, u.name as unit_name"
+                + " from petro_sale_detail as det, petro as s, unit as u"
+                + " where det.petro_id=s.id and s.unit_id=u.id and det.petro_sale_id=" + salePetroId
+                + " order by det.id";
+        ArrayList detailList = new ArrayList();
+        try {
+            rs = DBUtil.executeQuery(sql);
+            SalePetroDetailBean bean = null;
+            while (rs.next()) {
+                bean = new SalePetroDetailBean();
+                bean.setId(rs.getInt("id"));
+                bean.setSalePetroId(rs.getInt("petro_sale_id"));
+                bean.setQuantity(rs.getFloat("quantity"));
+                bean.setPrice(rs.getDouble("price"));
+                bean.setAmount(rs.getDouble("amount"));
+                bean.setPetroId(rs.getInt("petro_id"));
+                bean.setPetroName(rs.getString("petro_name"));
+                bean.setUnitId(rs.getInt("unit_id"));
+                bean.setUnitName(rs.getString("unit_name"));
+                detailList.add(bean);
+            }
+        } catch (SQLException sqle) {
+            throw new Exception(sqle.getMessage());
+        } catch (Exception ex) {
+            throw new Exception(ex.getMessage());
+        } finally {
+            if (rs != null) {
+                DBUtil.closeConnection(rs);
+            }
+        }
+        return detailList;
+    }
+
+    public int insertSalePetro(SalePetroBean bean) throws Exception {
+        if (bean == null) {
+            return 0;
+        }
+        int result = 0;
+        SPUtil spUtil = null;
+        try {
+            String createdDate = "";
+            if (GenericValidator.isBlankOrNull(bean.getCreatedDate())) {
+                createdDate = "null";
+            } else {
+                createdDate = bean.getCreatedDate();
+            }
+            String sql = "{call insertSalePetro(?,?,?,?,?,?,?,?,?,?,?,?)}";
+            spUtil = new SPUtil(sql);
+            if (spUtil != null) {
+                spUtil.getCallableStatement().setString("_code", bean.getCode());
+                spUtil.getCallableStatement().setString("_created_date", createdDate);
+                spUtil.getCallableStatement().setInt("_customer_id", bean.getCustomerId());
+                spUtil.getCallableStatement().setInt("_store_id", bean.getStoreId());
+                spUtil.getCallableStatement().setDouble("_total", bean.getTotal());
+                spUtil.getCallableStatement().setDouble("_paid", bean.getPaid());
+                spUtil.getCallableStatement().setDouble("_debt", bean.getDebt());
+                spUtil.getCallableStatement().setDouble("_discount", bean.getDiscount());
+                spUtil.getCallableStatement().setDouble("_total_pay", bean.getTotalPay());
+                spUtil.getCallableStatement().setInt("_account_id", bean.getAccountId());
+                spUtil.getCallableStatement().setString("_note", bean.getNote());
+                spUtil.getCallableStatement().registerOutParameter("_id", Types.INTEGER);
+                spUtil.execute();
+                result = spUtil.getCallableStatement().getInt("_id");
+            }
+        } catch (SQLException sqle) {
+            throw new Exception(sqle.getMessage());
+        } catch (Exception ex) {
+            throw new Exception(ex.getMessage());
+        } finally {
+            try {
+                if (spUtil != null) {
+                    spUtil.closeConnection();
+                }
+            } catch (Exception e) {
+                throw new Exception(e.getMessage());
+            }
+        }
+        return result;
+    }
+
+    public void updateSalePetro(SalePetroBean bean) throws Exception {
+        if (bean == null) {
+            return;
+        }
+        SPUtil spUtil = null;
+        try {
+            String sql = "{call updateSalePetro(?,?,?,?,?,?,?,?,?,?)}";
+            spUtil = new SPUtil(sql);
+            if (spUtil != null) {
+                spUtil.getCallableStatement().setInt("_id", bean.getId());
+                spUtil.getCallableStatement().setInt("_customer_id", bean.getCustomerId());
+                spUtil.getCallableStatement().setInt("_store_id", bean.getStoreId());
+                spUtil.getCallableStatement().setDouble("_total", bean.getTotal());
+                spUtil.getCallableStatement().setDouble("_paid", bean.getPaid());
+                spUtil.getCallableStatement().setDouble("_debt", bean.getDebt());
+                spUtil.getCallableStatement().setDouble("_discount", bean.getDiscount());
+                spUtil.getCallableStatement().setDouble("_total_pay", bean.getTotalPay());
+                spUtil.getCallableStatement().setInt("_account_id", bean.getAccountId());
+                spUtil.getCallableStatement().setString("_note", bean.getNote());
+                spUtil.execute();
+            }
+        } catch (SQLException sqle) {
+            throw new Exception(sqle.getMessage());
+        } catch (Exception ex) {
+            throw new Exception(ex.getMessage());
+        } finally {
+            try {
+                if (spUtil != null) {
+                    spUtil.closeConnection();
+                }
+            } catch (Exception e) {
+                throw new Exception(e.getMessage());
+            }
+        }
+    }
+
+    public String getNextSalePetroNumber(String prefix, int length) throws Exception {
+        String result = "";
+        try {
+            result = this.getNextNumber(prefix, length, "code", "petro_sale");
+        } catch (Exception ex) {
+            throw new Exception(ex.getMessage());
+        }
+        return result;
+    }
+
+    public void deleteSalePetro(int id) throws Exception {
+        SPUtil spUtil = null;
+        try {
+            String sql = "{call deleteSalePetro(?)}";
+            spUtil = new SPUtil(sql);
+            if (spUtil != null) {
+                spUtil.getCallableStatement().setInt("_id", id);
+                spUtil.execute();
+            }
+        } catch (Exception ex) {
+            throw new Exception(ex.getMessage());
+        } finally {
+            try {
+                if (spUtil != null) {
+                    spUtil.closeConnection();
+                }
+            } catch (Exception e) {
+                throw new Exception(e.getMessage());
+            }
+        }
+    }
+
+    public int insertSalePetroDetail(SalePetroDetailBean bean) throws Exception {
+        if (bean == null) {
+            return 0;
+        }
+        int result = 0;
+        SPUtil spUtil = null;
+        try {
+            String sql = "{call insertSalePetroDetail(?,?,?,?,?)}";
+            spUtil = new SPUtil(sql);
+            if (spUtil != null) {
+                spUtil.getCallableStatement().setInt("_petro_sale_id", bean.getSalePetroId());
+                spUtil.getCallableStatement().setInt("_petro_id", bean.getPetroId());
+                spUtil.getCallableStatement().setFloat("_quantity", bean.getQuantity());
+                spUtil.getCallableStatement().setDouble("_price", bean.getPrice());
+                spUtil.getCallableStatement().setDouble("_amount", bean.getAmount());
+                spUtil.execute();
+            }
+        } catch (SQLException sqle) {
+            throw new Exception(sqle.getMessage());
+        } catch (Exception ex) {
+            throw new Exception(ex.getMessage());
+        } finally {
+            try {
+                if (spUtil != null) {
+                    spUtil.closeConnection();
+                }
+            } catch (Exception e) {
+                throw new Exception(e.getMessage());
+            }
+        }
+        return result;
+    }
+
+    public void updateSalePetroDetail(SalePetroDetailBean bean) throws Exception {
+        if (bean == null) {
+            return;
+        }
+        SPUtil spUtil = null;
+        try {
+            String sql = "{call updateSalePetroDetail(?,?,?,?)}";
             spUtil = new SPUtil(sql);
             if (spUtil != null) {
                 spUtil.getCallableStatement().setInt("_id", bean.getId());

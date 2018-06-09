@@ -65,6 +65,7 @@ public class AddGasRetailAction extends SpineAction {
         bean.setDiscount(formBean.getDiscount());
         bean.setTotalPay(formBean.getTotalPay());
         bean.setAccountId(formBean.getAccountId());
+        bean.setVehicleId(formBean.getVehicleId());
         try {
             if (bNew) {
                 int id = gasDAO.insertGasRetail(bean);
@@ -109,17 +110,17 @@ public class AddGasRetailAction extends SpineAction {
                     }
                     if (j < arrDetail.size()) {
                         arrDetail.remove(j);
-                        if (oldBean.getQuantity() != NumberUtil.parseDouble(formBean.getQuantity()[i], 0)) {
+                        if (oldBean.getQuantity() != NumberUtil.parseInt(formBean.getQuantity()[i], 0)) {
                             isUpdate = true;
-                            oldBean.setQuantity(NumberUtil.parseFloat(formBean.getQuantity()[i], 0));
+                            oldBean.setQuantity(NumberUtil.parseInt(formBean.getQuantity()[i], 0));
                         }
                         if (oldBean.getPrice() != NumberUtil.parseDouble(formBean.getPrice()[i], 0)) {
                             isUpdate = true;
-                            oldBean.setPrice(NumberUtil.parseFloat(formBean.getPrice()[i], 0));
+                            oldBean.setPrice(NumberUtil.parseDouble(formBean.getPrice()[i], 0));
                         }
                         if (oldBean.getAmount() != NumberUtil.parseDouble(formBean.getAmount()[i], 0)) {
                             isUpdate = true;
-                            oldBean.setAmount(NumberUtil.parseFloat(formBean.getAmount()[i], 0));
+                            oldBean.setAmount(NumberUtil.parseDouble(formBean.getAmount()[i], 0));
                         }
                         if (isUpdate) {
                             gasDAO.updateGasRetailDetail(oldBean);
@@ -158,9 +159,9 @@ public class AddGasRetailAction extends SpineAction {
                     }
                     if (j < arrDetail.size()) {
                         arrDetail.remove(j);
-                        if (oldBean.getQuantity() != NumberUtil.parseDouble(formBean.getPromotionMaterialQuantity()[i], 0)) {
+                        if (oldBean.getQuantity() != NumberUtil.parseInt(formBean.getPromotionMaterialQuantity()[i], 0)) {
                             isUpdate = true;
-                            oldBean.setQuantity(NumberUtil.parseFloat(formBean.getPromotionMaterialQuantity()[i], 0));
+                            oldBean.setQuantity(NumberUtil.parseInt(formBean.getPromotionMaterialQuantity()[i], 0));
                         }
                         if (isUpdate) {
                             gasDAO.updateGasRetailPromotionMaterialDetail(oldBean);
@@ -199,9 +200,9 @@ public class AddGasRetailAction extends SpineAction {
                     }
                     if (j < arrDetail.size()) {
                         arrDetail.remove(j);
-                        if (oldBean.getQuantity() != NumberUtil.parseDouble(formBean.getReturnShellQuantity()[i], 0)) {
+                        if (oldBean.getQuantity() != NumberUtil.parseInt(formBean.getReturnShellQuantity()[i], 0)) {
                             isUpdate = true;
-                            oldBean.setQuantity(NumberUtil.parseFloat(formBean.getReturnShellQuantity()[i], 0));
+                            oldBean.setQuantity(NumberUtil.parseInt(formBean.getReturnShellQuantity()[i], 0));
                         }
                         if (isUpdate) {
                             gasDAO.updateGasRetailReturnShellDetail(oldBean);

@@ -169,6 +169,18 @@ function menuClick(id) {
         loadSaleAccessoryPanel();
     else if (id == 'saleaccessoryadd')
         getSaleAccessory(0);
+    else if (id == 'salepetrolist')
+        loadSalePetroPanel();
+    else if (id == 'salepetroadd')
+        getSalePetro(0);
+    else if (id == 'saleshelllist')
+        loadSaleShellPanel();
+    else if (id == 'saleshelladd')
+        getSaleShell(0);
+    else if (id == 'oldshelllist')
+        loadOldShellPanel();
+    else if (id == 'oldshelladd')
+        getOldShell(0, 'loadOldShellPanel');
 }
 function clearContent() {
     var contentDiv = document.getElementById("contentDiv");
@@ -4363,6 +4375,7 @@ function getSaleAccessory(id) {
         tryNumberFormatCurrentcy(document.forms['saleAccessoryForm'].discount, "VND");
         tryNumberFormatCurrentcy(document.forms['saleAccessoryForm'].totalPay, "VND");
         formatFormDetail('saleAccessoryForm');
+        formatSaleAccessoryChangeDetail();
     });
 }
 function saveSaleAccessory() {
@@ -4408,6 +4421,7 @@ function saveSaleAccessory() {
     reformatNumberMoney(document.forms['saleAccessoryForm'].discount);
     reformatNumberMoney(document.forms['saleAccessoryForm'].totalPay);
     reformatFormDetail('saleAccessoryForm');
+    reformatSaleAccessoryChangeDetail();
     scriptFunction = "saveSaleAccessory";
     callAjaxCheckError("addSaleAccessory.do", null, document.forms['saleAccessoryForm'], function(data) {
         scriptFunction = "";
@@ -4464,3 +4478,576 @@ function delSaleAccessory() {
     });
     return false;
 }
+function addSaleAccessoryChangeGood() {
+    var good = document.forms['saleAccessoryForm'].changeGoodIdCombobox;
+    if (good == null && good.selectedIndex == -1)
+        good = null;
+    else
+        good = good.options[good.selectedIndex].value;
+    if (good == -1 || good == 0)
+        return false;
+    var goodId = document.forms['saleAccessoryForm'].changeGoodId;
+    var existed = false;
+    if (goodId != null) {
+        if (goodId.length != null) {
+            for (i = 0; i < goodId.length; i++) {
+                if (goodId[i].value == good) {
+                    existed = true;
+                    break;
+                }
+            }
+        } else if (goodId.value == good)
+            existed = true;
+    }
+    goodId = null;
+    if (existed == true) {
+        alert("H\u00E0ng ho\u00E1 \u0111\u00E3 t\u1ED3n t\u1EA1i");
+        return false;
+    }
+    callAjax("getSaleAccessoryChangeGood.do?changeGoodId=" + good, null, null, function(data) {
+        setAjaxData(data, 'saleAccessoryChangeGoodHideDiv');
+        var matTable = document.getElementById('saleAccessoryChangeGoodTbl');
+        var detTable = document.getElementById('saleAccessoryChangeGoodDetailTbl');
+        if (matTable.tBodies[0] == null || detTable.tBodies[0] == null) {
+            matTable = null;
+            detTable = null;
+            return;
+        }
+        for (var i = matTable.tBodies[0].rows.length - 1; i >= 0; i--)
+            detTable.tBodies[0].appendChild(matTable.tBodies[0].rows[i]);
+        matTable = null;
+        detTable = null;
+        formatFormDetail('saleAccessoryForm');
+    });
+    return false;
+}
+function caculateSaleAccessoryListDetail(goodId) {
+    var quantity = document.getElementById("detquantity" + goodId);
+    var price = document.getElementById("detprice" + goodId);
+    var detTotal = document.getElementById("detamount" + goodId);
+    if (quantity == null || price == null || detTotal == null)
+        return false;
+    detTotal.value = reformatNumberMoneyString(quantity.value) * reformatNumberMoneyString(price.value);
+    quantity = null;
+    price = null;
+    detTotal = null;
+    caculateSaleAccessoryTotal();
+    return false;
+}
+function caculateSaleAccessoryChangeListDetail(goodId) {
+    var quantity = document.getElementById("detchangegoodquantity" + goodId);
+    var price = document.getElementById("detchangegoodprice" + goodId);
+    var detTotal = document.getElementById("detchangegoodamount" + goodId);
+    if (quantity == null || price == null || detTotal == null)
+        return false;
+    detTotal.value = reformatNumberMoneyString(quantity.value) * reformatNumberMoneyString(price.value);
+    quantity = null;
+    price = null;
+    detTotal = null;
+    caculateSaleAccessoryTotal();
+    return false;
+}
+function caculateSaleAccessoryTotal() {
+    var quantity = document.forms['saleAccessoryForm'].quantity;
+    var price = document.forms['saleAccessoryForm'].price;
+    var amount = document.forms['saleAccessoryForm'].amount;
+    var sum = 0;
+    if (quantity != null) {
+        if (quantity.length != null) {
+            for (i = 0; i < quantity.length; i++) {
+                sum += reformatNumberMoneyString(amount[i].value) * 1;
+                tryNumberFormatCurrentcy(quantity[i], "VND");
+                tryNumberFormatCurrentcy(price[i], "VND");
+                tryNumberFormatCurrentcy(amount[i], "VND");
+            }
+        } else {
+            sum += reformatNumberMoneyString(amount.value) * 1;
+            tryNumberFormatCurrentcy(quantity, "VND");
+            tryNumberFormatCurrentcy(price, "VND");
+            tryNumberFormatCurrentcy(amount, "VND");
+        }
+    }
+    
+    quantity = document.forms['saleAccessoryForm'].changeGoodQuantity;
+    price = document.forms['saleAccessoryForm'].changeGoodPrice;
+    amount = document.forms['saleAccessoryForm'].changeGoodAmount;
+    if (quantity != null) {
+        if (quantity.length != null) {
+            for (i = 0; i < quantity.length; i++) {
+                sum -= reformatNumberMoneyString(amount[i].value) * 1;
+                tryNumberFormatCurrentcy(quantity[i], "VND");
+                tryNumberFormatCurrentcy(price[i], "VND");
+                tryNumberFormatCurrentcy(amount[i], "VND");
+            }
+        } else {
+            sum -= reformatNumberMoneyString(amount.value) * 1;
+            tryNumberFormatCurrentcy(quantity, "VND");
+            tryNumberFormatCurrentcy(price, "VND");
+            tryNumberFormatCurrentcy(amount, "VND");
+        }
+    }
+    
+    quantity = null;
+    price = null;
+    amount = null;
+    document.forms['saleAccessoryForm'].total.value = sum;
+    document.forms['saleAccessoryForm'].discount.value = 0;
+    document.forms['saleAccessoryForm'].totalPay.value = sum;
+    document.forms['saleAccessoryForm'].paid.value = sum;
+    document.forms['saleAccessoryForm'].debt.value = 0;
+    
+    tryNumberFormatCurrentcy(document.forms['saleAccessoryForm'].discount, "VND");
+    tryNumberFormatCurrentcy(document.forms['saleAccessoryForm'].totalPay, "VND");
+    tryNumberFormatCurrentcy(document.forms['saleAccessoryForm'].total, "VND");
+    tryNumberFormatCurrentcy(document.forms['saleAccessoryForm'].paid, "VND");
+    return false;
+}
+function reformatSaleAccessoryChangeDetail() {
+    var quantity = document.forms['saleAccessoryForm'].changeGoodQuantity;
+    var price = document.forms['saleAccessoryForm'].changeGoodPrice;
+    var amount = document.forms['saleAccessoryForm'].changeGoodAmount;
+    if (quantity != null) {
+        if (quantity.length != null) {
+            for (var i = 0; i < quantity.length; i++) {
+                reformatNumberMoney(quantity[i]);
+                reformatNumberMoney(price[i]);
+                reformatNumberMoney(amount[i]);
+            }
+        } else {
+            reformatNumberMoney(quantity);
+            reformatNumberMoney(price);
+            reformatNumberMoney(amount);
+        }
+    }
+    quantity = null;
+    price = null;
+    amount = null;
+}
+function formatSaleAccessoryChangeDetail() {
+    var quantity = document.forms['saleAccessoryForm'].changeGoodQuantity;
+    var price = document.forms['saleAccessoryForm'].changeGoodPrice;
+    var amount = document.forms['saleAccessoryForm'].changeGoodAmount;
+    if (quantity != null) {
+        if (quantity.length != null) {
+            for (var i = 0; i < quantity.length; i++) {
+                tryNumberFormatCurrentcy(quantity[i], "VND");
+                tryNumberFormatCurrentcy(price[i], "VND");
+                tryNumberFormatCurrentcy(amount[i], "VND");
+            }
+        } else {
+            tryNumberFormatCurrentcy(quantity, "VND");
+            tryNumberFormatCurrentcy(price, "VND");
+            tryNumberFormatCurrentcy(amount, "VND");
+        }
+    }
+    quantity = null;
+    price = null;
+    amount = null;
+}
+function loadSalePetroPanel() {
+    callAjax("getSalePetroPanel.do", null, null, function(data) {
+        clearContent();
+        setAjaxData(data, "contentDiv");
+        var myCalendar = new dhtmlXCalendarObject(["fromDate", "toDate"]);
+        myCalendar.setSkin('dhx_web');
+        var currentTime = getCurrentDate();
+        document.forms['salePetroSearchForm'].fromDate.value = currentTime;
+        document.forms['salePetroSearchForm'].toDate.value = currentTime;
+        myCalendar.setDateFormat("%d/%m/%Y");
+        loadSalePetroList(currentTime, currentTime);
+    });
+    return false;
+}
+function loadSalePetroList(fromDate, toDate) {
+    var mygrid = new dhtmlXGridObject('salePetroList');
+    mygrid.setImagePath("js/dhtmlx/grid/imgs/");
+    mygrid.setHeader("M\u00E3 phi\u1EBFu,Ng\u00E0y,T\u1ED5ng ti\u1EC1n,Thanh to\u00E1n,C\u00F2n n\u1EE3,Ghi ch\u00FA");
+    mygrid.attachHeader("#text_filter,#text_filter,#text_filter,#text_filter,#text_filter,#text_filter");
+    mygrid.setInitWidths("150,100,150,150,*");
+    mygrid.setColTypes("link,ro,ro,ro,ro");
+    mygrid.setColSorting("str,str,str,str,str");
+    mygrid.setSkin("light");
+    var height = contentHeight - 210;
+    mygrid.al(true, height);//enableAutoHeight
+    mygrid.enablePaging(true, 15, 3, "recinfoArea");
+    mygrid.setPagingSkin("toolbar", "dhx_skyblue");
+    mygrid.init();
+    var url = "getSalePetroList.do?t=1";
+    if (fromDate != null)
+        url += "&fromDate=" + fromDate;
+    if (toDate != null)
+        url += "&toDate=" + toDate;
+    callAjax(url, null, null, function(data) {
+        mygrid.parse(data);
+    });
+    return false;
+}
+function getSalePetro(id) {
+    var url = 'salePetroForm.do';
+    if (id != 0)
+        url += '?salePetroId=' + id
+    callAjax(url, null, null, function(data) {
+        clearContent();
+        setAjaxData(data, 'contentDiv');
+//        var myCalendar = new dhtmlXCalendarObject(["salePetroCreatedDate"]);
+//        myCalendar.setSkin('dhx_web');
+        if (id == 0) {
+            var currentDate = getCurrentDate();
+            document.forms['salePetroForm'].salePetroCreatedDate.value = currentDate;
+        }
+//        myCalendar.setDateFormat("%d/%m/%Y");
+        tryNumberFormatCurrentcy(document.forms['salePetroForm'].total, "VND");
+        tryNumberFormatCurrentcy(document.forms['salePetroForm'].paid, "VND");
+        tryNumberFormatCurrentcy(document.forms['salePetroForm'].debt, "VND");
+        tryNumberFormatCurrentcy(document.forms['salePetroForm'].discount, "VND");
+        tryNumberFormatCurrentcy(document.forms['salePetroForm'].totalPay, "VND");
+        formatFormDetail('salePetroForm');
+    });
+}
+function saveSalePetro() {
+    if (scriptFunction == "saveSalePetro")
+        return false;
+    var quantity = document.forms['salePetroForm'].quantity;
+    if (quantity == null) {
+        alert('Vui l\u00F2ng ch\u1ECDn h\u00E0ng h\u00F3a');
+        return false;
+    }
+    var price = document.forms['salePetroForm'].price;
+    var amount = document.forms['salePetroForm'].amount;
+    if (quantity.length != null) {
+        for (var i = 0; i < quantity.length; i++) {
+            var number = Number(quantity[i].value);
+            if (number == 0) {
+                alert('Vui l\u00F2ng nh\u1EADp s\u1ED1 l\u01B0\u1EE3ng');
+                quantity[i].focus();
+                quantity = null;
+                return false;
+            }
+            reformatNumberMoney(quantity[i]);
+            reformatNumberMoney(price[i]);
+            reformatNumberMoney(amount[i]);
+        }
+    } else {
+        if (quantity.value == "0") {
+            alert('Vui l\u00F2ng nh\u1EADp s\u1ED1 l\u01B0\u1EE3ng');
+            quantity.focus();
+            quantity = null;
+            return false;
+        }
+        reformatNumberMoney(quantity);
+        reformatNumberMoney(price);
+        reformatNumberMoney(amount);
+    }
+    quantity = null;
+    price = null;
+    amount = null;
+    reformatNumberMoney(document.forms['salePetroForm'].total);
+    reformatNumberMoney(document.forms['salePetroForm'].paid);
+    reformatNumberMoney(document.forms['salePetroForm'].debt);
+    reformatNumberMoney(document.forms['salePetroForm'].discount);
+    reformatNumberMoney(document.forms['salePetroForm'].totalPay);
+    reformatFormDetail('salePetroForm');
+    scriptFunction = "saveSalePetro";
+    callAjaxCheckError("addSalePetro.do", null, document.forms['salePetroForm'], function(data) {
+        scriptFunction = "";
+        loadSalePetroPanel();
+    });
+    return false;
+}
+function addSalePetroGood() {
+    var good = document.forms['salePetroForm'].goodIdCombobox;
+    if (good == null && good.selectedIndex == -1)
+        good = null;
+    else
+        good = good.options[good.selectedIndex].value;
+    if (good == -1 || good == 0)
+        return false;
+    var goodId = document.forms['salePetroForm'].goodId;
+    var existed = false;
+    if (goodId != null) {
+        if (goodId.length != null) {
+            for (i = 0; i < goodId.length; i++) {
+                if (goodId[i].value == good) {
+                    existed = true;
+                    break;
+                }
+            }
+        } else if (goodId.value == good)
+            existed = true;
+    }
+    goodId = null;
+    if (existed == true) {
+        alert("H\u00E0ng ho\u00E1 \u0111\u00E3 t\u1ED3n t\u1EA1i");
+        return false;
+    }
+    callAjax("getSalePetroGood.do?goodId=" + good, null, null, function(data) {
+        setAjaxData(data, 'salePetroGoodHideDiv');
+        var matTable = document.getElementById('salePetroGoodTbl');
+        var detTable = document.getElementById('salePetroDetailTbl');
+        if (matTable.tBodies[0] == null || detTable.tBodies[0] == null) {
+            matTable = null;
+            detTable = null;
+            return;
+        }
+        for (var i = matTable.tBodies[0].rows.length - 1; i >= 0; i--)
+            detTable.tBodies[0].appendChild(matTable.tBodies[0].rows[i]);
+        matTable = null;
+        detTable = null;
+        formatFormDetail('salePetroForm');
+    });
+    return false;
+}
+function delSalePetro() {
+    callAjaxCheckError('delSalePetro.do?salePetroId=' + document.forms['salePetroForm'].id.value, null, null, function() {
+        loadSalePetroPanel();
+    });
+    return false;
+}
+function loadSaleShellPanel() {
+    callAjax("getSaleShellPanel.do", null, null, function(data) {
+        clearContent();
+        setAjaxData(data, "contentDiv");
+        var myCalendar = new dhtmlXCalendarObject(["fromDate", "toDate"]);
+        myCalendar.setSkin('dhx_web');
+        var currentTime = getCurrentDate();
+        document.forms['saleShellSearchForm'].fromDate.value = currentTime;
+        document.forms['saleShellSearchForm'].toDate.value = currentTime;
+        myCalendar.setDateFormat("%d/%m/%Y");
+        loadSaleShellList(currentTime, currentTime);
+    });
+    return false;
+}
+function loadSaleShellList(fromDate, toDate) {
+    var mygrid = new dhtmlXGridObject('saleShellList');
+    mygrid.setImagePath("js/dhtmlx/grid/imgs/");
+    mygrid.setHeader("M\u00E3 phi\u1EBFu,Ng\u00E0y,T\u1ED5ng ti\u1EC1n,Thanh to\u00E1n,C\u00F2n n\u1EE3,Ghi ch\u00FA");
+    mygrid.attachHeader("#text_filter,#text_filter,#text_filter,#text_filter,#text_filter,#text_filter");
+    mygrid.setInitWidths("150,100,150,150,*");
+    mygrid.setColTypes("link,ro,ro,ro,ro");
+    mygrid.setColSorting("str,str,str,str,str");
+    mygrid.setSkin("light");
+    var height = contentHeight - 210;
+    mygrid.al(true, height);//enableAutoHeight
+    mygrid.enablePaging(true, 15, 3, "recinfoArea");
+    mygrid.setPagingSkin("toolbar", "dhx_skyblue");
+    mygrid.init();
+    var url = "getSaleShellList.do?t=1";
+    if (fromDate != null)
+        url += "&fromDate=" + fromDate;
+    if (toDate != null)
+        url += "&toDate=" + toDate;
+    callAjax(url, null, null, function(data) {
+        mygrid.parse(data);
+    });
+    return false;
+}
+function getSaleShell(id) {
+    var url = 'saleShellForm.do';
+    if (id != 0)
+        url += '?saleShellId=' + id
+    callAjax(url, null, null, function(data) {
+        clearContent();
+        setAjaxData(data, 'contentDiv');
+//        var myCalendar = new dhtmlXCalendarObject(["saleShellCreatedDate"]);
+//        myCalendar.setSkin('dhx_web');
+        if (id == 0) {
+            var currentDate = getCurrentDate();
+            document.forms['saleShellForm'].saleShellCreatedDate.value = currentDate;
+        }
+//        myCalendar.setDateFormat("%d/%m/%Y");
+        tryNumberFormatCurrentcy(document.forms['saleShellForm'].total, "VND");
+        tryNumberFormatCurrentcy(document.forms['saleShellForm'].paid, "VND");
+        tryNumberFormatCurrentcy(document.forms['saleShellForm'].debt, "VND");
+        tryNumberFormatCurrentcy(document.forms['saleShellForm'].discount, "VND");
+        tryNumberFormatCurrentcy(document.forms['saleShellForm'].totalPay, "VND");
+        formatFormDetail('saleShellForm');
+    });
+}
+function saveSaleShell() {
+    if (scriptFunction == "saveSaleShell")
+        return false;
+    var quantity = document.forms['saleShellForm'].quantity;
+    if (quantity == null) {
+        alert('Vui l\u00F2ng ch\u1ECDn h\u00E0ng h\u00F3a');
+        return false;
+    }
+    var price = document.forms['saleShellForm'].price;
+    var amount = document.forms['saleShellForm'].amount;
+    if (quantity.length != null) {
+        for (var i = 0; i < quantity.length; i++) {
+            var number = Number(quantity[i].value);
+            if (number == 0) {
+                alert('Vui l\u00F2ng nh\u1EADp s\u1ED1 l\u01B0\u1EE3ng');
+                quantity[i].focus();
+                quantity = null;
+                return false;
+            }
+            reformatNumberMoney(quantity[i]);
+            reformatNumberMoney(price[i]);
+            reformatNumberMoney(amount[i]);
+        }
+    } else {
+        if (quantity.value == "0") {
+            alert('Vui l\u00F2ng nh\u1EADp s\u1ED1 l\u01B0\u1EE3ng');
+            quantity.focus();
+            quantity = null;
+            return false;
+        }
+        reformatNumberMoney(quantity);
+        reformatNumberMoney(price);
+        reformatNumberMoney(amount);
+    }
+    quantity = null;
+    price = null;
+    amount = null;
+    reformatNumberMoney(document.forms['saleShellForm'].total);
+    reformatNumberMoney(document.forms['saleShellForm'].paid);
+    reformatNumberMoney(document.forms['saleShellForm'].debt);
+    reformatNumberMoney(document.forms['saleShellForm'].discount);
+    reformatNumberMoney(document.forms['saleShellForm'].totalPay);
+    reformatFormDetail('saleShellForm');
+    scriptFunction = "saveSaleShell";
+    callAjaxCheckError("addSaleShell.do", null, document.forms['saleShellForm'], function(data) {
+        scriptFunction = "";
+        loadSaleShellPanel();
+    });
+    return false;
+}
+function addSaleShellGood() {
+    var good = document.forms['saleShellForm'].goodIdCombobox;
+    if (good == null && good.selectedIndex == -1)
+        good = null;
+    else
+        good = good.options[good.selectedIndex].value;
+    if (good == -1 || good == 0)
+        return false;
+    var goodId = document.forms['saleShellForm'].goodId;
+    var existed = false;
+    if (goodId != null) {
+        if (goodId.length != null) {
+            for (i = 0; i < goodId.length; i++) {
+                if (goodId[i].value == good) {
+                    existed = true;
+                    break;
+                }
+            }
+        } else if (goodId.value == good)
+            existed = true;
+    }
+    goodId = null;
+    if (existed == true) {
+        alert("H\u00E0ng ho\u00E1 \u0111\u00E3 t\u1ED3n t\u1EA1i");
+        return false;
+    }
+    callAjax("getSaleShellGood.do?goodId=" + good, null, null, function(data) {
+        setAjaxData(data, 'saleShellGoodHideDiv');
+        var matTable = document.getElementById('saleShellGoodTbl');
+        var detTable = document.getElementById('saleShellDetailTbl');
+        if (matTable.tBodies[0] == null || detTable.tBodies[0] == null) {
+            matTable = null;
+            detTable = null;
+            return;
+        }
+        for (var i = matTable.tBodies[0].rows.length - 1; i >= 0; i--)
+            detTable.tBodies[0].appendChild(matTable.tBodies[0].rows[i]);
+        matTable = null;
+        detTable = null;
+        formatFormDetail('saleShellForm');
+    });
+    return false;
+}
+function delSaleShell() {
+    callAjaxCheckError('delSaleShell.do?saleShellId=' + document.forms['saleShellForm'].id.value, null, null, function() {
+        loadSaleShellPanel();
+    });
+    return false;
+}
+function loadOldShellPanel() {
+    callAjax("getOldShellPanel.do", null, null, function(data) {
+        clearContent();
+        setAjaxData(data, "contentDiv");
+        var myCalendar = new dhtmlXCalendarObject(["fromDate", "toDate"]);
+        myCalendar.setSkin('dhx_web');
+        var currentTime = getCurrentDate();
+        document.forms['oldShellSearchForm'].fromDate.value = currentTime;
+        document.forms['oldShellSearchForm'].toDate.value = currentTime;
+        myCalendar.setDateFormat("%d/%m/%Y");
+        loadOldShellList(currentTime, currentTime);
+    });
+    return false;
+}
+function loadOldShellList(fromDate, toDate) {
+    var mygrid = new dhtmlXGridObject('oldShellList');
+    mygrid.setImagePath("js/dhtmlx/grid/imgs/");
+    mygrid.setHeader("S\u1ED1 phi\u1EBFu,Ng\u00E0y,S\u1ED1 l\u01B0\u1EE3ng,Ghi ch\u00FA");
+    mygrid.attachHeader("#text_filter,#text_filter,#text_filter,#text_filter");
+    mygrid.setInitWidths("150,150,,200,*");
+    mygrid.setColTypes("link,ro,ro,ro");
+    mygrid.setColSorting("str,str,str,str");
+    mygrid.setSkin("light");
+    var height = contentHeight - 210;
+    mygrid.al(true, height);//enableAutoHeight
+    mygrid.enablePaging(true, 15, 3, "recinfoArea");
+    mygrid.setPagingSkin("toolbar", "dhx_skyblue");
+    mygrid.init();
+    var url = "getOldShellList.do?t=1";
+    if (fromDate != null)
+        url += "&fromDate=" + fromDate;
+    if (toDate != null)
+        url += "&toDate=" + toDate;
+    callAjax(url, null, null, function(data) {
+        mygrid.parse(data);
+    });
+    return false;
+}
+function getOldShell(id, handle) {
+    popupName = 'TH\u00D4NG TIN \u0110I\u1EC0U CH\u1EC8NH S\u1ED0 L\u01AF\u1EE2NG';
+    var url = 'oldShellForm.do';
+    if (id != 0)
+        url += '?oldShellId=' + id
+    callAjax(url, null, null, function(data) {
+        showPopupForm(data);
+        document.getElementById('callbackFunc').value = handle;
+        document.forms['oldShellForm'].fee.focus();
+        tryNumberFormatCurrentcy(document.forms['oldShellForm'].quantity, "VND");
+        var myCalendar = new dhtmlXCalendarObject(["oldShellDate"]);
+        myCalendar.setSkin('dhx_web');
+        if (id == 0) {
+            var currentDate = getCurrentDate();
+            document.forms['oldShellForm'].oldShellDate.value = currentDate;
+        }
+        myCalendar.setDateFormat("%d/%m/%Y");
+    });
+}
+function saveOldShell() {
+    if (scriptFunction == "saveOldShell")
+        return false;
+    var field = document.forms['oldShellForm'].quantity;
+    if (field.value == '') {
+        alert("Vui l\u00F2ng nh\u1EADp s\u1ED1 l\u01B0\u1EE3ng");
+        field.focus();
+        field = null;
+        return false;
+    }
+    field = null;
+    reformatNumberMoney(document.forms['oldShellForm'].quantity);
+    scriptFunction = "saveOldShell";
+    callAjaxCheckError("addOldShell.do", null, document.forms['oldShellForm'], function(data) {
+        scriptFunction = "";
+        var handle = document.getElementById('callbackFunc').value;
+        if (confirm('B\u1EA1n c\u00F3 mu\u1ED1n nh\u1EADp ti\u1EBFp th\u00F4ng tin kh\u00E1c ?'))
+            getOldShell(0, handle);
+        else if (handle != '')
+            eval(handle + "()");
+        prepareHidePopup('oldShellFormshowHelpHideDiv');
+    });
+    return false;
+}
+function delOldShell() {
+    callAjaxCheckError('delOldShell.do?oldShellId=' + document.forms['oldShellForm'].id.value, null, null, function() {
+        loadOldShellPanel();
+        prepareHidePopup('oldShellFormshowHelpHideDiv');
+    });
+    return false;
+}
+

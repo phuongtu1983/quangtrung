@@ -89,5 +89,11 @@ public class Constants {
     public static final String GAS_RETAIL_PROMOTION_MATERIAL = "gasRetailPromotionMaterial";
     public static final String SALE_ACCESSORY = "saleAccessory";
     public static final String GOOD_LIST = "goodList";
-
+    public static final String SALE_ACCESSORY_GOOD = "saleAccessoryGood";
+    public static final String SALE_ACCESSORY_CHANGE_GOOD = "saleAccessoryChangeGood";
+    public static final String SALE_PETRO = "salePetro";
+    public static final String SALE_PETRO_GOOD = "salePetroGood";
+    public static final String SALE_SHELL = "saleShell";
+    public static final String SALE_SHELL_GOOD = "saleShellGood";
+    public static final String OLD_SHELL = "oldShell";
 }

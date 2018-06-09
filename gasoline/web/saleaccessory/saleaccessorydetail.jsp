@@ -38,7 +38,7 @@
         </tr>
         <tr>
             <td height="30" style="padding-right: 20px"><bean:message key="note.title"/></td>
-            <td colspan="3"><html:text property="note" size="30" name="<%=Constants.SALE_ACCESSORY%>"/></td>
+            <td colspan="3"><html:text property="note" size="100" name="<%=Constants.SALE_ACCESSORY%>"/></td>
         </tr>
         <tr>
             <td colspan="4">
@@ -65,6 +65,31 @@
             </td>
         </tr>
         <tr><td colspan="4"><div><%@include  file="/saleaccessory/details.jsp" %></div></td></tr>
+        <tr>
+            <td colspan="4">
+                <fieldset>
+                    <legend><bean:message key="saleAccessory.detail.changeGood.title"/></legend>
+                    <table>
+                        <tr>
+                            <td>
+                                <logic:equal name="<%=Constants.SALE_ACCESSORY%>" property="id" value="0">
+                                    <button class="i_cross icon small red" onclick="return delTableRow('saleAccessoryForm', 'saleAccessoryChangeGoodChk', 'saleAccessoryChangeGoodDetailTbl');"><bean:message key="message.del"/></button>
+                                </logic:equal>
+                                <button class="i_plus icon small green" onclick="return addSaleAccessoryChangeGood();"><bean:message key="message.add"/></button>
+                            </td>
+                            <td>
+                                <select style="width: 260px;" name="changeGoodIdCombobox" id="changeGoodIdCombobox">
+                                    <logic:iterate id="good_iter" name="<%=Constants.GOOD_LIST%>">
+                                        <option  value="${good_iter.id}">${good_iter.name}</option>
+                                    </logic:iterate>
+                                </select>
+                            </td>
+                        </tr>
+                    </table>
+                </fieldset>
+            </td>
+        </tr>
+        <tr><td colspan="4"><div><%@include  file="/saleaccessory/changedetails.jsp" %></div></td></tr>
         <tr>
             <td colspan="4" align="center" height="50">
                 <logic:equal name="<%=Constants.SALE_ACCESSORY%>" property="id" value="0">
@@ -101,3 +126,4 @@
 <div id="shiftCFunctionHideDiv" style="display:none">loadSaleAccessoryPanel()</div>
 <div id="shiftSFunctionHideDiv" style="display:none">saveSaleAccessory()</div>
 <div id="saleAccessoryGoodHideDiv" style="display:none"></div>
+<div id="saleAccessoryChangeGoodHideDiv" style="display:none"></div>

@@ -39,6 +39,7 @@
         <form-bean name="employeeAdvanceForm" type="com.stepup.gasoline.qt.employeeadvance.EmployeeAdvanceFormBean"/>
         <form-bean name="lpgImportForm" type="com.stepup.gasoline.qt.lpgimport.LpgImportFormBean"/>
         <form-bean name="tripFeeForm" type="com.stepup.gasoline.qt.tripfee.TripFeeFormBean"/>
+        <form-bean name="oldShellForm" type="com.stepup.gasoline.qt.oldshell.OldShellFormBean"/>
         <form-bean name="gasPriceForm" type="com.stepup.gasoline.qt.gasprice.GasPriceFormBean"/>
         <form-bean name="employeeOffForm" type="com.stepup.gasoline.qt.employeeoff.EmployeeOffFormBean"/>
         <form-bean name="employeeTimesheetForm" type="com.stepup.gasoline.qt.employeetimesheet.EmployeeTimesheetFormBean"/>
@@ -63,6 +64,9 @@
         <form-bean name="promotionMaterialImportForm" type="com.stepup.gasoline.qt.promotionmaterialimport.PromotionMaterialImportFormBean"/>
         <form-bean name="gasWholesaleForm" type="com.stepup.gasoline.qt.gaswholesale.GasWholesaleFormBean"/>
         <form-bean name="gasRetailForm" type="com.stepup.gasoline.qt.gasretail.GasRetailFormBean"/>
+        <form-bean name="saleAccessoryForm" type="com.stepup.gasoline.qt.saleaccessory.SaleAccessoryFormBean"/>
+        <form-bean name="salePetroForm" type="com.stepup.gasoline.qt.salepetro.SalePetroFormBean"/>
+        <form-bean name="saleShellForm" type="com.stepup.gasoline.qt.saleshell.SaleShellFormBean"/>
     </form-beans>
     
     <global-exceptions>
@@ -608,6 +612,74 @@
             <forward name="success" path="/gaswholesale/customers.jsp" />
         </action>
         <!-- end gas retail -->
+        <!-- start sale accessory -->
+        <action path="/getSaleAccessoryPanel" type="com.stepup.gasoline.qt.common.BaseFormAction" scope="request" validate="false">
+            <forward name="success" path="/saleaccessory/saleaccessorypanel.jsp" />
+        </action>
+        <action path="/getSaleAccessoryList" type="com.stepup.gasoline.qt.saleaccessory.GetSaleAccessoryListAction" scope="request" validate="false" >
+        </action>
+        <action path="/saleAccessoryForm" type="com.stepup.gasoline.qt.saleaccessory.SaleAccessoryFormAction" scope="request" validate="false">
+            <forward name="success" path="/saleaccessory/saleaccessorydetail.jsp" />
+        </action>
+        <action path="/addSaleAccessory" name ="saleAccessoryForm" scope="request" type="com.stepup.gasoline.qt.saleaccessory.AddSaleAccessoryAction" input="/saleAccessoryForm.do">
+        </action>
+        <action path="/getSaleAccessoryGood" type="com.stepup.gasoline.qt.saleaccessory.GetSaleAccessoryGoodAction" scope="request" validate="false">
+            <forward name="success" path="/saleaccessory/goods.jsp" />
+        </action>
+        <action path="/delSaleAccessory" type="com.stepup.gasoline.qt.saleaccessory.DeleteSaleAccessoryAction" scope="request" validate="false" >
+        </action>
+        <action path="/getSaleAccessoryChangeGood" type="com.stepup.gasoline.qt.saleaccessory.GetSaleAccessoryChangeGoodAction" scope="request" validate="false">
+            <forward name="success" path="/saleaccessory/changegoods.jsp" />
+        </action>
+        <!-- end sale accessory -->
+        <!-- start sale petro -->
+        <action path="/getSalePetroPanel" type="com.stepup.gasoline.qt.common.BaseFormAction" scope="request" validate="false">
+            <forward name="success" path="/salepetro/salepetropanel.jsp" />
+        </action>
+        <action path="/getSalePetroList" type="com.stepup.gasoline.qt.salepetro.GetSalePetroListAction" scope="request" validate="false" >
+        </action>
+        <action path="/salePetroForm" type="com.stepup.gasoline.qt.salepetro.SalePetroFormAction" scope="request" validate="false">
+            <forward name="success" path="/salepetro/salepetrodetail.jsp" />
+        </action>
+        <action path="/addSalePetro" name ="salePetroForm" scope="request" type="com.stepup.gasoline.qt.salepetro.AddSalePetroAction" input="/salePetroForm.do">
+        </action>
+        <action path="/getSalePetroGood" type="com.stepup.gasoline.qt.salepetro.GetSalePetroGoodAction" scope="request" validate="false">
+            <forward name="success" path="/salepetro/goods.jsp" />
+        </action>
+        <action path="/delSalePetro" type="com.stepup.gasoline.qt.salepetro.DeleteSalePetroAction" scope="request" validate="false" >
+        </action>
+        <!-- end sale petro -->
+        <!-- start sale shell -->
+        <action path="/getSaleShellPanel" type="com.stepup.gasoline.qt.common.BaseFormAction" scope="request" validate="false">
+            <forward name="success" path="/saleshell/saleshellpanel.jsp" />
+        </action>
+        <action path="/getSaleShellList" type="com.stepup.gasoline.qt.saleshell.GetSaleShellListAction" scope="request" validate="false" >
+        </action>
+        <action path="/saleShellForm" type="com.stepup.gasoline.qt.saleshell.SaleShellFormAction" scope="request" validate="false">
+            <forward name="success" path="/saleshell/saleshelldetail.jsp" />
+        </action>
+        <action path="/addSaleShell" name ="saleShellForm" scope="request" type="com.stepup.gasoline.qt.saleshell.AddSaleShellAction" input="/saleShellForm.do">
+        </action>
+        <action path="/getSaleShellGood" type="com.stepup.gasoline.qt.saleshell.GetSaleShellGoodAction" scope="request" validate="false">
+            <forward name="success" path="/saleshell/goods.jsp" />
+        </action>
+        <action path="/delSaleShell" type="com.stepup.gasoline.qt.saleshell.DeleteSaleShellAction" scope="request" validate="false" >
+        </action>
+        <!-- end sale shell -->
+        <!-- start old shell -->
+        <action path="/getOldShellPanel" type="com.stepup.gasoline.qt.common.BaseStatusFormAction" scope="request" validate="false">
+            <forward name="success" path="/oldshell/oldshellpanel.jsp" />
+        </action>
+        <action path="/getOldShellList" type="com.stepup.gasoline.qt.oldshell.GetOldShellListAction" scope="request" validate="false" >
+        </action>
+        <action path="/oldShellForm" type="com.stepup.gasoline.qt.oldshell.OldShellFormAction" scope="request" validate="false">
+            <forward name="success" path="/oldshell/oldshelldetail.jsp" />
+        </action>
+        <action path="/addOldShell" name ="oldShellForm" scope="request" type="com.stepup.gasoline.qt.oldshell.AddOldShellAction" input="/oldShellForm.do">
+        </action>
+        <action path="/delOldShell" type="com.stepup.gasoline.qt.oldshell.DeleteOldShellAction" scope="request" validate="false" >
+        </action>
+        <!-- end old shell -->
     </action-mappings>
     
     <controller processorClass="org.apache.struts.tiles.TilesRequestProcessor"/>

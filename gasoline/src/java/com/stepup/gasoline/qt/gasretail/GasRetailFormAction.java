@@ -66,7 +66,7 @@ public class GasRetailFormAction extends SpineAction {
             try {
                 String prefix = "";
                 if (formBean.getId() == 0) {
-                    prefix = DateUtil.today("yyyyMMdd") + "-GW-";
+                    prefix = DateUtil.today("yyyyMMdd") + "-GR-";
                     String number = gasDAO.getNextGasRetailNumber(prefix, 4);
                     prefix += number;
                 }
