@@ -125,4 +125,6 @@ public class PermissionUtil {
     public static int PER_SALE_PETRO = 37;
     public static int PER_SALE_SHELL = 38;
     public static int PER_OLD_SHELL = 39;
+    public static int PER_SHELL_RETURN = 40;
+    public static int PER_GAS_RETURN = 41;
 }

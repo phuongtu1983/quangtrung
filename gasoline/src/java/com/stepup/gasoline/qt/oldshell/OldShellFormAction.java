@@ -5,10 +5,13 @@
 package com.stepup.gasoline.qt.oldshell;
 
 import com.stepup.core.util.DateUtil;
+import com.stepup.gasoline.qt.bean.EmployeeBean;
 import com.stepup.gasoline.qt.bean.OldShellBean;
 import com.stepup.gasoline.qt.core.SpineAction;
-import com.stepup.gasoline.qt.dao.VehicleDAO;
+import com.stepup.gasoline.qt.dao.GasDAO;
+import com.stepup.gasoline.qt.dao.GoodDAO;
 import com.stepup.gasoline.qt.util.Constants;
+import java.util.ArrayList;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import org.apache.commons.validator.GenericValidator;
@@ -36,10 +39,10 @@ public class OldShellFormAction extends SpineAction {
             HttpServletRequest request, HttpServletResponse response) {
         OldShellBean bean = null;
         String oldShellId = request.getParameter("oldShellId");
-        VehicleDAO vehicleDAO = new VehicleDAO();
+        GasDAO gasDAO = new GasDAO();
         if (!GenericValidator.isBlankOrNull(oldShellId)) {
             try {
-                bean = vehicleDAO.getOldShell(Integer.parseInt(oldShellId));
+                bean = gasDAO.getOldShell(Integer.parseInt(oldShellId));
             } catch (Exception ex) {
             }
         }
@@ -48,13 +51,24 @@ public class OldShellFormAction extends SpineAction {
             try {
                 String prefix = "";
                 prefix = DateUtil.today("yyyyMMdd") + "-OS-";
-                String number = vehicleDAO.getNextOldShellNumber(prefix, 4);
+                String number = gasDAO.getNextOldShellNumber(prefix, 4);
                 prefix += number;
                 bean.setCode(prefix);
             } catch (Exception ex) {
             }
         }
         request.setAttribute(Constants.OLD_SHELL, bean);
+
+        ArrayList arrShell = null;
+        try {
+            GoodDAO goodDAO = new GoodDAO();
+            arrShell = goodDAO.getShells(EmployeeBean.STATUS_ACTIVE);
+        } catch (Exception ex) {
+        }
+        if (arrShell == null) {
+            arrShell = new ArrayList();
+        }
+        request.setAttribute(Constants.SHELL_LIST, arrShell);
 
         return true;
     }

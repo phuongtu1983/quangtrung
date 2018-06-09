@@ -181,6 +181,14 @@ function menuClick(id) {
         loadOldShellPanel();
     else if (id == 'oldshelladd')
         getOldShell(0, 'loadOldShellPanel');
+    else if (id == 'shellreturnlist')
+        loadShellReturnPanel();
+    else if (id == 'shellreturnadd')
+        getShellReturn(0);
+    else if (id == 'gasreturnlist')
+        loadGasReturnPanel();
+    else if (id == 'gasreturnadd')
+        getGasReturn(0);
 }
 function clearContent() {
     var contentDiv = document.getElementById("contentDiv");
@@ -3187,32 +3195,32 @@ function saveGasImport() {
     return false;
 }
 function addGasImportShell() {
-    var accessory = document.forms['gasImportForm'].accessoryIdCombobox;
-    if (accessory == null && accessory.selectedIndex == -1)
-        accessory = null;
+    var shell = document.forms['gasImportForm'].shellIdCombobox;
+    if (shell == null && shell.selectedIndex == -1)
+        shell = null;
     else
-        accessory = accessory.options[accessory.selectedIndex].value;
-    if (accessory == -1 || accessory == 0)
+        shell = shell.options[shell.selectedIndex].value;
+    if (shell == -1 || shell == 0)
         return false;
-    var accessoryId = document.forms['gasImportForm'].accessoryId;
+    var shellId = document.forms['gasImportForm'].shellId;
     var existed = false;
-    if (accessoryId != null) {
-        if (accessoryId.length != null) {
-            for (i = 0; i < accessoryId.length; i++) {
-                if (accessoryId[i].value == accessory) {
+    if (shellId != null) {
+        if (shellId.length != null) {
+            for (i = 0; i < shellId.length; i++) {
+                if (shellId[i].value == shell) {
                     existed = true;
                     break;
                 }
             }
-        } else if (accessoryId.value == accessory)
+        } else if (shellId.value == shell)
             existed = true;
     }
-    accessoryId = null;
+    shellId = null;
     if (existed == true) {
         alert("H\u00E0ng ho\u00E1 \u0111\u00E3 t\u1ED3n t\u1EA1i");
         return false;
     }
-    callAjax("getGasImportShell.do?accessoryId=" + accessory, null, null, function(data) {
+    callAjax("getGasImportShell.do?accessoryId=" + shell, null, null, function(data) {
         setAjaxData(data, 'gasImportShellHideDiv');
         var matTable = document.getElementById('gasImportShellTbl');
         var detTable = document.getElementById('gasImportDetailTbl');
@@ -4567,7 +4575,7 @@ function caculateSaleAccessoryTotal() {
             tryNumberFormatCurrentcy(amount, "VND");
         }
     }
-    
+
     quantity = document.forms['saleAccessoryForm'].changeGoodQuantity;
     price = document.forms['saleAccessoryForm'].changeGoodPrice;
     amount = document.forms['saleAccessoryForm'].changeGoodAmount;
@@ -4586,7 +4594,7 @@ function caculateSaleAccessoryTotal() {
             tryNumberFormatCurrentcy(amount, "VND");
         }
     }
-    
+
     quantity = null;
     price = null;
     amount = null;
@@ -4595,7 +4603,7 @@ function caculateSaleAccessoryTotal() {
     document.forms['saleAccessoryForm'].totalPay.value = sum;
     document.forms['saleAccessoryForm'].paid.value = sum;
     document.forms['saleAccessoryForm'].debt.value = 0;
-    
+
     tryNumberFormatCurrentcy(document.forms['saleAccessoryForm'].discount, "VND");
     tryNumberFormatCurrentcy(document.forms['saleAccessoryForm'].totalPay, "VND");
     tryNumberFormatCurrentcy(document.forms['saleAccessoryForm'].total, "VND");
@@ -4981,7 +4989,7 @@ function loadOldShellList(fromDate, toDate) {
     mygrid.setImagePath("js/dhtmlx/grid/imgs/");
     mygrid.setHeader("S\u1ED1 phi\u1EBFu,Ng\u00E0y,S\u1ED1 l\u01B0\u1EE3ng,Ghi ch\u00FA");
     mygrid.attachHeader("#text_filter,#text_filter,#text_filter,#text_filter");
-    mygrid.setInitWidths("150,150,,200,*");
+    mygrid.setInitWidths("150,150,200,*");
     mygrid.setColTypes("link,ro,ro,ro");
     mygrid.setColSorting("str,str,str,str");
     mygrid.setSkin("light");
@@ -5008,7 +5016,6 @@ function getOldShell(id, handle) {
     callAjax(url, null, null, function(data) {
         showPopupForm(data);
         document.getElementById('callbackFunc').value = handle;
-        document.forms['oldShellForm'].fee.focus();
         tryNumberFormatCurrentcy(document.forms['oldShellForm'].quantity, "VND");
         var myCalendar = new dhtmlXCalendarObject(["oldShellDate"]);
         myCalendar.setSkin('dhx_web');
@@ -5047,6 +5054,318 @@ function delOldShell() {
     callAjaxCheckError('delOldShell.do?oldShellId=' + document.forms['oldShellForm'].id.value, null, null, function() {
         loadOldShellPanel();
         prepareHidePopup('oldShellFormshowHelpHideDiv');
+    });
+    return false;
+}
+function loadShellReturnPanel() {
+    callAjax("getShellReturnPanel.do", null, null, function(data) {
+        clearContent();
+        setAjaxData(data, "contentDiv");
+        var myCalendar = new dhtmlXCalendarObject(["fromDate", "toDate"]);
+        myCalendar.setSkin('dhx_web');
+        var currentTime = getCurrentDate();
+        document.forms['shellReturnSearchForm'].fromDate.value = currentTime;
+        document.forms['shellReturnSearchForm'].toDate.value = currentTime;
+        myCalendar.setDateFormat("%d/%m/%Y");
+        loadShellReturnList(currentTime, currentTime);
+    });
+    return false;
+}
+function loadShellReturnList(fromDate, toDate) {
+    var mygrid = new dhtmlXGridObject('shellReturnList');
+    mygrid.setImagePath("js/dhtmlx/grid/imgs/");
+    mygrid.setHeader("S\u1ED1 phi\u1EBFu,Ng\u00E0y,Kh\u00E1ch h\u00E0ng,Ghi ch\u00FA");
+    mygrid.attachHeader("#text_filter,#select_filter,#select_filter,#text_filter");
+    mygrid.setInitWidths("150,200,200,*");
+    mygrid.setColTypes("link,ro,ro,ro");
+    mygrid.setColSorting("str,str,str,str");
+    mygrid.setSkin("light");
+    var height = contentHeight - 210;
+    mygrid.al(true, height);//enableAutoHeight
+    mygrid.enablePaging(true, 15, 3, "recinfoArea");
+    mygrid.setPagingSkin("toolbar", "dhx_skyblue");
+    mygrid.init();
+    var url = "getShellReturnList.do?t=1";
+    if (fromDate != null)
+        url += "&fromDate=" + fromDate;
+    if (toDate != null)
+        url += "&toDate=" + toDate;
+    callAjax(url, null, null, function(data) {
+        mygrid.parse(data);
+    });
+    return false;
+}
+function getShellReturn(id) {
+    var url = 'shellReturnForm.do';
+    if (id != 0)
+        url += '?shellReturnId=' + id
+    callAjax(url, null, null, function(data) {
+        clearContent();
+        setAjaxData(data, 'contentDiv');
+//        var myCalendar = new dhtmlXCalendarObject(["shellReturnCreatedDate"]);
+//        myCalendar.setSkin('dhx_web');
+        if (id == 0) {
+            var currentDate = getCurrentDate();
+            document.forms['shellReturnForm'].shellReturnCreatedDate.value = currentDate;
+        }
+//        myCalendar.setDateFormat("%d/%m/%Y");
+        formatShellReturnDetail();
+    });
+}
+function saveShellReturn() {
+    if (scriptFunction == "saveShellReturn")
+        return false;
+    var quantity = document.forms['shellReturnForm'].quantity;
+    if (quantity == null) {
+        alert('Vui l\u00F2ng ch\u1ECDn h\u00E0ng h\u00F3a');
+        return false;
+    }
+    if (quantity.length != null) {
+        for (var i = 0; i < quantity.length; i++) {
+            var number = Number(quantity[i].value);
+            if (number == 0) {
+                alert('Vui l\u00F2ng nh\u1EADp s\u1ED1 l\u01B0\u1EE3ng');
+                quantity[i].focus();
+                quantity = null;
+                return false;
+            }
+            reformatNumberMoney(quantity[i]);
+        }
+    } else {
+        if (quantity.value == "0") {
+            alert('Vui l\u00F2ng nh\u1EADp s\u1ED1 l\u01B0\u1EE3ng');
+            quantity.focus();
+            quantity = null;
+            return false;
+        }
+        reformatNumberMoney(quantity);
+    }
+    quantity = null;
+    scriptFunction = "saveShellReturn";
+    callAjaxCheckError("addShellReturn.do", null, document.forms['shellReturnForm'], function(data) {
+        scriptFunction = "";
+        loadShellReturnPanel();
+    });
+    return false;
+}
+function addShellReturnShell() {
+    var shell = document.forms['shellReturnForm'].shellIdCombobox;
+    if (shell == null && shell.selectedIndex == -1)
+        shell = null;
+    else
+        shell = shell.options[shell.selectedIndex].value;
+    if (shell == -1 || shell == 0)
+        return false;
+    var shellId = document.forms['shellReturnForm'].shellId;
+    var existed = false;
+    if (shellId != null) {
+        if (shellId.length != null) {
+            for (i = 0; i < shellId.length; i++) {
+                if (shellId[i].value == shell) {
+                    existed = true;
+                    break;
+                }
+            }
+        } else if (shellId.value == shell)
+            existed = true;
+    }
+    shellId = null;
+    if (existed == true) {
+        alert("H\u00E0ng ho\u00E1 \u0111\u00E3 t\u1ED3n t\u1EA1i");
+        return false;
+    }
+    callAjax("getShellReturnShell.do?shellId=" + shell, null, null, function(data) {
+        setAjaxData(data, 'shellReturnShellHideDiv');
+        var matTable = document.getElementById('shellReturnShellTbl');
+        var detTable = document.getElementById('shellReturnDetailTbl');
+        if (matTable.tBodies[0] == null || detTable.tBodies[0] == null) {
+            matTable = null;
+            detTable = null;
+            return;
+        }
+        for (var i = matTable.tBodies[0].rows.length - 1; i >= 0; i--)
+            detTable.tBodies[0].appendChild(matTable.tBodies[0].rows[i]);
+        matTable = null;
+        detTable = null;
+        formatShellReturnDetail();
+    });
+    return false;
+}
+function delShellReturn() {
+    callAjaxCheckError('delShellReturn.do?shellReturnId=' + document.forms['shellReturnForm'].id.value, null, null, function() {
+        loadShellReturnPanel();
+    });
+    return false;
+}
+function formatShellReturnDetail() {
+    var quantity = document.forms['shellReturnForm'].quantity;
+    if (quantity != null) {
+        if (quantity.length != null) {
+            for (var i = 0; i < quantity.length; i++) {
+                tryNumberFormatCurrentcy(quantity[i], "VND");
+            }
+        } else {
+            tryNumberFormatCurrentcy(quantity, "VND");
+        }
+    }
+    quantity = null;
+}
+function loadGasReturnPanel() {
+    callAjax("getGasReturnPanel.do", null, null, function(data) {
+        clearContent();
+        setAjaxData(data, "contentDiv");
+        var myCalendar = new dhtmlXCalendarObject(["fromDate", "toDate"]);
+        myCalendar.setSkin('dhx_web');
+        var currentTime = getCurrentDate();
+        document.forms['gasReturnSearchForm'].fromDate.value = currentTime;
+        document.forms['gasReturnSearchForm'].toDate.value = currentTime;
+        myCalendar.setDateFormat("%d/%m/%Y");
+        loadGasReturnList(currentTime, currentTime);
+    });
+    return false;
+}
+function loadGasReturnList(fromDate, toDate) {
+    var mygrid = new dhtmlXGridObject('gasReturnList');
+    mygrid.setImagePath("js/dhtmlx/grid/imgs/");
+    mygrid.setHeader("M\u00E3 phi\u1EBFu,Ng\u00E0y,T\u1ED5ng ti\u1EC1n,Thanh to\u00E1n,C\u00F2n n\u1EE3,Ghi ch\u00FA");
+    mygrid.attachHeader("#text_filter,#text_filter,#text_filter,#text_filter,#text_filter,#text_filter");
+    mygrid.setInitWidths("150,100,150,150,*");
+    mygrid.setColTypes("link,ro,ro,ro,ro");
+    mygrid.setColSorting("str,str,str,str,str");
+    mygrid.setSkin("light");
+    var height = contentHeight - 210;
+    mygrid.al(true, height);//enableAutoHeight
+    mygrid.enablePaging(true, 15, 3, "recinfoArea");
+    mygrid.setPagingSkin("toolbar", "dhx_skyblue");
+    mygrid.init();
+    var url = "getGasReturnList.do?t=1";
+    if (fromDate != null)
+        url += "&fromDate=" + fromDate;
+    if (toDate != null)
+        url += "&toDate=" + toDate;
+    callAjax(url, null, null, function(data) {
+        mygrid.parse(data);
+    });
+    return false;
+}
+function getGasReturn(id) {
+    var url = 'gasReturnForm.do';
+    if (id != 0)
+        url += '?gasReturnId=' + id
+    callAjax(url, null, null, function(data) {
+        clearContent();
+        setAjaxData(data, 'contentDiv');
+//        var myCalendar = new dhtmlXCalendarObject(["gasReturnCreatedDate"]);
+//        myCalendar.setSkin('dhx_web');
+        if (id == 0) {
+            var currentDate = getCurrentDate();
+            document.forms['gasReturnForm'].gasReturnCreatedDate.value = currentDate;
+        }
+//        myCalendar.setDateFormat("%d/%m/%Y");
+        tryNumberFormatCurrentcy(document.forms['gasReturnForm'].total, "VND");
+        tryNumberFormatCurrentcy(document.forms['gasReturnForm'].paid, "VND");
+        tryNumberFormatCurrentcy(document.forms['gasReturnForm'].debt, "VND");
+        tryNumberFormatCurrentcy(document.forms['gasReturnForm'].discount, "VND");
+        tryNumberFormatCurrentcy(document.forms['gasReturnForm'].totalPay, "VND");
+        formatFormDetail('gasReturnForm');
+    });
+}
+function saveGasReturn() {
+    if (scriptFunction == "saveGasReturn")
+        return false;
+    var quantity = document.forms['gasReturnForm'].quantity;
+    if (quantity == null) {
+        alert('Vui l\u00F2ng ch\u1ECDn h\u00E0ng h\u00F3a');
+        return false;
+    }
+    var price = document.forms['gasReturnForm'].price;
+    var amount = document.forms['gasReturnForm'].amount;
+    if (quantity.length != null) {
+        for (var i = 0; i < quantity.length; i++) {
+            var number = Number(quantity[i].value);
+            if (number == 0) {
+                alert('Vui l\u00F2ng nh\u1EADp s\u1ED1 l\u01B0\u1EE3ng');
+                quantity[i].focus();
+                quantity = null;
+                return false;
+            }
+            reformatNumberMoney(quantity[i]);
+            reformatNumberMoney(price[i]);
+            reformatNumberMoney(amount[i]);
+        }
+    } else {
+        if (quantity.value == "0") {
+            alert('Vui l\u00F2ng nh\u1EADp s\u1ED1 l\u01B0\u1EE3ng');
+            quantity.focus();
+            quantity = null;
+            return false;
+        }
+        reformatNumberMoney(quantity);
+        reformatNumberMoney(price);
+        reformatNumberMoney(amount);
+    }
+    quantity = null;
+    price = null;
+    amount = null;
+    reformatNumberMoney(document.forms['gasReturnForm'].total);
+    reformatNumberMoney(document.forms['gasReturnForm'].paid);
+    reformatNumberMoney(document.forms['gasReturnForm'].debt);
+    reformatNumberMoney(document.forms['gasReturnForm'].discount);
+    reformatNumberMoney(document.forms['gasReturnForm'].totalPay);
+    reformatFormDetail('gasReturnForm');
+    scriptFunction = "saveGasReturn";
+    callAjaxCheckError("addGasReturn.do", null, document.forms['gasReturnForm'], function(data) {
+        scriptFunction = "";
+        loadGasReturnPanel();
+    });
+    return false;
+}
+function addGasReturnGood() {
+    var good = document.forms['gasReturnForm'].goodIdCombobox;
+    if (good == null && good.selectedIndex == -1)
+        good = null;
+    else
+        good = good.options[good.selectedIndex].value;
+    if (good == -1 || good == 0)
+        return false;
+    var goodId = document.forms['gasReturnForm'].goodId;
+    var existed = false;
+    if (goodId != null) {
+        if (goodId.length != null) {
+            for (i = 0; i < goodId.length; i++) {
+                if (goodId[i].value == good) {
+                    existed = true;
+                    break;
+                }
+            }
+        } else if (goodId.value == good)
+            existed = true;
+    }
+    goodId = null;
+    if (existed == true) {
+        alert("H\u00E0ng ho\u00E1 \u0111\u00E3 t\u1ED3n t\u1EA1i");
+        return false;
+    }
+    callAjax("getGasReturnGood.do?goodId=" + good, null, null, function(data) {
+        setAjaxData(data, 'gasReturnGoodHideDiv');
+        var matTable = document.getElementById('gasReturnGoodTbl');
+        var detTable = document.getElementById('gasReturnDetailTbl');
+        if (matTable.tBodies[0] == null || detTable.tBodies[0] == null) {
+            matTable = null;
+            detTable = null;
+            return;
+        }
+        for (var i = matTable.tBodies[0].rows.length - 1; i >= 0; i--)
+            detTable.tBodies[0].appendChild(matTable.tBodies[0].rows[i]);
+        matTable = null;
+        detTable = null;
+        formatFormDetail('gasReturnForm');
+    });
+    return false;
+}
+function delGasReturn() {
+    callAjaxCheckError('delGasReturn.do?gasReturnId=' + document.forms['gasReturnForm'].id.value, null, null, function() {
+        loadGasReturnPanel();
     });
     return false;
 }

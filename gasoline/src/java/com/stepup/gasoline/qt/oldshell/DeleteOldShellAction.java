@@ -5,7 +5,7 @@
 package com.stepup.gasoline.qt.oldshell;
 
 import com.stepup.gasoline.qt.core.SpineAction;
-import com.stepup.gasoline.qt.dao.VehicleDAO;
+import com.stepup.gasoline.qt.dao.GasDAO;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import org.apache.struts.action.ActionForm;
@@ -32,8 +32,8 @@ public class DeleteOldShellAction extends SpineAction {
             HttpServletRequest request, HttpServletResponse response) {
         String id = request.getParameter("oldShellId");
         try {
-            VehicleDAO vehicleDAO = new VehicleDAO();
-            vehicleDAO.deleteOldShell(id);
+            GasDAO gasDAO = new GasDAO();
+            gasDAO.deleteOldShell(id);
         } catch (Exception ex) {
         }
         return true;

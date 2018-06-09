@@ -333,7 +333,7 @@ public class GenerateMenu {
             if (isHasPermission(PermissionUtil.OPERATION_LIST + "," + PermissionUtil.OPERATION_ADD,
                     PermissionUtil.PER_SHELL_IMPORT + "," + PermissionUtil.PER_LPG_IMPORT + "," + PermissionUtil.PER_FRACTION + "," + PermissionUtil.PER_GAS_PRICE
                     + "," + PermissionUtil.PER_GAS_IMPORT + "," + PermissionUtil.PER_GAS_RETAIL + "," + PermissionUtil.PER_GAS_WHOLESALE
-                    + "," + PermissionUtil.PER_SALE_SHELL)) {
+                    + "," + PermissionUtil.PER_SALE_SHELL + "," + PermissionUtil.PER_SHELL_RETURN + "," + PermissionUtil.PER_GAS_RETURN)) {
                 if (isHasPermission(PermissionUtil.OPERATION_LIST + "," + PermissionUtil.OPERATION_ADD, PermissionUtil.PER_SHELL_IMPORT)) {
                     buffTemp.append("<item id=\"shellimports\" complex=\"true\" text=\"").append(QTUtil.getBundleString("shellImport.title")).append("\">");
                     if (isHasPermission(PermissionUtil.OPERATION_LIST, PermissionUtil.PER_SHELL_IMPORT)) {
@@ -421,6 +421,26 @@ public class GenerateMenu {
                     }
                     if (isHasPermission(PermissionUtil.OPERATION_ADD, PermissionUtil.PER_OLD_SHELL)) {
                         buffTemp.append("<item id=\"oldshelladd\" text=\"").append(QTUtil.getBundleString("oldShell.detail.add.title")).append("\"/>");
+                    }
+                    buffTemp.append("</item>");
+                }
+                if (isHasPermission(PermissionUtil.OPERATION_LIST + "," + PermissionUtil.OPERATION_ADD, PermissionUtil.PER_SHELL_RETURN)) {
+                    buffTemp.append("<item id=\"shellreturns\" complex=\"true\" text=\"").append(QTUtil.getBundleString("shellReturn.title")).append("\">");
+                    if (isHasPermission(PermissionUtil.OPERATION_LIST, PermissionUtil.PER_SHELL_RETURN)) {
+                        buffTemp.append("<item id=\"shellreturnlist\" text=\"").append(QTUtil.getBundleString("shellReturn.list.title")).append("\"/>");
+                    }
+                    if (isHasPermission(PermissionUtil.OPERATION_ADD, PermissionUtil.PER_SHELL_RETURN)) {
+                        buffTemp.append("<item id=\"shellreturnadd\" text=\"").append(QTUtil.getBundleString("shellReturn.detail.add.title")).append("\"/>");
+                    }
+                    buffTemp.append("</item>");
+                }
+                if (isHasPermission(PermissionUtil.OPERATION_LIST + "," + PermissionUtil.OPERATION_ADD, PermissionUtil.PER_GAS_RETURN)) {
+                    buffTemp.append("<item id=\"gasreturns\" complex=\"true\" text=\"").append(QTUtil.getBundleString("gasReturn.title")).append("\">");
+                    if (isHasPermission(PermissionUtil.OPERATION_LIST, PermissionUtil.PER_GAS_RETURN)) {
+                        buffTemp.append("<item id=\"gasreturnlist\" text=\"").append(QTUtil.getBundleString("gasReturn.list.title")).append("\"/>");
+                    }
+                    if (isHasPermission(PermissionUtil.OPERATION_ADD, PermissionUtil.PER_GAS_RETURN)) {
+                        buffTemp.append("<item id=\"gasreturnadd\" text=\"").append(QTUtil.getBundleString("gasReturn.detail.add.title")).append("\"/>");
                     }
                     buffTemp.append("</item>");
                 }

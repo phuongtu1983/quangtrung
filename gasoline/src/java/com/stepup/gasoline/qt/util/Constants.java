@@ -96,4 +96,8 @@ public class Constants {
     public static final String SALE_SHELL = "saleShell";
     public static final String SALE_SHELL_GOOD = "saleShellGood";
     public static final String OLD_SHELL = "oldShell";
+    public static final String SHELL_RETURN = "shellReturn";
+    public static final String SHELL_RETURN_SHELL = "shellReturnShell";
+    public static final String GAS_RETURN = "gasReturn";
+    public static final String GAS_RETURN_GOOD = "gasReturnGood";
 }

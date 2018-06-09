@@ -6,7 +6,7 @@ package com.stepup.gasoline.qt.oldshell;
 
 import com.stepup.gasoline.qt.bean.OldShellBean;
 import com.stepup.gasoline.qt.core.SpineAction;
-import com.stepup.gasoline.qt.dao.VehicleDAO;
+import com.stepup.gasoline.qt.dao.GasDAO;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import org.apache.struts.action.ActionForm;
@@ -32,8 +32,7 @@ public class AddOldShellAction extends SpineAction {
     public boolean doAction(ActionMapping mapping, ActionForm form,
             HttpServletRequest request, HttpServletResponse response) {
         OldShellFormBean formBean = (OldShellFormBean) form;
-        VehicleDAO vehicleDAO = new VehicleDAO();
-
+        GasDAO gasDAO = new GasDAO();
         boolean bNew = true;
         if (formBean.getId() != 0) {
             bNew = false;
@@ -43,16 +42,13 @@ public class AddOldShellAction extends SpineAction {
         bean.setCode(formBean.getCode());
         bean.setCreatedDate(formBean.getCreatedDate());
         bean.setQuantity(formBean.getQuantity());
-        bean.setPrice(formBean.getPrice());
-        bean.setAmount(formBean.getAmount());
-        bean.setVehicleId(formBean.getVehicleId());
+        bean.setShellId(formBean.getShellId());
         bean.setNote(formBean.getNote());
-        bean.setFee(formBean.getFee());
         try {
             if (bNew) {
-                vehicleDAO.insertOldShell(bean);
+                gasDAO.insertOldShell(bean);
             } else {
-                vehicleDAO.updateOldShell(bean);
+                gasDAO.updateOldShell(bean);
             }
         } catch (Exception ex) {
             ex.printStackTrace();

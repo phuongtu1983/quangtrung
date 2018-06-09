@@ -59,6 +59,7 @@
         <form-bean name="unitForm" type="com.stepup.gasoline.qt.unit.UnitFormBean"/>
         <form-bean name="fractionForm" type="com.stepup.gasoline.qt.fraction.FractionFormBean"/>
         <form-bean name="gasImportForm" type="com.stepup.gasoline.qt.gasimport.GasImportFormBean"/>
+        <form-bean name="shellReturnForm" type="com.stepup.gasoline.qt.shellreturn.ShellReturnFormBean"/>
         <form-bean name="petroImportForm" type="com.stepup.gasoline.qt.petroimport.PetroImportFormBean"/>
         <form-bean name="accessoryImportForm" type="com.stepup.gasoline.qt.accessoryimport.AccessoryImportFormBean"/>
         <form-bean name="promotionMaterialImportForm" type="com.stepup.gasoline.qt.promotionmaterialimport.PromotionMaterialImportFormBean"/>
@@ -680,6 +681,23 @@
         <action path="/delOldShell" type="com.stepup.gasoline.qt.oldshell.DeleteOldShellAction" scope="request" validate="false" >
         </action>
         <!-- end old shell -->
+        <!-- start shell return -->
+        <action path="/getShellReturnPanel" type="com.stepup.gasoline.qt.common.BaseFormAction" scope="request" validate="false">
+            <forward name="success" path="/shellreturn/shellreturnpanel.jsp" />
+        </action>
+        <action path="/getShellReturnList" type="com.stepup.gasoline.qt.shellreturn.GetShellReturnListAction" scope="request" validate="false" >
+        </action>
+        <action path="/shellReturnForm" type="com.stepup.gasoline.qt.shellreturn.ShellReturnFormAction" scope="request" validate="false">
+            <forward name="success" path="/shellreturn/shellreturndetail.jsp" />
+        </action>
+        <action path="/addShellReturn" name ="shellReturnForm" scope="request" type="com.stepup.gasoline.qt.shellreturn.AddShellReturnAction" input="/shellReturnForm.do">
+        </action>
+        <action path="/getShellReturnShell" type="com.stepup.gasoline.qt.shellreturn.GetShellReturnShellAction" scope="request" validate="false">
+            <forward name="success" path="/shellreturn/shells.jsp" />
+        </action>
+        <action path="/delShellReturn" type="com.stepup.gasoline.qt.shellreturn.DeleteShellReturnAction" scope="request" validate="false" >
+        </action>
+        <!-- end shell return -->
     </action-mappings>
     
     <controller processorClass="org.apache.struts.tiles.TilesRequestProcessor"/>

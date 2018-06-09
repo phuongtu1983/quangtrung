@@ -7,7 +7,7 @@ package com.stepup.gasoline.qt.oldshell;
 import com.stepup.core.util.NumberUtil;
 import com.stepup.core.util.OutputUtil;
 import com.stepup.gasoline.qt.core.BaseAction;
-import com.stepup.gasoline.qt.dao.VehicleDAO;
+import com.stepup.gasoline.qt.dao.GasDAO;
 import java.util.ArrayList;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -27,8 +27,8 @@ public class GetOldShellListAction extends BaseAction {
         buff.append("<?xml version=\"1.0\" encoding=\"UTF-8\"?>");
         buff.append("<rows>");
         try {
-            VehicleDAO vehicleDAO = new VehicleDAO();
-            ArrayList list = vehicleDAO.searchOldShell(request.getParameter("fromDate"), request.getParameter("toDate"));
+            GasDAO gasDAO = new GasDAO();
+            ArrayList list = gasDAO.searchOldShell(request.getParameter("fromDate"), request.getParameter("toDate"));
             if (list != null) {
                 int length = list.size();
                 for (int i = 0; i < length; i++) {
