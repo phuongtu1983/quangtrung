@@ -553,6 +553,46 @@ public class GenerateMenu {
                 buff.append("</item>");//end function good
             }
 
+            buffTemp = new StringBuilder();
+            if (isHasPermission(PermissionUtil.OPERATION_LIST + "," + PermissionUtil.OPERATION_ADD,
+                    PermissionUtil.PER_DEBT_VENDOR + "," + PermissionUtil.PER_DEBT_RETAIL + "," + PermissionUtil.PER_DEBT_WHOLESALE)) {
+                if (isHasPermission(PermissionUtil.OPERATION_LIST + "," + PermissionUtil.OPERATION_ADD, PermissionUtil.PER_DEBT_VENDOR)) {
+                    buffTemp.append("<item id=\"debtvendors\" complex=\"true\" text=\"").append(QTUtil.getBundleString("debtVendor.title")).append("\">");
+                    if (isHasPermission(PermissionUtil.OPERATION_LIST, PermissionUtil.PER_DEBT_VENDOR)) {
+                        buffTemp.append("<item id=\"debtvendorlist\" text=\"").append(QTUtil.getBundleString("debtVendor.list.title")).append("\"/>");
+                    }
+                    if (isHasPermission(PermissionUtil.OPERATION_ADD, PermissionUtil.PER_DEBT_VENDOR)) {
+                        buffTemp.append("<item id=\"debtvendoradd\" text=\"").append(QTUtil.getBundleString("debtVendor.detail.add.title")).append("\"/>");
+                    }
+                    buffTemp.append("</item>");
+                }
+                if (isHasPermission(PermissionUtil.OPERATION_LIST + "," + PermissionUtil.OPERATION_ADD, PermissionUtil.PER_DEBT_RETAIL)) {
+                    buffTemp.append("<item id=\"debtretails\" complex=\"true\" text=\"").append(QTUtil.getBundleString("debtRetail.title")).append("\">");
+                    if (isHasPermission(PermissionUtil.OPERATION_LIST, PermissionUtil.PER_DEBT_RETAIL)) {
+                        buffTemp.append("<item id=\"debtretaillist\" text=\"").append(QTUtil.getBundleString("debtRetail.list.title")).append("\"/>");
+                    }
+                    if (isHasPermission(PermissionUtil.OPERATION_ADD, PermissionUtil.PER_DEBT_RETAIL)) {
+                        buffTemp.append("<item id=\"debtretailadd\" text=\"").append(QTUtil.getBundleString("debtRetail.detail.add.title")).append("\"/>");
+                    }
+                    buffTemp.append("</item>");
+                }
+                if (isHasPermission(PermissionUtil.OPERATION_LIST + "," + PermissionUtil.OPERATION_ADD, PermissionUtil.PER_DEBT_WHOLESALE)) {
+                    buffTemp.append("<item id=\"debtwholesales\" complex=\"true\" text=\"").append(QTUtil.getBundleString("debtWholesale.title")).append("\">");
+                    if (isHasPermission(PermissionUtil.OPERATION_LIST, PermissionUtil.PER_DEBT_WHOLESALE)) {
+                        buffTemp.append("<item id=\"debtwholesalelist\" text=\"").append(QTUtil.getBundleString("debtWholesale.list.title")).append("\"/>");
+                    }
+                    if (isHasPermission(PermissionUtil.OPERATION_ADD, PermissionUtil.PER_DEBT_WHOLESALE)) {
+                        buffTemp.append("<item id=\"debtwholesaleadd\" text=\"").append(QTUtil.getBundleString("debtWholesale.detail.add.title")).append("\"/>");
+                    }
+                    buffTemp.append("</item>");
+                }
+            }
+            if (buffTemp.length() > 0) {
+                buff.append("<item id=\"paymentfunction\" complex=\"true\" text=\"").append(QTUtil.getBundleString("menu.function.payment.title")).append("\">");//start function payment
+                buff.append(buffTemp);
+                buff.append("</item>");//end function payment
+            }
+
             buff.append("<item id=\"setting\" complex=\"true\" text=\"").append(QTUtil.getBundleString("menu.admin.setting.title")).append("\">");//start setting
             buff.append("<item id=\"resetpassword\" text=\"").append(QTUtil.getBundleString("message.passwordform.title")).append("\"/>");//reset pasword
             buff.append("</item>");//end setting

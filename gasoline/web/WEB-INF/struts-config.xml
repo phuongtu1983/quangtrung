@@ -73,6 +73,9 @@
         <form-bean name="exportWholesaleForm" type="com.stepup.gasoline.qt.exportwholesale.ExportWholesaleFormBean"/>
         <form-bean name="salePetroForm" type="com.stepup.gasoline.qt.salepetro.SalePetroFormBean"/>
         <form-bean name="saleShellForm" type="com.stepup.gasoline.qt.saleshell.SaleShellFormBean"/>
+        <form-bean name="debtVendorForm" type="com.stepup.gasoline.qt.debtvendor.DebtVendorFormBean"/>
+        <form-bean name="debtRetailForm" type="com.stepup.gasoline.qt.debtretail.DebtRetailFormBean"/>
+        <form-bean name="debtWholesaleForm" type="com.stepup.gasoline.qt.debtwholesale.DebtWholesaleFormBean"/>
     </form-beans>
     
     <global-exceptions>
@@ -800,6 +803,48 @@
             <forward name="success" path="/exportwholesale/customers.jsp" />
         </action>
         <!-- end export wholesale -->
+        <!-- start debt vendor -->
+        <action path="/getDebtVendorPanel" type="com.stepup.gasoline.qt.common.BaseStatusFormAction" scope="request" validate="false">
+            <forward name="success" path="/debtvendor/debtvendorpanel.jsp" />
+        </action>
+        <action path="/getDebtVendorList" type="com.stepup.gasoline.qt.debtvendor.GetDebtVendorListAction" scope="request" validate="false" >
+        </action>
+        <action path="/debtVendorForm" type="com.stepup.gasoline.qt.debtvendor.DebtVendorFormAction" scope="request" validate="false">
+            <forward name="success" path="/debtvendor/debtvendordetail.jsp" />
+        </action>
+        <action path="/addDebtVendor" name ="debtVendorForm" scope="request" type="com.stepup.gasoline.qt.debtvendor.AddDebtVendorAction" input="/debtVendorForm.do">
+        </action>
+        <action path="/delDebtVendor" type="com.stepup.gasoline.qt.debtvendor.DeleteDebtVendorAction" scope="request" validate="false" >
+        </action>
+        <!-- end debt vendor -->
+        <!-- start debt retail -->
+        <action path="/getDebtRetailPanel" type="com.stepup.gasoline.qt.common.BaseStatusFormAction" scope="request" validate="false">
+            <forward name="success" path="/debtretail/debtretailpanel.jsp" />
+        </action>
+        <action path="/getDebtRetailList" type="com.stepup.gasoline.qt.debtretail.GetDebtRetailListAction" scope="request" validate="false" >
+        </action>
+        <action path="/debtRetailForm" type="com.stepup.gasoline.qt.debtretail.DebtRetailFormAction" scope="request" validate="false">
+            <forward name="success" path="/debtretail/debtretaildetail.jsp" />
+        </action>
+        <action path="/addDebtRetail" name ="debtRetailForm" scope="request" type="com.stepup.gasoline.qt.debtretail.AddDebtRetailAction" input="/debtRetailForm.do">
+        </action>
+        <action path="/delDebtRetail" type="com.stepup.gasoline.qt.debtretail.DeleteDebtRetailAction" scope="request" validate="false" >
+        </action>
+        <!-- end debt retail -->
+        <!-- start debt wholesale -->
+        <action path="/getDebtWholesalePanel" type="com.stepup.gasoline.qt.common.BaseStatusFormAction" scope="request" validate="false">
+            <forward name="success" path="/debtwholesale/debtwholesalepanel.jsp" />
+        </action>
+        <action path="/getDebtWholesaleList" type="com.stepup.gasoline.qt.debtwholesale.GetDebtWholesaleListAction" scope="request" validate="false" >
+        </action>
+        <action path="/debtWholesaleForm" type="com.stepup.gasoline.qt.debtwholesale.DebtWholesaleFormAction" scope="request" validate="false">
+            <forward name="success" path="/debtwholesale/debtwholesaledetail.jsp" />
+        </action>
+        <action path="/addDebtWholesale" name ="debtWholesaleForm" scope="request" type="com.stepup.gasoline.qt.debtwholesale.AddDebtWholesaleAction" input="/debtWholesaleForm.do">
+        </action>
+        <action path="/delDebtWholesale" type="com.stepup.gasoline.qt.debtwholesale.DeleteDebtWholesaleAction" scope="request" validate="false" >
+        </action>
+        <!-- end debt wholesale -->
     </action-mappings>
     
     <controller processorClass="org.apache.struts.tiles.TilesRequestProcessor"/>

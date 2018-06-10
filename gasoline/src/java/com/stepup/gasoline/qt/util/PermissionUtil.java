@@ -131,4 +131,7 @@ public class PermissionUtil {
     public static int PER_VEHICLE_OUT = 43;
     public static int PER_VEHICLE_IN = 44;
     public static int PER_EXPORT_WHOLESALE = 45;
+    public static int PER_DEBT_VENDOR = 46;
+    public static int PER_DEBT_RETAIL = 47;
+    public static int PER_DEBT_WHOLESALE = 48;
 }

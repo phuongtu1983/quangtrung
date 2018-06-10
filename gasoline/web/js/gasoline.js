@@ -205,6 +205,18 @@ function menuClick(id) {
         loadExportWholesalePanel();
     else if (id == 'exportwholesaleadd')
         getExportWholesale(0);
+    else if (id == 'debtvendorlist')
+        loadDebtVendorPanel();
+    else if (id == 'debtvendoradd')
+        getDebtVendor(0, 'loadDebtVendorPanel');
+    else if (id == 'debtretaillist')
+        loadDebtRetailPanel();
+    else if (id == 'debtretailadd')
+        getDebtRetail(0, 'loadDebtRetailPanel');
+    else if (id == 'debtwholesalelist')
+        loadDebtWholesalePanel();
+    else if (id == 'debtwholesaleadd')
+        getDebtWholesale(0, 'loadDebtWholesalePanel');
 }
 function clearContent() {
     var contentDiv = document.getElementById("contentDiv");
@@ -6171,3 +6183,301 @@ function loadCustomerExportWholesale() {
     callAjax("getCustomerListExportWholesale.do", "exportWholesaleCustomerId", null, null);
     return false;
 }
+function loadDebtVendorPanel() {
+    callAjax("getDebtVendorPanel.do", null, null, function(data) {
+        clearContent();
+        setAjaxData(data, "contentDiv");
+        var myCalendar = new dhtmlXCalendarObject(["fromDate", "toDate"]);
+        myCalendar.setSkin('dhx_web');
+        var currentTime = getCurrentDate();
+        document.forms['debtVendorSearchForm'].fromDate.value = currentTime;
+        document.forms['debtVendorSearchForm'].toDate.value = currentTime;
+        myCalendar.setDateFormat("%d/%m/%Y");
+        loadDebtVendorList(currentTime, currentTime);
+    });
+    return false;
+}
+function loadDebtVendorList(fromDate, toDate) {
+    var mygrid = new dhtmlXGridObject('debtVendorList');
+    mygrid.setImagePath("js/dhtmlx/grid/imgs/");
+    mygrid.setHeader("S\u1ED1 phi\u1EBFu,Ng\u00E0y,Nh\u00E0 cung c\u1EA5p,S\u1ED1 ti\u1EC1n,Ghi ch\u00FA");
+    mygrid.attachHeader("#text_filter,#text_filter,#select_filter,#text_filter,#text_filter");
+    mygrid.setInitWidths("150,200,200,200,*");
+    mygrid.setColTypes("link,ro,ro,ro,ro");
+    mygrid.setColSorting("str,str,str,str,str");
+    mygrid.setSkin("light");
+    var height = contentHeight - 210;
+    mygrid.al(true, height);//enableAutoHeight
+    mygrid.enablePaging(true, 15, 3, "recinfoArea");
+    mygrid.setPagingSkin("toolbar", "dhx_skyblue");
+    mygrid.init();
+    var url = "getDebtVendorList.do?t=1";
+    if (fromDate != null)
+        url += "&fromDate=" + fromDate;
+    if (toDate != null)
+        url += "&toDate=" + toDate;
+    callAjax(url, null, null, function(data) {
+        mygrid.parse(data);
+    });
+    return false;
+}
+function getDebtVendor(id, handle) {
+    popupName = 'TH\u00D4NG TIN THANH TO\u00C1N C\u00D4NG N\u1EE2';
+    var url = 'debtVendorForm.do';
+    if (id != 0)
+        url += '?debtVendorId=' + id
+    callAjax(url, null, null, function(data) {
+        showPopupForm(data);
+        document.getElementById('callbackFunc').value = handle;
+        document.forms['debtVendorForm'].paid.focus();
+        tryNumberFormatCurrentcy(document.forms['debtVendorForm'].paid, "VND");
+        var myCalendar = new dhtmlXCalendarObject(["debtVendorDate"]);
+        myCalendar.setSkin('dhx_web');
+        if (id == 0) {
+            var currentDate = getCurrentDate();
+            document.forms['debtVendorForm'].debtVendorDate.value = currentDate;
+        }
+        myCalendar.setDateFormat("%d/%m/%Y");
+    });
+}
+function saveDebtVendor() {
+    if (scriptFunction == "saveDebtVendor")
+        return false;
+    var field = document.forms['debtVendorForm'].createdDate;
+    if (field.value == '') {
+        alert("Vui l\u00F2ng nh\u1EADp ng\u00E0y");
+        field.focus();
+        field = null;
+        return false;
+    }
+    field = document.forms['debtVendorForm'].paid;
+    if (field.value == '') {
+        alert("Vui l\u00F2ng nh\u1EADp s\u1ED1 ti\u1EC1n");
+        field.focus();
+        field = null;
+        return false;
+    }
+    field = null;
+    reformatNumberMoney(document.forms['debtVendorForm'].paid);
+    scriptFunction = "saveDebtVendor";
+    callAjaxCheckError("addDebtVendor.do", null, document.forms['debtVendorForm'], function(data) {
+        scriptFunction = "";
+        var handle = document.getElementById('callbackFunc').value;
+        if (confirm('B\u1EA1n c\u00F3 mu\u1ED1n nh\u1EADp ti\u1EBFp th\u00F4ng tin kh\u00E1c ?'))
+            getDebtVendor(0, handle);
+        else if (handle != '')
+            eval(handle + "()");
+        prepareHidePopup('debtVendorFormshowHelpHideDiv');
+    });
+    return false;
+}
+function delDebtVendor() {
+    callAjaxCheckError('delDebtVendor.do?debtVendorId=' + document.forms['debtVendorForm'].id.value, null, null, function() {
+        loadDebtVendorPanel();
+        prepareHidePopup('debtVendorFormshowHelpHideDiv');
+    });
+    return false;
+}
+function loadDebtRetailPanel() {
+    callAjax("getDebtRetailPanel.do", null, null, function(data) {
+        clearContent();
+        setAjaxData(data, "contentDiv");
+        var myCalendar = new dhtmlXCalendarObject(["fromDate", "toDate"]);
+        myCalendar.setSkin('dhx_web');
+        var currentTime = getCurrentDate();
+        document.forms['debtRetailSearchForm'].fromDate.value = currentTime;
+        document.forms['debtRetailSearchForm'].toDate.value = currentTime;
+        myCalendar.setDateFormat("%d/%m/%Y");
+        loadDebtRetailList(currentTime, currentTime);
+    });
+    return false;
+}
+function loadDebtRetailList(fromDate, toDate) {
+    var mygrid = new dhtmlXGridObject('debtRetailList');
+    mygrid.setImagePath("js/dhtmlx/grid/imgs/");
+    mygrid.setHeader("S\u1ED1 phi\u1EBFu,Ng\u00E0y,Kh\u00E1ch h\u00E0ng,S\u1ED1 ti\u1EC1n,Ghi ch\u00FA");
+    mygrid.attachHeader("#text_filter,#text_filter,#select_filter,#text_filter,#text_filter");
+    mygrid.setInitWidths("150,200,200,200,*");
+    mygrid.setColTypes("link,ro,ro,ro,ro");
+    mygrid.setColSorting("str,str,str,str,str");
+    mygrid.setSkin("light");
+    var height = contentHeight - 210;
+    mygrid.al(true, height);//enableAutoHeight
+    mygrid.enablePaging(true, 15, 3, "recinfoArea");
+    mygrid.setPagingSkin("toolbar", "dhx_skyblue");
+    mygrid.init();
+    var url = "getDebtRetailList.do?t=1";
+    if (fromDate != null)
+        url += "&fromDate=" + fromDate;
+    if (toDate != null)
+        url += "&toDate=" + toDate;
+    callAjax(url, null, null, function(data) {
+        mygrid.parse(data);
+    });
+    return false;
+}
+function getDebtRetail(id, handle) {
+    popupName = 'TH\u00D4NG TIN THANH TO\u00C1N C\u00D4NG N\u1EE2';
+    var url = 'debtRetailForm.do';
+    if (id != 0)
+        url += '?debtRetailId=' + id
+    callAjax(url, null, null, function(data) {
+        showPopupForm(data);
+        document.getElementById('callbackFunc').value = handle;
+        document.forms['debtRetailForm'].paid.focus();
+        tryNumberFormatCurrentcy(document.forms['debtRetailForm'].paid, "VND");
+        var myCalendar = new dhtmlXCalendarObject(["debtRetailDate"]);
+        myCalendar.setSkin('dhx_web');
+        if (id == 0) {
+            var currentDate = getCurrentDate();
+            document.forms['debtRetailForm'].debtRetailDate.value = currentDate;
+        }
+        myCalendar.setDateFormat("%d/%m/%Y");
+    });
+}
+function saveDebtRetail() {
+    if (scriptFunction == "saveDebtRetail")
+        return false;
+    var field = document.forms['debtRetailForm'].createdDate;
+    if (field.value == '') {
+        alert("Vui l\u00F2ng nh\u1EADp ng\u00E0y");
+        field.focus();
+        field = null;
+        return false;
+    }
+    field = document.forms['debtRetailForm'].paid;
+    if (field.value == '') {
+        alert("Vui l\u00F2ng nh\u1EADp s\u1ED1 ti\u1EC1n");
+        field.focus();
+        field = null;
+        return false;
+    }
+    field = null;
+    reformatNumberMoney(document.forms['debtRetailForm'].paid);
+    scriptFunction = "saveDebtRetail";
+    callAjaxCheckError("addDebtRetail.do", null, document.forms['debtRetailForm'], function(data) {
+        scriptFunction = "";
+        var handle = document.getElementById('callbackFunc').value;
+        if (confirm('B\u1EA1n c\u00F3 mu\u1ED1n nh\u1EADp ti\u1EBFp th\u00F4ng tin kh\u00E1c ?'))
+            getDebtRetail(0, handle);
+        else if (handle != '')
+            eval(handle + "()");
+        prepareHidePopup('debtRetailFormshowHelpHideDiv');
+    });
+    return false;
+}
+function delDebtRetail() {
+    callAjaxCheckError('delDebtRetail.do?debtRetailId=' + document.forms['debtRetailForm'].id.value, null, null, function() {
+        loadDebtRetailPanel();
+        prepareHidePopup('debtRetailFormshowHelpHideDiv');
+    });
+    return false;
+}
+function loadDebtWholesalePanel() {
+    callAjax("getDebtWholesalePanel.do", null, null, function(data) {
+        clearContent();
+        setAjaxData(data, "contentDiv");
+        var myCalendar = new dhtmlXCalendarObject(["fromDate", "toDate"]);
+        myCalendar.setSkin('dhx_web');
+        var currentTime = getCurrentDate();
+        document.forms['debtWholesaleSearchForm'].fromDate.value = currentTime;
+        document.forms['debtWholesaleSearchForm'].toDate.value = currentTime;
+        myCalendar.setDateFormat("%d/%m/%Y");
+        loadDebtWholesaleList(currentTime, currentTime);
+    });
+    return false;
+}
+function loadDebtWholesaleList(fromDate, toDate) {
+    var mygrid = new dhtmlXGridObject('debtWholesaleList');
+    mygrid.setImagePath("js/dhtmlx/grid/imgs/");
+    mygrid.setHeader("S\u1ED1 phi\u1EBFu,Ng\u00E0y,Kh\u00E1ch h\u00E0ng,S\u1ED1 ti\u1EC1n,Ghi ch\u00FA");
+    mygrid.attachHeader("#text_filter,#text_filter,#select_filter,#text_filter,#text_filter");
+    mygrid.setInitWidths("150,200,200,200,*");
+    mygrid.setColTypes("link,ro,ro,ro,ro");
+    mygrid.setColSorting("str,str,str,str,str");
+    mygrid.setSkin("light");
+    var height = contentHeight - 210;
+    mygrid.al(true, height);//enableAutoHeight
+    mygrid.enablePaging(true, 15, 3, "recinfoArea");
+    mygrid.setPagingSkin("toolbar", "dhx_skyblue");
+    mygrid.init();
+    var url = "getDebtWholesaleList.do?t=1";
+    if (fromDate != null)
+        url += "&fromDate=" + fromDate;
+    if (toDate != null)
+        url += "&toDate=" + toDate;
+    callAjax(url, null, null, function(data) {
+        mygrid.parse(data);
+    });
+    return false;
+}
+function getDebtWholesale(id, handle) {
+    popupName = 'TH\u00D4NG TIN THANH TO\u00C1N C\u00D4NG N\u1EE2';
+    var url = 'debtWholesaleForm.do';
+    if (id != 0)
+        url += '?debtWholesaleId=' + id
+    callAjax(url, null, null, function(data) {
+        showPopupForm(data);
+        document.getElementById('callbackFunc').value = handle;
+        document.forms['debtWholesaleForm'].paid.focus();
+        tryNumberFormatCurrentcy(document.forms['debtWholesaleForm'].paid, "VND");
+        var myCalendar = new dhtmlXCalendarObject(["debtWholesaleDate"]);
+        myCalendar.setSkin('dhx_web');
+        if (id == 0) {
+            var currentDate = getCurrentDate();
+            document.forms['debtWholesaleForm'].debtWholesaleDate.value = currentDate;
+        }
+        myCalendar.setDateFormat("%d/%m/%Y");
+    });
+}
+function saveDebtWholesale() {
+    if (scriptFunction == "saveDebtWholesale")
+        return false;
+    var field = document.forms['debtWholesaleForm'].createdDate;
+    if (field.value == '') {
+        alert("Vui l\u00F2ng nh\u1EADp ng\u00E0y");
+        field.focus();
+        field = null;
+        return false;
+    }
+    field = document.forms['debtWholesaleForm'].paid;
+    if (field.value == '') {
+        alert("Vui l\u00F2ng nh\u1EADp s\u1ED1 ti\u1EC1n");
+        field.focus();
+        field = null;
+        return false;
+    }
+    field = null;
+    reformatNumberMoney(document.forms['debtWholesaleForm'].paid);
+    scriptFunction = "saveDebtWholesale";
+    callAjaxCheckError("addDebtWholesale.do", null, document.forms['debtWholesaleForm'], function(data) {
+        scriptFunction = "";
+        var handle = document.getElementById('callbackFunc').value;
+        if (confirm('B\u1EA1n c\u00F3 mu\u1ED1n nh\u1EADp ti\u1EBFp th\u00F4ng tin kh\u00E1c ?'))
+            getDebtWholesale(0, handle);
+        else if (handle != '')
+            eval(handle + "()");
+        prepareHidePopup('debtWholesaleFormshowHelpHideDiv');
+    });
+    return false;
+}
+function delDebtWholesale() {
+    callAjaxCheckError('delDebtWholesale.do?debtWholesaleId=' + document.forms['debtWholesaleForm'].id.value, null, null, function() {
+        loadDebtWholesalePanel();
+        prepareHidePopup('debtWholesaleFormshowHelpHideDiv');
+    });
+    return false;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+

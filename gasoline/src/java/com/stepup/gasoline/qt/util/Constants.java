@@ -111,4 +111,7 @@ public class Constants {
     public static final String EXPORT_WHOLESALE = "exportWholesale";
     public static final String EXPORT_WHOLESALE_SHELL = "exportWholesaleShell";
     public static final String EXPORT_WHOLESALE_RETURN = "exportWholesaleReturn";
+    public static final String DEBT_VENDOR = "debtVendor";
+    public static final String DEBT_RETAIL = "debtRetail";
+    public static final String DEBT_WHOLESALE = "debtWholesale";
 }

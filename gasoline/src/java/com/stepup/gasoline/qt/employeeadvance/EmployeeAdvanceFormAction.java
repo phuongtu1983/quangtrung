@@ -5,7 +5,6 @@
 package com.stepup.gasoline.qt.employeeadvance;
 
 import com.stepup.core.util.DateUtil;
-import com.stepup.gasoline.qt.bean.AccountBean;
 import com.stepup.gasoline.qt.bean.EmployeeAdvanceBean;
 import com.stepup.gasoline.qt.bean.EmployeeBean;
 import com.stepup.gasoline.qt.core.SpineAction;
@@ -19,7 +18,6 @@ import javax.servlet.http.HttpServletResponse;
 import org.apache.commons.validator.GenericValidator;
 import org.apache.struts.action.ActionForm;
 import org.apache.struts.action.ActionMapping;
-import org.apache.struts.util.LabelValueBean;
 
 /**
  *
