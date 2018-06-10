@@ -100,4 +100,15 @@ public class Constants {
     public static final String SHELL_RETURN_SHELL = "shellReturnShell";
     public static final String GAS_RETURN = "gasReturn";
     public static final String GAS_RETURN_GOOD = "gasReturnGood";
+    public static final String SHELL_RETURN_SUPPLIER = "shellReturnSupplier";
+    public static final String SHELL_RETURN_SUPPLIER_SHELL = "shellReturnSupplierShell";
+    public static final String VEHICLE_OUT = "vehicleOut";
+    public static final String VEHICLE_OUT_GOOD = "vehicleOutGood";
+    public static final String VEHICLE_OUT_EMPLOYEE = "vehicleOutEmployee";
+    public static final String VEHICLE_IN = "vehicleIn";
+    public static final String VEHICLE_IN_SHELL = "vehicleInShell";
+    public static final String VEHICLE_IN_RETURN = "vehicleInReturn";
+    public static final String EXPORT_WHOLESALE = "exportWholesale";
+    public static final String EXPORT_WHOLESALE_SHELL = "exportWholesaleShell";
+    public static final String EXPORT_WHOLESALE_RETURN = "exportWholesaleReturn";
 }

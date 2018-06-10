@@ -127,4 +127,8 @@ public class PermissionUtil {
     public static int PER_OLD_SHELL = 39;
     public static int PER_SHELL_RETURN = 40;
     public static int PER_GAS_RETURN = 41;
+    public static int PER_SHELL_RETURN_SUPPLIER = 42;
+    public static int PER_VEHICLE_OUT = 43;
+    public static int PER_VEHICLE_IN = 44;
+    public static int PER_EXPORT_WHOLESALE = 45;
 }

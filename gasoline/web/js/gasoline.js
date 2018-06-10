@@ -189,6 +189,22 @@ function menuClick(id) {
         loadGasReturnPanel();
     else if (id == 'gasreturnadd')
         getGasReturn(0);
+    else if (id == 'shellreturnsupplierlist')
+        loadShellReturnSupplierPanel();
+    else if (id == 'shellreturnsupplieradd')
+        getShellReturnSupplier(0);
+    else if (id == 'vehicleoutlist')
+        loadVehicleOutPanel();
+    else if (id == 'vehicleoutadd')
+        getVehicleOut(0);
+    else if (id == 'vehicleinlist')
+        loadVehicleInPanel();
+    else if (id == 'vehicleinadd')
+        getVehicleIn(0);
+    else if (id == 'exportwholesalelist')
+        loadExportWholesalePanel();
+    else if (id == 'exportwholesaleadd')
+        getExportWholesale(0);
 }
 function clearContent() {
     var contentDiv = document.getElementById("contentDiv");
@@ -287,7 +303,8 @@ function caculateFormListDetail(goodId, formName) {
     quantity = null;
     price = null;
     detTotal = null;
-    caculateListTotal(formName);
+    if (formName != null)
+        caculateListTotal(formName);
     return false;
 }
 function caculateListTotal(formName) {
@@ -5369,4 +5386,788 @@ function delGasReturn() {
     });
     return false;
 }
-
+function loadShellReturnSupplierPanel() {
+    callAjax("getShellReturnSupplierPanel.do", null, null, function(data) {
+        clearContent();
+        setAjaxData(data, "contentDiv");
+        var myCalendar = new dhtmlXCalendarObject(["fromDate", "toDate"]);
+        myCalendar.setSkin('dhx_web');
+        var currentTime = getCurrentDate();
+        document.forms['shellReturnSupplierSearchForm'].fromDate.value = currentTime;
+        document.forms['shellReturnSupplierSearchForm'].toDate.value = currentTime;
+        myCalendar.setDateFormat("%d/%m/%Y");
+        loadShellReturnSupplierList(currentTime, currentTime);
+    });
+    return false;
+}
+function loadShellReturnSupplierList(fromDate, toDate) {
+    var mygrid = new dhtmlXGridObject('shellReturnSupplierList');
+    mygrid.setImagePath("js/dhtmlx/grid/imgs/");
+    mygrid.setHeader("S\u1ED1 phi\u1EBFu,Ng\u00E0y,Nh\u00E0 cung c\u1EA5p,Ghi ch\u00FA");
+    mygrid.attachHeader("#text_filter,#select_filter,#select_filter,#text_filter");
+    mygrid.setInitWidths("150,200,200,*");
+    mygrid.setColTypes("link,ro,ro,ro");
+    mygrid.setColSorting("str,str,str,str");
+    mygrid.setSkin("light");
+    var height = contentHeight - 210;
+    mygrid.al(true, height);//enableAutoHeight
+    mygrid.enablePaging(true, 15, 3, "recinfoArea");
+    mygrid.setPagingSkin("toolbar", "dhx_skyblue");
+    mygrid.init();
+    var url = "getShellReturnSupplierList.do?t=1";
+    if (fromDate != null)
+        url += "&fromDate=" + fromDate;
+    if (toDate != null)
+        url += "&toDate=" + toDate;
+    callAjax(url, null, null, function(data) {
+        mygrid.parse(data);
+    });
+    return false;
+}
+function getShellReturnSupplier(id) {
+    var url = 'shellReturnSupplierForm.do';
+    if (id != 0)
+        url += '?shellReturnSupplierId=' + id
+    callAjax(url, null, null, function(data) {
+        clearContent();
+        setAjaxData(data, 'contentDiv');
+//        var myCalendar = new dhtmlXCalendarObject(["shellReturnSupplierCreatedDate"]);
+//        myCalendar.setSkin('dhx_web');
+        if (id == 0) {
+            var currentDate = getCurrentDate();
+            document.forms['shellReturnSupplierForm'].shellReturnSupplierCreatedDate.value = currentDate;
+        }
+//        myCalendar.setDateFormat("%d/%m/%Y");
+        formatShellReturnSupplierDetail();
+    });
+}
+function saveShellReturnSupplier() {
+    if (scriptFunction == "saveShellReturnSupplier")
+        return false;
+    var quantity = document.forms['shellReturnSupplierForm'].quantity;
+    if (quantity == null) {
+        alert('Vui l\u00F2ng ch\u1ECDn h\u00E0ng h\u00F3a');
+        return false;
+    }
+    if (quantity.length != null) {
+        for (var i = 0; i < quantity.length; i++) {
+            var number = Number(quantity[i].value);
+            if (number == 0) {
+                alert('Vui l\u00F2ng nh\u1EADp s\u1ED1 l\u01B0\u1EE3ng');
+                quantity[i].focus();
+                quantity = null;
+                return false;
+            }
+            reformatNumberMoney(quantity[i]);
+        }
+    } else {
+        if (quantity.value == "0") {
+            alert('Vui l\u00F2ng nh\u1EADp s\u1ED1 l\u01B0\u1EE3ng');
+            quantity.focus();
+            quantity = null;
+            return false;
+        }
+        reformatNumberMoney(quantity);
+    }
+    quantity = null;
+    scriptFunction = "saveShellReturnSupplier";
+    callAjaxCheckError("addShellReturnSupplier.do", null, document.forms['shellReturnSupplierForm'], function(data) {
+        scriptFunction = "";
+        loadShellReturnSupplierPanel();
+    });
+    return false;
+}
+function addShellReturnSupplierShell() {
+    var shell = document.forms['shellReturnSupplierForm'].shellIdCombobox;
+    if (shell == null && shell.selectedIndex == -1)
+        shell = null;
+    else
+        shell = shell.options[shell.selectedIndex].value;
+    if (shell == -1 || shell == 0)
+        return false;
+    var shellId = document.forms['shellReturnSupplierForm'].shellId;
+    var existed = false;
+    if (shellId != null) {
+        if (shellId.length != null) {
+            for (i = 0; i < shellId.length; i++) {
+                if (shellId[i].value == shell) {
+                    existed = true;
+                    break;
+                }
+            }
+        } else if (shellId.value == shell)
+            existed = true;
+    }
+    shellId = null;
+    if (existed == true) {
+        alert("H\u00E0ng ho\u00E1 \u0111\u00E3 t\u1ED3n t\u1EA1i");
+        return false;
+    }
+    callAjax("getShellReturnSupplierShell.do?shellId=" + shell, null, null, function(data) {
+        setAjaxData(data, 'shellReturnSupplierShellHideDiv');
+        var matTable = document.getElementById('shellReturnSupplierShellTbl');
+        var detTable = document.getElementById('shellReturnSupplierDetailTbl');
+        if (matTable.tBodies[0] == null || detTable.tBodies[0] == null) {
+            matTable = null;
+            detTable = null;
+            return;
+        }
+        for (var i = matTable.tBodies[0].rows.length - 1; i >= 0; i--)
+            detTable.tBodies[0].appendChild(matTable.tBodies[0].rows[i]);
+        matTable = null;
+        detTable = null;
+        formatShellReturnSupplierDetail();
+    });
+    return false;
+}
+function delShellReturnSupplier() {
+    callAjaxCheckError('delShellReturnSupplier.do?shellReturnSupplierId=' + document.forms['shellReturnSupplierForm'].id.value, null, null, function() {
+        loadShellReturnSupplierPanel();
+    });
+    return false;
+}
+function formatShellReturnSupplierDetail() {
+    var quantity = document.forms['shellReturnSupplierForm'].quantity;
+    if (quantity != null) {
+        if (quantity.length != null) {
+            for (var i = 0; i < quantity.length; i++) {
+                tryNumberFormatCurrentcy(quantity[i], "VND");
+            }
+        } else {
+            tryNumberFormatCurrentcy(quantity, "VND");
+        }
+    }
+    quantity = null;
+}
+function loadVehicleOutPanel() {
+    callAjax("getVehicleOutPanel.do", null, null, function(data) {
+        clearContent();
+        setAjaxData(data, "contentDiv");
+        var myCalendar = new dhtmlXCalendarObject(["fromDate", "toDate"]);
+        myCalendar.setSkin('dhx_web');
+        var currentTime = getCurrentDate();
+        document.forms['vehicleOutSearchForm'].fromDate.value = currentTime;
+        document.forms['vehicleOutSearchForm'].toDate.value = currentTime;
+        myCalendar.setDateFormat("%d/%m/%Y");
+        loadVehicleOutList(currentTime, currentTime);
+    });
+    return false;
+}
+function loadVehicleOutList(fromDate, toDate) {
+    var mygrid = new dhtmlXGridObject('vehicleOutList');
+    mygrid.setImagePath("js/dhtmlx/grid/imgs/");
+    mygrid.setHeader("M\u00E3 phi\u1EBFu,Ng\u00E0y,S\u1ED1 xe,Ghi ch\u00FA");
+    mygrid.attachHeader("#text_filter,#text_filter,#select_filter,#text_filter");
+    mygrid.setInitWidths("150,100,150,*");
+    mygrid.setColTypes("link,ro,ro,ro");
+    mygrid.setColSorting("str,str,str,str");
+    mygrid.setSkin("light");
+    var height = contentHeight - 210;
+    mygrid.al(true, height);//enableAutoHeight
+    mygrid.enablePaging(true, 15, 3, "recinfoArea");
+    mygrid.setPagingSkin("toolbar", "dhx_skyblue");
+    mygrid.init();
+    var url = "getVehicleOutList.do?t=1";
+    if (fromDate != null)
+        url += "&fromDate=" + fromDate;
+    if (toDate != null)
+        url += "&toDate=" + toDate;
+    callAjax(url, null, null, function(data) {
+        mygrid.parse(data);
+    });
+    return false;
+}
+function getVehicleOut(id) {
+    var url = 'vehicleOutForm.do';
+    if (id != 0)
+        url += '?vehicleOutId=' + id
+    callAjax(url, null, null, function(data) {
+        clearContent();
+        setAjaxData(data, 'contentDiv');
+//        var myCalendar = new dhtmlXCalendarObject(["vehicleOutCreatedDate"]);
+//        myCalendar.setSkin('dhx_web');
+        if (id == 0) {
+            var currentDate = getCurrentDate();
+            document.forms['vehicleOutForm'].vehicleOutCreatedDate.value = currentDate;
+        }
+//        myCalendar.setDateFormat("%d/%m/%Y");
+        formatFormDetail('vehicleOutForm');
+    });
+}
+function saveVehicleOut() {
+    if (scriptFunction == "saveVehicleOut")
+        return false;
+    var quantity = document.forms['vehicleOutForm'].quantity;
+    if (quantity == null) {
+        alert('Vui l\u00F2ng ch\u1ECDn h\u00E0ng h\u00F3a');
+        return false;
+    }
+    var price = document.forms['vehicleOutForm'].price;
+    var amount = document.forms['vehicleOutForm'].amount;
+    if (quantity.length != null) {
+        for (var i = 0; i < quantity.length; i++) {
+            var number = Number(quantity[i].value);
+            if (number == 0) {
+                alert('Vui l\u00F2ng nh\u1EADp s\u1ED1 l\u01B0\u1EE3ng');
+                quantity[i].focus();
+                quantity = null;
+                return false;
+            }
+        }
+    } else {
+        if (quantity.value == "0") {
+            alert('Vui l\u00F2ng nh\u1EADp s\u1ED1 l\u01B0\u1EE3ng');
+            quantity.focus();
+            quantity = null;
+            return false;
+        }
+    }
+    quantity = null;
+    price = null;
+    amount = null;
+    reformatFormDetail('vehicleOutForm');
+    scriptFunction = "saveVehicleOut";
+    callAjaxCheckError("addVehicleOut.do", null, document.forms['vehicleOutForm'], function(data) {
+        scriptFunction = "";
+        loadVehicleOutPanel();
+    });
+    return false;
+}
+function addVehicleOutGood() {
+    var good = document.forms['vehicleOutForm'].goodIdCombobox;
+    if (good == null && good.selectedIndex == -1)
+        good = null;
+    else
+        good = good.options[good.selectedIndex].value;
+    if (good == -1 || good == 0)
+        return false;
+    var goodId = document.forms['vehicleOutForm'].shellId;
+    var existed = false;
+    if (goodId != null) {
+        if (goodId.length != null) {
+            for (i = 0; i < goodId.length; i++) {
+                if (goodId[i].value == good) {
+                    existed = true;
+                    break;
+                }
+            }
+        } else if (goodId.value == good)
+            existed = true;
+    }
+    goodId = null;
+    if (existed == true) {
+        alert("H\u00E0ng ho\u00E1 \u0111\u00E3 t\u1ED3n t\u1EA1i");
+        return false;
+    }
+    callAjax("getVehicleOutGood.do?shellId=" + good, null, null, function(data) {
+        setAjaxData(data, 'vehicleOutGoodHideDiv');
+        var matTable = document.getElementById('vehicleOutGoodTbl');
+        var detTable = document.getElementById('vehicleOutDetailTbl');
+        if (matTable.tBodies[0] == null || detTable.tBodies[0] == null) {
+            matTable = null;
+            detTable = null;
+            return;
+        }
+        for (var i = matTable.tBodies[0].rows.length - 1; i >= 0; i--)
+            detTable.tBodies[0].appendChild(matTable.tBodies[0].rows[i]);
+        matTable = null;
+        detTable = null;
+        formatFormDetail('vehicleOutForm');
+    });
+    return false;
+}
+function delVehicleOut() {
+    callAjaxCheckError('delVehicleOut.do?vehicleOutId=' + document.forms['vehicleOutForm'].id.value, null, null, function() {
+        loadVehicleOutPanel();
+    });
+    return false;
+}
+function addVehicleOutEmployee() {
+    var employee = document.forms['vehicleOutForm'].employeeIdCombobox;
+    if (employee == null && employee.selectedIndex == -1)
+        employee = null;
+    else
+        employee = employee.options[employee.selectedIndex].value;
+    if (employee == -1 || employee == 0)
+        return false;
+    var employeeId = document.forms['vehicleOutForm'].employeeId;
+    var existed = false;
+    if (employeeId != null) {
+        if (employeeId.length != null) {
+            for (i = 0; i < employeeId.length; i++) {
+                if (employeeId[i].value == employee) {
+                    existed = true;
+                    break;
+                }
+            }
+        } else if (employeeId.value == employee)
+            existed = true;
+    }
+    employeeId = null;
+    if (existed == true) {
+        alert("H\u00E0ng ho\u00E1 \u0111\u00E3 t\u1ED3n t\u1EA1i");
+        return false;
+    }
+    callAjax("getVehicleOutEmployee.do?employeeId=" + employee, null, null, function(data) {
+        setAjaxData(data, 'vehicleOutEmployeeHideDiv');
+        var matTable = document.getElementById('vehicleOutEmployeeTbl');
+        var detTable = document.getElementById('vehicleOutEmployeeDetailTbl');
+        if (matTable.tBodies[0] == null || detTable.tBodies[0] == null) {
+            matTable = null;
+            detTable = null;
+            return;
+        }
+        for (var i = matTable.tBodies[0].rows.length - 1; i >= 0; i--)
+            detTable.tBodies[0].appendChild(matTable.tBodies[0].rows[i]);
+        matTable = null;
+        detTable = null;
+        formatFormDetail('vehicleOutForm');
+    });
+    return false;
+}
+function loadVehicleInPanel() {
+    callAjax("getVehicleInPanel.do", null, null, function(data) {
+        clearContent();
+        setAjaxData(data, "contentDiv");
+        var myCalendar = new dhtmlXCalendarObject(["fromDate", "toDate"]);
+        myCalendar.setSkin('dhx_web');
+        var currentTime = getCurrentDate();
+        document.forms['vehicleInSearchForm'].fromDate.value = currentTime;
+        document.forms['vehicleInSearchForm'].toDate.value = currentTime;
+        myCalendar.setDateFormat("%d/%m/%Y");
+        loadVehicleInList(currentTime, currentTime);
+    });
+    return false;
+}
+function loadVehicleInList(fromDate, toDate) {
+    var mygrid = new dhtmlXGridObject('vehicleInList');
+    mygrid.setImagePath("js/dhtmlx/grid/imgs/");
+    mygrid.setHeader("M\u00E3 phi\u1EBFu,Ng\u00E0y,S\u1ED1 xe,Ghi ch\u00FA");
+    mygrid.attachHeader("#text_filter,#text_filter,#select_filter,#text_filter");
+    mygrid.setInitWidths("150,100,150,*");
+    mygrid.setColTypes("link,ro,ro,ro");
+    mygrid.setColSorting("str,str,str,str");
+    mygrid.setSkin("light");
+    var height = contentHeight - 210;
+    mygrid.al(true, height);//enableAutoHeight
+    mygrid.enablePaging(true, 15, 3, "recinfoArea");
+    mygrid.setPagingSkin("toolbar", "dhx_skyblue");
+    mygrid.init();
+    var url = "getVehicleInList.do?t=1";
+    if (fromDate != null)
+        url += "&fromDate=" + fromDate;
+    if (toDate != null)
+        url += "&toDate=" + toDate;
+    callAjax(url, null, null, function(data) {
+        mygrid.parse(data);
+    });
+    return false;
+}
+function getVehicleIn(id) {
+    var url = 'vehicleInForm.do';
+    if (id != 0)
+        url += '?vehicleInId=' + id
+    callAjax(url, null, null, function(data) {
+        clearContent();
+        setAjaxData(data, 'contentDiv');
+//        var myCalendar = new dhtmlXCalendarObject(["vehicleInCreatedDate"]);
+//        myCalendar.setSkin('dhx_web');
+        if (id == 0) {
+            var currentDate = getCurrentDate();
+            document.forms['vehicleInForm'].vehicleInCreatedDate.value = currentDate;
+        }
+//        myCalendar.setDateFormat("%d/%m/%Y");
+        formatFormDetail('vehicleInForm');
+        formatVehicleInReturnShellDetail();
+    });
+}
+function saveVehicleIn() {
+    if (scriptFunction == "saveVehicleIn")
+        return false;
+    var quantity = document.forms['vehicleInForm'].quantity;
+    if (quantity == null) {
+        alert('Vui l\u00F2ng ch\u1ECDn h\u00E0ng h\u00F3a');
+        return false;
+    }
+    var price = document.forms['vehicleInForm'].price;
+    var amount = document.forms['vehicleInForm'].amount;
+    if (quantity.length != null) {
+        for (var i = 0; i < quantity.length; i++) {
+            var number = Number(quantity[i].value);
+            if (number == 0) {
+                alert('Vui l\u00F2ng nh\u1EADp s\u1ED1 l\u01B0\u1EE3ng');
+                quantity[i].focus();
+                quantity = null;
+                return false;
+            }
+        }
+    } else {
+        if (quantity.value == "0") {
+            alert('Vui l\u00F2ng nh\u1EADp s\u1ED1 l\u01B0\u1EE3ng');
+            quantity.focus();
+            quantity = null;
+            return false;
+        }
+    }
+    quantity = null;
+    price = null;
+    amount = null;
+    reformatFormDetail('vehicleInForm');
+    reformatVehicleInReturnShellDetail();
+    scriptFunction = "saveVehicleIn";
+    callAjaxCheckError("addVehicleIn.do", null, document.forms['vehicleInForm'], function(data) {
+        scriptFunction = "";
+        loadVehicleInPanel();
+    });
+    return false;
+}
+function addVehicleInGood() {
+    var good = document.forms['vehicleInForm'].goodIdCombobox;
+    if (good == null && good.selectedIndex == -1)
+        good = null;
+    else
+        good = good.options[good.selectedIndex].value;
+    if (good == -1 || good == 0)
+        return false;
+    var goodId = document.forms['vehicleInForm'].shellId;
+    var existed = false;
+    if (goodId != null) {
+        if (goodId.length != null) {
+            for (i = 0; i < goodId.length; i++) {
+                if (goodId[i].value == good) {
+                    existed = true;
+                    break;
+                }
+            }
+        } else if (goodId.value == good)
+            existed = true;
+    }
+    goodId = null;
+    if (existed == true) {
+        alert("H\u00E0ng ho\u00E1 \u0111\u00E3 t\u1ED3n t\u1EA1i");
+        return false;
+    }
+    callAjax("getVehicleInGood.do?shellId=" + good, null, null, function(data) {
+        setAjaxData(data, 'vehicleInGoodHideDiv');
+        var matTable = document.getElementById('vehicleInGoodTbl');
+        var detTable = document.getElementById('vehicleInDetailTbl');
+        if (matTable.tBodies[0] == null || detTable.tBodies[0] == null) {
+            matTable = null;
+            detTable = null;
+            return;
+        }
+        for (var i = matTable.tBodies[0].rows.length - 1; i >= 0; i--)
+            detTable.tBodies[0].appendChild(matTable.tBodies[0].rows[i]);
+        matTable = null;
+        detTable = null;
+        formatFormDetail('vehicleInForm');
+    });
+    return false;
+}
+function delVehicleIn() {
+    callAjaxCheckError('delVehicleIn.do?vehicleInId=' + document.forms['vehicleInForm'].id.value, null, null, function() {
+        loadVehicleInPanel();
+    });
+    return false;
+}
+function addVehicleInReturnShell() {
+    var shell = document.forms['vehicleInForm'].returnShellIdCombobox;
+    if (shell == null && shell.selectedIndex == -1)
+        shell = null;
+    else
+        shell = shell.options[shell.selectedIndex].value;
+    if (shell == -1 || shell == 0)
+        return false;
+    var returnShellId = document.forms['vehicleInForm'].returnShellId;
+    var existed = false;
+    if (returnShellId != null) {
+        if (returnShellId.length != null) {
+            for (i = 0; i < returnShellId.length; i++) {
+                if (returnShellId[i].value == shell) {
+                    existed = true;
+                    break;
+                }
+            }
+        } else if (returnShellId.value == shell)
+            existed = true;
+    }
+    returnShellId = null;
+    if (existed == true) {
+        alert("H\u00E0ng ho\u00E1 \u0111\u00E3 t\u1ED3n t\u1EA1i");
+        return false;
+    }
+    callAjax("getVehicleInReturnShell.do?shellId=" + shell, null, null, function(data) {
+        setAjaxData(data, 'vehicleInReturnShellHideDiv');
+        var matTable = document.getElementById('vehicleInReturnShellTbl');
+        var detTable = document.getElementById('vehicleInReturnShellDetailTbl');
+        if (matTable.tBodies[0] == null || detTable.tBodies[0] == null) {
+            matTable = null;
+            detTable = null;
+            return;
+        }
+        for (var i = matTable.tBodies[0].rows.length - 1; i >= 0; i--)
+            detTable.tBodies[0].appendChild(matTable.tBodies[0].rows[i]);
+        matTable = null;
+        detTable = null;
+        reformatVehicleInReturnShellDetail();
+    });
+    return false;
+}
+function reformatVehicleInReturnShellDetail() {
+    var quantity = document.forms['vehicleInForm'].returnShellQuantity;
+    if (quantity != null) {
+        if (quantity.length != null) {
+            for (var i = 0; i < quantity.length; i++) {
+                reformatNumberMoney(quantity[i]);
+            }
+        } else {
+            reformatNumberMoney(quantity);
+        }
+    }
+    quantity = null;
+}
+function formatVehicleInReturnShellDetail() {
+    var quantity = document.forms['vehicleInForm'].returnShellQuantity;
+    if (quantity != null) {
+        if (quantity.length != null) {
+            for (var i = 0; i < quantity.length; i++) {
+                tryNumberFormatCurrentcy(quantity[i], "VND");
+            }
+        } else {
+            tryNumberFormatCurrentcy(quantity, "VND");
+        }
+    }
+    quantity = null;
+}
+function loadExportWholesalePanel() {
+    callAjax("getExportWholesalePanel.do", null, null, function(data) {
+        clearContent();
+        setAjaxData(data, "contentDiv");
+        var myCalendar = new dhtmlXCalendarObject(["fromDate", "toDate"]);
+        myCalendar.setSkin('dhx_web');
+        var currentTime = getCurrentDate();
+        document.forms['exportWholesaleSearchForm'].fromDate.value = currentTime;
+        document.forms['exportWholesaleSearchForm'].toDate.value = currentTime;
+        myCalendar.setDateFormat("%d/%m/%Y");
+        loadExportWholesaleList(currentTime, currentTime);
+    });
+    return false;
+}
+function loadExportWholesaleList(fromDate, toDate) {
+    var mygrid = new dhtmlXGridObject('exportWholesaleList');
+    mygrid.setImagePath("js/dhtmlx/grid/imgs/");
+    mygrid.setHeader("M\u00E3 phi\u1EBFu,Ng\u00E0y,Kh\u00E1ch h\u00E0ng,T\u1ED5ng ti\u1EC1n,Thanh to\u00E1n,C\u00F2n n\u1EE3,Ghi ch\u00FA");
+    mygrid.attachHeader("#text_filter,#text_filter,#select_filter,#text_filter,#text_filter,#text_filter,#text_filter");
+    mygrid.setInitWidths("150,100,150,150,150,*");
+    mygrid.setColTypes("link,ro,ro,ro,ro,ro");
+    mygrid.setColSorting("str,str,str,str,str,str");
+    mygrid.setSkin("light");
+    var height = contentHeight - 210;
+    mygrid.al(true, height);//enableAutoHeight
+    mygrid.enablePaging(true, 15, 3, "recinfoArea");
+    mygrid.setPagingSkin("toolbar", "dhx_skyblue");
+    mygrid.init();
+    var url = "getExportWholesaleList.do?t=1";
+    if (fromDate != null)
+        url += "&fromDate=" + fromDate;
+    if (toDate != null)
+        url += "&toDate=" + toDate;
+    callAjax(url, null, null, function(data) {
+        mygrid.parse(data);
+    });
+    return false;
+}
+function getExportWholesale(id) {
+    var url = 'exportWholesaleForm.do';
+    if (id != 0)
+        url += '?exportWholesaleId=' + id
+    callAjax(url, null, null, function(data) {
+        clearContent();
+        setAjaxData(data, 'contentDiv');
+//        var myCalendar = new dhtmlXCalendarObject(["exportWholesaleCreatedDate"]);
+//        myCalendar.setSkin('dhx_web');
+        if (id == 0) {
+            var currentDate = getCurrentDate();
+            document.forms['exportWholesaleForm'].exportWholesaleCreatedDate.value = currentDate;
+        }
+//        myCalendar.setDateFormat("%d/%m/%Y");
+        tryNumberFormatCurrentcy(document.forms['exportWholesaleForm'].total, "VND");
+        tryNumberFormatCurrentcy(document.forms['exportWholesaleForm'].paid, "VND");
+        tryNumberFormatCurrentcy(document.forms['exportWholesaleForm'].debt, "VND");
+        tryNumberFormatCurrentcy(document.forms['exportWholesaleForm'].discount, "VND");
+        tryNumberFormatCurrentcy(document.forms['exportWholesaleForm'].totalPay, "VND");
+        formatFormDetail('exportWholesaleForm');
+        formatExportWholesaleReturnShellDetail();
+    });
+}
+function saveExportWholesale() {
+    if (scriptFunction == "saveExportWholesale")
+        return false;
+    var quantity = document.forms['exportWholesaleForm'].quantity;
+    if (quantity == null) {
+        alert('Vui l\u00F2ng ch\u1ECDn h\u00E0ng h\u00F3a');
+        return false;
+    }
+    var price = document.forms['exportWholesaleForm'].price;
+    var amount = document.forms['exportWholesaleForm'].amount;
+    if (quantity.length != null) {
+        for (var i = 0; i < quantity.length; i++) {
+            var number = Number(quantity[i].value);
+            if (number == 0) {
+                alert('Vui l\u00F2ng nh\u1EADp s\u1ED1 l\u01B0\u1EE3ng');
+                quantity[i].focus();
+                quantity = null;
+                return false;
+            }
+        }
+    } else {
+        if (quantity.value == "0") {
+            alert('Vui l\u00F2ng nh\u1EADp s\u1ED1 l\u01B0\u1EE3ng');
+            quantity.focus();
+            quantity = null;
+            return false;
+        }
+    }
+    quantity = null;
+    price = null;
+    amount = null;
+    reformatNumberMoney(document.forms['exportWholesaleForm'].total);
+    reformatNumberMoney(document.forms['exportWholesaleForm'].paid);
+    reformatNumberMoney(document.forms['exportWholesaleForm'].debt);
+    reformatNumberMoney(document.forms['exportWholesaleForm'].discount);
+    reformatNumberMoney(document.forms['exportWholesaleForm'].totalPay);
+    reformatFormDetail('exportWholesaleForm');
+    reformatExportWholesaleReturnShellDetail();
+    scriptFunction = "saveExportWholesale";
+    callAjaxCheckError("addExportWholesale.do", null, document.forms['exportWholesaleForm'], function(data) {
+        scriptFunction = "";
+        loadExportWholesalePanel();
+    });
+    return false;
+}
+function addExportWholesaleGood() {
+    var good = document.forms['exportWholesaleForm'].goodIdCombobox;
+    if (good == null && good.selectedIndex == -1)
+        good = null;
+    else
+        good = good.options[good.selectedIndex].value;
+    if (good == -1 || good == 0)
+        return false;
+    var goodId = document.forms['exportWholesaleForm'].shellId;
+    var existed = false;
+    if (goodId != null) {
+        if (goodId.length != null) {
+            for (i = 0; i < goodId.length; i++) {
+                if (goodId[i].value == good) {
+                    existed = true;
+                    break;
+                }
+            }
+        } else if (goodId.value == good)
+            existed = true;
+    }
+    goodId = null;
+    if (existed == true) {
+        alert("H\u00E0ng ho\u00E1 \u0111\u00E3 t\u1ED3n t\u1EA1i");
+        return false;
+    }
+    callAjax("getExportWholesaleGood.do?shellId=" + good, null, null, function(data) {
+        setAjaxData(data, 'exportWholesaleGoodHideDiv');
+        var matTable = document.getElementById('exportWholesaleGoodTbl');
+        var detTable = document.getElementById('exportWholesaleDetailTbl');
+        if (matTable.tBodies[0] == null || detTable.tBodies[0] == null) {
+            matTable = null;
+            detTable = null;
+            return;
+        }
+        for (var i = matTable.tBodies[0].rows.length - 1; i >= 0; i--)
+            detTable.tBodies[0].appendChild(matTable.tBodies[0].rows[i]);
+        matTable = null;
+        detTable = null;
+        formatFormDetail('exportWholesaleForm');
+    });
+    return false;
+}
+function delExportWholesale() {
+    callAjaxCheckError('delExportWholesale.do?exportWholesaleId=' + document.forms['exportWholesaleForm'].id.value, null, null, function() {
+        loadExportWholesalePanel();
+    });
+    return false;
+}
+function addExportWholesaleReturnShell() {
+    var shell = document.forms['exportWholesaleForm'].returnShellIdCombobox;
+    if (shell == null && shell.selectedIndex == -1)
+        shell = null;
+    else
+        shell = shell.options[shell.selectedIndex].value;
+    if (shell == -1 || shell == 0)
+        return false;
+    var returnShellId = document.forms['exportWholesaleForm'].returnShellId;
+    var existed = false;
+    if (returnShellId != null) {
+        if (returnShellId.length != null) {
+            for (i = 0; i < returnShellId.length; i++) {
+                if (returnShellId[i].value == shell) {
+                    existed = true;
+                    break;
+                }
+            }
+        } else if (returnShellId.value == shell)
+            existed = true;
+    }
+    returnShellId = null;
+    if (existed == true) {
+        alert("H\u00E0ng ho\u00E1 \u0111\u00E3 t\u1ED3n t\u1EA1i");
+        return false;
+    }
+    callAjax("getExportWholesaleReturnShell.do?shellId=" + shell, null, null, function(data) {
+        setAjaxData(data, 'exportWholesaleReturnShellHideDiv');
+        var matTable = document.getElementById('exportWholesaleReturnShellTbl');
+        var detTable = document.getElementById('exportWholesaleReturnShellDetailTbl');
+        if (matTable.tBodies[0] == null || detTable.tBodies[0] == null) {
+            matTable = null;
+            detTable = null;
+            return;
+        }
+        for (var i = matTable.tBodies[0].rows.length - 1; i >= 0; i--)
+            detTable.tBodies[0].appendChild(matTable.tBodies[0].rows[i]);
+        matTable = null;
+        detTable = null;
+        reformatExportWholesaleReturnShellDetail();
+    });
+    return false;
+}
+function reformatExportWholesaleReturnShellDetail() {
+    var quantity = document.forms['exportWholesaleForm'].returnShellQuantity;
+    if (quantity != null) {
+        if (quantity.length != null) {
+            for (var i = 0; i < quantity.length; i++) {
+                reformatNumberMoney(quantity[i]);
+            }
+        } else {
+            reformatNumberMoney(quantity);
+        }
+    }
+    quantity = null;
+}
+function formatExportWholesaleReturnShellDetail() {
+    var quantity = document.forms['exportWholesaleForm'].returnShellQuantity;
+    if (quantity != null) {
+        if (quantity.length != null) {
+            for (var i = 0; i < quantity.length; i++) {
+                tryNumberFormatCurrentcy(quantity[i], "VND");
+            }
+        } else {
+            tryNumberFormatCurrentcy(quantity, "VND");
+        }
+    }
+    quantity = null;
+}
+function addCustomerExportWholesale() {
+    getCustomer(0, 'loadCustomerExportWholesale', 2);
+    return false;
+}
+function loadCustomerExportWholesale() {
+    callAjax("getCustomerListExportWholesale.do", "exportWholesaleCustomerId", null, null);
+    return false;
+}

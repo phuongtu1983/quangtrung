@@ -59,13 +59,18 @@
         <form-bean name="unitForm" type="com.stepup.gasoline.qt.unit.UnitFormBean"/>
         <form-bean name="fractionForm" type="com.stepup.gasoline.qt.fraction.FractionFormBean"/>
         <form-bean name="gasImportForm" type="com.stepup.gasoline.qt.gasimport.GasImportFormBean"/>
+        <form-bean name="gasReturnForm" type="com.stepup.gasoline.qt.gasreturn.GasReturnFormBean"/>
         <form-bean name="shellReturnForm" type="com.stepup.gasoline.qt.shellreturn.ShellReturnFormBean"/>
+        <form-bean name="shellReturnSupplierForm" type="com.stepup.gasoline.qt.shellreturnsupplier.ShellReturnSupplierFormBean"/>
         <form-bean name="petroImportForm" type="com.stepup.gasoline.qt.petroimport.PetroImportFormBean"/>
         <form-bean name="accessoryImportForm" type="com.stepup.gasoline.qt.accessoryimport.AccessoryImportFormBean"/>
         <form-bean name="promotionMaterialImportForm" type="com.stepup.gasoline.qt.promotionmaterialimport.PromotionMaterialImportFormBean"/>
         <form-bean name="gasWholesaleForm" type="com.stepup.gasoline.qt.gaswholesale.GasWholesaleFormBean"/>
         <form-bean name="gasRetailForm" type="com.stepup.gasoline.qt.gasretail.GasRetailFormBean"/>
         <form-bean name="saleAccessoryForm" type="com.stepup.gasoline.qt.saleaccessory.SaleAccessoryFormBean"/>
+        <form-bean name="vehicleOutForm" type="com.stepup.gasoline.qt.vehicleout.VehicleOutFormBean"/>
+        <form-bean name="vehicleInForm" type="com.stepup.gasoline.qt.vehiclein.VehicleInFormBean"/>
+        <form-bean name="exportWholesaleForm" type="com.stepup.gasoline.qt.exportwholesale.ExportWholesaleFormBean"/>
         <form-bean name="salePetroForm" type="com.stepup.gasoline.qt.salepetro.SalePetroFormBean"/>
         <form-bean name="saleShellForm" type="com.stepup.gasoline.qt.saleshell.SaleShellFormBean"/>
     </form-beans>
@@ -698,6 +703,103 @@
         <action path="/delShellReturn" type="com.stepup.gasoline.qt.shellreturn.DeleteShellReturnAction" scope="request" validate="false" >
         </action>
         <!-- end shell return -->
+        <!-- start gasreturn -->
+        <action path="/getGasReturnPanel" type="com.stepup.gasoline.qt.common.BaseFormAction" scope="request" validate="false">
+            <forward name="success" path="/gasreturn/gasreturnpanel.jsp" />
+        </action>
+        <action path="/getGasReturnList" type="com.stepup.gasoline.qt.gasreturn.GetGasReturnListAction" scope="request" validate="false" >
+        </action>
+        <action path="/gasReturnForm" type="com.stepup.gasoline.qt.gasreturn.GasReturnFormAction" scope="request" validate="false">
+            <forward name="success" path="/gasreturn/gasreturndetail.jsp" />
+        </action>
+        <action path="/addGasReturn" name ="gasReturnForm" scope="request" type="com.stepup.gasoline.qt.gasreturn.AddGasReturnAction" input="/gasReturnForm.do">
+        </action>
+        <action path="/getGasReturnGood" type="com.stepup.gasoline.qt.gasreturn.GetGasReturnGoodAction" scope="request" validate="false">
+            <forward name="success" path="/gasreturn/goods.jsp" />
+        </action>
+        <action path="/delGasReturn" type="com.stepup.gasoline.qt.gasreturn.DeleteGasReturnAction" scope="request" validate="false" >
+        </action>
+        <!-- end gasreturn -->
+        <!-- start shell return supplier -->
+        <action path="/getShellReturnSupplierPanel" type="com.stepup.gasoline.qt.common.BaseFormAction" scope="request" validate="false">
+            <forward name="success" path="/shellreturnsupplier/shellreturnsupplierpanel.jsp" />
+        </action>
+        <action path="/getShellReturnSupplierList" type="com.stepup.gasoline.qt.shellreturnsupplier.GetShellReturnSupplierListAction" scope="request" validate="false" >
+        </action>
+        <action path="/shellReturnSupplierForm" type="com.stepup.gasoline.qt.shellreturnsupplier.ShellReturnSupplierFormAction" scope="request" validate="false">
+            <forward name="success" path="/shellreturnsupplier/shellreturnsupplierdetail.jsp" />
+        </action>
+        <action path="/addShellReturnSupplier" name ="shellReturnSupplierForm" scope="request" type="com.stepup.gasoline.qt.shellreturnsupplier.AddShellReturnSupplierAction" input="/shellReturnSupplierForm.do">
+        </action>
+        <action path="/getShellReturnSupplierShell" type="com.stepup.gasoline.qt.shellreturnsupplier.GetShellReturnSupplierShellAction" scope="request" validate="false">
+            <forward name="success" path="/shellreturnsupplier/shells.jsp" />
+        </action>
+        <action path="/delShellReturnSupplier" type="com.stepup.gasoline.qt.shellreturnsupplier.DeleteShellReturnSupplierAction" scope="request" validate="false" >
+        </action>
+        <!-- end shell return supplier-->
+        <!-- start vehicleout -->
+        <action path="/getVehicleOutPanel" type="com.stepup.gasoline.qt.common.BaseFormAction" scope="request" validate="false">
+            <forward name="success" path="/vehicleout/vehicleoutpanel.jsp" />
+        </action>
+        <action path="/getVehicleOutList" type="com.stepup.gasoline.qt.vehicleout.GetVehicleOutListAction" scope="request" validate="false" >
+        </action>
+        <action path="/vehicleOutForm" type="com.stepup.gasoline.qt.vehicleout.VehicleOutFormAction" scope="request" validate="false">
+            <forward name="success" path="/vehicleout/vehicleoutdetail.jsp" />
+        </action>
+        <action path="/addVehicleOut" name ="vehicleOutForm" scope="request" type="com.stepup.gasoline.qt.vehicleout.AddVehicleOutAction" input="/vehicleOutForm.do">
+        </action>
+        <action path="/getVehicleOutGood" type="com.stepup.gasoline.qt.vehicleout.GetVehicleOutGoodAction" scope="request" validate="false">
+            <forward name="success" path="/vehicleout/goods.jsp" />
+        </action>
+        <action path="/delVehicleOut" type="com.stepup.gasoline.qt.vehicleout.DeleteVehicleOutAction" scope="request" validate="false" >
+        </action>
+        <action path="/getVehicleOutEmployee" type="com.stepup.gasoline.qt.vehicleout.GetVehicleOutEmployeeAction" scope="request" validate="false">
+            <forward name="success" path="/vehicleout/employees.jsp" />
+        </action>
+        <!-- end vehicleout -->
+        <!-- start vehiclein -->
+        <action path="/getVehicleInPanel" type="com.stepup.gasoline.qt.common.BaseFormAction" scope="request" validate="false">
+            <forward name="success" path="/vehiclein/vehicleinpanel.jsp" />
+        </action>
+        <action path="/getVehicleInList" type="com.stepup.gasoline.qt.vehiclein.GetVehicleInListAction" scope="request" validate="false" >
+        </action>
+        <action path="/vehicleInForm" type="com.stepup.gasoline.qt.vehiclein.VehicleInFormAction" scope="request" validate="false">
+            <forward name="success" path="/vehiclein/vehicleindetail.jsp" />
+        </action>
+        <action path="/addVehicleIn" name ="vehicleInForm" scope="request" type="com.stepup.gasoline.qt.vehiclein.AddVehicleInAction" input="/vehicleInForm.do">
+        </action>
+        <action path="/getVehicleInGood" type="com.stepup.gasoline.qt.vehiclein.GetVehicleInGoodAction" scope="request" validate="false">
+            <forward name="success" path="/vehiclein/goods.jsp" />
+        </action>
+        <action path="/delVehicleIn" type="com.stepup.gasoline.qt.vehiclein.DeleteVehicleInAction" scope="request" validate="false" >
+        </action>
+        <action path="/getVehicleInReturnShell" type="com.stepup.gasoline.qt.vehiclein.GetVehicleInReturnShellAction" scope="request" validate="false">
+            <forward name="success" path="/vehiclein/shells.jsp" />
+        </action>
+        <!-- end vehiclein -->
+        <!-- start export wholesale -->
+        <action path="/getExportWholesalePanel" type="com.stepup.gasoline.qt.common.BaseFormAction" scope="request" validate="false">
+            <forward name="success" path="/exportwholesale/exportwholesalepanel.jsp" />
+        </action>
+        <action path="/getExportWholesaleList" type="com.stepup.gasoline.qt.exportwholesale.GetExportWholesaleListAction" scope="request" validate="false" >
+        </action>
+        <action path="/exportWholesaleForm" type="com.stepup.gasoline.qt.exportwholesale.ExportWholesaleFormAction" scope="request" validate="false">
+            <forward name="success" path="/exportwholesale/exportwholesaledetail.jsp" />
+        </action>
+        <action path="/addExportWholesale" name ="exportWholesaleForm" scope="request" type="com.stepup.gasoline.qt.exportwholesale.AddExportWholesaleAction" input="/exportWholesaleForm.do">
+        </action>
+        <action path="/getExportWholesaleGood" type="com.stepup.gasoline.qt.exportwholesale.GetExportWholesaleGoodAction" scope="request" validate="false">
+            <forward name="success" path="/exportwholesale/goods.jsp" />
+        </action>
+        <action path="/delExportWholesale" type="com.stepup.gasoline.qt.exportwholesale.DeleteExportWholesaleAction" scope="request" validate="false" >
+        </action>
+        <action path="/getExportWholesaleReturnShell" type="com.stepup.gasoline.qt.exportwholesale.GetExportWholesaleReturnShellAction" scope="request" validate="false">
+            <forward name="success" path="/exportwholesale/shells.jsp" />
+        </action>
+        <action path="/getCustomerListExportWholesale" type="com.stepup.gasoline.qt.exportwholesale.GetCustomerListExportWholesaleAction" scope="request" validate="false">
+            <forward name="success" path="/exportwholesale/customers.jsp" />
+        </action>
+        <!-- end export wholesale -->
     </action-mappings>
     
     <controller processorClass="org.apache.struts.tiles.TilesRequestProcessor"/>

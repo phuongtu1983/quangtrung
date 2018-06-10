@@ -88,7 +88,7 @@ public class AddGasReturnAction extends SpineAction {
                 if (id == 0) {
                     GasReturnDetailBean bean = new GasReturnDetailBean();
                     bean.setShellId(NumberUtil.parseInt(formBean.getGoodId()[i], 0));
-                    bean.setQuantity(NumberUtil.parseInt(formBean.getQuantity()[i], 0));
+                    bean.setQuantity(NumberUtil.parseFloat(formBean.getQuantity()[i], 0));
                     bean.setPrice(NumberUtil.parseDouble(formBean.getPrice()[i], 0));
                     bean.setAmount(NumberUtil.parseDouble(formBean.getAmount()[i], 0));
                     bean.setGasReturnId(formBean.getId());
@@ -105,9 +105,9 @@ public class AddGasReturnAction extends SpineAction {
                     }
                     if (j < arrDetail.size()) {
                         arrDetail.remove(j);
-                        if (oldBean.getQuantity() != NumberUtil.parseInt(formBean.getQuantity()[i], 0)) {
+                        if (oldBean.getQuantity() != NumberUtil.parseFloat(formBean.getQuantity()[i], 0)) {
                             isUpdate = true;
-                            oldBean.setQuantity(NumberUtil.parseInt(formBean.getQuantity()[i], 0));
+                            oldBean.setQuantity(NumberUtil.parseFloat(formBean.getQuantity()[i], 0));
                         }
                         if (oldBean.getPrice() != NumberUtil.parseDouble(formBean.getPrice()[i], 0)) {
                             isUpdate = true;

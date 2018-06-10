@@ -311,7 +311,7 @@ public class GenerateMenu {
 
             buffTemp = new StringBuilder();
             if (isHasPermission(PermissionUtil.OPERATION_LIST + "," + PermissionUtil.OPERATION_ADD,
-                    PermissionUtil.PER_TRIP_FEE)) {
+                    PermissionUtil.PER_TRIP_FEE + "," + PermissionUtil.PER_VEHICLE_OUT + "," + PermissionUtil.PER_VEHICLE_IN + "," + PermissionUtil.PER_EXPORT_WHOLESALE)) {
                 if (isHasPermission(PermissionUtil.OPERATION_LIST + "," + PermissionUtil.OPERATION_ADD, PermissionUtil.PER_TRIP_FEE)) {
                     buffTemp.append("<item id=\"tripfees\" complex=\"true\" text=\"").append(QTUtil.getBundleString("tripFee.title")).append("\">");
                     if (isHasPermission(PermissionUtil.OPERATION_LIST, PermissionUtil.PER_TRIP_FEE)) {
@@ -319,6 +319,36 @@ public class GenerateMenu {
                     }
                     if (isHasPermission(PermissionUtil.OPERATION_ADD, PermissionUtil.PER_TRIP_FEE)) {
                         buffTemp.append("<item id=\"tripfeeadd\" text=\"").append(QTUtil.getBundleString("tripFee.detail.add.title")).append("\"/>");
+                    }
+                    buffTemp.append("</item>");
+                }
+                if (isHasPermission(PermissionUtil.OPERATION_LIST + "," + PermissionUtil.OPERATION_ADD, PermissionUtil.PER_VEHICLE_OUT)) {
+                    buffTemp.append("<item id=\"vehicleouts\" complex=\"true\" text=\"").append(QTUtil.getBundleString("vehicleOut.title")).append("\">");
+                    if (isHasPermission(PermissionUtil.OPERATION_LIST, PermissionUtil.PER_VEHICLE_OUT)) {
+                        buffTemp.append("<item id=\"vehicleoutlist\" text=\"").append(QTUtil.getBundleString("vehicleOut.list.title")).append("\"/>");
+                    }
+                    if (isHasPermission(PermissionUtil.OPERATION_ADD, PermissionUtil.PER_VEHICLE_OUT)) {
+                        buffTemp.append("<item id=\"vehicleoutadd\" text=\"").append(QTUtil.getBundleString("vehicleOut.detail.add.title")).append("\"/>");
+                    }
+                    buffTemp.append("</item>");
+                }
+                if (isHasPermission(PermissionUtil.OPERATION_LIST + "," + PermissionUtil.OPERATION_ADD, PermissionUtil.PER_VEHICLE_IN)) {
+                    buffTemp.append("<item id=\"vehicleins\" complex=\"true\" text=\"").append(QTUtil.getBundleString("vehicleIn.title")).append("\">");
+                    if (isHasPermission(PermissionUtil.OPERATION_LIST, PermissionUtil.PER_VEHICLE_IN)) {
+                        buffTemp.append("<item id=\"vehicleinlist\" text=\"").append(QTUtil.getBundleString("vehicleIn.list.title")).append("\"/>");
+                    }
+                    if (isHasPermission(PermissionUtil.OPERATION_ADD, PermissionUtil.PER_VEHICLE_IN)) {
+                        buffTemp.append("<item id=\"vehicleinadd\" text=\"").append(QTUtil.getBundleString("vehicleIn.detail.add.title")).append("\"/>");
+                    }
+                    buffTemp.append("</item>");
+                }
+                if (isHasPermission(PermissionUtil.OPERATION_LIST + "," + PermissionUtil.OPERATION_ADD, PermissionUtil.PER_EXPORT_WHOLESALE)) {
+                    buffTemp.append("<item id=\"exportwholesales\" complex=\"true\" text=\"").append(QTUtil.getBundleString("exportWholesale.title")).append("\">");
+                    if (isHasPermission(PermissionUtil.OPERATION_LIST, PermissionUtil.PER_EXPORT_WHOLESALE)) {
+                        buffTemp.append("<item id=\"exportwholesalelist\" text=\"").append(QTUtil.getBundleString("exportWholesale.list.title")).append("\"/>");
+                    }
+                    if (isHasPermission(PermissionUtil.OPERATION_ADD, PermissionUtil.PER_EXPORT_WHOLESALE)) {
+                        buffTemp.append("<item id=\"exportwholesaleadd\" text=\"").append(QTUtil.getBundleString("exportWholesale.detail.add.title")).append("\"/>");
                     }
                     buffTemp.append("</item>");
                 }
@@ -333,7 +363,8 @@ public class GenerateMenu {
             if (isHasPermission(PermissionUtil.OPERATION_LIST + "," + PermissionUtil.OPERATION_ADD,
                     PermissionUtil.PER_SHELL_IMPORT + "," + PermissionUtil.PER_LPG_IMPORT + "," + PermissionUtil.PER_FRACTION + "," + PermissionUtil.PER_GAS_PRICE
                     + "," + PermissionUtil.PER_GAS_IMPORT + "," + PermissionUtil.PER_GAS_RETAIL + "," + PermissionUtil.PER_GAS_WHOLESALE
-                    + "," + PermissionUtil.PER_SALE_SHELL + "," + PermissionUtil.PER_SHELL_RETURN + "," + PermissionUtil.PER_GAS_RETURN)) {
+                    + "," + PermissionUtil.PER_SALE_SHELL + "," + PermissionUtil.PER_SHELL_RETURN + "," + PermissionUtil.PER_GAS_RETURN
+                    + "," + PermissionUtil.PER_SHELL_RETURN_SUPPLIER)) {
                 if (isHasPermission(PermissionUtil.OPERATION_LIST + "," + PermissionUtil.OPERATION_ADD, PermissionUtil.PER_SHELL_IMPORT)) {
                     buffTemp.append("<item id=\"shellimports\" complex=\"true\" text=\"").append(QTUtil.getBundleString("shellImport.title")).append("\">");
                     if (isHasPermission(PermissionUtil.OPERATION_LIST, PermissionUtil.PER_SHELL_IMPORT)) {
@@ -431,6 +462,16 @@ public class GenerateMenu {
                     }
                     if (isHasPermission(PermissionUtil.OPERATION_ADD, PermissionUtil.PER_SHELL_RETURN)) {
                         buffTemp.append("<item id=\"shellreturnadd\" text=\"").append(QTUtil.getBundleString("shellReturn.detail.add.title")).append("\"/>");
+                    }
+                    buffTemp.append("</item>");
+                }
+                if (isHasPermission(PermissionUtil.OPERATION_LIST + "," + PermissionUtil.OPERATION_ADD, PermissionUtil.PER_SHELL_RETURN_SUPPLIER)) {
+                    buffTemp.append("<item id=\"shellreturnsuppliers\" complex=\"true\" text=\"").append(QTUtil.getBundleString("shellReturnSupplier.title")).append("\">");
+                    if (isHasPermission(PermissionUtil.OPERATION_LIST, PermissionUtil.PER_SHELL_RETURN_SUPPLIER)) {
+                        buffTemp.append("<item id=\"shellreturnsupplierlist\" text=\"").append(QTUtil.getBundleString("shellReturnSupplier.list.title")).append("\"/>");
+                    }
+                    if (isHasPermission(PermissionUtil.OPERATION_ADD, PermissionUtil.PER_SHELL_RETURN_SUPPLIER)) {
+                        buffTemp.append("<item id=\"shellreturnsupplieradd\" text=\"").append(QTUtil.getBundleString("shellReturnSupplier.detail.add.title")).append("\"/>");
                     }
                     buffTemp.append("</item>");
                 }

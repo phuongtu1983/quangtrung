@@ -14,8 +14,6 @@ public class GasReturnDetailBean {
     private int gasReturnId;
     private int shellId;
     private String shellName;
-    private int unitId;
-    private String unitName;
     private int customerId;
     private String customerName;
     private float quantity;
@@ -76,22 +74,6 @@ public class GasReturnDetailBean {
 
     public void setAmount(double amount) {
         this.amount = amount;
-    }
-
-    public int getUnitId() {
-        return unitId;
-    }
-
-    public void setUnitId(int unitId) {
-        this.unitId = unitId;
-    }
-
-    public String getUnitName() {
-        return unitName;
-    }
-
-    public void setUnitName(String unitName) {
-        this.unitName = unitName;
     }
 
     public int getCustomerId() {

@@ -7,8 +7,8 @@
         <tr>
             <td width="30px"><bean:message key="message.del"/></td>
             <td width="270px"><bean:message key="shell.title"/></td>
-            <td width="100px"><bean:message key="unit.title"/></td>
-            <td width="100px"><bean:message key="quantity.title"/></td>
+            <td width="170px"><bean:message key="unit.title"/></td>
+            <td width="100px"><bean:message key="weight.title"/></td>
             <td width="100px"><bean:message key="price.title"/></td>
             <td width="200px"><bean:message key="amount.title"/></td>
             <td></td>
@@ -23,7 +23,7 @@
                     <input type="hidden" name="goodId" value='<bean:write name="good" property="id"/>'/>
                 </td>
                 <td><span><bean:write name="good" property="shellName"/></span></td>
-                <td><span><bean:write name="good" property="unitName"/></span></td>
+                <td><span><bean:message key="unit.kg.title"/></span></td>
                 <td><input type="text" size="20" name="quantity" value="${good.quantity}" id="detquantity${good.id}" onblur="return caculateFormListDetail('${good.id}','gasReturnForm');" onkeyup="try2FloatFormatOnKeyUp(this,event);" onkeypress="return readonlyFloat(event);"/></td>
                 <td><input type="text" size="20" name="price" value="${good.price}" id="detprice${good.id}" onblur="return caculateFormListDetail('${good.id}','gasReturnForm');" onkeyup="try2FloatFormatOnKeyUp(this,event);" onkeypress="return readonlyFloat(event);"/></td>
                 <td><input type="text" size="20" name="amount" value="${good.amount}" id="detamount${good.id}" readonly="readonly"/></td>
