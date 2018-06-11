@@ -134,4 +134,6 @@ public class PermissionUtil {
     public static int PER_DEBT_VENDOR = 46;
     public static int PER_DEBT_RETAIL = 47;
     public static int PER_DEBT_WHOLESALE = 48;
+    public static int PER_INCOME = 49;
+    public static int PER_EXPENSE = 50;
 }

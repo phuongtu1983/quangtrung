@@ -76,6 +76,8 @@
         <form-bean name="debtVendorForm" type="com.stepup.gasoline.qt.debtvendor.DebtVendorFormBean"/>
         <form-bean name="debtRetailForm" type="com.stepup.gasoline.qt.debtretail.DebtRetailFormBean"/>
         <form-bean name="debtWholesaleForm" type="com.stepup.gasoline.qt.debtwholesale.DebtWholesaleFormBean"/>
+        <form-bean name="incomeForm" type="com.stepup.gasoline.qt.income.IncomeFormBean"/>
+        <form-bean name="expenseForm" type="com.stepup.gasoline.qt.expense.ExpenseFormBean"/>
     </form-beans>
     
     <global-exceptions>
@@ -845,6 +847,34 @@
         <action path="/delDebtWholesale" type="com.stepup.gasoline.qt.debtwholesale.DeleteDebtWholesaleAction" scope="request" validate="false" >
         </action>
         <!-- end debt wholesale -->
+        <!-- start income -->
+        <action path="/getIncomePanel" type="com.stepup.gasoline.qt.common.BaseStatusFormAction" scope="request" validate="false">
+            <forward name="success" path="/income/incomepanel.jsp" />
+        </action>
+        <action path="/getIncomeList" type="com.stepup.gasoline.qt.income.GetIncomeListAction" scope="request" validate="false" >
+        </action>
+        <action path="/incomeForm" type="com.stepup.gasoline.qt.income.IncomeFormAction" scope="request" validate="false">
+            <forward name="success" path="/income/incomedetail.jsp" />
+        </action>
+        <action path="/addIncome" name ="incomeForm" scope="request" type="com.stepup.gasoline.qt.income.AddIncomeAction" input="/incomeForm.do">
+        </action>
+        <action path="/delIncome" type="com.stepup.gasoline.qt.income.DeleteIncomeAction" scope="request" validate="false" >
+        </action>
+        <!-- end income -->
+        <!-- start expense -->
+        <action path="/getExpensePanel" type="com.stepup.gasoline.qt.common.BaseStatusFormAction" scope="request" validate="false">
+            <forward name="success" path="/expense/expensepanel.jsp" />
+        </action>
+        <action path="/getExpenseList" type="com.stepup.gasoline.qt.expense.GetExpenseListAction" scope="request" validate="false" >
+        </action>
+        <action path="/expenseForm" type="com.stepup.gasoline.qt.expense.ExpenseFormAction" scope="request" validate="false">
+            <forward name="success" path="/expense/expensedetail.jsp" />
+        </action>
+        <action path="/addExpense" name ="expenseForm" scope="request" type="com.stepup.gasoline.qt.expense.AddExpenseAction" input="/expenseForm.do">
+        </action>
+        <action path="/delExpense" type="com.stepup.gasoline.qt.expense.DeleteExpenseAction" scope="request" validate="false" >
+        </action>
+        <!-- end expense -->
     </action-mappings>
     
     <controller processorClass="org.apache.struts.tiles.TilesRequestProcessor"/>

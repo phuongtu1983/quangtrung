@@ -555,7 +555,7 @@ public class GenerateMenu {
 
             buffTemp = new StringBuilder();
             if (isHasPermission(PermissionUtil.OPERATION_LIST + "," + PermissionUtil.OPERATION_ADD,
-                    PermissionUtil.PER_DEBT_VENDOR + "," + PermissionUtil.PER_DEBT_RETAIL + "," + PermissionUtil.PER_DEBT_WHOLESALE)) {
+                    PermissionUtil.PER_DEBT_VENDOR + "," + PermissionUtil.PER_DEBT_RETAIL + "," + PermissionUtil.PER_DEBT_WHOLESALE + "," + PermissionUtil.PER_INCOME)) {
                 if (isHasPermission(PermissionUtil.OPERATION_LIST + "," + PermissionUtil.OPERATION_ADD, PermissionUtil.PER_DEBT_VENDOR)) {
                     buffTemp.append("<item id=\"debtvendors\" complex=\"true\" text=\"").append(QTUtil.getBundleString("debtVendor.title")).append("\">");
                     if (isHasPermission(PermissionUtil.OPERATION_LIST, PermissionUtil.PER_DEBT_VENDOR)) {
@@ -583,6 +583,26 @@ public class GenerateMenu {
                     }
                     if (isHasPermission(PermissionUtil.OPERATION_ADD, PermissionUtil.PER_DEBT_WHOLESALE)) {
                         buffTemp.append("<item id=\"debtwholesaleadd\" text=\"").append(QTUtil.getBundleString("debtWholesale.detail.add.title")).append("\"/>");
+                    }
+                    buffTemp.append("</item>");
+                }
+                if (isHasPermission(PermissionUtil.OPERATION_LIST + "," + PermissionUtil.OPERATION_ADD, PermissionUtil.PER_INCOME)) {
+                    buffTemp.append("<item id=\"incomes\" complex=\"true\" text=\"").append(QTUtil.getBundleString("income.title")).append("\">");
+                    if (isHasPermission(PermissionUtil.OPERATION_LIST, PermissionUtil.PER_INCOME)) {
+                        buffTemp.append("<item id=\"incomelist\" text=\"").append(QTUtil.getBundleString("income.list.title")).append("\"/>");
+                    }
+                    if (isHasPermission(PermissionUtil.OPERATION_ADD, PermissionUtil.PER_INCOME)) {
+                        buffTemp.append("<item id=\"incomeadd\" text=\"").append(QTUtil.getBundleString("income.detail.add.title")).append("\"/>");
+                    }
+                    buffTemp.append("</item>");
+                }
+                if (isHasPermission(PermissionUtil.OPERATION_LIST + "," + PermissionUtil.OPERATION_ADD, PermissionUtil.PER_EXPENSE)) {
+                    buffTemp.append("<item id=\"expenses\" complex=\"true\" text=\"").append(QTUtil.getBundleString("expense.title")).append("\">");
+                    if (isHasPermission(PermissionUtil.OPERATION_LIST, PermissionUtil.PER_EXPENSE)) {
+                        buffTemp.append("<item id=\"expenselist\" text=\"").append(QTUtil.getBundleString("expense.list.title")).append("\"/>");
+                    }
+                    if (isHasPermission(PermissionUtil.OPERATION_ADD, PermissionUtil.PER_EXPENSE)) {
+                        buffTemp.append("<item id=\"expenseadd\" text=\"").append(QTUtil.getBundleString("expense.detail.add.title")).append("\"/>");
                     }
                     buffTemp.append("</item>");
                 }

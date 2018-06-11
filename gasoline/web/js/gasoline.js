@@ -217,6 +217,14 @@ function menuClick(id) {
         loadDebtWholesalePanel();
     else if (id == 'debtwholesaleadd')
         getDebtWholesale(0, 'loadDebtWholesalePanel');
+    else if (id == 'incomelist')
+        loadIncomePanel();
+    else if (id == 'incomeadd')
+        getIncome(0, 'loadIncomePanel');
+    else if (id == 'expenselist')
+        loadExpensePanel();
+    else if (id == 'expenseadd')
+        getExpense(0, 'loadExpensePanel');
 }
 function clearContent() {
     var contentDiv = document.getElementById("contentDiv");
@@ -6468,8 +6476,205 @@ function delDebtWholesale() {
     });
     return false;
 }
-
-
+function loadIncomePanel() {
+    callAjax("getIncomePanel.do", null, null, function(data) {
+        clearContent();
+        setAjaxData(data, "contentDiv");
+        var myCalendar = new dhtmlXCalendarObject(["fromDate", "toDate"]);
+        myCalendar.setSkin('dhx_web');
+        var currentTime = getCurrentDate();
+        document.forms['incomeSearchForm'].fromDate.value = currentTime;
+        document.forms['incomeSearchForm'].toDate.value = currentTime;
+        myCalendar.setDateFormat("%d/%m/%Y");
+        loadIncomeList(currentTime, currentTime);
+    });
+    return false;
+}
+function loadIncomeList(fromDate, toDate) {
+    var mygrid = new dhtmlXGridObject('incomeList');
+    mygrid.setImagePath("js/dhtmlx/grid/imgs/");
+    mygrid.setHeader("S\u1ED1 phi\u1EBFu,Ng\u00E0y,N\u1ED9i dung,S\u1ED1 ti\u1EC1n,Ghi ch\u00FA");
+    mygrid.attachHeader("#text_filter,#text_filter,#text_filter,#text_filter,#text_filter");
+    mygrid.setInitWidths("150,200,200,200,*");
+    mygrid.setColTypes("link,ro,ro,ro,ro");
+    mygrid.setColSorting("str,str,str,str,str");
+    mygrid.setSkin("light");
+    var height = contentHeight - 210;
+    mygrid.al(true, height);//enableAutoHeight
+    mygrid.enablePaging(true, 15, 3, "recinfoArea");
+    mygrid.setPagingSkin("toolbar", "dhx_skyblue");
+    mygrid.init();
+    var url = "getIncomeList.do?t=1";
+    if (fromDate != null)
+        url += "&fromDate=" + fromDate;
+    if (toDate != null)
+        url += "&toDate=" + toDate;
+    callAjax(url, null, null, function(data) {
+        mygrid.parse(data);
+    });
+    return false;
+}
+function getIncome(id, handle) {
+    popupName = 'TH\u00D4NG TIN THU';
+    var url = 'incomeForm.do';
+    if (id != 0)
+        url += '?incomeId=' + id
+    callAjax(url, null, null, function(data) {
+        showPopupForm(data);
+        document.getElementById('callbackFunc').value = handle;
+        document.forms['incomeForm'].amount.focus();
+        tryNumberFormatCurrentcy(document.forms['incomeForm'].amount, "VND");
+//        var myCalendar = new dhtmlXCalendarObject(["incomeDate"]);
+//        myCalendar.setSkin('dhx_web');
+        if (id == 0) {
+            var currentDate = getCurrentDate();
+            document.forms['incomeForm'].incomeDate.value = currentDate;
+        }
+//        myCalendar.setDateFormat("%d/%m/%Y");
+    });
+}
+function saveIncome() {
+    if (scriptFunction == "saveIncome")
+        return false;
+    var field = document.forms['incomeForm'].createdDate;
+    if (field.value == '') {
+        alert("Vui l\u00F2ng nh\u1EADp ng\u00E0y");
+        field.focus();
+        field = null;
+        return false;
+    }
+    field = document.forms['incomeForm'].amount;
+    if (field.value == '') {
+        alert("Vui l\u00F2ng nh\u1EADp s\u1ED1 ti\u1EC1n");
+        field.focus();
+        field = null;
+        return false;
+    }
+    field = null;
+    reformatNumberMoney(document.forms['incomeForm'].amount);
+    scriptFunction = "saveIncome";
+    callAjaxCheckError("addIncome.do", null, document.forms['incomeForm'], function(data) {
+        scriptFunction = "";
+        var handle = document.getElementById('callbackFunc').value;
+        if (confirm('B\u1EA1n c\u00F3 mu\u1ED1n nh\u1EADp ti\u1EBFp th\u00F4ng tin kh\u00E1c ?'))
+            getIncome(0, handle);
+        else if (handle != '')
+            eval(handle + "()");
+        prepareHidePopup('incomeFormshowHelpHideDiv');
+    });
+    return false;
+}
+function delIncome() {
+    callAjaxCheckError('delIncome.do?incomeId=' + document.forms['incomeForm'].id.value, null, null, function() {
+        loadIncomePanel();
+        prepareHidePopup('incomeFormshowHelpHideDiv');
+    });
+    return false;
+}
+function loadExpensePanel() {
+    callAjax("getExpensePanel.do", null, null, function(data) {
+        clearContent();
+        setAjaxData(data, "contentDiv");
+        var myCalendar = new dhtmlXCalendarObject(["fromDate", "toDate"]);
+        myCalendar.setSkin('dhx_web');
+        var currentTime = getCurrentDate();
+        document.forms['expenseSearchForm'].fromDate.value = currentTime;
+        document.forms['expenseSearchForm'].toDate.value = currentTime;
+        myCalendar.setDateFormat("%d/%m/%Y");
+        loadExpenseList(currentTime, currentTime);
+    });
+    return false;
+}
+function loadExpenseList(fromDate, toDate) {
+    var mygrid = new dhtmlXGridObject('expenseList');
+    mygrid.setImagePath("js/dhtmlx/grid/imgs/");
+    mygrid.setHeader("S\u1ED1 phi\u1EBFu,Ng\u00E0y,N\u1ED9i dung,S\u1ED1 ti\u1EC1n,Ghi ch\u00FA");
+    mygrid.attachHeader("#text_filter,#text_filter,#text_filter,#text_filter,#text_filter");
+    mygrid.setInitWidths("150,200,200,200,*");
+    mygrid.setColTypes("link,ro,ro,ro,ro");
+    mygrid.setColSorting("str,str,str,str,str");
+    mygrid.setSkin("light");
+    var height = contentHeight - 210;
+    mygrid.al(true, height);//enableAutoHeight
+    mygrid.enablePaging(true, 15, 3, "recinfoArea");
+    mygrid.setPagingSkin("toolbar", "dhx_skyblue");
+    mygrid.init();
+    var url = "getExpenseList.do?t=1";
+    if (fromDate != null)
+        url += "&fromDate=" + fromDate;
+    if (toDate != null)
+        url += "&toDate=" + toDate;
+    callAjax(url, null, null, function(data) {
+        mygrid.parse(data);
+    });
+    return false;
+}
+function getExpense(id, handle) {
+    popupName = 'TH\u00D4NG TIN CHI';
+    var url = 'expenseForm.do';
+    if (id != 0)
+        url += '?expenseId=' + id
+    callAjax(url, null, null, function(data) {
+        showPopupForm(data);
+        document.getElementById('callbackFunc').value = handle;
+        document.forms['expenseForm'].amount.focus();
+        tryNumberFormatCurrentcy(document.forms['expenseForm'].amount, "VND");
+        var myCalendar = new dhtmlXCalendarObject(["expenseFromDate","expenseToDate"]);
+        myCalendar.setSkin('dhx_web');
+        if (id == 0) {
+            var currentDate = getCurrentDate();
+            document.forms['expenseForm'].expenseDate.value = currentDate;
+            document.forms['expenseForm'].expenseFromDate.value = currentDate;
+            document.forms['expenseForm'].expenseToDate.value = currentDate;
+        }
+        myCalendar.setDateFormat("%d/%m/%Y");
+    });
+}
+function saveExpense() {
+    if (scriptFunction == "saveExpense")
+        return false;
+    var field = document.forms['expenseForm'].fromDate;
+    if (field.value == '') {
+        alert("Vui l\u00F2ng nh\u1EADp ng\u00E0y b\u1EAFt \u0111\u1EA7u");
+        field.focus();
+        field = null;
+        return false;
+    }
+    document.forms['expenseForm'].toDate;
+    if (field.value == '') {
+        alert("Vui l\u00F2ng nh\u1EADp ng\u00E0y k\u1EBFt th\u00FAc");
+        field.focus();
+        field = null;
+        return false;
+    }
+    field = document.forms['expenseForm'].amount;
+    if (field.value == '') {
+        alert("Vui l\u00F2ng nh\u1EADp s\u1ED1 ti\u1EC1n");
+        field.focus();
+        field = null;
+        return false;
+    }
+    field = null;
+    reformatNumberMoney(document.forms['expenseForm'].amount);
+    scriptFunction = "saveExpense";
+    callAjaxCheckError("addExpense.do", null, document.forms['expenseForm'], function(data) {
+        scriptFunction = "";
+        var handle = document.getElementById('callbackFunc').value;
+        if (confirm('B\u1EA1n c\u00F3 mu\u1ED1n nh\u1EADp ti\u1EBFp th\u00F4ng tin kh\u00E1c ?'))
+            getExpense(0, handle);
+        else if (handle != '')
+            eval(handle + "()");
+        prepareHidePopup('expenseFormshowHelpHideDiv');
+    });
+    return false;
+}
+function delExpense() {
+    callAjaxCheckError('delExpense.do?expenseId=' + document.forms['expenseForm'].id.value, null, null, function() {
+        loadExpensePanel();
+        prepareHidePopup('expenseFormshowHelpHideDiv');
+    });
+    return false;
+}
 
 
 

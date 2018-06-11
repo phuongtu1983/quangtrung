@@ -114,4 +114,6 @@ public class Constants {
     public static final String DEBT_VENDOR = "debtVendor";
     public static final String DEBT_RETAIL = "debtRetail";
     public static final String DEBT_WHOLESALE = "debtWholesale";
+    public static final String INCOME = "income";
+    public static final String EXPENSE = "expense";
 }
