@@ -14,12 +14,12 @@
                             <td height="30" style="padding-right: 20px"><bean:message key="code.title"/></td>
                             <td><html:text property="code" size="30" name="<%=Constants.EMPLOYEE_OFF_MONEY%>" readonly="true"/></td>
                             <td style="padding-right: 20px;padding-left: 10px"><bean:message key="date.title"/></td>
-                            <td><html:text property="createdDate" styleId="employeeOffMoneyDate" size="30" name="<%=Constants.EMPLOYEE_OFF_MONEY%>"/></td>
+                            <td><html:text property="createdDate" styleId="employeeOffMoneyDate" size="30" name="<%=Constants.EMPLOYEE_OFF_MONEY%>" readonly="true"/></td>
                         </tr>
                         <tr>
                             <td height="30" style="padding-right: 20px"><bean:message key="employee.title"/></td>
                             <td>
-                                <html:select property="employeeId" name="<%=Constants.EMPLOYEE_OFF_MONEY%>" style="width:195px">
+                                <html:select property="employeeId" name="<%=Constants.EMPLOYEE_OFF_MONEY%>" style="width:195px" onchange="return employeeOffMoneyEmployeeChanged(this)">
                                     <html:options collection="<%=Constants.EMPLOYEE_LIST%>" property="id" labelProperty="fullname"/>
                                 </html:select>
                             </td>
@@ -32,9 +32,9 @@
                         </tr>
                         <tr>
                             <td height="30" style="padding-right: 20px"><bean:message key="quantity.title"/></td>
-                            <td><html:text property="quantity" size="30" name="<%=Constants.EMPLOYEE_OFF_MONEY%>" onblur="return formCaculateAmount('employeeOffMoneyForm');" onkeyup="try2FloatFormatOnKeyUp(this,event);" onkeypress="return readonlyFloat(event);"/></td>
+                            <td><html:text property="quantity" size="30" name="<%=Constants.EMPLOYEE_OFF_MONEY%>" readonly="true"/></td>
                             <td style="padding-right: 20px;padding-left: 10px"><bean:message key="price.title"/></td>
-                            <td><html:text property="price" size="30" name="<%=Constants.EMPLOYEE_OFF_MONEY%>" onblur="return formCaculateAmount('employeeOffMoneyForm');" onkeyup="try2FloatFormatOnKeyUp(this,event);" onkeypress="return readonlyFloat(event);"/></td>
+                            <td><html:text property="price" size="30" name="<%=Constants.EMPLOYEE_OFF_MONEY%>" readonly="true"/></td>
                         </tr>
                         <tr>
                             <td height="30" style="padding-right: 20px"><bean:message key="amount.title"/></td>

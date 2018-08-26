@@ -6803,26 +6803,16 @@ function getEmployeeOffMoney(id, handle) {
         tryNumberFormatCurrentcy(document.forms['employeeOffMoneyForm'].quantity, "VND");
         tryNumberFormatCurrentcy(document.forms['employeeOffMoneyForm'].price, "VND");
         tryNumberFormatCurrentcy(document.forms['employeeOffMoneyForm'].amount, "VND");
-        var myCalendar = new dhtmlXCalendarObject(["employeeOffMoneyDate"]);
-        myCalendar.setSkin('dhx_web');
         if (id == 0) {
             var currentDate = getCurrentDate();
             document.forms['employeeOffMoneyForm'].employeeOffMoneyDate.value = currentDate;
         }
-        myCalendar.setDateFormat("%d/%m/%Y");
     });
 }
 function saveEmployeeOffMoney() {
     if (scriptFunction == "saveEmployeeOffMoney")
         return false;
-    var field = document.forms['employeeOffMoneyForm'].createdDate;
-    if (field.value == '') {
-        alert("Vui l\u00F2ng nh\u1EADp ng\u00E0y thanh to\u00E1n");
-        field.focus();
-        field = null;
-        return false;
-    }
-    field = document.forms['employeeOffMoneyForm'].quantity;
+    var field  = document.forms['employeeOffMoneyForm'].quantity;
     if (field.value == '') {
         alert("Vui l\u00F2ng nh\u1EADp s\u1ED1 ng\u00E0y");
         field.focus();
@@ -6866,7 +6856,28 @@ function delEmployeeOffMoney() {
     });
     return false;
 }
-
+function employeeOffMoneyEmployeeChanged(list) {
+    if (list.selectedIndex == -1)
+        return false;
+    var url = "getDayOffAndSalaryOfEmployee.do?employeeId=" + list.options[list.selectedIndex].value;
+    callAjaxCheckError(url,null,null,function(data){
+        var obj=eval('('+data+')');
+        var quantity = document.forms['employeeOffMoneyForm'].quantity;
+        var price = document.forms['employeeOffMoneyForm'].price;
+        var amount = document.forms['employeeOffMoneyForm'].amount;
+        quantity.value = obj.quantity;
+        price.value = obj.price;
+        amount.value = obj.quantity * obj.price;
+        tryNumberFormatCurrentcy(quantity, "VND");
+        tryNumberFormatCurrentcy(price, "VND");
+        tryNumberFormatCurrentcy(amount, "VND");
+        quantity=null;
+        price=null;
+        amount=null;
+    });
+    list = null;
+    return false;
+}
 
 
 

@@ -1572,4 +1572,36 @@ public class EmployeeDAO extends BasicDAO {
         return result;
     }
 
+    public EmployeeOffMoneyBean getDayOffAndSalaryOfEmployee(int employeeId) throws Exception {
+        SPUtil spUtil = null;
+        EmployeeOffMoneyBean bean = new EmployeeOffMoneyBean();
+        try {
+            String sql = "{call getDayOffAndSalaryOfEmployee(?,?,?)}";
+            spUtil = new SPUtil(sql);
+            if (spUtil != null) {
+                spUtil.getCallableStatement().setInt("_employee_id", employeeId);
+                spUtil.getCallableStatement().registerOutParameter("_day_off", Types.INTEGER);
+                spUtil.getCallableStatement().registerOutParameter("_salary", Types.DOUBLE);
+                spUtil.execute();
+                int dayOff = spUtil.getCallableStatement().getInt("_day_off");
+                double salary = spUtil.getCallableStatement().getDouble("_salary");
+                bean.setQuantity(dayOff);
+                bean.setPrice(salary);
+            }
+        } catch (SQLException sqle) {
+            throw new Exception(sqle.getMessage());
+        } catch (Exception ex) {
+            throw new Exception(ex.getMessage());
+        } finally {
+            try {
+                if (spUtil != null) {
+                    spUtil.closeConnection();
+                }
+            } catch (Exception e) {
+                throw new Exception(e.getMessage());
+            }
+        }
+        return bean;
+    }
+
 }

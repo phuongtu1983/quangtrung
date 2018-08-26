@@ -300,7 +300,7 @@ CREATE TABLE `employee` (
 
 /*Data for the table `employee` */
 
-insert  into `employee`(`id`,`fullname`,`email`,`salary`,`organization_id`,`status`) values (1,'Nguyễn Phương Tú','phuongtu1983@gmail.com',3,1,1),(2,'Nguyễn Thị Hương','huong1963@gmail.com',0,1,1),(6,'aa','bb',12345,2,1),(7,'a1','b1',31,2,1),(8,'c','',0,8,1);
+insert  into `employee`(`id`,`fullname`,`email`,`salary`,`organization_id`,`status`) values (1,'Nguyễn Phương Tú','phuongtu1983@gmail.com',3,1,1),(2,'Nguyễn Thị Hương','huong1963@gmail.com',1000000,1,1),(6,'aa','bb',12345,2,1),(7,'a1','b1',31,2,1),(8,'c','',0,8,1);
 
 /*Table structure for table `employee_advance` */
 
@@ -332,7 +332,7 @@ CREATE TABLE `employee_off` (
   `employee_id` int(11) DEFAULT NULL,
   `from_date` date DEFAULT NULL,
   `to_date` date DEFAULT NULL,
-  `actual_off_day` int(3) DEFAULT NULL,
+  `actual_off_day` int(3) DEFAULT '0',
   `note` text COLLATE utf8_unicode_ci,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
@@ -353,7 +353,7 @@ CREATE TABLE `employee_off_increase` (
   `quantity` int(11) DEFAULT NULL,
   `note` text COLLATE utf8_unicode_ci,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 /*Data for the table `employee_off_increase` */
 
@@ -372,7 +372,7 @@ CREATE TABLE `employee_off_money` (
   `account_id` int(11) DEFAULT NULL,
   `note` text COLLATE utf8_unicode_ci,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 /*Data for the table `employee_off_money` */
 
@@ -1950,6 +1950,51 @@ BEGIN
 	DELETE FROM vehicle_out_detail WHERE vehicle_out_id=_id;
 	DELETE FROM vehicle_out_employee_detail WHERE vehicle_out_id=_id;
 	DELETE FROM vehicle_out WHERE id=_id;
+    END */$$
+DELIMITER ;
+
+/* Procedure structure for procedure `getDayOffAndSalaryOfEmployee` */
+
+/*!50003 DROP PROCEDURE IF EXISTS  `getDayOffAndSalaryOfEmployee` */;
+
+DELIMITER $$
+
+/*!50003 CREATE DEFINER=`root`@`localhost` PROCEDURE `getDayOffAndSalaryOfEmployee`(IN _employee_id int, OUT _day_off INT, OUT _salary double)
+BEGIN
+	declare _off int default 0;
+	set _day_off = 0;
+	select coalesce(dv.value,0) into _off
+	from dynamic_field as d, dynamic_field_value as dv
+	where d.id=dv.field_id and d.code='DAYOFFINYEAR' and dv.parent_id=_employee_id;
+	set _day_off = _day_off + _off;
+	
+	set _off = 0;
+	SELECT coalesce(sum(IF(tbl_out.diff + tbl_out.start_number < 8, 0, 1 + (IF(tbl_out.start_number=1,tbl_out.diff, tbl_out.diff + tbl_out.start_number - 7) DIV 7))),0) into _off
+	FROM
+		(SELECT DATEDIFF(tbl_in.to_date,tbl_in.from_date) + 1 AS diff, DAYOFWEEK(tbl_in.from_date) AS start_number
+		FROM
+			(SELECT IF(YEAR(SYSDATE())>YEAR(o.from_date),STR_TO_DATE(CONCAT("01/01",YEAR(SYSDATE())),"%d/%M/%Y"),o.from_date) AS from_date
+				, IF(YEAR(o.to_date)>YEAR(SYSDATE()),STR_TO_DATE(CONCAT("31/12",YEAR(SYSDATE())),"%d/%M/%Y"),o.to_date) AS to_date
+			FROM employee_off AS o
+			WHERE (YEAR(o.from_date)=YEAR(SYSDATE()) OR YEAR(o.to_date)=YEAR(SYSDATE())) AND o.employee_id=_employee_id
+			) AS tbl_in
+		) AS tbl_out;
+	SET _day_off = _day_off - _off;
+	
+	SET _off = 0;
+	select coalesce(sum(i.quantity),0) into _off
+	from employee_off_increase as i
+	where i.employee_id=_employee_id and year(sysdate())=year(i.created_date);
+	SET _day_off = _day_off + _off;
+	
+	SET _off = 0;
+	SELECT COALESCE(sum(m.quantity),0) INTO _off
+	FROM employee_off_money AS m
+	WHERE m.employee_id=_employee_id AND YEAR(SYSDATE())=YEAR(m.created_date);
+	SET _day_off = _day_off - _off;
+	
+	select salary into _salary from employee where id=_employee_id;
+	
     END */$$
 DELIMITER ;
 

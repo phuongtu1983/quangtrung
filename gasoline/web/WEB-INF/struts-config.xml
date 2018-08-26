@@ -447,6 +447,8 @@
         </action>
         <action path="/delEmployeeOffMoney" type="com.stepup.gasoline.qt.employeeoffmoney.DeleteEmployeeOffMoneyAction" scope="request" validate="false" >
         </action>
+        <action path="/getDayOffAndSalaryOfEmployee" scope="request" type="com.stepup.gasoline.qt.employeeoffmoney.GetDayOffSalaryEmployeeAction">
+        </action>
         <!-- end employeeoffmoney -->
         <!-- start petro -->
         <action path="/getPetroPanel" type="com.stepup.gasoline.qt.common.BaseStatusFormAction" scope="request" validate="false">

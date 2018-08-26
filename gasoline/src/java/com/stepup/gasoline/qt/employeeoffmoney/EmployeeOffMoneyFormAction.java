@@ -10,6 +10,7 @@ import com.stepup.gasoline.qt.bean.EmployeeBean;
 import com.stepup.gasoline.qt.core.SpineAction;
 import com.stepup.gasoline.qt.dao.AccountDAO;
 import com.stepup.gasoline.qt.dao.EmployeeDAO;
+import com.stepup.gasoline.qt.employee.EmployeeFormBean;
 import com.stepup.gasoline.qt.util.Constants;
 import com.stepup.gasoline.qt.util.QTUtil;
 import java.util.ArrayList;
@@ -58,19 +59,33 @@ public class EmployeeOffMoneyFormAction extends SpineAction {
             } catch (Exception ex) {
             }
         }
-        request.setAttribute(Constants.EMPLOYEE_OFF_MONEY, bean);
 
         String organizationIds = QTUtil.getOrganizationManageds(request.getSession());
         ArrayList arrEmployee = null;
         try {
-            arrEmployee = employeeDAO.getEmployees(EmployeeBean.STATUS_ACTIVE, organizationIds);
+            if (bean.getEmployeeId() == 0) {
+                arrEmployee = employeeDAO.getEmployees(EmployeeBean.STATUS_ACTIVE, organizationIds);
+                if (arrEmployee != null && arrEmployee.size() > 0) {
+                    EmployeeFormBean empBean = (EmployeeFormBean) arrEmployee.get(0);
+                    EmployeeOffMoneyBean moneyBean = employeeDAO.getDayOffAndSalaryOfEmployee(empBean.getId());
+                    if (moneyBean != null) {
+                        bean.setQuantity(moneyBean.getQuantity());
+                        bean.setPrice(moneyBean.getPrice());
+                        bean.setAmount(moneyBean.getQuantity() * moneyBean.getPrice());
+                    }
+                }
+            } else {
+                arrEmployee = new ArrayList();
+                arrEmployee.add(employeeDAO.getEmployee(bean.getEmployeeId()));
+            }
         } catch (Exception ex) {
         }
         if (arrEmployee == null) {
             arrEmployee = new ArrayList();
         }
         request.setAttribute(Constants.EMPLOYEE_LIST, arrEmployee);
-
+        request.setAttribute(Constants.EMPLOYEE_OFF_MONEY, bean);
+        
         ArrayList arrAccount = null;
         try {
             AccountDAO accountDAO = new AccountDAO();

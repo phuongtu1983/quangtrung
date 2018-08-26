@@ -9,8 +9,10 @@
 package com.stepup.gasoline.qt.util;
 
 import com.stepup.core.auth.OnlineUser;
+import com.stepup.core.util.DateUtil;
 import com.stepup.core.util.StringUtil;
 import java.io.File;
+import java.util.Calendar;
 import java.util.ResourceBundle;
 import java.util.StringTokenizer;
 import javax.servlet.http.HttpServletRequest;
@@ -184,5 +186,26 @@ public class QTUtil {
             }
         }
         return false;
+    }
+
+    public static int getActualOff(String fromDate, String toDate) {
+        int result = 0;
+        try {
+            Calendar fromC = Calendar.getInstance();
+            fromC.setTime(DateUtil.convertStringToDate(fromDate, "dd/MM/yyyy"));
+
+            Calendar toC = Calendar.getInstance();
+            toC.setTime(DateUtil.convertStringToDate(toDate, "dd/MM/yyyy"));
+
+            while (toC.after(fromC)) {
+                if (fromC.get(Calendar.DAY_OF_WEEK) != Calendar.SUNDAY) {
+                    result++;
+                }
+                fromC.add(Calendar.DATE, 1);
+            }
+        } catch (Exception ex) {
+
+        }
+        return result;
     }
 }
