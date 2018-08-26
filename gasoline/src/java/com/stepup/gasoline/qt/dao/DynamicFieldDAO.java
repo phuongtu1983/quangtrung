@@ -65,6 +65,7 @@ public class DynamicFieldDAO extends BasicDAO {
                 bean.setName(rs.getString("name"));
                 bean.setTableName(rs.getString("table_name"));
                 bean.setOrganizationId(rs.getInt("organization_id"));
+                bean.setCanEdit(rs.getInt("can_edit"));
                 return bean;
             }
         } catch (SQLException sqle) {
@@ -79,9 +80,9 @@ public class DynamicFieldDAO extends BasicDAO {
         return null;
     }
 
-    public DynamicFieldFormBean getDynamicFieldByName(String name, String tableName) throws Exception {
+    public DynamicFieldFormBean getDynamicFieldByNameOrCode(String code, String name, String tableName) throws Exception {
         ResultSet rs = null;
-        String sql = "select d.* from dynamic_field as d where d.name='" + name + "' and table_name='" + tableName + "'";
+        String sql = "select d.* from dynamic_field as d where (d.name='" + name + "' or d.code='" + code + "') and table_name='" + tableName + "'";
         try {
             rs = DBUtil.executeQuery(sql);
             while (rs.next()) {
@@ -134,7 +135,7 @@ public class DynamicFieldDAO extends BasicDAO {
         try {
             String sql = "Update dynamic_field Set "
                     + " name='" + bean.getName() + "'"
-                    + ", code='" + bean.getCode()+ "'"
+                    + ", code='" + bean.getCode() + "'"
                     + ", organization_id=" + bean.getOrganizationId()
                     + " Where id=" + bean.getId();
             DBUtil.executeUpdate(sql);
@@ -177,16 +178,13 @@ public class DynamicFieldDAO extends BasicDAO {
     public ArrayList getDynamicFieldValues(int parentId, String tableName, int organizationId) throws Exception {
         ResultSet rs = null;
         String sql = "";
-        if (parentId > 0) {
-            sql = "select v.id, v.field_id, d.name, v.value"
-                    + " from dynamic_field as d, dynamic_field_value as v"
-                    + " where d.id=v.field_id and d.table_name='" + tableName + "' and d.organization_id=" + organizationId;
-        } else {
-            sql = "select 0 as id, d.id as field_id, d.name, '' as value"
-                    + " from dynamic_field as d where d.table_name='" + tableName + "' and d.organization_id=" + organizationId;
+        sql = "SELECT COALESCE(v.id,0) AS id, d.id AS field_id, d.NAME, COALESCE(" + (parentId != 0 ? "v.VALUE" : "dv.VALUE") + ",'') AS VALUE "
+                + " from dynamic_field as d left join dynamic_field_value as v on d.id=v.field_id and v.parent_id=" + parentId;
+        if (parentId == 0) {
+            sql += " LEFT JOIN dynamic_field_free_value AS dv ON dv.field_id=d.free_id";
         }
-
-        sql += " order by d.name";
+        sql += " where d.table_name='" + tableName + "' and d.organization_id=" + organizationId;
+        sql += " order by d.id";
         ArrayList list = new ArrayList();
         try {
             rs = DBUtil.executeQuery(sql);
@@ -239,6 +237,84 @@ public class DynamicFieldDAO extends BasicDAO {
         }
         try {
             String sql = "Update dynamic_field_value Set "
+                    + " value='" + bean.getValue() + "'"
+                    + " Where id=" + bean.getId();
+            DBUtil.executeUpdate(sql);
+        } catch (SQLException sqle) {
+            throw new Exception(sqle.getMessage());
+        } catch (Exception ex) {
+            throw new Exception(ex.getMessage());
+        } finally {
+            try {
+            } catch (Exception e) {
+                throw new Exception(e.getMessage());
+            }
+        }
+    }
+
+    public ArrayList getDynamicFieldFreeValues(int parentId, String parentTableName) throws Exception {
+        ResultSet rs = null;
+        String sql = "SELECT COALESCE(v.id,0) AS id, d.id AS field_id, d.NAME, COALESCE(v.VALUE,'') AS VALUE"
+                + " FROM dynamic_field_free AS d"
+                + " LEFT JOIN dynamic_field_free_value AS v ON d.id=v.field_id AND v.parent_id=" + parentId
+                + " WHERE d.parent_table_name='" + parentTableName + "' order by d.id";
+        ArrayList list = new ArrayList();
+        try {
+            rs = DBUtil.executeQuery(sql);
+            DynamicFieldValueFormBean bean = null;
+            while (rs.next()) {
+                bean = new DynamicFieldValueFormBean();
+                bean.setId(rs.getInt("id"));
+                bean.setFieldId(rs.getInt("field_id"));
+                bean.setName(rs.getString("name"));
+                bean.setValue(rs.getString("value"));
+                list.add(bean);
+            }
+        } catch (SQLException sqle) {
+            throw new Exception(sqle.getMessage());
+        } catch (Exception ex) {
+            throw new Exception(ex.getMessage());
+        } finally {
+            if (rs != null) {
+                DBUtil.closeConnection(rs);
+            }
+        }
+        return list;
+    }
+
+    public void insertDynamicFieldFreeValue(DynamicFieldValueBean bean) throws Exception {
+        if (bean == null) {
+            return;
+        }
+        try {
+            String sql = "";
+            sql = "Insert Into dynamic_field_free_value (value, field_id, parent_id)"
+                    + " Values ('" + bean.getValue() + "'," + bean.getFieldId() + "," + bean.getParentId() + ")";
+            DBUtil.executeInsert(sql);
+
+            sql = "Insert Into dynamic_field(code, name, organization_id, table_name, can_edit, free_id)"
+                    + " select * from (select d.code, d.name, " + bean.getParentId() + " as organization_id, d.table_name, 0 as can_edit, " + bean.getFieldId() + " as free_id from dynamic_field_free AS d where d.id=" + bean.getFieldId() + ") as temp"
+                    + " where not exists (SELECT id FROM dynamic_field WHERE free_id = " + bean.getFieldId() + ") LIMIT 1;";
+            DBUtil.executeInsert(sql);
+        } catch (SQLException sqle) {
+            throw new Exception(sqle.getMessage());
+        } catch (Exception ex) {
+            throw new Exception(ex.getMessage());
+        } finally {
+            try {
+            } catch (Exception e) {
+                throw new Exception(e.getMessage());
+            }
+
+        }
+    }
+
+    public void updateDynamicFieldFreeValue(DynamicFieldValueBean bean) throws Exception {
+        if (bean == null) {
+            return;
+        }
+        try {
+            String sql = "Update dynamic_field_free_value Set "
                     + " value='" + bean.getValue() + "'"
                     + " Where id=" + bean.getId();
             DBUtil.executeUpdate(sql);

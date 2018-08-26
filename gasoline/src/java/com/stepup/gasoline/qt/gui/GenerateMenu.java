@@ -253,7 +253,7 @@ public class GenerateMenu {
             buffTemp = new StringBuilder();
             if (isHasPermission(PermissionUtil.OPERATION_LIST + "," + PermissionUtil.OPERATION_ADD,
                     PermissionUtil.PER_EMPLOYEE_ADVANCE + "," + PermissionUtil.PER_SALARY + "," + PermissionUtil.PER_EMPLOYEE_TIMESHEET
-                    + "," + PermissionUtil.PER_EMPLOYEE_OFF)) {
+                    + "," + PermissionUtil.PER_EMPLOYEE_OFF + "," + PermissionUtil.PER_EMPLOYEE_OFF_INCREASE)) {
                 if (isHasPermission(PermissionUtil.OPERATION_LIST + "," + PermissionUtil.OPERATION_ADD, PermissionUtil.PER_EMPLOYEE_ADVANCE)) {
                     buffTemp.append("<item id=\"employeeadvances\" complex=\"true\" text=\"").append(QTUtil.getBundleString("employeeAdvance.title")).append("\">");
                     if (isHasPermission(PermissionUtil.OPERATION_LIST, PermissionUtil.PER_EMPLOYEE_ADVANCE)) {
@@ -281,6 +281,26 @@ public class GenerateMenu {
                     }
                     if (isHasPermission(PermissionUtil.OPERATION_ADD, PermissionUtil.PER_EMPLOYEE_OFF)) {
                         buffTemp.append("<item id=\"employeeoffadd\" text=\"").append(QTUtil.getBundleString("employeeOff.detail.add.title")).append("\"/>");
+                    }
+                    buffTemp.append("</item>");
+                }
+                if (isHasPermission(PermissionUtil.OPERATION_LIST + "," + PermissionUtil.OPERATION_ADD, PermissionUtil.PER_EMPLOYEE_OFF_INCREASE)) {
+                    buffTemp.append("<item id=\"employeeoffincreases\" complex=\"true\" text=\"").append(QTUtil.getBundleString("employeeOffIncrease.title")).append("\">");
+                    if (isHasPermission(PermissionUtil.OPERATION_LIST, PermissionUtil.PER_EMPLOYEE_OFF_INCREASE)) {
+                        buffTemp.append("<item id=\"employeeoffincreaselist\" text=\"").append(QTUtil.getBundleString("employeeOffIncrease.list.title")).append("\"/>");
+                    }
+                    if (isHasPermission(PermissionUtil.OPERATION_ADD, PermissionUtil.PER_EMPLOYEE_OFF_INCREASE)) {
+                        buffTemp.append("<item id=\"employeeoffincreaseadd\" text=\"").append(QTUtil.getBundleString("employeeOffIncrease.detail.add.title")).append("\"/>");
+                    }
+                    buffTemp.append("</item>");
+                }
+                if (isHasPermission(PermissionUtil.OPERATION_LIST + "," + PermissionUtil.OPERATION_ADD, PermissionUtil.PER_EMPLOYEE_OFF_MONEY)) {
+                    buffTemp.append("<item id=\"employeeoffmoneys\" complex=\"true\" text=\"").append(QTUtil.getBundleString("employeeOffMoney.title")).append("\">");
+                    if (isHasPermission(PermissionUtil.OPERATION_LIST, PermissionUtil.PER_EMPLOYEE_OFF_MONEY)) {
+                        buffTemp.append("<item id=\"employeeoffmoneylist\" text=\"").append(QTUtil.getBundleString("employeeOffMoney.list.title")).append("\"/>");
+                    }
+                    if (isHasPermission(PermissionUtil.OPERATION_ADD, PermissionUtil.PER_EMPLOYEE_OFF_MONEY)) {
+                        buffTemp.append("<item id=\"employeeoffmoneyadd\" text=\"").append(QTUtil.getBundleString("employeeOffMoney.detail.add.title")).append("\"/>");
                     }
                     buffTemp.append("</item>");
                 }

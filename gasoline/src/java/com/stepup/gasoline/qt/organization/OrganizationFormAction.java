@@ -4,9 +4,10 @@
  */
 package com.stepup.gasoline.qt.organization;
 
+import com.stepup.gasoline.qt.bean.DynamicFieldBean;
 import com.stepup.gasoline.qt.bean.EmployeeBean;
 import com.stepup.gasoline.qt.bean.OrganizationBean;
-import com.stepup.gasoline.qt.core.SpineAction;
+import com.stepup.gasoline.qt.core.DynamicFieldFreeValueAction;
 import com.stepup.gasoline.qt.dao.OrganizationDAO;
 import com.stepup.gasoline.qt.util.Constants;
 import com.stepup.gasoline.qt.util.QTUtil;
@@ -22,7 +23,7 @@ import org.apache.struts.util.LabelValueBean;
  *
  * @author phuongtu
  */
-public class OrganizationFormAction extends SpineAction {
+public class OrganizationFormAction extends DynamicFieldFreeValueAction {
 
     /**
      * This is the action called from the Struts framework.
@@ -35,7 +36,7 @@ public class OrganizationFormAction extends SpineAction {
      * @return
      */
     @Override
-    public boolean doAction(ActionMapping mapping, ActionForm form,
+    public boolean doMainAction(ActionMapping mapping, ActionForm form,
             HttpServletRequest request, HttpServletResponse response) {
         OrganizationBean bean = null;
         String organizationId = request.getParameter("organizationId");
@@ -62,7 +63,14 @@ public class OrganizationFormAction extends SpineAction {
         value.setValue(EmployeeBean.STATUS_INACTIVE + "");
         arrStatus.add(value);
         request.setAttribute(Constants.STATUS_LIST, arrStatus);
-
+        
+        super.setParentId(bean.getId());
         return true;
     }
+
+    @Override
+    public String getParentTableName() {
+        return DynamicFieldBean.ORGANIZATION;
+    }
+
 }

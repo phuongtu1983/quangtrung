@@ -50,6 +50,7 @@ public class AddVendorAction extends AddDynamicFieldValueAction {
                 isExist = true;
             }
         } else {
+            super.setParentId(vendorId);
             bNew = false;
             if (oldBean != null && oldBean.getId() != vendorId) {
                 isExist = true;
@@ -103,6 +104,7 @@ public class AddVendorAction extends AddDynamicFieldValueAction {
         } catch (Exception ex) {
             ex.printStackTrace();
         }
+        super.setOrganizationId(formBean.getOrganizationId());
         return true;
     }
 

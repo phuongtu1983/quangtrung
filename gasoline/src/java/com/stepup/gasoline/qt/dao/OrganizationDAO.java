@@ -157,14 +157,18 @@ public class OrganizationDAO extends BasicDAO {
         return null;
     }
 
-    public void insertOrganization(OrganizationBean bean) throws Exception {
+    public int insertOrganization(OrganizationBean bean) throws Exception {
         if (bean == null) {
-            return;
+            return 0;
         }
+        int id=0;
         try {
             String sql = "";
             sql = "Insert Into organization (name, code, address, status)"
                     + " Values ('" + bean.getName() + "','" + bean.getCode() + "','" + bean.getAddress() + "'," + bean.getStatus() + ")";
+            id = DBUtil.executeInsert(sql);
+            sql = "INSERT INTO dynamic_field(CODE, NAME, organization_id, table_name, can_edit)"
+                    + " SELECT code, name, " + id + ", table_name, 0 FROM dynamic_field_free";
             DBUtil.executeInsert(sql);
         } catch (SQLException sqle) {
             throw new Exception(sqle.getMessage());
@@ -175,8 +179,8 @@ public class OrganizationDAO extends BasicDAO {
             } catch (Exception e) {
                 throw new Exception(e.getMessage());
             }
-
         }
+        return id;
     }
 
     public void updateOrganization(OrganizationBean bean) throws Exception {

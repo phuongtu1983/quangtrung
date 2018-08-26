@@ -225,6 +225,14 @@ function menuClick(id) {
         loadExpensePanel();
     else if (id == 'expenseadd')
         getExpense(0, 'loadExpensePanel');
+    else if (id == 'employeeoffincreaselist')
+        loadEmployeeOffIncreasePanel();
+    else if (id == 'employeeoffincreaseadd')
+        getEmployeeOffIncrease(0, 'loadEmployeeOffIncreasePanel');
+    else if (id == 'employeeoffmoneylist')
+        loadEmployeeOffMoneyPanel();
+    else if (id == 'employeeoffmoneyadd')
+        getEmployeeOffMoney(0, 'loadEmployeeOffMoneyPanel');
 }
 function clearContent() {
     var contentDiv = document.getElementById("contentDiv");
@@ -6672,6 +6680,189 @@ function delExpense() {
     callAjaxCheckError('delExpense.do?expenseId=' + document.forms['expenseForm'].id.value, null, null, function() {
         loadExpensePanel();
         prepareHidePopup('expenseFormshowHelpHideDiv');
+    });
+    return false;
+}
+function loadEmployeeOffIncreasePanel() {
+    callAjax("getEmployeeOffIncreasePanel.do", null, null, function(data) {
+        clearContent();
+        setAjaxData(data, "contentDiv");
+        var myCalendar = new dhtmlXCalendarObject(["fromDate", "toDate"]);
+        myCalendar.setSkin('dhx_web');
+        var currentTime = getCurrentDate();
+        document.forms['employeeOffIncreaseSearchForm'].fromDate.value = currentTime;
+        document.forms['employeeOffIncreaseSearchForm'].toDate.value = currentTime;
+        myCalendar.setDateFormat("%d/%m/%Y");
+        loadEmployeeOffIncreaseList(currentTime, currentTime);
+    });
+    return false;
+}
+function loadEmployeeOffIncreaseList(fromDate, toDate) {
+    var mygrid = new dhtmlXGridObject('employeeOffIncreaseList');
+    mygrid.setImagePath("js/dhtmlx/grid/imgs/");
+    mygrid.setHeader("S\u1ED1 phi\u1EBFu,Nh\u00E2n vi\u00EAn,Ng\u00E0y t\u1EA1o,S\u1ED1 l\u01B0\u1EE3ng,Ghi ch\u00FA");
+    mygrid.attachHeader("#text_filter,#text_filter,#text_filter,#text_filter,#text_filter");
+    mygrid.setInitWidths("150,200,150,150,*");
+    mygrid.setColTypes("link,ro,ro,ro,ro");
+    mygrid.setColSorting("str,str,str,str,str");
+    mygrid.setSkin("light");
+    var height = contentHeight - 210;
+    mygrid.al(true, height);//enableAutoHeight
+    mygrid.enablePaging(true, 15, 3, "recinfoArea");
+    mygrid.setPagingSkin("toolbar", "dhx_skyblue");
+    mygrid.init();
+    var url = "getEmployeeOffIncreaseList.do?t=1";
+    if (fromDate != null)
+        url += "&fromDate=" + fromDate;
+    if (toDate != null)
+        url += "&toDate=" + toDate;
+    callAjax(url, null, null, function(data) {
+        mygrid.parse(data);
+    });
+    return false;
+}
+function getEmployeeOffIncrease(id, handle) {
+    popupName = 'TH\u00D4NG TIN B\u00D9 NGH\u1EC8 PH\u00C9P';
+    var url = 'employeeOffIncreaseForm.do';
+    if (id != 0)
+        url += '?employeeOffIncreaseId=' + id
+    callAjax(url, null, null, function(data) {
+        showPopupForm(data);
+        document.getElementById('callbackFunc').value = handle;
+    });
+}
+function saveEmployeeOffIncrease() {
+    if (scriptFunction == "saveEmployeeOffIncrease")
+        return false;
+    scriptFunction = "saveEmployeeOffIncrease";
+    callAjaxCheckError("addEmployeeOffIncrease.do", null, document.forms['employeeOffIncreaseForm'], function(data) {
+        scriptFunction = "";
+        var handle = document.getElementById('callbackFunc').value;
+        if (confirm('B\u1EA1n c\u00F3 mu\u1ED1n nh\u1EADp ti\u1EBFp th\u00F4ng tin kh\u00E1c ?'))
+            getEmployeeOffIncrease(0, handle);
+        else if (handle != '')
+            eval(handle + "()");
+        prepareHidePopup('employeeOffIncreaseFormshowHelpHideDiv');
+    });
+    return false;
+}
+function delEmployeeOffIncrease() {
+    callAjaxCheckError('delEmployeeOffIncrease.do?employeeOffIncreaseId=' + document.forms['employeeOffIncreaseForm'].id.value, null, null, function() {
+        loadEmployeeOffIncreasePanel();
+        prepareHidePopup('employeeOffIncreaseFormshowHelpHideDiv');
+    });
+    return false;
+}
+function loadEmployeeOffMoneyPanel() {
+    callAjax("getEmployeeOffMoneyPanel.do", null, null, function(data) {
+        clearContent();
+        setAjaxData(data, "contentDiv");
+        var myCalendar = new dhtmlXCalendarObject(["fromDate", "toDate"]);
+        myCalendar.setSkin('dhx_web');
+        var currentTime = getCurrentDate();
+        document.forms['employeeOffMoneySearchForm'].fromDate.value = currentTime;
+        document.forms['employeeOffMoneySearchForm'].toDate.value = currentTime;
+        myCalendar.setDateFormat("%d/%m/%Y");
+        loadEmployeeOffMoneyList(currentTime, currentTime);
+    });
+    return false;
+}
+function loadEmployeeOffMoneyList(fromDate, toDate) {
+    var mygrid = new dhtmlXGridObject('employeeOffMoneyList');
+    mygrid.setImagePath("js/dhtmlx/grid/imgs/");
+    mygrid.setHeader("S\u1ED1 phi\u1EBFu,Nh\u00E2n vi\u00EAn,Ng\u00E0y thanh to\u00E1n,S\u1ED1 ng\u00E0y,S\u1ED1 ti\u1EC1n,Ghi ch\u00FA");
+    mygrid.attachHeader("#text_filter,#text_filter,#text_filter,#text_filter,#text_filter,#text_filter");
+    mygrid.setInitWidths("150,200,200,200,200,*");
+    mygrid.setColTypes("link,ro,ro,ro,ro,ro");
+    mygrid.setColSorting("str,str,str,str,str,str");
+    mygrid.setSkin("light");
+    var height = contentHeight - 210;
+    mygrid.al(true, height);//enableAutoHeight
+    mygrid.enablePaging(true, 15, 3, "recinfoArea");
+    mygrid.setPagingSkin("toolbar", "dhx_skyblue");
+    mygrid.init();
+    var url = "getEmployeeOffMoneyList.do?t=1";
+    if (fromDate != null)
+        url += "&fromDate=" + fromDate;
+    if (toDate != null)
+        url += "&toDate=" + toDate;
+    callAjax(url, null, null, function(data) {
+        mygrid.parse(data);
+    });
+    return false;
+}
+function getEmployeeOffMoney(id, handle) {
+    popupName = 'TH\u00D4NG TIN THANH TO\u00C1N NG\u00C0Y PH\u00C9P';
+    var url = 'employeeOffMoneyForm.do';
+    if (id != 0)
+        url += '?employeeOffMoneyId=' + id
+    callAjax(url, null, null, function(data) {
+        showPopupForm(data);
+        document.getElementById('callbackFunc').value = handle;
+        document.forms['employeeOffMoneyForm'].amount.focus();
+        tryNumberFormatCurrentcy(document.forms['employeeOffMoneyForm'].quantity, "VND");
+        tryNumberFormatCurrentcy(document.forms['employeeOffMoneyForm'].price, "VND");
+        tryNumberFormatCurrentcy(document.forms['employeeOffMoneyForm'].amount, "VND");
+        var myCalendar = new dhtmlXCalendarObject(["employeeOffMoneyDate"]);
+        myCalendar.setSkin('dhx_web');
+        if (id == 0) {
+            var currentDate = getCurrentDate();
+            document.forms['employeeOffMoneyForm'].employeeOffMoneyDate.value = currentDate;
+        }
+        myCalendar.setDateFormat("%d/%m/%Y");
+    });
+}
+function saveEmployeeOffMoney() {
+    if (scriptFunction == "saveEmployeeOffMoney")
+        return false;
+    var field = document.forms['employeeOffMoneyForm'].createdDate;
+    if (field.value == '') {
+        alert("Vui l\u00F2ng nh\u1EADp ng\u00E0y thanh to\u00E1n");
+        field.focus();
+        field = null;
+        return false;
+    }
+    field = document.forms['employeeOffMoneyForm'].quantity;
+    if (field.value == '') {
+        alert("Vui l\u00F2ng nh\u1EADp s\u1ED1 ng\u00E0y");
+        field.focus();
+        field = null;
+        return false;
+    }
+    field = document.forms['employeeOffMoneyForm'].price;
+    if (field.value == '') {
+        alert("Vui l\u00F2ng nh\u1EADp \u0111\u01A1n gi\u00E1");
+        field.focus();
+        field = null;
+        return false;
+    }
+    field = document.forms['employeeOffMoneyForm'].amount;
+    if (field.value == '') {
+        alert("Vui l\u00F2ng nh\u1EADp s\u1ED1 ti\u1EC1n");
+        field.focus();
+        field = null;
+        return false;
+    }
+    field = null;
+    reformatNumberMoney(document.forms['employeeOffMoneyForm'].quantity);
+    reformatNumberMoney(document.forms['employeeOffMoneyForm'].price);
+    reformatNumberMoney(document.forms['employeeOffMoneyForm'].amount);
+    scriptFunction = "saveEmployeeOffMoney";
+    callAjaxCheckError("addEmployeeOffMoney.do", null, document.forms['employeeOffMoneyForm'], function(data) {
+        scriptFunction = "";
+        var handle = document.getElementById('callbackFunc').value;
+        if (confirm('B\u1EA1n c\u00F3 mu\u1ED1n nh\u1EADp ti\u1EBFp th\u00F4ng tin kh\u00E1c ?'))
+            getEmployeeOffMoney(0, handle);
+        else if (handle != '')
+            eval(handle + "()");
+        prepareHidePopup('employeeOffMoneyFormshowHelpHideDiv');
+    });
+    return false;
+}
+function delEmployeeOffMoney() {
+    callAjaxCheckError('delEmployeeOffMoney.do?employeeOffMoneyId=' + document.forms['employeeOffMoneyForm'].id.value, null, null, function() {
+        loadEmployeeOffMoneyPanel();
+        prepareHidePopup('employeeOffMoneyFormshowHelpHideDiv');
     });
     return false;
 }

@@ -42,6 +42,8 @@
         <form-bean name="oldShellForm" type="com.stepup.gasoline.qt.oldshell.OldShellFormBean"/>
         <form-bean name="gasPriceForm" type="com.stepup.gasoline.qt.gasprice.GasPriceFormBean"/>
         <form-bean name="employeeOffForm" type="com.stepup.gasoline.qt.employeeoff.EmployeeOffFormBean"/>
+        <form-bean name="employeeOffIncreaseForm" type="com.stepup.gasoline.qt.employeeoffincrease.EmployeeOffIncreaseFormBean"/>
+        <form-bean name="employeeOffMoneyForm" type="com.stepup.gasoline.qt.employeeoffmoney.EmployeeOffMoneyFormBean"/>
         <form-bean name="employeeTimesheetForm" type="com.stepup.gasoline.qt.employeetimesheet.EmployeeTimesheetFormBean"/>
         <form-bean name="salaryForm" type="com.stepup.gasoline.qt.salary.SalaryFormBean"/>
         <form-bean name="storeForm" type="com.stepup.gasoline.qt.store.StoreFormBean"/>
@@ -418,6 +420,34 @@
         <action path="/delEmployeeOff" type="com.stepup.gasoline.qt.employeeoff.DeleteEmployeeOffAction" scope="request" validate="false" >
         </action>
         <!-- end employeeoff -->
+        <!-- start employeeoffincrease -->
+        <action path="/getEmployeeOffIncreasePanel" type="com.stepup.gasoline.qt.common.BaseStatusFormAction" scope="request" validate="false">
+            <forward name="success" path="/employeeoffincrease/employeeoffincreasepanel.jsp" />
+        </action>
+        <action path="/getEmployeeOffIncreaseList" type="com.stepup.gasoline.qt.employeeoffincrease.GetEmployeeOffIncreaseListAction" scope="request" validate="false" >
+        </action>
+        <action path="/employeeOffIncreaseForm" type="com.stepup.gasoline.qt.employeeoffincrease.EmployeeOffIncreaseFormAction" scope="request" validate="false">
+            <forward name="success" path="/employeeoffincrease/employeeoffincreasedetail.jsp" />
+        </action>
+        <action path="/addEmployeeOffIncrease" name ="employeeOffIncreaseForm" scope="request" type="com.stepup.gasoline.qt.employeeoffincrease.AddEmployeeOffIncreaseAction" input="/employeeOffIncreaseForm.do">
+        </action>
+        <action path="/delEmployeeOffIncrease" type="com.stepup.gasoline.qt.employeeoffincrease.DeleteEmployeeOffIncreaseAction" scope="request" validate="false" >
+        </action>
+        <!-- end employeeoffincrease -->
+        <!-- start employeeoffmoney -->
+        <action path="/getEmployeeOffMoneyPanel" type="com.stepup.gasoline.qt.common.BaseStatusFormAction" scope="request" validate="false">
+            <forward name="success" path="/employeeoffmoney/employeeoffmoneypanel.jsp" />
+        </action>
+        <action path="/getEmployeeOffMoneyList" type="com.stepup.gasoline.qt.employeeoffmoney.GetEmployeeOffMoneyListAction" scope="request" validate="false" >
+        </action>
+        <action path="/employeeOffMoneyForm" type="com.stepup.gasoline.qt.employeeoffmoney.EmployeeOffMoneyFormAction" scope="request" validate="false">
+            <forward name="success" path="/employeeoffmoney/employeeoffmoneydetail.jsp" />
+        </action>
+        <action path="/addEmployeeOffMoney" name ="employeeOffMoneyForm" scope="request" type="com.stepup.gasoline.qt.employeeoffmoney.AddEmployeeOffMoneyAction" input="/employeeOffMoneyForm.do">
+        </action>
+        <action path="/delEmployeeOffMoney" type="com.stepup.gasoline.qt.employeeoffmoney.DeleteEmployeeOffMoneyAction" scope="request" validate="false" >
+        </action>
+        <!-- end employeeoffmoney -->
         <!-- start petro -->
         <action path="/getPetroPanel" type="com.stepup.gasoline.qt.common.BaseStatusFormAction" scope="request" validate="false">
             <forward name="success" path="/petro/petropanel.jsp" />

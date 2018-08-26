@@ -5,12 +5,13 @@
 package com.stepup.gasoline.qt.organization;
 
 import com.stepup.gasoline.qt.bean.OrganizationBean;
+import com.stepup.gasoline.qt.dynamicfield.DynamicFieldValueParentFormBean;
 
 /**
  *
  * @author phuongtu
  */
-public class OrganizationFormBean extends org.apache.struts.action.ActionForm {
+public class OrganizationFormBean extends DynamicFieldValueParentFormBean {
 
     private int id;
     private String name;

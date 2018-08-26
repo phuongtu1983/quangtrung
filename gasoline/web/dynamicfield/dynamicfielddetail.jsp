@@ -37,14 +37,18 @@
                             <%}%>
                         </logic:equal>
                         <logic:notEqual name="<%=Constants.DYNAMIC_FIELD%>" property="id" value="0">
-                            <%if (PermissionUtil.hasPermission(request, PermissionUtil.OPERATION_EDIT, PermissionUtil.PER_DYNAMIC_FIELD)) {%> 
-                            <button class="i_create_write icon small green" onclick="return saveDynamicField();"><bean:message key="message.save"/></button>
-                            <%}%>
+                            <logic:equal name="<%=Constants.DYNAMIC_FIELD%>" property="canEdit" value="1">
+                                <%if (PermissionUtil.hasPermission(request, PermissionUtil.OPERATION_EDIT, PermissionUtil.PER_DYNAMIC_FIELD)) {%> 
+                                <button class="i_create_write icon small green" onclick="return saveDynamicField();"><bean:message key="message.save"/></button>
+                                <%}%>
+                            </logic:equal>
                         </logic:notEqual>
                         <logic:greaterThan name="<%=Constants.DYNAMIC_FIELD%>" property="id" value="0">
-                            <%if (PermissionUtil.hasPermission(request, PermissionUtil.OPERATION_DELETE, PermissionUtil.PER_DYNAMIC_FIELD)) {%> 
-                            <button class="i_trashcan icon small red" onclick="return delDynamicField();"><bean:message key="message.del"/></button>
-                            <%}%>
+                            <logic:equal name="<%=Constants.DYNAMIC_FIELD%>" property="canEdit" value="1">
+                                <%if (PermissionUtil.hasPermission(request, PermissionUtil.OPERATION_DELETE, PermissionUtil.PER_DYNAMIC_FIELD)) {%> 
+                                <button class="i_trashcan icon small red" onclick="return delDynamicField();"><bean:message key="message.del"/></button>
+                                <%}%>
+                            </logic:equal>
                         </logic:greaterThan>
                         <button class="i_access_denied icon small yellow" onclick="return prepareHidePopup('dynamicFieldFormshowHelpHideDiv');"><bean:message key="message.close"/></button>
                 </td>

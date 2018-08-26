@@ -136,4 +136,6 @@ public class PermissionUtil {
     public static int PER_DEBT_WHOLESALE = 48;
     public static int PER_INCOME = 49;
     public static int PER_EXPENSE = 50;
+    public static int PER_EMPLOYEE_OFF_INCREASE = 51;
+    public static int PER_EMPLOYEE_OFF_MONEY = 52;
 }

@@ -50,6 +50,7 @@ public class AddCustomerAction extends AddDynamicFieldValueAction {
                 isExist = true;
             }
         } else {
+            super.setParentId(customerId);
             bNew = false;
             if (oldBean != null && oldBean.getId() != customerId) {
                 isExist = true;
@@ -107,6 +108,7 @@ public class AddCustomerAction extends AddDynamicFieldValueAction {
         } catch (Exception ex) {
             ex.printStackTrace();
         }
+        super.setOrganizationId(formBean.getOrganizationId());
         return true;
     }
 

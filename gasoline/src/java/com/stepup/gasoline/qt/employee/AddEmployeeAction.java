@@ -50,6 +50,7 @@ public class AddEmployeeAction extends AddDynamicFieldValueAction {
                 isExist = true;
             }
         } else {
+            super.setParentId(employeeId);
             bNew = false;
             if (oldBean != null && oldBean.getId() != employeeId) {
                 isExist = true;
@@ -107,6 +108,7 @@ public class AddEmployeeAction extends AddDynamicFieldValueAction {
         } catch (Exception ex) {
             ex.printStackTrace();
         }
+        super.setOrganizationId(formBean.getOrganizationId());
         return true;
     }
 

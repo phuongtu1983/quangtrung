@@ -28,6 +28,11 @@
                             <td height="30" style="padding-right: 20px"><bean:message key="organization.detail.address"/></td>
                             <td colspan="3"><html:text property="address" size="90" name="<%=Constants.ORGANIZATION%>"/></td>
                         </tr>
+                        <tr>
+                            <td height="30" style="padding-right: 20px" colspan="4">
+                                <div id="organizationDynamicField"><%@include  file="fieldvalues.jsp"%></div>
+                            </td>
+                        </tr>
                     </table>
                 </td></tr>
             <tr>

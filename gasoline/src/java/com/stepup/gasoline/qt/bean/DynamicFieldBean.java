@@ -15,6 +15,7 @@ public class DynamicFieldBean {
     private String name;
     private int organizationId;
     private String tableName;
+    private int canEdit;
 
     public void setId(int id) {
         this.id = id;
@@ -55,11 +56,20 @@ public class DynamicFieldBean {
     public void setCode(String code) {
         this.code = code;
     }
-    
+
+    public int getCanEdit() {
+        return canEdit;
+    }
+
+    public void setCanEdit(int canEdit) {
+        this.canEdit = canEdit;
+    }
+
     public static String EMPLOYEE = "employee";
     public static String VENDOR = "vendor";
     public static String CUSTOMER = "customer";
     public static String SALARY = "salary";
     public static String TIMESHEET = "timesheet";
+    public static String ORGANIZATION = "organization";
 
 }

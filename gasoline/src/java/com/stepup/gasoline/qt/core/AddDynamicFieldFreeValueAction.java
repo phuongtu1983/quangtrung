@@ -10,6 +10,7 @@ import com.stepup.gasoline.qt.bean.DynamicFieldValueBean;
 import com.stepup.gasoline.qt.dao.DynamicFieldDAO;
 import com.stepup.gasoline.qt.dynamicfield.DynamicFieldValueFormBean;
 import com.stepup.gasoline.qt.dynamicfield.DynamicFieldValueParentFormBean;
+import com.stepup.gasoline.qt.util.QTUtil;
 import java.util.ArrayList;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -20,20 +21,15 @@ import org.apache.struts.action.ActionMapping;
  *
  * @author Administrator
  */
-public class AddDynamicFieldValueAction extends SpineAction {
+public class AddDynamicFieldFreeValueAction extends SpineAction {
 
     protected int parentId;
-    protected int organizationId;
 
     protected void setParentId(int id) {
         this.parentId = id;
     }
 
-    public void setOrganizationId(int organizationId) {
-        this.organizationId = organizationId;
-    }
-
-    protected String getTableName() {
+    protected String getParentTableName() {
         return "";
     }
 
@@ -41,7 +37,7 @@ public class AddDynamicFieldValueAction extends SpineAction {
     public boolean doAction(ActionMapping mapping, ActionForm form,
             HttpServletRequest request, HttpServletResponse response) {
         boolean result = doMainAction(mapping, form, request, response);
-        addDynamicFieldValues((DynamicFieldValueParentFormBean) form);
+        addDynamicFieldFreeValues((DynamicFieldValueParentFormBean) form, QTUtil.getOrganizationId(request.getSession()));
         return result;
     }
 
@@ -50,10 +46,10 @@ public class AddDynamicFieldValueAction extends SpineAction {
         return true;
     }
 
-    protected void addDynamicFieldValues(DynamicFieldValueParentFormBean formBean) {
+    protected void addDynamicFieldFreeValues(DynamicFieldValueParentFormBean formBean, int organizationId) {
         try {
             DynamicFieldDAO dynamicFieldDAODAO = new DynamicFieldDAO();
-            ArrayList arrDetail = dynamicFieldDAODAO.getDynamicFieldValues(this.parentId, getTableName(), this.organizationId);
+            ArrayList arrDetail = dynamicFieldDAODAO.getDynamicFieldFreeValues(this.parentId, getParentTableName());
             int length = formBean.getFieldValueId().length;
             int id = 0;
             DynamicFieldValueBean bean = null;
@@ -64,7 +60,7 @@ public class AddDynamicFieldValueAction extends SpineAction {
                     bean.setParentId(this.parentId);
                     bean.setFieldId(NumberUtil.parseInt(formBean.getFieldId()[i], 0));
                     bean.setValue(formBean.getFieldValue()[i] + "");
-                    dynamicFieldDAODAO.insertDynamicFieldValue(bean);
+                    dynamicFieldDAODAO.insertDynamicFieldFreeValue(bean);
                 } else {
                     DynamicFieldValueFormBean oldBean = null;
                     boolean isUpdate = false;
@@ -79,7 +75,7 @@ public class AddDynamicFieldValueAction extends SpineAction {
                                 bean.setValue(formBean.getFieldValue()[i] + "");
                             }
                             if (isUpdate) {
-                                dynamicFieldDAODAO.updateDynamicFieldValue(bean);
+                                dynamicFieldDAODAO.updateDynamicFieldFreeValue(bean);
                             }
                             arrDetail.remove(j);
                             break;

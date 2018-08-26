@@ -61,6 +61,8 @@ public class Constants {
     public static final String EMPLOYEE_ADVANCE = "employeeAdvance";
     public static final String EMPLOYEE_TIMESHEET = "employeeTimesheet";
     public static final String EMPLOYEE_OFF = "employeeOff";
+    public static final String EMPLOYEE_OFF_INCREASE = "employeeOffIncrease";
+    public static final String EMPLOYEE_OFF_MONEY = "employeeOffMoney";
     public static final String SALARY = "salary";
     public static final String SALARY_TIMESHEET_LIST = "salaryTimeSheetList";
     public static final String SALARY_FIELD_LIST = "salaryFieldList";

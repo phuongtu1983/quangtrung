@@ -4,8 +4,9 @@
  */
 package com.stepup.gasoline.qt.organization;
 
+import com.stepup.gasoline.qt.bean.DynamicFieldBean;
 import com.stepup.gasoline.qt.bean.OrganizationBean;
-import com.stepup.gasoline.qt.core.SpineAction;
+import com.stepup.gasoline.qt.core.AddDynamicFieldFreeValueAction;
 import com.stepup.gasoline.qt.dao.OrganizationDAO;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -18,7 +19,7 @@ import org.apache.struts.action.ActionMessages;
  *
  * @author phuongtu
  */
-public class AddOrganizationAction extends SpineAction {
+public class AddOrganizationAction extends AddDynamicFieldFreeValueAction {
 
     /**
      * This is the action called from the Struts framework.
@@ -31,7 +32,7 @@ public class AddOrganizationAction extends SpineAction {
      * @return
      */
     @Override
-    public boolean doAction(ActionMapping mapping, ActionForm form,
+    public boolean doMainAction(ActionMapping mapping, ActionForm form,
             HttpServletRequest request, HttpServletResponse response) {
         OrganizationFormBean formBean = (OrganizationFormBean) form;
         OrganizationDAO organizationDAO = new OrganizationDAO();
@@ -49,6 +50,7 @@ public class AddOrganizationAction extends SpineAction {
                 isExist = true;
             }
         } else {
+            super.setParentId(organizationId);
             bNew = false;
             if (bean != null && bean.getId() != organizationId) {
                 isExist = true;
@@ -90,7 +92,8 @@ public class AddOrganizationAction extends SpineAction {
         bean.setStatus(formBean.getStatus());
         try {
             if (bNew) {
-                organizationDAO.insertOrganization(bean);
+                organizationId = organizationDAO.insertOrganization(bean);
+                super.setParentId(organizationId);
             } else {
                 if (isUpdate) {
                     organizationDAO.updateOrganization(bean);
@@ -100,5 +103,10 @@ public class AddOrganizationAction extends SpineAction {
             ex.printStackTrace();
         }
         return true;
+    }
+
+    @Override
+    public String getParentTableName() {
+        return DynamicFieldBean.ORGANIZATION;
     }
 }

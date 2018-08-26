@@ -18,6 +18,7 @@ public class DynamicFieldFormBean extends org.apache.struts.action.ActionForm {
     private String tableName;
     private int organizationId;
     private String organizationName;
+    private int canEdit;
 
     public DynamicFieldFormBean() {
     }
@@ -28,6 +29,7 @@ public class DynamicFieldFormBean extends org.apache.struts.action.ActionForm {
         this.code = bean.getCode();
         this.tableName = bean.getTableName();
         this.organizationId = bean.getOrganizationId();
+        this.canEdit = bean.getCanEdit();
     }
 
     public int getId() {
@@ -76,6 +78,14 @@ public class DynamicFieldFormBean extends org.apache.struts.action.ActionForm {
 
     public void setCode(String code) {
         this.code = code;
+    }
+
+    public int getCanEdit() {
+        return canEdit;
+    }
+
+    public void setCanEdit(int canEdit) {
+        this.canEdit = canEdit;
     }
 
 }
