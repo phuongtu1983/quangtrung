@@ -7,7 +7,7 @@ import java.util.TimerTask;
 import com.stepup.core.util.TimerUtil;
 import com.stepup.gasoline.qt.dao.AutoDAO;
 import com.stepup.gasoline.qt.dao.BasicDAO;
-import com.stepup.gasoline.qt.employee.AutoSalaryEmployee;
+import com.stepup.gasoline.qt.employee.AutoMailBirthdayEmployee;
 
 /**
  *
@@ -99,16 +99,17 @@ public class WatchTask extends TimerTask {
             System.out.println("Start WatchTask " + DateUtil.today("dd/MM/yyyy HH:mm:ss"));
             try {
                 AutoDAO autoDAO = new AutoDAO();
-                boolean result = autoDAO.hasAutoSalaryEmployee();
-                if (!result) {
-                    try {
-                        AutoSalaryEmployee autoRunnable = new AutoSalaryEmployee();
-                        Thread t = new Thread(autoRunnable);
-                        t.start();
-                        autoDAO.insertAutoSalaryEmployee();
-                    } catch (Exception ex) {
-                    }
-                }
+                boolean result;
+//                boolean result = autoDAO.hasAutoSalaryEmployee();
+//                if (!result) {
+//                    try {
+//                        AutoSalaryEmployee autoRunnable = new AutoSalaryEmployee();
+//                        Thread t = new Thread(autoRunnable);
+//                        t.start();
+//                        autoDAO.insertAutoSalaryEmployee();
+//                    } catch (Exception ex) {
+//                    }
+//                }
                 result = autoDAO.hasAutoInStock();
                 if (!result) {
                     try {
@@ -118,6 +119,13 @@ public class WatchTask extends TimerTask {
                         autoDAO.insertAutoInStock();
                     } catch (Exception ex) {
                     }
+                }
+
+                try {
+                    AutoMailBirthdayEmployee autoBirthdayRunnable = new AutoMailBirthdayEmployee();
+                    Thread t = new Thread(autoBirthdayRunnable);
+                    t.start();
+                } catch (Exception ex) {
                 }
             } catch (Exception ex) {
 

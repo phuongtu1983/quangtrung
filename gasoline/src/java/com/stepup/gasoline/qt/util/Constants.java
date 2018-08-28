@@ -42,7 +42,7 @@ public class Constants {
     public static final String STORE_LIST = "storeList";
     public static final String UNIT = "unit";
     public static final String UNIT_LIST = "unitList";
-    public static final String CONFIG_SALARY_MONTH_DAY = "salarymonthday";
+    public static final String CONFIG_MAIL_BEFORE_DAY = "mailbeforeday";
     public static final String PARAMETER = "parameter";
     public static final String ACCOUNT = "account";
     public static final String ACCOUNT_LIST = "accountList";
@@ -118,4 +118,5 @@ public class Constants {
     public static final String DEBT_WHOLESALE = "debtWholesale";
     public static final String INCOME = "income";
     public static final String EXPENSE = "expense";
+    public static final String NOT_SALARY = "notSalary";
 }

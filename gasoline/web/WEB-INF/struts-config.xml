@@ -354,7 +354,7 @@
         </action>
         <!-- end employeeadvance -->
         <!-- start salary -->
-        <action path="/getSalaryPanel" type="com.stepup.gasoline.qt.common.BaseStatusFormAction" scope="request" validate="false">
+        <action path="/getSalaryPanel" type="com.stepup.gasoline.qt.salary.SalaryPanelAction" scope="request" validate="false">
             <forward name="success" path="/salary/salarypanel.jsp" />
         </action>
         <action path="/getSalaryList" type="com.stepup.gasoline.qt.salary.GetSalaryListAction" scope="request" validate="false" >
@@ -363,6 +363,8 @@
             <forward name="success" path="/salary/salarydetail.jsp" />
         </action>
         <action path="/addSalary" name ="salaryForm" scope="request" type="com.stepup.gasoline.qt.salary.AddSalaryAction" input="/salaryForm.do">
+        </action>
+        <action path="/createSalary" type="com.stepup.gasoline.qt.salary.CreateSalaryAction" scope="request" validate="false">
         </action>
         <!-- end salary -->
         <!-- start employee salary-->

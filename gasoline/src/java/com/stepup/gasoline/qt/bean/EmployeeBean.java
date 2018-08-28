@@ -17,6 +17,7 @@ public class EmployeeBean {
     private int organizationId;
     private double salary;
     private int userId;
+    private String birthday;
 
     public String getEmail() {
         return email;
@@ -72,6 +73,14 @@ public class EmployeeBean {
 
     public void setUserId(int userId) {
         this.userId = userId;
+    }
+
+    public String getBirthday() {
+        return birthday;
+    }
+
+    public void setBirthday(String birthday) {
+        this.birthday = birthday;
     }
 
     public static int STATUS_ACTIVE = 1;

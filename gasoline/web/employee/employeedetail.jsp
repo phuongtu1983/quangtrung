@@ -32,7 +32,9 @@
                         </tr>
                         <tr>
                             <td height="30" style="padding-right: 20px"><bean:message key="employee.detail.salary"/></td>
-                            <td colspan="3"><html:text property="salary" size="40" name="<%=Constants.EMPLOYEE%>" onkeyup="try2FloatFormatOnKeyUp(this,event);" onkeypress="return readonlyFloat(event);"/></td>
+                            <td><html:text property="salary" size="40" name="<%=Constants.EMPLOYEE%>" onkeyup="try2FloatFormatOnKeyUp(this,event);" onkeypress="return readonlyFloat(event);"/></td>
+                            <td height="30" style="padding-left: 10px; padding-right: 20px"><bean:message key="employee.detail.birthday"/></td>
+                            <td><html:text property="birthday" styleId="employeeBirthday" size="30" name="<%=Constants.EMPLOYEE%>"/></td>
                         </tr>
                         <tr>
                             <td height="30" style="padding-right: 20px" colspan="4">

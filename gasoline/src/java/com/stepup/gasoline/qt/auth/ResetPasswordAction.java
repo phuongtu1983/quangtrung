@@ -112,8 +112,7 @@ public class ResetPasswordAction extends Action {
 
         content += "</body></html>";
         String mail_subject = "Quang Trung Copr, Reset Password for " + name;
-        MailHandle gmailRunnable = new MailHandle();
-        gmailRunnable.setParameters(QTUtil.getBundleString("message.notify.senderMail"), mail_to, "", "", mail_subject, content);
+        MailHandle gmailRunnable = new MailHandle(mail_to, mail_subject, content);
         Thread t = new Thread(gmailRunnable);
         t.start();
     }

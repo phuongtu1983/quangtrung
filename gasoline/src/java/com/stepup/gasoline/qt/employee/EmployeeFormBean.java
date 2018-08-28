@@ -20,6 +20,7 @@ public class EmployeeFormBean extends DynamicFieldValueParentFormBean {
     private String email;
     private int organizationId;
     private String organizationName;
+    private String birthday;
     private double salary;
 
     public EmployeeFormBean() {
@@ -32,6 +33,7 @@ public class EmployeeFormBean extends DynamicFieldValueParentFormBean {
         this.email = bean.getEmail();
         this.organizationId = bean.getOrganizationId();
         this.salary = bean.getSalary();
+        this.birthday = bean.getBirthday();
     }
 
     public int getId() {
@@ -96,6 +98,14 @@ public class EmployeeFormBean extends DynamicFieldValueParentFormBean {
 
     public void setSalary(double salary) {
         this.salary = salary;
+    }
+
+    public String getBirthday() {
+        return birthday;
+    }
+
+    public void setBirthday(String birthday) {
+        this.birthday = birthday;
     }
 
 }

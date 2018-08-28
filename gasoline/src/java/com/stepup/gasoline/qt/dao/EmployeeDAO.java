@@ -88,6 +88,7 @@ public class EmployeeDAO extends BasicDAO {
                 employee.setSalary(rs.getDouble("salary"));
                 employee.setOrganizationId(rs.getInt("organization_id"));
                 employee.setOrganizationName(rs.getString("organization_name"));
+                employee.setBirthday(DateUtil.formatDate(rs.getDate("birthday"), "dd/MM/yyyy"));
                 employee.setStatus(rs.getInt("status"));
                 if (employee.getStatus() == EmployeeBean.STATUS_ACTIVE) {
                     employee.setStatusName(QTUtil.getBundleString("employee.detail.status.active"));
@@ -119,6 +120,7 @@ public class EmployeeDAO extends BasicDAO {
                 employee.setId(rs.getInt("id"));
                 employee.setFullname(rs.getString("fullname"));
                 employee.setEmail(rs.getString("email"));
+                employee.setBirthday(DateUtil.formatDate(rs.getDate("birthday"), "dd/MM/yyyy"));
                 employee.setStatus(rs.getInt("status"));
                 return employee;
             }
@@ -217,9 +219,16 @@ public class EmployeeDAO extends BasicDAO {
             return 0;
         }
         try {
+            String birthday = "";
+            if (GenericValidator.isBlankOrNull(bean.getBirthday())) {
+                birthday = "null";
+            } else {
+                birthday = "STR_TO_DATE('" + bean.getBirthday() + "','%d/%m/%Y')";
+            }
             String sql = "";
-            sql = "Insert Into employee (fullname, email, salary, organization_id, status)"
-                    + " Values ('" + bean.getFullname() + "','" + bean.getEmail() + "'," + bean.getSalary() + "," + bean.getOrganizationId() + "," + bean.getStatus() + ")";
+            sql = "Insert Into employee (fullname, email, salary, organization_id, status, birthday)"
+                    + " Values ('" + bean.getFullname() + "','" + bean.getEmail() + "'," + bean.getSalary() + "," + bean.getOrganizationId()
+                    + "," + bean.getStatus() + "," + birthday + ")";
             return DBUtil.executeInsert(sql);
         } catch (SQLException sqle) {
             throw new Exception(sqle.getMessage());
@@ -239,9 +248,16 @@ public class EmployeeDAO extends BasicDAO {
             return;
         }
         try {
+            String birthday = "";
+            if (GenericValidator.isBlankOrNull(bean.getBirthday())) {
+                birthday = "null";
+            } else {
+                birthday = "STR_TO_DATE('" + bean.getBirthday() + "','%d/%m/%Y')";
+            }
             String sql = "Update employee Set "
                     + " fullname='" + bean.getFullname() + "'"
                     + ", email='" + bean.getEmail() + "'"
+                    + ", birthday=" + birthday
                     + ", salary=" + bean.getSalary()
                     + ", organization_id=" + bean.getOrganizationId()
                     + ", status=" + bean.getStatus()
@@ -1602,6 +1618,47 @@ public class EmployeeDAO extends BasicDAO {
             }
         }
         return bean;
+    }
+
+    public ArrayList getBirthdayEmployeeBeforeDay(int day) throws Exception {
+        SPUtil spUtil = null;
+        ArrayList list = new ArrayList();
+        ResultSet rs = null;
+        try {
+            String sql = "{call getBirthdayEmployeeBeforeDay(?)}";
+            spUtil = new SPUtil(sql);
+            if (spUtil != null) {
+                spUtil.getCallableStatement().setInt("_day", day);
+                rs = spUtil.executeQuery();
+                if (rs != null) {
+                    EmployeeBean bean = null;
+                    while (rs.next()) {
+                        bean = new EmployeeBean();
+                        bean.setId(rs.getInt("id"));
+                        bean.setFullname(rs.getString("fullname"));
+                        bean.setEmail(rs.getString("email"));
+                        list.add(bean);
+                    }
+                }
+            }
+        } catch (SQLException sqle) {
+            throw new Exception(sqle.getMessage());
+        } catch (Exception ex) {
+            throw new Exception(ex.getMessage());
+        } finally {
+            try {
+                if (spUtil != null) {
+                    spUtil.closeConnection();
+                }
+                if (rs != null) {
+                    rs.close();
+                    rs = null;
+                }
+            } catch (Exception e) {
+                throw new Exception(e.getMessage());
+            }
+        }
+        return list;
     }
 
 }

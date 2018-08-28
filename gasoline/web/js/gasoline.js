@@ -979,6 +979,10 @@ function getEmployee(id, handle) {
         document.getElementById('callbackFunc').value = handle;
         document.forms['employeeForm'].fullname.focus();
         tryNumberFormatCurrentcy(document.forms['employeeForm'].salary, "VND");
+        
+        var myCalendar = new dhtmlXCalendarObject(["employeeBirthday"]);
+        myCalendar.setSkin('dhx_web');
+        myCalendar.setDateFormat("%d/%m/%Y");
     });
 }
 function saveEmployee() {
@@ -6878,7 +6882,15 @@ function employeeOffMoneyEmployeeChanged(list) {
     list = null;
     return false;
 }
-
+function createSalary() {
+    if (scriptFunction == "createSalary")
+        return false;
+    callAjaxCheckError("createSalary.do", null, null, function(data) {
+        scriptFunction = "";
+        loadSalaryPanel();
+    });
+    return false;
+}
 
 
 
