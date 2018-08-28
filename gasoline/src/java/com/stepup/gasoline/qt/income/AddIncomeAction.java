@@ -46,6 +46,7 @@ public class AddIncomeAction extends SpineAction {
         bean.setCode(formBean.getCode());
         bean.setContent(formBean.getContent());
         bean.setNote(formBean.getNote());
+        bean.setType(formBean.getType());
         try {
             if (bNew) {
                 paymentDAO.insertIncome(bean);

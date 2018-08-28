@@ -17,6 +17,7 @@ import javax.servlet.http.HttpServletResponse;
 import org.apache.commons.validator.GenericValidator;
 import org.apache.struts.action.ActionForm;
 import org.apache.struts.action.ActionMapping;
+import org.apache.struts.util.LabelValueBean;
 
 /**
  *
@@ -73,6 +74,26 @@ public class ExpenseFormAction extends SpineAction {
             arrAccount = new ArrayList();
         }
         request.setAttribute(Constants.ACCOUNT_LIST, arrAccount);
+        
+        ArrayList arrStatus = new ArrayList();
+        LabelValueBean value;
+        value = new LabelValueBean();
+        value.setLabel(QTUtil.getBundleString("expense.detail.type.other.title"));
+        value.setValue(ExpenseBean.TYPE_OTHER + "");
+        arrStatus.add(value);
+        value = new LabelValueBean();
+        value.setLabel(QTUtil.getBundleString("expense.detail.type.bank.title"));
+        value.setValue(ExpenseBean.TYPE_BANK + "");
+        arrStatus.add(value);
+        value = new LabelValueBean();
+        value.setLabel(QTUtil.getBundleString("expense.detail.type.company.title"));
+        value.setValue(ExpenseBean.TYPE_COMPANY + "");
+        arrStatus.add(value);
+        value = new LabelValueBean();
+        value.setLabel(QTUtil.getBundleString("expense.detail.type.income.title"));
+        value.setValue(ExpenseBean.TYPE_INCOME + "");
+        arrStatus.add(value);
+        request.setAttribute(Constants.EXPENSE_TYPE_LIST, arrStatus);
 
         return true;
     }

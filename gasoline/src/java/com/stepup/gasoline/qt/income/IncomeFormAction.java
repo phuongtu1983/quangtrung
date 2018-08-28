@@ -17,6 +17,7 @@ import javax.servlet.http.HttpServletResponse;
 import org.apache.commons.validator.GenericValidator;
 import org.apache.struts.action.ActionForm;
 import org.apache.struts.action.ActionMapping;
+import org.apache.struts.util.LabelValueBean;
 
 /**
  *
@@ -70,6 +71,18 @@ public class IncomeFormAction extends SpineAction {
             arrAccount = new ArrayList();
         }
         request.setAttribute(Constants.ACCOUNT_LIST, arrAccount);
+
+        ArrayList arrStatus = new ArrayList();
+        LabelValueBean value;
+        value = new LabelValueBean();
+        value.setLabel(QTUtil.getBundleString("income.detail.type.other.title"));
+        value.setValue(IncomeBean.TYPE_OTHER + "");
+        arrStatus.add(value);
+        value = new LabelValueBean();
+        value.setLabel(QTUtil.getBundleString("income.detail.type.bank.title"));
+        value.setValue(IncomeBean.TYPE_BANK + "");
+        arrStatus.add(value);
+        request.setAttribute(Constants.INCOME_TYPE_LIST, arrStatus);
 
         return true;
     }

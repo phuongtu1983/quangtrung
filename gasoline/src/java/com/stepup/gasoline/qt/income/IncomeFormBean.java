@@ -20,6 +20,7 @@ public class IncomeFormBean extends org.apache.struts.action.ActionForm {
     private String note;
     private String content;
     private int canEdit;
+    private int type;
 
     public IncomeFormBean() {
     }
@@ -32,6 +33,7 @@ public class IncomeFormBean extends org.apache.struts.action.ActionForm {
         this.accountId = bean.getAccountId();
         this.note = bean.getNote();
         this.content = bean.getContent();
+        this.type = bean.getType();
     }
 
     public String getCode() {
@@ -96,6 +98,14 @@ public class IncomeFormBean extends org.apache.struts.action.ActionForm {
 
     public void setNote(String note) {
         this.note = note;
+    }
+
+    public int getType() {
+        return type;
+    }
+
+    public void setType(int type) {
+        this.type = type;
     }
 
 }

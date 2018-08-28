@@ -46,6 +46,8 @@ public class Constants {
     public static final String PARAMETER = "parameter";
     public static final String ACCOUNT = "account";
     public static final String ACCOUNT_LIST = "accountList";
+    public static final String INCOME_TYPE_LIST = "incomeTypeList";
+    public static final String EXPENSE_TYPE_LIST = "expenseTypeList";
     public static final String VEHICLE = "vehicle";
     public static final String VEHICLE_LIST = "vehicleList";
     public static final String ROUTE = "route";

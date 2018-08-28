@@ -17,6 +17,7 @@ public class IncomeBean {
     private double amount;
     private String note;
     private String content;
+    private int type;
 
     public void setId(int id) {
         this.id = id;
@@ -74,4 +75,14 @@ public class IncomeBean {
         this.note = note;
     }
 
+    public int getType() {
+        return type;
+    }
+
+    public void setType(int type) {
+        this.type = type;
+    }
+
+    public static int TYPE_OTHER = 1;
+    public static int TYPE_BANK = 2;
 }

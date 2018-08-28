@@ -17,14 +17,20 @@
                             <td><html:text property="createdDate" styleId="incomeDate" size="30" name="<%=Constants.INCOME%>" readonly="true"/></td>
                         </tr>
                         <tr>
-                            <td height="30" style="padding-right: 20px"><bean:message key="content.title"/></td>
+                            <td height="30" style="padding-right: 20px"><bean:message key="income.detail.type.title"/></td>
+                            <td>
+                                <html:select property="type" name="<%=Constants.INCOME%>" style="width:195px">
+                                    <html:options collection="<%=Constants.INCOME_TYPE_LIST%>" property="value" labelProperty="label"/>
+                                </html:select>
+                            </td>
+                            <td style="padding-right: 20px;padding-left: 10px"><bean:message key="content.title"/></td>
                             <td><html:text property="content" size="30" name="<%=Constants.INCOME%>"/></td>
-                            <td style="padding-right: 20px;padding-left: 10px"><bean:message key="amount.title"/></td>
-                            <td><html:text property="amount" size="30" name="<%=Constants.INCOME%>" onkeyup="try2FloatFormatOnKeyUp(this,event);" onkeypress="return readonlyFloat(event);"/></td>
                         </tr>
                         <tr>
-                            <td height="30" style="padding-right: 20px"><bean:message key="account.title"/></td>
-                            <td colspan="3">
+                            <td height="30" style="padding-right: 20px"><bean:message key="amount.title"/></td>
+                            <td><html:text property="amount" size="30" name="<%=Constants.INCOME%>" onkeyup="try2FloatFormatOnKeyUp(this,event);" onkeypress="return readonlyFloat(event);"/></td>
+                            <td style="padding-right: 20px;padding-left: 10px"><bean:message key="account.title"/></td>
+                            <td>
                                 <html:select property="accountId" name="<%=Constants.INCOME%>" style="width:195px">
                                     <html:options collection="<%=Constants.ACCOUNT_LIST%>" property="id" labelProperty="number"/>
                                 </html:select>

@@ -33,7 +33,7 @@ public class AddExpenseAction extends SpineAction {
             HttpServletRequest request, HttpServletResponse response) {
         ExpenseFormBean formBean = (ExpenseFormBean) form;
         PaymentDAO paymentDAO = new PaymentDAO();
-
+        
         boolean bNew = true;
         if (formBean.getId() != 0) {
             bNew = false;
@@ -49,6 +49,7 @@ public class AddExpenseAction extends SpineAction {
         bean.setContent(formBean.getContent());
         bean.setNote(formBean.getNote());
         bean.setIsUsually(formBean.getIsUsually() == true ? 1 : 0);
+        bean.setType(formBean.getType());
         try {
             if (bNew) {
                 paymentDAO.insertExpense(bean);

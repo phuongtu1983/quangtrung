@@ -17,10 +17,18 @@
                             <td><html:text property="createdDate" styleId="expenseDate" size="30" name="<%=Constants.EXPENSE%>" readonly="true"/></td>
                         </tr>
                         <tr>
-                            <td height="30" style="padding-right: 20px"><bean:message key="content.title"/></td>
-                            <td><html:text property="content" size="30" name="<%=Constants.EXPENSE%>"/></td>
+                            <td height="30" style="padding-right: 20px"><bean:message key="expense.detail.type.title"/></td>
+                            <td>
+                                <html:select property="type" name="<%=Constants.EXPENSE%>" style="width:195px">
+                                    <html:options collection="<%=Constants.EXPENSE_TYPE_LIST%>" property="value" labelProperty="label"/>
+                                </html:select>
+                            </td>
                             <td style="padding-right: 20px;padding-left: 10px"><bean:message key="amount.title"/></td>
                             <td><html:text property="amount" size="30" name="<%=Constants.EXPENSE%>" onkeyup="try2FloatFormatOnKeyUp(this,event);" onkeypress="return readonlyFloat(event);"/></td>
+                        </tr>
+                        <tr>
+                            <td height="30" style="padding-right: 20px"><bean:message key="content.title"/></td>
+                            <td colspan="3"><html:text property="content" size="90" name="<%=Constants.EXPENSE%>"/></td>
                         </tr>
                         <tr>
                             <td height="30" style="padding-right: 20px"><bean:message key="fromDate.title"/></td>
@@ -37,9 +45,9 @@
                             </td>
                             <td style="padding-right: 20px;padding-left: 10px"><bean:message key="expense.detail.isusually.title"/></td>
                             <td><html:checkbox property="isUsually" name="<%=Constants.EXPENSE%>"></html:checkbox></td>
-                        </tr>
-                        <tr>
-                            <td height="30" style="padding-right: 20px"><bean:message key="note.title"/></td>
+                            </tr>
+                            <tr>
+                                <td height="30" style="padding-right: 20px"><bean:message key="note.title"/></td>
                             <td colspan="3"><html:text property="note" size="90" name="<%=Constants.EXPENSE%>" /></td>
                         </tr>
                     </table>

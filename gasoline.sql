@@ -83,11 +83,11 @@ CREATE TABLE `accessory_in_stock` (
   `accessory_id` int(11) DEFAULT NULL,
   `in_stock` int(11) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=20 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=22 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 /*Data for the table `accessory_in_stock` */
 
-insert  into `accessory_in_stock`(`id`,`day`,`accessory_id`,`in_stock`) values (14,'2018-06-10',1,-101),(15,'2018-06-10',2,-201),(16,'2018-07-02',1,0),(17,'2018-07-02',2,0),(18,'2018-08-02',1,0),(19,'2018-08-02',2,0);
+insert  into `accessory_in_stock`(`id`,`day`,`accessory_id`,`in_stock`) values (14,'2018-06-10',1,-101),(15,'2018-06-10',2,-201),(16,'2018-07-02',1,0),(17,'2018-07-02',2,0),(18,'2018-08-02',1,0),(19,'2018-08-02',2,0),(20,'2018-09-07',1,0),(21,'2018-09-07',2,0);
 
 /*Table structure for table `accessory_kind` */
 
@@ -192,11 +192,11 @@ CREATE TABLE `auto` (
   `auto_date` date DEFAULT NULL,
   `auto_name` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=17 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=21 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 /*Data for the table `auto` */
 
-insert  into `auto`(`id`,`auto_date`,`auto_name`) values (4,'2018-05-30','employee_salary'),(5,'2018-05-30','in_stock'),(6,'2018-05-31','in_stock'),(7,'2018-06-01','employee_salary'),(8,'2018-06-01','in_stock'),(9,'2018-06-02','in_stock'),(10,'2018-06-04','in_stock'),(11,'2018-06-05','in_stock'),(12,'2018-06-06','in_stock'),(13,'2018-07-02','employee_salary'),(14,'2018-07-02','in_stock'),(15,'2018-08-02','employee_salary'),(16,'2018-08-02','in_stock');
+insert  into `auto`(`id`,`auto_date`,`auto_name`) values (4,'2018-05-30','employee_salary'),(5,'2018-05-30','in_stock'),(6,'2018-05-31','in_stock'),(7,'2018-06-01','employee_salary'),(8,'2018-06-01','in_stock'),(9,'2018-06-02','in_stock'),(10,'2018-06-04','in_stock'),(11,'2018-06-05','in_stock'),(12,'2018-06-06','in_stock'),(13,'2018-07-02','employee_salary'),(14,'2018-07-02','in_stock'),(15,'2018-08-02','employee_salary'),(16,'2018-08-02','in_stock'),(17,'2018-09-07','in_stock'),(20,'2018-09-07','employee_salary');
 
 /*Table structure for table `customer` */
 
@@ -278,11 +278,11 @@ CREATE TABLE `dynamic_field_value` (
   `parent_id` int(11) DEFAULT NULL,
   `value` text COLLATE utf8_unicode_ci,
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM AUTO_INCREMENT=28 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=MyISAM AUTO_INCREMENT=34 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 /*Data for the table `dynamic_field_value` */
 
-insert  into `dynamic_field_value`(`id`,`field_id`,`parent_id`,`value`) values (1,5,7,'d1'),(2,4,7,'e1'),(3,6,7,'f1'),(4,8,1,'c2'),(5,9,1,'d2'),(6,10,2,'3'),(7,12,1,'c2'),(8,11,1,'d2'),(9,13,2,'c3'),(10,12,3,''),(11,11,3,''),(12,12,4,'a'),(13,11,4,'b'),(14,12,5,'d'),(15,11,5,'f'),(16,12,6,'a'),(17,11,6,'b'),(18,20,3,''),(19,8,3,''),(20,9,3,''),(26,60,8,'0.5'),(25,59,8,'12'),(27,61,8,'4');
+insert  into `dynamic_field_value`(`id`,`field_id`,`parent_id`,`value`) values (1,5,7,'d1'),(2,4,7,'e1'),(3,6,7,'f1'),(4,8,1,'c2'),(5,9,1,'d2'),(6,10,2,'3'),(7,12,1,'c2'),(8,11,1,'d2'),(9,13,2,'c3'),(10,12,3,''),(11,11,3,''),(12,12,4,'a'),(13,11,4,'b'),(14,12,5,'d'),(15,11,5,'f'),(16,12,6,'a'),(17,11,6,'b'),(18,20,3,''),(19,8,3,''),(20,9,3,''),(26,60,8,'0.5'),(29,5,1,''),(25,59,8,'12'),(28,4,1,''),(27,61,8,'4'),(30,6,1,''),(31,59,1,'2'),(32,60,1,'3'),(33,61,1,'');
 
 /*Table structure for table `employee` */
 
@@ -294,13 +294,14 @@ CREATE TABLE `employee` (
   `email` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
   `salary` double DEFAULT NULL,
   `organization_id` int(11) DEFAULT NULL,
+  `birthday` date DEFAULT NULL,
   `status` int(1) DEFAULT '1' COMMENT '0: da bi khoa, 1: dang su dung',
   PRIMARY KEY (`id`)
 ) ENGINE=MyISAM AUTO_INCREMENT=9 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 /*Data for the table `employee` */
 
-insert  into `employee`(`id`,`fullname`,`email`,`salary`,`organization_id`,`status`) values (1,'Nguyễn Phương Tú','phuongtu1983@gmail.com',3,1,1),(2,'Nguyễn Thị Hương','huong1963@gmail.com',1000000,1,1),(6,'aa','bb',12345,2,1),(7,'a1','b1',31,2,1),(8,'c','',0,8,1);
+insert  into `employee`(`id`,`fullname`,`email`,`salary`,`organization_id`,`birthday`,`status`) values (1,'Nguyễn Phương Tú','phuongtu1983@gmail.com',3,1,'2018-08-23',1),(2,'Nguyễn Thị Hương','huong1963@gmail.com',1000000,1,NULL,1),(6,'aa','bb',12345,2,NULL,1),(7,'a1','b1',31,2,NULL,1),(8,'c','',0,8,NULL,1);
 
 /*Table structure for table `employee_advance` */
 
@@ -372,7 +373,7 @@ CREATE TABLE `employee_off_money` (
   `account_id` int(11) DEFAULT NULL,
   `note` text COLLATE utf8_unicode_ci,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 /*Data for the table `employee_off_money` */
 
@@ -391,11 +392,11 @@ CREATE TABLE `employee_salary` (
   `month_day` int(2) DEFAULT NULL,
   `working_day` int(2) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM AUTO_INCREMENT=53 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=MyISAM AUTO_INCREMENT=68 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 /*Data for the table `employee_salary` */
 
-insert  into `employee_salary`(`id`,`code`,`employee_id`,`created_date`,`basic_salary`,`real_salary`,`total`,`month_day`,`working_day`) values (43,'20180530-ES-0003',6,'2018-05-29',12345,12345,12345,24,24),(44,'20180530-ES-0004',7,'2018-05-29',31,31,31,24,24),(45,'20180702-ES-0001',1,'2018-07-01',3,NULL,NULL,0,0),(42,'20180530-ES-0002',2,'2018-05-29',0,0,7488,24,11),(41,'20180530-ES-0001',1,'2018-05-29',3,3,12,24,24),(46,'20180702-ES-0002',2,'2018-07-01',0,NULL,NULL,0,0),(47,'20180702-ES-0003',6,'2018-07-01',12345,NULL,NULL,0,0),(48,'20180702-ES-0004',7,'2018-07-01',31,NULL,NULL,0,0),(49,'20180802-ES-0001',1,'2018-08-01',3,NULL,NULL,0,0),(50,'20180802-ES-0002',2,'2018-08-01',0,NULL,NULL,0,0),(51,'20180802-ES-0003',6,'2018-08-01',12345,NULL,NULL,0,0),(52,'20180802-ES-0004',7,'2018-08-01',31,NULL,NULL,0,0);
+insert  into `employee_salary`(`id`,`code`,`employee_id`,`created_date`,`basic_salary`,`real_salary`,`total`,`month_day`,`working_day`) values (43,'20180530-ES-0003',6,'2018-05-29',12345,12345,12345,24,24),(44,'20180530-ES-0004',7,'2018-05-29',31,31,31,24,24),(45,'20180702-ES-0001',1,'2018-07-01',3,NULL,NULL,0,0),(42,'20180530-ES-0002',2,'2018-05-29',0,0,7488,24,11),(41,'20180530-ES-0001',1,'2018-05-29',3,3,12,24,24),(46,'20180702-ES-0002',2,'2018-07-01',0,NULL,NULL,0,0),(47,'20180702-ES-0003',6,'2018-07-01',12345,NULL,NULL,0,0),(48,'20180702-ES-0004',7,'2018-07-01',31,NULL,NULL,0,0),(49,'20180802-ES-0001',1,'2018-08-01',3,NULL,NULL,0,0),(50,'20180802-ES-0002',2,'2018-08-01',0,NULL,NULL,0,0),(51,'20180802-ES-0003',6,'2018-08-01',12345,NULL,NULL,0,0),(52,'20180802-ES-0004',7,'2018-08-01',31,NULL,NULL,0,0),(67,'20180907-ES-0005',8,'2018-09-06',0,0,0,4,4),(66,'20180907-ES-0004',7,'2018-09-06',31,31,31,4,4),(65,'20180907-ES-0003',6,'2018-09-06',12345,12345,12345,4,4),(64,'20180907-ES-0002',2,'2018-09-06',1000000,1000000,1003000,4,4),(63,'20180907-ES-0001',1,'2018-09-06',3,3,12,4,4);
 
 /*Table structure for table `employee_salary_field` */
 
@@ -425,11 +426,11 @@ CREATE TABLE `employee_salary_field_detail` (
   `amount` double DEFAULT NULL,
   `note` text COLLATE utf8_unicode_ci,
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM AUTO_INCREMENT=27 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=MyISAM AUTO_INCREMENT=39 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 /*Data for the table `employee_salary_field_detail` */
 
-insert  into `employee_salary_field_detail`(`id`,`employee_salary_id`,`field_id`,`field_name`,`amount`,`note`) values (18,42,14,'Thưởng làm đủ ngày',2000,''),(17,42,15,'Phụ cấp điện thoại',1000,''),(16,41,15,'Phụ cấp điện thoại',5,''),(15,41,14,'Thưởng làm đủ ngày',4,''),(19,45,14,'Thưởng làm đủ ngày',4,''),(20,45,15,'Phụ cấp điện thoại',5,''),(21,46,15,'Phụ cấp điện thoại',1000,''),(22,46,14,'Thưởng làm đủ ngày',2000,''),(23,49,14,'Thưởng làm đủ ngày',4,''),(24,49,15,'Phụ cấp điện thoại',5,''),(25,50,15,'Phụ cấp điện thoại',1000,''),(26,50,14,'Thưởng làm đủ ngày',2000,'');
+insert  into `employee_salary_field_detail`(`id`,`employee_salary_id`,`field_id`,`field_name`,`amount`,`note`) values (18,42,14,'Thưởng làm đủ ngày',2000,''),(17,42,15,'Phụ cấp điện thoại',1000,''),(16,41,15,'Phụ cấp điện thoại',5,''),(15,41,14,'Thưởng làm đủ ngày',4,''),(19,45,14,'Thưởng làm đủ ngày',4,''),(20,45,15,'Phụ cấp điện thoại',5,''),(21,46,15,'Phụ cấp điện thoại',1000,''),(22,46,14,'Thưởng làm đủ ngày',2000,''),(23,49,14,'Thưởng làm đủ ngày',4,''),(24,49,15,'Phụ cấp điện thoại',5,''),(25,50,15,'Phụ cấp điện thoại',1000,''),(26,50,14,'Thưởng làm đủ ngày',2000,''),(27,53,14,'Thưởng làm đủ ngày',4,''),(28,53,15,'Phụ cấp điện thoại',5,''),(29,54,15,'Phụ cấp điện thoại',1000,''),(30,54,14,'Thưởng làm đủ ngày',2000,''),(31,58,14,'Thưởng làm đủ ngày',4,''),(32,58,15,'Phụ cấp điện thoại',5,''),(33,59,15,'Phụ cấp điện thoại',1000,''),(34,59,14,'Thưởng làm đủ ngày',2000,''),(35,63,14,'Thưởng làm đủ ngày',4,''),(36,63,15,'Phụ cấp điện thoại',5,''),(37,64,15,'Phụ cấp điện thoại',1000,''),(38,64,14,'Thưởng làm đủ ngày',2000,'');
 
 /*Table structure for table `employee_salary_timesheet_detail` */
 
@@ -466,13 +467,14 @@ CREATE TABLE `expense` (
   `to_date` date DEFAULT NULL,
   `month_count` int(2) DEFAULT NULL,
   `is_usually` int(1) DEFAULT '0' COMMENT '0: khong thuong xuyen, 1: thuong xuyen',
+  `type` int(11) DEFAULT NULL,
   `note` text COLLATE utf8_unicode_ci,
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM AUTO_INCREMENT=5 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=MyISAM AUTO_INCREMENT=6 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 /*Data for the table `expense` */
 
-insert  into `expense`(`id`,`code`,`created_date`,`amount`,`content`,`account_id`,`from_date`,`to_date`,`month_count`,`is_usually`,`note`) values (1,'20180610-EX-0001','2018-06-10',11111,'a1',1,'2018-06-11','2018-06-21',0,1,'b1'),(2,'20180610-EX-0002','2018-06-10',3000,'abc',3,'2018-06-10','2018-07-10',1,0,'deff'),(3,'20180610-EX-0003','2018-06-10',30000,'ddd',3,'2018-06-10','2018-09-10',3,0,'dfg'),(4,'20180610-EX-0004','2018-06-10',20000,'dsfd',3,'2018-06-10','2018-08-10',2,0,'ddsfsd');
+insert  into `expense`(`id`,`code`,`created_date`,`amount`,`content`,`account_id`,`from_date`,`to_date`,`month_count`,`is_usually`,`type`,`note`) values (1,'20180610-EX-0001','2018-06-10',11111,'a1',1,'2018-06-11','2018-06-21',0,1,NULL,'b1'),(2,'20180610-EX-0002','2018-06-10',3000,'abc',3,'2018-06-10','2018-07-10',1,0,NULL,'deff'),(3,'20180610-EX-0003','2018-06-10',30000,'ddd',3,'2018-06-10','2018-09-10',3,0,NULL,'dfg'),(4,'20180610-EX-0004','2018-06-10',20000,'dsfd',3,'2018-06-10','2018-08-10',2,0,NULL,'ddsfsd'),(5,'20180828-EX-0001','2018-08-28',1234,'a',3,'2018-08-28','2018-08-30',0,0,4,'b');
 
 /*Table structure for table `fraction_gas` */
 
@@ -820,11 +822,14 @@ CREATE TABLE `income` (
   `content` text COLLATE utf8_unicode_ci,
   `amount` double DEFAULT NULL,
   `account_id` int(11) DEFAULT NULL,
+  `type` int(11) DEFAULT NULL,
   `note` text COLLATE utf8_unicode_ci,
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM AUTO_INCREMENT=2 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=MyISAM AUTO_INCREMENT=3 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 /*Data for the table `income` */
+
+insert  into `income`(`id`,`code`,`created_date`,`content`,`amount`,`account_id`,`type`,`note`) values (2,'20180828-IC-0001','2018-08-28','abc',1234,3,2,'abc');
 
 /*Table structure for table `lpg_import` */
 
@@ -861,11 +866,11 @@ CREATE TABLE `lpg_in_stock` (
   `day` date DEFAULT NULL,
   `in_stock` int(11) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=10 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=11 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 /*Data for the table `lpg_in_stock` */
 
-insert  into `lpg_in_stock`(`id`,`day`,`in_stock`) values (7,'2018-06-10',12300),(8,'2018-07-02',12300),(9,'2018-08-02',12300);
+insert  into `lpg_in_stock`(`id`,`day`,`in_stock`) values (7,'2018-06-10',12300),(8,'2018-07-02',12300),(9,'2018-08-02',12300),(10,'2018-09-07',12300);
 
 /*Table structure for table `money_in_stock` */
 
@@ -878,11 +883,11 @@ CREATE TABLE `money_in_stock` (
   `organization_id` int(11) DEFAULT NULL COMMENT 'neu account_id=0 thi la id cua organization',
   `in_stock` double DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=19 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=22 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 /*Data for the table `money_in_stock` */
 
-insert  into `money_in_stock`(`id`,`day`,`account_id`,`organization_id`,`in_stock`) values (10,'2018-06-10',1,1,-22582746),(11,'2018-06-10',2,2,0),(12,'2018-06-10',3,1,638826393),(13,'2018-07-02',1,1,0),(14,'2018-07-02',2,2,0),(15,'2018-07-02',3,1,23000),(16,'2018-08-02',1,1,0),(17,'2018-08-02',2,2,0),(18,'2018-08-02',3,1,20000);
+insert  into `money_in_stock`(`id`,`day`,`account_id`,`organization_id`,`in_stock`) values (10,'2018-06-10',1,1,-22582746),(11,'2018-06-10',2,2,0),(12,'2018-06-10',3,1,638826393),(13,'2018-07-02',1,1,0),(14,'2018-07-02',2,2,0),(15,'2018-07-02',3,1,23000),(16,'2018-08-02',1,1,0),(17,'2018-08-02',2,2,0),(18,'2018-08-02',3,1,20000),(19,'2018-09-07',1,1,0),(20,'2018-09-07',2,2,0),(21,'2018-09-07',3,1,10000);
 
 /*Table structure for table `old_shell` */
 
@@ -930,11 +935,11 @@ CREATE TABLE `parameter` (
   `value` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
   `note` text COLLATE utf8_unicode_ci,
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM AUTO_INCREMENT=2 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=MyISAM AUTO_INCREMENT=4 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 /*Data for the table `parameter` */
 
-insert  into `parameter`(`id`,`code`,`name`,`value`,`note`) values (1,'salarymonthday','Số ngày công','27',NULL);
+insert  into `parameter`(`id`,`code`,`name`,`value`,`note`) values (3,'startdate','Ngày bắt đầu sử dụng','01/01/2018',NULL),(2,'mailbeforeday','Số ngày nhắc mail trước sinh nhật','3',NULL);
 
 /*Table structure for table `permission` */
 
@@ -967,7 +972,7 @@ CREATE TABLE `permission_detail` (
 
 /*Data for the table `permission_detail` */
 
-insert  into `permission_detail`(`id`,`permission_id`,`operation`,`function`) values (17,8,2,'1,5,8,6,7,3,4,9,10,11,12,13,14,15,16,17,18,19,20,22,23,51,52,24,25,26,27,28,29,30,31,32,33,34,35,36,37,38,39,40,41,42,43,44,45,46,47,48,49,50'),(16,8,1,'1,5,8,6,7,3,4,9,10,11,12,13,14,15,16,17,18,19,20,22,23,51,52,21,24,25,26,27,28,29,30,31,32,33,34,35,36,37,38,39,40,41,42,43,44,45,46,47,48,49,50'),(18,8,3,'1,5,8,4,13,14,15,20,22,23,51,52,25,26,27,28,29,30,31,32,33,34,35,36,37,38,39,40,41,42,43,44,45,46,47,48,49,50'),(19,8,4,'1,5,8,6,7,3,4,9,10,11,12,13,14,15,16,17,18,19,20,22,23,51,52,21,24,25,26,27,28,29,30,31,32,33,34,35,36,37,38,39,40,41,42,43,44,45,46,47,48,49,50'),(20,8,6,'');
+insert  into `permission_detail`(`id`,`permission_id`,`operation`,`function`) values (17,8,2,'1,5,8,6,7,3,4,9,10,11,12,13,14,15,16,17,18,19,20,22,23,51,52,21,24,25,26,27,28,29,30,31,32,33,34,35,36,37,38,39,40,41,42,43,44,45,46,47,48,49,50'),(16,8,1,'1,5,8,6,7,3,4,9,10,11,12,13,14,15,16,17,18,19,20,22,23,51,52,21,24,25,26,27,28,29,30,31,32,33,34,35,36,37,38,39,40,41,42,43,44,45,46,47,48,49,50'),(18,8,3,'1,5,8,4,13,14,15,20,22,23,51,52,25,26,27,28,29,30,31,32,33,34,35,36,37,38,39,40,41,42,43,44,45,46,47,48,49,50'),(19,8,4,'1,5,8,6,7,3,4,9,10,11,12,13,14,15,16,17,18,19,20,22,23,51,52,21,24,25,26,27,28,29,30,31,32,33,34,35,36,37,38,39,40,41,42,43,44,45,46,47,48,49,50'),(20,8,6,'');
 
 /*Table structure for table `petro` */
 
@@ -1036,11 +1041,11 @@ CREATE TABLE `petro_in_stock` (
   `petro_id` int(11) DEFAULT NULL,
   `in_stock` int(11) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=43 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=46 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 /*Data for the table `petro_in_stock` */
 
-insert  into `petro_in_stock`(`id`,`day`,`petro_id`,`in_stock`) values (34,'2018-06-10',1,-101),(35,'2018-06-10',2,-201),(36,'2018-06-10',3,0),(37,'2018-07-02',1,0),(38,'2018-07-02',2,0),(39,'2018-07-02',3,0),(40,'2018-08-02',1,0),(41,'2018-08-02',2,0),(42,'2018-08-02',3,0);
+insert  into `petro_in_stock`(`id`,`day`,`petro_id`,`in_stock`) values (34,'2018-06-10',1,-101),(35,'2018-06-10',2,-201),(36,'2018-06-10',3,0),(37,'2018-07-02',1,0),(38,'2018-07-02',2,0),(39,'2018-07-02',3,0),(40,'2018-08-02',1,0),(41,'2018-08-02',2,0),(42,'2018-08-02',3,0),(43,'2018-09-07',1,0),(44,'2018-09-07',2,0),(45,'2018-09-07',3,0);
 
 /*Table structure for table `petro_sale` */
 
@@ -1149,11 +1154,11 @@ CREATE TABLE `promotion_material_in_stock` (
   `promotion_material_id` int(11) DEFAULT NULL,
   `in_stock` int(11) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=31 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=33 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 /*Data for the table `promotion_material_in_stock` */
 
-insert  into `promotion_material_in_stock`(`id`,`day`,`promotion_material_id`,`in_stock`) values (25,'2018-06-10',1,-66),(26,'2018-06-10',2,0),(27,'2018-07-02',1,0),(28,'2018-07-02',2,0),(29,'2018-08-02',1,0),(30,'2018-08-02',2,0);
+insert  into `promotion_material_in_stock`(`id`,`day`,`promotion_material_id`,`in_stock`) values (25,'2018-06-10',1,-66),(26,'2018-06-10',2,0),(27,'2018-07-02',1,0),(28,'2018-07-02',2,0),(29,'2018-08-02',1,0),(30,'2018-08-02',2,0),(31,'2018-09-07',1,0),(32,'2018-09-07',2,0);
 
 /*Table structure for table `promotion_material_sale` */
 
@@ -1295,7 +1300,7 @@ CREATE TABLE `shell_in_stock` (
 
 /*Data for the table `shell_in_stock` */
 
-insert  into `shell_in_stock`(`day`,`shell_id`,`in_stock`,`gas_in_stock`) values ('2018-06-10',5,0,-11),('2018-06-10',4,0,-31),('2018-06-10',3,20001,0),('2018-06-10',2,-10122,-23014),('2018-06-10',1,36067,-11012),('2018-07-02',1,0,0),('2018-07-02',2,0,0),('2018-07-02',3,0,0),('2018-07-02',4,0,0),('2018-07-02',5,0,0),('2018-08-02',1,0,0),('2018-08-02',2,0,0),('2018-08-02',3,0,0),('2018-08-02',4,0,0),('2018-08-02',5,0,0);
+insert  into `shell_in_stock`(`day`,`shell_id`,`in_stock`,`gas_in_stock`) values ('2018-06-10',5,0,-11),('2018-06-10',4,0,-31),('2018-06-10',3,20001,0),('2018-06-10',2,-10122,-23014),('2018-06-10',1,36067,-11012),('2018-07-02',1,0,0),('2018-07-02',2,0,0),('2018-07-02',3,0,0),('2018-07-02',4,0,0),('2018-07-02',5,0,0),('2018-08-02',1,0,0),('2018-08-02',2,0,0),('2018-08-02',3,0,0),('2018-08-02',4,0,0),('2018-08-02',5,0,0),('2018-09-07',1,0,0),('2018-09-07',2,0,0),('2018-09-07',3,0,0),('2018-09-07',4,0,0),('2018-09-07',5,0,0);
 
 /*Table structure for table `shell_kind` */
 
@@ -1953,6 +1958,38 @@ BEGIN
     END */$$
 DELIMITER ;
 
+/* Procedure structure for procedure `getAutoSalaryEmployee` */
+
+/*!50003 DROP PROCEDURE IF EXISTS  `getAutoSalaryEmployee` */;
+
+DELIMITER $$
+
+/*!50003 CREATE DEFINER=`root`@`localhost` PROCEDURE `getAutoSalaryEmployee`()
+BEGIN
+	declare _start_date date;
+	
+	select str_to_date(p.value,"%d/%m/%Y") into _start_date from parameter AS p where p.CODE='startdate';
+	SELECT distinct month(s.created_date) as salary_month, year(s.created_date) AS salary_year
+	FROM employee_salary AS s
+	WHERE datediff(s.created_date,_start_date)>0;
+	
+    END */$$
+DELIMITER ;
+
+/* Procedure structure for procedure `getBirthdayEmployeeBeforeDay` */
+
+/*!50003 DROP PROCEDURE IF EXISTS  `getBirthdayEmployeeBeforeDay` */;
+
+DELIMITER $$
+
+/*!50003 CREATE DEFINER=`root`@`localhost` PROCEDURE `getBirthdayEmployeeBeforeDay`(IN _day INT)
+BEGIN
+	select e.id, e.fullname, e.email
+	from employee as e
+	where month(sysdate())=month(e.birthday) and day(sysdate())=_day+day(e.birthday) and e.status=1;
+    END */$$
+DELIMITER ;
+
 /* Procedure structure for procedure `getDayOffAndSalaryOfEmployee` */
 
 /*!50003 DROP PROCEDURE IF EXISTS  `getDayOffAndSalaryOfEmployee` */;
@@ -2175,7 +2212,7 @@ DELIMITER ;
 DELIMITER $$
 
 /*!50003 CREATE DEFINER=`root`@`localhost` PROCEDURE `insertExpense`(IN _code VARCHAR(20), IN _created_date VARCHAR(20), IN _from_date VARCHAR(20), IN _to_date VARCHAR(20)
-	, IN _amount DOUBLE, IN _account_id INT, IN _note TEXT, IN _content TEXT, in _is_usually int, OUT _id INT)
+	, IN _amount DOUBLE, IN _account_id INT, IN _note TEXT, IN _content TEXT, in _is_usually int, IN _type INT, OUT _id INT)
 BEGIN
 	DECLARE _f_date, _t_date DATE;
 	DECLARE _y, _m INT;
@@ -2186,9 +2223,9 @@ BEGIN
 	SET _y = 12 * (YEAR(_t_date) - YEAR(_f_date));
 	SET _m = _y + MONTH(_t_date) - MONTH(_f_date);
 	
-	INSERT INTO expense (CODE, created_date, from_date, to_date, amount, account_id, note, content, is_usually, month_count)
+	INSERT INTO expense (CODE, created_date, from_date, to_date, amount, account_id, note, content, is_usually, month_count, `type`)
 	VALUES (_code, STR_TO_DATE(_created_date,'%d/%m/%Y'), STR_TO_DATE(_from_date,'%d/%m/%Y'), STR_TO_DATE(_to_date,'%d/%m/%Y'), _amount, _account_id
-		, _note, _content, _is_usually, _m);
+		, _note, _content, _is_usually, _m, _type);
 	SELECT LAST_INSERT_ID() INTO _id;
     END */$$
 DELIMITER ;
@@ -2445,10 +2482,10 @@ DELIMITER ;
 DELIMITER $$
 
 /*!50003 CREATE DEFINER=`root`@`localhost` PROCEDURE `insertIncome`(IN _code VARCHAR(20), IN _created_date VARCHAR(20), IN _amount DOUBLE
-	, IN _account_id INT, IN _note TEXT, IN _content TEXT, OUT _id INT)
+	, IN _account_id INT, IN _note TEXT, IN _content TEXT, in _type int, OUT _id INT)
 BEGIN
-	INSERT INTO income (CODE, created_date, amount, account_id, note, content)
-	VALUES (_code, STR_TO_DATE(_created_date,'%d/%m/%Y'), _amount, _account_id, _note, _content);
+	INSERT INTO income (CODE, created_date, amount, account_id, note, content, `type`)
+	VALUES (_code, STR_TO_DATE(_created_date,'%d/%m/%Y'), _amount, _account_id, _note, _content, _type);
 	SELECT LAST_INSERT_ID() INTO _id;
     END */$$
 DELIMITER ;
@@ -3805,7 +3842,7 @@ DELIMITER ;
 DELIMITER $$
 
 /*!50003 CREATE DEFINER=`root`@`localhost` PROCEDURE `updateExpense`(IN _id INT, IN _created_date VARCHAR(20), IN _from_date VARCHAR(20), IN _to_date VARCHAR(20)
-	, IN _amount DOUBLE, IN _account_id INT, IN _note TEXT, IN _content TEXT, in _is_usually int)
+	, IN _amount DOUBLE, IN _account_id INT, IN _note TEXT, IN _content TEXT, in _is_usually int, in _type int)
 BEGIN
 	declare _f_date, _t_date date;
 	declare _y, _m int;
@@ -3825,6 +3862,7 @@ BEGIN
 		, note=_note
 		, content=_content
 		, is_usually=_is_usually
+		, `type`=_type
 	WHERE id=_id;
     END */$$
 DELIMITER ;
@@ -4105,13 +4143,15 @@ DELIMITER ;
 
 DELIMITER $$
 
-/*!50003 CREATE DEFINER=`root`@`localhost` PROCEDURE `updateIncome`(IN _id INT, IN _created_date VARCHAR(20), IN _amount DOUBLE, IN _account_id INT, IN _note TEXT, IN _content TEXT)
+/*!50003 CREATE DEFINER=`root`@`localhost` PROCEDURE `updateIncome`(IN _id INT, IN _created_date VARCHAR(20), IN _amount DOUBLE, IN _account_id INT, IN _note TEXT
+	, IN _content TEXT, in _type int)
 BEGIN
 	UPDATE income SET created_date=STR_TO_DATE(_created_date,'%d/%m/%Y')
 		, amount=_amount
 		, account_id=_account_id
 		, note=_note
 		, content=_content
+		, `type`=_type
 	WHERE id=_id;
     END */$$
 DELIMITER ;

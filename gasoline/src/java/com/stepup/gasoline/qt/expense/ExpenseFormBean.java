@@ -23,6 +23,7 @@ public class ExpenseFormBean extends org.apache.struts.action.ActionForm {
     private String content;
     private boolean isUsually;
     private int canEdit;
+    private int type;
 
     public ExpenseFormBean() {
     }
@@ -38,6 +39,7 @@ public class ExpenseFormBean extends org.apache.struts.action.ActionForm {
         this.note = bean.getNote();
         this.content = bean.getContent();
         this.isUsually = bean.getIsUsually() == 1 ? true : false;
+        this.type = bean.getType();
     }
 
     public String getCode() {
@@ -126,6 +128,14 @@ public class ExpenseFormBean extends org.apache.struts.action.ActionForm {
 
     public void setIsUsually(boolean isUsually) {
         this.isUsually = isUsually;
+    }
+
+    public int getType() {
+        return type;
+    }
+
+    public void setType(int type) {
+        this.type = type;
     }
 
 }

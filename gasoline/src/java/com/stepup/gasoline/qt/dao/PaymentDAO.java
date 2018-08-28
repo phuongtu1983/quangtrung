@@ -641,6 +641,7 @@ public class PaymentDAO extends BasicDAO {
                 bean.setNote(rs.getString("note"));
                 bean.setContent(rs.getString("content"));
                 bean.setAccountId(rs.getInt("account_id"));
+                bean.setType(rs.getInt("type"));
                 return bean;
             }
         } catch (SQLException sqle) {
@@ -668,7 +669,7 @@ public class PaymentDAO extends BasicDAO {
             } else {
                 createdDate = bean.getCreatedDate();
             }
-            String sql = "{call insertIncome(?,?,?,?,?,?,?)}";
+            String sql = "{call insertIncome(?,?,?,?,?,?,?,?)}";
             spUtil = new SPUtil(sql);
             if (spUtil != null) {
                 spUtil.getCallableStatement().setString("_code", bean.getCode());
@@ -677,6 +678,7 @@ public class PaymentDAO extends BasicDAO {
                 spUtil.getCallableStatement().setInt("_account_id", bean.getAccountId());
                 spUtil.getCallableStatement().setString("_note", bean.getNote());
                 spUtil.getCallableStatement().setString("_content", bean.getContent());
+                spUtil.getCallableStatement().setInt("_type", bean.getType());
                 spUtil.getCallableStatement().registerOutParameter("_id", Types.INTEGER);
                 spUtil.execute();
                 result = spUtil.getCallableStatement().getInt("_id");
@@ -709,7 +711,7 @@ public class PaymentDAO extends BasicDAO {
             } else {
                 createdDate = bean.getCreatedDate();
             }
-            String sql = "{call updateIncome(?,?,?,?,?,?)}";
+            String sql = "{call updateIncome(?,?,?,?,?,?,?)}";
             spUtil = new SPUtil(sql);
             if (spUtil != null) {
                 spUtil.getCallableStatement().setInt("_id", bean.getId());
@@ -718,6 +720,7 @@ public class PaymentDAO extends BasicDAO {
                 spUtil.getCallableStatement().setInt("_account_id", bean.getAccountId());
                 spUtil.getCallableStatement().setString("_note", bean.getNote());
                 spUtil.getCallableStatement().setString("_content", bean.getContent());
+                spUtil.getCallableStatement().setInt("_type", bean.getType());
                 spUtil.execute();
             }
         } catch (SQLException sqle) {
@@ -826,6 +829,7 @@ public class PaymentDAO extends BasicDAO {
                 bean.setContent(rs.getString("content"));
                 bean.setIsUsually(rs.getInt("is_usually"));
                 bean.setAccountId(rs.getInt("account_id"));
+                bean.setType(rs.getInt("type"));
                 return bean;
             }
         } catch (SQLException sqle) {
@@ -865,7 +869,7 @@ public class PaymentDAO extends BasicDAO {
             } else {
                 toDate = bean.getToDate();
             }
-            String sql = "{call insertExpense(?,?,?,?,?,?,?,?,?,?)}";
+            String sql = "{call insertExpense(?,?,?,?,?,?,?,?,?,?,?)}";
             spUtil = new SPUtil(sql);
             if (spUtil != null) {
                 spUtil.getCallableStatement().setString("_code", bean.getCode());
@@ -877,6 +881,7 @@ public class PaymentDAO extends BasicDAO {
                 spUtil.getCallableStatement().setString("_note", bean.getNote());
                 spUtil.getCallableStatement().setString("_content", bean.getContent());
                 spUtil.getCallableStatement().setInt("_is_usually", bean.getIsUsually());
+                spUtil.getCallableStatement().setInt("_type", bean.getType());
                 spUtil.getCallableStatement().registerOutParameter("_id", Types.INTEGER);
                 spUtil.execute();
                 result = spUtil.getCallableStatement().getInt("_id");
@@ -921,7 +926,7 @@ public class PaymentDAO extends BasicDAO {
             } else {
                 toDate = bean.getToDate();
             }
-            String sql = "{call updateExpense(?,?,?,?,?,?,?,?,?)}";
+            String sql = "{call updateExpense(?,?,?,?,?,?,?,?,?,?)}";
             spUtil = new SPUtil(sql);
             if (spUtil != null) {
                 spUtil.getCallableStatement().setInt("_id", bean.getId());
@@ -933,6 +938,7 @@ public class PaymentDAO extends BasicDAO {
                 spUtil.getCallableStatement().setString("_note", bean.getNote());
                 spUtil.getCallableStatement().setString("_content", bean.getContent());
                 spUtil.getCallableStatement().setInt("_is_usually", bean.getIsUsually());
+                spUtil.getCallableStatement().setInt("_type", bean.getType());
                 spUtil.execute();
             }
         } catch (SQLException sqle) {
