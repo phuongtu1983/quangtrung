@@ -42,7 +42,9 @@ public class Constants {
     public static final String STORE_LIST = "storeList";
     public static final String UNIT = "unit";
     public static final String UNIT_LIST = "unitList";
-    public static final String CONFIG_MAIL_BEFORE_DAY = "mailbeforeday";
+    public static final String PARAM_MAIL_BEFORE_DAY = "mailbeforeday";
+    public static final String PARAM_INSURANCE_PERSONAL = "insurancepersonal";
+    public static final String PARAM_INSURANCE_COMPANY = "insurancecompany";
     public static final String PARAMETER = "parameter";
     public static final String ACCOUNT = "account";
     public static final String ACCOUNT_LIST = "accountList";
@@ -121,4 +123,9 @@ public class Constants {
     public static final String INCOME = "income";
     public static final String EXPENSE = "expense";
     public static final String NOT_SALARY = "notSalary";
+    public static final String FIXED_ASSET_GROUP = "fixedAssetGroup";
+    public static final String FIXED_ASSET_GROUP_LIST = "fixedAssetGroupList";
+    public static final String FIXED_ASSET = "fixedAsset";
+    public static final String FIXED_ASSET_DEPRECIATION = "fixedAssetDepreciation";
+    public static final String FIXED_ASSET_DEPRECIATION_GOOD = "fixedAssetDepreciationGood";
 }

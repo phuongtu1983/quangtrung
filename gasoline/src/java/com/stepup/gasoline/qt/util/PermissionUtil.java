@@ -138,4 +138,7 @@ public class PermissionUtil {
     public static int PER_EXPENSE = 50;
     public static int PER_EMPLOYEE_OFF_INCREASE = 51;
     public static int PER_EMPLOYEE_OFF_MONEY = 52;
+    public static int PER_FIXED_ASSET_GROUP = 53;
+    public static int PER_FIXED_ASSET = 54;
+    public static int PER_FIXED_ASSET_DEPRECIATION = 55;
 }

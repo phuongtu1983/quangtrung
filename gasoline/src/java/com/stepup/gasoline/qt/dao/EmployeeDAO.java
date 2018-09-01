@@ -1661,4 +1661,23 @@ public class EmployeeDAO extends BasicDAO {
         return list;
     }
 
+    public String getStartDate() throws Exception {
+        ResultSet rs = null;
+        String sql = "SELECT value FROM parater WHERE code='startdate'";
+        try {
+            rs = DBUtil.executeQuery(sql);
+            while (rs.next()) {
+                return rs.getString("value");
+            }
+        } catch (SQLException sqle) {
+            throw new Exception(sqle.getMessage());
+        } catch (Exception ex) {
+            throw new Exception(ex.getMessage());
+        } finally {
+            if (rs != null) {
+                DBUtil.closeConnection(rs);
+            }
+        }
+        return "01/01/2018";
+    }
 }

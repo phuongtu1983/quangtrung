@@ -2,10 +2,12 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
-package com.stepup.gasoline.qt.dynamicfield;
+package com.stepup.gasoline.qt.fixedassetdepreciation;
 
+import com.stepup.core.util.NumberUtil;
 import com.stepup.gasoline.qt.core.SpineAction;
-import com.stepup.gasoline.qt.dao.DynamicFieldDAO;
+import com.stepup.gasoline.qt.dao.FixedAssetDAO;
+import com.stepup.gasoline.qt.dao.GoodDAO;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import org.apache.struts.action.ActionForm;
@@ -15,7 +17,7 @@ import org.apache.struts.action.ActionMapping;
  *
  * @author phuongtu
  */
-public class DeleteDynamicFieldAction extends SpineAction {
+public class DeleteFixedAssetDepreciationAction extends SpineAction {
 
     /**
      * This is the action called from the Struts framework.
@@ -30,9 +32,10 @@ public class DeleteDynamicFieldAction extends SpineAction {
     @Override
     public boolean doAction(ActionMapping mapping, ActionForm form,
             HttpServletRequest request, HttpServletResponse response) {
+        String id = request.getParameter("fixedAssetDepreciationId");
         try {
-            DynamicFieldDAO dynamicFieldDAO = new DynamicFieldDAO();
-            dynamicFieldDAO.deleteDynamicField(request.getParameter("fieldId"));
+            FixedAssetDAO assetDAO = new FixedAssetDAO();
+            assetDAO.deleteFixedAssetDepreciation(NumberUtil.parseInt(id, 0));
         } catch (Exception ex) {
         }
         return true;

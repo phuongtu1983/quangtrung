@@ -218,8 +218,7 @@ public class GenerateMenu {
                 buffTemp.append("</item>");//end customer
             }
 
-            if (isHasPermission(PermissionUtil.OPERATION_LIST + "," + PermissionUtil.OPERATION_ADD,
-                    PermissionUtil.PER_VEHICLE + "," + PermissionUtil.PER_ROUTE)) {
+            if (isHasPermission(PermissionUtil.OPERATION_LIST + "," + PermissionUtil.OPERATION_ADD, PermissionUtil.PER_VEHICLE + "," + PermissionUtil.PER_ROUTE)) {
                 buffTemp.append("<item id=\"vehicle\" complex=\"true\" text=\"").append(QTUtil.getBundleString("vehicle.title")).append("\">");//start vehicle
                 if (isHasPermission(PermissionUtil.OPERATION_LIST + "," + PermissionUtil.OPERATION_ADD, PermissionUtil.PER_VEHICLE)) {
                     buffTemp.append("<item id=\"vehicles\" complex=\"true\" text=\"").append(QTUtil.getBundleString("vehicle.title")).append("\">");//start vehicles
@@ -242,6 +241,31 @@ public class GenerateMenu {
                     buffTemp.append("</item>");//end routes
                 }
                 buffTemp.append("</item>");//end vehicle
+            }
+
+            if (isHasPermission(PermissionUtil.OPERATION_LIST + "," + PermissionUtil.OPERATION_ADD, PermissionUtil.PER_FIXED_ASSET_GROUP + "," + PermissionUtil.PER_FIXED_ASSET)) {
+                buffTemp.append("<item id=\"fixedassetgroup\" complex=\"true\" text=\"").append(QTUtil.getBundleString("fixedasset.title")).append("\">");//start fixedassetgroup
+                if (isHasPermission(PermissionUtil.OPERATION_LIST + "," + PermissionUtil.OPERATION_ADD, PermissionUtil.PER_FIXED_ASSET_GROUP)) {
+                    buffTemp.append("<item id=\"fixedassetgroups\" complex=\"true\" text=\"").append(QTUtil.getBundleString("fixedassetgroup.title")).append("\">");//start fixedassetgroups
+                    if (isHasPermission(PermissionUtil.OPERATION_LIST, PermissionUtil.PER_FIXED_ASSET_GROUP)) {
+                        buffTemp.append("<item id=\"fixedassetgrouplist\" text=\"").append(QTUtil.getBundleString("fixedassetgroup.list.title")).append("\"/>");//list fixedassetgroup
+                    }
+                    if (isHasPermission(PermissionUtil.OPERATION_ADD, PermissionUtil.PER_FIXED_ASSET_GROUP)) {
+                        buffTemp.append("<item id=\"fixedassetgroupadd\" text=\"").append(QTUtil.getBundleString("fixedassetgroup.detail.add.title")).append("\"/>");//add fixedassetgroup
+                    }
+                    buffTemp.append("</item>");//end fixedassetgroups
+                }
+                if (isHasPermission(PermissionUtil.OPERATION_LIST + "," + PermissionUtil.OPERATION_ADD, PermissionUtil.PER_FIXED_ASSET)) {
+                    buffTemp.append("<item id=\"fixedassets\" complex=\"true\" text=\"").append(QTUtil.getBundleString("fixedasset.title")).append("\">");//start fixedassets
+                    if (isHasPermission(PermissionUtil.OPERATION_LIST, PermissionUtil.PER_FIXED_ASSET)) {
+                        buffTemp.append("<item id=\"fixedassetlist\" text=\"").append(QTUtil.getBundleString("fixedasset.list.title")).append("\"/>");//list fixedasset
+                    }
+                    if (isHasPermission(PermissionUtil.OPERATION_ADD, PermissionUtil.PER_FIXED_ASSET)) {
+                        buffTemp.append("<item id=\"fixedassetadd\" text=\"").append(QTUtil.getBundleString("fixedasset.detail.add.title")).append("\"/>");//add fixedasset
+                    }
+                    buffTemp.append("</item>");//end fixedassets
+                }
+                buffTemp.append("</item>");//end fixedasset
             }
 
             if (buffTemp.length() > 0) {
@@ -515,7 +539,7 @@ public class GenerateMenu {
             buffTemp = new StringBuilder();
             if (isHasPermission(PermissionUtil.OPERATION_LIST + "," + PermissionUtil.OPERATION_ADD,
                     PermissionUtil.PER_ACCESSORY_IMPORT + "," + PermissionUtil.PER_PROMOTION_MATERIAL_IMPORT + "," + PermissionUtil.PER_PETRO_IMPORT
-                    + "," + PermissionUtil.PER_SALE_ACCESSORY + "," + PermissionUtil.PER_SALE_PETRO)) {
+                    + "," + PermissionUtil.PER_SALE_ACCESSORY + "," + PermissionUtil.PER_SALE_PETRO + "," + PermissionUtil.PER_FIXED_ASSET_DEPRECIATION)) {
                 if (isHasPermission(PermissionUtil.OPERATION_LIST + "," + PermissionUtil.OPERATION_ADD, PermissionUtil.PER_ACCESSORY_IMPORT)) {
                     buffTemp.append("<item id=\"accessoryimports\" complex=\"true\" text=\"").append(QTUtil.getBundleString("accessoryImport.title")).append("\">");
                     if (isHasPermission(PermissionUtil.OPERATION_LIST, PermissionUtil.PER_ACCESSORY_IMPORT)) {
@@ -563,6 +587,16 @@ public class GenerateMenu {
                     }
                     if (isHasPermission(PermissionUtil.OPERATION_ADD, PermissionUtil.PER_SALE_PETRO)) {
                         buffTemp.append("<item id=\"salepetroadd\" text=\"").append(QTUtil.getBundleString("salePetro.detail.add.title")).append("\"/>");
+                    }
+                    buffTemp.append("</item>");
+                }
+                if (isHasPermission(PermissionUtil.OPERATION_LIST + "," + PermissionUtil.OPERATION_ADD, PermissionUtil.PER_FIXED_ASSET_DEPRECIATION)) {
+                    buffTemp.append("<item id=\"fixedassetdepreciations\" complex=\"true\" text=\"").append(QTUtil.getBundleString("fixedAssetDepreciation.title")).append("\">");
+                    if (isHasPermission(PermissionUtil.OPERATION_LIST, PermissionUtil.PER_FIXED_ASSET_DEPRECIATION)) {
+                        buffTemp.append("<item id=\"fixedassetdepreciationlist\" text=\"").append(QTUtil.getBundleString("fixedAssetDepreciation.list.title")).append("\"/>");
+                    }
+                    if (isHasPermission(PermissionUtil.OPERATION_ADD, PermissionUtil.PER_FIXED_ASSET_DEPRECIATION)) {
+                        buffTemp.append("<item id=\"fixedassetdepreciationadd\" text=\"").append(QTUtil.getBundleString("fixedAssetDepreciation.detail.add.title")).append("\"/>");
                     }
                     buffTemp.append("</item>");
                 }

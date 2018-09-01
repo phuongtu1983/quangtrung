@@ -26,7 +26,7 @@ public class AutoMailBirthdayEmployee implements Runnable {
     public void run() {
         try {
             ParameterDAO parameterDAO = new ParameterDAO();
-            ParameterBean param = parameterDAO.getParametersByCode(Constants.CONFIG_MAIL_BEFORE_DAY);
+            ParameterBean param = parameterDAO.getParametersByCode(Constants.PARAM_MAIL_BEFORE_DAY);
             int day = 0;
             if (param != null) {
                 day = NumberUtil.parseInt(param.getValue(), 0);

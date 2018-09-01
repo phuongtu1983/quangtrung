@@ -47,6 +47,8 @@
         <form-bean name="employeeTimesheetForm" type="com.stepup.gasoline.qt.employeetimesheet.EmployeeTimesheetFormBean"/>
         <form-bean name="salaryForm" type="com.stepup.gasoline.qt.salary.SalaryFormBean"/>
         <form-bean name="storeForm" type="com.stepup.gasoline.qt.store.StoreFormBean"/>
+        <form-bean name="fixedAssetGroupForm" type="com.stepup.gasoline.qt.fixedassetgroup.FixedAssetGroupFormBean"/>
+        <form-bean name="fixedAssetForm" type="com.stepup.gasoline.qt.fixedasset.FixedAssetFormBean"/>
         <form-bean name="accountForm" type="com.stepup.gasoline.qt.account.AccountFormBean"/>
         <form-bean name="employeeForm" type="com.stepup.gasoline.qt.employee.EmployeeFormBean"/>
         <form-bean name="employeeSalaryForm" type="com.stepup.gasoline.qt.employee.EmployeeSalaryFormBean"/>
@@ -74,6 +76,7 @@
         <form-bean name="vehicleInForm" type="com.stepup.gasoline.qt.vehiclein.VehicleInFormBean"/>
         <form-bean name="exportWholesaleForm" type="com.stepup.gasoline.qt.exportwholesale.ExportWholesaleFormBean"/>
         <form-bean name="salePetroForm" type="com.stepup.gasoline.qt.salepetro.SalePetroFormBean"/>
+        <form-bean name="fixedAssetDepreciationForm" type="com.stepup.gasoline.qt.fixedassetdepreciation.FixedAssetDepreciationFormBean"/>
         <form-bean name="saleShellForm" type="com.stepup.gasoline.qt.saleshell.SaleShellFormBean"/>
         <form-bean name="debtVendorForm" type="com.stepup.gasoline.qt.debtvendor.DebtVendorFormBean"/>
         <form-bean name="debtRetailForm" type="com.stepup.gasoline.qt.debtretail.DebtRetailFormBean"/>
@@ -909,6 +912,48 @@
         <action path="/delExpense" type="com.stepup.gasoline.qt.expense.DeleteExpenseAction" scope="request" validate="false" >
         </action>
         <!-- end expense -->
+        <!-- start fixedassetgroup -->
+        <action path="/getFixedAssetGroupPanel" type="com.stepup.gasoline.qt.common.BaseStatusFormAction" scope="request" validate="false">
+            <forward name="success" path="/fixedassetgroup/fixedassetgrouppanel.jsp" />
+        </action>
+        <action path="/getFixedAssetGroupList" type="com.stepup.gasoline.qt.fixedassetgroup.GetFixedAssetGroupListAction" scope="request" validate="false" >
+        </action>
+        <action path="/fixedAssetGroupForm" type="com.stepup.gasoline.qt.fixedassetgroup.FixedAssetGroupFormAction" scope="request" validate="false">
+            <forward name="success" path="/fixedassetgroup/fixedassetgroupdetail.jsp" />
+        </action>
+        <action path="/addFixedAssetGroup" name ="fixedAssetGroupForm" scope="request" type="com.stepup.gasoline.qt.fixedassetgroup.AddFixedAssetGroupAction" input="/fixedAssetGroupForm.do">
+        </action>
+        <action path="/delFixedAssetGroup" type="com.stepup.gasoline.qt.fixedassetgroup.DeleteFixedAssetGroupAction" scope="request" validate="false" >
+        </action>
+        <!-- end fixedassetgroup -->
+        <!-- start fixedasset -->
+        <action path="/getFixedAssetPanel" type="com.stepup.gasoline.qt.common.BaseStatusFormAction" scope="request" validate="false">
+            <forward name="success" path="/fixedasset/fixedassetpanel.jsp" />
+        </action>
+        <action path="/getFixedAssetList" type="com.stepup.gasoline.qt.fixedasset.GetFixedAssetListAction" scope="request" validate="false" >
+        </action>
+        <action path="/fixedAssetForm" type="com.stepup.gasoline.qt.fixedasset.FixedAssetFormAction" scope="request" validate="false">
+            <forward name="success" path="/fixedasset/fixedassetdetail.jsp" />
+        </action>
+        <action path="/addFixedAsset" name ="fixedAssetForm" scope="request" type="com.stepup.gasoline.qt.fixedasset.AddFixedAssetAction" input="/fixedAssetForm.do">
+        </action>
+        <action path="/delFixedAsset" type="com.stepup.gasoline.qt.fixedasset.DeleteFixedAssetAction" scope="request" validate="false" >
+        </action>
+        <!-- end fixedasset -->
+        <!-- start  -->
+        <action path="/getFixedAssetDepreciationPanel" type="com.stepup.gasoline.qt.common.BaseFormAction" scope="request" validate="false">
+            <forward name="success" path="/fixedassetdepreciation/fixedassetdepreciationpanel.jsp" />
+        </action>
+        <action path="/getFixedAssetDepreciationList" type="com.stepup.gasoline.qt.fixedassetdepreciation.GetFixedAssetDepreciationListAction" scope="request" validate="false" >
+        </action>
+        <action path="/fixedAssetDepreciationForm" type="com.stepup.gasoline.qt.fixedassetdepreciation.FixedAssetDepreciationFormAction" scope="request" validate="false">
+            <forward name="success" path="/fixedassetdepreciation/fixedassetdepreciationdetail.jsp" />
+        </action>
+        <action path="/addFixedAssetDepreciation" name ="fixedAssetDepreciationForm" scope="request" type="com.stepup.gasoline.qt.fixedassetdepreciation.AddFixedAssetDepreciationAction" input="/fixedAssetDepreciationForm.do">
+        </action>
+        <action path="/delFixedAssetDepreciation" type="com.stepup.gasoline.qt.fixedassetdepreciation.DeleteFixedAssetDepreciationAction" scope="request" validate="false" >
+        </action>
+        <!-- end  -->
     </action-mappings>
     
     <controller processorClass="org.apache.struts.tiles.TilesRequestProcessor"/>

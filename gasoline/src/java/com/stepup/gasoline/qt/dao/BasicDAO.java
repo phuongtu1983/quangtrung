@@ -76,5 +76,5 @@ public class BasicDAO {
         }
     }
 
-    public static String START_DATE = "01/01/2018";
+    public static String START_DATE = "";
 }

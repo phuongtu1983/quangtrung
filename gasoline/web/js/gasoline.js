@@ -233,6 +233,18 @@ function menuClick(id) {
         loadEmployeeOffMoneyPanel();
     else if (id == 'employeeoffmoneyadd')
         getEmployeeOffMoney(0, 'loadEmployeeOffMoneyPanel');
+    else if (id == 'fixedassetgrouplist')
+        loadFixedAssetGroupPanel();
+    else if (id == 'fixedassetgroupadd')
+        getFixedAssetGroup(0, 'loadFixedAssetGroupPanel');
+    else if (id == 'fixedassetlist')
+        loadFixedAssetPanel();
+    else if (id == 'fixedassetadd')
+        getFixedAsset(0, 'loadFixedAssetPanel');
+    else if (id == 'fixedassetdepreciationlist')
+        loadFixedAssetDepreciationPanel();
+    else if (id == 'fixedassetdepreciationadd')
+        getFixedAssetDepreciation(0);
 }
 function clearContent() {
     var contentDiv = document.getElementById("contentDiv");
@@ -979,7 +991,7 @@ function getEmployee(id, handle) {
         document.getElementById('callbackFunc').value = handle;
         document.forms['employeeForm'].fullname.focus();
         tryNumberFormatCurrentcy(document.forms['employeeForm'].salary, "VND");
-        
+
         var myCalendar = new dhtmlXCalendarObject(["employeeBirthday"]);
         myCalendar.setSkin('dhx_web');
         myCalendar.setDateFormat("%d/%m/%Y");
@@ -6631,7 +6643,7 @@ function getExpense(id, handle) {
         document.getElementById('callbackFunc').value = handle;
         document.forms['expenseForm'].amount.focus();
         tryNumberFormatCurrentcy(document.forms['expenseForm'].amount, "VND");
-        var myCalendar = new dhtmlXCalendarObject(["expenseFromDate","expenseToDate"]);
+        var myCalendar = new dhtmlXCalendarObject(["expenseFromDate", "expenseToDate"]);
         myCalendar.setSkin('dhx_web');
         if (id == 0) {
             var currentDate = getCurrentDate();
@@ -6816,7 +6828,7 @@ function getEmployeeOffMoney(id, handle) {
 function saveEmployeeOffMoney() {
     if (scriptFunction == "saveEmployeeOffMoney")
         return false;
-    var field  = document.forms['employeeOffMoneyForm'].quantity;
+    var field = document.forms['employeeOffMoneyForm'].quantity;
     if (field.value == '') {
         alert("Vui l\u00F2ng nh\u1EADp s\u1ED1 ng\u00E0y");
         field.focus();
@@ -6864,8 +6876,8 @@ function employeeOffMoneyEmployeeChanged(list) {
     if (list.selectedIndex == -1)
         return false;
     var url = "getDayOffAndSalaryOfEmployee.do?employeeId=" + list.options[list.selectedIndex].value;
-    callAjaxCheckError(url,null,null,function(data){
-        var obj=eval('('+data+')');
+    callAjaxCheckError(url, null, null, function(data) {
+        var obj = eval('(' + data + ')');
         var quantity = document.forms['employeeOffMoneyForm'].quantity;
         var price = document.forms['employeeOffMoneyForm'].price;
         var amount = document.forms['employeeOffMoneyForm'].amount;
@@ -6875,9 +6887,9 @@ function employeeOffMoneyEmployeeChanged(list) {
         tryNumberFormatCurrentcy(quantity, "VND");
         tryNumberFormatCurrentcy(price, "VND");
         tryNumberFormatCurrentcy(amount, "VND");
-        quantity=null;
-        price=null;
-        amount=null;
+        quantity = null;
+        price = null;
+        amount = null;
     });
     list = null;
     return false;
@@ -6891,12 +6903,216 @@ function createSalary() {
     });
     return false;
 }
-
-
-
-
-
-
-
-
-
+function loadFixedAssetGroupPanel() {
+    callAjax("getFixedAssetGroupPanel.do", null, null, function(data) {
+        clearContent();
+        setAjaxData(data, "contentDiv");
+        loadFixedAssetGroupList();
+    });
+}
+function loadFixedAssetGroupList() {
+    var mygrid = new dhtmlXGridObject('fixedAssetGroupList');
+    mygrid.setImagePath("js/dhtmlx/grid/imgs/");
+    mygrid.setHeader("T\u00EAn t\u00E0i s\u1EA3n,Nh\u00F3m,T\u1EF7 l\u1EC7 KH,S\u1ED1 th\u00E1ng KH");
+    mygrid.attachHeader("#text_filter,#select_filter,#text_filter,#text_filter");
+    mygrid.setInitWidths("*,300,200,200");
+    mygrid.setColTypes("link,ro,ro,ro");
+    mygrid.setColSorting("str,str,str,str");
+    mygrid.setSkin("light");
+    var height = contentHeight - 210;
+    mygrid.al(true, height);//enableAutoHeight
+    mygrid.enablePaging(true, 15, 3, "recinfoArea");
+    mygrid.setPagingSkin("toolbar", "dhx_skyblue");
+    mygrid.init();
+    var url = "getFixedAssetGroupList.do";
+    callAjax(url, null, null, function(data) {
+        mygrid.parse(data);
+    });
+    return false;
+}
+function getFixedAssetGroup(id, handle) {
+    popupName = 'TH\u00D4NG TIN NH\u00D3M T\u00C0I S\u1EA2N C\u1ED0 \u0110\u1ECANH';
+    var url = 'fixedAssetGroupForm.do';
+    if (id != 0)
+        url += '?fixedAssetGroupId=' + id
+    callAjax(url, null, null, function(data) {
+        showPopupForm(data);
+        document.getElementById('callbackFunc').value = handle;
+        document.forms['fixedAssetGroupForm'].name.focus();
+    });
+}
+function saveFixedAssetGroup() {
+    if (scriptFunction == "saveFixedAssetGroup")
+        return false;
+    var field = document.forms['fixedAssetGroupForm'].name;
+    if (field.value == '') {
+        alert("Vui l\u00F2ng nh\u1EADp t\u00EAn");
+        field.focus();
+        field = null;
+        return false;
+    }
+    field = null;
+    scriptFunction = "saveFixedAssetGroup";
+    callAjaxCheckError("addFixedAssetGroup.do", null, document.forms['fixedAssetGroupForm'], function(data) {
+        scriptFunction = "";
+        var handle = document.getElementById('callbackFunc').value;
+        if (confirm('B\u1EA1n c\u00F3 mu\u1ED1n nh\u1EADp ti\u1EBFp th\u00F4ng tin kh\u00E1c ?'))
+            getFixedAssetGroup(0, handle);
+        else if (handle != '')
+            eval(handle + "()");
+        prepareHidePopup('fixedAssetGroupFormshowHelpHideDiv');
+    });
+    return false;
+}
+function delFixedAssetGroup() {
+    callAjaxCheckError('delFixedAssetGroup.do?fixedAssetGroupId=' + document.forms['fixedAssetGroupForm'].id.value, null, null, function() {
+        loadFixedAssetGroupPanel();
+        prepareHidePopup('fixedAssetGroupFormshowHelpHideDiv');
+    });
+    return false;
+}
+function loadFixedAssetPanel() {
+    callAjax("getFixedAssetPanel.do", null, null, function(data) {
+        clearContent();
+        setAjaxData(data, "contentDiv");
+        loadFixedAssetList();
+    });
+}
+function loadFixedAssetList() {
+    var mygrid = new dhtmlXGridObject('fixedAssetList');
+    mygrid.setImagePath("js/dhtmlx/grid/imgs/");
+    mygrid.setHeader("T\u00EAn t\u00E0i s\u1EA3n,Nh\u00F3m,T\u1EF7 l\u1EC7 KH,S\u1ED1 th\u00E1ng KH");
+    mygrid.attachHeader("#text_filter,#select_filter,#text_filter,#text_filter");
+    mygrid.setInitWidths("*,300,200,200");
+    mygrid.setColTypes("link,ro,ro,ro");
+    mygrid.setColSorting("str,str,str,str");
+    mygrid.setSkin("light");
+    var height = contentHeight - 210;
+    mygrid.al(true, height);//enableAutoHeight
+    mygrid.enablePaging(true, 15, 3, "recinfoArea");
+    mygrid.setPagingSkin("toolbar", "dhx_skyblue");
+    mygrid.init();
+    var url = "getFixedAssetList.do";
+    callAjax(url, null, null, function(data) {
+        mygrid.parse(data);
+    });
+    return false;
+}
+function getFixedAsset(id, handle) {
+    popupName = 'TH\u00D4NG TIN T\u00C0I S\u1EA2N C\u1ED0 \u0110\u1ECANH';
+    var url = 'fixedAssetForm.do';
+    if (id != 0)
+        url += '?fixedAssetId=' + id
+    callAjax(url, null, null, function(data) {
+        showPopupForm(data);
+        document.getElementById('callbackFunc').value = handle;
+        document.forms['fixedAssetForm'].name.focus();
+        tryNumberFormatCurrentcy(document.forms['fixedAssetForm'].quantity, "VND");
+        tryNumberFormatCurrentcy(document.forms['fixedAssetForm'].rate, "VND");
+        tryNumberFormatCurrentcy(document.forms['fixedAssetForm'].monthCount, "VND");
+        tryNumberFormatCurrentcy(document.forms['fixedAssetForm'].price, "VND");
+        var myCalendar = new dhtmlXCalendarObject(["fixedAssetStartDate"]);
+        myCalendar.setSkin('dhx_web');
+        if (id == 0) {
+            var currentDate = getCurrentDate();
+            document.forms['fixedAssetForm'].fixedAssetStartDate.value = currentDate;
+        }
+        myCalendar.setDateFormat("%d/%m/%Y");
+    });
+}
+function saveFixedAsset() {
+    if (scriptFunction == "saveFixedAsset")
+        return false;
+    var field = document.forms['fixedAssetForm'].name;
+    if (field.value == '') {
+        alert("Vui l\u00F2ng nh\u1EADp t\u00EAn");
+        field.focus();
+        field = null;
+        return false;
+    }
+    field = null;
+    reformatNumberMoney(document.forms['fixedAssetForm'].quantity);
+    reformatNumberMoney(document.forms['fixedAssetForm'].rate);
+    reformatNumberMoney(document.forms['fixedAssetForm'].monthCount);
+    reformatNumberMoney(document.forms['fixedAssetForm'].price);
+    scriptFunction = "saveFixedAsset";
+    callAjaxCheckError("addFixedAsset.do", null, document.forms['fixedAssetForm'], function(data) {
+        scriptFunction = "";
+        var handle = document.getElementById('callbackFunc').value;
+        if (confirm('B\u1EA1n c\u00F3 mu\u1ED1n nh\u1EADp ti\u1EBFp th\u00F4ng tin kh\u00E1c ?'))
+            getFixedAsset(0, handle);
+        else if (handle != '')
+            eval(handle + "()");
+        prepareHidePopup('fixedAssetFormshowHelpHideDiv');
+    });
+    return false;
+}
+function delFixedAsset() {
+    callAjaxCheckError('delFixedAsset.do?fixedAssetId=' + document.forms['fixedAssetForm'].id.value, null, null, function() {
+        loadFixedAssetPanel();
+        prepareHidePopup('fixedAssetFormshowHelpHideDiv');
+    });
+    return false;
+}
+function loadFixedAssetDepreciationPanel() {
+    callAjax("getFixedAssetDepreciationPanel.do", null, null, function(data) {
+        clearContent();
+        setAjaxData(data, "contentDiv");
+        var myCalendar = new dhtmlXCalendarObject(["fromDate", "toDate"]);
+        myCalendar.setSkin('dhx_web');
+        var currentTime = getCurrentDate();
+        document.forms['fixedAssetDepreciationSearchForm'].fromDate.value = currentTime;
+        document.forms['fixedAssetDepreciationSearchForm'].toDate.value = currentTime;
+        myCalendar.setDateFormat("%d/%m/%Y");
+        loadFixedAssetDepreciationList(currentTime, currentTime);
+    });
+    return false;
+}
+function loadFixedAssetDepreciationList(fromDate, toDate) {
+    var mygrid = new dhtmlXGridObject('fixedAssetDepreciationList');
+    mygrid.setImagePath("js/dhtmlx/grid/imgs/");
+    mygrid.setHeader("M\u00E3 phi\u1EBFu,Ng\u00E0y t\u1EA1o,Ghi ch\u00FA");
+    mygrid.attachHeader("#text_filter,#text_filter,#text_filter");
+    mygrid.setInitWidths("150,100,*");
+    mygrid.setColTypes("link,ro,ro");
+    mygrid.setColSorting("str,str,,str");
+    mygrid.setSkin("light");
+    var height = contentHeight - 210;
+    mygrid.al(true, height);//enableAutoHeight
+    mygrid.enablePaging(true, 15, 3, "recinfoArea");
+    mygrid.setPagingSkin("toolbar", "dhx_skyblue");
+    mygrid.init();
+    var url = "getFixedAssetDepreciationList.do?t=1";
+    if (fromDate != null)
+        url += "&fromDate=" + fromDate;
+    if (toDate != null)
+        url += "&toDate=" + toDate;
+    callAjax(url, null, null, function(data) {
+        mygrid.parse(data);
+    });
+    return false;
+}
+function getFixedAssetDepreciation(id) {
+    var url = 'fixedAssetDepreciationForm.do?fixedAssetDepreciationId=' + id
+    callAjax(url, null, null, function(data) {
+        clearContent();
+        setAjaxData(data, 'contentDiv');
+        formatFormDetail('fixedAssetDepreciationForm');
+    });
+}
+function saveFixedAssetDepreciation() {
+    if (scriptFunction == "saveFixedAssetDepreciation")
+        return false;
+    scriptFunction = "saveFixedAssetDepreciation";
+    callAjaxCheckError("addFixedAssetDepreciation.do", null, document.forms['fixedAssetDepreciationForm'], function(data) {
+        scriptFunction = "";
+        loadFixedAssetDepreciationPanel();
+    });
+    return false;
+}
+function delFixedAssetDepreciation() {
+    callAjaxCheckError('delFixedAssetDepreciation.do?fixedAssetDepreciationId=' + document.forms['fixedAssetDepreciationForm'].id.value, null, null, function() {
+        loadFixedAssetDepreciationPanel();
+    });
+    return false;
+}

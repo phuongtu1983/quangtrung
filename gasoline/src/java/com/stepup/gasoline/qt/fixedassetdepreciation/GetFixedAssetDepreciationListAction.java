@@ -2,12 +2,11 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
-package com.stepup.gasoline.qt.parameter;
+package com.stepup.gasoline.qt.fixedassetdepreciation;
 
 import com.stepup.core.util.OutputUtil;
-import com.stepup.gasoline.qt.bean.ParameterBean;
-import com.stepup.gasoline.qt.dao.ParameterDAO;
-import com.stepup.gasoline.qt.util.Constants;
+import com.stepup.core.util.StringUtil;
+import com.stepup.gasoline.qt.dao.FixedAssetDAO;
 import java.util.ArrayList;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -20,7 +19,7 @@ import org.apache.struts.action.ActionMapping;
  *
  * @author phuongtu
  */
-public class GetParameterListAction extends Action {
+public class GetFixedAssetDepreciationListAction extends Action {
 
     /**
      * This is the action called from the Struts framework.
@@ -40,22 +39,23 @@ public class GetParameterListAction extends Action {
         buff.append("<?xml version=\"1.0\" encoding=\"UTF-8\"?>");
         buff.append("<rows>");
         try {
-            ParameterDAO parameterDAO = new ParameterDAO();
-            String code = "'" + Constants.PARAM_MAIL_BEFORE_DAY + "'" + ",'" + Constants.PARAM_INSURANCE_PERSONAL + "'" + ",'" + Constants.PARAM_INSURANCE_COMPANY + "'";
-            ArrayList list = parameterDAO.getParametersByCodes(code);
-            if (list != null) {
-                int length = list.size();
+            FixedAssetDAO assetDAO = new FixedAssetDAO();
+            ArrayList importList = assetDAO.searchFixedAssetDepreciation(request.getParameter("fromDate"), request.getParameter("toDate"));
+            if (importList != null) {
+                int length = importList.size();
                 for (int i = 0; i < length; i++) {
-                    ParameterBean bean = (ParameterBean) list.get(i);
-                    buff.append("<row id=\"").append(i).append("\">");
-                    buff.append("<cell>").append(bean.getName()).append("^javascript:getParameter(\"").append(bean.getCode()).append("\",\"loadParameterList\")^_self</cell>");
-                    buff.append("<cell>").append(bean.getValue()).append("</cell>");
+                    FixedAssetDepreciationFormBean bean = (FixedAssetDepreciationFormBean) importList.get(i);
+                    buff.append("<row id=\"").append(bean.getId()).append("\">");
+                    buff.append("<cell>").append(bean.getCode()).append("^javascript:getFixedAssetDepreciation(").append(bean.getId()).append(")^_self</cell>");
+                    buff.append("<cell>").append(bean.getCreatedDate()).append("</cell>");
+                    buff.append("<cell>").append(StringUtil.encodeString(bean.getNote())).append("</cell>");
                     buff.append("</row>");
                 }
             }
         } catch (Exception ex) {
         }
         buff.append("</rows>");
+
         OutputUtil.sendXmlStringToOutput(response, buff.toString());
         return null;
     }

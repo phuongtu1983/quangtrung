@@ -44,9 +44,6 @@
         <tr>
             <td colspan="2"><div><%@include  file="/permission/organizations.jsp" %></div></td>
         </tr>
-        
-        
-        
         <tr>
             <td colspan="2">
                 <fieldset>

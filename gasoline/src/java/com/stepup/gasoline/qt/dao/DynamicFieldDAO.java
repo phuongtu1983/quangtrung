@@ -151,7 +151,7 @@ public class DynamicFieldDAO extends BasicDAO {
         }
     }
 
-    public void deletePermission(String ids) throws Exception {
+    public void deleteDynamicField(String ids) throws Exception {
         SPUtil spUtil = null;
         try {
             String sql = "{call deleteDynamicField(?)}";

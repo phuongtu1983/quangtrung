@@ -2,10 +2,10 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
-package com.stepup.gasoline.qt.dynamicfield;
+package com.stepup.gasoline.qt.fixedasset;
 
 import com.stepup.gasoline.qt.core.SpineAction;
-import com.stepup.gasoline.qt.dao.DynamicFieldDAO;
+import com.stepup.gasoline.qt.dao.FixedAssetDAO;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import org.apache.struts.action.ActionForm;
@@ -15,7 +15,7 @@ import org.apache.struts.action.ActionMapping;
  *
  * @author phuongtu
  */
-public class DeleteDynamicFieldAction extends SpineAction {
+public class DeleteFixedAssetAction extends SpineAction {
 
     /**
      * This is the action called from the Struts framework.
@@ -31,8 +31,8 @@ public class DeleteDynamicFieldAction extends SpineAction {
     public boolean doAction(ActionMapping mapping, ActionForm form,
             HttpServletRequest request, HttpServletResponse response) {
         try {
-            DynamicFieldDAO dynamicFieldDAO = new DynamicFieldDAO();
-            dynamicFieldDAO.deleteDynamicField(request.getParameter("fieldId"));
+            FixedAssetDAO assetDAO = new FixedAssetDAO();
+            assetDAO.deleteFixedAsset(request.getParameter("fixedAssetId"));
         } catch (Exception ex) {
         }
         return true;

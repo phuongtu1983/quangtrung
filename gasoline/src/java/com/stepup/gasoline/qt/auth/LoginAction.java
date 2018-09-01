@@ -20,6 +20,7 @@ import com.stepup.gasoline.qt.dao.EmployeeDAO;
 import com.stepup.gasoline.qt.util.Constants;
 import com.stepup.core.util.LogUtil;
 import com.stepup.core.util.StringUtil;
+import com.stepup.gasoline.qt.dao.BasicDAO;
 import com.stepup.gasoline.qt.dao.PermissionDAO;
 import com.stepup.gasoline.qt.permission.ApplicationPermissionBean;
 import com.stepup.gasoline.qt.util.QTUtil;
@@ -34,6 +35,7 @@ public class LoginAction extends Action {
 
     /**
      * This is the action called from the Struts framework.
+     *
      * @param mapping The ActionMapping used to select this instance.
      * @param form The optional ActionForm bean for this request.
      * @param request The HTTP Request we are processing.
@@ -81,6 +83,7 @@ public class LoginAction extends Action {
                 }
             }
             getPermission(session);
+            getStartDate();
             return mapping.findForward(Constants.FORWARD_ACT_SUCCESS);
         }
     }
@@ -93,6 +96,15 @@ public class LoginAction extends Action {
             String organizations = permissionDAO.getOrganizationManagedOfEmployee(QTUtil.getMemberID(session));
             session.setAttribute(Constants.PERMISSION_ORGANIZATION_MANAGED, organizations);
         } catch (Exception ex) {
+        }
+    }
+
+    private void getStartDate() {
+        try {
+            EmployeeDAO employeeDAO = new EmployeeDAO();
+            BasicDAO.START_DATE = employeeDAO.getStartDate();
+        } catch (Exception ex) {
+            LogUtil.error(ex.getMessage());
         }
     }
 }
