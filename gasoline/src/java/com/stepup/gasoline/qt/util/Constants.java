@@ -128,4 +128,5 @@ public class Constants {
     public static final String FIXED_ASSET = "fixedAsset";
     public static final String FIXED_ASSET_DEPRECIATION = "fixedAssetDepreciation";
     public static final String FIXED_ASSET_DEPRECIATION_GOOD = "fixedAssetDepreciationGood";
+    public static final String CONTRACT = "contract";
 }

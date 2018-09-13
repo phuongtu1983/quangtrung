@@ -609,7 +609,18 @@ public class GenerateMenu {
 
             buffTemp = new StringBuilder();
             if (isHasPermission(PermissionUtil.OPERATION_LIST + "," + PermissionUtil.OPERATION_ADD,
-                    PermissionUtil.PER_DEBT_VENDOR + "," + PermissionUtil.PER_DEBT_RETAIL + "," + PermissionUtil.PER_DEBT_WHOLESALE + "," + PermissionUtil.PER_INCOME)) {
+                    PermissionUtil.PER_DEBT_VENDOR + "," + PermissionUtil.PER_DEBT_RETAIL + "," + PermissionUtil.PER_DEBT_WHOLESALE + "," + PermissionUtil.PER_INCOME
+                    + "," + PermissionUtil.PER_CONTRACT)) {
+                if (isHasPermission(PermissionUtil.OPERATION_LIST + "," + PermissionUtil.OPERATION_ADD, PermissionUtil.PER_CONTRACT)) {
+                    buffTemp.append("<item id=\"contracts\" complex=\"true\" text=\"").append(QTUtil.getBundleString("contract.title")).append("\">");
+                    if (isHasPermission(PermissionUtil.OPERATION_LIST, PermissionUtil.PER_CONTRACT)) {
+                        buffTemp.append("<item id=\"contractlist\" text=\"").append(QTUtil.getBundleString("contract.list.title")).append("\"/>");
+                    }
+                    if (isHasPermission(PermissionUtil.OPERATION_ADD, PermissionUtil.PER_CONTRACT)) {
+                        buffTemp.append("<item id=\"contractadd\" text=\"").append(QTUtil.getBundleString("contract.detail.add.title")).append("\"/>");
+                    }
+                    buffTemp.append("</item>");
+                }
                 if (isHasPermission(PermissionUtil.OPERATION_LIST + "," + PermissionUtil.OPERATION_ADD, PermissionUtil.PER_DEBT_VENDOR)) {
                     buffTemp.append("<item id=\"debtvendors\" complex=\"true\" text=\"").append(QTUtil.getBundleString("debtVendor.title")).append("\">");
                     if (isHasPermission(PermissionUtil.OPERATION_LIST, PermissionUtil.PER_DEBT_VENDOR)) {

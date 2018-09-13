@@ -245,6 +245,10 @@ function menuClick(id) {
         loadFixedAssetDepreciationPanel();
     else if (id == 'fixedassetdepreciationadd')
         getFixedAssetDepreciation(0);
+    else if (id == 'contractlist')
+        loadContractPanel();
+    else if (id == 'contractadd')
+        getContract(0, 'loadContractPanel');
 }
 function clearContent() {
     var contentDiv = document.getElementById("contentDiv");
@@ -7113,6 +7117,98 @@ function saveFixedAssetDepreciation() {
 function delFixedAssetDepreciation() {
     callAjaxCheckError('delFixedAssetDepreciation.do?fixedAssetDepreciationId=' + document.forms['fixedAssetDepreciationForm'].id.value, null, null, function() {
         loadFixedAssetDepreciationPanel();
+    });
+    return false;
+}
+function loadContractPanel() {
+    callAjax("getContractPanel.do", null, null, function(data) {
+        clearContent();
+        setAjaxData(data, "contentDiv");
+        var myCalendar = new dhtmlXCalendarObject(["fromDate", "toDate"]);
+        myCalendar.setSkin('dhx_web');
+        var currentTime = getCurrentDate();
+        document.forms['contractSearchForm'].fromDate.value = currentTime;
+        document.forms['contractSearchForm'].toDate.value = currentTime;
+        myCalendar.setDateFormat("%d/%m/%Y");
+        loadContractList(currentTime, currentTime);
+    });
+    return false;
+}
+function loadContractList(fromDate, toDate) {
+    var mygrid = new dhtmlXGridObject('contractList');
+    mygrid.setImagePath("js/dhtmlx/grid/imgs/");
+    mygrid.setHeader("S\u1ED1 h\u1EE3p \u0111\u1ED3ng,Ng\u00E0y h\u1EE3p \u0111\u1ED3ng,Kh\u00E1ch h\u00E0ng,Ghi ch\u00FA");
+    mygrid.attachHeader("#text_filter,#text_filter,#text_filter,#text_filter");
+    mygrid.setInitWidths("150,200,200,*");
+    mygrid.setColTypes("link,ro,ro,ro");
+    mygrid.setColSorting("str,str,str,str");
+    mygrid.setSkin("light");
+    var height = contentHeight - 210;
+    mygrid.al(true, height);//enableAutoHeight
+    mygrid.enablePaging(true, 15, 3, "recinfoArea");
+    mygrid.setPagingSkin("toolbar", "dhx_skyblue");
+    mygrid.init();
+    var url = "getContractList.do?t=1";
+    if (fromDate != null)
+        url += "&fromDate=" + fromDate;
+    if (toDate != null)
+        url += "&toDate=" + toDate;
+    callAjax(url, null, null, function(data) {
+        mygrid.parse(data);
+    });
+    return false;
+}
+function getContract(id, handle) {
+    popupName = 'TH\u00D4NG TIN H\u1EE2P \u0110\u1ED2NG';
+    var url = 'contractForm.do';
+    if (id != 0)
+        url += '?contractId=' + id
+    callAjax(url, null, null, function(data) {
+        showPopupForm(data);
+        document.getElementById('callbackFunc').value = handle;
+        tryNumberFormatCurrentcy(document.forms['contractForm'].shell12Price, "VND");
+        tryNumberFormatCurrentcy(document.forms['contractForm'].shell45Price, "VND");
+        tryNumberFormatCurrentcy(document.forms['contractForm'].creditDate, "VND");
+        tryNumberFormatCurrentcy(document.forms['contractForm'].creditAmount, "VND");
+        var myCalendar = new dhtmlXCalendarObject(["contractDate"]);
+        myCalendar.setSkin('dhx_web');
+        if (id == 0) {
+            var currentDate = getCurrentDate();
+            document.forms['contractForm'].contractDate.value = currentDate;
+        }
+        myCalendar.setDateFormat("%d/%m/%Y");
+    });
+}
+function saveContract() {
+    if (scriptFunction == "saveContract")
+        return false;
+    var field = document.forms['contractForm'].createdDate;
+    if (field.value == '') {
+        alert("Vui l\u00F2ng nh\u1EADp ng\u00E0y");
+        field.focus();
+        field = null;
+        return false;
+    }
+    reformatNumberMoney(document.forms['contractForm'].shell12Price);
+    reformatNumberMoney(document.forms['contractForm'].shell45Price);
+    reformatNumberMoney(document.forms['contractForm'].creditDate);
+    reformatNumberMoney(document.forms['contractForm'].creditAmount);
+    scriptFunction = "saveContract";
+    callAjaxCheckError("addContract.do", null, document.forms['contractForm'], function(data) {
+        scriptFunction = "";
+        var handle = document.getElementById('callbackFunc').value;
+        if (confirm('B\u1EA1n c\u00F3 mu\u1ED1n nh\u1EADp ti\u1EBFp th\u00F4ng tin kh\u00E1c ?'))
+            getContract(0, handle);
+        else if (handle != '')
+            eval(handle + "()");
+        prepareHidePopup('contractFormshowHelpHideDiv');
+    });
+    return false;
+}
+function delContract() {
+    callAjaxCheckError('delContract.do?contractId=' + document.forms['contractForm'].id.value, null, null, function() {
+        loadContractPanel();
+        prepareHidePopup('contractFormshowHelpHideDiv');
     });
     return false;
 }

@@ -79,6 +79,7 @@
         <form-bean name="fixedAssetDepreciationForm" type="com.stepup.gasoline.qt.fixedassetdepreciation.FixedAssetDepreciationFormBean"/>
         <form-bean name="saleShellForm" type="com.stepup.gasoline.qt.saleshell.SaleShellFormBean"/>
         <form-bean name="debtVendorForm" type="com.stepup.gasoline.qt.debtvendor.DebtVendorFormBean"/>
+        <form-bean name="contractForm" type="com.stepup.gasoline.qt.contract.ContractFormBean"/>
         <form-bean name="debtRetailForm" type="com.stepup.gasoline.qt.debtretail.DebtRetailFormBean"/>
         <form-bean name="debtWholesaleForm" type="com.stepup.gasoline.qt.debtwholesale.DebtWholesaleFormBean"/>
         <form-bean name="incomeForm" type="com.stepup.gasoline.qt.income.IncomeFormBean"/>
@@ -940,7 +941,7 @@
         <action path="/delFixedAsset" type="com.stepup.gasoline.qt.fixedasset.DeleteFixedAssetAction" scope="request" validate="false" >
         </action>
         <!-- end fixedasset -->
-        <!-- start  -->
+        <!-- start  fixedassetdepreciation -->
         <action path="/getFixedAssetDepreciationPanel" type="com.stepup.gasoline.qt.common.BaseFormAction" scope="request" validate="false">
             <forward name="success" path="/fixedassetdepreciation/fixedassetdepreciationpanel.jsp" />
         </action>
@@ -953,7 +954,21 @@
         </action>
         <action path="/delFixedAssetDepreciation" type="com.stepup.gasoline.qt.fixedassetdepreciation.DeleteFixedAssetDepreciationAction" scope="request" validate="false" >
         </action>
-        <!-- end  -->
+        <!-- end fixedassetdepreciation -->
+        <!-- start contract -->
+        <action path="/getContractPanel" type="com.stepup.gasoline.qt.common.BaseStatusFormAction" scope="request" validate="false">
+            <forward name="success" path="/contract/contractpanel.jsp" />
+        </action>
+        <action path="/getContractList" type="com.stepup.gasoline.qt.contract.GetContractListAction" scope="request" validate="false" >
+        </action>
+        <action path="/contractForm" type="com.stepup.gasoline.qt.contract.ContractFormAction" scope="request" validate="false">
+            <forward name="success" path="/contract/contractdetail.jsp" />
+        </action>
+        <action path="/addContract" name ="contractForm" scope="request" type="com.stepup.gasoline.qt.contract.AddContractAction" input="/contractForm.do">
+        </action>
+        <action path="/delContract" type="com.stepup.gasoline.qt.contract.DeleteContractAction" scope="request" validate="false" >
+        </action>
+        <!-- end contract -->
     </action-mappings>
     
     <controller processorClass="org.apache.struts.tiles.TilesRequestProcessor"/>
