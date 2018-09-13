@@ -89,6 +89,12 @@ public class AddEmployeeAction extends AddDynamicFieldValueAction {
                 if (formBean.getStatus() != oldBean.getStatus()) {
                     isUpdate = true;
                 }
+                if (formBean.getStartDate() != oldBean.getStartDate()) {
+                    isUpdate = true;
+                }
+                if (formBean.getSeniority() != oldBean.getSeniority()) {
+                    isUpdate = true;
+                }
             }
         } catch (Exception ex) {
         }
@@ -100,6 +106,8 @@ public class AddEmployeeAction extends AddDynamicFieldValueAction {
         bean.setStatus(formBean.getStatus());
         bean.setOrganizationId(formBean.getOrganizationId());
         bean.setBirthday(formBean.getBirthday());
+        bean.setStartDate(formBean.getStartDate());
+        bean.setSeniority(formBean.getSeniority());
         try {
             if (bNew) {
                 employeeId = employeeDAO.insertEmployee(bean);

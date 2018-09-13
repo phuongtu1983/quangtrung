@@ -167,9 +167,9 @@ public class OrganizationDAO extends BasicDAO {
             sql = "Insert Into organization (name, code, address, status)"
                     + " Values ('" + bean.getName() + "','" + bean.getCode() + "','" + bean.getAddress() + "'," + bean.getStatus() + ")";
             id = DBUtil.executeInsert(sql);
-            sql = "INSERT INTO dynamic_field(CODE, NAME, organization_id, table_name, can_edit)"
-                    + " SELECT code, name, " + id + ", table_name, 0 FROM dynamic_field_free";
-            DBUtil.executeInsert(sql);
+//            sql = "INSERT INTO dynamic_field(CODE, NAME, organization_id, table_name, can_edit)"
+//                    + " SELECT code, name, " + id + ", table_name, 0 FROM dynamic_field_free";
+//            DBUtil.executeInsert(sql);
         } catch (SQLException sqle) {
             throw new Exception(sqle.getMessage());
         } catch (Exception ex) {

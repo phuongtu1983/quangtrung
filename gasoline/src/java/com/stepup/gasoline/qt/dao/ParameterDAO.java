@@ -78,7 +78,10 @@ public class ParameterDAO extends BasicDAO {
 
     public ArrayList getParametersByCodes(String codes) throws Exception {
         ResultSet rs = null;
-        String sql = "SELECT * FROM parameter where code in (" + codes + ")";
+        String sql = "SELECT * FROM parameter where is_show=1";
+        if (!codes.isEmpty()) {
+            sql += " and code in (" + codes + ")";
+        }
 
         ArrayList list = new ArrayList();
         try {
@@ -103,7 +106,7 @@ public class ParameterDAO extends BasicDAO {
         }
         return list;
     }
-    
+
     public ParameterBean getParametersByCode(String code) throws Exception {
         ResultSet rs = null;
         String sql = "SELECT * FROM parameter where code='" + code + "'";

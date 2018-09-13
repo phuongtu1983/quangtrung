@@ -7,7 +7,6 @@ package com.stepup.gasoline.qt.parameter;
 import com.stepup.core.util.OutputUtil;
 import com.stepup.gasoline.qt.bean.ParameterBean;
 import com.stepup.gasoline.qt.dao.ParameterDAO;
-import com.stepup.gasoline.qt.util.Constants;
 import java.util.ArrayList;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -41,8 +40,7 @@ public class GetParameterListAction extends Action {
         buff.append("<rows>");
         try {
             ParameterDAO parameterDAO = new ParameterDAO();
-            String code = "'" + Constants.PARAM_MAIL_BEFORE_DAY + "'" + ",'" + Constants.PARAM_INSURANCE_PERSONAL + "'" + ",'" + Constants.PARAM_INSURANCE_COMPANY + "'";
-            ArrayList list = parameterDAO.getParametersByCodes(code);
+            ArrayList list = parameterDAO.getParametersByCodes("");
             if (list != null) {
                 int length = list.size();
                 for (int i = 0; i < length; i++) {

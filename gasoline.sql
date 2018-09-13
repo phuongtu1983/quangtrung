@@ -227,13 +227,13 @@ CREATE TABLE `dynamic_field` (
   `organization_id` int(11) DEFAULT NULL,
   `table_name` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
   `can_edit` int(1) DEFAULT '1' COMMENT '0:khong the edit, 1:co the edit',
-  `free_id` int(11) DEFAULT '0',
+  `free_value_id` int(11) DEFAULT '0',
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM AUTO_INCREMENT=62 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=MyISAM AUTO_INCREMENT=96 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 /*Data for the table `dynamic_field` */
 
-insert  into `dynamic_field`(`id`,`code`,`name`,`organization_id`,`table_name`,`can_edit`,`free_id`) values (4,NULL,'Ngày vào làm',1,'employee',1,0),(6,NULL,'Số thẻ BHXH',1,'employee',1,0),(8,'a','Mã số thuế',1,'vendor',1,0),(9,NULL,'Tài khoản ngân hàng',1,'vendor',1,0),(10,NULL,'Năm thành lập',2,'vendor',1,0),(11,NULL,'Tài khoản ngân hàng',1,'customer',1,0),(12,NULL,'Mã số thuế',1,'customer',1,0),(13,NULL,'Giám đốc',2,'customer',1,0),(14,NULL,'Thưởng làm đủ ngày',1,'salary',1,0),(15,NULL,'Phụ cấp điện thoại',1,'salary',1,0),(16,NULL,'Giao gas lẻ',1,'timesheet',1,0),(17,NULL,'Thay van gas',1,'timesheet',1,0),(18,NULL,'Giao bếp gas',1,'timesheet',1,0),(20,'CNNH','Chi nhánh ngân hàng',1,'vendor',1,0),(60,'SATURDAY','Làm ngày thứ 7',8,'employee',0,3),(61,'test','test',8,'employee',1,0),(59,'DAYOFFINYEAR','Số ngày phép trong năm',8,'employee',0,2);
+insert  into `dynamic_field`(`id`,`code`,`name`,`organization_id`,`table_name`,`can_edit`,`free_value_id`) values (93,'DAYOFFINYEAR','Số ngày phép trong năm',12,'employee',0,18),(94,'SATURDAY','Làm ngày thứ 7',12,'employee',0,19),(95,'SENIALLOW','Thưởng thâm niên (%)',12,'employee',0,20),(73,'SENIALLOW','Thưởng thâm niên (%)',3,'employee',0,8),(74,'test','test',1,'employee',1,0),(72,'SATURDAY','Làm ngày thứ 7',3,'employee',0,7),(68,'DAYOFFINYEAR','Số ngày phép trong năm',1,'employee',0,3),(69,'SATURDAY','Làm ngày thứ 7',1,'employee',0,4),(70,'SENIALLOW','Thưởng thâm niên (%)',1,'employee',0,5),(71,'DAYOFFINYEAR','Số ngày phép trong năm',3,'employee',0,6);
 
 /*Table structure for table `dynamic_field_free` */
 
@@ -246,11 +246,11 @@ CREATE TABLE `dynamic_field_free` (
   `table_name` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
   `parent_table_name` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 /*Data for the table `dynamic_field_free` */
 
-insert  into `dynamic_field_free`(`id`,`code`,`name`,`table_name`,`parent_table_name`) values (2,'DAYOFFINYEAR','Số ngày phép trong năm','employee','organization'),(3,'SATURDAY','Làm ngày thứ 7','employee','organization');
+insert  into `dynamic_field_free`(`id`,`code`,`name`,`table_name`,`parent_table_name`) values (2,'DAYOFFINYEAR','Số ngày phép trong năm','employee','organization'),(3,'SATURDAY','Làm ngày thứ 7','employee','organization'),(6,'SENIALLOW','Thưởng thâm niên (%)','employee','organization');
 
 /*Table structure for table `dynamic_field_free_value` */
 
@@ -262,11 +262,11 @@ CREATE TABLE `dynamic_field_free_value` (
   `parent_id` int(11) DEFAULT NULL,
   `value` text COLLATE utf8_unicode_ci,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=32 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=21 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 /*Data for the table `dynamic_field_free_value` */
 
-insert  into `dynamic_field_free_value`(`id`,`field_id`,`parent_id`,`value`) values (30,2,8,'2'),(31,3,8,'3');
+insert  into `dynamic_field_free_value`(`id`,`field_id`,`parent_id`,`value`) values (3,2,1,'1'),(4,3,1,'2'),(5,6,1,'3'),(6,2,3,'4'),(7,3,3,'5'),(8,6,3,'6'),(18,2,12,'5'),(19,3,12,'6'),(20,6,12,'7');
 
 /*Table structure for table `dynamic_field_value` */
 
@@ -278,11 +278,11 @@ CREATE TABLE `dynamic_field_value` (
   `parent_id` int(11) DEFAULT NULL,
   `value` text COLLATE utf8_unicode_ci,
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM AUTO_INCREMENT=34 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=MyISAM AUTO_INCREMENT=15 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 /*Data for the table `dynamic_field_value` */
 
-insert  into `dynamic_field_value`(`id`,`field_id`,`parent_id`,`value`) values (2,4,7,'e1'),(3,6,7,'f1'),(4,8,1,'c2'),(5,9,1,'d2'),(6,10,2,'3'),(7,12,1,'c2'),(8,11,1,'d2'),(9,13,2,'c3'),(10,12,3,''),(11,11,3,''),(12,12,4,'a'),(13,11,4,'b'),(14,12,5,'d'),(15,11,5,'f'),(16,12,6,'a'),(17,11,6,'b'),(18,20,3,''),(19,8,3,''),(20,9,3,''),(26,60,8,'0.5'),(25,59,8,'12'),(28,4,1,''),(27,61,8,'4'),(30,6,1,''),(31,59,1,'2'),(32,60,1,'3'),(33,61,1,'');
+insert  into `dynamic_field_value`(`id`,`field_id`,`parent_id`,`value`) values (6,70,14,'33'),(5,69,14,'23'),(4,68,14,'13'),(7,74,14,'43'),(8,68,15,'111'),(9,69,15,'222'),(10,70,15,'333'),(11,74,15,'44'),(12,93,16,'5555'),(13,94,16,'6666'),(14,95,16,'7777');
 
 /*Table structure for table `employee` */
 
@@ -296,12 +296,14 @@ CREATE TABLE `employee` (
   `organization_id` int(11) DEFAULT NULL,
   `birthday` date DEFAULT NULL,
   `status` int(1) DEFAULT '1' COMMENT '0: da bi khoa, 1: dang su dung',
+  `seniority` int(2) DEFAULT '1',
+  `start_date` date DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM AUTO_INCREMENT=9 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=MyISAM AUTO_INCREMENT=17 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 /*Data for the table `employee` */
 
-insert  into `employee`(`id`,`fullname`,`email`,`salary`,`organization_id`,`birthday`,`status`) values (1,'Nguyễn Phương Tú','phuongtu1983@gmail.com',3,1,'2018-08-23',1),(2,'Nguyễn Thị Hương','huong1963@gmail.com',1000000,1,NULL,1),(6,'aa','bb',12345,2,NULL,1),(7,'a1','b1',31,2,NULL,1),(8,'c','',0,8,NULL,1);
+insert  into `employee`(`id`,`fullname`,`email`,`salary`,`organization_id`,`birthday`,`status`,`seniority`,`start_date`) values (1,'Nguyễn Phương Tú','phuongtu1983@gmail.com',3,1,'2018-08-23',1,1,NULL),(2,'Nguyễn Thị Hương','huong1963@gmail.com',1000000,1,NULL,1,1,NULL),(16,'c','c@gmail.com',111,12,NULL,1,222,NULL),(15,'b','b@gmail.com',11,1,NULL,1,22,NULL),(14,'a','a@gmail.com',1,1,NULL,1,2,NULL);
 
 /*Table structure for table `employee_advance` */
 
@@ -527,7 +529,7 @@ CREATE TABLE `fixed_asset_depreciation_detail` (
   `quantity` float DEFAULT NULL,
   `is_calculate` int(1) DEFAULT '1' COMMENT '1:checked, 0:unchecked',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 /*Data for the table `fixed_asset_depreciation_detail` */
 
@@ -990,11 +992,11 @@ CREATE TABLE `organization` (
   `address` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
   `status` int(1) DEFAULT '1' COMMENT '0:bi khoa, 1: dang su dung',
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM AUTO_INCREMENT=9 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=MyISAM AUTO_INCREMENT=13 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 /*Data for the table `organization` */
 
-insert  into `organization`(`id`,`code`,`name`,`address`,`status`) values (1,'QT','Công ty TNHH Quang Trung','Phước Lộc, Phước Bửu, Xuyên Mộc, BR-VT',1),(2,'HH','Công ty TNHH Gas Hiệp Hương','39/1, KP3, Phường Tam Hiệp, Biên Hòa, Đồng Nai',1),(3,'HT','Công ty TNHH KHL Hưng Thịnh','39/1, KP3, Phường Tam Hiệp, Biên Hòa, Đồng Nai',1),(8,'a','b','c',1);
+insert  into `organization`(`id`,`code`,`name`,`address`,`status`) values (1,'QT','Công ty TNHH Quang Trung','Phước Lộc, Phước Bửu, Xuyên Mộc, BR-VT',1),(2,'HH','Công ty TNHH Gas Hiệp Hương','39/1, KP3, Phường Tam Hiệp, Biên Hòa, Đồng Nai',1),(3,'HT','Công ty TNHH KHL Hưng Thịnh','39/1, KP3, Phường Tam Hiệp, Biên Hòa, Đồng Nai',1),(12,'a','a','a',1);
 
 /*Table structure for table `parameter` */
 
@@ -1006,12 +1008,13 @@ CREATE TABLE `parameter` (
   `name` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
   `value` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
   `note` text COLLATE utf8_unicode_ci,
+  `is_show` int(1) DEFAULT '1',
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM AUTO_INCREMENT=6 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=MyISAM AUTO_INCREMENT=7 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 /*Data for the table `parameter` */
 
-insert  into `parameter`(`id`,`code`,`name`,`value`,`note`) values (3,'startdate','Ngày bắt đầu sử dụng','01/01/2018',NULL),(2,'mailbeforeday','Số ngày nhắc mail trước sinh nhật','3',NULL),(4,'insurancepersonal','Bảo hiểm xã hội - Nhân viên đóng (%)','8',NULL),(5,'insurancecompany','Bảo hiểm xã hội - Công ty đóng (%)','17',NULL);
+insert  into `parameter`(`id`,`code`,`name`,`value`,`note`,`is_show`) values (3,'startdate','Ngày bắt đầu sử dụng','01/01/2018',NULL,0),(2,'mailbeforeday','Số ngày nhắc mail trước sinh nhật','3',NULL,1),(4,'insurancepersonal','Bảo hiểm xã hội - Nhân viên đóng (%)','8',NULL,1),(5,'insurancecompany','Bảo hiểm xã hội - Công ty đóng (%)','17',NULL,1),(6,'seniallowday','Số ngày nhắc mail trước khi thay đổi thâm niên','2',NULL,1);
 
 /*Table structure for table `permission` */
 

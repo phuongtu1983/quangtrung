@@ -177,14 +177,17 @@ public class DynamicFieldDAO extends BasicDAO {
 
     public ArrayList getDynamicFieldValues(int parentId, String tableName, int organizationId) throws Exception {
         ResultSet rs = null;
-        String sql = "";
-        sql = "SELECT COALESCE(v.id,0) AS id, d.id AS field_id, d.NAME, COALESCE(" + (parentId != 0 ? "v.VALUE" : "dv.VALUE") + ",'') AS VALUE "
-                + " from dynamic_field as d left join dynamic_field_value as v on d.id=v.field_id and v.parent_id=" + parentId;
-        if (parentId == 0) {
-            sql += " LEFT JOIN dynamic_field_free_value AS dv ON dv.field_id=d.free_id";
-        }
-        sql += " where d.table_name='" + tableName + "' and d.organization_id=" + organizationId;
-        sql += " order by d.id";
+        String sql = "SELECT COALESCE(v.id,0) AS id, d.id AS field_id, d.NAME, COALESCE(v.VALUE,'') AS VALUE"
+                + " FROM dynamic_field AS d"
+                + " LEFT JOIN dynamic_field_value AS v ON d.id=v.field_id and v.parent_id=" + parentId
+                + " WHERE d.free_value_id=0 AND d.table_name='" + tableName + "' AND d.organization_id=" + organizationId
+                + " UNION"
+                + " SELECT COALESCE(dv.id,0) AS id, d.id AS field_id, d.NAME, COALESCE(IF(dv.id IS NOT NULL, dv.VALUE,fv.VALUE),'') AS VALUE"
+                + " FROM dynamic_field_free AS f, dynamic_field_free_value AS fv, dynamic_field AS d"
+                + " LEFT JOIN dynamic_field_value AS dv ON dv.field_id=d.id AND dv.parent_id=" + parentId
+                + " WHERE d.free_value_id<>0 AND d.free_value_id=fv.id AND fv.field_id=f.id"
+                + " AND d.table_name='" + tableName + "' AND d.organization_id=" + organizationId;
+        sql += " order by field_id";
         ArrayList list = new ArrayList();
         try {
             rs = DBUtil.executeQuery(sql);
@@ -290,11 +293,11 @@ public class DynamicFieldDAO extends BasicDAO {
             String sql = "";
             sql = "Insert Into dynamic_field_free_value (value, field_id, parent_id)"
                     + " Values ('" + bean.getValue() + "'," + bean.getFieldId() + "," + bean.getParentId() + ")";
-            DBUtil.executeInsert(sql);
+            int id = DBUtil.executeInsert(sql);
 
-            sql = "Insert Into dynamic_field(code, name, organization_id, table_name, can_edit, free_id)"
-                    + " select * from (select d.code, d.name, " + bean.getParentId() + " as organization_id, d.table_name, 0 as can_edit, " + bean.getFieldId() + " as free_id from dynamic_field_free AS d where d.id=" + bean.getFieldId() + ") as temp"
-                    + " where not exists (SELECT id FROM dynamic_field WHERE free_id = " + bean.getFieldId() + ") LIMIT 1;";
+            sql = "Insert Into dynamic_field(code, name, organization_id, table_name, can_edit, free_value_id)"
+                    + " select * from (select d.code, d.name, " + bean.getParentId() + " as organization_id, d.table_name, 0 as can_edit, " + id + " as free_value_id from dynamic_field_free AS d where d.id=" + bean.getFieldId() + ") as temp"
+                    + " where not exists (SELECT id FROM dynamic_field WHERE free_value_id = " + id + ") LIMIT 1;";
             DBUtil.executeInsert(sql);
         } catch (SQLException sqle) {
             throw new Exception(sqle.getMessage());

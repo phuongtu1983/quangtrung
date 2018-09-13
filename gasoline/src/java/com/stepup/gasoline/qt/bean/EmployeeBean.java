@@ -13,11 +13,13 @@ public class EmployeeBean {
     private int id;
     private String fullname;
     private int status;
+    private int seniority;
     private String email;
     private int organizationId;
     private double salary;
     private int userId;
     private String birthday;
+    private String startDate;
 
     public String getEmail() {
         return email;
@@ -81,6 +83,22 @@ public class EmployeeBean {
 
     public void setBirthday(String birthday) {
         this.birthday = birthday;
+    }
+
+    public int getSeniority() {
+        return seniority;
+    }
+
+    public void setSeniority(int seniority) {
+        this.seniority = seniority;
+    }
+
+    public String getStartDate() {
+        return startDate;
+    }
+
+    public void setStartDate(String startDate) {
+        this.startDate = startDate;
     }
 
     public static int STATUS_ACTIVE = 1;

@@ -992,7 +992,7 @@ function getEmployee(id, handle) {
         document.forms['employeeForm'].fullname.focus();
         tryNumberFormatCurrentcy(document.forms['employeeForm'].salary, "VND");
 
-        var myCalendar = new dhtmlXCalendarObject(["employeeBirthday"]);
+        var myCalendar = new dhtmlXCalendarObject(["employeeBirthday","startDate"]);
         myCalendar.setSkin('dhx_web');
         myCalendar.setDateFormat("%d/%m/%Y");
     });

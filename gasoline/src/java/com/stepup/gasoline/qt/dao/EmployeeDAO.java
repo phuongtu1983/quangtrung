@@ -89,6 +89,8 @@ public class EmployeeDAO extends BasicDAO {
                 employee.setOrganizationId(rs.getInt("organization_id"));
                 employee.setOrganizationName(rs.getString("organization_name"));
                 employee.setBirthday(DateUtil.formatDate(rs.getDate("birthday"), "dd/MM/yyyy"));
+                employee.setStartDate(DateUtil.formatDate(rs.getDate("start_date"), "dd/MM/yyyy"));
+                employee.setSeniority(rs.getInt("seniority"));
                 employee.setStatus(rs.getInt("status"));
                 if (employee.getStatus() == EmployeeBean.STATUS_ACTIVE) {
                     employee.setStatusName(QTUtil.getBundleString("employee.detail.status.active"));
@@ -121,6 +123,8 @@ public class EmployeeDAO extends BasicDAO {
                 employee.setFullname(rs.getString("fullname"));
                 employee.setEmail(rs.getString("email"));
                 employee.setBirthday(DateUtil.formatDate(rs.getDate("birthday"), "dd/MM/yyyy"));
+                employee.setStartDate(DateUtil.formatDate(rs.getDate("start_date"), "dd/MM/yyyy"));
+                employee.setSeniority(rs.getInt("seniority"));
                 employee.setStatus(rs.getInt("status"));
                 return employee;
             }
@@ -219,16 +223,21 @@ public class EmployeeDAO extends BasicDAO {
             return 0;
         }
         try {
-            String birthday = "";
+            String birthday = "", startDate;
             if (GenericValidator.isBlankOrNull(bean.getBirthday())) {
                 birthday = "null";
             } else {
                 birthday = "STR_TO_DATE('" + bean.getBirthday() + "','%d/%m/%Y')";
             }
+            if (GenericValidator.isBlankOrNull(bean.getStartDate())) {
+                startDate = "null";
+            } else {
+                startDate = "STR_TO_DATE('" + bean.getStartDate() + "','%d/%m/%Y')";
+            }
             String sql = "";
-            sql = "Insert Into employee (fullname, email, salary, organization_id, status, birthday)"
+            sql = "Insert Into employee (fullname, email, salary, organization_id, status, birthday, start_date, seniority)"
                     + " Values ('" + bean.getFullname() + "','" + bean.getEmail() + "'," + bean.getSalary() + "," + bean.getOrganizationId()
-                    + "," + bean.getStatus() + "," + birthday + ")";
+                    + "," + bean.getStatus() + "," + birthday + "," + startDate + "," + bean.getSeniority() + ")";
             return DBUtil.executeInsert(sql);
         } catch (SQLException sqle) {
             throw new Exception(sqle.getMessage());
@@ -248,19 +257,26 @@ public class EmployeeDAO extends BasicDAO {
             return;
         }
         try {
-            String birthday = "";
+            String birthday = "", startDate;
             if (GenericValidator.isBlankOrNull(bean.getBirthday())) {
                 birthday = "null";
             } else {
                 birthday = "STR_TO_DATE('" + bean.getBirthday() + "','%d/%m/%Y')";
             }
+            if (GenericValidator.isBlankOrNull(bean.getStartDate())) {
+                startDate = "null";
+            } else {
+                startDate = "STR_TO_DATE('" + bean.getStartDate() + "','%d/%m/%Y')";
+            }
             String sql = "Update employee Set "
                     + " fullname='" + bean.getFullname() + "'"
                     + ", email='" + bean.getEmail() + "'"
                     + ", birthday=" + birthday
+                    + ", start_date=" + startDate
                     + ", salary=" + bean.getSalary()
                     + ", organization_id=" + bean.getOrganizationId()
                     + ", status=" + bean.getStatus()
+                    + ", seniority=" + bean.getSeniority()
                     + " Where id=" + bean.getId();
             DBUtil.executeUpdate(sql);
         } catch (SQLException sqle) {
