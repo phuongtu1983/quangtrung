@@ -7212,3 +7212,8 @@ function delContract() {
     });
     return false;
 }
+function printContract(templateType){
+    var url = "printContract.do?contractId="+document.forms['contractForm'].id.value+"&templateType="+templateType;
+    callServer(url);
+    return false;
+}

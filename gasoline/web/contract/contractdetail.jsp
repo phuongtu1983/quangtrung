@@ -38,7 +38,7 @@
                         </tr>
                         <tr>
                             <td height="30" style="padding-right: 20px"><bean:message key="note.title"/></td>
-                            <td colspan="3"><html:text property="note" size="93" name="<%=Constants.CONTRACT%>" /></td>
+                            <td colspan="3"><html:text property="note" size="88" name="<%=Constants.CONTRACT%>" /></td>
                         </tr>
                     </table>
                 </td></tr>
@@ -50,12 +50,14 @@
                             <button class="i_create_write icon small green" onclick="return saveContract();"><bean:message key="message.save"/></button>
                             <%}%>
                         </logic:equal>
-                        <logic:notEqual name="<%=Constants.CONTRACT%>" property="id" value="0">
+                        <logic:greaterThan name="<%=Constants.CONTRACT%>" property="id" value="0">
                             <%if (PermissionUtil.hasPermission(request, PermissionUtil.OPERATION_EDIT, PermissionUtil.PER_CONTRACT)) {%> 
                             <button class="i_create_write icon small green" onclick="return saveContract();"><bean:message key="message.save"/></button>
                             <%}%>
-                        </logic:notEqual>
-                        <logic:greaterThan name="<%=Constants.CONTRACT%>" property="id" value="0">
+                            <%if (PermissionUtil.hasPermission(request, PermissionUtil.OPERATION_PRINT, PermissionUtil.PER_CONTRACT)) {%> 
+                            <button class="i_create_write icon small green" onclick="return printContract(1);"><bean:message key="contract.print.template1"/></button>
+                            <button class="i_create_write icon small green" onclick="return printContract(2);"><bean:message key="contract.print.template2"/></button>
+                            <%}%>
                             <%if (PermissionUtil.hasPermission(request, PermissionUtil.OPERATION_DELETE, PermissionUtil.PER_CONTRACT)) {%> 
                             <button class="i_trashcan icon small red" onclick="return delContract();"><bean:message key="message.del"/></button>
                             <%}%>

@@ -96,6 +96,7 @@ public class AddContractAction extends SpineAction {
         bean.setShell45Price(formBean.getShell45Price());
         bean.setCreditDate(formBean.getCreditDate());
         bean.setCreditAmount(formBean.getCreditAmount());
+        bean.setNote(formBean.getNote());
         try {
             if (bNew) {
                 contractId = contractDAO.insertContract(bean);

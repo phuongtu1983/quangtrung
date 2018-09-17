@@ -74,7 +74,7 @@ public class ContractDAO extends BasicDAO {
 
     public ContractBean getContract(int id) throws Exception {
         ResultSet rs = null;
-        String sql = "select * from vendor_debt where id=" + id;
+        String sql = "select * from contract where id=" + id;
         try {
             rs = DBUtil.executeQuery(sql);
             while (rs.next()) {

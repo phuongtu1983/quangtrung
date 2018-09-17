@@ -213,9 +213,11 @@ CREATE TABLE `contract` (
   `credit_amount` double DEFAULT NULL,
   `note` text COLLATE utf8_unicode_ci,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 /*Data for the table `contract` */
+
+insert  into `contract`(`id`,`code`,`customer_id`,`created_date`,`shell_12_price`,`shell_45_price`,`credit_date`,`credit_amount`,`note`) values (2,'20180915-CO-0001',1,'2018-09-15',11,22,33,44,'55');
 
 /*Table structure for table `customer` */
 
@@ -252,7 +254,7 @@ CREATE TABLE `dynamic_field` (
 
 /*Data for the table `dynamic_field` */
 
-insert  into `dynamic_field`(`id`,`code`,`name`,`organization_id`,`table_name`,`can_edit`,`free_value_id`) values (93,'DAYOFFINYEAR','Số ngày phép trong năm',12,'employee',0,18),(94,'SATURDAY','Làm ngày thứ 7',12,'employee',0,19),(95,'SENIALLOW','Thưởng thâm niên (%)',12,'employee',0,20),(73,'SENIALLOW','Thưởng thâm niên (%)',3,'employee',0,8),(74,'test','test',1,'employee',1,0),(72,'SATURDAY','Làm ngày thứ 7',3,'employee',0,7),(68,'DAYOFFINYEAR','Số ngày phép trong năm',1,'employee',0,3),(69,'SATURDAY','Làm ngày thứ 7',1,'employee',0,4),(70,'SENIALLOW','Thưởng thâm niên (%)',1,'employee',0,5),(71,'DAYOFFINYEAR','Số ngày phép trong năm',3,'employee',0,6);
+insert  into `dynamic_field`(`id`,`code`,`name`,`organization_id`,`table_name`,`can_edit`,`free_value_id`) values (93,'DAYOFFINYEAR','Số ngày phép trong năm',12,'employee',0,18),(94,'SATURDAY','Làm ngày thứ 7',12,'employee',0,19),(95,'SENIALLOW','Thưởng thâm niên (%)',12,'employee',0,20),(73,'SENIALLOW','Thưởng thâm niên (%)',3,'employee',0,8),(72,'SATURDAY','Làm ngày thứ 7',3,'employee',0,7),(68,'DAYOFFINYEAR','Số ngày phép trong năm',1,'employee',0,3),(69,'SATURDAY','Làm ngày thứ 7',1,'employee',0,4),(70,'SENIALLOW','Thưởng thâm niên (%)',1,'employee',0,5),(71,'DAYOFFINYEAR','Số ngày phép trong năm',3,'employee',0,6);
 
 /*Table structure for table `dynamic_field_free` */
 
@@ -301,7 +303,7 @@ CREATE TABLE `dynamic_field_value` (
 
 /*Data for the table `dynamic_field_value` */
 
-insert  into `dynamic_field_value`(`id`,`field_id`,`parent_id`,`value`) values (6,70,14,'33'),(5,69,14,'23'),(4,68,14,'13'),(7,74,14,'43'),(8,68,15,'111'),(9,69,15,'222'),(10,70,15,'333'),(11,74,15,'44'),(12,93,16,'5555'),(13,94,16,'6666'),(14,95,16,'7777');
+insert  into `dynamic_field_value`(`id`,`field_id`,`parent_id`,`value`) values (6,70,14,'33'),(5,69,14,'23'),(4,68,14,'13'),(8,68,15,'111'),(9,69,15,'222'),(10,70,15,'333'),(12,93,16,'5555'),(13,94,16,'6666'),(14,95,16,'7777');
 
 /*Table structure for table `employee` */
 

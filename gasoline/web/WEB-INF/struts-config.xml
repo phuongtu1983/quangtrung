@@ -968,6 +968,8 @@
         </action>
         <action path="/delContract" type="com.stepup.gasoline.qt.contract.DeleteContractAction" scope="request" validate="false" >
         </action>
+        <action path="/printContract" type="com.stepup.gasoline.qt.contract.PrintContractAction" scope="request" validate="false" >
+        </action>
         <!-- end contract -->
     </action-mappings>
     
