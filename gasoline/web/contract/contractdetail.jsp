@@ -5,10 +5,13 @@
 <%@ taglib uri="/WEB-INF/struts-html.tld" prefix="html" %>
 <%@ page import="com.stepup.gasoline.qt.util.Constants"%>
 <%@ page import="com.stepup.gasoline.qt.util.PermissionUtil"%>
+<%@page import="com.stepup.gasoline.qt.attachmentfile.UploadFileUtil"%>
 <div id="contractFormshowHelpHideDivContent">
+    <div class="header"><bean:message key="contract.header.add.title"/></div>
     <form name="contractForm">
         <table width="100%" cellspacing="0" cellpadding="0" >
-            <tr><td>
+            <tr>
+                <td>
                     <table cellspacing="0" cellpadding="0" style="border-width: 0px">
                         <tr>
                             <td height="30" style="padding-right: 20px"><bean:message key="code.title"/></td>
@@ -40,8 +43,19 @@
                             <td height="30" style="padding-right: 20px"><bean:message key="note.title"/></td>
                             <td colspan="3"><html:text property="note" size="88" name="<%=Constants.CONTRACT%>" /></td>
                         </tr>
+                        <tr>
+                            <td colspan="4">
+                                <logic:greaterThan name="<%=Constants.CONTRACT%>" property="id" value="0">
+                                    <fieldset>
+                                        <legend><bean:message key="attchmentfile.list.title"/></legend>
+                                        <%@include file="/attchmentfile/attchmentfilepanel.jsp"%>
+                                    </fieldset>
+                                </logic:greaterThan>
+                            </td>
+                        </tr>
                     </table>
-                </td></tr>
+                </td>
+            </tr>
             <tr>
                 <td align="center">
                     <p style="margin-top: 0; margin-bottom: 0">
@@ -62,12 +76,14 @@
                             <button class="i_trashcan icon small red" onclick="return delContract();"><bean:message key="message.del"/></button>
                             <%}%>
                         </logic:greaterThan>
-                        <button class="i_access_denied icon small yellow" onclick="return prepareHidePopup('contractFormshowHelpHideDiv');"><bean:message key="message.close"/></button>
+                        <button class="i_access_denied icon small yellow" onclick="return loadContractPanel();"><bean:message key="message.close"/></button>
                 </td>
             </tr>
         </table> 
         <html:hidden property="id" name="<%=Constants.CONTRACT%>" />
         <input type="hidden" id="callbackFunc"/>
+        <input type="hidden" id="attchmentFileType" value="<%=UploadFileUtil.ATTACH_FILE_CONTRACT%>"/>
+        <input type="hidden" id="attchmentFileParentId" value="<bean:write name="<%=Constants.CONTRACT%>" property="id"/>"/>
     </form>
     <div name="contractFormshowHelpHideDiv" id="showHelpHideDiv" style="display:none">
         Ctrl+C : Đóng

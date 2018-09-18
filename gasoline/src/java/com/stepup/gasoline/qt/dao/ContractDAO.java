@@ -8,6 +8,7 @@ package com.stepup.gasoline.qt.dao;
 import com.stepup.core.database.DBUtil;
 import com.stepup.core.database.SPUtil;
 import com.stepup.core.util.DateUtil;
+import com.stepup.gasoline.qt.attachmentfile.UploadFileUtil;
 import com.stepup.gasoline.qt.bean.ContractBean;
 import com.stepup.gasoline.qt.contract.ContractFormBean;
 import java.sql.ResultSet;
@@ -193,6 +194,9 @@ public class ContractDAO extends BasicDAO {
         int result = 0;
         try {
             String sql = "Delete From contract Where id in (" + ids + ")";
+            DBUtil.executeUpdate(sql);
+
+            sql = "Delete From attachment_file Where type=" + UploadFileUtil.ATTACH_FILE_CONTRACT + " and parent_id in (" + ids + ")";
             DBUtil.executeUpdate(sql);
         } catch (SQLException sqle) {
             throw new Exception(sqle.getMessage());

@@ -971,6 +971,21 @@
         <action path="/printContract" type="com.stepup.gasoline.qt.contract.PrintContractAction" scope="request" validate="false" >
         </action>
         <!-- end contract -->
+        <!-- start attachfile -->
+        <action path="/getAttachmentFileList" type="com.stepup.gasoline.qt.attachmentfile.GetAttachmentFileListAction" scope="request" validate="false">
+            <forward name="success" path="/attchmentfile/attchmentfilepanel.jsp" />
+        </action>
+        <action path="/attchmentFileForm" type="com.stepup.gasoline.qt.common.BaseFormAction" scope="request" validate="false">
+            <forward name="success" path="/attchmentfile/attchmentfiledetail.jsp" />
+        </action>
+        <action path="/UploadHandler" forward="/attchmentfileupload/UploadHandler.jsp"/>
+        <action path="/GetInfoHandler" forward="/attchmentfileupload/GetInfoHandler.jsp"/>
+        <action path="/GetIdHandler" forward="/attchmentfileupload/GetIdHandler.jsp"/>
+        <action path="/uploadAction" type="com.stepup.gasoline.qt.attachmentfile.AttachmentFileUploadAction" scope="request" validate="false" >
+        </action>
+        <action path="/delAttchmentFile" type="com.stepup.gasoline.qt.attachmentfile.DeleteAttachmentFileAction" scope="request" validate="false" >
+        </action>
+        <!-- end attachfile -->
     </action-mappings>
     
     <controller processorClass="org.apache.struts.tiles.TilesRequestProcessor"/>

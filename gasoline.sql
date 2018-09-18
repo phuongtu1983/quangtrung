@@ -183,6 +183,24 @@ CREATE TABLE `account` (
 
 insert  into `account`(`id`,`number`,`holder`,`bank`,`branch`,`organization_id`,`note`) values (1,'0123456789','Hoàng','Agribank','Xuyên Mộc',1,''),(2,'987654321','Hoàng','Vietcombank','Xuyên Mộc',2,''),(3,'Tiền mặt','Hoàng','Tiền mặt','Tiền mặt',1,'');
 
+/*Table structure for table `attachment_file` */
+
+DROP TABLE IF EXISTS `attachment_file`;
+
+CREATE TABLE `attachment_file` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `name` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `source` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `link` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `employee_id` int(11) DEFAULT NULL,
+  `type` int(2) DEFAULT NULL,
+  `parent_id` int(11) DEFAULT NULL,
+  `created_date` datetime DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+/*Data for the table `attachment_file` */
+
 /*Table structure for table `auto` */
 
 DROP TABLE IF EXISTS `auto`;
@@ -213,11 +231,11 @@ CREATE TABLE `contract` (
   `credit_amount` double DEFAULT NULL,
   `note` text COLLATE utf8_unicode_ci,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 /*Data for the table `contract` */
 
-insert  into `contract`(`id`,`code`,`customer_id`,`created_date`,`shell_12_price`,`shell_45_price`,`credit_date`,`credit_amount`,`note`) values (2,'20180915-CO-0001',1,'2018-09-15',11,22,33,44,'55');
+insert  into `contract`(`id`,`code`,`customer_id`,`created_date`,`shell_12_price`,`shell_45_price`,`credit_date`,`credit_amount`,`note`) values (3,'20180918-CO-0001',1,'2018-09-18',100000,200000,15,50000000,'abc');
 
 /*Table structure for table `customer` */
 
@@ -1068,7 +1086,7 @@ CREATE TABLE `permission_detail` (
 
 /*Data for the table `permission_detail` */
 
-insert  into `permission_detail`(`id`,`permission_id`,`operation`,`function`) values (17,8,2,'1,5,8,6,7,3,4,9,10,11,12,13,14,53,54,15,16,17,18,19,20,22,23,51,52,21,24,25,26,27,28,29,30,31,32,33,34,35,36,37,55,38,39,40,41,42,43,44,45,56,46,47,48,49,50'),(16,8,1,'1,5,8,6,7,3,4,9,10,11,12,13,14,53,54,15,16,17,18,19,20,22,23,51,52,21,24,25,26,27,28,29,30,31,32,33,34,35,36,37,55,38,39,40,41,42,43,44,45,56,46,47,48,49,50'),(18,8,3,'1,5,8,4,13,14,53,54,15,20,22,23,51,52,25,26,27,28,29,30,31,32,33,34,35,36,37,55,38,39,40,41,42,43,44,45,56,46,47,48,49,50'),(19,8,4,'1,5,8,6,7,3,4,9,10,11,12,13,14,53,54,15,16,17,18,19,20,22,23,51,52,21,24,25,26,27,28,29,30,31,32,33,34,35,36,37,55,38,39,40,41,42,43,44,45,56,46,47,48,49,50'),(20,8,6,'');
+insert  into `permission_detail`(`id`,`permission_id`,`operation`,`function`) values (17,8,2,'1,5,8,6,7,3,4,9,10,11,12,13,14,53,54,15,16,17,18,19,20,22,23,51,52,21,24,25,26,27,28,29,30,31,32,33,34,35,36,37,55,38,39,40,41,42,43,44,45,56,46,47,48,49,50'),(16,8,1,'1,5,8,6,7,3,4,9,10,11,12,13,14,53,54,15,16,17,18,19,20,22,23,51,52,21,24,25,26,27,28,29,30,31,32,33,34,35,36,37,55,38,39,40,41,42,43,44,45,56,46,47,48,49,50'),(18,8,3,'1,5,8,4,13,14,53,54,15,20,22,23,51,52,25,26,27,28,29,30,31,32,33,34,35,36,37,55,38,39,40,41,42,43,44,45,56,46,47,48,49,50'),(19,8,4,'1,5,8,6,7,3,4,9,10,11,12,13,14,53,54,15,16,17,18,19,20,22,23,51,52,21,24,25,26,27,28,29,30,31,32,33,34,35,36,37,55,38,39,40,41,42,43,44,45,56,46,47,48,49,50'),(20,8,6,'56');
 
 /*Table structure for table `petro` */
 
@@ -2260,6 +2278,21 @@ DELIMITER $$
 BEGIN
 	INSERT INTO accessory_import_detail(accessory_import_id, accessory_id, quantity, price, amount) 
 	VALUES (_accessory_import_id, _accessory_id, _quantity, _price, _amount);
+    END */$$
+DELIMITER ;
+
+/* Procedure structure for procedure `insertAttachmentFile` */
+
+/*!50003 DROP PROCEDURE IF EXISTS  `insertAttachmentFile` */;
+
+DELIMITER $$
+
+/*!50003 CREATE DEFINER=`root`@`localhost` PROCEDURE `insertAttachmentFile`(in _name varchar(255), in _source VARCHAR(255), in _link VARCHAR(255), in _employee_id int, in _type int
+	, in _parent_id int, OUT _id INT)
+BEGIN
+	INSERT INTO attachment_file (name, source, link, employee_id, type, parent_id, created_date)
+	VALUES (_name, _source, _link, _employee_id, _type, _parent_id, sysdate());
+	SELECT LAST_INSERT_ID() INTO _id;
     END */$$
 DELIMITER ;
 

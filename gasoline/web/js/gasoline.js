@@ -418,7 +418,7 @@ function loadPermissionList(name) {
     mygrid.setColSorting("str,str,str");
     mygrid.setSkin("light");
     var height = contentHeight - 170;
-    mygrid.al(true, height);//enableAutoHeight
+    mygrid.al(true, height); //enableAutoHeight
     mygrid.enablePaging(true, 14, 3, "recinfoArea");
     mygrid.setPagingSkin("toolbar", "dhx_skyblue");
     mygrid.init();
@@ -473,7 +473,6 @@ function getPermission(id) {
             z.selectOption(z.getIndexByValue(z.getSelectedValue()));
         });
         setUserSelectedForm('permissionForm', z.getComboText(), z.getSelectedValue());
-
         var o = dhtmlXComboFromSelect("organizationCombobox");
         o.enableFilteringMode(true);
         o.attachEvent("onSelectionChange", function() {
@@ -531,13 +530,11 @@ function addPermissionEmp() {
     el.name = 'permissionEmpId';
     el.value = user;
     cell.appendChild(el);
-
     cell = row.insertCell(1);
     el = document.createElement('span');
     el.name = 'permissionEmp';
     el.innerHTML = name;
     cell.appendChild(el);
-
     el = null
     cell = null;
     row = null;
@@ -582,13 +579,11 @@ function addPermissionOrg() {
     el.name = 'permissionOrgId';
     el.value = organization;
     cell.appendChild(el);
-
     cell = row.insertCell(1);
     el = document.createElement('span');
     el.name = 'permissionOrg';
     el.innerHTML = name;
     cell.appendChild(el);
-
     el = null
     cell = null;
     row = null;
@@ -675,7 +670,7 @@ function loadParameterList() {
     mygrid.setColSorting("str,str");
     mygrid.setSkin("light");
     var height = contentHeight - 210;
-    mygrid.al(true, height);//enableAutoHeight
+    mygrid.al(true, height); //enableAutoHeight
     mygrid.enablePaging(true, 10, 3, "recinfoArea");
     mygrid.setPagingSkin("toolbar", "dhx_skyblue");
     mygrid.init();
@@ -733,7 +728,7 @@ function loadOrganizationList() {
     mygrid.setColSorting("str,str,str,str");
     mygrid.setSkin("light");
     var height = contentHeight - 210;
-    mygrid.al(true, height);//enableAutoHeight
+    mygrid.al(true, height); //enableAutoHeight
     mygrid.enablePaging(true, 15, 3, "recinfoArea");
     mygrid.setPagingSkin("toolbar", "dhx_skyblue");
     mygrid.init();
@@ -806,7 +801,7 @@ function loadStoreList() {
     mygrid.setColSorting("str,str,str,str");
     mygrid.setSkin("light");
     var height = contentHeight - 210;
-    mygrid.al(true, height);//enableAutoHeight
+    mygrid.al(true, height); //enableAutoHeight
     mygrid.enablePaging(true, 15, 3, "recinfoArea");
     mygrid.setPagingSkin("toolbar", "dhx_skyblue");
     mygrid.init();
@@ -893,7 +888,7 @@ function loadDynamicFieldList(tableName) {
     mygrid.setColSorting("str,str,str");
     mygrid.setSkin("light");
     var height = contentHeight - 210;
-    mygrid.al(true, height);//enableAutoHeight
+    mygrid.al(true, height); //enableAutoHeight
     mygrid.enablePaging(true, 15, 3, "recinfoArea");
     mygrid.setPagingSkin("toolbar", "dhx_skyblue");
     mygrid.init();
@@ -970,7 +965,7 @@ function loadEmployeeList() {
     mygrid.setColSorting("str,str,str,str");
     mygrid.setSkin("light");
     var height = contentHeight - 210;
-    mygrid.al(true, height);//enableAutoHeight
+    mygrid.al(true, height); //enableAutoHeight
     mygrid.enablePaging(true, 15, 3, "recinfoArea");
     mygrid.setPagingSkin("toolbar", "dhx_skyblue");
     mygrid.init();
@@ -995,8 +990,7 @@ function getEmployee(id, handle) {
         document.getElementById('callbackFunc').value = handle;
         document.forms['employeeForm'].fullname.focus();
         tryNumberFormatCurrentcy(document.forms['employeeForm'].salary, "VND");
-
-        var myCalendar = new dhtmlXCalendarObject(["employeeBirthday","startDate"]);
+        var myCalendar = new dhtmlXCalendarObject(["employeeBirthday", "startDate"]);
         myCalendar.setSkin('dhx_web');
         myCalendar.setDateFormat("%d/%m/%Y");
     });
@@ -1042,7 +1036,7 @@ function loadUserList() {
     mygrid.setColSorting("str,str,str");
     mygrid.setSkin("light");
     var height = contentHeight - 210;
-    mygrid.al(true, height);//enableAutoHeight
+    mygrid.al(true, height); //enableAutoHeight
     mygrid.enablePaging(true, 15, 3, "recinfoArea");
     mygrid.setPagingSkin("toolbar", "dhx_skyblue");
     mygrid.init();
@@ -1204,7 +1198,7 @@ function loadUnitList() {
     mygrid.setColSorting("str,str");
     mygrid.setSkin("light");
     var height = contentHeight - 210;
-    mygrid.al(true, height);//enableAutoHeight
+    mygrid.al(true, height); //enableAutoHeight
     mygrid.enablePaging(true, 15, 3, "recinfoArea");
     mygrid.setPagingSkin("toolbar", "dhx_skyblue");
     mygrid.init();
@@ -1270,7 +1264,7 @@ function loadShellKindList() {
     mygrid.setColSorting("str,str,str");
     mygrid.setSkin("light");
     var height = contentHeight - 210;
-    mygrid.al(true, height);//enableAutoHeight
+    mygrid.al(true, height); //enableAutoHeight
     mygrid.enablePaging(true, 15, 3, "recinfoArea");
     mygrid.setPagingSkin("toolbar", "dhx_skyblue");
     mygrid.init();
@@ -1347,7 +1341,7 @@ function loadShellList() {
     mygrid.setColSorting("str,str,str,str");
     mygrid.setSkin("light");
     var height = contentHeight - 210;
-    mygrid.al(true, height);//enableAutoHeight
+    mygrid.al(true, height); //enableAutoHeight
     mygrid.enablePaging(true, 15, 3, "recinfoArea");
     mygrid.setPagingSkin("toolbar", "dhx_skyblue");
     mygrid.init();
@@ -1422,7 +1416,7 @@ function loadVendorList() {
     mygrid.setColSorting("str,str,str,str");
     mygrid.setSkin("light");
     var height = contentHeight - 210;
-    mygrid.al(true, height);//enableAutoHeight
+    mygrid.al(true, height); //enableAutoHeight
     mygrid.enablePaging(true, 15, 3, "recinfoArea");
     mygrid.setPagingSkin("toolbar", "dhx_skyblue");
     mygrid.init();
@@ -1503,7 +1497,7 @@ function loadAccountList() {
     mygrid.setColSorting("str,str,str,str");
     mygrid.setSkin("light");
     var height = contentHeight - 210;
-    mygrid.al(true, height);//enableAutoHeight
+    mygrid.al(true, height); //enableAutoHeight
     mygrid.enablePaging(true, 15, 3, "recinfoArea");
     mygrid.setPagingSkin("toolbar", "dhx_skyblue");
     mygrid.init();
@@ -1585,7 +1579,7 @@ function loadVehicleList() {
     mygrid.setColSorting("str,str");
     mygrid.setSkin("light");
     var height = contentHeight - 210;
-    mygrid.al(true, height);//enableAutoHeight
+    mygrid.al(true, height); //enableAutoHeight
     mygrid.enablePaging(true, 15, 3, "recinfoArea");
     mygrid.setPagingSkin("toolbar", "dhx_skyblue");
     mygrid.init();
@@ -1653,7 +1647,7 @@ function loadRouteList() {
     mygrid.setColSorting("str,str");
     mygrid.setSkin("light");
     var height = contentHeight - 210;
-    mygrid.al(true, height);//enableAutoHeight
+    mygrid.al(true, height); //enableAutoHeight
     mygrid.enablePaging(true, 15, 3, "recinfoArea");
     mygrid.setPagingSkin("toolbar", "dhx_skyblue");
     mygrid.init();
@@ -1723,7 +1717,7 @@ function loadAccessoryKindList() {
     mygrid.setColSorting("str,str");
     mygrid.setSkin("light");
     var height = contentHeight - 210;
-    mygrid.al(true, height);//enableAutoHeight
+    mygrid.al(true, height); //enableAutoHeight
     mygrid.enablePaging(true, 15, 3, "recinfoArea");
     mygrid.setPagingSkin("toolbar", "dhx_skyblue");
     mygrid.init();
@@ -1791,7 +1785,7 @@ function loadAccessoryList() {
     mygrid.setColSorting("str,str");
     mygrid.setSkin("light");
     var height = contentHeight - 210;
-    mygrid.al(true, height);//enableAutoHeight
+    mygrid.al(true, height); //enableAutoHeight
     mygrid.enablePaging(true, 15, 3, "recinfoArea");
     mygrid.setPagingSkin("toolbar", "dhx_skyblue");
     mygrid.init();
@@ -1859,7 +1853,7 @@ function loadPromotionMaterialList() {
     mygrid.setColSorting("str,str");
     mygrid.setSkin("light");
     var height = contentHeight - 210;
-    mygrid.al(true, height);//enableAutoHeight
+    mygrid.al(true, height); //enableAutoHeight
     mygrid.enablePaging(true, 15, 3, "recinfoArea");
     mygrid.setPagingSkin("toolbar", "dhx_skyblue");
     mygrid.init();
@@ -1925,7 +1919,7 @@ function loadCustomerList() {
     mygrid.setColSorting("str,str,str,str");
     mygrid.setSkin("light");
     var height = contentHeight - 210;
-    mygrid.al(true, height);//enableAutoHeight
+    mygrid.al(true, height); //enableAutoHeight
     mygrid.enablePaging(true, 15, 3, "recinfoArea");
     mygrid.setPagingSkin("toolbar", "dhx_skyblue");
     mygrid.init();
@@ -2007,7 +2001,7 @@ function loadEmployeeAdvanceList(fromDate, toDate) {
     mygrid.setColSorting("str,str,str,str,str");
     mygrid.setSkin("light");
     var height = contentHeight - 210;
-    mygrid.al(true, height);//enableAutoHeight
+    mygrid.al(true, height); //enableAutoHeight
     mygrid.enablePaging(true, 15, 3, "recinfoArea");
     mygrid.setPagingSkin("toolbar", "dhx_skyblue");
     mygrid.init();
@@ -2095,7 +2089,7 @@ function loadEmployeeSalaryList() {
     mygrid.setColSorting("str,str,str,str");
     mygrid.setSkin("light");
     var height = contentHeight - 210;
-    mygrid.al(true, height);//enableAutoHeight
+    mygrid.al(true, height); //enableAutoHeight
     mygrid.enablePaging(true, 15, 3, "recinfoArea");
     mygrid.setPagingSkin("toolbar", "dhx_skyblue");
     mygrid.init();
@@ -2146,7 +2140,7 @@ function loadOrganizationTimesheetList() {
     mygrid.setColSorting("str,str");
     mygrid.setSkin("light");
     var height = contentHeight - 210;
-    mygrid.al(true, height);//enableAutoHeight
+    mygrid.al(true, height); //enableAutoHeight
     mygrid.enablePaging(true, 15, 3, "recinfoArea");
     mygrid.setPagingSkin("toolbar", "dhx_skyblue");
     mygrid.init();
@@ -2202,7 +2196,7 @@ function loadEmployeeTimesheetList(fromDate, toDate) {
     mygrid.setColSorting("str,str,str,str,str,str");
     mygrid.setSkin("light");
     var height = contentHeight - 210;
-    mygrid.al(true, height);//enableAutoHeight
+    mygrid.al(true, height); //enableAutoHeight
     mygrid.enablePaging(true, 15, 3, "recinfoArea");
     mygrid.setPagingSkin("toolbar", "dhx_skyblue");
     mygrid.init();
@@ -2305,7 +2299,7 @@ function loadEmployeeOffList(fromDate, toDate) {
     mygrid.setColSorting("str,str,str,str,str,str");
     mygrid.setSkin("light");
     var height = contentHeight - 210;
-    mygrid.al(true, height);//enableAutoHeight
+    mygrid.al(true, height); //enableAutoHeight
     mygrid.enablePaging(true, 15, 3, "recinfoArea");
     mygrid.setPagingSkin("toolbar", "dhx_skyblue");
     mygrid.init();
@@ -2397,7 +2391,7 @@ function loadSalaryList(fromDate) {
     mygrid.setColSorting("str,str,str,str,str");
     mygrid.setSkin("light");
     var height = contentHeight - 210;
-    mygrid.al(true, height);//enableAutoHeight
+    mygrid.al(true, height); //enableAutoHeight
     mygrid.enablePaging(true, 15, 3, "recinfoArea");
     mygrid.setPagingSkin("toolbar", "dhx_skyblue");
     mygrid.init();
@@ -2422,7 +2416,6 @@ function getSalary(id, handle) {
         tryNumberFormatCurrentcy(document.forms['salaryForm'].workingDay, "VND");
         tryNumberFormatCurrentcy(document.forms['salaryForm'].basicSalary, "VND");
         tryNumberFormatCurrentcy(document.forms['salaryForm'].realSalary, "VND");
-
         var quantity = document.forms['salaryForm'].timesheetQuantity;
         var price = document.forms['salaryForm'].timesheetPrice;
         var amount = document.forms['salaryForm'].timesheetAmount;
@@ -2442,7 +2435,6 @@ function getSalary(id, handle) {
         quantity = null;
         price = null;
         amount = null;
-
         amount = document.forms['salaryForm'].amount;
         if (amount != null) {
             if (amount.length != null) {
@@ -2471,7 +2463,6 @@ function caculateSalaryTotal() {
         }
     }
     amount = null;
-
     amount = document.forms['salaryForm'].timesheetAmount;
     if (amount != null) {
         if (amount.length != null) {
@@ -2485,7 +2476,6 @@ function caculateSalaryTotal() {
         }
     }
     amount = null;
-
     document.forms['salaryForm'].total.value = sum + reformatNumberMoneyString(document.forms['salaryForm'].realSalary.value) * 1;
     tryNumberFormatCurrentcy(document.forms['salaryForm'].total, "VND");
     tryNumberFormatCurrentcy(document.forms['salaryForm'].realSalary, "VND");
@@ -2530,7 +2520,7 @@ function loadPetroList() {
     mygrid.setColSorting("str,str,str,str,str,str");
     mygrid.setSkin("light");
     var height = contentHeight - 210;
-    mygrid.al(true, height);//enableAutoHeight
+    mygrid.al(true, height); //enableAutoHeight
     mygrid.enablePaging(true, 15, 3, "recinfoArea");
     mygrid.setPagingSkin("toolbar", "dhx_skyblue");
     mygrid.init();
@@ -2612,7 +2602,7 @@ function loadTripFeeList(fromDate, toDate) {
     mygrid.setColSorting("str,str,str,str,str,str");
     mygrid.setSkin("light");
     var height = contentHeight - 210;
-    mygrid.al(true, height);//enableAutoHeight
+    mygrid.al(true, height); //enableAutoHeight
     mygrid.enablePaging(true, 15, 3, "recinfoArea");
     mygrid.setPagingSkin("toolbar", "dhx_skyblue");
     mygrid.init();
@@ -2691,7 +2681,6 @@ function formCaculateAmount(formName) {
     var quantity = document.forms[formName].quantity;
     var price = document.forms[formName].price;
     var amount = document.forms[formName].amount;
-
     amount.value = reformatNumberMoneyString(quantity.value) * 1 * reformatNumberMoneyString(price.value) * 1;
     tryNumberFormatCurrentcy(quantity, "VND");
     tryNumberFormatCurrentcy(price, "VND");
@@ -2724,7 +2713,7 @@ function loadShellImportList(fromDate, toDate) {
     mygrid.setColSorting("str,str,str,str,str,str");
     mygrid.setSkin("light");
     var height = contentHeight - 210;
-    mygrid.al(true, height);//enableAutoHeight
+    mygrid.al(true, height); //enableAutoHeight
     mygrid.enablePaging(true, 15, 3, "recinfoArea");
     mygrid.setPagingSkin("toolbar", "dhx_skyblue");
     mygrid.init();
@@ -2807,7 +2796,7 @@ function loadLpgImportList(fromDate, toDate) {
     mygrid.setColSorting("str,str,str,str,str,str,str");
     mygrid.setSkin("light");
     var height = contentHeight - 210;
-    mygrid.al(true, height);//enableAutoHeight
+    mygrid.al(true, height); //enableAutoHeight
     mygrid.enablePaging(true, 15, 3, "recinfoArea");
     mygrid.setPagingSkin("toolbar", "dhx_skyblue");
     mygrid.init();
@@ -2881,7 +2870,6 @@ function lpgImportCaculateAmount() {
     var amount = document.forms['lpgImportForm'].amount;
     var paid = document.forms['lpgImportForm'].paid;
     var debt = document.forms['lpgImportForm'].debt;
-
     amount.value = reformatNumberMoneyString(quantity.value) * 1 * reformatNumberMoneyString(price.value) * 1;
     paid.value = amount.value;
     debt.value = 0;
@@ -2920,7 +2908,7 @@ function loadFractionList(fromDate, toDate) {
     mygrid.setColSorting("str,str,str");
     mygrid.setSkin("light");
     var height = contentHeight - 210;
-    mygrid.al(true, height);//enableAutoHeight
+    mygrid.al(true, height); //enableAutoHeight
     mygrid.enablePaging(true, 15, 3, "recinfoArea");
     mygrid.setPagingSkin("toolbar", "dhx_skyblue");
     mygrid.init();
@@ -3073,7 +3061,7 @@ function loadGasPriceList(fromDate, toDate) {
     mygrid.setColSorting("str,str,str,str,str,str");
     mygrid.setSkin("light");
     var height = contentHeight - 210;
-    mygrid.al(true, height);//enableAutoHeight
+    mygrid.al(true, height); //enableAutoHeight
     mygrid.enablePaging(true, 15, 3, "recinfoArea");
     mygrid.setPagingSkin("toolbar", "dhx_skyblue");
     mygrid.init();
@@ -3176,7 +3164,7 @@ function loadGasImportList(fromDate, toDate) {
     mygrid.setColSorting("str,str,str,str,str,str,str");
     mygrid.setSkin("light");
     var height = contentHeight - 210;
-    mygrid.al(true, height);//enableAutoHeight
+    mygrid.al(true, height); //enableAutoHeight
     mygrid.enablePaging(true, 15, 3, "recinfoArea");
     mygrid.setPagingSkin("toolbar", "dhx_skyblue");
     mygrid.init();
@@ -3332,7 +3320,7 @@ function loadAccessoryImportList(fromDate, toDate) {
     mygrid.setColSorting("str,str,str,str,str,str");
     mygrid.setSkin("light");
     var height = contentHeight - 210;
-    mygrid.al(true, height);//enableAutoHeight
+    mygrid.al(true, height); //enableAutoHeight
     mygrid.enablePaging(true, 15, 3, "recinfoArea");
     mygrid.setPagingSkin("toolbar", "dhx_skyblue");
     mygrid.init();
@@ -3486,7 +3474,7 @@ function loadPromotionMaterialImportList(fromDate, toDate) {
     mygrid.setColSorting("str,str,str,str,str,str");
     mygrid.setSkin("light");
     var height = contentHeight - 210;
-    mygrid.al(true, height);//enableAutoHeight
+    mygrid.al(true, height); //enableAutoHeight
     mygrid.enablePaging(true, 15, 3, "recinfoArea");
     mygrid.setPagingSkin("toolbar", "dhx_skyblue");
     mygrid.init();
@@ -3640,7 +3628,7 @@ function loadPetroImportList(fromDate, toDate) {
     mygrid.setColSorting("str,str,str,str,str,str,str");
     mygrid.setSkin("light");
     var height = contentHeight - 210;
-    mygrid.al(true, height);//enableAutoHeight
+    mygrid.al(true, height); //enableAutoHeight
     mygrid.enablePaging(true, 15, 3, "recinfoArea");
     mygrid.setPagingSkin("toolbar", "dhx_skyblue");
     mygrid.init();
@@ -3796,7 +3784,7 @@ function loadGasWholesaleList(fromDate, toDate) {
     mygrid.setColSorting("str,str,str,str,str,str");
     mygrid.setSkin("light");
     var height = contentHeight - 210;
-    mygrid.al(true, height);//enableAutoHeight
+    mygrid.al(true, height); //enableAutoHeight
     mygrid.enablePaging(true, 15, 3, "recinfoArea");
     mygrid.setPagingSkin("toolbar", "dhx_skyblue");
     mygrid.init();
@@ -4105,7 +4093,7 @@ function loadGasRetailList(fromDate, toDate) {
     mygrid.setColSorting("str,str,str,str,str,str");
     mygrid.setSkin("light");
     var height = contentHeight - 210;
-    mygrid.al(true, height);//enableAutoHeight
+    mygrid.al(true, height); //enableAutoHeight
     mygrid.enablePaging(true, 15, 3, "recinfoArea");
     mygrid.setPagingSkin("toolbar", "dhx_skyblue");
     mygrid.init();
@@ -4414,7 +4402,7 @@ function loadSaleAccessoryList(fromDate, toDate) {
     mygrid.setColSorting("str,str,str,str,str");
     mygrid.setSkin("light");
     var height = contentHeight - 210;
-    mygrid.al(true, height);//enableAutoHeight
+    mygrid.al(true, height); //enableAutoHeight
     mygrid.enablePaging(true, 15, 3, "recinfoArea");
     mygrid.setPagingSkin("toolbar", "dhx_skyblue");
     mygrid.init();
@@ -4668,7 +4656,6 @@ function caculateSaleAccessoryTotal() {
     document.forms['saleAccessoryForm'].totalPay.value = sum;
     document.forms['saleAccessoryForm'].paid.value = sum;
     document.forms['saleAccessoryForm'].debt.value = 0;
-
     tryNumberFormatCurrentcy(document.forms['saleAccessoryForm'].discount, "VND");
     tryNumberFormatCurrentcy(document.forms['saleAccessoryForm'].totalPay, "VND");
     tryNumberFormatCurrentcy(document.forms['saleAccessoryForm'].total, "VND");
@@ -4741,7 +4728,7 @@ function loadSalePetroList(fromDate, toDate) {
     mygrid.setColSorting("str,str,str,str,str");
     mygrid.setSkin("light");
     var height = contentHeight - 210;
-    mygrid.al(true, height);//enableAutoHeight
+    mygrid.al(true, height); //enableAutoHeight
     mygrid.enablePaging(true, 15, 3, "recinfoArea");
     mygrid.setPagingSkin("toolbar", "dhx_skyblue");
     mygrid.init();
@@ -4900,7 +4887,7 @@ function loadSaleShellList(fromDate, toDate) {
     mygrid.setColSorting("str,str,str,str,str");
     mygrid.setSkin("light");
     var height = contentHeight - 210;
-    mygrid.al(true, height);//enableAutoHeight
+    mygrid.al(true, height); //enableAutoHeight
     mygrid.enablePaging(true, 15, 3, "recinfoArea");
     mygrid.setPagingSkin("toolbar", "dhx_skyblue");
     mygrid.init();
@@ -5059,7 +5046,7 @@ function loadOldShellList(fromDate, toDate) {
     mygrid.setColSorting("str,str,str,str");
     mygrid.setSkin("light");
     var height = contentHeight - 210;
-    mygrid.al(true, height);//enableAutoHeight
+    mygrid.al(true, height); //enableAutoHeight
     mygrid.enablePaging(true, 15, 3, "recinfoArea");
     mygrid.setPagingSkin("toolbar", "dhx_skyblue");
     mygrid.init();
@@ -5146,7 +5133,7 @@ function loadShellReturnList(fromDate, toDate) {
     mygrid.setColSorting("str,str,str,str");
     mygrid.setSkin("light");
     var height = contentHeight - 210;
-    mygrid.al(true, height);//enableAutoHeight
+    mygrid.al(true, height); //enableAutoHeight
     mygrid.enablePaging(true, 15, 3, "recinfoArea");
     mygrid.setPagingSkin("toolbar", "dhx_skyblue");
     mygrid.init();
@@ -5299,7 +5286,7 @@ function loadGasReturnList(fromDate, toDate) {
     mygrid.setColSorting("str,str,str,str,str");
     mygrid.setSkin("light");
     var height = contentHeight - 210;
-    mygrid.al(true, height);//enableAutoHeight
+    mygrid.al(true, height); //enableAutoHeight
     mygrid.enablePaging(true, 15, 3, "recinfoArea");
     mygrid.setPagingSkin("toolbar", "dhx_skyblue");
     mygrid.init();
@@ -5458,7 +5445,7 @@ function loadShellReturnSupplierList(fromDate, toDate) {
     mygrid.setColSorting("str,str,str,str");
     mygrid.setSkin("light");
     var height = contentHeight - 210;
-    mygrid.al(true, height);//enableAutoHeight
+    mygrid.al(true, height); //enableAutoHeight
     mygrid.enablePaging(true, 15, 3, "recinfoArea");
     mygrid.setPagingSkin("toolbar", "dhx_skyblue");
     mygrid.init();
@@ -5611,7 +5598,7 @@ function loadVehicleOutList(fromDate, toDate) {
     mygrid.setColSorting("str,str,str,str");
     mygrid.setSkin("light");
     var height = contentHeight - 210;
-    mygrid.al(true, height);//enableAutoHeight
+    mygrid.al(true, height); //enableAutoHeight
     mygrid.enablePaging(true, 15, 3, "recinfoArea");
     mygrid.setPagingSkin("toolbar", "dhx_skyblue");
     mygrid.init();
@@ -5797,7 +5784,7 @@ function loadVehicleInList(fromDate, toDate) {
     mygrid.setColSorting("str,str,str,str");
     mygrid.setSkin("light");
     var height = contentHeight - 210;
-    mygrid.al(true, height);//enableAutoHeight
+    mygrid.al(true, height); //enableAutoHeight
     mygrid.enablePaging(true, 15, 3, "recinfoArea");
     mygrid.setPagingSkin("toolbar", "dhx_skyblue");
     mygrid.init();
@@ -6011,7 +5998,7 @@ function loadExportWholesaleList(fromDate, toDate) {
     mygrid.setColSorting("str,str,str,str,str,str");
     mygrid.setSkin("light");
     var height = contentHeight - 210;
-    mygrid.al(true, height);//enableAutoHeight
+    mygrid.al(true, height); //enableAutoHeight
     mygrid.enablePaging(true, 15, 3, "recinfoArea");
     mygrid.setPagingSkin("toolbar", "dhx_skyblue");
     mygrid.init();
@@ -6243,7 +6230,7 @@ function loadDebtVendorList(fromDate, toDate) {
     mygrid.setColSorting("str,str,str,str,str");
     mygrid.setSkin("light");
     var height = contentHeight - 210;
-    mygrid.al(true, height);//enableAutoHeight
+    mygrid.al(true, height); //enableAutoHeight
     mygrid.enablePaging(true, 15, 3, "recinfoArea");
     mygrid.setPagingSkin("toolbar", "dhx_skyblue");
     mygrid.init();
@@ -6338,7 +6325,7 @@ function loadDebtRetailList(fromDate, toDate) {
     mygrid.setColSorting("str,str,str,str,str");
     mygrid.setSkin("light");
     var height = contentHeight - 210;
-    mygrid.al(true, height);//enableAutoHeight
+    mygrid.al(true, height); //enableAutoHeight
     mygrid.enablePaging(true, 15, 3, "recinfoArea");
     mygrid.setPagingSkin("toolbar", "dhx_skyblue");
     mygrid.init();
@@ -6433,7 +6420,7 @@ function loadDebtWholesaleList(fromDate, toDate) {
     mygrid.setColSorting("str,str,str,str,str");
     mygrid.setSkin("light");
     var height = contentHeight - 210;
-    mygrid.al(true, height);//enableAutoHeight
+    mygrid.al(true, height); //enableAutoHeight
     mygrid.enablePaging(true, 15, 3, "recinfoArea");
     mygrid.setPagingSkin("toolbar", "dhx_skyblue");
     mygrid.init();
@@ -6528,7 +6515,7 @@ function loadIncomeList(fromDate, toDate) {
     mygrid.setColSorting("str,str,str,str,str");
     mygrid.setSkin("light");
     var height = contentHeight - 210;
-    mygrid.al(true, height);//enableAutoHeight
+    mygrid.al(true, height); //enableAutoHeight
     mygrid.enablePaging(true, 15, 3, "recinfoArea");
     mygrid.setPagingSkin("toolbar", "dhx_skyblue");
     mygrid.init();
@@ -6623,7 +6610,7 @@ function loadExpenseList(fromDate, toDate) {
     mygrid.setColSorting("str,str,str,str,str");
     mygrid.setSkin("light");
     var height = contentHeight - 210;
-    mygrid.al(true, height);//enableAutoHeight
+    mygrid.al(true, height); //enableAutoHeight
     mygrid.enablePaging(true, 15, 3, "recinfoArea");
     mygrid.setPagingSkin("toolbar", "dhx_skyblue");
     mygrid.init();
@@ -6727,7 +6714,7 @@ function loadEmployeeOffIncreaseList(fromDate, toDate) {
     mygrid.setColSorting("str,str,str,str,str");
     mygrid.setSkin("light");
     var height = contentHeight - 210;
-    mygrid.al(true, height);//enableAutoHeight
+    mygrid.al(true, height); //enableAutoHeight
     mygrid.enablePaging(true, 15, 3, "recinfoArea");
     mygrid.setPagingSkin("toolbar", "dhx_skyblue");
     mygrid.init();
@@ -6797,7 +6784,7 @@ function loadEmployeeOffMoneyList(fromDate, toDate) {
     mygrid.setColSorting("str,str,str,str,str,str");
     mygrid.setSkin("light");
     var height = contentHeight - 210;
-    mygrid.al(true, height);//enableAutoHeight
+    mygrid.al(true, height); //enableAutoHeight
     mygrid.enablePaging(true, 15, 3, "recinfoArea");
     mygrid.setPagingSkin("toolbar", "dhx_skyblue");
     mygrid.init();
@@ -6924,7 +6911,7 @@ function loadFixedAssetGroupList() {
     mygrid.setColSorting("str,str,str,str");
     mygrid.setSkin("light");
     var height = contentHeight - 210;
-    mygrid.al(true, height);//enableAutoHeight
+    mygrid.al(true, height); //enableAutoHeight
     mygrid.enablePaging(true, 15, 3, "recinfoArea");
     mygrid.setPagingSkin("toolbar", "dhx_skyblue");
     mygrid.init();
@@ -6992,7 +6979,7 @@ function loadFixedAssetList() {
     mygrid.setColSorting("str,str,str,str");
     mygrid.setSkin("light");
     var height = contentHeight - 210;
-    mygrid.al(true, height);//enableAutoHeight
+    mygrid.al(true, height); //enableAutoHeight
     mygrid.enablePaging(true, 15, 3, "recinfoArea");
     mygrid.setPagingSkin("toolbar", "dhx_skyblue");
     mygrid.init();
@@ -7082,7 +7069,7 @@ function loadFixedAssetDepreciationList(fromDate, toDate) {
     mygrid.setColSorting("str,str,,str");
     mygrid.setSkin("light");
     var height = contentHeight - 210;
-    mygrid.al(true, height);//enableAutoHeight
+    mygrid.al(true, height); //enableAutoHeight
     mygrid.enablePaging(true, 15, 3, "recinfoArea");
     mygrid.setPagingSkin("toolbar", "dhx_skyblue");
     mygrid.init();
@@ -7144,7 +7131,7 @@ function loadContractList(fromDate, toDate) {
     mygrid.setColSorting("str,str,str,str");
     mygrid.setSkin("light");
     var height = contentHeight - 210;
-    mygrid.al(true, height);//enableAutoHeight
+    mygrid.al(true, height); //enableAutoHeight
     mygrid.enablePaging(true, 15, 3, "recinfoArea");
     mygrid.setPagingSkin("toolbar", "dhx_skyblue");
     mygrid.init();
@@ -7159,12 +7146,12 @@ function loadContractList(fromDate, toDate) {
     return false;
 }
 function getContract(id, handle) {
-    popupName = 'TH\u00D4NG TIN H\u1EE2P \u0110\u1ED2NG';
     var url = 'contractForm.do';
     if (id != 0)
         url += '?contractId=' + id
     callAjax(url, null, null, function(data) {
-        showPopupForm(data);
+        clearContent();
+        setAjaxData(data, 'contentDiv');
         document.getElementById('callbackFunc').value = handle;
         tryNumberFormatCurrentcy(document.forms['contractForm'].shell12Price, "VND");
         tryNumberFormatCurrentcy(document.forms['contractForm'].shell45Price, "VND");
@@ -7175,6 +7162,8 @@ function getContract(id, handle) {
         if (id == 0) {
             var currentDate = getCurrentDate();
             document.forms['contractForm'].contractDate.value = currentDate;
+        } else {
+            loadAttchmentFileList(null, null);
         }
         myCalendar.setDateFormat("%d/%m/%Y");
     });
@@ -7212,8 +7201,70 @@ function delContract() {
     });
     return false;
 }
-function printContract(templateType){
-    var url = "printContract.do?contractId="+document.forms['contractForm'].id.value+"&templateType="+templateType;
+function printContract(templateType) {
+    var url = "printContract.do?contractId=" + document.forms['contractForm'].id.value + "&templateType=" + templateType;
     callServer(url);
+    return false;
+}
+function loadAttchmentFileList(fileType, parentId) {
+    if (fileType == null)
+        fileType = document.getElementById("attchmentFileType").value;
+    if (parentId == null)
+        parentId = document.getElementById("attchmentFileParentId").value;
+    if (fileType == null || parentId == null)
+        return;
+    mainGrid = new dhtmlXGridObject('attachmentFileList');
+    mainGrid.setImagePath("js/dhtmlx/grid/imgs/");
+    mainGrid.setHeader("Ch\u1ECDn,T\u00EAn file,Ng\u01B0\u1EDDi t\u1EA1o,Ng\u00E0y t\u1EA1o");
+    mainGrid.attachHeader("&nbsp;,#text_filter,#text_filter,#text_filter");
+    mainGrid.setInitWidths("50,350,250,200");
+    mainGrid.setColTypes("ch,link,ro,ro");
+    mainGrid.setColSorting("str,str,str");
+    mainGrid.setSkin("light");
+    mainGrid.al(true, 500); //enableAutoHeight
+    mainGrid.enablePaging(true, 15, 3, "recinfoArea");
+    mainGrid.setPagingSkin("toolbar", "dhx_skyblue");
+    mainGrid.init();
+    callAjax("getAttachmentFileList.do?fileType=" + fileType + "&parentId=" + parentId, null, null, function(data) {
+        mainGrid.parse(data);
+    });
+    return false;
+}
+function getAttchmentFile() {
+    popupName = 'TH\u00D4NG TIN FILE';
+    var fileType = document.getElementById("attchmentFileType");
+    var parentId = document.getElementById("attchmentFileParentId");
+    if (fileType == null || parentId == null)
+        return;
+    fileType = fileType.value;
+    parentId = parentId.value;
+    callAjax("attchmentFileForm.do", null, null, function(data) {
+        showPopupForm(data);
+        vault = new dhtmlXVaultObject();
+        vault.setImagePath("js/dhtmlx/vault/imgs/");
+        vault.setServerHandlers("UploadHandler.do", "GetInfoHandler.do", "GetIdHandler.do");
+        vault.setFilesLimit(1);
+        vault.create("vaultDiv");
+        vault.onUploadComplete = function(files) {
+            var s = "";
+            for (var i = 0; i < files.length; i++) {
+                var file = files[i];
+                s += ("id:" + file.id + ",name:" + file.name + ",uploaded:" + file.uploaded + ",error:" + file.error) + "\n";
+            }
+            if (file.uploaded == true) {
+                callAjaxCheckError("uploadAction.do?image=" + file.name + "&fileType=" + fileType + "&parentId=" + parentId, null, null, function(data) {
+                    prepareHidePopup('uploadFormshowHelpHideDiv');
+                    loadAttchmentFileList(fileType, parentId);
+                });
+            }
+        };
+    });
+    return false;
+}
+function delAttchmentFile() {
+    var checked = mainGrid.getCheckedRows(0);
+    callAjaxCheckError("delAttchmentFile.do?ids=" + checked, null, null, function(data) {
+        loadAttchmentFileList(null, null);
+    });
     return false;
 }

@@ -29,7 +29,7 @@ public class OutputUtil {
             Logger.getLogger(OutputUtil.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
-    
+
     public static void sendXmlStringToOutput(HttpServletResponse resp, String content) {
         try {
             System.out.println("Send response: " + content);
@@ -44,11 +44,12 @@ public class OutputUtil {
     public static void sendZipFileToOutput(HttpServletResponse resp, String fileName) throws Exception {
         FileInputStream fis = new FileInputStream(fileName);
         BufferedInputStream stream = new BufferedInputStream(fis);
+        OutputStream output = null;
         try {
             resp.setContentType("application/zip");
             resp.setHeader("Content-disposition", "attachment; filename=\"" + fileName + "\"");
             resp.setHeader("Cache-Control", "max-age=1000");
-            OutputStream output = resp.getOutputStream();
+            output = resp.getOutputStream();
             byte[] buffer = new byte[4028];
             int n = 0;
             while (-1 != (n = stream.read(buffer))) {
@@ -59,6 +60,9 @@ public class OutputUtil {
                 stream.close();
                 File file = new File(fileName);
                 file.delete();
+            }
+            if (output != null) {
+                output.close();
             }
         }
     }

@@ -129,4 +129,8 @@ public class Constants {
     public static final String FIXED_ASSET_DEPRECIATION = "fixedAssetDepreciation";
     public static final String FIXED_ASSET_DEPRECIATION_GOOD = "fixedAssetDepreciationGood";
     public static final String CONTRACT = "contract";
+    public static final String ATTACH_FILE_LIST = "attachFileList";
+    public static final String UPLOAD_TEMP_PATH = "/fileuploadedtemp";
+    public static final String UPLOADED_PATH = "/uploadedFiles";
+    public static final String DOWNLOADED_TEMP_PATH = "/downloadedtemp";
 }
