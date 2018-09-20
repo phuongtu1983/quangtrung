@@ -81,6 +81,27 @@ public class AddOrganizationAction extends AddDynamicFieldFreeValueAction {
                 if (formBean.getStatus() != bean.getStatus()) {
                     isUpdate = true;
                 }
+                if (!formBean.getPhone().equals(bean.getPhone())) {
+                    isUpdate = true;
+                }
+                if (!formBean.getTax().equals(bean.getTax())) {
+                    isUpdate = true;
+                }
+                if (!formBean.getPresenter().equals(bean.getPresenter())) {
+                    isUpdate = true;
+                }
+                if (!formBean.getPresenterPosition().equals(bean.getPresenterPosition())) {
+                    isUpdate = true;
+                }
+                if (!formBean.getBankAccount().equals(bean.getBankAccount())) {
+                    isUpdate = true;
+                }
+                if (!formBean.getAddress().equals(bean.getAddress())) {
+                    isUpdate = true;
+                }
+                if (!formBean.getFax().equals(bean.getFax())) {
+                    isUpdate = true;
+                }
             }
         } catch (Exception ex) {
         }
@@ -90,6 +111,12 @@ public class AddOrganizationAction extends AddDynamicFieldFreeValueAction {
         bean.setCode(formBean.getCode());
         bean.setAddress(formBean.getAddress());
         bean.setStatus(formBean.getStatus());
+        bean.setPhone(formBean.getPhone());
+        bean.setFax(formBean.getFax());
+        bean.setBankAccount(formBean.getBankAccount());
+        bean.setTax(formBean.getTax());
+        bean.setPresenter(formBean.getPresenter());
+        bean.setPresenterPosition(formBean.getPresenterPosition());
         try {
             if (bNew) {
                 organizationId = organizationDAO.insertOrganization(bean);

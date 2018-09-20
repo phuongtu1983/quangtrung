@@ -150,7 +150,10 @@ public class CustomerDAO extends BasicDAO {
 
     public CustomerFormBean getCustomer(int customerId) throws Exception {
         ResultSet rs = null;
-        String sql = "select * from customer where id=" + customerId;
+        String sql = "select id, status, organization_id, kind, coalesce(code,'') as code, coalesce(name,'') as name, coalesce(address,'') as address"
+                + ", coalesce(phone,'') as phone, coalesce(bank_account,'') as bank_account, coalesce(tax,'') as tax, coalesce(presenter,'') as presenter"
+                + ", coalesce(presenter_position,'') as presenter_position"
+                + " from customer where id=" + customerId;
         try {
             rs = DBUtil.executeQuery(sql);
             while (rs.next()) {
@@ -160,6 +163,12 @@ public class CustomerDAO extends BasicDAO {
                 customer.setName(rs.getString("name"));
                 customer.setStatus(rs.getInt("status"));
                 customer.setOrganizationId(rs.getInt("organization_id"));
+                customer.setAddress(rs.getString("address"));
+                customer.setPhone(rs.getString("phone"));
+                customer.setBankAccount(rs.getString("bank_account"));
+                customer.setTax(rs.getString("tax"));
+                customer.setPresenter(rs.getString("presenter"));
+                customer.setPresenterPosition(rs.getString("presenter_position"));
                 if (customer.getStatus() == EmployeeBean.STATUS_ACTIVE) {
                     customer.setStatusName(QTUtil.getBundleString("employee.detail.status.active"));
                 } else if (customer.getStatus() == EmployeeBean.STATUS_INACTIVE) {
@@ -191,14 +200,20 @@ public class CustomerDAO extends BasicDAO {
         try {
             rs = DBUtil.executeQuery(sql);
             while (rs.next()) {
-                CustomerFormBean employee = new CustomerFormBean();
-                employee.setId(rs.getInt("id"));
-                employee.setName(rs.getString("name"));
-                employee.setCode(rs.getString("code"));
-                employee.setOrganizationId(rs.getInt("organization_id"));
-                employee.setStatus(rs.getInt("status"));
-                employee.setKind(rs.getInt("kind"));
-                return employee;
+                CustomerFormBean customer = new CustomerFormBean();
+                customer.setId(rs.getInt("id"));
+                customer.setName(rs.getString("name"));
+                customer.setCode(rs.getString("code"));
+                customer.setOrganizationId(rs.getInt("organization_id"));
+                customer.setStatus(rs.getInt("status"));
+                customer.setKind(rs.getInt("kind"));
+                customer.setAddress(rs.getString("address"));
+                customer.setPhone(rs.getString("phone"));
+                customer.setBankAccount(rs.getString("bank_account"));
+                customer.setTax(rs.getString("tax"));
+                customer.setPresenter(rs.getString("presenter"));
+                customer.setPresenterPosition(rs.getString("presenter_position"));
+                return customer;
             }
         } catch (SQLException sqle) {
             throw new Exception(sqle.getMessage());
@@ -218,8 +233,10 @@ public class CustomerDAO extends BasicDAO {
         }
         try {
             String sql = "";
-            sql = "Insert Into customer (name, code, organization_id, status, kind)"
-                    + " Values ('" + bean.getName() + "','" + bean.getCode() + "'," + bean.getOrganizationId() + "," + bean.getStatus() + "," + bean.getKind() + ")";
+            sql = "Insert Into customer (name, code, organization_id, status, kind, phone, bank_account, tax, presenter, presenter_position, address)"
+                    + " Values ('" + bean.getName() + "','" + bean.getCode() + "'," + bean.getOrganizationId() + "," + bean.getStatus() + "," + bean.getKind()
+                    + ",'" + bean.getPhone() + "','" + bean.getBankAccount() + "','" + bean.getTax() + "','" + bean.getPresenter()
+                    + "','" + bean.getPresenterPosition() + "','" + bean.getAddress() + "')";
             return DBUtil.executeInsert(sql);
         } catch (SQLException sqle) {
             throw new Exception(sqle.getMessage());
@@ -245,6 +262,12 @@ public class CustomerDAO extends BasicDAO {
                     + ", organization_id=" + bean.getOrganizationId()
                     + ", status=" + bean.getStatus()
                     + ", kind=" + bean.getKind()
+                    + ", address='" + bean.getAddress() + "'"
+                    + ", phone='" + bean.getPhone() + "'"
+                    + ", bank_account='" + bean.getBankAccount() + "'"
+                    + ", tax='" + bean.getTax() + "'"
+                    + ", presenter='" + bean.getPresenter() + "'"
+                    + ", presenter_position='" + bean.getPresenterPosition() + "'"
                     + " Where id=" + bean.getId();
             DBUtil.executeUpdate(sql);
         } catch (SQLException sqle) {

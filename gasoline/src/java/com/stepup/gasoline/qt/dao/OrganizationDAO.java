@@ -106,6 +106,52 @@ public class OrganizationDAO extends BasicDAO {
                 bean.setCode(rs.getString("code"));
                 bean.setAddress(rs.getString("address"));
                 bean.setStatus(rs.getInt("status"));
+                bean.setPhone(rs.getString("phone"));
+                bean.setFax(rs.getString("fax"));
+                bean.setBankAccount(rs.getString("bank_account"));
+                bean.setTax(rs.getString("tax"));
+                bean.setPresenter(rs.getString("presenter"));
+                bean.setPresenterPosition(rs.getString("presenter_position"));
+                if (bean.getStatus() == EmployeeBean.STATUS_ACTIVE) {
+                    bean.setStatusName(QTUtil.getBundleString("employee.detail.status.active"));
+                } else if (bean.getStatus() == EmployeeBean.STATUS_INACTIVE) {
+                    bean.setStatusName(QTUtil.getBundleString("employee.detail.status.inactive"));
+                }
+                return bean;
+            }
+        } catch (SQLException sqle) {
+            throw new Exception(sqle.getMessage());
+        } catch (Exception ex) {
+            throw new Exception(ex.getMessage());
+        } finally {
+            if (rs != null) {
+                DBUtil.closeConnection(rs);
+            }
+        }
+        return null;
+    }
+    
+    public OrganizationBean getOrganizationByEmployee(int employeeId) throws Exception {
+        ResultSet rs = null;
+        String sql = "select o.id, o.status, coalesce(o.name,'') as name, coalesce(o.code,'') as code, coalesce(o.address,'') as address"
+                + ", coalesce(o.phone,'') as phone, coalesce(o.fax,'') as fax, coalesce(o.bank_account,'') as bank_account, coalesce(o.tax,'') as tax"
+                + ", coalesce(o.presenter,'') as presenter, coalesce(o.presenter_position,'') as presenter_position"
+                + " from organization as o, employee as e where o.id=e.organization_id and e.id=" + employeeId;
+        try {
+            rs = DBUtil.executeQuery(sql);
+            while (rs.next()) {
+                OrganizationBean bean = new OrganizationBean();
+                bean.setId(rs.getInt("id"));
+                bean.setName(rs.getString("name"));
+                bean.setCode(rs.getString("code"));
+                bean.setAddress(rs.getString("address"));
+                bean.setStatus(rs.getInt("status"));
+                bean.setPhone(rs.getString("phone"));
+                bean.setFax(rs.getString("fax"));
+                bean.setBankAccount(rs.getString("bank_account"));
+                bean.setTax(rs.getString("tax"));
+                bean.setPresenter(rs.getString("presenter"));
+                bean.setPresenterPosition(rs.getString("presenter_position"));
                 if (bean.getStatus() == EmployeeBean.STATUS_ACTIVE) {
                     bean.setStatusName(QTUtil.getBundleString("employee.detail.status.active"));
                 } else if (bean.getStatus() == EmployeeBean.STATUS_INACTIVE) {
@@ -138,6 +184,12 @@ public class OrganizationDAO extends BasicDAO {
                 bean.setCode(rs.getString("code"));
                 bean.setAddress(rs.getString("address"));
                 bean.setStatus(rs.getInt("status"));
+                bean.setPhone(rs.getString("phone"));
+                bean.setFax(rs.getString("fax"));
+                bean.setBankAccount(rs.getString("bank_account"));
+                bean.setTax(rs.getString("tax"));
+                bean.setPresenter(rs.getString("presenter"));
+                bean.setPresenterPosition(rs.getString("presenter_position"));
                 if (bean.getStatus() == EmployeeBean.STATUS_ACTIVE) {
                     bean.setStatusName(QTUtil.getBundleString("employee.detail.status.active"));
                 } else if (bean.getStatus() == EmployeeBean.STATUS_INACTIVE) {
@@ -161,11 +213,12 @@ public class OrganizationDAO extends BasicDAO {
         if (bean == null) {
             return 0;
         }
-        int id=0;
+        int id = 0;
         try {
             String sql = "";
-            sql = "Insert Into organization (name, code, address, status)"
-                    + " Values ('" + bean.getName() + "','" + bean.getCode() + "','" + bean.getAddress() + "'," + bean.getStatus() + ")";
+            sql = "Insert Into organization (name, code, address, status, phone, fax, bank_account, tax, presenter, presenter_position)"
+                    + " Values ('" + bean.getName() + "','" + bean.getCode() + "','" + bean.getAddress() + "'," + bean.getStatus() + ",'" + bean.getPhone() + "','"
+                    + bean.getFax() + "','" + bean.getBankAccount() + "','" + bean.getTax() + "','" + bean.getPresenter() + "','" + bean.getPresenterPosition() + "')";
             id = DBUtil.executeInsert(sql);
 //            sql = "INSERT INTO dynamic_field(CODE, NAME, organization_id, table_name, can_edit)"
 //                    + " SELECT code, name, " + id + ", table_name, 0 FROM dynamic_field_free";
@@ -192,6 +245,12 @@ public class OrganizationDAO extends BasicDAO {
                     + " name='" + bean.getName() + "'"
                     + ", code='" + bean.getCode() + "'"
                     + ", address='" + bean.getAddress() + "'"
+                    + ", phone='" + bean.getPhone() + "'"
+                    + ", fax='" + bean.getFax() + "'"
+                    + ", bank_account='" + bean.getBankAccount() + "'"
+                    + ", tax='" + bean.getTax() + "'"
+                    + ", presenter='" + bean.getPresenter() + "'"
+                    + ", presenter_position='" + bean.getPresenterPosition() + "'"
                     + ", status=" + bean.getStatus()
                     + " Where id=" + bean.getId();
             DBUtil.executeUpdate(sql);

@@ -7,6 +7,7 @@ package com.stepup.gasoline.qt.contract;
 import com.stepup.gasoline.qt.bean.ContractBean;
 import com.stepup.gasoline.qt.core.SpineAction;
 import com.stepup.gasoline.qt.dao.ContractDAO;
+import com.stepup.gasoline.qt.util.QTUtil;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import org.apache.struts.action.ActionForm;
@@ -97,6 +98,7 @@ public class AddContractAction extends SpineAction {
         bean.setCreditDate(formBean.getCreditDate());
         bean.setCreditAmount(formBean.getCreditAmount());
         bean.setNote(formBean.getNote());
+        bean.setEmployeeId(QTUtil.getMemberID(request.getSession()));
         try {
             if (bNew) {
                 contractId = contractDAO.insertContract(bean);

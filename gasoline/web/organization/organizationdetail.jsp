@@ -12,7 +12,7 @@
                     <table cellspacing="0" cellpadding="0" style="border-width: 0px">
                         <tr>
                             <td height="30" style="padding-right: 20px"><bean:message key="organization.detail.code"/></td>
-                            <td><html:text property="code" size="40" name="<%=Constants.ORGANIZATION%>"/></td>
+                            <td><html:text property="code" size="30" name="<%=Constants.ORGANIZATION%>"/></td>
                             <td style="padding-right: 20px;padding-left: 10px"><bean:message key="employee.detail.status"/></td>
                             <td>
                                 <html:select property="status" name="<%=Constants.ORGANIZATION%>" style="width: 190px;">
@@ -21,12 +21,32 @@
                             </td>
                         </tr>
                         <tr>
+                            <td height="30" style="padding-right: 20px"><bean:message key="organization.detail.tax"/></td>
+                            <td colspan="3"><html:text property="tax" size="30" name="<%=Constants.ORGANIZATION%>"/></td>
+                        </tr>
+                        <tr>
                             <td height="30" style="padding-right: 20px"><bean:message key="organization.detail.name"/></td>
-                            <td colspan="3"><html:text property="name" size="90" name="<%=Constants.ORGANIZATION%>"/></td>
+                            <td colspan="3"><html:text property="name" size="80" name="<%=Constants.ORGANIZATION%>"/></td>
+                        </tr>
+                        <tr>
+                            <td height="30" style="padding-right: 20px"><bean:message key="organization.detail.phone"/></td>
+                            <td><html:text property="phone" size="30" name="<%=Constants.ORGANIZATION%>"/></td>
+                            <td style="padding-right: 20px;padding-left: 10px"><bean:message key="organization.detail.fax"/></td>
+                            <td><html:text property="fax" size="30" name="<%=Constants.ORGANIZATION%>"/></td>
+                        </tr>
+                        <tr>
+                            <td height="30" style="padding-right: 20px"><bean:message key="organization.detail.presenter"/></td>
+                            <td><html:text property="presenter" size="30" name="<%=Constants.ORGANIZATION%>"/></td>
+                            <td style="padding-right: 20px;padding-left: 10px"><bean:message key="organization.detail.presenterPosition"/></td>
+                            <td><html:text property="presenterPosition" size="30" name="<%=Constants.ORGANIZATION%>"/></td>
+                        </tr>
+                        <tr>
+                            <td height="30" style="padding-right: 20px"><bean:message key="organization.detail.bankAccount"/></td>
+                            <td colspan="3"><html:text property="bankAccount" size="80" name="<%=Constants.ORGANIZATION%>"/></td>
                         </tr>
                         <tr>
                             <td height="30" style="padding-right: 20px"><bean:message key="organization.detail.address"/></td>
-                            <td colspan="3"><html:text property="address" size="90" name="<%=Constants.ORGANIZATION%>"/></td>
+                            <td colspan="3"><html:text property="address" size="80" name="<%=Constants.ORGANIZATION%>"/></td>
                         </tr>
                         <tr>
                             <td height="30" style="padding-right: 20px" colspan="4">

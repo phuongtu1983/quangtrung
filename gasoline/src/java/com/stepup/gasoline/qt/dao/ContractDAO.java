@@ -89,6 +89,7 @@ public class ContractDAO extends BasicDAO {
                 bean.setCreditDate(rs.getInt("credit_date"));
                 bean.setCreditAmount(rs.getDouble("credit_amount"));
                 bean.setNote(rs.getString("note"));
+                bean.setEmployeeId(rs.getInt("employee_id"));
                 return bean;
             }
         } catch (SQLException sqle) {
@@ -116,7 +117,7 @@ public class ContractDAO extends BasicDAO {
             } else {
                 createdDate = bean.getCreatedDate();
             }
-            String sql = "{call insertContract(?,?,?,?,?,?,?,?,?)}";
+            String sql = "{call insertContract(?,?,?,?,?,?,?,?,?,?)}";
             spUtil = new SPUtil(sql);
             if (spUtil != null) {
                 spUtil.getCallableStatement().setString("_code", bean.getCode());
@@ -127,6 +128,7 @@ public class ContractDAO extends BasicDAO {
                 spUtil.getCallableStatement().setInt("_credit_date", bean.getCreditDate());
                 spUtil.getCallableStatement().setDouble("_credit_amount", bean.getCreditAmount());
                 spUtil.getCallableStatement().setString("_note", bean.getNote());
+                spUtil.getCallableStatement().setInt("_employee_id", bean.getEmployeeId());
                 spUtil.getCallableStatement().registerOutParameter("_id", Types.INTEGER);
                 spUtil.execute();
                 result = spUtil.getCallableStatement().getInt("_id");

@@ -31,6 +31,26 @@
                             </td>
                         </tr>
                         <tr>
+                            <td height="30" style="padding-right: 20px"><bean:message key="customer.detail.phone"/></td>
+                            <td><html:text property="phone" size="40" name="<%=Constants.CUSTOMER%>"/></td>
+                            <td height="30" style="padding-left: 10px; padding-right: 20px"><bean:message key="customer.detail.tax"/></td>
+                            <td><html:text property="tax" size="40" name="<%=Constants.CUSTOMER%>"/></td>
+                        </tr>
+                        <tr>
+                            <td height="30" style="padding-right: 20px"><bean:message key="customer.detail.presenter"/></td>
+                            <td><html:text property="presenter" size="40" name="<%=Constants.CUSTOMER%>"/></td>
+                            <td height="30" style="padding-left: 10px; padding-right: 20px"><bean:message key="customer.detail.presenterPosition"/></td>
+                            <td><html:text property="presenterPosition" size="40" name="<%=Constants.CUSTOMER%>"/></td>
+                        </tr>
+                        <tr>
+                            <td height="30" style="padding-right: 20px"><bean:message key="customer.detail.bankAccount"/></td>
+                            <td colspan="3"><html:text property="bankAccount" size="90" name="<%=Constants.CUSTOMER%>"/></td>
+                        </tr>
+                        <tr>
+                            <td height="30" style="padding-right: 20px"><bean:message key="customer.detail.address"/></td>
+                            <td colspan="3"><html:text property="address" size="90" name="<%=Constants.CUSTOMER%>"/></td>
+                        </tr>
+                        <tr>
                             <td height="30" style="padding-right: 20px"><bean:message key="customer.detail.kind"/></td>
                             <td colspan="3">
                                 <html:select property="kind" name="<%=Constants.CUSTOMER%>" style="width:255px">

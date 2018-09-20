@@ -74,6 +74,24 @@ public class AddCustomerAction extends AddDynamicFieldValueAction {
                 if (!formBean.getName().equals(oldBean.getName())) {
                     isUpdate = true;
                 }
+                if (!formBean.getPhone().equals(oldBean.getPhone())) {
+                    isUpdate = true;
+                }
+                if (!formBean.getTax().equals(oldBean.getTax())) {
+                    isUpdate = true;
+                }
+                if (!formBean.getPresenter().equals(oldBean.getPresenter())) {
+                    isUpdate = true;
+                }
+                if (!formBean.getPresenterPosition().equals(oldBean.getPresenterPosition())) {
+                    isUpdate = true;
+                }
+                if (!formBean.getBankAccount().equals(oldBean.getBankAccount())) {
+                    isUpdate = true;
+                }
+                if (!formBean.getAddress().equals(oldBean.getAddress())) {
+                    isUpdate = true;
+                }
                 if (!formBean.getCode().equals(oldBean.getCode())) {
                     isUpdate = true;
                 }
@@ -96,6 +114,12 @@ public class AddCustomerAction extends AddDynamicFieldValueAction {
         bean.setStatus(formBean.getStatus());
         bean.setOrganizationId(formBean.getOrganizationId());
         bean.setKind(formBean.getKind());
+        bean.setAddress(formBean.getAddress());
+        bean.setPhone(formBean.getPhone());
+        bean.setBankAccount(formBean.getBankAccount());
+        bean.setTax(formBean.getTax());
+        bean.setPresenter(formBean.getPresenter());
+        bean.setPresenterPosition(formBean.getPresenterPosition());
         try {
             if (bNew) {
                 customerId = customerDAO.insertCustomer(bean);

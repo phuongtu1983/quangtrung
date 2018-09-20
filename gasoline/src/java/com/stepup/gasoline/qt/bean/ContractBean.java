@@ -14,6 +14,7 @@ public class ContractBean {
     private String code;
     private String createdDate;
     private int customerId;
+    private int employeeId;
     private double shell12Price;
     private double shell45Price;
     private int creditDate;
@@ -90,6 +91,14 @@ public class ContractBean {
 
     public void setNote(String note) {
         this.note = note;
+    }
+
+    public int getEmployeeId() {
+        return employeeId;
+    }
+
+    public void setEmployeeId(int employeeId) {
+        this.employeeId = employeeId;
     }
 
 }

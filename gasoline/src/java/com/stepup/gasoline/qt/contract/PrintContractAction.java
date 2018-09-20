@@ -5,12 +5,17 @@
  */
 package com.stepup.gasoline.qt.contract;
 
+import com.stepup.core.util.DateUtil;
 import com.stepup.core.util.FileUtil;
 import com.stepup.core.util.NumberUtil;
 import com.stepup.core.util.OutputUtil;
 import com.stepup.gasoline.qt.bean.ContractBean;
+import com.stepup.gasoline.qt.bean.OrganizationBean;
 import com.stepup.gasoline.qt.core.BaseAction;
+import com.stepup.gasoline.qt.customer.CustomerFormBean;
 import com.stepup.gasoline.qt.dao.ContractDAO;
+import com.stepup.gasoline.qt.dao.CustomerDAO;
+import com.stepup.gasoline.qt.dao.OrganizationDAO;
 import com.stepup.gasoline.qt.util.Constants;
 import com.stepup.gasoline.qt.util.QTUtil;
 import fr.opensagres.xdocreport.document.IXDocReport;
@@ -41,12 +46,16 @@ public class PrintContractAction extends BaseAction {
     public boolean doAction(ActionMapping mapping, ActionForm form,
             HttpServletRequest request, HttpServletResponse response) {
         String id = request.getParameter("contractId");
+        int templateType = NumberUtil.parseInt(request.getParameter("templateType"), 0);
         try {
             ContractDAO contractDAO = new ContractDAO();
             ContractBean bean = contractDAO.getContract(NumberUtil.parseInt(id, 0));
             if (bean != null) {
                 ArrayList arrayFile = new ArrayList();
                 String templateFileName = "contract_template1";
+                if (templateType == 2) {
+                    templateFileName = "contract_template2";
+                }
                 String userName = QTUtil.getMemberName(request.getSession());
                 String wordDir = request.getSession().getServletContext().getRealPath(Constants.DOWNLOADED_TEMP_PATH);
                 print(request, arrayFile, bean, userName, templateFileName, wordDir);
@@ -64,6 +73,12 @@ public class PrintContractAction extends BaseAction {
     private void print(HttpServletRequest request, ArrayList arrayFile, ContractBean contractBean, String userName, String templateFileName, String wordDir) throws IOException {
         OutputStream out = null;
         try {
+            OrganizationDAO organizationDAO = new OrganizationDAO();
+            OrganizationBean organizationBean = organizationDAO.getOrganizationByEmployee(contractBean.getEmployeeId());
+
+            CustomerDAO customerDAO = new CustomerDAO();
+            CustomerFormBean customerBean = customerDAO.getCustomer(contractBean.getCustomerId());
+
             String fileName = wordDir + "/" + templateFileName + "-" + userName + ".docx";
             arrayFile.add(fileName);
             String wordTemplate = request.getSession().getServletContext().getRealPath("/templates/" + templateFileName + ".docx");
@@ -74,7 +89,16 @@ public class PrintContractAction extends BaseAction {
             IContext context = report.createContext();
             // Register developers list
             List<ContractPrintedBean> docs = new ArrayList<ContractPrintedBean>();
-            docs.add(new ContractPrintedBean(contractBean.getCode(), ));
+
+            Date conrtactDate = DateUtil.convertStringToDate(contractBean.getCreatedDate(), "dd/MM/yyyy");
+
+            docs.add(new ContractPrintedBean(contractBean.getCode(), organizationBean.getName().toUpperCase(), organizationBean.getAddress(), organizationBean.getPhone(),
+                    organizationBean.getFax(), organizationBean.getBankAccount(), organizationBean.getTax(), organizationBean.getPresenter().toUpperCase(),
+                    organizationBean.getPresenterPosition(), customerBean.getName().toUpperCase(), customerBean.getAddress(), customerBean.getPhone(),
+                    customerBean.getBankAccount(), customerBean.getTax(), customerBean.getPresenter().toUpperCase(), customerBean.getPresenterPosition(),
+                    DateUtil.formatDate(conrtactDate, "dd"), DateUtil.formatDate(conrtactDate, "MM"), DateUtil.formatDate(conrtactDate, "yyyy"),
+                    NumberUtil.formatMoneyDefault(contractBean.getShell12Price(), ""), NumberUtil.formatMoneyDefault(contractBean.getShell45Price(), ""),
+                    NumberUtil.formatMoneyDefault(contractBean.getCreditAmount(), "")));
             context.put("quangtrung", docs);
             // 3) Generate report by merging Java model with the Docx
             out = new FileOutputStream(new File(fileName));

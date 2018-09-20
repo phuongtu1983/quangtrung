@@ -16,6 +16,12 @@ public class CustomerBean {
     private String name;
     private int organizationId;
     private int kind;
+    private String address;
+    private String phone;
+    private String bankAccount;
+    private String tax;
+    private String presenter;
+    private String presenterPosition;
 
     public int getId() {
         return id;
@@ -64,6 +70,55 @@ public class CustomerBean {
     public void setKind(int kind) {
         this.kind = kind;
     }
+
+    public String getPhone() {
+        return phone;
+    }
+
+    public void setPhone(String phone) {
+        this.phone = phone;
+    }
+
+    public String getBankAccount() {
+        return bankAccount;
+    }
+
+    public void setBankAccount(String bankAccount) {
+        this.bankAccount = bankAccount;
+    }
+
+    public String getTax() {
+        return tax;
+    }
+
+    public void setTax(String tax) {
+        this.tax = tax;
+    }
+
+    public String getPresenter() {
+        return presenter;
+    }
+
+    public void setPresenter(String presenter) {
+        this.presenter = presenter;
+    }
+
+    public String getPresenterPosition() {
+        return presenterPosition;
+    }
+
+    public void setPresenterPosition(String presenterPosition) {
+        this.presenterPosition = presenterPosition;
+    }
+
+    public String getAddress() {
+        return address;
+    }
+
+    public void setAddress(String address) {
+        this.address = address;
+    }
+
     public static int KIND_RETAIL = 1;
     public static int KIND_WHOLESALE = 2;
 }

@@ -22,6 +22,12 @@ public class CustomerFormBean extends DynamicFieldValueParentFormBean {
     private String kindName;
     private int organizationId;
     private String organizationName;
+    private String address;
+    private String phone;
+    private String bankAccount;
+    private String tax;
+    private String presenter;
+    private String presenterPosition;
 
     public CustomerFormBean() {
     }
@@ -33,6 +39,12 @@ public class CustomerFormBean extends DynamicFieldValueParentFormBean {
         this.name = bean.getName();
         this.organizationId = bean.getOrganizationId();
         this.kind = bean.getKind();
+        this.address = bean.getAddress();
+        this.phone = bean.getPhone();
+        this.bankAccount = bean.getBankAccount();
+        this.tax = bean.getTax();
+        this.presenter = bean.getPresenter();
+        this.presenterPosition = bean.getPresenterPosition();
     }
 
     public int getId() {
@@ -105,6 +117,54 @@ public class CustomerFormBean extends DynamicFieldValueParentFormBean {
 
     public void setKindName(String kindName) {
         this.kindName = kindName;
+    }
+
+    public String getPhone() {
+        return phone;
+    }
+
+    public void setPhone(String phone) {
+        this.phone = phone;
+    }
+
+    public String getBankAccount() {
+        return bankAccount;
+    }
+
+    public void setBankAccount(String bankAccount) {
+        this.bankAccount = bankAccount;
+    }
+
+    public String getTax() {
+        return tax;
+    }
+
+    public void setTax(String tax) {
+        this.tax = tax;
+    }
+
+    public String getPresenter() {
+        return presenter;
+    }
+
+    public void setPresenter(String presenter) {
+        this.presenter = presenter;
+    }
+
+    public String getPresenterPosition() {
+        return presenterPosition;
+    }
+
+    public void setPresenterPosition(String presenterPosition) {
+        this.presenterPosition = presenterPosition;
+    }
+
+    public String getAddress() {
+        return address;
+    }
+
+    public void setAddress(String address) {
+        this.address = address;
     }
 
 }
