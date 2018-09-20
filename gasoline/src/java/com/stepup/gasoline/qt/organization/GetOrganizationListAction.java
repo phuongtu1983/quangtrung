@@ -10,6 +10,7 @@ import com.stepup.core.util.StringUtil;
 import com.stepup.gasoline.qt.bean.OrganizationBean;
 import com.stepup.gasoline.qt.core.BaseAction;
 import com.stepup.gasoline.qt.dao.OrganizationDAO;
+import com.stepup.gasoline.qt.util.QTUtil;
 import java.util.ArrayList;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -30,7 +31,7 @@ public class GetOrganizationListAction extends BaseAction {
         buff.append("<rows>");
         try {
             OrganizationDAO organizationDAO = new OrganizationDAO();
-            ArrayList list = organizationDAO.getOrganizations(NumberUtil.parseInt(request.getParameter("status"), 0));
+            ArrayList list = organizationDAO.getOrganizations(NumberUtil.parseInt(request.getParameter("status"), 0), QTUtil.getOrganizationManageds(request.getSession()));
             if (list != null) {
                 int length = list.size();
                 for (int i = 0; i < length; i++) {

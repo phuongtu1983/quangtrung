@@ -79,7 +79,7 @@ public class PetroFormAction extends SpineAction {
         ArrayList arrOrg = null;
         try {
             OrganizationDAO orgDAO = new OrganizationDAO();
-            arrOrg = orgDAO.getOrganizations(EmployeeBean.STATUS_ACTIVE);
+            arrOrg = orgDAO.getOrganizations(EmployeeBean.STATUS_ACTIVE, QTUtil.getOrganizationManageds(request.getSession()));
         } catch (Exception ex) {
         }
         if (arrOrg == null) {

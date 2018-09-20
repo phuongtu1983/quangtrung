@@ -49,7 +49,7 @@ public class StoreFormAction extends SpineAction {
             formBean = new StoreFormBean();
         }
         request.setAttribute(Constants.STORE, formBean);
-
+        
         ArrayList arrStatus = new ArrayList();
         LabelValueBean value;
         value = new LabelValueBean();
@@ -61,17 +61,17 @@ public class StoreFormAction extends SpineAction {
         value.setValue(EmployeeBean.STATUS_INACTIVE + "");
         arrStatus.add(value);
         request.setAttribute(Constants.STATUS_LIST, arrStatus);
-
+        
         ArrayList arrOrganization = null;
         try {
-            arrOrganization = organizationDAO.getOrganizations(EmployeeBean.STATUS_ACTIVE);
+            arrOrganization = organizationDAO.getOrganizations(EmployeeBean.STATUS_ACTIVE, QTUtil.getOrganizationManageds(request.getSession()));
         } catch (Exception ex) {
         }
         if (arrOrganization == null) {
             arrOrganization = new ArrayList();
         }
         request.setAttribute(Constants.ORGANIZATION_LIST, arrOrganization);
-
+        
         return true;
     }
 }

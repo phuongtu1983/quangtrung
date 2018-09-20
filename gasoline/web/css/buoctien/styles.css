@@ -485,7 +485,7 @@ input[type="submit"]{
 button.small, a.btn.small,input[type="submit"].btn.small{
     min-height:14px;
     line-height:14px;
-    font-size:10px;
+    font-size:11px;
     padding:4px 7px;
 }
 button.big, a.btn.big{

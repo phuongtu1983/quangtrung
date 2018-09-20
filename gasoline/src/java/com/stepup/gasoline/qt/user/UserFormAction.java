@@ -61,7 +61,7 @@ public class UserFormAction extends SpineAction {
         try {
             EmployeeDAO empDAO = new EmployeeDAO();
             if (formBean.getId() == 0) {
-                empList = empDAO.getEmployeeHasNotAccount(EmployeeBean.STATUS_ACTIVE);
+                empList = empDAO.getEmployeeHasNotAccount(EmployeeBean.STATUS_ACTIVE, QTUtil.getOrganizationManageds(request.getSession()));
             } else {
                 EmployeeFormBean empBean = empDAO.getEmployee(formBean.getEmpId());
                 empList = new ArrayList();

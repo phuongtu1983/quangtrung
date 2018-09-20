@@ -1052,7 +1052,7 @@ function loadUserList() {
     return false;
 }
 function getUser(id, handle) {
-    popupName = 'TH\u00D4NG TIN T\u00C0I KHO\u1EA2N';
+    popupName = 'TH\u00D4NG TIN T\u00C0I KHO\u1EA2N H\u1EC6 TH\u1ED0NG';
     callAjax('userForm.do?userId=' + id, null, null, function(data) {
         showPopupForm(data);
         document.getElementById('callbackFunc').value = handle;
@@ -2514,7 +2514,7 @@ function loadPetroList() {
     var mygrid = new dhtmlXGridObject('petroList');
     mygrid.setImagePath("js/dhtmlx/grid/imgs/");
     mygrid.setHeader("M\u00E3 h\u00E0ng h\u00F3a,T\u00EAn h\u00E0ng h\u00F3a,Gi\u00E1 b\u00E1n,\u0110\u01A1n v\u1ECB t\u00EDnh,\u0110\u01A1n v\u1ECB,T\u00ECnh tr\u1EA1ng");
-    mygrid.attachHeader("#text_filter,#text_filter,#text_filter,#text_filter,#text_filter#select_filter");
+    mygrid.attachHeader("#text_filter,#text_filter,#text_filter,#text_filter,#text_filter,#select_filter");
     mygrid.setInitWidths("150,*,150,150,300,200");
     mygrid.setColTypes("link,ro,ro,ro,ro,ro");
     mygrid.setColSorting("str,str,str,str,str,str");

@@ -16,13 +16,16 @@ import java.util.ArrayList;
  *
  * @author phuongtu
  */
-public class UserDAO extends BasicDAO{
+public class UserDAO extends BasicDAO {
 
-    public ArrayList getUsers(int status) throws Exception {
+    public ArrayList getUsers(int status, String organizationIds) throws Exception {
         ResultSet rs = null;
         String sql = "select u.*, e.fullname from user as u, employee as e where u.employee_id=e.id";
         if (status != 0) {
-            sql += " and u.status=" + status;
+            sql += " and u.status=" + status + " and e.status=" + status;
+        }
+        if (!organizationIds.isEmpty()) {
+            sql += " and e.organization_id in(" + organizationIds + ")";
         }
         sql += " order by e.fullname";
 

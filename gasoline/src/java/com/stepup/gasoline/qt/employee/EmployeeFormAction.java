@@ -70,7 +70,7 @@ public class EmployeeFormAction extends DynamicFieldValueAction {
         ArrayList arrOrganization = null;
         try {
             OrganizationDAO organizationDAO = new OrganizationDAO();
-            arrOrganization = organizationDAO.getOrganizations(EmployeeBean.STATUS_ACTIVE);
+            arrOrganization = organizationDAO.getOrganizations(EmployeeBean.STATUS_ACTIVE, QTUtil.getOrganizationManageds(request.getSession()));
         } catch (Exception ex) {
         }
         if (arrOrganization == null) {

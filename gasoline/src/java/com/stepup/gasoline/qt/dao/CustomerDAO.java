@@ -21,11 +21,14 @@ import java.util.ArrayList;
  */
 public class CustomerDAO extends BasicDAO {
 
-    public ArrayList getCustomers(int status) throws Exception {
+    public ArrayList getCustomers(int status, String organizationIds) throws Exception {
         ResultSet rs = null;
         String sql = "select c.*, o.name as organization_name from customer as c, organization as o where c.organization_id=o.id and o.status=" + EmployeeBean.STATUS_ACTIVE;
         if (status != 0) {
             sql += " and c.status=" + status;
+        }
+        if (!organizationIds.isEmpty()) {
+            sql += " and c.organization_id in(" + organizationIds + ")";
         }
         sql += " order by c.name desc";
         ArrayList customerList = new ArrayList();

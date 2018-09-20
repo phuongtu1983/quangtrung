@@ -84,7 +84,7 @@ public class CustomerFormAction extends DynamicFieldValueAction {
             arrKind.add(value);
             try {
                 OrganizationDAO organizationDAO = new OrganizationDAO();
-                arrOrganization = organizationDAO.getOrganizations(EmployeeBean.STATUS_ACTIVE);
+                arrOrganization = organizationDAO.getOrganizations(EmployeeBean.STATUS_ACTIVE, QTUtil.getOrganizationManageds(request.getSession()));
             } catch (Exception ex) {
             }
         } else {

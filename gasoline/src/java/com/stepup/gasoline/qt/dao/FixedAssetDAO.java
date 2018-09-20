@@ -29,9 +29,13 @@ import java.util.ArrayList;
  */
 public class FixedAssetDAO extends BasicDAO {
 
-    public ArrayList getFixedAssetGroups() throws Exception {
+    public ArrayList getFixedAssetGroups(String organizationIds) throws Exception {
         ResultSet rs = null;
-        String sql = "select a.*, o.name as organization_name from fixed_asset_group as a, organization as o where a.organization_id=o.id order by a.name";
+        String sql = "select a.*, o.name as organization_name from fixed_asset_group as a, organization as o where a.organization_id=o.id";
+        if (!organizationIds.isEmpty()) {
+            sql += " and a.organization_id in(" + organizationIds + ")";
+        }
+        sql += " order by a.name";
         ArrayList list = new ArrayList();
         try {
             rs = DBUtil.executeQuery(sql);
@@ -172,9 +176,13 @@ public class FixedAssetDAO extends BasicDAO {
         }
     }
 
-    public ArrayList getFixedAssets() throws Exception {
+    public ArrayList getFixedAssets(String organizationIds) throws Exception {
         ResultSet rs = null;
-        String sql = "select a.*, o.name as group_name from fixed_asset as a, fixed_asset_group as o where a.group_id=o.id order by a.name";
+        String sql = "select a.*, o.name as group_name from fixed_asset as a, fixed_asset_group as o where a.group_id=o.id";
+        if (!organizationIds.isEmpty()) {
+            sql += " and o.organization_id in(" + organizationIds + ")";
+        }
+        sql += " order by a.name";
         ArrayList list = new ArrayList();
         try {
             rs = DBUtil.executeQuery(sql);

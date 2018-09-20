@@ -82,6 +82,7 @@ public class ParameterDAO extends BasicDAO {
         if (!codes.isEmpty()) {
             sql += " and code in (" + codes + ")";
         }
+        sql+=" order by name";
 
         ArrayList list = new ArrayList();
         try {

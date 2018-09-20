@@ -21,11 +21,14 @@ import java.util.ArrayList;
  */
 public class DynamicFieldDAO extends BasicDAO {
 
-    public ArrayList getDynamicFields(String tableName) throws Exception {
+    public ArrayList getDynamicFields(String tableName, String organizationIds) throws Exception {
         ResultSet rs = null;
         String sql = "select d.*, o.name as organization_name"
                 + " from dynamic_field as d, organization as o where d.organization_id=o.id and d.table_name='" + tableName + "'"
                 + " and o.status=" + EmployeeBean.STATUS_ACTIVE;
+        if (!organizationIds.isEmpty()) {
+            sql += " and d.organization_id in (" + organizationIds + ")";
+        }
         sql += " order by name";
         ArrayList list = new ArrayList();
         try {

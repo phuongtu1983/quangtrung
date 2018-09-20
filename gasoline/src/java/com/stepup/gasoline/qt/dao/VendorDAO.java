@@ -21,11 +21,14 @@ import java.util.ArrayList;
  */
 public class VendorDAO extends BasicDAO {
 
-    public ArrayList getVendors(int status) throws Exception {
+    public ArrayList getVendors(int status, String organizationIds) throws Exception {
         ResultSet rs = null;
         String sql = "select v.*, o.name as organization_name from vendor as v, organization as o where v.organization_id=o.id and o.status=" + EmployeeBean.STATUS_ACTIVE;
         if (status != 0) {
             sql += " and v.status=" + status;
+        }
+        if (!organizationIds.isEmpty()) {
+            sql += " and v.organization_id in(" + organizationIds + ")";
         }
         sql += " order by v.name desc";
         ArrayList vendorList = new ArrayList();

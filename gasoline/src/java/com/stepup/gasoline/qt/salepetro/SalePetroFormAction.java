@@ -77,7 +77,7 @@ public class SalePetroFormAction extends SpineAction {
 
         ArrayList arrAccessories = null;
         try {
-            arrAccessories = goodDAO.getPetros(EmployeeBean.STATUS_ACTIVE);
+            arrAccessories = goodDAO.getPetros(EmployeeBean.STATUS_ACTIVE, QTUtil.getOrganizationManageds(request.getSession()));
         } catch (Exception ex) {
         }
         if (arrAccessories == null) {

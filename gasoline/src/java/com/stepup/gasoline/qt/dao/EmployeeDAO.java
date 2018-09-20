@@ -77,7 +77,8 @@ public class EmployeeDAO extends BasicDAO {
 
     public EmployeeFormBean getEmployee(int empId) throws Exception {
         ResultSet rs = null;
-        String sql = "select e.*, o.name as organization_name from employee as e, organization as o where e.organization_id=o.id and e.id=" + empId;
+        String sql = "select e.*, o.name as organization_name"
+                + " from employee as e left join organization as o on e.organization_id=o.id where e.status=" + EmployeeBean.STATUS_ACTIVE + " and e.id=" + empId;
         try {
             rs = DBUtil.executeQuery(sql);
             while (rs.next()) {
@@ -140,11 +141,14 @@ public class EmployeeDAO extends BasicDAO {
         return null;
     }
 
-    public ArrayList getEmployeeHasNotAccount(int status) throws Exception {
+    public ArrayList getEmployeeHasNotAccount(int status, String organizationIds) throws Exception {
         ResultSet rs = null;
-        String sql = "select * from employee where id not in (select employee_id from user)";
+        String sql = "select * from employee where id not in (select employee_id from user where status=" + EmployeeBean.STATUS_ACTIVE + ")";
         if (status != 0) {
             sql += " and status=" + status;
+        }
+        if (!organizationIds.isEmpty()) {
+            sql += " and organization_id in(" + organizationIds + ")";
         }
         sql += " order by id desc";
         ArrayList employeeList = new ArrayList();
@@ -310,12 +314,12 @@ public class EmployeeDAO extends BasicDAO {
         }
     }
 
-    public ArrayList searchEmployeeAdvance(String fromDate, String endDate) throws Exception {
+    public ArrayList searchEmployeeAdvance(String fromDate, String endDate, String organizationIds) throws Exception {
         SPUtil spUtil = null;
         ArrayList list = new ArrayList();
         ResultSet rs = null;
         try {
-            String sql = "{call searchEmployeeAdvance(?,?)}";
+            String sql = "{call searchEmployeeAdvance(?,?,?)}";
             if (GenericValidator.isBlankOrNull(fromDate)) {
                 fromDate = DateUtil.today("dd/MM/yyyy");
             }
@@ -326,6 +330,7 @@ public class EmployeeDAO extends BasicDAO {
             if (spUtil != null) {
                 spUtil.getCallableStatement().setString("_start_date", fromDate);
                 spUtil.getCallableStatement().setString("_end_date", endDate);
+                spUtil.getCallableStatement().setString("_organization_ids", organizationIds);
                 rs = spUtil.executeQuery();
                 if (rs != null) {
                     EmployeeAdvanceFormBean bean = null;
@@ -492,18 +497,19 @@ public class EmployeeDAO extends BasicDAO {
         return result;
     }
 
-    public ArrayList searchSalary(String fromDate) throws Exception {
+    public ArrayList searchSalary(String fromDate, String organizationIds) throws Exception {
         SPUtil spUtil = null;
         ArrayList list = new ArrayList();
         ResultSet rs = null;
         try {
-            String sql = "{call searchSalary(?)}";
+            String sql = "{call searchSalary(?,?)}";
             if (GenericValidator.isBlankOrNull(fromDate)) {
                 fromDate = DateUtil.today("dd/MM/yyyy");
             }
             spUtil = new SPUtil(sql);
             if (spUtil != null) {
                 spUtil.getCallableStatement().setString("_start_date", fromDate);
+                spUtil.getCallableStatement().setString("_organization_ids", organizationIds);
                 rs = spUtil.executeQuery();
                 if (rs != null) {
                     SalaryFormBean bean = null;
@@ -641,12 +647,12 @@ public class EmployeeDAO extends BasicDAO {
         }
     }
 
-    public ArrayList searchEmployeeTimesheet(String fromDate, String endDate) throws Exception {
+    public ArrayList searchEmployeeTimesheet(String fromDate, String endDate, String organizationIds) throws Exception {
         SPUtil spUtil = null;
         ArrayList list = new ArrayList();
         ResultSet rs = null;
         try {
-            String sql = "{call searchEmployeeTimesheet(?,?)}";
+            String sql = "{call searchEmployeeTimesheet(?,?,?)}";
             if (GenericValidator.isBlankOrNull(fromDate)) {
                 fromDate = DateUtil.today("dd/MM/yyyy");
             }
@@ -657,6 +663,7 @@ public class EmployeeDAO extends BasicDAO {
             if (spUtil != null) {
                 spUtil.getCallableStatement().setString("_start_date", fromDate);
                 spUtil.getCallableStatement().setString("_end_date", endDate);
+                spUtil.getCallableStatement().setString("_organization_ids", organizationIds);
                 rs = spUtil.executeQuery();
                 if (rs != null) {
                     EmployeeTimesheetFormBean bean = null;
@@ -824,12 +831,12 @@ public class EmployeeDAO extends BasicDAO {
         return result;
     }
 
-    public ArrayList searchEmployeeOff(String fromDate, String endDate) throws Exception {
+    public ArrayList searchEmployeeOff(String fromDate, String endDate, String organizationIds) throws Exception {
         SPUtil spUtil = null;
         ArrayList list = new ArrayList();
         ResultSet rs = null;
         try {
-            String sql = "{call searchEmployeeOff(?,?)}";
+            String sql = "{call searchEmployeeOff(?,?,?)}";
             if (GenericValidator.isBlankOrNull(fromDate)) {
                 fromDate = DateUtil.today("dd/MM/yyyy");
             }
@@ -840,6 +847,7 @@ public class EmployeeDAO extends BasicDAO {
             if (spUtil != null) {
                 spUtil.getCallableStatement().setString("_start_date", fromDate);
                 spUtil.getCallableStatement().setString("_end_date", endDate);
+                spUtil.getCallableStatement().setString("_organization_ids", organizationIds);
                 rs = spUtil.executeQuery();
                 if (rs != null) {
                     EmployeeOffFormBean bean = null;
@@ -1242,12 +1250,12 @@ public class EmployeeDAO extends BasicDAO {
         }
     }
 
-    public ArrayList searchEmployeeOffIncrease(String fromDate, String endDate) throws Exception {
+    public ArrayList searchEmployeeOffIncrease(String fromDate, String endDate, String organizationIds) throws Exception {
         SPUtil spUtil = null;
         ArrayList list = new ArrayList();
         ResultSet rs = null;
         try {
-            String sql = "{call searchEmployeeOffIncrease(?,?)}";
+            String sql = "{call searchEmployeeOffIncrease(?,?,?)}";
             if (GenericValidator.isBlankOrNull(fromDate)) {
                 fromDate = DateUtil.today("dd/MM/yyyy");
             }
@@ -1258,6 +1266,7 @@ public class EmployeeDAO extends BasicDAO {
             if (spUtil != null) {
                 spUtil.getCallableStatement().setString("_start_date", fromDate);
                 spUtil.getCallableStatement().setString("_end_date", endDate);
+                spUtil.getCallableStatement().setString("_organization_ids", organizationIds);
                 rs = spUtil.executeQuery();
                 if (rs != null) {
                     EmployeeOffIncreaseFormBean bean = null;
@@ -1414,12 +1423,12 @@ public class EmployeeDAO extends BasicDAO {
         }
     }
 
-    public ArrayList searchEmployeeOffMoney(String fromDate, String endDate) throws Exception {
+    public ArrayList searchEmployeeOffMoney(String fromDate, String endDate, String organizationIds) throws Exception {
         SPUtil spUtil = null;
         ArrayList list = new ArrayList();
         ResultSet rs = null;
         try {
-            String sql = "{call searchEmployeeOffMoney(?,?)}";
+            String sql = "{call searchEmployeeOffMoney(?,?,?)}";
             if (GenericValidator.isBlankOrNull(fromDate)) {
                 fromDate = DateUtil.today("dd/MM/yyyy");
             }
@@ -1430,6 +1439,7 @@ public class EmployeeDAO extends BasicDAO {
             if (spUtil != null) {
                 spUtil.getCallableStatement().setString("_start_date", fromDate);
                 spUtil.getCallableStatement().setString("_end_date", endDate);
+                spUtil.getCallableStatement().setString("_organization_ids", organizationIds);
                 rs = spUtil.executeQuery();
                 if (rs != null) {
                     EmployeeOffMoneyFormBean bean = null;

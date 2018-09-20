@@ -79,6 +79,14 @@ public class PrintContractAction extends BaseAction {
             CustomerDAO customerDAO = new CustomerDAO();
             CustomerFormBean customerBean = customerDAO.getCustomer(contractBean.getCustomerId());
 
+            if (organizationBean == null) {
+                organizationBean = new OrganizationBean();
+            }
+
+            if (customerBean == null) {
+                customerBean = new CustomerFormBean();
+            }
+
             String fileName = wordDir + "/" + templateFileName + "-" + userName + ".docx";
             arrayFile.add(fileName);
             String wordTemplate = request.getSession().getServletContext().getRealPath("/templates/" + templateFileName + ".docx");

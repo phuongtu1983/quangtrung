@@ -35,7 +35,7 @@ public class GetPermissionPanelAction extends SpineAction {
         ArrayList userList = null;
         UserDAO userDAO = new UserDAO();
         try {
-            userList = userDAO.getUsers(0);
+            userList = userDAO.getUsers(0, QTUtil.getOrganizationManageds(request.getSession()));
         } catch (Exception ex) {
         }
         if (userList == null) {

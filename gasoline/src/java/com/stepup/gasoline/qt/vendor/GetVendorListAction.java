@@ -9,6 +9,7 @@ import com.stepup.core.util.OutputUtil;
 import com.stepup.core.util.StringUtil;
 import com.stepup.gasoline.qt.core.BaseAction;
 import com.stepup.gasoline.qt.dao.VendorDAO;
+import com.stepup.gasoline.qt.util.QTUtil;
 import java.util.ArrayList;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -29,7 +30,7 @@ public class GetVendorListAction extends BaseAction {
         buff.append("<rows>");
         try {
             VendorDAO vendorDAO = new VendorDAO();
-            ArrayList list = vendorDAO.getVendors(NumberUtil.parseInt(request.getParameter("status"), 0));
+            ArrayList list = vendorDAO.getVendors(NumberUtil.parseInt(request.getParameter("status"), 0), QTUtil.getOrganizationManageds(request.getSession()));
             if (list != null) {
                 int length = list.size();
                 for (int i = 0; i < length; i++) {

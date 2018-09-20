@@ -23,11 +23,14 @@ import java.util.ArrayList;
  */
 public class OrganizationDAO extends BasicDAO {
 
-    public ArrayList getOrganizations(int status) throws Exception {
+    public ArrayList getOrganizations(int status, String ids) throws Exception {
         ResultSet rs = null;
         String sql = "select * from organization where 1";
         if (status != 0) {
             sql += " and status=" + status;
+        }
+        if (!ids.isEmpty()) {
+            sql += " and id in(" + ids + ")";
         }
         sql += " order by name";
         ArrayList list = new ArrayList();
@@ -62,7 +65,7 @@ public class OrganizationDAO extends BasicDAO {
 
     public ArrayList getOrganizations(String ids) throws Exception {
         ResultSet rs = null;
-        String sql = "select * from organization where id in (" + ids + ")";
+        String sql = "select * from organization where id in (" + ids + ") and status=" + EmployeeBean.STATUS_ACTIVE;
         sql += " order by name";
         ArrayList list = new ArrayList();
         try {
@@ -96,7 +99,7 @@ public class OrganizationDAO extends BasicDAO {
 
     public OrganizationBean getOrganization(int organizationId) throws Exception {
         ResultSet rs = null;
-        String sql = "select * from organization where id=" + organizationId;
+        String sql = "select * from organization where id=" + organizationId + " and status=" + EmployeeBean.STATUS_ACTIVE;
         try {
             rs = DBUtil.executeQuery(sql);
             while (rs.next()) {
@@ -130,7 +133,7 @@ public class OrganizationDAO extends BasicDAO {
         }
         return null;
     }
-    
+
     public OrganizationBean getOrganizationByEmployee(int employeeId) throws Exception {
         ResultSet rs = null;
         String sql = "select o.id, o.status, coalesce(o.name,'') as name, coalesce(o.code,'') as code, coalesce(o.address,'') as address"
@@ -220,9 +223,6 @@ public class OrganizationDAO extends BasicDAO {
                     + " Values ('" + bean.getName() + "','" + bean.getCode() + "','" + bean.getAddress() + "'," + bean.getStatus() + ",'" + bean.getPhone() + "','"
                     + bean.getFax() + "','" + bean.getBankAccount() + "','" + bean.getTax() + "','" + bean.getPresenter() + "','" + bean.getPresenterPosition() + "')";
             id = DBUtil.executeInsert(sql);
-//            sql = "INSERT INTO dynamic_field(CODE, NAME, organization_id, table_name, can_edit)"
-//                    + " SELECT code, name, " + id + ", table_name, 0 FROM dynamic_field_free";
-//            DBUtil.executeInsert(sql);
         } catch (SQLException sqle) {
             throw new Exception(sqle.getMessage());
         } catch (Exception ex) {
@@ -266,12 +266,15 @@ public class OrganizationDAO extends BasicDAO {
         }
     }
 
-    public ArrayList getStores(int status) throws Exception {
+    public ArrayList getStores(int status, String organizationIds) throws Exception {
         ResultSet rs = null;
         String sql = "SELECT s.id, s.code, s.name, s.status, o.name as organization_name"
                 + " FROM store AS s, organization as o WHERE s.organization_id=o.id and o.status=" + EmployeeBean.STATUS_ACTIVE;
         if (status != 0) {
             sql += " and s.status=" + status;
+        }
+        if (!organizationIds.isEmpty()) {
+            sql += " and s.organization_id in(" + organizationIds + ")";
         }
         sql += " order by s.name";
         ArrayList equipmentList = new ArrayList();
@@ -344,7 +347,7 @@ public class OrganizationDAO extends BasicDAO {
 
     public StoreFormBean getStore(int storeId) throws Exception {
         ResultSet rs = null;
-        String sql = "select s.* from store as s where s.id=" + storeId;
+        String sql = "select s.* from store as s where s.id=" + storeId + " and s.status=" + EmployeeBean.STATUS_ACTIVE;
         try {
             rs = DBUtil.executeQuery(sql);
             while (rs.next()) {

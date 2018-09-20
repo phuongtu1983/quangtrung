@@ -78,7 +78,7 @@ public class PetroImportFormAction extends SpineAction {
         ArrayList arrPetro = null;
         try {
             GoodDAO goodDAO = new GoodDAO();
-            arrPetro = goodDAO.getPetros(EmployeeBean.STATUS_ACTIVE);
+            arrPetro = goodDAO.getPetros(EmployeeBean.STATUS_ACTIVE, QTUtil.getOrganizationManageds(request.getSession()));
         } catch (Exception ex) {
         }
         if (arrPetro == null) {

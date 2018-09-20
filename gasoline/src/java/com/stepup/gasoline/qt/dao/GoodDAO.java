@@ -744,12 +744,15 @@ public class GoodDAO extends BasicDAO {
         }
     }
 
-    public ArrayList getPetros(int status) throws Exception {
+    public ArrayList getPetros(int status, String organizationIds) throws Exception {
         ResultSet rs = null;
         String sql = "select p.*, o.name as organization_name, u.name as unit_name from petro as p, organization as o, unit as u"
                 + " where p.organization_id=o.id and p.unit_id=u.id and o.status=" + EmployeeBean.STATUS_ACTIVE + " and u.status=" + EmployeeBean.STATUS_ACTIVE;
         if (status != 0) {
             sql += " and p.status=" + status;
+        }
+        if (!organizationIds.isEmpty()) {
+            sql += " and o.id in(" + organizationIds + ")";
         }
         sql += " order by p.name";
         ArrayList list = new ArrayList();

@@ -86,7 +86,7 @@ public class PermissionFormAction extends SpineAction {
         ArrayList arrEmp = new ArrayList();
         try {
             UserDAO empDAO = new UserDAO();
-            arrEmp = empDAO.getUsers(EmployeeBean.STATUS_ACTIVE);
+            arrEmp = empDAO.getUsers(EmployeeBean.STATUS_ACTIVE, QTUtil.getOrganizationManageds(request.getSession()));
         } catch (Exception ex) {
         }
         if (arrEmp == null) {
@@ -97,7 +97,7 @@ public class PermissionFormAction extends SpineAction {
         ArrayList arrOrg = new ArrayList();
         try {
             OrganizationDAO orgDAO = new OrganizationDAO();
-            arrOrg = orgDAO.getOrganizations(EmployeeBean.STATUS_ACTIVE);
+            arrOrg = orgDAO.getOrganizations(EmployeeBean.STATUS_ACTIVE, QTUtil.getOrganizationManageds(request.getSession()));
         } catch (Exception ex) {
         }
         if (arrOrg == null) {
@@ -150,7 +150,7 @@ public class PermissionFormAction extends SpineAction {
         perBean.setSharedId(2);
         perBean.setName(QTUtil.getBundleString("permission.list.title"));
         perBean.setValue(0);
-        perBean.setOperations("," + PermissionUtil.OPERATION_LIST + "," + PermissionUtil.OPERATION_ADD + "," + PermissionUtil.OPERATION_EDIT + ",");
+        perBean.setOperations("," + PermissionUtil.OPERATION_LIST + "," + PermissionUtil.OPERATION_ADD + "," + PermissionUtil.OPERATION_EDIT + "," + PermissionUtil.OPERATION_DELETE + "," + PermissionUtil.OPERATION_PRINT + ",");
         arrFun.add(perBean);
 
         perBean = new PermissionViewBean();

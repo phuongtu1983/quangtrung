@@ -9,7 +9,7 @@
 <table>
     <tr>
         <td>
-            <%if (PermissionUtil.hasPermission(request, PermissionUtil.OPERATION_ADD, PermissionUtil.PER_ORGANIZATION)) {%> 
+            <%if (PermissionUtil.hasPermission(request, PermissionUtil.OPERATION_ADD, PermissionUtil.PER_DYNAMIC_FIELD)) {%> 
             <button class="i_create_write icon small green" onclick="return getDynamicField(0, 'loadDynamicFieldList');"><bean:message key="message.add"/></button>
             <%}%>
         </td>

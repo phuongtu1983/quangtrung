@@ -9,6 +9,7 @@ import com.stepup.gasoline.qt.core.SpineAction;
 import com.stepup.gasoline.qt.dao.DynamicFieldDAO;
 import com.stepup.gasoline.qt.dao.OrganizationDAO;
 import com.stepup.gasoline.qt.util.Constants;
+import com.stepup.gasoline.qt.util.QTUtil;
 import java.util.ArrayList;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -53,7 +54,7 @@ public class DynamicFieldFormAction extends SpineAction {
         ArrayList arrOrganization = null;
         try {
             OrganizationDAO organizationDAO = new OrganizationDAO();
-            arrOrganization = organizationDAO.getOrganizations(EmployeeBean.STATUS_ACTIVE);
+            arrOrganization = organizationDAO.getOrganizations(EmployeeBean.STATUS_ACTIVE, QTUtil.getOrganizationManageds(request.getSession()));
         } catch (Exception ex) {
         }
         if (arrOrganization == null) {

@@ -78,7 +78,7 @@ public class FixedAssetFormAction extends SpineAction {
         ArrayList arrFixedAssetGroup = null;
         try {
             FixedAssetDAO assetDAO = new FixedAssetDAO();
-            arrFixedAssetGroup = assetDAO.getFixedAssetGroups();
+            arrFixedAssetGroup = assetDAO.getFixedAssetGroups(QTUtil.getOrganizationManageds(request.getSession()));
         } catch (Exception ex) {
         }
         if (arrFixedAssetGroup == null) {

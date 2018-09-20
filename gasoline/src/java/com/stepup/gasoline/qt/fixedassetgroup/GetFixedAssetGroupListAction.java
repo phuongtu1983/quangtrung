@@ -8,6 +8,7 @@ import com.stepup.core.util.OutputUtil;
 import com.stepup.core.util.StringUtil;
 import com.stepup.gasoline.qt.core.BaseAction;
 import com.stepup.gasoline.qt.dao.FixedAssetDAO;
+import com.stepup.gasoline.qt.util.QTUtil;
 import java.util.ArrayList;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -28,7 +29,7 @@ public class GetFixedAssetGroupListAction extends BaseAction {
         buff.append("<rows>");
         try {
             FixedAssetDAO assetDAO = new FixedAssetDAO();
-            ArrayList list = assetDAO.getFixedAssetGroups();
+            ArrayList list = assetDAO.getFixedAssetGroups(QTUtil.getOrganizationManageds(request.getSession()));
             if (list != null) {
                 int length = list.size();
                 for (int i = 0; i < length; i++) {
