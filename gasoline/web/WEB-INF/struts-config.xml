@@ -986,6 +986,13 @@
         <action path="/delAttchmentFile" type="com.stepup.gasoline.qt.attachmentfile.DeleteAttachmentFileAction" scope="request" validate="false" >
         </action>
         <!-- end attachfile -->
+        <!-- start report -->
+        <action path="/getReportPanel" type="com.stepup.gasoline.qt.common.BaseReportPanelFormAction" scope="request" validate="false">
+            <forward name="success" path="/report/reportspanel.jsp" />
+        </action>
+        <action path="/reportPrint" type="com.stepup.gasoline.qt.report.PrintReportAction" scope="request" validate="false" >
+        </action>
+        <!-- end report -->
     </action-mappings>
     
     <controller processorClass="org.apache.struts.tiles.TilesRequestProcessor"/>

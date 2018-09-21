@@ -249,6 +249,8 @@ function menuClick(id) {
         loadContractPanel();
     else if (id == 'contractadd')
         getContract(0, 'loadContractPanel');
+    else if (id == 'reportlpgimport')
+        showReportPanel('reportlpgimport');
 }
 function clearContent() {
     var contentDiv = document.getElementById("contentDiv");
@@ -7266,5 +7268,64 @@ function delAttchmentFile() {
     callAjaxCheckError("delAttchmentFile.do?ids=" + checked, null, null, function(data) {
         loadAttchmentFileList(null, null);
     });
+    return false;
+}
+function showReportPanel(name){
+    var url='getReportPanel.do?reportName='+name;
+    callAjax(url,null,null,function(data){
+        showPopupForm(data);
+        changePopupFormHeader(document.getElementById("reportSearchFormHeader").value);
+        var myCalendar = new dhtmlXCalendarObject(["fromDate","toDate"]);
+        myCalendar.setSkin('dhx_web');
+        var currentTime =getCurrentDate();
+        document.forms['reportSearchForm'].fromDate.value=currentTime;
+        document.forms['reportSearchForm'].toDate.value=currentTime;
+        myCalendar.setDateFormat("%d/%m/%Y");
+    });
+}
+function reportTimeChange(list, form){
+    if(list.selectedIndex==-1) return false;
+    var myCalendar = new dhtmlXCalendarObject(["fromDate","toDate"]);
+    myCalendar.setSkin('dhx_web');
+    var currentTime = new Date();
+    var dd = currentTime.getDate();
+    var mm = currentTime.getMonth()+1;
+    var yyyy = currentTime.getFullYear();
+    if(dd < 10) dd='0'+dd;
+    if(mm < 10) mm='0'+mm;
+    if(list.selectedIndex==0){
+        currentTime = dd+'/'+mm+'/'+yyyy;
+        myCalendar.setDateFormat("%d/%m/%Y");
+    } else if(list.selectedIndex==1){
+        currentTime = mm+'/'+yyyy;
+        myCalendar.setDateFormat("%m/%Y");
+    } else if(list.selectedIndex==2){
+        currentTime = yyyy;
+        myCalendar.setDateFormat("%Y");
+    }
+    document.forms[form].fromDate.value=currentTime;
+    document.forms[form].toDate.value=currentTime;
+    return false;
+}
+function printReport(fromDate, toDate){
+    var list = document.getElementById("reportSearchFormTime");
+    if(list==null || list.selectedIndex==-1) return false;
+    if(list.selectedIndex==1){
+        fromDate = "01/"+fromDate;
+        var ind = toDate.indexOf("/");
+        var month = toDate.substring(0,ind);
+        var year = toDate.substring(ind+1);
+        toDate = month + "/01/" + year;
+        var d = new Date(toDate);
+        var lastDay = new Date(d.getFullYear(), d.getMonth() + 1, 0).getDate();
+        toDate = lastDay + "/" + month + "/" + year;
+    } else if(list.selectedIndex==2){
+        fromDate = "01/01/"+fromDate;
+        toDate = "31/12/"+toDate;
+    }
+    var url="reportPrint.do?reportName="+document.getElementById("reportSearchFormName").value;
+    if(fromDate!==null) url+="&fromDate="+fromDate;
+    if(toDate!==null) url+="&toDate="+toDate;
+    callServer(url);
     return false;
 }

@@ -133,4 +133,5 @@ public class Constants {
     public static final String UPLOAD_TEMP_PATH = "/fileuploadedtemp";
     public static final String UPLOADED_PATH = "/uploadedFiles";
     public static final String DOWNLOADED_TEMP_PATH = "/downloadedtemp";
+    public static final String REPORT_BEAN = "reportBean";
 }

@@ -148,7 +148,7 @@ public class PermissionFormAction extends SpineAction {
         perBean.setCounter("2");
         perBean.setLevel(0);
         perBean.setSharedId(2);
-        perBean.setName(QTUtil.getBundleString("permission.list.title"));
+        perBean.setName(QTUtil.getBundleString("message.permission.func.list"));
         perBean.setValue(0);
         perBean.setOperations("," + PermissionUtil.OPERATION_LIST + "," + PermissionUtil.OPERATION_ADD + "," + PermissionUtil.OPERATION_EDIT + "," + PermissionUtil.OPERATION_DELETE + "," + PermissionUtil.OPERATION_PRINT + ",");
         arrFun.add(perBean);
@@ -637,6 +637,24 @@ public class PermissionFormAction extends SpineAction {
         perBean.setName(QTUtil.getBundleString("expense.title"));
         perBean.setValue(PermissionUtil.PER_EXPENSE);
         perBean.setOperations("," + PermissionUtil.OPERATION_LIST + "," + PermissionUtil.OPERATION_ADD + "," + PermissionUtil.OPERATION_EDIT + "," + PermissionUtil.OPERATION_DELETE + ",");
+        arrFun.add(perBean);
+
+        perBean = new PermissionViewBean();
+        perBean.setCounter("3");
+        perBean.setLevel(0);
+        perBean.setSharedId(3);
+        perBean.setName(QTUtil.getBundleString("message.permission.report.list"));
+        perBean.setValue(0);
+        perBean.setOperations("," + PermissionUtil.OPERATION_LIST + ",");
+        arrFun.add(perBean);
+
+        perBean = new PermissionViewBean();
+        perBean.setCounter("3.1");
+        perBean.setLevel(2);
+        perBean.setSharedId(3);
+        perBean.setName(QTUtil.getBundleString("report.lpgImport.title"));
+        perBean.setValue(PermissionUtil.PER_REPORT_LPG_IMPORT);
+        perBean.setOperations("," + PermissionUtil.OPERATION_LIST + ",");
         arrFun.add(perBean);
 
         request.setAttribute(Constants.PERMISSION_FUNC_LIST, arrFun);

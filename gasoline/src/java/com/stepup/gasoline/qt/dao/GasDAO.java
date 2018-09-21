@@ -71,12 +71,12 @@ import java.util.ArrayList;
  */
 public class GasDAO extends BasicDAO {
 
-    public ArrayList searchLpgImport(String fromDate, String endDate) throws Exception {
+    public ArrayList searchLpgImport(String fromDate, String endDate, String organizationIds) throws Exception {
         SPUtil spUtil = null;
         ArrayList list = new ArrayList();
         ResultSet rs = null;
         try {
-            String sql = "{call searchLpgImport(?,?)}";
+            String sql = "{call searchLpgImport(?,?,?)}";
             if (GenericValidator.isBlankOrNull(fromDate)) {
                 fromDate = DateUtil.today("dd/MM/yyyy");
             }
@@ -87,6 +87,7 @@ public class GasDAO extends BasicDAO {
             if (spUtil != null) {
                 spUtil.getCallableStatement().setString("_start_date", fromDate);
                 spUtil.getCallableStatement().setString("_end_date", endDate);
+                spUtil.getCallableStatement().setString("_organization_ids", organizationIds);
                 rs = spUtil.executeQuery();
                 if (rs != null) {
                     LpgImportFormBean bean = null;

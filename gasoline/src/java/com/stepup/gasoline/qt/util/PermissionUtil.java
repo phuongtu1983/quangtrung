@@ -142,4 +142,5 @@ public class PermissionUtil {
     public static int PER_FIXED_ASSET = 54;
     public static int PER_FIXED_ASSET_DEPRECIATION = 55;
     public static int PER_CONTRACT = 56;
+    public static int PER_REPORT_LPG_IMPORT = 57;
 }

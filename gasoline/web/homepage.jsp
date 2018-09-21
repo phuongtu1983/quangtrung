@@ -52,10 +52,11 @@
         <script type='text/javascript' src="js/dhtmlx/dataview/dhtmlxdataview_debug.js"></script>
         <script type="text/javascript" src="js/dojotoolkit/dojo/dojo.js" djConfig="parseOnLoad:true"></script>
 
+        <script type='text/javascript' src='js/date.js'></script>
         <script type='text/javascript' src='js/Ajax.js'></script>
-        <script type='text/javascript' src='js/gasoline.js'></script>
         <script type='text/javascript' src='js/common.js'></script>
         <script type='text/javascript' src='js/md5.js'></script>
+        <script type='text/javascript' src='js/gasoline.js'></script>
         <script src="js/jquery-1.4.2.min.js"></script>
         <script src="js/jquery.hotkeys.js"></script>
         <script type='text/javascript' src="js/NumberFormat.js"></script>

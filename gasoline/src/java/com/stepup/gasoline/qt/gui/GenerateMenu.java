@@ -677,6 +677,23 @@ public class GenerateMenu {
                 buff.append(buffTemp);
                 buff.append("</item>");//end function payment
             }
+            
+            buffTemp = new StringBuilder();
+            if (isHasPermission(PermissionUtil.OPERATION_LIST + "",
+                    PermissionUtil.PER_REPORT_LPG_IMPORT)) {
+                if (isHasPermission(PermissionUtil.OPERATION_LIST + "", PermissionUtil.PER_REPORT_LPG_IMPORT)) {
+                    buffTemp.append("<item id=\"reportstock\" complex=\"true\" text=\"").append(QTUtil.getBundleString("report.stock.title")).append("\">");
+                    if (isHasPermission(PermissionUtil.OPERATION_LIST, PermissionUtil.PER_CONTRACT)) {
+                        buffTemp.append("<item id=\"reportlpgimport\" text=\"").append(QTUtil.getBundleString("report.lpgImport.title")).append("\"/>");
+                    }
+                    buffTemp.append("</item>");
+                }
+            }
+            if (buffTemp.length() > 0) {
+                buff.append("<item id=\"reportfunction\" complex=\"true\" text=\"").append(QTUtil.getBundleString("menu.function.report.title")).append("\">");//start report
+                buff.append(buffTemp);
+                buff.append("</item>");//end report
+            }
 
             buff.append("<item id=\"setting\" complex=\"true\" text=\"").append(QTUtil.getBundleString("menu.admin.setting.title")).append("\">");//start setting
             buff.append("<item id=\"resetpassword\" text=\"").append(QTUtil.getBundleString("message.passwordform.title")).append("\"/>");//reset pasword
