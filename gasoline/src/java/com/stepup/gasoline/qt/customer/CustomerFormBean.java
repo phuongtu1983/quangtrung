@@ -28,6 +28,9 @@ public class CustomerFormBean extends DynamicFieldValueParentFormBean {
     private String tax;
     private String presenter;
     private String presenterPosition;
+    private String[] customerDocumentId;
+    private String[] documentId;
+    private String[] customerDocumentExpiredDate;
 
     public CustomerFormBean() {
     }
@@ -165,6 +168,30 @@ public class CustomerFormBean extends DynamicFieldValueParentFormBean {
 
     public void setAddress(String address) {
         this.address = address;
+    }
+
+    public String[] getCustomerDocumentId() {
+        return customerDocumentId;
+    }
+
+    public void setCustomerDocumentId(String[] customerDocumentId) {
+        this.customerDocumentId = customerDocumentId;
+    }
+
+    public String[] getDocumentId() {
+        return documentId;
+    }
+
+    public void setDocumentId(String[] documentId) {
+        this.documentId = documentId;
+    }
+
+    public String[] getCustomerDocumentExpiredDate() {
+        return customerDocumentExpiredDate;
+    }
+
+    public void setCustomerDocumentExpiredDate(String[] customerDocumentExpiredDate) {
+        this.customerDocumentExpiredDate = customerDocumentExpiredDate;
     }
 
 }

@@ -52,8 +52,8 @@ public class AddDynamicFieldValueAction extends SpineAction {
 
     protected void addDynamicFieldValues(DynamicFieldValueParentFormBean formBean) {
         try {
-            DynamicFieldDAO dynamicFieldDAODAO = new DynamicFieldDAO();
-            ArrayList arrDetail = dynamicFieldDAODAO.getDynamicFieldValues(this.parentId, getTableName(), this.organizationId);
+            DynamicFieldDAO dynamicFieldDAO = new DynamicFieldDAO();
+            ArrayList arrDetail = dynamicFieldDAO.getDynamicFieldValues(this.parentId, getTableName(), this.organizationId);
             int length = formBean.getFieldValueId().length;
             int id = 0;
             DynamicFieldValueBean bean = null;
@@ -64,7 +64,7 @@ public class AddDynamicFieldValueAction extends SpineAction {
                     bean.setParentId(this.parentId);
                     bean.setFieldId(NumberUtil.parseInt(formBean.getFieldId()[i], 0));
                     bean.setValue(formBean.getFieldValue()[i] + "");
-                    dynamicFieldDAODAO.insertDynamicFieldValue(bean);
+                    dynamicFieldDAO.insertDynamicFieldValue(bean);
                 } else {
                     DynamicFieldValueFormBean oldBean = null;
                     boolean isUpdate = false;
@@ -79,7 +79,7 @@ public class AddDynamicFieldValueAction extends SpineAction {
                                 bean.setValue(formBean.getFieldValue()[i] + "");
                             }
                             if (isUpdate) {
-                                dynamicFieldDAODAO.updateDynamicFieldValue(bean);
+                                dynamicFieldDAO.updateDynamicFieldValue(bean);
                             }
                             arrDetail.remove(j);
                             break;

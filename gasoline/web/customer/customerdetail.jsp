@@ -60,6 +60,11 @@
                         </tr>
                         <tr>
                             <td height="30" style="padding-right: 20px" colspan="4">
+                                <div id="customerDocuments"><%@include  file="/customer/documents.jsp"%></div>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td height="30" style="padding-right: 20px" colspan="4">
                                 <div id="customerDynamicField"><%@include  file="/dynamicfield/fieldvalues.jsp"%></div>
                             </td>
                         </tr>

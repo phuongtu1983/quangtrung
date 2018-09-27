@@ -95,6 +95,8 @@ function menuClick(id) {
         getCustomer(0, 'loadCustomerPanel');
     else if (id == 'customerfiellist')
         loadDynamicFieldPanel("customer");
+    else if (id == 'customerdocumentlist')
+        loadCustomerDocumentPanel();
     else if (id == 'employeeadvancelist')
         loadEmployeeAdvancePanel();
     else if (id == 'employeeadvanceadd')
@@ -1947,6 +1949,20 @@ function getCustomer(id, handle, kind) {
         showPopupForm(data);
         document.getElementById('callbackFunc').value = handle;
         document.forms['customerForm'].code.focus();
+
+        var customerDocumentExpiredDate = document.getElementsByName("customerDocumentExpiredDate");
+        var ids = "";
+        var i;
+        for (i = 0; i < customerDocumentExpiredDate.length; i++) {
+            var obj = customerDocumentExpiredDate[i];
+            ids += "," + obj.id;
+        }
+        if (ids != "") {
+            ids = ids.substring(1);
+            var myCalendar = new dhtmlXCalendarObject(ids.split(","));
+            myCalendar.setSkin('dhx_web');
+            myCalendar.setDateFormat("%d/%m/%Y");
+        }
     });
 }
 function saveCustomer() {
@@ -7270,62 +7286,136 @@ function delAttchmentFile() {
     });
     return false;
 }
-function showReportPanel(name){
-    var url='getReportPanel.do?reportName='+name;
-    callAjax(url,null,null,function(data){
+function showReportPanel(name) {
+    var url = 'getReportPanel.do?reportName=' + name;
+    callAjax(url, null, null, function(data) {
         showPopupForm(data);
         changePopupFormHeader(document.getElementById("reportSearchFormHeader").value);
-        var myCalendar = new dhtmlXCalendarObject(["fromDate","toDate"]);
+        var myCalendar = new dhtmlXCalendarObject(["fromDate", "toDate"]);
         myCalendar.setSkin('dhx_web');
-        var currentTime =getCurrentDate();
-        document.forms['reportSearchForm'].fromDate.value=currentTime;
-        document.forms['reportSearchForm'].toDate.value=currentTime;
+        var currentTime = getCurrentDate();
+        document.forms['reportSearchForm'].fromDate.value = currentTime;
+        document.forms['reportSearchForm'].toDate.value = currentTime;
         myCalendar.setDateFormat("%d/%m/%Y");
     });
 }
-function reportTimeChange(list, form){
-    if(list.selectedIndex==-1) return false;
-    var myCalendar = new dhtmlXCalendarObject(["fromDate","toDate"]);
+function reportTimeChange(list, form) {
+    if (list.selectedIndex == -1)
+        return false;
+    var myCalendar = new dhtmlXCalendarObject(["fromDate", "toDate"]);
     myCalendar.setSkin('dhx_web');
     var currentTime = new Date();
     var dd = currentTime.getDate();
-    var mm = currentTime.getMonth()+1;
+    var mm = currentTime.getMonth() + 1;
     var yyyy = currentTime.getFullYear();
-    if(dd < 10) dd='0'+dd;
-    if(mm < 10) mm='0'+mm;
-    if(list.selectedIndex==0){
-        currentTime = dd+'/'+mm+'/'+yyyy;
+    if (dd < 10)
+        dd = '0' + dd;
+    if (mm < 10)
+        mm = '0' + mm;
+    if (list.selectedIndex == 0) {
+        currentTime = dd + '/' + mm + '/' + yyyy;
         myCalendar.setDateFormat("%d/%m/%Y");
-    } else if(list.selectedIndex==1){
-        currentTime = mm+'/'+yyyy;
+    } else if (list.selectedIndex == 1) {
+        currentTime = mm + '/' + yyyy;
         myCalendar.setDateFormat("%m/%Y");
-    } else if(list.selectedIndex==2){
+    } else if (list.selectedIndex == 2) {
         currentTime = yyyy;
         myCalendar.setDateFormat("%Y");
     }
-    document.forms[form].fromDate.value=currentTime;
-    document.forms[form].toDate.value=currentTime;
+    document.forms[form].fromDate.value = currentTime;
+    document.forms[form].toDate.value = currentTime;
     return false;
 }
-function printReport(fromDate, toDate){
+function printReport(fromDate, toDate) {
     var list = document.getElementById("reportSearchFormTime");
-    if(list==null || list.selectedIndex==-1) return false;
-    if(list.selectedIndex==1){
-        fromDate = "01/"+fromDate;
+    if (list == null || list.selectedIndex == -1)
+        return false;
+    if (list.selectedIndex == 1) {
+        fromDate = "01/" + fromDate;
         var ind = toDate.indexOf("/");
-        var month = toDate.substring(0,ind);
-        var year = toDate.substring(ind+1);
+        var month = toDate.substring(0, ind);
+        var year = toDate.substring(ind + 1);
         toDate = month + "/01/" + year;
         var d = new Date(toDate);
         var lastDay = new Date(d.getFullYear(), d.getMonth() + 1, 0).getDate();
         toDate = lastDay + "/" + month + "/" + year;
-    } else if(list.selectedIndex==2){
-        fromDate = "01/01/"+fromDate;
-        toDate = "31/12/"+toDate;
+    } else if (list.selectedIndex == 2) {
+        fromDate = "01/01/" + fromDate;
+        toDate = "31/12/" + toDate;
     }
-    var url="reportPrint.do?reportName="+document.getElementById("reportSearchFormName").value;
-    if(fromDate!==null) url+="&fromDate="+fromDate;
-    if(toDate!==null) url+="&toDate="+toDate;
+    var url = "reportPrint.do?reportName=" + document.getElementById("reportSearchFormName").value;
+    if (fromDate !== null)
+        url += "&fromDate=" + fromDate;
+    if (toDate !== null)
+        url += "&toDate=" + toDate;
     callServer(url);
+    return false;
+}
+function loadCustomerDocumentPanel() {
+    callAjax("getCustomerDocumentPanel.do", null, null, function(data) {
+        clearContent();
+        setAjaxData(data, "contentDiv");
+        loadCustomerDocumentList();
+    });
+}
+function loadCustomerDocumentList() {
+    var mygrid = new dhtmlXGridObject('customerDocumentList');
+    mygrid.setImagePath("js/dhtmlx/grid/imgs/");
+    mygrid.setHeader("T\u00EAn v\u0103n b\u1EA3n,Ghi ch\u00FA");
+    mygrid.attachHeader("#text_filter,#text_filter");
+    mygrid.setInitWidths("200,*");
+    mygrid.setColTypes("link,ro");
+    mygrid.setColSorting("str,str");
+    mygrid.setSkin("light");
+    var height = contentHeight - 210;
+    mygrid.al(true, height); //enableAutoHeight
+    mygrid.enablePaging(true, 15, 3, "recinfoArea");
+    mygrid.setPagingSkin("toolbar", "dhx_skyblue");
+    mygrid.init();
+    var url = "getCustomerDocumentList.do";
+    callAjax(url, null, null, function(data) {
+        mygrid.parse(data);
+    });
+    return false;
+}
+function getCustomerDocument(id, handle) {
+    popupName = 'TH\u00D4NG TIN V\u0102N B\u1EA2N';
+    var url = 'customerDocumentForm.do?temp=1';
+    if (id != 0)
+        url += '&customerDocumentId=' + id;
+    callAjax(url, null, null, function(data) {
+        showPopupForm(data);
+        document.getElementById('callbackFunc').value = handle;
+        document.forms['customerDocumentForm'].name.focus();
+    });
+}
+function saveCustomerDocument() {
+    if (scriptFunction == "saveCustomerDocument")
+        return false;
+    var field = document.forms['customerDocumentForm'].name;
+    if (field.value == '') {
+        alert("Vui l\u00F2ng nh\u1EADp t\u00EAn v\u0103n b\u1EA3n");
+        field.focus();
+        field = null;
+        return false;
+    }
+    field = null;
+    scriptFunction = "saveCustomerDocument";
+    callAjaxCheckError("addCustomerDocument.do", null, document.forms['customerDocumentForm'], function(data) {
+        scriptFunction = "";
+        var handle = document.getElementById('callbackFunc').value;
+        if (confirm('B\u1EA1n c\u00F3 mu\u1ED1n nh\u1EADp ti\u1EBFp th\u00F4ng tin kh\u00E1c ?'))
+            getCustomerDocument(0, handle);
+        else if (handle != '')
+            eval(handle + "()");
+        prepareHidePopup('customerDocumentFormshowHelpHideDiv');
+    });
+    return false;
+}
+function delCustomerDocument() {
+    callAjaxCheckError('delCustomerDocument.do?customerDocumentId=' + document.forms['customerDocumentForm'].id.value, null, null, function() {
+        loadCustomerDocumentPanel();
+        prepareHidePopup('customerDocumentFormshowHelpHideDiv');
+    });
     return false;
 }

@@ -56,6 +56,7 @@
         <form-bean name="accessoryKindForm" type="com.stepup.gasoline.qt.accessorykind.AccessoryKindFormBean"/>
         <form-bean name="vendorForm" type="com.stepup.gasoline.qt.vendor.VendorFormBean"/>
         <form-bean name="customerForm" type="com.stepup.gasoline.qt.customer.CustomerFormBean"/>
+        <form-bean name="customerDocumentForm" type="com.stepup.gasoline.qt.customerdocument.CustomerDocumentFormBean"/>
         <form-bean name="dynamicFieldForm" type="com.stepup.gasoline.qt.dynamicfield.DynamicFieldFormBean"/>
         <form-bean name="userForm" type="com.stepup.gasoline.qt.user.UserFormBean"/>
         <form-bean name="passwordForm" type="com.stepup.gasoline.qt.auth.PasswordFormBean"/>
@@ -993,6 +994,20 @@
         <action path="/reportPrint" type="com.stepup.gasoline.qt.report.PrintReportAction" scope="request" validate="false" >
         </action>
         <!-- end report -->
+        <!-- start customerdocument -->
+        <action path="/getCustomerDocumentPanel" type="com.stepup.gasoline.qt.common.BaseStatusFormAction" scope="request" validate="false">
+            <forward name="success" path="/customerdocument/customerdocumentpanel.jsp" />
+        </action>
+        <action path="/getCustomerDocumentList" type="com.stepup.gasoline.qt.customerdocument.GetCustomerDocumentListAction" scope="request" validate="false" >
+        </action>
+        <action path="/customerDocumentForm" type="com.stepup.gasoline.qt.customerdocument.CustomerDocumentFormAction" scope="request" validate="false">
+            <forward name="success" path="/customerdocument/customerdocumentdetail.jsp" />
+        </action>
+        <action path="/addCustomerDocument" name ="customerDocumentForm" scope="request" type="com.stepup.gasoline.qt.customerdocument.AddCustomerDocumentAction" input="/customerDocumentForm.do">
+        </action>
+        <action path="/delCustomerDocument" type="com.stepup.gasoline.qt.customerdocument.DeleteCustomerDocumentAction" scope="request" validate="false" >
+        </action>
+        <!-- end customerdocument -->
     </action-mappings>
     
     <controller processorClass="org.apache.struts.tiles.TilesRequestProcessor"/>

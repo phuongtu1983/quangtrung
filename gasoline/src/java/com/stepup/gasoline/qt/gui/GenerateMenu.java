@@ -200,9 +200,9 @@ public class GenerateMenu {
             }
 
             if (isHasPermission(PermissionUtil.OPERATION_LIST + "," + PermissionUtil.OPERATION_ADD,
-                    PermissionUtil.PER_CUSTOMER)) {
+                    PermissionUtil.PER_CUSTOMER + "," + PermissionUtil.PER_CUSTOMER_DOCUMENT)) {
                 buffTemp.append("<item id=\"customer\" complex=\"true\" text=\"").append(QTUtil.getBundleString("menu.admin.customer.title")).append("\">");//start customer
-                if (isHasPermission(PermissionUtil.OPERATION_LIST + "," + PermissionUtil.OPERATION_ADD, PermissionUtil.PER_VENDOR)) {
+                if (isHasPermission(PermissionUtil.OPERATION_LIST + "," + PermissionUtil.OPERATION_ADD, PermissionUtil.PER_CUSTOMER)) {
                     buffTemp.append("<item id=\"customers\" complex=\"true\" text=\"").append(QTUtil.getBundleString("customer.title")).append("\">");//start customers
                     if (isHasPermission(PermissionUtil.OPERATION_LIST, PermissionUtil.PER_CUSTOMER)) {
                         buffTemp.append("<item id=\"customerlist\" text=\"").append(QTUtil.getBundleString("customer.list.title")).append("\"/>");//list customer
@@ -212,6 +212,9 @@ public class GenerateMenu {
                     }
                     if (isHasPermission(PermissionUtil.OPERATION_ADD, PermissionUtil.PER_DYNAMIC_FIELD)) {
                         buffTemp.append("<item id=\"customerfiellist\" text=\"").append(QTUtil.getBundleString("customer.field.title")).append("\"/>");//add customer field
+                    }
+                    if (isHasPermission(PermissionUtil.OPERATION_LIST, PermissionUtil.PER_CUSTOMER_DOCUMENT)) {
+                        buffTemp.append("<item id=\"customerdocumentlist\" text=\"").append(QTUtil.getBundleString("customerDocument.list.title")).append("\"/>");//list customerDocument
                     }
                     buffTemp.append("</item>");//end customers
                 }
@@ -677,7 +680,7 @@ public class GenerateMenu {
                 buff.append(buffTemp);
                 buff.append("</item>");//end function payment
             }
-            
+
             buffTemp = new StringBuilder();
             if (isHasPermission(PermissionUtil.OPERATION_LIST + "",
                     PermissionUtil.PER_REPORT_LPG_IMPORT)) {

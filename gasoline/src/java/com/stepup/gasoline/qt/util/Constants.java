@@ -62,6 +62,7 @@ public class Constants {
     public static final String CUSTOMER = "customer";
     public static final String CUSTOMER_LIST = "customerList";
     public static final String CUSTOMER_KIND_LIST = "customerKindList";
+    public static final String CUSTOMER_DOCUMENT_LIST = "customerDocumentList";
     public static final String EMPLOYEE_ADVANCE = "employeeAdvance";
     public static final String EMPLOYEE_TIMESHEET = "employeeTimesheet";
     public static final String EMPLOYEE_OFF = "employeeOff";
@@ -134,4 +135,5 @@ public class Constants {
     public static final String UPLOADED_PATH = "/uploadedFiles";
     public static final String DOWNLOADED_TEMP_PATH = "/downloadedtemp";
     public static final String REPORT_BEAN = "reportBean";
+    public static final String CUSTOMER_DOCUMENT = "customerDocument";
 }

@@ -6,14 +6,19 @@
 package com.stepup.gasoline.qt.dao;
 
 import com.stepup.core.database.DBUtil;
+import com.stepup.core.util.DateUtil;
 import com.stepup.core.util.StringUtil;
 import com.stepup.gasoline.qt.bean.EmployeeBean;
 import com.stepup.gasoline.qt.bean.CustomerBean;
+import com.stepup.gasoline.qt.bean.CustomerDocumentBean;
+import com.stepup.gasoline.qt.bean.DocumentBean;
 import com.stepup.gasoline.qt.util.QTUtil;
 import com.stepup.gasoline.qt.customer.CustomerFormBean;
+import com.stepup.gasoline.qt.customerdocument.CustomerDocumentFormBean;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import org.apache.commons.validator.GenericValidator;
 
 /**
  *
@@ -272,6 +277,225 @@ public class CustomerDAO extends BasicDAO {
                     + ", presenter='" + bean.getPresenter() + "'"
                     + ", presenter_position='" + bean.getPresenterPosition() + "'"
                     + " Where id=" + bean.getId();
+            DBUtil.executeUpdate(sql);
+        } catch (SQLException sqle) {
+            throw new Exception(sqle.getMessage());
+        } catch (Exception ex) {
+            throw new Exception(ex.getMessage());
+        } finally {
+            try {
+            } catch (Exception e) {
+                throw new Exception(e.getMessage());
+            }
+        }
+    }
+
+    public ArrayList getDocuments() throws Exception {
+        ResultSet rs = null;
+        String sql = "select * from document order by name desc";
+        ArrayList documentList = new ArrayList();
+        try {
+            rs = DBUtil.executeQuery(sql);
+            CustomerDocumentFormBean bean = null;
+            while (rs.next()) {
+                bean = new CustomerDocumentFormBean();
+                bean.setId(rs.getInt("id"));
+                bean.setName(rs.getString("name"));
+                bean.setNote(rs.getString("note"));
+                documentList.add(bean);
+            }
+        } catch (SQLException sqle) {
+            throw new Exception(sqle.getMessage());
+        } catch (Exception ex) {
+            throw new Exception(ex.getMessage());
+        } finally {
+            if (rs != null) {
+                DBUtil.closeConnection(rs);
+            }
+        }
+        return documentList;
+    }
+
+    public CustomerDocumentFormBean getDocument(int customerDocumentId) throws Exception {
+        ResultSet rs = null;
+        String sql = "select * from document where id=" + customerDocumentId;
+        try {
+            rs = DBUtil.executeQuery(sql);
+            while (rs.next()) {
+                CustomerDocumentFormBean bean = new CustomerDocumentFormBean();
+                bean.setId(rs.getInt("id"));
+                bean.setName(rs.getString("name"));
+                bean.setNote(rs.getString("note"));
+                return bean;
+            }
+        } catch (SQLException sqle) {
+            throw new Exception(sqle.getMessage());
+        } catch (Exception ex) {
+            throw new Exception(ex.getMessage());
+        } finally {
+            if (rs != null) {
+                DBUtil.closeConnection(rs);
+            }
+        }
+        return null;
+    }
+
+    public CustomerDocumentFormBean getDocumentByName(String name) throws Exception {
+        ResultSet rs = null;
+        String sql = "select * from document where name='" + name + "'";
+        try {
+            rs = DBUtil.executeQuery(sql);
+            while (rs.next()) {
+                CustomerDocumentFormBean bean = new CustomerDocumentFormBean();
+                bean.setId(rs.getInt("id"));
+                bean.setName(rs.getString("name"));
+                bean.setNote(rs.getString("note"));
+                return bean;
+            }
+        } catch (SQLException sqle) {
+            throw new Exception(sqle.getMessage());
+        } catch (Exception ex) {
+            throw new Exception(ex.getMessage());
+        } finally {
+            if (rs != null) {
+                DBUtil.closeConnection(rs);
+            }
+        }
+        return null;
+    }
+
+    public int insertDocument(DocumentBean bean) throws Exception {
+        if (bean == null) {
+            return 0;
+        }
+        try {
+            String sql = "";
+            sql = "Insert Into document (name, note) Values ('" + bean.getName() + "','" + bean.getNote() + "')";
+            return DBUtil.executeInsert(sql);
+        } catch (SQLException sqle) {
+            throw new Exception(sqle.getMessage());
+        } catch (Exception ex) {
+            throw new Exception(ex.getMessage());
+        } finally {
+            try {
+            } catch (Exception e) {
+                throw new Exception(e.getMessage());
+            }
+
+        }
+    }
+
+    public void updateDocument(DocumentBean bean) throws Exception {
+        if (bean == null) {
+            return;
+        }
+        try {
+            String sql = "Update document Set "
+                    + " name='" + bean.getName() + "'"
+                    + ", note='" + bean.getNote() + "'"
+                    + " Where id=" + bean.getId();
+            DBUtil.executeUpdate(sql);
+        } catch (SQLException sqle) {
+            throw new Exception(sqle.getMessage());
+        } catch (Exception ex) {
+            throw new Exception(ex.getMessage());
+        } finally {
+            try {
+            } catch (Exception e) {
+                throw new Exception(e.getMessage());
+            }
+        }
+    }
+
+    public int deleteDocument(String ids) throws Exception {
+        int result = 0;
+        try {
+            String sql = "Delete From document Where id in (" + ids + ")";
+            DBUtil.executeUpdate(sql);
+
+            sql = "Delete From customer_document Where document_id in (" + ids + ")";
+            DBUtil.executeUpdate(sql);
+        } catch (SQLException sqle) {
+            throw new Exception(sqle.getMessage());
+        } catch (Exception ex) {
+            throw new Exception(ex.getMessage());
+        }
+        return result;
+    }
+
+    public ArrayList getCustomerDocuments(int customerId) throws Exception {
+        ResultSet rs = null;
+        String sql = "select cd.id, cd.customer_id, d.id as document_id, d.name, cd.expired_date"
+                + " from document as d left join customer_document as cd on cd.document_id=d.id";
+        if (customerId != 0) {
+            sql += " and cd.customer_id=" + customerId;
+        }
+        sql += " order by d.name desc";
+        ArrayList documentList = new ArrayList();
+        try {
+            rs = DBUtil.executeQuery(sql);
+            CustomerDocumentBean bean = null;
+            while (rs.next()) {
+                bean = new CustomerDocumentBean();
+                bean.setId(rs.getInt("id"));
+                bean.setCustomerId(rs.getInt("customer_id"));
+                bean.setDocumentId(rs.getInt("document_id"));
+                bean.setExpiredDate(DateUtil.formatDate(rs.getDate("expired_date"), "dd/MM/yyyy"));
+                bean.setName(rs.getString("name"));
+                documentList.add(bean);
+            }
+        } catch (SQLException sqle) {
+            throw new Exception(sqle.getMessage());
+        } catch (Exception ex) {
+            throw new Exception(ex.getMessage());
+        } finally {
+            if (rs != null) {
+                DBUtil.closeConnection(rs);
+            }
+        }
+        return documentList;
+    }
+
+    public int insertCustomerDocument(CustomerDocumentBean bean) throws Exception {
+        if (bean == null) {
+            return 0;
+        }
+        try {
+            String expiredDate = "";
+            if (GenericValidator.isBlankOrNull(bean.getExpiredDate())) {
+                expiredDate = "null";
+            } else {
+                expiredDate = bean.getExpiredDate();
+            }
+            String sql = "";
+            sql = "Insert Into customer_document (customer_id, document_id, expired_date) Values (" + bean.getCustomerId() + "," + bean.getDocumentId()
+                    + ",STR_TO_DATE('" + expiredDate + "','%d/%m/%Y'))";
+            return DBUtil.executeInsert(sql);
+        } catch (SQLException sqle) {
+            throw new Exception(sqle.getMessage());
+        } catch (Exception ex) {
+            throw new Exception(ex.getMessage());
+        } finally {
+            try {
+            } catch (Exception e) {
+                throw new Exception(e.getMessage());
+            }
+
+        }
+    }
+
+    public void updateCustomerDocument(CustomerDocumentBean bean) throws Exception {
+        if (bean == null) {
+            return;
+        }
+        try {
+            String expiredDate = "";
+            if (GenericValidator.isBlankOrNull(bean.getExpiredDate())) {
+                expiredDate = "null";
+            } else {
+                expiredDate = bean.getExpiredDate();
+            }
+            String sql = "Update customer_document Set expired_date=STR_TO_DATE('" + expiredDate + "','%d/%m/%Y') Where id=" + bean.getId();
             DBUtil.executeUpdate(sql);
         } catch (SQLException sqle) {
             throw new Exception(sqle.getMessage());

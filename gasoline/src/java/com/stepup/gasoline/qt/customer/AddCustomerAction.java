@@ -4,10 +4,13 @@
  */
 package com.stepup.gasoline.qt.customer;
 
+import com.stepup.core.util.NumberUtil;
 import com.stepup.gasoline.qt.bean.CustomerBean;
+import com.stepup.gasoline.qt.bean.CustomerDocumentBean;
 import com.stepup.gasoline.qt.bean.DynamicFieldBean;
 import com.stepup.gasoline.qt.core.AddDynamicFieldValueAction;
 import com.stepup.gasoline.qt.dao.CustomerDAO;
+import java.util.ArrayList;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import org.apache.struts.action.ActionForm;
@@ -123,17 +126,60 @@ public class AddCustomerAction extends AddDynamicFieldValueAction {
         try {
             if (bNew) {
                 customerId = customerDAO.insertCustomer(bean);
+                formBean.setId(customerId);
                 super.setParentId(customerId);
             } else {
                 if (isUpdate) {
                     customerDAO.updateCustomer(bean);
                 }
             }
+            addCustomerDocuments(formBean);
         } catch (Exception ex) {
             ex.printStackTrace();
         }
         super.setOrganizationId(formBean.getOrganizationId());
         return true;
+    }
+
+    protected void addCustomerDocuments(CustomerFormBean formBean) {
+        try {
+            CustomerDAO customerDAO = new CustomerDAO();
+            ArrayList arrDetail = customerDAO.getCustomerDocuments(formBean.getId());
+            int length = formBean.getCustomerDocumentId().length;
+            int id = 0;
+            CustomerDocumentBean bean = null;
+            for (int i = 0; i < length; i++) {
+                id = NumberUtil.parseInt(formBean.getCustomerDocumentId()[i], 0);
+                if (id == 0) {
+                    bean = new CustomerDocumentBean();
+                    bean.setCustomerId(formBean.getId());
+                    bean.setDocumentId(NumberUtil.parseInt(formBean.getDocumentId()[i], 0));
+                    bean.setExpiredDate(formBean.getCustomerDocumentExpiredDate()[i]);
+                    customerDAO.insertCustomerDocument(bean);
+                } else {
+                    CustomerDocumentBean oldBean = null;
+                    boolean isUpdate = false;
+                    for (int j = 0; j < arrDetail.size(); j++) {
+                        oldBean = (CustomerDocumentBean) arrDetail.get(j);
+                        if (oldBean.getId() == id) {
+                            bean = new CustomerDocumentBean();
+                            bean.setId(id);
+                            isUpdate = false;
+                            if (!oldBean.getExpiredDate().equals(formBean.getCustomerDocumentExpiredDate()[i] + "")) {
+                                isUpdate = true;
+                                bean.setExpiredDate(formBean.getCustomerDocumentExpiredDate()[i] + "");
+                            }
+                            if (isUpdate) {
+                                customerDAO.updateCustomerDocument(bean);
+                            }
+                            arrDetail.remove(j);
+                            break;
+                        }
+                    }
+                }
+            }
+        } catch (Exception ex) {
+        }
     }
 
     @Override

@@ -120,6 +120,14 @@ public class CustomerFormAction extends DynamicFieldValueAction {
                 seletecOrganizationId = orgBean.getId();
             }
         }
+
+        try {
+            ArrayList documents = new ArrayList();
+            documents = customerDAO.getCustomerDocuments(formBean.getId());
+            request.setAttribute(Constants.CUSTOMER_DOCUMENT_LIST, documents);
+        } catch (Exception ex) {
+        }
+
         super.setOrganizationId(seletecOrganizationId);
         super.setParentId(formBean.getId());
         return true;
