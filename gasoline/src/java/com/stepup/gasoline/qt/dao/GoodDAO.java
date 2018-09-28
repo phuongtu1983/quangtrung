@@ -28,6 +28,8 @@ import com.stepup.gasoline.qt.bean.SalePetroDetailBean;
 import com.stepup.gasoline.qt.bean.ShellBean;
 import com.stepup.gasoline.qt.bean.ShellImportBean;
 import com.stepup.gasoline.qt.bean.ShellKindBean;
+import com.stepup.gasoline.qt.bean.ShieldDecreaseBean;
+import com.stepup.gasoline.qt.bean.ShieldImportBean;
 import com.stepup.gasoline.qt.petro.PetroFormBean;
 import com.stepup.gasoline.qt.promotionmaterial.PromotionMaterialFormBean;
 import com.stepup.gasoline.qt.promotionmaterialimport.PromotionMaterialImportFormBean;
@@ -36,6 +38,8 @@ import com.stepup.gasoline.qt.salepetro.SalePetroFormBean;
 import com.stepup.gasoline.qt.shell.ShellFormBean;
 import com.stepup.gasoline.qt.shellimport.ShellImportFormBean;
 import com.stepup.gasoline.qt.shellkind.ShellKindFormBean;
+import com.stepup.gasoline.qt.shielddecrease.ShieldDecreaseFormBean;
+import com.stepup.gasoline.qt.shieldimport.ShieldImportFormBean;
 import com.stepup.gasoline.qt.util.QTUtil;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -2365,6 +2369,356 @@ public class GoodDAO extends BasicDAO {
                 throw new Exception(e.getMessage());
             }
         }
+    }
+
+    public ArrayList searchShieldImport(String fromDate, String endDate) throws Exception {
+        SPUtil spUtil = null;
+        ArrayList list = new ArrayList();
+        ResultSet rs = null;
+        try {
+            String sql = "{call searchShieldImport(?,?)}";
+            if (GenericValidator.isBlankOrNull(fromDate)) {
+                fromDate = DateUtil.today("dd/MM/yyyy");
+            }
+            if (GenericValidator.isBlankOrNull(endDate)) {
+                endDate = this.START_DATE;
+            }
+            spUtil = new SPUtil(sql);
+            if (spUtil != null) {
+                spUtil.getCallableStatement().setString("_start_date", fromDate);
+                spUtil.getCallableStatement().setString("_end_date", endDate);
+                rs = spUtil.executeQuery();
+                if (rs != null) {
+                    ShieldImportFormBean bean = null;
+                    while (rs.next()) {
+                        bean = new ShieldImportFormBean();
+                        bean.setId(rs.getInt("id"));
+                        bean.setCode(rs.getString("code"));
+                        bean.setCreatedDate(DateUtil.formatDate(rs.getDate("created_date"), "dd/MM/yyyy"));
+                        bean.setNote(rs.getString("note"));
+                        bean.setQuantity(rs.getInt("quantity"));
+                        list.add(bean);
+                    }
+                }
+            }
+        } catch (SQLException sqle) {
+            throw new Exception(sqle.getMessage());
+        } catch (Exception ex) {
+            throw new Exception(ex.getMessage());
+        } finally {
+            try {
+                if (spUtil != null) {
+                    spUtil.closeConnection();
+                }
+                if (rs != null) {
+                    rs.close();
+                    rs = null;
+                }
+            } catch (Exception e) {
+                throw new Exception(e.getMessage());
+            }
+        }
+        return list;
+    }
+
+    public ShieldImportBean getShieldImport(int id) throws Exception {
+        ResultSet rs = null;
+        String sql = "select * from shield_import where id=" + id;
+        try {
+            rs = DBUtil.executeQuery(sql);
+            while (rs.next()) {
+                ShieldImportBean bean = new ShieldImportBean();
+                bean.setId(rs.getInt("id"));
+                bean.setCode(rs.getString("code"));
+                bean.setCreatedDate(DateUtil.formatDate(rs.getDate("created_date"), "dd/MM/yyyy"));
+                bean.setQuantity(rs.getInt("quantity"));
+                bean.setNote(rs.getString("note"));
+                return bean;
+            }
+        } catch (SQLException sqle) {
+            throw new Exception(sqle.getMessage());
+        } catch (Exception ex) {
+            throw new Exception(ex.getMessage());
+        } finally {
+            if (rs != null) {
+                DBUtil.closeConnection(rs);
+            }
+        }
+        return null;
+    }
+
+    public int insertShieldImport(ShieldImportBean bean) throws Exception {
+        if (bean == null) {
+            return 0;
+        }
+        int result = 0;
+        SPUtil spUtil = null;
+        try {
+            String createdDate = "";
+            if (GenericValidator.isBlankOrNull(bean.getCreatedDate())) {
+                createdDate = "null";
+            } else {
+                createdDate = bean.getCreatedDate();
+            }
+            String sql = "{call insertShieldImport(?,?,?,?,?)}";
+            spUtil = new SPUtil(sql);
+            if (spUtil != null) {
+                spUtil.getCallableStatement().setString("_code", bean.getCode());
+                spUtil.getCallableStatement().setString("_created_date", createdDate);
+                spUtil.getCallableStatement().setInt("_quantity", bean.getQuantity());
+                spUtil.getCallableStatement().setString("_note", bean.getNote());
+                spUtil.getCallableStatement().registerOutParameter("_id", Types.INTEGER);
+                spUtil.execute();
+                result = spUtil.getCallableStatement().getInt("_id");
+            }
+        } catch (SQLException sqle) {
+            throw new Exception(sqle.getMessage());
+        } catch (Exception ex) {
+            throw new Exception(ex.getMessage());
+        } finally {
+            try {
+                if (spUtil != null) {
+                    spUtil.closeConnection();
+                }
+            } catch (Exception e) {
+                throw new Exception(e.getMessage());
+            }
+        }
+        return result;
+    }
+
+    public void updateShieldImport(ShieldImportBean bean) throws Exception {
+        if (bean == null) {
+            return;
+        }
+        SPUtil spUtil = null;
+        try {
+            String createdDate = "";
+            if (GenericValidator.isBlankOrNull(bean.getCreatedDate())) {
+                createdDate = "null";
+            } else {
+                createdDate = bean.getCreatedDate();
+            }
+            String sql = "{call updateShieldImport(?,?,?,?)}";
+            spUtil = new SPUtil(sql);
+            if (spUtil != null) {
+                spUtil.getCallableStatement().setInt("_id", bean.getId());
+                spUtil.getCallableStatement().setString("_created_date", createdDate);
+                spUtil.getCallableStatement().setInt("_quantity", bean.getQuantity());
+                spUtil.getCallableStatement().setString("_note", bean.getNote());
+                spUtil.execute();
+            }
+        } catch (SQLException sqle) {
+            throw new Exception(sqle.getMessage());
+        } catch (Exception ex) {
+            throw new Exception(ex.getMessage());
+        } finally {
+            try {
+                if (spUtil != null) {
+                    spUtil.closeConnection();
+                }
+            } catch (Exception e) {
+                throw new Exception(e.getMessage());
+            }
+        }
+    }
+
+    public String getNextShieldImportNumber(String prefix, int length) throws Exception {
+        String result = "";
+        try {
+            result = this.getNextNumber(prefix, length, "code", "shield_import");
+        } catch (Exception ex) {
+            throw new Exception(ex.getMessage());
+        }
+        return result;
+    }
+
+    public int deleteShieldImport(String ids) throws Exception {
+        int result = 0;
+        try {
+            String sql = "Delete From shield_import Where id in (" + ids + ")";
+            DBUtil.executeUpdate(sql);
+        } catch (SQLException sqle) {
+            throw new Exception(sqle.getMessage());
+        } catch (Exception ex) {
+            throw new Exception(ex.getMessage());
+        }
+        return result;
+    }
+
+    public ArrayList searchShieldDecrease(String fromDate, String endDate) throws Exception {
+        SPUtil spUtil = null;
+        ArrayList list = new ArrayList();
+        ResultSet rs = null;
+        try {
+            String sql = "{call searchShieldDecrease(?,?)}";
+            if (GenericValidator.isBlankOrNull(fromDate)) {
+                fromDate = DateUtil.today("dd/MM/yyyy");
+            }
+            if (GenericValidator.isBlankOrNull(endDate)) {
+                endDate = this.START_DATE;
+            }
+            spUtil = new SPUtil(sql);
+            if (spUtil != null) {
+                spUtil.getCallableStatement().setString("_start_date", fromDate);
+                spUtil.getCallableStatement().setString("_end_date", endDate);
+                rs = spUtil.executeQuery();
+                if (rs != null) {
+                    ShieldDecreaseFormBean bean = null;
+                    while (rs.next()) {
+                        bean = new ShieldDecreaseFormBean();
+                        bean.setId(rs.getInt("id"));
+                        bean.setCode(rs.getString("code"));
+                        bean.setCreatedDate(DateUtil.formatDate(rs.getDate("created_date"), "dd/MM/yyyy"));
+                        bean.setNote(rs.getString("note"));
+                        bean.setQuantity(rs.getInt("quantity"));
+                        list.add(bean);
+                    }
+                }
+            }
+        } catch (SQLException sqle) {
+            throw new Exception(sqle.getMessage());
+        } catch (Exception ex) {
+            throw new Exception(ex.getMessage());
+        } finally {
+            try {
+                if (spUtil != null) {
+                    spUtil.closeConnection();
+                }
+                if (rs != null) {
+                    rs.close();
+                    rs = null;
+                }
+            } catch (Exception e) {
+                throw new Exception(e.getMessage());
+            }
+        }
+        return list;
+    }
+
+    public ShieldDecreaseBean getShieldDecrease(int id) throws Exception {
+        ResultSet rs = null;
+        String sql = "select * from shield_decrease where id=" + id;
+        try {
+            rs = DBUtil.executeQuery(sql);
+            while (rs.next()) {
+                ShieldDecreaseBean bean = new ShieldDecreaseBean();
+                bean.setId(rs.getInt("id"));
+                bean.setCode(rs.getString("code"));
+                bean.setCreatedDate(DateUtil.formatDate(rs.getDate("created_date"), "dd/MM/yyyy"));
+                bean.setQuantity(rs.getInt("quantity"));
+                bean.setNote(rs.getString("note"));
+                return bean;
+            }
+        } catch (SQLException sqle) {
+            throw new Exception(sqle.getMessage());
+        } catch (Exception ex) {
+            throw new Exception(ex.getMessage());
+        } finally {
+            if (rs != null) {
+                DBUtil.closeConnection(rs);
+            }
+        }
+        return null;
+    }
+
+    public int insertShieldDecrease(ShieldDecreaseBean bean) throws Exception {
+        if (bean == null) {
+            return 0;
+        }
+        int result = 0;
+        SPUtil spUtil = null;
+        try {
+            String createdDate = "";
+            if (GenericValidator.isBlankOrNull(bean.getCreatedDate())) {
+                createdDate = "null";
+            } else {
+                createdDate = bean.getCreatedDate();
+            }
+            String sql = "{call insertShieldDecrease(?,?,?,?,?)}";
+            spUtil = new SPUtil(sql);
+            if (spUtil != null) {
+                spUtil.getCallableStatement().setString("_code", bean.getCode());
+                spUtil.getCallableStatement().setString("_created_date", createdDate);
+                spUtil.getCallableStatement().setInt("_quantity", bean.getQuantity());
+                spUtil.getCallableStatement().setString("_note", bean.getNote());
+                spUtil.getCallableStatement().registerOutParameter("_id", Types.INTEGER);
+                spUtil.execute();
+                result = spUtil.getCallableStatement().getInt("_id");
+            }
+        } catch (SQLException sqle) {
+            throw new Exception(sqle.getMessage());
+        } catch (Exception ex) {
+            throw new Exception(ex.getMessage());
+        } finally {
+            try {
+                if (spUtil != null) {
+                    spUtil.closeConnection();
+                }
+            } catch (Exception e) {
+                throw new Exception(e.getMessage());
+            }
+        }
+        return result;
+    }
+
+    public void updateShieldDecrease(ShieldDecreaseBean bean) throws Exception {
+        if (bean == null) {
+            return;
+        }
+        SPUtil spUtil = null;
+        try {
+            String createdDate = "";
+            if (GenericValidator.isBlankOrNull(bean.getCreatedDate())) {
+                createdDate = "null";
+            } else {
+                createdDate = bean.getCreatedDate();
+            }
+            String sql = "{call updateShieldDecrease(?,?,?,?)}";
+            spUtil = new SPUtil(sql);
+            if (spUtil != null) {
+                spUtil.getCallableStatement().setInt("_id", bean.getId());
+                spUtil.getCallableStatement().setString("_created_date", createdDate);
+                spUtil.getCallableStatement().setInt("_quantity", bean.getQuantity());
+                spUtil.getCallableStatement().setString("_note", bean.getNote());
+                spUtil.execute();
+            }
+        } catch (SQLException sqle) {
+            throw new Exception(sqle.getMessage());
+        } catch (Exception ex) {
+            throw new Exception(ex.getMessage());
+        } finally {
+            try {
+                if (spUtil != null) {
+                    spUtil.closeConnection();
+                }
+            } catch (Exception e) {
+                throw new Exception(e.getMessage());
+            }
+        }
+    }
+
+    public String getNextShieldDecreaseNumber(String prefix, int length) throws Exception {
+        String result = "";
+        try {
+            result = this.getNextNumber(prefix, length, "code", "shield_decrease");
+        } catch (Exception ex) {
+            throw new Exception(ex.getMessage());
+        }
+        return result;
+    }
+
+    public int deleteShieldDecrease(String ids) throws Exception {
+        int result = 0;
+        try {
+            String sql = "Delete From shield_decrease Where id in (" + ids + ")";
+            DBUtil.executeUpdate(sql);
+        } catch (SQLException sqle) {
+            throw new Exception(sqle.getMessage());
+        } catch (Exception ex) {
+            throw new Exception(ex.getMessage());
+        }
+        return result;
     }
 
 }

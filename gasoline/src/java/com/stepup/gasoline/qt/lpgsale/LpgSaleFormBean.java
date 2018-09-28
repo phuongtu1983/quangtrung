@@ -2,46 +2,42 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
-package com.stepup.gasoline.qt.lpgimport;
+package com.stepup.gasoline.qt.lpgsale;
 
-import com.stepup.gasoline.qt.bean.LpgImportBean;
+import com.stepup.gasoline.qt.bean.LpgSaleBean;
 
 /**
  *
  * @author phuongtu
  */
-public class LpgImportFormBean extends org.apache.struts.action.ActionForm {
+public class LpgSaleFormBean extends org.apache.struts.action.ActionForm {
 
     private int id;
     private String code;
-    private String importDate;
-    private int vendorId;
-    private String vendorName;
-    private float paperQuantity;
-    private float actualQuantity;
+    private String saleDate;
+    private int customerId;
+    private String customerName;
+    private float quantity;
     private double price;
     private double total;
     private double paid;
     private double debt;
-    private double rate;
     private int accountId;
     private String note;
 
-    public LpgImportFormBean() {
+    public LpgSaleFormBean() {
     }
 
-    public LpgImportFormBean(LpgImportBean bean) {
+    public LpgSaleFormBean(LpgSaleBean bean) {
         this.id = bean.getId();
         this.code = bean.getCode();
-        this.importDate = bean.getImportDate();
-        this.vendorId = bean.getVendorId();
-        this.paperQuantity = bean.getPaperQuantity();
-        this.actualQuantity = bean.getActualQuantity();
+        this.saleDate = bean.getSaleDate();
+        this.customerId = bean.getCustomerId();
+        this.quantity = bean.getQuantity();
         this.price = bean.getPrice();
         this.total = bean.getTotal();
         this.paid = bean.getPaid();
         this.debt = bean.getDebt();
-        this.rate = bean.getRate();
         this.accountId = bean.getAccountId();
         this.note = bean.getNote();
     }
@@ -69,6 +65,7 @@ public class LpgImportFormBean extends org.apache.struts.action.ActionForm {
     public void setTotal(double total) {
         this.total = total;
     }
+
     public int getAccountId() {
         return accountId;
     }
@@ -83,46 +80,6 @@ public class LpgImportFormBean extends org.apache.struts.action.ActionForm {
 
     public void setNote(String note) {
         this.note = note;
-    }
-
-    public String getImportDate() {
-        return importDate;
-    }
-
-    public void setImportDate(String importDate) {
-        this.importDate = importDate;
-    }
-
-    public int getVendorId() {
-        return vendorId;
-    }
-
-    public void setVendorId(int vendorId) {
-        this.vendorId = vendorId;
-    }
-
-    public String getVendorName() {
-        return vendorName;
-    }
-
-    public void setVendorName(String vendorName) {
-        this.vendorName = vendorName;
-    }
-
-    public float getPaperQuantity() {
-        return paperQuantity;
-    }
-
-    public void setPaperQuantity(float paperQuantity) {
-        this.paperQuantity = paperQuantity;
-    }
-
-    public float getActualQuantity() {
-        return actualQuantity;
-    }
-
-    public void setActualQuantity(float actualQuantity) {
-        this.actualQuantity = actualQuantity;
     }
 
     public double getPrice() {
@@ -149,12 +106,36 @@ public class LpgImportFormBean extends org.apache.struts.action.ActionForm {
         this.debt = debt;
     }
 
-    public double getRate() {
-        return rate;
+    public String getSaleDate() {
+        return saleDate;
     }
 
-    public void setRate(double rate) {
-        this.rate = rate;
+    public void setSaleDate(String saleDate) {
+        this.saleDate = saleDate;
+    }
+
+    public int getCustomerId() {
+        return customerId;
+    }
+
+    public void setCustomerId(int customerId) {
+        this.customerId = customerId;
+    }
+
+    public String getCustomerName() {
+        return customerName;
+    }
+
+    public void setCustomerName(String customerName) {
+        this.customerName = customerName;
+    }
+
+    public float getQuantity() {
+        return quantity;
+    }
+
+    public void setQuantity(float quantity) {
+        this.quantity = quantity;
     }
 
 }

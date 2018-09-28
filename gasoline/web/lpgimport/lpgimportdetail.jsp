@@ -41,7 +41,7 @@
                         </tr>
                         <tr>
                             <td height="30" style="padding-right: 20px"><bean:message key="amount.title"/></td>
-                            <td><html:text property="amount" size="30" name="<%=Constants.LPG_IMPORT%>" readonly="true"/></td>
+                            <td><html:text property="total" size="30" name="<%=Constants.LPG_IMPORT%>" readonly="true"/></td>
                             <td style="padding-right: 20px;padding-left: 10px"><bean:message key="paid.title"/></td>
                             <td><html:text property="paid" size="30" name="<%=Constants.LPG_IMPORT%>" onblur="return formPaidChanged('lpgImportForm');" onkeyup="try2FloatFormatOnKeyUp(this,event);" onkeypress="return readonlyFloat(event);"/></td>
                         </tr>

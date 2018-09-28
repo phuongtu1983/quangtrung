@@ -2,13 +2,12 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
-package com.stepup.gasoline.qt.lpgimport;
+package com.stepup.gasoline.qt.shieldimport;
 
 import com.stepup.core.util.NumberUtil;
 import com.stepup.core.util.OutputUtil;
 import com.stepup.gasoline.qt.core.BaseAction;
-import com.stepup.gasoline.qt.dao.GasDAO;
-import com.stepup.gasoline.qt.util.QTUtil;
+import com.stepup.gasoline.qt.dao.GoodDAO;
 import java.util.ArrayList;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -19,8 +18,8 @@ import org.apache.struts.action.ActionMapping;
  *
  * @author phuongtu
  */
-public class GetLpgImportListAction extends BaseAction {
-    
+public class GetShieldImportListAction extends BaseAction {
+
     @Override
     public boolean doAction(ActionMapping mapping, ActionForm form,
             HttpServletRequest request, HttpServletResponse response) {
@@ -28,19 +27,16 @@ public class GetLpgImportListAction extends BaseAction {
         buff.append("<?xml version=\"1.0\" encoding=\"UTF-8\"?>");
         buff.append("<rows>");
         try {
-            GasDAO gasDAO = new GasDAO();
-            ArrayList list = gasDAO.searchLpgImport(request.getParameter("fromDate"), request.getParameter("toDate"), QTUtil.getOrganizationManageds(request.getSession()));
+            GoodDAO goodDAO = new GoodDAO();
+            ArrayList list = goodDAO.searchShieldImport(request.getParameter("fromDate"), request.getParameter("toDate"));
             if (list != null) {
                 int length = list.size();
                 for (int i = 0; i < length; i++) {
-                    LpgImportFormBean bean = (LpgImportFormBean) list.get(i);
+                    ShieldImportFormBean bean = (ShieldImportFormBean) list.get(i);
                     buff.append("<row id=\"").append(bean.getId()).append("\">");
-                    buff.append("<cell>").append(bean.getCode()).append("^javascript:getLpgImport(").append(bean.getId()).append(",\"loadLpgImportPanel\")^_self</cell>");
-                    buff.append("<cell>").append(bean.getVendorName()).append("</cell>");
-                    buff.append("<cell>").append(NumberUtil.formatMoneyDefault(bean.getActualQuantity(), "VND")).append("</cell>");
-                    buff.append("<cell>").append(NumberUtil.formatMoneyDefault(bean.getPrice(), "VND")).append("</cell>");
-                    buff.append("<cell>").append(NumberUtil.formatMoneyDefault(bean.getTotal(), "VND")).append("</cell>");
-                    buff.append("<cell>").append(NumberUtil.formatMoneyDefault(bean.getRate(), "VND")).append("</cell>");
+                    buff.append("<cell>").append(bean.getCode()).append("^javascript:getShieldImport(").append(bean.getId()).append(",\"loadShieldImportPanel\")^_self</cell>");
+                    buff.append("<cell>").append(bean.getCreatedDate()).append("</cell>");
+                    buff.append("<cell>").append(NumberUtil.formatMoneyDefault(bean.getQuantity(), "VND")).append("</cell>");
                     buff.append("<cell>").append(bean.getNote()).append("</cell>");
                     buff.append("</row>");
                 }
@@ -48,16 +44,16 @@ public class GetLpgImportListAction extends BaseAction {
         } catch (Exception ex) {
         }
         buff.append("</rows>");
-        
+
         OutputUtil.sendXmlStringToOutput(response, buff.toString());
         return true;
     }
-    
+
     @Override
     protected boolean isReturnStream() {
         return true;
     }
-    
+
     @Override
     protected String getActionName() {
         return this.getClass().getName();

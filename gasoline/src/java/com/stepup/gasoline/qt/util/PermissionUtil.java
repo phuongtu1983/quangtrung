@@ -144,4 +144,7 @@ public class PermissionUtil {
     public static int PER_CONTRACT = 56;
     public static int PER_REPORT_LPG_IMPORT = 57;
     public static int PER_CUSTOMER_DOCUMENT = 58;
+    public static int PER_LPG_SALE = 59;
+    public static int PER_SHIELD_IMPORT = 60;
+    public static int PER_SHIELD_DECREASE = 61;
 }

@@ -76,6 +76,7 @@ public class Constants {
     public static final String TRIP_FEE = "tripFee";
     public static final String GAS_PRICE = "gasPrice";
     public static final String LPG_IMPORT = "lpgImport";
+    public static final String LPG_SALE = "lpgSale";
     public static final String FRACTION = "fraction";
     public static final String GAS_IMPORT = "gasImport";
     public static final String PETRO_IMPORT = "petroImport";
@@ -136,4 +137,6 @@ public class Constants {
     public static final String DOWNLOADED_TEMP_PATH = "/downloadedtemp";
     public static final String REPORT_BEAN = "reportBean";
     public static final String CUSTOMER_DOCUMENT = "customerDocument";
+    public static final String SHIELD_IMPORT = "shieldImport";
+    public static final String SHIELD_DECREASE = "shieldDecrease";
 }

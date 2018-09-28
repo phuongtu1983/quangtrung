@@ -2,9 +2,9 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
-package com.stepup.gasoline.qt.lpgimport;
+package com.stepup.gasoline.qt.lpgsale;
 
-import com.stepup.gasoline.qt.bean.LpgImportBean;
+import com.stepup.gasoline.qt.bean.LpgSaleBean;
 import com.stepup.gasoline.qt.core.SpineAction;
 import com.stepup.gasoline.qt.dao.GasDAO;
 import javax.servlet.http.HttpServletRequest;
@@ -16,7 +16,7 @@ import org.apache.struts.action.ActionMapping;
  *
  * @author phuongtu
  */
-public class AddLpgImportAction extends SpineAction {
+public class AddLpgSaleAction extends SpineAction {
 
     /**
      * This is the action called from the Struts framework.
@@ -31,32 +31,30 @@ public class AddLpgImportAction extends SpineAction {
     @Override
     public boolean doAction(ActionMapping mapping, ActionForm form,
             HttpServletRequest request, HttpServletResponse response) {
-        LpgImportFormBean formBean = (LpgImportFormBean) form;
+        LpgSaleFormBean formBean = (LpgSaleFormBean) form;
         GasDAO gasDAO = new GasDAO();
 
         boolean bNew = true;
         if (formBean.getId() != 0) {
             bNew = false;
         }
-        LpgImportBean bean = new LpgImportBean();
+        LpgSaleBean bean = new LpgSaleBean();
         bean.setId(formBean.getId());
         bean.setCode(formBean.getCode());
-        bean.setImportDate(formBean.getImportDate());
-        bean.setVendorId(formBean.getVendorId());
-        bean.setPaperQuantity(formBean.getPaperQuantity());
-        bean.setActualQuantity(formBean.getActualQuantity());
+        bean.setSaleDate(formBean.getSaleDate());
+        bean.setCustomerId(formBean.getCustomerId());
+        bean.setQuantity(formBean.getQuantity());
         bean.setPrice(formBean.getPrice());
         bean.setTotal(formBean.getTotal());
         bean.setPaid(formBean.getPaid());
         bean.setDebt(formBean.getDebt());
-        bean.setRate(formBean.getRate());
         bean.setAccountId(formBean.getAccountId());
         bean.setNote(formBean.getNote());
         try {
             if (bNew) {
-                gasDAO.insertLpgImport(bean);
+                gasDAO.insertLpgSale(bean);
             } else {
-                gasDAO.updateLpgImport(bean);
+                gasDAO.updateLpgSale(bean);
             }
         } catch (Exception ex) {
             ex.printStackTrace();

@@ -29,6 +29,7 @@ import com.stepup.gasoline.qt.bean.GasWholesaleDetailBean;
 import com.stepup.gasoline.qt.bean.GasWholesalePromotionMaterialDetailBean;
 import com.stepup.gasoline.qt.bean.GasWholesaleReturnShellDetailBean;
 import com.stepup.gasoline.qt.bean.LpgImportBean;
+import com.stepup.gasoline.qt.bean.LpgSaleBean;
 import com.stepup.gasoline.qt.bean.OldShellBean;
 import com.stepup.gasoline.qt.bean.PetroImportBean;
 import com.stepup.gasoline.qt.bean.PetroImportDetailBean;
@@ -52,6 +53,7 @@ import com.stepup.gasoline.qt.gasretail.GasRetailFormBean;
 import com.stepup.gasoline.qt.gasreturn.GasReturnFormBean;
 import com.stepup.gasoline.qt.gaswholesale.GasWholesaleFormBean;
 import com.stepup.gasoline.qt.lpgimport.LpgImportFormBean;
+import com.stepup.gasoline.qt.lpgsale.LpgSaleFormBean;
 import com.stepup.gasoline.qt.oldshell.OldShellFormBean;
 import com.stepup.gasoline.qt.petroimport.PetroImportFormBean;
 import com.stepup.gasoline.qt.saleshell.SaleShellFormBean;
@@ -98,7 +100,7 @@ public class GasDAO extends BasicDAO {
                         bean.setVendorName(rs.getString("vendor_name"));
                         bean.setActualQuantity(rs.getFloat("actual_quantity"));
                         bean.setPrice(rs.getDouble("price"));
-                        bean.setAmount(rs.getDouble("amount"));
+                        bean.setTotal(rs.getDouble("amount"));
                         bean.setNote(rs.getString("note"));
                         list.add(bean);
                     }
@@ -138,7 +140,7 @@ public class GasDAO extends BasicDAO {
                 bean.setPaperQuantity(rs.getFloat("paper_quantity"));
                 bean.setActualQuantity(rs.getFloat("actual_quantity"));
                 bean.setPrice(rs.getDouble("price"));
-                bean.setAmount(rs.getDouble("amount"));
+                bean.setTotal(rs.getDouble("amount"));
                 bean.setPaid(rs.getDouble("paid"));
                 bean.setDebt(rs.getDouble("debt"));
                 bean.setRate(rs.getDouble("rate"));
@@ -181,7 +183,7 @@ public class GasDAO extends BasicDAO {
                 spUtil.getCallableStatement().setFloat("_paper_quantity", bean.getPaperQuantity());
                 spUtil.getCallableStatement().setFloat("_actual_quantity", bean.getActualQuantity());
                 spUtil.getCallableStatement().setDouble("_price", bean.getPrice());
-                spUtil.getCallableStatement().setDouble("_amount", bean.getAmount());
+                spUtil.getCallableStatement().setDouble("_amount", bean.getTotal());
                 spUtil.getCallableStatement().setDouble("_paid", bean.getPaid());
                 spUtil.getCallableStatement().setDouble("_debt", bean.getDebt());
                 spUtil.getCallableStatement().setDouble("_rate", bean.getRate());
@@ -228,7 +230,7 @@ public class GasDAO extends BasicDAO {
                 spUtil.getCallableStatement().setFloat("_paper_quantity", bean.getPaperQuantity());
                 spUtil.getCallableStatement().setFloat("_actual_quantity", bean.getActualQuantity());
                 spUtil.getCallableStatement().setDouble("_price", bean.getPrice());
-                spUtil.getCallableStatement().setDouble("_amount", bean.getAmount());
+                spUtil.getCallableStatement().setDouble("_amount", bean.getTotal());
                 spUtil.getCallableStatement().setDouble("_paid", bean.getPaid());
                 spUtil.getCallableStatement().setDouble("_debt", bean.getDebt());
                 spUtil.getCallableStatement().setDouble("_rate", bean.getRate());
@@ -4766,4 +4768,211 @@ public class GasDAO extends BasicDAO {
             }
         }
     }
+
+    public ArrayList searchLpgSale(String fromDate, String endDate, String organizationIds) throws Exception {
+        SPUtil spUtil = null;
+        ArrayList list = new ArrayList();
+        ResultSet rs = null;
+        try {
+            String sql = "{call searchLpgSale(?,?,?)}";
+            if (GenericValidator.isBlankOrNull(fromDate)) {
+                fromDate = DateUtil.today("dd/MM/yyyy");
+            }
+            if (GenericValidator.isBlankOrNull(endDate)) {
+                endDate = this.START_DATE;
+            }
+            spUtil = new SPUtil(sql);
+            if (spUtil != null) {
+                spUtil.getCallableStatement().setString("_start_date", fromDate);
+                spUtil.getCallableStatement().setString("_end_date", endDate);
+                spUtil.getCallableStatement().setString("_organization_ids", organizationIds);
+                rs = spUtil.executeQuery();
+                if (rs != null) {
+                    LpgSaleFormBean bean = null;
+                    while (rs.next()) {
+                        bean = new LpgSaleFormBean();
+                        bean.setId(rs.getInt("id"));
+                        bean.setCode(rs.getString("code"));
+                        bean.setCustomerName(rs.getString("customer_name"));
+                        bean.setQuantity(rs.getFloat("quantity"));
+                        bean.setPrice(rs.getDouble("price"));
+                        bean.setTotal(rs.getDouble("amount"));
+                        bean.setNote(rs.getString("note"));
+                        list.add(bean);
+                    }
+                }
+            }
+        } catch (SQLException sqle) {
+            throw new Exception(sqle.getMessage());
+        } catch (Exception ex) {
+            throw new Exception(ex.getMessage());
+        } finally {
+            try {
+                if (spUtil != null) {
+                    spUtil.closeConnection();
+                }
+                if (rs != null) {
+                    rs.close();
+                    rs = null;
+                }
+            } catch (Exception e) {
+                throw new Exception(e.getMessage());
+            }
+        }
+        return list;
+    }
+
+    public LpgSaleBean getLpgSale(int id) throws Exception {
+        ResultSet rs = null;
+        String sql = "select *, IF(DATEDIFF(sale_date,SYSDATE())=0,1,0) as can_edit from lpg_sale where id=" + id;
+        try {
+            rs = DBUtil.executeQuery(sql);
+            while (rs.next()) {
+                LpgSaleBean bean = new LpgSaleBean();
+                bean.setId(rs.getInt("id"));
+                bean.setCode(rs.getString("code"));
+                bean.setCustomerId(rs.getInt("customer_id"));
+                bean.setSaleDate(DateUtil.formatDate(rs.getDate("sale_date"), "dd/MM/yyyy"));
+                bean.setQuantity(rs.getFloat("quantity"));
+                bean.setPrice(rs.getDouble("price"));
+                bean.setTotal(rs.getDouble("amount"));
+                bean.setPaid(rs.getDouble("paid"));
+                bean.setDebt(rs.getDouble("debt"));
+                bean.setAccountId(rs.getInt("account_id"));
+                bean.setNote(rs.getString("note"));
+                bean.setCanEdit(rs.getInt("can_edit"));
+                return bean;
+            }
+        } catch (SQLException sqle) {
+            throw new Exception(sqle.getMessage());
+        } catch (Exception ex) {
+            throw new Exception(ex.getMessage());
+        } finally {
+            if (rs != null) {
+                DBUtil.closeConnection(rs);
+            }
+        }
+        return null;
+    }
+
+    public int insertLpgSale(LpgSaleBean bean) throws Exception {
+        if (bean == null) {
+            return 0;
+        }
+        int result = 0;
+        SPUtil spUtil = null;
+        try {
+            String createdDate = "";
+            if (GenericValidator.isBlankOrNull(bean.getSaleDate())) {
+                createdDate = "null";
+            } else {
+                createdDate = bean.getSaleDate();
+            }
+            String sql = "{call insertLpgSale(?,?,?,?,?,?,?,?,?,?,?)}";
+            spUtil = new SPUtil(sql);
+            if (spUtil != null) {
+                spUtil.getCallableStatement().setString("_code", bean.getCode());
+                spUtil.getCallableStatement().setInt("_customer_id", bean.getCustomerId());
+                spUtil.getCallableStatement().setString("_sale_date", createdDate);
+                spUtil.getCallableStatement().setFloat("_quantity", bean.getQuantity());
+                spUtil.getCallableStatement().setDouble("_price", bean.getPrice());
+                spUtil.getCallableStatement().setDouble("_amount", bean.getTotal());
+                spUtil.getCallableStatement().setDouble("_paid", bean.getPaid());
+                spUtil.getCallableStatement().setDouble("_debt", bean.getDebt());
+                spUtil.getCallableStatement().setInt("_account_id", bean.getAccountId());
+                spUtil.getCallableStatement().setString("_note", bean.getNote());
+                spUtil.getCallableStatement().registerOutParameter("_id", Types.INTEGER);
+                spUtil.execute();
+                result = spUtil.getCallableStatement().getInt("_id");
+            }
+        } catch (SQLException sqle) {
+            throw new Exception(sqle.getMessage());
+        } catch (Exception ex) {
+            throw new Exception(ex.getMessage());
+        } finally {
+            try {
+                if (spUtil != null) {
+                    spUtil.closeConnection();
+                }
+            } catch (Exception e) {
+                throw new Exception(e.getMessage());
+            }
+        }
+        return result;
+    }
+
+    public void updateLpgSale(LpgSaleBean bean) throws Exception {
+        if (bean == null) {
+            return;
+        }
+        SPUtil spUtil = null;
+        try {
+            String createdDate = "";
+            if (GenericValidator.isBlankOrNull(bean.getSaleDate())) {
+                createdDate = "null";
+            } else {
+                createdDate = bean.getSaleDate();
+            }
+            String sql = "{call updateLpgSale(?,?,?,?,?,?,?,?,?,?)}";
+            spUtil = new SPUtil(sql);
+            if (spUtil != null) {
+                spUtil.getCallableStatement().setInt("_id", bean.getId());
+                spUtil.getCallableStatement().setInt("_customer_id", bean.getCustomerId());
+                spUtil.getCallableStatement().setString("_sale_date", createdDate);
+                spUtil.getCallableStatement().setFloat("_quantity", bean.getQuantity());
+                spUtil.getCallableStatement().setDouble("_price", bean.getPrice());
+                spUtil.getCallableStatement().setDouble("_amount", bean.getTotal());
+                spUtil.getCallableStatement().setDouble("_paid", bean.getPaid());
+                spUtil.getCallableStatement().setDouble("_debt", bean.getDebt());
+                spUtil.getCallableStatement().setInt("_account_id", bean.getAccountId());
+                spUtil.getCallableStatement().setString("_note", bean.getNote());
+                spUtil.execute();
+            }
+        } catch (SQLException sqle) {
+            throw new Exception(sqle.getMessage());
+        } catch (Exception ex) {
+            throw new Exception(ex.getMessage());
+        } finally {
+            try {
+                if (spUtil != null) {
+                    spUtil.closeConnection();
+                }
+            } catch (Exception e) {
+                throw new Exception(e.getMessage());
+            }
+        }
+    }
+
+    public String getNextLpgSaleNumber(String prefix, int length) throws Exception {
+        String result = "";
+        try {
+            result = this.getNextNumber(prefix, length, "code", "lpg_sale");
+        } catch (Exception ex) {
+            throw new Exception(ex.getMessage());
+        }
+        return result;
+    }
+
+    public void deleteLpgSale(int id) throws Exception {
+        SPUtil spUtil = null;
+        try {
+            String sql = "{call deleteLpgSale(?)}";
+            spUtil = new SPUtil(sql);
+            if (spUtil != null) {
+                spUtil.getCallableStatement().setInt("_id", id);
+                spUtil.execute();
+            }
+        } catch (Exception ex) {
+            throw new Exception(ex.getMessage());
+        } finally {
+            try {
+                if (spUtil != null) {
+                    spUtil.closeConnection();
+                }
+            } catch (Exception e) {
+                throw new Exception(e.getMessage());
+            }
+        }
+    }
+
 }

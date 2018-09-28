@@ -2,11 +2,11 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
-package com.stepup.gasoline.qt.lpgimport;
+package com.stepup.gasoline.qt.shieldimport;
 
-import com.stepup.gasoline.qt.bean.LpgImportBean;
+import com.stepup.gasoline.qt.bean.ShieldImportBean;
 import com.stepup.gasoline.qt.core.SpineAction;
-import com.stepup.gasoline.qt.dao.GasDAO;
+import com.stepup.gasoline.qt.dao.GoodDAO;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import org.apache.struts.action.ActionForm;
@@ -16,7 +16,7 @@ import org.apache.struts.action.ActionMapping;
  *
  * @author phuongtu
  */
-public class AddLpgImportAction extends SpineAction {
+public class AddShieldImportAction extends SpineAction {
 
     /**
      * This is the action called from the Struts framework.
@@ -31,32 +31,24 @@ public class AddLpgImportAction extends SpineAction {
     @Override
     public boolean doAction(ActionMapping mapping, ActionForm form,
             HttpServletRequest request, HttpServletResponse response) {
-        LpgImportFormBean formBean = (LpgImportFormBean) form;
-        GasDAO gasDAO = new GasDAO();
+        ShieldImportFormBean formBean = (ShieldImportFormBean) form;
+        GoodDAO goodDAO = new GoodDAO();
 
         boolean bNew = true;
         if (formBean.getId() != 0) {
             bNew = false;
         }
-        LpgImportBean bean = new LpgImportBean();
+        ShieldImportBean bean = new ShieldImportBean();
         bean.setId(formBean.getId());
         bean.setCode(formBean.getCode());
-        bean.setImportDate(formBean.getImportDate());
-        bean.setVendorId(formBean.getVendorId());
-        bean.setPaperQuantity(formBean.getPaperQuantity());
-        bean.setActualQuantity(formBean.getActualQuantity());
-        bean.setPrice(formBean.getPrice());
-        bean.setTotal(formBean.getTotal());
-        bean.setPaid(formBean.getPaid());
-        bean.setDebt(formBean.getDebt());
-        bean.setRate(formBean.getRate());
-        bean.setAccountId(formBean.getAccountId());
+        bean.setCreatedDate(formBean.getCreatedDate());
+        bean.setQuantity(formBean.getQuantity());
         bean.setNote(formBean.getNote());
         try {
             if (bNew) {
-                gasDAO.insertLpgImport(bean);
+                goodDAO.insertShieldImport(bean);
             } else {
-                gasDAO.updateLpgImport(bean);
+                goodDAO.updateShieldImport(bean);
             }
         } catch (Exception ex) {
             ex.printStackTrace();

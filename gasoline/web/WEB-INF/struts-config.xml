@@ -38,7 +38,10 @@
         <form-bean name="petroForm" type="com.stepup.gasoline.qt.petro.PetroFormBean"/>
         <form-bean name="employeeAdvanceForm" type="com.stepup.gasoline.qt.employeeadvance.EmployeeAdvanceFormBean"/>
         <form-bean name="lpgImportForm" type="com.stepup.gasoline.qt.lpgimport.LpgImportFormBean"/>
+        <form-bean name="lpgSaleForm" type="com.stepup.gasoline.qt.lpgsale.LpgSaleFormBean"/>
         <form-bean name="tripFeeForm" type="com.stepup.gasoline.qt.tripfee.TripFeeFormBean"/>
+        <form-bean name="shieldImportForm" type="com.stepup.gasoline.qt.shieldimport.ShieldImportFormBean"/>
+        <form-bean name="shieldDecreaseForm" type="com.stepup.gasoline.qt.shielddecrease.ShieldDecreaseFormBean"/>
         <form-bean name="oldShellForm" type="com.stepup.gasoline.qt.oldshell.OldShellFormBean"/>
         <form-bean name="gasPriceForm" type="com.stepup.gasoline.qt.gasprice.GasPriceFormBean"/>
         <form-bean name="employeeOffForm" type="com.stepup.gasoline.qt.employeeoff.EmployeeOffFormBean"/>
@@ -511,6 +514,20 @@
         <action path="/delLpgImport" type="com.stepup.gasoline.qt.lpgimport.DeleteLpgImportAction" scope="request" validate="false" >
         </action>
         <!-- end lpg import -->
+        <!-- start lpg sale -->
+        <action path="/getLpgSalePanel" type="com.stepup.gasoline.qt.common.BaseStatusFormAction" scope="request" validate="false">
+            <forward name="success" path="/lpgsale/lpgsalepanel.jsp" />
+        </action>
+        <action path="/getLpgSaleList" type="com.stepup.gasoline.qt.lpgsale.GetLpgSaleListAction" scope="request" validate="false" >
+        </action>
+        <action path="/lpgSaleForm" type="com.stepup.gasoline.qt.lpgsale.LpgSaleFormAction" scope="request" validate="false">
+            <forward name="success" path="/lpgsale/lpgsaledetail.jsp" />
+        </action>
+        <action path="/addLpgSale" name ="lpgSaleForm" scope="request" type="com.stepup.gasoline.qt.lpgsale.AddLpgSaleAction" input="/lpgSaleForm.do">
+        </action>
+        <action path="/delLpgSale" type="com.stepup.gasoline.qt.lpgsale.DeleteLpgSaleAction" scope="request" validate="false" >
+        </action>
+        <!-- end lpg sale -->
         <!-- start fraction -->
         <action path="/getFractionPanel" type="com.stepup.gasoline.qt.common.BaseFormAction" scope="request" validate="false">
             <forward name="success" path="/fraction/fractionpanel.jsp" />
@@ -1008,6 +1025,34 @@
         <action path="/delCustomerDocument" type="com.stepup.gasoline.qt.customerdocument.DeleteCustomerDocumentAction" scope="request" validate="false" >
         </action>
         <!-- end customerdocument -->
+        <!-- start shied import -->
+        <action path="/getShieldImportPanel" type="com.stepup.gasoline.qt.common.BaseStatusFormAction" scope="request" validate="false">
+            <forward name="success" path="/shieldimport/shieldimportpanel.jsp" />
+        </action>
+        <action path="/getShieldImportList" type="com.stepup.gasoline.qt.shieldimport.GetShieldImportListAction" scope="request" validate="false" >
+        </action>
+        <action path="/shieldImportForm" type="com.stepup.gasoline.qt.shieldimport.ShieldImportFormAction" scope="request" validate="false">
+            <forward name="success" path="/shieldimport/shieldimportdetail.jsp" />
+        </action>
+        <action path="/addShieldImport" name ="shieldImportForm" scope="request" type="com.stepup.gasoline.qt.shieldimport.AddShieldImportAction" input="/shieldImportForm.do">
+        </action>
+        <action path="/delShieldImport" type="com.stepup.gasoline.qt.shieldimport.DeleteShieldImportAction" scope="request" validate="false" >
+        </action>
+        <!-- end shied import -->
+        <!-- start shied decrease -->
+        <action path="/getShieldDecreasePanel" type="com.stepup.gasoline.qt.common.BaseStatusFormAction" scope="request" validate="false">
+            <forward name="success" path="/shielddecrease/shielddecreasepanel.jsp" />
+        </action>
+        <action path="/getShieldDecreaseList" type="com.stepup.gasoline.qt.shielddecrease.GetShieldDecreaseListAction" scope="request" validate="false" >
+        </action>
+        <action path="/shieldDecreaseForm" type="com.stepup.gasoline.qt.shielddecrease.ShieldDecreaseFormAction" scope="request" validate="false">
+            <forward name="success" path="/shielddecrease/shielddecreasedetail.jsp" />
+        </action>
+        <action path="/addShieldDecrease" name ="shieldDecreaseForm" scope="request" type="com.stepup.gasoline.qt.shielddecrease.AddShieldDecreaseAction" input="/shieldDecreaseForm.do">
+        </action>
+        <action path="/delShieldDecrease" type="com.stepup.gasoline.qt.shielddecrease.DeleteShieldDecreaseAction" scope="request" validate="false" >
+        </action>
+        <!-- end shied decrease -->
     </action-mappings>
     
     <controller processorClass="org.apache.struts.tiles.TilesRequestProcessor"/>

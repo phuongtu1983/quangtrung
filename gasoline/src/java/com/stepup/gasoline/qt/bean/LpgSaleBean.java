@@ -8,24 +8,22 @@ package com.stepup.gasoline.qt.bean;
  *
  * @author phuongtu
  */
-public class LpgImportBean {
+public class LpgSaleBean {
 
     private int id;
     private String code;
-    private String importDate;
-    private int vendorId;
-    private float paperQuantity;
-    private float actualQuantity;
+    private String saleDate;
+    private int customerId;
+    private float quantity;
     private double price;
     private double total;
     private double paid;
     private double debt;
-    private double rate;
     private int accountId;
     private String note;
     private int canEdit;
 
-    public LpgImportBean() {
+    public LpgSaleBean() {
         this.canEdit = 1;
     }
 
@@ -69,38 +67,6 @@ public class LpgImportBean {
         this.note = note;
     }
 
-    public String getImportDate() {
-        return importDate;
-    }
-
-    public void setImportDate(String importDate) {
-        this.importDate = importDate;
-    }
-
-    public int getVendorId() {
-        return vendorId;
-    }
-
-    public void setVendorId(int vendorId) {
-        this.vendorId = vendorId;
-    }
-
-    public float getPaperQuantity() {
-        return paperQuantity;
-    }
-
-    public void setPaperQuantity(float paperQuantity) {
-        this.paperQuantity = paperQuantity;
-    }
-
-    public float getActualQuantity() {
-        return actualQuantity;
-    }
-
-    public void setActualQuantity(float actualQuantity) {
-        this.actualQuantity = actualQuantity;
-    }
-
     public double getPrice() {
         return price;
     }
@@ -117,14 +83,6 @@ public class LpgImportBean {
         this.debt = debt;
     }
 
-    public double getRate() {
-        return rate;
-    }
-
-    public void setRate(double rate) {
-        this.rate = rate;
-    }
-
     public double getPaid() {
         return paid;
     }
@@ -139,6 +97,30 @@ public class LpgImportBean {
 
     public void setCanEdit(int canEdit) {
         this.canEdit = canEdit;
+    }
+
+    public String getSaleDate() {
+        return saleDate;
+    }
+
+    public void setSaleDate(String saleDate) {
+        this.saleDate = saleDate;
+    }
+
+    public int getCustomerId() {
+        return customerId;
+    }
+
+    public void setCustomerId(int customerId) {
+        this.customerId = customerId;
+    }
+
+    public float getQuantity() {
+        return quantity;
+    }
+
+    public void setQuantity(float quantity) {
+        this.quantity = quantity;
     }
 
 }

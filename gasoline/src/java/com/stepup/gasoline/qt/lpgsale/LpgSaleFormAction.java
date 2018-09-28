@@ -2,14 +2,15 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
-package com.stepup.gasoline.qt.lpgimport;
+package com.stepup.gasoline.qt.lpgsale;
 
 import com.stepup.core.util.DateUtil;
-import com.stepup.gasoline.qt.bean.LpgImportBean;
+import com.stepup.gasoline.qt.bean.CustomerBean;
+import com.stepup.gasoline.qt.bean.LpgSaleBean;
 import com.stepup.gasoline.qt.core.SpineAction;
 import com.stepup.gasoline.qt.dao.AccountDAO;
+import com.stepup.gasoline.qt.dao.CustomerDAO;
 import com.stepup.gasoline.qt.dao.GasDAO;
-import com.stepup.gasoline.qt.dao.VendorDAO;
 import com.stepup.gasoline.qt.util.Constants;
 import com.stepup.gasoline.qt.util.QTUtil;
 import java.util.ArrayList;
@@ -23,7 +24,7 @@ import org.apache.struts.action.ActionMapping;
  *
  * @author phuongtu
  */
-public class LpgImportFormAction extends SpineAction {
+public class LpgSaleFormAction extends SpineAction {
 
     /**
      * This is the action called from the Struts framework.
@@ -38,39 +39,39 @@ public class LpgImportFormAction extends SpineAction {
     @Override
     public boolean doAction(ActionMapping mapping, ActionForm form,
             HttpServletRequest request, HttpServletResponse response) {
-        LpgImportBean bean = null;
-        String lpgImportId = request.getParameter("lpgImportId");
+        LpgSaleBean bean = null;
+        String lpgSaleId = request.getParameter("lpgSaleId");
         GasDAO gasDAO = new GasDAO();
-        if (!GenericValidator.isBlankOrNull(lpgImportId)) {
+        if (!GenericValidator.isBlankOrNull(lpgSaleId)) {
             try {
-                bean = gasDAO.getLpgImport(Integer.parseInt(lpgImportId));
+                bean = gasDAO.getLpgSale(Integer.parseInt(lpgSaleId));
             } catch (Exception ex) {
             }
         }
         if (bean == null) {
-            bean = new LpgImportBean();
+            bean = new LpgSaleBean();
             try {
                 String prefix = "";
-                prefix = DateUtil.today("yyyyMMdd") + "-LI-";
-                String number = gasDAO.getNextLpgImportNumber(prefix, 4);
+                prefix = DateUtil.today("yyyyMMdd") + "-LS-";
+                String number = gasDAO.getNextLpgSaleNumber(prefix, 4);
                 prefix += number;
                 bean.setCode(prefix);
             } catch (Exception ex) {
             }
         }
-        request.setAttribute(Constants.LPG_IMPORT, bean);
+        request.setAttribute(Constants.LPG_SALE, bean);
 
         String organizationIds = QTUtil.getOrganizationManageds(request.getSession());
-        ArrayList arrVendor = null;
+        ArrayList arrCustomer = null;
         try {
-            VendorDAO vendorDAO = new VendorDAO();
-            arrVendor = vendorDAO.getVendors(organizationIds);
+            CustomerDAO customerDAO = new CustomerDAO();
+            arrCustomer = customerDAO.getCustomers(organizationIds, CustomerBean.KIND_WHOLESALE);
         } catch (Exception ex) {
         }
-        if (arrVendor == null) {
-            arrVendor = new ArrayList();
+        if (arrCustomer == null) {
+            arrCustomer = new ArrayList();
         }
-        request.setAttribute(Constants.VENDOR_LIST, arrVendor);
+        request.setAttribute(Constants.CUSTOMER_LIST, arrCustomer);
 
         ArrayList arrAccount = null;
         try {
