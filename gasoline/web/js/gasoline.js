@@ -138,7 +138,7 @@ function menuClick(id) {
     else if (id == 'lpgsalelist')
         loadLpgSalePanel();
     else if (id == 'lpgsaleadd')
-        getLpgSale(0, 'loadLpgSalePanel');
+        getLpgSale(0, 'loadLpgSalePanel',0);
     else if (id == 'fractionlist')
         loadFractionPanel();
     else if (id == 'fractionadd')
@@ -2851,7 +2851,7 @@ function getLpgImport(id, handle) {
         tryNumberFormatCurrentcy(document.forms['lpgImportForm'].paperQuantity, "VND");
         tryNumberFormatCurrentcy(document.forms['lpgImportForm'].actualQuantity, "VND");
         tryNumberFormatCurrentcy(document.forms['lpgImportForm'].price, "VND");
-        tryNumberFormatCurrentcy(document.forms['lpgImportForm'].amount, "VND");
+        tryNumberFormatCurrentcy(document.forms['lpgImportForm'].total, "VND");
         tryNumberFormatCurrentcy(document.forms['lpgImportForm'].paid, "VND");
         tryNumberFormatCurrentcy(document.forms['lpgImportForm'].debt, "VND");
         tryNumberFormatCurrentcy(document.forms['lpgImportForm'].rate, "VND");
@@ -2867,7 +2867,7 @@ function saveLpgImport() {
     reformatNumberMoney(document.forms['lpgImportForm'].paperQuantity);
     reformatNumberMoney(document.forms['lpgImportForm'].actualQuantity);
     reformatNumberMoney(document.forms['lpgImportForm'].price);
-    reformatNumberMoney(document.forms['lpgImportForm'].amount);
+    reformatNumberMoney(document.forms['lpgImportForm'].total);
     reformatNumberMoney(document.forms['lpgImportForm'].paid);
     reformatNumberMoney(document.forms['lpgImportForm'].debt);
     reformatNumberMoney(document.forms['lpgImportForm'].rate);
@@ -7444,11 +7444,11 @@ function loadLpgSalePanel() {
 function loadLpgSaleList(fromDate, toDate) {
     var mygrid = new dhtmlXGridObject('lpgSaleList');
     mygrid.setImagePath("js/dhtmlx/grid/imgs/");
-    mygrid.setHeader("S\u1ED1 phi\u1EBFu,Kh\u00E1ch h\u00E0ng,S\u1ED1 l\u01B0\u1EE3ng,\u0110\u01A1n gi\u00E1,Th\u00E0nh ti\u1EC1n,Ghi ch\u00FA");
-    mygrid.attachHeader("#text_filter,#text_filter,#text_filter,#text_filter,#text_filter,#text_filter");
-    mygrid.setInitWidths("150,200,150,150,150,*");
-    mygrid.setColTypes("link,ro,ro,ro,ro,ro");
-    mygrid.setColSorting("str,str,str,str,str,str");
+    mygrid.setHeader("S\u1ED1 phi\u1EBFu,Kh\u00E1ch h\u00E0ng,S\u1ED1 l\u01B0\u1EE3ng,\u0110\u01A1n gi\u00E1,Th\u00E0nh ti\u1EC1n,S\u1ED1 phi\u1EBFu nh\u1EADp,Ghi ch\u00FA");
+    mygrid.attachHeader("#text_filter,#text_filter,#text_filter,#text_filter,#text_filter,#select_filter,#text_filter");
+    mygrid.setInitWidths("150,200,150,150,150,150,*");
+    mygrid.setColTypes("link,ro,ro,ro,ro,ro,ro");
+    mygrid.setColSorting("str,str,str,str,str,str,str");
     mygrid.setSkin("light");
     var height = contentHeight - 210;
     mygrid.al(true, height); //enableAutoHeight
@@ -7465,11 +7465,13 @@ function loadLpgSaleList(fromDate, toDate) {
     });
     return false;
 }
-function getLpgSale(id, handle) {
+function getLpgSale(id, handle, lpgImportId) {
     popupName = 'TH\u00D4NG TIN PHI\u1EBEU B\u00C1N H\u00C0NG';
-    var url = 'lpgSaleForm.do';
+    var url = 'lpgSaleForm.do?temp=1';
     if (id != 0)
-        url += '?lpgSaleId=' + id
+        url += '&lpgSaleId=' + id;
+    if (lpgImportId != 0)
+        url += '&lpgImportId=' + lpgImportId;
     callAjax(url, null, null, function(data) {
         showPopupForm(data);
         document.getElementById('callbackFunc').value = handle;
@@ -7483,6 +7485,7 @@ function getLpgSale(id, handle) {
             document.forms['lpgSaleForm'].lpgSaleDate.value = currentDate;
         }
     });
+    if(lpgImportId>0) return false;
 }
 function saveLpgSale() {
     if (scriptFunction == "saveLpgSale")
@@ -7497,7 +7500,7 @@ function saveLpgSale() {
         scriptFunction = "";
         var handle = document.getElementById('callbackFunc').value;
         if (confirm('B\u1EA1n c\u00F3 mu\u1ED1n nh\u1EADp ti\u1EBFp th\u00F4ng tin kh\u00E1c ?'))
-            getLpgSale(0, handle);
+            getLpgSale(0, handle, 0);
         else if (handle != '')
             eval(handle + "()");
         prepareHidePopup('lpgSaleFormshowHelpHideDiv');

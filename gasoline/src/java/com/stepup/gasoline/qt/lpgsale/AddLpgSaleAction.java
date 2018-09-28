@@ -50,6 +50,7 @@ public class AddLpgSaleAction extends SpineAction {
         bean.setDebt(formBean.getDebt());
         bean.setAccountId(formBean.getAccountId());
         bean.setNote(formBean.getNote());
+        bean.setLpgImportId(formBean.getLpgImportId());
         try {
             if (bNew) {
                 gasDAO.insertLpgSale(bean);

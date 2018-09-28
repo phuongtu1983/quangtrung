@@ -565,6 +565,12 @@ button.green, a.btn.green,input[type="submit"].btn.green{
 button.green:hover, a.btn.green:hover{
     background-color:#c5e8c5;
 }
+button.blue, a.btn.blue,input[type="submit"].btn.blue{
+    background-color:#9ebfcc;
+}
+button.blue:hover, a.btn.blue:hover{
+    background-color:#bde3ff;
+}
 button.yellow, a.btn.yellow{
     background-color:#e8e8a2;
 }

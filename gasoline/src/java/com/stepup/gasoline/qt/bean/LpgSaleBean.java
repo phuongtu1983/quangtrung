@@ -22,6 +22,7 @@ public class LpgSaleBean {
     private int accountId;
     private String note;
     private int canEdit;
+    private int lpgImportId;
 
     public LpgSaleBean() {
         this.canEdit = 1;
@@ -121,6 +122,14 @@ public class LpgSaleBean {
 
     public void setQuantity(float quantity) {
         this.quantity = quantity;
+    }
+
+    public int getLpgImportId() {
+        return lpgImportId;
+    }
+
+    public void setLpgImportId(int lpgImportId) {
+        this.lpgImportId = lpgImportId;
     }
 
 }

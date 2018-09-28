@@ -935,11 +935,11 @@ CREATE TABLE `lpg_import` (
   `note` text COLLATE utf8_unicode_ci,
   `account_id` int(11) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM AUTO_INCREMENT=11 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=MyISAM AUTO_INCREMENT=12 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 /*Data for the table `lpg_import` */
 
-insert  into `lpg_import`(`id`,`code`,`import_date`,`vendor_id`,`paper_quantity`,`actual_quantity`,`price`,`amount`,`paid`,`debt`,`rate`,`note`,`account_id`) values (10,'20180920-LI-0001','2018-09-20',5,1000,1010,20000,20000000,20000000,0,22753,'test',5);
+insert  into `lpg_import`(`id`,`code`,`import_date`,`vendor_id`,`paper_quantity`,`actual_quantity`,`price`,`amount`,`paid`,`debt`,`rate`,`note`,`account_id`) values (10,'20180920-LI-0001','2018-09-20',5,1000,1010,20000,20000000,20000000,0,22753,'test',5),(11,'20180928-LI-0001','2018-09-28',5,2000,1000,15000,30000000,20000000,10000000,22753,'a',5);
 
 /*Table structure for table `lpg_in_stock` */
 
@@ -972,10 +972,13 @@ CREATE TABLE `lpg_sale` (
   `debt` double DEFAULT NULL,
   `note` text COLLATE utf8_unicode_ci,
   `account_id` int(11) DEFAULT NULL,
+  `lpg_import_id` int(11) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 /*Data for the table `lpg_sale` */
+
+insert  into `lpg_sale`(`id`,`code`,`sale_date`,`customer_id`,`quantity`,`price`,`amount`,`paid`,`debt`,`note`,`account_id`,`lpg_import_id`) values (2,'20180928-LS-0001','2018-09-28',1,400,11000,4400000,4400000,0,'',5,11),(3,'20180928-LS-0002','2018-09-28',1,600,12000,7200000,7200000,0,'',5,11),(4,'20180928-LS-0003','2018-09-28',1,3000,20000,60000000,50000000,10000000,'',5,0);
 
 /*Table structure for table `money_in_stock` */
 
@@ -1532,7 +1535,7 @@ CREATE TABLE `shield_decrease` (
   `quantity` int(10) DEFAULT NULL,
   `note` text COLLATE utf8_unicode_ci,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 /*Data for the table `shield_decrease` */
 
@@ -1547,7 +1550,7 @@ CREATE TABLE `shield_import` (
   `quantity` int(10) DEFAULT NULL,
   `note` text COLLATE utf8_unicode_ci,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 /*Data for the table `shield_import` */
 
@@ -3035,10 +3038,10 @@ DELIMITER ;
 DELIMITER $$
 
 /*!50003 CREATE DEFINER=`root`@`localhost` PROCEDURE `insertLpgSale`(IN _code VARCHAR(20), IN _customer_id INT, IN _sale_date VARCHAR(20), IN _quantity FLOAT
-	, IN _price DOUBLE, IN _amount DOUBLE, IN _paid DOUBLE, IN _debt DOUBLE, IN _account_id INT, IN _note TEXT, OUT _id INT)
+	, IN _price DOUBLE, IN _amount DOUBLE, IN _paid DOUBLE, IN _debt DOUBLE, IN _account_id INT, IN _note TEXT, in _lpg_import_id int, OUT _id INT)
 BEGIN
-	INSERT INTO lpg_sale (CODE, customer_id, sale_date, quantity, price, amount, paid, debt, account_id, note)
-	VALUES (_code, _customer_id, STR_TO_DATE(_sale_date,'%d/%m/%Y'), _quantity, _price, _amount, _paid, _debt, _account_id, _note);
+	INSERT INTO lpg_sale (CODE, customer_id, sale_date, quantity, price, amount, paid, debt, account_id, note, lpg_import_id)
+	VALUES (_code, _customer_id, STR_TO_DATE(_sale_date,'%d/%m/%Y'), _quantity, _price, _amount, _paid, _debt, _account_id, _note, _lpg_import_id);
 	SELECT LAST_INSERT_ID() INTO _id;
     END */$$
 DELIMITER ;
@@ -3810,8 +3813,8 @@ DELIMITER $$
 /*!50003 CREATE DEFINER=`root`@`localhost` PROCEDURE `searchLpgSale`(IN _start_date VARCHAR(20), IN _end_date VARCHAR(20), IN _organization_ids TEXT)
 BEGIN
 	SET _organization_ids = CONCAT(',',_organization_ids,',');
-	SELECT i.id, i.CODE, c.NAME AS customer_name, i.quantity, i.price, i.amount, i.note
-	FROM lpg_sale AS i, customer AS c
+	SELECT i.id, i.CODE, c.NAME AS customer_name, i.quantity, i.price, i.amount, i.note, coalesce(li.code,'') as lpg_import_code
+	FROM lpg_sale AS i left join lpg_import as li on i.lpg_import_id=li.id, customer AS c
 	WHERE i.customer_id=c.id
 		AND DATE(i.sale_date) >= STR_TO_DATE(_start_date,'%d/%m/%Y') AND DATE(i.sale_date) <= STR_TO_DATE(_end_date,'%d/%m/%Y')
 		AND _organization_ids LIKE CONCAT('%,',c.organization_id,',%')
@@ -4632,7 +4635,7 @@ DELIMITER ;
 DELIMITER $$
 
 /*!50003 CREATE DEFINER=`root`@`localhost` PROCEDURE `updateLpgSale`(IN _id INT, IN _customer_id INT, IN _sale_date VARCHAR(20), IN _quantity FLOAT
-	, IN _price DOUBLE, IN _amount DOUBLE, IN _paid DOUBLE, IN _debt DOUBLE, IN _account_id INT, IN _note TEXT)
+	, IN _price DOUBLE, IN _amount DOUBLE, IN _paid DOUBLE, IN _debt DOUBLE, IN _account_id INT, IN _note TEXT, IN _lpg_import_id INT)
 BEGIN
 	UPDATE lpg_sale SET customer_id=_customer_id
 		, sale_date=STR_TO_DATE(_sale_date,'%d/%m/%Y')
@@ -4643,6 +4646,7 @@ BEGIN
 		, debt=_debt
 		, account_id=_account_id
 		, note=_note
+		, lpg_import_id=_lpg_import_id
 	WHERE id=_id;
     END */$$
 DELIMITER ;

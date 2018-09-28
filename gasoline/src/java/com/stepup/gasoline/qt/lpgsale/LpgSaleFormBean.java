@@ -23,6 +23,8 @@ public class LpgSaleFormBean extends org.apache.struts.action.ActionForm {
     private double paid;
     private double debt;
     private int accountId;
+    private int lpgImportId;
+    private String lpgImportCode;
     private String note;
 
     public LpgSaleFormBean() {
@@ -40,6 +42,7 @@ public class LpgSaleFormBean extends org.apache.struts.action.ActionForm {
         this.debt = bean.getDebt();
         this.accountId = bean.getAccountId();
         this.note = bean.getNote();
+        this.lpgImportId = bean.getLpgImportId();
     }
 
     public String getCode() {
@@ -136,6 +139,22 @@ public class LpgSaleFormBean extends org.apache.struts.action.ActionForm {
 
     public void setQuantity(float quantity) {
         this.quantity = quantity;
+    }
+
+    public int getLpgImportId() {
+        return lpgImportId;
+    }
+
+    public void setLpgImportId(int lpgImportId) {
+        this.lpgImportId = lpgImportId;
+    }
+
+    public String getLpgImportCode() {
+        return lpgImportCode;
+    }
+
+    public void setLpgImportCode(String lpgImportCode) {
+        this.lpgImportCode = lpgImportCode;
     }
 
 }

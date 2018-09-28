@@ -4798,6 +4798,7 @@ public class GasDAO extends BasicDAO {
                         bean.setPrice(rs.getDouble("price"));
                         bean.setTotal(rs.getDouble("amount"));
                         bean.setNote(rs.getString("note"));
+                        bean.setLpgImportCode(rs.getString("lpg_import_code"));
                         list.add(bean);
                     }
                 }
@@ -4841,6 +4842,7 @@ public class GasDAO extends BasicDAO {
                 bean.setAccountId(rs.getInt("account_id"));
                 bean.setNote(rs.getString("note"));
                 bean.setCanEdit(rs.getInt("can_edit"));
+                bean.setLpgImportId(rs.getInt("lpg_import_id"));
                 return bean;
             }
         } catch (SQLException sqle) {
@@ -4868,7 +4870,7 @@ public class GasDAO extends BasicDAO {
             } else {
                 createdDate = bean.getSaleDate();
             }
-            String sql = "{call insertLpgSale(?,?,?,?,?,?,?,?,?,?,?)}";
+            String sql = "{call insertLpgSale(?,?,?,?,?,?,?,?,?,?,?,?)}";
             spUtil = new SPUtil(sql);
             if (spUtil != null) {
                 spUtil.getCallableStatement().setString("_code", bean.getCode());
@@ -4881,6 +4883,7 @@ public class GasDAO extends BasicDAO {
                 spUtil.getCallableStatement().setDouble("_debt", bean.getDebt());
                 spUtil.getCallableStatement().setInt("_account_id", bean.getAccountId());
                 spUtil.getCallableStatement().setString("_note", bean.getNote());
+                spUtil.getCallableStatement().setInt("_lpg_import_id", bean.getLpgImportId());
                 spUtil.getCallableStatement().registerOutParameter("_id", Types.INTEGER);
                 spUtil.execute();
                 result = spUtil.getCallableStatement().getInt("_id");
@@ -4913,7 +4916,7 @@ public class GasDAO extends BasicDAO {
             } else {
                 createdDate = bean.getSaleDate();
             }
-            String sql = "{call updateLpgSale(?,?,?,?,?,?,?,?,?,?)}";
+            String sql = "{call updateLpgSale(?,?,?,?,?,?,?,?,?,?,?)}";
             spUtil = new SPUtil(sql);
             if (spUtil != null) {
                 spUtil.getCallableStatement().setInt("_id", bean.getId());
@@ -4926,6 +4929,7 @@ public class GasDAO extends BasicDAO {
                 spUtil.getCallableStatement().setDouble("_debt", bean.getDebt());
                 spUtil.getCallableStatement().setInt("_account_id", bean.getAccountId());
                 spUtil.getCallableStatement().setString("_note", bean.getNote());
+                spUtil.getCallableStatement().setInt("_lpg_import_id", bean.getLpgImportId());
                 spUtil.execute();
             }
         } catch (SQLException sqle) {
@@ -4973,6 +4977,32 @@ public class GasDAO extends BasicDAO {
                 throw new Exception(e.getMessage());
             }
         }
+    }
+
+    public LpgImportBean getLpgImportForSale(int id) throws Exception {
+        ResultSet rs = null;
+        String sql = "SELECT i.id, i.CODE, i.actual_quantity, COALESCE(SUM(s.quantity),0) AS saled_quantity"
+                + " FROM lpg_import AS i LEFT JOIN lpg_sale AS s ON i.id=s.lpg_import_id"
+                + " WHERE i.id=" + id;
+        try {
+            rs = DBUtil.executeQuery(sql);
+            while (rs.next()) {
+                LpgImportBean bean = new LpgImportBean();
+                bean.setId(rs.getInt("id"));
+                bean.setCode(rs.getString("code"));
+                bean.setActualQuantity(rs.getFloat("actual_quantity") - rs.getFloat("saled_quantity"));
+                return bean;
+            }
+        } catch (SQLException sqle) {
+            throw new Exception(sqle.getMessage());
+        } catch (Exception ex) {
+            throw new Exception(ex.getMessage());
+        } finally {
+            if (rs != null) {
+                DBUtil.closeConnection(rs);
+            }
+        }
+        return null;
     }
 
 }

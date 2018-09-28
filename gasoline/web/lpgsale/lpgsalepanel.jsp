@@ -16,7 +16,7 @@
                     <bean:message key="toDate.title"/>
                     <input type="text" name="toDate" id="toDate" size="15">
                 </td>
-                <td><button class="i_magnifying_glass icon small blue" onclick="return loadLpgSaleList(document.forms['lpgSaleSearchForm'].fromDate.value,document.forms['lpgSaleSearchForm'].toDate.value);"><bean:message key="message.search"/></button></td>
+                <td><button class="i_magnifying_glass icon small blue" onclick="return loadLpgSaleList(document.forms['lpgSaleSearchForm'].fromDate.value, document.forms['lpgSaleSearchForm'].toDate.value);"><bean:message key="message.search"/></button></td>
             </tr>
         </table>
     </fieldset>
@@ -25,7 +25,7 @@
     <tr>
         <td>
             <%if (PermissionUtil.hasPermission(request, PermissionUtil.OPERATION_ADD, PermissionUtil.PER_LPG_SALE)) {%> 
-            <button class="i_create_write icon small green" onclick="return getLpgSale(0,'loadLpgSalePanel');"><bean:message key="message.add"/></button>
+            <button class="i_create_write icon small green" onclick="return getLpgSale(0, 'loadLpgSalePanel', 0);"><bean:message key="message.add"/></button>
             <%}%>
         </td>
     </tr>
@@ -39,4 +39,4 @@
     Ctrl+N : Thêm
 </div>
 <div id="shiftFFunctionHideDiv" style="display:none">loadLpgSaleList(document.forms['lpgSaleSearchForm'].fromDate.value,document.forms['lpgSaleSearchForm'].toDate.value)</div>
-<div id="shiftNFunctionHideDiv" style="display:none">getLpgSale(0)</div>
+<div id="shiftNFunctionHideDiv" style="display:none">getLpgSale(0,'loadLpgSalePanel',0)</div>

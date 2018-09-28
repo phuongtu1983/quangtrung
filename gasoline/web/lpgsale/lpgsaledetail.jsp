@@ -46,7 +46,13 @@
                         </tr>
                         <tr>
                             <td height="30" style="padding-right: 20px"><bean:message key="debt.title"/></td>
-                            <td colspan="3"><html:text property="debt" size="30" name="<%=Constants.LPG_SALE%>" readonly="true"/></td>
+                            <td><html:text property="debt" size="30" name="<%=Constants.LPG_SALE%>" readonly="true"/></td>
+                            <td style="padding-right: 20px;padding-left: 10px"><bean:message key="lpgImport.title"/></td>
+                            <td>
+                                <html:select property="lpgImportId" name="<%=Constants.LPG_SALE%>" style="width:195px">
+                                    <html:options collection="<%=Constants.LPG_IMPORT_LIST%>" property="id" labelProperty="code"/>
+                                </html:select>
+                            </td>
                         </tr>
                         <tr>
                             <td height="30" style="padding-right: 20px"><bean:message key="note.title"/></td>

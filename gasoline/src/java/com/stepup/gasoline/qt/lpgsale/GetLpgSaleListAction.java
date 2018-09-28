@@ -40,6 +40,7 @@ public class GetLpgSaleListAction extends BaseAction {
                     buff.append("<cell>").append(NumberUtil.formatMoneyDefault(bean.getQuantity(), "VND")).append("</cell>");
                     buff.append("<cell>").append(NumberUtil.formatMoneyDefault(bean.getPrice(), "VND")).append("</cell>");
                     buff.append("<cell>").append(NumberUtil.formatMoneyDefault(bean.getTotal(), "VND")).append("</cell>");
+                    buff.append("<cell>").append(bean.getLpgImportCode()).append("</cell>");
                     buff.append("<cell>").append(bean.getNote()).append("</cell>");
                     buff.append("</row>");
                 }

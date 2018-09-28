@@ -5,7 +5,9 @@
 package com.stepup.gasoline.qt.lpgsale;
 
 import com.stepup.core.util.DateUtil;
+import com.stepup.core.util.NumberUtil;
 import com.stepup.gasoline.qt.bean.CustomerBean;
+import com.stepup.gasoline.qt.bean.LpgImportBean;
 import com.stepup.gasoline.qt.bean.LpgSaleBean;
 import com.stepup.gasoline.qt.core.SpineAction;
 import com.stepup.gasoline.qt.dao.AccountDAO;
@@ -59,6 +61,29 @@ public class LpgSaleFormAction extends SpineAction {
             } catch (Exception ex) {
             }
         }
+
+        ArrayList arrLpgImport = new ArrayList();
+        try {
+            int lpgImportId = 0;
+            if (bean.getId() > 0) {
+                lpgImportId = bean.getLpgImportId();
+            } else {
+                lpgImportId = NumberUtil.parseInt(request.getParameter("lpgImportId"), 0);
+            }
+            LpgImportBean importBean = gasDAO.getLpgImportForSale(lpgImportId);
+            if (importBean != null && bean.getId() == 0 && importBean.getActualQuantity() > 0) {
+                arrLpgImport.add(importBean);
+                bean.setQuantity(importBean.getActualQuantity());
+            } else if (bean.getId() > 0) {
+                arrLpgImport.add(importBean);
+            }
+        } catch (Exception ex) {
+        }
+        if (arrLpgImport == null) {
+            arrLpgImport = new ArrayList();
+        }
+        request.setAttribute(Constants.LPG_IMPORT_LIST, arrLpgImport);
+
         request.setAttribute(Constants.LPG_SALE, bean);
 
         String organizationIds = QTUtil.getOrganizationManageds(request.getSession());

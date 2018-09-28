@@ -76,6 +76,7 @@ public class Constants {
     public static final String TRIP_FEE = "tripFee";
     public static final String GAS_PRICE = "gasPrice";
     public static final String LPG_IMPORT = "lpgImport";
+    public static final String LPG_IMPORT_LIST = "lpgImportList";
     public static final String LPG_SALE = "lpgSale";
     public static final String FRACTION = "fraction";
     public static final String GAS_IMPORT = "gasImport";

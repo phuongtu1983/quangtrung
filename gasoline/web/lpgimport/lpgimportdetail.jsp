@@ -73,18 +73,17 @@
                             <button class="i_create_write icon small green" onclick="return saveLpgImport();"><bean:message key="message.save"/></button>
                             <%}%>
                         </logic:equal>
-                        <logic:notEqual name="<%=Constants.LPG_IMPORT%>" property="id" value="0">
-                            <%if (PermissionUtil.hasPermission(request, PermissionUtil.OPERATION_EDIT, PermissionUtil.PER_LPG_IMPORT)) {%> 
-                            <logic:equal name="<%=Constants.LPG_IMPORT%>" property="canEdit" value="1">
-                                <button class="i_create_write icon small green" onclick="return saveLpgImport();"><bean:message key="message.save"/></button>
-                            </logic:equal>
-                            <%}%>
-                        </logic:notEqual>
                         <logic:greaterThan name="<%=Constants.LPG_IMPORT%>" property="id" value="0">
-                            <%if (PermissionUtil.hasPermission(request, PermissionUtil.OPERATION_DELETE, PermissionUtil.PER_LPG_IMPORT)) {%> 
                             <logic:equal name="<%=Constants.LPG_IMPORT%>" property="canEdit" value="1">
+                                <%if (PermissionUtil.hasPermission(request, PermissionUtil.OPERATION_EDIT, PermissionUtil.PER_LPG_IMPORT)) {%> 
+                                <button class="i_create_write icon small green" onclick="return saveLpgImport();"><bean:message key="message.save"/></button>
+                                <%}%>
+                                <%if (PermissionUtil.hasPermission(request, PermissionUtil.OPERATION_DELETE, PermissionUtil.PER_LPG_IMPORT)) {%> 
                                 <button class="i_trashcan icon small red" onclick="return delLpgImport();"><bean:message key="message.del"/></button>
+                                <%}%>
                             </logic:equal>
+                            <%if (PermissionUtil.hasPermission(request, PermissionUtil.OPERATION_ADD, PermissionUtil.PER_LPG_SALE)) {%> 
+                            <button class="i_bended_arrow_left icon small blue" onclick="return getLpgSale(0,'loadLpgSalePanel',<bean:write name="<%=Constants.LPG_IMPORT%>" property="id"/>);"><bean:message key="lpgSale.title"/></button>
                             <%}%>
                         </logic:greaterThan>
                         <button class="i_access_denied icon small yellow" onclick="return prepareHidePopup('lpgImportFormshowHelpHideDiv');"><bean:message key="message.close"/></button>
