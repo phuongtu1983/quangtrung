@@ -11,9 +11,10 @@ package com.stepup.gasoline.qt.report;
  */
 public class LpgImportReportBean {
 
-    private int count;
+    private String count;
     private String date;
     private String vendorName;
+    private String customerName;
     private float paperQuantity;
     private float actualQuantity;
     private double price;
@@ -22,11 +23,11 @@ public class LpgImportReportBean {
     private double paid;
     private String note;
 
-    public int getCount() {
+    public String getCount() {
         return count;
     }
 
-    public void setCount(int count) {
+    public void setCount(String count) {
         this.count = count;
     }
 
@@ -100,6 +101,14 @@ public class LpgImportReportBean {
 
     public void setNote(String note) {
         this.note = note;
+    }
+
+    public String getCustomerName() {
+        return customerName;
+    }
+
+    public void setCustomerName(String customerName) {
+        this.customerName = customerName;
     }
 
 }

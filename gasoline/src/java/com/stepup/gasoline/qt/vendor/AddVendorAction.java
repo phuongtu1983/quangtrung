@@ -80,6 +80,9 @@ public class AddVendorAction extends AddDynamicFieldValueAction {
                 if (formBean.getOrganizationId() != oldBean.getOrganizationId()) {
                     isUpdate = true;
                 }
+                if (formBean.getEqualOrganizationId() != oldBean.getEqualOrganizationId()) {
+                    isUpdate = true;
+                }
                 if (formBean.getStatus() != oldBean.getStatus()) {
                     isUpdate = true;
                 }
@@ -92,6 +95,7 @@ public class AddVendorAction extends AddDynamicFieldValueAction {
         bean.setCode(formBean.getCode());
         bean.setStatus(formBean.getStatus());
         bean.setOrganizationId(formBean.getOrganizationId());
+        bean.setEqualOrganizationId(formBean.getEqualOrganizationId());
         try {
             if (bNew) {
                 vendorId = vendorDAO.insertVendor(bean);

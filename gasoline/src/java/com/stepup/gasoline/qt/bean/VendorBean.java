@@ -15,6 +15,7 @@ public class VendorBean {
     private int status;
     private String name;
     private int organizationId;
+    private int equalOrganizationId;
 
     public int getId() {
         return id;
@@ -54,6 +55,14 @@ public class VendorBean {
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    public int getEqualOrganizationId() {
+        return equalOrganizationId;
+    }
+
+    public void setEqualOrganizationId(int equalOrganizationId) {
+        this.equalOrganizationId = equalOrganizationId;
     }
 
 }

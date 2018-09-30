@@ -53,9 +53,9 @@ public class VendorFormAction extends DynamicFieldValueAction {
             formBean = new VendorFormBean();
         }
         seletecOrganizationId = formBean.getOrganizationId();
-
+        
         request.setAttribute(Constants.VENDOR, formBean);
-
+        
         ArrayList arrStatus = new ArrayList();
         LabelValueBean value;
         value = new LabelValueBean();
@@ -67,7 +67,7 @@ public class VendorFormAction extends DynamicFieldValueAction {
         value.setValue(EmployeeBean.STATUS_INACTIVE + "");
         arrStatus.add(value);
         request.setAttribute(Constants.STATUS_LIST, arrStatus);
-
+        
         ArrayList arrOrganization = null;
         try {
             OrganizationDAO organizationDAO = new OrganizationDAO();
@@ -78,7 +78,15 @@ public class VendorFormAction extends DynamicFieldValueAction {
             arrOrganization = new ArrayList();
         }
         request.setAttribute(Constants.ORGANIZATION_LIST, arrOrganization);
-
+        
+        ArrayList arrEqualOrganization = new ArrayList();
+        OrganizationBean empBean = new OrganizationBean();
+        empBean.setName(QTUtil.getBundleString("vendor.detail.organizationSelected"));
+        empBean.setId(0);
+        arrEqualOrganization.add(empBean);
+        arrEqualOrganization.addAll(arrOrganization);
+        request.setAttribute(Constants.EQUAL_ORGANIZATION_LIST, arrEqualOrganization);
+        
         if (seletecOrganizationId == 0) {
             if (arrOrganization != null && arrOrganization.size() > 0) {
                 OrganizationBean orgBean = (OrganizationBean) arrOrganization.get(0);
@@ -89,7 +97,7 @@ public class VendorFormAction extends DynamicFieldValueAction {
         super.setParentId(formBean.getId());
         return true;
     }
-
+    
     @Override
     protected String getTableName() {
         return DynamicFieldBean.VENDOR;

@@ -713,11 +713,18 @@ public class GenerateMenu {
 
             buffTemp = new StringBuilder();
             if (isHasPermission(PermissionUtil.OPERATION_LIST + "",
-                    PermissionUtil.PER_REPORT_LPG_IMPORT)) {
-                if (isHasPermission(PermissionUtil.OPERATION_LIST + "", PermissionUtil.PER_REPORT_LPG_IMPORT)) {
+                    PermissionUtil.PER_REPORT_LPG_IMPORT + "," + PermissionUtil.PER_REPORT_LPG_STOCK)) {
+                if (isHasPermission(PermissionUtil.OPERATION_LIST + "", PermissionUtil.PER_REPORT_LPG_IMPORT + "," + PermissionUtil.PER_REPORT_LPG_STOCK
+                        + "," + PermissionUtil.PER_REPORT_LPG_STOCK_ORGANIZATION)) {
                     buffTemp.append("<item id=\"reportstock\" complex=\"true\" text=\"").append(QTUtil.getBundleString("report.stock.title")).append("\">");
-                    if (isHasPermission(PermissionUtil.OPERATION_LIST, PermissionUtil.PER_CONTRACT)) {
+                    if (isHasPermission(PermissionUtil.OPERATION_LIST, PermissionUtil.PER_REPORT_LPG_IMPORT)) {
                         buffTemp.append("<item id=\"reportlpgimport\" text=\"").append(QTUtil.getBundleString("report.lpgImport.title")).append("\"/>");
+                    }
+                    if (isHasPermission(PermissionUtil.OPERATION_LIST, PermissionUtil.PER_REPORT_LPG_STOCK)) {
+                        buffTemp.append("<item id=\"reportlpgstock\" text=\"").append(QTUtil.getBundleString("report.lpgStock.title")).append("\"/>");
+                    }
+                    if (isHasPermission(PermissionUtil.OPERATION_LIST, PermissionUtil.PER_REPORT_LPG_STOCK_ORGANIZATION)) {
+                        buffTemp.append("<item id=\"reportlpgstockorganization\" text=\"").append(QTUtil.getBundleString("report.lpgStockOrganization.title")).append("\"/>");
                     }
                     buffTemp.append("</item>");
                 }

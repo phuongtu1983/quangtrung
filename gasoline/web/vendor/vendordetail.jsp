@@ -31,6 +31,14 @@
                             </td>
                         </tr>
                         <tr>
+                            <td height="30" style="padding-right: 20px"><bean:message key="vendor.detail.organization"/></td>
+                            <td colspan="3">
+                                <html:select property="equalOrganizationId" name="<%=Constants.VENDOR%>" style="width:255px">
+                                    <html:options collection="<%=Constants.EQUAL_ORGANIZATION_LIST%>" property="id" labelProperty="name"/>
+                                </html:select>
+                            </td>
+                        </tr>
+                        <tr>
                             <td height="30" style="padding-right: 20px" colspan="4">
                                 <div id="vendorDynamicField"><%@include  file="/dynamicfield/fieldvalues.jsp"%></div>
                             </td>

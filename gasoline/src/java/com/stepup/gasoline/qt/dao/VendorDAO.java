@@ -113,6 +113,7 @@ public class VendorDAO extends BasicDAO {
                 vendor.setName(rs.getString("name"));
                 vendor.setStatus(rs.getInt("status"));
                 vendor.setOrganizationId(rs.getInt("organization_id"));
+                vendor.setEqualOrganizationId(rs.getInt("equal_organization_id"));
                 if (vendor.getStatus() == EmployeeBean.STATUS_ACTIVE) {
                     vendor.setStatusName(QTUtil.getBundleString("employee.detail.status.active"));
                 } else if (vendor.getStatus() == EmployeeBean.STATUS_INACTIVE) {
@@ -138,13 +139,14 @@ public class VendorDAO extends BasicDAO {
         try {
             rs = DBUtil.executeQuery(sql);
             while (rs.next()) {
-                VendorFormBean employee = new VendorFormBean();
-                employee.setId(rs.getInt("id"));
-                employee.setName(rs.getString("name"));
-                employee.setCode(rs.getString("code"));
-                employee.setOrganizationId(rs.getInt("organization_id"));
-                employee.setStatus(rs.getInt("status"));
-                return employee;
+                VendorFormBean vendor = new VendorFormBean();
+                vendor.setId(rs.getInt("id"));
+                vendor.setName(rs.getString("name"));
+                vendor.setCode(rs.getString("code"));
+                vendor.setOrganizationId(rs.getInt("organization_id"));
+                vendor.setEqualOrganizationId(rs.getInt("equal_organization_id"));
+                vendor.setStatus(rs.getInt("status"));
+                return vendor;
             }
         } catch (SQLException sqle) {
             throw new Exception(sqle.getMessage());
@@ -164,8 +166,8 @@ public class VendorDAO extends BasicDAO {
         }
         try {
             String sql = "";
-            sql = "Insert Into vendor (name, code, organization_id, status)"
-                    + " Values ('" + bean.getName() + "','" + bean.getCode() + "'," + bean.getOrganizationId() + "," + bean.getStatus() + ")";
+            sql = "Insert Into vendor (name, code, organization_id, status, equal_organization_id)"
+                    + " Values ('" + bean.getName() + "','" + bean.getCode() + "'," + bean.getOrganizationId() + "," + bean.getStatus() + "," + bean.getEqualOrganizationId() + ")";
             return DBUtil.executeInsert(sql);
         } catch (SQLException sqle) {
             throw new Exception(sqle.getMessage());
@@ -189,6 +191,7 @@ public class VendorDAO extends BasicDAO {
                     + " name='" + bean.getName() + "'"
                     + ", code='" + bean.getCode() + "'"
                     + ", organization_id=" + bean.getOrganizationId()
+                    + ", equal_organization_id=" + bean.getEqualOrganizationId()
                     + ", status=" + bean.getStatus()
                     + " Where id=" + bean.getId();
             DBUtil.executeUpdate(sql);

@@ -33,13 +33,29 @@ public class PrintReportAction extends BaseAction {
             String organizationIds = QTUtil.getOrganizationManageds(request.getSession());
             String templateFileName = "";
             if (!StringUtil.isBlankOrNull(reportName)) {
-                if (reportName.equals("reportlpgimport")) {
-                    templateFileName = "bang_theo_doi_nhap_hang_lpg";
-                }
-                templateFileName = request.getSession().getServletContext().getRealPath("/templates/" + templateFileName + ".xls");
                 Map beans = new HashMap();
                 ExcelExport exporter = new ExcelExport();
-                printLpgImportReport(request.getParameter("fromDate"), request.getParameter("toDate"), beans, exporter, organizationIds);
+                String fromDate = request.getParameter("fromDate");
+                String toDate = request.getParameter("toDate");
+                ArrayList list = null;
+                if (reportName.equals("reportlpgimport")) {
+                    templateFileName = "bang_theo_doi_nhap_hang_lpg";
+                    list = printLpgImportReport(fromDate, toDate, organizationIds);
+                } else if (reportName.equals("reportlpgstock")) {
+                    templateFileName = "so_theo_doi_san_luong_khi_hoa_long_lpg";
+                    list = printLpgStockReport(fromDate, toDate, beans, organizationIds);
+                }else if (reportName.equals("reportlpgstockorganization")) {
+                    templateFileName = "so_theo_doi_nhap_xuat_khi_hoa_long_lpg";
+                    list = printLpgStockOrganizationReport(fromDate, toDate);
+                }
+                templateFileName = request.getSession().getServletContext().getRealPath("/templates/" + templateFileName + ".xls");
+                beans.put("qtrp_fromDate", fromDate);
+                beans.put("qtrp_toDate", toDate);
+                if (list == null) {
+                    list = new ArrayList();
+                }
+                beans.put("dulieu", list);
+                exporter.setBeans(beans);
                 exporter.export(request, response, templateFileName, "report_" + reportName + ".xls");
             }
 
@@ -55,16 +71,34 @@ public class PrintReportAction extends BaseAction {
         return true;
     }
 
-    private void printLpgImportReport(String fromDate, String toDate, Map beans, ExcelExport exporter, String organizationIds) {
+    private ArrayList printLpgImportReport(String fromDate, String toDate, String organizationIds) {
         ArrayList list = null;
         try {
             ReportDAO reportDAO = new ReportDAO();
             list = reportDAO.getLpgImportReport(fromDate, toDate, organizationIds);
-            beans.put("dulieu", list);
-            beans.put("qtrp_fromDate", fromDate);
-            beans.put("qtrp_toDate", toDate);
-            exporter.setBeans(beans);
         } catch (Exception ex) {
         }
+        return list;
+    }
+
+    private ArrayList printLpgStockReport(String fromDate, String toDate, Map beans, String organizationIds) {
+        ArrayList list = null;
+        try {
+            ReportDAO reportDAO = new ReportDAO();
+            list = reportDAO.getLpgStockReport(fromDate, toDate, organizationIds);
+            beans.put("qtrp_openingStock", fromDate);
+        } catch (Exception ex) {
+        }
+        return list;
+    }
+    
+    private ArrayList printLpgStockOrganizationReport(String fromDate, String toDate) {
+        ArrayList list = null;
+        try {
+            ReportDAO reportDAO = new ReportDAO();
+            list = reportDAO.getLpgStockOrganizationReport(fromDate, toDate);
+        } catch (Exception ex) {
+        }
+        return list;
     }
 }

@@ -257,6 +257,10 @@ function menuClick(id) {
         getContract(0, 'loadContractPanel');
     else if (id == 'reportlpgimport')
         showReportPanel('reportlpgimport');
+    else if (id == 'reportlpgstock')
+        showReportPanel('reportlpgstock');
+    else if (id == 'reportlpgstockorganization')
+        showReportPanel('reportlpgstockorganization');
     else if (id == 'shieldimportlist')
         loadShieldImportPanel();
     else if (id == 'shieldimportadd')
