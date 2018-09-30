@@ -21,6 +21,8 @@ public class Constants {
     public static final String SHELL_LIST = "shellList";
     public static final String SHELL_IMPORT = "shellImport";
     public static final String VENDOR = "vendor";
+    public static final String VENDOR_ORGANIZATION = "vendorOrganization";
+    public static final String VENDOR_ORGANIZATION_lIST = "vendorOrganizationList";
     public static final String VENDOR_LIST = "vendorList";
     public static final String STATUS_LIST = "statusList";
     public static final String SELECTED = "selected";

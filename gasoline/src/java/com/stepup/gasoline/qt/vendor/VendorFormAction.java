@@ -82,7 +82,7 @@ public class VendorFormAction extends DynamicFieldValueAction {
         ArrayList arrEqualOrganization = new ArrayList();
         OrganizationBean empBean = new OrganizationBean();
         empBean.setName(QTUtil.getBundleString("vendor.detail.organizationSelected"));
-        empBean.setId(0);
+        empBean.setId(-1);
         arrEqualOrganization.add(empBean);
         arrEqualOrganization.addAll(arrOrganization);
         request.setAttribute(Constants.EQUAL_ORGANIZATION_LIST, arrEqualOrganization);

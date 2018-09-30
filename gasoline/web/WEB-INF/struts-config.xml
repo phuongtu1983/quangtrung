@@ -58,6 +58,7 @@
         <form-bean name="organizationTimesheetForm" type="com.stepup.gasoline.qt.organization.OrganizationTimesheetFormBean"/>
         <form-bean name="accessoryKindForm" type="com.stepup.gasoline.qt.accessorykind.AccessoryKindFormBean"/>
         <form-bean name="vendorForm" type="com.stepup.gasoline.qt.vendor.VendorFormBean"/>
+        <form-bean name="vendorOrganizationForm" type="com.stepup.gasoline.qt.vendororganization.VendorOrganizationFormBean"/>
         <form-bean name="customerForm" type="com.stepup.gasoline.qt.customer.CustomerFormBean"/>
         <form-bean name="customerDocumentForm" type="com.stepup.gasoline.qt.customerdocument.CustomerDocumentFormBean"/>
         <form-bean name="dynamicFieldForm" type="com.stepup.gasoline.qt.dynamicfield.DynamicFieldFormBean"/>
@@ -1053,6 +1054,20 @@
         <action path="/delShieldDecrease" type="com.stepup.gasoline.qt.shielddecrease.DeleteShieldDecreaseAction" scope="request" validate="false" >
         </action>
         <!-- end shied decrease -->
+        <!-- start vendor organization -->
+        <action path="/getVendorOrganizationPanel" type="com.stepup.gasoline.qt.common.BaseStatusFormAction" scope="request" validate="false">
+            <forward name="success" path="/vendororganization/vendororganizationpanel.jsp" />
+        </action>
+        <action path="/getVendorOrganizationList" type="com.stepup.gasoline.qt.vendororganization.GetVendorOrganizationListAction" scope="request" validate="false" >
+        </action>
+        <action path="/vendorOrganizationForm" type="com.stepup.gasoline.qt.vendororganization.VendorOrganizationFormAction" scope="request" validate="false">
+            <forward name="success" path="/vendororganization/vendororganizationdetail.jsp" />
+        </action>
+        <action path="/addVendorOrganization" name ="vendorOrganizationForm" scope="request" type="com.stepup.gasoline.qt.vendororganization.AddVendorOrganizationAction" input="/vendorOrganizationForm.do">
+        </action>
+        <action path="/delVendorOrganization" type="com.stepup.gasoline.qt.vendororganization.DeleteVendorOrganizationAction" scope="request" validate="false" >
+        </action>
+        <!-- end vendor organization -->
     </action-mappings>
     
     <controller processorClass="org.apache.struts.tiles.TilesRequestProcessor"/>

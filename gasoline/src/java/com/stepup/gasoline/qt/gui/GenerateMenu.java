@@ -195,6 +195,15 @@ public class GenerateMenu {
                         buffTemp.append("<item id=\"vendorfiellist\" text=\"").append(QTUtil.getBundleString("vendor.field.title")).append("\"/>");//add vendor field
                     }
                     buffTemp.append("</item>");//end vendors
+
+                    buffTemp.append("<item id=\"vendororganizations\" complex=\"true\" text=\"").append(QTUtil.getBundleString("vendorOrganization.title")).append("\">");//start vendorOrganizations
+                    if (isHasPermission(PermissionUtil.OPERATION_LIST, PermissionUtil.PER_VENDOR)) {
+                        buffTemp.append("<item id=\"vendororganizationlist\" text=\"").append(QTUtil.getBundleString("vendorOrganization.list.title")).append("\"/>");//list vendor
+                    }
+                    if (isHasPermission(PermissionUtil.OPERATION_ADD, PermissionUtil.PER_VENDOR)) {
+                        buffTemp.append("<item id=\"vendororganizationadd\" text=\"").append(QTUtil.getBundleString("vendorOrganization.detail.add.title")).append("\"/>");//add vendor
+                    }
+                    buffTemp.append("</item>");//end vendorOrganizations
                 }
                 buffTemp.append("</item>");//end vendor
             }

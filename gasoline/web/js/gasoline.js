@@ -63,6 +63,10 @@ function menuClick(id) {
         loadVendorPanel();
     else if (id == 'vendoradd')
         getVendor(0, 'loadVendorPanel');
+    else if (id == 'vendororganizationlist')
+        loadVendorOrganizationPanel();
+    else if (id == 'vendororganizationadd')
+        getVendorOrganization(0, 'loadVendorOrganizationPanel');
     else if (id == 'vendorfiellist')
         loadDynamicFieldPanel("vendor");
     else if (id == 'accountlist')
@@ -7728,4 +7732,64 @@ function delShieldDecrease() {
     });
     return false;
 }
+function loadVendorOrganizationPanel() {
+    callAjax("getVendorOrganizationPanel.do", null, null, function(data) {
+        clearContent();
+        setAjaxData(data, "contentDiv");
+        loadVendorOrganizationList();
+    });
+}
+function loadVendorOrganizationList() {
+    var mygrid = new dhtmlXGridObject('vendorOrganizationList');
+    mygrid.setImagePath("js/dhtmlx/grid/imgs/");
+    mygrid.setHeader("\u0110\u01A1n v\u1ECB,Nh\u00E0 cung c\u1EA5p");
+    mygrid.attachHeader("#select_filter,#text_filter");
+    mygrid.setInitWidths("300,*");
+    mygrid.setColTypes("link,ro");
+    mygrid.setColSorting("str,str");
+    mygrid.setSkin("light");
+    var height = contentHeight - 210;
+    mygrid.al(true, height); //enableAutoHeight
+    mygrid.enablePaging(true, 15, 3, "recinfoArea");
+    mygrid.setPagingSkin("toolbar", "dhx_skyblue");
+    mygrid.init();
+    var url = "getVendorOrganizationList.do";
+    callAjax(url, null, null, function(data) {
+        mygrid.parse(data);
+    });
+    return false;
+}
+function getVendorOrganization(id, handle) {
+    popupName = 'TH\u00D4NG TIN NH\u00C0 CUNG C\u1EA4P LI\u00CAN K\u1EBET';
+    var url = 'vendorOrganizationForm.do';
+    if (id != 0)
+        url += '?vendorOrganizationId=' + id
+    callAjax(url, null, null, function(data) {
+        showPopupForm(data);
+        document.getElementById('callbackFunc').value = handle;
+    });
+}
+function saveVendorOrganization() {
+    if (scriptFunction == "saveVendorOrganization")
+        return false;
+    scriptFunction = "saveVendorOrganization";
+    callAjaxCheckError("addVendorOrganization.do", null, document.forms['vendorOrganizationForm'], function(data) {
+        scriptFunction = "";
+        var handle = document.getElementById('callbackFunc').value;
+        if (confirm('B\u1EA1n c\u00F3 mu\u1ED1n nh\u1EADp ti\u1EBFp th\u00F4ng tin kh\u00E1c ?'))
+            getVendorOrganization(0, handle);
+        else if (handle != '')
+            eval(handle + "()");
+        prepareHidePopup('vendorOrganizationFormshowHelpHideDiv');
+    });
+    return false;
+}
+function delVendorOrganization() {
+    callAjaxCheckError('delVendorOrganization.do?vendorOrganizationId=' + document.forms['vendorOrganizationForm'].id.value, null, null, function() {
+        loadVendorOrganizationPanel();
+        prepareHidePopup('dynamicFieldFormshowHelpHideDiv');
+    });
+    return false;
+}
+
 
