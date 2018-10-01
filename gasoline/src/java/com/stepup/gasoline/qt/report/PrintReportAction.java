@@ -44,9 +44,9 @@ public class PrintReportAction extends BaseAction {
                 } else if (reportName.equals("reportlpgstock")) {
                     templateFileName = "so_theo_doi_san_luong_khi_hoa_long_lpg";
                     list = printLpgStockReport(fromDate, toDate, beans, organizationIds);
-                }else if (reportName.equals("reportlpgstockorganization")) {
+                } else if (reportName.equals("reportlpgstocksum")) {
                     templateFileName = "so_theo_doi_nhap_xuat_khi_hoa_long_lpg";
-                    list = printLpgStockOrganizationReport(fromDate, toDate);
+                    list = printLpgStockSumReport(fromDate, toDate, organizationIds);
                 }
                 templateFileName = request.getSession().getServletContext().getRealPath("/templates/" + templateFileName + ".xls");
                 beans.put("qtrp_fromDate", fromDate);
@@ -91,12 +91,12 @@ public class PrintReportAction extends BaseAction {
         }
         return list;
     }
-    
-    private ArrayList printLpgStockOrganizationReport(String fromDate, String toDate) {
+
+    private ArrayList printLpgStockSumReport(String fromDate, String toDate, String organizationIds) {
         ArrayList list = null;
         try {
             ReportDAO reportDAO = new ReportDAO();
-            list = reportDAO.getLpgStockOrganizationReport(fromDate, toDate);
+            list = reportDAO.getLpgStockSumReport(fromDate, toDate, organizationIds);
         } catch (Exception ex) {
         }
         return list;

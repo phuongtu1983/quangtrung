@@ -156,12 +156,12 @@ public class ReportDAO extends BasicDAO {
         return list;
     }
 
-    public ArrayList getLpgStockOrganizationReport(String fromDate, String endDate) throws Exception {
+    public ArrayList getLpgStockSumReport(String fromDate, String endDate, String organizationIds) throws Exception {
         SPUtil spUtil = null;
         ArrayList list = new ArrayList();
         ResultSet rs = null;
         try {
-            String sql = "{call report_lpg_stock_organization(?,?,?,?,?)}";
+            String sql = "{call report_lpg_stock_sum(?,?,?,?,?,?,?)}";
             if (GenericValidator.isBlankOrNull(fromDate)) {
                 fromDate = DateUtil.today("dd/MM/yyyy");
             }
@@ -172,13 +172,16 @@ public class ReportDAO extends BasicDAO {
             if (spUtil != null) {
                 spUtil.getCallableStatement().setString("_start_date", fromDate);
                 spUtil.getCallableStatement().setString("_end_date", endDate);
-                spUtil.getCallableStatement().registerOutParameter("_gas_12_stock", Types.FLOAT);
-                spUtil.getCallableStatement().registerOutParameter("_gas_45_stock", Types.FLOAT);
-                spUtil.getCallableStatement().registerOutParameter("_gas_stock", Types.FLOAT);
+                spUtil.getCallableStatement().setString("_organization_ids", organizationIds);
+                spUtil.getCallableStatement().registerOutParameter("_gas_12_stock", Types.INTEGER);
+                spUtil.getCallableStatement().registerOutParameter("_gas_45_stock", Types.INTEGER);
+                spUtil.getCallableStatement().registerOutParameter("_gas_stock", Types.INTEGER);
+                spUtil.getCallableStatement().registerOutParameter("_final_stock", Types.INTEGER);
                 rs = spUtil.executeQuery();
-                float gas12Stock = spUtil.getCallableStatement().getFloat("_gas_12_stock");
-                float gas45Stock = spUtil.getCallableStatement().getFloat("_gas_45_stock");
-                float gasStock = spUtil.getCallableStatement().getFloat("_gas_stock");
+                int gas12Stock = spUtil.getCallableStatement().getInt("_gas_12_stock");
+                int gas45Stock = spUtil.getCallableStatement().getInt("_gas_45_stock");
+                int gasStock = spUtil.getCallableStatement().getInt("_gas_stock");
+                int finalStock = spUtil.getCallableStatement().getInt("_final_stock");
                 if (rs != null) {
                     LpgStockOrganizationReportBean bean = null;
                     while (rs.next()) {
@@ -187,17 +190,22 @@ public class ReportDAO extends BasicDAO {
                         bean.setContent(DateUtil.formatDate(rs.getDate("content"), "dd/MM"));
                         bean.setGas12Stock(gas12Stock);
                         bean.setGas45Stock(gas45Stock);
-                        bean.setFraction12(rs.getFloat("fraction_12"));
-                        bean.setFraction45(rs.getFloat("fraction_45"));
-                        bean.setVehicleOut12(rs.getFloat("vehicle_out_12"));
-                        bean.setVehicleOut45(rs.getFloat("vehicle_out_45"));
-                        bean.setVehicleIn12(rs.getFloat("vehicle_in_12"));
-                        bean.setVehicleIn45(rs.getFloat("vehicle_in_45"));
-                        bean.setClosingStock12(bean.getGas12Stock()+bean.getFraction12()-bean.getVehicleOut12()+bean.getVehicleIn12());
-                        bean.setClosingStock45(bean.getGas45Stock()+bean.getFraction45()-bean.getVehicleOut45()+bean.getVehicleIn45());
-//                        bean.setClosingStock(gasStock+bean);
+                        bean.setFraction12(rs.getInt("fraction_12"));
+                        bean.setFraction45(rs.getInt("fraction_45"));
+                        bean.setVehicleOut12(rs.getInt("vehicle_out_12"));
+                        bean.setVehicleOut45(rs.getInt("vehicle_out_45"));
+                        bean.setVehicleIn12(rs.getInt("vehicle_in_12"));
+                        bean.setVehicleIn45(rs.getInt("vehicle_in_45"));
+                        bean.setClosingStock12(bean.getGas12Stock() + bean.getFraction12() - bean.getVehicleOut12() + bean.getVehicleIn12());
+                        bean.setClosingStock45(bean.getGas45Stock() + bean.getFraction45() - bean.getVehicleOut45() + bean.getVehicleIn45());
+                        bean.setClosingStock(gasStock + rs.getInt("import_quantity") - bean.getFraction12() * 12 - bean.getFraction45() * 45);
                         bean.setShieldImport(rs.getInt("shield_import"));
                         bean.setShieldDecrease(rs.getInt("shield_decrease"));
+                        bean.setFinalStock(finalStock + bean.getShieldImport() - (bean.getFraction12() + bean.getFraction45()) - bean.getShieldDecrease());
+                        gas12Stock = bean.getClosingStock12();
+                        gas45Stock = bean.getClosingStock45();
+                        gasStock = bean.getClosingStock();
+                        finalStock = bean.getFinalStock();
                         list.add(bean);
                     }
                 }

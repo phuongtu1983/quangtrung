@@ -707,7 +707,7 @@ public class PermissionFormAction extends SpineAction {
         perBean.setLevel(2);
         perBean.setSharedId(3);
         perBean.setName(QTUtil.getBundleString("report.lpgStockOrganization.title"));
-        perBean.setValue(PermissionUtil.PER_REPORT_LPG_STOCK_ORGANIZATION);
+        perBean.setValue(PermissionUtil.PER_REPORT_LPG_STOCK_SUM);
         perBean.setOperations("," + PermissionUtil.OPERATION_LIST + ",");
         arrFun.add(perBean);
 

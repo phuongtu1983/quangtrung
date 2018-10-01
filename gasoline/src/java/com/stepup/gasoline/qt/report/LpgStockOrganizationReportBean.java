@@ -13,18 +13,18 @@ public class LpgStockOrganizationReportBean {
 
     private String date;
     private String content;
-    private float gas12Stock;
-    private float gas45Stock;
-    private float fraction12;
-    private float fraction45;
-    private float vehicleOut12;
-    private float vehicleOut45;
-    private float vehicleIn12;
-    private float vehicleIn45;
-    private float closingStock12;
-    private float closingStock45;
-    private float closingStock;
-    private float finalStock;
+    private int gas12Stock;
+    private int gas45Stock;
+    private int fraction12;
+    private int fraction45;
+    private int vehicleOut12;
+    private int vehicleOut45;
+    private int vehicleIn12;
+    private int vehicleIn45;
+    private int closingStock12;
+    private int closingStock45;
+    private int closingStock;
+    private int finalStock;
     private int shieldImport;
     private int shieldDecrease;
 
@@ -44,67 +44,67 @@ public class LpgStockOrganizationReportBean {
         this.content = content;
     }
 
-    public float getGas12Stock() {
+    public int getGas12Stock() {
         return gas12Stock;
     }
 
-    public void setGas12Stock(float gas12Stock) {
+    public void setGas12Stock(int gas12Stock) {
         this.gas12Stock = gas12Stock;
     }
 
-    public float getGas45Stock() {
+    public int getGas45Stock() {
         return gas45Stock;
     }
 
-    public void setGas45Stock(float gas45Stock) {
+    public void setGas45Stock(int gas45Stock) {
         this.gas45Stock = gas45Stock;
     }
 
-    public float getFraction12() {
+    public int getFraction12() {
         return fraction12;
     }
 
-    public void setFraction12(float fraction12) {
+    public void setFraction12(int fraction12) {
         this.fraction12 = fraction12;
     }
 
-    public float getFraction45() {
+    public int getFraction45() {
         return fraction45;
     }
 
-    public void setFraction45(float fraction45) {
+    public void setFraction45(int fraction45) {
         this.fraction45 = fraction45;
     }
 
-    public float getVehicleOut12() {
+    public int getVehicleOut12() {
         return vehicleOut12;
     }
 
-    public void setVehicleOut12(float vehicleOut12) {
+    public void setVehicleOut12(int vehicleOut12) {
         this.vehicleOut12 = vehicleOut12;
     }
 
-    public float getVehicleOut45() {
+    public int getVehicleOut45() {
         return vehicleOut45;
     }
 
-    public void setVehicleOut45(float vehicleOut45) {
+    public void setVehicleOut45(int vehicleOut45) {
         this.vehicleOut45 = vehicleOut45;
     }
 
-    public float getVehicleIn12() {
+    public int getVehicleIn12() {
         return vehicleIn12;
     }
 
-    public void setVehicleIn12(float vehicleIn12) {
+    public void setVehicleIn12(int vehicleIn12) {
         this.vehicleIn12 = vehicleIn12;
     }
 
-    public float getVehicleIn45() {
+    public int getVehicleIn45() {
         return vehicleIn45;
     }
 
-    public void setVehicleIn45(float vehicleIn45) {
+    public void setVehicleIn45(int vehicleIn45) {
         this.vehicleIn45 = vehicleIn45;
     }
 
@@ -124,35 +124,35 @@ public class LpgStockOrganizationReportBean {
         this.shieldDecrease = shieldDecrease;
     }
 
-    public float getClosingStock12() {
+    public int getClosingStock12() {
         return closingStock12;
     }
 
-    public void setClosingStock12(float closingStock12) {
+    public void setClosingStock12(int closingStock12) {
         this.closingStock12 = closingStock12;
     }
 
-    public float getClosingStock45() {
+    public int getClosingStock45() {
         return closingStock45;
     }
 
-    public void setClosingStock45(float closingStock45) {
+    public void setClosingStock45(int closingStock45) {
         this.closingStock45 = closingStock45;
     }
 
-    public float getClosingStock() {
+    public int getClosingStock() {
         return closingStock;
     }
 
-    public void setClosingStock(float closingStock) {
+    public void setClosingStock(int closingStock) {
         this.closingStock = closingStock;
     }
 
-    public float getFinalStock() {
+    public int getFinalStock() {
         return finalStock;
     }
 
-    public void setFinalStock(float finalStock) {
+    public void setFinalStock(int finalStock) {
         this.finalStock = finalStock;
     }
 

@@ -148,5 +148,5 @@ public class PermissionUtil {
     public static int PER_SHIELD_IMPORT = 60;
     public static int PER_SHIELD_DECREASE = 61;
     public static int PER_REPORT_LPG_STOCK = 62;
-    public static int PER_REPORT_LPG_STOCK_ORGANIZATION = 63;
+    public static int PER_REPORT_LPG_STOCK_SUM = 63;
 }

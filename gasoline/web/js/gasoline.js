@@ -263,8 +263,8 @@ function menuClick(id) {
         showReportPanel('reportlpgimport');
     else if (id == 'reportlpgstock')
         showReportPanel('reportlpgstock');
-    else if (id == 'reportlpgstockorganization')
-        showReportPanel('reportlpgstockorganization');
+    else if (id == 'reportlpgstocksum')
+        showReportPanel('reportlpgstocksum');
     else if (id == 'shieldimportlist')
         loadShieldImportPanel();
     else if (id == 'shieldimportadd')
