@@ -18,6 +18,7 @@ public class ShellBean {
     private String unitName;
     private double price;
     private int status;
+    private int vendorId;
 
     public void setId(int id) {
         this.id = id;
@@ -81,6 +82,14 @@ public class ShellBean {
 
     public void setUnitName(String unitName) {
         this.unitName = unitName;
+    }
+
+    public int getVendorId() {
+        return vendorId;
+    }
+
+    public void setVendorId(int vendorId) {
+        this.vendorId = vendorId;
     }
 
 }

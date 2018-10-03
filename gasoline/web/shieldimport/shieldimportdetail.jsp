@@ -18,7 +18,13 @@
                         </tr>
                         <tr>
                             <td height="30" style="padding-right: 20px"><bean:message key="quantity.title"/></td>
-                            <td colspan="3"><html:text property="quantity" size="30" name="<%=Constants.SHIELD_IMPORT%>" onkeyup="try2FloatFormatOnKeyUp(this,event);" onkeypress="return readonlyFloat(event);"/></td>
+                            <td><html:text property="quantity" size="30" name="<%=Constants.SHIELD_IMPORT%>" onkeyup="try2FloatFormatOnKeyUp(this,event);" onkeypress="return readonlyFloat(event);"/></td>
+                            <td style="padding-right: 20px;padding-left: 10px"><bean:message key="vendor.title"/></td>
+                            <td>
+                                <html:select property="vendorId" name="<%=Constants.SHIELD_IMPORT%>" style="width:195px">
+                                    <html:options collection="<%=Constants.VENDOR_LIST%>" property="id" labelProperty="name"/>
+                                </html:select>
+                            </td>
                         </tr>
                         <tr>
                             <td height="30" style="padding-right: 20px"><bean:message key="note.title"/></td>

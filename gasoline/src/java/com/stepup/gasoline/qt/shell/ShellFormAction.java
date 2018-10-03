@@ -9,6 +9,7 @@ import com.stepup.gasoline.qt.bean.ShellBean;
 import com.stepup.gasoline.qt.core.SpineAction;
 import com.stepup.gasoline.qt.dao.GoodDAO;
 import com.stepup.gasoline.qt.dao.UnitDAO;
+import com.stepup.gasoline.qt.dao.VendorDAO;
 import com.stepup.gasoline.qt.util.Constants;
 import com.stepup.gasoline.qt.util.QTUtil;
 import java.util.ArrayList;
@@ -85,6 +86,18 @@ public class ShellFormAction extends SpineAction {
             arrShellKind = new ArrayList();
         }
         request.setAttribute(Constants.SHELL_KIND_LIST, arrShellKind);
+        
+        String organizationIds = QTUtil.getOrganizationManageds(request.getSession());
+        ArrayList arrVendor = null;
+        try {
+            VendorDAO vendorDAO = new VendorDAO();
+            arrVendor = vendorDAO.getVendors(organizationIds);
+        } catch (Exception ex) {
+        }
+        if (arrVendor == null) {
+            arrVendor = new ArrayList();
+        }
+        request.setAttribute(Constants.VENDOR_LIST, arrVendor);
 
         return true;
     }

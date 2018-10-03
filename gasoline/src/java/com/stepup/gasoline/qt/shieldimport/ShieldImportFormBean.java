@@ -16,6 +16,8 @@ public class ShieldImportFormBean extends org.apache.struts.action.ActionForm {
     private String code;
     private String createdDate;
     private int quantity;
+    private int vendorId;
+    private String vendorName;
     private String note;
 
     public ShieldImportFormBean() {
@@ -27,6 +29,7 @@ public class ShieldImportFormBean extends org.apache.struts.action.ActionForm {
         this.createdDate = bean.getCreatedDate();
         this.quantity = bean.getQuantity();
         this.note = bean.getNote();
+        this.vendorId = bean.getVendorId();
     }
 
     public String getCode() {
@@ -67,6 +70,22 @@ public class ShieldImportFormBean extends org.apache.struts.action.ActionForm {
 
     public void setQuantity(int quantity) {
         this.quantity = quantity;
+    }
+
+    public int getVendorId() {
+        return vendorId;
+    }
+
+    public void setVendorId(int vendorId) {
+        this.vendorId = vendorId;
+    }
+
+    public String getVendorName() {
+        return vendorName;
+    }
+
+    public void setVendorName(String vendorName) {
+        this.vendorName = vendorName;
     }
 
 }

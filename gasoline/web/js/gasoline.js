@@ -7559,11 +7559,11 @@ function loadShieldImportPanel() {
 function loadShieldImportList(fromDate, toDate) {
     var mygrid = new dhtmlXGridObject('shieldImportList');
     mygrid.setImagePath("js/dhtmlx/grid/imgs/");
-    mygrid.setHeader("S\u1ED1 phi\u1EBFu,Ng\u00E0y,S\u1ED1 l\u01B0\u1EE3ng,Ghi ch\u00FA");
-    mygrid.attachHeader("#text_filter,#text_filter,#text_filter,#text_filter");
-    mygrid.setInitWidths("150,150,200,*");
-    mygrid.setColTypes("link,ro,ro,ro");
-    mygrid.setColSorting("str,str,str,str");
+    mygrid.setHeader("S\u1ED1 phi\u1EBFu,Ng\u00E0y,S\u1ED1 l\u01B0\u1EE3ng,Nh\u00E0 cung c\u1EA5p,Ghi ch\u00FA");
+    mygrid.attachHeader("#text_filter,#text_filter,#text_filter,#text_filter,#text_filter");
+    mygrid.setInitWidths("150,150,200,200,*");
+    mygrid.setColTypes("link,ro,ro,ro,ro");
+    mygrid.setColSorting("str,str,str,str,str");
     mygrid.setSkin("light");
     var height = contentHeight - 210;
     mygrid.al(true, height); //enableAutoHeight
@@ -7654,11 +7654,11 @@ function loadShieldDecreasePanel() {
 function loadShieldDecreaseList(fromDate, toDate) {
     var mygrid = new dhtmlXGridObject('shieldDecreaseList');
     mygrid.setImagePath("js/dhtmlx/grid/imgs/");
-    mygrid.setHeader("S\u1ED1 phi\u1EBFu,Ng\u00E0y,S\u1ED1 l\u01B0\u1EE3ng,Ghi ch\u00FA");
-    mygrid.attachHeader("#text_filter,#text_filter,#text_filter,#text_filter");
-    mygrid.setInitWidths("150,150,200,*");
-    mygrid.setColTypes("link,ro,ro,ro");
-    mygrid.setColSorting("str,str,str,str");
+    mygrid.setHeader("S\u1ED1 phi\u1EBFu,Ng\u00E0y,S\u1ED1 l\u01B0\u1EE3ng,Nh\u00E0 cung c\u1EA5p,Ghi ch\u00FA");
+    mygrid.attachHeader("#text_filter,#text_filter,#text_filter,#text_filter,#text_filter");
+    mygrid.setInitWidths("150,150,200,200,*");
+    mygrid.setColTypes("link,ro,ro,ro,ro");
+    mygrid.setColSorting("str,str,str,str,str");
     mygrid.setSkin("light");
     var height = contentHeight - 210;
     mygrid.al(true, height); //enableAutoHeight

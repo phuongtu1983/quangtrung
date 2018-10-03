@@ -116,7 +116,6 @@ public class WatchTask extends TimerTask {
                         AutoData autoDataRunnable = new AutoData();
                         Thread t = new Thread(autoDataRunnable);
                         t.start();
-                        autoDAO.insertAutoInStock();
                     } catch (Exception ex) {
                     }
                 }

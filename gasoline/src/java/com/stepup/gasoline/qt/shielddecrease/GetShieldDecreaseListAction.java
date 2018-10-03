@@ -8,6 +8,7 @@ import com.stepup.core.util.NumberUtil;
 import com.stepup.core.util.OutputUtil;
 import com.stepup.gasoline.qt.core.BaseAction;
 import com.stepup.gasoline.qt.dao.GoodDAO;
+import com.stepup.gasoline.qt.util.QTUtil;
 import java.util.ArrayList;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -28,7 +29,7 @@ public class GetShieldDecreaseListAction extends BaseAction {
         buff.append("<rows>");
         try {
             GoodDAO goodDAO = new GoodDAO();
-            ArrayList list = goodDAO.searchShieldDecrease(request.getParameter("fromDate"), request.getParameter("toDate"));
+            ArrayList list = goodDAO.searchShieldDecrease(request.getParameter("fromDate"), request.getParameter("toDate"), QTUtil.getOrganizationManageds(request.getSession()));
             if (list != null) {
                 int length = list.size();
                 for (int i = 0; i < length; i++) {
@@ -37,6 +38,7 @@ public class GetShieldDecreaseListAction extends BaseAction {
                     buff.append("<cell>").append(bean.getCode()).append("^javascript:getShieldDecrease(").append(bean.getId()).append(",\"loadShieldDecreasePanel\")^_self</cell>");
                     buff.append("<cell>").append(bean.getCreatedDate()).append("</cell>");
                     buff.append("<cell>").append(NumberUtil.formatMoneyDefault(bean.getQuantity(), "VND")).append("</cell>");
+                    buff.append("<cell>").append(bean.getVendorName()).append("</cell>");
                     buff.append("<cell>").append(bean.getNote()).append("</cell>");
                     buff.append("</row>");
                 }

@@ -35,7 +35,7 @@ public class AutoDAO {
 
     public boolean hasAutoInStock() throws Exception {
         ResultSet rs = null;
-        String sql = "SELECT id FROM auto WHERE MONTH(auto_date)=MONTH(SYSDATE()) AND YEAR(auto_date)=YEAR(SYSDATE()) AND auto_name='" + AUTO_IN_STOCK + "'";
+        String sql = "SELECT id FROM auto WHERE DATEDIFF(SYSDATE(),auto_date)=1 AND auto_name='" + AUTO_IN_STOCK + "'";
         try {
             rs = DBUtil.executeQuery(sql);
             while (rs.next()) {
@@ -66,25 +66,10 @@ public class AutoDAO {
         }
     }
 
-    public void insertAutoInStock() throws Exception {
-        try {
-            String sql = "";
-            sql = "Insert Into auto (auto_date, auto_name) Values (sysdate(),'" + AUTO_IN_STOCK + "')";
-            DBUtil.executeInsert(sql);
-        } catch (Exception ex) {
-            throw new Exception(ex.getMessage());
-        } finally {
-            try {
-            } catch (Exception e) {
-                throw new Exception(e.getMessage());
-            }
-        }
-    }
-
     public void insertInStockDay() throws Exception {
         SPUtil spUtil = null;
         try {
-            String sql = "{call insertInStockDay()}";
+            String sql = "{call insertInStockManyDay()}";
             spUtil = new SPUtil(sql);
             if (spUtil != null) {
                 spUtil.execute();

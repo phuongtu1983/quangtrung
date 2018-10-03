@@ -43,10 +43,15 @@ public class PrintReportAction extends BaseAction {
                     list = printLpgImportReport(fromDate, toDate, organizationIds);
                 } else if (reportName.equals("reportlpgstock")) {
                     templateFileName = "so_theo_doi_san_luong_khi_hoa_long_lpg";
-                    list = printLpgStockReport(fromDate, toDate, beans, organizationIds);
+                    LpgStockReportOutBean outBean = new LpgStockReportOutBean();
+                    list = printLpgStockReport(fromDate, toDate, outBean);
+                    beans.put("qtrp_gasStock", outBean.getGasStock());
                 } else if (reportName.equals("reportlpgstocksum")) {
                     templateFileName = "so_theo_doi_nhap_xuat_khi_hoa_long_lpg";
-                    list = printLpgStockSumReport(fromDate, toDate, organizationIds);
+                    LpgStockSumReportOutBean outBean = new LpgStockSumReportOutBean();
+                    list = printLpgStockSumReport(fromDate, toDate, organizationIds, outBean);
+                    beans.put("qtrp_gasStock", outBean.getGasStock());
+                    beans.put("qtrp_shieldStock", outBean.getShieldStock());
                 }
                 templateFileName = request.getSession().getServletContext().getRealPath("/templates/" + templateFileName + ".xls");
                 beans.put("qtrp_fromDate", fromDate);
@@ -81,22 +86,21 @@ public class PrintReportAction extends BaseAction {
         return list;
     }
 
-    private ArrayList printLpgStockReport(String fromDate, String toDate, Map beans, String organizationIds) {
+    private ArrayList printLpgStockReport(String fromDate, String toDate, LpgStockReportOutBean outBean) {
         ArrayList list = null;
         try {
             ReportDAO reportDAO = new ReportDAO();
-            list = reportDAO.getLpgStockReport(fromDate, toDate, organizationIds);
-            beans.put("qtrp_openingStock", fromDate);
+            list = reportDAO.getLpgStockReport(fromDate, toDate, outBean);
         } catch (Exception ex) {
         }
         return list;
     }
 
-    private ArrayList printLpgStockSumReport(String fromDate, String toDate, String organizationIds) {
+    private ArrayList printLpgStockSumReport(String fromDate, String toDate, String organizationIds, LpgStockSumReportOutBean outBean) {
         ArrayList list = null;
         try {
             ReportDAO reportDAO = new ReportDAO();
-            list = reportDAO.getLpgStockSumReport(fromDate, toDate, organizationIds);
+            list = reportDAO.getLpgStockSumReport(fromDate, toDate, organizationIds, outBean);
         } catch (Exception ex) {
         }
         return list;

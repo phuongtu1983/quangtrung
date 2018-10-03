@@ -9,7 +9,7 @@ package com.stepup.gasoline.qt.report;
  *
  * @author Administrator
  */
-public class LpgStockOrganizationReportBean {
+public class LpgStockSumReportBean {
 
     private String date;
     private String content;

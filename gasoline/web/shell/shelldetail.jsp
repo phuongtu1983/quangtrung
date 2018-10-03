@@ -40,6 +40,14 @@
                                 </html:select>
                             </td>
                         </tr>
+                        <tr>
+                            <td height="30" style="padding-right: 20px"><bean:message key="vendor.title"/></td>
+                            <td colspan="3">
+                                <html:select property="vendorId" name="<%=Constants.SHELL%>" style="width:260px">
+                                    <html:options collection="<%=Constants.VENDOR_LIST%>" property="id" labelProperty="name"/>
+                                </html:select>
+                            </td>
+                        </tr>
                     </table>
                 </td></tr>
             <tr>

@@ -14,6 +14,7 @@ public class ShieldImportBean {
     private String code;
     private String createdDate;
     private int quantity;
+    private int vendorId;
     private String note;
 
     public void setId(int id) {
@@ -54,6 +55,14 @@ public class ShieldImportBean {
 
     public void setQuantity(int quantity) {
         this.quantity = quantity;
+    }
+
+    public int getVendorId() {
+        return vendorId;
+    }
+
+    public void setVendorId(int vendorId) {
+        this.vendorId = vendorId;
     }
 
 }

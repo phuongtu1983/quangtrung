@@ -88,6 +88,9 @@ public class AddShellAction extends SpineAction {
                 if (formBean.getPrice() != bean.getPrice()) {
                     isUpdate = true;
                 }
+                if (formBean.getVendorId()!= bean.getVendorId()) {
+                    isUpdate = true;
+                }
             }
         } catch (Exception ex) {
         }
@@ -99,6 +102,7 @@ public class AddShellAction extends SpineAction {
         bean.setKindId(formBean.getKindId());
         bean.setPrice(formBean.getPrice());
         bean.setStatus(formBean.getStatus());
+        bean.setVendorId(formBean.getVendorId());
         try {
             if (bNew) {
                 goodDAO.insertShell(bean);

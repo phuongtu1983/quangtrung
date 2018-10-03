@@ -44,6 +44,7 @@ public class AddShieldDecreaseAction extends SpineAction {
         bean.setCreatedDate(formBean.getCreatedDate());
         bean.setQuantity(formBean.getQuantity());
         bean.setNote(formBean.getNote());
+        bean.setVendorId(formBean.getVendorId());
         try {
             if (bNew) {
                 goodDAO.insertShieldDecrease(bean);

@@ -9,8 +9,10 @@ import com.stepup.core.database.SPUtil;
 import com.stepup.core.util.DateUtil;
 import com.stepup.core.util.GenericValidator;
 import com.stepup.gasoline.qt.report.LpgImportReportBean;
-import com.stepup.gasoline.qt.report.LpgStockOrganizationReportBean;
+import com.stepup.gasoline.qt.report.LpgStockSumReportBean;
 import com.stepup.gasoline.qt.report.LpgStockReportBean;
+import com.stepup.gasoline.qt.report.LpgStockReportOutBean;
+import com.stepup.gasoline.qt.report.LpgStockSumReportOutBean;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Types;
@@ -96,7 +98,7 @@ public class ReportDAO extends BasicDAO {
         return list;
     }
 
-    public ArrayList getLpgStockReport(String fromDate, String endDate, String organizationIds) throws Exception {
+    public ArrayList getLpgStockReport(String fromDate, String endDate, LpgStockReportOutBean outBean) throws Exception {
         SPUtil spUtil = null;
         ArrayList list = new ArrayList();
         ResultSet rs = null;
@@ -112,26 +114,27 @@ public class ReportDAO extends BasicDAO {
             if (spUtil != null) {
                 spUtil.getCallableStatement().setString("_start_date", fromDate);
                 spUtil.getCallableStatement().setString("_end_date", endDate);
-                spUtil.getCallableStatement().setString("_organization_ids", organizationIds);
+                spUtil.getCallableStatement().registerOutParameter("_gas_stock", Types.FLOAT);
 
                 rs = spUtil.executeQuery();
 
+                float gasStock = spUtil.getCallableStatement().getFloat("_gas_stock");
+                outBean.setGasStock(gasStock);
                 if (rs != null) {
                     LpgStockReportBean bean = null;
                     while (rs.next()) {
                         bean = new LpgStockReportBean();
-                        if (rs.getInt("sale_id") == 0) {
-                            bean.setDate(DateUtil.formatDate(rs.getDate("created_date"), "dd/MM/yyyy"));
-                            bean.setContent(rs.getString("content"));
-                            bean.setOpeningStock(rs.getFloat("paper_quantity"));
-                            bean.setImportQuantity(rs.getFloat("actual_quantity"));
-                            bean.setExport12Quantity(rs.getFloat("price"));
-                            bean.setExport45Quantity(rs.getFloat("rate"));
-                            bean.setConvertQuantity(bean.getExport12Quantity() * 12 + bean.getExport45Quantity() * 45);
-                            bean.setReturnQuantity(rs.getFloat("paid"));
-                            bean.setClosingStock(bean.getOpeningStock() + bean.getImportQuantity() - bean.getConvertQuantity() + bean.getReturnQuantity());
-                            bean.setNote(rs.getString("note"));
-                        }
+                        bean.setDate(DateUtil.formatDate(rs.getDate("created_date"), "dd/MM/yyyy"));
+                        bean.setContent(rs.getString("content"));
+                        bean.setOpeningStock(gasStock);
+                        bean.setImportQuantity(rs.getFloat("import_quantity"));
+                        bean.setExport12Quantity(rs.getFloat("export_12_quantity"));
+                        bean.setExport45Quantity(rs.getFloat("export_45_quantity"));
+                        bean.setConvertQuantity(bean.getExport12Quantity() * 12 + bean.getExport45Quantity() * 45);
+                        bean.setReturnQuantity(rs.getFloat("return_quantity"));
+                        bean.setClosingStock(bean.getOpeningStock() + bean.getImportQuantity() - bean.getConvertQuantity() + bean.getReturnQuantity());
+                        gasStock = bean.getClosingStock();
+                        bean.setNote(rs.getString("note"));
                         list.add(bean);
                     }
                 }
@@ -156,7 +159,7 @@ public class ReportDAO extends BasicDAO {
         return list;
     }
 
-    public ArrayList getLpgStockSumReport(String fromDate, String endDate, String organizationIds) throws Exception {
+    public ArrayList getLpgStockSumReport(String fromDate, String endDate, String organizationIds, LpgStockSumReportOutBean outBean) throws Exception {
         SPUtil spUtil = null;
         ArrayList list = new ArrayList();
         ResultSet rs = null;
@@ -182,10 +185,12 @@ public class ReportDAO extends BasicDAO {
                 int gas45Stock = spUtil.getCallableStatement().getInt("_gas_45_stock");
                 int gasStock = spUtil.getCallableStatement().getInt("_gas_stock");
                 int finalStock = spUtil.getCallableStatement().getInt("_final_stock");
+                outBean.setGasStock(gasStock);
+                outBean.setShieldStock(finalStock);
                 if (rs != null) {
-                    LpgStockOrganizationReportBean bean = null;
+                    LpgStockSumReportBean bean = null;
                     while (rs.next()) {
-                        bean = new LpgStockOrganizationReportBean();
+                        bean = new LpgStockSumReportBean();
                         bean.setDate(DateUtil.formatDate(rs.getDate("created_date"), "dd/MM/yyyy"));
                         bean.setContent(DateUtil.formatDate(rs.getDate("content"), "dd/MM"));
                         bean.setGas12Stock(gas12Stock);
