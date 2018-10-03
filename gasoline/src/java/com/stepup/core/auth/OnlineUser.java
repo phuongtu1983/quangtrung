@@ -16,6 +16,8 @@ public interface OnlineUser {
 
     public abstract int getID();
 
+    public abstract int getEmployeeId();
+
     public abstract String getName();
 
     public abstract String getFullName();

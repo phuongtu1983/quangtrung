@@ -9,6 +9,7 @@ import com.stepup.core.util.StringUtil;
 import com.stepup.gasoline.qt.core.BaseAction;
 import com.stepup.gasoline.qt.core.ExcelExport;
 import com.stepup.gasoline.qt.dao.ReportDAO;
+import com.stepup.gasoline.qt.dao.VendorDAO;
 import com.stepup.gasoline.qt.util.QTUtil;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -44,7 +45,7 @@ public class PrintReportAction extends BaseAction {
                 } else if (reportName.equals("reportlpgstock")) {
                     templateFileName = "so_theo_doi_san_luong_khi_hoa_long_lpg";
                     LpgStockReportOutBean outBean = new LpgStockReportOutBean();
-                    list = printLpgStockReport(fromDate, toDate, outBean);
+                    list = printLpgStockReport(fromDate, toDate, organizationIds, outBean);
                     beans.put("qtrp_gasStock", outBean.getGasStock());
                 } else if (reportName.equals("reportlpgstocksum")) {
                     templateFileName = "so_theo_doi_nhap_xuat_khi_hoa_long_lpg";
@@ -52,6 +53,20 @@ public class PrintReportAction extends BaseAction {
                     list = printLpgStockSumReport(fromDate, toDate, organizationIds, outBean);
                     beans.put("qtrp_gasStock", outBean.getGasStock());
                     beans.put("qtrp_shieldStock", outBean.getShieldStock());
+                }else if (reportName.equals("reportsum")) {
+                    templateFileName = "tong_hop";
+                    list = printSumReport(fromDate, toDate, organizationIds);
+                }else if (reportName.equals("reportcompare")) {
+                    templateFileName = "doi_chieu";
+                    CompareReportOutBean outBean = new CompareReportOutBean();
+                    list = printCompareReport(fromDate, toDate, outBean);
+                    beans.put("qtrp_companyName", outBean.getCompanyName());
+                    beans.put("qtrp_companyAddress", outBean.getCompanyAddress());
+                    beans.put("qtrp_companyPhone", outBean.getCompanyPhone());
+                    beans.put("qtrp_companyFax", outBean.getCompanyFax());
+                    beans.put("qtrp_customerName", outBean.getCustomerName());
+                    beans.put("qtrp_customerAddress", outBean.getCustomerAddress());
+                    beans.put("qtrp_customerTax", outBean.getCustomerTax());
                 }
                 templateFileName = request.getSession().getServletContext().getRealPath("/templates/" + templateFileName + ".xls");
                 beans.put("qtrp_fromDate", fromDate);
@@ -86,11 +101,13 @@ public class PrintReportAction extends BaseAction {
         return list;
     }
 
-    private ArrayList printLpgStockReport(String fromDate, String toDate, LpgStockReportOutBean outBean) {
+    private ArrayList printLpgStockReport(String fromDate, String toDate, String organizationIds, LpgStockReportOutBean outBean) {
         ArrayList list = null;
         try {
+            VendorDAO vendorDAO = new VendorDAO();
+            String vendorIds = vendorDAO.getVendorOfOrganizations(organizationIds);
             ReportDAO reportDAO = new ReportDAO();
-            list = reportDAO.getLpgStockReport(fromDate, toDate, outBean);
+            list = reportDAO.getLpgStockReport(fromDate, toDate, vendorIds, outBean);
         } catch (Exception ex) {
         }
         return list;
@@ -99,8 +116,32 @@ public class PrintReportAction extends BaseAction {
     private ArrayList printLpgStockSumReport(String fromDate, String toDate, String organizationIds, LpgStockSumReportOutBean outBean) {
         ArrayList list = null;
         try {
+            VendorDAO vendorDAO = new VendorDAO();
+            String vendorIds = vendorDAO.getVendorOfOrganizations(organizationIds);
             ReportDAO reportDAO = new ReportDAO();
-            list = reportDAO.getLpgStockSumReport(fromDate, toDate, organizationIds, outBean);
+            list = reportDAO.getLpgStockSumReport(fromDate, toDate, vendorIds, outBean);
+        } catch (Exception ex) {
+        }
+        return list;
+    }
+    
+    private ArrayList printSumReport(String fromDate, String toDate, String organizationIds) {
+        ArrayList list = null;
+        try {
+            VendorDAO vendorDAO = new VendorDAO();
+            String vendorIds = vendorDAO.getVendorOfOrganizations(organizationIds);
+            ReportDAO reportDAO = new ReportDAO();
+            list = reportDAO.getSumReport(fromDate, toDate, vendorIds);
+        } catch (Exception ex) {
+        }
+        return list;
+    }
+    
+    private ArrayList printCompareReport(String fromDate, String toDate, CompareReportOutBean outBean) {
+        ArrayList list = null;
+        try {
+            ReportDAO reportDAO = new ReportDAO();
+            list = reportDAO.getCompareReport(fromDate, toDate, outBean);
         } catch (Exception ex) {
         }
         return list;

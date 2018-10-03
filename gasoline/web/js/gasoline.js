@@ -142,7 +142,7 @@ function menuClick(id) {
     else if (id == 'lpgsalelist')
         loadLpgSalePanel();
     else if (id == 'lpgsaleadd')
-        getLpgSale(0, 'loadLpgSalePanel',0);
+        getLpgSale(0, 'loadLpgSalePanel', 0);
     else if (id == 'fractionlist')
         loadFractionPanel();
     else if (id == 'fractionadd')
@@ -259,12 +259,8 @@ function menuClick(id) {
         loadContractPanel();
     else if (id == 'contractadd')
         getContract(0, 'loadContractPanel');
-    else if (id == 'reportlpgimport')
-        showReportPanel('reportlpgimport');
-    else if (id == 'reportlpgstock')
-        showReportPanel('reportlpgstock');
-    else if (id == 'reportlpgstocksum')
-        showReportPanel('reportlpgstocksum');
+    else if (id == 'reportlpgimport' || id == 'reportlpgstock' || id == 'reportlpgstocksum' || id == 'reportsum' || id == 'reportcompare')
+        showReportPanel(id);
     else if (id == 'shieldimportlist')
         loadShieldImportPanel();
     else if (id == 'shieldimportadd')
@@ -7493,7 +7489,8 @@ function getLpgSale(id, handle, lpgImportId) {
             document.forms['lpgSaleForm'].lpgSaleDate.value = currentDate;
         }
     });
-    if(lpgImportId>0) return false;
+    if (lpgImportId > 0)
+        return false;
 }
 function saveLpgSale() {
     if (scriptFunction == "saveLpgSale")

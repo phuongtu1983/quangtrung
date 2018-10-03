@@ -372,4 +372,29 @@ public class VendorDAO extends BasicDAO {
         return result;
     }
 
+    public String getVendorOfOrganizations(String organizationIds) throws Exception {
+        ResultSet rs = null;
+        String sql = "SELECT v.id"
+                + " FROM vendor AS v"
+                + " WHERE v.status=" + EmployeeBean.STATUS_ACTIVE;
+        if (!organizationIds.isEmpty()) {
+            sql += " and v.equal_organization_id in(" + organizationIds + ")";
+        }
+        String result = "0,";
+        try {
+            rs = DBUtil.executeQuery(sql);
+            while (rs.next()) {
+                result += rs.getInt("id") + ",";
+            }
+        } catch (SQLException sqle) {
+            throw new Exception(sqle.getMessage());
+        } catch (Exception ex) {
+            throw new Exception(ex.getMessage());
+        } finally {
+            if (rs != null) {
+                DBUtil.closeConnection(rs);
+            }
+        }
+        return result + "0";
+    }
 }

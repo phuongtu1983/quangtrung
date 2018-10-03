@@ -59,6 +59,15 @@ public class QTUtil {
         return memberid;
     }
 
+    public static int getEmployeeId(HttpSession session) {
+        int employeeId = -1;
+        if ((session != null) && (session.getAttribute(Constants.EMPLOYEE_OBJ) != null)) {
+            OnlineUser user = (OnlineUser) session.getAttribute(Constants.EMPLOYEE_OBJ);
+            employeeId = user.getEmployeeId();
+        }
+        return employeeId;
+    }
+
     public static String getMemberIPAdress(HttpSession session) {
         String ip = "";
         if ((session != null) && (session.getAttribute(Constants.EMPLOYEE_OBJ) != null)) {
