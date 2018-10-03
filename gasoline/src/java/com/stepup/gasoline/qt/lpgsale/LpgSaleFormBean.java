@@ -17,7 +17,7 @@ public class LpgSaleFormBean extends org.apache.struts.action.ActionForm {
     private String saleDate;
     private int customerId;
     private String customerName;
-    private float quantity;
+    private int quantity;
     private double price;
     private double total;
     private double paid;
@@ -133,11 +133,11 @@ public class LpgSaleFormBean extends org.apache.struts.action.ActionForm {
         this.customerName = customerName;
     }
 
-    public float getQuantity() {
+    public int getQuantity() {
         return quantity;
     }
 
-    public void setQuantity(float quantity) {
+    public void setQuantity(int quantity) {
         this.quantity = quantity;
     }
 

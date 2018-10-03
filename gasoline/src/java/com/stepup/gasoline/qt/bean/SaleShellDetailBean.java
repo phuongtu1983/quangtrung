@@ -18,7 +18,7 @@ public class SaleShellDetailBean {
     private String unitName;
     private int customerId;
     private String customerName;
-    private float quantity;
+    private int quantity;
     private double price;
     private double amount;
 
@@ -30,11 +30,11 @@ public class SaleShellDetailBean {
         this.id = id;
     }
 
-    public float getQuantity() {
+    public int getQuantity() {
         return quantity;
     }
 
-    public void setQuantity(float quantity) {
+    public void setQuantity(int quantity) {
         this.quantity = quantity;
     }
 

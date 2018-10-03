@@ -93,9 +93,9 @@ public class AddGasRetailAction extends SpineAction {
                 if (id == 0) {
                     GasRetailDetailBean bean = new GasRetailDetailBean();
                     bean.setShellId(NumberUtil.parseInt(formBean.getShellId()[i], 0));
-                    bean.setQuantity(NumberUtil.parseFloat(formBean.getQuantity()[i], 0));
-                    bean.setPrice(NumberUtil.parseFloat(formBean.getPrice()[i], 0));
-                    bean.setAmount(NumberUtil.parseFloat(formBean.getAmount()[i], 0));
+                    bean.setQuantity(NumberUtil.parseInt(formBean.getQuantity()[i], 0));
+                    bean.setPrice(NumberUtil.parseInt(formBean.getPrice()[i], 0));
+                    bean.setAmount(NumberUtil.parseInt(formBean.getAmount()[i], 0));
                     bean.setGasRetailId(formBean.getId());
                     gasDAO.insertGasRetailDetail(bean);
                 } else {
@@ -144,7 +144,7 @@ public class AddGasRetailAction extends SpineAction {
                 if (id == 0) {
                     GasRetailPromotionMaterialDetailBean bean = new GasRetailPromotionMaterialDetailBean();
                     bean.setPromotionMaterialId(NumberUtil.parseInt(formBean.getPromotionMaterialId()[i], 0));
-                    bean.setQuantity(NumberUtil.parseFloat(formBean.getPromotionMaterialQuantity()[i], 0));
+                    bean.setQuantity(NumberUtil.parseInt(formBean.getPromotionMaterialQuantity()[i], 0));
                     bean.setGasRetailId(formBean.getId());
                     gasDAO.insertGasRetailPromotionMaterialDetail(bean);
                 } else {
@@ -185,7 +185,7 @@ public class AddGasRetailAction extends SpineAction {
                 if (id == 0) {
                     GasRetailReturnShellDetailBean bean = new GasRetailReturnShellDetailBean();
                     bean.setShellId(NumberUtil.parseInt(formBean.getReturnShellId()[i], 0));
-                    bean.setQuantity(NumberUtil.parseFloat(formBean.getReturnShellQuantity()[i], 0));
+                    bean.setQuantity(NumberUtil.parseInt(formBean.getReturnShellQuantity()[i], 0));
                     bean.setGasRetailId(formBean.getId());
                     gasDAO.insertGasRetailReturnShellDetail(bean);
                 } else {

@@ -196,8 +196,8 @@ public class FixedAssetDAO extends BasicDAO {
                 bean.setGroupId(rs.getInt("group_id"));
                 bean.setStartDate(DateUtil.formatDate(rs.getDate("start_date"), "dd/MM/yyyy"));
                 bean.setQuantity(rs.getInt("quantity"));
-                bean.setRate(rs.getFloat("rate"));
-                bean.setMonthCount(rs.getFloat("month_count"));
+                bean.setRate(rs.getInt("rate"));
+                bean.setMonthCount(rs.getInt("month_count"));
                 bean.setStatus(rs.getInt("status"));
                 if (bean.getStatus() == EmployeeBean.STATUS_ACTIVE) {
                     bean.setStatusName(QTUtil.getBundleString("employee.detail.status.active"));
@@ -231,8 +231,8 @@ public class FixedAssetDAO extends BasicDAO {
                 bean.setGroupId(rs.getInt("group_id"));
                 bean.setStartDate(DateUtil.formatDate(rs.getDate("start_date"), "dd/MM/yyyy"));
                 bean.setQuantity(rs.getInt("quantity"));
-                bean.setRate(rs.getFloat("rate"));
-                bean.setMonthCount(rs.getFloat("month_count"));
+                bean.setRate(rs.getInt("rate"));
+                bean.setMonthCount(rs.getInt("month_count"));
                 bean.setPrice(rs.getDouble("price"));
                 bean.setStatus(rs.getInt("status"));
                 if (bean.getStatus() == EmployeeBean.STATUS_ACTIVE) {
@@ -267,8 +267,8 @@ public class FixedAssetDAO extends BasicDAO {
                 bean.setGroupId(rs.getInt("group_id"));
                 bean.setStartDate(DateUtil.formatDate(rs.getDate("start_date"), "dd/MM/yyyy"));
                 bean.setQuantity(rs.getInt("quantity"));
-                bean.setRate(rs.getFloat("rate"));
-                bean.setMonthCount(rs.getFloat("month_count"));
+                bean.setRate(rs.getInt("rate"));
+                bean.setMonthCount(rs.getInt("month_count"));
                 bean.setPrice(rs.getDouble("price"));
                 return bean;
             }
@@ -485,7 +485,7 @@ public class FixedAssetDAO extends BasicDAO {
                         bean = new FixedAssetDepreciationDetailBean();
                         bean.setId(rs.getInt("id"));
                         bean.setFixedAssetDepreciationId(rs.getInt("fixed_asset_depreciation_id"));
-                        bean.setQuantity(rs.getFloat("quantity"));
+                        bean.setQuantity(rs.getInt("quantity"));
                         bean.setPrice(rs.getDouble("price"));
                         bean.setFixedAssetId(rs.getInt("fixed_asset_id"));
                         bean.setFixedAssetName(rs.getString("fixed_asset_name"));
@@ -634,7 +634,7 @@ public class FixedAssetDAO extends BasicDAO {
             spUtil = new SPUtil(sql);
             if (spUtil != null) {
                 spUtil.getCallableStatement().setInt("_id", bean.getId());
-                spUtil.getCallableStatement().setFloat("_is_calculate", bean.getIsCalculate());
+                spUtil.getCallableStatement().setInt("_is_calculate", bean.getIsCalculate());
                 spUtil.execute();
             }
         } catch (SQLException sqle) {

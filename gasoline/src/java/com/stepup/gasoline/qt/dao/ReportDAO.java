@@ -58,8 +58,8 @@ public class ReportDAO extends BasicDAO {
                             bean.setCount(count++ + "");
                             bean.setDate(DateUtil.formatDate(rs.getDate("import_date"), "dd/MM/yyyy"));
                             bean.setVendorName(rs.getString("vendor_name"));
-                            bean.setPaperQuantity(rs.getFloat("paper_quantity"));
-                            bean.setActualQuantity(rs.getFloat("actual_quantity"));
+                            bean.setPaperQuantity(rs.getInt("paper_quantity"));
+                            bean.setActualQuantity(rs.getInt("actual_quantity"));
                             bean.setPrice(rs.getDouble("price"));
                             bean.setRate(rs.getDouble("rate"));
                             bean.setAmount(rs.getDouble("amount"));
@@ -71,7 +71,7 @@ public class ReportDAO extends BasicDAO {
                             bean.setCount(countPre + "." + countSub++ + "");
                             bean.setDate(DateUtil.formatDate(rs.getDate("sale_date"), "dd/MM/yyyy"));
                             bean.setCustomerName(rs.getString("customer_name"));
-                            bean.setActualQuantity(rs.getFloat("sale_quantity"));
+                            bean.setActualQuantity(rs.getInt("sale_quantity"));
                             bean.setPrice(rs.getDouble("sale_price"));
                             bean.setAmount(rs.getDouble("sale_amount"));
                             bean.setPaid(rs.getDouble("sale_paid"));
@@ -118,11 +118,11 @@ public class ReportDAO extends BasicDAO {
                 spUtil.getCallableStatement().setString("_start_date", fromDate);
                 spUtil.getCallableStatement().setString("_end_date", endDate);
                 spUtil.getCallableStatement().setString("_vendor_ids", vendorIds);
-                spUtil.getCallableStatement().registerOutParameter("_gas_stock", Types.FLOAT);
+                spUtil.getCallableStatement().registerOutParameter("_gas_stock", Types.INTEGER);
 
                 rs = spUtil.executeQuery();
 
-                float gasStock = spUtil.getCallableStatement().getFloat("_gas_stock");
+                int gasStock = spUtil.getCallableStatement().getInt("_gas_stock");
                 outBean.setGasStock(gasStock);
                 if (rs != null) {
                     LpgStockReportBean bean = null;
@@ -131,11 +131,11 @@ public class ReportDAO extends BasicDAO {
                         bean.setDate(DateUtil.formatDate(rs.getDate("created_date"), "dd/MM/yyyy"));
                         bean.setContent(DateUtil.formatDate(rs.getDate("content"), "dd/MM"));
                         bean.setOpeningStock(gasStock);
-                        bean.setImportQuantity(rs.getFloat("import_quantity"));
-                        bean.setExport12Quantity(rs.getFloat("export_12_quantity"));
-                        bean.setExport45Quantity(rs.getFloat("export_45_quantity"));
+                        bean.setImportQuantity(rs.getInt("import_quantity"));
+                        bean.setExport12Quantity(rs.getInt("export_12_quantity"));
+                        bean.setExport45Quantity(rs.getInt("export_45_quantity"));
                         bean.setConvertQuantity(bean.getExport12Quantity() * 12 + bean.getExport45Quantity() * 45);
-                        bean.setReturnQuantity(rs.getFloat("return_quantity"));
+                        bean.setReturnQuantity(rs.getInt("return_quantity"));
                         bean.setClosingStock(bean.getOpeningStock() + bean.getImportQuantity() - bean.getConvertQuantity() + bean.getReturnQuantity());
                         gasStock = bean.getClosingStock();
                         bean.setNote(rs.getString("note"));

@@ -88,9 +88,9 @@ public class AddPetroImportAction extends SpineAction {
                 if (id == 0) {
                     PetroImportDetailBean bean = new PetroImportDetailBean();
                     bean.setPetroId(NumberUtil.parseInt(formBean.getPetroId()[i], 0));
-                    bean.setQuantity(NumberUtil.parseFloat(formBean.getQuantity()[i], 0));
-                    bean.setPrice(NumberUtil.parseFloat(formBean.getPrice()[i], 0));
-                    bean.setAmount(NumberUtil.parseFloat(formBean.getAmount()[i], 0));
+                    bean.setQuantity(NumberUtil.parseInt(formBean.getQuantity()[i], 0));
+                    bean.setPrice(NumberUtil.parseInt(formBean.getPrice()[i], 0));
+                    bean.setAmount(NumberUtil.parseInt(formBean.getAmount()[i], 0));
                     bean.setPetroImportId(formBean.getId());
                     gasDAO.insertPetroImportDetail(bean);
                 } else {
@@ -107,15 +107,15 @@ public class AddPetroImportAction extends SpineAction {
                         arrDetail.remove(j);
                         if (oldBean.getQuantity() != NumberUtil.parseDouble(formBean.getQuantity()[i], 0)) {
                             isUpdate = true;
-                            oldBean.setQuantity(NumberUtil.parseFloat(formBean.getQuantity()[i], 0));
+                            oldBean.setQuantity(NumberUtil.parseInt(formBean.getQuantity()[i], 0));
                         }
                         if (oldBean.getPrice()!= NumberUtil.parseDouble(formBean.getPrice()[i], 0)) {
                             isUpdate = true;
-                            oldBean.setPrice(NumberUtil.parseFloat(formBean.getPrice()[i], 0));
+                            oldBean.setPrice(NumberUtil.parseInt(formBean.getPrice()[i], 0));
                         }
                         if (oldBean.getAmount()!= NumberUtil.parseDouble(formBean.getAmount()[i], 0)) {
                             isUpdate = true;
-                            oldBean.setAmount(NumberUtil.parseFloat(formBean.getAmount()[i], 0));
+                            oldBean.setAmount(NumberUtil.parseInt(formBean.getAmount()[i], 0));
                         }
                         if (isUpdate) {
                             gasDAO.updatePetroImportDetail(oldBean);

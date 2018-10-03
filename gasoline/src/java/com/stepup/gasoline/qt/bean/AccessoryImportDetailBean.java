@@ -16,7 +16,7 @@ public class AccessoryImportDetailBean {
     private String accessoryName;
     private int unitId;
     private String unitName;
-    private float quantity;
+    private int quantity;
     private double price;
     private double amount;
 
@@ -28,11 +28,11 @@ public class AccessoryImportDetailBean {
         this.id = id;
     }
 
-    public float getQuantity() {
+    public int getQuantity() {
         return quantity;
     }
 
-    public void setQuantity(float quantity) {
+    public void setQuantity(int quantity) {
         this.quantity = quantity;
     }
 

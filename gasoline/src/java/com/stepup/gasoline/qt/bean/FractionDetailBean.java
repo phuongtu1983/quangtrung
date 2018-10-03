@@ -14,7 +14,7 @@ public class FractionDetailBean {
     private int fractionId;
     private int shellId;
     private String shellName;
-    private float quantity;
+    private int quantity;
 
     public int getId() {
         return id;
@@ -24,11 +24,11 @@ public class FractionDetailBean {
         this.id = id;
     }
 
-    public float getQuantity() {
+    public int getQuantity() {
         return quantity;
     }
 
-    public void setQuantity(float quantity) {
+    public void setQuantity(int quantity) {
         this.quantity = quantity;
     }
 

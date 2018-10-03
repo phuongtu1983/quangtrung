@@ -14,7 +14,7 @@ public class RouteFormBean extends org.apache.struts.action.ActionForm {
 
     private int id;
     private String name;
-    private float distance;
+    private int distance;
     private String note;
 
     public RouteFormBean() {
@@ -43,11 +43,11 @@ public class RouteFormBean extends org.apache.struts.action.ActionForm {
         this.name = name;
     }
 
-    public float getDistance() {
+    public int getDistance() {
         return distance;
     }
 
-    public void setDistance(float distance) {
+    public void setDistance(int distance) {
         this.distance = distance;
     }
 

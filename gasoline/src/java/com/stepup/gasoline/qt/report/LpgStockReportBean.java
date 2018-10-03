@@ -13,13 +13,13 @@ public class LpgStockReportBean {
 
     private String date;
     private String content;
-    private float openingStock;
-    private float importQuantity;
-    private float export12Quantity;
-    private float export45Quantity;
-    private float convertQuantity;
-    private float closingStock;
-    private float returnQuantity;
+    private int openingStock;
+    private int importQuantity;
+    private int export12Quantity;
+    private int export45Quantity;
+    private int convertQuantity;
+    private int closingStock;
+    private int returnQuantity;
     private String note;
 
     public String getDate() {
@@ -38,59 +38,59 @@ public class LpgStockReportBean {
         this.content = content;
     }
 
-    public float getOpeningStock() {
+    public int getOpeningStock() {
         return openingStock;
     }
 
-    public void setOpeningStock(float openingStock) {
+    public void setOpeningStock(int openingStock) {
         this.openingStock = openingStock;
     }
 
-    public float getImportQuantity() {
+    public int getImportQuantity() {
         return importQuantity;
     }
 
-    public void setImportQuantity(float importQuantity) {
+    public void setImportQuantity(int importQuantity) {
         this.importQuantity = importQuantity;
     }
 
-    public float getExport12Quantity() {
+    public int getExport12Quantity() {
         return export12Quantity;
     }
 
-    public void setExport12Quantity(float export12Quantity) {
+    public void setExport12Quantity(int export12Quantity) {
         this.export12Quantity = export12Quantity;
     }
 
-    public float getExport45Quantity() {
+    public int getExport45Quantity() {
         return export45Quantity;
     }
 
-    public void setExport45Quantity(float export45Quantity) {
+    public void setExport45Quantity(int export45Quantity) {
         this.export45Quantity = export45Quantity;
     }
 
-    public float getConvertQuantity() {
+    public int getConvertQuantity() {
         return convertQuantity;
     }
 
-    public void setConvertQuantity(float convertQuantity) {
+    public void setConvertQuantity(int convertQuantity) {
         this.convertQuantity = convertQuantity;
     }
 
-    public float getClosingStock() {
+    public int getClosingStock() {
         return closingStock;
     }
 
-    public void setClosingStock(float closingStock) {
+    public void setClosingStock(int closingStock) {
         this.closingStock = closingStock;
     }
 
-    public float getReturnQuantity() {
+    public int getReturnQuantity() {
         return returnQuantity;
     }
 
-    public void setReturnQuantity(float returnQuantity) {
+    public void setReturnQuantity(int returnQuantity) {
         this.returnQuantity = returnQuantity;
     }
 

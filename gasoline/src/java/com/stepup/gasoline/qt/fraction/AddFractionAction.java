@@ -81,7 +81,7 @@ public class AddFractionAction extends SpineAction {
                 if (id == 0) {
                     FractionDetailBean bean = new FractionDetailBean();
                     bean.setShellId(NumberUtil.parseInt(formBean.getShellId()[i], 0));
-                    bean.setQuantity(NumberUtil.parseFloat(formBean.getQuantity()[i], 0));
+                    bean.setQuantity(NumberUtil.parseInt(formBean.getQuantity()[i], 0));
                     bean.setFractionId(formBean.getId());
                     gasDAO.insertFractionDetail(bean);
                 } else {
@@ -98,7 +98,7 @@ public class AddFractionAction extends SpineAction {
                         arrDetail.remove(j);
                         if (oldBean.getQuantity() != NumberUtil.parseDouble(formBean.getQuantity()[i], 0)) {
                             isUpdate = true;
-                            oldBean.setQuantity(NumberUtil.parseFloat(formBean.getQuantity()[i], 0));
+                            oldBean.setQuantity(NumberUtil.parseInt(formBean.getQuantity()[i], 0));
                         }
                         if (isUpdate) {
                             gasDAO.updateFractionDetail(oldBean);

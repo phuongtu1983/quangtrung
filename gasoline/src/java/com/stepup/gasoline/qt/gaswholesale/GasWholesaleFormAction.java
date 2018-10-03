@@ -5,7 +5,6 @@
 package com.stepup.gasoline.qt.gaswholesale;
 
 import com.stepup.core.util.DateUtil;
-import com.stepup.gasoline.qt.bean.CustomerBean;
 import com.stepup.gasoline.qt.bean.EmployeeBean;
 import com.stepup.gasoline.qt.bean.GasWholesaleBean;
 import com.stepup.gasoline.qt.core.SpineAction;
@@ -16,6 +15,7 @@ import com.stepup.gasoline.qt.dao.GoodDAO;
 import com.stepup.gasoline.qt.dao.VehicleDAO;
 import com.stepup.gasoline.qt.util.Constants;
 import com.stepup.gasoline.qt.util.QTUtil;
+import com.stepup.gasoline.qt.vehicle.VehicleFormBean;
 import java.util.ArrayList;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -145,6 +145,10 @@ public class GasWholesaleFormAction extends SpineAction {
         if (arrVehicle == null) {
             arrVehicle = new ArrayList();
         }
+//        VehicleFormBean vehicleBean = new VehicleFormBean();
+//        vehicleBean.setPlate(QTUtil.getBundleString("vehicle.detail.vehicleSelected"));
+//        vehicleBean.setId(0);
+//        arrVehicle.add(0, vehicleBean);
         request.setAttribute(Constants.VEHICLE_LIST, arrVehicle);
 
         return true;

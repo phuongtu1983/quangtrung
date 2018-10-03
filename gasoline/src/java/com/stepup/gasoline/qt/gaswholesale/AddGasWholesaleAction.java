@@ -147,7 +147,7 @@ public class AddGasWholesaleAction extends SpineAction {
                 if (id == 0) {
                     GasWholesalePromotionMaterialDetailBean bean = new GasWholesalePromotionMaterialDetailBean();
                     bean.setPromotionMaterialId(NumberUtil.parseInt(formBean.getPromotionMaterialId()[i], 0));
-                    bean.setQuantity(NumberUtil.parseFloat(formBean.getPromotionMaterialQuantity()[i], 0));
+                    bean.setQuantity(NumberUtil.parseInt(formBean.getPromotionMaterialQuantity()[i], 0));
                     bean.setGasWholesaleId(formBean.getId());
                     gasDAO.insertGasWholesalePromotionMaterialDetail(bean);
                 } else {
@@ -188,7 +188,7 @@ public class AddGasWholesaleAction extends SpineAction {
                 if (id == 0) {
                     GasWholesaleReturnShellDetailBean bean = new GasWholesaleReturnShellDetailBean();
                     bean.setShellId(NumberUtil.parseInt(formBean.getReturnShellId()[i], 0));
-                    bean.setQuantity(NumberUtil.parseFloat(formBean.getReturnShellQuantity()[i], 0));
+                    bean.setQuantity(NumberUtil.parseInt(formBean.getReturnShellQuantity()[i], 0));
                     bean.setGasWholesaleId(formBean.getId());
                     gasDAO.insertGasWholesaleReturnShellDetail(bean);
                 } else {

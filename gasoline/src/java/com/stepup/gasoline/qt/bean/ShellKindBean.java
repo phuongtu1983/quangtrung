@@ -13,8 +13,8 @@ public class ShellKindBean {
     private int id;
     private String name;
     private String code;
-    private float weight;
-    private float commission;
+    private int weight;
+    private int commission;
     private int status;
 
     public void setId(int id) {
@@ -49,19 +49,19 @@ public class ShellKindBean {
         this.code = code;
     }
 
-    public float getWeight() {
+    public int getWeight() {
         return weight;
     }
 
-    public void setWeight(float weight) {
+    public void setWeight(int weight) {
         this.weight = weight;
     }
 
-    public float getCommission() {
+    public int getCommission() {
         return commission;
     }
 
-    public void setCommission(float commission) {
+    public void setCommission(int commission) {
         this.commission = commission;
     }
 

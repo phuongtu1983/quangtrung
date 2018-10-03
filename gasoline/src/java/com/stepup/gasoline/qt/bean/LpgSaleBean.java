@@ -14,7 +14,7 @@ public class LpgSaleBean {
     private String code;
     private String saleDate;
     private int customerId;
-    private float quantity;
+    private int quantity;
     private double price;
     private double total;
     private double paid;
@@ -116,11 +116,11 @@ public class LpgSaleBean {
         this.customerId = customerId;
     }
 
-    public float getQuantity() {
+    public int getQuantity() {
         return quantity;
     }
 
-    public void setQuantity(float quantity) {
+    public void setQuantity(int quantity) {
         this.quantity = quantity;
     }
 

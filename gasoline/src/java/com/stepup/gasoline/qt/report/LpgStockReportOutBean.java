@@ -11,13 +11,13 @@ package com.stepup.gasoline.qt.report;
  */
 public class LpgStockReportOutBean {
 
-    private float gasStock;
+    private int gasStock;
 
-    public float getGasStock() {
+    public int getGasStock() {
         return gasStock;
     }
 
-    public void setGasStock(float gasStock) {
+    public void setGasStock(int gasStock) {
         this.gasStock = gasStock;
     }
 

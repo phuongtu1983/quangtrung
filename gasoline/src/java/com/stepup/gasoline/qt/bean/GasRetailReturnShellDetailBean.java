@@ -16,7 +16,7 @@ public class GasRetailReturnShellDetailBean {
     private String shellName;
     private int unitId;
     private String unitName;
-    private float quantity;
+    private int quantity;
 
     public int getId() {
         return id;
@@ -26,11 +26,11 @@ public class GasRetailReturnShellDetailBean {
         this.id = id;
     }
 
-    public float getQuantity() {
+    public int getQuantity() {
         return quantity;
     }
 
-    public void setQuantity(float quantity) {
+    public void setQuantity(int quantity) {
         this.quantity = quantity;
     }
 

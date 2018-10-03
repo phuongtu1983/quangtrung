@@ -17,7 +17,7 @@
         <tr>
             <td height="30" style="padding-right: 20px"><bean:message key="customer.title"/></td>
             <td colspan="3">
-                <select style="width: 510px;" name="customerIdCombobox" id="customerIdCombobox" tabindex="2">
+                <select style="width: 510px;" name="customerIdCombobox" id="customerIdCombobox">
                     <logic:iterate id="customer_iter" name="<%=Constants.CUSTOMER_LIST%>">
                         <option  value="${customer_iter.id}">${customer_iter.name}</option>
                     </logic:iterate>
@@ -27,7 +27,7 @@
         <tr>
             <td height="30" style="padding-right: 20px"><bean:message key="account.title"/></td>
             <td>
-                <html:select property="accountId" name="<%=Constants.GAS_WHOLESALE%>" style="width:195px" tabindex="3">
+                <html:select property="accountId" name="<%=Constants.GAS_WHOLESALE%>" style="width:195px">
                     <html:options collection="<%=Constants.ACCOUNT_LIST%>" property="id" labelProperty="number"/>
                 </html:select>
             </td>
@@ -35,18 +35,18 @@
             <td><html:text property="total" size="30" name="<%=Constants.GAS_WHOLESALE%>" readonly="true" tabindex="-1"/></td>
         </tr>
         <tr>
-            <td height="30" style="padding-right: 20px"><bean:message key="note.title"/></td>
-            <td colspan="3"><html:text property="note" size="85" name="<%=Constants.GAS_WHOLESALE%>" tabindex="-1"/></td>
+            <td height="30" style="padding-right: 20px"><bean:message key="vehicle.title"/></td>
+            <td colspan="3">
+                <select style="width: 510px;" name="vehicleIdCombobox" id="vehicleIdCombobox">
+                    <logic:iterate id="vehicle_iter" name="<%=Constants.VEHICLE_LIST%>">
+                        <option  value="${vehicle_iter.id}">${vehicle_iter.plate}</option>
+                    </logic:iterate>
+                </select>
+            </td>
         </tr>
         <tr>
-            <td height="30" style="padding-right: 20px"><bean:message key="vehicle.title"/></td>
-            <td>
-                <html:select property="vehicleId" name="<%=Constants.GAS_WHOLESALE%>" style="width:195px">
-                    <html:options collection="<%=Constants.VEHICLE_LIST%>" property="id" labelProperty="plate"/>
-                </html:select>
-            </td>
-            <td style="padding-right: 20px;padding-left: 10px"><bean:message key="note.title"/></td>
-            <td><html:text property="note" size="30" name="<%=Constants.GAS_WHOLESALE%>"/></td>
+            <td height="30" style="padding-right: 20px"><bean:message key="note.title"/></td>
+            <td colspan="3"><html:text property="note" size="85" name="<%=Constants.GAS_WHOLESALE%>" tabindex="-1"/></td>
         </tr>
         <tr>
             <td colspan="4">
@@ -174,11 +174,13 @@
     </table>
     <html:hidden property="id" name="<%=Constants.GAS_WHOLESALE%>" />
     <html:hidden property="customerId" name="<%=Constants.GAS_WHOLESALE%>" />
+    <html:hidden property="vehicleId" name="<%=Constants.GAS_WHOLESALE%>" />
     <html:hidden property="gasReturnAmount" name="<%=Constants.GAS_WHOLESALE%>" />
     <input type="hidden" id="callbackFunc"/>
     <input type="hidden" name="shellSelectedHidden" value="0"/>
     <input type="hidden" name="returnShellSelectedHidden" value="0"/>
     <input type="hidden" name="promotionMaterialSelectedHidden" value="0"/>
+    <input type="hidden" name="vehicleSelectedHidden" value="0"/>
     <input type="hidden" name="customerSelectedHidden" value="0"/>
 </form>
 <div name="gasWholesaleFormshowHelpHideDiv" id="showHelpHideDiv" style="display:none">

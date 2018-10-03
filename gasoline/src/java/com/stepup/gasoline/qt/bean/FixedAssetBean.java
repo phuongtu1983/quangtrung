@@ -16,8 +16,8 @@ public class FixedAssetBean {
     private int unitId;
     private String startDate;
     private int quantity;
-    private float rate;
-    private float monthCount;
+    private int rate;
+    private int monthCount;
     private int status;
     private String statusName;
     private double price;
@@ -70,19 +70,19 @@ public class FixedAssetBean {
         this.quantity = quantity;
     }
 
-    public float getRate() {
+    public int getRate() {
         return rate;
     }
 
-    public void setRate(float rate) {
+    public void setRate(int rate) {
         this.rate = rate;
     }
 
-    public float getMonthCount() {
+    public int getMonthCount() {
         return monthCount;
     }
 
-    public void setMonthCount(float monthCount) {
+    public void setMonthCount(int monthCount) {
         this.monthCount = monthCount;
     }
 

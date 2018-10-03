@@ -69,8 +69,8 @@ public class GoodDAO extends BasicDAO {
                 bean.setId(rs.getInt("id"));
                 bean.setName(rs.getString("name"));
                 bean.setCode(rs.getString("code"));
-                bean.setWeight(rs.getFloat("weight"));
-                bean.setCommission(rs.getFloat("commission"));
+                bean.setWeight(rs.getInt("weight"));
+                bean.setCommission(rs.getInt("commission"));
                 bean.setStatus(rs.getInt("status"));
                 if (bean.getStatus() == EmployeeBean.STATUS_ACTIVE) {
                     bean.setStatusName(QTUtil.getBundleString("employee.detail.status.active"));
@@ -101,8 +101,8 @@ public class GoodDAO extends BasicDAO {
                 bean.setId(rs.getInt("id"));
                 bean.setName(rs.getString("name"));
                 bean.setCode(rs.getString("code"));
-                bean.setWeight(rs.getFloat("weight"));
-                bean.setCommission(rs.getFloat("commission"));
+                bean.setWeight(rs.getInt("weight"));
+                bean.setCommission(rs.getInt("commission"));
                 bean.setStatus(rs.getInt("status"));
                 return bean;
             }
@@ -129,8 +129,8 @@ public class GoodDAO extends BasicDAO {
                 bean.setId(rs.getInt("id"));
                 bean.setName(rs.getString("name"));
                 bean.setCode(rs.getString("code"));
-                bean.setWeight(rs.getFloat("weight"));
-                bean.setCommission(rs.getFloat("commission"));
+                bean.setWeight(rs.getInt("weight"));
+                bean.setCommission(rs.getInt("commission"));
                 bean.setStatus(rs.getInt("status"));
                 return bean;
             }
@@ -358,7 +358,7 @@ public class GoodDAO extends BasicDAO {
                 bean.setId(rs.getInt("id"));
                 bean.setName(rs.getString("name"));
                 bean.setNote(rs.getString("note"));
-                bean.setCommission(rs.getFloat("commission"));
+                bean.setCommission(rs.getInt("commission"));
                 bean.setStatus(rs.getInt("status"));
                 if (bean.getStatus() == EmployeeBean.STATUS_ACTIVE) {
                     bean.setStatusName(QTUtil.getBundleString("employee.detail.status.active"));
@@ -389,7 +389,7 @@ public class GoodDAO extends BasicDAO {
                 bean.setId(rs.getInt("id"));
                 bean.setName(rs.getString("name"));
                 bean.setNote(rs.getString("note"));
-                bean.setCommission(rs.getFloat("commission"));
+                bean.setCommission(rs.getInt("commission"));
                 bean.setStatus(rs.getInt("status"));
                 return bean;
             }
@@ -416,7 +416,7 @@ public class GoodDAO extends BasicDAO {
                 bean.setId(rs.getInt("id"));
                 bean.setName(rs.getString("name"));
                 bean.setNote(rs.getString("note"));
-                bean.setCommission(rs.getFloat("commission"));
+                bean.setCommission(rs.getInt("commission"));
                 bean.setStatus(rs.getInt("status"));
                 return bean;
             }
@@ -1201,7 +1201,7 @@ public class GoodDAO extends BasicDAO {
                 bean = new AccessoryImportDetailBean();
                 bean.setId(rs.getInt("id"));
                 bean.setAccessoryImportId(rs.getInt("accessory_import_id"));
-                bean.setQuantity(rs.getFloat("quantity"));
+                bean.setQuantity(rs.getInt("quantity"));
                 bean.setPrice(rs.getDouble("price"));
                 bean.setAmount(rs.getDouble("amount"));
                 bean.setAccessoryId(rs.getInt("accessory_id"));
@@ -1341,7 +1341,7 @@ public class GoodDAO extends BasicDAO {
             if (spUtil != null) {
                 spUtil.getCallableStatement().setInt("_accessory_import_id", bean.getAccessoryImportId());
                 spUtil.getCallableStatement().setInt("_accessory_id", bean.getAccessoryId());
-                spUtil.getCallableStatement().setFloat("_quantity", bean.getQuantity());
+                spUtil.getCallableStatement().setInt("_quantity", bean.getQuantity());
                 spUtil.getCallableStatement().setDouble("_price", bean.getPrice());
                 spUtil.getCallableStatement().setDouble("_amount", bean.getAmount());
                 spUtil.execute();
@@ -1372,7 +1372,7 @@ public class GoodDAO extends BasicDAO {
             spUtil = new SPUtil(sql);
             if (spUtil != null) {
                 spUtil.getCallableStatement().setInt("_id", bean.getId());
-                spUtil.getCallableStatement().setFloat("_quantity", bean.getQuantity());
+                spUtil.getCallableStatement().setInt("_quantity", bean.getQuantity());
                 spUtil.getCallableStatement().setDouble("_price", bean.getPrice());
                 spUtil.getCallableStatement().setDouble("_amount", bean.getAmount());
                 spUtil.execute();
@@ -1491,7 +1491,7 @@ public class GoodDAO extends BasicDAO {
                 bean = new PromotionMaterialImportDetailBean();
                 bean.setId(rs.getInt("id"));
                 bean.setPromotionMaterialImportId(rs.getInt("import_id"));
-                bean.setQuantity(rs.getFloat("quantity"));
+                bean.setQuantity(rs.getInt("quantity"));
                 bean.setPrice(rs.getDouble("price"));
                 bean.setAmount(rs.getDouble("amount"));
                 bean.setPromotionMaterialId(rs.getInt("promotion_material_id"));
@@ -1631,7 +1631,7 @@ public class GoodDAO extends BasicDAO {
             if (spUtil != null) {
                 spUtil.getCallableStatement().setInt("_promotion_material_import_id", bean.getPromotionMaterialImportId());
                 spUtil.getCallableStatement().setInt("_promotion_material_id", bean.getPromotionMaterialId());
-                spUtil.getCallableStatement().setFloat("_quantity", bean.getQuantity());
+                spUtil.getCallableStatement().setInt("_quantity", bean.getQuantity());
                 spUtil.getCallableStatement().setDouble("_price", bean.getPrice());
                 spUtil.getCallableStatement().setDouble("_amount", bean.getAmount());
                 spUtil.execute();
@@ -1662,7 +1662,7 @@ public class GoodDAO extends BasicDAO {
             spUtil = new SPUtil(sql);
             if (spUtil != null) {
                 spUtil.getCallableStatement().setInt("_id", bean.getId());
-                spUtil.getCallableStatement().setFloat("_quantity", bean.getQuantity());
+                spUtil.getCallableStatement().setInt("_quantity", bean.getQuantity());
                 spUtil.getCallableStatement().setDouble("_price", bean.getPrice());
                 spUtil.getCallableStatement().setDouble("_amount", bean.getAmount());
                 spUtil.execute();
@@ -1781,7 +1781,7 @@ public class GoodDAO extends BasicDAO {
                 bean = new SaleAccessoryDetailBean();
                 bean.setId(rs.getInt("id"));
                 bean.setSaleAccessoryId(rs.getInt("accessory_sale_id"));
-                bean.setQuantity(rs.getFloat("quantity"));
+                bean.setQuantity(rs.getInt("quantity"));
                 bean.setPrice(rs.getDouble("price"));
                 bean.setAmount(rs.getDouble("amount"));
                 bean.setAccessoryId(rs.getInt("accessory_id"));
@@ -1925,7 +1925,7 @@ public class GoodDAO extends BasicDAO {
             if (spUtil != null) {
                 spUtil.getCallableStatement().setInt("_accessory_sale_id", bean.getSaleAccessoryId());
                 spUtil.getCallableStatement().setInt("_accessory_id", bean.getAccessoryId());
-                spUtil.getCallableStatement().setFloat("_quantity", bean.getQuantity());
+                spUtil.getCallableStatement().setInt("_quantity", bean.getQuantity());
                 spUtil.getCallableStatement().setDouble("_price", bean.getPrice());
                 spUtil.getCallableStatement().setDouble("_amount", bean.getAmount());
                 spUtil.execute();
@@ -1956,7 +1956,7 @@ public class GoodDAO extends BasicDAO {
             spUtil = new SPUtil(sql);
             if (spUtil != null) {
                 spUtil.getCallableStatement().setInt("_id", bean.getId());
-                spUtil.getCallableStatement().setFloat("_quantity", bean.getQuantity());
+                spUtil.getCallableStatement().setInt("_quantity", bean.getQuantity());
                 spUtil.getCallableStatement().setDouble("_price", bean.getPrice());
                 spUtil.getCallableStatement().setDouble("_amount", bean.getAmount());
                 spUtil.execute();
@@ -1990,7 +1990,7 @@ public class GoodDAO extends BasicDAO {
                 bean = new SaleAccessoryChangeDetailBean();
                 bean.setId(rs.getInt("id"));
                 bean.setSaleAccessoryId(rs.getInt("accessory_sale_id"));
-                bean.setQuantity(rs.getFloat("quantity"));
+                bean.setQuantity(rs.getInt("quantity"));
                 bean.setAccessoryId(rs.getInt("accessory_id"));
                 bean.setAccessoryName(rs.getString("accessory_name"));
                 bean.setUnitId(rs.getInt("unit_id"));
@@ -2024,7 +2024,7 @@ public class GoodDAO extends BasicDAO {
             if (spUtil != null) {
                 spUtil.getCallableStatement().setInt("_accessory_sale_id", bean.getSaleAccessoryId());
                 spUtil.getCallableStatement().setInt("_accessory_id", bean.getAccessoryId());
-                spUtil.getCallableStatement().setFloat("_quantity", bean.getQuantity());
+                spUtil.getCallableStatement().setInt("_quantity", bean.getQuantity());
                 spUtil.getCallableStatement().setDouble("_price", bean.getPrice());
                 spUtil.getCallableStatement().setDouble("_amount", bean.getAmount());
                 spUtil.execute();
@@ -2055,7 +2055,7 @@ public class GoodDAO extends BasicDAO {
             spUtil = new SPUtil(sql);
             if (spUtil != null) {
                 spUtil.getCallableStatement().setInt("_id", bean.getId());
-                spUtil.getCallableStatement().setFloat("_quantity", bean.getQuantity());
+                spUtil.getCallableStatement().setInt("_quantity", bean.getQuantity());
                 spUtil.getCallableStatement().setDouble("_price", bean.getPrice());
                 spUtil.getCallableStatement().setDouble("_amount", bean.getAmount());
                 spUtil.execute();
@@ -2176,7 +2176,7 @@ public class GoodDAO extends BasicDAO {
                 bean = new SalePetroDetailBean();
                 bean.setId(rs.getInt("id"));
                 bean.setSalePetroId(rs.getInt("petro_sale_id"));
-                bean.setQuantity(rs.getFloat("quantity"));
+                bean.setQuantity(rs.getInt("quantity"));
                 bean.setPrice(rs.getDouble("price"));
                 bean.setAmount(rs.getDouble("amount"));
                 bean.setPetroId(rs.getInt("petro_id"));
@@ -2324,7 +2324,7 @@ public class GoodDAO extends BasicDAO {
             if (spUtil != null) {
                 spUtil.getCallableStatement().setInt("_petro_sale_id", bean.getSalePetroId());
                 spUtil.getCallableStatement().setInt("_petro_id", bean.getPetroId());
-                spUtil.getCallableStatement().setFloat("_quantity", bean.getQuantity());
+                spUtil.getCallableStatement().setInt("_quantity", bean.getQuantity());
                 spUtil.getCallableStatement().setDouble("_price", bean.getPrice());
                 spUtil.getCallableStatement().setDouble("_amount", bean.getAmount());
                 spUtil.execute();
@@ -2355,7 +2355,7 @@ public class GoodDAO extends BasicDAO {
             spUtil = new SPUtil(sql);
             if (spUtil != null) {
                 spUtil.getCallableStatement().setInt("_id", bean.getId());
-                spUtil.getCallableStatement().setFloat("_quantity", bean.getQuantity());
+                spUtil.getCallableStatement().setInt("_quantity", bean.getQuantity());
                 spUtil.getCallableStatement().setDouble("_price", bean.getPrice());
                 spUtil.getCallableStatement().setDouble("_amount", bean.getAmount());
                 spUtil.execute();

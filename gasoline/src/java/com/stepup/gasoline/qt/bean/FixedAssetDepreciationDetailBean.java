@@ -16,7 +16,7 @@ public class FixedAssetDepreciationDetailBean {
     private String fixedAssetName;
     private int unitId;
     private String unitName;
-    private float quantity;
+    private int quantity;
     private double price;
     private int isCalculate;
 
@@ -28,11 +28,11 @@ public class FixedAssetDepreciationDetailBean {
         this.id = id;
     }
 
-    public float getQuantity() {
+    public int getQuantity() {
         return quantity;
     }
 
-    public void setQuantity(float quantity) {
+    public void setQuantity(int quantity) {
         this.quantity = quantity;
     }
 

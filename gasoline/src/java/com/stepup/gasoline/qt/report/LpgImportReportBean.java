@@ -15,8 +15,8 @@ public class LpgImportReportBean {
     private String date;
     private String vendorName;
     private String customerName;
-    private float paperQuantity;
-    private float actualQuantity;
+    private int paperQuantity;
+    private int actualQuantity;
     private double price;
     private double rate;
     private double amount;
@@ -47,19 +47,19 @@ public class LpgImportReportBean {
         this.vendorName = vendorName;
     }
 
-    public float getPaperQuantity() {
+    public int getPaperQuantity() {
         return paperQuantity;
     }
 
-    public void setPaperQuantity(float paperQuantity) {
+    public void setPaperQuantity(int paperQuantity) {
         this.paperQuantity = paperQuantity;
     }
 
-    public float getActualQuantity() {
+    public int getActualQuantity() {
         return actualQuantity;
     }
 
-    public void setActualQuantity(float actualQuantity) {
+    public void setActualQuantity(int actualQuantity) {
         this.actualQuantity = actualQuantity;
     }
 
