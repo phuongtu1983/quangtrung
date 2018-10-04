@@ -3,6 +3,9 @@ var selectedCombo = '';
 var isManuallySeleted = 0;
 var scriptFunction = "";
 var mainGrid;
+var savedDate="";
+var savedCustomer=0;
+var savedVehicleOut=0;
 function createLayout() {
     dhxLayout = new dhtmlXLayoutObject(document.body, "2E", "dhx_web");
     dhxLayout.setEffect("resize", false);
@@ -376,6 +379,12 @@ function caculateListTotal(formName) {
     var price = document.forms[formName].price;
     var amount = document.forms[formName].amount;
     var sum = 0;
+    var minPrice = -1;
+    var tempPrice = 0;
+    var hasGasReturn = false;
+    if (document.forms[formName].gasReturnAmount != null) {
+        hasGasReturn = true;
+    }
     if (quantity != null) {
         if (quantity.length != null) {
             for (i = 0; i < quantity.length; i++) {
@@ -383,18 +392,42 @@ function caculateListTotal(formName) {
                 tryNumberFormatCurrentcy(quantity[i], "VND");
                 tryNumberFormatCurrentcy(price[i], "VND");
                 tryNumberFormatCurrentcy(amount[i], "VND");
+                if (hasGasReturn) {
+                    tempPrice = price[i].value * 1;
+                    if (minPrice == -1)
+                        minPrice = tempPrice;
+                    else if (minPrice > tempPrice)
+                        minPrice = tempPrice;
+                }
             }
         } else {
             sum += reformatNumberMoneyString(amount.value) * 1;
             tryNumberFormatCurrentcy(quantity, "VND");
             tryNumberFormatCurrentcy(price, "VND");
             tryNumberFormatCurrentcy(amount, "VND");
+            if (hasGasReturn) {
+                tempPrice = price.value * 1;
+                if (minPrice == -1)
+                    minPrice = tempPrice;
+                else if (minPrice > tempPrice)
+                    minPrice = tempPrice;
+            }
         }
     }
     quantity = null;
     price = null;
     amount = null;
     document.forms[formName].total.value = sum;
+    if (hasGasReturn) {
+        var gasReturnPrice = document.forms[formName].gasReturnPrice;
+        var gasReturnAmount = document.forms[formName].gasReturnAmount;
+        gasReturnPrice.value = price / 12;
+        gasReturnAmount.value = reformatNumberMoneyString(document.forms[formName].gasReturn.value) * price;
+        sum = sum - gasReturnAmount.value * 1;
+        tryNumberFormatCurrentcy(gasReturnPrice, "VND");
+        gasReturnPrice = null;
+        gasReturnAmount = null;
+    }
     if (document.forms[formName].discount != null) {
         document.forms[formName].discount.value = 0;
         document.forms[formName].totalPay.value = sum;
@@ -3835,22 +3868,218 @@ function getGasWholesale(id) {
     callAjax(url, null, null, function(data) {
         clearContent();
         setAjaxData(data, 'contentDiv');
-//        var myCalendar = new dhtmlXCalendarObject(["gasWholesaleCreatedDate"]);
-//        myCalendar.setSkin('dhx_web');
-        if (id == 0) {
-            var currentDate = getCurrentDate();
-            document.forms['gasWholesaleForm'].gasWholesaleCreatedDate.value = currentDate;
-        }
-//        myCalendar.setDateFormat("%d/%m/%Y");
+        
         tryNumberFormatCurrentcy(document.forms['gasWholesaleForm'].total, "VND");
         tryNumberFormatCurrentcy(document.forms['gasWholesaleForm'].paid, "VND");
         tryNumberFormatCurrentcy(document.forms['gasWholesaleForm'].debt, "VND");
         tryNumberFormatCurrentcy(document.forms['gasWholesaleForm'].discount, "VND");
         tryNumberFormatCurrentcy(document.forms['gasWholesaleForm'].totalPay, "VND");
+        tryNumberFormatCurrentcy(document.forms['gasWholesaleForm'].gasReturn, "VND");
+        tryNumberFormatCurrentcy(document.forms['gasWholesaleForm'].gasReturnPrice, "VND");
         formatFormDetail('gasWholesaleForm');
         formatGasWholesalePromotionMaterialQuantityDetail();
         formatGasWholesaleReturnShellQuantityDetail();
+
+        window.dhx_globalImgPath = "js/dhtmlx/combo/imgs/";
+        // ============================
+        var customerIdCombobox = dhtmlXComboFromSelect("customerIdCombobox");
+        customerIdCombobox.enableFilteringMode(true);
+        customerIdCombobox.attachEvent("onSelectionChange", function() {
+            setCustomerSelectedForm('gasWholesaleForm', customerIdCombobox.getComboText(), customerIdCombobox.getSelectedValue());
+        });
+        customerIdCombobox.attachEvent("onBlur", function() {
+            setCustomerSelectedForm('gasWholesaleForm', customerIdCombobox.getComboText(), customerIdCombobox.getSelectedValue());
+            customerIdCombobox.setComboText(customerIdCombobox.getSelectedText());
+        });
+        customerIdCombobox.DOMelem_input.onfocus = function(event) {
+            if (isManuallySeleted == 1) {
+                customerIdCombobox.openSelect();
+                isManuallySeleted = 0;
+            }
+        }
+        if (id == 0) {
+            if(savedCustomer == 0) customerIdCombobox.setComboValue("");
+            else{
+                var ind = customerIdCombobox.getIndexByValue(savedCustomer);
+                customerIdCombobox.selectOption(ind);
+            }
+        } else {
+            var customerId = document.forms['gasWholesaleForm'].customerId.value;
+            if (customerId != 0) {
+                var ind = customerIdCombobox.getIndexByValue(customerId);
+                customerIdCombobox.selectOption(ind);
+            }
+        }
+        // ============================
+        var shellName = dhtmlXComboFromSelect("shellNameCombobox");
+        shellName.enableFilteringMode(true);
+        shellName.attachEvent("onSelectionChange", function() {
+            setShellSelectedForm('gasWholesaleForm', shellName.getComboText(), shellName.getSelectedValue());
+        });
+        shellName.attachEvent("onBlur", function() {
+            setShellSelectedForm('gasWholesaleForm', shellName.getComboText(), shellName.getSelectedValue());
+        });
+        shellName.DOMelem_input.onkeypress = function(event) {
+            var key;
+            if (window.event)
+                key = window.event.keyCode;//IE
+            else
+                key = event.which;//firefox
+            if (key == 13) {
+                addGasWholesaleShell();
+                shellName.setComboValue("");
+            }
+        }
+        shellName.DOMelem_input.onfocus = function(event) {
+            if (isManuallySeleted == 1) {
+                shellName.openSelect();
+                isManuallySeleted = 0;
+            }
+        }
+        shellName.setComboValue("");
+        // ============================
+        var returnShellIdCombobox = dhtmlXComboFromSelect("returnShellIdCombobox");
+        returnShellIdCombobox.enableFilteringMode(true);
+        returnShellIdCombobox.attachEvent("onSelectionChange", function() {
+            setReturnShellSelectedForm('gasWholesaleForm', returnShellIdCombobox.getComboText(), returnShellIdCombobox.getSelectedValue());
+        });
+        returnShellIdCombobox.attachEvent("onBlur", function() {
+            setReturnShellSelectedForm('gasWholesaleForm', returnShellIdCombobox.getComboText(), returnShellIdCombobox.getSelectedValue());
+        });
+        returnShellIdCombobox.DOMelem_input.onkeypress = function(event) {
+            var key;
+            if (window.event)
+                key = window.event.keyCode;//IE
+            else
+                key = event.which;//firefox
+            if (key == 13) {
+                addGasWholesaleReturnShell();
+                returnShellIdCombobox.setComboValue("");
+            }
+        }
+        returnShellIdCombobox.DOMelem_input.onfocus = function(event) {
+            if (isManuallySeleted == 1) {
+                returnShellIdCombobox.openSelect();
+                isManuallySeleted = 0;
+            }
+        }
+        returnShellIdCombobox.setComboValue("");
+        // ============================
+        var promotionMaterialIdCombobox = dhtmlXComboFromSelect("promotionMaterialIdCombobox");
+        promotionMaterialIdCombobox.enableFilteringMode(true);
+        promotionMaterialIdCombobox.attachEvent("onSelectionChange", function() {
+            setPromotionMaterialSelectedForm('gasWholesaleForm', promotionMaterialIdCombobox.getComboText(), promotionMaterialIdCombobox.getSelectedValue());
+        });
+        promotionMaterialIdCombobox.attachEvent("onBlur", function() {
+            setPromotionMaterialSelectedForm('gasWholesaleForm', promotionMaterialIdCombobox.getComboText(), promotionMaterialIdCombobox.getSelectedValue());
+        });
+        promotionMaterialIdCombobox.DOMelem_input.onkeypress = function(event) {
+            var key;
+            if (window.event)
+                key = window.event.keyCode;//IE
+            else
+                key = event.which;//firefox
+            if (key == 13) {
+                addGasWholesalePromotionMaterial();
+                promotionMaterialIdCombobox.setComboValue("");
+            }
+        }
+        promotionMaterialIdCombobox.DOMelem_input.onfocus = function(event) {
+            if (isManuallySeleted == 1) {
+                promotionMaterialIdCombobox.openSelect();
+                isManuallySeleted = 0;
+            }
+        }
+        promotionMaterialIdCombobox.setComboValue("");
+        
+        var myCalendar = new dhtmlXCalendarObject(["gasWholesaleCreatedDate"]);
+        myCalendar.setSkin('dhx_web');
+        if (id == 0) {
+            var currentDate = "";
+            if(savedDate == ""){
+                currentDate=getCurrentDate();
+                document.forms['gasWholesaleForm'].shellNameCombobox.focus();
+            }else{
+                currentDate=savedDate;
+                shellName.openSelect();
+            }
+            document.forms['gasWholesaleForm'].gasWholesaleCreatedDate.value = currentDate;
+        }
+        myCalendar.setDateFormat("%d/%m/%Y");
     });
+}
+function setShellSelectedForm(form, text, value) {
+    if (value == null) {
+        if (text != "")
+            value = "-1";
+        else
+            value = "0";
+    }
+    document.forms[form].shellSelectedHidden.value = value;
+}
+function setCustomerSelectedForm(form, text, value) {
+    if (value == null) {
+        if (text != "")
+            value = "-1";
+        else
+            value = "0";
+    }
+    document.forms[form].customerSelectedHidden.value = value;
+}
+function setReturnShellSelectedForm(form, text, value) {
+    if (value == null) {
+        if (text != "")
+            value = "-1";
+        else
+            value = "0";
+    }
+    document.forms[form].returnShellSelectedHidden.value = value;
+}
+function setPromotionMaterialSelectedForm(form, text, value) {
+    if (value == null) {
+        if (text != "")
+            value = "-1";
+        else
+            value = "0";
+    }
+    document.forms[form].promotionMaterialSelectedHidden.value = value;
+}
+function gasWholesalePaidDiscountChanged() {
+    var total = document.forms['gasWholesaleForm'].total;
+    var gasReturnAmount = document.forms['gasWholesaleForm'].gasReturnAmount;
+    var paid = document.forms['gasWholesaleForm'].paid;
+    var debt = document.forms['gasWholesaleForm'].debt;
+    var discount = document.forms['gasWholesaleForm'].discount;
+    var totalPay = document.forms['gasWholesaleForm'].totalPay;
+    if (total == null || paid == null || debt == null || discount == null || totalPay == null)
+        return false;
+    totalPay.value = reformatNumberMoneyString(total.value) * 1 - reformatNumberMoneyString(gasReturnAmount.value) * 1 - reformatNumberMoneyString(discount.value) * 1;
+    debt.value = reformatNumberMoneyString(totalPay.value) * 1 - reformatNumberMoneyString(paid.value) * 1;
+    tryNumberFormatCurrentcy(total, "VND");
+    tryNumberFormatCurrentcy(paid, "VND");
+    tryNumberFormatCurrentcy(debt, "VND");
+    tryNumberFormatCurrentcy(discount, "VND");
+    tryNumberFormatCurrentcy(totalPay, "VND");
+    total = null;
+    paid = null;
+    debt = null;
+    discount = null;
+    totalPay = null;
+    gasReturnAmount = null;
+    return false;
+}
+function gasWholesaleGasReturnChanged() {
+    var gasReturn = document.forms['gasWholesaleForm'].gasReturn;
+    var gasReturnPrice = document.forms['gasWholesaleForm'].gasReturnPrice;
+    var gasReturnAmount = document.forms['gasWholesaleForm'].gasReturnAmount;
+    gasReturnAmount.value = reformatNumberMoneyString(gasReturn.value) * reformatNumberMoneyString(gasReturnPrice.value);
+    tryNumberFormatCurrentcy(gasReturn, "VND");
+    tryNumberFormatCurrentcy(gasReturnPrice, "VND");
+    gasReturn = null;
+    gasReturnPrice = null;
+    gasReturnAmount = null;
+    gasWholesalePaidDiscountChanged();
+    return false;
 }
 function saveGasWholesale() {
     if (scriptFunction == "saveGasWholesale")
@@ -3894,22 +4123,27 @@ function saveGasWholesale() {
     reformatNumberMoney(document.forms['gasWholesaleForm'].debt);
     reformatNumberMoney(document.forms['gasWholesaleForm'].discount);
     reformatNumberMoney(document.forms['gasWholesaleForm'].totalPay);
+    reformatNumberMoney(document.forms['gasWholesaleForm'].gasReturn);
+    reformatNumberMoney(document.forms['gasWholesaleForm'].gasReturnPrice);
     reformatFormDetail('gasWholesaleForm');
     reformatGasWholesalePromotionMaterialQuantityDetail();
     reformatGasWholesaleReturnShellQuantityDetail();
+    savedCustomer=document.forms['gasWholesaleForm'].customerSelectedHidden.value;
+    document.forms['gasWholesaleForm'].customerId.value=savedCustomer;
+    savedDate=document.forms['gasWholesaleForm'].gasWholesaleCreatedDate.value;
     scriptFunction = "saveGasWholesale";
     callAjaxCheckError("addGasWholesale.do", null, document.forms['gasWholesaleForm'], function(data) {
         scriptFunction = "";
-        loadGasWholesalePanel();
+        var handle = document.getElementById('callbackFunc').value;
+        if (confirm('B\u1EA1n c\u00F3 mu\u1ED1n nh\u1EADp ti\u1EBFp th\u00F4ng tin kh\u00E1c ?'))
+            getGasWholesale(0);
+        else if (handle != '')
+           loadGasWholesalePanel();
     });
     return false;
 }
 function addGasWholesaleShell() {
-    var shell = document.forms['gasWholesaleForm'].shellIdCombobox;
-    if (shell == null && shell.selectedIndex == -1)
-        shell = null;
-    else
-        shell = shell.options[shell.selectedIndex].value;
+    var shell = document.forms['gasWholesaleForm'].shellSelectedHidden.value;
     if (shell == -1 || shell == 0)
         return false;
     var shellId = document.forms['gasWholesaleForm'].shellId;
@@ -3954,11 +4188,7 @@ function delGasWholesale() {
     return false;
 }
 function addGasWholesalePromotionMaterial() {
-    var promotionMaterial = document.forms['gasWholesaleForm'].promotionMaterialIdCombobox;
-    if (promotionMaterial == null && promotionMaterial.selectedIndex == -1)
-        promotionMaterial = null;
-    else
-        promotionMaterial = promotionMaterial.options[promotionMaterial.selectedIndex].value;
+    var promotionMaterial = document.forms['gasWholesaleForm'].promotionMaterialSelectedHidden.value;
     if (promotionMaterial == -1 || promotionMaterial == 0)
         return false;
     var promotionMaterialId = document.forms['gasWholesaleForm'].promotionMaterialId;
@@ -3997,11 +4227,7 @@ function addGasWholesalePromotionMaterial() {
     return false;
 }
 function addGasWholesaleReturnShell() {
-    var shell = document.forms['gasWholesaleForm'].returnShellIdCombobox;
-    if (shell == null && shell.selectedIndex == -1)
-        shell = null;
-    else
-        shell = shell.options[shell.selectedIndex].value;
+    var shell = document.forms['gasWholesaleForm'].returnShellSelectedHidden.value;
     if (shell == -1 || shell == 0)
         return false;
     var shellId = document.forms['gasWholesaleForm'].returnShellId;

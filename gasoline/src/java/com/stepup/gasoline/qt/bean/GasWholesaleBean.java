@@ -20,6 +20,9 @@ public class GasWholesaleBean {
     private double debt;
     private double discount;
     private double totalPay;
+    private int gasReturn;
+    private double gasReturnPrice;
+    private double gasReturnAmount;
     private int accountId;
     private String note;
     private int canEdit;
@@ -126,6 +129,30 @@ public class GasWholesaleBean {
 
     public void setTotalPay(double totalPay) {
         this.totalPay = totalPay;
+    }
+
+    public int getGasReturn() {
+        return gasReturn;
+    }
+
+    public void setGasReturn(int gasReturn) {
+        this.gasReturn = gasReturn;
+    }
+
+    public double getGasReturnPrice() {
+        return gasReturnPrice;
+    }
+
+    public void setGasReturnPrice(double gasReturnPrice) {
+        this.gasReturnPrice = gasReturnPrice;
+    }
+
+    public double getGasReturnAmount() {
+        return gasReturnAmount;
+    }
+
+    public void setGasReturnAmount(double gasReturnAmount) {
+        this.gasReturnAmount = gasReturnAmount;
     }
 
 }

@@ -15,7 +15,7 @@
             <td><span><bean:write name="shell" property="unitName"/></span></td>
             <td><input type="text" size="20" name="quantity" id="detquantity${shell.shellId}" value="0" onblur="return caculateFormListDetail('${shell.shellId}','gasWholesaleForm');" onkeyup="try2FloatFormatOnKeyUp(this, event);" onkeypress="return readonlyFloat(event);"/></td>
             <td><input type="text" size="20" name="price" id="detprice${shell.shellId}" value="0" onblur="return caculateFormListDetail('${shell.shellId}','gasWholesaleForm');" onkeyup="try2FloatFormatOnKeyUp(this,event);" onkeypress="return readonlyFloat(event);"/></td>
-            <td><input type="text" size="20" name="amount" id="detamount${shell.shellId}" value="0" readonly="readonly"/></td>
+            <td><input type="text" size="20" name="amount" id="detamount${shell.shellId}" value="0" readonly="readonly" tabindex="-1"/></td>
         </tr>
     </logic:iterate>
 </table>

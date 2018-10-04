@@ -66,7 +66,7 @@ public class GasWholesaleFormAction extends SpineAction {
             try {
                 String prefix = "";
                 if (formBean.getId() == 0) {
-                    prefix = DateUtil.today("yyyyMMdd") + "-GW-";
+                    prefix = DateUtil.today("yyyyMMdd") + "-GS-";
                     String number = gasDAO.getNextGasWholesaleNumber(prefix, 4);
                     prefix += number;
                 }
@@ -128,7 +128,7 @@ public class GasWholesaleFormAction extends SpineAction {
         ArrayList arrCustomer = null;
         try {
             CustomerDAO customerDAO = new CustomerDAO();
-            arrCustomer = customerDAO.getCustomers(organizationIds, CustomerBean.KIND_WHOLESALE);
+            arrCustomer = customerDAO.getCustomers(organizationIds);
         } catch (Exception ex) {
         }
         if (arrCustomer == null) {

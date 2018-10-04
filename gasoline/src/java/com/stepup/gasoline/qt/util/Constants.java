@@ -95,6 +95,7 @@ public class Constants {
     public static final String GAS_WHOLESALE_SHELL = "gasWholesaleShell";
     public static final String GAS_WHOLESALE_RETURN_SHELL = "gasWholesaleReturnShell";
     public static final String GAS_WHOLESALE_PROMOTION_MATERIAL = "gasWholesalePromotionMaterial";
+    public static final String GAS_WHOLESALE_EMPLOYEE = "gasWholesaleEmployee";
     public static final String GAS_RETAIL = "gasRetail";
     public static final String GAS_RETAIL_SHELL = "gasRetailShell";
     public static final String GAS_RETAIL_RETURN_SHELL = "gasRetailReturnShell";

@@ -1428,6 +1428,9 @@ public class GasDAO extends BasicDAO {
                 bean.setNote(rs.getString("note"));
                 bean.setCanEdit(rs.getInt("can_edit"));
                 bean.setVehicleId(rs.getInt("vehicle_id"));
+                bean.setGasReturn(rs.getInt("gas_return"));
+                bean.setGasReturnPrice(rs.getDouble("gas_return_price"));
+                bean.setGasReturnAmount(rs.getDouble("gas_return_amount"));
                 return bean;
             }
         } catch (SQLException sqle) {
@@ -1490,7 +1493,7 @@ public class GasDAO extends BasicDAO {
             } else {
                 createdDate = bean.getCreatedDate();
             }
-            String sql = "{call insertGasWholesale(?,?,?,?,?,?,?,?,?,?,?,?)}";
+            String sql = "{call insertGasWholesale(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)}";
             spUtil = new SPUtil(sql);
             if (spUtil != null) {
                 spUtil.getCallableStatement().setString("_code", bean.getCode());
@@ -1504,6 +1507,9 @@ public class GasDAO extends BasicDAO {
                 spUtil.getCallableStatement().setDouble("_total_pay", bean.getTotalPay());
                 spUtil.getCallableStatement().setInt("_account_id", bean.getAccountId());
                 spUtil.getCallableStatement().setString("_note", bean.getNote());
+                spUtil.getCallableStatement().setInt("_gas_return", bean.getGasReturn());
+                spUtil.getCallableStatement().setDouble("_gas_return_price", bean.getGasReturnPrice());
+                spUtil.getCallableStatement().setDouble("_gas_return_amount", bean.getGasReturnAmount());
                 spUtil.getCallableStatement().registerOutParameter("_id", Types.INTEGER);
                 spUtil.execute();
                 result = spUtil.getCallableStatement().getInt("_id");
@@ -1530,7 +1536,7 @@ public class GasDAO extends BasicDAO {
         }
         SPUtil spUtil = null;
         try {
-            String sql = "{call updateGasWholesale(?,?,?,?,?,?,?,?,?,?)}";
+            String sql = "{call updateGasWholesale(?,?,?,?,?,?,?,?,?,?,?,?,?)}";
             spUtil = new SPUtil(sql);
             if (spUtil != null) {
                 spUtil.getCallableStatement().setInt("_id", bean.getId());
@@ -1543,6 +1549,9 @@ public class GasDAO extends BasicDAO {
                 spUtil.getCallableStatement().setDouble("_total_pay", bean.getTotalPay());
                 spUtil.getCallableStatement().setInt("_account_id", bean.getAccountId());
                 spUtil.getCallableStatement().setString("_note", bean.getNote());
+                spUtil.getCallableStatement().setInt("_gas_return", bean.getGasReturn());
+                spUtil.getCallableStatement().setDouble("_gas_return_price", bean.getGasReturnPrice());
+                spUtil.getCallableStatement().setDouble("_gas_return_amount", bean.getGasReturnAmount());
                 spUtil.execute();
             }
         } catch (SQLException sqle) {

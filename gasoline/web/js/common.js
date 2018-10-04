@@ -213,3 +213,44 @@ function getCurrentMonth() {
     currentDate = mm + '/' + yyyy;
     return currentDate;
 }
+document.onkeyup=function disableCtrlKeyCombinationKeyUp(e){
+    var key;
+    var isCtrl;
+    if(window.event){
+        key = window.event.keyCode;//IE
+        if(window.event.ctrlKey) isCtrl = true;
+        else isCtrl = false;
+    }else{
+        key = e.which;//firefox
+        if(e.ctrlKey) isCtrl = true;
+        else isCtrl = false;
+    }
+    if(!isCtrl){
+        if(key==112){// F1
+            shiftFunction('shiftSFunctionHideDiv');//luu
+            return false;
+        }else if(key==118){//F7
+            return false;
+        }else if(key==119){//F8
+            showHotKeys();
+            return false;
+        }else if(key==27){
+            shiftFunction('shiftEscFunctionHideDiv');//ESC
+            return false;
+        }
+    }
+}
+function showHotKeys(){
+    var div=document.getElementById('showHelpHideDiv');
+    if(div!=null){
+        alert(div.innerHTML);
+        div=null;
+    }
+}
+function shiftFunction(element){
+    var div=document.getElementById(element);
+    if(div!=null){
+        if(div.innerHTML!="") eval(div.innerHTML);
+        div=null;
+    }
+}

@@ -26,6 +26,10 @@ public class GasWholesaleFormBean extends org.apache.struts.action.ActionForm {
     private int accountId;
     private String note;
     private int canEdit;
+    private int gasReturn;
+    private double gasReturnPrice;
+    private double gasReturnAmount;
+
     private String[] gasWholesaleDetailId;
     private String[] shellId;
     private String[] quantity;
@@ -58,6 +62,9 @@ public class GasWholesaleFormBean extends org.apache.struts.action.ActionForm {
         this.accountId = bean.getAccountId();
         this.note = bean.getNote();
         this.canEdit = bean.getCanEdit();
+        this.gasReturn = bean.getGasReturn();
+        this.gasReturnPrice = bean.getGasReturnPrice();
+        this.gasReturnAmount = bean.getGasReturnAmount();
     }
 
     public String getCreatedDate() {
@@ -258,6 +265,30 @@ public class GasWholesaleFormBean extends org.apache.struts.action.ActionForm {
 
     public void setTotalPay(double totalPay) {
         this.totalPay = totalPay;
+    }
+
+    public int getGasReturn() {
+        return gasReturn;
+    }
+
+    public void setGasReturn(int gasReturn) {
+        this.gasReturn = gasReturn;
+    }
+
+    public double getGasReturnPrice() {
+        return gasReturnPrice;
+    }
+
+    public void setGasReturnPrice(double gasReturnPrice) {
+        this.gasReturnPrice = gasReturnPrice;
+    }
+
+    public double getGasReturnAmount() {
+        return gasReturnAmount;
+    }
+
+    public void setGasReturnAmount(double gasReturnAmount) {
+        this.gasReturnAmount = gasReturnAmount;
     }
 
 }
