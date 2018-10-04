@@ -56,6 +56,12 @@ public class PrintReportAction extends BaseAction {
                 }else if (reportName.equals("reportsum")) {
                     templateFileName = "tong_hop";
                     list = printSumReport(fromDate, toDate, organizationIds);
+                }else if (reportName.equals("reportsale")) {
+                    templateFileName = "xuat_ban_hang";
+                    list = printSaleReport(fromDate, toDate, organizationIds);
+                }else if (reportName.equals("reportsalecustomer")) {
+                    templateFileName = "chi_tiet_ban_hang_theo_khach_hang";
+                    list = printSaleCustomerReport(fromDate, toDate, organizationIds);
                 }else if (reportName.equals("reportcompare")) {
                     templateFileName = "doi_chieu";
                     CompareReportOutBean outBean = new CompareReportOutBean();
@@ -142,6 +148,26 @@ public class PrintReportAction extends BaseAction {
         try {
             ReportDAO reportDAO = new ReportDAO();
             list = reportDAO.getCompareReport(fromDate, toDate, outBean);
+        } catch (Exception ex) {
+        }
+        return list;
+    }
+    
+    private ArrayList printSaleReport(String fromDate, String toDate, String organizationIds) {
+        ArrayList list = null;
+        try {
+            ReportDAO reportDAO = new ReportDAO();
+            list = reportDAO.getSaleReport(fromDate, toDate, organizationIds);
+        } catch (Exception ex) {
+        }
+        return list;
+    }
+    
+    private ArrayList printSaleCustomerReport(String fromDate, String toDate, String organizationIds) {
+        ArrayList list = null;
+        try {
+            ReportDAO reportDAO = new ReportDAO();
+            list = reportDAO.getSaleCustomerReport(fromDate, toDate, organizationIds);
         } catch (Exception ex) {
         }
         return list;

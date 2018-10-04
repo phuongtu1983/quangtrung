@@ -262,7 +262,7 @@ function menuClick(id) {
         loadContractPanel();
     else if (id == 'contractadd')
         getContract(0, 'loadContractPanel');
-    else if (id == 'reportlpgimport' || id == 'reportlpgstock' || id == 'reportlpgstocksum' || id == 'reportsum' || id == 'reportcompare')
+    else if (id == 'reportlpgimport' || id == 'reportlpgstock' || id == 'reportlpgstocksum' || id == 'reportsum' || id == 'reportcompare' || id == 'reportsale')
         showReportPanel(id);
     else if (id == 'shieldimportlist')
         loadShieldImportPanel();
@@ -3917,6 +3917,9 @@ function getGasWholesale(id) {
             if (customerId != 0) {
                 var ind = customerIdCombobox.getIndexByValue(customerId);
                 customerIdCombobox.selectOption(ind);
+            }else{
+                customerIdCombobox.unSelectOption();
+                customerIdCombobox.setComboValue("");
             }
         }
         // ============================
@@ -4028,6 +4031,9 @@ function getGasWholesale(id) {
             if (vehicleId != 0) {
                 var ind = vehicleIdCombobox.getIndexByValue(vehicleId);
                 vehicleIdCombobox.selectOption(ind);
+            }else{
+                vehicleIdCombobox.unSelectOption();
+                vehicleIdCombobox.setComboValue("");
             }
         }
         // ============================

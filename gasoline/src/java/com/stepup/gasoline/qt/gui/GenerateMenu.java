@@ -724,7 +724,8 @@ public class GenerateMenu {
             if (isHasPermission(PermissionUtil.OPERATION_LIST + "",
                     PermissionUtil.PER_REPORT_LPG_IMPORT + "," + PermissionUtil.PER_REPORT_LPG_STOCK)) {
                 if (isHasPermission(PermissionUtil.OPERATION_LIST + "", PermissionUtil.PER_REPORT_LPG_IMPORT + "," + PermissionUtil.PER_REPORT_LPG_STOCK
-                        + "," + PermissionUtil.PER_REPORT_LPG_STOCK_SUM + "," + PermissionUtil.PER_REPORT_SUM + "," + PermissionUtil.PER_REPORT_COMPARE)) {
+                        + "," + PermissionUtil.PER_REPORT_LPG_STOCK_SUM + "," + PermissionUtil.PER_REPORT_SUM + "," + PermissionUtil.PER_REPORT_COMPARE
+                        + "," + PermissionUtil.PER_REPORT_SALE + "," + PermissionUtil.PER_REPORT_SALE_CUSTOMER)) {
                     buffTemp.append("<item id=\"reportstock\" complex=\"true\" text=\"").append(QTUtil.getBundleString("report.stock.title")).append("\">");
                     if (isHasPermission(PermissionUtil.OPERATION_LIST, PermissionUtil.PER_REPORT_LPG_IMPORT)) {
                         buffTemp.append("<item id=\"reportlpgimport\" text=\"").append(QTUtil.getBundleString("report.lpgImport.title")).append("\"/>");
@@ -740,6 +741,12 @@ public class GenerateMenu {
                     }
                     if (isHasPermission(PermissionUtil.OPERATION_LIST, PermissionUtil.PER_REPORT_COMPARE)) {
                         buffTemp.append("<item id=\"reportcompare\" text=\"").append(QTUtil.getBundleString("report.compare.title")).append("\"/>");
+                    }
+                    if (isHasPermission(PermissionUtil.OPERATION_LIST, PermissionUtil.PER_REPORT_SALE)) {
+                        buffTemp.append("<item id=\"reportsale\" text=\"").append(QTUtil.getBundleString("report.sale.title")).append("\"/>");
+                    }
+                    if (isHasPermission(PermissionUtil.OPERATION_LIST, PermissionUtil.PER_REPORT_SALE_CUSTOMER)) {
+                        buffTemp.append("<item id=\"reportsalecustomer\" text=\"").append(QTUtil.getBundleString("report.saleCustomer.title")).append("\"/>");
                     }
                     buffTemp.append("</item>");
                 }
