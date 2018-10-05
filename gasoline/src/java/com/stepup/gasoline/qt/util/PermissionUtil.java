@@ -153,4 +153,5 @@ public class PermissionUtil {
     public static int PER_REPORT_COMPARE = 65;
     public static int PER_REPORT_SALE = 66;
     public static int PER_REPORT_SALE_CUSTOMER = 67;
+    public static int PER_REPORT_CASH_BOOK= 68;
 }

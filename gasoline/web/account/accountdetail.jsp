@@ -29,8 +29,16 @@
                                     <html:options collection="<%=Constants.ORGANIZATION_LIST%>" property="id" labelProperty="name"/>
                                 </html:select>
                             </td>
+                            <td height="30" style="padding-right: 20px"><bean:message key="account.detail.cashType"/></td>
+                            <td>
+                                <html:select property="isCash" name="<%=Constants.ACCOUNT%>" style="width:260px">
+                                    <html:options collection="<%=Constants.CASH_TYPE_LIST%>" property="value" labelProperty="label"/>
+                                </html:select>
+                            </td>
+                        </tr>
+                        <tr>
                             <td height="30" style="padding-right: 20px"><bean:message key="note.title"/></td>
-                            <td><html:text property="note" size="40" name="<%=Constants.ACCOUNT%>"/></td>
+                            <td colspan="3"><html:text property="note" size="106" name="<%=Constants.ACCOUNT%>"/></td>
                         </tr>
                     </table>
                 </td></tr>

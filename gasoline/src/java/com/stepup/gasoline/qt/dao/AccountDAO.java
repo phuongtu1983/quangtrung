@@ -70,6 +70,7 @@ public class AccountDAO extends BasicDAO {
                 bean.setBranch(rs.getString("branch"));
                 bean.setNote(rs.getString("note"));
                 bean.setOrganizationId(rs.getInt("organization_id"));
+                bean.setIsCash(rs.getInt("is_cash"));
                 return bean;
             }
         } catch (SQLException sqle) {
@@ -84,7 +85,7 @@ public class AccountDAO extends BasicDAO {
         return null;
     }
 
-    public AccountFormBean getStoreByNumberAndBank(String number, String bank) throws Exception {
+    public AccountFormBean getAccountByNumberAndBank(String number, String bank) throws Exception {
         ResultSet rs = null;
         String sql = "select a.* from account as a where a.number='" + number + "' and a.bank='" + bank + "'";
         try {
@@ -118,8 +119,9 @@ public class AccountDAO extends BasicDAO {
         }
         try {
             String sql = "";
-            sql = "Insert Into account (number, holder, bank, branch, note, organization_id)"
-                    + " Values ('" + bean.getNumber() + "','" + bean.getHolder() + "','" + bean.getBank() + "','" + bean.getBranch() + "','" + bean.getNote() + "'," + bean.getOrganizationId() + ")";
+            sql = "Insert Into account (number, holder, bank, branch, note, organization_id, is_cash)"
+                    + " Values ('" + bean.getNumber() + "','" + bean.getHolder() + "','" + bean.getBank() + "','" + bean.getBranch() + "','" + bean.getNote() + "',"
+                    + bean.getOrganizationId() + "," + bean.getIsCash() + ")";
             DBUtil.executeInsert(sql);
         } catch (SQLException sqle) {
             throw new Exception(sqle.getMessage());
@@ -146,6 +148,7 @@ public class AccountDAO extends BasicDAO {
                     + ", branch='" + bean.getBranch() + "'"
                     + ", note='" + bean.getNote() + "'"
                     + ", organization_id=" + bean.getOrganizationId()
+                    + ", is_cash=" + bean.getIsCash()
                     + " Where id=" + bean.getId();
             DBUtil.executeUpdate(sql);
         } catch (SQLException sqle) {

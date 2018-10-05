@@ -53,26 +53,18 @@ public class PrintReportAction extends BaseAction {
                     list = printLpgStockSumReport(fromDate, toDate, organizationIds, outBean);
                     beans.put("qtrp_gasStock", outBean.getGasStock());
                     beans.put("qtrp_shieldStock", outBean.getShieldStock());
-                }else if (reportName.equals("reportsum")) {
+                } else if (reportName.equals("reportsum")) {
                     templateFileName = "tong_hop";
                     list = printSumReport(fromDate, toDate, organizationIds);
-                }else if (reportName.equals("reportsale")) {
+                } else if (reportName.equals("reportsale")) {
                     templateFileName = "xuat_ban_hang";
                     list = printSaleReport(fromDate, toDate, organizationIds);
-                }else if (reportName.equals("reportsalecustomer")) {
+                } else if (reportName.equals("reportsalecustomer")) {
                     templateFileName = "chi_tiet_ban_hang_theo_khach_hang";
                     list = printSaleCustomerReport(fromDate, toDate, organizationIds);
-                }else if (reportName.equals("reportcompare")) {
-                    templateFileName = "doi_chieu";
-                    CompareReportOutBean outBean = new CompareReportOutBean();
-                    list = printCompareReport(fromDate, toDate, outBean);
-                    beans.put("qtrp_companyName", outBean.getCompanyName());
-                    beans.put("qtrp_companyAddress", outBean.getCompanyAddress());
-                    beans.put("qtrp_companyPhone", outBean.getCompanyPhone());
-                    beans.put("qtrp_companyFax", outBean.getCompanyFax());
-                    beans.put("qtrp_customerName", outBean.getCustomerName());
-                    beans.put("qtrp_customerAddress", outBean.getCustomerAddress());
-                    beans.put("qtrp_customerTax", outBean.getCustomerTax());
+                }else if (reportName.equals("reportcashbook")) {
+                    templateFileName = "bao_cao_quy_tien";
+                    list = printCashBookReport(fromDate, toDate, organizationIds);
                 }
                 templateFileName = request.getSession().getServletContext().getRealPath("/templates/" + templateFileName + ".xls");
                 beans.put("qtrp_fromDate", fromDate);
@@ -130,7 +122,7 @@ public class PrintReportAction extends BaseAction {
         }
         return list;
     }
-    
+
     private ArrayList printSumReport(String fromDate, String toDate, String organizationIds) {
         ArrayList list = null;
         try {
@@ -142,17 +134,7 @@ public class PrintReportAction extends BaseAction {
         }
         return list;
     }
-    
-    private ArrayList printCompareReport(String fromDate, String toDate, CompareReportOutBean outBean) {
-        ArrayList list = null;
-        try {
-            ReportDAO reportDAO = new ReportDAO();
-            list = reportDAO.getCompareReport(fromDate, toDate, outBean);
-        } catch (Exception ex) {
-        }
-        return list;
-    }
-    
+
     private ArrayList printSaleReport(String fromDate, String toDate, String organizationIds) {
         ArrayList list = null;
         try {
@@ -162,12 +144,22 @@ public class PrintReportAction extends BaseAction {
         }
         return list;
     }
-    
+
     private ArrayList printSaleCustomerReport(String fromDate, String toDate, String organizationIds) {
         ArrayList list = null;
         try {
             ReportDAO reportDAO = new ReportDAO();
             list = reportDAO.getSaleCustomerReport(fromDate, toDate, organizationIds);
+        } catch (Exception ex) {
+        }
+        return list;
+    }
+    
+    private ArrayList printCashBookReport(String fromDate, String toDate, String organizationIds) {
+        ArrayList list = null;
+        try {
+            ReportDAO reportDAO = new ReportDAO();
+            list = reportDAO.getCashBookReport(fromDate, toDate, organizationIds);
         } catch (Exception ex) {
         }
         return list;

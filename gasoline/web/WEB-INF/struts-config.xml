@@ -1011,6 +1011,11 @@
         </action>
         <action path="/reportPrint" type="com.stepup.gasoline.qt.report.PrintReportAction" scope="request" validate="false" >
         </action>
+        <action path="/getCompareReportPanel" type="com.stepup.gasoline.qt.report.compare.CompareReportPanelFormAction" scope="request" validate="false">
+            <forward name="success" path="/report/compare/panel.jsp" />
+        </action>
+        <action path="/reportComparePrint" type="com.stepup.gasoline.qt.report.compare.PrintCompareReportAction" scope="request" validate="false" >
+        </action>
         <!-- end report -->
         <!-- start customerdocument -->
         <action path="/getCustomerDocumentPanel" type="com.stepup.gasoline.qt.common.BaseStatusFormAction" scope="request" validate="false">

@@ -17,6 +17,7 @@ public class AccountBean {
     private String branch;
     private String note;
     private int organizationId;
+    private int isCash;
 
     public void setId(int id) {
         this.id = id;
@@ -73,5 +74,16 @@ public class AccountBean {
     public void setOrganizationId(int organizationId) {
         this.organizationId = organizationId;
     }
+
+    public int getIsCash() {
+        return isCash;
+    }
+
+    public void setIsCash(int isCash) {
+        this.isCash = isCash;
+    }
+
+    public static int CASH = 1;
+    public static int BANK = 0;
 
 }

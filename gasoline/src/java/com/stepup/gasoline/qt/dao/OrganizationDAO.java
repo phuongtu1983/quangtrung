@@ -134,6 +134,43 @@ public class OrganizationDAO extends BasicDAO {
         return null;
     }
 
+    public OrganizationBean getOrganization(String organizationIds) throws Exception {
+        ResultSet rs = null;
+        String sql = "select * from organization where id in(" + organizationIds + ") and status=" + EmployeeBean.STATUS_ACTIVE +" limit 1";
+        try {
+            rs = DBUtil.executeQuery(sql);
+            while (rs.next()) {
+                OrganizationBean bean = new OrganizationBean();
+                bean.setId(rs.getInt("id"));
+                bean.setName(rs.getString("name"));
+                bean.setCode(rs.getString("code"));
+                bean.setAddress(rs.getString("address"));
+                bean.setStatus(rs.getInt("status"));
+                bean.setPhone(rs.getString("phone"));
+                bean.setFax(rs.getString("fax"));
+                bean.setBankAccount(rs.getString("bank_account"));
+                bean.setTax(rs.getString("tax"));
+                bean.setPresenter(rs.getString("presenter"));
+                bean.setPresenterPosition(rs.getString("presenter_position"));
+                if (bean.getStatus() == EmployeeBean.STATUS_ACTIVE) {
+                    bean.setStatusName(QTUtil.getBundleString("employee.detail.status.active"));
+                } else if (bean.getStatus() == EmployeeBean.STATUS_INACTIVE) {
+                    bean.setStatusName(QTUtil.getBundleString("employee.detail.status.inactive"));
+                }
+                return bean;
+            }
+        } catch (SQLException sqle) {
+            throw new Exception(sqle.getMessage());
+        } catch (Exception ex) {
+            throw new Exception(ex.getMessage());
+        } finally {
+            if (rs != null) {
+                DBUtil.closeConnection(rs);
+            }
+        }
+        return null;
+    }
+
     public OrganizationBean getOrganizationByEmployee(int employeeId) throws Exception {
         ResultSet rs = null;
         String sql = "select o.id, o.status, coalesce(o.name,'') as name, coalesce(o.code,'') as code, coalesce(o.address,'') as address"

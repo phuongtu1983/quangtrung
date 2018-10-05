@@ -748,6 +748,9 @@ public class GenerateMenu {
                     if (isHasPermission(PermissionUtil.OPERATION_LIST, PermissionUtil.PER_REPORT_SALE_CUSTOMER)) {
                         buffTemp.append("<item id=\"reportsalecustomer\" text=\"").append(QTUtil.getBundleString("report.saleCustomer.title")).append("\"/>");
                     }
+                    if (isHasPermission(PermissionUtil.OPERATION_LIST, PermissionUtil.PER_REPORT_CASH_BOOK)) {
+                        buffTemp.append("<item id=\"reportcashbook\" text=\"").append(QTUtil.getBundleString("report.cashbook.title")).append("\"/>");
+                    }
                     buffTemp.append("</item>");
                 }
             }

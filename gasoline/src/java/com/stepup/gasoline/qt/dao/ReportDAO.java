@@ -8,8 +8,8 @@ package com.stepup.gasoline.qt.dao;
 import com.stepup.core.database.SPUtil;
 import com.stepup.core.util.DateUtil;
 import com.stepup.core.util.GenericValidator;
-import com.stepup.gasoline.qt.report.CompareReportBean;
-import com.stepup.gasoline.qt.report.CompareReportOutBean;
+import com.stepup.gasoline.qt.report.compare.CompareReportBean;
+import com.stepup.gasoline.qt.report.compare.CompareReportOutBean;
 import com.stepup.gasoline.qt.report.LpgImportReportBean;
 import com.stepup.gasoline.qt.report.LpgStockSumReportBean;
 import com.stepup.gasoline.qt.report.LpgStockReportBean;
@@ -313,12 +313,12 @@ public class ReportDAO extends BasicDAO {
         return list;
     }
 
-    public ArrayList getCompareReport(String fromDate, String endDate, CompareReportOutBean outBean) throws Exception {
+    public ArrayList getCompareReport(String fromDate, String endDate, String organizationIds, int customerId, CompareReportOutBean outBean) throws Exception {
         SPUtil spUtil = null;
         ArrayList list = new ArrayList();
         ResultSet rs = null;
         try {
-            String sql = "{call report_compare(?,?,?,?,?)}";
+            String sql = "{call report_compare(?,?,?,?,?,?,?)}";
             if (GenericValidator.isBlankOrNull(fromDate)) {
                 fromDate = DateUtil.today("dd/MM/yyyy");
             }
@@ -329,6 +329,8 @@ public class ReportDAO extends BasicDAO {
             if (spUtil != null) {
                 spUtil.getCallableStatement().setString("_start_date", fromDate);
                 spUtil.getCallableStatement().setString("_end_date", endDate);
+                spUtil.getCallableStatement().setString("_organization_ids", organizationIds);
+                spUtil.getCallableStatement().setInt("_customer_id", customerId);
                 spUtil.getCallableStatement().registerOutParameter("_shell_12_debt", Types.INTEGER);
                 spUtil.getCallableStatement().registerOutParameter("_shell_45_debt", Types.INTEGER);
                 spUtil.getCallableStatement().registerOutParameter("_amount_debt", Types.DOUBLE);
@@ -345,20 +347,20 @@ public class ReportDAO extends BasicDAO {
                     CompareReportBean bean = null;
                     while (rs.next()) {
                         bean = new CompareReportBean();
-                        bean.setDate(DateUtil.formatDate(rs.getDate("created_date"), "dd/MM/yyyy"));
-                        bean.setBuy12(rs.getInt("buy_12"));
-                        bean.setBuy45(rs.getInt("buy_45"));
-                        bean.setReturn12(rs.getInt("return_12"));
-                        bean.setReturn12T(rs.getInt("return_12T"));
-                        bean.setReturn45(rs.getInt("return_45"));
-                        bean.setWeight(rs.getInt("weight"));
+                        bean.setDate(DateUtil.formatDate(rs.getDate("created_date"), "dd/MM"));
+                        bean.setBuy12(rs.getInt("quantity_12"));
+                        bean.setBuy45(rs.getInt("quantity_45"));
+                        bean.setReturn12(rs.getInt("shell_return_12"));
+                        bean.setReturn12T(rs.getInt("shell_return_12t"));
+                        bean.setReturn45(rs.getInt("shell_return_45"));
+                        bean.setWeight(bean.getBuy12() * 12 + bean.getBuy45() * 45);
                         bean.setPrice12(rs.getDouble("price_12"));
                         bean.setPrice45(rs.getDouble("price_45"));
-                        bean.setAmount(rs.getDouble("amount"));
+                        bean.setAmount(rs.getDouble("total_pay"));
                         bean.setPaid(rs.getDouble("paid"));
-                        bean.setDebt12(rs.getInt("debt_12"));
-                        bean.setDebt45(rs.getInt("debt_45"));
-                        bean.setDebtAmount(rs.getDouble("debt_amount"));
+                        bean.setDebt12(bean.getBuy12() - bean.getReturn12() - bean.getReturn12T());
+                        bean.setDebt45(bean.getBuy45() - bean.getReturn45());
+                        bean.setDebtAmount(bean.getAmount() - bean.getPaid());
                         bean.setNote(rs.getString("note"));
                         list.add(bean);
                     }
@@ -475,12 +477,72 @@ public class ReportDAO extends BasicDAO {
                         bean.setGas12(rs.getInt("quantity_12"));
                         bean.setGas45(rs.getInt("quantity_45"));
                         bean.setRevenue(rs.getDouble("amount"));
-                        bean.setOpeningDebt12(rs.getDouble("price_45"));
-                        bean.setOpeningDebt45(rs.getDouble("price_45"));
-                        bean.setOpeningDebt(rs.getDouble("price_45"));
+                        bean.setOpeningDebt12(rs.getDouble("opening_debt_12"));
+                        bean.setOpeningDebt45(rs.getDouble("opening_debt_45"));
+                        bean.setOpeningDebt(rs.getDouble("opening_debt"));
                         bean.setDebt12(bean.getOpeningDebt12() + bean.getGas12() - rs.getInt("shell_return_12"));
                         bean.setDebt45(bean.getOpeningDebt45() + bean.getGas45() - rs.getInt("shell_return_45"));
-                        bean.setDebt(bean.getOpeningDebt() + bean.getRevenue() - rs.getDouble("paid"));
+                        bean.setDebt(bean.getOpeningDebt() + rs.getDouble("debt"));
+                        list.add(bean);
+                    }
+                }
+            }
+        } catch (SQLException sqle) {
+            throw new Exception(sqle.getMessage());
+        } catch (Exception ex) {
+            throw new Exception(ex.getMessage());
+        } finally {
+            try {
+                if (spUtil != null) {
+                    spUtil.closeConnection();
+                }
+                if (rs != null) {
+                    rs.close();
+                    rs = null;
+                }
+            } catch (Exception e) {
+                throw new Exception(e.getMessage());
+            }
+        }
+        return list;
+    }
+    
+    public ArrayList getCashBookReport(String fromDate, String endDate, String organizationIds) throws Exception {
+        SPUtil spUtil = null;
+        ArrayList list = new ArrayList();
+        ResultSet rs = null;
+        try {
+            String sql = "{call report_cash_book(?,?,?)}";
+            if (GenericValidator.isBlankOrNull(fromDate)) {
+                fromDate = DateUtil.today("dd/MM/yyyy");
+            }
+            if (GenericValidator.isBlankOrNull(endDate)) {
+                endDate = BasicDAO.START_DATE;
+            }
+            spUtil = new SPUtil(sql);
+            if (spUtil != null) {
+                spUtil.getCallableStatement().setString("_start_date", fromDate);
+                spUtil.getCallableStatement().setString("_end_date", endDate);
+                spUtil.getCallableStatement().setString("_organization_ids", organizationIds);
+
+                rs = spUtil.executeQuery();
+                if (rs != null) {
+                    SaleCustomerReportBean bean = null;
+                    int count = 1;
+                    while (rs.next()) {
+                        bean = new SaleCustomerReportBean();
+                        bean.setCount(count++);
+                        bean.setCustomerCode(rs.getString("customer_code"));
+                        bean.setCustomerName(rs.getString("customer_name"));
+                        bean.setGas12(rs.getInt("quantity_12"));
+                        bean.setGas45(rs.getInt("quantity_45"));
+                        bean.setRevenue(rs.getDouble("amount"));
+                        bean.setOpeningDebt12(rs.getDouble("opening_debt_12"));
+                        bean.setOpeningDebt45(rs.getDouble("opening_debt_45"));
+                        bean.setOpeningDebt(rs.getDouble("opening_debt"));
+                        bean.setDebt12(bean.getOpeningDebt12() + bean.getGas12() - rs.getInt("shell_return_12"));
+                        bean.setDebt45(bean.getOpeningDebt45() + bean.getGas45() - rs.getInt("shell_return_45"));
+                        bean.setDebt(bean.getOpeningDebt() + rs.getDouble("debt"));
                         list.add(bean);
                     }
                 }

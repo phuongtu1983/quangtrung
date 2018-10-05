@@ -4,6 +4,7 @@
  */
 package com.stepup.gasoline.qt.account;
 
+import com.stepup.gasoline.qt.bean.AccountBean;
 import com.stepup.gasoline.qt.bean.EmployeeBean;
 import com.stepup.gasoline.qt.core.SpineAction;
 import com.stepup.gasoline.qt.dao.AccountDAO;
@@ -16,6 +17,7 @@ import javax.servlet.http.HttpServletResponse;
 import org.apache.commons.validator.GenericValidator;
 import org.apache.struts.action.ActionForm;
 import org.apache.struts.action.ActionMapping;
+import org.apache.struts.util.LabelValueBean;
 
 /**
  *
@@ -60,6 +62,18 @@ public class AccountFormAction extends SpineAction {
             arrOrganization = new ArrayList();
         }
         request.setAttribute(Constants.ORGANIZATION_LIST, arrOrganization);
+        
+        ArrayList arrStatus = new ArrayList();
+        LabelValueBean value;
+        value = new LabelValueBean();
+        value.setLabel(QTUtil.getBundleString("account.detail.cashType.cash"));
+        value.setValue(AccountBean.CASH + "");
+        arrStatus.add(value);
+        value = new LabelValueBean();
+        value.setLabel(QTUtil.getBundleString("account.detail.cashType.bank"));
+        value.setValue(AccountBean.BANK + "");
+        arrStatus.add(value);
+        request.setAttribute(Constants.CASH_TYPE_LIST, arrStatus);
 
         return true;
     }

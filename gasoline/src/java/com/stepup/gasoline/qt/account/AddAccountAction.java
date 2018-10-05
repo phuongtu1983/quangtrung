@@ -39,7 +39,7 @@ public class AddAccountAction extends SpineAction {
         boolean bNew = false;
         boolean isExist = false;
         try {
-            oldBean = accountDAO.getStoreByNumberAndBank(formBean.getNumber(), formBean.getBank());
+            oldBean = accountDAO.getAccountByNumberAndBank(formBean.getNumber(), formBean.getBank());
         } catch (Exception ex) {
         }
         int accountId = formBean.getId();
@@ -87,6 +87,9 @@ public class AddAccountAction extends SpineAction {
                 if (formBean.getOrganizationId() != oldBean.getOrganizationId()) {
                     isUpdate = true;
                 }
+                if (formBean.getIsCash()!= oldBean.getIsCash()) {
+                    isUpdate = true;
+                }
             }
         } catch (Exception ex) {
         }
@@ -98,6 +101,7 @@ public class AddAccountAction extends SpineAction {
         bean.setBranch(formBean.getBranch());
         bean.setNote(formBean.getNote());
         bean.setOrganizationId(formBean.getOrganizationId());
+        bean.setIsCash(formBean.getIsCash());
         try {
             if (bNew) {
                 accountDAO.insertAccount(bean);

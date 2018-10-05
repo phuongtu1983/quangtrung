@@ -18,6 +18,7 @@ public class AccountFormBean extends org.apache.struts.action.ActionForm {
     private String bank;
     private String branch;
     private String note;
+    private int isCash;
     private int organizationId;
     private String organizationName;
 
@@ -32,6 +33,7 @@ public class AccountFormBean extends org.apache.struts.action.ActionForm {
         this.branch = bean.getBranch();
         this.note = bean.getNote();
         this.organizationId = bean.getOrganizationId();
+        this.isCash = bean.getIsCash();
     }
 
     public int getId() {
@@ -96,6 +98,14 @@ public class AccountFormBean extends org.apache.struts.action.ActionForm {
 
     public void setNote(String note) {
         this.note = note;
+    }
+
+    public int getIsCash() {
+        return isCash;
+    }
+
+    public void setIsCash(int isCash) {
+        this.isCash = isCash;
     }
 
 }
