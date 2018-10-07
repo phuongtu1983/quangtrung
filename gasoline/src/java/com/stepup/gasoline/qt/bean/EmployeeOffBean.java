@@ -18,6 +18,7 @@ public class EmployeeOffBean {
     private String fromDate;
     private String toDate;
     private String note;
+    private int createdEmployeeId;
 
     public void setId(int id) {
         this.id = id;
@@ -81,6 +82,14 @@ public class EmployeeOffBean {
 
     public void setActualOffDay(int actualOffDay) {
         this.actualOffDay = actualOffDay;
+    }
+
+    public int getCreatedEmployeeId() {
+        return createdEmployeeId;
+    }
+
+    public void setCreatedEmployeeId(int createdEmployeeId) {
+        this.createdEmployeeId = createdEmployeeId;
     }
 
 }

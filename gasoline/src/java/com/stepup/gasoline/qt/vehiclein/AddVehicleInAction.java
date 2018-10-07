@@ -10,6 +10,7 @@ import com.stepup.gasoline.qt.bean.VehicleInDetailBean;
 import com.stepup.gasoline.qt.bean.VehicleInReturnShellDetailBean;
 import com.stepup.gasoline.qt.core.SpineAction;
 import com.stepup.gasoline.qt.dao.GasDAO;
+import com.stepup.gasoline.qt.util.QTUtil;
 import java.util.ArrayList;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -52,12 +53,13 @@ public class AddVehicleInAction extends SpineAction {
         if (bean == null) {
             bean = new VehicleInBean();
         }
-
+        
         bean.setId(formBean.getId());
         bean.setCode(formBean.getCode());
         bean.setNote(formBean.getNote());
         bean.setCreatedDate(formBean.getCreatedDate());
         bean.setVehicleId(formBean.getVehicleId());
+        bean.setCreatedEmployeeId(QTUtil.getEmployeeId(request.getSession()));
         try {
             if (bNew) {
                 int id = gasDAO.insertVehicleIn(bean);
@@ -71,7 +73,7 @@ public class AddVehicleInAction extends SpineAction {
         }
         return true;
     }
-
+    
     private void addVehicleInDetail(VehicleInFormBean formBean) {
         try {
             GasDAO gasDAO = new GasDAO();
@@ -122,7 +124,7 @@ public class AddVehicleInAction extends SpineAction {
         } catch (Exception ex) {
         }
     }
-
+    
     private void addVehicleInReturnShell(VehicleInFormBean formBean) {
         try {
             GasDAO gasDAO = new GasDAO();
@@ -154,7 +156,7 @@ public class AddVehicleInAction extends SpineAction {
                             isUpdate = true;
                             oldBean.setShellId(NumberUtil.parseInt(formBean.getReturnShellId()[i], 0));
                         }
-                        if (oldBean.getQuantity()!= NumberUtil.parseInt(formBean.getReturnShellQuantity()[i], 0)) {
+                        if (oldBean.getQuantity() != NumberUtil.parseInt(formBean.getReturnShellQuantity()[i], 0)) {
                             isUpdate = true;
                             oldBean.setQuantity(NumberUtil.parseInt(formBean.getReturnShellQuantity()[i], 0));
                         }
@@ -167,5 +169,5 @@ public class AddVehicleInAction extends SpineAction {
         } catch (Exception ex) {
         }
     }
-
+    
 }

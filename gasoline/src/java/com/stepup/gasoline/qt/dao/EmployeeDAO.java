@@ -407,7 +407,7 @@ public class EmployeeDAO extends BasicDAO {
             } else {
                 createdDate = bean.getAdvanceDate();
             }
-            String sql = "{call insertEmployeeAdvance(?,?,?,?,?,?,?)}";
+            String sql = "{call insertEmployeeAdvance(?,?,?,?,?,?,?,?)}";
             spUtil = new SPUtil(sql);
             if (spUtil != null) {
                 spUtil.getCallableStatement().setString("_code", bean.getCode());
@@ -416,6 +416,7 @@ public class EmployeeDAO extends BasicDAO {
                 spUtil.getCallableStatement().setDouble("_amount", bean.getAmount());
                 spUtil.getCallableStatement().setInt("_account_id", bean.getAccountId());
                 spUtil.getCallableStatement().setString("_note", bean.getNote());
+                spUtil.getCallableStatement().setInt("_created_employee_id", bean.getCreatedEmployeeId());
                 spUtil.getCallableStatement().registerOutParameter("_id", Types.INTEGER);
                 spUtil.execute();
                 result = spUtil.getCallableStatement().getInt("_id");
@@ -751,7 +752,7 @@ public class EmployeeDAO extends BasicDAO {
             } else {
                 createdDate = bean.getTimesheetDate();
             }
-            String sql = "{call insertEmployeeTimesheet(?,?,?,?,?,?,?)}";
+            String sql = "{call insertEmployeeTimesheet(?,?,?,?,?,?,?,?)}";
             spUtil = new SPUtil(sql);
             if (spUtil != null) {
                 spUtil.getCallableStatement().setString("_code", bean.getCode());
@@ -760,6 +761,7 @@ public class EmployeeDAO extends BasicDAO {
                 spUtil.getCallableStatement().setInt("_field_id", bean.getFieldId());
                 spUtil.getCallableStatement().setInt("_quantity", bean.getQuantity());
                 spUtil.getCallableStatement().setString("_note", bean.getNote());
+                spUtil.getCallableStatement().setInt("_created_employee_id", bean.getCreatedEmployeeId());
                 spUtil.getCallableStatement().registerOutParameter("_id", Types.INTEGER);
                 spUtil.execute();
                 result = spUtil.getCallableStatement().getInt("_id");
@@ -937,7 +939,7 @@ public class EmployeeDAO extends BasicDAO {
             } else {
                 toDate = bean.getToDate();
             }
-            String sql = "{call insertEmployeeOff(?,?,?,?,?,?,?,?)}";
+            String sql = "{call insertEmployeeOff(?,?,?,?,?,?,?,?,?)}";
             spUtil = new SPUtil(sql);
             if (spUtil != null) {
                 spUtil.getCallableStatement().setString("_code", bean.getCode());
@@ -947,6 +949,7 @@ public class EmployeeDAO extends BasicDAO {
                 spUtil.getCallableStatement().setString("_to_date", toDate);
                 spUtil.getCallableStatement().setString("_note", bean.getNote());
                 spUtil.getCallableStatement().setInt("_actual_off_day", bean.getActualOffDay());
+                spUtil.getCallableStatement().setInt("_created_employee_id", bean.getCreatedEmployeeId());
                 spUtil.getCallableStatement().registerOutParameter("_id", Types.INTEGER);
                 spUtil.execute();
                 result = spUtil.getCallableStatement().getInt("_id");
@@ -1533,7 +1536,7 @@ public class EmployeeDAO extends BasicDAO {
             } else {
                 createdDate = bean.getCreatedDate();
             }
-            String sql = "{call insertEmployeeOffMoney(?,?,?,?,?,?,?,?,?)}";
+            String sql = "{call insertEmployeeOffMoney(?,?,?,?,?,?,?,?,?,?)}";
             spUtil = new SPUtil(sql);
             if (spUtil != null) {
                 spUtil.getCallableStatement().setString("_code", bean.getCode());
@@ -1544,6 +1547,7 @@ public class EmployeeDAO extends BasicDAO {
                 spUtil.getCallableStatement().setDouble("_amount", bean.getAmount());
                 spUtil.getCallableStatement().setInt("_account_id", bean.getAccountId());
                 spUtil.getCallableStatement().setString("_note", bean.getNote());
+                spUtil.getCallableStatement().setInt("_created_employee_id", bean.getCreatedEmployeeId());
                 spUtil.getCallableStatement().registerOutParameter("_id", Types.INTEGER);
                 spUtil.execute();
                 result = spUtil.getCallableStatement().getInt("_id");

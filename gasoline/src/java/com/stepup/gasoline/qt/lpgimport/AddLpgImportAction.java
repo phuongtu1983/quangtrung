@@ -7,6 +7,7 @@ package com.stepup.gasoline.qt.lpgimport;
 import com.stepup.gasoline.qt.bean.LpgImportBean;
 import com.stepup.gasoline.qt.core.SpineAction;
 import com.stepup.gasoline.qt.dao.GasDAO;
+import com.stepup.gasoline.qt.util.QTUtil;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import org.apache.struts.action.ActionForm;
@@ -33,7 +34,7 @@ public class AddLpgImportAction extends SpineAction {
             HttpServletRequest request, HttpServletResponse response) {
         LpgImportFormBean formBean = (LpgImportFormBean) form;
         GasDAO gasDAO = new GasDAO();
-
+        
         boolean bNew = true;
         if (formBean.getId() != 0) {
             bNew = false;
@@ -52,6 +53,7 @@ public class AddLpgImportAction extends SpineAction {
         bean.setRate(formBean.getRate());
         bean.setAccountId(formBean.getAccountId());
         bean.setNote(formBean.getNote());
+        bean.setCreatedEmployeeId(QTUtil.getEmployeeId(request.getSession()));
         try {
             if (bNew) {
                 gasDAO.insertLpgImport(bean);

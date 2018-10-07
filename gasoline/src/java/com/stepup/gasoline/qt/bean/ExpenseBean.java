@@ -21,6 +21,7 @@ public class ExpenseBean {
     private String content;
     private int isUsually;
     private int type;
+    private int createdEmployeeId;
 
     public void setId(int id) {
         this.id = id;
@@ -109,6 +110,15 @@ public class ExpenseBean {
     public void setType(int type) {
         this.type = type;
     }
+
+    public int getCreatedEmployeeId() {
+        return createdEmployeeId;
+    }
+
+    public void setCreatedEmployeeId(int createdEmployeeId) {
+        this.createdEmployeeId = createdEmployeeId;
+    }
+
     public static int TYPE_OTHER = 1;
     public static int TYPE_BANK = 2;
     public static int TYPE_COMPANY = 3;

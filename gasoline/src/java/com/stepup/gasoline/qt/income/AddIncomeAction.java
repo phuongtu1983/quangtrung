@@ -7,6 +7,7 @@ package com.stepup.gasoline.qt.income;
 import com.stepup.gasoline.qt.bean.IncomeBean;
 import com.stepup.gasoline.qt.core.SpineAction;
 import com.stepup.gasoline.qt.dao.PaymentDAO;
+import com.stepup.gasoline.qt.util.QTUtil;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import org.apache.struts.action.ActionForm;
@@ -47,6 +48,7 @@ public class AddIncomeAction extends SpineAction {
         bean.setContent(formBean.getContent());
         bean.setNote(formBean.getNote());
         bean.setType(formBean.getType());
+        bean.setCreatedEmployeeId(QTUtil.getEmployeeId(request.getSession()));
         try {
             if (bNew) {
                 paymentDAO.insertIncome(bean);

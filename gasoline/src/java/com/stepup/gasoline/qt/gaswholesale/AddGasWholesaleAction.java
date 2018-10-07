@@ -11,6 +11,7 @@ import com.stepup.gasoline.qt.bean.GasWholesalePromotionMaterialDetailBean;
 import com.stepup.gasoline.qt.bean.GasWholesaleReturnShellDetailBean;
 import com.stepup.gasoline.qt.core.SpineAction;
 import com.stepup.gasoline.qt.dao.GasDAO;
+import com.stepup.gasoline.qt.util.QTUtil;
 import java.util.ArrayList;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -53,7 +54,7 @@ public class AddGasWholesaleAction extends SpineAction {
         if (bean == null) {
             bean = new GasWholesaleBean();
         }
-
+        
         bean.setId(formBean.getId());
         bean.setCode(formBean.getCode());
         bean.setNote(formBean.getNote());
@@ -69,6 +70,7 @@ public class AddGasWholesaleAction extends SpineAction {
         bean.setGasReturn(formBean.getGasReturn());
         bean.setGasReturnPrice(formBean.getGasReturnPrice());
         bean.setGasReturnAmount(formBean.getGasReturnAmount());
+        bean.setCreatedEmployeeId(QTUtil.getEmployeeId(request.getSession()));
         try {
             if (bNew) {
                 int id = gasDAO.insertGasWholesale(bean);
@@ -83,7 +85,7 @@ public class AddGasWholesaleAction extends SpineAction {
         }
         return true;
     }
-
+    
     private void addGasWholesaleDetail(GasWholesaleFormBean formBean) {
         try {
             GasDAO gasDAO = new GasDAO();
@@ -134,7 +136,7 @@ public class AddGasWholesaleAction extends SpineAction {
         } catch (Exception ex) {
         }
     }
-
+    
     private void addGasWholesalePromotionMaterial(GasWholesaleFormBean formBean) {
         try {
             GasDAO gasDAO = new GasDAO();
@@ -175,7 +177,7 @@ public class AddGasWholesaleAction extends SpineAction {
         } catch (Exception ex) {
         }
     }
-
+    
     private void addGasWholesaleReturnShellDetail(GasWholesaleFormBean formBean) {
         try {
             GasDAO gasDAO = new GasDAO();

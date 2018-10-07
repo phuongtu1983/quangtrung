@@ -62,7 +62,7 @@ public class PrintReportAction extends BaseAction {
                 } else if (reportName.equals("reportsalecustomer")) {
                     templateFileName = "chi_tiet_ban_hang_theo_khach_hang";
                     list = printSaleCustomerReport(fromDate, toDate, organizationIds);
-                }else if (reportName.equals("reportcashbook")) {
+                } else if (reportName.equals("reportcashbook")) {
                     templateFileName = "bao_cao_quy_tien";
                     list = printCashBookReport(fromDate, toDate, organizationIds);
                 }
@@ -117,7 +117,7 @@ public class PrintReportAction extends BaseAction {
             VendorDAO vendorDAO = new VendorDAO();
             String vendorIds = vendorDAO.getVendorOfOrganizations(organizationIds);
             ReportDAO reportDAO = new ReportDAO();
-            list = reportDAO.getLpgStockSumReport(fromDate, toDate, vendorIds, outBean);
+            list = reportDAO.getLpgStockSumReport(fromDate, toDate, organizationIds, vendorIds, outBean);
         } catch (Exception ex) {
         }
         return list;
@@ -154,7 +154,7 @@ public class PrintReportAction extends BaseAction {
         }
         return list;
     }
-    
+
     private ArrayList printCashBookReport(String fromDate, String toDate, String organizationIds) {
         ArrayList list = null;
         try {

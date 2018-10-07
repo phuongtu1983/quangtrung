@@ -23,12 +23,12 @@ import org.apache.commons.validator.GenericValidator;
  */
 public class ContractDAO extends BasicDAO {
 
-    public ArrayList searchContract(String fromDate, String endDate) throws Exception {
+    public ArrayList searchContract(String fromDate, String endDate, String organizationIds) throws Exception {
         SPUtil spUtil = null;
         ArrayList list = new ArrayList();
         ResultSet rs = null;
         try {
-            String sql = "{call searchContract(?,?)}";
+            String sql = "{call searchContract(?,?,?)}";
             if (GenericValidator.isBlankOrNull(fromDate)) {
                 fromDate = DateUtil.today("dd/MM/yyyy");
             }
@@ -39,6 +39,7 @@ public class ContractDAO extends BasicDAO {
             if (spUtil != null) {
                 spUtil.getCallableStatement().setString("_start_date", fromDate);
                 spUtil.getCallableStatement().setString("_end_date", endDate);
+                spUtil.getCallableStatement().setString("_organization_ids", organizationIds);
                 rs = spUtil.executeQuery();
                 if (rs != null) {
                     ContractFormBean bean = null;
@@ -117,7 +118,7 @@ public class ContractDAO extends BasicDAO {
             } else {
                 createdDate = bean.getCreatedDate();
             }
-            String sql = "{call insertContract(?,?,?,?,?,?,?,?,?,?)}";
+            String sql = "{call insertContract(?,?,?,?,?,?,?,?,?,?,?)}";
             spUtil = new SPUtil(sql);
             if (spUtil != null) {
                 spUtil.getCallableStatement().setString("_code", bean.getCode());
@@ -129,6 +130,7 @@ public class ContractDAO extends BasicDAO {
                 spUtil.getCallableStatement().setDouble("_credit_amount", bean.getCreditAmount());
                 spUtil.getCallableStatement().setString("_note", bean.getNote());
                 spUtil.getCallableStatement().setInt("_employee_id", bean.getEmployeeId());
+                spUtil.getCallableStatement().setInt("_created_employee_id", bean.getCreatedEmployeeId());
                 spUtil.getCallableStatement().registerOutParameter("_id", Types.INTEGER);
                 spUtil.execute();
                 result = spUtil.getCallableStatement().getInt("_id");

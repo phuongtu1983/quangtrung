@@ -734,7 +734,7 @@ public class GenerateMenu {
                         buffTemp.append("<item id=\"reportlpgstock\" text=\"").append(QTUtil.getBundleString("report.lpgStock.title")).append("\"/>");
                     }
                     if (isHasPermission(PermissionUtil.OPERATION_LIST, PermissionUtil.PER_REPORT_LPG_STOCK_SUM)) {
-                        buffTemp.append("<item id=\"reportlpgstocksum\" text=\"").append(QTUtil.getBundleString("report.lpgStockOrganization.title")).append("\"/>");
+                        buffTemp.append("<item id=\"reportlpgstocksum\" text=\"").append(QTUtil.getBundleString("report.lpgStockSum.title")).append("\"/>");
                     }
                     if (isHasPermission(PermissionUtil.OPERATION_LIST, PermissionUtil.PER_REPORT_SUM)) {
                         buffTemp.append("<item id=\"reportsum\" text=\"").append(QTUtil.getBundleString("report.sum.title")).append("\"/>");

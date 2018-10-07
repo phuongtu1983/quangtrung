@@ -7,6 +7,7 @@ package com.stepup.gasoline.qt.shellreturnsupplier;
 import com.stepup.core.util.OutputUtil;
 import com.stepup.core.util.StringUtil;
 import com.stepup.gasoline.qt.dao.GasDAO;
+import com.stepup.gasoline.qt.util.QTUtil;
 import java.util.ArrayList;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -40,7 +41,7 @@ public class GetShellReturnSupplierListAction extends Action {
         buff.append("<rows>");
         try {
             GasDAO gasDAO = new GasDAO();
-            ArrayList importList = gasDAO.searchShellReturnSupplier(request.getParameter("fromDate"), request.getParameter("toDate"));
+            ArrayList importList = gasDAO.searchShellReturnSupplier(request.getParameter("fromDate"), request.getParameter("toDate"), QTUtil.getOrganizationManageds(request.getSession()));
             if (importList != null) {
                 int length = importList.size();
                 for (int i = 0; i < length; i++) {

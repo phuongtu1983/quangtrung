@@ -7,6 +7,7 @@ package com.stepup.gasoline.qt.contract;
 import com.stepup.core.util.OutputUtil;
 import com.stepup.gasoline.qt.core.BaseAction;
 import com.stepup.gasoline.qt.dao.ContractDAO;
+import com.stepup.gasoline.qt.util.QTUtil;
 import java.util.ArrayList;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -27,7 +28,7 @@ public class GetContractListAction extends BaseAction {
         buff.append("<rows>");
         try {
             ContractDAO contractDAO = new ContractDAO();
-            ArrayList list = contractDAO.searchContract(request.getParameter("fromDate"), request.getParameter("toDate"));
+            ArrayList list = contractDAO.searchContract(request.getParameter("fromDate"), request.getParameter("toDate"), QTUtil.getOrganizationManageds(request.getSession()));
             if (list != null) {
                 int length = list.size();
                 for (int i = 0; i < length; i++) {

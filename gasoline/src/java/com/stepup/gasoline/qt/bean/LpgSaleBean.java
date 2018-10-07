@@ -23,6 +23,7 @@ public class LpgSaleBean {
     private String note;
     private int canEdit;
     private int lpgImportId;
+    private int createdEmployeeId;
 
     public LpgSaleBean() {
         this.canEdit = 1;
@@ -130,6 +131,14 @@ public class LpgSaleBean {
 
     public void setLpgImportId(int lpgImportId) {
         this.lpgImportId = lpgImportId;
+    }
+
+    public int getCreatedEmployeeId() {
+        return createdEmployeeId;
+    }
+
+    public void setCreatedEmployeeId(int createdEmployeeId) {
+        this.createdEmployeeId = createdEmployeeId;
     }
 
 }

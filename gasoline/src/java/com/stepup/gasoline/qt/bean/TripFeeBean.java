@@ -19,6 +19,7 @@ public class TripFeeBean {
     private double amount;
     private String note;
     private String fee;
+    private int createdEmployeeId;
 
     public void setId(int id) {
         this.id = id;
@@ -90,6 +91,14 @@ public class TripFeeBean {
 
     public void setFee(String fee) {
         this.fee = fee;
+    }
+
+    public int getCreatedEmployeeId() {
+        return createdEmployeeId;
+    }
+
+    public void setCreatedEmployeeId(int createdEmployeeId) {
+        this.createdEmployeeId = createdEmployeeId;
     }
 
 }

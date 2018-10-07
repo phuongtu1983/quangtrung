@@ -39,6 +39,8 @@ public class BaseReportPanelFormAction extends SpineAction {
             header = QTUtil.getBundleString("report.lpgImport.title");
         } else if (name.equals("reportlpgstock")) {
             header = QTUtil.getBundleString("report.lpgStock.title");
+        } else if (name.equals("reportlpgstocksum")) {
+            header = QTUtil.getBundleString("report.lpgStockSum.title");
         } else if (name.equals("reportsum")) {
             header = QTUtil.getBundleString("report.sum.title");
         } else if (name.equals("reportcompare")) {
@@ -47,7 +49,7 @@ public class BaseReportPanelFormAction extends SpineAction {
             header = QTUtil.getBundleString("report.sale.title");
         } else if (name.equals("reportsalecustomer")) {
             header = QTUtil.getBundleString("report.saleCustomer.title");
-        }else if (name.equals("reportcashbook")) {
+        } else if (name.equals("reportcashbook")) {
             header = QTUtil.getBundleString("report.cashbook.title");
         }
         reportBean.setName(name);

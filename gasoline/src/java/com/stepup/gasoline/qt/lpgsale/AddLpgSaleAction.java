@@ -7,6 +7,7 @@ package com.stepup.gasoline.qt.lpgsale;
 import com.stepup.gasoline.qt.bean.LpgSaleBean;
 import com.stepup.gasoline.qt.core.SpineAction;
 import com.stepup.gasoline.qt.dao.GasDAO;
+import com.stepup.gasoline.qt.util.QTUtil;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import org.apache.struts.action.ActionForm;
@@ -51,6 +52,7 @@ public class AddLpgSaleAction extends SpineAction {
         bean.setAccountId(formBean.getAccountId());
         bean.setNote(formBean.getNote());
         bean.setLpgImportId(formBean.getLpgImportId());
+        bean.setCreatedEmployeeId(QTUtil.getEmployeeId(request.getSession()));
         try {
             if (bNew) {
                 gasDAO.insertLpgSale(bean);

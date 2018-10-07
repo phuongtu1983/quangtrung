@@ -17,6 +17,7 @@ public class DebtRetailBean {
     private int accountId;
     private double paid;
     private String note;
+    private int createdEmployeeId;
 
     public void setId(int id) {
         this.id = id;
@@ -72,6 +73,14 @@ public class DebtRetailBean {
 
     public void setNote(String note) {
         this.note = note;
+    }
+
+    public int getCreatedEmployeeId() {
+        return createdEmployeeId;
+    }
+
+    public void setCreatedEmployeeId(int createdEmployeeId) {
+        this.createdEmployeeId = createdEmployeeId;
     }
 
 }

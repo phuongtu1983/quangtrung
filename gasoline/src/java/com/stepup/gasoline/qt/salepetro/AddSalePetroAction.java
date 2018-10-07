@@ -9,6 +9,7 @@ import com.stepup.gasoline.qt.bean.SalePetroBean;
 import com.stepup.gasoline.qt.bean.SalePetroDetailBean;
 import com.stepup.gasoline.qt.core.SpineAction;
 import com.stepup.gasoline.qt.dao.GoodDAO;
+import com.stepup.gasoline.qt.util.QTUtil;
 import java.util.ArrayList;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -64,6 +65,7 @@ public class AddSalePetroAction extends SpineAction {
         bean.setAccountId(formBean.getAccountId());
         bean.setCustomerId(formBean.getCustomerId());
         bean.setStoreId(formBean.getStoreId());
+        bean.setCreatedEmployeeId(QTUtil.getEmployeeId(request.getSession()));
         try {
             if (bNew) {
                 int id = goodDAO.insertSalePetro(bean);

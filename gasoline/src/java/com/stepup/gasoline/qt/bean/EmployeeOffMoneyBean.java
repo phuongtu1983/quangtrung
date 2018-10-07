@@ -19,6 +19,7 @@ public class EmployeeOffMoneyBean {
     private double price;
     private double amount;
     private String note;
+    private int createdEmployeeId;
 
     public void setId(int id) {
         this.id = id;
@@ -90,6 +91,14 @@ public class EmployeeOffMoneyBean {
 
     public void setPrice(double price) {
         this.price = price;
+    }
+
+    public int getCreatedEmployeeId() {
+        return createdEmployeeId;
+    }
+
+    public void setCreatedEmployeeId(int createdEmployeeId) {
+        this.createdEmployeeId = createdEmployeeId;
     }
 
 }

@@ -7,6 +7,7 @@ package com.stepup.gasoline.qt.employeeadvance;
 import com.stepup.gasoline.qt.bean.EmployeeAdvanceBean;
 import com.stepup.gasoline.qt.core.SpineAction;
 import com.stepup.gasoline.qt.dao.EmployeeDAO;
+import com.stepup.gasoline.qt.util.QTUtil;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import org.apache.struts.action.ActionForm;
@@ -33,7 +34,7 @@ public class AddEmployeeAdvanceAction extends SpineAction {
             HttpServletRequest request, HttpServletResponse response) {
         EmployeeAdvanceFormBean formBean = (EmployeeAdvanceFormBean) form;
         EmployeeDAO employeeDAO = new EmployeeDAO();
-
+        
         boolean bNew = true;
         if (formBean.getId() != 0) {
             bNew = false;
@@ -46,6 +47,7 @@ public class AddEmployeeAdvanceAction extends SpineAction {
         bean.setCode(formBean.getCode());
         bean.setEmployeeId(formBean.getEmployeeId());
         bean.setNote(formBean.getNote());
+        bean.setCreatedEmployeeId(QTUtil.getEmployeeId(request.getSession()));
         try {
             if (bNew) {
                 employeeDAO.insertEmployeeAdvance(bean);

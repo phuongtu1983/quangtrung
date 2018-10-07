@@ -20,6 +20,7 @@ public class AccessoryImportBean {
     private int accountId;
     private String note;
     private int canEdit;
+    private int createdEmployeeId;
 
     public void setId(int id) {
         this.id = id;
@@ -99,6 +100,14 @@ public class AccessoryImportBean {
 
     public void setAccountId(int accountId) {
         this.accountId = accountId;
+    }
+
+    public int getCreatedEmployeeId() {
+        return createdEmployeeId;
+    }
+
+    public void setCreatedEmployeeId(int createdEmployeeId) {
+        this.createdEmployeeId = createdEmployeeId;
     }
 
 }

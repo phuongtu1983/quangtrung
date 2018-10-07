@@ -16,6 +16,7 @@ public class VehicleInBean {
     private int vehicleId;
     private String note;
     private int canEdit;
+    private int createdEmployeeId;
 
     public void setId(int id) {
         this.id = id;
@@ -63,6 +64,14 @@ public class VehicleInBean {
 
     public void setVehicleId(int vehicleId) {
         this.vehicleId = vehicleId;
+    }
+
+    public int getCreatedEmployeeId() {
+        return createdEmployeeId;
+    }
+
+    public void setCreatedEmployeeId(int createdEmployeeId) {
+        this.createdEmployeeId = createdEmployeeId;
     }
 
 }

@@ -48,6 +48,7 @@ public class AddEmployeeOffAction extends SpineAction {
         bean.setToDate(formBean.getToDate());
         bean.setNote(formBean.getNote());
         bean.setActualOffDay(QTUtil.getActualOff(formBean.getFromDate(), formBean.getToDate()));
+        bean.setCreatedEmployeeId(QTUtil.getEmployeeId(request.getSession()));
         try {
             if (bNew) {
                 employeeDAO.insertEmployeeOff(bean);

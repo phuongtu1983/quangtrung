@@ -7,6 +7,7 @@ package com.stepup.gasoline.qt.debtvendor;
 import com.stepup.gasoline.qt.bean.DebtVendorBean;
 import com.stepup.gasoline.qt.core.SpineAction;
 import com.stepup.gasoline.qt.dao.PaymentDAO;
+import com.stepup.gasoline.qt.util.QTUtil;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import org.apache.struts.action.ActionForm;
@@ -46,6 +47,7 @@ public class AddDebtVendorAction extends SpineAction {
         bean.setCode(formBean.getCode());
         bean.setVendorId(formBean.getVendorId());
         bean.setNote(formBean.getNote());
+        bean.setCreatedEmployeeId(QTUtil.getEmployeeId(request.getSession()));
         try {
             if (bNew) {
                 paymentDAO.insertDebtVendor(bean);

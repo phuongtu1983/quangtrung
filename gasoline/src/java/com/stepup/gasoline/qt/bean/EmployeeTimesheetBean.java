@@ -17,6 +17,7 @@ public class EmployeeTimesheetBean {
     private int fieldId;
     private int quantity;
     private String note;
+    private int createdEmployeeId;
 
     public void setId(int id) {
         this.id = id;
@@ -72,6 +73,14 @@ public class EmployeeTimesheetBean {
 
     public void setNote(String note) {
         this.note = note;
+    }
+
+    public int getCreatedEmployeeId() {
+        return createdEmployeeId;
+    }
+
+    public void setCreatedEmployeeId(int createdEmployeeId) {
+        this.createdEmployeeId = createdEmployeeId;
     }
 
 }

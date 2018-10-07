@@ -7,6 +7,7 @@ package com.stepup.gasoline.qt.employeetimesheet;
 import com.stepup.gasoline.qt.bean.EmployeeTimesheetBean;
 import com.stepup.gasoline.qt.core.SpineAction;
 import com.stepup.gasoline.qt.dao.EmployeeDAO;
+import com.stepup.gasoline.qt.util.QTUtil;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import org.apache.struts.action.ActionForm;
@@ -46,6 +47,7 @@ public class AddEmployeeTimesheetAction extends SpineAction {
         bean.setEmployeeId(formBean.getEmployeeId());
         bean.setNote(formBean.getNote());
         bean.setFieldId(formBean.getFieldId());
+        bean.setCreatedEmployeeId(QTUtil.getEmployeeId(request.getSession()));
         try {
             if (bNew) {
                 employeeDAO.insertEmployeeTimesheet(bean);

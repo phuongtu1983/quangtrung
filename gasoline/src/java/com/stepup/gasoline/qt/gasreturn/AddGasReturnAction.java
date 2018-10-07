@@ -9,6 +9,7 @@ import com.stepup.gasoline.qt.bean.GasReturnBean;
 import com.stepup.gasoline.qt.bean.GasReturnDetailBean;
 import com.stepup.gasoline.qt.core.SpineAction;
 import com.stepup.gasoline.qt.dao.GasDAO;
+import com.stepup.gasoline.qt.util.QTUtil;
 import java.util.ArrayList;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -63,6 +64,7 @@ public class AddGasReturnAction extends SpineAction {
         bean.setTotalPay(formBean.getTotalPay());
         bean.setAccountId(formBean.getAccountId());
         bean.setCustomerId(formBean.getCustomerId());
+        bean.setCreatedEmployeeId(QTUtil.getEmployeeId(request.getSession()));
         try {
             if (bNew) {
                 int id = gasDAO.insertGasReturn(bean);

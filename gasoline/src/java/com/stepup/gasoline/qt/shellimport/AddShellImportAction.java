@@ -7,6 +7,7 @@ package com.stepup.gasoline.qt.shellimport;
 import com.stepup.gasoline.qt.bean.ShellImportBean;
 import com.stepup.gasoline.qt.core.SpineAction;
 import com.stepup.gasoline.qt.dao.GoodDAO;
+import com.stepup.gasoline.qt.util.QTUtil;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import org.apache.struts.action.ActionForm;
@@ -79,6 +80,7 @@ public class AddShellImportAction extends SpineAction {
         bean.setNote(formBean.getNote());
         bean.setAccountId(formBean.getAccountId());
         bean.setAmount(formBean.getAmount());
+        bean.setCreatedEmployeeId(QTUtil.getEmployeeId(request.getSession()));
         try {
             if (bNew) {
                 goodDAO.insertShellImport(bean);

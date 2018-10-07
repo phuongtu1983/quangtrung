@@ -21,6 +21,7 @@ public class SaleAccessoryBean {
     private int accountId;
     private String note;
     private int canEdit;
+    private int createdEmployeeId;
 
     public void setId(int id) {
         this.id = id;
@@ -108,6 +109,14 @@ public class SaleAccessoryBean {
 
     public void setTotalPay(double totalPay) {
         this.totalPay = totalPay;
+    }
+
+    public int getCreatedEmployeeId() {
+        return createdEmployeeId;
+    }
+
+    public void setCreatedEmployeeId(int createdEmployeeId) {
+        this.createdEmployeeId = createdEmployeeId;
     }
 
 }

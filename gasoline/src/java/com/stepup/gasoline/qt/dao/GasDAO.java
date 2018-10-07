@@ -174,7 +174,7 @@ public class GasDAO extends BasicDAO {
             } else {
                 createdDate = bean.getImportDate();
             }
-            String sql = "{call insertLpgImport(?,?,?,?,?,?,?,?,?,?,?,?,?)}";
+            String sql = "{call insertLpgImport(?,?,?,?,?,?,?,?,?,?,?,?,?,?)}";
             spUtil = new SPUtil(sql);
             if (spUtil != null) {
                 spUtil.getCallableStatement().setString("_code", bean.getCode());
@@ -189,6 +189,7 @@ public class GasDAO extends BasicDAO {
                 spUtil.getCallableStatement().setDouble("_rate", bean.getRate());
                 spUtil.getCallableStatement().setInt("_account_id", bean.getAccountId());
                 spUtil.getCallableStatement().setString("_note", bean.getNote());
+                spUtil.getCallableStatement().setInt("_created_employee_id", bean.getCreatedEmployeeId());
                 spUtil.getCallableStatement().registerOutParameter("_id", Types.INTEGER);
                 spUtil.execute();
                 result = spUtil.getCallableStatement().getInt("_id");
@@ -285,12 +286,12 @@ public class GasDAO extends BasicDAO {
         }
     }
 
-    public ArrayList searchFraction(String fromDate, String endDate) throws Exception {
+    public ArrayList searchFraction(String fromDate, String endDate, String organizationIds) throws Exception {
         SPUtil spUtil = null;
         ArrayList list = new ArrayList();
         ResultSet rs = null;
         try {
-            String sql = "{call searchFraction(?,?)}";
+            String sql = "{call searchFraction(?,?,?)}";
             if (GenericValidator.isBlankOrNull(fromDate)) {
                 fromDate = DateUtil.today("dd/MM/yyyy");
             }
@@ -301,6 +302,7 @@ public class GasDAO extends BasicDAO {
             if (spUtil != null) {
                 spUtil.getCallableStatement().setString("_start_date", fromDate);
                 spUtil.getCallableStatement().setString("_end_date", endDate);
+                spUtil.getCallableStatement().setString("_organization_ids", organizationIds);
                 rs = spUtil.executeQuery();
                 if (rs != null) {
                     FractionFormBean bean = null;
@@ -403,12 +405,13 @@ public class GasDAO extends BasicDAO {
             } else {
                 createdDate = bean.getCreatedDate();
             }
-            String sql = "{call insertFraction(?,?,?,?)}";
+            String sql = "{call insertFraction(?,?,?,?,?)}";
             spUtil = new SPUtil(sql);
             if (spUtil != null) {
                 spUtil.getCallableStatement().setString("_code", bean.getCode());
                 spUtil.getCallableStatement().setString("_created_date", createdDate);
                 spUtil.getCallableStatement().setString("_note", bean.getNote());
+                spUtil.getCallableStatement().setInt("_created_employee_id", bean.getCreatedEmployeeId());
                 spUtil.getCallableStatement().registerOutParameter("_id", Types.INTEGER);
                 spUtil.execute();
                 result = spUtil.getCallableStatement().getInt("_id");
@@ -755,12 +758,12 @@ public class GasDAO extends BasicDAO {
         return result;
     }
 
-    public ArrayList searchGasImport(String fromDate, String endDate) throws Exception {
+    public ArrayList searchGasImport(String fromDate, String endDate, String organizationIds) throws Exception {
         SPUtil spUtil = null;
         ArrayList list = new ArrayList();
         ResultSet rs = null;
         try {
-            String sql = "{call searchGasImport(?,?)}";
+            String sql = "{call searchGasImport(?,?,?)}";
             if (GenericValidator.isBlankOrNull(fromDate)) {
                 fromDate = DateUtil.today("dd/MM/yyyy");
             }
@@ -771,6 +774,7 @@ public class GasDAO extends BasicDAO {
             if (spUtil != null) {
                 spUtil.getCallableStatement().setString("_start_date", fromDate);
                 spUtil.getCallableStatement().setString("_end_date", endDate);
+                spUtil.getCallableStatement().setString("_organization_ids", organizationIds);
                 rs = spUtil.executeQuery();
                 if (rs != null) {
                     GasImportFormBean bean = null;
@@ -891,7 +895,7 @@ public class GasDAO extends BasicDAO {
             } else {
                 createdDate = bean.getCreatedDate();
             }
-            String sql = "{call insertGasImport(?,?,?,?,?,?,?,?,?,?,?)}";
+            String sql = "{call insertGasImport(?,?,?,?,?,?,?,?,?,?,?,?)}";
             spUtil = new SPUtil(sql);
             if (spUtil != null) {
                 spUtil.getCallableStatement().setString("_code", bean.getCode());
@@ -904,6 +908,7 @@ public class GasDAO extends BasicDAO {
                 spUtil.getCallableStatement().setDouble("_debt", bean.getDebt());
                 spUtil.getCallableStatement().setInt("_account_id", bean.getAccountId());
                 spUtil.getCallableStatement().setString("_note", bean.getNote());
+                spUtil.getCallableStatement().setInt("_created_employee_id", bean.getCreatedEmployeeId());
                 spUtil.getCallableStatement().registerOutParameter("_id", Types.INTEGER);
                 spUtil.execute();
                 result = spUtil.getCallableStatement().getInt("_id");
@@ -1190,7 +1195,7 @@ public class GasDAO extends BasicDAO {
             } else {
                 createdDate = bean.getCreatedDate();
             }
-            String sql = "{call insertPetroImport(?,?,?,?,?,?,?,?,?,?,?)}";
+            String sql = "{call insertPetroImport(?,?,?,?,?,?,?,?,?,?,?,?)}";
             spUtil = new SPUtil(sql);
             if (spUtil != null) {
                 spUtil.getCallableStatement().setString("_code", bean.getCode());
@@ -1203,6 +1208,7 @@ public class GasDAO extends BasicDAO {
                 spUtil.getCallableStatement().setDouble("_debt", bean.getDebt());
                 spUtil.getCallableStatement().setInt("_account_id", bean.getAccountId());
                 spUtil.getCallableStatement().setString("_note", bean.getNote());
+                spUtil.getCallableStatement().setInt("_created_employee_id", bean.getCreatedEmployeeId());
                 spUtil.getCallableStatement().registerOutParameter("_id", Types.INTEGER);
                 spUtil.execute();
                 result = spUtil.getCallableStatement().getInt("_id");
@@ -1353,12 +1359,12 @@ public class GasDAO extends BasicDAO {
         }
     }
 
-    public ArrayList searchGasWholesale(String fromDate, String endDate) throws Exception {
+    public ArrayList searchGasWholesale(String fromDate, String endDate, String organizationIds) throws Exception {
         SPUtil spUtil = null;
         ArrayList list = new ArrayList();
         ResultSet rs = null;
         try {
-            String sql = "{call searchGasWholesale(?,?)}";
+            String sql = "{call searchGasWholesale(?,?,?)}";
             if (GenericValidator.isBlankOrNull(fromDate)) {
                 fromDate = DateUtil.today("dd/MM/yyyy");
             }
@@ -1369,6 +1375,7 @@ public class GasDAO extends BasicDAO {
             if (spUtil != null) {
                 spUtil.getCallableStatement().setString("_start_date", fromDate);
                 spUtil.getCallableStatement().setString("_end_date", endDate);
+                spUtil.getCallableStatement().setString("_organization_ids", organizationIds);
                 rs = spUtil.executeQuery();
                 if (rs != null) {
                     GasWholesaleFormBean bean = null;
@@ -1493,7 +1500,7 @@ public class GasDAO extends BasicDAO {
             } else {
                 createdDate = bean.getCreatedDate();
             }
-            String sql = "{call insertGasWholesale(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)}";
+            String sql = "{call insertGasWholesale(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)}";
             spUtil = new SPUtil(sql);
             if (spUtil != null) {
                 spUtil.getCallableStatement().setString("_code", bean.getCode());
@@ -1510,6 +1517,7 @@ public class GasDAO extends BasicDAO {
                 spUtil.getCallableStatement().setInt("_gas_return", bean.getGasReturn());
                 spUtil.getCallableStatement().setDouble("_gas_return_price", bean.getGasReturnPrice());
                 spUtil.getCallableStatement().setDouble("_gas_return_amount", bean.getGasReturnAmount());
+                spUtil.getCallableStatement().setInt("_created_employee_id", bean.getCreatedEmployeeId());
                 spUtil.getCallableStatement().registerOutParameter("_id", Types.INTEGER);
                 spUtil.execute();
                 result = spUtil.getCallableStatement().getInt("_id");
@@ -2334,12 +2342,12 @@ public class GasDAO extends BasicDAO {
         }
     }
 
-    public ArrayList searchSaleShell(String fromDate, String endDate) throws Exception {
+    public ArrayList searchSaleShell(String fromDate, String endDate, String organizationIds) throws Exception {
         SPUtil spUtil = null;
         ArrayList list = new ArrayList();
         ResultSet rs = null;
         try {
-            String sql = "{call searchSaleShell(?,?)}";
+            String sql = "{call searchSaleShell(?,?,?)}";
             if (GenericValidator.isBlankOrNull(fromDate)) {
                 fromDate = DateUtil.today("dd/MM/yyyy");
             }
@@ -2350,6 +2358,7 @@ public class GasDAO extends BasicDAO {
             if (spUtil != null) {
                 spUtil.getCallableStatement().setString("_start_date", fromDate);
                 spUtil.getCallableStatement().setString("_end_date", endDate);
+                spUtil.getCallableStatement().setString("_organization_ids", organizationIds);
                 rs = spUtil.executeQuery();
                 if (rs != null) {
                     SaleShellFormBean bean = null;
@@ -2468,7 +2477,7 @@ public class GasDAO extends BasicDAO {
             } else {
                 createdDate = bean.getCreatedDate();
             }
-            String sql = "{call insertSaleShell(?,?,?,?,?,?,?,?,?,?,?)}";
+            String sql = "{call insertSaleShell(?,?,?,?,?,?,?,?,?,?,?,?)}";
             spUtil = new SPUtil(sql);
             if (spUtil != null) {
                 spUtil.getCallableStatement().setString("_code", bean.getCode());
@@ -2481,6 +2490,7 @@ public class GasDAO extends BasicDAO {
                 spUtil.getCallableStatement().setDouble("_total_pay", bean.getTotalPay());
                 spUtil.getCallableStatement().setInt("_account_id", bean.getAccountId());
                 spUtil.getCallableStatement().setString("_note", bean.getNote());
+                spUtil.getCallableStatement().setInt("_created_employee_id", bean.getCreatedEmployeeId());
                 spUtil.getCallableStatement().registerOutParameter("_id", Types.INTEGER);
                 spUtil.execute();
                 result = spUtil.getCallableStatement().getInt("_id");
@@ -2631,12 +2641,12 @@ public class GasDAO extends BasicDAO {
         }
     }
 
-    public ArrayList searchOldShell(String fromDate, String endDate) throws Exception {
+    public ArrayList searchOldShell(String fromDate, String endDate, String organizationIds) throws Exception {
         SPUtil spUtil = null;
         ArrayList list = new ArrayList();
         ResultSet rs = null;
         try {
-            String sql = "{call searchOldShell(?,?)}";
+            String sql = "{call searchOldShell(?,?,?)}";
             if (GenericValidator.isBlankOrNull(fromDate)) {
                 fromDate = DateUtil.today("dd/MM/yyyy");
             }
@@ -2647,6 +2657,7 @@ public class GasDAO extends BasicDAO {
             if (spUtil != null) {
                 spUtil.getCallableStatement().setString("_start_date", fromDate);
                 spUtil.getCallableStatement().setString("_end_date", endDate);
+                spUtil.getCallableStatement().setString("_organization_ids", organizationIds);
                 rs = spUtil.executeQuery();
                 if (rs != null) {
                     OldShellFormBean bean = null;
@@ -2723,7 +2734,7 @@ public class GasDAO extends BasicDAO {
             } else {
                 createdDate = bean.getCreatedDate();
             }
-            String sql = "{call insertOldShell(?,?,?,?,?,?)}";
+            String sql = "{call insertOldShell(?,?,?,?,?,?,?)}";
             spUtil = new SPUtil(sql);
             if (spUtil != null) {
                 spUtil.getCallableStatement().setString("_code", bean.getCode());
@@ -2731,6 +2742,7 @@ public class GasDAO extends BasicDAO {
                 spUtil.getCallableStatement().setInt("_shell_id", bean.getShellId());
                 spUtil.getCallableStatement().setInt("_quantity", bean.getQuantity());
                 spUtil.getCallableStatement().setString("_note", bean.getNote());
+                spUtil.getCallableStatement().setInt("_created_employee_id", bean.getCreatedEmployeeId());
                 spUtil.getCallableStatement().registerOutParameter("_id", Types.INTEGER);
                 spUtil.execute();
                 result = spUtil.getCallableStatement().getInt("_id");
@@ -2811,12 +2823,12 @@ public class GasDAO extends BasicDAO {
         return result;
     }
 
-    public ArrayList searchShellReturn(String fromDate, String endDate) throws Exception {
+    public ArrayList searchShellReturn(String fromDate, String endDate, String organizationIds) throws Exception {
         SPUtil spUtil = null;
         ArrayList list = new ArrayList();
         ResultSet rs = null;
         try {
-            String sql = "{call searchShellReturn(?,?)}";
+            String sql = "{call searchShellReturn(?,?,?)}";
             if (GenericValidator.isBlankOrNull(fromDate)) {
                 fromDate = DateUtil.today("dd/MM/yyyy");
             }
@@ -2827,6 +2839,7 @@ public class GasDAO extends BasicDAO {
             if (spUtil != null) {
                 spUtil.getCallableStatement().setString("_start_date", fromDate);
                 spUtil.getCallableStatement().setString("_end_date", endDate);
+                spUtil.getCallableStatement().setString("_organization_ids", organizationIds);
                 rs = spUtil.executeQuery();
                 if (rs != null) {
                     ShellReturnFormBean bean = null;
@@ -2934,7 +2947,7 @@ public class GasDAO extends BasicDAO {
             } else {
                 createdDate = bean.getCreatedDate();
             }
-            String sql = "{call insertShellReturn(?,?,?,?,?,?)}";
+            String sql = "{call insertShellReturn(?,?,?,?,?,?,?)}";
             spUtil = new SPUtil(sql);
             if (spUtil != null) {
                 spUtil.getCallableStatement().setString("_code", bean.getCode());
@@ -2942,6 +2955,7 @@ public class GasDAO extends BasicDAO {
                 spUtil.getCallableStatement().setInt("_customer_id", bean.getCustomerId());
                 spUtil.getCallableStatement().setInt("_vehicle_id", bean.getVehicleId());
                 spUtil.getCallableStatement().setString("_note", bean.getNote());
+                spUtil.getCallableStatement().setInt("_created_employee_id", bean.getCreatedEmployeeId());
                 spUtil.getCallableStatement().registerOutParameter("_id", Types.INTEGER);
                 spUtil.execute();
                 result = spUtil.getCallableStatement().getInt("_id");
@@ -3083,12 +3097,12 @@ public class GasDAO extends BasicDAO {
         }
     }
 
-    public ArrayList searchGasReturn(String fromDate, String endDate) throws Exception {
+    public ArrayList searchGasReturn(String fromDate, String endDate, String organizationIds) throws Exception {
         SPUtil spUtil = null;
         ArrayList list = new ArrayList();
         ResultSet rs = null;
         try {
-            String sql = "{call searchGasReturn(?,?)}";
+            String sql = "{call searchGasReturn(?,?,?)}";
             if (GenericValidator.isBlankOrNull(fromDate)) {
                 fromDate = DateUtil.today("dd/MM/yyyy");
             }
@@ -3099,6 +3113,7 @@ public class GasDAO extends BasicDAO {
             if (spUtil != null) {
                 spUtil.getCallableStatement().setString("_start_date", fromDate);
                 spUtil.getCallableStatement().setString("_end_date", endDate);
+                spUtil.getCallableStatement().setString("_organization_ids", organizationIds);
                 rs = spUtil.executeQuery();
                 if (rs != null) {
                     GasReturnFormBean bean = null;
@@ -3215,7 +3230,7 @@ public class GasDAO extends BasicDAO {
             } else {
                 createdDate = bean.getCreatedDate();
             }
-            String sql = "{call insertGasReturn(?,?,?,?,?,?,?,?,?,?,?)}";
+            String sql = "{call insertGasReturn(?,?,?,?,?,?,?,?,?,?,?,?)}";
             spUtil = new SPUtil(sql);
             if (spUtil != null) {
                 spUtil.getCallableStatement().setString("_code", bean.getCode());
@@ -3228,6 +3243,7 @@ public class GasDAO extends BasicDAO {
                 spUtil.getCallableStatement().setDouble("_total_pay", bean.getTotalPay());
                 spUtil.getCallableStatement().setInt("_account_id", bean.getAccountId());
                 spUtil.getCallableStatement().setString("_note", bean.getNote());
+                spUtil.getCallableStatement().setInt("_created_employee_id", bean.getCreatedEmployeeId());
                 spUtil.getCallableStatement().registerOutParameter("_id", Types.INTEGER);
                 spUtil.execute();
                 result = spUtil.getCallableStatement().getInt("_id");
@@ -3378,12 +3394,12 @@ public class GasDAO extends BasicDAO {
         }
     }
 
-    public ArrayList searchShellReturnSupplier(String fromDate, String endDate) throws Exception {
+    public ArrayList searchShellReturnSupplier(String fromDate, String endDate, String organizationIds) throws Exception {
         SPUtil spUtil = null;
         ArrayList list = new ArrayList();
         ResultSet rs = null;
         try {
-            String sql = "{call searchShellReturnSupplier(?,?)}";
+            String sql = "{call searchShellReturnSupplier(?,?,?)}";
             if (GenericValidator.isBlankOrNull(fromDate)) {
                 fromDate = DateUtil.today("dd/MM/yyyy");
             }
@@ -3394,6 +3410,7 @@ public class GasDAO extends BasicDAO {
             if (spUtil != null) {
                 spUtil.getCallableStatement().setString("_start_date", fromDate);
                 spUtil.getCallableStatement().setString("_end_date", endDate);
+                spUtil.getCallableStatement().setString("_organization_ids", organizationIds);
                 rs = spUtil.executeQuery();
                 if (rs != null) {
                     ShellReturnSupplierFormBean bean = null;
@@ -3501,7 +3518,7 @@ public class GasDAO extends BasicDAO {
             } else {
                 createdDate = bean.getCreatedDate();
             }
-            String sql = "{call insertShellReturnSupplier(?,?,?,?,?,?)}";
+            String sql = "{call insertShellReturnSupplier(?,?,?,?,?,?,?)}";
             spUtil = new SPUtil(sql);
             if (spUtil != null) {
                 spUtil.getCallableStatement().setString("_code", bean.getCode());
@@ -3509,6 +3526,7 @@ public class GasDAO extends BasicDAO {
                 spUtil.getCallableStatement().setInt("_vendor_id", bean.getVendorId());
                 spUtil.getCallableStatement().setInt("_vehicle_id", bean.getVehicleId());
                 spUtil.getCallableStatement().setString("_note", bean.getNote());
+                spUtil.getCallableStatement().setInt("_created_employee_id", bean.getCreatedEmployeeId());
                 spUtil.getCallableStatement().registerOutParameter("_id", Types.INTEGER);
                 spUtil.execute();
                 result = spUtil.getCallableStatement().getInt("_id");
@@ -3650,12 +3668,12 @@ public class GasDAO extends BasicDAO {
         }
     }
 
-    public ArrayList searchVehicleOut(String fromDate, String endDate) throws Exception {
+    public ArrayList searchVehicleOut(String fromDate, String endDate, String organizationIds) throws Exception {
         SPUtil spUtil = null;
         ArrayList list = new ArrayList();
         ResultSet rs = null;
         try {
-            String sql = "{call searchVehicleOut(?,?)}";
+            String sql = "{call searchVehicleOut(?,?,?)}";
             if (GenericValidator.isBlankOrNull(fromDate)) {
                 fromDate = DateUtil.today("dd/MM/yyyy");
             }
@@ -3666,6 +3684,7 @@ public class GasDAO extends BasicDAO {
             if (spUtil != null) {
                 spUtil.getCallableStatement().setString("_start_date", fromDate);
                 spUtil.getCallableStatement().setString("_end_date", endDate);
+                spUtil.getCallableStatement().setString("_organization_ids", organizationIds);
                 rs = spUtil.executeQuery();
                 if (rs != null) {
                     VehicleOutFormBean bean = null;
@@ -3776,13 +3795,14 @@ public class GasDAO extends BasicDAO {
             } else {
                 createdDate = bean.getCreatedDate();
             }
-            String sql = "{call insertVehicleOut(?,?,?,?,?)}";
+            String sql = "{call insertVehicleOut(?,?,?,?,?,?)}";
             spUtil = new SPUtil(sql);
             if (spUtil != null) {
                 spUtil.getCallableStatement().setString("_code", bean.getCode());
                 spUtil.getCallableStatement().setString("_created_date", createdDate);
                 spUtil.getCallableStatement().setInt("_vehicle_id", bean.getVehicleId());
                 spUtil.getCallableStatement().setString("_note", bean.getNote());
+                spUtil.getCallableStatement().setInt("_created_employee_id", bean.getCreatedEmployeeId());
                 spUtil.getCallableStatement().registerOutParameter("_id", Types.INTEGER);
                 spUtil.execute();
                 result = spUtil.getCallableStatement().getInt("_id");
@@ -4018,12 +4038,12 @@ public class GasDAO extends BasicDAO {
         }
     }
 
-    public ArrayList searchVehicleIn(String fromDate, String endDate) throws Exception {
+    public ArrayList searchVehicleIn(String fromDate, String endDate, String organizationIds) throws Exception {
         SPUtil spUtil = null;
         ArrayList list = new ArrayList();
         ResultSet rs = null;
         try {
-            String sql = "{call searchVehicleIn(?,?)}";
+            String sql = "{call searchVehicleIn(?,?,?)}";
             if (GenericValidator.isBlankOrNull(fromDate)) {
                 fromDate = DateUtil.today("dd/MM/yyyy");
             }
@@ -4034,6 +4054,7 @@ public class GasDAO extends BasicDAO {
             if (spUtil != null) {
                 spUtil.getCallableStatement().setString("_start_date", fromDate);
                 spUtil.getCallableStatement().setString("_end_date", endDate);
+                spUtil.getCallableStatement().setString("_organization_ids", organizationIds);
                 rs = spUtil.executeQuery();
                 if (rs != null) {
                     VehicleInFormBean bean = null;
@@ -4144,13 +4165,14 @@ public class GasDAO extends BasicDAO {
             } else {
                 createdDate = bean.getCreatedDate();
             }
-            String sql = "{call insertVehicleIn(?,?,?,?,?)}";
+            String sql = "{call insertVehicleIn(?,?,?,?,?,?)}";
             spUtil = new SPUtil(sql);
             if (spUtil != null) {
                 spUtil.getCallableStatement().setString("_code", bean.getCode());
                 spUtil.getCallableStatement().setString("_created_date", createdDate);
                 spUtil.getCallableStatement().setInt("_vehicle_id", bean.getVehicleId());
                 spUtil.getCallableStatement().setString("_note", bean.getNote());
+                spUtil.getCallableStatement().setInt("_created_employee_id", bean.getCreatedEmployeeId());
                 spUtil.getCallableStatement().registerOutParameter("_id", Types.INTEGER);
                 spUtil.execute();
                 result = spUtil.getCallableStatement().getInt("_id");
@@ -4387,12 +4409,12 @@ public class GasDAO extends BasicDAO {
         }
     }
 
-    public ArrayList searchExportWholesale(String fromDate, String endDate) throws Exception {
+    public ArrayList searchExportWholesale(String fromDate, String endDate, String organizationIds) throws Exception {
         SPUtil spUtil = null;
         ArrayList list = new ArrayList();
         ResultSet rs = null;
         try {
-            String sql = "{call searchExportWholesale(?,?)}";
+            String sql = "{call searchExportWholesale(?,?,?)}";
             if (GenericValidator.isBlankOrNull(fromDate)) {
                 fromDate = DateUtil.today("dd/MM/yyyy");
             }
@@ -4403,6 +4425,7 @@ public class GasDAO extends BasicDAO {
             if (spUtil != null) {
                 spUtil.getCallableStatement().setString("_start_date", fromDate);
                 spUtil.getCallableStatement().setString("_end_date", endDate);
+                spUtil.getCallableStatement().setString("_organization_ids", organizationIds);
                 rs = spUtil.executeQuery();
                 if (rs != null) {
                     ExportWholesaleFormBean bean = null;
@@ -4523,7 +4546,7 @@ public class GasDAO extends BasicDAO {
             } else {
                 createdDate = bean.getCreatedDate();
             }
-            String sql = "{call insertExportWholesale(?,?,?,?,?,?,?,?,?,?,?)}";
+            String sql = "{call insertExportWholesale(?,?,?,?,?,?,?,?,?,?,?,?)}";
             spUtil = new SPUtil(sql);
             if (spUtil != null) {
                 spUtil.getCallableStatement().setString("_code", bean.getCode());
@@ -4536,6 +4559,7 @@ public class GasDAO extends BasicDAO {
                 spUtil.getCallableStatement().setDouble("_total_pay", bean.getTotalPay());
                 spUtil.getCallableStatement().setInt("_account_id", bean.getAccountId());
                 spUtil.getCallableStatement().setString("_note", bean.getNote());
+                spUtil.getCallableStatement().setInt("_created_employee_id", bean.getCreatedEmployeeId());
                 spUtil.getCallableStatement().registerOutParameter("_id", Types.INTEGER);
                 spUtil.execute();
                 result = spUtil.getCallableStatement().getInt("_id");
@@ -4879,7 +4903,7 @@ public class GasDAO extends BasicDAO {
             } else {
                 createdDate = bean.getSaleDate();
             }
-            String sql = "{call insertLpgSale(?,?,?,?,?,?,?,?,?,?,?,?)}";
+            String sql = "{call insertLpgSale(?,?,?,?,?,?,?,?,?,?,?,?,?)}";
             spUtil = new SPUtil(sql);
             if (spUtil != null) {
                 spUtil.getCallableStatement().setString("_code", bean.getCode());
@@ -4893,6 +4917,7 @@ public class GasDAO extends BasicDAO {
                 spUtil.getCallableStatement().setInt("_account_id", bean.getAccountId());
                 spUtil.getCallableStatement().setString("_note", bean.getNote());
                 spUtil.getCallableStatement().setInt("_lpg_import_id", bean.getLpgImportId());
+                spUtil.getCallableStatement().setInt("_created_employee_id", bean.getCreatedEmployeeId());
                 spUtil.getCallableStatement().registerOutParameter("_id", Types.INTEGER);
                 spUtil.execute();
                 result = spUtil.getCallableStatement().getInt("_id");

@@ -7,6 +7,7 @@ package com.stepup.gasoline.qt.expense;
 import com.stepup.gasoline.qt.bean.ExpenseBean;
 import com.stepup.gasoline.qt.core.SpineAction;
 import com.stepup.gasoline.qt.dao.PaymentDAO;
+import com.stepup.gasoline.qt.util.QTUtil;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import org.apache.struts.action.ActionForm;
@@ -50,6 +51,7 @@ public class AddExpenseAction extends SpineAction {
         bean.setNote(formBean.getNote());
         bean.setIsUsually(formBean.getIsUsually() == true ? 1 : 0);
         bean.setType(formBean.getType());
+        bean.setCreatedEmployeeId(QTUtil.getEmployeeId(request.getSession()));
         try {
             if (bNew) {
                 paymentDAO.insertExpense(bean);

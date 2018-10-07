@@ -10,6 +10,7 @@ import com.stepup.gasoline.qt.bean.ExportWholesaleDetailBean;
 import com.stepup.gasoline.qt.bean.ExportWholesaleReturnShellDetailBean;
 import com.stepup.gasoline.qt.core.SpineAction;
 import com.stepup.gasoline.qt.dao.GasDAO;
+import com.stepup.gasoline.qt.util.QTUtil;
 import java.util.ArrayList;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -64,6 +65,7 @@ public class AddExportWholesaleAction extends SpineAction {
         bean.setDiscount(formBean.getDiscount());
         bean.setTotalPay(formBean.getTotalPay());
         bean.setAccountId(formBean.getAccountId());
+        bean.setCreatedEmployeeId(QTUtil.getEmployeeId(request.getSession()));
         try {
             if (bNew) {
                 int id = gasDAO.insertExportWholesale(bean);
@@ -160,7 +162,7 @@ public class AddExportWholesaleAction extends SpineAction {
                             isUpdate = true;
                             oldBean.setShellId(NumberUtil.parseInt(formBean.getReturnShellId()[i], 0));
                         }
-                        if (oldBean.getQuantity()!= NumberUtil.parseInt(formBean.getReturnShellQuantity()[i], 0)) {
+                        if (oldBean.getQuantity() != NumberUtil.parseInt(formBean.getReturnShellQuantity()[i], 0)) {
                             isUpdate = true;
                             oldBean.setQuantity(NumberUtil.parseInt(formBean.getReturnShellQuantity()[i], 0));
                         }

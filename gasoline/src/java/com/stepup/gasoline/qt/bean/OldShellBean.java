@@ -16,6 +16,7 @@ public class OldShellBean {
     private int quantity;
     private int shellId;
     private String note;
+    private int createdEmployeeId;
 
     public void setId(int id) {
         this.id = id;
@@ -63,6 +64,14 @@ public class OldShellBean {
 
     public void setShellId(int shellId) {
         this.shellId = shellId;
+    }
+
+    public int getCreatedEmployeeId() {
+        return createdEmployeeId;
+    }
+
+    public void setCreatedEmployeeId(int createdEmployeeId) {
+        this.createdEmployeeId = createdEmployeeId;
     }
 
 }

@@ -2,12 +2,13 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
-package com.stepup.gasoline.qt.oldshell;
+package com.stepup.gasoline.qt.report.lpgstocksumorganization;
 
-import com.stepup.gasoline.qt.bean.OldShellBean;
 import com.stepup.gasoline.qt.core.SpineAction;
-import com.stepup.gasoline.qt.dao.GasDAO;
+import com.stepup.gasoline.qt.dao.VendorDAO;
+import com.stepup.gasoline.qt.util.Constants;
 import com.stepup.gasoline.qt.util.QTUtil;
+import java.util.ArrayList;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import org.apache.struts.action.ActionForm;
@@ -17,7 +18,7 @@ import org.apache.struts.action.ActionMapping;
  *
  * @author phuongtu
  */
-public class AddOldShellAction extends SpineAction {
+public class LpgStockSumOrganizationReportPanelFormAction extends SpineAction {
 
     /**
      * This is the action called from the Struts framework.
@@ -32,29 +33,17 @@ public class AddOldShellAction extends SpineAction {
     @Override
     public boolean doAction(ActionMapping mapping, ActionForm form,
             HttpServletRequest request, HttpServletResponse response) {
-        OldShellFormBean formBean = (OldShellFormBean) form;
-        GasDAO gasDAO = new GasDAO();
-        boolean bNew = true;
-        if (formBean.getId() != 0) {
-            bNew = false;
-        }
-        OldShellBean bean = new OldShellBean();
-        bean.setId(formBean.getId());
-        bean.setCode(formBean.getCode());
-        bean.setCreatedDate(formBean.getCreatedDate());
-        bean.setQuantity(formBean.getQuantity());
-        bean.setShellId(formBean.getShellId());
-        bean.setNote(formBean.getNote());
-        bean.setCreatedEmployeeId(QTUtil.getEmployeeId(request.getSession()));
+        String organizationIds = QTUtil.getOrganizationManageds(request.getSession());
+        ArrayList arrVendor = null;
         try {
-            if (bNew) {
-                gasDAO.insertOldShell(bean);
-            } else {
-                gasDAO.updateOldShell(bean);
-            }
+            VendorDAO vendorDAO = new VendorDAO();
+            arrVendor = vendorDAO.getVendors(organizationIds);
         } catch (Exception ex) {
-            ex.printStackTrace();
         }
+        if (arrVendor == null) {
+            arrVendor = new ArrayList();
+        }
+        request.setAttribute(Constants.VENDOR_LIST, arrVendor);
         return true;
     }
 }

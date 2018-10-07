@@ -10,6 +10,7 @@ import com.stepup.gasoline.qt.bean.SaleAccessoryChangeDetailBean;
 import com.stepup.gasoline.qt.bean.SaleAccessoryDetailBean;
 import com.stepup.gasoline.qt.core.SpineAction;
 import com.stepup.gasoline.qt.dao.GoodDAO;
+import com.stepup.gasoline.qt.util.QTUtil;
 import java.util.ArrayList;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -63,6 +64,7 @@ public class AddSaleAccessoryAction extends SpineAction {
         bean.setDiscount(formBean.getDiscount());
         bean.setTotalPay(formBean.getTotalPay());
         bean.setAccountId(formBean.getAccountId());
+        bean.setCreatedEmployeeId(QTUtil.getEmployeeId(request.getSession()));
         try {
             if (bNew) {
                 int id = goodDAO.insertSaleAccessory(bean);

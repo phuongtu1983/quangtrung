@@ -7,6 +7,7 @@ package com.stepup.gasoline.qt.tripfee;
 import com.stepup.gasoline.qt.bean.TripFeeBean;
 import com.stepup.gasoline.qt.core.SpineAction;
 import com.stepup.gasoline.qt.dao.VehicleDAO;
+import com.stepup.gasoline.qt.util.QTUtil;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import org.apache.struts.action.ActionForm;
@@ -48,6 +49,7 @@ public class AddTripFeeAction extends SpineAction {
         bean.setVehicleId(formBean.getVehicleId());
         bean.setNote(formBean.getNote());
         bean.setFee(formBean.getFee());
+        bean.setCreatedEmployeeId(QTUtil.getEmployeeId(request.getSession()));
         try {
             if (bNew) {
                 vehicleDAO.insertTripFee(bean);

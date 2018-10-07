@@ -26,6 +26,7 @@ public class GasWholesaleBean {
     private int accountId;
     private String note;
     private int canEdit;
+    private int createdEmployeeId;
 
     public void setId(int id) {
         this.id = id;
@@ -153,6 +154,14 @@ public class GasWholesaleBean {
 
     public void setGasReturnAmount(double gasReturnAmount) {
         this.gasReturnAmount = gasReturnAmount;
+    }
+
+    public int getCreatedEmployeeId() {
+        return createdEmployeeId;
+    }
+
+    public void setCreatedEmployeeId(int createdEmployeeId) {
+        this.createdEmployeeId = createdEmployeeId;
     }
 
 }

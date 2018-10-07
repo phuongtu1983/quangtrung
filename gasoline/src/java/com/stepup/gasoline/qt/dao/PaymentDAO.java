@@ -30,12 +30,12 @@ import org.apache.commons.validator.GenericValidator;
  */
 public class PaymentDAO extends BasicDAO {
 
-    public ArrayList searchDebtVendor(String fromDate, String endDate) throws Exception {
+    public ArrayList searchDebtVendor(String fromDate, String endDate, String organizationIds) throws Exception {
         SPUtil spUtil = null;
         ArrayList list = new ArrayList();
         ResultSet rs = null;
         try {
-            String sql = "{call searchDebtVendor(?,?)}";
+            String sql = "{call searchDebtVendor(?,?,?)}";
             if (GenericValidator.isBlankOrNull(fromDate)) {
                 fromDate = DateUtil.today("dd/MM/yyyy");
             }
@@ -46,6 +46,7 @@ public class PaymentDAO extends BasicDAO {
             if (spUtil != null) {
                 spUtil.getCallableStatement().setString("_start_date", fromDate);
                 spUtil.getCallableStatement().setString("_end_date", endDate);
+                spUtil.getCallableStatement().setString("_organization_ids", organizationIds);
                 rs = spUtil.executeQuery();
                 if (rs != null) {
                     DebtVendorFormBean bean = null;
@@ -122,7 +123,7 @@ public class PaymentDAO extends BasicDAO {
             } else {
                 createdDate = bean.getCreatedDate();
             }
-            String sql = "{call insertDebtVendor(?,?,?,?,?,?,?)}";
+            String sql = "{call insertDebtVendor(?,?,?,?,?,?,?,?)}";
             spUtil = new SPUtil(sql);
             if (spUtil != null) {
                 spUtil.getCallableStatement().setString("_code", bean.getCode());
@@ -131,6 +132,7 @@ public class PaymentDAO extends BasicDAO {
                 spUtil.getCallableStatement().setDouble("_paid", bean.getPaid());
                 spUtil.getCallableStatement().setInt("_account_id", bean.getAccountId());
                 spUtil.getCallableStatement().setString("_note", bean.getNote());
+                spUtil.getCallableStatement().setInt("_created_employee_id", bean.getCreatedEmployeeId());
                 spUtil.getCallableStatement().registerOutParameter("_id", Types.INTEGER);
                 spUtil.execute();
                 result = spUtil.getCallableStatement().getInt("_id");
@@ -212,12 +214,12 @@ public class PaymentDAO extends BasicDAO {
         return result;
     }
 
-    public ArrayList searchDebtRetail(String fromDate, String endDate) throws Exception {
+    public ArrayList searchDebtRetail(String fromDate, String endDate, String organizationIds) throws Exception {
         SPUtil spUtil = null;
         ArrayList list = new ArrayList();
         ResultSet rs = null;
         try {
-            String sql = "{call searchDebtRetail(?,?)}";
+            String sql = "{call searchDebtRetail(?,?,?)}";
             if (GenericValidator.isBlankOrNull(fromDate)) {
                 fromDate = DateUtil.today("dd/MM/yyyy");
             }
@@ -228,6 +230,7 @@ public class PaymentDAO extends BasicDAO {
             if (spUtil != null) {
                 spUtil.getCallableStatement().setString("_start_date", fromDate);
                 spUtil.getCallableStatement().setString("_end_date", endDate);
+                spUtil.getCallableStatement().setString("_organization_ids", organizationIds);
                 rs = spUtil.executeQuery();
                 if (rs != null) {
                     DebtRetailFormBean bean = null;
@@ -304,7 +307,7 @@ public class PaymentDAO extends BasicDAO {
             } else {
                 createdDate = bean.getCreatedDate();
             }
-            String sql = "{call insertDebtRetail(?,?,?,?,?,?,?)}";
+            String sql = "{call insertDebtRetail(?,?,?,?,?,?,?,?)}";
             spUtil = new SPUtil(sql);
             if (spUtil != null) {
                 spUtil.getCallableStatement().setString("_code", bean.getCode());
@@ -313,6 +316,7 @@ public class PaymentDAO extends BasicDAO {
                 spUtil.getCallableStatement().setDouble("_paid", bean.getPaid());
                 spUtil.getCallableStatement().setInt("_account_id", bean.getAccountId());
                 spUtil.getCallableStatement().setString("_note", bean.getNote());
+                spUtil.getCallableStatement().setInt("_created_employee_id", bean.getCreatedEmployeeId());
                 spUtil.getCallableStatement().registerOutParameter("_id", Types.INTEGER);
                 spUtil.execute();
                 result = spUtil.getCallableStatement().getInt("_id");
@@ -394,12 +398,12 @@ public class PaymentDAO extends BasicDAO {
         return result;
     }
 
-    public ArrayList searchDebtWholesale(String fromDate, String endDate) throws Exception {
+    public ArrayList searchDebtWholesale(String fromDate, String endDate, String organizationIds) throws Exception {
         SPUtil spUtil = null;
         ArrayList list = new ArrayList();
         ResultSet rs = null;
         try {
-            String sql = "{call searchDebtWholesale(?,?)}";
+            String sql = "{call searchDebtWholesale(?,?,?)}";
             if (GenericValidator.isBlankOrNull(fromDate)) {
                 fromDate = DateUtil.today("dd/MM/yyyy");
             }
@@ -410,6 +414,7 @@ public class PaymentDAO extends BasicDAO {
             if (spUtil != null) {
                 spUtil.getCallableStatement().setString("_start_date", fromDate);
                 spUtil.getCallableStatement().setString("_end_date", endDate);
+                spUtil.getCallableStatement().setString("_organization_ids", organizationIds);
                 rs = spUtil.executeQuery();
                 if (rs != null) {
                     DebtWholesaleFormBean bean = null;
@@ -486,7 +491,7 @@ public class PaymentDAO extends BasicDAO {
             } else {
                 createdDate = bean.getCreatedDate();
             }
-            String sql = "{call insertDebtWholesale(?,?,?,?,?,?,?)}";
+            String sql = "{call insertDebtWholesale(?,?,?,?,?,?,?,?)}";
             spUtil = new SPUtil(sql);
             if (spUtil != null) {
                 spUtil.getCallableStatement().setString("_code", bean.getCode());
@@ -495,6 +500,7 @@ public class PaymentDAO extends BasicDAO {
                 spUtil.getCallableStatement().setDouble("_paid", bean.getPaid());
                 spUtil.getCallableStatement().setInt("_account_id", bean.getAccountId());
                 spUtil.getCallableStatement().setString("_note", bean.getNote());
+                spUtil.getCallableStatement().setInt("_created_employee_id", bean.getCreatedEmployeeId());
                 spUtil.getCallableStatement().registerOutParameter("_id", Types.INTEGER);
                 spUtil.execute();
                 result = spUtil.getCallableStatement().getInt("_id");
@@ -576,12 +582,12 @@ public class PaymentDAO extends BasicDAO {
         return result;
     }
 
-    public ArrayList searchIncome(String fromDate, String endDate) throws Exception {
+    public ArrayList searchIncome(String fromDate, String endDate, String organizationIds) throws Exception {
         SPUtil spUtil = null;
         ArrayList list = new ArrayList();
         ResultSet rs = null;
         try {
-            String sql = "{call searchIncome(?,?)}";
+            String sql = "{call searchIncome(?,?,?)}";
             if (GenericValidator.isBlankOrNull(fromDate)) {
                 fromDate = DateUtil.today("dd/MM/yyyy");
             }
@@ -592,6 +598,7 @@ public class PaymentDAO extends BasicDAO {
             if (spUtil != null) {
                 spUtil.getCallableStatement().setString("_start_date", fromDate);
                 spUtil.getCallableStatement().setString("_end_date", endDate);
+                spUtil.getCallableStatement().setString("_organization_ids", organizationIds);
                 rs = spUtil.executeQuery();
                 if (rs != null) {
                     IncomeFormBean bean = null;
@@ -669,7 +676,7 @@ public class PaymentDAO extends BasicDAO {
             } else {
                 createdDate = bean.getCreatedDate();
             }
-            String sql = "{call insertIncome(?,?,?,?,?,?,?,?)}";
+            String sql = "{call insertIncome(?,?,?,?,?,?,?,?,?)}";
             spUtil = new SPUtil(sql);
             if (spUtil != null) {
                 spUtil.getCallableStatement().setString("_code", bean.getCode());
@@ -679,6 +686,7 @@ public class PaymentDAO extends BasicDAO {
                 spUtil.getCallableStatement().setString("_note", bean.getNote());
                 spUtil.getCallableStatement().setString("_content", bean.getContent());
                 spUtil.getCallableStatement().setInt("_type", bean.getType());
+                spUtil.getCallableStatement().setInt("_created_employee_id", bean.getCreatedEmployeeId());
                 spUtil.getCallableStatement().registerOutParameter("_id", Types.INTEGER);
                 spUtil.execute();
                 result = spUtil.getCallableStatement().getInt("_id");
@@ -761,12 +769,12 @@ public class PaymentDAO extends BasicDAO {
         return result;
     }
 
-    public ArrayList searchExpense(String fromDate, String endDate) throws Exception {
+    public ArrayList searchExpense(String fromDate, String endDate, String organizationIds) throws Exception {
         SPUtil spUtil = null;
         ArrayList list = new ArrayList();
         ResultSet rs = null;
         try {
-            String sql = "{call searchExpense(?,?)}";
+            String sql = "{call searchExpense(?,?,?)}";
             if (GenericValidator.isBlankOrNull(fromDate)) {
                 fromDate = DateUtil.today("dd/MM/yyyy");
             }
@@ -777,6 +785,7 @@ public class PaymentDAO extends BasicDAO {
             if (spUtil != null) {
                 spUtil.getCallableStatement().setString("_start_date", fromDate);
                 spUtil.getCallableStatement().setString("_end_date", endDate);
+                spUtil.getCallableStatement().setString("_organization_ids", organizationIds);
                 rs = spUtil.executeQuery();
                 if (rs != null) {
                     ExpenseFormBean bean = null;
@@ -869,7 +878,7 @@ public class PaymentDAO extends BasicDAO {
             } else {
                 toDate = bean.getToDate();
             }
-            String sql = "{call insertExpense(?,?,?,?,?,?,?,?,?,?,?)}";
+            String sql = "{call insertExpense(?,?,?,?,?,?,?,?,?,?,?,?)}";
             spUtil = new SPUtil(sql);
             if (spUtil != null) {
                 spUtil.getCallableStatement().setString("_code", bean.getCode());
@@ -882,6 +891,7 @@ public class PaymentDAO extends BasicDAO {
                 spUtil.getCallableStatement().setString("_content", bean.getContent());
                 spUtil.getCallableStatement().setInt("_is_usually", bean.getIsUsually());
                 spUtil.getCallableStatement().setInt("_type", bean.getType());
+                spUtil.getCallableStatement().setInt("_created_employee_id", bean.getCreatedEmployeeId());
                 spUtil.getCallableStatement().registerOutParameter("_id", Types.INTEGER);
                 spUtil.execute();
                 result = spUtil.getCallableStatement().getInt("_id");

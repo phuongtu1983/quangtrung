@@ -294,12 +294,12 @@ public class VehicleDAO extends BasicDAO {
         return result;
     }
 
-    public ArrayList searchTripFee(String fromDate, String endDate) throws Exception {
+    public ArrayList searchTripFee(String fromDate, String endDate, String organizationIds) throws Exception {
         SPUtil spUtil = null;
         ArrayList list = new ArrayList();
         ResultSet rs = null;
         try {
-            String sql = "{call searchTripFee(?,?)}";
+            String sql = "{call searchTripFee(?,?,?)}";
             if (GenericValidator.isBlankOrNull(fromDate)) {
                 fromDate = DateUtil.today("dd/MM/yyyy");
             }
@@ -310,6 +310,7 @@ public class VehicleDAO extends BasicDAO {
             if (spUtil != null) {
                 spUtil.getCallableStatement().setString("_start_date", fromDate);
                 spUtil.getCallableStatement().setString("_end_date", endDate);
+                spUtil.getCallableStatement().setString("_organization_ids", organizationIds);
                 rs = spUtil.executeQuery();
                 if (rs != null) {
                     TripFeeFormBean bean = null;
@@ -389,7 +390,7 @@ public class VehicleDAO extends BasicDAO {
             } else {
                 createdDate = bean.getCreatedDate();
             }
-            String sql = "{call insertTripFee(?,?,?,?,?,?,?,?,?)}";
+            String sql = "{call insertTripFee(?,?,?,?,?,?,?,?,?,?)}";
             spUtil = new SPUtil(sql);
             if (spUtil != null) {
                 spUtil.getCallableStatement().setString("_code", bean.getCode());
@@ -400,6 +401,7 @@ public class VehicleDAO extends BasicDAO {
                 spUtil.getCallableStatement().setDouble("_amount", bean.getAmount());
                 spUtil.getCallableStatement().setString("_fee", bean.getFee());
                 spUtil.getCallableStatement().setString("_note", bean.getNote());
+                spUtil.getCallableStatement().setInt("_created_employee_id", bean.getCreatedEmployeeId());
                 spUtil.getCallableStatement().registerOutParameter("_id", Types.INTEGER);
                 spUtil.execute();
                 result = spUtil.getCallableStatement().getInt("_id");

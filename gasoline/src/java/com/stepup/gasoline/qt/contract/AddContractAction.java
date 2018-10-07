@@ -99,6 +99,7 @@ public class AddContractAction extends SpineAction {
         bean.setCreditAmount(formBean.getCreditAmount());
         bean.setNote(formBean.getNote());
         bean.setEmployeeId(QTUtil.getEmployeeId(request.getSession()));
+        bean.setCreatedEmployeeId(QTUtil.getEmployeeId(request.getSession()));
         try {
             if (bNew) {
                 contractId = contractDAO.insertContract(bean);

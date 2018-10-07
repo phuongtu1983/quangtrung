@@ -8,6 +8,7 @@ import com.stepup.core.util.NumberUtil;
 import com.stepup.core.util.OutputUtil;
 import com.stepup.gasoline.qt.core.BaseAction;
 import com.stepup.gasoline.qt.dao.PaymentDAO;
+import com.stepup.gasoline.qt.util.QTUtil;
 import java.util.ArrayList;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -28,7 +29,7 @@ public class GetExpenseListAction extends BaseAction {
         buff.append("<rows>");
         try {
             PaymentDAO paymentDAO = new PaymentDAO();
-            ArrayList list = paymentDAO.searchExpense(request.getParameter("fromDate"), request.getParameter("toDate"));
+            ArrayList list = paymentDAO.searchExpense(request.getParameter("fromDate"), request.getParameter("toDate"), QTUtil.getOrganizationManageds(request.getSession()));
             if (list != null) {
                 int length = list.size();
                 for (int i = 0; i < length; i++) {

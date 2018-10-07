@@ -10,6 +10,7 @@ import com.stepup.gasoline.qt.bean.VehicleOutDetailBean;
 import com.stepup.gasoline.qt.bean.VehicleOutEmployeeDetailBean;
 import com.stepup.gasoline.qt.core.SpineAction;
 import com.stepup.gasoline.qt.dao.GasDAO;
+import com.stepup.gasoline.qt.util.QTUtil;
 import java.util.ArrayList;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -58,6 +59,7 @@ public class AddVehicleOutAction extends SpineAction {
         bean.setNote(formBean.getNote());
         bean.setCreatedDate(formBean.getCreatedDate());
         bean.setVehicleId(formBean.getVehicleId());
+        bean.setCreatedEmployeeId(QTUtil.getEmployeeId(request.getSession()));
         try {
             if (bNew) {
                 int id = gasDAO.insertVehicleOut(bean);

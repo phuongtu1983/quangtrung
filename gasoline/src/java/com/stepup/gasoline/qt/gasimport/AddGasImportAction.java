@@ -9,6 +9,7 @@ import com.stepup.gasoline.qt.bean.GasImportBean;
 import com.stepup.gasoline.qt.bean.GasImportDetailBean;
 import com.stepup.gasoline.qt.core.SpineAction;
 import com.stepup.gasoline.qt.dao.GasDAO;
+import com.stepup.gasoline.qt.util.QTUtil;
 import java.util.ArrayList;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -63,6 +64,7 @@ public class AddGasImportAction extends SpineAction {
         bean.setPaid(formBean.getPaid());
         bean.setDebt(formBean.getDebt());
         bean.setAccountId(formBean.getAccountId());
+        bean.setCreatedEmployeeId(QTUtil.getEmployeeId(request.getSession()));
         try {
             if (bNew) {
                 int id = gasDAO.insertGasImport(bean);
@@ -109,11 +111,11 @@ public class AddGasImportAction extends SpineAction {
                             isUpdate = true;
                             oldBean.setQuantity(NumberUtil.parseInt(formBean.getQuantity()[i], 0));
                         }
-                        if (oldBean.getPrice()!= NumberUtil.parseDouble(formBean.getPrice()[i], 0)) {
+                        if (oldBean.getPrice() != NumberUtil.parseDouble(formBean.getPrice()[i], 0)) {
                             isUpdate = true;
                             oldBean.setPrice(NumberUtil.parseInt(formBean.getPrice()[i], 0));
                         }
-                        if (oldBean.getAmount()!= NumberUtil.parseDouble(formBean.getAmount()[i], 0)) {
+                        if (oldBean.getAmount() != NumberUtil.parseDouble(formBean.getAmount()[i], 0)) {
                             isUpdate = true;
                             oldBean.setAmount(NumberUtil.parseInt(formBean.getAmount()[i], 0));
                         }

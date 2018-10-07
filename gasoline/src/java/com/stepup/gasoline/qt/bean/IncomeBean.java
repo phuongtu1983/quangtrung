@@ -18,6 +18,7 @@ public class IncomeBean {
     private String note;
     private String content;
     private int type;
+    private int createdEmployeeId;
 
     public void setId(int id) {
         this.id = id;
@@ -81,6 +82,14 @@ public class IncomeBean {
 
     public void setType(int type) {
         this.type = type;
+    }
+
+    public int getCreatedEmployeeId() {
+        return createdEmployeeId;
+    }
+
+    public void setCreatedEmployeeId(int createdEmployeeId) {
+        this.createdEmployeeId = createdEmployeeId;
     }
 
     public static int TYPE_OTHER = 1;

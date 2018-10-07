@@ -16,6 +16,7 @@ public class ShieldImportBean {
     private int quantity;
     private int vendorId;
     private String note;
+    private int createdEmployeeId;
 
     public void setId(int id) {
         this.id = id;
@@ -63,6 +64,14 @@ public class ShieldImportBean {
 
     public void setVendorId(int vendorId) {
         this.vendorId = vendorId;
+    }
+
+    public int getCreatedEmployeeId() {
+        return createdEmployeeId;
+    }
+
+    public void setCreatedEmployeeId(int createdEmployeeId) {
+        this.createdEmployeeId = createdEmployeeId;
     }
 
 }

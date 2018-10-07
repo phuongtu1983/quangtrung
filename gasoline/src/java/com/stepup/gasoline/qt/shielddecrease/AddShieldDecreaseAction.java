@@ -7,6 +7,7 @@ package com.stepup.gasoline.qt.shielddecrease;
 import com.stepup.gasoline.qt.bean.ShieldDecreaseBean;
 import com.stepup.gasoline.qt.core.SpineAction;
 import com.stepup.gasoline.qt.dao.GoodDAO;
+import com.stepup.gasoline.qt.util.QTUtil;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import org.apache.struts.action.ActionForm;
@@ -45,6 +46,7 @@ public class AddShieldDecreaseAction extends SpineAction {
         bean.setQuantity(formBean.getQuantity());
         bean.setNote(formBean.getNote());
         bean.setVendorId(formBean.getVendorId());
+        bean.setCreatedEmployeeId(QTUtil.getEmployeeId(request.getSession()));
         try {
             if (bNew) {
                 goodDAO.insertShieldDecrease(bean);

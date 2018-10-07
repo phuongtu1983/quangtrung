@@ -7,6 +7,7 @@ package com.stepup.gasoline.qt.employeeoffmoney;
 import com.stepup.gasoline.qt.bean.EmployeeOffMoneyBean;
 import com.stepup.gasoline.qt.core.SpineAction;
 import com.stepup.gasoline.qt.dao.EmployeeDAO;
+import com.stepup.gasoline.qt.util.QTUtil;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import org.apache.struts.action.ActionForm;
@@ -48,6 +49,7 @@ public class AddEmployeeOffMoneyAction extends SpineAction {
         bean.setCode(formBean.getCode());
         bean.setEmployeeId(formBean.getEmployeeId());
         bean.setNote(formBean.getNote());
+        bean.setCreatedEmployeeId(QTUtil.getEmployeeId(request.getSession()));
         try {
             if (bNew) {
                 employeeDAO.insertEmployeeOffMoney(bean);

@@ -20,6 +20,7 @@ public class ContractBean {
     private int creditDate;
     private double creditAmount;
     private String note;
+    private int createdEmployeeId;
 
     public void setId(int id) {
         this.id = id;
@@ -99,6 +100,14 @@ public class ContractBean {
 
     public void setEmployeeId(int employeeId) {
         this.employeeId = employeeId;
+    }
+
+    public int getCreatedEmployeeId() {
+        return createdEmployeeId;
+    }
+
+    public void setCreatedEmployeeId(int createdEmployeeId) {
+        this.createdEmployeeId = createdEmployeeId;
     }
 
 }

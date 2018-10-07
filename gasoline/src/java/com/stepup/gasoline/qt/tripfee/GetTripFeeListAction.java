@@ -8,6 +8,7 @@ import com.stepup.core.util.NumberUtil;
 import com.stepup.core.util.OutputUtil;
 import com.stepup.gasoline.qt.core.BaseAction;
 import com.stepup.gasoline.qt.dao.VehicleDAO;
+import com.stepup.gasoline.qt.util.QTUtil;
 import java.util.ArrayList;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -28,7 +29,7 @@ public class GetTripFeeListAction extends BaseAction {
         buff.append("<rows>");
         try {
             VehicleDAO vehicleDAO = new VehicleDAO();
-            ArrayList list = vehicleDAO.searchTripFee(request.getParameter("fromDate"), request.getParameter("toDate"));
+            ArrayList list = vehicleDAO.searchTripFee(request.getParameter("fromDate"), request.getParameter("toDate"), QTUtil.getOrganizationManageds(request.getSession()));
             if (list != null) {
                 int length = list.size();
                 for (int i = 0; i < length; i++) {

@@ -22,6 +22,7 @@ public class SaleShellBean {
     private String note;
     private int canEdit;
     private int customerId;
+    private int createdEmployeeId;
 
     public void setId(int id) {
         this.id = id;
@@ -117,6 +118,14 @@ public class SaleShellBean {
 
     public void setCustomerId(int customerId) {
         this.customerId = customerId;
+    }
+
+    public int getCreatedEmployeeId() {
+        return createdEmployeeId;
+    }
+
+    public void setCreatedEmployeeId(int createdEmployeeId) {
+        this.createdEmployeeId = createdEmployeeId;
     }
 
 }

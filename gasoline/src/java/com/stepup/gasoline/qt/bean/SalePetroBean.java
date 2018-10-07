@@ -23,6 +23,7 @@ public class SalePetroBean {
     private int canEdit;
     private int customerId;
     private int storeId;
+    private int createdEmployeeId;
 
     public void setId(int id) {
         this.id = id;
@@ -126,6 +127,14 @@ public class SalePetroBean {
 
     public void setStoreId(int storeId) {
         this.storeId = storeId;
+    }
+
+    public int getCreatedEmployeeId() {
+        return createdEmployeeId;
+    }
+
+    public void setCreatedEmployeeId(int createdEmployeeId) {
+        this.createdEmployeeId = createdEmployeeId;
     }
 
 }

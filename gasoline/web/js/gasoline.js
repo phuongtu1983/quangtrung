@@ -2939,20 +2939,23 @@ function delLpgImport() {
     return false;
 }
 function lpgImportCaculateAmount() {
-    var quantity = document.forms['lpgImportForm'].paperQuantity;
+    var quantity = document.forms['lpgImportForm'].actualQuantity;
     var price = document.forms['lpgImportForm'].price;
+    var rate = document.forms['lpgImportForm'].rate;
     var amount = document.forms['lpgImportForm'].total;
     var paid = document.forms['lpgImportForm'].paid;
     var debt = document.forms['lpgImportForm'].debt;
-    amount.value = reformatNumberMoneyString(quantity.value) * 1 * reformatNumberMoneyString(price.value) * 1;
+    amount.value = reformatNumberMoneyString(quantity.value) * 1 * reformatNumberMoneyString(price.value) * 1 * reformatNumberMoneyString(rate.value) * 1/1000;
     paid.value = amount.value;
     debt.value = 0;
     tryNumberFormatCurrentcy(quantity, "VND");
     tryNumberFormatCurrentcy(price, "VND");
+    tryNumberFormatCurrentcy(rate, "VND");
     tryNumberFormatCurrentcy(amount, "VND");
     tryNumberFormatCurrentcy(paid, "VND");
     quantity = null;
     price = null;
+    rate = null;
     amount = null;
     paid = null;
     debt = null;

@@ -9,6 +9,7 @@ import com.stepup.gasoline.qt.bean.PromotionMaterialImportBean;
 import com.stepup.gasoline.qt.bean.PromotionMaterialImportDetailBean;
 import com.stepup.gasoline.qt.core.SpineAction;
 import com.stepup.gasoline.qt.dao.GoodDAO;
+import com.stepup.gasoline.qt.util.QTUtil;
 import java.util.ArrayList;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -61,6 +62,7 @@ public class AddPromotionMaterialImportAction extends SpineAction {
         bean.setPaid(formBean.getPaid());
         bean.setDebt(formBean.getDebt());
         bean.setAccountId(formBean.getAccountId());
+        bean.setCreatedEmployeeId(QTUtil.getEmployeeId(request.getSession()));
         try {
             if (bNew) {
                 int id = goodDAO.insertPromotionMaterialImport(bean);
