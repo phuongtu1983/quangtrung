@@ -21,6 +21,7 @@ public class ShellImportFormBean extends org.apache.struts.action.ActionForm {
     private double price;
     private double amount;
     private int accountId;
+    private int vendorId;
     private String note;
 
     public ShellImportFormBean() {
@@ -36,6 +37,7 @@ public class ShellImportFormBean extends org.apache.struts.action.ActionForm {
         this.note = bean.getNote();
         this.amount = bean.getAmount();
         this.accountId = bean.getAccountId();
+        this.vendorId = bean.getVendorId();
     }
 
     public int getId() {
@@ -116,6 +118,14 @@ public class ShellImportFormBean extends org.apache.struts.action.ActionForm {
 
     public void setAccountId(int accountId) {
         this.accountId = accountId;
+    }
+
+    public int getVendorId() {
+        return vendorId;
+    }
+
+    public void setVendorId(int vendorId) {
+        this.vendorId = vendorId;
     }
 
 }

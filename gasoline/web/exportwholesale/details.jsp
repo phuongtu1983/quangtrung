@@ -20,7 +20,7 @@
                 <td>
                     <input type="checkbox" name="exportWholesaleGoodChk" tabindex="-1" value="<%=((ExportWholesaleDetailBean) pageContext.getAttribute("good")).getId()%>">
                     <input type="hidden" name="exportWholesaleDetailId" value='<bean:write name="good" property="id"/>'/>
-                    <input type="hidden" name="shellId" value='<bean:write name="good" property="id"/>'/>
+                    <input type="hidden" name="shellId" value='<bean:write name="good" property="shellId"/>'/>
                 </td>
                 <td><span><bean:write name="good" property="shellName"/></span></td>
                 <td><span><bean:write name="good" property="unitName"/></span></td>

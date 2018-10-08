@@ -80,9 +80,11 @@ CREATE TABLE `accessory_in_stock` (
   `accessory_id` int(11) DEFAULT NULL,
   `in_stock` int(11) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=97 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=19 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 /*Data for the table `accessory_in_stock` */
+
+insert  into `accessory_in_stock`(`id`,`day`,`accessory_id`,`in_stock`) values (16,'2018-10-07',3,0),(17,'2018-10-07',4,0),(18,'2018-10-07',5,0);
 
 /*Table structure for table `accessory_kind` */
 
@@ -201,9 +203,11 @@ CREATE TABLE `auto` (
   `auto_date` date DEFAULT NULL,
   `auto_name` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=26 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=9 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 /*Data for the table `auto` */
+
+insert  into `auto`(`id`,`auto_date`,`auto_name`) values (6,'2018-10-07','in_stock'),(7,'2018-10-07','in_stock'),(8,'2018-10-07','in_stock');
 
 /*Table structure for table `contract` */
 
@@ -278,9 +282,11 @@ CREATE TABLE `customer_in_stock` (
   `shell_45` int(11) DEFAULT NULL,
   `amount` double DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=20 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=19 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 /*Data for the table `customer_in_stock` */
+
+insert  into `customer_in_stock`(`id`,`day`,`customer_id`,`shell_12`,`shell_45`,`amount`) values (16,'2018-10-07',1,0,0,0),(17,'2018-10-07',2,0,0,0),(18,'2018-10-07',6,0,0,0);
 
 /*Table structure for table `document` */
 
@@ -628,9 +634,11 @@ CREATE TABLE `fraction_gas` (
   `created_employee_id` int(11) DEFAULT NULL,
   `note` text COLLATE utf8_unicode_ci,
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM AUTO_INCREMENT=14 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=MyISAM AUTO_INCREMENT=19 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 /*Data for the table `fraction_gas` */
+
+insert  into `fraction_gas`(`id`,`code`,`created_date`,`created_employee_id`,`note`) values (17,'20181008-FG-0001','2018-10-08',17,''),(18,'20181008-FG-0002','2018-10-08',18,'');
 
 /*Table structure for table `fraction_gas_detail` */
 
@@ -639,12 +647,14 @@ DROP TABLE IF EXISTS `fraction_gas_detail`;
 CREATE TABLE `fraction_gas_detail` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `fraction_id` int(11) DEFAULT NULL,
-  `shell_id` int(11) DEFAULT NULL,
+  `shell_id` int(11) DEFAULT NULL COMMENT 'shell_id in shell_vendor',
   `quantity` text COLLATE utf8_unicode_ci,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 /*Data for the table `fraction_gas_detail` */
+
+insert  into `fraction_gas_detail`(`id`,`fraction_id`,`shell_id`,`quantity`) values (4,17,6,'10'),(5,17,8,'20'),(6,18,7,'120'),(7,18,9,'450');
 
 /*Table structure for table `gas_export_wholesale` */
 
@@ -664,7 +674,7 @@ CREATE TABLE `gas_export_wholesale` (
   `note` text COLLATE utf8_unicode_ci,
   `created_employee_id` int(11) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM AUTO_INCREMENT=5 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=MyISAM AUTO_INCREMENT=6 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 /*Data for the table `gas_export_wholesale` */
 
@@ -675,13 +685,13 @@ DROP TABLE IF EXISTS `gas_export_wholesale_detail`;
 CREATE TABLE `gas_export_wholesale_detail` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `gas_export_wholesale_id` int(11) DEFAULT NULL,
-  `shell_id` int(11) DEFAULT NULL,
+  `shell_id` int(11) DEFAULT NULL COMMENT 'shell_id in shell_vendor',
   `quantity` int(5) DEFAULT NULL,
   `price` double DEFAULT NULL,
   `amount` double DEFAULT NULL,
   `note` text COLLATE utf8_unicode_ci,
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM AUTO_INCREMENT=7 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=MyISAM AUTO_INCREMENT=10 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 /*Data for the table `gas_export_wholesale_detail` */
 
@@ -695,7 +705,7 @@ CREATE TABLE `gas_export_wholesale_shell_detail` (
   `shell_id` int(11) DEFAULT NULL,
   `quantity` int(5) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM AUTO_INCREMENT=3 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=MyISAM AUTO_INCREMENT=4 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 /*Data for the table `gas_export_wholesale_shell_detail` */
 
@@ -894,9 +904,11 @@ CREATE TABLE `gas_wholesale` (
   `gas_return_amount` double DEFAULT NULL,
   `created_employee_id` int(11) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=MyISAM AUTO_INCREMENT=2 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 /*Data for the table `gas_wholesale` */
+
+insert  into `gas_wholesale`(`id`,`code`,`created_date`,`customer_id`,`total`,`discount`,`total_pay`,`paid`,`debt`,`account_id`,`vehicle_id`,`note`,`gas_return`,`gas_return_price`,`gas_return_amount`,`created_employee_id`) values (1,'20181008-GS-0001','2018-10-08',2,800000,0,798000,798000,0,5,5,'',100,17,2000,17);
 
 /*Table structure for table `gas_wholesale_detail` */
 
@@ -905,14 +917,16 @@ DROP TABLE IF EXISTS `gas_wholesale_detail`;
 CREATE TABLE `gas_wholesale_detail` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `gas_wholesale_id` int(11) DEFAULT NULL,
-  `shell_id` int(11) DEFAULT NULL,
+  `shell_id` int(11) DEFAULT NULL COMMENT 'shell_id in shell_vendor',
   `quantity` int(11) DEFAULT NULL,
   `price` double DEFAULT NULL,
   `amount` double DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=MyISAM AUTO_INCREMENT=3 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 /*Data for the table `gas_wholesale_detail` */
+
+insert  into `gas_wholesale_detail`(`id`,`gas_wholesale_id`,`shell_id`,`quantity`,`price`,`amount`) values (1,1,6,1000,200,200000),(2,1,8,2000,300,600000);
 
 /*Table structure for table `gas_wholesale_promotion` */
 
@@ -924,9 +938,11 @@ CREATE TABLE `gas_wholesale_promotion` (
   `promotion_material_id` int(11) DEFAULT NULL,
   `quantity` int(3) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM AUTO_INCREMENT=5 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=MyISAM AUTO_INCREMENT=6 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 /*Data for the table `gas_wholesale_promotion` */
+
+insert  into `gas_wholesale_promotion`(`id`,`gas_wholesale_id`,`promotion_material_id`,`quantity`) values (5,1,3,0);
 
 /*Table structure for table `gas_wholesale_return_shell` */
 
@@ -938,9 +954,11 @@ CREATE TABLE `gas_wholesale_return_shell` (
   `shell_id` int(11) DEFAULT NULL,
   `quantity` int(3) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM AUTO_INCREMENT=10 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=MyISAM AUTO_INCREMENT=11 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 /*Data for the table `gas_wholesale_return_shell` */
+
+insert  into `gas_wholesale_return_shell`(`id`,`gas_wholesale_id`,`shell_id`,`quantity`) values (10,1,3,0);
 
 /*Table structure for table `income` */
 
@@ -981,9 +999,11 @@ CREATE TABLE `lpg_import` (
   `account_id` int(11) DEFAULT NULL,
   `created_employee_id` int(11) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM AUTO_INCREMENT=9 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=MyISAM AUTO_INCREMENT=16 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 /*Data for the table `lpg_import` */
+
+insert  into `lpg_import`(`id`,`code`,`import_date`,`vendor_id`,`paper_quantity`,`actual_quantity`,`price`,`amount`,`paid`,`debt`,`rate`,`note`,`account_id`,`created_employee_id`) values (13,'20181008-LI-0001','2018-10-08',9,10000,10000,10000,100000000,100000000,0,1000,'',5,17),(14,'20181008-LI-0002','2018-10-08',8,2000,2000,20000,80000000,80000000,0,2000,'',4,17),(15,'20181008-LI-0003','2018-10-08',10,3000,3000,3000,9000000,9000000,0,1000,'',7,18);
 
 /*Table structure for table `lpg_in_stock` */
 
@@ -995,9 +1015,11 @@ CREATE TABLE `lpg_in_stock` (
   `day` date DEFAULT NULL,
   `in_stock` int(11) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=29 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=16 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 /*Data for the table `lpg_in_stock` */
+
+insert  into `lpg_in_stock`(`id`,`organization_id`,`day`,`in_stock`) values (14,1,'2018-10-07',0),(15,14,'2018-10-07',0);
 
 /*Table structure for table `lpg_sale` */
 
@@ -1033,9 +1055,11 @@ CREATE TABLE `money_in_stock` (
   `organization_id` int(11) DEFAULT NULL COMMENT 'neu account_id=0 thi la id cua organization',
   `in_stock` double DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=29 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=34 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 /*Data for the table `money_in_stock` */
+
+insert  into `money_in_stock`(`id`,`day`,`account_id`,`organization_id`,`in_stock`) values (30,'2018-10-07',4,1,0),(31,'2018-10-07',5,1,0),(32,'2018-10-07',7,14,0),(33,'2018-10-07',8,14,0);
 
 /*Table structure for table `old_shell` */
 
@@ -1196,9 +1220,11 @@ CREATE TABLE `petro_in_stock` (
   `petro_id` int(11) DEFAULT NULL,
   `in_stock` int(11) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=19 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=16 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 /*Data for the table `petro_in_stock` */
+
+insert  into `petro_in_stock`(`id`,`day`,`petro_id`,`in_stock`) values (14,'2018-10-07',4,0),(15,'2018-10-07',5,0);
 
 /*Table structure for table `petro_sale` */
 
@@ -1301,9 +1327,11 @@ CREATE TABLE `promotion_material_in_stock` (
   `promotion_material_id` int(11) DEFAULT NULL,
   `in_stock` int(11) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=19 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=16 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 /*Data for the table `promotion_material_in_stock` */
+
+insert  into `promotion_material_in_stock`(`id`,`day`,`promotion_material_id`,`in_stock`) values (14,'2018-10-07',3,0),(15,'2018-10-07',4,0);
 
 /*Table structure for table `promotion_material_sale` */
 
@@ -1404,7 +1432,7 @@ CREATE TABLE `shell` (
   `status` int(1) DEFAULT '1' COMMENT '0:dang khoa, 1:dang hoat dong',
   `vendor_id` int(11) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM AUTO_INCREMENT=4 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=MyISAM AUTO_INCREMENT=6 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 /*Data for the table `shell` */
 
@@ -1425,10 +1453,13 @@ CREATE TABLE `shell_import` (
   `account_id` double DEFAULT NULL,
   `note` text COLLATE utf8_unicode_ci,
   `created_employee_id` int(11) DEFAULT NULL,
+  `vendor_id` int(11) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM AUTO_INCREMENT=7 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=MyISAM AUTO_INCREMENT=10 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 /*Data for the table `shell_import` */
+
+insert  into `shell_import`(`id`,`code`,`created_date`,`shell_id`,`quantity`,`price`,`amount`,`account_id`,`note`,`created_employee_id`,`vendor_id`) values (8,'20181008-SI-0001','2018-10-08',1,1000,10000,10000000,5,'',17,9),(9,'20181008-SI-0002','2018-10-08',2,2000,20000,40000000,5,'',17,9);
 
 /*Table structure for table `shell_in_stock` */
 
@@ -1437,14 +1468,17 @@ DROP TABLE IF EXISTS `shell_in_stock`;
 CREATE TABLE `shell_in_stock` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `day` date DEFAULT NULL,
+  `vendor_id` int(11) DEFAULT NULL,
   `shell_id` int(11) DEFAULT NULL,
   `in_stock` int(11) DEFAULT '0' COMMENT 'vo binh',
   `gas_in_stock` int(11) DEFAULT '0' COMMENT 'binh co gas',
   PRIMARY KEY (`id`),
   KEY `shell_id` (`shell_id`)
-) ENGINE=MyISAM AUTO_INCREMENT=127 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=MyISAM AUTO_INCREMENT=156 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 /*Data for the table `shell_in_stock` */
+
+insert  into `shell_in_stock`(`id`,`day`,`vendor_id`,`shell_id`,`in_stock`,`gas_in_stock`) values (151,'2018-10-07',9,1,0,0),(152,'2018-10-07',10,1,0,0),(153,'2018-10-07',9,2,0,0),(154,'2018-10-07',10,2,0,0),(155,'2018-10-07',9,3,0,0);
 
 /*Table structure for table `shell_kind` */
 
@@ -1578,6 +1612,21 @@ CREATE TABLE `shell_statistic` (
 
 /*Data for the table `shell_statistic` */
 
+/*Table structure for table `shell_vendor` */
+
+DROP TABLE IF EXISTS `shell_vendor`;
+
+CREATE TABLE `shell_vendor` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `shell_id` int(11) DEFAULT NULL,
+  `vendor_id` int(11) DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=11 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+/*Data for the table `shell_vendor` */
+
+insert  into `shell_vendor`(`id`,`shell_id`,`vendor_id`) values (6,1,9),(7,1,10),(8,2,9),(9,2,10),(10,3,9);
+
 /*Table structure for table `shield_decrease` */
 
 DROP TABLE IF EXISTS `shield_decrease`;
@@ -1622,9 +1671,11 @@ CREATE TABLE `shield_in_stock` (
   `vendor_id` int(11) DEFAULT NULL,
   `in_stock` int(11) DEFAULT '0',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=33 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=40 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 /*Data for the table `shield_in_stock` */
+
+insert  into `shield_in_stock`(`id`,`day`,`vendor_id`,`in_stock`) values (34,'2018-10-07',8,0),(35,'2018-10-07',9,0),(36,'2018-10-07',10,0),(37,'2018-10-07',11,0),(38,'2018-10-07',12,0),(39,'2018-10-07',13,0);
 
 /*Table structure for table `store` */
 
@@ -1743,9 +1794,11 @@ CREATE TABLE `vehicle_in` (
   `note` text COLLATE utf8_unicode_ci,
   `created_employee_id` int(11) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM AUTO_INCREMENT=11 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=MyISAM AUTO_INCREMENT=17 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 /*Data for the table `vehicle_in` */
+
+insert  into `vehicle_in`(`id`,`code`,`employee_id`,`created_date`,`vehicle_id`,`note`,`created_employee_id`) values (15,'20181008-VI-0001',NULL,'2018-10-08',5,'',17),(16,'20181008-VI-0002',NULL,'2018-10-08',5,'',18);
 
 /*Table structure for table `vehicle_in_detail` */
 
@@ -1754,14 +1807,16 @@ DROP TABLE IF EXISTS `vehicle_in_detail`;
 CREATE TABLE `vehicle_in_detail` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `vehicle_in_id` int(11) DEFAULT NULL,
-  `shell_id` int(11) DEFAULT NULL,
+  `shell_id` int(11) DEFAULT NULL COMMENT 'shell_id in shell_vendor',
   `quantity` int(5) DEFAULT NULL,
   `price` double DEFAULT NULL,
   `amount` double DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM AUTO_INCREMENT=25 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=MyISAM AUTO_INCREMENT=42 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 /*Data for the table `vehicle_in_detail` */
+
+insert  into `vehicle_in_detail`(`id`,`vehicle_in_id`,`shell_id`,`quantity`,`price`,`amount`) values (37,15,6,1,100000,100000),(38,15,8,2,200000,400000),(39,15,10,3,150000,450000),(40,16,7,2,100000,200000),(41,16,9,45,200000,9000000);
 
 /*Table structure for table `vehicle_in_return_shell_detail` */
 
@@ -1773,9 +1828,11 @@ CREATE TABLE `vehicle_in_return_shell_detail` (
   `shell_id` int(11) DEFAULT NULL,
   `quantity` int(5) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM AUTO_INCREMENT=2 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=MyISAM AUTO_INCREMENT=7 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 /*Data for the table `vehicle_in_return_shell_detail` */
+
+insert  into `vehicle_in_return_shell_detail`(`id`,`vehicle_in_id`,`shell_id`,`quantity`) values (5,15,3,4),(6,16,1,0);
 
 /*Table structure for table `vehicle_out` */
 
@@ -1789,9 +1846,11 @@ CREATE TABLE `vehicle_out` (
   `note` text COLLATE utf8_unicode_ci,
   `created_employee_id` int(11) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM AUTO_INCREMENT=16 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=MyISAM AUTO_INCREMENT=26 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 /*Data for the table `vehicle_out` */
+
+insert  into `vehicle_out`(`id`,`code`,`created_date`,`vehicle_id`,`note`,`created_employee_id`) values (24,'20181008-VO-0001','2018-10-08',5,'',17),(25,'20181008-VO-0002','2018-10-08',5,'',18);
 
 /*Table structure for table `vehicle_out_detail` */
 
@@ -1800,15 +1859,17 @@ DROP TABLE IF EXISTS `vehicle_out_detail`;
 CREATE TABLE `vehicle_out_detail` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `vehicle_out_id` int(11) DEFAULT NULL,
-  `shell_id` int(11) DEFAULT NULL,
+  `shell_id` int(11) DEFAULT NULL COMMENT 'shell_id in shell_vendor',
   `quantity` int(5) DEFAULT NULL,
   `price` double DEFAULT NULL,
   `amount` double DEFAULT NULL,
   `note` text COLLATE utf8_unicode_ci,
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM AUTO_INCREMENT=33 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=MyISAM AUTO_INCREMENT=59 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 /*Data for the table `vehicle_out_detail` */
+
+insert  into `vehicle_out_detail`(`id`,`vehicle_out_id`,`shell_id`,`quantity`,`price`,`amount`,`note`) values (55,24,8,20,200000,4000000,NULL),(54,24,6,10,100000,1000000,NULL),(56,24,10,30,150000,4500000,NULL),(57,25,7,20,100000,2000000,NULL),(58,25,9,45,200000,9000000,NULL);
 
 /*Table structure for table `vehicle_out_employee_detail` */
 
@@ -1820,9 +1881,11 @@ CREATE TABLE `vehicle_out_employee_detail` (
   `employee_id` int(11) DEFAULT NULL,
   `note` text COLLATE utf8_unicode_ci,
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM AUTO_INCREMENT=7 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=MyISAM AUTO_INCREMENT=22 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 /*Data for the table `vehicle_out_employee_detail` */
+
+insert  into `vehicle_out_employee_detail`(`id`,`vehicle_out_id`,`employee_id`,`note`) values (20,24,17,''),(21,25,18,'');
 
 /*Table structure for table `vendor` */
 
@@ -1840,7 +1903,7 @@ CREATE TABLE `vendor` (
 
 /*Data for the table `vendor` */
 
-insert  into `vendor`(`id`,`code`,`name`,`organization_id`,`status`,`equal_organization_id`) values (11,'SCT','SCT',14,1,-1),(8,'Perfect','Công ty TNHH MTV Perfect',1,1,-1),(9,'QT','Quang Trung',1,1,1),(10,'HT','Hưng Thịnh',14,1,-1),(12,'VNS','VINASHIN',14,1,-1),(13,'VMC','VIMEXCO',14,1,-1);
+insert  into `vendor`(`id`,`code`,`name`,`organization_id`,`status`,`equal_organization_id`) values (11,'SCT','SCT',14,1,-1),(8,'Perfect','Công ty TNHH MTV Perfect',1,1,-1),(9,'QT','Quang Trung',1,1,1),(10,'HT','Hưng Thịnh',14,1,14),(12,'VNS','VINASHIN',14,1,-1),(13,'VMC','VIMEXCO',14,1,-1);
 
 /*Table structure for table `vendor_debt` */
 
@@ -2864,80 +2927,86 @@ BEGIN
 		SET _pre_date=_start_date;
 	END IF;
 	
-	INSERT INTO shell_in_stock(DAY, shell_id, in_stock, gas_in_stock)
-	SELECT _current_date, s.id, coalesce(tbl_old_stock.tbl_old_in_stock,0) + COALESCE(SUM(tbl.in_stock),0) , COALESCE(tbl_old_stock.tbl_old_gas_in_stock,0) + COALESCE(SUM(tbl.gas_in_stock),0) 
-	FROM shell AS s
+	INSERT INTO shell_in_stock(DAY, vendor_id, shell_id, in_stock, gas_in_stock)
+	SELECT _current_date, sv.vendor_id, sv.shell_id, coalesce(tbl_old_stock.tbl_old_in_stock,0) + COALESCE(SUM(tbl.in_stock),0) , COALESCE(tbl_old_stock.tbl_old_gas_in_stock,0) + COALESCE(SUM(tbl.gas_in_stock),0) 
+	FROM shell as s, vendor as v, shell_vendor AS sv
 	LEFT JOIN (
-		SELECT shell_id, COALESCE(in_stock,0) AS tbl_old_in_stock, COALESCE(gas_in_stock,0) AS tbl_old_gas_in_stock
+		SELECT vendor_id, shell_id, COALESCE(in_stock,0) AS tbl_old_in_stock, COALESCE(gas_in_stock,0) AS tbl_old_gas_in_stock
 		FROM shell_in_stock WHERE date(`day`)=_pre_date
-	) AS tbl_old_stock ON s.id=tbl_old_stock.shell_id
+	) AS tbl_old_stock ON sv.shell_id=tbl_old_stock.shell_id and sv.vendor_id=tbl_old_stock.vendor_id
 	LEFT JOIN (
-		SELECT i.shell_id, COALESCE(SUM(i.quantity),0) AS in_stock, 0 AS gas_in_stock
+		SELECT i.shell_id, i.vendor_id, COALESCE(SUM(i.quantity),0) AS in_stock, 0 AS gas_in_stock
 		FROM shell_import AS i
 		WHERE DATE(i.created_date) >= _date AND DATE(i.created_date) <= _current_date
-		GROUP BY i.shell_id
+		GROUP BY i.shell_id, i.vendor_id
 		UNION ALL
-		SELECT f_det.shell_id,  0 AS in_stock, -SUM(f_det.quantity) AS gas_in_stock
-		FROM gas_export_wholesale_detail AS f_det, gas_export_wholesale AS f 
+		SELECT sv.shell_id, sv.vendor_id,  0 AS in_stock, -SUM(f_det.quantity) AS gas_in_stock
+		FROM gas_export_wholesale_detail AS f_det, gas_export_wholesale AS f, shell_vendor as sv
 		WHERE f_det.gas_export_wholesale_id=f.id AND DATE(f.created_date) >= _date AND DATE(f.created_date) <= _current_date
-		GROUP BY f_det.shell_id
+			AND f_det.shell_id=sv.id
+		GROUP BY sv.shell_id, sv.vendor_id
+/*
 		UNION ALL
-		SELECT f_det.shell_id,  SUM(f_det.quantity) AS in_stock, 0 AS gas_in_stock
-		FROM gas_export_wholesale_shell_detail AS f_det, gas_export_wholesale AS f 
+		SELECT f_det.shell_id, eo.organization_id,  SUM(f_det.quantity) AS in_stock, 0 AS gas_in_stock
+		FROM gas_export_wholesale_shell_detail AS f_det, gas_export_wholesale AS f, employee AS eo
 		WHERE f_det.gas_export_wholesale_id=f.id AND DATE(f.created_date) >= _date AND DATE(f.created_date) <= _current_date
-		GROUP BY f_det.shell_id
+			AND f.created_employee_id=eo.id
+		GROUP BY f_det.shell_id, eo.organization_id
+*/
 		UNION ALL
-		SELECT f_det.shell_id,  -SUM(f_det.quantity) AS in_stock, SUM(f_det.quantity) AS gas_in_stock
-		FROM fraction_gas_detail AS f_det, fraction_gas AS f 
+		SELECT sv.shell_id, sv.vendor_id,  -SUM(f_det.quantity) AS in_stock, SUM(f_det.quantity) AS gas_in_stock
+		FROM fraction_gas_detail AS f_det, fraction_gas AS f, shell_vendor as sv
 		WHERE f_det.fraction_id=f.id AND DATE(f.created_date) >= _date AND DATE(f.created_date) <= _current_date
-		GROUP BY f_det.shell_id
+			AND f_det.shell_id=sv.id
+		GROUP BY sv.shell_id, sv.vendor_id
+/*
 		UNION ALL
-		SELECT i_det.shell_id, 0 AS in_stock, SUM(i_det.quantity) AS gas_in_stock
-		FROM gas_import_detail AS i_det, gas_import AS i 
+		SELECT i_det.shell_id, eo.organization_id, 0 AS in_stock, SUM(i_det.quantity) AS gas_in_stock
+		FROM gas_import_detail AS i_det, gas_import AS i, employee AS eo
 		WHERE i_det.gas_import_id=i.id AND DATE(i.created_date) >= _date AND DATE(i.created_date) <= _current_date
-		GROUP BY i_det.shell_id
+			AND i.created_employee_id=eo.id
+		GROUP BY i_det.shell_id, eo.organization_id
+*/
 		UNION ALL
-		SELECT i_det.shell_id, 0 AS in_stock, -SUM(i_det.quantity) AS gas_in_stock
-		FROM gas_wholesale_detail AS i_det, gas_wholesale AS i 
+		SELECT sv.shell_id, sv.vendor_id, 0 AS in_stock, -SUM(i_det.quantity) AS gas_in_stock
+		FROM gas_wholesale_detail AS i_det, gas_wholesale AS i, shell_vendor as sv
 		WHERE i_det.gas_wholesale_id=i.id AND DATE(i.created_date) >= _date AND DATE(i.created_date) <= _current_date
-		GROUP BY i_det.shell_id
+			AND i_det.shell_id=sv.id
+		GROUP BY sv.shell_id, sv.vendor_id
+/*
 		UNION ALL
-		SELECT i_det.shell_id, SUM(i_det.quantity) AS in_stock, 0 AS gas_in_stock
-		FROM gas_wholesale_return_shell AS i_det, gas_wholesale AS i 
+		SELECT i_det.shell_id, eo.organization_id, SUM(i_det.quantity) AS in_stock, 0 AS gas_in_stock
+		FROM gas_wholesale_return_shell AS i_det, gas_wholesale AS i, employee AS eo
 		WHERE i_det.gas_wholesale_id=i.id AND DATE(i.created_date) >= _date AND DATE(i.created_date) <= _current_date
-		GROUP BY i_det.shell_id
+			AND i.created_employee_id=eo.id
+		GROUP BY i_det.shell_id, eo.organization_id
 		UNION ALL
-		SELECT i_det.shell_id, 0 AS in_stock, -SUM(i_det.quantity) AS gas_in_stock
-		FROM gas_retail_detail AS i_det, gas_retail AS i 
-		WHERE i_det.gas_retail_id=i.id AND DATE(i.created_date) >= _date AND DATE(i.created_date) <= _current_date
-		GROUP BY i_det.shell_id
-		UNION ALL
-		SELECT i_det.shell_id, SUM(i_det.quantity) AS in_stock, 0 AS gas_in_stock
-		FROM gas_retail_return_shell AS i_det, gas_retail AS i 
-		WHERE i_det.gas_retail_id=i.id AND DATE(i.created_date) >= _date AND DATE(i.created_date) <= _current_date
-		GROUP BY i_det.shell_id
-		UNION ALL
-		SELECT i_det.shell_id, -SUM(i_det.quantity) AS in_stock, 0 AS gas_in_stock
-		FROM shell_sale_detail AS i_det, shell_sale AS i 
+		SELECT i_det.shell_id, eo.organization_id, -SUM(i_det.quantity) AS in_stock, 0 AS gas_in_stock
+		FROM shell_sale_detail AS i_det, shell_sale AS i, employee AS eo
 		WHERE i_det.shell_sale_id=i.id AND DATE(i.created_date) >= _date AND DATE(i.created_date) <= _current_date
-		GROUP BY i_det.shell_id
+			AND i.created_employee_id=eo.id
+		GROUP BY i_det.shell_id, eo.organization_id
 		UNION ALL
-		SELECT i.shell_id, -SUM(i.quantity) AS in_stock, 0 AS gas_in_stock
-		FROM old_shell AS i 
+		SELECT i.shell_id, eo.organization_id, -SUM(i.quantity) AS in_stock, 0 AS gas_in_stock
+		FROM old_shell AS i, employee AS eo
 		WHERE DATE(i.created_date) >= _date AND DATE(i.created_date) <= _current_date
-		GROUP BY i.shell_id
+			AND i.created_employee_id=eo.id
+		GROUP BY i.shell_id, eo.organization_id
 		UNION ALL
-		SELECT i_det.shell_id, SUM(i_det.quantity) AS in_stock, 0 AS gas_in_stock
-		FROM shell_return AS i, shell_return_detail AS i_det
+		SELECT i_det.shell_id, eo.organization_id, SUM(i_det.quantity) AS in_stock, 0 AS gas_in_stock
+		FROM shell_return AS i, shell_return_detail AS i_det, employee AS eo
 		WHERE i_det.shell_return_id=i.id AND DATE(i.created_date) >= _date AND DATE(i.created_date) <= _current_date
-		GROUP BY i_det.shell_id
+			AND i.created_employee_id=eo.id
+		GROUP BY i_det.shell_id, eo.organization_id
 		UNION ALL
-		SELECT i_det.shell_id, -SUM(i_det.quantity) AS in_stock, 0 AS gas_in_stock
-		FROM shell_return_supplier AS i, shell_return_supplier_detail AS i_det
+		SELECT i_det.shell_id, eo.organization_id, -SUM(i_det.quantity) AS in_stock, 0 AS gas_in_stock
+		FROM shell_return_supplier AS i, shell_return_supplier_detail AS i_det, employee AS eo
 		WHERE i_det.shell_return_supplier_id=i.id AND DATE(i.created_date) >= _date AND DATE(i.created_date) <= _current_date
-		GROUP BY i_det.shell_id
-	) AS tbl ON tbl.shell_id=s.id
-	WHERE s.STATUS=1 GROUP BY s.id;
+			AND i.created_employee_id=eo.id
+		GROUP BY i_det.shell_id, eo.organization_id
+*/
+	) AS tbl ON tbl.shell_id=sv.shell_id and tbl.vendor_id=sv.vendor_id
+	WHERE sv.shell_id=s.id and sv.vendor_id=v.id and s.STATUS=1 and v.status=1 GROUP BY s.id, v.id;
 	
 -- ==========================================
 	
@@ -3587,10 +3656,10 @@ DELIMITER ;
 DELIMITER $$
 
 /*!50003 CREATE DEFINER=`root`@`localhost` PROCEDURE `insertShellImport`(IN _code VARCHAR(20), IN _shell_id INT, IN _created_date VARCHAR(20), IN _quantity INT
-	, IN _price DOUBLE, IN _amount DOUBLE, IN _account_id Int, IN _note TEXT, in _created_employee_id int, OUT _id INT)
+	, IN _price DOUBLE, IN _amount DOUBLE, IN _account_id Int, IN _note TEXT, in _created_employee_id int, in _vendor_id int, OUT _id INT)
 BEGIN
-	INSERT INTO shell_import (CODE, shell_id, created_date, quantity, price, amount, account_id, note, created_employee_id)
-	VALUES (_code, _shell_id, STR_TO_DATE(_created_date,'%d/%m/%Y'), _quantity, _price, _amount, _account_id, _note, _created_employee_id);
+	INSERT INTO shell_import (CODE, shell_id, created_date, quantity, price, amount, account_id, note, created_employee_id, vendor_id)
+	VALUES (_code, _shell_id, STR_TO_DATE(_created_date,'%d/%m/%Y'), _quantity, _price, _amount, _account_id, _note, _created_employee_id, _vendor_id);
 	SELECT LAST_INSERT_ID() INTO _id;
     END */$$
 DELIMITER ;
@@ -3644,6 +3713,19 @@ DELIMITER $$
 /*!50003 CREATE DEFINER=`root`@`localhost` PROCEDURE `insertShellReturnSupplierDetail`(IN _shell_return_supplier_id INT, IN _shell_id INT, IN _quantity INT)
 BEGIN
 	INSERT INTO shell_return_supplier_detail(shell_return_supplier_id, shell_id, quantity) VALUES (_shell_return_supplier_id, _shell_id, _quantity);
+    END */$$
+DELIMITER ;
+
+/* Procedure structure for procedure `insertShellVendorDetail` */
+
+/*!50003 DROP PROCEDURE IF EXISTS  `insertShellVendorDetail` */;
+
+DELIMITER $$
+
+/*!50003 CREATE DEFINER=`root`@`localhost` PROCEDURE `insertShellVendorDetail`(in _shell_id int, in _vendor_id int)
+BEGIN
+	INSERT INTO shell_vendor(shell_id, vendor_id) 
+	VALUES (_shell_id, _vendor_id);
     END */$$
 DELIMITER ;
 
@@ -3946,7 +4028,7 @@ BEGIN
 	
 	SELECT COALESCE(ls.in_stock,0) INTO _gas_stock
 	FROM lpg_in_stock AS ls
-	WHERE DATEDIFF(_from_date,ls.`day`)=1;
+	WHERE DATEDIFF(_from_date,ls.`day`)=1 and _organization_ids LIKE CONCAT('%,',organization_id,',%') limit 1;
 	
 	SELECT created_date AS content, created_date, SUM(lpg_import) AS import_quantity, SUM(export_12_quantity) AS export_12_quantity
 		, SUM(export_45_quantity) AS export_45_quantity, SUM(return_quantity) AS return_quantity, '' as note
@@ -3960,11 +4042,11 @@ BEGIN
 	union all
 	SELECT pdet.created_date, 0 AS lpg_import, SUM(IF(shell_12.id IS NOT NULL, det.quantity,0)) as export_12_quantity
 		, SUM(IF(shell_45.id IS NOT NULL, det.quantity,0)) AS export_45_quantity, 0 return_quantity
-	FROM fraction_gas AS pdet, fraction_gas_detail AS det
-	LEFT JOIN (SELECT s.id FROM shell AS s, shell_kind AS sk WHERE s.kind_id=sk.id AND sk.weight=12 AND _vendor_ids LIKE CONCAT('%,',s.vendor_id,',%')) AS shell_12 ON det.shell_id=shell_12.id
-	LEFT JOIN (SELECT s.id FROM shell AS s, shell_kind AS sk WHERE s.kind_id=sk.id AND sk.weight=45 AND _vendor_ids LIKE CONCAT('%,',s.vendor_id,',%')) AS shell_45 ON det.shell_id=shell_45.id
+	FROM fraction_gas AS pdet, fraction_gas_detail AS det, shell_vendor AS sv
+	LEFT JOIN (SELECT s.id FROM shell AS s, shell_kind AS sk WHERE s.kind_id=sk.id AND sk.weight=12) AS shell_12 ON sv.shell_id=shell_12.id
+	LEFT JOIN (SELECT s.id FROM shell AS s, shell_kind AS sk WHERE s.kind_id=sk.id AND sk.weight=45) AS shell_45 ON sv.shell_id=shell_45.id
 	WHERE DATE(pdet.created_date) >= STR_TO_DATE(_start_date,'%d/%m/%Y') AND DATE(pdet.created_date) <= STR_TO_DATE(_end_date,'%d/%m/%Y')
-		and pdet.id=det.fraction_id
+		and pdet.id=det.fraction_id and det.shell_id=sv.id AND _vendor_ids LIKE CONCAT('%,',sv.vendor_id,',%')
 	GROUP BY pdet.created_date, det.shell_id
 	UNION ALL
 	SELECT pdet.created_date, 0 AS lpg_import,  0 AS export_12_quantity, 0 AS export_45_quantity, SUM(pdet.gas_return) return_quantity
@@ -3994,15 +4076,11 @@ BEGIN
 	
 	select STR_TO_DATE(_start_date,'%d/%m/%Y') into _from_date;
 	
-	SELECT coalesce(sum(ss.gas_in_stock),0) INTO _gas_12_stock 
-	from shell_in_stock as ss, shell as s, shell_kind as sk
-	where DATEDIFF(_from_date,ss.`day`)=1 and ss.shell_id=s.id and s.kind_id=sk.id AND sk.weight=12
-		and _vendor_ids LIKE CONCAT('%,',s.vendor_id,',%');
-	
-	SELECT coalesce(sum(ss.gas_in_stock),0) INTO _gas_45_stock 
-	from shell_in_stock as ss, shell as s, shell_kind as sk
-	where DATEDIFF(_from_date,ss.`day`)=1 and ss.shell_id=s.id and s.kind_id=sk.id and sk.weight=45
-		AND _vendor_ids LIKE CONCAT('%,',s.vendor_id,',%');
+	SELECT SUM(IF(shell_12.id IS NOT NULL, ss.gas_in_stock,0)), SUM(IF(shell_45.id IS NOT NULL, ss.gas_in_stock,0)) INTO _gas_12_stock, _gas_45_stock 
+	FROM shell_in_stock AS ss
+	LEFT JOIN (SELECT s.id FROM shell AS s, shell_kind AS sk WHERE s.kind_id=sk.id AND sk.weight=12) AS shell_12 ON ss.shell_id=shell_12.id
+	LEFT JOIN (SELECT s.id FROM shell AS s, shell_kind AS sk WHERE s.kind_id=sk.id AND sk.weight=45) AS shell_45 ON ss.shell_id=shell_45.id
+	WHERE DATEDIFF(_from_date,ss.`day`)=1 and _vendor_ids LIKE CONCAT('%,',ss.vendor_id,',%');
 	
 	SELECT coalesce(ls.in_stock,0) INTO _gas_stock
 	from lpg_in_stock as ls
@@ -4022,34 +4100,34 @@ BEGIN
 		, 0 AS vehicle_out_12, 0 AS vehicle_out_45
 		, 0 AS vehicle_in_12, 0 AS vehicle_in_45
 		, 0 AS shield_import, 0 AS shield_decrease, 0 AS import_quantity
-	FROM fraction_gas AS pdet, fraction_gas_detail AS det 
-	LEFT JOIN (SELECT s.id FROM shell AS s, shell_kind AS sk WHERE s.kind_id=sk.id AND sk.weight=12 AND _vendor_ids LIKE CONCAT('%,',s.vendor_id,',%')) AS shell_12 ON det.shell_id=shell_12.id
-	LEFT JOIN (SELECT s.id FROM shell AS s, shell_kind AS sk WHERE s.kind_id=sk.id AND sk.weight=45 AND _vendor_ids LIKE CONCAT('%,',s.vendor_id,',%')) AS shell_45 ON det.shell_id=shell_45.id
+	FROM fraction_gas AS pdet, fraction_gas_detail AS det, shell_vendor as sv
+	LEFT JOIN (SELECT s.id FROM shell AS s, shell_kind AS sk WHERE s.kind_id=sk.id AND sk.weight=12) AS shell_12 ON sv.shell_id=shell_12.id
+	LEFT JOIN (SELECT s.id FROM shell AS s, shell_kind AS sk WHERE s.kind_id=sk.id AND sk.weight=45) AS shell_45 ON sv.shell_id=shell_45.id
 	WHERE DATE(pdet.created_date) >= STR_TO_DATE(_start_date,'%d/%m/%Y') AND DATE(pdet.created_date) <= STR_TO_DATE(_end_date,'%d/%m/%Y')
-		and pdet.id=det.fraction_id
-	GROUP BY pdet.created_date, det.shell_id
+		and pdet.id=det.fraction_id and det.shell_id=sv.id AND _vendor_ids LIKE CONCAT('%,',sv.vendor_id,',%')
+	GROUP BY pdet.created_date, sv.shell_id
 	UNION ALL
 	SELECT pdet.created_date, 0 AS fraction_12, 0 AS fraction_45
 		, SUM(IF(shell_12.id IS NOT NULL, det.quantity,0)) AS vehicle_out_12, SUM(IF(shell_45.id IS NOT NULL, det.quantity,0)) AS vehicle_out_45
 		, 0 AS vehicle_in_12, 0 AS vehicle_in_45
 		, 0 AS shield_import, 0 AS shield_decrease, 0 AS import_quantity
-	FROM vehicle_out AS pdet, vehicle_out_detail AS det
-	LEFT JOIN (SELECT s.id FROM shell AS s, shell_kind AS sk WHERE s.kind_id=sk.id AND sk.weight=12 AND _vendor_ids LIKE CONCAT('%,',s.vendor_id,',%')) AS shell_12 ON det.shell_id=shell_12.id
-	LEFT JOIN (SELECT s.id FROM shell AS s, shell_kind AS sk WHERE s.kind_id=sk.id AND sk.weight=45 AND _vendor_ids LIKE CONCAT('%,',s.vendor_id,',%')) AS shell_45 ON det.shell_id=shell_45.id
+	FROM vehicle_out AS pdet, vehicle_out_detail AS det, shell_vendor AS sv
+	LEFT JOIN (SELECT s.id FROM shell AS s, shell_kind AS sk WHERE s.kind_id=sk.id AND sk.weight=12) AS shell_12 ON sv.shell_id=shell_12.id
+	LEFT JOIN (SELECT s.id FROM shell AS s, shell_kind AS sk WHERE s.kind_id=sk.id AND sk.weight=45) AS shell_45 ON sv.shell_id=shell_45.id
 	WHERE DATE(pdet.created_date) >= STR_TO_DATE(_start_date,'%d/%m/%Y') AND DATE(pdet.created_date) <= STR_TO_DATE(_end_date,'%d/%m/%Y')
-		and det.vehicle_out_id=pdet.id
-	GROUP BY pdet.created_date, det.shell_id
+		and det.vehicle_out_id=pdet.id AND det.shell_id=sv.id AND _vendor_ids LIKE CONCAT('%,',sv.vendor_id,',%')
+	GROUP BY pdet.created_date, sv.shell_id
 	UNION ALL
 	SELECT pdet.created_date, 0 AS fraction_12, 0 AS fraction_45
 		, 0 AS vehicle_out_12, 0 AS vehicle_out_45
 		, SUM(IF(shell_12.id IS NOT NULL, det.quantity,0)) AS vehicle_in_12, SUM(IF(shell_45.id IS NOT NULL, det.quantity,0)) AS vehicle_in_45
 		, 0 AS shield_import, 0 AS shield_decrease, 0 AS import_quantity
-	FROM vehicle_in AS pdet, vehicle_in_detail AS det 
-	LEFT JOIN (SELECT s.id FROM shell AS s, shell_kind AS sk WHERE s.kind_id=sk.id AND sk.weight=12 AND _vendor_ids LIKE CONCAT('%,',s.vendor_id,',%')) AS shell_12 ON det.shell_id=shell_12.id
-	LEFT JOIN (SELECT s.id FROM shell AS s, shell_kind AS sk WHERE s.kind_id=sk.id AND sk.weight=45 AND _vendor_ids LIKE CONCAT('%,',s.vendor_id,',%')) AS shell_45 ON det.shell_id=shell_45.id
+	FROM vehicle_in AS pdet, vehicle_in_detail AS det, shell_vendor AS sv
+	LEFT JOIN (SELECT s.id FROM shell AS s, shell_kind AS sk WHERE s.kind_id=sk.id AND sk.weight=12) AS shell_12 ON sv.shell_id=shell_12.id
+	LEFT JOIN (SELECT s.id FROM shell AS s, shell_kind AS sk WHERE s.kind_id=sk.id AND sk.weight=45) AS shell_45 ON sv.shell_id=shell_45.id
 	WHERE DATE(pdet.created_date) >= STR_TO_DATE(_start_date,'%d/%m/%Y') AND DATE(pdet.created_date) <= STR_TO_DATE(_end_date,'%d/%m/%Y')
-		AND det.vehicle_in_id=pdet.id
-	GROUP BY pdet.created_date, det.shell_id
+		AND det.vehicle_in_id=pdet.id AND det.shell_id=sv.id AND _vendor_ids LIKE CONCAT('%,',sv.vendor_id,',%')
+	GROUP BY pdet.created_date, sv.shell_id
 	-- #########
 	UNION ALL
 	SELECT s.created_date, 0 AS fraction_12, 0 AS fraction_45
@@ -4074,9 +4152,9 @@ BEGIN
 		, 0 AS vehicle_out_12, 0 AS vehicle_out_45
 		, 0 AS vehicle_in_12, 0 AS vehicle_in_45
 		, 0 AS shield_import, 0 AS shield_decrease, sum(s.actual_quantity) AS import_quantity
-	FROM lpg_import AS s, employee as e
+	FROM lpg_import AS s
 	WHERE DATE(s.import_date) >= STR_TO_DATE(_start_date,'%d/%m/%Y') AND DATE(s.import_date) <= STR_TO_DATE(_end_date,'%d/%m/%Y')
-		and s.created_employee_id=e.id AND _organization_ids LIKE CONCAT('%,',e.organization_id,',%')
+		AND _vendor_ids LIKE CONCAT('%,',s.vendor_id,',%')
 	GROUP BY s.import_date
 	)
 	AS tbl
@@ -4093,7 +4171,7 @@ DELIMITER ;
 
 DELIMITER $$
 
-/*!50003 CREATE DEFINER=`root`@`localhost` PROCEDURE `report_sale`(IN _start_date VARCHAR(20), IN _end_date VARCHAR(20), IN _organization_ids TEXT)
+/*!50003 CREATE DEFINER=`root`@`localhost` PROCEDURE `report_sale`(IN _start_date VARCHAR(20), IN _end_date VARCHAR(20), IN _organization_ids TEXT, IN _vendor_ids TEXT)
 BEGIN
 	SELECT ws.created_date, c.code as customer_code, c.name as customer_name, SUM(tbl.quantity_12) AS quantity_12, SUM(tbl.quantity_45) AS quantity_45
 		, SUM(tbl.shell_return_12) AS shell_return_12, SUM(tbl.shell_return_12t) AS shell_return_12t
@@ -4105,11 +4183,11 @@ BEGIN
 		, 0 as shell_return_12, 0 as shell_return_12t, 0 as shell_return_45
 		, SUM(IF(shell_12.id IS NOT NULL, wdet.price,0)) AS price_12, SUM(IF(shell_12.id IS NOT NULL, 1,0)) AS price_12_count
 		, SUM(IF(shell_45.id IS NOT NULL, wdet.price,0)) AS price_45, SUM(IF(shell_45.id IS NOT NULL, 1,0)) AS price_45_count
-	FROM gas_wholesale AS w, gas_wholesale_detail as wdet
-	LEFT JOIN (SELECT s.id FROM shell AS s, shell_kind AS sk WHERE s.kind_id=sk.id AND sk.weight=12) AS shell_12 ON wdet.shell_id=shell_12.id
-	LEFT JOIN (SELECT s.id FROM shell AS s, shell_kind AS sk WHERE s.kind_id=sk.id AND sk.weight=45) AS shell_45 ON wdet.shell_id=shell_45.id
+	FROM gas_wholesale AS w, gas_wholesale_detail as wdet, shell_vendor AS sv
+	LEFT JOIN (SELECT s.id FROM shell AS s, shell_kind AS sk WHERE s.kind_id=sk.id AND sk.weight=12) AS shell_12 ON sv.shell_id=shell_12.id
+	LEFT JOIN (SELECT s.id FROM shell AS s, shell_kind AS sk WHERE s.kind_id=sk.id AND sk.weight=45) AS shell_45 ON sv.shell_id=shell_45.id
 	WHERE DATE(w.created_date) >= STR_TO_DATE(_start_date,'%d/%m/%Y') AND DATE(w.created_date) <= STR_TO_DATE(_end_date,'%d/%m/%Y')
-		and w.id=wdet.gas_wholesale_id 
+		and w.id=wdet.gas_wholesale_id AND wdet.shell_id=sv.id AND _vendor_ids LIKE CONCAT('%,',sv.vendor_id,',%')
 	GROUP BY w.id
 	UNION ALL
 	SELECT w.id, 0 AS quantity_12, 0 AS quantity_45
@@ -4118,8 +4196,8 @@ BEGIN
 		, SUM(IF(shell_45.id IS NOT NULL, wdet.quantity,0)) AS shell_return_45
 		, 0 AS price_12, 0 AS price_45, 0 as price_12_count, 0 as price_45_count
 	FROM gas_wholesale AS w, gas_wholesale_return_shell AS wdet
-	LEFT JOIN (SELECT s.id FROM shell AS s, shell_kind AS sk, vendor as v WHERE s.kind_id=sk.id AND sk.weight=12 AND s.vendor_id=v.id AND _organization_ids LIKE CONCAT('%,',v.equal_organization_id,',%')) AS shell_12 ON wdet.shell_id=shell_12.id
-	LEFT JOIN (SELECT s.id FROM shell AS s, shell_kind AS sk, vendor AS v WHERE s.kind_id=sk.id AND sk.weight=12 AND s.vendor_id=v.id AND _organization_ids not LIKE CONCAT('%,',v.equal_organization_id,',%')) AS shell_12t ON wdet.shell_id=shell_12t.id
+	LEFT JOIN (SELECT s.id FROM shell AS s, shell_kind AS sk WHERE s.kind_id=sk.id AND sk.weight=12 and _vendor_ids LIKE CONCAT('%,',s.vendor_id,',%')) AS shell_12 ON wdet.shell_id=shell_12.id
+	LEFT JOIN (SELECT s.id FROM shell AS s, shell_kind AS sk WHERE s.kind_id=sk.id AND sk.weight=12 and _vendor_ids LIKE CONCAT('%,',s.vendor_id,',%')) AS shell_12t ON wdet.shell_id=shell_12t.id
 	LEFT JOIN (SELECT s.id FROM shell AS s, shell_kind AS sk WHERE s.kind_id=sk.id AND sk.weight=45) AS shell_45 ON wdet.shell_id=shell_45.id
 	WHERE DATE(w.created_date) >= STR_TO_DATE(_start_date,'%d/%m/%Y') AND DATE(w.created_date) <= STR_TO_DATE(_end_date,'%d/%m/%Y')
 		AND w.id=wdet.gas_wholesale_id 
@@ -4138,7 +4216,7 @@ DELIMITER ;
 
 DELIMITER $$
 
-/*!50003 CREATE DEFINER=`root`@`localhost` PROCEDURE `report_sale_customer`(IN _start_date VARCHAR(20), IN _end_date VARCHAR(20), IN _organization_ids TEXT)
+/*!50003 CREATE DEFINER=`root`@`localhost` PROCEDURE `report_sale_customer`(IN _start_date VARCHAR(20), IN _end_date VARCHAR(20), IN _organization_ids TEXT, IN _vendor_ids TEXT)
 BEGIN
 	DECLARE _from_date, _pre_date DATE;
 	
@@ -4158,12 +4236,13 @@ BEGIN
 	, SUM(IF(return_shell_45.shell_id IS NOT NULL, return_shell_45.quantity,0)) AS shell_return_45
 	, w.total, w.debt
 	FROM gas_wholesale AS w, gas_wholesale_detail AS wdet
-	LEFT JOIN (SELECT s.id FROM shell AS s, shell_kind AS sk WHERE s.kind_id=sk.id AND sk.weight=12) AS shell_12 ON wdet.shell_id=shell_12.id
-	LEFT JOIN (SELECT s.id FROM shell AS s, shell_kind AS sk WHERE s.kind_id=sk.id AND sk.weight=45) AS shell_45 ON wdet.shell_id=shell_45.id
+	left join shell_vendor AS sv on wdet.shell_id=sv.id
+	LEFT JOIN (SELECT s.id FROM shell AS s, shell_kind AS sk WHERE s.kind_id=sk.id AND sk.weight=12) AS shell_12 ON sv.shell_id=shell_12.id
+	LEFT JOIN (SELECT s.id FROM shell AS s, shell_kind AS sk WHERE s.kind_id=sk.id AND sk.weight=45) AS shell_45 ON sv.shell_id=shell_45.id
 	LEFT JOIN gas_wholesale_return_shell AS return_shell_12 ON return_shell_12.gas_wholesale_id=wdet.gas_wholesale_id AND return_shell_12.shell_id=shell_12.id
 	LEFT JOIN gas_wholesale_return_shell AS return_shell_45 ON return_shell_45.gas_wholesale_id=wdet.gas_wholesale_id AND return_shell_45.shell_id=shell_45.id
 	WHERE DATE(w.created_date) >= STR_TO_DATE(_start_date,'%d/%m/%Y') AND DATE(w.created_date) <= STR_TO_DATE(_end_date,'%d/%m/%Y')
-		AND w.id=wdet.gas_wholesale_id
+		AND w.id=wdet.gas_wholesale_id AND _vendor_ids LIKE CONCAT('%,',sv.vendor_id,',%')
 	group by w.id
 	) AS tbl on c.id=tbl.customer_id
 	left join
@@ -4188,15 +4267,11 @@ BEGIN
 	
 	select STR_TO_DATE(_start_date,'%d/%m/%Y') into _from_date;
 	
-	SELECT coalesce(sum(ss.gas_in_stock),0) INTO _gas_12_stock 
-	from shell_in_stock as ss, shell as s, shell_kind as sk
-	where DATEDIFF(_from_date,ss.`day`)=1 and ss.shell_id=s.id and s.kind_id=sk.id AND sk.weight=12
-		and _vendor_ids LIKE CONCAT('%,',s.vendor_id,',%');
-	
-	SELECT coalesce(sum(ss.gas_in_stock),0) INTO _gas_45_stock 
-	from shell_in_stock as ss, shell as s, shell_kind as sk
-	where DATEDIFF(_from_date,ss.`day`)=1 and ss.shell_id=s.id and s.kind_id=sk.id and sk.weight=45
-		AND _vendor_ids LIKE CONCAT('%,',s.vendor_id,',%');
+	SELECT SUM(IF(shell_12.id IS NOT NULL, ss.gas_in_stock,0)), SUM(IF(shell_45.id IS NOT NULL, ss.gas_in_stock,0)) INTO _gas_12_stock, _gas_45_stock 
+	FROM shell_in_stock AS ss
+	LEFT JOIN (SELECT s.id FROM shell AS s, shell_kind AS sk WHERE s.kind_id=sk.id AND sk.weight=12) AS shell_12 ON ss.shell_id=shell_12.id
+	LEFT JOIN (SELECT s.id FROM shell AS s, shell_kind AS sk WHERE s.kind_id=sk.id AND sk.weight=45) AS shell_45 ON ss.shell_id=shell_45.id
+	WHERE DATEDIFF(_from_date,ss.`day`)=1 and _vendor_ids LIKE CONCAT('%,',ss.vendor_id,',%');
 	
 	SELECT created_date AS content, created_date, SUM(fraction_12) AS fraction_12, SUM(fraction_45) AS fraction_45
 		, SUM(vehicle_out_12) AS vehicle_out_12, SUM(vehicle_out_45) AS vehicle_out_45
@@ -4208,33 +4283,33 @@ BEGIN
 		, 0 AS vehicle_out_12, 0 AS vehicle_out_45
 		, 0 AS vehicle_in_12, 0 AS vehicle_in_45
 		, 0 AS shell_12_return, 0 AS shell_45_return
-	FROM fraction_gas AS pdet, fraction_gas_detail AS det
-	LEFT JOIN (SELECT s.id FROM shell AS s, shell_kind AS sk WHERE s.kind_id=sk.id AND sk.weight=12 AND _vendor_ids LIKE CONCAT('%,',s.vendor_id,',%')) AS shell_12 ON det.shell_id=shell_12.id
-	LEFT JOIN (SELECT s.id FROM shell AS s, shell_kind AS sk WHERE s.kind_id=sk.id AND sk.weight=45 AND _vendor_ids LIKE CONCAT('%,',s.vendor_id,',%')) AS shell_45 ON det.shell_id=shell_45.id
+	FROM fraction_gas AS pdet, fraction_gas_detail AS det, shell_vendor AS sv
+	LEFT JOIN (SELECT s.id FROM shell AS s, shell_kind AS sk WHERE s.kind_id=sk.id AND sk.weight=12) AS shell_12 ON sv.shell_id=shell_12.id
+	LEFT JOIN (SELECT s.id FROM shell AS s, shell_kind AS sk WHERE s.kind_id=sk.id AND sk.weight=45) AS shell_45 ON sv.shell_id=shell_45.id
 	WHERE DATE(pdet.created_date) >= STR_TO_DATE(_start_date,'%d/%m/%Y') AND DATE(pdet.created_date) <= STR_TO_DATE(_end_date,'%d/%m/%Y')
-			and pdet.id=det.fraction_id
+			and pdet.id=det.fraction_id AND det.shell_id=sv.id AND _vendor_ids LIKE CONCAT('%,',sv.vendor_id,',%')
 	GROUP BY pdet.created_date, det.shell_id
 	UNION ALL
 	SELECT pdet.created_date, 0 AS fraction_12, 0 AS fraction_45
 		, SUM(IF(shell_12.id IS NOT NULL, det.quantity,0)) AS vehicle_out_12, SUM(IF(shell_45.id IS NOT NULL, det.quantity,0)) AS vehicle_out_45
 		, 0 AS vehicle_in_12, 0 AS vehicle_in_45
 		, 0 AS shell_12_return, 0 AS shell_45_return
-	FROM vehicle_out AS pdet, vehicle_out_detail AS det
-	LEFT JOIN (SELECT s.id FROM shell AS s, shell_kind AS sk WHERE s.kind_id=sk.id AND sk.weight=12 AND _vendor_ids LIKE CONCAT('%,',s.vendor_id,',%')) AS shell_12 ON det.shell_id=shell_12.id
-	LEFT JOIN (SELECT s.id FROM shell AS s, shell_kind AS sk WHERE s.kind_id=sk.id AND sk.weight=45 AND _vendor_ids LIKE CONCAT('%,',s.vendor_id,',%')) AS shell_45 ON det.shell_id=shell_45.id
+	FROM vehicle_out AS pdet, vehicle_out_detail AS det, shell_vendor AS sv
+	LEFT JOIN (SELECT s.id FROM shell AS s, shell_kind AS sk WHERE s.kind_id=sk.id AND sk.weight=12) AS shell_12 ON sv.shell_id=shell_12.id
+	LEFT JOIN (SELECT s.id FROM shell AS s, shell_kind AS sk WHERE s.kind_id=sk.id AND sk.weight=45) AS shell_45 ON sv.shell_id=shell_45.id
 	WHERE DATE(pdet.created_date) >= STR_TO_DATE(_start_date,'%d/%m/%Y') AND DATE(pdet.created_date) <= STR_TO_DATE(_end_date,'%d/%m/%Y')
-		AND det.vehicle_out_id=pdet.id
+		AND det.vehicle_out_id=pdet.id AND det.shell_id=sv.id AND _vendor_ids LIKE CONCAT('%,',sv.vendor_id,',%')
 	GROUP BY pdet.created_date, det.shell_id
 	UNION ALL
 	SELECT pdet.created_date, 0 AS fraction_12, 0 AS fraction_45
 		, 0 AS vehicle_out_12, 0 AS vehicle_out_45
 		, SUM(IF(shell_12.id IS NOT NULL, det.quantity,0)) AS vehicle_in_12, SUM(IF(shell_45.id IS NOT NULL, det.quantity,0)) AS vehicle_in_45
 		, 0 AS shell_12_return, 0 AS shell_45_return
-	FROM vehicle_in AS pdet, vehicle_in_detail AS det
-	LEFT JOIN (SELECT s.id FROM shell AS s, shell_kind AS sk WHERE s.kind_id=sk.id AND sk.weight=12 AND _vendor_ids LIKE CONCAT('%,',s.vendor_id,',%')) AS shell_12 ON det.shell_id=shell_12.id
-	LEFT JOIN (SELECT s.id FROM shell AS s, shell_kind AS sk WHERE s.kind_id=sk.id AND sk.weight=45 AND _vendor_ids LIKE CONCAT('%,',s.vendor_id,',%')) AS shell_45 ON det.shell_id=shell_45.id
+	FROM vehicle_in AS pdet, vehicle_in_detail AS det, shell_vendor AS sv
+	LEFT JOIN (SELECT s.id FROM shell AS s, shell_kind AS sk WHERE s.kind_id=sk.id AND sk.weight=12) AS shell_12 ON sv.shell_id=shell_12.id
+	LEFT JOIN (SELECT s.id FROM shell AS s, shell_kind AS sk WHERE s.kind_id=sk.id AND sk.weight=45) AS shell_45 ON sv.shell_id=shell_45.id
 	WHERE DATE(pdet.created_date) >= STR_TO_DATE(_start_date,'%d/%m/%Y') AND DATE(pdet.created_date) <= STR_TO_DATE(_end_date,'%d/%m/%Y')
-		AND det.vehicle_in_id=pdet.id
+		AND det.vehicle_in_id=pdet.id AND det.shell_id=sv.id AND _vendor_ids LIKE CONCAT('%,',sv.vendor_id,',%')
 	GROUP BY pdet.created_date, det.shell_id
 	UNION ALL
 	SELECT pdet.created_date, 0 AS fraction_12, 0 AS fraction_45
@@ -5691,7 +5766,7 @@ DELIMITER ;
 DELIMITER $$
 
 /*!50003 CREATE DEFINER=`root`@`localhost` PROCEDURE `updateShellImport`(IN _id INT, IN _shell_id INT, IN _created_date VARCHAR(20), IN _quantity INT
-	, IN _price DOUBLE, IN _amount DOUBLE, IN _account_id int, IN _note TEXT)
+	, IN _price DOUBLE, IN _amount DOUBLE, IN _account_id int, IN _note TEXT, in _vendor_id int)
 BEGIN
 	UPDATE shell_import SET shell_id=_shell_id
 		, created_date=STR_TO_DATE(_created_date,'%d/%m/%Y')
@@ -5700,6 +5775,7 @@ BEGIN
 		, amount=_amount
 		,account_id=_account_id
 		, note=_note
+		, vendor_id=_vendor_id
 	WHERE id=_id;
     END */$$
 DELIMITER ;
@@ -5755,6 +5831,18 @@ DELIMITER $$
 /*!50003 CREATE DEFINER=`root`@`localhost` PROCEDURE `updateShellReturnSupplierDetail`(IN _id INT, IN _quantity INT)
 BEGIN
 	UPDATE shell_return_supplier_detail SET quantity=_quantity WHERE id=_id;
+    END */$$
+DELIMITER ;
+
+/* Procedure structure for procedure `updateShellVendorDetail` */
+
+/*!50003 DROP PROCEDURE IF EXISTS  `updateShellVendorDetail` */;
+
+DELIMITER $$
+
+/*!50003 CREATE DEFINER=`root`@`localhost` PROCEDURE `updateShellVendorDetail`(IN _id INT, IN _vendor_id INT)
+BEGIN
+	update shell_vendor set vendor_id=_vendor_id where id=_id;
     END */$$
 DELIMITER ;
 

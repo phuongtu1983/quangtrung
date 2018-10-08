@@ -6,7 +6,7 @@ package com.stepup.gasoline.qt.fraction;
 
 import com.stepup.core.util.NumberUtil;
 import com.stepup.gasoline.qt.bean.FractionDetailBean;
-import com.stepup.gasoline.qt.bean.ShellBean;
+import com.stepup.gasoline.qt.bean.ShellVendorDetailBean;
 import com.stepup.gasoline.qt.core.SpineAction;
 import com.stepup.gasoline.qt.dao.GoodDAO;
 import com.stepup.gasoline.qt.util.Constants;
@@ -40,10 +40,13 @@ public class GetFractionShellAction extends SpineAction {
         FractionDetailBean bean = new FractionDetailBean();
         try {
             GoodDAO goodDAO = new GoodDAO();
-            ShellBean shellBean = goodDAO.getShell(shellId);
-            if (shellBean != null) {
-                bean.setShellName(shellBean.getName());
-                bean.setShellId(shellBean.getId());
+            ShellVendorDetailBean shellVendorBean = goodDAO.getShellVendor(shellId);
+            if (shellVendorBean == null) {
+                shellVendorBean = new ShellVendorDetailBean();
+            }
+            if (bean != null) {
+                bean.setShellName(shellVendorBean.getName());
+                bean.setShellId(shellVendorBean.getId());
             }
         } catch (Exception ex) {
         }

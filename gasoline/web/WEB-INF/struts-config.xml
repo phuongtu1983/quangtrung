@@ -247,6 +247,9 @@
         </action>
         <action path="/addShell" name ="shellForm" scope="request" type="com.stepup.gasoline.qt.shell.AddShellAction" input="/shellForm.do">
         </action>
+        <action path="/getShellVendor" type="com.stepup.gasoline.qt.shell.GetShellVendorAction" scope="request" validate="false">
+            <forward name="success" path="/shell/vendors.jsp" />
+        </action>
         <!-- end shell -->
         <!-- start vendor -->
         <action path="/getVendorPanel" type="com.stepup.gasoline.qt.common.BaseStatusFormAction" scope="request" validate="false">

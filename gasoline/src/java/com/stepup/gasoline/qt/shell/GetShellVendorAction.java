@@ -2,14 +2,15 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
-package com.stepup.gasoline.qt.vehiclein;
+package com.stepup.gasoline.qt.shell;
 
 import com.stepup.core.util.NumberUtil;
-import com.stepup.gasoline.qt.bean.ShellBean;
-import com.stepup.gasoline.qt.bean.ShellVendorDetailBean;
 import com.stepup.gasoline.qt.core.SpineAction;
-import com.stepup.gasoline.qt.dao.GoodDAO;
+import com.stepup.gasoline.qt.dao.EmployeeDAO;
+import com.stepup.gasoline.qt.dao.VendorDAO;
+import com.stepup.gasoline.qt.employee.EmployeeFormBean;
 import com.stepup.gasoline.qt.util.Constants;
+import com.stepup.gasoline.qt.vendor.VendorFormBean;
 import java.util.ArrayList;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -20,7 +21,7 @@ import org.apache.struts.action.ActionMapping;
  *
  * @author phuongtu
  */
-public class GetVehicleInGoodAction extends SpineAction {
+public class GetShellVendorAction extends SpineAction {
 
     /**
      * This is the action called from the Struts framework.
@@ -35,24 +36,16 @@ public class GetVehicleInGoodAction extends SpineAction {
     @Override
     public boolean doAction(ActionMapping mapping, ActionForm form,
             HttpServletRequest request, HttpServletResponse response) {
-        int shellId = NumberUtil.parseInt(request.getParameter("shellId"), 0);
+        int vendorId = NumberUtil.parseInt(request.getParameter("vendorId"), 0);
         ArrayList arrDetail = new ArrayList();
         try {
-            GoodDAO goodDAO = new GoodDAO();
-            ShellVendorDetailBean shellVendorBean = goodDAO.getShellVendor(shellId);
-            if (shellVendorBean == null) {
-                shellVendorBean = new ShellVendorDetailBean();
-            }
-            ShellBean bean = goodDAO.getShell(shellVendorBean.getShellId());
-            if (bean != null) {
-                bean.setName(shellVendorBean.getName());
-                bean.setId(shellVendorBean.getId());
-            }
+            VendorDAO vendorDAO = new VendorDAO();
+            VendorFormBean bean = vendorDAO.getVendor(vendorId);
             arrDetail.add(bean);
         } catch (Exception ex) {
         }
 
-        request.setAttribute(Constants.VEHICLE_IN_SHELL, arrDetail);
+        request.setAttribute(Constants.SHELL_VENDOR, arrDetail);
 
         return true;
     }

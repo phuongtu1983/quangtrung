@@ -20,9 +20,6 @@
                 <html:select property="customerId" name="<%=Constants.EXPORT_WHOLESALE%>" style="width:195px" styleId="exportWholesaleCustomerId">
                     <html:options collection="<%=Constants.CUSTOMER_LIST%>" property="id" labelProperty="name"/>
                 </html:select>
-                <%if (PermissionUtil.hasPermission(request, PermissionUtil.OPERATION_ADD, PermissionUtil.PER_EXPORT_WHOLESALE)) {%> 
-                <button class="i_create_write icon small green" onclick="return addCustomerExportWholesale()"><bean:message key="message.add"/></button>
-                <%}%>
             </td>
             <td style="padding-right: 20px;padding-left: 10px"><bean:message key="total.title"/></td>
             <td colspan="3"><html:text property="total" size="30" name="<%=Constants.EXPORT_WHOLESALE%>" readonly="true"/></td>
@@ -58,9 +55,7 @@
                     <table>
                         <tr>
                             <td>
-                                <logic:equal name="<%=Constants.EXPORT_WHOLESALE%>" property="id" value="0">
-                                    <button class="i_cross icon small red" onclick="return delTableRow('exportWholesaleForm', 'exportWholesaleGoodChk', 'exportWholesaleDetailTbl');"><bean:message key="message.del"/></button>
-                                </logic:equal>
+                                <button class="i_cross icon small red" onclick="return delTableRow('exportWholesaleForm', 'exportWholesaleGoodChk', 'exportWholesaleDetailTbl');"><bean:message key="message.del"/></button>
                                 <button class="i_plus icon small green" onclick="return addExportWholesaleGood();"><bean:message key="message.add"/></button>
                             </td>
                             <td>
@@ -83,14 +78,12 @@
                     <table>
                         <tr>
                             <td>
-                                <logic:equal name="<%=Constants.EXPORT_WHOLESALE%>" property="id" value="0">
-                                    <button class="i_cross icon small red" onclick="return delTableRow('exportWholesaleForm', 'exportWholesaleReturnShellChk', 'exportWholesaleReturnShellDetailTbl');"><bean:message key="message.del"/></button>
-                                </logic:equal>
+                                <button class="i_cross icon small red" onclick="return delTableRow('exportWholesaleForm', 'exportWholesaleReturnShellChk', 'exportWholesaleReturnShellDetailTbl');"><bean:message key="message.del"/></button>
                                 <button class="i_plus icon small green" onclick="return addExportWholesaleReturnShell();"><bean:message key="message.add"/></button>
                             </td>
                             <td>
                                 <select style="width: 260px;" name="returnShellIdCombobox" id="returnShellIdCombobox">
-                                    <logic:iterate id="returnShell_iter" name="<%=Constants.SHELL_LIST%>">
+                                    <logic:iterate id="returnShell_iter" name="<%=Constants.SHELL_RETURN_LIST%>">
                                         <option  value="${returnShell_iter.id}">${returnShell_iter.name}</option>
                                     </logic:iterate>
                                 </select>

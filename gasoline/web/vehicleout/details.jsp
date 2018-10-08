@@ -6,7 +6,7 @@
     <thead>
         <tr>
             <td width="30px"><bean:message key="message.del"/></td>
-            <td width="170px"><bean:message key="accessory.title"/></td>
+            <td width="170px"><bean:message key="shell.title"/></td>
             <td width="100px"><bean:message key="unit.title"/></td>
             <td width="100px"><bean:message key="quantity.title"/></td>
             <td width="100px"><bean:message key="price.title"/></td>
@@ -20,7 +20,7 @@
                 <td>
                     <input type="checkbox" name="vehicleOutGoodChk" tabindex="-1" value="<%=((VehicleOutDetailBean) pageContext.getAttribute("good")).getId()%>">
                     <input type="hidden" name="vehicleOutDetailId" value='<bean:write name="good" property="id"/>'/>
-                    <input type="hidden" name="shellId" value='<bean:write name="good" property="id"/>'/>
+                    <input type="hidden" name="shellId" value='<bean:write name="good" property="shellId"/>'/>
                 </td>
                 <td><span><bean:write name="good" property="shellName"/></span></td>
                 <td><span><bean:write name="good" property="unitName"/></span></td>

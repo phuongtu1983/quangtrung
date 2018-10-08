@@ -61,7 +61,7 @@ function menuClick(id) {
     else if (id == 'shelllist')
         loadShellPanel();
     else if (id == 'shelladd')
-        getShell(0, 'loadShellPanel');
+        getShell(0);
     else if (id == 'vendorlist')
         loadVendorPanel();
     else if (id == 'vendoradd')
@@ -1394,6 +1394,7 @@ function loadShellPanel() {
         setAjaxData(data, "contentDiv");
         loadShellList();
     });
+    return false;
 }
 function loadShellList() {
     var mygrid = new dhtmlXGridObject('shellList');
@@ -1420,18 +1421,60 @@ function loadShellList() {
     });
     return false;
 }
-function getShell(id, handle) {
-    popupName = 'TH\u00D4NG TIN V\u1ECE B\u00CCNH';
+function getShell(id) {
     var url = 'shellForm.do';
     if (id != 0)
         url += '?shellId=' + id
     callAjax(url, null, null, function(data) {
-        showPopupForm(data);
-        document.getElementById('callbackFunc').value = handle;
+        clearContent();
+        setAjaxData(data, 'contentDiv');
         document.forms['shellForm'].code.focus();
         tryNumberFormatCurrentcy(document.forms['shellForm'].price, "VND");
     });
 }
+function addShellVendor() {
+    var vendor = document.forms['shellForm'].vendorIdCombobox;
+    if (vendor == null && vendor.selectedIndex == -1)
+        vendor = null;
+    else
+        vendor = vendor.options[vendor.selectedIndex].value;
+    if (vendor == -1 || vendor == 0)
+        return false;
+    var vendorId = document.forms['shellForm'].shellVendorId;
+    var existed = false;
+    if (vendorId != null) {
+        if (vendorId.length != null) {
+            for (i = 0; i < vendorId.length; i++) {
+                if (vendorId[i].value == vendor) {
+                    existed = true;
+                    break;
+                }
+            }
+        } else if (vendorId.value == vendor)
+            existed = true;
+    }
+    vendorId = null;
+    if (existed == true) {
+        alert("Nh\u00E0 cung c\u1EA5p \u0111\u00E3 t\u1ED3n t\u1EA1i");
+        return false;
+    }
+    callAjax("getShellVendor.do?vendorId=" + vendor, null, null, function(data) {
+        setAjaxData(data, 'shellVendorHideDiv');
+        var matTable = document.getElementById('shellVendorTbl');
+        var detTable = document.getElementById('shellVendorDetailTbl');
+        if (matTable.tBodies[0] == null || detTable.tBodies[0] == null) {
+            matTable = null;
+            detTable = null;
+            return;
+        }
+        for (var i = matTable.tBodies[0].rows.length - 1; i >= 0; i--)
+            detTable.tBodies[0].appendChild(matTable.tBodies[0].rows[i]);
+        matTable = null;
+        detTable = null;
+    });
+    return false;
+}
+
 function saveShell() {
     if (scriptFunction == "saveShell")
         return false;
@@ -1454,12 +1497,10 @@ function saveShell() {
     scriptFunction = "saveShell";
     callAjaxCheckError("addShell.do", null, document.forms['shellForm'], function(data) {
         scriptFunction = "";
-        var handle = document.getElementById('callbackFunc').value;
         if (confirm('B\u1EA1n c\u00F3 mu\u1ED1n nh\u1EADp ti\u1EBFp th\u00F4ng tin kh\u00E1c ?'))
-            getShell(0, handle);
-        else if (handle != '')
-            eval(handle + "()");
-        prepareHidePopup('shellFormshowHelpHideDiv');
+            getShell(0);
+        else
+            loadShellPanel();
     });
     return false;
 }
@@ -2945,7 +2986,7 @@ function lpgImportCaculateAmount() {
     var amount = document.forms['lpgImportForm'].total;
     var paid = document.forms['lpgImportForm'].paid;
     var debt = document.forms['lpgImportForm'].debt;
-    amount.value = reformatNumberMoneyString(quantity.value) * 1 * reformatNumberMoneyString(price.value) * 1 * reformatNumberMoneyString(rate.value) * 1/1000;
+    amount.value = reformatNumberMoneyString(quantity.value) * 1 * reformatNumberMoneyString(price.value) * 1 * reformatNumberMoneyString(rate.value) * 1 / 1000;
     paid.value = amount.value;
     debt.value = 0;
     tryNumberFormatCurrentcy(quantity, "VND");
@@ -6084,7 +6125,6 @@ function addVehicleOutEmployee() {
             detTable.tBodies[0].appendChild(matTable.tBodies[0].rows[i]);
         matTable = null;
         detTable = null;
-        formatFormDetail('vehicleOutForm');
     });
     return false;
 }

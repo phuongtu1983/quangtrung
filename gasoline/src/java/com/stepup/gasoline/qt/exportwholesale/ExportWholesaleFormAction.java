@@ -13,6 +13,7 @@ import com.stepup.gasoline.qt.dao.AccountDAO;
 import com.stepup.gasoline.qt.dao.CustomerDAO;
 import com.stepup.gasoline.qt.dao.GasDAO;
 import com.stepup.gasoline.qt.dao.GoodDAO;
+import com.stepup.gasoline.qt.dao.VendorDAO;
 import com.stepup.gasoline.qt.util.Constants;
 import com.stepup.gasoline.qt.util.QTUtil;
 import java.util.ArrayList;
@@ -82,11 +83,14 @@ public class ExportWholesaleFormAction extends SpineAction {
             arrReturnShelDetail = new ArrayList();
         }
         request.setAttribute(Constants.EXPORT_WHOLESALE_RETURN, arrReturnShelDetail);
-
+        
+        String organizationIds = QTUtil.getOrganizationManageds(request.getSession());
         ArrayList arrShell = null;
         try {
             GoodDAO goodDAO = new GoodDAO();
-            arrShell = goodDAO.getShells(EmployeeBean.STATUS_ACTIVE);
+            VendorDAO vendorDAO = new VendorDAO();
+            String vendorIds = vendorDAO.getVendorOfOrganizations(organizationIds);
+            arrShell = goodDAO.getShellVendor(vendorIds);
         } catch (Exception ex) {
         }
         if (arrShell == null) {
@@ -94,7 +98,17 @@ public class ExportWholesaleFormAction extends SpineAction {
         }
         request.setAttribute(Constants.SHELL_LIST, arrShell);
 
-        String organizationIds = QTUtil.getOrganizationManageds(request.getSession());
+        ArrayList arrShellReturn = null;
+        try {
+            GoodDAO goodDAO = new GoodDAO();
+            arrShellReturn = goodDAO.getShells(EmployeeBean.STATUS_ACTIVE);
+        } catch (Exception ex) {
+        }
+        if (arrShellReturn == null) {
+            arrShellReturn = new ArrayList();
+        }
+        request.setAttribute(Constants.SHELL_RETURN_LIST, arrShellReturn);
+
         ArrayList arrAccount = null;
         try {
             AccountDAO accountDAO = new AccountDAO();

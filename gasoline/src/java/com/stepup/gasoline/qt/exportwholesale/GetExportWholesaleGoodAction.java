@@ -6,6 +6,7 @@ package com.stepup.gasoline.qt.exportwholesale;
 
 import com.stepup.core.util.NumberUtil;
 import com.stepup.gasoline.qt.bean.ShellBean;
+import com.stepup.gasoline.qt.bean.ShellVendorDetailBean;
 import com.stepup.gasoline.qt.core.SpineAction;
 import com.stepup.gasoline.qt.dao.GoodDAO;
 import com.stepup.gasoline.qt.util.Constants;
@@ -38,7 +39,15 @@ public class GetExportWholesaleGoodAction extends SpineAction {
         ArrayList arrDetail = new ArrayList();
         try {
             GoodDAO goodDAO = new GoodDAO();
-            ShellBean bean = goodDAO.getShell(shellId);
+            ShellVendorDetailBean shellVendorBean = goodDAO.getShellVendor(shellId);
+            if (shellVendorBean == null) {
+                shellVendorBean = new ShellVendorDetailBean();
+            }
+            ShellBean bean = goodDAO.getShell(shellVendorBean.getShellId());
+            if (bean != null) {
+                bean.setName(shellVendorBean.getName());
+                bean.setId(shellVendorBean.getId());
+            }
             arrDetail.add(bean);
         } catch (Exception ex) {
         }

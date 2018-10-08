@@ -84,49 +84,59 @@ public class AddExportWholesaleAction extends SpineAction {
         try {
             GasDAO gasDAO = new GasDAO();
             ArrayList arrDetail = gasDAO.getExportWholesaleDetail(formBean.getId());
-            int length = formBean.getShellId().length;
-            int id = 0;
-            boolean isUpdate = false;
-            for (int i = 0; i < length; i++) {
-                id = NumberUtil.parseInt(formBean.getExportWholesaleDetailId()[i], 0);
-                if (id == 0) {
-                    ExportWholesaleDetailBean bean = new ExportWholesaleDetailBean();
-                    bean.setShellId(NumberUtil.parseInt(formBean.getShellId()[i], 0));
-                    bean.setQuantity(NumberUtil.parseInt(formBean.getQuantity()[i], 0));
-                    bean.setPrice(NumberUtil.parseDouble(formBean.getPrice()[i], 0));
-                    bean.setAmount(NumberUtil.parseDouble(formBean.getAmount()[i], 0));
-                    bean.setExportWholesaleId(formBean.getId());
-                    gasDAO.insertExportWholesaleDetail(bean);
-                } else {
-                    isUpdate = false;
-                    int j = 0;
-                    ExportWholesaleDetailBean oldBean = null;
-                    for (; j < arrDetail.size(); j++) {
-                        oldBean = (ExportWholesaleDetailBean) arrDetail.get(j);
-                        if (oldBean.getId() == id) {
-                            break;
+            if (formBean.getShellId() != null) {
+                int length = formBean.getShellId().length;
+                int id = 0;
+                boolean isUpdate = false;
+                for (int i = 0; i < length; i++) {
+                    id = NumberUtil.parseInt(formBean.getExportWholesaleDetailId()[i], 0);
+                    if (id == 0) {
+                        ExportWholesaleDetailBean bean = new ExportWholesaleDetailBean();
+                        bean.setShellId(NumberUtil.parseInt(formBean.getShellId()[i], 0));
+                        bean.setQuantity(NumberUtil.parseInt(formBean.getQuantity()[i], 0));
+                        bean.setPrice(NumberUtil.parseDouble(formBean.getPrice()[i], 0));
+                        bean.setAmount(NumberUtil.parseDouble(formBean.getAmount()[i], 0));
+                        bean.setExportWholesaleId(formBean.getId());
+                        gasDAO.insertExportWholesaleDetail(bean);
+                    } else {
+                        isUpdate = false;
+                        int j = 0;
+                        ExportWholesaleDetailBean oldBean = null;
+                        for (; j < arrDetail.size(); j++) {
+                            oldBean = (ExportWholesaleDetailBean) arrDetail.get(j);
+                            if (oldBean.getId() == id) {
+                                break;
+                            }
                         }
-                    }
-                    if (j < arrDetail.size()) {
-                        arrDetail.remove(j);
-                        if (oldBean.getQuantity() != NumberUtil.parseInt(formBean.getQuantity()[i], 0)) {
-                            isUpdate = true;
-                            oldBean.setQuantity(NumberUtil.parseInt(formBean.getQuantity()[i], 0));
-                        }
-                        if (oldBean.getPrice() != NumberUtil.parseDouble(formBean.getPrice()[i], 0)) {
-                            isUpdate = true;
-                            oldBean.setPrice(NumberUtil.parseDouble(formBean.getPrice()[i], 0));
-                        }
-                        if (oldBean.getAmount() != NumberUtil.parseDouble(formBean.getAmount()[i], 0)) {
-                            isUpdate = true;
-                            oldBean.setAmount(NumberUtil.parseDouble(formBean.getAmount()[i], 0));
-                        }
-                        if (isUpdate) {
-                            gasDAO.updateExportWholesaleDetail(oldBean);
+                        if (j < arrDetail.size()) {
+                            arrDetail.remove(j);
+                            if (oldBean.getQuantity() != NumberUtil.parseInt(formBean.getQuantity()[i], 0)) {
+                                isUpdate = true;
+                                oldBean.setQuantity(NumberUtil.parseInt(formBean.getQuantity()[i], 0));
+                            }
+                            if (oldBean.getPrice() != NumberUtil.parseDouble(formBean.getPrice()[i], 0)) {
+                                isUpdate = true;
+                                oldBean.setPrice(NumberUtil.parseDouble(formBean.getPrice()[i], 0));
+                            }
+                            if (oldBean.getAmount() != NumberUtil.parseDouble(formBean.getAmount()[i], 0)) {
+                                isUpdate = true;
+                                oldBean.setAmount(NumberUtil.parseDouble(formBean.getAmount()[i], 0));
+                            }
+                            if (isUpdate) {
+                                gasDAO.updateExportWholesaleDetail(oldBean);
+                            }
                         }
                     }
                 }
             }
+            String ids = "0,";
+            ExportWholesaleDetailBean oldBean = null;
+            for (int i = 0; i < arrDetail.size(); i++) {
+                oldBean = (ExportWholesaleDetailBean) arrDetail.get(i);
+                ids += oldBean.getId() + ",";
+            }
+            ids += "0";
+            gasDAO.deleteExportWholesaleDetails(ids);
         } catch (Exception ex) {
         }
     }
@@ -135,43 +145,53 @@ public class AddExportWholesaleAction extends SpineAction {
         try {
             GasDAO gasDAO = new GasDAO();
             ArrayList arrDetail = gasDAO.getExportWholesaleReturnShellDetail(formBean.getId());
-            int length = formBean.getReturnShellId().length;
-            int id = 0;
-            boolean isUpdate = false;
-            for (int i = 0; i < length; i++) {
-                id = NumberUtil.parseInt(formBean.getExportWholesaleReturnShellDetailId()[i], 0);
-                if (id == 0) {
-                    ExportWholesaleReturnShellDetailBean bean = new ExportWholesaleReturnShellDetailBean();
-                    bean.setShellId(NumberUtil.parseInt(formBean.getReturnShellId()[i], 0));
-                    bean.setQuantity(NumberUtil.parseInt(formBean.getReturnShellQuantity()[i], 0));
-                    bean.setExportWholesaleId(formBean.getId());
-                    gasDAO.insertExportWholesaleReturnShellDetail(bean);
-                } else {
-                    isUpdate = false;
-                    int j = 0;
-                    ExportWholesaleReturnShellDetailBean oldBean = null;
-                    for (; j < arrDetail.size(); j++) {
-                        oldBean = (ExportWholesaleReturnShellDetailBean) arrDetail.get(j);
-                        if (oldBean.getId() == id) {
-                            break;
+            if (formBean.getReturnShellId() != null) {
+                int length = formBean.getReturnShellId().length;
+                int id = 0;
+                boolean isUpdate = false;
+                for (int i = 0; i < length; i++) {
+                    id = NumberUtil.parseInt(formBean.getExportWholesaleReturnShellDetailId()[i], 0);
+                    if (id == 0) {
+                        ExportWholesaleReturnShellDetailBean bean = new ExportWholesaleReturnShellDetailBean();
+                        bean.setShellId(NumberUtil.parseInt(formBean.getReturnShellId()[i], 0));
+                        bean.setQuantity(NumberUtil.parseInt(formBean.getReturnShellQuantity()[i], 0));
+                        bean.setExportWholesaleId(formBean.getId());
+                        gasDAO.insertExportWholesaleReturnShellDetail(bean);
+                    } else {
+                        isUpdate = false;
+                        int j = 0;
+                        ExportWholesaleReturnShellDetailBean oldBean = null;
+                        for (; j < arrDetail.size(); j++) {
+                            oldBean = (ExportWholesaleReturnShellDetailBean) arrDetail.get(j);
+                            if (oldBean.getId() == id) {
+                                break;
+                            }
                         }
-                    }
-                    if (j < arrDetail.size()) {
-                        arrDetail.remove(j);
-                        if (oldBean.getShellId() != NumberUtil.parseInt(formBean.getReturnShellId()[i], 0)) {
-                            isUpdate = true;
-                            oldBean.setShellId(NumberUtil.parseInt(formBean.getReturnShellId()[i], 0));
-                        }
-                        if (oldBean.getQuantity() != NumberUtil.parseInt(formBean.getReturnShellQuantity()[i], 0)) {
-                            isUpdate = true;
-                            oldBean.setQuantity(NumberUtil.parseInt(formBean.getReturnShellQuantity()[i], 0));
-                        }
-                        if (isUpdate) {
-                            gasDAO.updateExportWholesaleReturnShellDetail(oldBean);
+                        if (j < arrDetail.size()) {
+                            arrDetail.remove(j);
+                            if (oldBean.getShellId() != NumberUtil.parseInt(formBean.getReturnShellId()[i], 0)) {
+                                isUpdate = true;
+                                oldBean.setShellId(NumberUtil.parseInt(formBean.getReturnShellId()[i], 0));
+                            }
+                            if (oldBean.getQuantity() != NumberUtil.parseInt(formBean.getReturnShellQuantity()[i], 0)) {
+                                isUpdate = true;
+                                oldBean.setQuantity(NumberUtil.parseInt(formBean.getReturnShellQuantity()[i], 0));
+                            }
+                            if (isUpdate) {
+                                gasDAO.updateExportWholesaleReturnShellDetail(oldBean);
+                            }
                         }
                     }
                 }
             }
+            String ids = "0,";
+            ExportWholesaleReturnShellDetailBean oldBean = null;
+            for (int i = 0; i < arrDetail.size(); i++) {
+                oldBean = (ExportWholesaleReturnShellDetailBean) arrDetail.get(i);
+                ids += oldBean.getId() + ",";
+            }
+            ids += "0";
+            gasDAO.deleteExportWholesaleReturnShellDetails(ids);
         } catch (Exception ex) {
         }
     }

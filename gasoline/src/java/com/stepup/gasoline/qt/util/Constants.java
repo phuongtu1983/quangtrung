@@ -19,7 +19,9 @@ public class Constants {
     public static final String SHELL_KIND_LIST = "shellKindList";
     public static final String SHELL = "shell";
     public static final String SHELL_LIST = "shellList";
+    public static final String SHELL_RETURN_LIST = "shellReturnList";
     public static final String SHELL_IMPORT = "shellImport";
+    public static final String SHELL_VENDOR = "shellVendor";
     public static final String VENDOR = "vendor";
     public static final String VENDOR_ORGANIZATION = "vendorOrganization";
     public static final String VENDOR_ORGANIZATION_lIST = "vendorOrganizationList";

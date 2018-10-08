@@ -17,7 +17,7 @@
                 <td>
                     <input type="checkbox" name="vehicleOutEmployeeChk" tabindex="-1" value="<%=((VehicleOutEmployeeDetailBean) pageContext.getAttribute("employee")).getId()%>">
                     <input type="hidden" name="vehicleOutEmployeeDetailId" value='<bean:write name="employee" property="id"/>'/>
-                    <input type="hidden" name="employeeId" value='<bean:write name="employee" property="id"/>'/>
+                    <input type="hidden" name="employeeId" value='<bean:write name="employee" property="employeeId"/>'/>
                 </td>
                 <td><span><bean:write name="employee" property="employeeName"/></span></td>
                 <td><input type="text" size="50" name="employeeNote" value="${employee.note}"/></td>

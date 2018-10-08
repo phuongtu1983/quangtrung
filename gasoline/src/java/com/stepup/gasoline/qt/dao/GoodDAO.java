@@ -28,8 +28,10 @@ import com.stepup.gasoline.qt.bean.SalePetroDetailBean;
 import com.stepup.gasoline.qt.bean.ShellBean;
 import com.stepup.gasoline.qt.bean.ShellImportBean;
 import com.stepup.gasoline.qt.bean.ShellKindBean;
+import com.stepup.gasoline.qt.bean.ShellVendorDetailBean;
 import com.stepup.gasoline.qt.bean.ShieldDecreaseBean;
 import com.stepup.gasoline.qt.bean.ShieldImportBean;
+import com.stepup.gasoline.qt.bean.VehicleOutEmployeeDetailBean;
 import com.stepup.gasoline.qt.petro.PetroFormBean;
 import com.stepup.gasoline.qt.promotionmaterial.PromotionMaterialFormBean;
 import com.stepup.gasoline.qt.promotionmaterialimport.PromotionMaterialImportFormBean;
@@ -262,6 +264,97 @@ public class GoodDAO extends BasicDAO {
         return null;
     }
 
+    public ArrayList getShellVendorDetail(int shellId) throws Exception {
+        ResultSet rs = null;
+        String sql = "select sv.*, v.name as vendor_name, v.code as vendor_code, s.name as shell_name"
+                + " from shell_vendor as sv, vendor as v, shell as s"
+                + " where sv.vendor_id=v.id and sv.shell_id=s.id and sv.shell_id=" + shellId
+                + " order by sv.id";
+        ArrayList detailList = new ArrayList();
+        try {
+            rs = DBUtil.executeQuery(sql);
+            ShellVendorDetailBean bean = null;
+            while (rs.next()) {
+                bean = new ShellVendorDetailBean();
+                bean.setId(rs.getInt("id"));
+                bean.setShellId(rs.getInt("shell_id"));
+                bean.setVendorId(rs.getInt("vendor_id"));
+                bean.setVendorName(rs.getString("vendor_name"));
+                bean.setName(rs.getString("shell_name") + " - " + rs.getString("vendor_code"));
+                detailList.add(bean);
+            }
+        } catch (SQLException sqle) {
+            throw new Exception(sqle.getMessage());
+        } catch (Exception ex) {
+            throw new Exception(ex.getMessage());
+        } finally {
+            if (rs != null) {
+                DBUtil.closeConnection(rs);
+            }
+        }
+        return detailList;
+    }
+
+    public ArrayList getShellVendor(String vendorIds) throws Exception {
+        ResultSet rs = null;
+        String sql = "select sv.*, v.name as vendor_name, v.code as vendor_code, s.name as shell_name"
+                + " from shell_vendor as sv, vendor as v, shell as s"
+                + " where sv.vendor_id=v.id and sv.shell_id=s.id and sv.vendor_id in (" + vendorIds + ")"
+                + " order by sv.id";
+        ArrayList detailList = new ArrayList();
+        try {
+            rs = DBUtil.executeQuery(sql);
+            ShellVendorDetailBean bean = null;
+            while (rs.next()) {
+                bean = new ShellVendorDetailBean();
+                bean.setId(rs.getInt("id"));
+                bean.setShellId(rs.getInt("shell_id"));
+                bean.setVendorId(rs.getInt("vendor_id"));
+                bean.setVendorName(rs.getString("vendor_name"));
+                bean.setName(rs.getString("shell_name") + " - " + rs.getString("vendor_code"));
+                detailList.add(bean);
+            }
+        } catch (SQLException sqle) {
+            throw new Exception(sqle.getMessage());
+        } catch (Exception ex) {
+            throw new Exception(ex.getMessage());
+        } finally {
+            if (rs != null) {
+                DBUtil.closeConnection(rs);
+            }
+        }
+        return detailList;
+    }
+
+    public ShellVendorDetailBean getShellVendor(int shellVendorId) throws Exception {
+        ResultSet rs = null;
+        String sql = "select sv.*, v.name as vendor_name, v.code as vendor_code, s.name as shell_name"
+                + " from shell_vendor as sv, vendor as v, shell as s"
+                + " where sv.vendor_id=v.id and sv.shell_id=s.id and sv.id=" + shellVendorId;
+        try {
+            rs = DBUtil.executeQuery(sql);
+            ShellVendorDetailBean bean = null;
+            while (rs.next()) {
+                bean = new ShellVendorDetailBean();
+                bean.setId(rs.getInt("id"));
+                bean.setShellId(rs.getInt("shell_id"));
+                bean.setVendorId(rs.getInt("vendor_id"));
+                bean.setVendorName(rs.getString("vendor_name"));
+                bean.setName(rs.getString("shell_name") + " - " + rs.getString("vendor_code"));
+                return bean;
+            }
+        } catch (SQLException sqle) {
+            throw new Exception(sqle.getMessage());
+        } catch (Exception ex) {
+            throw new Exception(ex.getMessage());
+        } finally {
+            if (rs != null) {
+                DBUtil.closeConnection(rs);
+            }
+        }
+        return null;
+    }
+
     public ShellBean getShellByName(String name) throws Exception {
         ResultSet rs = null;
         String sql = "select * from shell where name='" + name + "'"
@@ -292,16 +385,17 @@ public class GoodDAO extends BasicDAO {
         return null;
     }
 
-    public void insertShell(ShellBean bean) throws Exception {
+    public int insertShell(ShellBean bean) throws Exception {
         if (bean == null) {
-            return;
+            return 0;
         }
+        int result = 0;
         try {
             String sql = "";
             sql = "Insert Into shell (name, code, kind_id, unit_id, price, status, vendor_id)"
                     + " Values ('" + bean.getName() + "','" + bean.getCode() + "'," + bean.getKindId() + "," + bean.getUnitId() + "," + bean.getPrice()
                     + "," + bean.getStatus() + "," + bean.getVendorId() + ")";
-            DBUtil.executeInsert(sql);
+            result = DBUtil.executeInsert(sql);
         } catch (SQLException sqle) {
             throw new Exception(sqle.getMessage());
         } catch (Exception ex) {
@@ -311,8 +405,8 @@ public class GoodDAO extends BasicDAO {
             } catch (Exception e) {
                 throw new Exception(e.getMessage());
             }
-
         }
+        return result;
     }
 
     public void updateShell(ShellBean bean) throws Exception {
@@ -340,6 +434,77 @@ public class GoodDAO extends BasicDAO {
                 throw new Exception(e.getMessage());
             }
         }
+    }
+
+    public int insertShellVendorDetail(ShellVendorDetailBean bean) throws Exception {
+        if (bean == null) {
+            return 0;
+        }
+        int result = 0;
+        SPUtil spUtil = null;
+        try {
+            String sql = "{call insertShellVendorDetail(?,?)}";
+            spUtil = new SPUtil(sql);
+            if (spUtil != null) {
+                spUtil.getCallableStatement().setInt("_shell_id", bean.getShellId());
+                spUtil.getCallableStatement().setInt("_vendor_id", bean.getVendorId());
+                spUtil.execute();
+            }
+        } catch (SQLException sqle) {
+            throw new Exception(sqle.getMessage());
+        } catch (Exception ex) {
+            throw new Exception(ex.getMessage());
+        } finally {
+            try {
+                if (spUtil != null) {
+                    spUtil.closeConnection();
+                }
+            } catch (Exception e) {
+                throw new Exception(e.getMessage());
+            }
+        }
+        return result;
+    }
+
+    public void updateShellVendorDetail(ShellVendorDetailBean bean) throws Exception {
+        if (bean == null) {
+            return;
+        }
+        SPUtil spUtil = null;
+        try {
+            String sql = "{call updateShellVendorDetail(?,?)}";
+            spUtil = new SPUtil(sql);
+            if (spUtil != null) {
+                spUtil.getCallableStatement().setInt("_id", bean.getId());
+                spUtil.getCallableStatement().setInt("_vendor_id", bean.getVendorId());
+                spUtil.execute();
+            }
+        } catch (SQLException sqle) {
+            throw new Exception(sqle.getMessage());
+        } catch (Exception ex) {
+            throw new Exception(ex.getMessage());
+        } finally {
+            try {
+                if (spUtil != null) {
+                    spUtil.closeConnection();
+                }
+            } catch (Exception e) {
+                throw new Exception(e.getMessage());
+            }
+        }
+    }
+
+    public int deleteShellVendors(String ids) throws Exception {
+        int result = 0;
+        try {
+            String sql = "Delete From shell_vendor Where id in (" + ids + ")";
+            DBUtil.executeUpdate(sql);
+        } catch (SQLException sqle) {
+            throw new Exception(sqle.getMessage());
+        } catch (Exception ex) {
+            throw new Exception(ex.getMessage());
+        }
+        return result;
     }
 
     public ArrayList getAccessoryKinds(int status) throws Exception {
@@ -973,6 +1138,7 @@ public class GoodDAO extends BasicDAO {
                 bean.setAccountId(rs.getInt("account_id"));
                 bean.setNote(rs.getString("note"));
                 bean.setCanEdit(rs.getInt("can_edit"));
+                bean.setVendorId(rs.getInt("vendor_id"));
                 return bean;
             }
         } catch (SQLException sqle) {
@@ -1000,7 +1166,7 @@ public class GoodDAO extends BasicDAO {
             } else {
                 createdDate = bean.getCreatedDate();
             }
-            String sql = "{call insertShellImport(?,?,?,?,?,?,?,?,?,?)}";
+            String sql = "{call insertShellImport(?,?,?,?,?,?,?,?,?,?,?)}";
             spUtil = new SPUtil(sql);
             if (spUtil != null) {
                 spUtil.getCallableStatement().setString("_code", bean.getCode());
@@ -1012,6 +1178,7 @@ public class GoodDAO extends BasicDAO {
                 spUtil.getCallableStatement().setInt("_account_id", bean.getAccountId());
                 spUtil.getCallableStatement().setString("_note", bean.getNote());
                 spUtil.getCallableStatement().setInt("_created_employee_id", bean.getCreatedEmployeeId());
+                spUtil.getCallableStatement().setInt("_vendor_id", bean.getVendorId());
                 spUtil.getCallableStatement().registerOutParameter("_id", Types.INTEGER);
                 spUtil.execute();
                 result = spUtil.getCallableStatement().getInt("_id");
@@ -1044,7 +1211,7 @@ public class GoodDAO extends BasicDAO {
             } else {
                 createdDate = bean.getCreatedDate();
             }
-            String sql = "{call updateShellImport(?,?,?,?,?,?,?,?)}";
+            String sql = "{call updateShellImport(?,?,?,?,?,?,?,?,?)}";
             spUtil = new SPUtil(sql);
             if (spUtil != null) {
                 spUtil.getCallableStatement().setInt("_id", bean.getId());
@@ -1055,6 +1222,7 @@ public class GoodDAO extends BasicDAO {
                 spUtil.getCallableStatement().setDouble("_amount", bean.getAmount());
                 spUtil.getCallableStatement().setInt("_account_id", bean.getAccountId());
                 spUtil.getCallableStatement().setString("_note", bean.getNote());
+                spUtil.getCallableStatement().setInt("_vendor_id", bean.getVendorId());
                 spUtil.execute();
             }
         } catch (SQLException sqle) {

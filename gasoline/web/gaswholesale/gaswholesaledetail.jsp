@@ -55,9 +55,7 @@
                     <table>
                         <tr>
                             <td>
-                                <logic:equal name="<%=Constants.GAS_WHOLESALE%>" property="id" value="0">
-                                    <button class="i_cross icon small red" onclick="return delTableRow('gasWholesaleForm', 'gasWholesaleShellChk', 'gasWholesaleDetailTbl');" tabindex="-1"><bean:message key="message.del"/></button>
-                                </logic:equal>
+                                <button class="i_cross icon small red" onclick="return delTableRow('gasWholesaleForm', 'gasWholesaleShellChk', 'gasWholesaleDetailTbl');" tabindex="-1"><bean:message key="message.del"/></button>
                                 <button class="i_plus icon small green" onclick="return addGasWholesaleShell();" tabindex="-1"><bean:message key="message.add"/></button>
                             </td>
                             <td>
@@ -100,14 +98,12 @@
                     <table>
                         <tr>
                             <td>
-                                <logic:equal name="<%=Constants.GAS_WHOLESALE%>" property="id" value="0">
-                                    <button class="i_cross icon small red" onclick="return delTableRow('gasWholesaleForm', 'gasWholesaleReturnShellChk', 'gasWholesaleReturnShellDetailTbl');" tabindex="-1"><bean:message key="message.del"/></button>
-                                </logic:equal>
+                                <button class="i_cross icon small red" onclick="return delTableRow('gasWholesaleForm', 'gasWholesaleReturnShellChk', 'gasWholesaleReturnShellDetailTbl');" tabindex="-1"><bean:message key="message.del"/></button>
                                 <button class="i_plus icon small green" onclick="return addGasWholesaleReturnShell();" tabindex="-1"><bean:message key="message.add"/></button>
                             </td>
                             <td>
                                 <select style="width: 260px;" name="returnShellIdCombobox" id="returnShellIdCombobox">
-                                    <logic:iterate id="return_shell_iter" name="<%=Constants.SHELL_LIST%>">
+                                    <logic:iterate id="return_shell_iter" name="<%=Constants.SHELL_RETURN_LIST%>">
                                         <option  value="${return_shell_iter.id}">${return_shell_iter.name}</option>
                                     </logic:iterate>
                                 </select>
@@ -127,9 +123,7 @@
                     <table>
                         <tr>
                             <td>
-                                <logic:equal name="<%=Constants.GAS_WHOLESALE%>" property="id" value="0">
-                                    <button class="i_cross icon small red" onclick="return delTableRow('gasWholesaleForm', 'gasWholesalePromotionMaterialChk', 'gasWholesalePromotionMaterialDetailTbl');" tabindex="-1"><bean:message key="message.del"/></button>
-                                </logic:equal>
+                                <button class="i_cross icon small red" onclick="return delTableRow('gasWholesaleForm', 'gasWholesalePromotionMaterialChk', 'gasWholesalePromotionMaterialDetailTbl');" tabindex="-1"><bean:message key="message.del"/></button>
                                 <button class="i_plus icon small green" onclick="return addGasWholesalePromotionMaterial();" tabindex="-1"><bean:message key="message.add"/></button>
                             </td>
                             <td>

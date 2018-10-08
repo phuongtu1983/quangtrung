@@ -52,7 +52,7 @@ public class AddFractionAction extends SpineAction {
         if (bean == null) {
             bean = new FractionBean();
         }
-        
+
         bean.setId(formBean.getId());
         bean.setCode(formBean.getCode());
         bean.setNote(formBean.getNote());
@@ -70,44 +70,54 @@ public class AddFractionAction extends SpineAction {
         }
         return true;
     }
-    
+
     private void addFractionShell(FractionFormBean formBean) {
         try {
             GasDAO gasDAO = new GasDAO();
             ArrayList arrDetail = gasDAO.getFractionDetail(formBean.getId());
-            int length = formBean.getShellId().length;
-            int id = 0;
-            boolean isUpdate = false;
-            for (int i = 0; i < length; i++) {
-                id = NumberUtil.parseInt(formBean.getFractionDetailId()[i], 0);
-                if (id == 0) {
-                    FractionDetailBean bean = new FractionDetailBean();
-                    bean.setShellId(NumberUtil.parseInt(formBean.getShellId()[i], 0));
-                    bean.setQuantity(NumberUtil.parseInt(formBean.getQuantity()[i], 0));
-                    bean.setFractionId(formBean.getId());
-                    gasDAO.insertFractionDetail(bean);
-                } else {
-                    isUpdate = false;
-                    int j = 0;
-                    FractionDetailBean oldBean = null;
-                    for (; j < arrDetail.size(); j++) {
-                        oldBean = (FractionDetailBean) arrDetail.get(j);
-                        if (oldBean.getId() == id) {
-                            break;
+            if (formBean.getShellId() != null) {
+                int length = formBean.getShellId().length;
+                int id = 0;
+                boolean isUpdate = false;
+                for (int i = 0; i < length; i++) {
+                    id = NumberUtil.parseInt(formBean.getFractionDetailId()[i], 0);
+                    if (id == 0) {
+                        FractionDetailBean bean = new FractionDetailBean();
+                        bean.setShellId(NumberUtil.parseInt(formBean.getShellId()[i], 0));
+                        bean.setQuantity(NumberUtil.parseInt(formBean.getQuantity()[i], 0));
+                        bean.setFractionId(formBean.getId());
+                        gasDAO.insertFractionDetail(bean);
+                    } else {
+                        isUpdate = false;
+                        int j = 0;
+                        FractionDetailBean oldBean = null;
+                        for (; j < arrDetail.size(); j++) {
+                            oldBean = (FractionDetailBean) arrDetail.get(j);
+                            if (oldBean.getId() == id) {
+                                break;
+                            }
                         }
-                    }
-                    if (j < arrDetail.size()) {
-                        arrDetail.remove(j);
-                        if (oldBean.getQuantity() != NumberUtil.parseDouble(formBean.getQuantity()[i], 0)) {
-                            isUpdate = true;
-                            oldBean.setQuantity(NumberUtil.parseInt(formBean.getQuantity()[i], 0));
-                        }
-                        if (isUpdate) {
-                            gasDAO.updateFractionDetail(oldBean);
+                        if (j < arrDetail.size()) {
+                            arrDetail.remove(j);
+                            if (oldBean.getQuantity() != NumberUtil.parseDouble(formBean.getQuantity()[i], 0)) {
+                                isUpdate = true;
+                                oldBean.setQuantity(NumberUtil.parseInt(formBean.getQuantity()[i], 0));
+                            }
+                            if (isUpdate) {
+                                gasDAO.updateFractionDetail(oldBean);
+                            }
                         }
                     }
                 }
             }
+            String ids = "0,";
+            FractionDetailBean oldBean = null;
+            for (int i = 0; i < arrDetail.size(); i++) {
+                oldBean = (FractionDetailBean) arrDetail.get(i);
+                ids += oldBean.getId() + ",";
+            }
+            ids += "0";
+            gasDAO.deleteFractionDetails(ids);
         } catch (Exception ex) {
         }
     }

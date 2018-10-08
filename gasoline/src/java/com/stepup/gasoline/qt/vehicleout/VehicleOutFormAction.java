@@ -12,6 +12,7 @@ import com.stepup.gasoline.qt.dao.EmployeeDAO;
 import com.stepup.gasoline.qt.dao.GasDAO;
 import com.stepup.gasoline.qt.dao.GoodDAO;
 import com.stepup.gasoline.qt.dao.VehicleDAO;
+import com.stepup.gasoline.qt.dao.VendorDAO;
 import com.stepup.gasoline.qt.util.Constants;
 import com.stepup.gasoline.qt.util.QTUtil;
 import java.util.ArrayList;
@@ -85,7 +86,10 @@ public class VehicleOutFormAction extends SpineAction {
         ArrayList arrShell = null;
         try {
             GoodDAO goodDAO = new GoodDAO();
-            arrShell = goodDAO.getShells(EmployeeBean.STATUS_ACTIVE);
+            String organizationIds = QTUtil.getOrganizationManageds(request.getSession());
+            VendorDAO vendorDAO = new VendorDAO();
+            String vendorIds = vendorDAO.getVendorOfOrganizations(organizationIds);
+            arrShell = goodDAO.getShellVendor(vendorIds);
         } catch (Exception ex) {
         }
         if (arrShell == null) {

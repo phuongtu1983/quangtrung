@@ -33,9 +33,7 @@
                     <table>
                         <tr>
                             <td>
-                                <logic:equal name="<%=Constants.VEHICLE_OUT%>" property="id" value="0">
-                                    <button class="i_cross icon small red" onclick="return delTableRow('vehicleOutForm', 'vehicleOutGoodChk', 'vehicleOutDetailTbl');"><bean:message key="message.del"/></button>
-                                </logic:equal>
+                                <button class="i_cross icon small red" onclick="return delTableRow('vehicleOutForm', 'vehicleOutGoodChk', 'vehicleOutDetailTbl');"><bean:message key="message.del"/></button>
                                 <button class="i_plus icon small green" onclick="return addVehicleOutGood();"><bean:message key="message.add"/></button>
                             </td>
                             <td>
@@ -58,9 +56,7 @@
                     <table>
                         <tr>
                             <td>
-                                <logic:equal name="<%=Constants.VEHICLE_OUT%>" property="id" value="0">
-                                    <button class="i_cross icon small red" onclick="return delTableRow('vehicleOutForm', 'vehicleOutEmployeeChk', 'vehicleOutEmployeeDetailTbl');"><bean:message key="message.del"/></button>
-                                </logic:equal>
+                                <button class="i_cross icon small red" onclick="return delTableRow('vehicleOutForm', 'vehicleOutEmployeeChk', 'vehicleOutEmployeeDetailTbl');"><bean:message key="message.del"/></button>
                                 <button class="i_plus icon small green" onclick="return addVehicleOutEmployee();"><bean:message key="message.add"/></button>
                             </td>
                             <td>

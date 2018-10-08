@@ -20,6 +20,7 @@ public class ShellImportBean {
     private int accountId;
     private String note;
     private int canEdit;
+    private int vendorId;
     private int createdEmployeeId;
 
     public ShellImportBean() {
@@ -112,6 +113,14 @@ public class ShellImportBean {
 
     public void setCreatedEmployeeId(int createdEmployeeId) {
         this.createdEmployeeId = createdEmployeeId;
+    }
+
+    public int getVendorId() {
+        return vendorId;
+    }
+
+    public void setVendorId(int vendorId) {
+        this.vendorId = vendorId;
     }
 
 }

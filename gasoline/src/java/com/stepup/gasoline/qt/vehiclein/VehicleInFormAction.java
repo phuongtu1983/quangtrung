@@ -11,7 +11,9 @@ import com.stepup.gasoline.qt.core.SpineAction;
 import com.stepup.gasoline.qt.dao.GasDAO;
 import com.stepup.gasoline.qt.dao.GoodDAO;
 import com.stepup.gasoline.qt.dao.VehicleDAO;
+import com.stepup.gasoline.qt.dao.VendorDAO;
 import com.stepup.gasoline.qt.util.Constants;
+import com.stepup.gasoline.qt.util.QTUtil;
 import java.util.ArrayList;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -83,13 +85,27 @@ public class VehicleInFormAction extends SpineAction {
         ArrayList arrShell = null;
         try {
             GoodDAO goodDAO = new GoodDAO();
-            arrShell = goodDAO.getShells(EmployeeBean.STATUS_ACTIVE);
+            String organizationIds = QTUtil.getOrganizationManageds(request.getSession());
+            VendorDAO vendorDAO = new VendorDAO();
+            String vendorIds = vendorDAO.getVendorOfOrganizations(organizationIds);
+            arrShell = goodDAO.getShellVendor(vendorIds);
         } catch (Exception ex) {
         }
         if (arrShell == null) {
             arrShell = new ArrayList();
         }
         request.setAttribute(Constants.SHELL_LIST, arrShell);
+
+        ArrayList arrShellReturn = null;
+        try {
+            GoodDAO goodDAO = new GoodDAO();
+            arrShellReturn = goodDAO.getShells(EmployeeBean.STATUS_ACTIVE);
+        } catch (Exception ex) {
+        }
+        if (arrShellReturn == null) {
+            arrShellReturn = new ArrayList();
+        }
+        request.setAttribute(Constants.SHELL_RETURN_LIST, arrShellReturn);
 
         ArrayList arrVehicle = null;
         try {

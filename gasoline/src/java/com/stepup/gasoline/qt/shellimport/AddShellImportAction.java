@@ -67,6 +67,9 @@ public class AddShellImportAction extends SpineAction {
                 if (!formBean.getNote().equals(bean.getNote())) {
                     isUpdate = true;
                 }
+                if (formBean.getVendorId()!= bean.getVendorId()) {
+                    isUpdate = true;
+                }
             }
         } catch (Exception ex) {
         }
@@ -80,6 +83,7 @@ public class AddShellImportAction extends SpineAction {
         bean.setNote(formBean.getNote());
         bean.setAccountId(formBean.getAccountId());
         bean.setAmount(formBean.getAmount());
+        bean.setVendorId(formBean.getVendorId());
         bean.setCreatedEmployeeId(QTUtil.getEmployeeId(request.getSession()));
         try {
             if (bNew) {

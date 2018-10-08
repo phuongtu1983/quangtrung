@@ -53,7 +53,7 @@ public class AddVehicleInAction extends SpineAction {
         if (bean == null) {
             bean = new VehicleInBean();
         }
-        
+
         bean.setId(formBean.getId());
         bean.setCode(formBean.getCode());
         bean.setNote(formBean.getNote());
@@ -73,101 +73,121 @@ public class AddVehicleInAction extends SpineAction {
         }
         return true;
     }
-    
+
     private void addVehicleInDetail(VehicleInFormBean formBean) {
         try {
             GasDAO gasDAO = new GasDAO();
             ArrayList arrDetail = gasDAO.getVehicleInDetail(formBean.getId());
-            int length = formBean.getShellId().length;
-            int id = 0;
-            boolean isUpdate = false;
-            for (int i = 0; i < length; i++) {
-                id = NumberUtil.parseInt(formBean.getVehicleInDetailId()[i], 0);
-                if (id == 0) {
-                    VehicleInDetailBean bean = new VehicleInDetailBean();
-                    bean.setShellId(NumberUtil.parseInt(formBean.getShellId()[i], 0));
-                    bean.setQuantity(NumberUtil.parseInt(formBean.getQuantity()[i], 0));
-                    bean.setPrice(NumberUtil.parseDouble(formBean.getPrice()[i], 0));
-                    bean.setAmount(NumberUtil.parseDouble(formBean.getAmount()[i], 0));
-                    bean.setVehicleInId(formBean.getId());
-                    gasDAO.insertVehicleInDetail(bean);
-                } else {
-                    isUpdate = false;
-                    int j = 0;
-                    VehicleInDetailBean oldBean = null;
-                    for (; j < arrDetail.size(); j++) {
-                        oldBean = (VehicleInDetailBean) arrDetail.get(j);
-                        if (oldBean.getId() == id) {
-                            break;
+            if (formBean.getShellId() != null) {
+                int length = formBean.getShellId().length;
+                int id = 0;
+                boolean isUpdate = false;
+                for (int i = 0; i < length; i++) {
+                    id = NumberUtil.parseInt(formBean.getVehicleInDetailId()[i], 0);
+                    if (id == 0) {
+                        VehicleInDetailBean bean = new VehicleInDetailBean();
+                        bean.setShellId(NumberUtil.parseInt(formBean.getShellId()[i], 0));
+                        bean.setQuantity(NumberUtil.parseInt(formBean.getQuantity()[i], 0));
+                        bean.setPrice(NumberUtil.parseDouble(formBean.getPrice()[i], 0));
+                        bean.setAmount(NumberUtil.parseDouble(formBean.getAmount()[i], 0));
+                        bean.setVehicleInId(formBean.getId());
+                        gasDAO.insertVehicleInDetail(bean);
+                    } else {
+                        isUpdate = false;
+                        int j = 0;
+                        VehicleInDetailBean oldBean = null;
+                        for (; j < arrDetail.size(); j++) {
+                            oldBean = (VehicleInDetailBean) arrDetail.get(j);
+                            if (oldBean.getId() == id) {
+                                break;
+                            }
                         }
-                    }
-                    if (j < arrDetail.size()) {
-                        arrDetail.remove(j);
-                        if (oldBean.getQuantity() != NumberUtil.parseInt(formBean.getQuantity()[i], 0)) {
-                            isUpdate = true;
-                            oldBean.setQuantity(NumberUtil.parseInt(formBean.getQuantity()[i], 0));
-                        }
-                        if (oldBean.getPrice() != NumberUtil.parseDouble(formBean.getPrice()[i], 0)) {
-                            isUpdate = true;
-                            oldBean.setPrice(NumberUtil.parseDouble(formBean.getPrice()[i], 0));
-                        }
-                        if (oldBean.getAmount() != NumberUtil.parseDouble(formBean.getAmount()[i], 0)) {
-                            isUpdate = true;
-                            oldBean.setAmount(NumberUtil.parseDouble(formBean.getAmount()[i], 0));
-                        }
-                        if (isUpdate) {
-                            gasDAO.updateVehicleInDetail(oldBean);
+                        if (j < arrDetail.size()) {
+                            arrDetail.remove(j);
+                            if (oldBean.getQuantity() != NumberUtil.parseInt(formBean.getQuantity()[i], 0)) {
+                                isUpdate = true;
+                                oldBean.setQuantity(NumberUtil.parseInt(formBean.getQuantity()[i], 0));
+                            }
+                            if (oldBean.getPrice() != NumberUtil.parseDouble(formBean.getPrice()[i], 0)) {
+                                isUpdate = true;
+                                oldBean.setPrice(NumberUtil.parseDouble(formBean.getPrice()[i], 0));
+                            }
+                            if (oldBean.getAmount() != NumberUtil.parseDouble(formBean.getAmount()[i], 0)) {
+                                isUpdate = true;
+                                oldBean.setAmount(NumberUtil.parseDouble(formBean.getAmount()[i], 0));
+                            }
+                            if (isUpdate) {
+                                gasDAO.updateVehicleInDetail(oldBean);
+                            }
                         }
                     }
                 }
             }
+            String ids = "0,";
+            VehicleInDetailBean oldBean = null;
+            for (int i = 0; i < arrDetail.size(); i++) {
+                oldBean = (VehicleInDetailBean) arrDetail.get(i);
+                ids += oldBean.getId() + ",";
+            }
+            ids += "0";
+            gasDAO.deleteVehicleInDetails(ids);
         } catch (Exception ex) {
         }
     }
-    
+
     private void addVehicleInReturnShell(VehicleInFormBean formBean) {
         try {
             GasDAO gasDAO = new GasDAO();
             ArrayList arrDetail = gasDAO.getVehicleInReturnShellDetail(formBean.getId());
-            int length = formBean.getReturnShellId().length;
-            int id = 0;
-            boolean isUpdate = false;
-            for (int i = 0; i < length; i++) {
-                id = NumberUtil.parseInt(formBean.getVehicleInReturnShellDetailId()[i], 0);
-                if (id == 0) {
-                    VehicleInReturnShellDetailBean bean = new VehicleInReturnShellDetailBean();
-                    bean.setShellId(NumberUtil.parseInt(formBean.getReturnShellId()[i], 0));
-                    bean.setQuantity(NumberUtil.parseInt(formBean.getReturnShellQuantity()[i], 0));
-                    bean.setVehicleInId(formBean.getId());
-                    gasDAO.insertVehicleInReturnShellDetail(bean);
-                } else {
-                    isUpdate = false;
-                    int j = 0;
-                    VehicleInReturnShellDetailBean oldBean = null;
-                    for (; j < arrDetail.size(); j++) {
-                        oldBean = (VehicleInReturnShellDetailBean) arrDetail.get(j);
-                        if (oldBean.getId() == id) {
-                            break;
+            if (formBean.getReturnShellId() != null) {
+                int length = formBean.getReturnShellId().length;
+                int id = 0;
+                boolean isUpdate = false;
+                for (int i = 0; i < length; i++) {
+                    id = NumberUtil.parseInt(formBean.getVehicleInReturnShellDetailId()[i], 0);
+                    if (id == 0) {
+                        VehicleInReturnShellDetailBean bean = new VehicleInReturnShellDetailBean();
+                        bean.setShellId(NumberUtil.parseInt(formBean.getReturnShellId()[i], 0));
+                        bean.setQuantity(NumberUtil.parseInt(formBean.getReturnShellQuantity()[i], 0));
+                        bean.setVehicleInId(formBean.getId());
+                        gasDAO.insertVehicleInReturnShellDetail(bean);
+                    } else {
+                        isUpdate = false;
+                        int j = 0;
+                        VehicleInReturnShellDetailBean oldBean = null;
+                        for (; j < arrDetail.size(); j++) {
+                            oldBean = (VehicleInReturnShellDetailBean) arrDetail.get(j);
+                            if (oldBean.getId() == id) {
+                                break;
+                            }
                         }
-                    }
-                    if (j < arrDetail.size()) {
-                        arrDetail.remove(j);
-                        if (oldBean.getShellId() != NumberUtil.parseInt(formBean.getReturnShellId()[i], 0)) {
-                            isUpdate = true;
-                            oldBean.setShellId(NumberUtil.parseInt(formBean.getReturnShellId()[i], 0));
-                        }
-                        if (oldBean.getQuantity() != NumberUtil.parseInt(formBean.getReturnShellQuantity()[i], 0)) {
-                            isUpdate = true;
-                            oldBean.setQuantity(NumberUtil.parseInt(formBean.getReturnShellQuantity()[i], 0));
-                        }
-                        if (isUpdate) {
-                            gasDAO.updateVehicleInReturnShellDetail(oldBean);
+                        if (j < arrDetail.size()) {
+                            arrDetail.remove(j);
+                            if (oldBean.getShellId() != NumberUtil.parseInt(formBean.getReturnShellId()[i], 0)) {
+                                isUpdate = true;
+                                oldBean.setShellId(NumberUtil.parseInt(formBean.getReturnShellId()[i], 0));
+                            }
+                            if (oldBean.getQuantity() != NumberUtil.parseInt(formBean.getReturnShellQuantity()[i], 0)) {
+                                isUpdate = true;
+                                oldBean.setQuantity(NumberUtil.parseInt(formBean.getReturnShellQuantity()[i], 0));
+                            }
+                            if (isUpdate) {
+                                gasDAO.updateVehicleInReturnShellDetail(oldBean);
+                            }
                         }
                     }
                 }
             }
+            String ids = "0,";
+            VehicleInReturnShellDetailBean oldBean = null;
+            for (int i = 0; i < arrDetail.size(); i++) {
+                oldBean = (VehicleInReturnShellDetailBean) arrDetail.get(i);
+                ids += oldBean.getId() + ",";
+            }
+            ids += "0";
+            gasDAO.deleteVehicleInReturnShellDetails(ids);
         } catch (Exception ex) {
         }
     }
-    
+
 }

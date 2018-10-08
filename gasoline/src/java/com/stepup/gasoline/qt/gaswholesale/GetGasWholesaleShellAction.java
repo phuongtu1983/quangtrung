@@ -7,6 +7,7 @@ package com.stepup.gasoline.qt.gaswholesale;
 import com.stepup.core.util.NumberUtil;
 import com.stepup.gasoline.qt.bean.ShellBean;
 import com.stepup.gasoline.qt.bean.GasWholesaleDetailBean;
+import com.stepup.gasoline.qt.bean.ShellVendorDetailBean;
 import com.stepup.gasoline.qt.core.SpineAction;
 import com.stepup.gasoline.qt.dao.GoodDAO;
 import com.stepup.gasoline.qt.util.Constants;
@@ -40,10 +41,14 @@ public class GetGasWholesaleShellAction extends SpineAction {
         GasWholesaleDetailBean bean = new GasWholesaleDetailBean();
         try {
             GoodDAO goodDAO = new GoodDAO();
-            ShellBean shellBean = goodDAO.getShell(shellId);
+            ShellVendorDetailBean shellVendorBean = goodDAO.getShellVendor(shellId);
+            if (shellVendorBean == null) {
+                shellVendorBean = new ShellVendorDetailBean();
+            }
+            ShellBean shellBean = goodDAO.getShell(shellVendorBean.getShellId());
             if (shellBean != null) {
-                bean.setShellName(shellBean.getName());
-                bean.setShellId(shellBean.getId());
+                bean.setShellName(shellVendorBean.getName());
+                bean.setShellId(shellVendorBean.getId());
                 bean.setUnitId(shellBean.getUnitId());
                 bean.setUnitName(shellBean.getUnitName());
             }
@@ -51,7 +56,7 @@ public class GetGasWholesaleShellAction extends SpineAction {
         }
         arrDetail.add(bean);
         request.setAttribute(Constants.GAS_WHOLESALE_SHELL, arrDetail);
-        
+
         return true;
     }
 }

@@ -13,9 +13,9 @@ import com.stepup.gasoline.qt.dao.CustomerDAO;
 import com.stepup.gasoline.qt.dao.GasDAO;
 import com.stepup.gasoline.qt.dao.GoodDAO;
 import com.stepup.gasoline.qt.dao.VehicleDAO;
+import com.stepup.gasoline.qt.dao.VendorDAO;
 import com.stepup.gasoline.qt.util.Constants;
 import com.stepup.gasoline.qt.util.QTUtil;
-import com.stepup.gasoline.qt.vehicle.VehicleFormBean;
 import java.util.ArrayList;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -94,13 +94,27 @@ public class GasWholesaleFormAction extends SpineAction {
         ArrayList arrShell = null;
         try {
             GoodDAO goodDAO = new GoodDAO();
-            arrShell = goodDAO.getShells(EmployeeBean.STATUS_ACTIVE);
+            String organizationIds = QTUtil.getOrganizationManageds(request.getSession());
+            VendorDAO vendorDAO = new VendorDAO();
+            String vendorIds = vendorDAO.getVendorOfOrganizations(organizationIds);
+            arrShell = goodDAO.getShellVendor(vendorIds);
         } catch (Exception ex) {
         }
         if (arrShell == null) {
             arrShell = new ArrayList();
         }
         request.setAttribute(Constants.SHELL_LIST, arrShell);
+        
+        ArrayList arrShellReturn = null;
+        try {
+            GoodDAO goodDAO = new GoodDAO();
+            arrShellReturn = goodDAO.getShells(EmployeeBean.STATUS_ACTIVE);
+        } catch (Exception ex) {
+        }
+        if (arrShellReturn == null) {
+            arrShellReturn = new ArrayList();
+        }
+        request.setAttribute(Constants.SHELL_RETURN_LIST, arrShellReturn);
 
         ArrayList arrPromotionMaterial = null;
         try {
@@ -145,10 +159,6 @@ public class GasWholesaleFormAction extends SpineAction {
         if (arrVehicle == null) {
             arrVehicle = new ArrayList();
         }
-//        VehicleFormBean vehicleBean = new VehicleFormBean();
-//        vehicleBean.setPlate(QTUtil.getBundleString("vehicle.detail.vehicleSelected"));
-//        vehicleBean.setId(0);
-//        arrVehicle.add(0, vehicleBean);
         request.setAttribute(Constants.VEHICLE_LIST, arrVehicle);
 
         return true;

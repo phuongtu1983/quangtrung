@@ -5,12 +5,13 @@
 package com.stepup.gasoline.qt.fraction;
 
 import com.stepup.core.util.DateUtil;
-import com.stepup.gasoline.qt.bean.EmployeeBean;
 import com.stepup.gasoline.qt.bean.FractionBean;
 import com.stepup.gasoline.qt.core.SpineAction;
 import com.stepup.gasoline.qt.dao.GasDAO;
 import com.stepup.gasoline.qt.dao.GoodDAO;
+import com.stepup.gasoline.qt.dao.VendorDAO;
 import com.stepup.gasoline.qt.util.Constants;
+import com.stepup.gasoline.qt.util.QTUtil;
 import java.util.ArrayList;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -75,7 +76,10 @@ public class FractionFormAction extends SpineAction {
         ArrayList arrShell = null;
         try {
             GoodDAO goodDAO = new GoodDAO();
-            arrShell = goodDAO.getShells(EmployeeBean.STATUS_ACTIVE);
+            String organizationIds = QTUtil.getOrganizationManageds(request.getSession());
+            VendorDAO vendorDAO = new VendorDAO();
+            String vendorIds = vendorDAO.getVendorOfOrganizations(organizationIds);
+            arrShell = goodDAO.getShellVendor(vendorIds);
         } catch (Exception ex) {
         }
         if (arrShell == null) {

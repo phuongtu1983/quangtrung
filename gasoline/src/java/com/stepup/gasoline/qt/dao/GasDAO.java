@@ -364,9 +364,9 @@ public class GasDAO extends BasicDAO {
 
     public ArrayList getFractionDetail(int fractionId) throws Exception {
         ResultSet rs = null;
-        String sql = "select det.*, s.name as shell_name"
-                + " from fraction_gas_detail as det, shell as s"
-                + " where det.shell_id=s.id and det.fraction_id=" + fractionId;
+        String sql = "select det.*, s.name as shell_name, v.code as vendor_code, sv.id as shell_vendor_id"
+                + " from fraction_gas_detail as det, shell_vendor as sv, vendor as v, shell as s"
+                + " where det.shell_id=sv.id and sv.shell_id=s.id and sv.vendor_id=v.id and det.fraction_id=" + fractionId;
         ArrayList detailList = new ArrayList();
         try {
             rs = DBUtil.executeQuery(sql);
@@ -377,7 +377,7 @@ public class GasDAO extends BasicDAO {
                 bean.setFractionId(rs.getInt("fraction_id"));
                 bean.setQuantity(rs.getInt("quantity"));
                 bean.setShellId(rs.getInt("shell_id"));
-                bean.setShellName(rs.getString("shell_name"));
+                bean.setShellName(rs.getString("shell_name") + " - " + rs.getString("vendor_code"));
                 detailList.add(bean);
             }
         } catch (SQLException sqle) {
@@ -556,6 +556,19 @@ public class GasDAO extends BasicDAO {
                 throw new Exception(e.getMessage());
             }
         }
+    }
+    
+    public int deleteFractionDetails(String ids) throws Exception {
+        int result = 0;
+        try {
+            String sql = "Delete From fraction_detail Where id in (" + ids + ")";
+            DBUtil.executeUpdate(sql);
+        } catch (SQLException sqle) {
+            throw new Exception(sqle.getMessage());
+        } catch (Exception ex) {
+            throw new Exception(ex.getMessage());
+        }
+        return result;
     }
 
     public ArrayList searchGasPrice(String fromDate, String endDate) throws Exception {
@@ -1454,9 +1467,9 @@ public class GasDAO extends BasicDAO {
 
     public ArrayList getGasWholesaleDetail(int gasWholesaleId) throws Exception {
         ResultSet rs = null;
-        String sql = "select det.*, s.name as shell_name, s.unit_id, u.name as unit_name"
-                + " from gas_wholesale_detail as det, shell as s, unit as u"
-                + " where det.shell_id=s.id and s.unit_id=u.id and det.gas_wholesale_id=" + gasWholesaleId
+        String sql = "select det.*, s.name as shell_name, s.unit_id, u.name as unit_name, v.code as vendor_code, sv.id as shell_vendor_id"
+                + " from gas_wholesale_detail as det, shell_vendor as sv, vendor as v, shell as s, unit as u"
+                + " where det.shell_id=sv.id and sv.shell_id=s.id and sv.vendor_id=v.id and s.unit_id=u.id and det.gas_wholesale_id=" + gasWholesaleId
                 + " order by det.id";
         ArrayList detailList = new ArrayList();
         try {
@@ -1470,7 +1483,7 @@ public class GasDAO extends BasicDAO {
                 bean.setPrice(rs.getDouble("price"));
                 bean.setAmount(rs.getDouble("amount"));
                 bean.setShellId(rs.getInt("shell_id"));
-                bean.setShellName(rs.getString("shell_name"));
+                bean.setShellName(rs.getString("shell_name") + " - " + rs.getString("vendor_code"));
                 bean.setUnitId(rs.getInt("unit_id"));
                 bean.setUnitName(rs.getString("unit_name"));
                 detailList.add(bean);
@@ -1671,6 +1684,19 @@ public class GasDAO extends BasicDAO {
             }
         }
     }
+    
+    public int deleteGasWholesaleDetails(String ids) throws Exception {
+        int result = 0;
+        try {
+            String sql = "Delete From gas_wholesale_detail Where id in (" + ids + ")";
+            DBUtil.executeUpdate(sql);
+        } catch (SQLException sqle) {
+            throw new Exception(sqle.getMessage());
+        } catch (Exception ex) {
+            throw new Exception(ex.getMessage());
+        }
+        return result;
+    }
 
     public ArrayList getGasWholesalePromotionMaterialDetail(int gasWholesaleId) throws Exception {
         ResultSet rs = null;
@@ -1796,6 +1822,19 @@ public class GasDAO extends BasicDAO {
             }
         }
     }
+    
+    public int deleteGasWholesalePromotionMaterialDetails(String ids) throws Exception {
+        int result = 0;
+        try {
+            String sql = "Delete From gas_wholesale_promotion Where id in (" + ids + ")";
+            DBUtil.executeUpdate(sql);
+        } catch (SQLException sqle) {
+            throw new Exception(sqle.getMessage());
+        } catch (Exception ex) {
+            throw new Exception(ex.getMessage());
+        }
+        return result;
+    }
 
     public int insertGasWholesaleReturnShellDetail(GasWholesaleReturnShellDetailBean bean) throws Exception {
         if (bean == null) {
@@ -1854,6 +1893,19 @@ public class GasDAO extends BasicDAO {
                 throw new Exception(e.getMessage());
             }
         }
+    }
+    
+    public int deleteGasWholesaleReturnShellDetails(String ids) throws Exception {
+        int result = 0;
+        try {
+            String sql = "Delete From gas_wholesale_return_shell Where id in (" + ids + ")";
+            DBUtil.executeUpdate(sql);
+        } catch (SQLException sqle) {
+            throw new Exception(sqle.getMessage());
+        } catch (Exception ex) {
+            throw new Exception(ex.getMessage());
+        }
+        return result;
     }
 
     public ArrayList searchGasRetail(String fromDate, String endDate) throws Exception {
@@ -3749,9 +3801,9 @@ public class GasDAO extends BasicDAO {
 
     public ArrayList getVehicleOutDetail(int vehicleOutId) throws Exception {
         ResultSet rs = null;
-        String sql = "select det.*, s.name as shell_name, u.id as unit_id, u.name as unit_name"
-                + " from vehicle_out_detail as det, shell as s, unit as u"
-                + " where det.shell_id=s.id and s.unit_id=u.id and det.vehicle_out_id=" + vehicleOutId
+        String sql = "select det.*, s.name as shell_name, u.id as unit_id, u.name as unit_name, v.code as vendor_code, sv.id as shell_vendor_id"
+                + " from vehicle_out_detail as det, shell_vendor as sv, vendor as v, shell as s, unit as u"
+                + " where det.shell_id=sv.id and sv.shell_id=s.id and sv.vendor_id=v.id and s.unit_id=u.id and det.vehicle_out_id=" + vehicleOutId
                 + " order by det.id";
         ArrayList detailList = new ArrayList();
         try {
@@ -3764,8 +3816,8 @@ public class GasDAO extends BasicDAO {
                 bean.setQuantity(rs.getInt("quantity"));
                 bean.setPrice(rs.getDouble("price"));
                 bean.setAmount(rs.getDouble("amount"));
-                bean.setShellId(rs.getInt("shell_id"));
-                bean.setShellName(rs.getString("shell_name"));
+                bean.setShellId(rs.getInt("shell_vendor_id"));
+                bean.setShellName(rs.getString("shell_name") + " - " + rs.getString("vendor_code"));
                 bean.setUnitId(rs.getInt("unit_id"));
                 bean.setUnitName(rs.getString("unit_name"));
                 detailList.add(bean);
@@ -3947,6 +3999,19 @@ public class GasDAO extends BasicDAO {
         }
     }
 
+    public int deleteVehicleOutDetails(String ids) throws Exception {
+        int result = 0;
+        try {
+            String sql = "Delete From vehicle_out_detail Where id in (" + ids + ")";
+            DBUtil.executeUpdate(sql);
+        } catch (SQLException sqle) {
+            throw new Exception(sqle.getMessage());
+        } catch (Exception ex) {
+            throw new Exception(ex.getMessage());
+        }
+        return result;
+    }
+
     public ArrayList getVehicleOutEmployeeDetail(int vehicleOutId) throws Exception {
         ResultSet rs = null;
         String sql = "select det.*, e.fullname"
@@ -4038,6 +4103,19 @@ public class GasDAO extends BasicDAO {
         }
     }
 
+    public int deleteVehicleOutEmployeeDetails(String ids) throws Exception {
+        int result = 0;
+        try {
+            String sql = "Delete From vehicle_out_employee_detail Where id in (" + ids + ")";
+            DBUtil.executeUpdate(sql);
+        } catch (SQLException sqle) {
+            throw new Exception(sqle.getMessage());
+        } catch (Exception ex) {
+            throw new Exception(ex.getMessage());
+        }
+        return result;
+    }
+
     public ArrayList searchVehicleIn(String fromDate, String endDate, String organizationIds) throws Exception {
         SPUtil spUtil = null;
         ArrayList list = new ArrayList();
@@ -4119,9 +4197,9 @@ public class GasDAO extends BasicDAO {
 
     public ArrayList getVehicleInDetail(int vehicleInId) throws Exception {
         ResultSet rs = null;
-        String sql = "select det.*, s.name as shell_name, u.id as unit_id, u.name as unit_name"
-                + " from vehicle_in_detail as det, shell as s, unit as u"
-                + " where det.shell_id=s.id and s.unit_id=u.id and det.vehicle_in_id=" + vehicleInId
+        String sql = "select det.*, s.name as shell_name, u.id as unit_id, u.name as unit_name, v.code as vendor_code, sv.id as shell_vendor_id"
+                + " from vehicle_in_detail as det, shell_vendor as sv, vendor as v, shell as s, unit as u"
+                + " where det.shell_id=sv.id and sv.shell_id=s.id and sv.vendor_id=v.id and s.unit_id=u.id and det.vehicle_in_id=" + vehicleInId
                 + " order by det.id";
         ArrayList detailList = new ArrayList();
         try {
@@ -4135,7 +4213,7 @@ public class GasDAO extends BasicDAO {
                 bean.setPrice(rs.getDouble("price"));
                 bean.setAmount(rs.getDouble("amount"));
                 bean.setShellId(rs.getInt("shell_id"));
-                bean.setShellName(rs.getString("shell_name"));
+                bean.setShellName(rs.getString("shell_name") + " - " + rs.getString("vendor_code"));
                 bean.setUnitId(rs.getInt("unit_id"));
                 bean.setUnitName(rs.getString("unit_name"));
                 detailList.add(bean);
@@ -4315,6 +4393,32 @@ public class GasDAO extends BasicDAO {
                 throw new Exception(e.getMessage());
             }
         }
+    }
+
+    public int deleteVehicleInDetails(String ids) throws Exception {
+        int result = 0;
+        try {
+            String sql = "Delete From vehicle_in_detail Where id in (" + ids + ")";
+            DBUtil.executeUpdate(sql);
+        } catch (SQLException sqle) {
+            throw new Exception(sqle.getMessage());
+        } catch (Exception ex) {
+            throw new Exception(ex.getMessage());
+        }
+        return result;
+    }
+    
+    public int deleteVehicleInReturnShellDetails(String ids) throws Exception {
+        int result = 0;
+        try {
+            String sql = "Delete From vehicle_in_return_shell_detail Where id in (" + ids + ")";
+            DBUtil.executeUpdate(sql);
+        } catch (SQLException sqle) {
+            throw new Exception(sqle.getMessage());
+        } catch (Exception ex) {
+            throw new Exception(ex.getMessage());
+        }
+        return result;
     }
 
     public ArrayList getVehicleInReturnShellDetail(int vehicleInId) throws Exception {
@@ -4500,9 +4604,9 @@ public class GasDAO extends BasicDAO {
 
     public ArrayList getExportWholesaleDetail(int exportWholesaleId) throws Exception {
         ResultSet rs = null;
-        String sql = "select det.*, s.name as shell_name, u.id as unit_id, u.name as unit_name"
-                + " from gas_export_wholesale_detail as det, shell as s, unit as u"
-                + " where det.shell_id=s.id and s.unit_id=u.id and det.gas_export_wholesale_id=" + exportWholesaleId
+        String sql = "select det.*, s.name as shell_name, u.id as unit_id, u.name as unit_name, v.code as vendor_code, sv.id as shell_vendor_id"
+                + " from gas_export_wholesale_detail as det, shell_vendor as sv, vendor as v, shell as s, unit as u"
+                + " where det.shell_id=sv.id and sv.shell_id=s.id and sv.vendor_id=v.id and s.unit_id=u.id and det.gas_export_wholesale_id=" + exportWholesaleId
                 + " order by det.id";
         ArrayList detailList = new ArrayList();
         try {
@@ -4516,7 +4620,7 @@ public class GasDAO extends BasicDAO {
                 bean.setPrice(rs.getDouble("price"));
                 bean.setAmount(rs.getDouble("amount"));
                 bean.setShellId(rs.getInt("shell_id"));
-                bean.setShellName(rs.getString("shell_name"));
+                bean.setShellName(rs.getString("shell_name") + " - " + rs.getString("vendor_code"));
                 bean.setUnitId(rs.getInt("unit_id"));
                 bean.setUnitName(rs.getString("unit_name"));
                 detailList.add(bean);
@@ -4709,6 +4813,19 @@ public class GasDAO extends BasicDAO {
             }
         }
     }
+    
+    public int deleteExportWholesaleDetails(String ids) throws Exception {
+        int result = 0;
+        try {
+            String sql = "Delete From gas_export_wholesale_detail Where id in (" + ids + ")";
+            DBUtil.executeUpdate(sql);
+        } catch (SQLException sqle) {
+            throw new Exception(sqle.getMessage());
+        } catch (Exception ex) {
+            throw new Exception(ex.getMessage());
+        }
+        return result;
+    }
 
     public ArrayList getExportWholesaleReturnShellDetail(int exportWholesaleId) throws Exception {
         ResultSet rs = null;
@@ -4800,6 +4917,19 @@ public class GasDAO extends BasicDAO {
                 throw new Exception(e.getMessage());
             }
         }
+    }
+    
+    public int deleteExportWholesaleReturnShellDetails(String ids) throws Exception {
+        int result = 0;
+        try {
+            String sql = "Delete From gas_export_wholesale_shell_detail Where id in (" + ids + ")";
+            DBUtil.executeUpdate(sql);
+        } catch (SQLException sqle) {
+            throw new Exception(sqle.getMessage());
+        } catch (Exception ex) {
+            throw new Exception(ex.getMessage());
+        }
+        return result;
     }
 
     public ArrayList searchLpgSale(String fromDate, String endDate, String organizationIds) throws Exception {

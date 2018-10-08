@@ -104,12 +104,12 @@ public class ReportDAO extends BasicDAO {
         return list;
     }
 
-    public ArrayList getLpgStockReport(String fromDate, String endDate, String vendorIds, LpgStockReportOutBean outBean) throws Exception {
+    public ArrayList getLpgStockReport(String fromDate, String endDate, String organizationIds, String vendorIds, LpgStockReportOutBean outBean) throws Exception {
         SPUtil spUtil = null;
         ArrayList list = new ArrayList();
         ResultSet rs = null;
         try {
-            String sql = "{call report_lpg_stock(?,?,?,?)}";
+            String sql = "{call report_lpg_stock(?,?,?,?,?)}";
             if (GenericValidator.isBlankOrNull(fromDate)) {
                 fromDate = DateUtil.today("dd/MM/yyyy");
             }
@@ -120,6 +120,7 @@ public class ReportDAO extends BasicDAO {
             if (spUtil != null) {
                 spUtil.getCallableStatement().setString("_start_date", fromDate);
                 spUtil.getCallableStatement().setString("_end_date", endDate);
+                spUtil.getCallableStatement().setString("_organization_ids", organizationIds);
                 spUtil.getCallableStatement().setString("_vendor_ids", vendorIds);
                 spUtil.getCallableStatement().registerOutParameter("_gas_stock", Types.INTEGER);
 
@@ -388,12 +389,12 @@ public class ReportDAO extends BasicDAO {
         return list;
     }
 
-    public ArrayList getSaleReport(String fromDate, String endDate, String organizationIds) throws Exception {
+    public ArrayList getSaleReport(String fromDate, String endDate, String organizationIds, String vendorIds) throws Exception {
         SPUtil spUtil = null;
         ArrayList list = new ArrayList();
         ResultSet rs = null;
         try {
-            String sql = "{call report_sale(?,?,?)}";
+            String sql = "{call report_sale(?,?,?,?)}";
             if (GenericValidator.isBlankOrNull(fromDate)) {
                 fromDate = DateUtil.today("dd/MM/yyyy");
             }
@@ -405,6 +406,7 @@ public class ReportDAO extends BasicDAO {
                 spUtil.getCallableStatement().setString("_start_date", fromDate);
                 spUtil.getCallableStatement().setString("_end_date", endDate);
                 spUtil.getCallableStatement().setString("_organization_ids", organizationIds);
+                spUtil.getCallableStatement().setString("_vendor_ids", vendorIds);
 
                 rs = spUtil.executeQuery();
                 if (rs != null) {

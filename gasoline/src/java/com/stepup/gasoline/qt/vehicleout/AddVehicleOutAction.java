@@ -78,49 +78,59 @@ public class AddVehicleOutAction extends SpineAction {
         try {
             GasDAO gasDAO = new GasDAO();
             ArrayList arrDetail = gasDAO.getVehicleOutDetail(formBean.getId());
-            int length = formBean.getShellId().length;
-            int id = 0;
-            boolean isUpdate = false;
-            for (int i = 0; i < length; i++) {
-                id = NumberUtil.parseInt(formBean.getVehicleOutDetailId()[i], 0);
-                if (id == 0) {
-                    VehicleOutDetailBean bean = new VehicleOutDetailBean();
-                    bean.setShellId(NumberUtil.parseInt(formBean.getShellId()[i], 0));
-                    bean.setQuantity(NumberUtil.parseInt(formBean.getQuantity()[i], 0));
-                    bean.setPrice(NumberUtil.parseDouble(formBean.getPrice()[i], 0));
-                    bean.setAmount(NumberUtil.parseDouble(formBean.getAmount()[i], 0));
-                    bean.setVehicleOutId(formBean.getId());
-                    gasDAO.insertVehicleOutDetail(bean);
-                } else {
-                    isUpdate = false;
-                    int j = 0;
-                    VehicleOutDetailBean oldBean = null;
-                    for (; j < arrDetail.size(); j++) {
-                        oldBean = (VehicleOutDetailBean) arrDetail.get(j);
-                        if (oldBean.getId() == id) {
-                            break;
+            if (formBean.getShellId() != null) {
+                int length = formBean.getShellId().length;
+                int id = 0;
+                boolean isUpdate = false;
+                for (int i = 0; i < length; i++) {
+                    id = NumberUtil.parseInt(formBean.getVehicleOutDetailId()[i], 0);
+                    if (id == 0) {
+                        VehicleOutDetailBean bean = new VehicleOutDetailBean();
+                        bean.setShellId(NumberUtil.parseInt(formBean.getShellId()[i], 0));
+                        bean.setQuantity(NumberUtil.parseInt(formBean.getQuantity()[i], 0));
+                        bean.setPrice(NumberUtil.parseDouble(formBean.getPrice()[i], 0));
+                        bean.setAmount(NumberUtil.parseDouble(formBean.getAmount()[i], 0));
+                        bean.setVehicleOutId(formBean.getId());
+                        gasDAO.insertVehicleOutDetail(bean);
+                    } else {
+                        isUpdate = false;
+                        int j = 0;
+                        VehicleOutDetailBean oldBean = null;
+                        for (; j < arrDetail.size(); j++) {
+                            oldBean = (VehicleOutDetailBean) arrDetail.get(j);
+                            if (oldBean.getId() == id) {
+                                break;
+                            }
                         }
-                    }
-                    if (j < arrDetail.size()) {
-                        arrDetail.remove(j);
-                        if (oldBean.getQuantity() != NumberUtil.parseInt(formBean.getQuantity()[i], 0)) {
-                            isUpdate = true;
-                            oldBean.setQuantity(NumberUtil.parseInt(formBean.getQuantity()[i], 0));
-                        }
-                        if (oldBean.getPrice() != NumberUtil.parseDouble(formBean.getPrice()[i], 0)) {
-                            isUpdate = true;
-                            oldBean.setPrice(NumberUtil.parseDouble(formBean.getPrice()[i], 0));
-                        }
-                        if (oldBean.getAmount() != NumberUtil.parseDouble(formBean.getAmount()[i], 0)) {
-                            isUpdate = true;
-                            oldBean.setAmount(NumberUtil.parseDouble(formBean.getAmount()[i], 0));
-                        }
-                        if (isUpdate) {
-                            gasDAO.updateVehicleOutDetail(oldBean);
+                        if (j < arrDetail.size()) {
+                            arrDetail.remove(j);
+                            if (oldBean.getQuantity() != NumberUtil.parseInt(formBean.getQuantity()[i], 0)) {
+                                isUpdate = true;
+                                oldBean.setQuantity(NumberUtil.parseInt(formBean.getQuantity()[i], 0));
+                            }
+                            if (oldBean.getPrice() != NumberUtil.parseDouble(formBean.getPrice()[i], 0)) {
+                                isUpdate = true;
+                                oldBean.setPrice(NumberUtil.parseDouble(formBean.getPrice()[i], 0));
+                            }
+                            if (oldBean.getAmount() != NumberUtil.parseDouble(formBean.getAmount()[i], 0)) {
+                                isUpdate = true;
+                                oldBean.setAmount(NumberUtil.parseDouble(formBean.getAmount()[i], 0));
+                            }
+                            if (isUpdate) {
+                                gasDAO.updateVehicleOutDetail(oldBean);
+                            }
                         }
                     }
                 }
             }
+            String ids = "0,";
+            VehicleOutDetailBean oldBean = null;
+            for (int i = 0; i < arrDetail.size(); i++) {
+                oldBean = (VehicleOutDetailBean) arrDetail.get(i);
+                ids += oldBean.getId() + ",";
+            }
+            ids += "0";
+            gasDAO.deleteVehicleOutDetails(ids);
         } catch (Exception ex) {
         }
     }
@@ -129,43 +139,53 @@ public class AddVehicleOutAction extends SpineAction {
         try {
             GasDAO gasDAO = new GasDAO();
             ArrayList arrDetail = gasDAO.getVehicleOutEmployeeDetail(formBean.getId());
-            int length = formBean.getEmployeeId().length;
-            int id = 0;
-            boolean isUpdate = false;
-            for (int i = 0; i < length; i++) {
-                id = NumberUtil.parseInt(formBean.getVehicleOutEmployeeDetailId()[i], 0);
-                if (id == 0) {
-                    VehicleOutEmployeeDetailBean bean = new VehicleOutEmployeeDetailBean();
-                    bean.setEmployeeId(NumberUtil.parseInt(formBean.getEmployeeId()[i], 0));
-                    bean.setNote(formBean.getEmployeeNote()[i] + "");
-                    bean.setVehicleOutId(formBean.getId());
-                    gasDAO.insertVehicleOutEmployeeDetail(bean);
-                } else {
-                    isUpdate = false;
-                    int j = 0;
-                    VehicleOutEmployeeDetailBean oldBean = null;
-                    for (; j < arrDetail.size(); j++) {
-                        oldBean = (VehicleOutEmployeeDetailBean) arrDetail.get(j);
-                        if (oldBean.getId() == id) {
-                            break;
+            if (formBean.getEmployeeId() != null) {
+                int length = formBean.getEmployeeId().length;
+                int id = 0;
+                boolean isUpdate = false;
+                for (int i = 0; i < length; i++) {
+                    id = NumberUtil.parseInt(formBean.getVehicleOutEmployeeDetailId()[i], 0);
+                    if (id == 0) {
+                        VehicleOutEmployeeDetailBean bean = new VehicleOutEmployeeDetailBean();
+                        bean.setEmployeeId(NumberUtil.parseInt(formBean.getEmployeeId()[i], 0));
+                        bean.setNote(formBean.getEmployeeNote()[i] + "");
+                        bean.setVehicleOutId(formBean.getId());
+                        gasDAO.insertVehicleOutEmployeeDetail(bean);
+                    } else {
+                        isUpdate = false;
+                        int j = 0;
+                        VehicleOutEmployeeDetailBean oldBean = null;
+                        for (; j < arrDetail.size(); j++) {
+                            oldBean = (VehicleOutEmployeeDetailBean) arrDetail.get(j);
+                            if (oldBean.getId() == id) {
+                                break;
+                            }
                         }
-                    }
-                    if (j < arrDetail.size()) {
-                        arrDetail.remove(j);
-                        if (!oldBean.getNote().equals(formBean.getEmployeeNote()[i] + "")) {
-                            isUpdate = true;
-                            oldBean.setNote(formBean.getEmployeeNote()[i] + "");
-                        }
-                        if (oldBean.getEmployeeId() != NumberUtil.parseInt(formBean.getEmployeeId()[i], 0)) {
-                            isUpdate = true;
-                            oldBean.setEmployeeId(NumberUtil.parseInt(formBean.getEmployeeId()[i], 0));
-                        }
-                        if (isUpdate) {
-                            gasDAO.updateVehicleOutEmployeeDetail(oldBean);
+                        if (j < arrDetail.size()) {
+                            arrDetail.remove(j);
+                            if (!oldBean.getNote().equals(formBean.getEmployeeNote()[i] + "")) {
+                                isUpdate = true;
+                                oldBean.setNote(formBean.getEmployeeNote()[i] + "");
+                            }
+                            if (oldBean.getEmployeeId() != NumberUtil.parseInt(formBean.getEmployeeId()[i], 0)) {
+                                isUpdate = true;
+                                oldBean.setEmployeeId(NumberUtil.parseInt(formBean.getEmployeeId()[i], 0));
+                            }
+                            if (isUpdate) {
+                                gasDAO.updateVehicleOutEmployeeDetail(oldBean);
+                            }
                         }
                     }
                 }
             }
+            String ids = "0,";
+            VehicleOutEmployeeDetailBean oldBean = null;
+            for (int i = 0; i < arrDetail.size(); i++) {
+                oldBean = (VehicleOutEmployeeDetailBean) arrDetail.get(i);
+                ids += oldBean.getId() + ",";
+            }
+            ids += "0";
+            gasDAO.deleteVehicleOutEmployeeDetails(ids);
         } catch (Exception ex) {
         }
     }
