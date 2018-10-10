@@ -9,7 +9,8 @@ import com.stepup.core.util.NumberUtil;
 import com.stepup.gasoline.qt.core.BaseAction;
 import com.stepup.gasoline.qt.core.ExcelExport;
 import com.stepup.gasoline.qt.dao.ReportDAO;
-import com.stepup.gasoline.qt.util.QTUtil;
+import com.stepup.gasoline.qt.dao.VendorDAO;
+import com.stepup.gasoline.qt.vendor.VendorFormBean;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
@@ -34,11 +35,11 @@ public class PrintLpgStockSumOrganizationReportAction extends BaseAction {
             String fromDate = request.getParameter("fromDate");
             String toDate = request.getParameter("toDate");
             int vendorId = NumberUtil.parseInt(request.getParameter("vendorId"), 0);
-            String organizationIds = QTUtil.getOrganizationManageds(request.getSession());
             ArrayList list = null;
             LpgStockSumOrganizationReportOutBean outBean = new LpgStockSumOrganizationReportOutBean();
-            list = printLpgStockSumOrganizationReport(fromDate, toDate, vendorId, organizationIds, outBean);
+            list = printLpgStockSumOrganizationReport(fromDate, toDate, vendorId, outBean);
             String templateFileName = request.getSession().getServletContext().getRealPath("/templates/so_theo_doi_nhap_xuat_khi_hoa_long_lpg_vendor.xls");
+            beans.put("qtrp_vendorName", outBean.getVendorName());
             beans.put("qtrp_fromDate", fromDate);
             beans.put("qtrp_toDate", toDate);
             if (list == null) {
@@ -59,11 +60,16 @@ public class PrintLpgStockSumOrganizationReportAction extends BaseAction {
         return true;
     }
 
-    private ArrayList printLpgStockSumOrganizationReport(String fromDate, String toDate, int customerId, String organizationIds, LpgStockSumOrganizationReportOutBean outBean) {
+    private ArrayList printLpgStockSumOrganizationReport(String fromDate, String toDate, int vendorId, LpgStockSumOrganizationReportOutBean outBean) {
         ArrayList list = null;
         try {
+            VendorDAO vendorDAO = new VendorDAO();
+            VendorFormBean vendorBean = vendorDAO.getVendor(vendorId);
+            if (vendorBean != null) {
+                outBean.setVendorName(vendorBean.getName());
+            }
             ReportDAO reportDAO = new ReportDAO();
-            list = reportDAO.getLpgStockSumOrganizationReport(fromDate, toDate, organizationIds, customerId, outBean);
+            list = reportDAO.getLpgStockSumOrganizationReport(fromDate, toDate, vendorId, outBean);
         } catch (Exception ex) {
         }
         return list;

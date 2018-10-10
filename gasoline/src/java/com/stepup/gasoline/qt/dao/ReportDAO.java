@@ -167,12 +167,12 @@ public class ReportDAO extends BasicDAO {
         return list;
     }
 
-    public ArrayList getLpgStockSumReport(String fromDate, String endDate, String organizationIds, String vendorIds, LpgStockSumReportOutBean outBean) throws Exception {
+    public ArrayList getLpgStockSumReport(String fromDate, String endDate, String vendorIds, LpgStockSumReportOutBean outBean) throws Exception {
         SPUtil spUtil = null;
         ArrayList list = new ArrayList();
         ResultSet rs = null;
         try {
-            String sql = "{call report_lpg_stock_sum(?,?,?,?,?,?,?,?)}";
+            String sql = "{call report_lpg_stock_sum(?,?,?,?,?,?,?)}";
             if (GenericValidator.isBlankOrNull(fromDate)) {
                 fromDate = DateUtil.today("dd/MM/yyyy");
             }
@@ -183,7 +183,6 @@ public class ReportDAO extends BasicDAO {
             if (spUtil != null) {
                 spUtil.getCallableStatement().setString("_start_date", fromDate);
                 spUtil.getCallableStatement().setString("_end_date", endDate);
-                spUtil.getCallableStatement().setString("_organization_ids", organizationIds);
                 spUtil.getCallableStatement().setString("_vendor_ids", vendorIds);
                 spUtil.getCallableStatement().registerOutParameter("_gas_12_stock", Types.INTEGER);
                 spUtil.getCallableStatement().registerOutParameter("_gas_45_stock", Types.INTEGER);
@@ -451,12 +450,12 @@ public class ReportDAO extends BasicDAO {
         return list;
     }
 
-    public ArrayList getSaleCustomerReport(String fromDate, String endDate, String organizationIds) throws Exception {
+    public ArrayList getSaleCustomerReport(String fromDate, String endDate, String organizationIds, String vendorIds) throws Exception {
         SPUtil spUtil = null;
         ArrayList list = new ArrayList();
         ResultSet rs = null;
         try {
-            String sql = "{call report_sale_customer(?,?,?)}";
+            String sql = "{call report_sale_customer(?,?,?,?)}";
             if (GenericValidator.isBlankOrNull(fromDate)) {
                 fromDate = DateUtil.today("dd/MM/yyyy");
             }
@@ -468,6 +467,7 @@ public class ReportDAO extends BasicDAO {
                 spUtil.getCallableStatement().setString("_start_date", fromDate);
                 spUtil.getCallableStatement().setString("_end_date", endDate);
                 spUtil.getCallableStatement().setString("_organization_ids", organizationIds);
+                spUtil.getCallableStatement().setString("_vendor_ids", vendorIds);
 
                 rs = spUtil.executeQuery();
                 if (rs != null) {
@@ -571,7 +571,7 @@ public class ReportDAO extends BasicDAO {
         return list;
     }
 
-    public ArrayList getLpgStockSumOrganizationReport(String fromDate, String endDate, String organizationIds, int customerId, LpgStockSumOrganizationReportOutBean outBean) throws Exception {
+    public ArrayList getLpgStockSumOrganizationReport(String fromDate, String endDate, int vendorId, LpgStockSumOrganizationReportOutBean outBean) throws Exception {
         SPUtil spUtil = null;
         ArrayList list = new ArrayList();
         ResultSet rs = null;
@@ -587,7 +587,7 @@ public class ReportDAO extends BasicDAO {
             if (spUtil != null) {
                 spUtil.getCallableStatement().setString("_start_date", fromDate);
                 spUtil.getCallableStatement().setString("_end_date", endDate);
-//                spUtil.getCallableStatement().setString("_vendor_ids", vendorIds);
+                spUtil.getCallableStatement().setInt("_vendor_id", vendorId);
                 spUtil.getCallableStatement().registerOutParameter("_gas_12_stock", Types.INTEGER);
                 spUtil.getCallableStatement().registerOutParameter("_gas_45_stock", Types.INTEGER);
                 spUtil.getCallableStatement().registerOutParameter("_gas_stock", Types.INTEGER);

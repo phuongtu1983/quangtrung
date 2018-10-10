@@ -13,6 +13,7 @@ public class LpgStockSumOrganizationReportOutBean {
 
     private int gasStock;
     private int shieldStock;
+    private String vendorName;
 
     public int getGasStock() {
         return gasStock;
@@ -28,6 +29,14 @@ public class LpgStockSumOrganizationReportOutBean {
 
     public void setShieldStock(int shieldStock) {
         this.shieldStock = shieldStock;
+    }
+
+    public String getVendorName() {
+        return vendorName;
+    }
+
+    public void setVendorName(String vendorName) {
+        this.vendorName = vendorName;
     }
 
 }

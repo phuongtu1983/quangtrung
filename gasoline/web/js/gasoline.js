@@ -275,6 +275,8 @@ function menuClick(id) {
         getShieldDecrease(0, 'loadShieldDecreasePanel');
     else if (id == 'reportcompare')
         showCompareReportPanel();
+    else if (id == 'reportlpgstocksumorganization')
+        showLpgStockSumOrganizationReportPanel();
 }
 function clearContent() {
     var contentDiv = document.getElementById("contentDiv");
@@ -8170,5 +8172,50 @@ function printComapreReport(fromDate, toDate) {
     callServer(url);
     return false;
 }
+function showLpgStockSumOrganizationReportPanel() {
+    popupName = 'S\u1ED5 theo d\u00F5i nh\u1EADp xu\u1EA5t kh\u00ED h\u00F3a l\u1ECFng LPG';
+    var url = 'getLpgStockSumOrganizationReportPanel.do';
+    callAjax(url, null, null, function(data) {
+        showPopupForm(data);
+        var myCalendar = new dhtmlXCalendarObject(["fromDate", "toDate"]);
+        myCalendar.setSkin('dhx_web');
+        var currentTime = getCurrentDate();
+        document.forms['reportLpgStockSumOrganizationSearchForm'].fromDate.value = currentTime;
+        document.forms['reportLpgStockSumOrganizationSearchForm'].toDate.value = currentTime;
+        myCalendar.setDateFormat("%d/%m/%Y");
+    });
+}
+function printLpgStockSumOrganizationReport(fromDate, toDate) {
+    var list = document.getElementById("reportLpgStockSumOrganizationSearchFormTime");
+    if (list == null || list.selectedIndex == -1)
+        return false;
+    if (list.selectedIndex == 1) {
+        fromDate = "01/" + fromDate;
+        var ind = toDate.indexOf("/");
+        var month = toDate.substring(0, ind);
+        var year = toDate.substring(ind + 1);
+        toDate = month + "/01/" + year;
+        var d = new Date(toDate);
+        var lastDay = new Date(d.getFullYear(), d.getMonth() + 1, 0).getDate();
+        toDate = lastDay + "/" + month + "/" + year;
+    } else if (list.selectedIndex == 2) {
+        fromDate = "01/01/" + fromDate;
+        toDate = "31/12/" + toDate;
+    }
+    var url = "reportLpgStockSumOrganizationPrint.do?temp=1";
+    if (fromDate !== null)
+        url += "&fromDate=" + fromDate;
+    if (toDate !== null)
+        url += "&toDate=" + toDate;
+    list = document.forms['reportLpgStockSumOrganizationSearchForm'].vendorId;
+    if (list != null && list.selectedIndex > -1)
+        list = list.options[list.selectedIndex].value;
+    else
+        list = 0;
+    url += "&vendorId=" + list;
+    callServer(url);
+    return false;
+}
+
 
 
