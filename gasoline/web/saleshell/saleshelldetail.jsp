@@ -55,9 +55,7 @@
                     <table>
                         <tr>
                             <td>
-                                <logic:equal name="<%=Constants.SALE_SHELL%>" property="id" value="0">
-                                    <button class="i_cross icon small red" onclick="return delTableRow('saleShellForm', 'saleShellGoodChk', 'saleShellDetailTbl');"><bean:message key="message.del"/></button>
-                                </logic:equal>
+                                <button class="i_cross icon small red" onclick="return delTableRow('saleShellForm', 'saleShellGoodChk', 'saleShellDetailTbl');"><bean:message key="message.del"/></button>
                                 <button class="i_plus icon small green" onclick="return addSaleShellGood();"><bean:message key="message.add"/></button>
                             </td>
                             <td>
@@ -100,7 +98,7 @@
     </table>
     <html:hidden property="id" name="<%=Constants.SALE_SHELL%>" />
     <input type="hidden" id="callbackFunc"/>
-    <input type="hidden" name="foodSelectedHidden" value="0"/>
+    <input type="hidden" name="shellSelectedHidden" value="0"/>
 </form>
 <div name="saleShellFormshowHelpHideDiv" id="showHelpHideDiv" style="display:none">
     Ctrl+C : Đóng

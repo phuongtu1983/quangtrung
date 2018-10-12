@@ -121,7 +121,8 @@
     </table>
     <html:hidden property="id" name="<%=Constants.EXPORT_WHOLESALE%>" />
     <input type="hidden" id="callbackFunc"/>
-    <input type="hidden" name="foodSelectedHidden" value="0"/>
+    <input type="hidden" name="shellSelectedHidden" value="0"/>
+    <input type="hidden" name="returnShellSelectedHidden" value="0"/>
 </form>
 <div name="exportWholesaleFormshowHelpHideDiv" id="showHelpHideDiv" style="display:none">
     Ctrl+C : Đóng

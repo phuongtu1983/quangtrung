@@ -4,12 +4,9 @@
  */
 package com.stepup.gasoline.qt.shell;
 
-import com.stepup.core.util.NumberUtil;
 import com.stepup.gasoline.qt.bean.ShellBean;
-import com.stepup.gasoline.qt.bean.ShellVendorDetailBean;
 import com.stepup.gasoline.qt.core.SpineAction;
 import com.stepup.gasoline.qt.dao.GoodDAO;
-import java.util.ArrayList;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import org.apache.struts.action.ActionForm;
@@ -91,9 +88,6 @@ public class AddShellAction extends SpineAction {
                 if (formBean.getPrice() != bean.getPrice()) {
                     isUpdate = true;
                 }
-                if (formBean.getVendorId() != bean.getVendorId()) {
-                    isUpdate = true;
-                }
             }
         } catch (Exception ex) {
         }
@@ -105,7 +99,6 @@ public class AddShellAction extends SpineAction {
         bean.setKindId(formBean.getKindId());
         bean.setPrice(formBean.getPrice());
         bean.setStatus(formBean.getStatus());
-        bean.setVendorId(formBean.getVendorId());
         try {
             if (bNew) {
                 int id = goodDAO.insertShell(bean);
@@ -115,60 +108,9 @@ public class AddShellAction extends SpineAction {
                     goodDAO.updateShell(bean);
                 }
             }
-            addShellVendor(formBean);
         } catch (Exception ex) {
             ex.printStackTrace();
         }
         return true;
-    }
-
-    private void addShellVendor(ShellFormBean formBean) {
-        try {
-            GoodDAO goodDAO = new GoodDAO();
-            ArrayList arrDetail = goodDAO.getShellVendorDetail(formBean.getId());
-            if (formBean.getShellVendorId() != null) {
-                int length = formBean.getShellVendorId().length;
-                int id = 0;
-                boolean isUpdate = false;
-                for (int i = 0; i < length; i++) {
-                    id = NumberUtil.parseInt(formBean.getShellVendorDetailId()[i], 0);
-                    if (id == 0) {
-                        ShellVendorDetailBean bean = new ShellVendorDetailBean();
-                        bean.setVendorId(NumberUtil.parseInt(formBean.getShellVendorId()[i], 0));
-                        bean.setShellId(formBean.getId());
-                        goodDAO.insertShellVendorDetail(bean);
-                    } else {
-                        isUpdate = false;
-                        int j = 0;
-                        ShellVendorDetailBean oldBean = null;
-                        for (; j < arrDetail.size(); j++) {
-                            oldBean = (ShellVendorDetailBean) arrDetail.get(j);
-                            if (oldBean.getId() == id) {
-                                break;
-                            }
-                        }
-                        if (j < arrDetail.size()) {
-                            arrDetail.remove(j);
-                            if (oldBean.getVendorId() != NumberUtil.parseInt(formBean.getShellVendorId()[i], 0)) {
-                                isUpdate = true;
-                                oldBean.setVendorId(NumberUtil.parseInt(formBean.getShellVendorId()[i], 0));
-                            }
-                            if (isUpdate) {
-                                goodDAO.updateShellVendorDetail(oldBean);
-                            }
-                        }
-                    }
-                }
-            }
-            String ids = "0,";
-            ShellVendorDetailBean oldBean = null;
-            for (int i = 0; i < arrDetail.size(); i++) {
-                oldBean = (ShellVendorDetailBean) arrDetail.get(i);
-                ids += oldBean.getId() + ",";
-            }
-            ids += "0";
-            goodDAO.deleteShellVendors(ids);
-        } catch (Exception ex) {
-        }
     }
 }

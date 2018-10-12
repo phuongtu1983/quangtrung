@@ -16,6 +16,7 @@ public class VendorBean {
     private String name;
     private int organizationId;
     private int equalOrganizationId;
+    private int hasStock;
 
     public int getId() {
         return id;
@@ -63,6 +64,14 @@ public class VendorBean {
 
     public void setEqualOrganizationId(int equalOrganizationId) {
         this.equalOrganizationId = equalOrganizationId;
+    }
+
+    public int getHasStock() {
+        return hasStock;
+    }
+
+    public void setHasStock(int hasStock) {
+        this.hasStock = hasStock;
     }
 
 }

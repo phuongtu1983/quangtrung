@@ -90,7 +90,7 @@ public class ExportWholesaleFormAction extends SpineAction {
             GoodDAO goodDAO = new GoodDAO();
             VendorDAO vendorDAO = new VendorDAO();
             String vendorIds = vendorDAO.getVendorOfOrganizations(organizationIds);
-            arrShell = goodDAO.getShellVendor(vendorIds);
+            arrShell = goodDAO.getShellVendor(organizationIds, vendorIds);
         } catch (Exception ex) {
         }
         if (arrShell == null) {

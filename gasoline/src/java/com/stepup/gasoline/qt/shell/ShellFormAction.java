@@ -9,7 +9,6 @@ import com.stepup.gasoline.qt.bean.ShellBean;
 import com.stepup.gasoline.qt.core.SpineAction;
 import com.stepup.gasoline.qt.dao.GoodDAO;
 import com.stepup.gasoline.qt.dao.UnitDAO;
-import com.stepup.gasoline.qt.dao.VendorDAO;
 import com.stepup.gasoline.qt.util.Constants;
 import com.stepup.gasoline.qt.util.QTUtil;
 import java.util.ArrayList;
@@ -41,13 +40,11 @@ public class ShellFormAction extends SpineAction {
             HttpServletRequest request, HttpServletResponse response) {
         ShellBean bean = null;
         String shellId = request.getParameter("shellId");
-        ArrayList arrVendorDetail = null;
         if (!GenericValidator.isBlankOrNull(shellId)) {
             GoodDAO goodDAO = new GoodDAO();
             try {
                 int id = Integer.parseInt(shellId);
                 bean = goodDAO.getShell(id);
-                arrVendorDetail = goodDAO.getShellVendorDetail(id);
             } catch (Exception ex) {
             }
         }
@@ -55,11 +52,6 @@ public class ShellFormAction extends SpineAction {
             bean = new ShellBean();
         }
         request.setAttribute(Constants.SHELL, bean);
-
-        if (arrVendorDetail == null) {
-            arrVendorDetail = new ArrayList();
-        }
-        request.setAttribute(Constants.SHELL_VENDOR, arrVendorDetail);
 
         ArrayList arrStatus = new ArrayList();
         LabelValueBean value;
@@ -94,18 +86,6 @@ public class ShellFormAction extends SpineAction {
             arrShellKind = new ArrayList();
         }
         request.setAttribute(Constants.SHELL_KIND_LIST, arrShellKind);
-
-        String organizationIds = QTUtil.getOrganizationManageds(request.getSession());
-        ArrayList arrVendor = null;
-        try {
-            VendorDAO vendorDAO = new VendorDAO();
-            arrVendor = vendorDAO.getVendors(organizationIds);
-        } catch (Exception ex) {
-        }
-        if (arrVendor == null) {
-            arrVendor = new ArrayList();
-        }
-        request.setAttribute(Constants.VENDOR_LIST, arrVendor);
 
         return true;
     }

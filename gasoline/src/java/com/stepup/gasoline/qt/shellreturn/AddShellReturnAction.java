@@ -77,39 +77,49 @@ public class AddShellReturnAction extends SpineAction {
         try {
             GasDAO gasDAO = new GasDAO();
             ArrayList arrDetail = gasDAO.getShellReturnDetail(formBean.getId());
-            int length = formBean.getShellId().length;
-            int id = 0;
-            boolean isUpdate = false;
-            for (int i = 0; i < length; i++) {
-                id = NumberUtil.parseInt(formBean.getShellReturnDetailId()[i], 0);
-                if (id == 0) {
-                    ShellReturnDetailBean bean = new ShellReturnDetailBean();
-                    bean.setShellId(NumberUtil.parseInt(formBean.getShellId()[i], 0));
-                    bean.setQuantity(NumberUtil.parseInt(formBean.getQuantity()[i], 0));
-                    bean.setShellReturnId(formBean.getId());
-                    gasDAO.insertShellReturnDetail(bean);
-                } else {
-                    isUpdate = false;
-                    int j = 0;
-                    ShellReturnDetailBean oldBean = null;
-                    for (; j < arrDetail.size(); j++) {
-                        oldBean = (ShellReturnDetailBean) arrDetail.get(j);
-                        if (oldBean.getId() == id) {
-                            break;
+            if (formBean.getShellId() != null) {
+                int length = formBean.getShellId().length;
+                int id = 0;
+                boolean isUpdate = false;
+                for (int i = 0; i < length; i++) {
+                    id = NumberUtil.parseInt(formBean.getShellReturnDetailId()[i], 0);
+                    if (id == 0) {
+                        ShellReturnDetailBean bean = new ShellReturnDetailBean();
+                        bean.setShellId(NumberUtil.parseInt(formBean.getShellId()[i], 0));
+                        bean.setQuantity(NumberUtil.parseInt(formBean.getQuantity()[i], 0));
+                        bean.setShellReturnId(formBean.getId());
+                        gasDAO.insertShellReturnDetail(bean);
+                    } else {
+                        isUpdate = false;
+                        int j = 0;
+                        ShellReturnDetailBean oldBean = null;
+                        for (; j < arrDetail.size(); j++) {
+                            oldBean = (ShellReturnDetailBean) arrDetail.get(j);
+                            if (oldBean.getId() == id) {
+                                break;
+                            }
                         }
-                    }
-                    if (j < arrDetail.size()) {
-                        arrDetail.remove(j);
-                        if (oldBean.getQuantity() != NumberUtil.parseDouble(formBean.getQuantity()[i], 0)) {
-                            isUpdate = true;
-                            oldBean.setQuantity(NumberUtil.parseInt(formBean.getQuantity()[i], 0));
-                        }
-                        if (isUpdate) {
-                            gasDAO.updateShellReturnDetail(oldBean);
+                        if (j < arrDetail.size()) {
+                            arrDetail.remove(j);
+                            if (oldBean.getQuantity() != NumberUtil.parseDouble(formBean.getQuantity()[i], 0)) {
+                                isUpdate = true;
+                                oldBean.setQuantity(NumberUtil.parseInt(formBean.getQuantity()[i], 0));
+                            }
+                            if (isUpdate) {
+                                gasDAO.updateShellReturnDetail(oldBean);
+                            }
                         }
                     }
                 }
             }
+            String ids = "0,";
+            ShellReturnDetailBean oldBean = null;
+            for (int i = 0; i < arrDetail.size(); i++) {
+                oldBean = (ShellReturnDetailBean) arrDetail.get(i);
+                ids += oldBean.getId() + ",";
+            }
+            ids += "0";
+            gasDAO.deleteShellReturnDetails(ids);
         } catch (Exception ex) {
         }
     }

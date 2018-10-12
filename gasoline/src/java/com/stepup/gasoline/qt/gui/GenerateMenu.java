@@ -541,16 +541,16 @@ public class GenerateMenu {
                     }
                     buffTemp.append("</item>");
                 }
-                if (isHasPermission(PermissionUtil.OPERATION_LIST + "," + PermissionUtil.OPERATION_ADD, PermissionUtil.PER_GAS_RETURN)) {
-                    buffTemp.append("<item id=\"gasreturns\" complex=\"true\" text=\"").append(QTUtil.getBundleString("gasReturn.title")).append("\">");
-                    if (isHasPermission(PermissionUtil.OPERATION_LIST, PermissionUtil.PER_GAS_RETURN)) {
-                        buffTemp.append("<item id=\"gasreturnlist\" text=\"").append(QTUtil.getBundleString("gasReturn.list.title")).append("\"/>");
-                    }
-                    if (isHasPermission(PermissionUtil.OPERATION_ADD, PermissionUtil.PER_GAS_RETURN)) {
-                        buffTemp.append("<item id=\"gasreturnadd\" text=\"").append(QTUtil.getBundleString("gasReturn.detail.add.title")).append("\"/>");
-                    }
-                    buffTemp.append("</item>");
-                }
+//                if (isHasPermission(PermissionUtil.OPERATION_LIST + "," + PermissionUtil.OPERATION_ADD, PermissionUtil.PER_GAS_RETURN)) {
+//                    buffTemp.append("<item id=\"gasreturns\" complex=\"true\" text=\"").append(QTUtil.getBundleString("gasReturn.title")).append("\">");
+//                    if (isHasPermission(PermissionUtil.OPERATION_LIST, PermissionUtil.PER_GAS_RETURN)) {
+//                        buffTemp.append("<item id=\"gasreturnlist\" text=\"").append(QTUtil.getBundleString("gasReturn.list.title")).append("\"/>");
+//                    }
+//                    if (isHasPermission(PermissionUtil.OPERATION_ADD, PermissionUtil.PER_GAS_RETURN)) {
+//                        buffTemp.append("<item id=\"gasreturnadd\" text=\"").append(QTUtil.getBundleString("gasReturn.detail.add.title")).append("\"/>");
+//                    }
+//                    buffTemp.append("</item>");
+//                }
             }
             if (buffTemp.length() > 0) {
                 buff.append("<item id=\"gasfunction\" complex=\"true\" text=\"").append(QTUtil.getBundleString("menu.function.gas.title")).append("\">");//start function gas

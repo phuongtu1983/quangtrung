@@ -64,7 +64,7 @@ public class LpgImportFormAction extends SpineAction {
         ArrayList arrVendor = null;
         try {
             VendorDAO vendorDAO = new VendorDAO();
-            arrVendor = vendorDAO.getVendors(organizationIds);
+            arrVendor = vendorDAO.getVendorHasStocks(organizationIds);
         } catch (Exception ex) {
         }
         if (arrVendor == null) {

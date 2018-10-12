@@ -561,7 +561,7 @@ public class GasDAO extends BasicDAO {
     public int deleteFractionDetails(String ids) throws Exception {
         int result = 0;
         try {
-            String sql = "Delete From fraction_detail Where id in (" + ids + ")";
+            String sql = "Delete From fraction_gas_detail Where id in (" + ids + ")";
             DBUtil.executeUpdate(sql);
         } catch (SQLException sqle) {
             throw new Exception(sqle.getMessage());
@@ -2692,6 +2692,19 @@ public class GasDAO extends BasicDAO {
             }
         }
     }
+    
+    public int deleteSaleShellDetails(String ids) throws Exception {
+        int result = 0;
+        try {
+            String sql = "Delete From shell_sale_detail Where id in (" + ids + ")";
+            DBUtil.executeUpdate(sql);
+        } catch (SQLException sqle) {
+            throw new Exception(sqle.getMessage());
+        } catch (Exception ex) {
+            throw new Exception(ex.getMessage());
+        }
+        return result;
+    }
 
     public ArrayList searchOldShell(String fromDate, String endDate, String organizationIds) throws Exception {
         SPUtil spUtil = null;
@@ -3147,6 +3160,19 @@ public class GasDAO extends BasicDAO {
                 throw new Exception(e.getMessage());
             }
         }
+    }
+    
+    public int deleteShellReturnDetails(String ids) throws Exception {
+        int result = 0;
+        try {
+            String sql = "Delete From shell_return_detail Where id in (" + ids + ")";
+            DBUtil.executeUpdate(sql);
+        } catch (SQLException sqle) {
+            throw new Exception(sqle.getMessage());
+        } catch (Exception ex) {
+            throw new Exception(ex.getMessage());
+        }
+        return result;
     }
 
     public ArrayList searchGasReturn(String fromDate, String endDate, String organizationIds) throws Exception {
@@ -3718,6 +3744,19 @@ public class GasDAO extends BasicDAO {
                 throw new Exception(e.getMessage());
             }
         }
+    }
+    
+    public int deleteShellReturnSupplierDetails(String ids) throws Exception {
+        int result = 0;
+        try {
+            String sql = "Delete From shell_return_supplier_detail Where id in (" + ids + ")";
+            DBUtil.executeUpdate(sql);
+        } catch (SQLException sqle) {
+            throw new Exception(sqle.getMessage());
+        } catch (Exception ex) {
+            throw new Exception(ex.getMessage());
+        }
+        return result;
     }
 
     public ArrayList searchVehicleOut(String fromDate, String endDate, String organizationIds) throws Exception {

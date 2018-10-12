@@ -61,7 +61,7 @@ function menuClick(id) {
     else if (id == 'shelllist')
         loadShellPanel();
     else if (id == 'shelladd')
-        getShell(0);
+        getShell(0, 'loadShellPanel');
     else if (id == 'vendorlist')
         loadVendorPanel();
     else if (id == 'vendoradd')
@@ -193,7 +193,7 @@ function menuClick(id) {
     else if (id == 'oldshelllist')
         loadOldShellPanel();
     else if (id == 'oldshelladd')
-        getOldShell(0, 'loadOldShellPanel');
+        getOldShell(0);
     else if (id == 'shellreturnlist')
         loadShellReturnPanel();
     else if (id == 'shellreturnadd')
@@ -1423,60 +1423,18 @@ function loadShellList() {
     });
     return false;
 }
-function getShell(id) {
+function getShell(id, handle) {
+    popupName = 'TH\u00D4NG TIN V\u1ECE B\u00CCNH';
     var url = 'shellForm.do';
     if (id != 0)
         url += '?shellId=' + id
     callAjax(url, null, null, function(data) {
-        clearContent();
-        setAjaxData(data, 'contentDiv');
+        showPopupForm(data);
+        document.getElementById('callbackFunc').value = handle;
         document.forms['shellForm'].code.focus();
         tryNumberFormatCurrentcy(document.forms['shellForm'].price, "VND");
     });
 }
-function addShellVendor() {
-    var vendor = document.forms['shellForm'].vendorIdCombobox;
-    if (vendor == null && vendor.selectedIndex == -1)
-        vendor = null;
-    else
-        vendor = vendor.options[vendor.selectedIndex].value;
-    if (vendor == -1 || vendor == 0)
-        return false;
-    var vendorId = document.forms['shellForm'].shellVendorId;
-    var existed = false;
-    if (vendorId != null) {
-        if (vendorId.length != null) {
-            for (i = 0; i < vendorId.length; i++) {
-                if (vendorId[i].value == vendor) {
-                    existed = true;
-                    break;
-                }
-            }
-        } else if (vendorId.value == vendor)
-            existed = true;
-    }
-    vendorId = null;
-    if (existed == true) {
-        alert("Nh\u00E0 cung c\u1EA5p \u0111\u00E3 t\u1ED3n t\u1EA1i");
-        return false;
-    }
-    callAjax("getShellVendor.do?vendorId=" + vendor, null, null, function(data) {
-        setAjaxData(data, 'shellVendorHideDiv');
-        var matTable = document.getElementById('shellVendorTbl');
-        var detTable = document.getElementById('shellVendorDetailTbl');
-        if (matTable.tBodies[0] == null || detTable.tBodies[0] == null) {
-            matTable = null;
-            detTable = null;
-            return;
-        }
-        for (var i = matTable.tBodies[0].rows.length - 1; i >= 0; i--)
-            detTable.tBodies[0].appendChild(matTable.tBodies[0].rows[i]);
-        matTable = null;
-        detTable = null;
-    });
-    return false;
-}
-
 function saveShell() {
     if (scriptFunction == "saveShell")
         return false;
@@ -1497,12 +1455,14 @@ function saveShell() {
     field = null;
     reformatNumberMoney(document.forms['shellForm'].price);
     scriptFunction = "saveShell";
+    var handle = document.getElementById('callbackFunc').value;
     callAjaxCheckError("addShell.do", null, document.forms['shellForm'], function(data) {
         scriptFunction = "";
         if (confirm('B\u1EA1n c\u00F3 mu\u1ED1n nh\u1EADp ti\u1EBFp th\u00F4ng tin kh\u00E1c ?'))
-            getShell(0);
-        else
-            loadShellPanel();
+            getShell(0, handle);
+        else if (handle != '')
+            eval(handle + "()");
+        prepareHidePopup('shellFormshowHelpHideDiv');
     });
     return false;
 }
@@ -3049,6 +3009,33 @@ function getFraction(id) {
     callAjax(url, null, null, function(data) {
         clearContent();
         setAjaxData(data, 'contentDiv');
+        window.dhx_globalImgPath = "js/dhtmlx/combo/imgs/";
+        var shellIdCombobox = dhtmlXComboFromSelect("shellIdCombobox");
+        shellIdCombobox.enableFilteringMode(true);
+        shellIdCombobox.attachEvent("onSelectionChange", function() {
+            setShellSelectedForm('fractionForm', shellIdCombobox.getComboText(), shellIdCombobox.getSelectedValue());
+        });
+        shellIdCombobox.attachEvent("onBlur", function() {
+            setShellSelectedForm('fractionForm', shellIdCombobox.getComboText(), shellIdCombobox.getSelectedValue());
+        });
+        shellIdCombobox.DOMelem_input.onkeypress = function(event) {
+            var key;
+            if (window.event)
+                key = window.event.keyCode;//IE
+            else
+                key = event.which;//firefox
+            if (key == 13) {
+                addFractionShell();
+                shellIdCombobox.setComboValue("");
+            }
+        }
+        shellIdCombobox.DOMelem_input.onfocus = function(event) {
+            if (isManuallySeleted == 1) {
+                shellIdCombobox.openSelect();
+                isManuallySeleted = 0;
+            }
+        }
+        shellIdCombobox.setComboValue("");
 //        var myCalendar = new dhtmlXCalendarObject(["fractionCreatedDate"]);
 //        myCalendar.setSkin('dhx_web');
         if (id == 0) {
@@ -3109,11 +3096,7 @@ function saveFraction() {
     return false;
 }
 function addFractionShell() {
-    var shell = document.forms['fractionForm'].shellIdCombobox;
-    if (shell == null && shell.selectedIndex == -1)
-        shell = null;
-    else
-        shell = shell.options[shell.selectedIndex].value;
+    var shell = document.forms['fractionForm'].shellSelectedHidden.value;
     if (shell == -1 || shell == 0)
         return false;
     var shellId = document.forms['fractionForm'].shellId;
@@ -5279,6 +5262,33 @@ function getSaleShell(id) {
     callAjax(url, null, null, function(data) {
         clearContent();
         setAjaxData(data, 'contentDiv');
+        window.dhx_globalImgPath = "js/dhtmlx/combo/imgs/";
+        var shellIdCombobox = dhtmlXComboFromSelect("goodIdCombobox");
+        shellIdCombobox.enableFilteringMode(true);
+        shellIdCombobox.attachEvent("onSelectionChange", function() {
+            setShellSelectedForm('saleShellForm', shellIdCombobox.getComboText(), shellIdCombobox.getSelectedValue());
+        });
+        shellIdCombobox.attachEvent("onBlur", function() {
+            setShellSelectedForm('saleShellForm', shellIdCombobox.getComboText(), shellIdCombobox.getSelectedValue());
+        });
+        shellIdCombobox.DOMelem_input.onkeypress = function(event) {
+            var key;
+            if (window.event)
+                key = window.event.keyCode;//IE
+            else
+                key = event.which;//firefox
+            if (key == 13) {
+                addSaleShellGood();
+                shellIdCombobox.setComboValue("");
+            }
+        }
+        shellIdCombobox.DOMelem_input.onfocus = function(event) {
+            if (isManuallySeleted == 1) {
+                shellIdCombobox.openSelect();
+                isManuallySeleted = 0;
+            }
+        }
+        shellIdCombobox.setComboValue("");
 //        var myCalendar = new dhtmlXCalendarObject(["saleShellCreatedDate"]);
 //        myCalendar.setSkin('dhx_web');
         if (id == 0) {
@@ -5345,11 +5355,7 @@ function saveSaleShell() {
     return false;
 }
 function addSaleShellGood() {
-    var good = document.forms['saleShellForm'].goodIdCombobox;
-    if (good == null && good.selectedIndex == -1)
-        good = null;
-    else
-        good = good.options[good.selectedIndex].value;
+    var good = document.forms['saleShellForm'].shellSelectedHidden.value;
     if (good == -1 || good == 0)
         return false;
     var goodId = document.forms['saleShellForm'].goodId;
@@ -5431,14 +5437,42 @@ function loadOldShellList(fromDate, toDate) {
     });
     return false;
 }
-function getOldShell(id, handle) {
-    popupName = 'TH\u00D4NG TIN \u0110I\u1EC0U CH\u1EC8NH S\u1ED0 L\u01AF\u1EE2NG';
+function getOldShell(id) {
     var url = 'oldShellForm.do';
     if (id != 0)
         url += '?oldShellId=' + id
     callAjax(url, null, null, function(data) {
-        showPopupForm(data);
-        document.getElementById('callbackFunc').value = handle;
+        clearContent();
+        setAjaxData(data, 'contentDiv');
+        window.dhx_globalImgPath = "js/dhtmlx/combo/imgs/";
+        var shellIdCombobox = dhtmlXComboFromSelect("shellIdCombobox");
+        shellIdCombobox.enableFilteringMode(true);
+        shellIdCombobox.attachEvent("onSelectionChange", function() {
+            setShellSelectedForm('oldShellForm', shellIdCombobox.getComboText(), shellIdCombobox.getSelectedValue());
+        });
+        shellIdCombobox.attachEvent("onBlur", function() {
+            setShellSelectedForm('oldShellForm', shellIdCombobox.getComboText(), shellIdCombobox.getSelectedValue());
+            shellIdCombobox.setComboText(shellIdCombobox.getSelectedText());
+        });
+        shellIdCombobox.DOMelem_input.onfocus = function(event) {
+            if (isManuallySeleted == 1) {
+                shellIdCombobox.openSelect();
+                isManuallySeleted = 0;
+            }
+        }
+        if (id == 0) {
+            shellIdCombobox.setComboValue("");
+        } else {
+            var shellId = document.forms['oldShellForm'].shellId.value;
+            if (shellId != 0) {
+                var ind = shellIdCombobox.getIndexByValue(shellId);
+                shellIdCombobox.selectOption(ind);
+            } else {
+                shellIdCombobox.unSelectOption();
+                shellIdCombobox.setComboValue("");
+            }
+        }
+
         tryNumberFormatCurrentcy(document.forms['oldShellForm'].quantity, "VND");
         var myCalendar = new dhtmlXCalendarObject(["oldShellDate"]);
         myCalendar.setSkin('dhx_web');
@@ -5461,15 +5495,14 @@ function saveOldShell() {
     }
     field = null;
     reformatNumberMoney(document.forms['oldShellForm'].quantity);
+    document.forms['oldShellForm'].shellId.value = document.forms['oldShellForm'].shellSelectedHidden.value;
     scriptFunction = "saveOldShell";
     callAjaxCheckError("addOldShell.do", null, document.forms['oldShellForm'], function(data) {
         scriptFunction = "";
-        var handle = document.getElementById('callbackFunc').value;
         if (confirm('B\u1EA1n c\u00F3 mu\u1ED1n nh\u1EADp ti\u1EBFp th\u00F4ng tin kh\u00E1c ?'))
-            getOldShell(0, handle);
-        else if (handle != '')
-            eval(handle + "()");
-        prepareHidePopup('oldShellFormshowHelpHideDiv');
+            getOldShell(0);
+        else
+            loadOldShellPanel();
     });
     return false;
 }
@@ -5525,6 +5558,33 @@ function getShellReturn(id) {
     callAjax(url, null, null, function(data) {
         clearContent();
         setAjaxData(data, 'contentDiv');
+        window.dhx_globalImgPath = "js/dhtmlx/combo/imgs/";
+        var shellIdCombobox = dhtmlXComboFromSelect("shellIdCombobox");
+        shellIdCombobox.enableFilteringMode(true);
+        shellIdCombobox.attachEvent("onSelectionChange", function() {
+            setShellSelectedForm('shellReturnForm', shellIdCombobox.getComboText(), shellIdCombobox.getSelectedValue());
+        });
+        shellIdCombobox.attachEvent("onBlur", function() {
+            setShellSelectedForm('shellReturnForm', shellIdCombobox.getComboText(), shellIdCombobox.getSelectedValue());
+        });
+        shellIdCombobox.DOMelem_input.onkeypress = function(event) {
+            var key;
+            if (window.event)
+                key = window.event.keyCode;//IE
+            else
+                key = event.which;//firefox
+            if (key == 13) {
+                addShellReturnShell();
+                shellIdCombobox.setComboValue("");
+            }
+        }
+        shellIdCombobox.DOMelem_input.onfocus = function(event) {
+            if (isManuallySeleted == 1) {
+                shellIdCombobox.openSelect();
+                isManuallySeleted = 0;
+            }
+        }
+        shellIdCombobox.setComboValue("");
 //        var myCalendar = new dhtmlXCalendarObject(["shellReturnCreatedDate"]);
 //        myCalendar.setSkin('dhx_web');
         if (id == 0) {
@@ -5572,11 +5632,7 @@ function saveShellReturn() {
     return false;
 }
 function addShellReturnShell() {
-    var shell = document.forms['shellReturnForm'].shellIdCombobox;
-    if (shell == null && shell.selectedIndex == -1)
-        shell = null;
-    else
-        shell = shell.options[shell.selectedIndex].value;
+    var shell = document.forms['shellReturnForm'].shellSelectedHidden.value;
     if (shell == -1 || shell == 0)
         return false;
     var shellId = document.forms['shellReturnForm'].shellId;
@@ -5837,6 +5893,33 @@ function getShellReturnSupplier(id) {
     callAjax(url, null, null, function(data) {
         clearContent();
         setAjaxData(data, 'contentDiv');
+        window.dhx_globalImgPath = "js/dhtmlx/combo/imgs/";
+        var shellIdCombobox = dhtmlXComboFromSelect("shellIdCombobox");
+        shellIdCombobox.enableFilteringMode(true);
+        shellIdCombobox.attachEvent("onSelectionChange", function() {
+            setShellSelectedForm('shellReturnSupplierForm', shellIdCombobox.getComboText(), shellIdCombobox.getSelectedValue());
+        });
+        shellIdCombobox.attachEvent("onBlur", function() {
+            setShellSelectedForm('shellReturnSupplierForm', shellIdCombobox.getComboText(), shellIdCombobox.getSelectedValue());
+        });
+        shellIdCombobox.DOMelem_input.onkeypress = function(event) {
+            var key;
+            if (window.event)
+                key = window.event.keyCode;//IE
+            else
+                key = event.which;//firefox
+            if (key == 13) {
+                addShellReturnSupplierShell();
+                shellIdCombobox.setComboValue("");
+            }
+        }
+        shellIdCombobox.DOMelem_input.onfocus = function(event) {
+            if (isManuallySeleted == 1) {
+                shellIdCombobox.openSelect();
+                isManuallySeleted = 0;
+            }
+        }
+        shellIdCombobox.setComboValue("");
 //        var myCalendar = new dhtmlXCalendarObject(["shellReturnSupplierCreatedDate"]);
 //        myCalendar.setSkin('dhx_web');
         if (id == 0) {
@@ -5884,11 +5967,7 @@ function saveShellReturnSupplier() {
     return false;
 }
 function addShellReturnSupplierShell() {
-    var shell = document.forms['shellReturnSupplierForm'].shellIdCombobox;
-    if (shell == null && shell.selectedIndex == -1)
-        shell = null;
-    else
-        shell = shell.options[shell.selectedIndex].value;
+    var shell = document.forms['shellReturnSupplierForm'].shellSelectedHidden.value;
     if (shell == -1 || shell == 0)
         return false;
     var shellId = document.forms['shellReturnSupplierForm'].shellId;
@@ -5990,6 +6069,60 @@ function getVehicleOut(id) {
     callAjax(url, null, null, function(data) {
         clearContent();
         setAjaxData(data, 'contentDiv');
+        window.dhx_globalImgPath = "js/dhtmlx/combo/imgs/";
+        var shellIdCombobox = dhtmlXComboFromSelect("goodIdCombobox");
+        shellIdCombobox.enableFilteringMode(true);
+        shellIdCombobox.attachEvent("onSelectionChange", function() {
+            setShellSelectedForm('vehicleOutForm', shellIdCombobox.getComboText(), shellIdCombobox.getSelectedValue());
+        });
+        shellIdCombobox.attachEvent("onBlur", function() {
+            setShellSelectedForm('vehicleOutForm', shellIdCombobox.getComboText(), shellIdCombobox.getSelectedValue());
+        });
+        shellIdCombobox.DOMelem_input.onkeypress = function(event) {
+            var key;
+            if (window.event)
+                key = window.event.keyCode;//IE
+            else
+                key = event.which;//firefox
+            if (key == 13) {
+                addVehicleOutGood();
+                shellIdCombobox.setComboValue("");
+            }
+        }
+        shellIdCombobox.DOMelem_input.onfocus = function(event) {
+            if (isManuallySeleted == 1) {
+                shellIdCombobox.openSelect();
+                isManuallySeleted = 0;
+            }
+        }
+        shellIdCombobox.setComboValue("");
+        // ============================
+        var employeeIdCombobox = dhtmlXComboFromSelect("employeeIdCombobox");
+        employeeIdCombobox.enableFilteringMode(true);
+        employeeIdCombobox.attachEvent("onSelectionChange", function() {
+            setEmployeeSelectedForm('vehicleOutForm', employeeIdCombobox.getComboText(), employeeIdCombobox.getSelectedValue());
+        });
+        employeeIdCombobox.attachEvent("onBlur", function() {
+            setEmployeeSelectedForm('vehicleOutForm', employeeIdCombobox.getComboText(), employeeIdCombobox.getSelectedValue());
+        });
+        employeeIdCombobox.DOMelem_input.onkeypress = function(event) {
+            var key;
+            if (window.event)
+                key = window.event.keyCode;//IE
+            else
+                key = event.which;//firefox
+            if (key == 13) {
+                addVehicleOutEmployee();
+                employeeIdCombobox.setComboValue("");
+            }
+        }
+        employeeIdCombobox.DOMelem_input.onfocus = function(event) {
+            if (isManuallySeleted == 1) {
+                employeeIdCombobox.openSelect();
+                isManuallySeleted = 0;
+            }
+        }
+        employeeIdCombobox.setComboValue("");
 //        var myCalendar = new dhtmlXCalendarObject(["vehicleOutCreatedDate"]);
 //        myCalendar.setSkin('dhx_web');
         if (id == 0) {
@@ -6040,11 +6173,7 @@ function saveVehicleOut() {
     return false;
 }
 function addVehicleOutGood() {
-    var good = document.forms['vehicleOutForm'].goodIdCombobox;
-    if (good == null && good.selectedIndex == -1)
-        good = null;
-    else
-        good = good.options[good.selectedIndex].value;
+    var good = document.forms['vehicleOutForm'].shellSelectedHidden.value;
     if (good == -1 || good == 0)
         return false;
     var goodId = document.forms['vehicleOutForm'].shellId;
@@ -6089,11 +6218,7 @@ function delVehicleOut() {
     return false;
 }
 function addVehicleOutEmployee() {
-    var employee = document.forms['vehicleOutForm'].employeeIdCombobox;
-    if (employee == null && employee.selectedIndex == -1)
-        employee = null;
-    else
-        employee = employee.options[employee.selectedIndex].value;
+    var employee = document.forms['vehicleOutForm'].employeeSelectedHidden.value;
     if (employee == -1 || employee == 0)
         return false;
     var employeeId = document.forms['vehicleOutForm'].employeeId;
@@ -6175,6 +6300,60 @@ function getVehicleIn(id) {
     callAjax(url, null, null, function(data) {
         clearContent();
         setAjaxData(data, 'contentDiv');
+        window.dhx_globalImgPath = "js/dhtmlx/combo/imgs/";
+        var shellIdCombobox = dhtmlXComboFromSelect("goodIdCombobox");
+        shellIdCombobox.enableFilteringMode(true);
+        shellIdCombobox.attachEvent("onSelectionChange", function() {
+            setShellSelectedForm('vehicleInForm', shellIdCombobox.getComboText(), shellIdCombobox.getSelectedValue());
+        });
+        shellIdCombobox.attachEvent("onBlur", function() {
+            setShellSelectedForm('vehicleInForm', shellIdCombobox.getComboText(), shellIdCombobox.getSelectedValue());
+        });
+        shellIdCombobox.DOMelem_input.onkeypress = function(event) {
+            var key;
+            if (window.event)
+                key = window.event.keyCode;//IE
+            else
+                key = event.which;//firefox
+            if (key == 13) {
+                addVehicleInGood();
+                shellIdCombobox.setComboValue("");
+            }
+        }
+        shellIdCombobox.DOMelem_input.onfocus = function(event) {
+            if (isManuallySeleted == 1) {
+                shellIdCombobox.openSelect();
+                isManuallySeleted = 0;
+            }
+        }
+        shellIdCombobox.setComboValue("");
+        // ============================
+        var returnShellIdCombobox = dhtmlXComboFromSelect("returnShellIdCombobox");
+        returnShellIdCombobox.enableFilteringMode(true);
+        returnShellIdCombobox.attachEvent("onSelectionChange", function() {
+            setReturnShellSelectedForm('vehicleInForm', returnShellIdCombobox.getComboText(), returnShellIdCombobox.getSelectedValue());
+        });
+        returnShellIdCombobox.attachEvent("onBlur", function() {
+            setReturnShellSelectedForm('vehicleInForm', returnShellIdCombobox.getComboText(), returnShellIdCombobox.getSelectedValue());
+        });
+        returnShellIdCombobox.DOMelem_input.onkeypress = function(event) {
+            var key;
+            if (window.event)
+                key = window.event.keyCode;//IE
+            else
+                key = event.which;//firefox
+            if (key == 13) {
+                addVehicleInReturnShell();
+                returnShellIdCombobox.setComboValue("");
+            }
+        }
+        returnShellIdCombobox.DOMelem_input.onfocus = function(event) {
+            if (isManuallySeleted == 1) {
+                returnShellIdCombobox.openSelect();
+                isManuallySeleted = 0;
+            }
+        }
+        returnShellIdCombobox.setComboValue("");
 //        var myCalendar = new dhtmlXCalendarObject(["vehicleInCreatedDate"]);
 //        myCalendar.setSkin('dhx_web');
         if (id == 0) {
@@ -6227,11 +6406,7 @@ function saveVehicleIn() {
     return false;
 }
 function addVehicleInGood() {
-    var good = document.forms['vehicleInForm'].goodIdCombobox;
-    if (good == null && good.selectedIndex == -1)
-        good = null;
-    else
-        good = good.options[good.selectedIndex].value;
+    var good = document.forms['vehicleInForm'].shellSelectedHidden.value;
     if (good == -1 || good == 0)
         return false;
     var goodId = document.forms['vehicleInForm'].shellId;
@@ -6276,11 +6451,7 @@ function delVehicleIn() {
     return false;
 }
 function addVehicleInReturnShell() {
-    var shell = document.forms['vehicleInForm'].returnShellIdCombobox;
-    if (shell == null && shell.selectedIndex == -1)
-        shell = null;
-    else
-        shell = shell.options[shell.selectedIndex].value;
+    var shell = document.forms['vehicleInForm'].returnShellSelectedHidden.value;
     if (shell == -1 || shell == 0)
         return false;
     var returnShellId = document.forms['vehicleInForm'].returnShellId;
@@ -6389,6 +6560,60 @@ function getExportWholesale(id) {
     callAjax(url, null, null, function(data) {
         clearContent();
         setAjaxData(data, 'contentDiv');
+        window.dhx_globalImgPath = "js/dhtmlx/combo/imgs/";
+        var shellIdCombobox = dhtmlXComboFromSelect("goodIdCombobox");
+        shellIdCombobox.enableFilteringMode(true);
+        shellIdCombobox.attachEvent("onSelectionChange", function() {
+            setShellSelectedForm('exportWholesaleForm', shellIdCombobox.getComboText(), shellIdCombobox.getSelectedValue());
+        });
+        shellIdCombobox.attachEvent("onBlur", function() {
+            setShellSelectedForm('exportWholesaleForm', shellIdCombobox.getComboText(), shellIdCombobox.getSelectedValue());
+        });
+        shellIdCombobox.DOMelem_input.onkeypress = function(event) {
+            var key;
+            if (window.event)
+                key = window.event.keyCode;//IE
+            else
+                key = event.which;//firefox
+            if (key == 13) {
+                addExportWholesaleGood();
+                shellIdCombobox.setComboValue("");
+            }
+        }
+        shellIdCombobox.DOMelem_input.onfocus = function(event) {
+            if (isManuallySeleted == 1) {
+                shellIdCombobox.openSelect();
+                isManuallySeleted = 0;
+            }
+        }
+        shellIdCombobox.setComboValue("");
+        // ============================
+        var returnShellIdCombobox = dhtmlXComboFromSelect("returnShellIdCombobox");
+        returnShellIdCombobox.enableFilteringMode(true);
+        returnShellIdCombobox.attachEvent("onSelectionChange", function() {
+            setReturnShellSelectedForm('exportWholesaleForm', returnShellIdCombobox.getComboText(), returnShellIdCombobox.getSelectedValue());
+        });
+        returnShellIdCombobox.attachEvent("onBlur", function() {
+            setReturnShellSelectedForm('exportWholesaleForm', returnShellIdCombobox.getComboText(), returnShellIdCombobox.getSelectedValue());
+        });
+        returnShellIdCombobox.DOMelem_input.onkeypress = function(event) {
+            var key;
+            if (window.event)
+                key = window.event.keyCode;//IE
+            else
+                key = event.which;//firefox
+            if (key == 13) {
+                addExportWholesaleReturnShell();
+                returnShellIdCombobox.setComboValue("");
+            }
+        }
+        returnShellIdCombobox.DOMelem_input.onfocus = function(event) {
+            if (isManuallySeleted == 1) {
+                returnShellIdCombobox.openSelect();
+                isManuallySeleted = 0;
+            }
+        }
+        returnShellIdCombobox.setComboValue("");
 //        var myCalendar = new dhtmlXCalendarObject(["exportWholesaleCreatedDate"]);
 //        myCalendar.setSkin('dhx_web');
         if (id == 0) {
@@ -6451,11 +6676,7 @@ function saveExportWholesale() {
     return false;
 }
 function addExportWholesaleGood() {
-    var good = document.forms['exportWholesaleForm'].goodIdCombobox;
-    if (good == null && good.selectedIndex == -1)
-        good = null;
-    else
-        good = good.options[good.selectedIndex].value;
+    var good = document.forms['exportWholesaleForm'].shellSelectedHidden.value;
     if (good == -1 || good == 0)
         return false;
     var goodId = document.forms['exportWholesaleForm'].shellId;
@@ -6500,11 +6721,7 @@ function delExportWholesale() {
     return false;
 }
 function addExportWholesaleReturnShell() {
-    var shell = document.forms['exportWholesaleForm'].returnShellIdCombobox;
-    if (shell == null && shell.selectedIndex == -1)
-        shell = null;
-    else
-        shell = shell.options[shell.selectedIndex].value;
+    var shell = document.forms['exportWholesaleForm'].returnShellSelectedHidden.value;
     if (shell == -1 || shell == 0)
         return false;
     var returnShellId = document.forms['exportWholesaleForm'].returnShellId;
@@ -8215,6 +8432,15 @@ function printLpgStockSumOrganizationReport(fromDate, toDate) {
     url += "&vendorId=" + list;
     callServer(url);
     return false;
+}
+function setEmployeeSelectedForm(form, text, value) {
+    if (value == null) {
+        if (text != "")
+            value = "-1";
+        else
+            value = "0";
+    }
+    document.forms[form].employeeSelectedHidden.value = value;
 }
 
 

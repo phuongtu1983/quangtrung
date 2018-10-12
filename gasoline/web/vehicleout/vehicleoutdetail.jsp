@@ -99,7 +99,8 @@
     </table>
     <html:hidden property="id" name="<%=Constants.VEHICLE_OUT%>" />
     <input type="hidden" id="callbackFunc"/>
-    <input type="hidden" name="foodSelectedHidden" value="0"/>
+    <input type="hidden" name="shellSelectedHidden" value="0"/>
+    <input type="hidden" name="employeeSelectedHidden" value="0"/>
 </form>
 <div name="vehicleOutFormshowHelpHideDiv" id="showHelpHideDiv" style="display:none">
     Ctrl+C : Đóng

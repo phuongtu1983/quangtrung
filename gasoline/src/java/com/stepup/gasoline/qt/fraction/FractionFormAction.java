@@ -79,7 +79,7 @@ public class FractionFormAction extends SpineAction {
             String organizationIds = QTUtil.getOrganizationManageds(request.getSession());
             VendorDAO vendorDAO = new VendorDAO();
             String vendorIds = vendorDAO.getVendorOfOrganizations(organizationIds);
-            arrShell = goodDAO.getShellVendor(vendorIds);
+            arrShell = goodDAO.getShellVendor(organizationIds, vendorIds);
         } catch (Exception ex) {
         }
         if (arrShell == null) {

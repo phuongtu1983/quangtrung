@@ -20,11 +20,6 @@ public class ShellFormBean extends org.apache.struts.action.ActionForm {
     private double price;
     private int status;
     private String statusName;
-    private int vendorId;
-    private String vendorName;
-
-    private String[] shellVendorDetailId;
-    private String[] shellVendorId;
 
     public ShellFormBean() {
     }
@@ -37,7 +32,6 @@ public class ShellFormBean extends org.apache.struts.action.ActionForm {
         this.unitId = bean.getUnitId();
         this.price = bean.getPrice();
         this.status = bean.getStatus();
-        this.vendorId = bean.getVendorId();
     }
 
     public int getId() {
@@ -103,37 +97,4 @@ public class ShellFormBean extends org.apache.struts.action.ActionForm {
     public void setStatusName(String statusName) {
         this.statusName = statusName;
     }
-
-    public int getVendorId() {
-        return vendorId;
-    }
-
-    public void setVendorId(int vendorId) {
-        this.vendorId = vendorId;
-    }
-
-    public String getVendorName() {
-        return vendorName;
-    }
-
-    public void setVendorName(String vendorName) {
-        this.vendorName = vendorName;
-    }
-
-    public String[] getShellVendorDetailId() {
-        return shellVendorDetailId;
-    }
-
-    public void setShellVendorDetailId(String[] shellVendorDetailId) {
-        this.shellVendorDetailId = shellVendorDetailId;
-    }
-
-    public String[] getShellVendorId() {
-        return shellVendorId;
-    }
-
-    public void setShellVendorId(String[] shellVendorId) {
-        this.shellVendorId = shellVendorId;
-    }
-
 }

@@ -87,7 +87,7 @@ public class ShellImportFormAction extends SpineAction {
         try {
             String organizationIds = QTUtil.getOrganizationManageds(request.getSession());
             VendorDAO vendorDAO = new VendorDAO();
-            arrVendor = vendorDAO.getVendors(organizationIds);
+            arrVendor = vendorDAO.getVendorHasStocks(organizationIds);
         } catch (Exception ex) {
         }
         if (arrVendor == null) {

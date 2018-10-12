@@ -117,7 +117,7 @@ public class PrintReportAction extends BaseAction {
             VendorDAO vendorDAO = new VendorDAO();
             String vendorIds = vendorDAO.getVendorOfOrganizations(organizationIds);
             ReportDAO reportDAO = new ReportDAO();
-            list = reportDAO.getLpgStockSumReport(fromDate, toDate, vendorIds, outBean);
+            list = reportDAO.getLpgStockSumReport(fromDate, toDate, organizationIds, vendorIds, outBean);
         } catch (Exception ex) {
         }
         return list;
@@ -129,7 +129,7 @@ public class PrintReportAction extends BaseAction {
             VendorDAO vendorDAO = new VendorDAO();
             String vendorIds = vendorDAO.getVendorOfOrganizations(organizationIds);
             ReportDAO reportDAO = new ReportDAO();
-            list = reportDAO.getSumReport(fromDate, toDate, vendorIds);
+            list = reportDAO.getSumReport(fromDate, toDate, organizationIds, vendorIds);
         } catch (Exception ex) {
         }
         return list;

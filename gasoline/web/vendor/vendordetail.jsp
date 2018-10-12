@@ -32,11 +32,13 @@
                         </tr>
                         <tr>
                             <td height="30" style="padding-right: 20px"><bean:message key="vendor.detail.organization"/></td>
-                            <td colspan="3">
+                            <td>
                                 <html:select property="equalOrganizationId" name="<%=Constants.VENDOR%>" style="width:255px">
                                     <html:options collection="<%=Constants.EQUAL_ORGANIZATION_LIST%>" property="id" labelProperty="name"/>
                                 </html:select>
                             </td>
+                            <td style="padding-left: 10px; padding-right: 20px"><bean:message key="vendor.detail.hasStock"/></td>
+                            <td><html:checkbox property="hasStock" name="<%=Constants.VENDOR%>"></html:checkbox></td>
                         </tr>
                         <tr>
                             <td height="30" style="padding-right: 20px" colspan="4">
