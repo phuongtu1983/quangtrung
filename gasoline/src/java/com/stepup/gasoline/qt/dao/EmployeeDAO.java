@@ -1693,7 +1693,7 @@ public class EmployeeDAO extends BasicDAO {
 
     public String getStartDate() throws Exception {
         ResultSet rs = null;
-        String sql = "SELECT value FROM parater WHERE code='startdate'";
+        String sql = "SELECT value FROM parameter WHERE code='startdate'";
         try {
             rs = DBUtil.executeQuery(sql);
             while (rs.next()) {

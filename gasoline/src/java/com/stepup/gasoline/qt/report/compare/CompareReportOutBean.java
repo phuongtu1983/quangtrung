@@ -21,6 +21,7 @@ public class CompareReportOutBean {
     private String customerName;
     private String customerAddress;
     private String customerTax;
+    private double customerPermission;
 
     public int getOpening12Stock() {
         return opening12Stock;
@@ -100,6 +101,14 @@ public class CompareReportOutBean {
 
     public void setCustomerTax(String customerTax) {
         this.customerTax = customerTax;
+    }
+
+    public double getCustomerPermission() {
+        return customerPermission;
+    }
+
+    public void setCustomerPermission(double customerPermission) {
+        this.customerPermission = customerPermission;
     }
 
 }

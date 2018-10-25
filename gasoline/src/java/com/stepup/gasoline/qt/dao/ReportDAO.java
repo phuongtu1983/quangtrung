@@ -29,7 +29,7 @@ import java.util.ArrayList;
  * @author Administrator
  */
 public class ReportDAO extends BasicDAO {
-
+    
     public ArrayList getLpgImportReport(String fromDate, String endDate, String organizationIds) throws Exception {
         SPUtil spUtil = null;
         ArrayList list = new ArrayList();
@@ -47,9 +47,9 @@ public class ReportDAO extends BasicDAO {
                 spUtil.getCallableStatement().setString("_start_date", fromDate);
                 spUtil.getCallableStatement().setString("_end_date", endDate);
                 spUtil.getCallableStatement().setString("_organization_ids", organizationIds);
-
+                
                 rs = spUtil.executeQuery();
-
+                
                 if (rs != null) {
                     LpgImportReportBean bean = null;
                     int count = 1;
@@ -103,7 +103,7 @@ public class ReportDAO extends BasicDAO {
         }
         return list;
     }
-
+    
     public ArrayList getLpgStockReport(String fromDate, String endDate, String organizationIds, String vendorIds, LpgStockReportOutBean outBean) throws Exception {
         SPUtil spUtil = null;
         ArrayList list = new ArrayList();
@@ -123,9 +123,9 @@ public class ReportDAO extends BasicDAO {
                 spUtil.getCallableStatement().setString("_organization_ids", organizationIds);
                 spUtil.getCallableStatement().setString("_vendor_ids", vendorIds);
                 spUtil.getCallableStatement().registerOutParameter("_gas_stock", Types.INTEGER);
-
+                
                 rs = spUtil.executeQuery();
-
+                
                 int gasStock = spUtil.getCallableStatement().getInt("_gas_stock");
                 outBean.setGasStock(gasStock);
                 if (rs != null) {
@@ -166,7 +166,7 @@ public class ReportDAO extends BasicDAO {
         }
         return list;
     }
-
+    
     public ArrayList getLpgStockSumReport(String fromDate, String endDate, String organizationIds, String vendorIds, LpgStockSumReportOutBean outBean) throws Exception {
         SPUtil spUtil = null;
         ArrayList list = new ArrayList();
@@ -243,7 +243,7 @@ public class ReportDAO extends BasicDAO {
         }
         return list;
     }
-
+    
     public ArrayList getSumReport(String fromDate, String endDate, String organizatinIds, String vendorIds) throws Exception {
         SPUtil spUtil = null;
         ArrayList list = new ArrayList();
@@ -264,9 +264,9 @@ public class ReportDAO extends BasicDAO {
                 spUtil.getCallableStatement().setString("_vendor_ids", vendorIds);
                 spUtil.getCallableStatement().registerOutParameter("_gas_12_stock", Types.INTEGER);
                 spUtil.getCallableStatement().registerOutParameter("_gas_45_stock", Types.INTEGER);
-
+                
                 rs = spUtil.executeQuery();
-
+                
                 int gas12Stock = spUtil.getCallableStatement().getInt("_gas_12_stock");
                 int gas45Stock = spUtil.getCallableStatement().getInt("_gas_45_stock");
                 if (rs != null) {
@@ -316,7 +316,7 @@ public class ReportDAO extends BasicDAO {
         }
         return list;
     }
-
+    
     public ArrayList getCompareReport(String fromDate, String endDate, String organizationIds, int customerId, CompareReportOutBean outBean) throws Exception {
         SPUtil spUtil = null;
         ArrayList list = new ArrayList();
@@ -338,9 +338,9 @@ public class ReportDAO extends BasicDAO {
                 spUtil.getCallableStatement().registerOutParameter("_shell_12_debt", Types.INTEGER);
                 spUtil.getCallableStatement().registerOutParameter("_shell_45_debt", Types.INTEGER);
                 spUtil.getCallableStatement().registerOutParameter("_amount_debt", Types.DOUBLE);
-
+                
                 rs = spUtil.executeQuery();
-
+                
                 int shell12Debt = spUtil.getCallableStatement().getInt("_shell_12_debt");
                 int shell45Debt = spUtil.getCallableStatement().getInt("_shell_45_debt");
                 double amountDebt = spUtil.getCallableStatement().getDouble("_amount_debt");
@@ -365,6 +365,7 @@ public class ReportDAO extends BasicDAO {
                         bean.setDebt12(bean.getBuy12() - bean.getReturn12() - bean.getReturn12T());
                         bean.setDebt45(bean.getBuy45() - bean.getReturn45());
                         bean.setDebtAmount(bean.getAmount() - bean.getPaid());
+                        bean.setGasReturnAmount(rs.getDouble("gas_return_amount"));
                         bean.setNote(rs.getString("note"));
                         list.add(bean);
                     }
@@ -389,7 +390,7 @@ public class ReportDAO extends BasicDAO {
         }
         return list;
     }
-
+    
     public ArrayList getSaleReport(String fromDate, String endDate, String organizationIds, String vendorIds) throws Exception {
         SPUtil spUtil = null;
         ArrayList list = new ArrayList();
@@ -408,7 +409,7 @@ public class ReportDAO extends BasicDAO {
                 spUtil.getCallableStatement().setString("_end_date", endDate);
                 spUtil.getCallableStatement().setString("_organization_ids", organizationIds);
                 spUtil.getCallableStatement().setString("_vendor_ids", vendorIds);
-
+                
                 rs = spUtil.executeQuery();
                 if (rs != null) {
                     SaleReportBean bean = null;
@@ -451,7 +452,7 @@ public class ReportDAO extends BasicDAO {
         }
         return list;
     }
-
+    
     public ArrayList getSaleCustomerReport(String fromDate, String endDate, String organizationIds, String vendorIds) throws Exception {
         SPUtil spUtil = null;
         ArrayList list = new ArrayList();
@@ -470,7 +471,7 @@ public class ReportDAO extends BasicDAO {
                 spUtil.getCallableStatement().setString("_end_date", endDate);
                 spUtil.getCallableStatement().setString("_organization_ids", organizationIds);
                 spUtil.getCallableStatement().setString("_vendor_ids", vendorIds);
-
+                
                 rs = spUtil.executeQuery();
                 if (rs != null) {
                     SaleCustomerReportBean bean = null;
@@ -512,7 +513,7 @@ public class ReportDAO extends BasicDAO {
         }
         return list;
     }
-
+    
     public ArrayList getCashBookReport(String fromDate, String endDate, String organizationIds) throws Exception {
         SPUtil spUtil = null;
         ArrayList list = new ArrayList();
@@ -530,7 +531,7 @@ public class ReportDAO extends BasicDAO {
                 spUtil.getCallableStatement().setString("_start_date", fromDate);
                 spUtil.getCallableStatement().setString("_end_date", endDate);
                 spUtil.getCallableStatement().setString("_organization_ids", organizationIds);
-
+                
                 rs = spUtil.executeQuery();
                 if (rs != null) {
                     SaleCustomerReportBean bean = null;
@@ -572,7 +573,7 @@ public class ReportDAO extends BasicDAO {
         }
         return list;
     }
-
+    
     public ArrayList getLpgStockSumOrganizationReport(String fromDate, String endDate, String organizationIds, int vendorId, LpgStockSumOrganizationReportOutBean outBean) throws Exception {
         SPUtil spUtil = null;
         ArrayList list = new ArrayList();

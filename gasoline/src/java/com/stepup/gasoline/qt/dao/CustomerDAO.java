@@ -11,10 +11,12 @@ import com.stepup.core.util.StringUtil;
 import com.stepup.gasoline.qt.bean.EmployeeBean;
 import com.stepup.gasoline.qt.bean.CustomerBean;
 import com.stepup.gasoline.qt.bean.CustomerDocumentBean;
+import com.stepup.gasoline.qt.bean.DiscountBean;
 import com.stepup.gasoline.qt.bean.DocumentBean;
 import com.stepup.gasoline.qt.util.QTUtil;
 import com.stepup.gasoline.qt.customer.CustomerFormBean;
 import com.stepup.gasoline.qt.customerdocument.CustomerDocumentFormBean;
+import com.stepup.gasoline.qt.discount.DiscountFormBean;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -507,6 +509,139 @@ public class CustomerDAO extends BasicDAO {
                 throw new Exception(e.getMessage());
             }
         }
+    }
+
+    
+    public ArrayList getDiscounts() throws Exception {
+        ResultSet rs = null;
+        String sql = "select * from discount where 1";
+        sql += " order by name";
+        ArrayList list = new ArrayList();
+        try {
+            rs = DBUtil.executeQuery(sql);
+            DiscountFormBean bean = null;
+            while (rs.next()) {
+                bean = new DiscountFormBean();
+                bean.setId(rs.getInt("id"));
+                bean.setName(rs.getString("name"));
+                bean.setNote(rs.getString("note"));
+                list.add(bean);
+            }
+        } catch (SQLException sqle) {
+            throw new Exception(sqle.getMessage());
+        } catch (Exception ex) {
+            throw new Exception(ex.getMessage());
+        } finally {
+            if (rs != null) {
+                DBUtil.closeConnection(rs);
+            }
+        }
+        return list;
+    }
+
+    public DiscountBean getDiscount(int discountId) throws Exception {
+        ResultSet rs = null;
+        String sql = "select * from discount where id=" + discountId;
+        try {
+            rs = DBUtil.executeQuery(sql);
+            while (rs.next()) {
+                DiscountBean bean = new DiscountBean();
+                bean.setId(rs.getInt("id"));
+                bean.setName(rs.getString("name"));
+                bean.setNote(rs.getString("note"));
+                return bean;
+            }
+        } catch (SQLException sqle) {
+            throw new Exception(sqle.getMessage());
+        } catch (Exception ex) {
+            throw new Exception(ex.getMessage());
+        } finally {
+            if (rs != null) {
+                DBUtil.closeConnection(rs);
+            }
+        }
+        return null;
+    }
+
+    public DiscountBean getDiscountByName(String name) throws Exception {
+        ResultSet rs = null;
+        String sql = "select * from discount where name='" + name + "'";
+        try {
+            rs = DBUtil.executeQuery(sql);
+            while (rs.next()) {
+                DiscountBean bean = new DiscountBean();
+                bean.setId(rs.getInt("id"));
+                bean.setName(rs.getString("name"));
+                bean.setNote(rs.getString("note"));
+                return bean;
+            }
+        } catch (SQLException sqle) {
+            throw new Exception(sqle.getMessage());
+        } catch (Exception ex) {
+            throw new Exception(ex.getMessage());
+        } finally {
+            if (rs != null) {
+                DBUtil.closeConnection(rs);
+            }
+        }
+        return null;
+    }
+
+    public void insertDiscount(DiscountBean bean) throws Exception {
+        if (bean == null) {
+            return;
+        }
+        try {
+            String sql = "";
+            sql = "Insert Into discount (name, note)"
+                    + " Values ('" + bean.getName() + "','" + bean.getNote() + "')";
+            DBUtil.executeInsert(sql);
+        } catch (SQLException sqle) {
+            throw new Exception(sqle.getMessage());
+        } catch (Exception ex) {
+            throw new Exception(ex.getMessage());
+        } finally {
+            try {
+            } catch (Exception e) {
+                throw new Exception(e.getMessage());
+            }
+
+        }
+    }
+
+    public void updateDiscount(DiscountBean bean) throws Exception {
+        if (bean == null) {
+            return;
+        }
+        try {
+            String sql = "Update discount Set "
+                    + " name='" + bean.getName() + "'"
+                    + ", note='" + bean.getNote() + "'"
+                    + " Where id=" + bean.getId();
+            DBUtil.executeUpdate(sql);
+        } catch (SQLException sqle) {
+            throw new Exception(sqle.getMessage());
+        } catch (Exception ex) {
+            throw new Exception(ex.getMessage());
+        } finally {
+            try {
+            } catch (Exception e) {
+                throw new Exception(e.getMessage());
+            }
+        }
+    }
+
+    public int deleteDiscount(String ids) throws Exception {
+        int result = 0;
+        try {
+            String sql = "Delete From discount Where id in (" + ids + ")";
+            DBUtil.executeUpdate(sql);
+        } catch (SQLException sqle) {
+            throw new Exception(sqle.getMessage());
+        } catch (Exception ex) {
+            throw new Exception(ex.getMessage());
+        }
+        return result;
     }
 
 }

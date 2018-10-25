@@ -146,4 +146,5 @@ public class Constants {
     public static final String CUSTOMER_DOCUMENT = "customerDocument";
     public static final String SHIELD_IMPORT = "shieldImport";
     public static final String SHIELD_DECREASE = "shieldDecrease";
+    public static final String DISCOUNT = "discount";
 }

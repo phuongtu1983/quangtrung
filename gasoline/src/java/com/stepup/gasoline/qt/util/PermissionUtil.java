@@ -155,4 +155,5 @@ public class PermissionUtil {
     public static int PER_REPORT_SALE_CUSTOMER = 67;
     public static int PER_REPORT_CASH_BOOK= 68;
     public static int PER_REPORT_LPG_STOCK_SUM_ORGANIZATION = 69;
+    public static int PER_CUSTOMER_DISCOUNT = 70;
 }

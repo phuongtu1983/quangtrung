@@ -209,7 +209,7 @@ public class GenerateMenu {
             }
 
             if (isHasPermission(PermissionUtil.OPERATION_LIST + "," + PermissionUtil.OPERATION_ADD,
-                    PermissionUtil.PER_CUSTOMER + "," + PermissionUtil.PER_CUSTOMER_DOCUMENT)) {
+                    PermissionUtil.PER_CUSTOMER + "," + PermissionUtil.PER_CUSTOMER_DOCUMENT + "," + PermissionUtil.PER_CUSTOMER_DISCOUNT)) {
                 buffTemp.append("<item id=\"customer\" complex=\"true\" text=\"").append(QTUtil.getBundleString("menu.admin.customer.title")).append("\">");//start customer
                 if (isHasPermission(PermissionUtil.OPERATION_LIST + "," + PermissionUtil.OPERATION_ADD, PermissionUtil.PER_CUSTOMER)) {
                     buffTemp.append("<item id=\"customers\" complex=\"true\" text=\"").append(QTUtil.getBundleString("customer.title")).append("\">");//start customers
@@ -226,6 +226,16 @@ public class GenerateMenu {
                         buffTemp.append("<item id=\"customerdocumentlist\" text=\"").append(QTUtil.getBundleString("customerDocument.list.title")).append("\"/>");//list customerDocument
                     }
                     buffTemp.append("</item>");//end customers
+                }
+                if (isHasPermission(PermissionUtil.OPERATION_LIST + "," + PermissionUtil.OPERATION_ADD, PermissionUtil.PER_CUSTOMER_DISCOUNT)) {
+                    buffTemp.append("<item id=\"discounts\" complex=\"true\" text=\"").append(QTUtil.getBundleString("customerDiscount.title")).append("\">");//start discounts
+                    if (isHasPermission(PermissionUtil.OPERATION_LIST, PermissionUtil.PER_CUSTOMER_DISCOUNT)) {
+                        buffTemp.append("<item id=\"discountlist\" text=\"").append(QTUtil.getBundleString("customerDiscount.list.title")).append("\"/>");//list discount
+                    }
+                    if (isHasPermission(PermissionUtil.OPERATION_ADD, PermissionUtil.PER_CUSTOMER_DISCOUNT)) {
+                        buffTemp.append("<item id=\"discountadd\" text=\"").append(QTUtil.getBundleString("customerDiscount.detail.add.title")).append("\"/>");//add discount
+                    }
+                    buffTemp.append("</item>");//end discounts
                 }
                 buffTemp.append("</item>");//end customer
             }

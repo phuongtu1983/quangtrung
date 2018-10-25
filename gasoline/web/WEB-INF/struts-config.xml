@@ -30,6 +30,7 @@
         <form-bean name="organizationForm" type="com.stepup.gasoline.qt.organization.OrganizationFormBean"/>
         <form-bean name="vehicleForm" type="com.stepup.gasoline.qt.vehicle.VehicleFormBean"/>
         <form-bean name="routeForm" type="com.stepup.gasoline.qt.route.RouteFormBean"/>
+        <form-bean name="discountForm" type="com.stepup.gasoline.qt.discount.DiscountFormBean"/>
         <form-bean name="shellKindForm" type="com.stepup.gasoline.qt.shellkind.ShellKindFormBean"/>
         <form-bean name="shellForm" type="com.stepup.gasoline.qt.shell.ShellFormBean"/>
         <form-bean name="shellImportForm" type="com.stepup.gasoline.qt.shellimport.ShellImportFormBean"/>
@@ -348,6 +349,20 @@
         <action path="/addCustomer" name ="customerForm" scope="request" type="com.stepup.gasoline.qt.customer.AddCustomerAction" input="/customerForm.do">
         </action>
         <!-- end customer -->
+        <!-- start discount -->
+        <action path="/getDiscountPanel" type="com.stepup.gasoline.qt.common.BaseStatusFormAction" scope="request" validate="false">
+            <forward name="success" path="/discount/discountpanel.jsp" />
+        </action>
+        <action path="/getDiscountList" type="com.stepup.gasoline.qt.discount.GetDiscountListAction" scope="request" validate="false" >
+        </action>
+        <action path="/discountForm" type="com.stepup.gasoline.qt.discount.DiscountFormAction" scope="request" validate="false">
+            <forward name="success" path="/discount/discountdetail.jsp" />
+        </action>
+        <action path="/addDiscount" name ="discountForm" scope="request" type="com.stepup.gasoline.qt.discount.AddDiscountAction" input="/discountForm.do">
+        </action>
+        <action path="/delDiscount" type="com.stepup.gasoline.qt.discount.DeleteDiscountAction" scope="request" validate="false" >
+        </action>
+        <!-- end discount -->
         <!-- start employeeadvance -->
         <action path="/getEmployeeAdvancePanel" type="com.stepup.gasoline.qt.common.BaseStatusFormAction" scope="request" validate="false">
             <forward name="success" path="/employeeadvance/employeeadvancepanel.jsp" />

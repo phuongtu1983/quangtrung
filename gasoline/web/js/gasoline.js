@@ -104,6 +104,10 @@ function menuClick(id) {
         loadDynamicFieldPanel("customer");
     else if (id == 'customerdocumentlist')
         loadCustomerDocumentPanel();
+    else if (id == 'discountlist')
+        loadDiscountPanel();
+    else if (id == 'discountadd')
+        getDiscount(0, 'loadDiscountPanel');
     else if (id == 'employeeadvancelist')
         loadEmployeeAdvancePanel();
     else if (id == 'employeeadvanceadd')
@@ -8441,6 +8445,74 @@ function setEmployeeSelectedForm(form, text, value) {
             value = "0";
     }
     document.forms[form].employeeSelectedHidden.value = value;
+}
+function loadDiscountPanel() {
+    callAjax("getDiscountPanel.do", null, null, function(data) {
+        clearContent();
+        setAjaxData(data, "contentDiv");
+        loadDiscountList();
+    });
+}
+function loadDiscountList() {
+    var mygrid = new dhtmlXGridObject('discountList');
+    mygrid.setImagePath("js/dhtmlx/grid/imgs/");
+    mygrid.setHeader("T\u00EAn chi\u1EBFt kh\u1EA5u,Ghi ch\u00FA");
+    mygrid.attachHeader("#text_filter,#text_filter");
+    mygrid.setInitWidths("150,*");
+    mygrid.setColTypes("link,ro");
+    mygrid.setColSorting("str,str");
+    mygrid.setSkin("light");
+    var height = contentHeight - 210;
+    mygrid.al(true, height); //enableAutoHeight
+    mygrid.enablePaging(true, 15, 3, "recinfoArea");
+    mygrid.setPagingSkin("toolbar", "dhx_skyblue");
+    mygrid.init();
+    var url = "getDiscountList.do";
+    callAjax(url, null, null, function(data) {
+        mygrid.parse(data);
+    });
+    return false;
+}
+function getDiscount(id, handle) {
+    popupName = 'TH\u00D4NG TIN CHI\u1EBET KH\u1EA4U';
+    var url = 'discountForm.do';
+    if (id != 0)
+        url += '?discountId=' + id
+    callAjax(url, null, null, function(data) {
+        showPopupForm(data);
+        document.getElementById('callbackFunc').value = handle;
+        document.forms['discountForm'].name.focus();
+    });
+}
+function saveDiscount() {
+    if (scriptFunction == "saveDiscount")
+        return false;
+    var field = document.forms['discountForm'].name;
+    if (field.value == '') {
+        alert("Vui l\u00F2ng nh\u1EADp t\u00EAn chi\u1EBFt kh\u1EA5u");
+        field.focus();
+        field = null;
+        return false;
+    }
+    field = null;
+    scriptFunction = "saveDiscount";
+    callAjaxCheckError("addDiscount.do", null, document.forms['discountForm'], function(data) {
+        scriptFunction = "";
+        var handle = document.getElementById('callbackFunc').value;
+        if (confirm('B\u1EA1n c\u00F3 mu\u1ED1n nh\u1EADp ti\u1EBFp th\u00F4ng tin kh\u00E1c ?'))
+            getDiscount(0, handle);
+        else if (handle != '')
+            eval(handle + "()");
+        prepareHidePopup('discountFormshowHelpHideDiv');
+    });
+    return false;
+}
+function delDiscount() {
+    callAjaxCheckError('delDiscount.do?discountId=' + document.forms['discountForm'].id.value, null, null, function() {
+        loadDiscountPanel();
+        prepareHidePopup('discountFormshowHelpHideDiv');
+    });
+    return false;
 }
 
 

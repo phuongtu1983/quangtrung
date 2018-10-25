@@ -25,6 +25,7 @@ public class CompareReportBean {
     private int debt12;
     private int debt45;
     private double debtAmount;
+    private double gasReturnAmount;
     private String note;
 
     public String getDate() {
@@ -145,6 +146,14 @@ public class CompareReportBean {
 
     public void setNote(String note) {
         this.note = note;
+    }
+
+    public double getGasReturnAmount() {
+        return gasReturnAmount;
+    }
+
+    public void setGasReturnAmount(double gasReturnAmount) {
+        this.gasReturnAmount = gasReturnAmount;
     }
 
 }

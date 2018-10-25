@@ -81,11 +81,11 @@ CREATE TABLE `accessory_in_stock` (
   `in_stock` int(11) DEFAULT NULL,
   `organization_id` int(11) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=65 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=147 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 /*Data for the table `accessory_in_stock` */
 
-insert  into `accessory_in_stock`(`id`,`day`,`accessory_id`,`in_stock`,`organization_id`) values (58,'2018-10-11',3,0,1),(59,'2018-10-11',4,0,1),(60,'2018-10-11',5,0,1),(61,'2018-10-11',3,0,14),(62,'2018-10-11',4,0,14),(63,'2018-10-11',5,0,14);
+insert  into `accessory_in_stock`(`id`,`day`,`accessory_id`,`in_stock`,`organization_id`) values (64,'2018-10-12',3,0,1),(65,'2018-10-12',4,0,1),(66,'2018-10-12',5,0,1),(67,'2018-10-12',3,0,14),(68,'2018-10-12',4,0,14),(69,'2018-10-12',5,0,14),(70,'2018-10-13',3,0,1),(71,'2018-10-13',4,0,1),(72,'2018-10-13',5,0,1),(73,'2018-10-13',3,0,14),(74,'2018-10-13',4,0,14),(75,'2018-10-13',5,0,14),(77,'2018-10-14',3,0,1),(78,'2018-10-14',4,0,1),(79,'2018-10-14',5,0,1),(80,'2018-10-14',3,0,14),(81,'2018-10-14',4,0,14),(82,'2018-10-14',5,0,14),(84,'2018-10-15',3,0,1),(85,'2018-10-15',4,0,1),(86,'2018-10-15',5,0,1),(87,'2018-10-15',3,0,14),(88,'2018-10-15',4,0,14),(89,'2018-10-15',5,0,14),(91,'2018-10-16',3,0,1),(92,'2018-10-16',4,0,1),(93,'2018-10-16',5,0,1),(94,'2018-10-16',3,0,14),(95,'2018-10-16',4,0,14),(96,'2018-10-16',5,0,14),(98,'2018-10-17',3,0,1),(99,'2018-10-17',4,0,1),(100,'2018-10-17',5,0,1),(101,'2018-10-17',3,0,14),(102,'2018-10-17',4,0,14),(103,'2018-10-17',5,0,14),(105,'2018-10-18',3,0,1),(106,'2018-10-18',4,0,1),(107,'2018-10-18',5,0,1),(108,'2018-10-18',3,0,14),(109,'2018-10-18',4,0,14),(110,'2018-10-18',5,0,14),(112,'2018-10-19',3,0,1),(113,'2018-10-19',4,0,1),(114,'2018-10-19',5,0,1),(115,'2018-10-19',3,0,14),(116,'2018-10-19',4,0,14),(117,'2018-10-19',5,0,14),(119,'2018-10-20',3,0,1),(120,'2018-10-20',4,0,1),(121,'2018-10-20',5,0,1),(122,'2018-10-20',3,0,14),(123,'2018-10-20',4,0,14),(124,'2018-10-20',5,0,14),(126,'2018-10-21',3,0,1),(127,'2018-10-21',4,0,1),(128,'2018-10-21',5,0,1),(129,'2018-10-21',3,0,14),(130,'2018-10-21',4,0,14),(131,'2018-10-21',5,0,14),(133,'2018-10-22',3,0,1),(134,'2018-10-22',4,0,1),(135,'2018-10-22',5,0,1),(136,'2018-10-22',3,0,14),(137,'2018-10-22',4,0,14),(138,'2018-10-22',5,0,14),(140,'2018-10-23',3,0,1),(141,'2018-10-23',4,0,1),(142,'2018-10-23',5,0,1),(143,'2018-10-23',3,0,14),(144,'2018-10-23',4,0,14),(145,'2018-10-23',5,0,14);
 
 /*Table structure for table `accessory_kind` */
 
@@ -204,11 +204,11 @@ CREATE TABLE `auto` (
   `auto_date` date DEFAULT NULL,
   `auto_name` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=12 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=14 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 /*Data for the table `auto` */
 
-insert  into `auto`(`id`,`auto_date`,`auto_name`) values (10,'2018-10-09','in_stock'),(11,'2018-10-11','in_stock');
+insert  into `auto`(`id`,`auto_date`,`auto_name`) values (10,'2018-10-09','in_stock'),(11,'2018-10-11','in_stock'),(12,'2018-10-12','in_stock'),(13,'2018-10-23','in_stock');
 
 /*Table structure for table `contract` */
 
@@ -281,11 +281,26 @@ CREATE TABLE `customer_in_stock` (
   `shell_45` int(11) DEFAULT NULL,
   `amount` double DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=27 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=61 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 /*Data for the table `customer_in_stock` */
 
-insert  into `customer_in_stock`(`id`,`day`,`customer_id`,`shell_12`,`shell_45`,`amount`) values (24,'2018-10-11',1,0,0,0),(25,'2018-10-11',2,0,0,0);
+insert  into `customer_in_stock`(`id`,`day`,`customer_id`,`shell_12`,`shell_45`,`amount`) values (26,'2018-10-12',1,0,0,0),(27,'2018-10-12',2,0,0,0),(28,'2018-10-13',1,0,0,0),(29,'2018-10-13',2,-10,0,0),(31,'2018-10-14',1,0,0,0),(32,'2018-10-14',2,-10,0,0),(34,'2018-10-15',1,0,0,0),(35,'2018-10-15',2,-10,0,0),(37,'2018-10-16',1,0,0,0),(38,'2018-10-16',2,-10,0,0),(40,'2018-10-17',1,0,0,0),(41,'2018-10-17',2,-10,0,0),(43,'2018-10-18',1,0,0,0),(44,'2018-10-18',2,-10,0,0),(46,'2018-10-19',1,0,0,0),(47,'2018-10-19',2,-10,0,0),(49,'2018-10-20',1,0,0,0),(50,'2018-10-20',2,-10,0,0),(52,'2018-10-21',1,0,0,0),(53,'2018-10-21',2,-10,0,0),(55,'2018-10-22',1,0,0,0),(56,'2018-10-22',2,-10,0,0),(58,'2018-10-23',1,0,0,0),(59,'2018-10-23',2,-10,0,0);
+
+/*Table structure for table `discount` */
+
+DROP TABLE IF EXISTS `discount`;
+
+CREATE TABLE `discount` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `name` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `note` text COLLATE utf8_unicode_ci,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+/*Data for the table `discount` */
+
+insert  into `discount`(`id`,`name`,`note`) values (2,'CK1','chiết khấu 1'),(3,'Ht5k','hỗ trợ 5k'),(4,'CK2','Chiết khấu 2');
 
 /*Table structure for table `document` */
 
@@ -910,9 +925,11 @@ CREATE TABLE `gas_wholesale` (
   `gas_return_amount` double DEFAULT NULL,
   `created_employee_id` int(11) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM AUTO_INCREMENT=3 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=MyISAM AUTO_INCREMENT=5 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 /*Data for the table `gas_wholesale` */
+
+insert  into `gas_wholesale`(`id`,`code`,`created_date`,`customer_id`,`total`,`discount`,`total_pay`,`paid`,`debt`,`account_id`,`vehicle_id`,`note`,`gas_return`,`gas_return_price`,`gas_return_amount`,`created_employee_id`) values (3,'20181013-GS-0001','2018-10-12',2,14,0,14,14,0,5,5,'',0,0,0,17),(4,'20181013-GS-0002','2018-10-13',2,1400000,0,1392000,1392000,0,5,5,'',100,83,8000,17);
 
 /*Table structure for table `gas_wholesale_detail` */
 
@@ -926,9 +943,11 @@ CREATE TABLE `gas_wholesale_detail` (
   `price` double DEFAULT NULL,
   `amount` double DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM AUTO_INCREMENT=6 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=MyISAM AUTO_INCREMENT=12 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 /*Data for the table `gas_wholesale_detail` */
+
+insert  into `gas_wholesale_detail`(`id`,`gas_wholesale_id`,`shell_id`,`quantity`,`price`,`amount`) values (6,3,27,1,1,1),(7,3,28,2,2,4),(8,3,29,3,3,9),(9,4,27,100,1000,100000),(10,4,28,200,2000,400000),(11,4,29,300,3000,900000);
 
 /*Table structure for table `gas_wholesale_promotion` */
 
@@ -940,9 +959,11 @@ CREATE TABLE `gas_wholesale_promotion` (
   `promotion_material_id` int(11) DEFAULT NULL,
   `quantity` int(3) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM AUTO_INCREMENT=6 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=MyISAM AUTO_INCREMENT=8 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 /*Data for the table `gas_wholesale_promotion` */
+
+insert  into `gas_wholesale_promotion`(`id`,`gas_wholesale_id`,`promotion_material_id`,`quantity`) values (6,3,4,7),(7,4,4,3);
 
 /*Table structure for table `gas_wholesale_return_shell` */
 
@@ -954,9 +975,11 @@ CREATE TABLE `gas_wholesale_return_shell` (
   `shell_id` int(11) DEFAULT NULL,
   `quantity` int(3) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM AUTO_INCREMENT=11 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=MyISAM AUTO_INCREMENT=15 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 /*Data for the table `gas_wholesale_return_shell` */
+
+insert  into `gas_wholesale_return_shell`(`id`,`gas_wholesale_id`,`shell_id`,`quantity`) values (11,3,3,4),(12,3,1,5),(13,3,2,6),(14,4,1,10);
 
 /*Table structure for table `income` */
 
@@ -1014,11 +1037,11 @@ CREATE TABLE `lpg_in_stock` (
   `day` date DEFAULT NULL,
   `in_stock` int(11) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=80 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=160 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 /*Data for the table `lpg_in_stock` */
 
-insert  into `lpg_in_stock`(`id`,`organization_id`,`vendor_id`,`day`,`in_stock`) values (73,14,17,'2018-10-11',0),(74,1,17,'2018-10-11',0),(75,1,15,'2018-10-11',1000),(76,1,14,'2018-10-11',2000),(77,14,14,'2018-10-11',3000);
+insert  into `lpg_in_stock`(`id`,`organization_id`,`vendor_id`,`day`,`in_stock`) values (78,1,14,'2018-10-12',-360),(79,1,15,'2018-10-12',-360),(80,14,17,'2018-10-12',0),(81,14,14,'2018-10-12',0),(82,1,17,'2018-10-12',0),(83,14,17,'2018-10-13',0),(84,1,17,'2018-10-13',0),(85,1,15,'2018-10-13',-360),(86,1,14,'2018-10-13',-360),(87,14,14,'2018-10-13',0),(90,14,17,'2018-10-14',0),(91,1,17,'2018-10-14',0),(92,1,15,'2018-10-14',-360),(93,1,14,'2018-10-14',-360),(94,14,14,'2018-10-14',0),(97,14,17,'2018-10-15',0),(98,1,17,'2018-10-15',0),(99,1,15,'2018-10-15',-360),(100,1,14,'2018-10-15',-360),(101,14,14,'2018-10-15',0),(104,14,17,'2018-10-16',0),(105,1,17,'2018-10-16',0),(106,1,15,'2018-10-16',-360),(107,1,14,'2018-10-16',-360),(108,14,14,'2018-10-16',0),(111,14,17,'2018-10-17',0),(112,1,17,'2018-10-17',0),(113,1,15,'2018-10-17',-360),(114,1,14,'2018-10-17',-360),(115,14,14,'2018-10-17',0),(118,14,17,'2018-10-18',0),(119,1,17,'2018-10-18',0),(120,1,15,'2018-10-18',-360),(121,1,14,'2018-10-18',-360),(122,14,14,'2018-10-18',0),(125,14,17,'2018-10-19',0),(126,1,17,'2018-10-19',0),(127,1,15,'2018-10-19',-360),(128,1,14,'2018-10-19',-360),(129,14,14,'2018-10-19',0),(132,14,17,'2018-10-20',0),(133,1,17,'2018-10-20',0),(134,1,15,'2018-10-20',-360),(135,1,14,'2018-10-20',-360),(136,14,14,'2018-10-20',0),(139,14,17,'2018-10-21',0),(140,1,17,'2018-10-21',0),(141,1,15,'2018-10-21',-360),(142,1,14,'2018-10-21',-360),(143,14,14,'2018-10-21',0),(146,14,17,'2018-10-22',0),(147,1,17,'2018-10-22',0),(148,1,15,'2018-10-22',-360),(149,1,14,'2018-10-22',-360),(150,14,14,'2018-10-22',0),(153,14,17,'2018-10-23',0),(154,1,17,'2018-10-23',0),(155,1,15,'2018-10-23',-360),(156,1,14,'2018-10-23',-360),(157,14,14,'2018-10-23',0);
 
 /*Table structure for table `lpg_sale` */
 
@@ -1054,11 +1077,11 @@ CREATE TABLE `money_in_stock` (
   `organization_id` int(11) DEFAULT NULL COMMENT 'neu account_id=0 thi la id cua organization',
   `in_stock` double DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=89 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=167 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 /*Data for the table `money_in_stock` */
 
-insert  into `money_in_stock`(`id`,`day`,`account_id`,`organization_id`,`in_stock`) values (82,'2018-10-11',4,1,0),(83,'2018-10-11',5,1,-9300000),(84,'2018-10-11',7,14,-27610000),(85,'2018-10-11',8,14,0);
+insert  into `money_in_stock`(`id`,`day`,`account_id`,`organization_id`,`in_stock`) values (86,'2018-10-12',4,1,0),(87,'2018-10-12',5,1,10800000),(88,'2018-10-12',7,14,0),(89,'2018-10-12',8,14,0),(90,'2018-10-13',4,1,0),(91,'2018-10-13',5,1,12192000),(92,'2018-10-13',7,14,0),(93,'2018-10-13',8,14,0),(97,'2018-10-14',4,1,0),(98,'2018-10-14',5,1,12192000),(99,'2018-10-14',7,14,0),(100,'2018-10-14',8,14,0),(104,'2018-10-15',4,1,0),(105,'2018-10-15',5,1,12192000),(106,'2018-10-15',7,14,0),(107,'2018-10-15',8,14,0),(111,'2018-10-16',4,1,0),(112,'2018-10-16',5,1,12192000),(113,'2018-10-16',7,14,0),(114,'2018-10-16',8,14,0),(118,'2018-10-17',4,1,0),(119,'2018-10-17',5,1,12192000),(120,'2018-10-17',7,14,0),(121,'2018-10-17',8,14,0),(125,'2018-10-18',4,1,0),(126,'2018-10-18',5,1,12192000),(127,'2018-10-18',7,14,0),(128,'2018-10-18',8,14,0),(132,'2018-10-19',4,1,0),(133,'2018-10-19',5,1,12192000),(134,'2018-10-19',7,14,0),(135,'2018-10-19',8,14,0),(139,'2018-10-20',4,1,0),(140,'2018-10-20',5,1,12192000),(141,'2018-10-20',7,14,0),(142,'2018-10-20',8,14,0),(146,'2018-10-21',4,1,0),(147,'2018-10-21',5,1,12192000),(148,'2018-10-21',7,14,0),(149,'2018-10-21',8,14,0),(153,'2018-10-22',4,1,0),(154,'2018-10-22',5,1,12192000),(155,'2018-10-22',7,14,0),(156,'2018-10-22',8,14,0),(160,'2018-10-23',4,1,0),(161,'2018-10-23',5,1,12192000),(162,'2018-10-23',7,14,0),(163,'2018-10-23',8,14,0);
 
 /*Table structure for table `old_shell` */
 
@@ -1101,6 +1124,21 @@ CREATE TABLE `organization` (
 /*Data for the table `organization` */
 
 insert  into `organization`(`id`,`code`,`name`,`address`,`status`,`phone`,`fax`,`bank_account`,`tax`,`presenter`,`presenter_position`) values (1,'QT','Công ty TNHH Quang Trung','21 Bình Giã, khu phố Phước Lộc, thị trấn Phước Bửu, huyện Xuyên Mộc, tỉnh Bà Rịa Vũng Tàu',1,'064.3771972','064.3877075','050014822604, tại ngân hàng Sacombank - PGD Xuyên Mộc, huyện Xuyên Mộc, tỉnh Bà Rịa Vũng Tàu','3501475916','Cao Huy Hoàng','Giám đốc'),(14,'HT','Công ty TNHH Khí Hóa Lỏng Hưng Thịnh','39/1, KP3, P. Tam Hiệp, TP. Biên Hòa, Đồng Nai',1,'(0251)3.818.111','(0251)3.855.550','050046951171 Ngân hàng TMCP Sài Gòn Thương Tín- Sacombank Chi nhánh Đ.Nai','3600874037','Trần Quang Ngọc','Giám đốc');
+
+/*Table structure for table `organization_shell` */
+
+DROP TABLE IF EXISTS `organization_shell`;
+
+CREATE TABLE `organization_shell` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `organization_id` int(11) DEFAULT NULL,
+  `shell_id` int(11) DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+/*Data for the table `organization_shell` */
+
+insert  into `organization_shell`(`id`,`organization_id`,`shell_id`) values (1,1,1),(2,1,2);
 
 /*Table structure for table `parameter` */
 
@@ -1151,7 +1189,7 @@ CREATE TABLE `permission_detail` (
 
 /*Data for the table `permission_detail` */
 
-insert  into `permission_detail`(`id`,`permission_id`,`operation`,`function`) values (17,8,2,'1,5,8,6,7,3,4,9,10,11,12,13,14,53,54,15,16,17,18,19,20,22,23,51,52,21,24,25,26,27,28,29,30,31,32,33,34,35,36,37,55,38,39,40,41,42,43,44,45,56,46,47,48,49,50'),(16,8,1,'1,5,8,6,7,3,4,9,10,11,12,13,14,53,54,15,16,17,18,19,20,22,23,51,52,21,24,25,26,27,28,29,30,31,32,33,34,35,36,37,55,38,39,40,41,42,43,44,45,56,46,47,48,49,50'),(18,8,3,'1,5,8,4,13,14,53,54,15,20,22,23,51,52,25,26,27,28,29,30,31,32,33,34,35,36,37,55,38,39,40,41,42,43,44,45,56,46,47,48,49,50'),(19,8,4,'1,5,8,6,7,3,4,9,10,11,12,13,14,53,54,15,16,17,18,19,20,22,23,51,52,21,24,25,26,27,28,29,30,31,32,33,34,35,36,37,55,38,39,40,41,42,43,44,45,56,46,47,48,49,50'),(20,8,6,'56'),(21,9,1,'8,7,3,4,9,10,11,12,13,14,53,54,15,16,17,18,19,58,20,22,23,51,52,21,24,25,26,27,59,28,29,30,31,32,33,34,36,37,55,38,39,40,42,43,44,45,56,46,47,48,49,50,60,61,57,62,63,69,64,65,66,67,68'),(22,9,2,'8,7,3,4,9,10,11,12,13,14,53,54,15,16,17,18,19,58,20,22,23,51,52,21,24,25,26,27,59,28,29,30,31,32,33,34,36,37,55,38,39,40,42,43,44,45,56,46,47,48,49,50,60,61'),(23,9,3,'8,4,13,14,53,54,15,58,20,22,23,51,52,25,26,27,59,28,29,30,31,32,33,34,36,37,55,38,39,40,42,43,44,45,56,46,47,48,49,50,60,61'),(24,9,4,'8,7,3,4,9,10,11,12,13,14,53,54,15,16,17,18,19,58,20,22,23,51,52,21,24,25,26,27,59,28,29,30,31,32,33,34,36,37,55,38,39,40,42,43,44,45,56,46,47,48,49,50,60,61'),(25,9,6,'56'),(26,10,1,'8,7,3,4,9,10,11,12,13,14,53,54,15,16,17,18,19,58,20,22,23,51,52,21,24,25,26,27,59,28,29,30,31,32,33,34,36,37,55,38,39,40,41,42,43,44,45,56,46,47,48,49,50,60,61,57,62,63,64,65,66,67,68'),(27,10,2,'8,7,3,4,9,10,11,12,13,14,53,54,15,16,17,18,19,58,20,22,23,51,52,21,24,25,26,27,59,28,29,30,31,32,33,34,36,37,55,38,39,40,41,42,43,44,45,56,46,47,48,49,50,60,61'),(28,10,3,'8,4,13,14,53,54,15,58,20,22,23,51,52,25,26,27,59,28,29,30,31,32,33,34,36,37,55,38,39,40,41,42,43,44,45,56,46,47,48,49,50,60,61'),(29,10,4,'8,7,3,4,9,10,11,12,13,14,53,54,15,16,17,18,19,58,20,22,23,51,52,21,24,25,26,27,59,28,29,30,31,32,33,34,36,37,55,38,39,40,41,42,43,44,45,56,46,47,48,49,50,60,61'),(30,10,6,'56');
+insert  into `permission_detail`(`id`,`permission_id`,`operation`,`function`) values (17,8,2,'1,5,8,6,7,3,4,9,10,11,12,13,14,53,54,15,16,17,18,19,20,22,23,51,52,21,24,25,26,27,28,29,30,31,32,33,34,35,36,37,55,38,39,40,41,42,43,44,45,56,46,47,48,49,50'),(16,8,1,'1,5,8,6,7,3,4,9,10,11,12,13,14,53,54,15,16,17,18,19,20,22,23,51,52,21,24,25,26,27,28,29,30,31,32,33,34,35,36,37,55,38,39,40,41,42,43,44,45,56,46,47,48,49,50'),(18,8,3,'1,5,8,4,13,14,53,54,15,20,22,23,51,52,25,26,27,28,29,30,31,32,33,34,35,36,37,55,38,39,40,41,42,43,44,45,56,46,47,48,49,50'),(19,8,4,'1,5,8,6,7,3,4,9,10,11,12,13,14,53,54,15,16,17,18,19,20,22,23,51,52,21,24,25,26,27,28,29,30,31,32,33,34,35,36,37,55,38,39,40,41,42,43,44,45,56,46,47,48,49,50'),(20,8,6,'56'),(21,9,1,'8,7,3,4,9,10,11,12,13,14,53,54,15,16,17,18,19,58,70,20,22,23,51,52,21,24,25,26,27,59,28,29,30,31,32,33,34,36,37,55,38,39,40,42,43,44,45,56,46,47,48,49,50,60,61,57,62,63,69,64,65,66,67,68'),(22,9,2,'8,7,3,4,9,10,11,12,13,14,53,54,15,16,17,18,19,58,70,20,22,23,51,52,21,24,25,26,27,59,28,29,30,31,32,33,34,36,37,55,38,39,40,42,43,44,45,56,46,47,48,49,50,60,61'),(23,9,3,'8,4,13,14,53,54,15,58,70,20,22,23,51,52,25,26,27,59,28,29,30,31,32,33,34,36,37,55,38,39,40,42,43,44,45,56,46,47,48,49,50,60,61'),(24,9,4,'8,7,3,4,9,10,11,12,13,14,53,54,15,16,17,18,19,58,70,20,22,23,51,52,21,24,25,26,27,59,28,29,30,31,32,33,34,36,37,55,38,39,40,42,43,44,45,56,46,47,48,49,50,60,61'),(25,9,6,'56'),(26,10,1,'8,7,3,4,9,10,11,12,13,14,53,54,15,16,17,18,19,58,20,22,23,51,52,21,24,25,26,27,59,28,29,30,31,32,33,34,36,37,55,38,39,40,41,42,43,44,45,56,46,47,48,49,50,60,61,57,62,63,64,65,66,67,68'),(27,10,2,'8,7,3,4,9,10,11,12,13,14,53,54,15,16,17,18,19,58,20,22,23,51,52,21,24,25,26,27,59,28,29,30,31,32,33,34,36,37,55,38,39,40,41,42,43,44,45,56,46,47,48,49,50,60,61'),(28,10,3,'8,4,13,14,53,54,15,58,20,22,23,51,52,25,26,27,59,28,29,30,31,32,33,34,36,37,55,38,39,40,41,42,43,44,45,56,46,47,48,49,50,60,61'),(29,10,4,'8,7,3,4,9,10,11,12,13,14,53,54,15,16,17,18,19,58,20,22,23,51,52,21,24,25,26,27,59,28,29,30,31,32,33,34,36,37,55,38,39,40,41,42,43,44,45,56,46,47,48,49,50,60,61'),(30,10,6,'56');
 
 /*Table structure for table `petro` */
 
@@ -1222,11 +1260,11 @@ CREATE TABLE `petro_in_stock` (
   `organization_id` int(11) DEFAULT NULL,
   `in_stock` int(11) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=57 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=135 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 /*Data for the table `petro_in_stock` */
 
-insert  into `petro_in_stock`(`id`,`day`,`petro_id`,`organization_id`,`in_stock`) values (50,'2018-10-11',4,1,0),(51,'2018-10-11',5,1,0),(52,'2018-10-11',4,14,0),(53,'2018-10-11',5,14,0);
+insert  into `petro_in_stock`(`id`,`day`,`petro_id`,`organization_id`,`in_stock`) values (54,'2018-10-12',4,1,0),(55,'2018-10-12',5,1,0),(56,'2018-10-12',4,14,0),(57,'2018-10-12',5,14,0),(58,'2018-10-13',4,1,0),(59,'2018-10-13',5,1,0),(60,'2018-10-13',4,14,0),(61,'2018-10-13',5,14,0),(65,'2018-10-14',4,1,0),(66,'2018-10-14',5,1,0),(67,'2018-10-14',4,14,0),(68,'2018-10-14',5,14,0),(72,'2018-10-15',4,1,0),(73,'2018-10-15',5,1,0),(74,'2018-10-15',4,14,0),(75,'2018-10-15',5,14,0),(79,'2018-10-16',4,1,0),(80,'2018-10-16',5,1,0),(81,'2018-10-16',4,14,0),(82,'2018-10-16',5,14,0),(86,'2018-10-17',4,1,0),(87,'2018-10-17',5,1,0),(88,'2018-10-17',4,14,0),(89,'2018-10-17',5,14,0),(93,'2018-10-18',4,1,0),(94,'2018-10-18',5,1,0),(95,'2018-10-18',4,14,0),(96,'2018-10-18',5,14,0),(100,'2018-10-19',4,1,0),(101,'2018-10-19',5,1,0),(102,'2018-10-19',4,14,0),(103,'2018-10-19',5,14,0),(107,'2018-10-20',4,1,0),(108,'2018-10-20',5,1,0),(109,'2018-10-20',4,14,0),(110,'2018-10-20',5,14,0),(114,'2018-10-21',4,1,0),(115,'2018-10-21',5,1,0),(116,'2018-10-21',4,14,0),(117,'2018-10-21',5,14,0),(121,'2018-10-22',4,1,0),(122,'2018-10-22',5,1,0),(123,'2018-10-22',4,14,0),(124,'2018-10-22',5,14,0),(128,'2018-10-23',4,1,0),(129,'2018-10-23',5,1,0),(130,'2018-10-23',4,14,0),(131,'2018-10-23',5,14,0);
 
 /*Table structure for table `petro_sale` */
 
@@ -1330,11 +1368,11 @@ CREATE TABLE `promotion_material_in_stock` (
   `organization_id` int(11) DEFAULT NULL,
   `in_stock` int(11) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=83 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=161 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 /*Data for the table `promotion_material_in_stock` */
 
-insert  into `promotion_material_in_stock`(`id`,`day`,`promotion_material_id`,`organization_id`,`in_stock`) values (76,'2018-10-11',3,1,0),(77,'2018-10-11',4,1,0),(78,'2018-10-11',3,14,0),(79,'2018-10-11',4,14,0);
+insert  into `promotion_material_in_stock`(`id`,`day`,`promotion_material_id`,`organization_id`,`in_stock`) values (80,'2018-10-12',3,1,0),(81,'2018-10-12',4,1,0),(82,'2018-10-12',3,14,0),(83,'2018-10-12',4,14,0),(84,'2018-10-13',3,1,0),(85,'2018-10-13',4,1,-3),(86,'2018-10-13',3,14,0),(87,'2018-10-13',4,14,0),(91,'2018-10-14',3,1,0),(92,'2018-10-14',4,1,-3),(93,'2018-10-14',3,14,0),(94,'2018-10-14',4,14,0),(98,'2018-10-15',3,1,0),(99,'2018-10-15',4,1,-3),(100,'2018-10-15',3,14,0),(101,'2018-10-15',4,14,0),(105,'2018-10-16',3,1,0),(106,'2018-10-16',4,1,-3),(107,'2018-10-16',3,14,0),(108,'2018-10-16',4,14,0),(112,'2018-10-17',3,1,0),(113,'2018-10-17',4,1,-3),(114,'2018-10-17',3,14,0),(115,'2018-10-17',4,14,0),(119,'2018-10-18',3,1,0),(120,'2018-10-18',4,1,-3),(121,'2018-10-18',3,14,0),(122,'2018-10-18',4,14,0),(126,'2018-10-19',3,1,0),(127,'2018-10-19',4,1,-3),(128,'2018-10-19',3,14,0),(129,'2018-10-19',4,14,0),(133,'2018-10-20',3,1,0),(134,'2018-10-20',4,1,-3),(135,'2018-10-20',3,14,0),(136,'2018-10-20',4,14,0),(140,'2018-10-21',3,1,0),(141,'2018-10-21',4,1,-3),(142,'2018-10-21',3,14,0),(143,'2018-10-21',4,14,0),(147,'2018-10-22',3,1,0),(148,'2018-10-22',4,1,-3),(149,'2018-10-22',3,14,0),(150,'2018-10-22',4,14,0),(154,'2018-10-23',3,1,0),(155,'2018-10-23',4,1,-3),(156,'2018-10-23',3,14,0),(157,'2018-10-23',4,14,0);
 
 /*Table structure for table `promotion_material_sale` */
 
@@ -1450,11 +1488,11 @@ CREATE TABLE `shell_gas_in_stock` (
   `shell_vendor_id` int(11) DEFAULT NULL,
   `in_stock` int(11) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=15 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=95 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 /*Data for the table `shell_gas_in_stock` */
 
-insert  into `shell_gas_in_stock`(`id`,`day`,`shell_vendor_id`,`in_stock`) values (8,'2018-10-11',28,0),(9,'2018-10-11',29,0),(10,'2018-10-11',26,0),(11,'2018-10-11',30,0),(12,'2018-10-11',31,0);
+insert  into `shell_gas_in_stock`(`id`,`day`,`shell_vendor_id`,`in_stock`) values (13,'2018-10-12',28,-2),(14,'2018-10-12',29,-33),(15,'2018-10-12',26,29),(16,'2018-10-12',30,0),(17,'2018-10-12',31,0),(18,'2018-10-13',28,-200),(19,'2018-10-13',29,-300),(20,'2018-10-13',26,-100),(21,'2018-10-13',30,0),(22,'2018-10-13',31,0),(25,'2018-10-14',28,0),(26,'2018-10-14',29,0),(27,'2018-10-14',26,0),(28,'2018-10-14',30,0),(29,'2018-10-14',31,0),(32,'2018-10-15',28,0),(33,'2018-10-15',29,0),(34,'2018-10-15',26,0),(35,'2018-10-15',30,0),(36,'2018-10-15',31,0),(39,'2018-10-16',28,0),(40,'2018-10-16',29,0),(41,'2018-10-16',26,0),(42,'2018-10-16',30,0),(43,'2018-10-16',31,0),(46,'2018-10-17',28,0),(47,'2018-10-17',29,0),(48,'2018-10-17',26,0),(49,'2018-10-17',30,0),(50,'2018-10-17',31,0),(53,'2018-10-18',28,0),(54,'2018-10-18',29,0),(55,'2018-10-18',26,0),(56,'2018-10-18',30,0),(57,'2018-10-18',31,0),(60,'2018-10-19',28,0),(61,'2018-10-19',29,0),(62,'2018-10-19',26,0),(63,'2018-10-19',30,0),(64,'2018-10-19',31,0),(67,'2018-10-20',28,0),(68,'2018-10-20',29,0),(69,'2018-10-20',26,0),(70,'2018-10-20',30,0),(71,'2018-10-20',31,0),(74,'2018-10-21',28,0),(75,'2018-10-21',29,0),(76,'2018-10-21',26,0),(77,'2018-10-21',30,0),(78,'2018-10-21',31,0),(81,'2018-10-22',28,0),(82,'2018-10-22',29,0),(83,'2018-10-22',26,0),(84,'2018-10-22',30,0),(85,'2018-10-22',31,0),(88,'2018-10-23',28,0),(89,'2018-10-23',29,0),(90,'2018-10-23',26,0),(91,'2018-10-23',30,0),(92,'2018-10-23',31,0);
 
 /*Table structure for table `shell_import` */
 
@@ -1491,11 +1529,11 @@ CREATE TABLE `shell_in_stock` (
   `in_stock` int(11) DEFAULT '0' COMMENT 'vo binh rong',
   PRIMARY KEY (`id`),
   KEY `shell_id` (`shell_id`)
-) ENGINE=MyISAM AUTO_INCREMENT=221 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=MyISAM AUTO_INCREMENT=281 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 /*Data for the table `shell_in_stock` */
 
-insert  into `shell_in_stock`(`id`,`day`,`organization_id`,`shell_id`,`in_stock`) values (220,'2018-10-11',14,2,600),(219,'2018-10-11',14,1,500),(218,'2018-10-11',1,3,600),(217,'2018-10-11',1,2,400),(216,'2018-10-11',1,1,300);
+insert  into `shell_in_stock`(`id`,`day`,`organization_id`,`shell_id`,`in_stock`) values (225,'2018-10-12',14,2,0),(224,'2018-10-12',14,1,0),(223,'2018-10-12',1,3,-80),(222,'2018-10-12',1,2,9),(221,'2018-10-12',1,1,-14),(226,'2018-10-13',1,1,-4),(227,'2018-10-13',1,2,9),(228,'2018-10-13',1,3,-80),(229,'2018-10-13',14,1,0),(230,'2018-10-13',14,2,0),(231,'2018-10-14',1,1,-4),(232,'2018-10-14',1,2,9),(233,'2018-10-14',1,3,-80),(234,'2018-10-14',14,1,0),(235,'2018-10-14',14,2,0),(236,'2018-10-15',1,1,-4),(237,'2018-10-15',1,2,9),(238,'2018-10-15',1,3,-80),(239,'2018-10-15',14,1,0),(240,'2018-10-15',14,2,0),(241,'2018-10-16',1,1,-4),(242,'2018-10-16',1,2,9),(243,'2018-10-16',1,3,-80),(244,'2018-10-16',14,1,0),(245,'2018-10-16',14,2,0),(246,'2018-10-17',1,1,-4),(247,'2018-10-17',1,2,9),(248,'2018-10-17',1,3,-80),(249,'2018-10-17',14,1,0),(250,'2018-10-17',14,2,0),(251,'2018-10-18',1,1,-4),(252,'2018-10-18',1,2,9),(253,'2018-10-18',1,3,-80),(254,'2018-10-18',14,1,0),(255,'2018-10-18',14,2,0),(256,'2018-10-19',1,1,-4),(257,'2018-10-19',1,2,9),(258,'2018-10-19',1,3,-80),(259,'2018-10-19',14,1,0),(260,'2018-10-19',14,2,0),(261,'2018-10-20',1,1,-4),(262,'2018-10-20',1,2,9),(263,'2018-10-20',1,3,-80),(264,'2018-10-20',14,1,0),(265,'2018-10-20',14,2,0),(266,'2018-10-21',1,1,-4),(267,'2018-10-21',1,2,9),(268,'2018-10-21',1,3,-80),(269,'2018-10-21',14,1,0),(270,'2018-10-21',14,2,0),(271,'2018-10-22',1,1,-4),(272,'2018-10-22',1,2,9),(273,'2018-10-22',1,3,-80),(274,'2018-10-22',14,1,0),(275,'2018-10-22',14,2,0),(276,'2018-10-23',1,1,-4),(277,'2018-10-23',1,2,9),(278,'2018-10-23',1,3,-80),(279,'2018-10-23',14,1,0),(280,'2018-10-23',14,2,0);
 
 /*Table structure for table `shell_kind` */
 
@@ -1544,7 +1582,7 @@ CREATE TABLE `shell_return_detail` (
   `shell_id` int(11) DEFAULT NULL,
   `quantity` int(5) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 /*Data for the table `shell_return_detail` */
 
@@ -1703,11 +1741,11 @@ CREATE TABLE `shield_in_stock` (
   `organization_id` int(11) DEFAULT NULL,
   `in_stock` int(11) DEFAULT '0',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=27 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=107 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 /*Data for the table `shield_in_stock` */
 
-insert  into `shield_in_stock`(`id`,`day`,`vendor_id`,`organization_id`,`in_stock`) values (20,'2018-10-11',14,1,0),(21,'2018-10-11',15,1,0),(22,'2018-10-11',17,1,0),(23,'2018-10-11',14,14,0),(24,'2018-10-11',17,14,0);
+insert  into `shield_in_stock`(`id`,`day`,`vendor_id`,`organization_id`,`in_stock`) values (25,'2018-10-12',14,1,-30),(26,'2018-10-12',15,1,-30),(27,'2018-10-12',17,1,0),(28,'2018-10-12',14,14,0),(29,'2018-10-12',17,14,0),(30,'2018-10-13',14,1,-30),(31,'2018-10-13',15,1,-30),(32,'2018-10-13',17,1,0),(33,'2018-10-13',14,14,0),(34,'2018-10-13',17,14,0),(37,'2018-10-14',14,1,-30),(38,'2018-10-14',15,1,-30),(39,'2018-10-14',17,1,0),(40,'2018-10-14',14,14,0),(41,'2018-10-14',17,14,0),(44,'2018-10-15',14,1,-30),(45,'2018-10-15',15,1,-30),(46,'2018-10-15',17,1,0),(47,'2018-10-15',14,14,0),(48,'2018-10-15',17,14,0),(51,'2018-10-16',14,1,-30),(52,'2018-10-16',15,1,-30),(53,'2018-10-16',17,1,0),(54,'2018-10-16',14,14,0),(55,'2018-10-16',17,14,0),(58,'2018-10-17',14,1,-30),(59,'2018-10-17',15,1,-30),(60,'2018-10-17',17,1,0),(61,'2018-10-17',14,14,0),(62,'2018-10-17',17,14,0),(65,'2018-10-18',14,1,-30),(66,'2018-10-18',15,1,-30),(67,'2018-10-18',17,1,0),(68,'2018-10-18',14,14,0),(69,'2018-10-18',17,14,0),(72,'2018-10-19',14,1,-30),(73,'2018-10-19',15,1,-30),(74,'2018-10-19',17,1,0),(75,'2018-10-19',14,14,0),(76,'2018-10-19',17,14,0),(79,'2018-10-20',14,1,-30),(80,'2018-10-20',15,1,-30),(81,'2018-10-20',17,1,0),(82,'2018-10-20',14,14,0),(83,'2018-10-20',17,14,0),(86,'2018-10-21',14,1,-30),(87,'2018-10-21',15,1,-30),(88,'2018-10-21',17,1,0),(89,'2018-10-21',14,14,0),(90,'2018-10-21',17,14,0),(93,'2018-10-22',14,1,-30),(94,'2018-10-22',15,1,-30),(95,'2018-10-22',17,1,0),(96,'2018-10-22',14,14,0),(97,'2018-10-22',17,14,0),(100,'2018-10-23',14,1,-30),(101,'2018-10-23',15,1,-30),(102,'2018-10-23',17,1,0),(103,'2018-10-23',14,14,0),(104,'2018-10-23',17,14,0);
 
 /*Table structure for table `store` */
 
@@ -1796,7 +1834,7 @@ CREATE TABLE `user` (
 
 /*Data for the table `user` */
 
-insert  into `user`(`id`,`employee_id`,`username`,`password`,`menu`,`status`) values (1,1,'tu','gdyb21LQTcIANtvYMT7QVQ==','<?xml version=\"1.0\"?><menu><item id=\"list\" complex=\"true\" text=\"Khai báo danh mục\"><item id=\"system\" complex=\"true\" text=\"Hệ thống\"><item id=\"users\" complex=\"true\" text=\"Tài khoản hệ thống\"><item id=\"userlist\" text=\"Danh sách tài khoản hệ thống\"/><item id=\"useradd\" text=\"Thêm tài khoản hệ thống\"/></item><item id=\"parameter\" text=\"Thông số hệ thống\"/><item id=\"permissionlist\" text=\"Phân quyền\"/></item><item id=\"organization\" complex=\"true\" text=\"Đơn vị\"><item id=\"organizations\" complex=\"true\" text=\"Đơn vị\"><item id=\"organizationlist\" text=\"Danh sách đơn vị\"/><item id=\"organizationadd\" text=\"Thêm đơn vị\"/></item><item id=\"stores\" complex=\"true\" text=\"Kho\"><item id=\"storelist\" text=\"Danh sách kho\"/><item id=\"storeadd\" text=\"Thêm kho\"/></item><item id=\"employees\" complex=\"true\" text=\"Nhân viên\"><item id=\"employeelist\" text=\"Danh sách nhân viên\"/><item id=\"employeeadd\" text=\"Thêm nhân viên\"/><item id=\"employeefiellist\" text=\"Thông tin động - Nhân viên\"/></item><item id=\"accounts\" complex=\"true\" text=\"Tài khoản ngân hàng\"><item id=\"accountlist\" text=\"Danh sách tài khoản ngân hàng\"/><item id=\"accountadd\" text=\"Thêm tài khoản ngân hàng\"/></item></item><item id=\"good\" complex=\"true\" text=\"Hàng hóa\"><item id=\"units\" complex=\"true\" text=\"Đơn vị tính\"><item id=\"unitlist\" text=\"Danh sách đơn vị tính\"/><item id=\"unitadd\" text=\"Thêm đơn vị tính\"/></item><item id=\"shellkinds\" complex=\"true\" text=\"Loại vỏ bình\"><item id=\"shellkindlist\" text=\"Danh sách loại vỏ bình\"/><item id=\"shellkindadd\" text=\"Thêm loại vỏ bình\"/></item><item id=\"shells\" complex=\"true\" text=\"Vỏ bình\"><item id=\"shelllist\" text=\"Danh sách vỏ bình\"/><item id=\"shelladd\" text=\"Thêm vỏ bình\"/></item><item id=\"accessorykinds\" complex=\"true\" text=\"Loại phụ kiện\"><item id=\"accessorykindlist\" text=\"Danh sách loại phụ kiện\"/><item id=\"accessorykindadd\" text=\"Thêm loại phụ kiện\"/></item><item id=\"accessorys\" complex=\"true\" text=\"Phụ kiện\"><item id=\"accessorylist\" text=\"Danh sách phụ kiện\"/><item id=\"accessoryadd\" text=\"Thêm phụ kiện\"/></item><item id=\"promotionmaterials\" complex=\"true\" text=\"Hàng khuyến mãi\"><item id=\"promotionmateriallist\" text=\"Danh sách hàng khuyến mãi\"/><item id=\"promotionmaterialadd\" text=\"Thêm hàng khuyến mãi\"/></item><item id=\"petros\" complex=\"true\" text=\"Xăng dầu\"><item id=\"petrolist\" text=\"Danh sách hàng xăng dầu\"/><item id=\"petroadd\" text=\"Thêm hàng xăng dầu\"/></item></item><item id=\"vendor\" complex=\"true\" text=\"Nhà cung cấp\"><item id=\"vendors\" complex=\"true\" text=\"Nhà cung cấp\"><item id=\"vendorlist\" text=\"Danh sách nhà cung cấp\"/><item id=\"vendoradd\" text=\"Thêm nhà cung cấp\"/><item id=\"vendorfiellist\" text=\"Thông tin động - Nhà cung cấp\"/></item></item><item id=\"customer\" complex=\"true\" text=\"Khách hàng\"><item id=\"customers\" complex=\"true\" text=\"Khách hàng\"><item id=\"customerlist\" text=\"Danh sách khách hàng\"/><item id=\"customeradd\" text=\"Thêm khách hàng\"/><item id=\"customerfiellist\" text=\"Thông tin động - Khách hàng\"/></item></item><item id=\"vehicle\" complex=\"true\" text=\"Xe\"><item id=\"vehicles\" complex=\"true\" text=\"Xe\"><item id=\"vehiclelist\" text=\"Danh sách xe\"/><item id=\"vehicleadd\" text=\"Thêm xe\"/></item><item id=\"routes\" complex=\"true\" text=\"Tuyến đường\"><item id=\"routelist\" text=\"Danh sách tuyến đường\"/><item id=\"routeadd\" text=\"Thêm tuyến đường\"/></item></item><item id=\"fixedassetgroup\" complex=\"true\" text=\"Tài sản cố định\"><item id=\"fixedassetgroups\" complex=\"true\" text=\"Nhóm tài sản cố định\"><item id=\"fixedassetgrouplist\" text=\"Danh sách nhóm tài sản cố định\"/><item id=\"fixedassetgroupadd\" text=\"Thêm nhóm tài sản cố định\"/></item><item id=\"fixedassets\" complex=\"true\" text=\"Tài sản cố định\"><item id=\"fixedassetlist\" text=\"Danh sách tài sản cố định\"/><item id=\"fixedassetadd\" text=\"Thêm tài sản cố định\"/></item></item></item><item id=\"employeefunction\" complex=\"true\" text=\"Nghiệp vụ Nhân viên\"><item id=\"employeeadvances\" complex=\"true\" text=\"Nhân viên tạm ứng\"><item id=\"employeeadvancelist\" text=\"Danh sách tạm ứng\"/><item id=\"employeeadvanceadd\" text=\"Thêm tạm ứng\"/></item><item id=\"employeetimesheets\" complex=\"true\" text=\"Chấm công nhân viên\"><item id=\"employeetimesheetlist\" text=\"Danh sách chấm công\"/><item id=\"employeetimesheetadd\" text=\"Thêm chấm công\"/></item><item id=\"employeeoffs\" complex=\"true\" text=\"Nghỉ phép\"><item id=\"employeeofflist\" text=\"Danh sách nghỉ phép\"/><item id=\"employeeoffadd\" text=\"Thêm nghỉ phép\"/></item><item id=\"employeeoffincreases\" complex=\"true\" text=\"Bù nghỉ phép\"><item id=\"employeeoffincreaselist\" text=\"Danh sách bù nghỉ phép\"/><item id=\"employeeoffincreaseadd\" text=\"Thêm bù nghỉ phép\"/></item><item id=\"employeeoffmoneys\" complex=\"true\" text=\"Thanh toán ngày phép\"><item id=\"employeeoffmoneylist\" text=\"Danh sách thanh toán ngày phép\"/><item id=\"employeeoffmoneyadd\" text=\"Thêm thanh toán ngày phép\"/></item><item id=\"salarys\" complex=\"true\" text=\"Bảng lương\"><item id=\"salarylist\" text=\"Danh sách bảng lương\"/><item id=\"salarysalaryfiels\" complex=\"true\" text=\"Thông tin động\"><item id=\"salaryfiellist\" text=\"Phụ cấp\"/><item id=\"timesheetfiellist\" text=\"Chấm công\"/></item><item id=\"dynamicfielvalues\" complex=\"true\" text=\"Giá trị thông tin động\"><item id=\"employeesalarylist\" text=\"Danh sách phụ cấp\"/><item id=\"organizationtimesheetlist\" text=\"Danh sách chi phí chấm công\"/></item></item></item><item id=\"vehiclefunction\" complex=\"true\" text=\"Nghiệp vụ Xe\"><item id=\"tripfees\" complex=\"true\" text=\"Chi phí xe\"><item id=\"tripfeelist\" text=\"Danh sách chi phí xe\"/><item id=\"tripfeeadd\" text=\"Thêm chi phí xe\"/></item><item id=\"vehicleouts\" complex=\"true\" text=\"Xuất xe đi\"><item id=\"vehicleoutlist\" text=\"Danh sách xuất xe đi\"/><item id=\"vehicleoutadd\" text=\"Thêm xuất xe đi\"/></item><item id=\"vehicleins\" complex=\"true\" text=\"Xuất xe về\"><item id=\"vehicleinlist\" text=\"Danh sách xuất xe về\"/><item id=\"vehicleinadd\" text=\"Thêm xuất xe về\"/></item><item id=\"exportwholesales\" complex=\"true\" text=\"Xuất sỉ\"><item id=\"exportwholesalelist\" text=\"Danh sách xuất sỉ\"/><item id=\"exportwholesaleadd\" text=\"Thêm xuất sỉ\"/></item></item><item id=\"gasfunction\" complex=\"true\" text=\"Nghiệp vụ gas\"><item id=\"shellimports\" complex=\"true\" text=\"Nhập vỏ bình\"><item id=\"shellimportlist\" text=\"Danh sách nhập vỏ bình\"/><item id=\"shellimportadd\" text=\"Thêm nhập vỏ bình\"/></item><item id=\"lpgimports\" complex=\"true\" text=\"Nhập LPG\"><item id=\"lpgimportlist\" text=\"Danh sách nhập LPG\"/><item id=\"lpgimportadd\" text=\"Thêm nhập LPG\"/></item><item id=\"fractions\" complex=\"true\" text=\"Chiết gas\"><item id=\"fractionlist\" text=\"Danh sách chiết gas\"/><item id=\"fractionadd\" text=\"Thêm chiết gas\"/></item><item id=\"gasprices\" complex=\"true\" text=\"Giá bán gas\"><item id=\"gaspricelist\" text=\"Danh sách giá bán gas\"/><item id=\"gaspriceadd\" text=\"Thêm giá bán gas\"/></item><item id=\"gasimports\" complex=\"true\" text=\"Nhập gas\"><item id=\"gasimportlist\" text=\"Danh sách phiếu nhập gas\"/><item id=\"gasimportadd\" text=\"Thêm phiếu nhập gas\"/></item><item id=\"gaswholesales\" complex=\"true\" text=\"Bán sỉ gas\"><item id=\"gaswholesalelist\" text=\"Danh sách phiếu bán sỉ gas\"/><item id=\"gaswholesaleadd\" text=\"Thêm phiếu bán sỉ gas\"/></item><item id=\"gasretails\" complex=\"true\" text=\"Bán lẻ gas\"><item id=\"gasretaillist\" text=\"Danh sách phiếu bán lẻ gas\"/><item id=\"gasretailadd\" text=\"Thêm phiếu bán lẻ gas\"/></item><item id=\"saleshells\" complex=\"true\" text=\"Bán vỏ bình\"><item id=\"saleshelllist\" text=\"Danh sách phiếu bán vỏ bình\"/><item id=\"saleshelladd\" text=\"Thêm phiếu bán vỏ bình\"/></item><item id=\"oldshells\" complex=\"true\" text=\"Điều chỉnh số lượng vỏ bình\"><item id=\"oldshelllist\" text=\"Danh sách điều chỉnh số lượng vỏ bình\"/><item id=\"oldshelladd\" text=\"Thêm điều chỉnh số lượng vỏ bình\"/></item><item id=\"shellreturns\" complex=\"true\" text=\"Trả vỏ bình\"><item id=\"shellreturnlist\" text=\"Danh sách trả vỏ bình\"/><item id=\"shellreturnadd\" text=\"Thêm trả vỏ bình\"/></item><item id=\"shellreturnsuppliers\" complex=\"true\" text=\"Trả vỏ bình NCC\"><item id=\"shellreturnsupplierlist\" text=\"Danh sách trả vỏ bình NCC\"/><item id=\"shellreturnsupplieradd\" text=\"Thêm trả vỏ bình NCC\"/></item><item id=\"gasreturns\" complex=\"true\" text=\"Trả gas\"><item id=\"gasreturnlist\" text=\"Danh sách trả gas\"/><item id=\"gasreturnadd\" text=\"Thêm trả gas\"/></item></item><item id=\"goodfunction\" complex=\"true\" text=\"Nghiệp vụ hàng hóa\"><item id=\"accessoryimports\" complex=\"true\" text=\"Nhập phụ kiện\"><item id=\"accessoryimportlist\" text=\"Danh sách phiếu nhập phụ kiện\"/><item id=\"accessoryimportadd\" text=\"Thêm phiếu nhập phụ kiện\"/></item><item id=\"promotionmaterialimports\" complex=\"true\" text=\"Nhập hàng khuyến mãi\"><item id=\"promotionmaterialimportlist\" text=\"Danh sách phiếu nhập hàng khuyến mãi\"/><item id=\"promotionmaterialimportadd\" text=\"Thêm phiếu nhập hàng khuyến mãi\"/></item><item id=\"petroimports\" complex=\"true\" text=\"Nhập hàng hóa\"><item id=\"petroimportlist\" text=\"Danh sách phiếu nhập hàng hóa\"/><item id=\"petroimportadd\" text=\"Thêm phiếu nhập hàng hóa\"/></item><item id=\"saleaccessorys\" complex=\"true\" text=\"Bán phụ kiện\"><item id=\"saleaccessorylist\" text=\"Danh sách phiếu bán phụ kiện\"/><item id=\"saleaccessoryadd\" text=\"Thêm phiếu bán phụ kiện\"/></item><item id=\"salepetros\" complex=\"true\" text=\"Bán hàng hóa\"><item id=\"salepetrolist\" text=\"Danh sách phiếu bán hàng hóa\"/><item id=\"salepetroadd\" text=\"Thêm phiếu bán hàng hóa\"/></item><item id=\"fixedassetdepreciations\" complex=\"true\" text=\"Khấu hao\"><item id=\"fixedassetdepreciationlist\" text=\"Danh sách phiếu khấu hao\"/><item id=\"fixedassetdepreciationadd\" text=\"Thêm phiếu khấu hao\"/></item></item><item id=\"paymentfunction\" complex=\"true\" text=\"Nghiệp vụ thanh toán\"><item id=\"contracts\" complex=\"true\" text=\"Hợp đồng\"><item id=\"contractlist\" text=\"Danh sách hợp đồng\"/><item id=\"contractadd\" text=\"Thêm hợp đồng\"/></item><item id=\"debtvendors\" complex=\"true\" text=\"Công nợ NCC\"><item id=\"debtvendorlist\" text=\"Danh sách công nợ NCC\"/><item id=\"debtvendoradd\" text=\"Thêm công nợ NCC\"/></item><item id=\"debtretails\" complex=\"true\" text=\"Công nợ bán lẻ\"><item id=\"debtretaillist\" text=\"Danh sách công nợ bán lẻ\"/><item id=\"debtretailadd\" text=\"Thêm công nợ bán lẻ\"/></item><item id=\"debtwholesales\" complex=\"true\" text=\"Công nợ bán sỉ\"><item id=\"debtwholesalelist\" text=\"Danh sách công nợ bán sỉ\"/><item id=\"debtwholesaleadd\" text=\"Thêm công nợ bán sỉ\"/></item><item id=\"incomes\" complex=\"true\" text=\"Thu\"><item id=\"incomelist\" text=\"Danh sách thu\"/><item id=\"incomeadd\" text=\"Thêm thu\"/></item><item id=\"expenses\" complex=\"true\" text=\"Chi\"><item id=\"expenselist\" text=\"Danh sách chi\"/><item id=\"expenseadd\" text=\"Thêm chi\"/></item></item><item id=\"setting\" complex=\"true\" text=\"Cấu hình\"><item id=\"resetpassword\" text=\"Đổi mật khẩu\"/></item><item id=\"logout\" text=\"Đăng xuất\"/></menu>',1),(11,17,'nva','gdyb21LQTcIANtvYMT7QVQ==','<?xml version=\"1.0\"?><menu><item id=\"list\" complex=\"true\" text=\"Khai báo danh mục\"><item id=\"system\" complex=\"true\" text=\"Hệ thống\"><item id=\"users\" complex=\"true\" text=\"Tài khoản hệ thống\"><item id=\"userlist\" text=\"Danh sách tài khoản hệ thống\"/><item id=\"useradd\" text=\"Thêm tài khoản hệ thống\"/></item></item><item id=\"organization\" complex=\"true\" text=\"Đơn vị\"><item id=\"stores\" complex=\"true\" text=\"Kho\"><item id=\"storelist\" text=\"Danh sách kho\"/><item id=\"storeadd\" text=\"Thêm kho\"/></item><item id=\"employees\" complex=\"true\" text=\"Nhân viên\"><item id=\"employeelist\" text=\"Danh sách nhân viên\"/><item id=\"employeeadd\" text=\"Thêm nhân viên\"/><item id=\"employeefiellist\" text=\"Thông tin động - Nhân viên\"/></item><item id=\"accounts\" complex=\"true\" text=\"Tài khoản ngân hàng\"><item id=\"accountlist\" text=\"Danh sách tài khoản ngân hàng\"/><item id=\"accountadd\" text=\"Thêm tài khoản ngân hàng\"/></item></item><item id=\"good\" complex=\"true\" text=\"Hàng hóa\"><item id=\"units\" complex=\"true\" text=\"Đơn vị tính\"><item id=\"unitlist\" text=\"Danh sách đơn vị tính\"/><item id=\"unitadd\" text=\"Thêm đơn vị tính\"/></item><item id=\"shellkinds\" complex=\"true\" text=\"Loại vỏ bình\"><item id=\"shellkindlist\" text=\"Danh sách loại vỏ bình\"/><item id=\"shellkindadd\" text=\"Thêm loại vỏ bình\"/></item><item id=\"shells\" complex=\"true\" text=\"Vỏ bình\"><item id=\"shelllist\" text=\"Danh sách vỏ bình\"/><item id=\"shelladd\" text=\"Thêm vỏ bình\"/></item><item id=\"accessorykinds\" complex=\"true\" text=\"Loại phụ kiện\"><item id=\"accessorykindlist\" text=\"Danh sách loại phụ kiện\"/><item id=\"accessorykindadd\" text=\"Thêm loại phụ kiện\"/></item><item id=\"accessorys\" complex=\"true\" text=\"Phụ kiện\"><item id=\"accessorylist\" text=\"Danh sách phụ kiện\"/><item id=\"accessoryadd\" text=\"Thêm phụ kiện\"/></item><item id=\"promotionmaterials\" complex=\"true\" text=\"Hàng khuyến mãi\"><item id=\"promotionmateriallist\" text=\"Danh sách hàng khuyến mãi\"/><item id=\"promotionmaterialadd\" text=\"Thêm hàng khuyến mãi\"/></item><item id=\"petros\" complex=\"true\" text=\"Xăng dầu\"><item id=\"petrolist\" text=\"Danh sách hàng xăng dầu\"/><item id=\"petroadd\" text=\"Thêm hàng xăng dầu\"/></item></item><item id=\"vendor\" complex=\"true\" text=\"Nhà cung cấp\"><item id=\"vendors\" complex=\"true\" text=\"Nhà cung cấp\"><item id=\"vendorlist\" text=\"Danh sách nhà cung cấp\"/><item id=\"vendoradd\" text=\"Thêm nhà cung cấp\"/><item id=\"vendorfiellist\" text=\"Thông tin động - Nhà cung cấp\"/></item><item id=\"vendororganizations\" complex=\"true\" text=\"Nhà cung cấp liên kết\"><item id=\"vendororganizationlist\" text=\"Danh sách nhà cung cấp liên kết\"/><item id=\"vendororganizationadd\" text=\"Thêm nhà cung cấp liên kết\"/></item></item><item id=\"customer\" complex=\"true\" text=\"Khách hàng\"><item id=\"customers\" complex=\"true\" text=\"Khách hàng\"><item id=\"customerlist\" text=\"Danh sách khách hàng\"/><item id=\"customeradd\" text=\"Thêm khách hàng\"/><item id=\"customerfiellist\" text=\"Thông tin động - Khách hàng\"/><item id=\"customerdocumentlist\" text=\"Danh sách văn bản\"/></item></item><item id=\"vehicle\" complex=\"true\" text=\"Xe\"><item id=\"vehicles\" complex=\"true\" text=\"Xe\"><item id=\"vehiclelist\" text=\"Danh sách xe\"/><item id=\"vehicleadd\" text=\"Thêm xe\"/></item><item id=\"routes\" complex=\"true\" text=\"Tuyến đường\"><item id=\"routelist\" text=\"Danh sách tuyến đường\"/><item id=\"routeadd\" text=\"Thêm tuyến đường\"/></item></item><item id=\"fixedassetgroup\" complex=\"true\" text=\"Tài sản cố định\"><item id=\"fixedassetgroups\" complex=\"true\" text=\"Nhóm tài sản cố định\"><item id=\"fixedassetgrouplist\" text=\"Danh sách nhóm tài sản cố định\"/><item id=\"fixedassetgroupadd\" text=\"Thêm nhóm tài sản cố định\"/></item><item id=\"fixedassets\" complex=\"true\" text=\"Tài sản cố định\"><item id=\"fixedassetlist\" text=\"Danh sách tài sản cố định\"/><item id=\"fixedassetadd\" text=\"Thêm tài sản cố định\"/></item></item></item><item id=\"employeefunction\" complex=\"true\" text=\"Nghiệp vụ Nhân viên\"><item id=\"employeeadvances\" complex=\"true\" text=\"Nhân viên tạm ứng\"><item id=\"employeeadvancelist\" text=\"Danh sách tạm ứng\"/><item id=\"employeeadvanceadd\" text=\"Thêm tạm ứng\"/></item><item id=\"employeetimesheets\" complex=\"true\" text=\"Chấm công nhân viên\"><item id=\"employeetimesheetlist\" text=\"Danh sách chấm công\"/><item id=\"employeetimesheetadd\" text=\"Thêm chấm công\"/></item><item id=\"employeeoffs\" complex=\"true\" text=\"Nghỉ phép\"><item id=\"employeeofflist\" text=\"Danh sách nghỉ phép\"/><item id=\"employeeoffadd\" text=\"Thêm nghỉ phép\"/></item><item id=\"employeeoffincreases\" complex=\"true\" text=\"Bù nghỉ phép\"><item id=\"employeeoffincreaselist\" text=\"Danh sách bù nghỉ phép\"/><item id=\"employeeoffincreaseadd\" text=\"Thêm bù nghỉ phép\"/></item><item id=\"employeeoffmoneys\" complex=\"true\" text=\"Thanh toán ngày phép\"><item id=\"employeeoffmoneylist\" text=\"Danh sách thanh toán ngày phép\"/><item id=\"employeeoffmoneyadd\" text=\"Thêm thanh toán ngày phép\"/></item><item id=\"salarys\" complex=\"true\" text=\"Bảng lương\"><item id=\"salarylist\" text=\"Danh sách bảng lương\"/><item id=\"salarysalaryfiels\" complex=\"true\" text=\"Thông tin động\"><item id=\"salaryfiellist\" text=\"Phụ cấp\"/><item id=\"timesheetfiellist\" text=\"Chấm công\"/></item><item id=\"dynamicfielvalues\" complex=\"true\" text=\"Giá trị thông tin động\"><item id=\"employeesalarylist\" text=\"Danh sách phụ cấp\"/><item id=\"organizationtimesheetlist\" text=\"Danh sách chi phí chấm công\"/></item></item></item><item id=\"vehiclefunction\" complex=\"true\" text=\"Nghiệp vụ Xe\"><item id=\"tripfees\" complex=\"true\" text=\"Chi phí xe\"><item id=\"tripfeelist\" text=\"Danh sách chi phí xe\"/><item id=\"tripfeeadd\" text=\"Thêm chi phí xe\"/></item><item id=\"vehicleouts\" complex=\"true\" text=\"Xuất xe đi\"><item id=\"vehicleoutlist\" text=\"Danh sách xuất xe đi\"/><item id=\"vehicleoutadd\" text=\"Thêm xuất xe đi\"/></item><item id=\"vehicleins\" complex=\"true\" text=\"Nhập xe về\"><item id=\"vehicleinlist\" text=\"Danh sách nhập xe về\"/><item id=\"vehicleinadd\" text=\"Thêm nhập xe về\"/></item><item id=\"exportwholesales\" complex=\"true\" text=\"Xuất sỉ\"><item id=\"exportwholesalelist\" text=\"Danh sách xuất sỉ\"/><item id=\"exportwholesaleadd\" text=\"Thêm xuất sỉ\"/></item></item><item id=\"gasfunction\" complex=\"true\" text=\"Nghiệp vụ gas\"><item id=\"shellimports\" complex=\"true\" text=\"Nhập vỏ bình\"><item id=\"shellimportlist\" text=\"Danh sách nhập vỏ bình\"/><item id=\"shellimportadd\" text=\"Thêm nhập vỏ bình\"/></item><item id=\"lpgimports\" complex=\"true\" text=\"Nhập LPG\"><item id=\"lpgimportlist\" text=\"Danh sách nhập LPG\"/><item id=\"lpgimportadd\" text=\"Thêm nhập LPG\"/></item><item id=\"lpgsales\" complex=\"true\" text=\"Bán LPG\"><item id=\"lpgsalelist\" text=\"Danh sách bán LPG\"/><item id=\"lpgsaleadd\" text=\"Thêm bán LPG\"/></item><item id=\"fractions\" complex=\"true\" text=\"Chiết gas\"><item id=\"fractionlist\" text=\"Danh sách chiết gas\"/><item id=\"fractionadd\" text=\"Thêm chiết gas\"/></item><item id=\"gasprices\" complex=\"true\" text=\"Giá bán gas\"><item id=\"gaspricelist\" text=\"Danh sách giá bán gas\"/><item id=\"gaspriceadd\" text=\"Thêm giá bán gas\"/></item><item id=\"gasimports\" complex=\"true\" text=\"Nhập gas\"><item id=\"gasimportlist\" text=\"Danh sách phiếu nhập gas\"/><item id=\"gasimportadd\" text=\"Thêm phiếu nhập gas\"/></item><item id=\"gaswholesales\" complex=\"true\" text=\"Bán gas\"><item id=\"gaswholesalelist\" text=\"Danh sách phiếu bán gas\"/><item id=\"gaswholesaleadd\" text=\"Thêm phiếu bán gas\"/></item><item id=\"saleshells\" complex=\"true\" text=\"Bán vỏ bình\"><item id=\"saleshelllist\" text=\"Danh sách phiếu bán vỏ bình\"/><item id=\"saleshelladd\" text=\"Thêm phiếu bán vỏ bình\"/></item><item id=\"oldshells\" complex=\"true\" text=\"Điều chỉnh số lượng vỏ bình\"><item id=\"oldshelllist\" text=\"Danh sách điều chỉnh số lượng vỏ bình\"/><item id=\"oldshelladd\" text=\"Thêm điều chỉnh số lượng vỏ bình\"/></item><item id=\"shellreturns\" complex=\"true\" text=\"Trả vỏ bình\"><item id=\"shellreturnlist\" text=\"Danh sách trả vỏ bình\"/><item id=\"shellreturnadd\" text=\"Thêm trả vỏ bình\"/></item><item id=\"shellreturnsuppliers\" complex=\"true\" text=\"Trả vỏ bình NCC\"><item id=\"shellreturnsupplierlist\" text=\"Danh sách trả vỏ bình NCC\"/><item id=\"shellreturnsupplieradd\" text=\"Thêm trả vỏ bình NCC\"/></item></item><item id=\"goodfunction\" complex=\"true\" text=\"Nghiệp vụ hàng hóa\"><item id=\"accessoryimports\" complex=\"true\" text=\"Nhập phụ kiện\"><item id=\"accessoryimportlist\" text=\"Danh sách phiếu nhập phụ kiện\"/><item id=\"accessoryimportadd\" text=\"Thêm phiếu nhập phụ kiện\"/></item><item id=\"promotionmaterialimports\" complex=\"true\" text=\"Nhập hàng khuyến mãi\"><item id=\"promotionmaterialimportlist\" text=\"Danh sách phiếu nhập hàng khuyến mãi\"/><item id=\"promotionmaterialimportadd\" text=\"Thêm phiếu nhập hàng khuyến mãi\"/></item><item id=\"petroimports\" complex=\"true\" text=\"Nhập hàng hóa\"><item id=\"petroimportlist\" text=\"Danh sách phiếu nhập hàng hóa\"/><item id=\"petroimportadd\" text=\"Thêm phiếu nhập hàng hóa\"/></item><item id=\"saleaccessorys\" complex=\"true\" text=\"Bán phụ kiện\"><item id=\"saleaccessorylist\" text=\"Danh sách phiếu bán phụ kiện\"/><item id=\"saleaccessoryadd\" text=\"Thêm phiếu bán phụ kiện\"/></item><item id=\"salepetros\" complex=\"true\" text=\"Bán hàng hóa\"><item id=\"salepetrolist\" text=\"Danh sách phiếu bán hàng hóa\"/><item id=\"salepetroadd\" text=\"Thêm phiếu bán hàng hóa\"/></item><item id=\"fixedassetdepreciations\" complex=\"true\" text=\"Khấu hao\"><item id=\"fixedassetdepreciationlist\" text=\"Danh sách phiếu khấu hao\"/><item id=\"fixedassetdepreciationadd\" text=\"Thêm phiếu khấu hao\"/></item><item id=\"shieldimports\" complex=\"true\" text=\"Nhập shield\"><item id=\"shieldimportlist\" text=\"Danh sách phiếu nhập shield\"/><item id=\"shieldimportadd\" text=\"Thêm phiếu nhập shield\"/></item><item id=\"shielddecreases\" complex=\"true\" text=\"Giảm shield\"><item id=\"shielddecreaselist\" text=\"Danh sách phiếu giảm shield\"/><item id=\"shielddecreaseadd\" text=\"Thêm phiếu giảm shield\"/></item></item><item id=\"paymentfunction\" complex=\"true\" text=\"Nghiệp vụ thanh toán\"><item id=\"contracts\" complex=\"true\" text=\"Hợp đồng\"><item id=\"contractlist\" text=\"Danh sách hợp đồng\"/><item id=\"contractadd\" text=\"Thêm hợp đồng\"/></item><item id=\"debtvendors\" complex=\"true\" text=\"Công nợ NCC\"><item id=\"debtvendorlist\" text=\"Danh sách công nợ NCC\"/><item id=\"debtvendoradd\" text=\"Thêm công nợ NCC\"/></item><item id=\"debtretails\" complex=\"true\" text=\"Công nợ bán lẻ\"><item id=\"debtretaillist\" text=\"Danh sách công nợ bán lẻ\"/><item id=\"debtretailadd\" text=\"Thêm công nợ bán lẻ\"/></item><item id=\"debtwholesales\" complex=\"true\" text=\"Công nợ bán sỉ\"><item id=\"debtwholesalelist\" text=\"Danh sách công nợ bán sỉ\"/><item id=\"debtwholesaleadd\" text=\"Thêm công nợ bán sỉ\"/></item><item id=\"incomes\" complex=\"true\" text=\"Thu\"><item id=\"incomelist\" text=\"Danh sách thu\"/><item id=\"incomeadd\" text=\"Thêm thu\"/></item><item id=\"expenses\" complex=\"true\" text=\"Chi\"><item id=\"expenselist\" text=\"Danh sách chi\"/><item id=\"expenseadd\" text=\"Thêm chi\"/></item></item><item id=\"reportfunction\" complex=\"true\" text=\"Báo cáo\"><item id=\"reportstock\" complex=\"true\" text=\"Báo cáo nhập xuất tồn\"><item id=\"reportlpgimport\" text=\"Bảng theo dõi nhập hàng LPG\"/><item id=\"reportlpgstock\" text=\"Sổ theo dõi sản lượng khí hóa lỏng LPG\"/><item id=\"reportlpgstocksum\" text=\"Sổ theo dõi nhập xuất khí hóa lỏng LPG\"/><item id=\"reportlpgstocksumorganization\" text=\"Sổ theo dõi nhập xuất khí hóa lỏng LPG theo nhà cung cấp\"/><item id=\"reportsum\" text=\"Tổng hợp\"/><item id=\"reportcompare\" text=\"Đối chiếu\"/><item id=\"reportsale\" text=\"Xuất bán hàng\"/><item id=\"reportsalecustomer\" text=\"Chi tiết bán hàng theo khách hàng\"/><item id=\"reportcashbook\" text=\"Báo cáo quỹ tiền\"/></item></item><item id=\"setting\" complex=\"true\" text=\"Cấu hình\"><item id=\"resetpassword\" text=\"Đổi mật khẩu\"/></item><item id=\"logout\" text=\"Đăng xuất\"/></menu>',1),(12,18,'ntb','gdyb21LQTcIANtvYMT7QVQ==','<?xml version=\"1.0\"?><menu><item id=\"list\" complex=\"true\" text=\"Khai báo danh mục\"><item id=\"system\" complex=\"true\" text=\"Hệ thống\"><item id=\"users\" complex=\"true\" text=\"Tài khoản hệ thống\"><item id=\"userlist\" text=\"Danh sách tài khoản hệ thống\"/><item id=\"useradd\" text=\"Thêm tài khoản hệ thống\"/></item></item><item id=\"organization\" complex=\"true\" text=\"Đơn vị\"><item id=\"stores\" complex=\"true\" text=\"Kho\"><item id=\"storelist\" text=\"Danh sách kho\"/><item id=\"storeadd\" text=\"Thêm kho\"/></item><item id=\"employees\" complex=\"true\" text=\"Nhân viên\"><item id=\"employeelist\" text=\"Danh sách nhân viên\"/><item id=\"employeeadd\" text=\"Thêm nhân viên\"/><item id=\"employeefiellist\" text=\"Thông tin động - Nhân viên\"/></item><item id=\"accounts\" complex=\"true\" text=\"Tài khoản ngân hàng\"><item id=\"accountlist\" text=\"Danh sách tài khoản ngân hàng\"/><item id=\"accountadd\" text=\"Thêm tài khoản ngân hàng\"/></item></item><item id=\"good\" complex=\"true\" text=\"Hàng hóa\"><item id=\"units\" complex=\"true\" text=\"Đơn vị tính\"><item id=\"unitlist\" text=\"Danh sách đơn vị tính\"/><item id=\"unitadd\" text=\"Thêm đơn vị tính\"/></item><item id=\"shellkinds\" complex=\"true\" text=\"Loại vỏ bình\"><item id=\"shellkindlist\" text=\"Danh sách loại vỏ bình\"/><item id=\"shellkindadd\" text=\"Thêm loại vỏ bình\"/></item><item id=\"shells\" complex=\"true\" text=\"Vỏ bình\"><item id=\"shelllist\" text=\"Danh sách vỏ bình\"/><item id=\"shelladd\" text=\"Thêm vỏ bình\"/></item><item id=\"accessorykinds\" complex=\"true\" text=\"Loại phụ kiện\"><item id=\"accessorykindlist\" text=\"Danh sách loại phụ kiện\"/><item id=\"accessorykindadd\" text=\"Thêm loại phụ kiện\"/></item><item id=\"accessorys\" complex=\"true\" text=\"Phụ kiện\"><item id=\"accessorylist\" text=\"Danh sách phụ kiện\"/><item id=\"accessoryadd\" text=\"Thêm phụ kiện\"/></item><item id=\"promotionmaterials\" complex=\"true\" text=\"Hàng khuyến mãi\"><item id=\"promotionmateriallist\" text=\"Danh sách hàng khuyến mãi\"/><item id=\"promotionmaterialadd\" text=\"Thêm hàng khuyến mãi\"/></item><item id=\"petros\" complex=\"true\" text=\"Xăng dầu\"><item id=\"petrolist\" text=\"Danh sách hàng xăng dầu\"/><item id=\"petroadd\" text=\"Thêm hàng xăng dầu\"/></item></item><item id=\"vendor\" complex=\"true\" text=\"Nhà cung cấp\"><item id=\"vendors\" complex=\"true\" text=\"Nhà cung cấp\"><item id=\"vendorlist\" text=\"Danh sách nhà cung cấp\"/><item id=\"vendoradd\" text=\"Thêm nhà cung cấp\"/><item id=\"vendorfiellist\" text=\"Thông tin động - Nhà cung cấp\"/></item><item id=\"vendororganizations\" complex=\"true\" text=\"Nhà cung cấp liên kết\"><item id=\"vendororganizationlist\" text=\"Danh sách nhà cung cấp liên kết\"/><item id=\"vendororganizationadd\" text=\"Thêm nhà cung cấp liên kết\"/></item></item><item id=\"customer\" complex=\"true\" text=\"Khách hàng\"><item id=\"customers\" complex=\"true\" text=\"Khách hàng\"><item id=\"customerlist\" text=\"Danh sách khách hàng\"/><item id=\"customeradd\" text=\"Thêm khách hàng\"/><item id=\"customerfiellist\" text=\"Thông tin động - Khách hàng\"/><item id=\"customerdocumentlist\" text=\"Danh sách văn bản\"/></item></item><item id=\"vehicle\" complex=\"true\" text=\"Xe\"><item id=\"vehicles\" complex=\"true\" text=\"Xe\"><item id=\"vehiclelist\" text=\"Danh sách xe\"/><item id=\"vehicleadd\" text=\"Thêm xe\"/></item><item id=\"routes\" complex=\"true\" text=\"Tuyến đường\"><item id=\"routelist\" text=\"Danh sách tuyến đường\"/><item id=\"routeadd\" text=\"Thêm tuyến đường\"/></item></item><item id=\"fixedassetgroup\" complex=\"true\" text=\"Tài sản cố định\"><item id=\"fixedassetgroups\" complex=\"true\" text=\"Nhóm tài sản cố định\"><item id=\"fixedassetgrouplist\" text=\"Danh sách nhóm tài sản cố định\"/><item id=\"fixedassetgroupadd\" text=\"Thêm nhóm tài sản cố định\"/></item><item id=\"fixedassets\" complex=\"true\" text=\"Tài sản cố định\"><item id=\"fixedassetlist\" text=\"Danh sách tài sản cố định\"/><item id=\"fixedassetadd\" text=\"Thêm tài sản cố định\"/></item></item></item><item id=\"employeefunction\" complex=\"true\" text=\"Nghiệp vụ Nhân viên\"><item id=\"employeeadvances\" complex=\"true\" text=\"Nhân viên tạm ứng\"><item id=\"employeeadvancelist\" text=\"Danh sách tạm ứng\"/><item id=\"employeeadvanceadd\" text=\"Thêm tạm ứng\"/></item><item id=\"employeetimesheets\" complex=\"true\" text=\"Chấm công nhân viên\"><item id=\"employeetimesheetlist\" text=\"Danh sách chấm công\"/><item id=\"employeetimesheetadd\" text=\"Thêm chấm công\"/></item><item id=\"employeeoffs\" complex=\"true\" text=\"Nghỉ phép\"><item id=\"employeeofflist\" text=\"Danh sách nghỉ phép\"/><item id=\"employeeoffadd\" text=\"Thêm nghỉ phép\"/></item><item id=\"employeeoffincreases\" complex=\"true\" text=\"Bù nghỉ phép\"><item id=\"employeeoffincreaselist\" text=\"Danh sách bù nghỉ phép\"/><item id=\"employeeoffincreaseadd\" text=\"Thêm bù nghỉ phép\"/></item><item id=\"employeeoffmoneys\" complex=\"true\" text=\"Thanh toán ngày phép\"><item id=\"employeeoffmoneylist\" text=\"Danh sách thanh toán ngày phép\"/><item id=\"employeeoffmoneyadd\" text=\"Thêm thanh toán ngày phép\"/></item><item id=\"salarys\" complex=\"true\" text=\"Bảng lương\"><item id=\"salarylist\" text=\"Danh sách bảng lương\"/><item id=\"salarysalaryfiels\" complex=\"true\" text=\"Thông tin động\"><item id=\"salaryfiellist\" text=\"Phụ cấp\"/><item id=\"timesheetfiellist\" text=\"Chấm công\"/></item><item id=\"dynamicfielvalues\" complex=\"true\" text=\"Giá trị thông tin động\"><item id=\"employeesalarylist\" text=\"Danh sách phụ cấp\"/><item id=\"organizationtimesheetlist\" text=\"Danh sách chi phí chấm công\"/></item></item></item><item id=\"vehiclefunction\" complex=\"true\" text=\"Nghiệp vụ Xe\"><item id=\"tripfees\" complex=\"true\" text=\"Chi phí xe\"><item id=\"tripfeelist\" text=\"Danh sách chi phí xe\"/><item id=\"tripfeeadd\" text=\"Thêm chi phí xe\"/></item><item id=\"vehicleouts\" complex=\"true\" text=\"Xuất xe đi\"><item id=\"vehicleoutlist\" text=\"Danh sách xuất xe đi\"/><item id=\"vehicleoutadd\" text=\"Thêm xuất xe đi\"/></item><item id=\"vehicleins\" complex=\"true\" text=\"Nhập xe về\"><item id=\"vehicleinlist\" text=\"Danh sách nhập xe về\"/><item id=\"vehicleinadd\" text=\"Thêm nhập xe về\"/></item><item id=\"exportwholesales\" complex=\"true\" text=\"Xuất sỉ\"><item id=\"exportwholesalelist\" text=\"Danh sách xuất sỉ\"/><item id=\"exportwholesaleadd\" text=\"Thêm xuất sỉ\"/></item></item><item id=\"gasfunction\" complex=\"true\" text=\"Nghiệp vụ gas\"><item id=\"shellimports\" complex=\"true\" text=\"Nhập vỏ bình\"><item id=\"shellimportlist\" text=\"Danh sách nhập vỏ bình\"/><item id=\"shellimportadd\" text=\"Thêm nhập vỏ bình\"/></item><item id=\"lpgimports\" complex=\"true\" text=\"Nhập LPG\"><item id=\"lpgimportlist\" text=\"Danh sách nhập LPG\"/><item id=\"lpgimportadd\" text=\"Thêm nhập LPG\"/></item><item id=\"lpgsales\" complex=\"true\" text=\"Bán LPG\"><item id=\"lpgsalelist\" text=\"Danh sách bán LPG\"/><item id=\"lpgsaleadd\" text=\"Thêm bán LPG\"/></item><item id=\"fractions\" complex=\"true\" text=\"Chiết gas\"><item id=\"fractionlist\" text=\"Danh sách chiết gas\"/><item id=\"fractionadd\" text=\"Thêm chiết gas\"/></item><item id=\"gasprices\" complex=\"true\" text=\"Giá bán gas\"><item id=\"gaspricelist\" text=\"Danh sách giá bán gas\"/><item id=\"gaspriceadd\" text=\"Thêm giá bán gas\"/></item><item id=\"gasimports\" complex=\"true\" text=\"Nhập gas\"><item id=\"gasimportlist\" text=\"Danh sách phiếu nhập gas\"/><item id=\"gasimportadd\" text=\"Thêm phiếu nhập gas\"/></item><item id=\"gaswholesales\" complex=\"true\" text=\"Bán gas\"><item id=\"gaswholesalelist\" text=\"Danh sách phiếu bán gas\"/><item id=\"gaswholesaleadd\" text=\"Thêm phiếu bán gas\"/></item><item id=\"saleshells\" complex=\"true\" text=\"Bán vỏ bình\"><item id=\"saleshelllist\" text=\"Danh sách phiếu bán vỏ bình\"/><item id=\"saleshelladd\" text=\"Thêm phiếu bán vỏ bình\"/></item><item id=\"oldshells\" complex=\"true\" text=\"Điều chỉnh số lượng vỏ bình\"><item id=\"oldshelllist\" text=\"Danh sách điều chỉnh số lượng vỏ bình\"/><item id=\"oldshelladd\" text=\"Thêm điều chỉnh số lượng vỏ bình\"/></item><item id=\"shellreturns\" complex=\"true\" text=\"Trả vỏ bình\"><item id=\"shellreturnlist\" text=\"Danh sách trả vỏ bình\"/><item id=\"shellreturnadd\" text=\"Thêm trả vỏ bình\"/></item><item id=\"shellreturnsuppliers\" complex=\"true\" text=\"Trả vỏ bình NCC\"><item id=\"shellreturnsupplierlist\" text=\"Danh sách trả vỏ bình NCC\"/><item id=\"shellreturnsupplieradd\" text=\"Thêm trả vỏ bình NCC\"/></item><item id=\"gasreturns\" complex=\"true\" text=\"Trả gas\"><item id=\"gasreturnlist\" text=\"Danh sách trả gas\"/><item id=\"gasreturnadd\" text=\"Thêm trả gas\"/></item></item><item id=\"goodfunction\" complex=\"true\" text=\"Nghiệp vụ hàng hóa\"><item id=\"accessoryimports\" complex=\"true\" text=\"Nhập phụ kiện\"><item id=\"accessoryimportlist\" text=\"Danh sách phiếu nhập phụ kiện\"/><item id=\"accessoryimportadd\" text=\"Thêm phiếu nhập phụ kiện\"/></item><item id=\"promotionmaterialimports\" complex=\"true\" text=\"Nhập hàng khuyến mãi\"><item id=\"promotionmaterialimportlist\" text=\"Danh sách phiếu nhập hàng khuyến mãi\"/><item id=\"promotionmaterialimportadd\" text=\"Thêm phiếu nhập hàng khuyến mãi\"/></item><item id=\"petroimports\" complex=\"true\" text=\"Nhập hàng hóa\"><item id=\"petroimportlist\" text=\"Danh sách phiếu nhập hàng hóa\"/><item id=\"petroimportadd\" text=\"Thêm phiếu nhập hàng hóa\"/></item><item id=\"saleaccessorys\" complex=\"true\" text=\"Bán phụ kiện\"><item id=\"saleaccessorylist\" text=\"Danh sách phiếu bán phụ kiện\"/><item id=\"saleaccessoryadd\" text=\"Thêm phiếu bán phụ kiện\"/></item><item id=\"salepetros\" complex=\"true\" text=\"Bán hàng hóa\"><item id=\"salepetrolist\" text=\"Danh sách phiếu bán hàng hóa\"/><item id=\"salepetroadd\" text=\"Thêm phiếu bán hàng hóa\"/></item><item id=\"fixedassetdepreciations\" complex=\"true\" text=\"Khấu hao\"><item id=\"fixedassetdepreciationlist\" text=\"Danh sách phiếu khấu hao\"/><item id=\"fixedassetdepreciationadd\" text=\"Thêm phiếu khấu hao\"/></item><item id=\"shieldimports\" complex=\"true\" text=\"Nhập shield\"><item id=\"shieldimportlist\" text=\"Danh sách phiếu nhập shield\"/><item id=\"shieldimportadd\" text=\"Thêm phiếu nhập shield\"/></item><item id=\"shielddecreases\" complex=\"true\" text=\"Giảm shield\"><item id=\"shielddecreaselist\" text=\"Danh sách phiếu giảm shield\"/><item id=\"shielddecreaseadd\" text=\"Thêm phiếu giảm shield\"/></item></item><item id=\"paymentfunction\" complex=\"true\" text=\"Nghiệp vụ thanh toán\"><item id=\"contracts\" complex=\"true\" text=\"Hợp đồng\"><item id=\"contractlist\" text=\"Danh sách hợp đồng\"/><item id=\"contractadd\" text=\"Thêm hợp đồng\"/></item><item id=\"debtvendors\" complex=\"true\" text=\"Công nợ NCC\"><item id=\"debtvendorlist\" text=\"Danh sách công nợ NCC\"/><item id=\"debtvendoradd\" text=\"Thêm công nợ NCC\"/></item><item id=\"debtretails\" complex=\"true\" text=\"Công nợ bán lẻ\"><item id=\"debtretaillist\" text=\"Danh sách công nợ bán lẻ\"/><item id=\"debtretailadd\" text=\"Thêm công nợ bán lẻ\"/></item><item id=\"debtwholesales\" complex=\"true\" text=\"Công nợ bán sỉ\"><item id=\"debtwholesalelist\" text=\"Danh sách công nợ bán sỉ\"/><item id=\"debtwholesaleadd\" text=\"Thêm công nợ bán sỉ\"/></item><item id=\"incomes\" complex=\"true\" text=\"Thu\"><item id=\"incomelist\" text=\"Danh sách thu\"/><item id=\"incomeadd\" text=\"Thêm thu\"/></item><item id=\"expenses\" complex=\"true\" text=\"Chi\"><item id=\"expenselist\" text=\"Danh sách chi\"/><item id=\"expenseadd\" text=\"Thêm chi\"/></item></item><item id=\"reportfunction\" complex=\"true\" text=\"Báo cáo\"><item id=\"reportstock\" complex=\"true\" text=\"Báo cáo nhập xuất tồn\"><item id=\"reportlpgimport\" text=\"Bảng theo dõi nhập hàng LPG\"/><item id=\"reportlpgstock\" text=\"Sổ theo dõi sản lượng khí hóa lỏng LPG\"/><item id=\"reportlpgstocksum\" text=\"Sổ theo dõi nhập xuất khí hóa lỏng LPG\"/><item id=\"reportsum\" text=\"Tổng hợp\"/><item id=\"reportcompare\" text=\"Đối chiếu\"/><item id=\"reportsale\" text=\"Xuất bán hàng\"/><item id=\"reportsalecustomer\" text=\"Chi tiết bán hàng theo khách hàng\"/><item id=\"reportcashbook\" text=\"Báo cáo quỹ tiền\"/></item></item><item id=\"setting\" complex=\"true\" text=\"Cấu hình\"><item id=\"resetpassword\" text=\"Đổi mật khẩu\"/></item><item id=\"logout\" text=\"Đăng xuất\"/></menu>',1);
+insert  into `user`(`id`,`employee_id`,`username`,`password`,`menu`,`status`) values (1,1,'tu','gdyb21LQTcIANtvYMT7QVQ==','<?xml version=\"1.0\"?><menu><item id=\"list\" complex=\"true\" text=\"Khai báo danh mục\"><item id=\"system\" complex=\"true\" text=\"Hệ thống\"><item id=\"users\" complex=\"true\" text=\"Tài khoản hệ thống\"><item id=\"userlist\" text=\"Danh sách tài khoản hệ thống\"/><item id=\"useradd\" text=\"Thêm tài khoản hệ thống\"/></item><item id=\"parameter\" text=\"Thông số hệ thống\"/><item id=\"permissionlist\" text=\"Phân quyền\"/></item><item id=\"organization\" complex=\"true\" text=\"Đơn vị\"><item id=\"organizations\" complex=\"true\" text=\"Đơn vị\"><item id=\"organizationlist\" text=\"Danh sách đơn vị\"/><item id=\"organizationadd\" text=\"Thêm đơn vị\"/></item><item id=\"stores\" complex=\"true\" text=\"Kho\"><item id=\"storelist\" text=\"Danh sách kho\"/><item id=\"storeadd\" text=\"Thêm kho\"/></item><item id=\"employees\" complex=\"true\" text=\"Nhân viên\"><item id=\"employeelist\" text=\"Danh sách nhân viên\"/><item id=\"employeeadd\" text=\"Thêm nhân viên\"/><item id=\"employeefiellist\" text=\"Thông tin động - Nhân viên\"/></item><item id=\"accounts\" complex=\"true\" text=\"Tài khoản ngân hàng\"><item id=\"accountlist\" text=\"Danh sách tài khoản ngân hàng\"/><item id=\"accountadd\" text=\"Thêm tài khoản ngân hàng\"/></item></item><item id=\"good\" complex=\"true\" text=\"Hàng hóa\"><item id=\"units\" complex=\"true\" text=\"Đơn vị tính\"><item id=\"unitlist\" text=\"Danh sách đơn vị tính\"/><item id=\"unitadd\" text=\"Thêm đơn vị tính\"/></item><item id=\"shellkinds\" complex=\"true\" text=\"Loại vỏ bình\"><item id=\"shellkindlist\" text=\"Danh sách loại vỏ bình\"/><item id=\"shellkindadd\" text=\"Thêm loại vỏ bình\"/></item><item id=\"shells\" complex=\"true\" text=\"Vỏ bình\"><item id=\"shelllist\" text=\"Danh sách vỏ bình\"/><item id=\"shelladd\" text=\"Thêm vỏ bình\"/></item><item id=\"accessorykinds\" complex=\"true\" text=\"Loại phụ kiện\"><item id=\"accessorykindlist\" text=\"Danh sách loại phụ kiện\"/><item id=\"accessorykindadd\" text=\"Thêm loại phụ kiện\"/></item><item id=\"accessorys\" complex=\"true\" text=\"Phụ kiện\"><item id=\"accessorylist\" text=\"Danh sách phụ kiện\"/><item id=\"accessoryadd\" text=\"Thêm phụ kiện\"/></item><item id=\"promotionmaterials\" complex=\"true\" text=\"Hàng khuyến mãi\"><item id=\"promotionmateriallist\" text=\"Danh sách hàng khuyến mãi\"/><item id=\"promotionmaterialadd\" text=\"Thêm hàng khuyến mãi\"/></item><item id=\"petros\" complex=\"true\" text=\"Xăng dầu\"><item id=\"petrolist\" text=\"Danh sách hàng xăng dầu\"/><item id=\"petroadd\" text=\"Thêm hàng xăng dầu\"/></item></item><item id=\"vendor\" complex=\"true\" text=\"Nhà cung cấp\"><item id=\"vendors\" complex=\"true\" text=\"Nhà cung cấp\"><item id=\"vendorlist\" text=\"Danh sách nhà cung cấp\"/><item id=\"vendoradd\" text=\"Thêm nhà cung cấp\"/><item id=\"vendorfiellist\" text=\"Thông tin động - Nhà cung cấp\"/></item></item><item id=\"customer\" complex=\"true\" text=\"Khách hàng\"><item id=\"customers\" complex=\"true\" text=\"Khách hàng\"><item id=\"customerlist\" text=\"Danh sách khách hàng\"/><item id=\"customeradd\" text=\"Thêm khách hàng\"/><item id=\"customerfiellist\" text=\"Thông tin động - Khách hàng\"/></item></item><item id=\"vehicle\" complex=\"true\" text=\"Xe\"><item id=\"vehicles\" complex=\"true\" text=\"Xe\"><item id=\"vehiclelist\" text=\"Danh sách xe\"/><item id=\"vehicleadd\" text=\"Thêm xe\"/></item><item id=\"routes\" complex=\"true\" text=\"Tuyến đường\"><item id=\"routelist\" text=\"Danh sách tuyến đường\"/><item id=\"routeadd\" text=\"Thêm tuyến đường\"/></item></item><item id=\"fixedassetgroup\" complex=\"true\" text=\"Tài sản cố định\"><item id=\"fixedassetgroups\" complex=\"true\" text=\"Nhóm tài sản cố định\"><item id=\"fixedassetgrouplist\" text=\"Danh sách nhóm tài sản cố định\"/><item id=\"fixedassetgroupadd\" text=\"Thêm nhóm tài sản cố định\"/></item><item id=\"fixedassets\" complex=\"true\" text=\"Tài sản cố định\"><item id=\"fixedassetlist\" text=\"Danh sách tài sản cố định\"/><item id=\"fixedassetadd\" text=\"Thêm tài sản cố định\"/></item></item></item><item id=\"employeefunction\" complex=\"true\" text=\"Nghiệp vụ Nhân viên\"><item id=\"employeeadvances\" complex=\"true\" text=\"Nhân viên tạm ứng\"><item id=\"employeeadvancelist\" text=\"Danh sách tạm ứng\"/><item id=\"employeeadvanceadd\" text=\"Thêm tạm ứng\"/></item><item id=\"employeetimesheets\" complex=\"true\" text=\"Chấm công nhân viên\"><item id=\"employeetimesheetlist\" text=\"Danh sách chấm công\"/><item id=\"employeetimesheetadd\" text=\"Thêm chấm công\"/></item><item id=\"employeeoffs\" complex=\"true\" text=\"Nghỉ phép\"><item id=\"employeeofflist\" text=\"Danh sách nghỉ phép\"/><item id=\"employeeoffadd\" text=\"Thêm nghỉ phép\"/></item><item id=\"employeeoffincreases\" complex=\"true\" text=\"Bù nghỉ phép\"><item id=\"employeeoffincreaselist\" text=\"Danh sách bù nghỉ phép\"/><item id=\"employeeoffincreaseadd\" text=\"Thêm bù nghỉ phép\"/></item><item id=\"employeeoffmoneys\" complex=\"true\" text=\"Thanh toán ngày phép\"><item id=\"employeeoffmoneylist\" text=\"Danh sách thanh toán ngày phép\"/><item id=\"employeeoffmoneyadd\" text=\"Thêm thanh toán ngày phép\"/></item><item id=\"salarys\" complex=\"true\" text=\"Bảng lương\"><item id=\"salarylist\" text=\"Danh sách bảng lương\"/><item id=\"salarysalaryfiels\" complex=\"true\" text=\"Thông tin động\"><item id=\"salaryfiellist\" text=\"Phụ cấp\"/><item id=\"timesheetfiellist\" text=\"Chấm công\"/></item><item id=\"dynamicfielvalues\" complex=\"true\" text=\"Giá trị thông tin động\"><item id=\"employeesalarylist\" text=\"Danh sách phụ cấp\"/><item id=\"organizationtimesheetlist\" text=\"Danh sách chi phí chấm công\"/></item></item></item><item id=\"vehiclefunction\" complex=\"true\" text=\"Nghiệp vụ Xe\"><item id=\"tripfees\" complex=\"true\" text=\"Chi phí xe\"><item id=\"tripfeelist\" text=\"Danh sách chi phí xe\"/><item id=\"tripfeeadd\" text=\"Thêm chi phí xe\"/></item><item id=\"vehicleouts\" complex=\"true\" text=\"Xuất xe đi\"><item id=\"vehicleoutlist\" text=\"Danh sách xuất xe đi\"/><item id=\"vehicleoutadd\" text=\"Thêm xuất xe đi\"/></item><item id=\"vehicleins\" complex=\"true\" text=\"Xuất xe về\"><item id=\"vehicleinlist\" text=\"Danh sách xuất xe về\"/><item id=\"vehicleinadd\" text=\"Thêm xuất xe về\"/></item><item id=\"exportwholesales\" complex=\"true\" text=\"Xuất sỉ\"><item id=\"exportwholesalelist\" text=\"Danh sách xuất sỉ\"/><item id=\"exportwholesaleadd\" text=\"Thêm xuất sỉ\"/></item></item><item id=\"gasfunction\" complex=\"true\" text=\"Nghiệp vụ gas\"><item id=\"shellimports\" complex=\"true\" text=\"Nhập vỏ bình\"><item id=\"shellimportlist\" text=\"Danh sách nhập vỏ bình\"/><item id=\"shellimportadd\" text=\"Thêm nhập vỏ bình\"/></item><item id=\"lpgimports\" complex=\"true\" text=\"Nhập LPG\"><item id=\"lpgimportlist\" text=\"Danh sách nhập LPG\"/><item id=\"lpgimportadd\" text=\"Thêm nhập LPG\"/></item><item id=\"fractions\" complex=\"true\" text=\"Chiết gas\"><item id=\"fractionlist\" text=\"Danh sách chiết gas\"/><item id=\"fractionadd\" text=\"Thêm chiết gas\"/></item><item id=\"gasprices\" complex=\"true\" text=\"Giá bán gas\"><item id=\"gaspricelist\" text=\"Danh sách giá bán gas\"/><item id=\"gaspriceadd\" text=\"Thêm giá bán gas\"/></item><item id=\"gasimports\" complex=\"true\" text=\"Nhập gas\"><item id=\"gasimportlist\" text=\"Danh sách phiếu nhập gas\"/><item id=\"gasimportadd\" text=\"Thêm phiếu nhập gas\"/></item><item id=\"gaswholesales\" complex=\"true\" text=\"Bán sỉ gas\"><item id=\"gaswholesalelist\" text=\"Danh sách phiếu bán sỉ gas\"/><item id=\"gaswholesaleadd\" text=\"Thêm phiếu bán sỉ gas\"/></item><item id=\"gasretails\" complex=\"true\" text=\"Bán lẻ gas\"><item id=\"gasretaillist\" text=\"Danh sách phiếu bán lẻ gas\"/><item id=\"gasretailadd\" text=\"Thêm phiếu bán lẻ gas\"/></item><item id=\"saleshells\" complex=\"true\" text=\"Bán vỏ bình\"><item id=\"saleshelllist\" text=\"Danh sách phiếu bán vỏ bình\"/><item id=\"saleshelladd\" text=\"Thêm phiếu bán vỏ bình\"/></item><item id=\"oldshells\" complex=\"true\" text=\"Điều chỉnh số lượng vỏ bình\"><item id=\"oldshelllist\" text=\"Danh sách điều chỉnh số lượng vỏ bình\"/><item id=\"oldshelladd\" text=\"Thêm điều chỉnh số lượng vỏ bình\"/></item><item id=\"shellreturns\" complex=\"true\" text=\"Trả vỏ bình\"><item id=\"shellreturnlist\" text=\"Danh sách trả vỏ bình\"/><item id=\"shellreturnadd\" text=\"Thêm trả vỏ bình\"/></item><item id=\"shellreturnsuppliers\" complex=\"true\" text=\"Trả vỏ bình NCC\"><item id=\"shellreturnsupplierlist\" text=\"Danh sách trả vỏ bình NCC\"/><item id=\"shellreturnsupplieradd\" text=\"Thêm trả vỏ bình NCC\"/></item><item id=\"gasreturns\" complex=\"true\" text=\"Trả gas\"><item id=\"gasreturnlist\" text=\"Danh sách trả gas\"/><item id=\"gasreturnadd\" text=\"Thêm trả gas\"/></item></item><item id=\"goodfunction\" complex=\"true\" text=\"Nghiệp vụ hàng hóa\"><item id=\"accessoryimports\" complex=\"true\" text=\"Nhập phụ kiện\"><item id=\"accessoryimportlist\" text=\"Danh sách phiếu nhập phụ kiện\"/><item id=\"accessoryimportadd\" text=\"Thêm phiếu nhập phụ kiện\"/></item><item id=\"promotionmaterialimports\" complex=\"true\" text=\"Nhập hàng khuyến mãi\"><item id=\"promotionmaterialimportlist\" text=\"Danh sách phiếu nhập hàng khuyến mãi\"/><item id=\"promotionmaterialimportadd\" text=\"Thêm phiếu nhập hàng khuyến mãi\"/></item><item id=\"petroimports\" complex=\"true\" text=\"Nhập hàng hóa\"><item id=\"petroimportlist\" text=\"Danh sách phiếu nhập hàng hóa\"/><item id=\"petroimportadd\" text=\"Thêm phiếu nhập hàng hóa\"/></item><item id=\"saleaccessorys\" complex=\"true\" text=\"Bán phụ kiện\"><item id=\"saleaccessorylist\" text=\"Danh sách phiếu bán phụ kiện\"/><item id=\"saleaccessoryadd\" text=\"Thêm phiếu bán phụ kiện\"/></item><item id=\"salepetros\" complex=\"true\" text=\"Bán hàng hóa\"><item id=\"salepetrolist\" text=\"Danh sách phiếu bán hàng hóa\"/><item id=\"salepetroadd\" text=\"Thêm phiếu bán hàng hóa\"/></item><item id=\"fixedassetdepreciations\" complex=\"true\" text=\"Khấu hao\"><item id=\"fixedassetdepreciationlist\" text=\"Danh sách phiếu khấu hao\"/><item id=\"fixedassetdepreciationadd\" text=\"Thêm phiếu khấu hao\"/></item></item><item id=\"paymentfunction\" complex=\"true\" text=\"Nghiệp vụ thanh toán\"><item id=\"contracts\" complex=\"true\" text=\"Hợp đồng\"><item id=\"contractlist\" text=\"Danh sách hợp đồng\"/><item id=\"contractadd\" text=\"Thêm hợp đồng\"/></item><item id=\"debtvendors\" complex=\"true\" text=\"Công nợ NCC\"><item id=\"debtvendorlist\" text=\"Danh sách công nợ NCC\"/><item id=\"debtvendoradd\" text=\"Thêm công nợ NCC\"/></item><item id=\"debtretails\" complex=\"true\" text=\"Công nợ bán lẻ\"><item id=\"debtretaillist\" text=\"Danh sách công nợ bán lẻ\"/><item id=\"debtretailadd\" text=\"Thêm công nợ bán lẻ\"/></item><item id=\"debtwholesales\" complex=\"true\" text=\"Công nợ bán sỉ\"><item id=\"debtwholesalelist\" text=\"Danh sách công nợ bán sỉ\"/><item id=\"debtwholesaleadd\" text=\"Thêm công nợ bán sỉ\"/></item><item id=\"incomes\" complex=\"true\" text=\"Thu\"><item id=\"incomelist\" text=\"Danh sách thu\"/><item id=\"incomeadd\" text=\"Thêm thu\"/></item><item id=\"expenses\" complex=\"true\" text=\"Chi\"><item id=\"expenselist\" text=\"Danh sách chi\"/><item id=\"expenseadd\" text=\"Thêm chi\"/></item></item><item id=\"setting\" complex=\"true\" text=\"Cấu hình\"><item id=\"resetpassword\" text=\"Đổi mật khẩu\"/></item><item id=\"logout\" text=\"Đăng xuất\"/></menu>',1),(11,17,'nva','gdyb21LQTcIANtvYMT7QVQ==','<?xml version=\"1.0\"?><menu><item id=\"list\" complex=\"true\" text=\"Khai báo danh mục\"><item id=\"system\" complex=\"true\" text=\"Hệ thống\"><item id=\"users\" complex=\"true\" text=\"Tài khoản hệ thống\"><item id=\"userlist\" text=\"Danh sách tài khoản hệ thống\"/><item id=\"useradd\" text=\"Thêm tài khoản hệ thống\"/></item></item><item id=\"organization\" complex=\"true\" text=\"Đơn vị\"><item id=\"stores\" complex=\"true\" text=\"Kho\"><item id=\"storelist\" text=\"Danh sách kho\"/><item id=\"storeadd\" text=\"Thêm kho\"/></item><item id=\"employees\" complex=\"true\" text=\"Nhân viên\"><item id=\"employeelist\" text=\"Danh sách nhân viên\"/><item id=\"employeeadd\" text=\"Thêm nhân viên\"/><item id=\"employeefiellist\" text=\"Thông tin động - Nhân viên\"/></item><item id=\"accounts\" complex=\"true\" text=\"Tài khoản ngân hàng\"><item id=\"accountlist\" text=\"Danh sách tài khoản ngân hàng\"/><item id=\"accountadd\" text=\"Thêm tài khoản ngân hàng\"/></item></item><item id=\"good\" complex=\"true\" text=\"Hàng hóa\"><item id=\"units\" complex=\"true\" text=\"Đơn vị tính\"><item id=\"unitlist\" text=\"Danh sách đơn vị tính\"/><item id=\"unitadd\" text=\"Thêm đơn vị tính\"/></item><item id=\"shellkinds\" complex=\"true\" text=\"Loại vỏ bình\"><item id=\"shellkindlist\" text=\"Danh sách loại vỏ bình\"/><item id=\"shellkindadd\" text=\"Thêm loại vỏ bình\"/></item><item id=\"shells\" complex=\"true\" text=\"Vỏ bình\"><item id=\"shelllist\" text=\"Danh sách vỏ bình\"/><item id=\"shelladd\" text=\"Thêm vỏ bình\"/></item><item id=\"accessorykinds\" complex=\"true\" text=\"Loại phụ kiện\"><item id=\"accessorykindlist\" text=\"Danh sách loại phụ kiện\"/><item id=\"accessorykindadd\" text=\"Thêm loại phụ kiện\"/></item><item id=\"accessorys\" complex=\"true\" text=\"Phụ kiện\"><item id=\"accessorylist\" text=\"Danh sách phụ kiện\"/><item id=\"accessoryadd\" text=\"Thêm phụ kiện\"/></item><item id=\"promotionmaterials\" complex=\"true\" text=\"Hàng khuyến mãi\"><item id=\"promotionmateriallist\" text=\"Danh sách hàng khuyến mãi\"/><item id=\"promotionmaterialadd\" text=\"Thêm hàng khuyến mãi\"/></item><item id=\"petros\" complex=\"true\" text=\"Xăng dầu\"><item id=\"petrolist\" text=\"Danh sách hàng xăng dầu\"/><item id=\"petroadd\" text=\"Thêm hàng xăng dầu\"/></item></item><item id=\"vendor\" complex=\"true\" text=\"Nhà cung cấp\"><item id=\"vendors\" complex=\"true\" text=\"Nhà cung cấp\"><item id=\"vendorlist\" text=\"Danh sách nhà cung cấp\"/><item id=\"vendoradd\" text=\"Thêm nhà cung cấp\"/><item id=\"vendorfiellist\" text=\"Thông tin động - Nhà cung cấp\"/></item><item id=\"vendororganizations\" complex=\"true\" text=\"Nhà cung cấp liên kết\"><item id=\"vendororganizationlist\" text=\"Danh sách nhà cung cấp liên kết\"/><item id=\"vendororganizationadd\" text=\"Thêm nhà cung cấp liên kết\"/></item></item><item id=\"customer\" complex=\"true\" text=\"Khách hàng\"><item id=\"customers\" complex=\"true\" text=\"Khách hàng\"><item id=\"customerlist\" text=\"Danh sách khách hàng\"/><item id=\"customeradd\" text=\"Thêm khách hàng\"/><item id=\"customerfiellist\" text=\"Thông tin động - Khách hàng\"/><item id=\"customerdocumentlist\" text=\"Danh sách văn bản\"/></item><item id=\"discounts\" complex=\"true\" text=\"Chiết khấu\"><item id=\"discountlist\" text=\"Danh sách chiết khấu\"/><item id=\"discountadd\" text=\"Thêm chiết khấu\"/></item></item><item id=\"vehicle\" complex=\"true\" text=\"Xe\"><item id=\"vehicles\" complex=\"true\" text=\"Xe\"><item id=\"vehiclelist\" text=\"Danh sách xe\"/><item id=\"vehicleadd\" text=\"Thêm xe\"/></item><item id=\"routes\" complex=\"true\" text=\"Tuyến đường\"><item id=\"routelist\" text=\"Danh sách tuyến đường\"/><item id=\"routeadd\" text=\"Thêm tuyến đường\"/></item></item><item id=\"fixedassetgroup\" complex=\"true\" text=\"Tài sản cố định\"><item id=\"fixedassetgroups\" complex=\"true\" text=\"Nhóm tài sản cố định\"><item id=\"fixedassetgrouplist\" text=\"Danh sách nhóm tài sản cố định\"/><item id=\"fixedassetgroupadd\" text=\"Thêm nhóm tài sản cố định\"/></item><item id=\"fixedassets\" complex=\"true\" text=\"Tài sản cố định\"><item id=\"fixedassetlist\" text=\"Danh sách tài sản cố định\"/><item id=\"fixedassetadd\" text=\"Thêm tài sản cố định\"/></item></item></item><item id=\"employeefunction\" complex=\"true\" text=\"Nghiệp vụ Nhân viên\"><item id=\"employeeadvances\" complex=\"true\" text=\"Nhân viên tạm ứng\"><item id=\"employeeadvancelist\" text=\"Danh sách tạm ứng\"/><item id=\"employeeadvanceadd\" text=\"Thêm tạm ứng\"/></item><item id=\"employeetimesheets\" complex=\"true\" text=\"Chấm công nhân viên\"><item id=\"employeetimesheetlist\" text=\"Danh sách chấm công\"/><item id=\"employeetimesheetadd\" text=\"Thêm chấm công\"/></item><item id=\"employeeoffs\" complex=\"true\" text=\"Nghỉ phép\"><item id=\"employeeofflist\" text=\"Danh sách nghỉ phép\"/><item id=\"employeeoffadd\" text=\"Thêm nghỉ phép\"/></item><item id=\"employeeoffincreases\" complex=\"true\" text=\"Bù nghỉ phép\"><item id=\"employeeoffincreaselist\" text=\"Danh sách bù nghỉ phép\"/><item id=\"employeeoffincreaseadd\" text=\"Thêm bù nghỉ phép\"/></item><item id=\"employeeoffmoneys\" complex=\"true\" text=\"Thanh toán ngày phép\"><item id=\"employeeoffmoneylist\" text=\"Danh sách thanh toán ngày phép\"/><item id=\"employeeoffmoneyadd\" text=\"Thêm thanh toán ngày phép\"/></item><item id=\"salarys\" complex=\"true\" text=\"Bảng lương\"><item id=\"salarylist\" text=\"Danh sách bảng lương\"/><item id=\"salarysalaryfiels\" complex=\"true\" text=\"Thông tin động\"><item id=\"salaryfiellist\" text=\"Phụ cấp\"/><item id=\"timesheetfiellist\" text=\"Chấm công\"/></item><item id=\"dynamicfielvalues\" complex=\"true\" text=\"Giá trị thông tin động\"><item id=\"employeesalarylist\" text=\"Danh sách phụ cấp\"/><item id=\"organizationtimesheetlist\" text=\"Danh sách chi phí chấm công\"/></item></item></item><item id=\"vehiclefunction\" complex=\"true\" text=\"Nghiệp vụ Xe\"><item id=\"tripfees\" complex=\"true\" text=\"Chi phí xe\"><item id=\"tripfeelist\" text=\"Danh sách chi phí xe\"/><item id=\"tripfeeadd\" text=\"Thêm chi phí xe\"/></item><item id=\"vehicleouts\" complex=\"true\" text=\"Xuất xe đi\"><item id=\"vehicleoutlist\" text=\"Danh sách xuất xe đi\"/><item id=\"vehicleoutadd\" text=\"Thêm xuất xe đi\"/></item><item id=\"vehicleins\" complex=\"true\" text=\"Nhập xe về\"><item id=\"vehicleinlist\" text=\"Danh sách nhập xe về\"/><item id=\"vehicleinadd\" text=\"Thêm nhập xe về\"/></item><item id=\"exportwholesales\" complex=\"true\" text=\"Xuất sỉ\"><item id=\"exportwholesalelist\" text=\"Danh sách xuất sỉ\"/><item id=\"exportwholesaleadd\" text=\"Thêm xuất sỉ\"/></item></item><item id=\"gasfunction\" complex=\"true\" text=\"Nghiệp vụ gas\"><item id=\"shellimports\" complex=\"true\" text=\"Nhập vỏ bình\"><item id=\"shellimportlist\" text=\"Danh sách nhập vỏ bình\"/><item id=\"shellimportadd\" text=\"Thêm nhập vỏ bình\"/></item><item id=\"lpgimports\" complex=\"true\" text=\"Nhập LPG\"><item id=\"lpgimportlist\" text=\"Danh sách nhập LPG\"/><item id=\"lpgimportadd\" text=\"Thêm nhập LPG\"/></item><item id=\"lpgsales\" complex=\"true\" text=\"Bán LPG\"><item id=\"lpgsalelist\" text=\"Danh sách bán LPG\"/><item id=\"lpgsaleadd\" text=\"Thêm bán LPG\"/></item><item id=\"fractions\" complex=\"true\" text=\"Chiết gas\"><item id=\"fractionlist\" text=\"Danh sách chiết gas\"/><item id=\"fractionadd\" text=\"Thêm chiết gas\"/></item><item id=\"gasprices\" complex=\"true\" text=\"Giá bán gas\"><item id=\"gaspricelist\" text=\"Danh sách giá bán gas\"/><item id=\"gaspriceadd\" text=\"Thêm giá bán gas\"/></item><item id=\"gasimports\" complex=\"true\" text=\"Nhập gas\"><item id=\"gasimportlist\" text=\"Danh sách phiếu nhập gas\"/><item id=\"gasimportadd\" text=\"Thêm phiếu nhập gas\"/></item><item id=\"gaswholesales\" complex=\"true\" text=\"Bán gas\"><item id=\"gaswholesalelist\" text=\"Danh sách phiếu bán gas\"/><item id=\"gaswholesaleadd\" text=\"Thêm phiếu bán gas\"/></item><item id=\"saleshells\" complex=\"true\" text=\"Bán vỏ bình\"><item id=\"saleshelllist\" text=\"Danh sách phiếu bán vỏ bình\"/><item id=\"saleshelladd\" text=\"Thêm phiếu bán vỏ bình\"/></item><item id=\"oldshells\" complex=\"true\" text=\"Điều chỉnh số lượng vỏ bình\"><item id=\"oldshelllist\" text=\"Danh sách điều chỉnh số lượng vỏ bình\"/><item id=\"oldshelladd\" text=\"Thêm điều chỉnh số lượng vỏ bình\"/></item><item id=\"shellreturns\" complex=\"true\" text=\"Trả vỏ bình\"><item id=\"shellreturnlist\" text=\"Danh sách trả vỏ bình\"/><item id=\"shellreturnadd\" text=\"Thêm trả vỏ bình\"/></item><item id=\"shellreturnsuppliers\" complex=\"true\" text=\"Trả vỏ bình NCC\"><item id=\"shellreturnsupplierlist\" text=\"Danh sách trả vỏ bình NCC\"/><item id=\"shellreturnsupplieradd\" text=\"Thêm trả vỏ bình NCC\"/></item></item><item id=\"goodfunction\" complex=\"true\" text=\"Nghiệp vụ hàng hóa\"><item id=\"accessoryimports\" complex=\"true\" text=\"Nhập phụ kiện\"><item id=\"accessoryimportlist\" text=\"Danh sách phiếu nhập phụ kiện\"/><item id=\"accessoryimportadd\" text=\"Thêm phiếu nhập phụ kiện\"/></item><item id=\"promotionmaterialimports\" complex=\"true\" text=\"Nhập hàng khuyến mãi\"><item id=\"promotionmaterialimportlist\" text=\"Danh sách phiếu nhập hàng khuyến mãi\"/><item id=\"promotionmaterialimportadd\" text=\"Thêm phiếu nhập hàng khuyến mãi\"/></item><item id=\"petroimports\" complex=\"true\" text=\"Nhập hàng hóa\"><item id=\"petroimportlist\" text=\"Danh sách phiếu nhập hàng hóa\"/><item id=\"petroimportadd\" text=\"Thêm phiếu nhập hàng hóa\"/></item><item id=\"saleaccessorys\" complex=\"true\" text=\"Bán phụ kiện\"><item id=\"saleaccessorylist\" text=\"Danh sách phiếu bán phụ kiện\"/><item id=\"saleaccessoryadd\" text=\"Thêm phiếu bán phụ kiện\"/></item><item id=\"salepetros\" complex=\"true\" text=\"Bán hàng hóa\"><item id=\"salepetrolist\" text=\"Danh sách phiếu bán hàng hóa\"/><item id=\"salepetroadd\" text=\"Thêm phiếu bán hàng hóa\"/></item><item id=\"fixedassetdepreciations\" complex=\"true\" text=\"Khấu hao\"><item id=\"fixedassetdepreciationlist\" text=\"Danh sách phiếu khấu hao\"/><item id=\"fixedassetdepreciationadd\" text=\"Thêm phiếu khấu hao\"/></item><item id=\"shieldimports\" complex=\"true\" text=\"Nhập shield\"><item id=\"shieldimportlist\" text=\"Danh sách phiếu nhập shield\"/><item id=\"shieldimportadd\" text=\"Thêm phiếu nhập shield\"/></item><item id=\"shielddecreases\" complex=\"true\" text=\"Giảm shield\"><item id=\"shielddecreaselist\" text=\"Danh sách phiếu giảm shield\"/><item id=\"shielddecreaseadd\" text=\"Thêm phiếu giảm shield\"/></item></item><item id=\"paymentfunction\" complex=\"true\" text=\"Nghiệp vụ thanh toán\"><item id=\"contracts\" complex=\"true\" text=\"Hợp đồng\"><item id=\"contractlist\" text=\"Danh sách hợp đồng\"/><item id=\"contractadd\" text=\"Thêm hợp đồng\"/></item><item id=\"debtvendors\" complex=\"true\" text=\"Công nợ NCC\"><item id=\"debtvendorlist\" text=\"Danh sách công nợ NCC\"/><item id=\"debtvendoradd\" text=\"Thêm công nợ NCC\"/></item><item id=\"debtretails\" complex=\"true\" text=\"Công nợ bán lẻ\"><item id=\"debtretaillist\" text=\"Danh sách công nợ bán lẻ\"/><item id=\"debtretailadd\" text=\"Thêm công nợ bán lẻ\"/></item><item id=\"debtwholesales\" complex=\"true\" text=\"Công nợ bán sỉ\"><item id=\"debtwholesalelist\" text=\"Danh sách công nợ bán sỉ\"/><item id=\"debtwholesaleadd\" text=\"Thêm công nợ bán sỉ\"/></item><item id=\"incomes\" complex=\"true\" text=\"Thu\"><item id=\"incomelist\" text=\"Danh sách thu\"/><item id=\"incomeadd\" text=\"Thêm thu\"/></item><item id=\"expenses\" complex=\"true\" text=\"Chi\"><item id=\"expenselist\" text=\"Danh sách chi\"/><item id=\"expenseadd\" text=\"Thêm chi\"/></item></item><item id=\"reportfunction\" complex=\"true\" text=\"Báo cáo\"><item id=\"reportstock\" complex=\"true\" text=\"Báo cáo nhập xuất tồn\"><item id=\"reportlpgimport\" text=\"Bảng theo dõi nhập hàng LPG\"/><item id=\"reportlpgstock\" text=\"Sổ theo dõi sản lượng khí hóa lỏng LPG\"/><item id=\"reportlpgstocksum\" text=\"Sổ theo dõi nhập xuất khí hóa lỏng LPG\"/><item id=\"reportlpgstocksumorganization\" text=\"Sổ theo dõi nhập xuất khí hóa lỏng LPG theo nhà cung cấp\"/><item id=\"reportsum\" text=\"Tổng hợp\"/><item id=\"reportcompare\" text=\"Đối chiếu\"/><item id=\"reportsale\" text=\"Xuất bán hàng\"/><item id=\"reportsalecustomer\" text=\"Chi tiết bán hàng theo khách hàng\"/><item id=\"reportcashbook\" text=\"Báo cáo quỹ tiền\"/></item></item><item id=\"setting\" complex=\"true\" text=\"Cấu hình\"><item id=\"resetpassword\" text=\"Đổi mật khẩu\"/></item><item id=\"logout\" text=\"Đăng xuất\"/></menu>',1),(12,18,'ntb','gdyb21LQTcIANtvYMT7QVQ==','<?xml version=\"1.0\"?><menu><item id=\"list\" complex=\"true\" text=\"Khai báo danh mục\"><item id=\"system\" complex=\"true\" text=\"Hệ thống\"><item id=\"users\" complex=\"true\" text=\"Tài khoản hệ thống\"><item id=\"userlist\" text=\"Danh sách tài khoản hệ thống\"/><item id=\"useradd\" text=\"Thêm tài khoản hệ thống\"/></item></item><item id=\"organization\" complex=\"true\" text=\"Đơn vị\"><item id=\"stores\" complex=\"true\" text=\"Kho\"><item id=\"storelist\" text=\"Danh sách kho\"/><item id=\"storeadd\" text=\"Thêm kho\"/></item><item id=\"employees\" complex=\"true\" text=\"Nhân viên\"><item id=\"employeelist\" text=\"Danh sách nhân viên\"/><item id=\"employeeadd\" text=\"Thêm nhân viên\"/><item id=\"employeefiellist\" text=\"Thông tin động - Nhân viên\"/></item><item id=\"accounts\" complex=\"true\" text=\"Tài khoản ngân hàng\"><item id=\"accountlist\" text=\"Danh sách tài khoản ngân hàng\"/><item id=\"accountadd\" text=\"Thêm tài khoản ngân hàng\"/></item></item><item id=\"good\" complex=\"true\" text=\"Hàng hóa\"><item id=\"units\" complex=\"true\" text=\"Đơn vị tính\"><item id=\"unitlist\" text=\"Danh sách đơn vị tính\"/><item id=\"unitadd\" text=\"Thêm đơn vị tính\"/></item><item id=\"shellkinds\" complex=\"true\" text=\"Loại vỏ bình\"><item id=\"shellkindlist\" text=\"Danh sách loại vỏ bình\"/><item id=\"shellkindadd\" text=\"Thêm loại vỏ bình\"/></item><item id=\"shells\" complex=\"true\" text=\"Vỏ bình\"><item id=\"shelllist\" text=\"Danh sách vỏ bình\"/><item id=\"shelladd\" text=\"Thêm vỏ bình\"/></item><item id=\"accessorykinds\" complex=\"true\" text=\"Loại phụ kiện\"><item id=\"accessorykindlist\" text=\"Danh sách loại phụ kiện\"/><item id=\"accessorykindadd\" text=\"Thêm loại phụ kiện\"/></item><item id=\"accessorys\" complex=\"true\" text=\"Phụ kiện\"><item id=\"accessorylist\" text=\"Danh sách phụ kiện\"/><item id=\"accessoryadd\" text=\"Thêm phụ kiện\"/></item><item id=\"promotionmaterials\" complex=\"true\" text=\"Hàng khuyến mãi\"><item id=\"promotionmateriallist\" text=\"Danh sách hàng khuyến mãi\"/><item id=\"promotionmaterialadd\" text=\"Thêm hàng khuyến mãi\"/></item><item id=\"petros\" complex=\"true\" text=\"Xăng dầu\"><item id=\"petrolist\" text=\"Danh sách hàng xăng dầu\"/><item id=\"petroadd\" text=\"Thêm hàng xăng dầu\"/></item></item><item id=\"vendor\" complex=\"true\" text=\"Nhà cung cấp\"><item id=\"vendors\" complex=\"true\" text=\"Nhà cung cấp\"><item id=\"vendorlist\" text=\"Danh sách nhà cung cấp\"/><item id=\"vendoradd\" text=\"Thêm nhà cung cấp\"/><item id=\"vendorfiellist\" text=\"Thông tin động - Nhà cung cấp\"/></item><item id=\"vendororganizations\" complex=\"true\" text=\"Nhà cung cấp liên kết\"><item id=\"vendororganizationlist\" text=\"Danh sách nhà cung cấp liên kết\"/><item id=\"vendororganizationadd\" text=\"Thêm nhà cung cấp liên kết\"/></item></item><item id=\"customer\" complex=\"true\" text=\"Khách hàng\"><item id=\"customers\" complex=\"true\" text=\"Khách hàng\"><item id=\"customerlist\" text=\"Danh sách khách hàng\"/><item id=\"customeradd\" text=\"Thêm khách hàng\"/><item id=\"customerfiellist\" text=\"Thông tin động - Khách hàng\"/><item id=\"customerdocumentlist\" text=\"Danh sách văn bản\"/></item></item><item id=\"vehicle\" complex=\"true\" text=\"Xe\"><item id=\"vehicles\" complex=\"true\" text=\"Xe\"><item id=\"vehiclelist\" text=\"Danh sách xe\"/><item id=\"vehicleadd\" text=\"Thêm xe\"/></item><item id=\"routes\" complex=\"true\" text=\"Tuyến đường\"><item id=\"routelist\" text=\"Danh sách tuyến đường\"/><item id=\"routeadd\" text=\"Thêm tuyến đường\"/></item></item><item id=\"fixedassetgroup\" complex=\"true\" text=\"Tài sản cố định\"><item id=\"fixedassetgroups\" complex=\"true\" text=\"Nhóm tài sản cố định\"><item id=\"fixedassetgrouplist\" text=\"Danh sách nhóm tài sản cố định\"/><item id=\"fixedassetgroupadd\" text=\"Thêm nhóm tài sản cố định\"/></item><item id=\"fixedassets\" complex=\"true\" text=\"Tài sản cố định\"><item id=\"fixedassetlist\" text=\"Danh sách tài sản cố định\"/><item id=\"fixedassetadd\" text=\"Thêm tài sản cố định\"/></item></item></item><item id=\"employeefunction\" complex=\"true\" text=\"Nghiệp vụ Nhân viên\"><item id=\"employeeadvances\" complex=\"true\" text=\"Nhân viên tạm ứng\"><item id=\"employeeadvancelist\" text=\"Danh sách tạm ứng\"/><item id=\"employeeadvanceadd\" text=\"Thêm tạm ứng\"/></item><item id=\"employeetimesheets\" complex=\"true\" text=\"Chấm công nhân viên\"><item id=\"employeetimesheetlist\" text=\"Danh sách chấm công\"/><item id=\"employeetimesheetadd\" text=\"Thêm chấm công\"/></item><item id=\"employeeoffs\" complex=\"true\" text=\"Nghỉ phép\"><item id=\"employeeofflist\" text=\"Danh sách nghỉ phép\"/><item id=\"employeeoffadd\" text=\"Thêm nghỉ phép\"/></item><item id=\"employeeoffincreases\" complex=\"true\" text=\"Bù nghỉ phép\"><item id=\"employeeoffincreaselist\" text=\"Danh sách bù nghỉ phép\"/><item id=\"employeeoffincreaseadd\" text=\"Thêm bù nghỉ phép\"/></item><item id=\"employeeoffmoneys\" complex=\"true\" text=\"Thanh toán ngày phép\"><item id=\"employeeoffmoneylist\" text=\"Danh sách thanh toán ngày phép\"/><item id=\"employeeoffmoneyadd\" text=\"Thêm thanh toán ngày phép\"/></item><item id=\"salarys\" complex=\"true\" text=\"Bảng lương\"><item id=\"salarylist\" text=\"Danh sách bảng lương\"/><item id=\"salarysalaryfiels\" complex=\"true\" text=\"Thông tin động\"><item id=\"salaryfiellist\" text=\"Phụ cấp\"/><item id=\"timesheetfiellist\" text=\"Chấm công\"/></item><item id=\"dynamicfielvalues\" complex=\"true\" text=\"Giá trị thông tin động\"><item id=\"employeesalarylist\" text=\"Danh sách phụ cấp\"/><item id=\"organizationtimesheetlist\" text=\"Danh sách chi phí chấm công\"/></item></item></item><item id=\"vehiclefunction\" complex=\"true\" text=\"Nghiệp vụ Xe\"><item id=\"tripfees\" complex=\"true\" text=\"Chi phí xe\"><item id=\"tripfeelist\" text=\"Danh sách chi phí xe\"/><item id=\"tripfeeadd\" text=\"Thêm chi phí xe\"/></item><item id=\"vehicleouts\" complex=\"true\" text=\"Xuất xe đi\"><item id=\"vehicleoutlist\" text=\"Danh sách xuất xe đi\"/><item id=\"vehicleoutadd\" text=\"Thêm xuất xe đi\"/></item><item id=\"vehicleins\" complex=\"true\" text=\"Nhập xe về\"><item id=\"vehicleinlist\" text=\"Danh sách nhập xe về\"/><item id=\"vehicleinadd\" text=\"Thêm nhập xe về\"/></item><item id=\"exportwholesales\" complex=\"true\" text=\"Xuất sỉ\"><item id=\"exportwholesalelist\" text=\"Danh sách xuất sỉ\"/><item id=\"exportwholesaleadd\" text=\"Thêm xuất sỉ\"/></item></item><item id=\"gasfunction\" complex=\"true\" text=\"Nghiệp vụ gas\"><item id=\"shellimports\" complex=\"true\" text=\"Nhập vỏ bình\"><item id=\"shellimportlist\" text=\"Danh sách nhập vỏ bình\"/><item id=\"shellimportadd\" text=\"Thêm nhập vỏ bình\"/></item><item id=\"lpgimports\" complex=\"true\" text=\"Nhập LPG\"><item id=\"lpgimportlist\" text=\"Danh sách nhập LPG\"/><item id=\"lpgimportadd\" text=\"Thêm nhập LPG\"/></item><item id=\"lpgsales\" complex=\"true\" text=\"Bán LPG\"><item id=\"lpgsalelist\" text=\"Danh sách bán LPG\"/><item id=\"lpgsaleadd\" text=\"Thêm bán LPG\"/></item><item id=\"fractions\" complex=\"true\" text=\"Chiết gas\"><item id=\"fractionlist\" text=\"Danh sách chiết gas\"/><item id=\"fractionadd\" text=\"Thêm chiết gas\"/></item><item id=\"gasprices\" complex=\"true\" text=\"Giá bán gas\"><item id=\"gaspricelist\" text=\"Danh sách giá bán gas\"/><item id=\"gaspriceadd\" text=\"Thêm giá bán gas\"/></item><item id=\"gasimports\" complex=\"true\" text=\"Nhập gas\"><item id=\"gasimportlist\" text=\"Danh sách phiếu nhập gas\"/><item id=\"gasimportadd\" text=\"Thêm phiếu nhập gas\"/></item><item id=\"gaswholesales\" complex=\"true\" text=\"Bán gas\"><item id=\"gaswholesalelist\" text=\"Danh sách phiếu bán gas\"/><item id=\"gaswholesaleadd\" text=\"Thêm phiếu bán gas\"/></item><item id=\"saleshells\" complex=\"true\" text=\"Bán vỏ bình\"><item id=\"saleshelllist\" text=\"Danh sách phiếu bán vỏ bình\"/><item id=\"saleshelladd\" text=\"Thêm phiếu bán vỏ bình\"/></item><item id=\"oldshells\" complex=\"true\" text=\"Điều chỉnh số lượng vỏ bình\"><item id=\"oldshelllist\" text=\"Danh sách điều chỉnh số lượng vỏ bình\"/><item id=\"oldshelladd\" text=\"Thêm điều chỉnh số lượng vỏ bình\"/></item><item id=\"shellreturns\" complex=\"true\" text=\"Trả vỏ bình\"><item id=\"shellreturnlist\" text=\"Danh sách trả vỏ bình\"/><item id=\"shellreturnadd\" text=\"Thêm trả vỏ bình\"/></item><item id=\"shellreturnsuppliers\" complex=\"true\" text=\"Trả vỏ bình NCC\"><item id=\"shellreturnsupplierlist\" text=\"Danh sách trả vỏ bình NCC\"/><item id=\"shellreturnsupplieradd\" text=\"Thêm trả vỏ bình NCC\"/></item><item id=\"gasreturns\" complex=\"true\" text=\"Trả gas\"><item id=\"gasreturnlist\" text=\"Danh sách trả gas\"/><item id=\"gasreturnadd\" text=\"Thêm trả gas\"/></item></item><item id=\"goodfunction\" complex=\"true\" text=\"Nghiệp vụ hàng hóa\"><item id=\"accessoryimports\" complex=\"true\" text=\"Nhập phụ kiện\"><item id=\"accessoryimportlist\" text=\"Danh sách phiếu nhập phụ kiện\"/><item id=\"accessoryimportadd\" text=\"Thêm phiếu nhập phụ kiện\"/></item><item id=\"promotionmaterialimports\" complex=\"true\" text=\"Nhập hàng khuyến mãi\"><item id=\"promotionmaterialimportlist\" text=\"Danh sách phiếu nhập hàng khuyến mãi\"/><item id=\"promotionmaterialimportadd\" text=\"Thêm phiếu nhập hàng khuyến mãi\"/></item><item id=\"petroimports\" complex=\"true\" text=\"Nhập hàng hóa\"><item id=\"petroimportlist\" text=\"Danh sách phiếu nhập hàng hóa\"/><item id=\"petroimportadd\" text=\"Thêm phiếu nhập hàng hóa\"/></item><item id=\"saleaccessorys\" complex=\"true\" text=\"Bán phụ kiện\"><item id=\"saleaccessorylist\" text=\"Danh sách phiếu bán phụ kiện\"/><item id=\"saleaccessoryadd\" text=\"Thêm phiếu bán phụ kiện\"/></item><item id=\"salepetros\" complex=\"true\" text=\"Bán hàng hóa\"><item id=\"salepetrolist\" text=\"Danh sách phiếu bán hàng hóa\"/><item id=\"salepetroadd\" text=\"Thêm phiếu bán hàng hóa\"/></item><item id=\"fixedassetdepreciations\" complex=\"true\" text=\"Khấu hao\"><item id=\"fixedassetdepreciationlist\" text=\"Danh sách phiếu khấu hao\"/><item id=\"fixedassetdepreciationadd\" text=\"Thêm phiếu khấu hao\"/></item><item id=\"shieldimports\" complex=\"true\" text=\"Nhập shield\"><item id=\"shieldimportlist\" text=\"Danh sách phiếu nhập shield\"/><item id=\"shieldimportadd\" text=\"Thêm phiếu nhập shield\"/></item><item id=\"shielddecreases\" complex=\"true\" text=\"Giảm shield\"><item id=\"shielddecreaselist\" text=\"Danh sách phiếu giảm shield\"/><item id=\"shielddecreaseadd\" text=\"Thêm phiếu giảm shield\"/></item></item><item id=\"paymentfunction\" complex=\"true\" text=\"Nghiệp vụ thanh toán\"><item id=\"contracts\" complex=\"true\" text=\"Hợp đồng\"><item id=\"contractlist\" text=\"Danh sách hợp đồng\"/><item id=\"contractadd\" text=\"Thêm hợp đồng\"/></item><item id=\"debtvendors\" complex=\"true\" text=\"Công nợ NCC\"><item id=\"debtvendorlist\" text=\"Danh sách công nợ NCC\"/><item id=\"debtvendoradd\" text=\"Thêm công nợ NCC\"/></item><item id=\"debtretails\" complex=\"true\" text=\"Công nợ bán lẻ\"><item id=\"debtretaillist\" text=\"Danh sách công nợ bán lẻ\"/><item id=\"debtretailadd\" text=\"Thêm công nợ bán lẻ\"/></item><item id=\"debtwholesales\" complex=\"true\" text=\"Công nợ bán sỉ\"><item id=\"debtwholesalelist\" text=\"Danh sách công nợ bán sỉ\"/><item id=\"debtwholesaleadd\" text=\"Thêm công nợ bán sỉ\"/></item><item id=\"incomes\" complex=\"true\" text=\"Thu\"><item id=\"incomelist\" text=\"Danh sách thu\"/><item id=\"incomeadd\" text=\"Thêm thu\"/></item><item id=\"expenses\" complex=\"true\" text=\"Chi\"><item id=\"expenselist\" text=\"Danh sách chi\"/><item id=\"expenseadd\" text=\"Thêm chi\"/></item></item><item id=\"reportfunction\" complex=\"true\" text=\"Báo cáo\"><item id=\"reportstock\" complex=\"true\" text=\"Báo cáo nhập xuất tồn\"><item id=\"reportlpgimport\" text=\"Bảng theo dõi nhập hàng LPG\"/><item id=\"reportlpgstock\" text=\"Sổ theo dõi sản lượng khí hóa lỏng LPG\"/><item id=\"reportlpgstocksum\" text=\"Sổ theo dõi nhập xuất khí hóa lỏng LPG\"/><item id=\"reportsum\" text=\"Tổng hợp\"/><item id=\"reportcompare\" text=\"Đối chiếu\"/><item id=\"reportsale\" text=\"Xuất bán hàng\"/><item id=\"reportsalecustomer\" text=\"Chi tiết bán hàng theo khách hàng\"/><item id=\"reportcashbook\" text=\"Báo cáo quỹ tiền\"/></item></item><item id=\"setting\" complex=\"true\" text=\"Cấu hình\"><item id=\"resetpassword\" text=\"Đổi mật khẩu\"/></item><item id=\"logout\" text=\"Đăng xuất\"/></menu>',1);
 
 /*Table structure for table `vehicle` */
 
@@ -2959,7 +2997,7 @@ BEGIN
 		set _date=_start_date;
 	end if;
 	
-	DELETE FROM shell_in_stock WHERE DATE(`day`) >= _date AND DATE(`day`) <= _current_date;
+	DELETE FROM shell_in_stock WHERE DATE(`day`) > _date AND DATE(`day`) <= _current_date;
 	
 	SET _pre_date=NULL;
 	SELECT `day` INTO _pre_date FROM shell_in_stock ORDER BY id DESC LIMIT 1;
@@ -2977,55 +3015,55 @@ BEGIN
 	LEFT JOIN (
 		SELECT i.shell_id, eo.organization_id, COALESCE(SUM(i.quantity),0) AS in_stock
 		FROM shell_import AS i, employee as eo
-		WHERE DATE(i.created_date) >= _date AND DATE(i.created_date) <= _current_date
+		WHERE DATE(i.created_date) > _date AND DATE(i.created_date) <= _current_date
 			and i.created_employee_id=eo.id
 		GROUP BY i.shell_id, eo.organization_id
 		UNION ALL
 		SELECT sv.shell_id, sv.organization_id,  -SUM(f_det.quantity) AS in_stock
 		FROM fraction_gas_detail AS f_det, fraction_gas AS f, shell_vendor AS sv
-		WHERE f_det.fraction_id=f.id AND DATE(f.created_date) >= _date AND DATE(f.created_date) <= _current_date
+		WHERE f_det.fraction_id=f.id AND DATE(f.created_date) > _date AND DATE(f.created_date) <= _current_date
 			AND f_det.shell_id=sv.id
 		GROUP BY sv.shell_id, sv.organization_id
 		UNION ALL
 		SELECT i_det.shell_id, eo.organization_id, SUM(i_det.quantity) AS in_stock
 		FROM gas_wholesale_return_shell AS i_det, gas_wholesale AS i, employee AS eo
-		WHERE i_det.gas_wholesale_id=i.id AND DATE(i.created_date) >= _date AND DATE(i.created_date) <= _current_date
+		WHERE i_det.gas_wholesale_id=i.id AND DATE(i.created_date) > _date AND DATE(i.created_date) <= _current_date
 			AND i.created_employee_id=eo.id
 		GROUP BY i_det.shell_id, eo.organization_id
 		UNION ALL
 		SELECT i_det.shell_id, eo.organization_id, -SUM(i_det.quantity) AS in_stock
 		FROM shell_sale_detail AS i_det, shell_sale AS i, employee AS eo
-		WHERE i_det.shell_sale_id=i.id AND DATE(i.created_date) >= _date AND DATE(i.created_date) <= _current_date
+		WHERE i_det.shell_sale_id=i.id AND DATE(i.created_date) > _date AND DATE(i.created_date) <= _current_date
 			AND i.created_employee_id=eo.id
 		GROUP BY i_det.shell_id, eo.organization_id
 		UNION ALL
 		SELECT i.shell_id, eo.organization_id, SUM(i.quantity) AS in_stock
 		FROM old_shell AS i, employee AS eo
-		WHERE DATE(i.created_date) >= _date AND DATE(i.created_date) <= _current_date
+		WHERE DATE(i.created_date) > _date AND DATE(i.created_date) <= _current_date
 			AND i.created_employee_id=eo.id
 		GROUP BY i.shell_id, eo.organization_id
 		UNION ALL
 		SELECT sv.shell_id, sv.organization_id, SUM(f_det.quantity) AS in_stock
 		FROM shell_return_detail AS f_det, shell_return AS f, shell_vendor AS sv
-		WHERE f_det.shell_return_id=f.id AND DATE(f.created_date) >= _date AND DATE(f.created_date) <= _current_date
+		WHERE f_det.shell_return_id=f.id AND DATE(f.created_date) > _date AND DATE(f.created_date) <= _current_date
 			AND f_det.shell_id=sv.id
 		GROUP BY f_det.shell_id, sv.organization_id
 		UNION ALL
 		SELECT sv.shell_id, sv.organization_id, -SUM(f_det.quantity) AS in_stock
 		FROM shell_return_supplier_detail AS f_det, shell_return_supplier AS f, shell_vendor as sv
-		WHERE f_det.shell_return_supplier_id=f.id AND DATE(f.created_date) >= _date AND DATE(f.created_date) <= _current_date
+		WHERE f_det.shell_return_supplier_id=f.id AND DATE(f.created_date) > _date AND DATE(f.created_date) <= _current_date
 			AND f_det.shell_id=sv.id
 		GROUP BY f_det.shell_id, sv.organization_id
 		UNION ALL
 		SELECT f_det.shell_id, eo.organization_id,  SUM(f_det.quantity) AS in_stock
 		FROM vehicle_in_return_shell_detail AS f_det, vehicle_in AS f, employee AS eo
-		WHERE f_det.vehicle_in_id=f.id AND DATE(f.created_date) >= _date AND DATE(f.created_date) <= _current_date
+		WHERE f_det.vehicle_in_id=f.id AND DATE(f.created_date) > _date AND DATE(f.created_date) <= _current_date
 			AND f.created_employee_id=eo.id
 		GROUP BY f_det.shell_id, eo.organization_id
 		UNION ALL
 		SELECT f_det.shell_id, eo.organization_id,  SUM(f_det.quantity) AS in_stock
 		FROM gas_export_wholesale_shell_detail AS f_det, gas_export_wholesale AS f, employee AS eo
-		WHERE f_det.gas_export_wholesale_id=f.id AND DATE(f.created_date) >= _date AND DATE(f.created_date) <= _current_date
+		WHERE f_det.gas_export_wholesale_id=f.id AND DATE(f.created_date) > _date AND DATE(f.created_date) <= _current_date
 			AND f.created_employee_id=eo.id
 		GROUP BY f_det.shell_id, eo.organization_id
 	) AS tbl ON tbl.shell_id=sv.shell_id and tbl.organization_id=sv.organization_id
@@ -3038,7 +3076,7 @@ BEGIN
 		set _date=_start_date;
 	end if;
 	
-	DELETE FROM shell_gas_in_stock WHERE DATE(`day`) >= _date AND DATE(`day`) <= _current_date;
+	DELETE FROM shell_gas_in_stock WHERE DATE(`day`) > _date AND DATE(`day`) <= _current_date;
 	
 	SET _pre_date=NULL;
 	SELECT `day` INTO _pre_date FROM shell_gas_in_stock ORDER BY id DESC LIMIT 1;
@@ -3056,37 +3094,37 @@ BEGIN
 	LEFT JOIN (
 		SELECT sv.id, SUM(f_det.quantity) AS in_stock
 		FROM fraction_gas_detail AS f_det, fraction_gas AS f, shell_vendor AS sv
-		WHERE f_det.fraction_id=f.id AND DATE(f.created_date) >= _date AND DATE(f.created_date) <= _current_date
+		WHERE f_det.fraction_id=f.id AND DATE(f.created_date) > _date AND DATE(f.created_date) <= _current_date
 			AND f_det.shell_id=sv.id
 		GROUP BY sv.id
 		union all
 		SELECT sv.id, SUM(f_det.quantity) AS in_stock
 		FROM gas_import_detail AS f_det, gas_import AS f, shell_vendor AS sv
-		WHERE f_det.gas_import_id=f.id AND DATE(f.created_date) >= _date AND DATE(f.created_date) <= _current_date
+		WHERE f_det.gas_import_id=f.id AND DATE(f.created_date) > _date AND DATE(f.created_date) <= _current_date
 			AND f_det.shell_id=sv.id
 		GROUP BY sv.id
 		UNION ALL
 		SELECT sv.id, -SUM(i_det.quantity) AS in_stock
 		FROM gas_wholesale_detail AS i_det, gas_wholesale AS i, shell_vendor AS sv
-		WHERE i_det.gas_wholesale_id=i.id AND DATE(i.created_date) >= _date AND DATE(i.created_date) <= _current_date
+		WHERE i_det.gas_wholesale_id=i.id AND DATE(i.created_date) > _date AND DATE(i.created_date) <= _current_date
 			AND i_det.shell_id=sv.id
 		GROUP BY sv.id
 		UNION ALL
 		SELECT sv.id, -SUM(i_det.quantity) AS in_stock
 		FROM vehicle_out_detail AS i_det, vehicle_out AS i, shell_vendor AS sv
-		WHERE i_det.vehicle_out_id=i.id AND DATE(i.created_date) >= _date AND DATE(i.created_date) <= _current_date
+		WHERE i_det.vehicle_out_id=i.id AND DATE(i.created_date) > _date AND DATE(i.created_date) <= _current_date
 			AND i_det.shell_id=sv.id
 		GROUP BY sv.id
 		UNION ALL
 		SELECT sv.id, SUM(i_det.quantity) AS in_stock
 		FROM vehicle_in_detail AS i_det, vehicle_in AS i, shell_vendor AS sv
-		WHERE i_det.vehicle_in_id=i.id AND DATE(i.created_date) >= _date AND DATE(i.created_date) <= _current_date
+		WHERE i_det.vehicle_in_id=i.id AND DATE(i.created_date) > _date AND DATE(i.created_date) <= _current_date
 			AND i_det.shell_id=sv.id
 		GROUP BY sv.id
 		UNION ALL
 		SELECT sv.id, -SUM(f_det.quantity) AS in_stock
 		FROM gas_export_wholesale_detail AS f_det, gas_export_wholesale AS f, shell_vendor as sv
-		WHERE f_det.gas_export_wholesale_id=f.id AND DATE(f.created_date) >= _date AND DATE(f.created_date) <= _current_date
+		WHERE f_det.gas_export_wholesale_id=f.id AND DATE(f.created_date) > _date AND DATE(f.created_date) <= _current_date
 			AND f_det.shell_id=sv.id
 		GROUP BY sv.id
 	) AS tbl ON tbl.id=sv.id
@@ -3100,7 +3138,7 @@ BEGIN
 		SET _date=_start_date;
 	END IF;
 	
-	DELETE FROM lpg_in_stock WHERE DATE(`day`) >= _date AND DATE(`day`) <= _current_date;
+	DELETE FROM lpg_in_stock WHERE DATE(`day`) > _date AND DATE(`day`) <= _current_date;
 	
 	SET _pre_date=NULL;
 	SELECT `day` INTO _pre_date FROM lpg_in_stock ORDER BY id DESC LIMIT 1;
@@ -3117,7 +3155,7 @@ BEGIN
 		LEFT JOIN (
 			SELECT COALESCE(SUM(i.actual_quantity),0) AS tbl_import_quantity, i.vendor_id, eo.organization_id
 			FROM lpg_import as i, employee as eo
-			WHERE DATE(i.import_date) >= _date AND DATE(i.import_date) <= _current_date
+			WHERE DATE(i.import_date) > _date AND DATE(i.import_date) <= _current_date
 				and i.created_employee_id=eo.id
 			group by i.vendor_id, eo.organization_id
 		) AS tbl_import ON tbl_import.vendor_id=vo.vendor_id and tbl_import.organization_id=vo.organization_id
@@ -3129,14 +3167,14 @@ BEGIN
 		LEFT JOIN (
 			SELECT COALESCE(SUM(f_det.quantity*k.weight),0) AS tbl_fraction_quantity, sv.vendor_id, sv.organization_id
 			FROM fraction_gas_detail AS f_det, fraction_gas AS f, shell_vendor as sv, shell AS s, shell_kind AS k
-			WHERE f_det.fraction_id=f.id AND DATE(f.created_date) >= _date AND DATE(f.created_date) <= _current_date
+			WHERE f_det.fraction_id=f.id AND DATE(f.created_date) > _date AND DATE(f.created_date) <= _current_date
 				AND f_det.shell_id=sv.id and sv.shell_id=s.id AND s.kind_id=k.id
 			group by sv.vendor_id, sv.organization_id
 		) AS tbl_fraction ON tbl_fraction.vendor_id=vo.vendor_id AND tbl_fraction.organization_id=vo.organization_id
 		LEFT JOIN (
 			SELECT COALESCE(SUM(s.gas_return),0) AS tbl_gas_return_quantity, rv.vendor_id, eo.organization_id
 			FROM gas_wholesale AS s, gas_return_vendor as rv, employee as eo
-			WHERE DATE(s.created_date) >= _date AND DATE(s.created_date) <= _current_date
+			WHERE DATE(s.created_date) > _date AND DATE(s.created_date) <= _current_date
 				and s.created_employee_id=eo.id
 			GROUP BY rv.vendor_id, eo.organization_id
 		) AS tbl_gas_return ON tbl_gas_return.vendor_id=vo.vendor_id and tbl_gas_return.organization_id=vo.organization_id
@@ -3149,7 +3187,7 @@ BEGIN
 		SET _date=_start_date;
 	END IF;
 	
-	DELETE FROM accessory_in_stock WHERE DATE(`day`) >= _date AND DATE(`day`) <= _current_date;
+	DELETE FROM accessory_in_stock WHERE DATE(`day`) > _date AND DATE(`day`) <= _current_date;
 	
 	SET _pre_date=NULL;
 	SELECT `day` INTO _pre_date FROM accessory_in_stock ORDER BY id DESC LIMIT 1;
@@ -3168,13 +3206,13 @@ BEGIN
 	LEFT JOIN (
 		SELECT i_det.accessory_id, eo.organization_id, SUM(i_det.quantity) AS in_stock
 		FROM accessory_import_detail AS i_det, accessory_import AS i, employee as eo
-		WHERE i_det.accessory_import_id=i.id AND DATE(i.created_date) >= _date AND DATE(i.created_date) <= _current_date
+		WHERE i_det.accessory_import_id=i.id AND DATE(i.created_date) > _date AND DATE(i.created_date) <= _current_date
 			and i.created_employee_id=eo.id
 		GROUP BY i_det.accessory_id, eo.organization_id
 		UNION ALL
 		SELECT i_det.accessory_id, eo.organization_id, -SUM(i_det.quantity) AS in_stock
 		FROM accessory_sale_detail AS i_det, accessory_sale AS i, employee AS eo
-		WHERE i_det.accessory_sale_id=i.id AND DATE(i.created_date) >= _date AND DATE(i.created_date) <= _current_date
+		WHERE i_det.accessory_sale_id=i.id AND DATE(i.created_date) > _date AND DATE(i.created_date) <= _current_date
 			AND i.created_employee_id=eo.id
 		GROUP BY i_det.accessory_id, eo.organization_id
 	) AS tbl ON tbl.accessory_id=s.id and tbl.organization_id=o.id
@@ -3187,7 +3225,7 @@ BEGIN
 		SET _date=_start_date;
 	END IF;
 	
-	DELETE FROM promotion_material_in_stock WHERE DATE(`day`) >= _date AND DATE(`day`) <= _current_date;
+	DELETE FROM promotion_material_in_stock WHERE DATE(`day`) > _date AND DATE(`day`) <= _current_date;
 	
 	SET _pre_date=NULL;
 	SELECT `day` INTO _pre_date FROM promotion_material_in_stock ORDER BY id DESC LIMIT 1;
@@ -3206,13 +3244,13 @@ BEGIN
 	LEFT JOIN (
 		SELECT i_det.promotion_material_id, eo.organization_id, SUM(i_det.quantity) AS in_stock
 		FROM promotion_material_import_detail AS i_det, promotion_material_import AS i, employee as eo
-		WHERE i_det.promotion_material_id=i.id AND DATE(i.created_date) >= _date AND DATE(i.created_date) <= _current_date
+		WHERE i_det.promotion_material_id=i.id AND DATE(i.created_date) > _date AND DATE(i.created_date) <= _current_date
 			and i.created_employee_id=eo.id
 		GROUP BY i_det.promotion_material_id, eo.organization_id
 		UNION ALL
 		SELECT i_det.promotion_material_id, eo.organization_id, -SUM(i_det.quantity) AS in_stock
 		FROM gas_wholesale_promotion AS i_det, gas_wholesale AS i, employee as eo
-		WHERE i_det.gas_wholesale_id=i.id AND DATE(i.created_date) >= _date AND DATE(i.created_date) <= _current_date
+		WHERE i_det.gas_wholesale_id=i.id AND DATE(i.created_date) > _date AND DATE(i.created_date) <= _current_date
 			and i.created_employee_id=eo.id
 		GROUP BY i_det.promotion_material_id, eo.organization_id
 	) AS tbl ON tbl.promotion_material_id=s.id and tbl.organization_id=o.id
@@ -3224,7 +3262,7 @@ BEGIN
 		SET _date=_start_date;
 	END IF;
 	
-	DELETE FROM petro_in_stock WHERE DATE(`day`) >= _date AND DATE(`day`) <= _current_date;
+	DELETE FROM petro_in_stock WHERE DATE(`day`) > _date AND DATE(`day`) <= _current_date;
 	
 	SET _pre_date=NULL;
 	SELECT `day` INTO _pre_date FROM petro_in_stock ORDER BY id DESC LIMIT 1;
@@ -3243,13 +3281,13 @@ BEGIN
 	LEFT JOIN (
 		SELECT i_det.petro_id, eo.organization_id, SUM(i_det.quantity) AS in_stock
 		FROM petro_import_detail AS i_det, petro_import AS i, employee as eo
-		WHERE i_det.petro_import_id=i.id AND DATE(i.created_date) >= _date AND DATE(i.created_date) <= _current_date
+		WHERE i_det.petro_import_id=i.id AND DATE(i.created_date) > _date AND DATE(i.created_date) <= _current_date
 			and i.created_employee_id=eo.id
 		GROUP BY i_det.petro_id, organization_id
 		UNION ALL
 		SELECT i_det.petro_id, eo.organization_id, -SUM(i_det.quantity) AS in_stock
 		FROM petro_sale_detail AS i_det, petro_sale AS i, employee as eo
-		WHERE i_det.petro_sale_id=i.id AND DATE(i.created_date) >= _date AND DATE(i.created_date) <= _current_date
+		WHERE i_det.petro_sale_id=i.id AND DATE(i.created_date) > _date AND DATE(i.created_date) <= _current_date
 			and i.created_employee_id=eo.id
 		GROUP BY i_det.petro_id, eo.organization_id
 	) AS tbl ON tbl.petro_id=s.id and tbl.organization_id=o.id
@@ -3262,7 +3300,7 @@ BEGIN
 		SET _date=_start_date;
 	END IF;
 	
-	DELETE FROM money_in_stock WHERE DATE(`day`) >= _date AND DATE(`day`) <= _current_date;
+	DELETE FROM money_in_stock WHERE DATE(`day`) > _date AND DATE(`day`) <= _current_date;
 	
 	SET _pre_date=NULL;
 	SELECT `day` INTO _pre_date FROM money_in_stock ORDER BY id DESC LIMIT 1;
@@ -3280,92 +3318,92 @@ BEGIN
 	LEFT JOIN (
 		SELECT a.account_id, -SUM(a.amount) AS in_stock
 		FROM employee_advance AS a
-		WHERE DATE(a.advance_date) >= _date AND DATE(a.advance_date) <= _current_date
+		WHERE DATE(a.advance_date) > _date AND DATE(a.advance_date) <= _current_date
 		GROUP BY a.account_id
 		UNION ALL
 		SELECT i.account_id, SUM(i.paid) AS in_stock
 		FROM gas_export_wholesale AS i
-		WHERE DATE(i.created_date) >= _date AND DATE(i.created_date) <= _current_date
+		WHERE DATE(i.created_date) > _date AND DATE(i.created_date) <= _current_date
 		GROUP BY i.account_id
 		UNION ALL
 		SELECT i.account_id, -SUM(i.amount) AS in_stock
 		FROM shell_import AS i
-		WHERE DATE(i.created_date) >= _date AND DATE(i.created_date) <= _current_date
+		WHERE DATE(i.created_date) > _date AND DATE(i.created_date) <= _current_date
 		GROUP BY i.account_id
 		UNION ALL
 		SELECT i.account_id, -SUM(i.paid) AS in_stock
 		FROM lpg_import AS i
-		WHERE DATE(i.import_date) >= _date AND DATE(i.import_date) <= _current_date
+		WHERE DATE(i.import_date) > _date AND DATE(i.import_date) <= _current_date
 		GROUP BY i.account_id
 		UNION ALL
 		SELECT i.account_id, -SUM(i.paid) AS in_stock
 		FROM gas_import AS i
-		WHERE DATE(i.created_date) >= _date AND DATE(i.created_date) <= _current_date
+		WHERE DATE(i.created_date) > _date AND DATE(i.created_date) <= _current_date
 		GROUP BY i.account_id
 		UNION ALL
 		SELECT i.account_id, SUM(i.paid) AS in_stock
 		FROM gas_wholesale AS i
-		WHERE DATE(i.created_date) >= _date AND DATE(i.created_date) <= _current_date
+		WHERE DATE(i.created_date) > _date AND DATE(i.created_date) <= _current_date
 		GROUP BY i.account_id
 		UNION ALL
 		SELECT i.account_id, SUM(i.paid) AS in_stock
 		FROM gas_retail AS i
-		WHERE DATE(i.created_date) >= _date AND DATE(i.created_date) <= _current_date
+		WHERE DATE(i.created_date) > _date AND DATE(i.created_date) <= _current_date
 		GROUP BY i.account_id
 		UNION ALL
 		SELECT i.account_id, SUM(i.paid) AS in_stock
 		FROM shell_sale AS i
-		WHERE DATE(i.created_date) >= _date AND DATE(i.created_date) <= _current_date
+		WHERE DATE(i.created_date) > _date AND DATE(i.created_date) <= _current_date
 		GROUP BY i.account_id
 		UNION ALL
 		SELECT i.account_id, -SUM(i.paid) AS in_stock
 		FROM accessory_import AS i
-		WHERE DATE(i.created_date) >= _date AND DATE(i.created_date) <= _current_date
+		WHERE DATE(i.created_date) > _date AND DATE(i.created_date) <= _current_date
 		GROUP BY i.account_id
 		UNION ALL
 		SELECT i.account_id, -SUM(i.paid) AS in_stock
 		FROM promotion_material_import AS i
-		WHERE DATE(i.created_date) >= _date AND DATE(i.created_date) <= _current_date
+		WHERE DATE(i.created_date) > _date AND DATE(i.created_date) <= _current_date
 		GROUP BY i.account_id
 		UNION ALL
 		SELECT i.account_id, -SUM(i.paid) AS in_stock
 		FROM petro_import AS i
-		WHERE DATE(i.created_date) >= _date AND DATE(i.created_date) <= _current_date
+		WHERE DATE(i.created_date) > _date AND DATE(i.created_date) <= _current_date
 		GROUP BY i.account_id
 		UNION ALL
 		SELECT i.account_id, SUM(i.paid) AS in_stock
 		FROM accessory_sale AS i
-		WHERE DATE(i.created_date) >= _date AND DATE(i.created_date) <= _current_date
+		WHERE DATE(i.created_date) > _date AND DATE(i.created_date) <= _current_date
 		GROUP BY i.account_id
 		UNION ALL
 		SELECT i.account_id, SUM(i.paid) AS in_stock
 		FROM petro_sale AS i
-		WHERE DATE(i.created_date) >= _date AND DATE(i.created_date) <= _current_date
+		WHERE DATE(i.created_date) > _date AND DATE(i.created_date) <= _current_date
 		GROUP BY i.account_id
 		UNION ALL
 		SELECT i.account_id, -SUM(i.paid) AS in_stock
 		FROM vendor_debt AS i
-		WHERE DATE(i.created_date) >= _date AND DATE(i.created_date) <= _current_date
+		WHERE DATE(i.created_date) > _date AND DATE(i.created_date) <= _current_date
 		GROUP BY i.account_id
 		UNION ALL
 		SELECT i.account_id, SUM(i.paid) AS in_stock
 		FROM retail_debt AS i
-		WHERE DATE(i.created_date) >= _date AND DATE(i.created_date) <= _current_date
+		WHERE DATE(i.created_date) > _date AND DATE(i.created_date) <= _current_date
 		GROUP BY i.account_id
 		UNION ALL
 		SELECT i.account_id, SUM(i.paid) AS in_stock
 		FROM wholesale_debt AS i
-		WHERE DATE(i.created_date) >= _date AND DATE(i.created_date) <= _current_date
+		WHERE DATE(i.created_date) > _date AND DATE(i.created_date) <= _current_date
 		GROUP BY i.account_id
 		UNION ALL
 		SELECT i.account_id, SUM(i.amount) AS in_stock
 		FROM income AS i
-		WHERE DATE(i.created_date) >= _date AND DATE(i.created_date) <= _current_date
+		WHERE DATE(i.created_date) > _date AND DATE(i.created_date) <= _current_date
 		GROUP BY i.account_id
 		UNION ALL
 		SELECT i.account_id, sum(amount/IF(month_count=0,1,month_count)) AS in_stock
 		FROM expense AS i
-		WHERE DATE(i.created_date) >= _date AND DATE(i.created_date) <= _current_date
+		WHERE DATE(i.created_date) > _date AND DATE(i.created_date) <= _current_date
 		GROUP BY i.account_id
 	) AS tbl ON tbl.account_id=a.id
 	GROUP BY a.id;
@@ -3377,7 +3415,7 @@ BEGIN
 		SET _date=_start_date;
 	END IF;
 	
-	DELETE FROM shield_in_stock WHERE DATE(`day`) >= _date AND DATE(`day`) <= _current_date;
+	DELETE FROM shield_in_stock WHERE DATE(`day`) > _date AND DATE(`day`) <= _current_date;
 	
 	SET _pre_date=NULL;
 	SELECT `day` INTO _pre_date FROM shield_in_stock ORDER BY id DESC LIMIT 1;
@@ -3391,19 +3429,19 @@ BEGIN
 	left join (
 		SELECT SUM(i.quantity) AS in_stock, i.vendor_id, eo.organization_id
 		FROM shield_import as i, employee as eo
-		WHERE DATE(i.created_date) >= _date AND DATE(i.created_date) <= _current_date
+		WHERE DATE(i.created_date) > _date AND DATE(i.created_date) <= _current_date
 			and i.created_employee_id=eo.id
 		group by eo.organization_id, i.vendor_id 
 		UNION ALL
 		SELECT -SUM(i.quantity) AS in_stock, i.vendor_id, eo.organization_id
 		FROM shield_decrease AS i, employee as eo
-		WHERE DATE(i.created_date) >= _date AND DATE(i.created_date) <= _current_date
+		WHERE DATE(i.created_date) > _date AND DATE(i.created_date) <= _current_date
 			AND i.created_employee_id=eo.id
 		group by eo.organization_id, i.vendor_id
 		UNION ALL
 		SELECT -SUM(f_det.quantity) AS in_stock, sv.vendor_id, sv.organization_id
 		FROM fraction_gas_detail AS f_det, fraction_gas AS f, shell_vendor as sv
-		WHERE f_det.fraction_id=f.id AND DATE(f.created_date) >= _date AND DATE(f.created_date) <= _current_date
+		WHERE f_det.fraction_id=f.id AND DATE(f.created_date) > _date AND DATE(f.created_date) <= _current_date
 			and f_det.shell_id=sv.id
 		group by sv.organization_id, sv.vendor_id
 	) AS tbl on tbl.vendor_id=vo.vendor_id and tbl.organization_id=vo.organization_id
@@ -3422,7 +3460,7 @@ BEGIN
 		SET _date=_start_date;
 	END IF;
 	
-	DELETE FROM customer_in_stock WHERE DATE(`day`) >= _date AND DATE(`day`) <= _current_date;
+	DELETE FROM customer_in_stock WHERE DATE(`day`) > _date AND DATE(`day`) <= _current_date;
 	
 	SET _pre_date=NULL;
 	SELECT `day` INTO _pre_date FROM customer_in_stock ORDER BY id DESC LIMIT 1;
@@ -3442,7 +3480,7 @@ BEGIN
 		FROM gas_wholesale AS i, gas_wholesale_detail AS idet
 		LEFT JOIN (SELECT s.id FROM shell AS s, shell_kind AS sk WHERE s.kind_id=sk.id AND sk.weight=12) AS shell_12 ON idet.shell_id=shell_12.id
 		LEFT JOIN (SELECT s.id FROM shell AS s, shell_kind AS sk WHERE s.kind_id=sk.id AND sk.weight=45) AS shell_45 ON idet.shell_id=shell_45.id
-		WHERE DATE(i.created_date) >= _date AND DATE(i.created_date) <= _current_date
+		WHERE DATE(i.created_date) > _date AND DATE(i.created_date) <= _current_date
 			and i.id=idet.gas_wholesale_id
 		GROUP BY i.customer_id
 		union all
@@ -3452,13 +3490,13 @@ BEGIN
 		FROM gas_wholesale AS i, gas_wholesale_return_shell AS idet
 		LEFT JOIN (SELECT s.id FROM shell AS s, shell_kind AS sk WHERE s.kind_id=sk.id AND sk.weight=12) AS shell_12 ON idet.shell_id=shell_12.id
 		LEFT JOIN (SELECT s.id FROM shell AS s, shell_kind AS sk WHERE s.kind_id=sk.id AND sk.weight=45) AS shell_45 ON idet.shell_id=shell_45.id
-		WHERE DATE(i.created_date) >= _date AND DATE(i.created_date) <= _current_date
+		WHERE DATE(i.created_date) > _date AND DATE(i.created_date) <= _current_date
 			AND i.id=idet.gas_wholesale_id
 		GROUP BY i.customer_id
 		union all
 		SELECT i.customer_id, 0 AS quantity_12, 0 AS quantity_45, sum(i.debt) as debt
 		FROM gas_wholesale AS i
-		WHERE DATE(i.created_date) >= _date AND DATE(i.created_date) <= _current_date
+		WHERE DATE(i.created_date) > _date AND DATE(i.created_date) <= _current_date
 		GROUP BY i.customer_id
 	) AS tbl ON tbl.customer_id=c.id
 	LEFT JOIN (
@@ -4070,11 +4108,12 @@ BEGIN
 		, 0 as shell_return_12, 0 as shell_return_12t, 0 as shell_return_45
 		, SUM(IF(shell_12.id IS NOT NULL, wdet.price,0)) AS price_12, SUM(IF(shell_12.id IS NOT NULL, 1,0)) AS price_12_count
 		, SUM(IF(shell_45.id IS NOT NULL, wdet.price,0)) AS price_45, SUM(IF(shell_45.id IS NOT NULL, 1,0)) AS price_45_count
-	FROM gas_wholesale AS w, gas_wholesale_detail as wdet
+	FROM gas_wholesale AS w, employee AS eo, gas_wholesale_detail as wdet
 	LEFT JOIN (SELECT s.id FROM shell AS s, shell_kind AS sk WHERE s.kind_id=sk.id AND sk.weight=12) AS shell_12 ON wdet.shell_id=shell_12.id
 	LEFT JOIN (SELECT s.id FROM shell AS s, shell_kind AS sk WHERE s.kind_id=sk.id AND sk.weight=45) AS shell_45 ON wdet.shell_id=shell_45.id
 	WHERE DATE(w.created_date) >= STR_TO_DATE(_start_date,'%d/%m/%Y') AND DATE(w.created_date) <= STR_TO_DATE(_end_date,'%d/%m/%Y')
-		and w.id=wdet.gas_wholesale_id and w.customer_id=_customer_id
+		and w.id=wdet.gas_wholesale_id and w.customer_id=_customer_id 
+		and w.created_employee_id=eo.id AND _organization_ids LIKE CONCAT('%,',eo.organization_id,',%')	
 	GROUP BY w.id
 	UNION ALL
 	SELECT w.id, 0 AS quantity_12, 0 AS quantity_45
@@ -4082,12 +4121,13 @@ BEGIN
 		, SUM(IF(shell_12t.id IS NOT NULL, wdet.quantity,0)) AS shell_return_12t
 		, SUM(IF(shell_45.id IS NOT NULL, wdet.quantity,0)) AS shell_return_45
 		, 0 AS price_12, 0 AS price_45, 0 as price_12_count, 0 as price_45_count
-	FROM gas_wholesale AS w, gas_wholesale_return_shell AS wdet
-	LEFT JOIN (SELECT s.id FROM shell AS s, shell_kind AS sk, vendor as v WHERE s.kind_id=sk.id AND sk.weight=12 AND s.vendor_id=v.id AND _organization_ids LIKE CONCAT('%,',v.equal_organization_id,',%')) AS shell_12 ON wdet.shell_id=shell_12.id
-	LEFT JOIN (SELECT s.id FROM shell AS s, shell_kind AS sk, vendor AS v WHERE s.kind_id=sk.id AND sk.weight=12 AND s.vendor_id=v.id AND _organization_ids not LIKE CONCAT('%,',v.equal_organization_id,',%')) AS shell_12t ON wdet.shell_id=shell_12t.id
+	FROM gas_wholesale AS w, employee AS eo, gas_wholesale_return_shell AS wdet
+	LEFT JOIN (SELECT s.id FROM shell AS s, shell_kind AS sk WHERE s.kind_id=sk.id AND sk.weight=12 and s.id in (select shell_id from organization_shell where _organization_ids LIKE CONCAT('%,',organization_id,',%'))) AS shell_12 ON wdet.shell_id=shell_12.id
+	LEFT JOIN (SELECT s.id FROM shell AS s, shell_kind AS sk WHERE s.kind_id=sk.id AND sk.weight=12 AND s.id not IN (SELECT shell_id FROM organization_shell WHERE _organization_ids LIKE CONCAT('%,',organization_id,',%'))) AS shell_12t ON wdet.shell_id=shell_12t.id
 	LEFT JOIN (SELECT s.id FROM shell AS s, shell_kind AS sk WHERE s.kind_id=sk.id AND sk.weight=45) AS shell_45 ON wdet.shell_id=shell_45.id
 	WHERE DATE(w.created_date) >= STR_TO_DATE(_start_date,'%d/%m/%Y') AND DATE(w.created_date) <= STR_TO_DATE(_end_date,'%d/%m/%Y')
 		AND w.id=wdet.gas_wholesale_id AND w.customer_id=_customer_id
+		AND w.created_employee_id=eo.id AND _organization_ids LIKE CONCAT('%,',eo.organization_id,',%')	
 	GROUP BY w.id
 	) AS tbl
 	WHERE DATE(ws.created_date) >= STR_TO_DATE(_start_date,'%d/%m/%Y') AND DATE(ws.created_date) <= STR_TO_DATE(_end_date,'%d/%m/%Y')
@@ -4546,11 +4586,11 @@ BEGIN
 		, 0 AS vehicle_out_12, 0 AS vehicle_out_45
 		, 0 AS vehicle_in_12, 0 AS vehicle_in_45
 		, SUM(IF(shell_12.id IS NOT NULL, det.quantity,0)) AS shell_12_return, SUM(IF(shell_45.id IS NOT NULL, det.quantity,0)) AS shell_45_return
-	FROM gas_wholesale AS pdet, gas_wholesale_return_shell AS det
-	LEFT JOIN (SELECT s.id FROM shell AS s, shell_kind AS sk WHERE s.kind_id=sk.id AND sk.weight=12 AND _vendor_ids LIKE CONCAT('%,',s.vendor_id,',%')) AS shell_12 ON det.shell_id=shell_12.id
-	LEFT JOIN (SELECT s.id FROM shell AS s, shell_kind AS sk WHERE s.kind_id=sk.id AND sk.weight=45 AND _vendor_ids LIKE CONCAT('%,',s.vendor_id,',%')) AS shell_45 ON det.shell_id=shell_45.id
+	FROM gas_wholesale AS pdet, employee AS eo, gas_wholesale_return_shell AS det
+	LEFT JOIN (SELECT s.id FROM shell AS s, shell_kind AS sk WHERE s.kind_id=sk.id AND sk.weight=12) AS shell_12 ON det.shell_id=shell_12.id
+	LEFT JOIN (SELECT s.id FROM shell AS s, shell_kind AS sk WHERE s.kind_id=sk.id AND sk.weight=45) AS shell_45 ON det.shell_id=shell_45.id
 	WHERE DATE(pdet.created_date) >= STR_TO_DATE(_start_date,'%d/%m/%Y') AND DATE(pdet.created_date) <= STR_TO_DATE(_end_date,'%d/%m/%Y')
-		AND det.gas_wholesale_id=pdet.id
+		AND det.gas_wholesale_id=pdet.id and pdet.created_employee_id=eo.id AND _organization_ids LIKE CONCAT('%,',eo.organization_id,',%')
 	GROUP BY pdet.created_date, det.shell_id
 	)
 	AS tbl

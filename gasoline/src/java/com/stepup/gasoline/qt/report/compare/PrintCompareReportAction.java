@@ -52,6 +52,7 @@ public class PrintCompareReportAction extends BaseAction {
             beans.put("qtrp_shell12Debt", outBean.getOpening12Stock());
             beans.put("qtrp_shell45Debt", outBean.getOpening45Stock());
             beans.put("qtrp_amountDebt", outBean.getOpeningAmountStock());
+            beans.put("qtrp_customerPermission", outBean.getCustomerPermission());
             String templateFileName = request.getSession().getServletContext().getRealPath("/templates/doi_chieu.xls");
             beans.put("qtrp_fromDate", fromDate);
             beans.put("qtrp_toDate", toDate);
