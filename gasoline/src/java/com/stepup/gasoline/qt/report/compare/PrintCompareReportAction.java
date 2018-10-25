@@ -27,11 +27,11 @@ import org.apache.struts.action.ActionMapping;
  * @author phuongtu
  */
 public class PrintCompareReportAction extends BaseAction {
-
+    
     @Override
     public boolean doAction(ActionMapping mapping, ActionForm form,
             HttpServletRequest request, HttpServletResponse response) {
-
+        
         try {
             Map beans = new HashMap();
             ExcelExport exporter = new ExcelExport();
@@ -52,7 +52,7 @@ public class PrintCompareReportAction extends BaseAction {
             beans.put("qtrp_shell12Debt", outBean.getOpening12Stock());
             beans.put("qtrp_shell45Debt", outBean.getOpening45Stock());
             beans.put("qtrp_amountDebt", outBean.getOpeningAmountStock());
-            beans.put("qtrp_customerPermission", outBean.getCustomerPermission());
+            beans.put("qtrp_discount", outBean.getDiscount());
             String templateFileName = request.getSession().getServletContext().getRealPath("/templates/doi_chieu.xls");
             beans.put("qtrp_fromDate", fromDate);
             beans.put("qtrp_toDate", toDate);
@@ -65,15 +65,15 @@ public class PrintCompareReportAction extends BaseAction {
         } catch (Exception ex) {
             LogUtil.error("FAILED:PrintReportAction:print-" + ex.getMessage());
         }
-
+        
         return true;
     }
-
+    
     @Override
     protected boolean isReturnStream() {
         return true;
     }
-
+    
     private ArrayList printCompareReport(String fromDate, String toDate, int customerId, String organizationIds, CompareReportOutBean outBean) {
         ArrayList list = null;
         try {
@@ -91,6 +91,7 @@ public class PrintCompareReportAction extends BaseAction {
                 outBean.setCustomerAddress(customerBean.getAddress());
                 outBean.setCustomerName(customerBean.getName());
                 outBean.setCustomerTax(customerBean.getTax());
+                outBean.setDiscount("," + customerBean.getDiscount() + ",");
             }
             ReportDAO reportDAO = new ReportDAO();
             list = reportDAO.getCompareReport(fromDate, toDate, organizationIds, customerId, outBean);

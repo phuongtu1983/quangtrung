@@ -162,7 +162,7 @@ public class CustomerDAO extends BasicDAO {
         ResultSet rs = null;
         String sql = "select id, status, organization_id, kind, coalesce(code,'') as code, coalesce(name,'') as name, coalesce(address,'') as address"
                 + ", coalesce(phone,'') as phone, coalesce(bank_account,'') as bank_account, coalesce(tax,'') as tax, coalesce(presenter,'') as presenter"
-                + ", coalesce(presenter_position,'') as presenter_position"
+                + ", coalesce(presenter_position,'') as presenter_position, coalesce(discount,'') as discount"
                 + " from customer where id=" + customerId;
         try {
             rs = DBUtil.executeQuery(sql);
@@ -179,6 +179,7 @@ public class CustomerDAO extends BasicDAO {
                 customer.setTax(rs.getString("tax"));
                 customer.setPresenter(rs.getString("presenter"));
                 customer.setPresenterPosition(rs.getString("presenter_position"));
+                customer.setDiscount(rs.getString("discount"));
                 if (customer.getStatus() == EmployeeBean.STATUS_ACTIVE) {
                     customer.setStatusName(QTUtil.getBundleString("employee.detail.status.active"));
                 } else if (customer.getStatus() == EmployeeBean.STATUS_INACTIVE) {
@@ -223,6 +224,7 @@ public class CustomerDAO extends BasicDAO {
                 customer.setTax(rs.getString("tax"));
                 customer.setPresenter(rs.getString("presenter"));
                 customer.setPresenterPosition(rs.getString("presenter_position"));
+                customer.setDiscount(rs.getString("discount"));
                 return customer;
             }
         } catch (SQLException sqle) {
@@ -243,10 +245,10 @@ public class CustomerDAO extends BasicDAO {
         }
         try {
             String sql = "";
-            sql = "Insert Into customer (name, code, organization_id, status, kind, phone, bank_account, tax, presenter, presenter_position, address)"
+            sql = "Insert Into customer (name, code, organization_id, status, kind, phone, bank_account, tax, presenter, presenter_position, address, discount)"
                     + " Values ('" + bean.getName() + "','" + bean.getCode() + "'," + bean.getOrganizationId() + "," + bean.getStatus() + "," + bean.getKind()
                     + ",'" + bean.getPhone() + "','" + bean.getBankAccount() + "','" + bean.getTax() + "','" + bean.getPresenter()
-                    + "','" + bean.getPresenterPosition() + "','" + bean.getAddress() + "')";
+                    + "','" + bean.getPresenterPosition() + "','" + bean.getAddress() + "','" + bean.getDiscount() + "')";
             return DBUtil.executeInsert(sql);
         } catch (SQLException sqle) {
             throw new Exception(sqle.getMessage());
@@ -278,6 +280,7 @@ public class CustomerDAO extends BasicDAO {
                     + ", tax='" + bean.getTax() + "'"
                     + ", presenter='" + bean.getPresenter() + "'"
                     + ", presenter_position='" + bean.getPresenterPosition() + "'"
+                    + ", discount='" + bean.getDiscount()+ "'"
                     + " Where id=" + bean.getId();
             DBUtil.executeUpdate(sql);
         } catch (SQLException sqle) {
@@ -511,7 +514,6 @@ public class CustomerDAO extends BasicDAO {
         }
     }
 
-    
     public ArrayList getDiscounts() throws Exception {
         ResultSet rs = null;
         String sql = "select * from discount where 1";

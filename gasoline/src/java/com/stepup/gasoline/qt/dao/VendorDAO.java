@@ -104,7 +104,7 @@ public class VendorDAO extends BasicDAO {
         }
         return vendorList;
     }
-    
+
     public ArrayList getVendorHasStocks(String organizationIds) throws Exception {
         ResultSet rs = null;
         String sql = "select v.*, o.name as organization_name from vendor_organization AS vo, vendor as v, organization as o"
@@ -437,5 +437,38 @@ public class VendorDAO extends BasicDAO {
             }
         }
         return result + "0";
+    }
+
+    public VendorFormBean getVendorEqualOrganization(String organizationIds) throws Exception {
+        ResultSet rs = null;
+        String sql = "select * from vendor where equal_organization_id in(" + organizationIds + ")";
+        try {
+            rs = DBUtil.executeQuery(sql);
+            while (rs.next()) {
+                VendorFormBean vendor = new VendorFormBean();
+                vendor.setId(rs.getInt("id"));
+                vendor.setCode(rs.getString("code"));
+                vendor.setName(rs.getString("name"));
+                vendor.setStatus(rs.getInt("status"));
+                vendor.setOrganizationId(rs.getInt("organization_id"));
+                vendor.setEqualOrganizationId(rs.getInt("equal_organization_id"));
+                vendor.setHasStock(rs.getInt("has_stock") == 1 ? true : false);
+                if (vendor.getStatus() == EmployeeBean.STATUS_ACTIVE) {
+                    vendor.setStatusName(QTUtil.getBundleString("employee.detail.status.active"));
+                } else if (vendor.getStatus() == EmployeeBean.STATUS_INACTIVE) {
+                    vendor.setStatusName(QTUtil.getBundleString("employee.detail.status.inactive"));
+                }
+                return vendor;
+            }
+        } catch (SQLException sqle) {
+            throw new Exception(sqle.getMessage());
+        } catch (Exception ex) {
+            throw new Exception(ex.getMessage());
+        } finally {
+            if (rs != null) {
+                DBUtil.closeConnection(rs);
+            }
+        }
+        return null;
     }
 }

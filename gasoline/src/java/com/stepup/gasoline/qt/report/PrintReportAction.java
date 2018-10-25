@@ -11,6 +11,7 @@ import com.stepup.gasoline.qt.core.ExcelExport;
 import com.stepup.gasoline.qt.dao.ReportDAO;
 import com.stepup.gasoline.qt.dao.VendorDAO;
 import com.stepup.gasoline.qt.util.QTUtil;
+import com.stepup.gasoline.qt.vendor.VendorFormBean;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
@@ -139,9 +140,9 @@ public class PrintReportAction extends BaseAction {
         ArrayList list = null;
         try {
             VendorDAO vendorDAO = new VendorDAO();
-            String vendorIds = vendorDAO.getVendorOfOrganizations(organizationIds);
+            VendorFormBean vendor = vendorDAO.getVendorEqualOrganization(organizationIds);
             ReportDAO reportDAO = new ReportDAO();
-            list = reportDAO.getSaleReport(fromDate, toDate, organizationIds, vendorIds);
+            list = reportDAO.getSaleReport(fromDate, toDate, organizationIds, "," + vendor.getId() + ",");
         } catch (Exception ex) {
         }
         return list;

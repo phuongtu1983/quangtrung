@@ -22,6 +22,7 @@ public class CustomerBean {
     private String tax;
     private String presenter;
     private String presenterPosition;
+    private String discount;
 
     public int getId() {
         return id;
@@ -117,6 +118,14 @@ public class CustomerBean {
 
     public void setAddress(String address) {
         this.address = address;
+    }
+
+    public String getDiscount() {
+        return discount;
+    }
+
+    public void setDiscount(String discount) {
+        this.discount = discount;
     }
 
     public static int KIND_RETAIL = 1;

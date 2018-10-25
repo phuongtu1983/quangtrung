@@ -44,19 +44,21 @@
                         </tr>
                         <tr>
                             <td height="30" style="padding-right: 20px"><bean:message key="customer.detail.bankAccount"/></td>
-                            <td colspan="3"><html:text property="bankAccount" size="90" name="<%=Constants.CUSTOMER%>"/></td>
+                            <td colspan="3"><html:text property="bankAccount" size="107" name="<%=Constants.CUSTOMER%>"/></td>
                         </tr>
                         <tr>
                             <td height="30" style="padding-right: 20px"><bean:message key="customer.detail.address"/></td>
-                            <td colspan="3"><html:text property="address" size="90" name="<%=Constants.CUSTOMER%>"/></td>
+                            <td colspan="3"><html:text property="address" size="107" name="<%=Constants.CUSTOMER%>"/></td>
                         </tr>
                         <tr>
                             <td height="30" style="padding-right: 20px"><bean:message key="customer.detail.kind"/></td>
-                            <td colspan="3">
+                            <td>
                                 <html:select property="kind" name="<%=Constants.CUSTOMER%>" style="width:255px">
                                     <html:options collection="<%=Constants.CUSTOMER_KIND_LIST%>" property="value" labelProperty="label"/>
                                 </html:select>
                             </td>
+                            <td height="30" style="padding-left: 10px; padding-right: 20px"><bean:message key="customerDiscount.title"/></td>
+                            <td><html:text property="discount" size="40" name="<%=Constants.CUSTOMER%>"/></td>
                         </tr>
                         <tr>
                             <td height="30" style="padding-right: 20px" colspan="4">
