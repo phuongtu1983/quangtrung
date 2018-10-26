@@ -31,7 +31,7 @@ function menuClick(id) {
     else if (id == 'organizationlist')
         loadOrganizationPanel();
     else if (id == 'organizationadd')
-        getOrganization(0, 'loadOrganizationPanel');
+        getOrganization(0);
     else if (id == 'storelist')
         loadStorePanel();
     else if (id == 'storeadd')
@@ -787,6 +787,7 @@ function loadOrganizationPanel() {
         setAjaxData(data, "contentDiv");
         loadOrganizationList();
     });
+    return false;
 }
 function loadOrganizationList() {
     var mygrid = new dhtmlXGridObject('organizationList');
@@ -813,17 +814,85 @@ function loadOrganizationList() {
     });
     return false;
 }
-function getOrganization(id, handle) {
-    popupName = 'TH\u00D4NG TIN \u0110\u01A0N V\u1ECA';
+function getOrganization(id) {
     var url = 'organizationForm.do';
     if (id != 0)
         url += '?organizationId=' + id
     callAjax(url, null, null, function(data) {
-        showPopupForm(data);
-        document.getElementById('callbackFunc').value = handle;
+        clearContent();
+        setAjaxData(data, 'contentDiv');
         document.forms['organizationForm'].code.focus();
+
+        if (id != 0) {
+            window.dhx_globalImgPath = "js/dhtmlx/combo/imgs/";
+            var shellIdCombobox = dhtmlXComboFromSelect("shellIdCombobox");
+            shellIdCombobox.enableFilteringMode(true);
+            shellIdCombobox.attachEvent("onSelectionChange", function() {
+                setShellSelectedForm('organizationForm', shellIdCombobox.getComboText(), shellIdCombobox.getSelectedValue());
+            });
+            shellIdCombobox.attachEvent("onBlur", function() {
+                setShellSelectedForm('organizationForm', shellIdCombobox.getComboText(), shellIdCombobox.getSelectedValue());
+            });
+            shellIdCombobox.DOMelem_input.onkeypress = function(event) {
+                var key;
+                if (window.event)
+                    key = window.event.keyCode;//IE
+                else
+                    key = event.which;//firefox
+                if (key == 13) {
+                    addOrganizationShell();
+                    shellIdCombobox.setComboValue("");
+                }
+            }
+            shellIdCombobox.DOMelem_input.onfocus = function(event) {
+                if (isManuallySeleted == 1) {
+                    shellIdCombobox.openSelect();
+                    isManuallySeleted = 0;
+                }
+            }
+            shellIdCombobox.setComboValue("");
+        }
     });
 }
+function addOrganizationShell() {
+    var shell = document.forms['organizationForm'].shellSelectedHidden.value;
+    if (shell == -1 || shell == 0)
+        return false;
+    var shellId = document.forms['organizationForm'].shellId;
+    var existed = false;
+    if (shellId != null) {
+        if (shellId.length != null) {
+            for (i = 0; i < shellId.length; i++) {
+                if (shellId[i].value == shell) {
+                    existed = true;
+                    break;
+                }
+            }
+        } else if (shellId.value == shell)
+            existed = true;
+    }
+    shellId = null;
+    if (existed == true) {
+        alert("H\u00E0ng ho\u00E1 \u0111\u00E3 t\u1ED3n t\u1EA1i");
+        return false;
+    }
+    callAjax("getOrganizationShell.do?shellId=" + shell, null, null, function(data) {
+        setAjaxData(data, 'organizationShellHideDiv');
+        var matTable = document.getElementById('organizationShellTbl');
+        var detTable = document.getElementById('organizationShellDetailTbl');
+        if (matTable.tBodies[0] == null || detTable.tBodies[0] == null) {
+            matTable = null;
+            detTable = null;
+            return;
+        }
+        for (var i = matTable.tBodies[0].rows.length - 1; i >= 0; i--)
+            detTable.tBodies[0].appendChild(matTable.tBodies[0].rows[i]);
+        matTable = null;
+        detTable = null;
+    });
+    return false;
+}
+
 function saveOrganization() {
     if (scriptFunction == "saveOrganization")
         return false;
@@ -845,12 +914,10 @@ function saveOrganization() {
     scriptFunction = "saveOrganization";
     callAjaxCheckError("addOrganization.do", null, document.forms['organizationForm'], function(data) {
         scriptFunction = "";
-        var handle = document.getElementById('callbackFunc').value;
         if (confirm('B\u1EA1n c\u00F3 mu\u1ED1n nh\u1EADp ti\u1EBFp th\u00F4ng tin kh\u00E1c ?'))
-            getOrganization(0, handle);
-        else if (handle != '')
-            eval(handle + "()");
-        prepareHidePopup('organizationFormshowHelpHideDiv');
+            getOrganization(0);
+        else
+            loadOrganizationPanel();
     });
     return false;
 }

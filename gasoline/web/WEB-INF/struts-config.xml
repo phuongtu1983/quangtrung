@@ -154,6 +154,9 @@
         </action>
         <action path="/addOrganization" name ="organizationForm" scope="request" type="com.stepup.gasoline.qt.organization.AddOrganizationAction" input="/organizationForm.do">
         </action>
+        <action path="/getOrganizationShell" type="com.stepup.gasoline.qt.organization.GetOrganizationShellAction" scope="request" validate="false">
+            <forward name="success" path="/organization/shells.jsp" />
+        </action>
         <!-- end organization -->
         <!-- start store -->
         <action path="/getStorePanel" type="com.stepup.gasoline.qt.common.BaseStatusFormAction" scope="request" validate="false">

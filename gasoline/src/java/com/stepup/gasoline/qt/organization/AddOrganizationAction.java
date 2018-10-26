@@ -4,10 +4,13 @@
  */
 package com.stepup.gasoline.qt.organization;
 
+import com.stepup.core.util.NumberUtil;
 import com.stepup.gasoline.qt.bean.DynamicFieldBean;
 import com.stepup.gasoline.qt.bean.OrganizationBean;
+import com.stepup.gasoline.qt.bean.OrganizationShellDetailBean;
 import com.stepup.gasoline.qt.core.AddDynamicFieldFreeValueAction;
 import com.stepup.gasoline.qt.dao.OrganizationDAO;
+import java.util.ArrayList;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import org.apache.struts.action.ActionForm;
@@ -126,10 +129,54 @@ public class AddOrganizationAction extends AddDynamicFieldFreeValueAction {
                     organizationDAO.updateOrganization(bean);
                 }
             }
+            addOrganizationShell(formBean);
         } catch (Exception ex) {
             ex.printStackTrace();
         }
         return true;
+    }
+    
+    private void addOrganizationShell(OrganizationFormBean formBean) {
+        try {
+            OrganizationDAO organizationDAO = new OrganizationDAO();
+            ArrayList arrDetail = organizationDAO.getOrganizationShellDetail(formBean.getId());
+            if (formBean.getShellId() != null) {
+                int length = formBean.getShellId().length;
+                int id = 0;
+                boolean isUpdate = false;
+                for (int i = 0; i < length; i++) {
+                    id = NumberUtil.parseInt(formBean.getOrganizationShellDetailId()[i], 0);
+                    if (id == 0) {
+                        OrganizationShellDetailBean bean = new OrganizationShellDetailBean();
+                        bean.setShellId(NumberUtil.parseInt(formBean.getShellId()[i], 0));
+                        bean.setOrganizationId(formBean.getId());
+                        organizationDAO.insertOrganizationShellDetail(bean);
+                    } else {
+                        isUpdate = false;
+                        int j = 0;
+                        OrganizationShellDetailBean oldBean = null;
+                        for (; j < arrDetail.size(); j++) {
+                            oldBean = (OrganizationShellDetailBean) arrDetail.get(j);
+                            if (oldBean.getId() == id) {
+                                break;
+                            }
+                        }
+                        if (j < arrDetail.size()) {
+                            arrDetail.remove(j);
+                        }
+                    }
+                }
+            }
+            String ids = "0,";
+            OrganizationShellDetailBean oldBean = null;
+            for (int i = 0; i < arrDetail.size(); i++) {
+                oldBean = (OrganizationShellDetailBean) arrDetail.get(i);
+                ids += oldBean.getId() + ",";
+            }
+            ids += "0";
+            organizationDAO.deleteOrganizationShellDetails(ids);
+        } catch (Exception ex) {
+        }
     }
 
     @Override

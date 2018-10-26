@@ -5,9 +5,11 @@
 package com.stepup.gasoline.qt.dao;
 
 import com.stepup.core.database.DBUtil;
+import com.stepup.core.database.SPUtil;
 import com.stepup.core.util.StringUtil;
 import com.stepup.gasoline.qt.bean.EmployeeBean;
 import com.stepup.gasoline.qt.bean.OrganizationBean;
+import com.stepup.gasoline.qt.bean.OrganizationShellDetailBean;
 import com.stepup.gasoline.qt.bean.OrganizationTimesheetFieldBean;
 import com.stepup.gasoline.qt.bean.StoreBean;
 import com.stepup.gasoline.qt.dynamicfield.DynamicFieldValueFormBean;
@@ -136,7 +138,7 @@ public class OrganizationDAO extends BasicDAO {
 
     public OrganizationBean getOrganization(String organizationIds) throws Exception {
         ResultSet rs = null;
-        String sql = "select * from organization where id in(" + organizationIds + ") and status=" + EmployeeBean.STATUS_ACTIVE +" limit 1";
+        String sql = "select * from organization where id in(" + organizationIds + ") and status=" + EmployeeBean.STATUS_ACTIVE + " limit 1";
         try {
             rs = DBUtil.executeQuery(sql);
             while (rs.next()) {
@@ -301,6 +303,79 @@ public class OrganizationDAO extends BasicDAO {
                 throw new Exception(e.getMessage());
             }
         }
+    }
+
+    public ArrayList getOrganizationShellDetail(int organizationId) throws Exception {
+        ResultSet rs = null;
+        String sql = "select det.*, s.name as shell_name"
+                + " from organization_shell as det, shell as s"
+                + " where det.shell_id=s.id and det.organization_id=" + organizationId
+                + " order by det.id";
+        ArrayList detailList = new ArrayList();
+        try {
+            rs = DBUtil.executeQuery(sql);
+            OrganizationShellDetailBean bean = null;
+            while (rs.next()) {
+                bean = new OrganizationShellDetailBean();
+                bean.setId(rs.getInt("id"));
+                bean.setOrganizationId(rs.getInt("organization_id"));
+                bean.setShellId(rs.getInt("shell_id"));
+                bean.setShellName(rs.getString("shell_name"));
+                detailList.add(bean);
+            }
+        } catch (SQLException sqle) {
+            throw new Exception(sqle.getMessage());
+        } catch (Exception ex) {
+            throw new Exception(ex.getMessage());
+        } finally {
+            if (rs != null) {
+                DBUtil.closeConnection(rs);
+            }
+        }
+        return detailList;
+    }
+
+    public int insertOrganizationShellDetail(OrganizationShellDetailBean bean) throws Exception {
+        if (bean == null) {
+            return 0;
+        }
+        int result = 0;
+        SPUtil spUtil = null;
+        try {
+            String sql = "{call insertOrganizationShellDetail(?,?)}";
+            spUtil = new SPUtil(sql);
+            if (spUtil != null) {
+                spUtil.getCallableStatement().setInt("_organization_id", bean.getOrganizationId());
+                spUtil.getCallableStatement().setInt("_shell_id", bean.getShellId());
+                spUtil.execute();
+            }
+        } catch (SQLException sqle) {
+            throw new Exception(sqle.getMessage());
+        } catch (Exception ex) {
+            throw new Exception(ex.getMessage());
+        } finally {
+            try {
+                if (spUtil != null) {
+                    spUtil.closeConnection();
+                }
+            } catch (Exception e) {
+                throw new Exception(e.getMessage());
+            }
+        }
+        return result;
+    }
+
+    public int deleteOrganizationShellDetails(String ids) throws Exception {
+        int result = 0;
+        try {
+            String sql = "Delete From organization_shell Where id in (" + ids + ")";
+            DBUtil.executeUpdate(sql);
+        } catch (SQLException sqle) {
+            throw new Exception(sqle.getMessage());
+        } catch (Exception ex) {
+            throw new Exception(ex.getMessage());
+        }
+        return result;
     }
 
     public ArrayList getStores(int status, String organizationIds) throws Exception {

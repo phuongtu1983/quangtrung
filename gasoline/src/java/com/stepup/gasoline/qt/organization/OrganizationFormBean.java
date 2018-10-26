@@ -25,6 +25,9 @@ public class OrganizationFormBean extends DynamicFieldValueParentFormBean {
     private String presenter;
     private String presenterPosition;
 
+    private String[] organizationShellDetailId;
+    private String[] shellId;
+
     public OrganizationFormBean() {
     }
 
@@ -128,6 +131,22 @@ public class OrganizationFormBean extends DynamicFieldValueParentFormBean {
 
     public void setPresenterPosition(String presenterPosition) {
         this.presenterPosition = presenterPosition;
+    }
+
+    public String[] getOrganizationShellDetailId() {
+        return organizationShellDetailId;
+    }
+
+    public void setOrganizationShellDetailId(String[] organizationShellDetailId) {
+        this.organizationShellDetailId = organizationShellDetailId;
+    }
+
+    public String[] getShellId() {
+        return shellId;
+    }
+
+    public void setShellId(String[] shellId) {
+        this.shellId = shellId;
     }
 
 }

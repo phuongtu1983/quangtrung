@@ -8,7 +8,9 @@ import com.stepup.gasoline.qt.bean.DynamicFieldBean;
 import com.stepup.gasoline.qt.bean.EmployeeBean;
 import com.stepup.gasoline.qt.bean.OrganizationBean;
 import com.stepup.gasoline.qt.core.DynamicFieldFreeValueAction;
+import com.stepup.gasoline.qt.dao.GoodDAO;
 import com.stepup.gasoline.qt.dao.OrganizationDAO;
+import com.stepup.gasoline.qt.dao.VendorDAO;
 import com.stepup.gasoline.qt.util.Constants;
 import com.stepup.gasoline.qt.util.QTUtil;
 import java.util.ArrayList;
@@ -40,10 +42,13 @@ public class OrganizationFormAction extends DynamicFieldFreeValueAction {
             HttpServletRequest request, HttpServletResponse response) {
         OrganizationBean bean = null;
         String organizationId = request.getParameter("organizationId");
+        ArrayList arrShellDetail = null;
         if (!GenericValidator.isBlankOrNull(organizationId)) {
             OrganizationDAO organizationDAO = new OrganizationDAO();
             try {
-                bean = organizationDAO.getOrganization(Integer.parseInt(organizationId));
+                int id = Integer.parseInt(organizationId);
+                bean = organizationDAO.getOrganization(id);
+                arrShellDetail = organizationDAO.getOrganizationShellDetail(id);
             } catch (Exception ex) {
             }
         }
@@ -63,7 +68,23 @@ public class OrganizationFormAction extends DynamicFieldFreeValueAction {
         value.setValue(EmployeeBean.STATUS_INACTIVE + "");
         arrStatus.add(value);
         request.setAttribute(Constants.STATUS_LIST, arrStatus);
-        
+
+        if (arrShellDetail == null) {
+            arrShellDetail = new ArrayList();
+        }
+        request.setAttribute(Constants.ORGANIZATION_SHELL, arrShellDetail);
+
+        ArrayList arrShell = null;
+        try {
+            GoodDAO goodDAO = new GoodDAO();
+            arrShell = goodDAO.getShells(EmployeeBean.STATUS_ACTIVE);
+        } catch (Exception ex) {
+        }
+        if (arrShell == null) {
+            arrShell = new ArrayList();
+        }
+        request.setAttribute(Constants.SHELL_LIST, arrShell);
+
         super.setParentId(bean.getId());
         return true;
     }
