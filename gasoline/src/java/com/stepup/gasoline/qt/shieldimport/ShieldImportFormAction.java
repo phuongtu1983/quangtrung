@@ -6,6 +6,7 @@ package com.stepup.gasoline.qt.shieldimport;
 
 import com.stepup.core.util.DateUtil;
 import com.stepup.gasoline.qt.bean.ShieldImportBean;
+import com.stepup.gasoline.qt.bean.VendorBean;
 import com.stepup.gasoline.qt.core.SpineAction;
 import com.stepup.gasoline.qt.dao.GoodDAO;
 import com.stepup.gasoline.qt.dao.VendorDAO;
@@ -58,12 +59,12 @@ public class ShieldImportFormAction extends SpineAction {
             }
         }
         request.setAttribute(Constants.SHIELD_IMPORT, bean);
-        
+
         String organizationIds = QTUtil.getOrganizationManageds(request.getSession());
         ArrayList arrVendor = null;
         try {
             VendorDAO vendorDAO = new VendorDAO();
-            arrVendor = vendorDAO.getVendors(organizationIds);
+            arrVendor = vendorDAO.getVendors(organizationIds, VendorBean.IS_GAS);
         } catch (Exception ex) {
         }
         if (arrVendor == null) {

@@ -7,6 +7,7 @@ package com.stepup.gasoline.qt.promotionmaterialimport;
 import com.stepup.core.util.DateUtil;
 import com.stepup.gasoline.qt.bean.PromotionMaterialImportBean;
 import com.stepup.gasoline.qt.bean.EmployeeBean;
+import com.stepup.gasoline.qt.bean.VendorBean;
 import com.stepup.gasoline.qt.core.SpineAction;
 import com.stepup.gasoline.qt.dao.AccountDAO;
 import com.stepup.gasoline.qt.dao.GoodDAO;
@@ -28,6 +29,7 @@ public class PromotionMaterialImportFormAction extends SpineAction {
 
     /**
      * This is the action called from the Struts framework.
+     *
      * @param mapping The ActionMapping used to select this instance.
      * @param form The optional ActionForm bean for this request.
      * @param request The HTTP Request we are processing.
@@ -98,14 +100,14 @@ public class PromotionMaterialImportFormAction extends SpineAction {
         ArrayList arrVendor = null;
         try {
             VendorDAO vendorDAO = new VendorDAO();
-            arrVendor = vendorDAO.getVendors(organizationIds);
+            arrVendor = vendorDAO.getVendors(organizationIds, VendorBean.IS_GOOD);
         } catch (Exception ex) {
         }
         if (arrVendor == null) {
             arrVendor = new ArrayList();
         }
         request.setAttribute(Constants.VENDOR_LIST, arrVendor);
-        
+
         return true;
     }
 }

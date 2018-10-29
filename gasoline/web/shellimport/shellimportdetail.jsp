@@ -46,7 +46,7 @@
                         </tr>
                         <tr>
                             <td height="30" style="padding-right: 20px"><bean:message key="note.title"/></td>
-                            <td colspan="3"><html:text property="note" size="106" name="<%=Constants.SHELL_IMPORT%>" /></td>
+                            <td colspan="3"><html:text property="note" size="113" name="<%=Constants.SHELL_IMPORT%>" /></td>
                         </tr>
                     </table>
                 </td></tr>

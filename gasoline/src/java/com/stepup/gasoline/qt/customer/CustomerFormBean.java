@@ -32,6 +32,9 @@ public class CustomerFormBean extends DynamicFieldValueParentFormBean {
     private String[] customerDocumentId;
     private String[] documentId;
     private String[] customerDocumentExpiredDate;
+    private boolean isGas;
+    private boolean isPetro;
+    private boolean isGood;
 
     public CustomerFormBean() {
     }
@@ -50,6 +53,9 @@ public class CustomerFormBean extends DynamicFieldValueParentFormBean {
         this.presenter = bean.getPresenter();
         this.presenterPosition = bean.getPresenterPosition();
         this.discount = bean.getDiscount();
+        this.isGas = bean.getIsGas() == 1 ? true : false;
+        this.isPetro = bean.getIsPetro() == 1 ? true : false;
+        this.isGood = bean.getIsGood() == 1 ? true : false;
     }
 
     public int getId() {
@@ -204,4 +210,27 @@ public class CustomerFormBean extends DynamicFieldValueParentFormBean {
         this.discount = discount;
     }
 
+    public boolean getIsGas() {
+        return isGas;
+    }
+
+    public void setIsGas(boolean isGas) {
+        this.isGas = isGas;
+    }
+
+    public boolean getIsPetro() {
+        return isPetro;
+    }
+
+    public void setIsPetro(boolean isPetro) {
+        this.isPetro = isPetro;
+    }
+
+    public boolean getIsGood() {
+        return isGood;
+    }
+
+    public void setIsGood(boolean isGood) {
+        this.isGood = isGood;
+    }
 }

@@ -89,6 +89,15 @@ public class AddVendorAction extends AddDynamicFieldValueAction {
                 if (formBean.getHasStock() != oldBean.getHasStock()) {
                     isUpdate = true;
                 }
+                if (formBean.getIsGas() != oldBean.getIsGas()) {
+                    isUpdate = true;
+                }
+                if (formBean.getIsPetro() != oldBean.getIsPetro()) {
+                    isUpdate = true;
+                }
+                if (formBean.getIsGood() != oldBean.getIsGood()) {
+                    isUpdate = true;
+                }
             }
         } catch (Exception ex) {
         }
@@ -100,6 +109,9 @@ public class AddVendorAction extends AddDynamicFieldValueAction {
         bean.setOrganizationId(formBean.getOrganizationId());
         bean.setEqualOrganizationId(formBean.getEqualOrganizationId());
         bean.setHasStock(formBean.getHasStock() == true ? 1 : 0);
+        bean.setIsGas(formBean.getIsGas() == true ? 1 : 0);
+        bean.setIsPetro(formBean.getIsPetro() == true ? 1 : 0);
+        bean.setIsGood(formBean.getIsGood() == true ? 1 : 0);
         try {
             if (bNew) {
                 vendorId = vendorDAO.insertVendor(bean);

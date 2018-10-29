@@ -7,6 +7,7 @@ package com.stepup.gasoline.qt.shellimport;
 import com.stepup.core.util.DateUtil;
 import com.stepup.gasoline.qt.bean.EmployeeBean;
 import com.stepup.gasoline.qt.bean.ShellImportBean;
+import com.stepup.gasoline.qt.bean.VendorBean;
 import com.stepup.gasoline.qt.core.SpineAction;
 import com.stepup.gasoline.qt.dao.AccountDAO;
 import com.stepup.gasoline.qt.dao.GoodDAO;
@@ -82,12 +83,12 @@ public class ShellImportFormAction extends SpineAction {
             arrAccount = new ArrayList();
         }
         request.setAttribute(Constants.ACCOUNT_LIST, arrAccount);
-        
+
         ArrayList arrVendor = null;
         try {
             String organizationIds = QTUtil.getOrganizationManageds(request.getSession());
             VendorDAO vendorDAO = new VendorDAO();
-            arrVendor = vendorDAO.getVendorHasStocks(organizationIds);
+            arrVendor = vendorDAO.getVendorHasStocks(organizationIds, VendorBean.IS_GAS);
         } catch (Exception ex) {
         }
         if (arrVendor == null) {

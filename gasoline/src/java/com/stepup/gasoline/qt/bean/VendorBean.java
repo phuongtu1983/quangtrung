@@ -17,6 +17,9 @@ public class VendorBean {
     private int organizationId;
     private int equalOrganizationId;
     private int hasStock;
+    private int isGas;
+    private int isPetro;
+    private int isGood;
 
     public int getId() {
         return id;
@@ -74,4 +77,31 @@ public class VendorBean {
         this.hasStock = hasStock;
     }
 
+    public int getIsGas() {
+        return isGas;
+    }
+
+    public void setIsGas(int isGas) {
+        this.isGas = isGas;
+    }
+
+    public int getIsPetro() {
+        return isPetro;
+    }
+
+    public void setIsPetro(int isPetro) {
+        this.isPetro = isPetro;
+    }
+
+    public int getIsGood() {
+        return isGood;
+    }
+
+    public void setIsGood(int isGood) {
+        this.isGood = isGood;
+    }
+
+    public static final int IS_GAS = 1;
+    public static final int IS_PETRO = 2;
+    public static final int IS_GOOD = 3;
 }

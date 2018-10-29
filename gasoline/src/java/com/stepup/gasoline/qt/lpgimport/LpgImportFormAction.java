@@ -6,6 +6,7 @@ package com.stepup.gasoline.qt.lpgimport;
 
 import com.stepup.core.util.DateUtil;
 import com.stepup.gasoline.qt.bean.LpgImportBean;
+import com.stepup.gasoline.qt.bean.VendorBean;
 import com.stepup.gasoline.qt.core.SpineAction;
 import com.stepup.gasoline.qt.dao.AccountDAO;
 import com.stepup.gasoline.qt.dao.GasDAO;
@@ -64,7 +65,7 @@ public class LpgImportFormAction extends SpineAction {
         ArrayList arrVendor = null;
         try {
             VendorDAO vendorDAO = new VendorDAO();
-            arrVendor = vendorDAO.getVendorHasStocks(organizationIds);
+            arrVendor = vendorDAO.getVendorHasStocks(organizationIds, VendorBean.IS_GAS);
         } catch (Exception ex) {
         }
         if (arrVendor == null) {

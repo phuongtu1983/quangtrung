@@ -167,4 +167,18 @@ public class FileUtil {
             in.close();
         }
     }
+
+    public static File createFile(String fileName) {
+        File f = null;
+        try {
+            f = new File(fileName);
+            if (!f.exists()) {
+                f.createNewFile();
+            }
+        } catch (Exception ex) {
+            LogUtil.error("FAILED:FileUtil:createFile-" + ex.getMessage());
+            ex.printStackTrace();
+        }
+        return f;
+    }
 }

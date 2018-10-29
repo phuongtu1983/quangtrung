@@ -6,6 +6,7 @@ package com.stepup.gasoline.qt.shielddecrease;
 
 import com.stepup.core.util.DateUtil;
 import com.stepup.gasoline.qt.bean.ShieldDecreaseBean;
+import com.stepup.gasoline.qt.bean.VendorBean;
 import com.stepup.gasoline.qt.core.SpineAction;
 import com.stepup.gasoline.qt.dao.GoodDAO;
 import com.stepup.gasoline.qt.dao.VendorDAO;
@@ -63,14 +64,14 @@ public class ShieldDecreaseFormAction extends SpineAction {
         ArrayList arrVendor = null;
         try {
             VendorDAO vendorDAO = new VendorDAO();
-            arrVendor = vendorDAO.getVendors(organizationIds);
+            arrVendor = vendorDAO.getVendors(organizationIds, VendorBean.IS_GAS);
         } catch (Exception ex) {
         }
         if (arrVendor == null) {
             arrVendor = new ArrayList();
         }
         request.setAttribute(Constants.VENDOR_LIST, arrVendor);
-        
+
         return true;
     }
 }

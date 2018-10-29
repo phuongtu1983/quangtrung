@@ -7,6 +7,7 @@ package com.stepup.gasoline.qt.saleshell;
 import com.stepup.core.util.DateUtil;
 import com.stepup.gasoline.qt.bean.EmployeeBean;
 import com.stepup.gasoline.qt.bean.SaleShellBean;
+import com.stepup.gasoline.qt.bean.VendorBean;
 import com.stepup.gasoline.qt.core.SpineAction;
 import com.stepup.gasoline.qt.dao.AccountDAO;
 import com.stepup.gasoline.qt.dao.CustomerDAO;
@@ -101,7 +102,7 @@ public class SaleShellFormAction extends SpineAction {
         ArrayList arrCustomer = null;
         try {
             CustomerDAO customerDAO = new CustomerDAO();
-            arrCustomer = customerDAO.getCustomers(organizationIds);
+            arrCustomer = customerDAO.getCustomers(organizationIds, VendorBean.IS_GAS);
         } catch (Exception ex) {
         }
         if (arrCustomer == null) {

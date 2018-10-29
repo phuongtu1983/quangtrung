@@ -63,8 +63,8 @@ public class DebtVendorFormAction extends SpineAction {
         String organizationIds = QTUtil.getOrganizationManageds(request.getSession());
         ArrayList arrVendor = null;
         try {
-            VendorDAO vendorDAO  = new VendorDAO();
-            arrVendor = vendorDAO.getVendors(organizationIds);
+            VendorDAO vendorDAO = new VendorDAO();
+            arrVendor = vendorDAO.getVendors(organizationIds, 0);
         } catch (Exception ex) {
         }
         if (arrVendor == null) {

@@ -23,6 +23,9 @@ public class CustomerBean {
     private String presenter;
     private String presenterPosition;
     private String discount;
+    private int isGas;
+    private int isPetro;
+    private int isGood;
 
     public int getId() {
         return id;
@@ -126,6 +129,30 @@ public class CustomerBean {
 
     public void setDiscount(String discount) {
         this.discount = discount;
+    }
+
+    public int getIsGas() {
+        return isGas;
+    }
+
+    public void setIsGas(int isGas) {
+        this.isGas = isGas;
+    }
+
+    public int getIsPetro() {
+        return isPetro;
+    }
+
+    public void setIsPetro(int isPetro) {
+        this.isPetro = isPetro;
+    }
+
+    public int getIsGood() {
+        return isGood;
+    }
+
+    public void setIsGood(int isGood) {
+        this.isGood = isGood;
     }
 
     public static int KIND_RETAIL = 1;

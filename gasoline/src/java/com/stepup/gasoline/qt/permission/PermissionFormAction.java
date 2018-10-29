@@ -332,7 +332,7 @@ public class PermissionFormAction extends SpineAction {
         perBean.setValue(PermissionUtil.PER_CUSTOMER_DOCUMENT);
         perBean.setOperations("," + PermissionUtil.OPERATION_LIST + "," + PermissionUtil.OPERATION_ADD + "," + PermissionUtil.OPERATION_EDIT + "," + PermissionUtil.OPERATION_DELETE + ",");
         arrFun.add(perBean);
-        
+
         perBean = new PermissionViewBean();
         perBean.setCounter("2.1");
         perBean.setLevel(2);
@@ -512,7 +512,6 @@ public class PermissionFormAction extends SpineAction {
 //        perBean.setValue(PermissionUtil.PER_GAS_RETAIL);
 //        perBean.setOperations("," + PermissionUtil.OPERATION_LIST + "," + PermissionUtil.OPERATION_ADD + "," + PermissionUtil.OPERATION_EDIT + "," + PermissionUtil.OPERATION_DELETE + ",");
 //        arrFun.add(perBean);
-
         perBean = new PermissionViewBean();
         perBean.setCounter("2.1");
         perBean.setLevel(2);
@@ -575,7 +574,6 @@ public class PermissionFormAction extends SpineAction {
 //        perBean.setValue(PermissionUtil.PER_GAS_RETURN);
 //        perBean.setOperations("," + PermissionUtil.OPERATION_LIST + "," + PermissionUtil.OPERATION_ADD + "," + PermissionUtil.OPERATION_EDIT + "," + PermissionUtil.OPERATION_DELETE + ",");
 //        arrFun.add(perBean);
-
         perBean = new PermissionViewBean();
         perBean.setCounter("2.1");
         perBean.setLevel(2);
@@ -719,7 +717,7 @@ public class PermissionFormAction extends SpineAction {
         perBean.setValue(PermissionUtil.PER_REPORT_LPG_STOCK_SUM);
         perBean.setOperations("," + PermissionUtil.OPERATION_LIST + ",");
         arrFun.add(perBean);
-        
+
         perBean = new PermissionViewBean();
         perBean.setCounter("3.1");
         perBean.setLevel(2);
@@ -737,7 +735,7 @@ public class PermissionFormAction extends SpineAction {
         perBean.setValue(PermissionUtil.PER_REPORT_SUM);
         perBean.setOperations("," + PermissionUtil.OPERATION_LIST + ",");
         arrFun.add(perBean);
-        
+
         perBean = new PermissionViewBean();
         perBean.setCounter("3.1");
         perBean.setLevel(2);
@@ -746,7 +744,7 @@ public class PermissionFormAction extends SpineAction {
         perBean.setValue(PermissionUtil.PER_REPORT_COMPARE);
         perBean.setOperations("," + PermissionUtil.OPERATION_LIST + ",");
         arrFun.add(perBean);
-        
+
         perBean = new PermissionViewBean();
         perBean.setCounter("3.1");
         perBean.setLevel(2);
@@ -755,7 +753,7 @@ public class PermissionFormAction extends SpineAction {
         perBean.setValue(PermissionUtil.PER_REPORT_SALE);
         perBean.setOperations("," + PermissionUtil.OPERATION_LIST + ",");
         arrFun.add(perBean);
-        
+
         perBean = new PermissionViewBean();
         perBean.setCounter("3.1");
         perBean.setLevel(2);
@@ -764,13 +762,40 @@ public class PermissionFormAction extends SpineAction {
         perBean.setValue(PermissionUtil.PER_REPORT_SALE_CUSTOMER);
         perBean.setOperations("," + PermissionUtil.OPERATION_LIST + ",");
         arrFun.add(perBean);
-        
+
         perBean = new PermissionViewBean();
         perBean.setCounter("3.1");
         perBean.setLevel(2);
         perBean.setSharedId(3);
         perBean.setName(QTUtil.getBundleString("report.cashbook.title"));
         perBean.setValue(PermissionUtil.PER_REPORT_CASH_BOOK);
+        perBean.setOperations("," + PermissionUtil.OPERATION_LIST + ",");
+        arrFun.add(perBean);
+
+        perBean = new PermissionViewBean();
+        perBean.setCounter("3.1");
+        perBean.setLevel(2);
+        perBean.setSharedId(3);
+        perBean.setName(QTUtil.getBundleString("report.petroImport.title"));
+        perBean.setValue(PermissionUtil.PER_REPORT_PETRO_IMPORT);
+        perBean.setOperations("," + PermissionUtil.OPERATION_LIST + ",");
+        arrFun.add(perBean);
+        
+        perBean = new PermissionViewBean();
+        perBean.setCounter("3.1");
+        perBean.setLevel(2);
+        perBean.setSharedId(3);
+        perBean.setName(QTUtil.getBundleString("report.petroSale.title"));
+        perBean.setValue(PermissionUtil.PER_REPORT_PETRO_SALE);
+        perBean.setOperations("," + PermissionUtil.OPERATION_LIST + ",");
+        arrFun.add(perBean);
+        
+        perBean = new PermissionViewBean();
+        perBean.setCounter("3.1");
+        perBean.setLevel(2);
+        perBean.setSharedId(3);
+        perBean.setName(QTUtil.getBundleString("report.petroStock.title"));
+        perBean.setValue(PermissionUtil.PER_REPORT_PETRO_STOCK);
         perBean.setOperations("," + PermissionUtil.OPERATION_LIST + ",");
         arrFun.add(perBean);
 

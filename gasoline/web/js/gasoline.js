@@ -267,7 +267,7 @@ function menuClick(id) {
     else if (id == 'contractadd')
         getContract(0, 'loadContractPanel');
     else if (id == 'reportlpgimport' || id == 'reportlpgstock' || id == 'reportlpgstocksum' || id == 'reportsum' || id == 'reportsalecustomer' || id == 'reportsale'
-            || id == 'reportcashbook')
+            || id == 'reportcashbook' || id == 'reportpetroimport' || id=='reportpetrosale' || id=='reportpetrostock')
         showReportPanel(id);
     else if (id == 'shieldimportlist')
         loadShieldImportPanel();
@@ -2665,7 +2665,7 @@ function loadPetroPanel() {
 function loadPetroList() {
     var mygrid = new dhtmlXGridObject('petroList');
     mygrid.setImagePath("js/dhtmlx/grid/imgs/");
-    mygrid.setHeader("M\u00E3 h\u00E0ng h\u00F3a,T\u00EAn h\u00E0ng h\u00F3a,Gi\u00E1 b\u00E1n,\u0110\u01A1n v\u1ECB t\u00EDnh,\u0110\u01A1n v\u1ECB,T\u00ECnh tr\u1EA1ng");
+    mygrid.setHeader("M\u00E3 x\u0103ng,T\u00EAn x\u0103ng,Gi\u00E1 b\u00E1n,\u0110\u01A1n v\u1ECB t\u00EDnh,\u0110\u01A1n v\u1ECB,T\u00ECnh tr\u1EA1ng");
     mygrid.attachHeader("#text_filter,#text_filter,#text_filter,#text_filter,#text_filter,#select_filter");
     mygrid.setInitWidths("150,*,150,150,300,200");
     mygrid.setColTypes("link,ro,ro,ro,ro,ro");
@@ -2688,7 +2688,7 @@ function loadPetroList() {
     return false;
 }
 function getPetro(id, handle) {
-    popupName = 'TH\u00D4NG TIN H\u00C0NG H\u00D3A';
+    popupName = 'TH\u00D4NG TIN X\u0102NG';
     var url = 'petroForm.do';
     if (id != 0)
         url += '?petroId=' + id
@@ -2704,14 +2704,14 @@ function savePetro() {
         return false;
     var field = document.forms['petroForm'].code;
     if (field.value == '') {
-        alert("Vui l\u00F2ng nh\u1EADp m\u00E3 h\u00E0ng h\u00F3a");
+        alert("Vui l\u00F2ng nh\u1EADp m\u00E3 x\u0103ng");
         field.focus();
         field = null;
         return false;
     }
     field = document.forms['petroForm'].name;
     if (field.value == '') {
-        alert("Vui l\u00F2ng nh\u1EADp t\u00EAn h\u00E0ng h\u00F3a");
+        alert("Vui l\u00F2ng nh\u1EADp t\u00EAn x\u0103ng");
         field.focus();
         field = null;
         return false;

@@ -15,7 +15,7 @@
             <td><html:text property="createdDate" size="30" name="<%=Constants.SHELL_RETURN_SUPPLIER%>" styleId="shellReturnSupplierCreatedDate" readonly="true"/></td>
         </tr>
         <tr>
-            <td height="30" style="padding-right: 20px"><bean:message key="customer.title"/></td>
+            <td height="30" style="padding-right: 20px"><bean:message key="vendor.title"/></td>
             <td>
                 <html:select property="vendorId" name="<%=Constants.SHELL_RETURN_SUPPLIER%>" style="width:195px">
                     <html:options collection="<%=Constants.VENDOR_LIST%>" property="id" labelProperty="name"/>

@@ -110,6 +110,15 @@ public class AddCustomerAction extends AddDynamicFieldValueAction {
                 if (formBean.getKind() != oldBean.getKind()) {
                     isUpdate = true;
                 }
+                if (formBean.getIsGas() != oldBean.getIsGas()) {
+                    isUpdate = true;
+                }
+                if (formBean.getIsPetro() != oldBean.getIsPetro()) {
+                    isUpdate = true;
+                }
+                if (formBean.getIsGood() != oldBean.getIsGood()) {
+                    isUpdate = true;
+                }
             }
         } catch (Exception ex) {
         }
@@ -127,6 +136,9 @@ public class AddCustomerAction extends AddDynamicFieldValueAction {
         bean.setPresenter(formBean.getPresenter());
         bean.setPresenterPosition(formBean.getPresenterPosition());
         bean.setDiscount(formBean.getDiscount());
+        bean.setIsGas(formBean.getIsGas() == true ? 1 : 0);
+        bean.setIsPetro(formBean.getIsPetro() == true ? 1 : 0);
+        bean.setIsGood(formBean.getIsGood() == true ? 1 : 0);
         try {
             if (bNew) {
                 customerId = customerDAO.insertCustomer(bean);

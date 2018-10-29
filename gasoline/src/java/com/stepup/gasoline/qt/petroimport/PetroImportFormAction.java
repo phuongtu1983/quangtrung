@@ -7,6 +7,7 @@ package com.stepup.gasoline.qt.petroimport;
 import com.stepup.core.util.DateUtil;
 import com.stepup.gasoline.qt.bean.EmployeeBean;
 import com.stepup.gasoline.qt.bean.PetroImportBean;
+import com.stepup.gasoline.qt.bean.VendorBean;
 import com.stepup.gasoline.qt.core.SpineAction;
 import com.stepup.gasoline.qt.dao.AccountDAO;
 import com.stepup.gasoline.qt.dao.GasDAO;
@@ -30,6 +31,7 @@ public class PetroImportFormAction extends SpineAction {
 
     /**
      * This is the action called from the Struts framework.
+     *
      * @param mapping The ActionMapping used to select this instance.
      * @param form The optional ActionForm bean for this request.
      * @param request The HTTP Request we are processing.
@@ -101,14 +103,14 @@ public class PetroImportFormAction extends SpineAction {
         ArrayList arrVendor = null;
         try {
             VendorDAO vendorDAO = new VendorDAO();
-            arrVendor = vendorDAO.getVendors(organizationIds);
+            arrVendor = vendorDAO.getVendors(organizationIds, VendorBean.IS_PETRO);
         } catch (Exception ex) {
         }
         if (arrVendor == null) {
             arrVendor = new ArrayList();
         }
         request.setAttribute(Constants.VENDOR_LIST, arrVendor);
-        
+
         ArrayList arrStore = null;
         try {
             OrganizationDAO orgDAO = new OrganizationDAO();
@@ -119,7 +121,7 @@ public class PetroImportFormAction extends SpineAction {
             arrStore = new ArrayList();
         }
         request.setAttribute(Constants.STORE_LIST, arrStore);
-        
+
         return true;
     }
 }

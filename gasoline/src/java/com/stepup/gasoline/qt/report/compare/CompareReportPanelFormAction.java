@@ -4,6 +4,7 @@
  */
 package com.stepup.gasoline.qt.report.compare;
 
+import com.stepup.gasoline.qt.bean.VendorBean;
 import com.stepup.gasoline.qt.core.SpineAction;
 import com.stepup.gasoline.qt.dao.CustomerDAO;
 import com.stepup.gasoline.qt.util.Constants;
@@ -37,7 +38,7 @@ public class CompareReportPanelFormAction extends SpineAction {
         try {
             String organizationIds = QTUtil.getOrganizationManageds(request.getSession());
             CustomerDAO customerDAO = new CustomerDAO();
-            arrCustomer = customerDAO.getCustomers(organizationIds);
+            arrCustomer = customerDAO.getCustomers(organizationIds, VendorBean.IS_GAS);
         } catch (Exception ex) {
         }
         if (arrCustomer == null) {

@@ -4,6 +4,7 @@
  */
 package com.stepup.gasoline.qt.report.lpgstocksumorganization;
 
+import com.stepup.gasoline.qt.bean.VendorBean;
 import com.stepup.gasoline.qt.core.SpineAction;
 import com.stepup.gasoline.qt.dao.VendorDAO;
 import com.stepup.gasoline.qt.util.Constants;
@@ -37,7 +38,7 @@ public class LpgStockSumOrganizationReportPanelFormAction extends SpineAction {
         ArrayList arrVendor = null;
         try {
             VendorDAO vendorDAO = new VendorDAO();
-            arrVendor = vendorDAO.getVendors(organizationIds);
+            arrVendor = vendorDAO.getVendors(organizationIds, VendorBean.IS_GAS);
         } catch (Exception ex) {
         }
         if (arrVendor == null) {

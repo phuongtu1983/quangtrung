@@ -61,8 +61,18 @@
                             <td><html:text property="discount" size="40" name="<%=Constants.CUSTOMER%>"/></td>
                         </tr>
                         <tr>
-                            <td height="30" style="padding-right: 20px" colspan="4">
-                                <div id="customerDocuments"><%@include  file="/customer/documents.jsp"%></div>
+                            <td height="30" style="padding-right: 20px"><bean:message key="customer.detail.isGas"/></td>
+                            <td><html:checkbox property="isGas" name="<%=Constants.CUSTOMER%>"></html:checkbox></td>
+                            <td style="padding-left: 10px; padding-right: 20px"><bean:message key="customer.detail.isPetro"/></td>
+                            <td><html:checkbox property="isPetro" name="<%=Constants.CUSTOMER%>"></html:checkbox></td>
+                            </tr>
+                            <tr>
+                                <td height="30" style="padding-right: 20px"><bean:message key="customer.detail.isGood"/></td>
+                            <td colspan="3"><html:checkbox property="isGood" name="<%=Constants.CUSTOMER%>"></html:checkbox></td>
+                            </tr>
+                            <tr>
+                                <td height="30" style="padding-right: 20px" colspan="4">
+                                    <div id="customerDocuments"><%@include  file="/customer/documents.jsp"%></div>
                             </td>
                         </tr>
                         <tr>

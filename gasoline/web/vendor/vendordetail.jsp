@@ -39,10 +39,20 @@
                             </td>
                             <td style="padding-left: 10px; padding-right: 20px"><bean:message key="vendor.detail.hasStock"/></td>
                             <td><html:checkbox property="hasStock" name="<%=Constants.VENDOR%>"></html:checkbox></td>
-                        </tr>
-                        <tr>
-                            <td height="30" style="padding-right: 20px" colspan="4">
-                                <div id="vendorDynamicField"><%@include  file="/dynamicfield/fieldvalues.jsp"%></div>
+                            </tr>
+                            <tr>
+                                <td height="30" style="padding-right: 20px"><bean:message key="vendor.detail.isGas"/></td>
+                            <td><html:checkbox property="isGas" name="<%=Constants.VENDOR%>"></html:checkbox></td>
+                            <td style="padding-left: 10px; padding-right: 20px"><bean:message key="vendor.detail.isPetro"/></td>
+                            <td><html:checkbox property="isPetro" name="<%=Constants.VENDOR%>"></html:checkbox></td>
+                            </tr>
+                            <tr>
+                                <td height="30" style="padding-right: 20px"><bean:message key="vendor.detail.isGood"/></td>
+                            <td colspan="3"><html:checkbox property="isGood" name="<%=Constants.VENDOR%>"></html:checkbox></td>
+                            </tr>
+                            <tr>
+                                <td height="30" style="padding-right: 20px" colspan="4">
+                                    <div id="vendorDynamicField"><%@include  file="/dynamicfield/fieldvalues.jsp"%></div>
                             </td>
                         </tr>
                     </table>

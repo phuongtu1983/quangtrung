@@ -31,7 +31,9 @@ import org.apache.poi.hssf.usermodel.HSSFWorkbook;
  */
 public class ExcelExport {
 
-    /** Creates a new instance of ExcelExport */
+    /**
+     * Creates a new instance of ExcelExport
+     */
     private String desFile = "/";
     //private String resultFile = "";
     private Map beans = null;
@@ -184,5 +186,19 @@ public class ExcelExport {
         newStyle.setLeftBorderColor(color);
 //        newStyle.setFillBackgroundColor(HSSFColor.ORANGE.index);
         toCell.setCellStyle(newStyle);
+    }
+
+    public static String getColumnName(int columnNumber) {
+        String name = "";
+        int columnCount = 26;
+        String[] columnNames = {"A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K", "L", "M", "N", "O", "P", "Q", "R", "S", "T", "U", "V", "W", "X", "Y", "Z"};
+        if (columnNumber <= columnCount) {
+            name = columnNames[columnNumber - 1];
+        } else {
+            int firstLetter = columnNumber / 26;
+            int secondLetter = columnNumber % 26;
+            name = getColumnName(firstLetter) + getColumnName(secondLetter);
+        }
+        return name;
     }
 }

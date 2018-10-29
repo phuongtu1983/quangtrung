@@ -66,12 +66,26 @@ public class VendorDAO extends BasicDAO {
         return vendorList;
     }
 
-    public ArrayList getVendors(String organizationIds) throws Exception {
+    public ArrayList getVendors(String organizationIds, int vendorKind) throws Exception {
         ResultSet rs = null;
         String sql = "select v.*, o.name as organization_name from vendor_organization AS vo, vendor as v, organization as o"
                 + " where vo.vendor_id=v.id AND vo.organization_id=o.id and o.status=" + EmployeeBean.STATUS_ACTIVE + " and v.status=" + EmployeeBean.STATUS_ACTIVE;
         if (!StringUtil.isBlankOrNull(organizationIds)) {
             sql += " and vo.organization_id in (" + organizationIds + ")";
+        }
+        switch (vendorKind) {
+            case VendorBean.IS_GAS:
+                sql += " and v.is_gas=1";
+                break;
+            case VendorBean.IS_PETRO:
+                sql += " and v.is_petro=1";
+                break;
+            case VendorBean.IS_GOOD:
+                sql += " and v.is_good=1";
+                break;
+            default:
+                sql += " and v.is_gas=1 and v.is_petro=1 and v.is_good=1";
+                break;
         }
         sql += " order by v.name desc";
         ArrayList vendorList = new ArrayList();
@@ -105,12 +119,26 @@ public class VendorDAO extends BasicDAO {
         return vendorList;
     }
 
-    public ArrayList getVendorHasStocks(String organizationIds) throws Exception {
+    public ArrayList getVendorHasStocks(String organizationIds, int vendorKind) throws Exception {
         ResultSet rs = null;
         String sql = "select v.*, o.name as organization_name from vendor_organization AS vo, vendor as v, organization as o"
                 + " where vo.vendor_id=v.id and v.has_stock=1 AND vo.organization_id=o.id and o.status=" + EmployeeBean.STATUS_ACTIVE + " and v.status=" + EmployeeBean.STATUS_ACTIVE;
         if (!StringUtil.isBlankOrNull(organizationIds)) {
             sql += " and vo.organization_id in (" + organizationIds + ")";
+        }
+        switch (vendorKind) {
+            case VendorBean.IS_GAS:
+                sql += " and v.is_gas=1";
+                break;
+            case VendorBean.IS_PETRO:
+                sql += " and v.is_petro=1";
+                break;
+            case VendorBean.IS_GOOD:
+                sql += " and v.is_good=1";
+                break;
+            default:
+                sql += " and v.is_gas=1 and v.is_petro=1 and v.is_good=1";
+                break;
         }
         sql += " order by v.name desc";
         ArrayList vendorList = new ArrayList();
@@ -158,6 +186,9 @@ public class VendorDAO extends BasicDAO {
                 vendor.setOrganizationId(rs.getInt("organization_id"));
                 vendor.setEqualOrganizationId(rs.getInt("equal_organization_id"));
                 vendor.setHasStock(rs.getInt("has_stock") == 1 ? true : false);
+                vendor.setIsGas(rs.getInt("is_gas") == 1 ? true : false);
+                vendor.setIsPetro(rs.getInt("is_petro") == 1 ? true : false);
+                vendor.setIsGood(rs.getInt("is_good") == 1 ? true : false);
                 if (vendor.getStatus() == EmployeeBean.STATUS_ACTIVE) {
                     vendor.setStatusName(QTUtil.getBundleString("employee.detail.status.active"));
                 } else if (vendor.getStatus() == EmployeeBean.STATUS_INACTIVE) {
@@ -190,6 +221,10 @@ public class VendorDAO extends BasicDAO {
                 vendor.setOrganizationId(rs.getInt("organization_id"));
                 vendor.setEqualOrganizationId(rs.getInt("equal_organization_id"));
                 vendor.setStatus(rs.getInt("status"));
+                vendor.setHasStock(rs.getInt("has_stock") == 1 ? true : false);
+                vendor.setIsGas(rs.getInt("is_gas") == 1 ? true : false);
+                vendor.setIsPetro(rs.getInt("is_petro") == 1 ? true : false);
+                vendor.setIsGood(rs.getInt("is_good") == 1 ? true : false);
                 return vendor;
             }
         } catch (SQLException sqle) {
@@ -211,7 +246,7 @@ public class VendorDAO extends BasicDAO {
         int result = 0;
         SPUtil spUtil = null;
         try {
-            String sql = "{call insertVendor(?,?,?,?,?,?,?)}";
+            String sql = "{call insertVendor(?,?,?,?,?,?,?,?,?,?)}";
             spUtil = new SPUtil(sql);
             if (spUtil != null) {
                 spUtil.getCallableStatement().setString("_name", bean.getName());
@@ -220,6 +255,9 @@ public class VendorDAO extends BasicDAO {
                 spUtil.getCallableStatement().setInt("_status", bean.getStatus());
                 spUtil.getCallableStatement().setInt("_equal_organization_id", bean.getEqualOrganizationId());
                 spUtil.getCallableStatement().setInt("_has_stock", bean.getHasStock());
+                spUtil.getCallableStatement().setInt("_is_gas", bean.getIsGas());
+                spUtil.getCallableStatement().setInt("_is_petro", bean.getIsPetro());
+                spUtil.getCallableStatement().setInt("_is_good", bean.getIsGood());
                 spUtil.getCallableStatement().registerOutParameter("_id", Types.INTEGER);
                 spUtil.execute();
                 result = spUtil.getCallableStatement().getInt("_id");
@@ -246,7 +284,7 @@ public class VendorDAO extends BasicDAO {
         }
         SPUtil spUtil = null;
         try {
-            String sql = "{call updateVendor(?,?,?,?,?,?,?)}";
+            String sql = "{call updateVendor(?,?,?,?,?,?,?,?,?,?)}";
             spUtil = new SPUtil(sql);
             if (spUtil != null) {
                 spUtil.getCallableStatement().setString("_name", bean.getName());
@@ -255,6 +293,9 @@ public class VendorDAO extends BasicDAO {
                 spUtil.getCallableStatement().setInt("_status", bean.getStatus());
                 spUtil.getCallableStatement().setInt("_equal_organization_id", bean.getEqualOrganizationId());
                 spUtil.getCallableStatement().setInt("_has_stock", bean.getHasStock());
+                spUtil.getCallableStatement().setInt("_is_gas", bean.getIsGas());
+                spUtil.getCallableStatement().setInt("_is_petro", bean.getIsPetro());
+                spUtil.getCallableStatement().setInt("_is_good", bean.getIsGood());
                 spUtil.getCallableStatement().setInt("_id", bean.getId());
                 spUtil.execute();
             }

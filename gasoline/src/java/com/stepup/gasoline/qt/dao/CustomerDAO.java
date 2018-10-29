@@ -13,6 +13,7 @@ import com.stepup.gasoline.qt.bean.CustomerBean;
 import com.stepup.gasoline.qt.bean.CustomerDocumentBean;
 import com.stepup.gasoline.qt.bean.DiscountBean;
 import com.stepup.gasoline.qt.bean.DocumentBean;
+import com.stepup.gasoline.qt.bean.VendorBean;
 import com.stepup.gasoline.qt.util.QTUtil;
 import com.stepup.gasoline.qt.customer.CustomerFormBean;
 import com.stepup.gasoline.qt.customerdocument.CustomerDocumentFormBean;
@@ -75,12 +76,26 @@ public class CustomerDAO extends BasicDAO {
         return customerList;
     }
 
-    public ArrayList getCustomers(String organizationIds) throws Exception {
+    public ArrayList getCustomers(String organizationIds, int customerKind) throws Exception {
         ResultSet rs = null;
         String sql = "select c.*, o.name as organization_name from customer as c, organization as o where c.organization_id=o.id and o.status=" + EmployeeBean.STATUS_ACTIVE
                 + " and c.status=" + EmployeeBean.STATUS_ACTIVE;
         if (!StringUtil.isBlankOrNull(organizationIds)) {
             sql += " and c.organization_id in (" + organizationIds + ")";
+        }
+        switch (customerKind) {
+            case VendorBean.IS_GAS:
+                sql += " and c.is_gas=1";
+                break;
+            case VendorBean.IS_PETRO:
+                sql += " and c.is_petro=1";
+                break;
+            case VendorBean.IS_GOOD:
+                sql += " and c.is_good=1";
+                break;
+            default:
+                sql += " and c.is_gas=1 and c.is_petro=1 and c.is_good=1";
+                break;
         }
         sql += " order by c.name desc";
         ArrayList customerList = new ArrayList();
@@ -120,7 +135,7 @@ public class CustomerDAO extends BasicDAO {
         return customerList;
     }
 
-    public ArrayList getCustomers(String organizationIds, int kind) throws Exception {
+    public ArrayList getCustomers(String organizationIds, int kind, int customerKind) throws Exception {
         ResultSet rs = null;
         String sql = "select c.*, o.name as organization_name from customer as c, organization as o where c.organization_id=o.id and o.status=" + EmployeeBean.STATUS_ACTIVE
                 + " and c.status=" + EmployeeBean.STATUS_ACTIVE;
@@ -129,6 +144,20 @@ public class CustomerDAO extends BasicDAO {
         }
         if (kind != 0) {
             sql += " and c.kind=" + kind;
+        }
+        switch (customerKind) {
+            case VendorBean.IS_GAS:
+                sql += " and c.is_gas=1";
+                break;
+            case VendorBean.IS_PETRO:
+                sql += " and c.is_petro=1";
+                break;
+            case VendorBean.IS_GOOD:
+                sql += " and c.is_good=1";
+                break;
+            default:
+                sql += " and c.is_gas=1 and c.is_petro=1 and c.is_good=1";
+                break;
         }
         sql += " order by c.name desc";
         ArrayList customerList = new ArrayList();
@@ -162,7 +191,7 @@ public class CustomerDAO extends BasicDAO {
         ResultSet rs = null;
         String sql = "select id, status, organization_id, kind, coalesce(code,'') as code, coalesce(name,'') as name, coalesce(address,'') as address"
                 + ", coalesce(phone,'') as phone, coalesce(bank_account,'') as bank_account, coalesce(tax,'') as tax, coalesce(presenter,'') as presenter"
-                + ", coalesce(presenter_position,'') as presenter_position, coalesce(discount,'') as discount"
+                + ", coalesce(presenter_position,'') as presenter_position, coalesce(discount,'') as discount, is_gas, is_petro, is_good"
                 + " from customer where id=" + customerId;
         try {
             rs = DBUtil.executeQuery(sql);
@@ -191,6 +220,9 @@ public class CustomerDAO extends BasicDAO {
                 } else if (customer.getKind() == CustomerBean.KIND_WHOLESALE) {
                     customer.setStatusName(QTUtil.getBundleString("customer.detail.kind.wholesale"));
                 }
+                customer.setIsGas(rs.getInt("is_gas") == 1 ? true : false);
+                customer.setIsPetro(rs.getInt("is_petro") == 1 ? true : false);
+                customer.setIsGood(rs.getInt("is_good") == 1 ? true : false);
                 return customer;
             }
         } catch (SQLException sqle) {
@@ -225,6 +257,9 @@ public class CustomerDAO extends BasicDAO {
                 customer.setPresenter(rs.getString("presenter"));
                 customer.setPresenterPosition(rs.getString("presenter_position"));
                 customer.setDiscount(rs.getString("discount"));
+                customer.setIsGas(rs.getInt("is_gas") == 1 ? true : false);
+                customer.setIsPetro(rs.getInt("is_petro") == 1 ? true : false);
+                customer.setIsGood(rs.getInt("is_good") == 1 ? true : false);
                 return customer;
             }
         } catch (SQLException sqle) {
@@ -245,10 +280,10 @@ public class CustomerDAO extends BasicDAO {
         }
         try {
             String sql = "";
-            sql = "Insert Into customer (name, code, organization_id, status, kind, phone, bank_account, tax, presenter, presenter_position, address, discount)"
+            sql = "Insert Into customer (name, code, organization_id, status, kind, phone, bank_account, tax, presenter, presenter_position, address, discount, is_gas, is_petro, is_good)"
                     + " Values ('" + bean.getName() + "','" + bean.getCode() + "'," + bean.getOrganizationId() + "," + bean.getStatus() + "," + bean.getKind()
                     + ",'" + bean.getPhone() + "','" + bean.getBankAccount() + "','" + bean.getTax() + "','" + bean.getPresenter()
-                    + "','" + bean.getPresenterPosition() + "','" + bean.getAddress() + "','" + bean.getDiscount() + "')";
+                    + "','" + bean.getPresenterPosition() + "','" + bean.getAddress() + "','" + bean.getDiscount() + "'," + bean.getIsGas() + "," + bean.getIsPetro() + "," + bean.getIsGood() + ")";
             return DBUtil.executeInsert(sql);
         } catch (SQLException sqle) {
             throw new Exception(sqle.getMessage());
@@ -280,7 +315,10 @@ public class CustomerDAO extends BasicDAO {
                     + ", tax='" + bean.getTax() + "'"
                     + ", presenter='" + bean.getPresenter() + "'"
                     + ", presenter_position='" + bean.getPresenterPosition() + "'"
-                    + ", discount='" + bean.getDiscount()+ "'"
+                    + ", discount='" + bean.getDiscount() + "'"
+                    + ", is_gas=" + bean.getIsGas()
+                    + ", is_petro=" + bean.getIsPetro()
+                    + ", is_good=" + bean.getIsGood()
                     + " Where id=" + bean.getId();
             DBUtil.executeUpdate(sql);
         } catch (SQLException sqle) {

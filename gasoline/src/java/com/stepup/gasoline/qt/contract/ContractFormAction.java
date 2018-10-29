@@ -6,6 +6,7 @@ package com.stepup.gasoline.qt.contract;
 
 import com.stepup.core.util.DateUtil;
 import com.stepup.gasoline.qt.bean.ContractBean;
+import com.stepup.gasoline.qt.bean.VendorBean;
 import com.stepup.gasoline.qt.core.SpineAction;
 import com.stepup.gasoline.qt.dao.ContractDAO;
 import com.stepup.gasoline.qt.dao.CustomerDAO;
@@ -63,7 +64,7 @@ public class ContractFormAction extends SpineAction {
         ArrayList arrCustomer = null;
         try {
             CustomerDAO customerDAO  = new CustomerDAO();
-            arrCustomer = customerDAO.getCustomers(organizationIds);
+            arrCustomer = customerDAO.getCustomers(organizationIds, VendorBean.IS_GAS);
         } catch (Exception ex) {
         }
         if (arrCustomer == null) {

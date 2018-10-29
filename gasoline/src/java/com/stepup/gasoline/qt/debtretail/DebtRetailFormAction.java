@@ -7,6 +7,7 @@ package com.stepup.gasoline.qt.debtretail;
 import com.stepup.core.util.DateUtil;
 import com.stepup.gasoline.qt.bean.CustomerBean;
 import com.stepup.gasoline.qt.bean.DebtRetailBean;
+import com.stepup.gasoline.qt.bean.VendorBean;
 import com.stepup.gasoline.qt.core.SpineAction;
 import com.stepup.gasoline.qt.dao.AccountDAO;
 import com.stepup.gasoline.qt.dao.CustomerDAO;
@@ -65,7 +66,7 @@ public class DebtRetailFormAction extends SpineAction {
         ArrayList arrCustomer = null;
         try {
             CustomerDAO customerDAO = new CustomerDAO();
-            arrCustomer = customerDAO.getCustomers(organizationIds, CustomerBean.KIND_RETAIL);
+            arrCustomer = customerDAO.getCustomers(organizationIds, CustomerBean.KIND_RETAIL, VendorBean.IS_GAS);
         } catch (Exception ex) {
         }
         if (arrCustomer == null) {
