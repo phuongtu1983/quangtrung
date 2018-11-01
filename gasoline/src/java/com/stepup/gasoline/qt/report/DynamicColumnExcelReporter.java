@@ -84,7 +84,8 @@ public class DynamicColumnExcelReporter {
             sheet.addMergedRegion(new CellRangeAddress(row + 1, row + 1, col, col + 2));
             col += 3;
         }
-        sheet.addMergedRegion(new CellRangeAddress(0, 0, 0, 2 + arrPetro.size() * 3));
+        sheet.addMergedRegion(new CellRangeAddress(0, 0, 0, 2 + 3 - 1 + arrPetro.size() * 3));
+        sheet.addMergedRegion(new CellRangeAddress(2, 2, 0, 2 + 3 - 1 + arrPetro.size() * 3));
         FileOutputStream fileOut = new FileOutputStream(f);
         wb.write(fileOut);
         fileOut.close();

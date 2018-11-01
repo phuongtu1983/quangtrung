@@ -82,18 +82,17 @@ public class PrintReportAction extends BaseAction {
                 } else if (reportName.equals("reportpetrostock")) {
                     templateFileName = "so_theo_doi_nxt_tong_hop_petro";
                     String session = QTUtil.getEmployeeId(request.getSession()) + "_" + Calendar.getInstance().getTimeInMillis();
-//                    printPetroStockReport(fromDate, toDate, organizationIds, request, response, templateFileName, session, beans, exporter);
-                    printPetroStockReport(fromDate, toDate, organizationIds, request.getSession().getServletContext().getRealPath("/templates/" + templateFileName + ".xls"), session, beans, exporter);
+                    printPetroStockReport(fromDate, toDate, organizationIds, request, response, templateFileName, session, beans, exporter);
                 }
-                templateFileName = request.getSession().getServletContext().getRealPath("/templates/" + templateFileName + ".xls");
-//                if (!reportName.equals("reportpetrostock")) {
-                if (list == null) {
-                    list = new ArrayList();
+                if (!reportName.equals("reportpetrostock")) {
+                    templateFileName = request.getSession().getServletContext().getRealPath("/templates/" + templateFileName + ".xls");
+                    if (list == null) {
+                        list = new ArrayList();
+                    }
+                    beans.put("dulieu", list);
+                    exporter.setBeans(beans);
+                    exporter.export(request, response, templateFileName, "report.xls");
                 }
-                beans.put("dulieu", list);
-                exporter.setBeans(beans);
-                exporter.export(request, response, templateFileName, "report.xls");
-//                }
             }
         } catch (Exception ex) {
             LogUtil.error("FAILED:PrintReportAction:print-" + ex.getMessage());
@@ -207,16 +206,17 @@ public class PrintReportAction extends BaseAction {
         return list;
     }
 
-//    private ArrayList printPetroStockReport(String fromDate, String toDate, String organizationIds, HttpServletRequest request, HttpServletResponse response,
-//            String fileName, String sessionId, Map beans, ExcelExport exporter) {
-    private ArrayList printPetroStockReport(String fromDate, String toDate, String organizationIds, String fileName, String sessionId, Map beans, ExcelExport exporter) {
+    private ArrayList printPetroStockReport(String fromDate, String toDate, String organizationIds, HttpServletRequest request, HttpServletResponse response,
+            String fileName, String sessionId, Map beans, ExcelExport exporter) {
         ArrayList list = null;
         try {
-//            fileName = request.getSession().getServletContext().getRealPath("/templates/" + fileName + ".xls");
+            String tempFileName = request.getSession().getServletContext().getRealPath("/templates/" + fileName + "_temp.xls");
+            fileName = request.getSession().getServletContext().getRealPath("/templates/" + fileName + ".xls");
             GoodDAO goodDAO = new GoodDAO();
             ReportDAO reportDAO = new ReportDAO();
 
-            File f = FileUtil.createFile(fileName);
+            FileUtil.copyFile(fileName, tempFileName);
+            File f = new File(tempFileName);
             ArrayList arrHideCol = new ArrayList();
             arrHideCol.add(2);
             arrHideCol.add(3);
@@ -228,7 +228,7 @@ public class PrintReportAction extends BaseAction {
             ArrayList petros = goodDAO.getPetros(outBean.getPetroIds());
 
             beans.put("datedata", list);
-            DynamicColumnExcelReporter.createPetroStockReportColumns(fileName, petros, f);
+            DynamicColumnExcelReporter.createPetroStockReportColumns(tempFileName, petros, f);
 
             PetroFormBean petro = null;
 
@@ -248,9 +248,9 @@ public class PrintReportAction extends BaseAction {
                 hiddenCols[i] = Short.parseShort(arrHideCol.get(i) + "");
             }
             exporter.setHiddenCols(hiddenCols);
-//            exporter.setBeans(beans);
-//            exporter.export(request, response, fileName, "report.xls");
-//            f.delete();
+            exporter.setBeans(beans);
+            exporter.export(request, response, tempFileName, "report.xls");
+            f.delete();
         } catch (Exception ex) {
             System.out.println(ex);
         }

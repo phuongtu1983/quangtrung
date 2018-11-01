@@ -800,18 +800,21 @@ public class ReportDAO extends BasicDAO {
                 outBean.setPetroIds(spUtil.getCallableStatement().getString("_petro_ids"));
                 if (rs != null) {
                     PetroStockReportBean bean = null;
-                    int stock = -1;
+                    int stock = 0;
+                    boolean firstTime = true;
                     while (rs.next()) {
                         bean = new PetroStockReportBean();
                         bean.setDate(DateUtil.formatDate(rs.getDate("created_date"), "dd/MM/yyyy"));
                         bean.setPetroId(rs.getInt("petro_id"));
                         bean.setImportQuantity(rs.getInt("import_quantity"));
                         bean.setSaleQuantity(rs.getInt("export_quantity"));
-                        if (stock == -1) {
+                        if (firstTime) {
                             stock = rs.getInt("opening_stock");
                             outBean.setOpeningStock(stock);
+                            firstTime = false;
                         }
                         bean.setStock(stock + bean.getImportQuantity() - bean.getSaleQuantity());
+                        stock = bean.getStock();
                         list.add(bean);
                     }
                 }
@@ -866,14 +869,20 @@ public class ReportDAO extends BasicDAO {
                 if (rs != null) {
                     PetroStockReportBean bean = null;
                     int stock = 0;
+                    boolean firstTime = true;
                     while (rs.next()) {
                         bean = new PetroStockReportBean();
                         bean.setDate(DateUtil.formatDate(rs.getDate("created_date"), "dd/MM/yyyy"));
                         bean.setPetroId(rs.getInt("petro_id"));
                         bean.setImportQuantity(rs.getInt("import_quantity"));
                         bean.setSaleQuantity(rs.getInt("export_quantity"));
-                        stock = +rs.getInt("opening_stock");
+                        if (firstTime) {
+                            stock = rs.getInt("opening_stock");
+                            outBean.setOpeningStock(stock);
+                            firstTime = false;
+                        }
                         bean.setStock(stock + bean.getImportQuantity() - bean.getSaleQuantity());
+                        stock = bean.getStock();
                         list.add(bean);
                     }
                 }
