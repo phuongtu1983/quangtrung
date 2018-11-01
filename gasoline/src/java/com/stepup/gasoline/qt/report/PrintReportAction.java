@@ -81,18 +81,18 @@ public class PrintReportAction extends BaseAction {
                     list = printPetroSaleReport(fromDate, toDate, organizationIds);
                 } else if (reportName.equals("reportpetrostock")) {
                     templateFileName = "so_theo_doi_nxt_tong_hop_petro";
-                    list = printPetroStockReport(fromDate, toDate, organizationIds, request.getSession().getServletContext().getRealPath("/templates/" + templateFileName + ".xls"));
+                    String session = QTUtil.getEmployeeId(request.getSession()) + "_" + Calendar.getInstance().getTimeInMillis();
+//                    printPetroStockReport(fromDate, toDate, organizationIds, request, response, templateFileName, session, beans, exporter);
                     printPetroStockReport(fromDate, toDate, organizationIds, request.getSession().getServletContext().getRealPath("/templates/" + templateFileName + ".xls"), session, beans, exporter);
                 }
                 templateFileName = request.getSession().getServletContext().getRealPath("/templates/" + templateFileName + ".xls");
-                beans.put("qtrp_fromDate", fromDate);
-                beans.put("qtrp_toDate", toDate);
+//                if (!reportName.equals("reportpetrostock")) {
                 if (list == null) {
                     list = new ArrayList();
                 }
                 beans.put("dulieu", list);
                 exporter.setBeans(beans);
-                exporter.export(request, response, templateFileName, "report_" + reportName + ".xls");
+                exporter.export(request, response, templateFileName, "report.xls");
 //                }
             }
         } catch (Exception ex) {
