@@ -858,6 +858,49 @@ public class GoodDAO extends BasicDAO {
         return list;
     }
 
+    public ArrayList getPetros(String petroIds) throws Exception {
+        ResultSet rs = null;
+        String sql = "select p.*, o.name as organization_name, u.name as unit_name from petro as p, organization as o, unit as u"
+                + " where p.organization_id=o.id and p.unit_id=u.id and o.status=" + EmployeeBean.STATUS_ACTIVE + " and u.status=" + EmployeeBean.STATUS_ACTIVE;
+
+        if (!petroIds.isEmpty()) {
+            sql += " and p.id in(" + petroIds + ")";
+        }
+        sql += " order by p.name";
+        ArrayList list = new ArrayList();
+        try {
+            rs = DBUtil.executeQuery(sql);
+            PetroFormBean bean = null;
+            while (rs.next()) {
+                bean = new PetroFormBean();
+                bean.setId(rs.getInt("id"));
+                bean.setCode(rs.getString("code"));
+                bean.setName(rs.getString("name"));
+                bean.setUnitId(rs.getInt("unit_id"));
+                bean.setUnitName(rs.getString("unit_name"));
+                bean.setOrganizationId(rs.getInt("organization_id"));
+                bean.setOrganizationName(rs.getString("organization_name"));
+                bean.setPrice(rs.getDouble("price"));
+                bean.setStatus(rs.getInt("status"));
+                if (bean.getStatus() == EmployeeBean.STATUS_ACTIVE) {
+                    bean.setStatusName(QTUtil.getBundleString("employee.detail.status.active"));
+                } else if (bean.getStatus() == EmployeeBean.STATUS_INACTIVE) {
+                    bean.setStatusName(QTUtil.getBundleString("employee.detail.status.inactive"));
+                }
+                list.add(bean);
+            }
+        } catch (SQLException sqle) {
+            throw new Exception(sqle.getMessage());
+        } catch (Exception ex) {
+            throw new Exception(ex.getMessage());
+        } finally {
+            if (rs != null) {
+                DBUtil.closeConnection(rs);
+            }
+        }
+        return list;
+    }
+
     public PetroBean getPetro(int petroId) throws Exception {
         ResultSet rs = null;
         String sql = "select p.*, u.name as unit_name from petro as p, unit as u where p.unit_id=u.id and p.id=" + petroId;

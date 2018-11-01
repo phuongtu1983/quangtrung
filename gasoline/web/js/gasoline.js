@@ -281,6 +281,8 @@ function menuClick(id) {
         showCompareReportPanel();
     else if (id == 'reportlpgstocksumorganization')
         showLpgStockSumOrganizationReportPanel();
+    else if (id == 'reportpetrostockstore')
+        showPetroStockStoreReportPanel();
 }
 function clearContent() {
     var contentDiv = document.getElementById("contentDiv");
@@ -8581,6 +8583,49 @@ function delDiscount() {
     });
     return false;
 }
-
+function showPetroStockStoreReportPanel() {
+    popupName = 'S\u1ED5 theo d\u00F5i NXT x\u0103ng d\u1EA7u theo c\u1EEDa h\u00E0ng';
+    var url = 'getPetroStockStoreReportPanel.do';
+    callAjax(url, null, null, function(data) {
+        showPopupForm(data);
+        var myCalendar = new dhtmlXCalendarObject(["fromDate", "toDate"]);
+        myCalendar.setSkin('dhx_web');
+        var currentTime = getCurrentDate();
+        document.forms['reportPetroStockStoreSearchForm'].fromDate.value = currentTime;
+        document.forms['reportPetroStockStoreSearchForm'].toDate.value = currentTime;
+        myCalendar.setDateFormat("%d/%m/%Y");
+    });
+}
+function printPetroStockStoreReport(fromDate, toDate) {
+    var list = document.getElementById("reportPetroStockStoreSearchFormTime");
+    if (list == null || list.selectedIndex == -1)
+        return false;
+    if (list.selectedIndex == 1) {
+        fromDate = "01/" + fromDate;
+        var ind = toDate.indexOf("/");
+        var month = toDate.substring(0, ind);
+        var year = toDate.substring(ind + 1);
+        toDate = month + "/01/" + year;
+        var d = new Date(toDate);
+        var lastDay = new Date(d.getFullYear(), d.getMonth() + 1, 0).getDate();
+        toDate = lastDay + "/" + month + "/" + year;
+    } else if (list.selectedIndex == 2) {
+        fromDate = "01/01/" + fromDate;
+        toDate = "31/12/" + toDate;
+    }
+    var url = "reportPetroStockStorePrint.do?temp=1";
+    if (fromDate !== null)
+        url += "&fromDate=" + fromDate;
+    if (toDate !== null)
+        url += "&toDate=" + toDate;
+    list = document.forms['reportPetroStockStoreSearchForm'].storeId;
+    if (list != null && list.selectedIndex > -1)
+        list = list.options[list.selectedIndex].value;
+    else
+        list = 0;
+    url += "&storeId=" + list;
+    callServer(url);
+    return false;
+}
 
 

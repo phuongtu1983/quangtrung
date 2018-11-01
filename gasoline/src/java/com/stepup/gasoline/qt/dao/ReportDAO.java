@@ -17,6 +17,8 @@ import com.stepup.gasoline.qt.report.LpgStockReportOutBean;
 import com.stepup.gasoline.qt.report.LpgStockSumReportOutBean;
 import com.stepup.gasoline.qt.report.PetroImportReportBean;
 import com.stepup.gasoline.qt.report.PetroSaleReportBean;
+import com.stepup.gasoline.qt.report.PetroStockReportBean;
+import com.stepup.gasoline.qt.report.PetroStockReportOutBean;
 import com.stepup.gasoline.qt.report.SaleCustomerReportBean;
 import com.stepup.gasoline.qt.report.SaleReportBean;
 import com.stepup.gasoline.qt.report.SumReportBean;
@@ -711,7 +713,7 @@ public class ReportDAO extends BasicDAO {
         }
         return list;
     }
-    
+
     public ArrayList getPetroSaleReport(String fromDate, String endDate, String organizationIds) throws Exception {
         SPUtil spUtil = null;
         ArrayList list = new ArrayList();
@@ -771,13 +773,13 @@ public class ReportDAO extends BasicDAO {
         }
         return list;
     }
-    
-    public ArrayList getPetroStockReport(String fromDate, String endDate, String organizationIds) throws Exception {
+
+    public ArrayList getPetroStockReport(String fromDate, String endDate, String organizationIds, int petroId, String session_id, PetroStockReportOutBean outBean) throws Exception {
         SPUtil spUtil = null;
         ArrayList list = new ArrayList();
         ResultSet rs = null;
         try {
-            String sql = "{call report_petro_stock(?,?,?)}";
+            String sql = "{call report_petro_stock(?,?,?,?,?,?)}";
             if (GenericValidator.isBlankOrNull(fromDate)) {
                 fromDate = DateUtil.today("dd/MM/yyyy");
             }
@@ -789,25 +791,27 @@ public class ReportDAO extends BasicDAO {
                 spUtil.getCallableStatement().setString("_start_date", fromDate);
                 spUtil.getCallableStatement().setString("_end_date", endDate);
                 spUtil.getCallableStatement().setString("_organization_ids", organizationIds);
+                spUtil.getCallableStatement().setInt("_petro_id", petroId);
+                spUtil.getCallableStatement().setString("_session_id", session_id);
+                spUtil.getCallableStatement().registerOutParameter("_petro_ids", Types.VARCHAR);
 
                 rs = spUtil.executeQuery();
 
+                outBean.setPetroIds(spUtil.getCallableStatement().getString("_petro_ids"));
                 if (rs != null) {
-                    PetroSaleReportBean bean = null;
-                    int count = 1;
+                    PetroStockReportBean bean = null;
+                    int stock = -1;
                     while (rs.next()) {
-                        bean = new PetroSaleReportBean();
-                        bean.setCount(count++ + "");
+                        bean = new PetroStockReportBean();
                         bean.setDate(DateUtil.formatDate(rs.getDate("created_date"), "dd/MM/yyyy"));
-                        bean.setCustomerCode(rs.getString("customerCode"));
-                        bean.setCustomerName(rs.getString("customerName"));
-                        bean.setPetroCode(rs.getString("petroCode"));
-                        bean.setStoreName(rs.getString("storeName"));
-                        bean.setQuantity(rs.getInt("quantity"));
-                        bean.setPrice(rs.getDouble("price"));
-                        bean.setAmount(rs.getDouble("amount"));
-                        bean.setPaid(rs.getDouble("paid"));
-                        bean.setPaymentMethod(rs.getString("account"));
+                        bean.setPetroId(rs.getInt("petro_id"));
+                        bean.setImportQuantity(rs.getInt("import_quantity"));
+                        bean.setSaleQuantity(rs.getInt("export_quantity"));
+                        if (stock == -1) {
+                            stock = rs.getInt("opening_stock");
+                            outBean.setOpeningStock(stock);
+                        }
+                        bean.setStock(stock + bean.getImportQuantity() - bean.getSaleQuantity());
                         list.add(bean);
                     }
                 }
@@ -830,5 +834,97 @@ public class ReportDAO extends BasicDAO {
             }
         }
         return list;
+    }
+
+    public ArrayList getPetroStockStoreReport(String fromDate, String endDate, String organizationIds, int storeId, int petroId, String session_id, PetroStockReportOutBean outBean) throws Exception {
+        SPUtil spUtil = null;
+        ArrayList list = new ArrayList();
+        ResultSet rs = null;
+        try {
+            String sql = "{call report_petro_stock_store(?,?,?,?,?,?,?)}";
+            if (GenericValidator.isBlankOrNull(fromDate)) {
+                fromDate = DateUtil.today("dd/MM/yyyy");
+            }
+            if (GenericValidator.isBlankOrNull(endDate)) {
+                endDate = BasicDAO.START_DATE;
+            }
+            spUtil = new SPUtil(sql);
+            if (spUtil != null) {
+                spUtil.getCallableStatement().setString("_start_date", fromDate);
+                spUtil.getCallableStatement().setString("_end_date", endDate);
+                spUtil.getCallableStatement().setString("_organization_ids", organizationIds);
+                spUtil.getCallableStatement().setInt("_store_id", storeId);
+                spUtil.getCallableStatement().setInt("_petro_id", petroId);
+                spUtil.getCallableStatement().setString("_session_id", session_id);
+                spUtil.getCallableStatement().registerOutParameter("_petro_ids", Types.VARCHAR);
+
+                rs = spUtil.executeQuery();
+
+                if (outBean != null) {
+                    outBean.setPetroIds(spUtil.getCallableStatement().getString("_petro_ids"));
+                }
+                if (rs != null) {
+                    PetroStockReportBean bean = null;
+                    int stock = 0;
+                    while (rs.next()) {
+                        bean = new PetroStockReportBean();
+                        bean.setDate(DateUtil.formatDate(rs.getDate("created_date"), "dd/MM/yyyy"));
+                        bean.setPetroId(rs.getInt("petro_id"));
+                        bean.setImportQuantity(rs.getInt("import_quantity"));
+                        bean.setSaleQuantity(rs.getInt("export_quantity"));
+                        stock = +rs.getInt("opening_stock");
+                        bean.setStock(stock + bean.getImportQuantity() - bean.getSaleQuantity());
+                        list.add(bean);
+                    }
+                }
+            }
+        } catch (SQLException sqle) {
+            throw new Exception(sqle.getMessage());
+        } catch (Exception ex) {
+            throw new Exception(ex.getMessage());
+        } finally {
+            try {
+                if (spUtil != null) {
+                    spUtil.closeConnection();
+                }
+                if (rs != null) {
+                    rs.close();
+                    rs = null;
+                }
+            } catch (Exception e) {
+                throw new Exception(e.getMessage());
+            }
+        }
+        return list;
+    }
+
+    public void clearPetroStockReport(String session_id) throws Exception {
+        SPUtil spUtil = null;
+        ResultSet rs = null;
+        try {
+            String sql = "{call clear_petro_stock_report(?)}";
+            spUtil = new SPUtil(sql);
+            if (spUtil != null) {
+                spUtil.getCallableStatement().setString("_session_id", session_id);
+
+                rs = spUtil.executeQuery();
+            }
+        } catch (SQLException sqle) {
+            throw new Exception(sqle.getMessage());
+        } catch (Exception ex) {
+            throw new Exception(ex.getMessage());
+        } finally {
+            try {
+                if (spUtil != null) {
+                    spUtil.closeConnection();
+                }
+                if (rs != null) {
+                    rs.close();
+                    rs = null;
+                }
+            } catch (Exception e) {
+                throw new Exception(e.getMessage());
+            }
+        }
     }
 }

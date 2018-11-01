@@ -35,8 +35,8 @@ public class GetPetroListAction extends BaseAction {
                 for (int i = 0; i < length; i++) {
                     PetroFormBean bean = (PetroFormBean) list.get(i);
                     buff.append("<row id=\"").append(bean.getId()).append("\">");
-                    buff.append("<cell>").append(bean.getName()).append("^javascript:getPetro(").append(bean.getId()).append(",\"loadPetroList\")^_self</cell>");
-                    buff.append("<cell>").append(bean.getCode()).append("</cell>");
+                    buff.append("<cell>").append(bean.getCode()).append("^javascript:getPetro(").append(bean.getId()).append(",\"loadPetroList\")^_self</cell>");
+                    buff.append("<cell>").append(bean.getName()).append("</cell>");
                     buff.append("<cell>").append(NumberUtil.formatMoneyDefault(bean.getPrice(), "VND")).append("</cell>");
                     buff.append("<cell>").append(bean.getUnitName()).append("</cell>");
                     buff.append("<cell>").append(bean.getOrganizationName()).append("</cell>");

@@ -159,4 +159,5 @@ public class PermissionUtil {
     public static int PER_REPORT_PETRO_IMPORT = 71;
     public static int PER_REPORT_PETRO_SALE = 72;
     public static int PER_REPORT_PETRO_STOCK = 73;
+    public static int PER_REPORT_PETRO_STOCK_STORE = 74;
 }

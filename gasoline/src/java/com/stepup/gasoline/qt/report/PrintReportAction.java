@@ -5,11 +5,8 @@
 package com.stepup.gasoline.qt.report;
 
 import com.stepup.core.util.FileUtil;
-import com.stepup.core.util.GenericValidator;
 import com.stepup.core.util.LogUtil;
-import com.stepup.core.util.NumberUtil;
 import com.stepup.core.util.StringUtil;
-import com.stepup.gasoline.qt.bean.EmployeeBean;
 import com.stepup.gasoline.qt.core.BaseAction;
 import com.stepup.gasoline.qt.core.ExcelExport;
 import com.stepup.gasoline.qt.dao.GoodDAO;
@@ -19,20 +16,12 @@ import com.stepup.gasoline.qt.petro.PetroFormBean;
 import com.stepup.gasoline.qt.util.QTUtil;
 import com.stepup.gasoline.qt.vendor.VendorFormBean;
 import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileOutputStream;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.HashMap;
 import java.util.Map;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import org.apache.poi.hssf.usermodel.HSSFCell;
-import org.apache.poi.hssf.usermodel.HSSFRichTextString;
-import org.apache.poi.hssf.usermodel.HSSFRow;
-import org.apache.poi.hssf.usermodel.HSSFSheet;
-import org.apache.poi.hssf.usermodel.HSSFWorkbook;
-import org.apache.poi.hssf.util.CellRangeAddress;
-import org.apache.poi.poifs.filesystem.POIFSFileSystem;
 import org.apache.struts.action.ActionForm;
 import org.apache.struts.action.ActionMapping;
 
@@ -55,6 +44,8 @@ public class PrintReportAction extends BaseAction {
                 ExcelExport exporter = new ExcelExport();
                 String fromDate = request.getParameter("fromDate");
                 String toDate = request.getParameter("toDate");
+                beans.put("qtrp_fromDate", fromDate);
+                beans.put("qtrp_toDate", toDate);
                 ArrayList list = null;
                 if (reportName.equals("reportlpgimport")) {
                     templateFileName = "bang_theo_doi_nhap_hang_lpg";
@@ -91,6 +82,7 @@ public class PrintReportAction extends BaseAction {
                 } else if (reportName.equals("reportpetrostock")) {
                     templateFileName = "so_theo_doi_nxt_tong_hop_petro";
                     list = printPetroStockReport(fromDate, toDate, organizationIds, request.getSession().getServletContext().getRealPath("/templates/" + templateFileName + ".xls"));
+                    printPetroStockReport(fromDate, toDate, organizationIds, request.getSession().getServletContext().getRealPath("/templates/" + templateFileName + ".xls"), session, beans, exporter);
                 }
                 templateFileName = request.getSession().getServletContext().getRealPath("/templates/" + templateFileName + ".xls");
                 beans.put("qtrp_fromDate", fromDate);
@@ -101,8 +93,8 @@ public class PrintReportAction extends BaseAction {
                 beans.put("dulieu", list);
                 exporter.setBeans(beans);
                 exporter.export(request, response, templateFileName, "report_" + reportName + ".xls");
+//                }
             }
-
         } catch (Exception ex) {
             LogUtil.error("FAILED:PrintReportAction:print-" + ex.getMessage());
         }
@@ -215,131 +207,53 @@ public class PrintReportAction extends BaseAction {
         return list;
     }
 
-    private ArrayList printPetroStockReport(String fromDate, String toDate, String organizationIds, String fileName) {
+//    private ArrayList printPetroStockReport(String fromDate, String toDate, String organizationIds, HttpServletRequest request, HttpServletResponse response,
+//            String fileName, String sessionId, Map beans, ExcelExport exporter) {
+    private ArrayList printPetroStockReport(String fromDate, String toDate, String organizationIds, String fileName, String sessionId, Map beans, ExcelExport exporter) {
         ArrayList list = null;
         try {
+//            fileName = request.getSession().getServletContext().getRealPath("/templates/" + fileName + ".xls");
             GoodDAO goodDAO = new GoodDAO();
-            ArrayList petros = goodDAO.getPetros(EmployeeBean.STATUS_ACTIVE, organizationIds);
+            ReportDAO reportDAO = new ReportDAO();
 
             File f = FileUtil.createFile(fileName);
             ArrayList arrHideCol = new ArrayList();
             arrHideCol.add(2);
             arrHideCol.add(3);
             arrHideCol.add(4);
-            Map beans = new HashMap();
-            createColumn(fileName, petros, 31, f, arrHideCol, beans);
+
+            PetroStockReportOutBean outBean = new PetroStockReportOutBean();
+            list = reportDAO.getPetroStockReport(fromDate, toDate, organizationIds, 0, sessionId, outBean);
+
+            ArrayList petros = goodDAO.getPetros(outBean.getPetroIds());
+
+            beans.put("datedata", list);
+            DynamicColumnExcelReporter.createPetroStockReportColumns(fileName, petros, f);
 
             PetroFormBean petro = null;
-            ReportDAO reportDAO = new ReportDAO();
+
             for (int i = 0; i < petros.size(); i++) {
                 petro = (PetroFormBean) petros.get(i);
                 try {
-                    list = reportDAO.getPetroStockReport(fromDate, toDate, organizationIds);
+                    list = reportDAO.getPetroStockReport(fromDate, toDate, organizationIds, petro.getId(), sessionId, outBean);
                 } catch (Exception ex) {
                 }
-                if (list == null) {
-                    list = new ArrayList();
-                }
-                if (i == 0) {//lan dau do du lieu
-                    beans.put("material", list);
-                }
-                beans.put("petro" + petro.getId(), list);
+                beans.put("dynamicdata" + petro.getId(), list);
+                beans.put("openingStock" + petro.getId(), outBean.getOpeningStock());
             }
+            reportDAO.clearPetroStockReport(sessionId);
+
+            short[] hiddenCols = new short[arrHideCol.size()];
+            for (int i = 0; i < arrHideCol.size(); i++) {
+                hiddenCols[i] = Short.parseShort(arrHideCol.get(i) + "");
+            }
+            exporter.setHiddenCols(hiddenCols);
+//            exporter.setBeans(beans);
+//            exporter.export(request, response, fileName, "report.xls");
+//            f.delete();
         } catch (Exception ex) {
+            System.out.println(ex);
         }
         return list;
-    }
-
-    private void createColumn(String templateFileName, ArrayList arrPetro, int rowSize, File f, ArrayList arrHideCol, Map beans) throws Exception {
-        POIFSFileSystem fs = new POIFSFileSystem(new FileInputStream(templateFileName));
-        HSSFWorkbook wb = new HSSFWorkbook(fs);
-        HSSFSheet sheet = wb.getSheetAt(0);
-        HSSFCell newCell = null;
-        PetroFormBean petro = null;
-        short col = 5, row = 3;
-        short border = sheet.getRow(1).getCell(1).getCellStyle().getBorderLeft();
-        short color = sheet.getRow(1).getCell(1).getCellStyle().getLeftBorderColor();
-        for (int i = 0; i < arrPetro.size(); i++) {
-            petro = (PetroFormBean) arrPetro.get(i);
-            //copy header
-            newCell = copyCell(wb, sheet, row + 1, 2, col, "");
-            newCell.setCellValue(new HSSFRichTextString(petro.getName()));
-            ExcelExport.setBorder(wb, sheet, row + 1, col + 1, border, color);
-            ExcelExport.setBorder(wb, sheet, row + 1, col + 2, border, color);
-
-            //copy header nhap
-            newCell = copyCell(wb, sheet, row + 2, 2, col, "");
-            newCell.setCellValue(new HSSFRichTextString(newCell.getRichStringCellValue().getString()));
-//            if (vendor.getCurrency().contains("VN")) {
-//                arrHideCol.add(col);
-//            }
-            //copy header xuat
-            newCell = copyCell(wb, sheet, row + 2, 3, col + 1, "");
-            newCell.setCellValue(new HSSFRichTextString(newCell.getRichStringCellValue().getString()));
-//            if (!GenericValidator.isBlankOrNull(vendor.getCurrency())) {
-//                if (!vendor.getCurrency().contains("VN") && vendor.getRates() == 1) {
-//                    arrHideCol.add(col + 1);
-//                }
-//            }
-            //copy header ton
-            newCell = copyCell(wb, sheet, row + 2, 4, col + 2, "");
-            newCell.setCellValue(new HSSFRichTextString(newCell.getRichStringCellValue().getString()));
-
-            ExcelExport.setBorder(wb, sheet, row + 3, col, border, color);
-            ExcelExport.setBorder(wb, sheet, row + 3, col + 1, border, color);
-            ExcelExport.setBorder(wb, sheet, row + 3, col + 2, border, color);
-
-            //copy content nhap
-            copyCell(wb, sheet, row + 4, 2, col, petro.getId() + "");
-            //copy content xuat
-            copyCell(wb, sheet, row + 4, 3, col + 1, petro.getId() + "");
-            //copy content ton
-            copyCell(wb, sheet, row + 4, 4, col + 2, petro.getId() + "");
-
-            //copy footer nhap
-            newCell = copyCell(wb, sheet, row + 5, 2, col, petro.getId() + "");
-            newCell.setCellValue(new HSSFRichTextString("$[SUM(" + (col) + "8)]"));
-            //copy footer xuat
-            newCell = copyCell(wb, sheet, row + 5, 3, col + 1, petro.getId() + "");
-            newCell.setCellValue(new HSSFRichTextString("$[SUM(" + (col + 1) + "8)]"));
-            //copy footer ton
-            newCell = copyCell(wb, sheet, row + 5, 4, col + 2, petro.getId() + "");
-            newCell.setCellValue(new HSSFRichTextString("$[SUM(" + (col + 2) + "8)]"));
-
-            sheet.setColumnWidth(col, sheet.getColumnWidth(2));
-            sheet.setColumnWidth((col + 1), sheet.getColumnWidth(3));
-            sheet.setColumnWidth((col + 2), sheet.getColumnWidth(4));
-            sheet.addMergedRegion(new CellRangeAddress(row + 1, row + 1, col, col + 2));
-            col += 3;
-        }
-        sheet.addMergedRegion(new CellRangeAddress(0, 0, 0, 3 + arrPetro.size() * 3 + 3 * 2));
-        FileOutputStream fileOut = new FileOutputStream(f);
-        wb.write(fileOut);
-        fileOut.close();
-    }
-
-    private HSSFCell copyCell(HSSFWorkbook wb, HSSFSheet sheet, int rowNum, int col, int newCol, String content) {
-        HSSFRow row = sheet.getRow(rowNum);
-        HSSFCell cell = row.getCell(col);
-        HSSFCell newCell = row.createCell(newCol);
-        ExcelExport.copyStyle(wb, cell, newCell);
-        if (GenericValidator.isBlankOrNull(content)) {
-            newCell.setCellValue(cell.getRichStringCellValue());
-        } else {
-            newCell.setCellValue(new HSSFRichTextString(copyCellValue(cell.getRichStringCellValue().getString(), content)));
-        }
-        return newCell;
-    }
-
-    private String copyCellValue(String value, String content) {
-        String result = "";
-        int ind = value.indexOf("${");
-        if (ind == 0) {
-            ind = value.indexOf(".");
-            if (ind > -1) {
-                result = "${petro" + content + value.substring(ind);
-            }
-        }
-        return result;
     }
 }

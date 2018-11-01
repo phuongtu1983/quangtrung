@@ -775,6 +775,9 @@ public class GenerateMenu {
                     if (isHasPermission(PermissionUtil.OPERATION_LIST, PermissionUtil.PER_REPORT_PETRO_STOCK)) {
                         buffTemp.append("<item id=\"reportpetrostock\" text=\"").append(QTUtil.getBundleString("report.petroStock.title")).append("\"/>");
                     }
+                    if (isHasPermission(PermissionUtil.OPERATION_LIST, PermissionUtil.PER_REPORT_PETRO_STOCK_STORE)) {
+                        buffTemp.append("<item id=\"reportpetrostockstore\" text=\"").append(QTUtil.getBundleString("report.petroStockStore.title")).append("\"/>");
+                    }
                     buffTemp.append("</item>");
                 }
             }

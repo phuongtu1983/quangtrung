@@ -190,13 +190,12 @@ public class ExcelExport {
 
     public static String getColumnName(int columnNumber) {
         String name = "";
-        int columnCount = 26;
         String[] columnNames = {"A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K", "L", "M", "N", "O", "P", "Q", "R", "S", "T", "U", "V", "W", "X", "Y", "Z"};
-        if (columnNumber <= columnCount) {
-            name = columnNames[columnNumber - 1];
+        if (columnNumber < columnNames.length) {
+            name = columnNames[columnNumber];
         } else {
-            int firstLetter = columnNumber / 26;
-            int secondLetter = columnNumber % 26;
+            int firstLetter = columnNumber / columnNames.length - 1;
+            int secondLetter = columnNumber % columnNames.length;
             name = getColumnName(firstLetter) + getColumnName(secondLetter);
         }
         return name;

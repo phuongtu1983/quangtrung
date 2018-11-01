@@ -1090,10 +1090,12 @@
         </action>
         <action path="/reportComparePrint" type="com.stepup.gasoline.qt.report.compare.PrintCompareReportAction" scope="request" validate="false" >
         </action>
-        <action path="/getLpgStockSumOrganizationReportPanel" type="com.stepup.gasoline.qt.report.lpgstocksumorganization.LpgStockSumOrganizationReportPanelFormAction" scope="request" validate="false">
-            <forward name="success" path="/report/lpgstocksumorganization/panel.jsp" />
-        </action>
         <action path="/reportLpgStockSumOrganizationPrint" type="com.stepup.gasoline.qt.report.lpgstocksumorganization.PrintLpgStockSumOrganizationReportAction" scope="request" validate="false" >
+        </action>
+        <action path="/getPetroStockStoreReportPanel" type="com.stepup.gasoline.qt.report.petrostockstore.PetroStockStoreReportPanelFormAction" scope="request" validate="false">
+            <forward name="success" path="/report/petrostockstore/panel.jsp" />
+        </action>
+        <action path="/reportPetroStockStorePrint" type="com.stepup.gasoline.qt.report.petrostockstore.PrintPetroStockStoreReportAction" scope="request" validate="false" >
         </action>
         <!-- end report -->
     </action-mappings>
