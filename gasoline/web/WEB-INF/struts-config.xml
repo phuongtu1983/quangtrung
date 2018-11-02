@@ -37,6 +37,7 @@
         <form-bean name="promotionMaterialForm" type="com.stepup.gasoline.qt.promotionmaterial.PromotionMaterialFormBean"/>
         <form-bean name="accessoryForm" type="com.stepup.gasoline.qt.accessory.AccessoryFormBean"/>
         <form-bean name="petroForm" type="com.stepup.gasoline.qt.petro.PetroFormBean"/>
+        <form-bean name="goodForm" type="com.stepup.gasoline.qt.good.GoodFormBean"/>
         <form-bean name="employeeAdvanceForm" type="com.stepup.gasoline.qt.employeeadvance.EmployeeAdvanceFormBean"/>
         <form-bean name="lpgImportForm" type="com.stepup.gasoline.qt.lpgimport.LpgImportFormBean"/>
         <form-bean name="lpgSaleForm" type="com.stepup.gasoline.qt.lpgsale.LpgSaleFormBean"/>
@@ -73,6 +74,7 @@
         <form-bean name="shellReturnForm" type="com.stepup.gasoline.qt.shellreturn.ShellReturnFormBean"/>
         <form-bean name="shellReturnSupplierForm" type="com.stepup.gasoline.qt.shellreturnsupplier.ShellReturnSupplierFormBean"/>
         <form-bean name="petroImportForm" type="com.stepup.gasoline.qt.petroimport.PetroImportFormBean"/>
+        <form-bean name="goodImportForm" type="com.stepup.gasoline.qt.goodimport.GoodImportFormBean"/>
         <form-bean name="accessoryImportForm" type="com.stepup.gasoline.qt.accessoryimport.AccessoryImportFormBean"/>
         <form-bean name="promotionMaterialImportForm" type="com.stepup.gasoline.qt.promotionmaterialimport.PromotionMaterialImportFormBean"/>
         <form-bean name="gasWholesaleForm" type="com.stepup.gasoline.qt.gaswholesale.GasWholesaleFormBean"/>
@@ -82,6 +84,7 @@
         <form-bean name="vehicleInForm" type="com.stepup.gasoline.qt.vehiclein.VehicleInFormBean"/>
         <form-bean name="exportWholesaleForm" type="com.stepup.gasoline.qt.exportwholesale.ExportWholesaleFormBean"/>
         <form-bean name="salePetroForm" type="com.stepup.gasoline.qt.salepetro.SalePetroFormBean"/>
+        <form-bean name="saleGoodForm" type="com.stepup.gasoline.qt.salegood.SaleGoodFormBean"/>
         <form-bean name="fixedAssetDepreciationForm" type="com.stepup.gasoline.qt.fixedassetdepreciation.FixedAssetDepreciationFormBean"/>
         <form-bean name="saleShellForm" type="com.stepup.gasoline.qt.saleshell.SaleShellFormBean"/>
         <form-bean name="debtVendorForm" type="com.stepup.gasoline.qt.debtvendor.DebtVendorFormBean"/>
@@ -1097,7 +1100,58 @@
         </action>
         <action path="/reportPetroStockStorePrint" type="com.stepup.gasoline.qt.report.petrostockstore.PrintPetroStockStoreReportAction" scope="request" validate="false" >
         </action>
+        <action path="/getCompareGoodReportPanel" type="com.stepup.gasoline.qt.report.comparegood.CompareGoodReportPanelFormAction" scope="request" validate="false">
+            <forward name="success" path="/report/comparegood/panel.jsp" />
+        </action>
+        <action path="/reportCompareGoodPrint" type="com.stepup.gasoline.qt.report.comparegood.PrintCompareGoodReportAction" scope="request" validate="false" >
+        </action>
         <!-- end report -->
+        <!-- start good -->
+        <action path="/getGoodPanel" type="com.stepup.gasoline.qt.common.BaseStatusFormAction" scope="request" validate="false">
+            <forward name="success" path="/good/goodpanel.jsp" />
+        </action>
+        <action path="/getGoodList" type="com.stepup.gasoline.qt.good.GetGoodListAction" scope="request" validate="false" >
+        </action>
+        <action path="/goodForm" type="com.stepup.gasoline.qt.good.GoodFormAction" scope="request" validate="false">
+            <forward name="success" path="/good/gooddetail.jsp" />
+        </action>
+        <action path="/addGood" name ="goodForm" scope="request" type="com.stepup.gasoline.qt.good.AddGoodAction" input="/goodForm.do">
+        </action>
+        <!-- end good -->
+        <!-- start goodimport -->
+        <action path="/getGoodImportPanel" type="com.stepup.gasoline.qt.common.BaseFormAction" scope="request" validate="false">
+            <forward name="success" path="/goodimport/goodimportpanel.jsp" />
+        </action>
+        <action path="/getGoodImportList" type="com.stepup.gasoline.qt.goodimport.GetGoodImportListAction" scope="request" validate="false" >
+        </action>
+        <action path="/goodImportForm" type="com.stepup.gasoline.qt.goodimport.GoodImportFormAction" scope="request" validate="false">
+            <forward name="success" path="/goodimport/goodimportdetail.jsp" />
+        </action>
+        <action path="/addGoodImport" name ="goodImportForm" scope="request" type="com.stepup.gasoline.qt.goodimport.AddGoodImportAction" input="/goodImportForm.do">
+        </action>
+        <action path="/getGoodImportGood" type="com.stepup.gasoline.qt.goodimport.GetGoodImportGoodAction" scope="request" validate="false">
+            <forward name="success" path="/goodimport/goods.jsp" />
+        </action>
+        <action path="/delGoodImport" type="com.stepup.gasoline.qt.goodimport.DeleteGoodImportAction" scope="request" validate="false" >
+        </action>
+        <!-- end goodimport -->
+        <!-- start sale good -->
+        <action path="/getSaleGoodPanel" type="com.stepup.gasoline.qt.common.BaseFormAction" scope="request" validate="false">
+            <forward name="success" path="/salegood/salegoodpanel.jsp" />
+        </action>
+        <action path="/getSaleGoodList" type="com.stepup.gasoline.qt.salegood.GetSaleGoodListAction" scope="request" validate="false" >
+        </action>
+        <action path="/saleGoodForm" type="com.stepup.gasoline.qt.salegood.SaleGoodFormAction" scope="request" validate="false">
+            <forward name="success" path="/salegood/salegooddetail.jsp" />
+        </action>
+        <action path="/addSaleGood" name ="saleGoodForm" scope="request" type="com.stepup.gasoline.qt.salegood.AddSaleGoodAction" input="/saleGoodForm.do">
+        </action>
+        <action path="/getSaleGoodGood" type="com.stepup.gasoline.qt.salegood.GetSaleGoodGoodAction" scope="request" validate="false">
+            <forward name="success" path="/salegood/goods.jsp" />
+        </action>
+        <action path="/delSaleGood" type="com.stepup.gasoline.qt.salegood.DeleteSaleGoodAction" scope="request" validate="false" >
+        </action>
+        <!-- end sale good -->
     </action-mappings>
     
     <controller processorClass="org.apache.struts.tiles.TilesRequestProcessor"/>

@@ -19,6 +19,8 @@ public class StoreFormBean extends org.apache.struts.action.ActionForm {
     private String statusName;
     private int organizationId;
     private String organizationName;
+    private boolean isPetro;
+    private boolean isGood;
 
     public StoreFormBean() {
     }
@@ -29,6 +31,8 @@ public class StoreFormBean extends org.apache.struts.action.ActionForm {
         this.code = bean.getCode();
         this.status = bean.getStatus();
         this.organizationId = bean.getOrganizationId();
+        this.isPetro = bean.getIsPetro() == 1 ? true : false;
+        this.isGood = bean.getIsGood() == 1 ? true : false;
     }
 
     public int getId() {
@@ -87,4 +91,19 @@ public class StoreFormBean extends org.apache.struts.action.ActionForm {
         this.organizationName = organizationName;
     }
 
+    public boolean getIsPetro() {
+        return isPetro;
+    }
+
+    public void setIsPetro(boolean isPetro) {
+        this.isPetro = isPetro;
+    }
+
+    public boolean getIsGood() {
+        return isGood;
+    }
+
+    public void setIsGood(boolean isGood) {
+        this.isGood = isGood;
+    }
 }

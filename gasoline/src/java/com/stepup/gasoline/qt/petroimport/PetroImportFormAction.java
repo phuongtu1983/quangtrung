@@ -114,7 +114,7 @@ public class PetroImportFormAction extends SpineAction {
         ArrayList arrStore = null;
         try {
             OrganizationDAO orgDAO = new OrganizationDAO();
-            arrStore = orgDAO.getStores(organizationIds);
+            arrStore = orgDAO.getStores(organizationIds, VendorBean.IS_PETRO);
         } catch (Exception ex) {
         }
         if (arrStore == null) {

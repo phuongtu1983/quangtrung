@@ -125,6 +125,14 @@ public class AddPetroImportAction extends SpineAction {
                     }
                 }
             }
+            String ids = "0,";
+            PetroImportDetailBean oldBean = null;
+            for (int i = 0; i < arrDetail.size(); i++) {
+                oldBean = (PetroImportDetailBean) arrDetail.get(i);
+                ids += oldBean.getId() + ",";
+            }
+            ids += "0";
+            gasDAO.deletePetroImportDetails(ids);
         } catch (Exception ex) {
         }
     }

@@ -126,6 +126,14 @@ public class AddSalePetroAction extends SpineAction {
                     }
                 }
             }
+            String ids = "0,";
+            SalePetroDetailBean oldBean = null;
+            for (int i = 0; i < arrDetail.size(); i++) {
+                oldBean = (SalePetroDetailBean) arrDetail.get(i);
+                ids += oldBean.getId() + ",";
+            }
+            ids += "0";
+            goodDAO.deleteSalePetroDetails(ids);
         } catch (Exception ex) {
         }
     }

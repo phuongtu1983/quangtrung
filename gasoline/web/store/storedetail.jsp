@@ -30,11 +30,17 @@
                                 </html:select>
                             </td>
                         </tr>
-                    </table>
-                </td></tr>
-            <tr>
-                <td align="center" height="30" colspan="4">
-                    <p style="margin-top: 0; margin-bottom: 0">
+                        <tr>
+                            <td height="30" style="padding-right: 20px"><bean:message key="customer.detail.isPetro"/></td>
+                            <td><html:checkbox property="isPetro" name="<%=Constants.STORE%>"></html:checkbox></td>
+                            <td style="padding-left: 10px; padding-right: 20px"><bean:message key="customer.detail.isGood"/></td>
+                            <td><html:checkbox property="isGood" name="<%=Constants.STORE%>"></html:checkbox></td>
+                            </tr>
+                        </table>
+                    </td></tr>
+                <tr>
+                    <td align="center" height="30" colspan="4">
+                        <p style="margin-top: 0; margin-bottom: 0">
                         <logic:equal name="<%=Constants.STORE%>" property="id" value="0">
                             <%if (PermissionUtil.hasPermission(request, PermissionUtil.OPERATION_ADD, PermissionUtil.PER_STORE)) {%> 
                             <button class="i_create_write icon small green" onclick="return saveStore();"><bean:message key="message.save"/></button>

@@ -134,6 +134,10 @@ function menuClick(id) {
         loadPetroPanel();
     else if (id == 'petroadd')
         getPetro(0, 'loadPetroPanel');
+    else if (id == 'goodlist')
+        loadGoodPanel();
+    else if (id == 'goodadd')
+        getGood(0, 'loadGoodPanel');
     else if (id == 'tripfeelist')
         loadTripFeePanel();
     else if (id == 'tripfeeadd')
@@ -283,6 +287,16 @@ function menuClick(id) {
         showLpgStockSumOrganizationReportPanel();
     else if (id == 'reportpetrostockstore')
         showPetroStockStoreReportPanel();
+    else if (id == 'goodimportlist')
+        loadGoodImportPanel();
+    else if (id == 'goodimportadd')
+        getGoodImport(0);
+    else if (id == 'salegoodlist')
+        loadSaleGoodPanel();
+    else if (id == 'salegoodadd')
+        getSaleGood(0);
+    else if (id == 'reportcomparegood')
+        showCompareGoodReportPanel();
 }
 function clearContent() {
     var contentDiv = document.getElementById("contentDiv");
@@ -894,7 +908,6 @@ function addOrganizationShell() {
     });
     return false;
 }
-
 function saveOrganization() {
     if (scriptFunction == "saveOrganization")
         return false;
@@ -3333,11 +3346,11 @@ function loadGasImportPanel() {
 function loadGasImportList(fromDate, toDate) {
     var mygrid = new dhtmlXGridObject('gasImportList');
     mygrid.setImagePath("js/dhtmlx/grid/imgs/");
-    mygrid.setHeader("M\u00E3 phi\u1EBFu,Ng\u00E0y,Nh\u00E0 cung c\u1EA5p,Kho,T\u1ED5ng ti\u1EC1n,Thanh to\u00E1n,C\u00F2n n\u1EE3,Ghi ch\u00FA");
-    mygrid.attachHeader("#text_filter,#text_filter,#select_filter,#select_filter,#text_filter,#text_filter,#text_filter,#text_filter");
-    mygrid.setInitWidths("150,100,150,150,150,150,*");
-    mygrid.setColTypes("link,ro,ro,ro,ro,ro,ro");
-    mygrid.setColSorting("str,str,str,str,str,str,str");
+    mygrid.setHeader("M\u00E3 phi\u1EBFu,Ng\u00E0y,Nh\u00E0 cung c\u1EA5p,T\u1ED5ng ti\u1EC1n,Thanh to\u00E1n,C\u00F2n n\u1EE3,Ghi ch\u00FA");
+    mygrid.attachHeader("#text_filter,#text_filter,#select_filter,#text_filter,#text_filter,#text_filter,#text_filter");
+    mygrid.setInitWidths("150,100,150,150,150,*");
+    mygrid.setColTypes("link,ro,ro,ro,ro,ro");
+    mygrid.setColSorting("str,str,str,str,str,str");
     mygrid.setSkin("light");
     var height = contentHeight - 210;
     mygrid.al(true, height); //enableAutoHeight
@@ -3449,7 +3462,7 @@ function addGasImportShell() {
         alert("H\u00E0ng ho\u00E1 \u0111\u00E3 t\u1ED3n t\u1EA1i");
         return false;
     }
-    callAjax("getGasImportShell.do?accessoryId=" + shell, null, null, function(data) {
+    callAjax("getGasImportShell.do?shellId=" + shell, null, null, function(data) {
         setAjaxData(data, 'gasImportShellHideDiv');
         var matTable = document.getElementById('gasImportShellTbl');
         var detTable = document.getElementById('gasImportDetailTbl');
@@ -8627,5 +8640,441 @@ function printPetroStockStoreReport(fromDate, toDate) {
     callServer(url);
     return false;
 }
+function loadGoodPanel() {
+    callAjax("getGoodPanel.do", null, null, function(data) {
+        clearContent();
+        setAjaxData(data, "contentDiv");
+        loadGoodList();
+    });
+}
+function loadGoodList() {
+    var mygrid = new dhtmlXGridObject('goodList');
+    mygrid.setImagePath("js/dhtmlx/grid/imgs/");
+    mygrid.setHeader("M\u00E3 h\u00E0ng h\u00F3a,T\u00EAn h\u00E0ng h\u00F3a,Gi\u00E1 b\u00E1n,\u0110\u01A1n v\u1ECB t\u00EDnh,\u0110\u01A1n v\u1ECB,T\u00ECnh tr\u1EA1ng");
+    mygrid.attachHeader("#text_filter,#text_filter,#text_filter,#text_filter,#text_filter,#select_filter");
+    mygrid.setInitWidths("150,*,150,150,300,200");
+    mygrid.setColTypes("link,ro,ro,ro,ro,ro");
+    mygrid.setColSorting("str,str,str,str,str,str");
+    mygrid.setSkin("light");
+    var height = contentHeight - 210;
+    mygrid.al(true, height); //enableAutoHeight
+    mygrid.enablePaging(true, 15, 3, "recinfoArea");
+    mygrid.setPagingSkin("toolbar", "dhx_skyblue");
+    mygrid.init();
+    var list = document.forms['goodSearchForm'].statusCombobox;
+    if (list != null && list.selectedIndex > -1)
+        list = list.options[list.selectedIndex].value;
+    else
+        list = 0;
+    var url = "getGoodList.do?status=" + list;
+    callAjax(url, null, null, function(data) {
+        mygrid.parse(data);
+    });
+    return false;
+}
+function getGood(id, handle) {
+    popupName = 'TH\u00D4NG TIN H\u00C0NG H\u00D3A';
+    var url = 'goodForm.do';
+    if (id != 0)
+        url += '?goodId=' + id
+    callAjax(url, null, null, function(data) {
+        showPopupForm(data);
+        document.getElementById('callbackFunc').value = handle;
+        document.forms['goodForm'].code.focus();
+        tryNumberFormatCurrentcy(document.forms['goodForm'].price, "VND");
+    });
+}
+function saveGood() {
+    if (scriptFunction == "saveGood")
+        return false;
+    var field = document.forms['goodForm'].code;
+    if (field.value == '') {
+        alert("Vui l\u00F2ng nh\u1EADp m\u00E3 h\u00E0ng h\u00F3a");
+        field.focus();
+        field = null;
+        return false;
+    }
+    field = document.forms['goodForm'].name;
+    if (field.value == '') {
+        alert("Vui l\u00F2ng nh\u1EADp t\u00EAn h\u00E0ng h\u00F3a");
+        field.focus();
+        field = null;
+        return false;
+    }
+    field = null;
+    reformatNumberMoney(document.forms['goodForm'].price);
+    scriptFunction = "saveGood";
+    callAjaxCheckError("addGood.do", null, document.forms['goodForm'], function(data) {
+        scriptFunction = "";
+        var handle = document.getElementById('callbackFunc').value;
+        if (confirm('B\u1EA1n c\u00F3 mu\u1ED1n nh\u1EADp ti\u1EBFp th\u00F4ng tin kh\u00E1c ?'))
+            getGood(0, handle);
+        else if (handle != '')
+            eval(handle + "()");
+        prepareHidePopup('goodFormshowHelpHideDiv');
+    });
+    return false;
+}
+function loadGoodImportPanel() {
+    callAjax("getGoodImportPanel.do", null, null, function(data) {
+        clearContent();
+        setAjaxData(data, "contentDiv");
+        var myCalendar = new dhtmlXCalendarObject(["fromDate", "toDate"]);
+        myCalendar.setSkin('dhx_web');
+        var currentTime = getCurrentDate();
+        document.forms['goodImportSearchForm'].fromDate.value = currentTime;
+        document.forms['goodImportSearchForm'].toDate.value = currentTime;
+        myCalendar.setDateFormat("%d/%m/%Y");
+        loadGoodImportList(currentTime, currentTime);
+    });
+    return false;
+}
+function loadGoodImportList(fromDate, toDate) {
+    var mygrid = new dhtmlXGridObject('goodImportList');
+    mygrid.setImagePath("js/dhtmlx/grid/imgs/");
+    mygrid.setHeader("M\u00E3 phi\u1EBFu,Ng\u00E0y,Nh\u00E0 cung c\u1EA5p,Kho,T\u1ED5ng ti\u1EC1n,Thanh to\u00E1n,C\u00F2n n\u1EE3,Ghi ch\u00FA");
+    mygrid.attachHeader("#text_filter,#text_filter,#select_filter,#select_filter,#text_filter,#text_filter,#text_filter,#text_filter");
+    mygrid.setInitWidths("150,100,150,150,150,150,*");
+    mygrid.setColTypes("link,ro,ro,ro,ro,ro,ro");
+    mygrid.setColSorting("str,str,str,str,str,str,str");
+    mygrid.setSkin("light");
+    var height = contentHeight - 210;
+    mygrid.al(true, height); //enableAutoHeight
+    mygrid.enablePaging(true, 15, 3, "recinfoArea");
+    mygrid.setPagingSkin("toolbar", "dhx_skyblue");
+    mygrid.init();
+    var url = "getGoodImportList.do?t=1";
+    if (fromDate != null)
+        url += "&fromDate=" + fromDate;
+    if (toDate != null)
+        url += "&toDate=" + toDate;
+    callAjax(url, null, null, function(data) {
+        mygrid.parse(data);
+    });
+    return false;
+}
+function getGoodImport(id) {
+    var url = 'goodImportForm.do';
+    if (id != 0)
+        url += '?goodImportId=' + id
+    callAjax(url, null, null, function(data) {
+        clearContent();
+        setAjaxData(data, 'contentDiv');
+//        var myCalendar = new dhtmlXCalendarObject(["petroImportCreatedDate"]);
+//        myCalendar.setSkin('dhx_web');
+        if (id == 0) {
+            var currentDate = getCurrentDate();
+            document.forms['goodImportForm'].goodImportCreatedDate.value = currentDate;
+        }
+//        myCalendar.setDateFormat("%d/%m/%Y");
+        tryNumberFormatCurrentcy(document.forms['goodImportForm'].total, "VND");
+        tryNumberFormatCurrentcy(document.forms['goodImportForm'].paid, "VND");
+        tryNumberFormatCurrentcy(document.forms['goodImportForm'].debt, "VND");
+        tryNumberFormatCurrentcy(document.forms['goodImportForm'].rate, "VND");
+        formatFormDetail('goodImportForm');
+    });
+}
+function saveGoodImport() {
+    if (scriptFunction == "saveGoodImport")
+        return false;
+    var quantity = document.forms['goodImportForm'].quantity;
+    if (quantity == null) {
+        alert('Vui l\u00F2ng ch\u1ECDn h\u00E0ng h\u00F3a');
+        return false;
+    }
+    var price = document.forms['goodImportForm'].price;
+    var amount = document.forms['goodImportForm'].amount;
+    if (quantity.length != null) {
+        for (var i = 0; i < quantity.length; i++) {
+            var number = Number(quantity[i].value);
+            if (number == 0) {
+                alert('Vui l\u00F2ng nh\u1EADp s\u1ED1 l\u01B0\u1EE3ng');
+                quantity[i].focus();
+                quantity = null;
+                return false;
+            }
+            reformatNumberMoney(quantity[i]);
+            reformatNumberMoney(price[i]);
+            reformatNumberMoney(amount[i]);
+        }
+    } else {
+        if (quantity.value == "0") {
+            alert('Vui l\u00F2ng nh\u1EADp s\u1ED1 l\u01B0\u1EE3ng');
+            quantity.focus();
+            quantity = null;
+            return false;
+        }
+        reformatNumberMoney(quantity);
+        reformatNumberMoney(price);
+        reformatNumberMoney(amount);
+    }
+    quantity = null;
+    price = null;
+    amount = null;
+    reformatNumberMoney(document.forms['goodImportForm'].total);
+    reformatNumberMoney(document.forms['goodImportForm'].paid);
+    reformatNumberMoney(document.forms['goodImportForm'].debt);
+    reformatNumberMoney(document.forms['goodImportForm'].rate);
+    scriptFunction = "saveGoodImport";
+    callAjaxCheckError("addGoodImport.do", null, document.forms['goodImportForm'], function(data) {
+        scriptFunction = "";
+        loadGoodImportPanel();
+    });
+    return false;
+}
+function addGoodImportGood() {
+    var good = document.forms['goodImportForm'].goodIdCombobox;
+    if (good == null && good.selectedIndex == -1)
+        good = null;
+    else
+        good = good.options[good.selectedIndex].value;
+    if (good == -1 || good == 0)
+        return false;
+    var goodId = document.forms['goodImportForm'].goodId;
+    var existed = false;
+    if (goodId != null) {
+        if (goodId.length != null) {
+            for (i = 0; i < goodId.length; i++) {
+                if (goodId[i].value == good) {
+                    existed = true;
+                    break;
+                }
+            }
+        } else if (goodId.value == good)
+            existed = true;
+    }
+    goodId = null;
+    if (existed == true) {
+        alert("H\u00E0ng ho\u00E1 \u0111\u00E3 t\u1ED3n t\u1EA1i");
+        return false;
+    }
+    callAjax("getGoodImportGood.do?goodId=" + good, null, null, function(data) {
+        setAjaxData(data, 'goodImportGoodHideDiv');
+        var matTable = document.getElementById('goodImportGoodTbl');
+        var detTable = document.getElementById('goodImportDetailTbl');
+        if (matTable.tBodies[0] == null || detTable.tBodies[0] == null) {
+            matTable = null;
+            detTable = null;
+            return;
+        }
+        for (var i = matTable.tBodies[0].rows.length - 1; i >= 0; i--)
+            detTable.tBodies[0].appendChild(matTable.tBodies[0].rows[i]);
+        matTable = null;
+        detTable = null;
+        formatFormDetail('goodImportForm');
+    });
+    return false;
+}
+function delGoodImport() {
+    callAjaxCheckError('delGoodImport.do?goodImportId=' + document.forms['goodImportForm'].id.value, null, null, function() {
+        loadGoodImportPanel();
+    });
+    return false;
+}
+function loadSaleGoodPanel() {
+    callAjax("getSaleGoodPanel.do", null, null, function(data) {
+        clearContent();
+        setAjaxData(data, "contentDiv");
+        var myCalendar = new dhtmlXCalendarObject(["fromDate", "toDate"]);
+        myCalendar.setSkin('dhx_web');
+        var currentTime = getCurrentDate();
+        document.forms['saleGoodSearchForm'].fromDate.value = currentTime;
+        document.forms['saleGoodSearchForm'].toDate.value = currentTime;
+        myCalendar.setDateFormat("%d/%m/%Y");
+        loadSaleGoodList(currentTime, currentTime);
+    });
+    return false;
+}
+function loadSaleGoodList(fromDate, toDate) {
+    var mygrid = new dhtmlXGridObject('saleGoodList');
+    mygrid.setImagePath("js/dhtmlx/grid/imgs/");
+    mygrid.setHeader("M\u00E3 phi\u1EBFu,Ng\u00E0y,T\u1ED5ng ti\u1EC1n,Thanh to\u00E1n,C\u00F2n n\u1EE3,Ghi ch\u00FA");
+    mygrid.attachHeader("#text_filter,#text_filter,#text_filter,#text_filter,#text_filter,#text_filter");
+    mygrid.setInitWidths("150,100,150,150,*");
+    mygrid.setColTypes("link,ro,ro,ro,ro");
+    mygrid.setColSorting("str,str,str,str,str");
+    mygrid.setSkin("light");
+    var height = contentHeight - 210;
+    mygrid.al(true, height); //enableAutoHeight
+    mygrid.enablePaging(true, 15, 3, "recinfoArea");
+    mygrid.setPagingSkin("toolbar", "dhx_skyblue");
+    mygrid.init();
+    var url = "getSaleGoodList.do?t=1";
+    if (fromDate != null)
+        url += "&fromDate=" + fromDate;
+    if (toDate != null)
+        url += "&toDate=" + toDate;
+    callAjax(url, null, null, function(data) {
+        mygrid.parse(data);
+    });
+    return false;
+}
+function getSaleGood(id) {
+    var url = 'saleGoodForm.do';
+    if (id != 0)
+        url += '?saleGoodId=' + id
+    callAjax(url, null, null, function(data) {
+        clearContent();
+        setAjaxData(data, 'contentDiv');
+//        var myCalendar = new dhtmlXCalendarObject(["saleGoodCreatedDate"]);
+//        myCalendar.setSkin('dhx_web');
+        if (id == 0) {
+            var currentDate = getCurrentDate();
+            document.forms['saleGoodForm'].saleGoodCreatedDate.value = currentDate;
+        }
+//        myCalendar.setDateFormat("%d/%m/%Y");
+        tryNumberFormatCurrentcy(document.forms['saleGoodForm'].total, "VND");
+        tryNumberFormatCurrentcy(document.forms['saleGoodForm'].paid, "VND");
+        tryNumberFormatCurrentcy(document.forms['saleGoodForm'].debt, "VND");
+        tryNumberFormatCurrentcy(document.forms['saleGoodForm'].discount, "VND");
+        tryNumberFormatCurrentcy(document.forms['saleGoodForm'].totalPay, "VND");
+        formatFormDetail('saleGoodForm');
+    });
+}
+function saveSaleGood() {
+    if (scriptFunction == "saveSaleGood")
+        return false;
+    var quantity = document.forms['saleGoodForm'].quantity;
+    if (quantity == null) {
+        alert('Vui l\u00F2ng ch\u1ECDn h\u00E0ng h\u00F3a');
+        return false;
+    }
+    var price = document.forms['saleGoodForm'].price;
+    var amount = document.forms['saleGoodForm'].amount;
+    if (quantity.length != null) {
+        for (var i = 0; i < quantity.length; i++) {
+            var number = Number(quantity[i].value);
+            if (number == 0) {
+                alert('Vui l\u00F2ng nh\u1EADp s\u1ED1 l\u01B0\u1EE3ng');
+                quantity[i].focus();
+                quantity = null;
+                return false;
+            }
+            reformatNumberMoney(quantity[i]);
+            reformatNumberMoney(price[i]);
+            reformatNumberMoney(amount[i]);
+        }
+    } else {
+        if (quantity.value == "0") {
+            alert('Vui l\u00F2ng nh\u1EADp s\u1ED1 l\u01B0\u1EE3ng');
+            quantity.focus();
+            quantity = null;
+            return false;
+        }
+        reformatNumberMoney(quantity);
+        reformatNumberMoney(price);
+        reformatNumberMoney(amount);
+    }
+    quantity = null;
+    price = null;
+    amount = null;
+    reformatNumberMoney(document.forms['saleGoodForm'].total);
+    reformatNumberMoney(document.forms['saleGoodForm'].paid);
+    reformatNumberMoney(document.forms['saleGoodForm'].debt);
+    reformatNumberMoney(document.forms['saleGoodForm'].discount);
+    reformatNumberMoney(document.forms['saleGoodForm'].totalPay);
+    reformatFormDetail('saleGoodForm');
+    scriptFunction = "saveSaleGood";
+    callAjaxCheckError("addSaleGood.do", null, document.forms['saleGoodForm'], function(data) {
+        scriptFunction = "";
+        loadSaleGoodPanel();
+    });
+    return false;
+}
+function addSaleGoodGood() {
+    var good = document.forms['saleGoodForm'].goodIdCombobox;
+    if (good == null && good.selectedIndex == -1)
+        good = null;
+    else
+        good = good.options[good.selectedIndex].value;
+    if (good == -1 || good == 0)
+        return false;
+    var goodId = document.forms['saleGoodForm'].goodId;
+    var existed = false;
+    if (goodId != null) {
+        if (goodId.length != null) {
+            for (i = 0; i < goodId.length; i++) {
+                if (goodId[i].value == good) {
+                    existed = true;
+                    break;
+                }
+            }
+        } else if (goodId.value == good)
+            existed = true;
+    }
+    goodId = null;
+    if (existed == true) {
+        alert("H\u00E0ng ho\u00E1 \u0111\u00E3 t\u1ED3n t\u1EA1i");
+        return false;
+    }
+    callAjax("getSaleGoodGood.do?goodId=" + good, null, null, function(data) {
+        setAjaxData(data, 'saleGoodGoodHideDiv');
+        var matTable = document.getElementById('saleGoodGoodTbl');
+        var detTable = document.getElementById('saleGoodDetailTbl');
+        if (matTable.tBodies[0] == null || detTable.tBodies[0] == null) {
+            matTable = null;
+            detTable = null;
+            return;
+        }
+        for (var i = matTable.tBodies[0].rows.length - 1; i >= 0; i--)
+            detTable.tBodies[0].appendChild(matTable.tBodies[0].rows[i]);
+        matTable = null;
+        detTable = null;
+        formatFormDetail('saleGoodForm');
+    });
+    return false;
+}
+function delSaleGood() {
+    callAjaxCheckError('delSaleGood.do?saleGoodId=' + document.forms['saleGoodForm'].id.value, null, null, function() {
+        loadSaleGoodPanel();
+    });
+    return false;
+}
+function showCompareGoodReportPanel() {
+    popupName = 'Bi\u00EAn b\u1EA3n \u0111\u1ED1i chi\u1EBFu c\u00F4ng n\u1EE3';
+    var url = 'getCompareGoodReportPanel.do';
+    callAjax(url, null, null, function(data) {
+        showPopupForm(data);
+        var myCalendar = new dhtmlXCalendarObject(["fromDate", "toDate"]);
+        myCalendar.setSkin('dhx_web');
+        var currentTime = getCurrentDate();
+        document.forms['reportCompareGoodSearchForm'].fromDate.value = currentTime;
+        document.forms['reportCompareGoodSearchForm'].toDate.value = currentTime;
+        myCalendar.setDateFormat("%d/%m/%Y");
+    });
+}
+function printComapreGoodReport(fromDate, toDate) {
+    var list = document.getElementById("reportCompareGoodSearchFormTime");
+    if (list == null || list.selectedIndex == -1)
+        return false;
+    if (list.selectedIndex == 1) {
+        fromDate = "01/" + fromDate;
+        var ind = toDate.indexOf("/");
+        var month = toDate.substring(0, ind);
+        var year = toDate.substring(ind + 1);
+        toDate = month + "/01/" + year;
+        var d = new Date(toDate);
+        var lastDay = new Date(d.getFullYear(), d.getMonth() + 1, 0).getDate();
+        toDate = lastDay + "/" + month + "/" + year;
+    } else if (list.selectedIndex == 2) {
+        fromDate = "01/01/" + fromDate;
+        toDate = "31/12/" + toDate;
+    }
+    var url = "reportCompareGoodPrint.do?temp=1";
+    if (fromDate !== null)
+        url += "&fromDate=" + fromDate;
+    if (toDate !== null)
+        url += "&toDate=" + toDate;
+    list = document.forms['reportCompareGoodSearchForm'].customerId;
+    if (list != null && list.selectedIndex > -1)
+        list = list.options[list.selectedIndex].value;
+    else
+        list = 0;
+    url += "&customerId=" + list;
+    callServer(url);
+    return false;
+}
+
+
 
 

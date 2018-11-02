@@ -111,16 +111,16 @@ public class GasImportFormAction extends SpineAction {
         }
         request.setAttribute(Constants.VENDOR_LIST, arrVendor);
 
-        ArrayList arrStore = null;
-        try {
-            OrganizationDAO orgDAO = new OrganizationDAO();
-            arrStore = orgDAO.getStores(organizationIds);
-        } catch (Exception ex) {
-        }
-        if (arrStore == null) {
-            arrStore = new ArrayList();
-        }
-        request.setAttribute(Constants.STORE_LIST, arrStore);
+//        ArrayList arrStore = null;
+//        try {
+//            OrganizationDAO orgDAO = new OrganizationDAO();
+//            arrStore = orgDAO.getStores(organizationIds);
+//        } catch (Exception ex) {
+//        }
+//        if (arrStore == null) {
+//            arrStore = new ArrayList();
+//        }
+//        request.setAttribute(Constants.STORE_LIST, arrStore);
 
         return true;
     }

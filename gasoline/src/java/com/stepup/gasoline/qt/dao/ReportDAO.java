@@ -22,6 +22,8 @@ import com.stepup.gasoline.qt.report.PetroStockReportOutBean;
 import com.stepup.gasoline.qt.report.SaleCustomerReportBean;
 import com.stepup.gasoline.qt.report.SaleReportBean;
 import com.stepup.gasoline.qt.report.SumReportBean;
+import com.stepup.gasoline.qt.report.comparegood.CompareGoodReportBean;
+import com.stepup.gasoline.qt.report.comparegood.CompareGoodReportOutBean;
 import com.stepup.gasoline.qt.report.lpgstocksumorganization.LpgStockSumOrganizationReportOutBean;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -935,5 +937,66 @@ public class ReportDAO extends BasicDAO {
                 throw new Exception(e.getMessage());
             }
         }
+    }
+    
+    public ArrayList getCompareGoodReport(String fromDate, String endDate, String organizationIds, int customerId, CompareGoodReportOutBean outBean) throws Exception {
+        SPUtil spUtil = null;
+        ArrayList list = new ArrayList();
+        ResultSet rs = null;
+        try {
+            String sql = "{call report_compare_good(?,?,?,?,?)}";
+            if (GenericValidator.isBlankOrNull(fromDate)) {
+                fromDate = DateUtil.today("dd/MM/yyyy");
+            }
+            if (GenericValidator.isBlankOrNull(endDate)) {
+                endDate = BasicDAO.START_DATE;
+            }
+            spUtil = new SPUtil(sql);
+            if (spUtil != null) {
+                spUtil.getCallableStatement().setString("_start_date", fromDate);
+                spUtil.getCallableStatement().setString("_end_date", endDate);
+                spUtil.getCallableStatement().setString("_organization_ids", organizationIds);
+                spUtil.getCallableStatement().setInt("_customer_id", customerId);
+                spUtil.getCallableStatement().registerOutParameter("_opening_stock", Types.INTEGER);
+
+                rs = spUtil.executeQuery();
+
+                int openingStock = spUtil.getCallableStatement().getInt("_opening_stock");
+                outBean.setOpeningStock(openingStock);
+                if (rs != null) {
+                    CompareGoodReportBean bean = null;
+                    int count=1;
+                    while (rs.next()) {
+                        bean = new CompareGoodReportBean();
+                        bean.setCount(count++);
+                        bean.setDate(DateUtil.formatDate(rs.getDate("created_date"), "dd/MM"));
+                       bean.setGoodCode(rs.getString("goodCode"));
+                       bean.setGoodName(rs.getString("goodName"));
+                       bean.setQuantity(rs.getInt("quantity"));
+                       bean.setPrice(rs.getDouble("price"));
+                       bean.setAmount(rs.getDouble("amount"));
+                       bean.setPaid(rs.getDouble("paid"));
+                        list.add(bean);
+                    }
+                }
+            }
+        } catch (SQLException sqle) {
+            throw new Exception(sqle.getMessage());
+        } catch (Exception ex) {
+            throw new Exception(ex.getMessage());
+        } finally {
+            try {
+                if (spUtil != null) {
+                    spUtil.closeConnection();
+                }
+                if (rs != null) {
+                    rs.close();
+                    rs = null;
+                }
+            } catch (Exception e) {
+                throw new Exception(e.getMessage());
+            }
+        }
+        return list;
     }
 }

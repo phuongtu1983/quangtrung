@@ -79,6 +79,7 @@ public class Constants {
     public static final String SALARY_FIELD_LIST = "salaryFieldList";
     public static final String PETRO = "petro";
     public static final String PETRO_LIST = "petroList";
+    public static final String GOOD = "good";
     public static final String TRIP_FEE = "tripFee";
     public static final String GAS_PRICE = "gasPrice";
     public static final String LPG_IMPORT = "lpgImport";
@@ -148,4 +149,8 @@ public class Constants {
     public static final String SHIELD_IMPORT = "shieldImport";
     public static final String SHIELD_DECREASE = "shieldDecrease";
     public static final String DISCOUNT = "discount";
+    public static final String GOOD_IMPORT = "goodImport";
+    public static final String GOOD_IMPORT_GOOD = "goodImportGood";
+    public static final String SALE_GOOD = "saleGood";
+    public static final String SALE_GOOD_GOOD = "saleGoodGood";
 }

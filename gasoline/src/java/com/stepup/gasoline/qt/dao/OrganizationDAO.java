@@ -12,6 +12,7 @@ import com.stepup.gasoline.qt.bean.OrganizationBean;
 import com.stepup.gasoline.qt.bean.OrganizationShellDetailBean;
 import com.stepup.gasoline.qt.bean.OrganizationTimesheetFieldBean;
 import com.stepup.gasoline.qt.bean.StoreBean;
+import com.stepup.gasoline.qt.bean.VendorBean;
 import com.stepup.gasoline.qt.dynamicfield.DynamicFieldValueFormBean;
 import com.stepup.gasoline.qt.store.StoreFormBean;
 import com.stepup.gasoline.qt.util.QTUtil;
@@ -419,12 +420,23 @@ public class OrganizationDAO extends BasicDAO {
         return equipmentList;
     }
 
-    public ArrayList getStores(String organizationIds) throws Exception {
+    public ArrayList getStores(String organizationIds, int vendorKind) throws Exception {
         ResultSet rs = null;
         String sql = "SELECT s.id, s.code, s.name, s.status, o.name as organization_name"
                 + " FROM store AS s, organization as o WHERE s.organization_id=o.id and o.status=" + EmployeeBean.STATUS_ACTIVE + " and s.status=" + EmployeeBean.STATUS_ACTIVE;
         if (!StringUtil.isBlankOrNull(organizationIds)) {
             sql += " and o.id in (" + organizationIds + ")";
+        }
+        switch (vendorKind) {
+            case VendorBean.IS_PETRO:
+                sql += " and s.is_petro=1";
+                break;
+            case VendorBean.IS_GOOD:
+                sql += " and s.is_good=1";
+                break;
+            default:
+                sql += " and (s.is_petro=1 or s.is_good=1)";
+                break;
         }
         sql += " order by s.name";
         ArrayList equipmentList = new ArrayList();
@@ -474,6 +486,8 @@ public class OrganizationDAO extends BasicDAO {
                     bean.setStatusName(QTUtil.getBundleString("employee.detail.status.inactive"));
                 }
                 bean.setOrganizationId(rs.getInt("organization_id"));
+                bean.setIsPetro(rs.getInt("is_petro") == 1 ? true : false);
+                bean.setIsGood(rs.getInt("is_good") == 1 ? true : false);
                 return bean;
             }
         } catch (SQLException sqle) {
@@ -505,6 +519,8 @@ public class OrganizationDAO extends BasicDAO {
                     bean.setStatusName(QTUtil.getBundleString("employee.detail.status.inactive"));
                 }
                 bean.setOrganizationId(rs.getInt("organization_id"));
+                bean.setIsPetro(rs.getInt("is_petro") == 1 ? true : false);
+                bean.setIsGood(rs.getInt("is_good") == 1 ? true : false);
                 return bean;
             }
         } catch (SQLException sqle) {
@@ -525,8 +541,8 @@ public class OrganizationDAO extends BasicDAO {
         }
         try {
             String sql = "";
-            sql = "Insert Into store (name, code, organization_id, status)"
-                    + " Values ('" + bean.getName() + "','" + bean.getCode() + "'," + bean.getOrganizationId() + "," + bean.getStatus() + ")";
+            sql = "Insert Into store (name, code, organization_id, status, is_petro, is_good)"
+                    + " Values ('" + bean.getName() + "','" + bean.getCode() + "'," + bean.getOrganizationId() + "," + bean.getStatus() + "," + bean.getIsPetro() + "," + bean.getIsGood() + ")";
             DBUtil.executeInsert(sql);
         } catch (SQLException sqle) {
             throw new Exception(sqle.getMessage());
@@ -551,6 +567,8 @@ public class OrganizationDAO extends BasicDAO {
                     + ", code='" + bean.getCode() + "'"
                     + ", organization_id=" + bean.getOrganizationId()
                     + ", status=" + bean.getStatus()
+                    + ", is_petro=" + bean.getIsPetro()
+                    + ", is_good=" + bean.getIsGood()
                     + " Where id=" + bean.getId();
             DBUtil.executeUpdate(sql);
         } catch (SQLException sqle) {

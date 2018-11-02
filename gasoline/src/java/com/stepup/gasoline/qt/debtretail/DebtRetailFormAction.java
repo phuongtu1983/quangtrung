@@ -66,7 +66,7 @@ public class DebtRetailFormAction extends SpineAction {
         ArrayList arrCustomer = null;
         try {
             CustomerDAO customerDAO = new CustomerDAO();
-            arrCustomer = customerDAO.getCustomers(organizationIds, CustomerBean.KIND_RETAIL, VendorBean.IS_GAS);
+            arrCustomer = customerDAO.getCustomers(organizationIds, CustomerBean.KIND_RETAIL, 0);
         } catch (Exception ex) {
         }
         if (arrCustomer == null) {

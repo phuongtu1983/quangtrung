@@ -153,11 +153,15 @@ public class PermissionUtil {
     public static int PER_REPORT_COMPARE = 65;
     public static int PER_REPORT_SALE = 66;
     public static int PER_REPORT_SALE_CUSTOMER = 67;
-    public static int PER_REPORT_CASH_BOOK= 68;
+    public static int PER_REPORT_CASH_BOOK = 68;
     public static int PER_REPORT_LPG_STOCK_SUM_ORGANIZATION = 69;
     public static int PER_CUSTOMER_DISCOUNT = 70;
     public static int PER_REPORT_PETRO_IMPORT = 71;
     public static int PER_REPORT_PETRO_SALE = 72;
     public static int PER_REPORT_PETRO_STOCK = 73;
     public static int PER_REPORT_PETRO_STOCK_STORE = 74;
+    public static int PER_GOOD = 75;
+    public static int PER_GOOD_IMPORT = 76;
+    public static int PER_SALE_GOOD = 77;
+    public static int PER_REPORT_COMPARE_GOOD = 78;
 }

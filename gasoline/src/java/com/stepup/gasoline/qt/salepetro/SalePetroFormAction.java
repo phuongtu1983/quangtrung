@@ -97,18 +97,18 @@ public class SalePetroFormAction extends SpineAction {
             arrAccount = new ArrayList();
         }
         request.setAttribute(Constants.ACCOUNT_LIST, arrAccount);
-        
+
         ArrayList arrStore = null;
         try {
             OrganizationDAO organizationDAO = new OrganizationDAO();
-            arrStore = organizationDAO.getStores(organizationIds);
+            arrStore = organizationDAO.getStores(organizationIds, VendorBean.IS_PETRO);
         } catch (Exception ex) {
         }
         if (arrStore == null) {
             arrStore = new ArrayList();
         }
         request.setAttribute(Constants.STORE_LIST, arrStore);
-        
+
         ArrayList arrCustomer = null;
         try {
             CustomerDAO customerDAO = new CustomerDAO();

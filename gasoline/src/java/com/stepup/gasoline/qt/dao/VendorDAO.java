@@ -84,7 +84,7 @@ public class VendorDAO extends BasicDAO {
                 sql += " and v.is_good=1";
                 break;
             default:
-                sql += " and v.is_gas=1 and v.is_petro=1 and v.is_good=1";
+                sql += " and (v.is_gas=1 or v.is_petro=1 or v.is_good=1)";
                 break;
         }
         sql += " order by v.name desc";

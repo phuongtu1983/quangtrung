@@ -15,6 +15,8 @@ public class StoreBean {
     private String code;
     private int status;
     private int organizationId;
+    private int isPetro;
+    private int isGood;
 
     public void setId(int id) {
         this.id = id;
@@ -54,6 +56,22 @@ public class StoreBean {
 
     public void setOrganizationId(int organizationId) {
         this.organizationId = organizationId;
+    }
+
+    public int getIsPetro() {
+        return isPetro;
+    }
+
+    public void setIsPetro(int isPetro) {
+        this.isPetro = isPetro;
+    }
+
+    public int getIsGood() {
+        return isGood;
+    }
+
+    public void setIsGood(int isGood) {
+        this.isGood = isGood;
     }
 
 }

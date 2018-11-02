@@ -21,10 +21,10 @@
                     <html:options collection="<%=Constants.VENDOR_LIST%>" property="id" labelProperty="name"/>
                 </html:select>
             </td>
-            <td style="padding-right: 20px;padding-left: 10px"><bean:message key="store.title"/></td>
+            <td style="padding-right: 20px;padding-left: 10px"><bean:message key="account.title"/></td>
             <td>
-                <html:select property="storeId" name="<%=Constants.GAS_IMPORT%>" style="width:195px">
-                    <html:options collection="<%=Constants.STORE_LIST%>" property="id" labelProperty="name"/>
+                <html:select property="accountId" name="<%=Constants.GAS_IMPORT%>" style="width:195px">
+                    <html:options collection="<%=Constants.ACCOUNT_LIST%>" property="id" labelProperty="number"/>
                 </html:select>
             </td>
         </tr>
@@ -39,14 +39,6 @@
             <td><html:text property="paid" size="30" name="<%=Constants.GAS_IMPORT%>" onblur="return formPaidChanged('gasImportForm');" onkeyup="try2FloatFormatOnKeyUp(this,event);" onkeypress="return readonlyFloat(event);"/></td>
             <td style="padding-right: 20px;padding-left: 10px"><bean:message key="debt.title"/></td>
             <td><html:text property="debt" size="30" name="<%=Constants.GAS_IMPORT%>" readonly="true"/></td>
-        </tr>
-        <tr>
-            <td height="30" style="padding-right: 20px"><bean:message key="account.title"/></td>
-            <td colspan="3">
-                <html:select property="accountId" name="<%=Constants.GAS_IMPORT%>" style="width:195px">
-                    <html:options collection="<%=Constants.ACCOUNT_LIST%>" property="id" labelProperty="number"/>
-                </html:select>
-            </td>
         </tr>
         <tr>
             <td height="30"><bean:message key="note.title"/></td>

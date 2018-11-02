@@ -156,7 +156,7 @@ public class CustomerDAO extends BasicDAO {
                 sql += " and c.is_good=1";
                 break;
             default:
-                sql += " and c.is_gas=1 and c.is_petro=1 and c.is_good=1";
+                sql += " and (c.is_gas=1 or c.is_petro=1 or c.is_good=1)";
                 break;
         }
         sql += " order by c.name desc";

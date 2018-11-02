@@ -557,7 +557,7 @@ public class GasDAO extends BasicDAO {
             }
         }
     }
-    
+
     public int deleteFractionDetails(String ids) throws Exception {
         int result = 0;
         try {
@@ -799,7 +799,7 @@ public class GasDAO extends BasicDAO {
                         bean.setVendorId(rs.getInt("vendor_id"));
                         bean.setVendorName(rs.getString("vendor_name"));
                         bean.setStoreId(rs.getInt("store_id"));
-                        bean.setStoreName(rs.getString("store_name"));
+//                        bean.setStoreName(rs.getString("store_name"));
                         bean.setRate(rs.getDouble("rate"));
                         bean.setTotal(rs.getDouble("total"));
                         bean.setPaid(rs.getDouble("paid"));
@@ -1372,6 +1372,19 @@ public class GasDAO extends BasicDAO {
         }
     }
 
+    public int deletePetroImportDetails(String ids) throws Exception {
+        int result = 0;
+        try {
+            String sql = "Delete From petro_import_detail Where id in (" + ids + ")";
+            DBUtil.executeUpdate(sql);
+        } catch (SQLException sqle) {
+            throw new Exception(sqle.getMessage());
+        } catch (Exception ex) {
+            throw new Exception(ex.getMessage());
+        }
+        return result;
+    }
+
     public ArrayList searchGasWholesale(String fromDate, String endDate, String organizationIds) throws Exception {
         SPUtil spUtil = null;
         ArrayList list = new ArrayList();
@@ -1684,7 +1697,7 @@ public class GasDAO extends BasicDAO {
             }
         }
     }
-    
+
     public int deleteGasWholesaleDetails(String ids) throws Exception {
         int result = 0;
         try {
@@ -1822,7 +1835,7 @@ public class GasDAO extends BasicDAO {
             }
         }
     }
-    
+
     public int deleteGasWholesalePromotionMaterialDetails(String ids) throws Exception {
         int result = 0;
         try {
@@ -1894,7 +1907,7 @@ public class GasDAO extends BasicDAO {
             }
         }
     }
-    
+
     public int deleteGasWholesaleReturnShellDetails(String ids) throws Exception {
         int result = 0;
         try {
@@ -2692,7 +2705,7 @@ public class GasDAO extends BasicDAO {
             }
         }
     }
-    
+
     public int deleteSaleShellDetails(String ids) throws Exception {
         int result = 0;
         try {
@@ -3161,7 +3174,7 @@ public class GasDAO extends BasicDAO {
             }
         }
     }
-    
+
     public int deleteShellReturnDetails(String ids) throws Exception {
         int result = 0;
         try {
@@ -3745,7 +3758,7 @@ public class GasDAO extends BasicDAO {
             }
         }
     }
-    
+
     public int deleteShellReturnSupplierDetails(String ids) throws Exception {
         int result = 0;
         try {
@@ -4446,7 +4459,7 @@ public class GasDAO extends BasicDAO {
         }
         return result;
     }
-    
+
     public int deleteVehicleInReturnShellDetails(String ids) throws Exception {
         int result = 0;
         try {
@@ -4852,7 +4865,7 @@ public class GasDAO extends BasicDAO {
             }
         }
     }
-    
+
     public int deleteExportWholesaleDetails(String ids) throws Exception {
         int result = 0;
         try {
@@ -4957,7 +4970,7 @@ public class GasDAO extends BasicDAO {
             }
         }
     }
-    
+
     public int deleteExportWholesaleReturnShellDetails(String ids) throws Exception {
         int result = 0;
         try {
@@ -5207,5 +5220,4 @@ public class GasDAO extends BasicDAO {
         }
         return null;
     }
-
 }
