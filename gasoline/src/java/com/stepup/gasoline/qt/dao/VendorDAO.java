@@ -9,9 +9,11 @@ import com.stepup.core.database.DBUtil;
 import com.stepup.core.database.SPUtil;
 import com.stepup.core.util.StringUtil;
 import com.stepup.gasoline.qt.bean.EmployeeBean;
+import com.stepup.gasoline.qt.bean.GasReturnVendorBean;
 import com.stepup.gasoline.qt.bean.VendorBean;
 import com.stepup.gasoline.qt.bean.VendorOrganizationBean;
 import com.stepup.gasoline.qt.util.QTUtil;
+import com.stepup.gasoline.qt.vendor.GasReturnVendorFormBean;
 import com.stepup.gasoline.qt.vendor.VendorFormBean;
 import com.stepup.gasoline.qt.vendororganization.VendorOrganizationFormBean;
 import java.sql.ResultSet;
@@ -315,6 +317,59 @@ public class VendorDAO extends BasicDAO {
 
     }
 
+    public GasReturnVendorFormBean getGasReturnVendor() throws Exception {
+        ResultSet rs = null;
+        String sql = "select * from gas_return_vendor limit 1";
+        try {
+            rs = DBUtil.executeQuery(sql);
+            while (rs.next()) {
+                GasReturnVendorFormBean vendor = new GasReturnVendorFormBean();
+                vendor.setId(rs.getInt("id"));
+                vendor.setVendorId(rs.getInt("vendor_id"));
+                return vendor;
+            }
+        } catch (SQLException sqle) {
+            throw new Exception(sqle.getMessage());
+        } catch (Exception ex) {
+            throw new Exception(ex.getMessage());
+        } finally {
+            if (rs != null) {
+                DBUtil.closeConnection(rs);
+            }
+        }
+        return null;
+    }
+
+    public int insertGasReturnVendor(GasReturnVendorBean bean) throws Exception {
+        if (bean == null) {
+            return 0;
+        }
+        int result = 0;
+        SPUtil spUtil = null;
+        try {
+            String sql = "{call insertGasReturnVendor(?,?)}";
+            spUtil = new SPUtil(sql);
+            if (spUtil != null) {
+                spUtil.getCallableStatement().setInt("_id", bean.getId());
+                spUtil.getCallableStatement().setInt("_vendor_id", bean.getVendorId());
+                spUtil.execute();
+            }
+        } catch (SQLException sqle) {
+            throw new Exception(sqle.getMessage());
+        } catch (Exception ex) {
+            throw new Exception(ex.getMessage());
+        } finally {
+            try {
+                if (spUtil != null) {
+                    spUtil.closeConnection();
+                }
+            } catch (Exception e) {
+                throw new Exception(e.getMessage());
+            }
+        }
+        return result;
+    }
+
     public VendorOrganizationFormBean getVendorOrganization(int vendorOrganizationId) throws Exception {
         ResultSet rs = null;
         String sql = "select vo.*, v.name as vendor_name, o.name as organization_name "
@@ -511,5 +566,31 @@ public class VendorDAO extends BasicDAO {
             }
         }
         return null;
+    }
+
+    public ArrayList getVendorEqualOrganizations() throws Exception {
+        ResultSet rs = null;
+        String sql = "select distinct id, organization_id, name from vendor where equal_organization_id<>-1";
+        ArrayList vendorList = new ArrayList();
+        try {
+            rs = DBUtil.executeQuery(sql);
+            VendorOrganizationFormBean bean = null;
+            while (rs.next()) {
+                bean = new VendorOrganizationFormBean();
+                bean.setId(rs.getInt("id"));
+                bean.setOrganizationId(rs.getInt("organization_id"));
+                bean.setVendorName(rs.getString("name"));
+                vendorList.add(bean);
+            }
+        } catch (SQLException sqle) {
+            throw new Exception(sqle.getMessage());
+        } catch (Exception ex) {
+            throw new Exception(ex.getMessage());
+        } finally {
+            if (rs != null) {
+                DBUtil.closeConnection(rs);
+            }
+        }
+        return vendorList;
     }
 }

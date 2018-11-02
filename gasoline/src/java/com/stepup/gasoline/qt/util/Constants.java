@@ -22,6 +22,7 @@ public class Constants {
     public static final String SHELL_RETURN_LIST = "shellReturnList";
     public static final String SHELL_IMPORT = "shellImport";
     public static final String VENDOR = "vendor";
+    public static final String GAS_RETURN_VENDOR = "gasreturnvendor";
     public static final String VENDOR_ORGANIZATION = "vendorOrganization";
     public static final String VENDOR_ORGANIZATION_lIST = "vendorOrganizationList";
     public static final String VENDOR_LIST = "vendorList";

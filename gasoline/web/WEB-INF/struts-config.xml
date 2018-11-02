@@ -60,6 +60,7 @@
         <form-bean name="organizationTimesheetForm" type="com.stepup.gasoline.qt.organization.OrganizationTimesheetFormBean"/>
         <form-bean name="accessoryKindForm" type="com.stepup.gasoline.qt.accessorykind.AccessoryKindFormBean"/>
         <form-bean name="vendorForm" type="com.stepup.gasoline.qt.vendor.VendorFormBean"/>
+        <form-bean name="gasReturnVendorForm" type="com.stepup.gasoline.qt.vendor.GasReturnVendorFormBean"/>
         <form-bean name="vendorOrganizationForm" type="com.stepup.gasoline.qt.vendororganization.VendorOrganizationFormBean"/>
         <form-bean name="customerForm" type="com.stepup.gasoline.qt.customer.CustomerFormBean"/>
         <form-bean name="customerDocumentForm" type="com.stepup.gasoline.qt.customerdocument.CustomerDocumentFormBean"/>
@@ -265,6 +266,11 @@
             <forward name="success" path="/vendor/vendordetail.jsp" />
         </action>
         <action path="/addVendor" name ="vendorForm" scope="request" type="com.stepup.gasoline.qt.vendor.AddVendorAction" input="/vendorForm.do">
+        </action>
+        <action path="/gasReturnVendorForm" type="com.stepup.gasoline.qt.vendor.GasReturnVendorFormAction" scope="request" validate="false">
+            <forward name="success" path="/vendor/gasreturnvendordetail.jsp" />
+        </action>
+        <action path="/addGasReturnVendor" name ="gasReturnVendorForm" scope="request" type="com.stepup.gasoline.qt.vendor.AddGasReturnVendorAction" input="/gasReturnVendorForm.do">
         </action>
         <!-- end vendor -->
         <!-- start account -->

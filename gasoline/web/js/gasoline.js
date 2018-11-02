@@ -66,6 +66,8 @@ function menuClick(id) {
         loadVendorPanel();
     else if (id == 'vendoradd')
         getVendor(0, 'loadVendorPanel');
+    else if (id == 'addgasreturnvendor')
+        getGasReturnVendor();
     else if (id == 'vendororganizationlist')
         loadVendorOrganizationPanel();
     else if (id == 'vendororganizationadd')
@@ -9074,7 +9076,23 @@ function printComapreGoodReport(fromDate, toDate) {
     callServer(url);
     return false;
 }
-
+function getGasReturnVendor() {
+    popupName = 'TH\u00D4NG TIN NH\u00C0 CUNG C\u1EA4P NH\u1EACN TR\u1EA2 GAS';
+    var url = 'gasReturnVendorForm.do';
+    callAjax(url, null, null, function(data) {
+        showPopupForm(data);
+    });
+}
+function saveGasReturnVendor() {
+    if (scriptFunction == "saveGasReturnVendor")
+        return false;
+    scriptFunction = "saveGasReturnVendor";
+    callAjaxCheckError("addGasReturnVendor.do", null, document.forms['gasReturnVendorForm'], function(data) {
+        scriptFunction = "";
+        prepareHidePopup('gasReturnVendorFormshowHelpHideDiv');
+    });
+    return false;
+}
 
 
 
