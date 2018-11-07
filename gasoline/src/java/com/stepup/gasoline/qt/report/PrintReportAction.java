@@ -9,9 +9,11 @@ import com.stepup.core.util.LogUtil;
 import com.stepup.core.util.StringUtil;
 import com.stepup.gasoline.qt.core.BaseAction;
 import com.stepup.gasoline.qt.core.ExcelExport;
+import com.stepup.gasoline.qt.dao.EmployeeDAO;
 import com.stepup.gasoline.qt.dao.GoodDAO;
 import com.stepup.gasoline.qt.dao.ReportDAO;
 import com.stepup.gasoline.qt.dao.VendorDAO;
+import com.stepup.gasoline.qt.employee.EmployeeFormBean;
 import com.stepup.gasoline.qt.petro.PetroFormBean;
 import com.stepup.gasoline.qt.util.QTUtil;
 import com.stepup.gasoline.qt.vendor.VendorFormBean;
@@ -83,8 +85,16 @@ public class PrintReportAction extends BaseAction {
                     templateFileName = "so_theo_doi_nxt_tong_hop_petro";
                     String session = QTUtil.getEmployeeId(request.getSession()) + "_" + Calendar.getInstance().getTimeInMillis();
                     printPetroStockReport(fromDate, toDate, organizationIds, request, response, templateFileName, session, beans, exporter);
+                } else if (reportName.equals("reportgascommission")) {
+                    templateFileName = "commission_gas";
+                    String session = QTUtil.getEmployeeId(request.getSession()) + "_" + Calendar.getInstance().getTimeInMillis();
+                    printGasCommissionReport(fromDate, toDate, organizationIds, request, response, templateFileName, session, beans, exporter);
+                } else if (reportName.equals("reportgasemployeecommission")) {
+                    templateFileName = "employee_commission_gas";
+                    String session = QTUtil.getEmployeeId(request.getSession()) + "_" + Calendar.getInstance().getTimeInMillis();
+                    list = printGasEmployeeComissionReport(fromDate, toDate, organizationIds, session);
                 }
-                if (!reportName.equals("reportpetrostock")) {
+                if (!reportName.equals("reportpetrostock") && !reportName.equals("reportgascommission")) {
                     templateFileName = request.getSession().getServletContext().getRealPath("/templates/" + templateFileName + ".xls");
                     if (list == null) {
                         list = new ArrayList();
@@ -256,4 +266,67 @@ public class PrintReportAction extends BaseAction {
         }
         return list;
     }
+
+    private ArrayList printGasCommissionReport(String fromDate, String toDate, String organizationIds, HttpServletRequest request, HttpServletResponse response,
+            String fileName, String sessionId, Map beans, ExcelExport exporter) {
+        ArrayList list = null;
+        try {
+            String tempFileName = request.getSession().getServletContext().getRealPath("/templates/" + fileName + "_temp.xls");
+            fileName = request.getSession().getServletContext().getRealPath("/templates/" + fileName + ".xls");
+
+            ReportDAO reportDAO = new ReportDAO();
+
+            FileUtil.copyFile(fileName, tempFileName);
+            File f = new File(tempFileName);
+            ArrayList arrHideCol = new ArrayList();
+            arrHideCol.add(6);
+
+            GasCommissionReportOutBean outBean = new GasCommissionReportOutBean();
+            list = reportDAO.getGasCommissionReport(fromDate, toDate, organizationIds, 0, sessionId, outBean);
+
+            EmployeeDAO employeeDAO = new EmployeeDAO();
+            ArrayList employees = employeeDAO.getEmployees(outBean.getEmployeeIds());
+
+            beans.put("datedata", list);
+            beans.put("qtrp_commission12", outBean.getCommission12());
+            beans.put("qtrp_commission45", outBean.getCommission45());
+
+            DynamicColumnExcelReporter.createGasCommissionReportColumns(tempFileName, employees, f);
+
+            EmployeeFormBean employee = null;
+
+            for (int i = 0; i < employees.size(); i++) {
+                employee = (EmployeeFormBean) employees.get(i);
+                try {
+                    list = reportDAO.getGasCommissionReport(fromDate, toDate, organizationIds, employee.getId(), sessionId, null);
+                } catch (Exception ex) {
+                }
+                beans.put("dynamicdata" + employee.getId(), list);
+            }
+            reportDAO.clearGasCommissionReport(sessionId);
+
+            short[] hiddenCols = new short[arrHideCol.size()];
+            for (int i = 0; i < arrHideCol.size(); i++) {
+                hiddenCols[i] = Short.parseShort(arrHideCol.get(i) + "");
+            }
+            exporter.setHiddenCols(hiddenCols);
+            exporter.setBeans(beans);
+            exporter.export(request, response, tempFileName, "report.xls");
+            f.delete();
+        } catch (Exception ex) {
+            System.out.println(ex);
+        }
+        return list;
+    }
+
+    private ArrayList printGasEmployeeComissionReport(String fromDate, String toDate, String organizationIds, String sessionId) {
+        ArrayList list = null;
+        try {
+            ReportDAO reportDAO = new ReportDAO();
+            list = reportDAO.getGasEmployeeCommissionReport(fromDate, toDate, organizationIds, sessionId);
+        } catch (Exception ex) {
+        }
+        return list;
+    }
+
 }

@@ -15,7 +15,7 @@ public class VehicleInFormBean extends org.apache.struts.action.ActionForm {
     private int id;
     private String code;
     private String createdDate;
-    private int vehicleId;
+    private int vehicleOutId;
     private String vehiclePlate;
     private String note;
     private int canEdit;
@@ -38,7 +38,7 @@ public class VehicleInFormBean extends org.apache.struts.action.ActionForm {
         this.id = bean.getId();
         this.code = bean.getCode();
         this.createdDate = bean.getCreatedDate();
-        this.vehicleId = bean.getVehicleId();
+        this.vehicleOutId = bean.getVehicleOutId();
         this.note = bean.getNote();
         this.canEdit = bean.getCanEdit();
     }
@@ -107,12 +107,12 @@ public class VehicleInFormBean extends org.apache.struts.action.ActionForm {
         this.amount = amount;
     }
 
-    public int getVehicleId() {
-        return vehicleId;
+    public int getVehicleOutId() {
+        return vehicleOutId;
     }
 
-    public void setVehicleId(int vehicleId) {
-        this.vehicleId = vehicleId;
+    public void setVehicleOutId(int vehicleOutId) {
+        this.vehicleOutId = vehicleOutId;
     }
 
     public String[] getVehicleInDetailId() {

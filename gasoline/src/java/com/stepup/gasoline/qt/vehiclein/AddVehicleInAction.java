@@ -58,7 +58,7 @@ public class AddVehicleInAction extends SpineAction {
         bean.setCode(formBean.getCode());
         bean.setNote(formBean.getNote());
         bean.setCreatedDate(formBean.getCreatedDate());
-        bean.setVehicleId(formBean.getVehicleId());
+        bean.setVehicleOutId(formBean.getVehicleOutId());
         bean.setCreatedEmployeeId(QTUtil.getEmployeeId(request.getSession()));
         try {
             if (bNew) {

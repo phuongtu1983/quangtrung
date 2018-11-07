@@ -680,6 +680,8 @@
         <action path="/getCustomerListWholesale" type="com.stepup.gasoline.qt.gaswholesale.GetCustomerListWholesaleAction" scope="request" validate="false">
             <forward name="success" path="/gaswholesale/customers.jsp" />
         </action>
+        <action path="/getVehicleOutByDateAction" scope="request" type="com.stepup.gasoline.qt.gaswholesale.GetVehicleOutByDateAction">
+        </action>
         <!-- end gas wholesale -->
         <!-- start gas retail -->
         <action path="/getGasRetailPanel" type="com.stepup.gasoline.qt.common.BaseFormAction" scope="request" validate="false">

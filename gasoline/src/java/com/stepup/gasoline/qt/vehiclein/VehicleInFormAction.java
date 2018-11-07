@@ -7,6 +7,7 @@ package com.stepup.gasoline.qt.vehiclein;
 import com.stepup.core.util.DateUtil;
 import com.stepup.gasoline.qt.bean.EmployeeBean;
 import com.stepup.gasoline.qt.bean.VehicleInBean;
+import com.stepup.gasoline.qt.bean.VehicleOutBean;
 import com.stepup.gasoline.qt.core.SpineAction;
 import com.stepup.gasoline.qt.dao.GasDAO;
 import com.stepup.gasoline.qt.dao.GoodDAO;
@@ -14,6 +15,7 @@ import com.stepup.gasoline.qt.dao.VehicleDAO;
 import com.stepup.gasoline.qt.dao.VendorDAO;
 import com.stepup.gasoline.qt.util.Constants;
 import com.stepup.gasoline.qt.util.QTUtil;
+import com.stepup.gasoline.qt.vehicleout.VehicleOutFormBean;
 import java.util.ArrayList;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -107,16 +109,30 @@ public class VehicleInFormAction extends SpineAction {
         }
         request.setAttribute(Constants.SHELL_RETURN_LIST, arrShellReturn);
 
-        ArrayList arrVehicle = null;
+        ArrayList arrVehicleOut = null;
         try {
-            VehicleDAO vehicleDAO = new VehicleDAO();
-            arrVehicle = vehicleDAO.getVehicles();
+            if (formBean.getId() == 0) {
+                String today = DateUtil.today("dd/MM/yyyy");
+                String vehicleOutSavedDate = request.getParameter("vehicleOutSavedDate");
+                if (GenericValidator.isBlankOrNull(vehicleOutSavedDate)) {
+                    vehicleOutSavedDate = today;
+                }
+                String organizationIds = QTUtil.getOrganizationManageds(request.getSession());
+                arrVehicleOut = gasDAO.searchVehicleOut(vehicleOutSavedDate, vehicleOutSavedDate, organizationIds);
+            } else {
+                if (arrVehicleOut == null) {
+                    arrVehicleOut = new ArrayList();
+                }
+                VehicleOutBean vehicleOutbean = gasDAO.getVehicleOut(formBean.getVehicleOutId());
+                VehicleOutFormBean vehicleOutFormBean = new VehicleOutFormBean(vehicleOutbean);
+                arrVehicleOut.add(vehicleOutFormBean);
+            }
         } catch (Exception ex) {
         }
-        if (arrVehicle == null) {
-            arrVehicle = new ArrayList();
+        if (arrVehicleOut == null) {
+            arrVehicleOut = new ArrayList();
         }
-        request.setAttribute(Constants.VEHICLE_LIST, arrVehicle);
+        request.setAttribute(Constants.VEHICLE_OUT_LIST, arrVehicleOut);
 
         return true;
     }

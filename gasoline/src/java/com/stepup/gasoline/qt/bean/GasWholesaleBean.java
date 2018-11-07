@@ -14,7 +14,7 @@ public class GasWholesaleBean {
     private String code;
     private String createdDate;
     private int customerId;
-    private int vehicleId;
+    private int vehicleOutId;
     private double total;
     private double paid;
     private double debt;
@@ -108,12 +108,12 @@ public class GasWholesaleBean {
         this.accountId = accountId;
     }
 
-    public int getVehicleId() {
-        return vehicleId;
+    public int getVehicleOutId() {
+        return vehicleOutId;
     }
 
-    public void setVehicleId(int vehicleId) {
-        this.vehicleId = vehicleId;
+    public void setVehicleOutId(int vehicleOutId) {
+        this.vehicleOutId = vehicleOutId;
     }
 
     public double getDiscount() {

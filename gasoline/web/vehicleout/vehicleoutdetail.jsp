@@ -12,7 +12,7 @@
             <td width="160" height="30"><bean:message key="code.title"/></td>
             <td width="160"><html:text property="code" size="30" name="<%=Constants.VEHICLE_OUT%>" readonly="true"/></td>
             <td width="170"  style="padding-right: 20px;padding-left: 10px"><bean:message key="date.title"/></td>
-            <td><html:text property="createdDate" size="30" name="<%=Constants.VEHICLE_OUT%>" styleId="vehicleOutCreatedDate" readonly="true"/></td>
+            <td><html:text property="createdDate" size="30" name="<%=Constants.VEHICLE_OUT%>" styleId="vehicleOutCreatedDate"/></td>
         </tr>
         <tr>
             <td height="30" style="padding-right: 20px""><bean:message key="vehicle.title"/></td>

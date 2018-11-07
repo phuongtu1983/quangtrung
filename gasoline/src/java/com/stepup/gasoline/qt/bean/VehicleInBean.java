@@ -13,7 +13,7 @@ public class VehicleInBean {
     private int id;
     private String code;
     private String createdDate;
-    private int vehicleId;
+    private int vehicleOutId;
     private String note;
     private int canEdit;
     private int createdEmployeeId;
@@ -58,12 +58,12 @@ public class VehicleInBean {
         this.canEdit = canEdit;
     }
 
-    public int getVehicleId() {
-        return vehicleId;
+    public int getVehicleOutId() {
+        return vehicleOutId;
     }
 
-    public void setVehicleId(int vehicleId) {
-        this.vehicleId = vehicleId;
+    public void setVehicleOutId(int vehicleOutId) {
+        this.vehicleOutId = vehicleOutId;
     }
 
     public int getCreatedEmployeeId() {

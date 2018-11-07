@@ -1460,7 +1460,7 @@ public class GasDAO extends BasicDAO {
                 bean.setAccountId(rs.getInt("account_id"));
                 bean.setNote(rs.getString("note"));
                 bean.setCanEdit(rs.getInt("can_edit"));
-                bean.setVehicleId(rs.getInt("vehicle_id"));
+                bean.setVehicleOutId(rs.getInt("vehicle_out_id"));
                 bean.setGasReturn(rs.getInt("gas_return"));
                 bean.setGasReturnPrice(rs.getDouble("gas_return_price"));
                 bean.setGasReturnAmount(rs.getDouble("gas_return_amount"));
@@ -1532,7 +1532,7 @@ public class GasDAO extends BasicDAO {
                 spUtil.getCallableStatement().setString("_code", bean.getCode());
                 spUtil.getCallableStatement().setString("_created_date", createdDate);
                 spUtil.getCallableStatement().setInt("_customer_id", bean.getCustomerId());
-                spUtil.getCallableStatement().setInt("_vehicle_id", bean.getVehicleId());
+                spUtil.getCallableStatement().setInt("_vehicle_out_id", bean.getVehicleOutId());
                 spUtil.getCallableStatement().setDouble("_total", bean.getTotal());
                 spUtil.getCallableStatement().setDouble("_paid", bean.getPaid());
                 spUtil.getCallableStatement().setDouble("_debt", bean.getDebt());
@@ -1575,7 +1575,7 @@ public class GasDAO extends BasicDAO {
             if (spUtil != null) {
                 spUtil.getCallableStatement().setInt("_id", bean.getId());
                 spUtil.getCallableStatement().setInt("_customer_id", bean.getCustomerId());
-                spUtil.getCallableStatement().setInt("_vehicle_id", bean.getVehicleId());
+                spUtil.getCallableStatement().setInt("_vehicle_out_id", bean.getVehicleOutId());
                 spUtil.getCallableStatement().setDouble("_total", bean.getTotal());
                 spUtil.getCallableStatement().setDouble("_paid", bean.getPaid());
                 spUtil.getCallableStatement().setDouble("_debt", bean.getDebt());
@@ -4193,8 +4193,7 @@ public class GasDAO extends BasicDAO {
                         bean.setId(rs.getInt("id"));
                         bean.setCode(rs.getString("code"));
                         bean.setCreatedDate(DateUtil.formatDate(rs.getDate("created_date"), "dd/MM/yyyy"));
-                        bean.setVehicleId(rs.getInt("vehicle_id"));
-                        bean.setVehiclePlate(rs.getString("vehicle_plate"));
+                        bean.setVehicleOutId(rs.getInt("vehicle_out_id"));
                         bean.setNote(rs.getString("note"));
                         list.add(bean);
                     }
@@ -4230,7 +4229,7 @@ public class GasDAO extends BasicDAO {
                 bean.setId(rs.getInt("id"));
                 bean.setCode(rs.getString("code"));
                 bean.setCreatedDate(DateUtil.formatDate(rs.getDate("created_date"), "dd/MM/yyyy"));
-                bean.setVehicleId(rs.getInt("vehicle_id"));
+                bean.setVehicleOutId(rs.getInt("vehicle_out_id"));
                 bean.setNote(rs.getString("note"));
                 bean.setCanEdit(rs.getInt("can_edit"));
                 return bean;
@@ -4300,7 +4299,7 @@ public class GasDAO extends BasicDAO {
             if (spUtil != null) {
                 spUtil.getCallableStatement().setString("_code", bean.getCode());
                 spUtil.getCallableStatement().setString("_created_date", createdDate);
-                spUtil.getCallableStatement().setInt("_vehicle_id", bean.getVehicleId());
+                spUtil.getCallableStatement().setInt("_vehicle_out_id", bean.getVehicleOutId());
                 spUtil.getCallableStatement().setString("_note", bean.getNote());
                 spUtil.getCallableStatement().setInt("_created_employee_id", bean.getCreatedEmployeeId());
                 spUtil.getCallableStatement().registerOutParameter("_id", Types.INTEGER);
@@ -4333,7 +4332,7 @@ public class GasDAO extends BasicDAO {
             spUtil = new SPUtil(sql);
             if (spUtil != null) {
                 spUtil.getCallableStatement().setInt("_id", bean.getId());
-                spUtil.getCallableStatement().setInt("_vehicle_id", bean.getVehicleId());
+                spUtil.getCallableStatement().setInt("_vehicle_out_id", bean.getVehicleOutId());
                 spUtil.getCallableStatement().setString("_note", bean.getNote());
                 spUtil.execute();
             }

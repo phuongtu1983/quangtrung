@@ -123,6 +123,7 @@ public class Constants {
     public static final String VEHICLE_OUT = "vehicleOut";
     public static final String VEHICLE_OUT_GOOD = "vehicleOutGood";
     public static final String VEHICLE_OUT_EMPLOYEE = "vehicleOutEmployee";
+    public static final String VEHICLE_OUT_LIST = "vehicleOutList";
     public static final String VEHICLE_IN = "vehicleIn";
     public static final String VEHICLE_IN_SHELL = "vehicleInShell";
     public static final String VEHICLE_IN_RETURN = "vehicleInReturn";

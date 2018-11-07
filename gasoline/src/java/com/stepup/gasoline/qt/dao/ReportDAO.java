@@ -8,6 +8,9 @@ package com.stepup.gasoline.qt.dao;
 import com.stepup.core.database.SPUtil;
 import com.stepup.core.util.DateUtil;
 import com.stepup.core.util.GenericValidator;
+import com.stepup.gasoline.qt.report.GasCommissionReportBean;
+import com.stepup.gasoline.qt.report.GasCommissionReportOutBean;
+import com.stepup.gasoline.qt.report.GasEmployeeCommissionReportBean;
 import com.stepup.gasoline.qt.report.compare.CompareReportBean;
 import com.stepup.gasoline.qt.report.compare.CompareReportOutBean;
 import com.stepup.gasoline.qt.report.LpgImportReportBean;
@@ -938,7 +941,7 @@ public class ReportDAO extends BasicDAO {
             }
         }
     }
-    
+
     public ArrayList getCompareGoodReport(String fromDate, String endDate, String organizationIds, int customerId, CompareGoodReportOutBean outBean) throws Exception {
         SPUtil spUtil = null;
         ArrayList list = new ArrayList();
@@ -965,17 +968,17 @@ public class ReportDAO extends BasicDAO {
                 outBean.setOpeningStock(openingStock);
                 if (rs != null) {
                     CompareGoodReportBean bean = null;
-                    int count=1;
+                    int count = 1;
                     while (rs.next()) {
                         bean = new CompareGoodReportBean();
                         bean.setCount(count++);
                         bean.setDate(DateUtil.formatDate(rs.getDate("created_date"), "dd/MM"));
-                       bean.setGoodCode(rs.getString("goodCode"));
-                       bean.setGoodName(rs.getString("goodName"));
-                       bean.setQuantity(rs.getInt("quantity"));
-                       bean.setPrice(rs.getDouble("price"));
-                       bean.setAmount(rs.getDouble("amount"));
-                       bean.setPaid(rs.getDouble("paid"));
+                        bean.setGoodCode(rs.getString("goodCode"));
+                        bean.setGoodName(rs.getString("goodName"));
+                        bean.setQuantity(rs.getInt("quantity"));
+                        bean.setPrice(rs.getDouble("price"));
+                        bean.setAmount(rs.getDouble("amount"));
+                        bean.setPaid(rs.getDouble("paid"));
                         list.add(bean);
                     }
                 }
@@ -999,4 +1002,152 @@ public class ReportDAO extends BasicDAO {
         }
         return list;
     }
+
+    public ArrayList getGasCommissionReport(String fromDate, String endDate, String organizationIds, int employeeId, String session_id, GasCommissionReportOutBean outBean) throws Exception {
+        SPUtil spUtil = null;
+        ArrayList list = new ArrayList();
+        ResultSet rs = null;
+        try {
+            String sql = "{call report_gas_commission(?,?,?,?,?,?,?,?)}";
+            if (GenericValidator.isBlankOrNull(fromDate)) {
+                fromDate = DateUtil.today("dd/MM/yyyy");
+            }
+            if (GenericValidator.isBlankOrNull(endDate)) {
+                endDate = BasicDAO.START_DATE;
+            }
+            spUtil = new SPUtil(sql);
+            if (spUtil != null) {
+                spUtil.getCallableStatement().setString("_start_date", fromDate);
+                spUtil.getCallableStatement().setString("_end_date", endDate);
+                spUtil.getCallableStatement().setString("_organization_ids", organizationIds);
+                spUtil.getCallableStatement().setInt("_employee_id", employeeId);
+                spUtil.getCallableStatement().setString("_session_id", session_id);
+                spUtil.getCallableStatement().registerOutParameter("_employee_ids", Types.VARCHAR);
+                spUtil.getCallableStatement().registerOutParameter("_commission_12", Types.DOUBLE);
+                spUtil.getCallableStatement().registerOutParameter("_commission_45", Types.DOUBLE);
+
+                rs = spUtil.executeQuery();
+
+                if (outBean != null) {
+                    outBean.setEmployeeIds(spUtil.getCallableStatement().getString("_employee_ids"));
+                    outBean.setCommission12(spUtil.getCallableStatement().getDouble("_commission_12"));
+                    outBean.setCommission45(spUtil.getCallableStatement().getDouble("_commission_45"));
+                }
+
+                if (rs != null) {
+                    GasCommissionReportBean bean = null;
+                    while (rs.next()) {
+                        bean = new GasCommissionReportBean();
+                        bean.setDate(DateUtil.formatDate(rs.getDate("created_date"), "dd/MM/yyyy"));
+                        bean.setEmployeeId(rs.getInt("employee_id"));
+                        bean.setQuantity12(rs.getInt("quantity_12"));
+                        bean.setQuantity45(rs.getInt("quantity_45"));
+                        bean.setAmount(rs.getDouble("amount"));
+                        list.add(bean);
+                    }
+                }
+            }
+        } catch (SQLException sqle) {
+            throw new Exception(sqle.getMessage());
+        } catch (Exception ex) {
+            throw new Exception(ex.getMessage());
+        } finally {
+            try {
+                if (spUtil != null) {
+                    spUtil.closeConnection();
+                }
+                if (rs != null) {
+                    rs.close();
+                    rs = null;
+                }
+            } catch (Exception e) {
+                throw new Exception(e.getMessage());
+            }
+        }
+        return list;
+    }
+
+    public void clearGasCommissionReport(String session_id) throws Exception {
+        SPUtil spUtil = null;
+        ResultSet rs = null;
+        try {
+            String sql = "{call clear_gas_commission_report(?)}";
+            spUtil = new SPUtil(sql);
+            if (spUtil != null) {
+                spUtil.getCallableStatement().setString("_session_id", session_id);
+
+                rs = spUtil.executeQuery();
+            }
+        } catch (SQLException sqle) {
+            throw new Exception(sqle.getMessage());
+        } catch (Exception ex) {
+            throw new Exception(ex.getMessage());
+        } finally {
+            try {
+                if (spUtil != null) {
+                    spUtil.closeConnection();
+                }
+                if (rs != null) {
+                    rs.close();
+                    rs = null;
+                }
+            } catch (Exception e) {
+                throw new Exception(e.getMessage());
+            }
+        }
+    }
+
+    public ArrayList getGasEmployeeCommissionReport(String fromDate, String endDate, String organizationIds, String sessionId) throws Exception {
+        SPUtil spUtil = null;
+        ArrayList list = new ArrayList();
+        ResultSet rs = null;
+        try {
+            String sql = "{call report_gas_employee_commission(?,?,?,?)}";
+            if (GenericValidator.isBlankOrNull(fromDate)) {
+                fromDate = DateUtil.today("dd/MM/yyyy");
+            }
+            if (GenericValidator.isBlankOrNull(endDate)) {
+                endDate = BasicDAO.START_DATE;
+            }
+            spUtil = new SPUtil(sql);
+            if (spUtil != null) {
+                spUtil.getCallableStatement().setString("_start_date", fromDate);
+                spUtil.getCallableStatement().setString("_end_date", endDate);
+                spUtil.getCallableStatement().setString("_organization_ids", organizationIds);
+                spUtil.getCallableStatement().setString("_session_id", sessionId);
+
+                rs = spUtil.executeQuery();
+
+                if (rs != null) {
+                    GasEmployeeCommissionReportBean bean = null;
+                    int count = 1;
+                    while (rs.next()) {
+                        bean = new GasEmployeeCommissionReportBean();
+                        bean.setCount(count++ + "");
+                        bean.setEmployeeName(rs.getString("employee_name"));
+                        bean.setCommission(rs.getDouble("amount"));
+                        list.add(bean);
+                    }
+                }
+            }
+        } catch (SQLException sqle) {
+            throw new Exception(sqle.getMessage());
+        } catch (Exception ex) {
+            throw new Exception(ex.getMessage());
+        } finally {
+            try {
+                if (spUtil != null) {
+                    spUtil.closeConnection();
+                }
+                if (rs != null) {
+                    rs.close();
+                    rs = null;
+                }
+            } catch (Exception e) {
+                throw new Exception(e.getMessage());
+            }
+        }
+        return list;
+    }
+
 }

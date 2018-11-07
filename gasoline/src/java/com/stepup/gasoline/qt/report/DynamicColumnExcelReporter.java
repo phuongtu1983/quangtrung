@@ -7,6 +7,7 @@ package com.stepup.gasoline.qt.report;
 
 import com.stepup.core.util.GenericValidator;
 import com.stepup.gasoline.qt.core.ExcelExport;
+import com.stepup.gasoline.qt.employee.EmployeeFormBean;
 import com.stepup.gasoline.qt.petro.PetroFormBean;
 import java.io.File;
 import java.io.FileInputStream;
@@ -25,6 +26,31 @@ import org.apache.poi.poifs.filesystem.POIFSFileSystem;
  * @author Administrator
  */
 public class DynamicColumnExcelReporter {
+
+    private static HSSFCell copyCell(HSSFWorkbook wb, HSSFSheet sheet, int rowNum, int col, int newCol, String content) {
+        HSSFRow row = sheet.getRow(rowNum);
+        HSSFCell cell = row.getCell(col);
+        HSSFCell newCell = row.createCell(newCol);
+        ExcelExport.copyStyle(wb, cell, newCell);
+        if (GenericValidator.isBlankOrNull(content)) {
+            newCell.setCellValue(cell.getRichStringCellValue());
+        } else {
+            newCell.setCellValue(new HSSFRichTextString(copyCellValue(cell.getRichStringCellValue().getString(), content)));
+        }
+        return newCell;
+    }
+
+    private static String copyCellValue(String value, String content) {
+        String result = "";
+        int ind = value.indexOf("${");
+        if (ind == 0) {
+            ind = value.indexOf(".");
+            if (ind > -1) {
+                result = "${dynamicdata" + content + value.substring(ind);
+            }
+        }
+        return result;
+    }
 
     public static void createPetroStockReportColumns(String templateFileName, ArrayList arrPetro, File f) throws Exception {
         POIFSFileSystem fs = new POIFSFileSystem(new FileInputStream(templateFileName));
@@ -91,28 +117,32 @@ public class DynamicColumnExcelReporter {
         fileOut.close();
     }
 
-    private static HSSFCell copyCell(HSSFWorkbook wb, HSSFSheet sheet, int rowNum, int col, int newCol, String content) {
-        HSSFRow row = sheet.getRow(rowNum);
-        HSSFCell cell = row.getCell(col);
-        HSSFCell newCell = row.createCell(newCol);
-        ExcelExport.copyStyle(wb, cell, newCell);
-        if (GenericValidator.isBlankOrNull(content)) {
-            newCell.setCellValue(cell.getRichStringCellValue());
-        } else {
-            newCell.setCellValue(new HSSFRichTextString(copyCellValue(cell.getRichStringCellValue().getString(), content)));
+    public static void createGasCommissionReportColumns(String templateFileName, ArrayList arrEmployee, File f) throws Exception {
+        POIFSFileSystem fs = new POIFSFileSystem(new FileInputStream(templateFileName));
+        HSSFWorkbook wb = new HSSFWorkbook(fs);
+        HSSFSheet sheet = wb.getSheetAt(0);
+        HSSFCell newCell = null;
+        EmployeeFormBean employee = null;
+        short col = 7, row = 3;
+        for (int i = 0; i < arrEmployee.size(); i++) {
+            employee = (EmployeeFormBean) arrEmployee.get(i);
+            //copy header
+            newCell = copyCell(wb, sheet, row + 1, 6, col, "");
+            newCell.setCellValue(new HSSFRichTextString(employee.getFullname()));
+
+            //copy header
+            newCell = copyCell(wb, sheet, row + 2, 6, col, employee.getId() + "");
+            newCell.setCellValue(new HSSFRichTextString("$[SUM(" + ExcelExport.getColumnName(col) + "7)]"));
+            
+            //copy content nhap
+            copyCell(wb, sheet, row + 3, 6, col, employee.getId() + "");
+            
+            sheet.setColumnWidth(col, sheet.getColumnWidth(6));
+            col += 1;
         }
-        return newCell;
+        FileOutputStream fileOut = new FileOutputStream(f);
+        wb.write(fileOut);
+        fileOut.close();
     }
 
-    private static String copyCellValue(String value, String content) {
-        String result = "";
-        int ind = value.indexOf("${");
-        if (ind == 0) {
-            ind = value.indexOf(".");
-            if (ind > -1) {
-                result = "${dynamicdata" + content + value.substring(ind);
-            }
-        }
-        return result;
-    }
 }

@@ -6,6 +6,7 @@ var mainGrid;
 var savedDate = "";
 var savedCustomer = 0;
 var savedVehicle = 0;
+var savedDate2 = '';
 function createLayout() {
     dhxLayout = new dhtmlXLayoutObject(document.body, "2E", "dhx_web");
     dhxLayout.setEffect("resize", false);
@@ -273,7 +274,8 @@ function menuClick(id) {
     else if (id == 'contractadd')
         getContract(0, 'loadContractPanel');
     else if (id == 'reportlpgimport' || id == 'reportlpgstock' || id == 'reportlpgstocksum' || id == 'reportsum' || id == 'reportsalecustomer' || id == 'reportsale'
-            || id == 'reportcashbook' || id == 'reportpetroimport' || id=='reportpetrosale' || id=='reportpetrostock')
+            || id == 'reportcashbook' || id == 'reportpetroimport' || id == 'reportpetrosale' || id == 'reportpetrostock' || id == 'reportgascommission' 
+            || id == 'reportgasemployeecommission')
         showReportPanel(id);
     else if (id == 'shieldimportlist')
         loadShieldImportPanel();
@@ -3990,9 +3992,9 @@ function loadGasWholesaleList(fromDate, toDate) {
     return false;
 }
 function getGasWholesale(id) {
-    var url = 'gasWholesaleForm.do';
+    var url = 'gasWholesaleForm.do?vehicleOutSavedDate=' + savedDate2;
     if (id != 0)
-        url += '?gasWholesaleId=' + id
+        url += '&gasWholesaleId=' + id
     callAjax(url, null, null, function(data) {
         clearContent();
         setAjaxData(data, 'contentDiv');
@@ -4124,36 +4126,36 @@ function getGasWholesale(id) {
         }
         promotionMaterialIdCombobox.setComboValue("");
         // ============================
-        var vehicleIdCombobox = dhtmlXComboFromSelect("vehicleIdCombobox");
-        vehicleIdCombobox.enableFilteringMode(true);
-        vehicleIdCombobox.attachEvent("onSelectionChange", function() {
-            setVehicleSelectedForm('gasWholesaleForm', vehicleIdCombobox.getComboText(), vehicleIdCombobox.getSelectedValue());
+        var selectedCombo = dhtmlXComboFromSelect("vehicleOutIdCombobox");
+        selectedCombo.enableFilteringMode(true);
+        selectedCombo.attachEvent("onSelectionChange", function() {
+            setVehicleSelectedForm('gasWholesaleForm', selectedCombo.getComboText(), selectedCombo.getSelectedValue());
         });
-        vehicleIdCombobox.attachEvent("onBlur", function() {
-            setVehicleSelectedForm('gasWholesaleForm', vehicleIdCombobox.getComboText(), vehicleIdCombobox.getSelectedValue());
-            vehicleIdCombobox.setComboText(vehicleIdCombobox.getSelectedText());
+        selectedCombo.attachEvent("onBlur", function() {
+            setVehicleSelectedForm('gasWholesaleForm', selectedCombo.getComboText(), selectedCombo.getSelectedValue());
+            selectedCombo.setComboText(selectedCombo.getSelectedText());
         });
-        vehicleIdCombobox.DOMelem_input.onfocus = function(event) {
+        selectedCombo.DOMelem_input.onfocus = function(event) {
             if (isManuallySeleted == 1) {
-                vehicleIdCombobox.openSelect();
+                selectedCombo.openSelect();
                 isManuallySeleted = 0;
             }
         }
         if (id == 0) {
             if (savedVehicle == 0)
-                vehicleIdCombobox.setComboValue("");
+                selectedCombo.setComboValue("");
             else {
-                var ind = vehicleIdCombobox.getIndexByValue(savedVehicle);
-                vehicleIdCombobox.selectOption(ind);
+                var ind = selectedCombo.getIndexByValue(savedVehicle);
+                selectedCombo.selectOption(ind);
             }
         } else {
-            var vehicleId = document.forms['gasWholesaleForm'].vehicleId.value;
-            if (vehicleId != 0) {
-                var ind = vehicleIdCombobox.getIndexByValue(vehicleId);
-                vehicleIdCombobox.selectOption(ind);
+            var vehicleOutId = document.forms['gasWholesaleForm'].vehicleOutId.value;
+            if (vehicleOutId != 0) {
+                var ind = selectedCombo.getIndexByValue(vehicleOutId);
+                selectedCombo.selectOption(ind);
             } else {
-                vehicleIdCombobox.unSelectOption();
-                vehicleIdCombobox.setComboValue("");
+                selectedCombo.unSelectOption();
+                selectedCombo.setComboValue("");
             }
         }
         // ============================
@@ -4172,6 +4174,21 @@ function getGasWholesale(id) {
             document.forms['gasWholesaleForm'].gasWholesaleCreatedDate.value = currentDate;
         }
         myCalendar.setDateFormat("%d/%m/%Y");
+
+        var vehicleOutCalendar = new dhtmlXCalendarObject(["gasWholesaleVehicleOutCreatedDate"]);
+        vehicleOutCalendar.setSkin('dhx_web');
+        vehicleOutCalendar.setDateFormat("%d/%m/%Y");
+        vehicleOutCalendar.attachEvent("onClick", function(date) {
+            var strDate = getDateString(date);
+            savedDate2 = strDate;
+            var url = "getVehicleOutByDateAction.do?date=" + strDate;
+            callAjaxCheckError(url, null, null, function(data) {
+                var obj = eval('(' + data + ')');
+                selectedCombo.clearAll();
+                selectedCombo.addOption(obj.options);
+                selectedCombo.setComboText("");
+            });
+        });
     });
 }
 function setShellSelectedForm(form, text, value) {
@@ -4316,8 +4333,12 @@ function saveGasWholesale() {
     savedCustomer = document.forms['gasWholesaleForm'].customerSelectedHidden.value;
     savedVehicle = document.forms['gasWholesaleForm'].vehicleSelectedHidden.value;
     document.forms['gasWholesaleForm'].customerId.value = savedCustomer;
-    document.forms['gasWholesaleForm'].vehicleId.value = savedVehicle;
+    document.forms['gasWholesaleForm'].vehicleOutId.value = savedVehicle;
     savedDate = document.forms['gasWholesaleForm'].gasWholesaleCreatedDate.value;
+    if (savedCustomer == 0) {
+        alert('Vui l\u00F2ng ch\u1ECDn kh\u00E1ch h\u00E0ng');
+        return false;
+    }
     scriptFunction = "saveGasWholesale";
     callAjaxCheckError("addGasWholesale.do", null, document.forms['gasWholesaleForm'], function(data) {
         scriptFunction = "";
@@ -6211,13 +6232,13 @@ function getVehicleOut(id) {
             }
         }
         employeeIdCombobox.setComboValue("");
-//        var myCalendar = new dhtmlXCalendarObject(["vehicleOutCreatedDate"]);
-//        myCalendar.setSkin('dhx_web');
+        var myCalendar = new dhtmlXCalendarObject(["vehicleOutCreatedDate"]);
+        myCalendar.setSkin('dhx_web');
         if (id == 0) {
             var currentDate = getCurrentDate();
             document.forms['vehicleOutForm'].vehicleOutCreatedDate.value = currentDate;
         }
-//        myCalendar.setDateFormat("%d/%m/%Y");
+        myCalendar.setDateFormat("%d/%m/%Y");
         formatFormDetail('vehicleOutForm');
     });
 }
@@ -6360,11 +6381,11 @@ function loadVehicleInPanel() {
 function loadVehicleInList(fromDate, toDate) {
     var mygrid = new dhtmlXGridObject('vehicleInList');
     mygrid.setImagePath("js/dhtmlx/grid/imgs/");
-    mygrid.setHeader("M\u00E3 phi\u1EBFu,Ng\u00E0y,S\u1ED1 xe,Ghi ch\u00FA");
-    mygrid.attachHeader("#text_filter,#text_filter,#select_filter,#text_filter");
-    mygrid.setInitWidths("150,100,150,*");
-    mygrid.setColTypes("link,ro,ro,ro");
-    mygrid.setColSorting("str,str,str,str");
+    mygrid.setHeader("M\u00E3 phi\u1EBFu,Ng\u00E0y,Ghi ch\u00FA");
+    mygrid.attachHeader("#text_filter,#text_filter,#text_filter");
+    mygrid.setInitWidths("150,100,*");
+    mygrid.setColTypes("link,ro,ro");
+    mygrid.setColSorting("str,str,str");
     mygrid.setSkin("light");
     var height = contentHeight - 210;
     mygrid.al(true, height); //enableAutoHeight
@@ -6382,9 +6403,9 @@ function loadVehicleInList(fromDate, toDate) {
     return false;
 }
 function getVehicleIn(id) {
-    var url = 'vehicleInForm.do';
+    var url = 'vehicleInForm.do?vehicleOutSavedDate=' + savedDate2;
     if (id != 0)
-        url += '?vehicleInId=' + id
+        url += '&vehicleInId=' + id
     callAjax(url, null, null, function(data) {
         clearContent();
         setAjaxData(data, 'contentDiv');
@@ -6442,15 +6463,47 @@ function getVehicleIn(id) {
             }
         }
         returnShellIdCombobox.setComboValue("");
-//        var myCalendar = new dhtmlXCalendarObject(["vehicleInCreatedDate"]);
-//        myCalendar.setSkin('dhx_web');
+        // ============================
+        var selectedCombo = dhtmlXComboFromSelect("vehicleOutIdCombobox");
+        selectedCombo.enableFilteringMode(true);
+        selectedCombo.attachEvent("onSelectionChange", function() {
+            setVehicleSelectedForm('vehicleInForm', selectedCombo.getComboText(), selectedCombo.getSelectedValue());
+        });
+        selectedCombo.attachEvent("onBlur", function() {
+            setVehicleSelectedForm('vehicleInForm', selectedCombo.getComboText(), selectedCombo.getSelectedValue());
+            selectedCombo.setComboText(selectedCombo.getSelectedText());
+        });
+        selectedCombo.DOMelem_input.onfocus = function(event) {
+            if (isManuallySeleted == 1) {
+                selectedCombo.openSelect();
+                isManuallySeleted = 0;
+            }
+        }
+
+        var myCalendar = new dhtmlXCalendarObject(["vehicleInCreatedDate"]);
+        myCalendar.setSkin('dhx_web');
         if (id == 0) {
             var currentDate = getCurrentDate();
             document.forms['vehicleInForm'].vehicleInCreatedDate.value = currentDate;
         }
-//        myCalendar.setDateFormat("%d/%m/%Y");
+        myCalendar.setDateFormat("%d/%m/%Y");
         formatFormDetail('vehicleInForm');
         formatVehicleInReturnShellDetail();
+
+        var vehicleOutCalendar = new dhtmlXCalendarObject(["vehicleInVehicleOutCreatedDate"]);
+        vehicleOutCalendar.setSkin('dhx_web');
+        vehicleOutCalendar.setDateFormat("%d/%m/%Y");
+        vehicleOutCalendar.attachEvent("onClick", function(date) {
+            var strDate = getDateString(date);
+            savedDate2 = strDate;
+            var url = "getVehicleOutByDateAction.do?date=" + strDate;
+            callAjaxCheckError(url, null, null, function(data) {
+                var obj = eval('(' + data + ')');
+                selectedCombo.clearAll();
+                selectedCombo.addOption(obj.options);
+                selectedCombo.setComboText("");
+            });
+        });
     });
 }
 function saveVehicleIn() {
@@ -6489,7 +6542,10 @@ function saveVehicleIn() {
     scriptFunction = "saveVehicleIn";
     callAjaxCheckError("addVehicleIn.do", null, document.forms['vehicleInForm'], function(data) {
         scriptFunction = "";
-        loadVehicleInPanel();
+        if (confirm('B\u1EA1n c\u00F3 mu\u1ED1n nh\u1EADp ti\u1EBFp th\u00F4ng tin kh\u00E1c ?'))
+            getVehicleIn(0);
+        else
+            loadVehicleInPanel();
     });
     return false;
 }
@@ -6702,13 +6758,13 @@ function getExportWholesale(id) {
             }
         }
         returnShellIdCombobox.setComboValue("");
-//        var myCalendar = new dhtmlXCalendarObject(["exportWholesaleCreatedDate"]);
-//        myCalendar.setSkin('dhx_web');
+        var myCalendar = new dhtmlXCalendarObject(["exportWholesaleCreatedDate"]);
+        myCalendar.setSkin('dhx_web');
         if (id == 0) {
             var currentDate = getCurrentDate();
             document.forms['exportWholesaleForm'].exportWholesaleCreatedDate.value = currentDate;
         }
-//        myCalendar.setDateFormat("%d/%m/%Y");
+        myCalendar.setDateFormat("%d/%m/%Y");
         tryNumberFormatCurrentcy(document.forms['exportWholesaleForm'].total, "VND");
         tryNumberFormatCurrentcy(document.forms['exportWholesaleForm'].paid, "VND");
         tryNumberFormatCurrentcy(document.forms['exportWholesaleForm'].debt, "VND");

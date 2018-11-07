@@ -66,7 +66,7 @@ public class AddGasWholesaleAction extends SpineAction {
         bean.setDiscount(formBean.getDiscount());
         bean.setTotalPay(formBean.getTotalPay());
         bean.setAccountId(formBean.getAccountId());
-        bean.setVehicleId(formBean.getVehicleId());
+        bean.setVehicleOutId(formBean.getVehicleOutId());
         bean.setGasReturn(formBean.getGasReturn());
         bean.setGasReturnPrice(formBean.getGasReturnPrice());
         bean.setGasReturnAmount(formBean.getGasReturnAmount());

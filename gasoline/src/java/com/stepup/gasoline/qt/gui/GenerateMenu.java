@@ -798,6 +798,12 @@ public class GenerateMenu {
                     if (isHasPermission(PermissionUtil.OPERATION_LIST, PermissionUtil.PER_REPORT_CASH_BOOK)) {
                         buffTemp.append("<item id=\"reportcashbook\" text=\"").append(QTUtil.getBundleString("report.cashbook.title")).append("\"/>");
                     }
+                    if (isHasPermission(PermissionUtil.OPERATION_LIST, PermissionUtil.PER_REPORT_GAS_COMMISION)) {
+                        buffTemp.append("<item id=\"reportgascommission\" text=\"").append(QTUtil.getBundleString("report.gascommission.title")).append("\"/>");
+                    }
+                    if (isHasPermission(PermissionUtil.OPERATION_LIST, PermissionUtil.PER_REPORT_GAS_EMPLOYEE_COMMISION)) {
+                        buffTemp.append("<item id=\"reportgasemployeecommission\" text=\"").append(QTUtil.getBundleString("report.gasemployeecommission.title")).append("\"/>");
+                    }
                     buffTemp.append("</item>");
                     buffTemp.append("<item id=\"reportpetro\" complex=\"true\" text=\"").append(QTUtil.getBundleString("report.petro.title")).append("\">");
                     if (isHasPermission(PermissionUtil.OPERATION_LIST, PermissionUtil.PER_REPORT_PETRO_IMPORT)) {

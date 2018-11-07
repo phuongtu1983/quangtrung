@@ -164,4 +164,6 @@ public class PermissionUtil {
     public static int PER_GOOD_IMPORT = 76;
     public static int PER_SALE_GOOD = 77;
     public static int PER_REPORT_COMPARE_GOOD = 78;
+    public static int PER_REPORT_GAS_COMMISION = 79;
+    public static int PER_REPORT_GAS_EMPLOYEE_COMMISION = 80;
 }

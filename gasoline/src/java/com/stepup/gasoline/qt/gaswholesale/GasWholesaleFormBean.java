@@ -15,7 +15,7 @@ public class GasWholesaleFormBean extends org.apache.struts.action.ActionForm {
     private int id;
     private String code;
     private String createdDate;
-    private int vehicleId;
+    private int vehicleOutId;
     private int customerId;
     private String customerName;
     private double total;
@@ -52,7 +52,7 @@ public class GasWholesaleFormBean extends org.apache.struts.action.ActionForm {
         this.id = bean.getId();
         this.code = bean.getCode();
         this.createdDate = bean.getCreatedDate();
-        this.vehicleId = bean.getVehicleId();
+        this.vehicleOutId = bean.getVehicleOutId();
         this.customerId = bean.getCustomerId();
         this.total = bean.getTotal();
         this.paid = bean.getPaid();
@@ -195,12 +195,12 @@ public class GasWholesaleFormBean extends org.apache.struts.action.ActionForm {
         this.shellId = shellId;
     }
 
-    public int getVehicleId() {
-        return vehicleId;
+    public int getVehicleOutId() {
+        return vehicleOutId;
     }
 
-    public void setVehicleId(int vehicleId) {
-        this.vehicleId = vehicleId;
+    public void setVehicleOutId(int vehicleOutId) {
+        this.vehicleOutId = vehicleOutId;
     }
 
     public String[] getGasWholesalePromotionMaterialDetailId() {

@@ -49,7 +49,6 @@ public class GetVehicleInListAction extends Action {
                     buff.append("<row id=\"").append(bean.getId()).append("\">");
                     buff.append("<cell>").append(bean.getCode()).append("^javascript:getVehicleIn(").append(bean.getId()).append(")^_self</cell>");
                     buff.append("<cell>").append(bean.getCreatedDate()).append("</cell>");
-                    buff.append("<cell>").append(StringUtil.encodeString(bean.getVehiclePlate())).append("</cell>");
                     buff.append("<cell>").append(StringUtil.encodeString(bean.getNote())).append("</cell>");
                     buff.append("</row>");
                 }

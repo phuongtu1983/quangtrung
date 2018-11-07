@@ -222,6 +222,46 @@ public class EmployeeDAO extends BasicDAO {
         return employeeList;
     }
 
+    public ArrayList getEmployees(String employeeIds) throws Exception {
+        ResultSet rs = null;
+        String sql = "select e.*, o.name as organization_name from employee as e, organization as o where e.organization_id=o.id and o.status=" + EmployeeBean.STATUS_ACTIVE
+                + " and e.status=" + EmployeeBean.STATUS_ACTIVE;
+        if (!StringUtil.isBlankOrNull(employeeIds)) {
+            sql += " and e.id in (" + employeeIds + ")";
+        }
+        sql += " order by e.fullname desc";
+        ArrayList employeeList = new ArrayList();
+        try {
+            rs = DBUtil.executeQuery(sql);
+            EmployeeFormBean bean = null;
+            while (rs.next()) {
+                bean = new EmployeeFormBean();
+                bean.setId(rs.getInt("id"));
+                bean.setFullname(rs.getString("fullname"));
+                bean.setEmail(rs.getString("email"));
+                bean.setSalary(rs.getDouble("salary"));
+                bean.setOrganizationId(rs.getInt("organization_id"));
+                bean.setOrganizationName(rs.getString("organization_name"));
+                bean.setStatus(rs.getInt("status"));
+                if (bean.getStatus() == EmployeeBean.STATUS_ACTIVE) {
+                    bean.setStatusName(QTUtil.getBundleString("employee.detail.status.active"));
+                } else if (bean.getStatus() == EmployeeBean.STATUS_INACTIVE) {
+                    bean.setStatusName(QTUtil.getBundleString("employee.detail.status.inactive"));
+                }
+                employeeList.add(bean);
+            }
+        } catch (SQLException sqle) {
+            throw new Exception(sqle.getMessage());
+        } catch (Exception ex) {
+            throw new Exception(ex.getMessage());
+        } finally {
+            if (rs != null) {
+                DBUtil.closeConnection(rs);
+            }
+        }
+        return employeeList;
+    }
+
     public int insertEmployee(EmployeeBean bean) throws Exception {
         if (bean == null) {
             return 0;

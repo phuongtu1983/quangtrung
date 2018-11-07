@@ -12,14 +12,18 @@
             <td width="160" height="30"><bean:message key="code.title"/></td>
             <td width="160"><html:text property="code" size="30" name="<%=Constants.VEHICLE_IN%>" readonly="true"/></td>
             <td width="170"  style="padding-right: 20px;padding-left: 10px"><bean:message key="date.title"/></td>
-            <td><html:text property="createdDate" size="30" name="<%=Constants.VEHICLE_IN%>" styleId="vehicleInCreatedDate" readonly="true"/></td>
+            <td><html:text property="createdDate" size="30" name="<%=Constants.VEHICLE_IN%>" styleId="vehicleInCreatedDate"/></td>
         </tr>
         <tr>
-            <td height="30" style="padding-right: 20px""><bean:message key="vehicle.title"/></td>
-            <td colspan="3">
-                <html:select property="vehicleId" name="<%=Constants.VEHICLE_IN%>" style="width:195px">
-                    <html:options collection="<%=Constants.VEHICLE_LIST%>" property="id" labelProperty="plate"/>
-                </html:select>
+            <td width="200" height="30"><bean:message key="date.title"/></td>
+            <td width="200"><input type="text" size="30" tabindex="-1" id="vehicleInVehicleOutCreatedDate"></td>
+            <td style="padding-right: 50px;padding-left: 10px"><bean:message key="vehicleOut.title"/></td>
+            <td>
+                <select style="width: 195px;" name="vehicleOutIdCombobox" id="vehicleOutIdCombobox">
+                    <logic:iterate id="vehicle_iter" name="<%=Constants.VEHICLE_OUT_LIST%>">
+                        <option  value="${vehicle_iter.id}">${vehicle_iter.code}</option>
+                    </logic:iterate>
+                </select>
             </td>
         </tr>
         <tr>
@@ -98,9 +102,11 @@
         </tr>
     </table>
     <html:hidden property="id" name="<%=Constants.VEHICLE_IN%>" />
+    <html:hidden property="vehicleOutId" name="<%=Constants.VEHICLE_IN%>" />
     <input type="hidden" id="callbackFunc"/>
     <input type="hidden" name="shellSelectedHidden" value="0"/>
     <input type="hidden" name="returnShellSelectedHidden" value="0"/>
+    <input type="hidden" name="vehicleSelectedHidden" value="0"/>
 </form>
 <div name="vehicleInFormshowHelpHideDiv" id="showHelpHideDiv" style="display:none">
     Ctrl+C : Đóng
