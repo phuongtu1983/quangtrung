@@ -76,7 +76,21 @@ public class AddUserAction extends SpineAction {
             return false;
         }
         boolean isUpdate = false;
-
+        try {
+            if (bNew) {
+            } else {
+                if (!formBean.getUsername().equals(bean.getUsername())) {
+                    isUpdate = true;
+                }
+                if (formBean.getStatus() != bean.getStatus()) {
+                    isUpdate = true;
+                }
+                if (formBean.getEmpId() != bean.getEmpId()) {
+                    isUpdate = true;
+                }
+            }
+        } catch (Exception ex) {
+        }
         bean = new UserBean();
         bean.setId(formBean.getId());
         bean.setUsername(formBean.getUsername());

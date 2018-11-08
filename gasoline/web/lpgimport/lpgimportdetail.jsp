@@ -37,7 +37,7 @@
                                 </logic:equal>
                             </td>
                             <td style="padding-right: 20px;padding-left: 10px"><bean:message key="price.title"/></td>
-                            <td><html:text property="price" size="30" name="<%=Constants.LPG_IMPORT%>" onblur="return lpgImportCaculateAmount();" onkeyup="try2FloatFormatOnKeyUp(this,event);" onkeypress="return readonlyFloat(event);"/></td>
+                            <td><html:text property="price" size="30" name="<%=Constants.LPG_IMPORT%>" onblur="return lpgImportCaculateAmount();" onkeyup="try2FloatFormatOnKeyUp(this,event,true);" onkeypress="return readonlyFloat(event);"/></td>
                         </tr>
                         <tr>
                             <td height="30" style="padding-right: 20px"><bean:message key="rate.title"/></td>

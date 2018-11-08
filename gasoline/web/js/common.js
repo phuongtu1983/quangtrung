@@ -171,23 +171,25 @@ function deepRemoveChildrenFromNode(e) {
     e = null;
     return true;
 }
-function try2FloatFormatOnKeyUp(obj, e) {
+function try2FloatFormatOnKeyUp(obj, e, stillInput) {
     var keypressed = null;
     if (window.event)
         keypressed = window.event.keyCode; //IE
     else
         keypressed = e.which; //NON-IE, Standard
-    if (keypressed >= 48 && keypressed <= 57) {
+    if ((keypressed >= 48 && keypressed <= 57) || (keypressed >= 96 && keypressed <= 105)) {
         if (obj.value == "0.0")
             return;
-        tryNumberFormatCurrentcy(obj, "USD");
+        tryNumberFormatCurrentcy(obj, "USD", stillInput);
     } else if (keypressed < 48 || keypressed > 57) {
         // //CharCode của 0 là 48 (Theo bảng mã ASCII)
+        // //CharCode của 0 là 96 (Theo bảng mã ASCII)
         //CharCode của 9 là 57 (Theo bảng mã ASCII)
+        //CharCode của 9 là 105 (Theo bảng mã ASCII)
         if (keypressed == 8 || keypressed == 46) {
             if (obj.value == "0.0")
                 return;
-            tryNumberFormatCurrentcy(obj, "USD");
+            tryNumberFormatCurrentcy(obj, "USD", stillInput);
         } else
             return false;//Phím Delete và Phím Back va phim .
     }

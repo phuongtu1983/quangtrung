@@ -2991,7 +2991,7 @@ function getLpgImport(id, handle) {
         document.getElementById('callbackFunc').value = handle;
         tryNumberFormatCurrentcy(document.forms['lpgImportForm'].paperQuantity, "VND");
         tryNumberFormatCurrentcy(document.forms['lpgImportForm'].actualQuantity, "VND");
-        tryNumberFormatCurrentcy(document.forms['lpgImportForm'].price, "VND");
+        tryNumberFormatCurrentcy(document.forms['lpgImportForm'].price, "USD");
         tryNumberFormatCurrentcy(document.forms['lpgImportForm'].total, "VND");
         tryNumberFormatCurrentcy(document.forms['lpgImportForm'].paid, "VND");
         tryNumberFormatCurrentcy(document.forms['lpgImportForm'].debt, "VND");
@@ -3042,7 +3042,7 @@ function lpgImportCaculateAmount() {
     paid.value = amount.value;
     debt.value = 0;
     tryNumberFormatCurrentcy(quantity, "VND");
-    tryNumberFormatCurrentcy(price, "VND");
+    tryNumberFormatCurrentcy(price, "USD");
     tryNumberFormatCurrentcy(rate, "VND");
     tryNumberFormatCurrentcy(amount, "VND");
     tryNumberFormatCurrentcy(paid, "VND");
