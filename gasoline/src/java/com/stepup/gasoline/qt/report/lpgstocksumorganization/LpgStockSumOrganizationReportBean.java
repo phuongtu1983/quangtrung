@@ -27,6 +27,7 @@ public class LpgStockSumOrganizationReportBean {
     private int finalStock;
     private int shieldImport;
     private int shieldDecrease;
+    private int importQuantity;
 
     public String getDate() {
         return date;
@@ -154,6 +155,14 @@ public class LpgStockSumOrganizationReportBean {
 
     public void setFinalStock(int finalStock) {
         this.finalStock = finalStock;
+    }
+
+    public int getImportQuantity() {
+        return importQuantity;
+    }
+
+    public void setImportQuantity(int importQuantity) {
+        this.importQuantity = importQuantity;
     }
 
 }

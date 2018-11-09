@@ -93,6 +93,9 @@ public class PrintReportAction extends BaseAction {
                     templateFileName = "employee_commission_gas";
                     String session = QTUtil.getEmployeeId(request.getSession()) + "_" + Calendar.getInstance().getTimeInMillis();
                     list = printGasEmployeeComissionReport(fromDate, toDate, organizationIds, session);
+                }else if(reportName.equals("reportvendordebt")) {
+                    templateFileName = "bang_theo_doi_cong_no_ncc";
+                    list = printVendorDebtReport(fromDate, toDate, organizationIds);
                 }
                 if (!reportName.equals("reportpetrostock") && !reportName.equals("reportgascommission")) {
                     templateFileName = request.getSession().getServletContext().getRealPath("/templates/" + templateFileName + ".xls");
@@ -290,6 +293,7 @@ public class PrintReportAction extends BaseAction {
             beans.put("datedata", list);
             beans.put("qtrp_commission12", outBean.getCommission12());
             beans.put("qtrp_commission45", outBean.getCommission45());
+            beans.put("qtrp_commission_lovo", outBean.getCommissionLoVo());
 
             DynamicColumnExcelReporter.createGasCommissionReportColumns(tempFileName, employees, f);
 
@@ -329,4 +333,13 @@ public class PrintReportAction extends BaseAction {
         return list;
     }
 
+    private ArrayList printVendorDebtReport(String fromDate, String toDate, String organizationIds) {
+        ArrayList list = null;
+        try {
+            ReportDAO reportDAO = new ReportDAO();
+            list = reportDAO.getVendorDebtReport(fromDate, toDate, organizationIds);
+        } catch (Exception ex) {
+        }
+        return list;
+    }
 }

@@ -15,6 +15,7 @@ public class GasCommissionReportBean {
     private int employeeId;
     private int quantity12;
     private int quantity45;
+    private int quantityLoVo;
     private double amount;
 
     public String getDate() {
@@ -55,6 +56,14 @@ public class GasCommissionReportBean {
 
     public void setAmount(double amount) {
         this.amount = amount;
+    }
+
+    public int getQuantityLoVo() {
+        return quantityLoVo;
+    }
+
+    public void setQuantityLoVo(int quantityLoVo) {
+        this.quantityLoVo = quantityLoVo;
     }
 
 }

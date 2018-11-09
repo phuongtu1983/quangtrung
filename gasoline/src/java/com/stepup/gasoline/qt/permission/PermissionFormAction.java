@@ -609,6 +609,15 @@ public class PermissionFormAction extends SpineAction {
         perBean.setValue(PermissionUtil.PER_SHELL_RETURN_SUPPLIER);
         perBean.setOperations("," + PermissionUtil.OPERATION_LIST + "," + PermissionUtil.OPERATION_ADD + "," + PermissionUtil.OPERATION_EDIT + "," + PermissionUtil.OPERATION_DELETE + ",");
         arrFun.add(perBean);
+        
+        perBean = new PermissionViewBean();
+        perBean.setCounter("2.1");
+        perBean.setLevel(2);
+        perBean.setSharedId(2);
+        perBean.setName(QTUtil.getBundleString("loVo.title"));
+        perBean.setValue(PermissionUtil.PER_LO_VO);
+        perBean.setOperations("," + PermissionUtil.OPERATION_LIST + "," + PermissionUtil.OPERATION_ADD + "," + PermissionUtil.OPERATION_EDIT + "," + PermissionUtil.OPERATION_DELETE + ",");
+        arrFun.add(perBean);
 
         perBean = new PermissionViewBean();
         perBean.setCounter("2.1");
@@ -724,6 +733,15 @@ public class PermissionFormAction extends SpineAction {
         perBean.setSharedId(3);
         perBean.setName(QTUtil.getBundleString("report.lpgImport.title"));
         perBean.setValue(PermissionUtil.PER_REPORT_LPG_IMPORT);
+        perBean.setOperations("," + PermissionUtil.OPERATION_LIST + ",");
+        arrFun.add(perBean);
+        
+        perBean = new PermissionViewBean();
+        perBean.setCounter("3.1");
+        perBean.setLevel(2);
+        perBean.setSharedId(3);
+        perBean.setName(QTUtil.getBundleString("report.vendorDebt.title"));
+        perBean.setValue(PermissionUtil.PER_REPORT_VENDOR_DEBT);
         perBean.setOperations("," + PermissionUtil.OPERATION_LIST + ",");
         arrFun.add(perBean);
 

@@ -14,6 +14,7 @@ public class GasCommissionReportOutBean {
     private String employeeIds;
     private double commission12;
     private double commission45;
+    private double commissionLoVo;
 
     public String getEmployeeIds() {
         return employeeIds;
@@ -37,6 +38,14 @@ public class GasCommissionReportOutBean {
 
     public void setCommission45(double commission45) {
         this.commission45 = commission45;
+    }
+
+    public double getCommissionLoVo() {
+        return commissionLoVo;
+    }
+
+    public void setCommissionLoVo(double commissionLoVo) {
+        this.commissionLoVo = commissionLoVo;
     }
 
 }

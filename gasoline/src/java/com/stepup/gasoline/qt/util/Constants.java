@@ -120,6 +120,8 @@ public class Constants {
     public static final String GAS_RETURN_GOOD = "gasReturnGood";
     public static final String SHELL_RETURN_SUPPLIER = "shellReturnSupplier";
     public static final String SHELL_RETURN_SUPPLIER_SHELL = "shellReturnSupplierShell";
+    public static final String LO_VO = "loVo";
+    public static final String LO_VO_EMPLOYEE = "loVoEmployee";
     public static final String VEHICLE_OUT = "vehicleOut";
     public static final String VEHICLE_OUT_GOOD = "vehicleOutGood";
     public static final String VEHICLE_OUT_EMPLOYEE = "vehicleOutEmployee";

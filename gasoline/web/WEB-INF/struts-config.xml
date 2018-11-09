@@ -82,6 +82,7 @@
         <form-bean name="gasRetailForm" type="com.stepup.gasoline.qt.gasretail.GasRetailFormBean"/>
         <form-bean name="saleAccessoryForm" type="com.stepup.gasoline.qt.saleaccessory.SaleAccessoryFormBean"/>
         <form-bean name="vehicleOutForm" type="com.stepup.gasoline.qt.vehicleout.VehicleOutFormBean"/>
+        <form-bean name="loVoForm" type="com.stepup.gasoline.qt.lovo.LoVoFormBean"/>
         <form-bean name="vehicleInForm" type="com.stepup.gasoline.qt.vehiclein.VehicleInFormBean"/>
         <form-bean name="exportWholesaleForm" type="com.stepup.gasoline.qt.exportwholesale.ExportWholesaleFormBean"/>
         <form-bean name="salePetroForm" type="com.stepup.gasoline.qt.salepetro.SalePetroFormBean"/>
@@ -848,6 +849,26 @@
             <forward name="success" path="/vehicleout/employees.jsp" />
         </action>
         <!-- end vehicleout -->
+        <!-- start lovo -->
+        <action path="/getLoVoPanel" type="com.stepup.gasoline.qt.common.BaseFormAction" scope="request" validate="false">
+            <forward name="success" path="/lovo/lovopanel.jsp" />
+        </action>
+        <action path="/getLoVoList" type="com.stepup.gasoline.qt.lovo.GetLoVoListAction" scope="request" validate="false" >
+        </action>
+        <action path="/loVoForm" type="com.stepup.gasoline.qt.lovo.LoVoFormAction" scope="request" validate="false">
+            <forward name="success" path="/lovo/lovodetail.jsp" />
+        </action>
+        <action path="/addLoVo" name ="loVoForm" scope="request" type="com.stepup.gasoline.qt.lovo.AddLoVoAction" input="/loVoForm.do">
+        </action>
+        <action path="/getLoVoGood" type="com.stepup.gasoline.qt.lovo.GetLoVoGoodAction" scope="request" validate="false">
+            <forward name="success" path="/lovo/goods.jsp" />
+        </action>
+        <action path="/delLoVo" type="com.stepup.gasoline.qt.lovo.DeleteLoVoAction" scope="request" validate="false" >
+        </action>
+        <action path="/getLoVoEmployee" type="com.stepup.gasoline.qt.lovo.GetLoVoEmployeeAction" scope="request" validate="false">
+            <forward name="success" path="/lovo/employees.jsp" />
+        </action>
+        <!-- end lovo -->
         <!-- start vehiclein -->
         <action path="/getVehicleInPanel" type="com.stepup.gasoline.qt.common.BaseFormAction" scope="request" validate="false">
             <forward name="success" path="/vehiclein/vehicleinpanel.jsp" />
@@ -1100,6 +1121,9 @@
             <forward name="success" path="/report/compare/panel.jsp" />
         </action>
         <action path="/reportComparePrint" type="com.stepup.gasoline.qt.report.compare.PrintCompareReportAction" scope="request" validate="false" >
+        </action>
+        <action path="/getLpgStockSumOrganizationReportPanel" type="com.stepup.gasoline.qt.report.lpgstocksumorganization.LpgStockSumOrganizationReportPanelFormAction" scope="request" validate="false">
+            <forward name="success" path="/report/lpgstocksumorganization/panel.jsp" />
         </action>
         <action path="/reportLpgStockSumOrganizationPrint" type="com.stepup.gasoline.qt.report.lpgstocksumorganization.PrintLpgStockSumOrganizationReportAction" scope="request" validate="false" >
         </action>

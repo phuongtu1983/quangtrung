@@ -275,7 +275,7 @@ function menuClick(id) {
         getContract(0, 'loadContractPanel');
     else if (id == 'reportlpgimport' || id == 'reportlpgstock' || id == 'reportlpgstocksum' || id == 'reportsum' || id == 'reportsalecustomer' || id == 'reportsale'
             || id == 'reportcashbook' || id == 'reportpetroimport' || id == 'reportpetrosale' || id == 'reportpetrostock' || id == 'reportgascommission' 
-            || id == 'reportgasemployeecommission')
+            || id == 'reportgasemployeecommission' || id == 'reportvendordebt')
         showReportPanel(id);
     else if (id == 'shieldimportlist')
         loadShieldImportPanel();
@@ -301,6 +301,10 @@ function menuClick(id) {
         getSaleGood(0);
     else if (id == 'reportcomparegood')
         showCompareGoodReportPanel();
+    else if (id == 'lovolist')
+        loadLoVoPanel();
+    else if (id == 'lovoadd')
+        getLoVo(0);
 }
 function clearContent() {
     var contentDiv = document.getElementById("contentDiv");
@@ -9149,6 +9153,147 @@ function saveGasReturnVendor() {
     });
     return false;
 }
+function loadLoVoPanel() {
+    callAjax("getLoVoPanel.do", null, null, function(data) {
+        clearContent();
+        setAjaxData(data, "contentDiv");
+        var myCalendar = new dhtmlXCalendarObject(["fromDate", "toDate"]);
+        myCalendar.setSkin('dhx_web');
+        var currentTime = getCurrentDate();
+        document.forms['loVoSearchForm'].fromDate.value = currentTime;
+        document.forms['loVoSearchForm'].toDate.value = currentTime;
+        myCalendar.setDateFormat("%d/%m/%Y");
+        loadLoVoList(currentTime, currentTime);
+    });
+    return false;
+}
+function loadLoVoList(fromDate, toDate) {
+    var mygrid = new dhtmlXGridObject('loVoList');
+    mygrid.setImagePath("js/dhtmlx/grid/imgs/");
+    mygrid.setHeader("M\u00E3 phi\u1EBFu,Ng\u00E0y,S\u1ED1 l\u01B0\u1EE3ng,Ghi ch\u00FA");
+    mygrid.attachHeader("#text_filter,#text_filter,#text_filter,#text_filter");
+    mygrid.setInitWidths("150,100,150,*");
+    mygrid.setColTypes("link,ro,ro,ro");
+    mygrid.setColSorting("str,str,str,str");
+    mygrid.setSkin("light");
+    var height = contentHeight - 210;
+    mygrid.al(true, height); //enableAutoHeight
+    mygrid.enablePaging(true, 15, 3, "recinfoArea");
+    mygrid.setPagingSkin("toolbar", "dhx_skyblue");
+    mygrid.init();
+    var url = "getLoVoList.do?t=1";
+    if (fromDate != null)
+        url += "&fromDate=" + fromDate;
+    if (toDate != null)
+        url += "&toDate=" + toDate;
+    callAjax(url, null, null, function(data) {
+        mygrid.parse(data);
+    });
+    return false;
+}
+function getLoVo(id) {
+    var url = 'loVoForm.do';
+    if (id != 0)
+        url += '?loVoId=' + id
+    callAjax(url, null, null, function(data) {
+        clearContent();
+        setAjaxData(data, 'contentDiv');
+        window.dhx_globalImgPath = "js/dhtmlx/combo/imgs/";
+        
+        var employeeIdCombobox = dhtmlXComboFromSelect("employeeIdCombobox");
+        employeeIdCombobox.enableFilteringMode(true);
+        employeeIdCombobox.attachEvent("onSelectionChange", function() {
+            setEmployeeSelectedForm('loVoForm', employeeIdCombobox.getComboText(), employeeIdCombobox.getSelectedValue());
+        });
+        employeeIdCombobox.attachEvent("onBlur", function() {
+            setEmployeeSelectedForm('loVoForm', employeeIdCombobox.getComboText(), employeeIdCombobox.getSelectedValue());
+        });
+        employeeIdCombobox.DOMelem_input.onkeypress = function(event) {
+            var key;
+            if (window.event)
+                key = window.event.keyCode;//IE
+            else
+                key = event.which;//firefox
+            if (key == 13) {
+                addLoVoEmployee();
+                employeeIdCombobox.setComboValue("");
+            }
+        }
+        employeeIdCombobox.DOMelem_input.onfocus = function(event) {
+            if (isManuallySeleted == 1) {
+                employeeIdCombobox.openSelect();
+                isManuallySeleted = 0;
+            }
+        }
+        employeeIdCombobox.setComboValue("");
+        var myCalendar = new dhtmlXCalendarObject(["loVoCreatedDate"]);
+        myCalendar.setSkin('dhx_web');
+        if (id == 0) {
+            var currentDate = getCurrentDate();
+            document.forms['loVoForm'].loVoCreatedDate.value = currentDate;
+        }
+        myCalendar.setDateFormat("%d/%m/%Y");
+        
+        tryNumberFormatCurrentcy(document.forms['loVoForm'].quantity, "VND");
+    });
+}
+function saveLoVo() {
+    if (scriptFunction == "saveLoVo")
+        return false;
+    reformatNumberMoney(document.forms['loVoForm'].quantity);
+    scriptFunction = "saveLoVo";
+    callAjaxCheckError("addLoVo.do", null, document.forms['loVoForm'], function(data) {
+        scriptFunction = "";
+        loadLoVoPanel();
+    });
+    return false;
+}
+function delLoVo() {
+    callAjaxCheckError('delLoVo.do?loVoId=' + document.forms['loVoForm'].id.value, null, null, function() {
+        loadLoVoPanel();
+    });
+    return false;
+}
+function addLoVoEmployee() {
+    var employee = document.forms['loVoForm'].employeeSelectedHidden.value;
+    if (employee == -1 || employee == 0)
+        return false;
+    var employeeId = document.forms['loVoForm'].employeeId;
+    var existed = false;
+    if (employeeId != null) {
+        if (employeeId.length != null) {
+            for (i = 0; i < employeeId.length; i++) {
+                if (employeeId[i].value == employee) {
+                    existed = true;
+                    break;
+                }
+            }
+        } else if (employeeId.value == employee)
+            existed = true;
+    }
+    employeeId = null;
+    if (existed == true) {
+        alert("H\u00E0ng ho\u00E1 \u0111\u00E3 t\u1ED3n t\u1EA1i");
+        return false;
+    }
+    callAjax("getLoVoEmployee.do?employeeId=" + employee, null, null, function(data) {
+        setAjaxData(data, 'loVoEmployeeHideDiv');
+        var matTable = document.getElementById('loVoEmployeeTbl');
+        var detTable = document.getElementById('loVoEmployeeDetailTbl');
+        if (matTable.tBodies[0] == null || detTable.tBodies[0] == null) {
+            matTable = null;
+            detTable = null;
+            return;
+        }
+        for (var i = matTable.tBodies[0].rows.length - 1; i >= 0; i--)
+            detTable.tBodies[0].appendChild(matTable.tBodies[0].rows[i]);
+        matTable = null;
+        detTable = null;
+    });
+    return false;
+}
+
+
 
 
 

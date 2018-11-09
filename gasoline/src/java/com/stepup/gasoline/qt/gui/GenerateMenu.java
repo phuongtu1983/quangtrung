@@ -563,6 +563,16 @@ public class GenerateMenu {
                     }
                     buffTemp.append("</item>");
                 }
+                if (isHasPermission(PermissionUtil.OPERATION_LIST + "," + PermissionUtil.OPERATION_ADD, PermissionUtil.PER_LO_VO)) {
+                    buffTemp.append("<item id=\"lovos\" complex=\"true\" text=\"").append(QTUtil.getBundleString("loVo.title")).append("\">");
+                    if (isHasPermission(PermissionUtil.OPERATION_LIST, PermissionUtil.PER_LO_VO)) {
+                        buffTemp.append("<item id=\"lovolist\" text=\"").append(QTUtil.getBundleString("loVo.list.title")).append("\"/>");
+                    }
+                    if (isHasPermission(PermissionUtil.OPERATION_ADD, PermissionUtil.PER_LO_VO)) {
+                        buffTemp.append("<item id=\"lovoadd\" text=\"").append(QTUtil.getBundleString("loVo.detail.add.title")).append("\"/>");
+                    }
+                    buffTemp.append("</item>");
+                }
 //                if (isHasPermission(PermissionUtil.OPERATION_LIST + "," + PermissionUtil.OPERATION_ADD, PermissionUtil.PER_GAS_RETURN)) {
 //                    buffTemp.append("<item id=\"gasreturns\" complex=\"true\" text=\"").append(QTUtil.getBundleString("gasReturn.title")).append("\">");
 //                    if (isHasPermission(PermissionUtil.OPERATION_LIST, PermissionUtil.PER_GAS_RETURN)) {
@@ -773,6 +783,9 @@ public class GenerateMenu {
                     buffTemp.append("<item id=\"reportgas\" complex=\"true\" text=\"").append(QTUtil.getBundleString("report.gas.title")).append("\">");
                     if (isHasPermission(PermissionUtil.OPERATION_LIST, PermissionUtil.PER_REPORT_LPG_IMPORT)) {
                         buffTemp.append("<item id=\"reportlpgimport\" text=\"").append(QTUtil.getBundleString("report.lpgImport.title")).append("\"/>");
+                    }
+                    if (isHasPermission(PermissionUtil.OPERATION_LIST, PermissionUtil.PER_REPORT_VENDOR_DEBT)) {
+                        buffTemp.append("<item id=\"reportvendordebt\" text=\"").append(QTUtil.getBundleString("report.vendorDebt.title")).append("\"/>");
                     }
                     if (isHasPermission(PermissionUtil.OPERATION_LIST, PermissionUtil.PER_REPORT_LPG_STOCK)) {
                         buffTemp.append("<item id=\"reportlpgstock\" text=\"").append(QTUtil.getBundleString("report.lpgStock.title")).append("\"/>");
