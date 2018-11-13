@@ -16,6 +16,9 @@ public class GasCommissionReportBean {
     private int quantity12;
     private int quantity45;
     private int quantityLoVo;
+    private int accessoryKindId;
+    private int quantityAccessory;
+    private double commissionAccessory;
     private double amount;
 
     public String getDate() {
@@ -64,6 +67,30 @@ public class GasCommissionReportBean {
 
     public void setQuantityLoVo(int quantityLoVo) {
         this.quantityLoVo = quantityLoVo;
+    }
+
+    public int getQuantityAccessory() {
+        return quantityAccessory;
+    }
+
+    public void setQuantityAccessory(int quantityAccessory) {
+        this.quantityAccessory = quantityAccessory;
+    }
+
+    public double getCommissionAccessory() {
+        return commissionAccessory;
+    }
+
+    public void setCommissionAccessory(double commissionAccessory) {
+        this.commissionAccessory = commissionAccessory;
+    }
+
+    public int getAccessoryKindId() {
+        return accessoryKindId;
+    }
+
+    public void setAccessoryKindId(int accessoryKindId) {
+        this.accessoryKindId = accessoryKindId;
     }
 
 }

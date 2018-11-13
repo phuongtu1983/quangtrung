@@ -40,7 +40,7 @@ public class AddEmployeeAction extends AddDynamicFieldValueAction {
         boolean bNew = false;
         boolean isExist = false;
         try {
-            oldBean = employeeDAO.getEmployeeByNameOrEmail(formBean.getFullname(), formBean.getEmail());
+            oldBean = employeeDAO.getEmployeeByIdcard(formBean.getIdcard());
         } catch (Exception ex) {
         }
         int employeeId = formBean.getId();
@@ -71,6 +71,9 @@ public class AddEmployeeAction extends AddDynamicFieldValueAction {
         boolean isUpdate = false;
         try {
             if (!bNew) {
+                if (!formBean.getIdcard().equals(oldBean.getIdcard())) {
+                    isUpdate = true;
+                }
                 if (!formBean.getFullname().equals(oldBean.getFullname())) {
                     isUpdate = true;
                 }
@@ -100,6 +103,7 @@ public class AddEmployeeAction extends AddDynamicFieldValueAction {
         }
         EmployeeBean bean = new EmployeeBean();
         bean.setId(formBean.getId());
+        bean.setIdcard(formBean.getIdcard());
         bean.setFullname(formBean.getFullname());
         bean.setEmail(formBean.getEmail());
         bean.setSalary(formBean.getSalary());

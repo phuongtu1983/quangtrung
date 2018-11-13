@@ -41,6 +41,7 @@ import com.stepup.gasoline.qt.bean.ShellReturnBean;
 import com.stepup.gasoline.qt.bean.ShellReturnDetailBean;
 import com.stepup.gasoline.qt.bean.ShellReturnSupplierBean;
 import com.stepup.gasoline.qt.bean.ShellReturnSupplierDetailBean;
+import com.stepup.gasoline.qt.bean.VehicleInAccessoryDetailBean;
 import com.stepup.gasoline.qt.bean.VehicleInBean;
 import com.stepup.gasoline.qt.bean.VehicleInDetailBean;
 import com.stepup.gasoline.qt.bean.VehicleInReturnShellDetailBean;
@@ -148,6 +149,7 @@ public class GasDAO extends BasicDAO {
                 bean.setDebt(rs.getDouble("debt"));
                 bean.setRate(rs.getDouble("rate"));
                 bean.setAccountId(rs.getInt("account_id"));
+                bean.setRouteId(rs.getInt("route_id"));
                 bean.setNote(rs.getString("note"));
                 bean.setCanEdit(rs.getInt("can_edit"));
                 return bean;
@@ -177,7 +179,7 @@ public class GasDAO extends BasicDAO {
             } else {
                 createdDate = bean.getImportDate();
             }
-            String sql = "{call insertLpgImport(?,?,?,?,?,?,?,?,?,?,?,?,?,?)}";
+            String sql = "{call insertLpgImport(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)}";
             spUtil = new SPUtil(sql);
             if (spUtil != null) {
                 spUtil.getCallableStatement().setString("_code", bean.getCode());
@@ -191,6 +193,7 @@ public class GasDAO extends BasicDAO {
                 spUtil.getCallableStatement().setDouble("_debt", bean.getDebt());
                 spUtil.getCallableStatement().setDouble("_rate", bean.getRate());
                 spUtil.getCallableStatement().setInt("_account_id", bean.getAccountId());
+                spUtil.getCallableStatement().setInt("_route_id", bean.getRouteId());
                 spUtil.getCallableStatement().setString("_note", bean.getNote());
                 spUtil.getCallableStatement().setInt("_created_employee_id", bean.getCreatedEmployeeId());
                 spUtil.getCallableStatement().registerOutParameter("_id", Types.INTEGER);
@@ -225,7 +228,7 @@ public class GasDAO extends BasicDAO {
             } else {
                 createdDate = bean.getImportDate();
             }
-            String sql = "{call updateLpgImport(?,?,?,?,?,?,?,?,?,?,?,?)}";
+            String sql = "{call updateLpgImport(?,?,?,?,?,?,?,?,?,?,?,?,?)}";
             spUtil = new SPUtil(sql);
             if (spUtil != null) {
                 spUtil.getCallableStatement().setInt("_id", bean.getId());
@@ -239,6 +242,7 @@ public class GasDAO extends BasicDAO {
                 spUtil.getCallableStatement().setDouble("_debt", bean.getDebt());
                 spUtil.getCallableStatement().setDouble("_rate", bean.getRate());
                 spUtil.getCallableStatement().setInt("_account_id", bean.getAccountId());
+                spUtil.getCallableStatement().setInt("_route_id", bean.getRouteId());
                 spUtil.getCallableStatement().setString("_note", bean.getNote());
                 spUtil.execute();
             }
@@ -4283,6 +4287,41 @@ public class GasDAO extends BasicDAO {
         }
         return detailList;
     }
+    
+    public ArrayList getVehicleInAccessoryDetail(int vehicleInId) throws Exception {
+        ResultSet rs = null;
+        String sql = "select det.*, s.name as accessory_name, u.id as unit_id, u.name as unit_name"
+                + " from vehicle_in_accessory_detail as det, accessory as s, unit as u"
+                + " where det.accessory_id=s.id and s.unit_id=u.id and det.vehicle_in_id=" + vehicleInId
+                + " order by det.id";
+        ArrayList detailList = new ArrayList();
+        try {
+            rs = DBUtil.executeQuery(sql);
+            VehicleInAccessoryDetailBean bean = null;
+            while (rs.next()) {
+                bean = new VehicleInAccessoryDetailBean();
+                bean.setId(rs.getInt("id"));
+                bean.setVehicleInId(rs.getInt("vehicle_in_id"));
+                bean.setQuantity(rs.getInt("quantity"));
+                bean.setPrice(rs.getDouble("price"));
+                bean.setAmount(rs.getDouble("amount"));
+                bean.setAccessoryId(rs.getInt("accessory_id"));
+                bean.setAccessoryName(rs.getString("accessory_name"));
+                bean.setUnitId(rs.getInt("unit_id"));
+                bean.setUnitName(rs.getString("unit_name"));
+                detailList.add(bean);
+            }
+        } catch (SQLException sqle) {
+            throw new Exception(sqle.getMessage());
+        } catch (Exception ex) {
+            throw new Exception(ex.getMessage());
+        } finally {
+            if (rs != null) {
+                DBUtil.closeConnection(rs);
+            }
+        }
+        return detailList;
+    }
 
     public int insertVehicleIn(VehicleInBean bean) throws Exception {
         if (bean == null) {
@@ -4453,6 +4492,82 @@ public class GasDAO extends BasicDAO {
         int result = 0;
         try {
             String sql = "Delete From vehicle_in_detail Where id in (" + ids + ")";
+            DBUtil.executeUpdate(sql);
+        } catch (SQLException sqle) {
+            throw new Exception(sqle.getMessage());
+        } catch (Exception ex) {
+            throw new Exception(ex.getMessage());
+        }
+        return result;
+    }
+    
+    public int insertVehicleInAccessoryDetail(VehicleInAccessoryDetailBean bean) throws Exception {
+        if (bean == null) {
+            return 0;
+        }
+        int result = 0;
+        SPUtil spUtil = null;
+        try {
+            String sql = "{call insertVehicleInAccessoryDetail(?,?,?,?,?)}";
+            spUtil = new SPUtil(sql);
+            if (spUtil != null) {
+                spUtil.getCallableStatement().setInt("_vehicle_in_id", bean.getVehicleInId());
+                spUtil.getCallableStatement().setInt("_accessory_id", bean.getAccessoryId());
+                spUtil.getCallableStatement().setInt("_quantity", bean.getQuantity());
+                spUtil.getCallableStatement().setDouble("_price", bean.getPrice());
+                spUtil.getCallableStatement().setDouble("_amount", bean.getAmount());
+                spUtil.execute();
+            }
+        } catch (SQLException sqle) {
+            throw new Exception(sqle.getMessage());
+        } catch (Exception ex) {
+            throw new Exception(ex.getMessage());
+        } finally {
+            try {
+                if (spUtil != null) {
+                    spUtil.closeConnection();
+                }
+            } catch (Exception e) {
+                throw new Exception(e.getMessage());
+            }
+        }
+        return result;
+    }
+
+    public void updateVehicleInAccessoryDetail(VehicleInAccessoryDetailBean bean) throws Exception {
+        if (bean == null) {
+            return;
+        }
+        SPUtil spUtil = null;
+        try {
+            String sql = "{call updateVehicleInAccessoryDetail(?,?,?,?)}";
+            spUtil = new SPUtil(sql);
+            if (spUtil != null) {
+                spUtil.getCallableStatement().setInt("_id", bean.getId());
+                spUtil.getCallableStatement().setInt("_quantity", bean.getQuantity());
+                spUtil.getCallableStatement().setDouble("_price", bean.getPrice());
+                spUtil.getCallableStatement().setDouble("_amount", bean.getAmount());
+                spUtil.execute();
+            }
+        } catch (SQLException sqle) {
+            throw new Exception(sqle.getMessage());
+        } catch (Exception ex) {
+            throw new Exception(ex.getMessage());
+        } finally {
+            try {
+                if (spUtil != null) {
+                    spUtil.closeConnection();
+                }
+            } catch (Exception e) {
+                throw new Exception(e.getMessage());
+            }
+        }
+    }
+
+    public int deleteVehicleInAccessoryDetails(String ids) throws Exception {
+        int result = 0;
+        try {
+            String sql = "Delete From vehicle_in_accessory_detail Where id in (" + ids + ")";
             DBUtil.executeUpdate(sql);
         } catch (SQLException sqle) {
             throw new Exception(sqle.getMessage());
@@ -5053,10 +5168,12 @@ public class GasDAO extends BasicDAO {
                 bean.setSaleDate(DateUtil.formatDate(rs.getDate("sale_date"), "dd/MM/yyyy"));
                 bean.setQuantity(rs.getInt("quantity"));
                 bean.setPrice(rs.getDouble("price"));
+                bean.setRate(rs.getDouble("rate"));
                 bean.setTotal(rs.getDouble("amount"));
                 bean.setPaid(rs.getDouble("paid"));
                 bean.setDebt(rs.getDouble("debt"));
                 bean.setAccountId(rs.getInt("account_id"));
+                bean.setRouteId(rs.getInt("route_id"));
                 bean.setNote(rs.getString("note"));
                 bean.setCanEdit(rs.getInt("can_edit"));
                 bean.setLpgImportId(rs.getInt("lpg_import_id"));
@@ -5087,7 +5204,7 @@ public class GasDAO extends BasicDAO {
             } else {
                 createdDate = bean.getSaleDate();
             }
-            String sql = "{call insertLpgSale(?,?,?,?,?,?,?,?,?,?,?,?,?)}";
+            String sql = "{call insertLpgSale(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)}";
             spUtil = new SPUtil(sql);
             if (spUtil != null) {
                 spUtil.getCallableStatement().setString("_code", bean.getCode());
@@ -5095,10 +5212,12 @@ public class GasDAO extends BasicDAO {
                 spUtil.getCallableStatement().setString("_sale_date", createdDate);
                 spUtil.getCallableStatement().setInt("_quantity", bean.getQuantity());
                 spUtil.getCallableStatement().setDouble("_price", bean.getPrice());
+                spUtil.getCallableStatement().setDouble("_rate", bean.getRate());
                 spUtil.getCallableStatement().setDouble("_amount", bean.getTotal());
                 spUtil.getCallableStatement().setDouble("_paid", bean.getPaid());
                 spUtil.getCallableStatement().setDouble("_debt", bean.getDebt());
                 spUtil.getCallableStatement().setInt("_account_id", bean.getAccountId());
+                spUtil.getCallableStatement().setInt("_route_id", bean.getRouteId());
                 spUtil.getCallableStatement().setString("_note", bean.getNote());
                 spUtil.getCallableStatement().setInt("_lpg_import_id", bean.getLpgImportId());
                 spUtil.getCallableStatement().setInt("_created_employee_id", bean.getCreatedEmployeeId());
@@ -5134,7 +5253,7 @@ public class GasDAO extends BasicDAO {
             } else {
                 createdDate = bean.getSaleDate();
             }
-            String sql = "{call updateLpgSale(?,?,?,?,?,?,?,?,?,?,?)}";
+            String sql = "{call updateLpgSale(?,?,?,?,?,?,?,?,?,?,?,?,?)}";
             spUtil = new SPUtil(sql);
             if (spUtil != null) {
                 spUtil.getCallableStatement().setInt("_id", bean.getId());
@@ -5142,10 +5261,12 @@ public class GasDAO extends BasicDAO {
                 spUtil.getCallableStatement().setString("_sale_date", createdDate);
                 spUtil.getCallableStatement().setInt("_quantity", bean.getQuantity());
                 spUtil.getCallableStatement().setDouble("_price", bean.getPrice());
+                spUtil.getCallableStatement().setDouble("_rate", bean.getRate());
                 spUtil.getCallableStatement().setDouble("_amount", bean.getTotal());
                 spUtil.getCallableStatement().setDouble("_paid", bean.getPaid());
                 spUtil.getCallableStatement().setDouble("_debt", bean.getDebt());
                 spUtil.getCallableStatement().setInt("_account_id", bean.getAccountId());
+                spUtil.getCallableStatement().setInt("_route_id", bean.getRouteId());
                 spUtil.getCallableStatement().setString("_note", bean.getNote());
                 spUtil.getCallableStatement().setInt("_lpg_import_id", bean.getLpgImportId());
                 spUtil.execute();

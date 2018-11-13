@@ -45,6 +45,7 @@ function callAjaxCheckError(action,targetId,_formNode,handleFunc,divErrorMessage
             },
             error: function(error,args){
                 errorHandler(error);
+                scriptFunction="";
             }
         });
     }else{
@@ -57,6 +58,7 @@ function callAjaxCheckError(action,targetId,_formNode,handleFunc,divErrorMessage
             },
             error: function(error,args){
                 errorHandler(error);
+                scriptFunction="";
             }
         });
         _formNode=null;
@@ -82,6 +84,7 @@ function dumpDataCheckError(data,targetId,handleFunc,divErrorMessage){
     else id=divErrorMessage;
     var index=data.indexOf('error:');
     if(index==0){
+        scriptFunction="";
         errorDiv=document.getElementById(id);
         if(errorDiv==null) alert(data.substring(6).replace("null",""));
         else {

@@ -30,6 +30,12 @@ public class VehicleInFormBean extends org.apache.struts.action.ActionForm {
     private String[] returnShellId;
     private String[] returnShellQuantity;
 
+    private String[] vehicleInAccessoryDetailId;
+    private String[] accessoryId;
+    private String[] accessoryQuantity;
+    private String[] accessoryPrice;
+    private String[] accessoryAmount;
+
     public VehicleInFormBean() {
         this.canEdit = 1;
     }
@@ -161,6 +167,46 @@ public class VehicleInFormBean extends org.apache.struts.action.ActionForm {
 
     public void setVehiclePlate(String vehiclePlate) {
         this.vehiclePlate = vehiclePlate;
+    }
+
+    public String[] getVehicleInAccessoryDetailId() {
+        return vehicleInAccessoryDetailId;
+    }
+
+    public void setVehicleInAccessoryDetailId(String[] vehicleInAccessoryDetailId) {
+        this.vehicleInAccessoryDetailId = vehicleInAccessoryDetailId;
+    }
+
+    public String[] getAccessoryId() {
+        return accessoryId;
+    }
+
+    public void setAccessoryId(String[] accessoryId) {
+        this.accessoryId = accessoryId;
+    }
+
+    public String[] getAccessoryQuantity() {
+        return accessoryQuantity;
+    }
+
+    public void setAccessoryQuantity(String[] accessoryQuantity) {
+        this.accessoryQuantity = accessoryQuantity;
+    }
+
+    public String[] getAccessoryPrice() {
+        return accessoryPrice;
+    }
+
+    public void setAccessoryPrice(String[] accessoryPrice) {
+        this.accessoryPrice = accessoryPrice;
+    }
+
+    public String[] getAccessoryAmount() {
+        return accessoryAmount;
+    }
+
+    public void setAccessoryAmount(String[] accessoryAmount) {
+        this.accessoryAmount = accessoryAmount;
     }
 
 }

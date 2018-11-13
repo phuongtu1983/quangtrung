@@ -12,7 +12,7 @@ public class RouteBean {
 
     private int id;
     private String name;
-    private int distance;
+    private double distance;
     private String note;
 
     public void setId(int id) {
@@ -31,11 +31,11 @@ public class RouteBean {
         this.name = name;
     }
 
-    public int getDistance() {
+    public double getDistance() {
         return distance;
     }
 
-    public void setDistance(int distance) {
+    public void setDistance(double distance) {
         this.distance = distance;
     }
 

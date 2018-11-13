@@ -60,6 +60,7 @@ public class Constants {
     public static final String VEHICLE = "vehicle";
     public static final String VEHICLE_LIST = "vehicleList";
     public static final String ROUTE = "route";
+    public static final String ROUTE_LIST = "routeList";
     public static final String ACCESSORY_KIND = "accessoryKind";
     public static final String ACCESSORY_KIND_LIST = "accessoryKindList";
     public static final String ACCESSORY = "accessory";
@@ -98,6 +99,7 @@ public class Constants {
     public static final String PROMOTION_MATERIAL_IMPORT_PROMOTION_MATERIAL = "promotionMaterialImportPromotionMaterial";
     public static final String GAS_WHOLESALE = "gasWholesale";
     public static final String GAS_WHOLESALE_SHELL = "gasWholesaleShell";
+    public static final String GAS_WHOLESALE_ACCESSORY = "gasWholesaleAccessory";
     public static final String GAS_WHOLESALE_RETURN_SHELL = "gasWholesaleReturnShell";
     public static final String GAS_WHOLESALE_PROMOTION_MATERIAL = "gasWholesalePromotionMaterial";
     public static final String GAS_WHOLESALE_EMPLOYEE = "gasWholesaleEmployee";
@@ -129,6 +131,7 @@ public class Constants {
     public static final String VEHICLE_IN = "vehicleIn";
     public static final String VEHICLE_IN_SHELL = "vehicleInShell";
     public static final String VEHICLE_IN_RETURN = "vehicleInReturn";
+    public static final String VEHICLE_IN_ACCESSORY = "vehicleInAccessory";
     public static final String EXPORT_WHOLESALE = "exportWholesale";
     public static final String EXPORT_WHOLESALE_SHELL = "exportWholesaleShell";
     public static final String EXPORT_WHOLESALE_RETURN = "exportWholesaleReturn";

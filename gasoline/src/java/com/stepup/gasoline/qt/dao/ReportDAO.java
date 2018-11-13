@@ -1006,12 +1006,12 @@ public class ReportDAO extends BasicDAO {
         return list;
     }
 
-    public ArrayList getGasCommissionReport(String fromDate, String endDate, String organizationIds, int employeeId, String session_id, GasCommissionReportOutBean outBean) throws Exception {
+    public ArrayList getGasCommissionReport(String fromDate, String endDate, String organizationIds, int employeeId, int accessoryId, String session_id, GasCommissionReportOutBean outBean) throws Exception {
         SPUtil spUtil = null;
         ArrayList list = new ArrayList();
         ResultSet rs = null;
         try {
-            String sql = "{call report_gas_commission(?,?,?,?,?,?,?,?,?)}";
+            String sql = "{call report_gas_commission(?,?,?,?,?,?,?,?,?,?,?)}";
             if (GenericValidator.isBlankOrNull(fromDate)) {
                 fromDate = DateUtil.today("dd/MM/yyyy");
             }
@@ -1024,8 +1024,10 @@ public class ReportDAO extends BasicDAO {
                 spUtil.getCallableStatement().setString("_end_date", endDate);
                 spUtil.getCallableStatement().setString("_organization_ids", organizationIds);
                 spUtil.getCallableStatement().setInt("_employee_id", employeeId);
+                spUtil.getCallableStatement().setInt("_accessory_kind_id", accessoryId);
                 spUtil.getCallableStatement().setString("_session_id", session_id);
                 spUtil.getCallableStatement().registerOutParameter("_employee_ids", Types.VARCHAR);
+                spUtil.getCallableStatement().registerOutParameter("_accessory_kind_ids", Types.VARCHAR);
                 spUtil.getCallableStatement().registerOutParameter("_commission_12", Types.DOUBLE);
                 spUtil.getCallableStatement().registerOutParameter("_commission_45", Types.DOUBLE);
                 spUtil.getCallableStatement().registerOutParameter("_commission_lovo", Types.DOUBLE);
@@ -1034,6 +1036,7 @@ public class ReportDAO extends BasicDAO {
 
                 if (outBean != null) {
                     outBean.setEmployeeIds(spUtil.getCallableStatement().getString("_employee_ids"));
+                    outBean.setAccessoryKindIds(spUtil.getCallableStatement().getString("_accessory_kind_ids"));
                     outBean.setCommission12(spUtil.getCallableStatement().getDouble("_commission_12"));
                     outBean.setCommission45(spUtil.getCallableStatement().getDouble("_commission_45"));
                     outBean.setCommissionLoVo(spUtil.getCallableStatement().getDouble("_commission_lovo"));
@@ -1048,6 +1051,9 @@ public class ReportDAO extends BasicDAO {
                         bean.setQuantity12(rs.getInt("quantity_12"));
                         bean.setQuantity45(rs.getInt("quantity_45"));
                         bean.setQuantityLoVo(rs.getInt("quantity_lovo"));
+                        bean.setAccessoryKindId(rs.getInt("accessory_kind_id"));
+                        bean.setQuantityAccessory(rs.getInt("quantity_accessory"));
+                        bean.setCommissionAccessory(rs.getDouble("commission_accessory"));
                         bean.setAmount(rs.getDouble("amount"));
                         list.add(bean);
                     }

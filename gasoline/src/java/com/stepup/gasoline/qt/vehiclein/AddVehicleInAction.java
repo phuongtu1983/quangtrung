@@ -5,6 +5,7 @@
 package com.stepup.gasoline.qt.vehiclein;
 
 import com.stepup.core.util.NumberUtil;
+import com.stepup.gasoline.qt.bean.VehicleInAccessoryDetailBean;
 import com.stepup.gasoline.qt.bean.VehicleInBean;
 import com.stepup.gasoline.qt.bean.VehicleInDetailBean;
 import com.stepup.gasoline.qt.bean.VehicleInReturnShellDetailBean;
@@ -68,6 +69,7 @@ public class AddVehicleInAction extends SpineAction {
                 gasDAO.updateVehicleIn(bean);
             }
             addVehicleInDetail(formBean);
+            addVehicleInAccessoryDetail(formBean);
             addVehicleInReturnShell(formBean);
         } catch (Exception ex) {
         }
@@ -135,6 +137,68 @@ public class AddVehicleInAction extends SpineAction {
         }
     }
 
+    private void addVehicleInAccessoryDetail(VehicleInFormBean formBean) {
+        try {
+            GasDAO gasDAO = new GasDAO();
+            ArrayList arrDetail = gasDAO.getVehicleInAccessoryDetail(formBean.getId());
+            if (formBean.getAccessoryId()!= null) {
+                int length = formBean.getAccessoryId().length;
+                int id = 0;
+                boolean isUpdate = false;
+                for (int i = 0; i < length; i++) {
+                    id = NumberUtil.parseInt(formBean.getVehicleInAccessoryDetailId()[i], 0);
+                    if (id == 0) {
+                        VehicleInAccessoryDetailBean bean = new VehicleInAccessoryDetailBean();
+                        bean.setAccessoryId(NumberUtil.parseInt(formBean.getAccessoryId()[i], 0));
+                        bean.setQuantity(NumberUtil.parseInt(formBean.getAccessoryQuantity()[i], 0));
+                        bean.setPrice(NumberUtil.parseDouble(formBean.getAccessoryPrice()[i], 0));
+                        bean.setAmount(NumberUtil.parseDouble(formBean.getAccessoryAmount()[i], 0));
+                        bean.setVehicleInId(formBean.getId());
+                        gasDAO.insertVehicleInAccessoryDetail(bean);
+                    } else {
+                        isUpdate = false;
+                        int j = 0;
+                        VehicleInAccessoryDetailBean oldBean = null;
+                        for (; j < arrDetail.size(); j++) {
+                            oldBean = (VehicleInAccessoryDetailBean) arrDetail.get(j);
+                            if (oldBean.getId() == id) {
+                                break;
+                            }
+                        }
+                        if (j < arrDetail.size()) {
+                            arrDetail.remove(j);
+                            if (oldBean.getQuantity() != NumberUtil.parseInt(formBean.getAccessoryQuantity()[i], 0)) {
+                                isUpdate = true;
+                                oldBean.setQuantity(NumberUtil.parseInt(formBean.getAccessoryQuantity()[i], 0));
+                            }
+                            if (oldBean.getPrice() != NumberUtil.parseDouble(formBean.getAccessoryPrice()[i], 0)) {
+                                isUpdate = true;
+                                oldBean.setPrice(NumberUtil.parseDouble(formBean.getAccessoryPrice()[i], 0));
+                            }
+                            if (oldBean.getAmount() != NumberUtil.parseDouble(formBean.getAccessoryAmount()[i], 0)) {
+                                isUpdate = true;
+                                oldBean.setAmount(NumberUtil.parseDouble(formBean.getAccessoryAmount()[i], 0));
+                            }
+                            if (isUpdate) {
+                                gasDAO.updateVehicleInAccessoryDetail(oldBean);
+                            }
+                        }
+                    }
+                }
+            }
+            String ids = "0,";
+            VehicleInAccessoryDetailBean oldBean = null;
+            for (int i = 0; i < arrDetail.size(); i++) {
+                oldBean = (VehicleInAccessoryDetailBean) arrDetail.get(i);
+                ids += oldBean.getId() + ",";
+            }
+            ids += "0";
+            gasDAO.deleteVehicleInAccessoryDetails(ids);
+        } catch (Exception ex) {
+        }
+    }
+
+    
     private void addVehicleInReturnShell(VehicleInFormBean formBean) {
         try {
             GasDAO gasDAO = new GasDAO();

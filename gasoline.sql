@@ -28,9 +28,11 @@ CREATE TABLE `accessory` (
   `unit_id` int(11) DEFAULT NULL,
   `status` int(1) DEFAULT '1' COMMENT '0:bi khoa,1:dang hoat dong',
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM AUTO_INCREMENT=6 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=MyISAM AUTO_INCREMENT=9 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 /*Data for the table `accessory` */
+
+insert  into `accessory`(`id`,`kind_id`,`name`,`price`,`unit_id`,`status`) values (6,1,'Bếp Nagas',123456,4,1),(7,2,'Van',10000,4,1),(8,2,'Kẹp',5000,4,1);
 
 /*Table structure for table `accessory_import` */
 
@@ -79,9 +81,11 @@ CREATE TABLE `accessory_in_stock` (
   `in_stock` int(11) DEFAULT NULL,
   `organization_id` int(11) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=14 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 /*Data for the table `accessory_in_stock` */
+
+insert  into `accessory_in_stock`(`id`,`day`,`accessory_id`,`in_stock`,`organization_id`) values (1,'2018-11-10',6,0,1),(2,'2018-11-10',7,0,1),(3,'2018-11-10',8,0,1),(4,'2018-11-10',6,0,14),(5,'2018-11-10',7,0,14),(6,'2018-11-10',8,0,14),(8,'2018-11-11',6,0,1),(9,'2018-11-11',7,0,1),(10,'2018-11-11',8,0,1),(11,'2018-11-11',6,0,14),(12,'2018-11-11',7,0,14),(13,'2018-11-11',8,0,14);
 
 /*Table structure for table `accessory_kind` */
 
@@ -200,11 +204,11 @@ CREATE TABLE `auto` (
   `auto_date` date DEFAULT NULL,
   `auto_name` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 /*Data for the table `auto` */
 
-insert  into `auto`(`id`,`auto_date`,`auto_name`) values (1,'2018-11-06','in_stock'),(2,'2018-11-07','in_stock'),(3,'2018-11-08','in_stock'),(4,'2018-11-08','in_stock');
+insert  into `auto`(`id`,`auto_date`,`auto_name`) values (1,'2018-11-06','in_stock'),(2,'2018-11-07','in_stock'),(3,'2018-11-08','in_stock'),(4,'2018-11-08','in_stock'),(5,'2018-11-09','in_stock'),(6,'2018-11-11','in_stock');
 
 /*Table structure for table `contract` */
 
@@ -281,11 +285,11 @@ CREATE TABLE `customer_in_stock` (
   `shell_45` int(11) DEFAULT NULL,
   `amount` double DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=14 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 /*Data for the table `customer_in_stock` */
 
-insert  into `customer_in_stock`(`id`,`day`,`customer_id`,`shell_12`,`shell_45`,`amount`) values (1,'2018-11-06',1,0,0,0),(2,'2018-11-06',2,0,0,0),(3,'2018-11-07',1,0,0,0),(4,'2018-11-07',2,0,0,0),(5,'2018-11-08',1,0,0,0),(6,'2018-11-08',2,0,0,0);
+insert  into `customer_in_stock`(`id`,`day`,`customer_id`,`shell_12`,`shell_45`,`amount`) values (1,'2018-11-06',1,0,0,0),(2,'2018-11-06',2,0,0,0),(3,'2018-11-07',1,0,0,0),(4,'2018-11-07',2,0,0,0),(5,'2018-11-08',1,0,0,0),(6,'2018-11-08',2,0,0,0),(7,'2018-11-09',1,0,0,0),(8,'2018-11-09',2,0,0,0),(9,'2018-11-10',1,0,0,0),(10,'2018-11-10',2,0,0,0),(12,'2018-11-11',1,0,0,0),(13,'2018-11-11',2,0,0,0);
 
 /*Table structure for table `discount` */
 
@@ -379,11 +383,11 @@ CREATE TABLE `dynamic_field_value` (
   `parent_id` int(11) DEFAULT NULL,
   `value` text COLLATE utf8_unicode_ci,
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM AUTO_INCREMENT=12 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=MyISAM AUTO_INCREMENT=72 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 /*Data for the table `dynamic_field_value` */
 
-insert  into `dynamic_field_value`(`id`,`field_id`,`parent_id`,`value`) values (1,1,17,'12'),(2,2,17,'1'),(3,3,17,'2'),(4,7,17,'Cao Đẳng'),(5,4,18,'13'),(6,5,18,'0.5'),(7,6,18,'1'),(8,1,19,'12'),(9,2,19,'1'),(10,3,19,'2'),(11,7,19,'');
+insert  into `dynamic_field_value`(`id`,`field_id`,`parent_id`,`value`) values (1,1,17,'12'),(2,2,17,'1'),(3,3,17,'2'),(4,7,17,'Cao Đẳng'),(5,4,18,'13'),(6,5,18,'0.5'),(7,6,18,'1'),(8,1,19,'12'),(9,2,19,'1'),(10,3,19,'2'),(11,7,19,''),(12,1,20,'12'),(13,2,20,'1'),(14,3,20,'2'),(15,7,20,''),(16,1,20,'12'),(17,2,20,'1'),(18,3,20,'2'),(19,7,20,''),(20,1,20,'12'),(21,2,20,'1'),(22,3,20,'2'),(23,7,20,''),(24,1,20,'12'),(25,2,20,'1'),(26,3,20,'2'),(27,7,20,''),(28,1,20,'12'),(29,2,20,'1'),(30,3,20,'2'),(31,7,20,''),(32,1,20,'12'),(33,2,20,'1'),(34,3,20,'2'),(35,7,20,''),(36,1,21,'12'),(37,2,21,'1'),(38,3,21,'2'),(39,7,21,''),(40,1,22,'12'),(41,2,22,'1'),(42,3,22,'2'),(43,7,22,''),(44,1,23,'12'),(45,2,23,'1'),(46,3,23,'2'),(47,7,23,''),(48,1,24,'12'),(49,2,24,'1'),(50,3,24,'2'),(51,7,24,''),(52,1,25,'12'),(53,2,25,'1'),(54,3,25,'2'),(55,7,25,''),(56,1,26,'12'),(57,2,26,'1'),(58,3,26,'2'),(59,7,26,''),(60,1,26,'12'),(61,2,26,'1'),(62,3,26,'2'),(63,7,26,''),(64,1,27,'12'),(65,2,27,'1'),(66,3,27,'2'),(67,7,27,''),(68,1,28,'12'),(69,2,28,'1'),(70,3,28,'2'),(71,7,28,'');
 
 /*Table structure for table `employee` */
 
@@ -392,6 +396,7 @@ DROP TABLE IF EXISTS `employee`;
 CREATE TABLE `employee` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `fullname` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `idcard` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
   `email` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
   `salary` double DEFAULT NULL,
   `organization_id` int(11) DEFAULT NULL,
@@ -400,11 +405,11 @@ CREATE TABLE `employee` (
   `seniority` int(2) DEFAULT '1',
   `start_date` date DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM AUTO_INCREMENT=20 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=MyISAM AUTO_INCREMENT=29 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 /*Data for the table `employee` */
 
-insert  into `employee`(`id`,`fullname`,`email`,`salary`,`organization_id`,`birthday`,`status`,`seniority`,`start_date`) values (1,'Admin','admin@gmail.com',0,-1,'2018-08-23',1,0,NULL),(19,'Nguyễn Văn C','c@gmail.com',0,1,NULL,1,1,NULL),(18,'Nguyễn Thị B','ntb@gmail.com',2000000,14,'1980-01-15',1,1,'2000-01-01'),(17,'Phan Khắc Hùng','hungpk@gmail.com',3000000,1,'1988-09-20',1,1,'2017-09-19');
+insert  into `employee`(`id`,`fullname`,`idcard`,`email`,`salary`,`organization_id`,`birthday`,`status`,`seniority`,`start_date`) values (1,'Admin',NULL,'admin@gmail.com',0,-1,'2018-08-23',1,0,NULL),(19,'Nguyễn Văn C',NULL,'c@gmail.com',0,1,NULL,1,1,NULL),(26,'b','b','',0,1,NULL,1,1,NULL),(18,'Nguyễn Thị B',NULL,'ntb@gmail.com',2000000,14,'1980-01-15',1,1,'2000-01-01'),(28,'a','d','',0,1,NULL,1,1,NULL),(17,'Phan Khắc Hùng',NULL,'hungpk@gmail.com',3000000,1,'1988-09-20',1,1,'2017-09-19'),(25,'a','a','',0,1,NULL,1,1,NULL),(27,'c','cc','',0,1,NULL,1,1,NULL);
 
 /*Table structure for table `employee_advance` */
 
@@ -1031,11 +1036,11 @@ CREATE TABLE `good_in_stock` (
   `store_id` int(11) DEFAULT NULL,
   `in_stock` int(11) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=34 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=61 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 /*Data for the table `good_in_stock` */
 
-insert  into `good_in_stock`(`id`,`day`,`good_id`,`organization_id`,`store_id`,`in_stock`) values (1,'2018-11-06',1,4,1,0),(2,'2018-11-06',2,4,1,0),(3,'2018-11-06',3,4,1,0),(4,'2018-11-06',1,6,1,0),(5,'2018-11-06',2,6,1,0),(6,'2018-11-06',3,6,1,0),(7,'2018-11-06',1,7,1,0),(8,'2018-11-06',2,7,1,0),(9,'2018-11-06',3,7,1,0),(10,'2018-11-07',1,4,1,0),(11,'2018-11-07',2,4,1,0),(12,'2018-11-07',3,4,1,0),(13,'2018-11-07',1,6,1,0),(14,'2018-11-07',2,6,1,0),(15,'2018-11-07',3,6,1,0),(16,'2018-11-07',1,7,1,0),(17,'2018-11-07',2,7,1,0),(18,'2018-11-07',3,7,1,0),(19,'2018-11-08',1,4,1,0),(20,'2018-11-08',2,4,1,0),(21,'2018-11-08',3,4,1,0),(22,'2018-11-08',1,6,1,0),(23,'2018-11-08',2,6,1,0),(24,'2018-11-08',3,6,1,0),(25,'2018-11-08',1,7,1,0),(26,'2018-11-08',2,7,1,0),(27,'2018-11-08',3,7,1,0);
+insert  into `good_in_stock`(`id`,`day`,`good_id`,`organization_id`,`store_id`,`in_stock`) values (1,'2018-11-06',1,4,1,0),(2,'2018-11-06',2,4,1,0),(3,'2018-11-06',3,4,1,0),(4,'2018-11-06',1,6,1,0),(5,'2018-11-06',2,6,1,0),(6,'2018-11-06',3,6,1,0),(7,'2018-11-06',1,7,1,0),(8,'2018-11-06',2,7,1,0),(9,'2018-11-06',3,7,1,0),(10,'2018-11-07',1,4,1,0),(11,'2018-11-07',2,4,1,0),(12,'2018-11-07',3,4,1,0),(13,'2018-11-07',1,6,1,0),(14,'2018-11-07',2,6,1,0),(15,'2018-11-07',3,6,1,0),(16,'2018-11-07',1,7,1,0),(17,'2018-11-07',2,7,1,0),(18,'2018-11-07',3,7,1,0),(19,'2018-11-08',1,4,1,0),(20,'2018-11-08',2,4,1,0),(21,'2018-11-08',3,4,1,0),(22,'2018-11-08',1,6,1,0),(23,'2018-11-08',2,6,1,0),(24,'2018-11-08',3,6,1,0),(25,'2018-11-08',1,7,1,0),(26,'2018-11-08',2,7,1,0),(27,'2018-11-08',3,7,1,0),(28,'2018-11-09',1,4,1,0),(29,'2018-11-09',2,4,1,0),(30,'2018-11-09',3,4,1,0),(31,'2018-11-09',1,6,1,0),(32,'2018-11-09',2,6,1,0),(33,'2018-11-09',3,6,1,0),(34,'2018-11-09',1,7,1,0),(35,'2018-11-09',2,7,1,0),(36,'2018-11-09',3,7,1,0),(37,'2018-11-10',1,4,1,0),(38,'2018-11-10',2,4,1,0),(39,'2018-11-10',3,4,1,0),(40,'2018-11-10',1,6,1,0),(41,'2018-11-10',2,6,1,0),(42,'2018-11-10',3,6,1,0),(43,'2018-11-10',1,7,1,0),(44,'2018-11-10',2,7,1,0),(45,'2018-11-10',3,7,1,0),(52,'2018-11-11',1,4,1,0),(53,'2018-11-11',2,4,1,0),(54,'2018-11-11',3,4,1,0),(55,'2018-11-11',1,6,1,0),(56,'2018-11-11',2,6,1,0),(57,'2018-11-11',3,6,1,0),(58,'2018-11-11',1,7,1,0),(59,'2018-11-11',2,7,1,0),(60,'2018-11-11',3,7,1,0);
 
 /*Table structure for table `good_sale` */
 
@@ -1147,13 +1152,14 @@ CREATE TABLE `lpg_import` (
   `rate` double DEFAULT NULL,
   `note` text COLLATE utf8_unicode_ci,
   `account_id` int(11) DEFAULT NULL,
+  `route_id` int(11) DEFAULT NULL,
   `created_employee_id` int(11) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM AUTO_INCREMENT=20 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=MyISAM AUTO_INCREMENT=21 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 /*Data for the table `lpg_import` */
 
-insert  into `lpg_import`(`id`,`code`,`import_date`,`vendor_id`,`paper_quantity`,`actual_quantity`,`price`,`amount`,`paid`,`debt`,`rate`,`note`,`account_id`,`created_employee_id`) values (19,'20181109-LI-0001','2018-11-09',14,11450,11520,737.076417,197928015,197000000,928015,23310,'',5,17);
+insert  into `lpg_import`(`id`,`code`,`import_date`,`vendor_id`,`paper_quantity`,`actual_quantity`,`price`,`amount`,`paid`,`debt`,`rate`,`note`,`account_id`,`route_id`,`created_employee_id`) values (19,'20181109-LI-0001','2018-11-09',14,11450,11520,737.076417,197928015,197000000,928015,23310,'',5,NULL,17),(20,'20181110-LI-0001','2018-11-10',15,1,2,3,0,5,-5,4,'',5,3,17);
 
 /*Table structure for table `lpg_in_stock` */
 
@@ -1166,11 +1172,11 @@ CREATE TABLE `lpg_in_stock` (
   `day` date DEFAULT NULL,
   `in_stock` int(11) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=18 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=33 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 /*Data for the table `lpg_in_stock` */
 
-insert  into `lpg_in_stock`(`id`,`organization_id`,`vendor_id`,`day`,`in_stock`) values (1,1,14,'2018-11-06',0),(2,1,15,'2018-11-06',0),(3,14,17,'2018-11-06',0),(4,14,14,'2018-11-06',0),(5,1,17,'2018-11-06',0),(6,1,14,'2018-11-07',0),(7,1,15,'2018-11-07',0),(8,14,17,'2018-11-07',0),(9,14,14,'2018-11-07',0),(10,1,17,'2018-11-07',0),(11,1,14,'2018-11-08',0),(12,1,15,'2018-11-08',0),(13,14,17,'2018-11-08',0),(14,14,14,'2018-11-08',0),(15,1,17,'2018-11-08',0);
+insert  into `lpg_in_stock`(`id`,`organization_id`,`vendor_id`,`day`,`in_stock`) values (1,1,14,'2018-11-06',0),(2,1,15,'2018-11-06',0),(3,14,17,'2018-11-06',0),(4,14,14,'2018-11-06',0),(5,1,17,'2018-11-06',0),(6,1,14,'2018-11-07',0),(7,1,15,'2018-11-07',0),(8,14,17,'2018-11-07',0),(9,14,14,'2018-11-07',0),(10,1,17,'2018-11-07',0),(11,1,14,'2018-11-08',0),(12,1,15,'2018-11-08',0),(13,14,17,'2018-11-08',0),(14,14,14,'2018-11-08',0),(15,1,17,'2018-11-08',0),(16,1,14,'2018-11-09',11520),(17,1,15,'2018-11-09',0),(18,14,17,'2018-11-09',0),(19,14,14,'2018-11-09',0),(20,1,17,'2018-11-09',0),(21,1,14,'2018-11-10',11520),(22,1,15,'2018-11-10',2),(23,14,17,'2018-11-10',0),(24,14,14,'2018-11-10',0),(25,1,17,'2018-11-10',0),(28,1,14,'2018-11-11',11520),(29,1,15,'2018-11-11',2),(30,14,17,'2018-11-11',0),(31,14,14,'2018-11-11',0),(32,1,17,'2018-11-11',0);
 
 /*Table structure for table `lpg_sale` */
 
@@ -1183,17 +1189,21 @@ CREATE TABLE `lpg_sale` (
   `customer_id` int(11) DEFAULT NULL,
   `quantity` int(11) DEFAULT NULL,
   `price` double DEFAULT NULL,
+  `rate` double DEFAULT NULL,
   `amount` double DEFAULT NULL,
   `paid` double DEFAULT NULL,
   `debt` double DEFAULT NULL,
   `note` text COLLATE utf8_unicode_ci,
   `account_id` int(11) DEFAULT NULL,
+  `route_id` int(11) DEFAULT NULL,
   `lpg_import_id` int(11) DEFAULT NULL,
   `created_employee_id` int(11) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 /*Data for the table `lpg_sale` */
+
+insert  into `lpg_sale`(`id`,`code`,`sale_date`,`customer_id`,`quantity`,`price`,`rate`,`amount`,`paid`,`debt`,`note`,`account_id`,`route_id`,`lpg_import_id`,`created_employee_id`) values (2,'20181110-LS-0001','2018-11-10',1,1,2,3,0,4,-4,'',5,3,0,17);
 
 /*Table structure for table `money_in_stock` */
 
@@ -1206,11 +1216,11 @@ CREATE TABLE `money_in_stock` (
   `organization_id` int(11) DEFAULT NULL COMMENT 'neu account_id=0 thi la id cua organization',
   `in_stock` double DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=16 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=28 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 /*Data for the table `money_in_stock` */
 
-insert  into `money_in_stock`(`id`,`day`,`account_id`,`organization_id`,`in_stock`) values (1,'2018-11-06',4,1,0),(2,'2018-11-06',5,1,0),(3,'2018-11-06',7,14,0),(4,'2018-11-06',8,14,0),(5,'2018-11-07',4,1,0),(6,'2018-11-07',5,1,0),(7,'2018-11-07',7,14,0),(8,'2018-11-07',8,14,0),(9,'2018-11-08',4,1,0),(10,'2018-11-08',5,1,0),(11,'2018-11-08',7,14,0),(12,'2018-11-08',8,14,0);
+insert  into `money_in_stock`(`id`,`day`,`account_id`,`organization_id`,`in_stock`) values (1,'2018-11-06',4,1,0),(2,'2018-11-06',5,1,0),(3,'2018-11-06',7,14,0),(4,'2018-11-06',8,14,0),(5,'2018-11-07',4,1,0),(6,'2018-11-07',5,1,0),(7,'2018-11-07',7,14,0),(8,'2018-11-07',8,14,0),(9,'2018-11-08',4,1,0),(10,'2018-11-08',5,1,0),(11,'2018-11-08',7,14,0),(12,'2018-11-08',8,14,0),(13,'2018-11-09',4,1,0),(14,'2018-11-09',5,1,-197000000),(15,'2018-11-09',7,14,0),(16,'2018-11-09',8,14,0),(17,'2018-11-10',4,1,0),(18,'2018-11-10',5,1,-1897000005),(19,'2018-11-10',7,14,0),(20,'2018-11-10',8,14,0),(24,'2018-11-11',4,1,0),(25,'2018-11-11',5,1,-1897000005),(26,'2018-11-11',7,14,0),(27,'2018-11-11',8,14,0);
 
 /*Table structure for table `old_shell` */
 
@@ -1388,11 +1398,11 @@ CREATE TABLE `petro_in_stock` (
   `store_id` int(11) DEFAULT NULL,
   `in_stock` int(11) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=10 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=19 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 /*Data for the table `petro_in_stock` */
 
-insert  into `petro_in_stock`(`id`,`day`,`petro_id`,`organization_id`,`store_id`,`in_stock`) values (1,'2018-11-06',6,4,1,0),(2,'2018-11-06',6,6,1,0),(3,'2018-11-06',6,7,1,0),(4,'2018-11-07',6,4,1,0),(5,'2018-11-07',6,6,1,0),(6,'2018-11-07',6,7,1,0),(7,'2018-11-08',6,4,1,0),(8,'2018-11-08',6,6,1,0),(9,'2018-11-08',6,7,1,0);
+insert  into `petro_in_stock`(`id`,`day`,`petro_id`,`organization_id`,`store_id`,`in_stock`) values (1,'2018-11-06',6,4,1,0),(2,'2018-11-06',6,6,1,0),(3,'2018-11-06',6,7,1,0),(4,'2018-11-07',6,4,1,0),(5,'2018-11-07',6,6,1,0),(6,'2018-11-07',6,7,1,0),(7,'2018-11-08',6,4,1,0),(8,'2018-11-08',6,6,1,0),(9,'2018-11-08',6,7,1,0),(10,'2018-11-09',6,4,1,0),(11,'2018-11-09',6,6,1,0),(12,'2018-11-09',6,7,1,0),(13,'2018-11-10',6,4,1,0),(14,'2018-11-10',6,6,1,0),(15,'2018-11-10',6,7,1,0),(16,'2018-11-11',6,4,1,0),(17,'2018-11-11',6,6,1,0),(18,'2018-11-11',6,7,1,0);
 
 /*Table structure for table `petro_sale` */
 
@@ -1496,11 +1506,11 @@ CREATE TABLE `promotion_material_in_stock` (
   `organization_id` int(11) DEFAULT NULL,
   `in_stock` int(11) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=16 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=28 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 /*Data for the table `promotion_material_in_stock` */
 
-insert  into `promotion_material_in_stock`(`id`,`day`,`promotion_material_id`,`organization_id`,`in_stock`) values (1,'2018-11-06',3,1,0),(2,'2018-11-06',4,1,0),(3,'2018-11-06',3,14,0),(4,'2018-11-06',4,14,0),(5,'2018-11-07',3,1,0),(6,'2018-11-07',4,1,0),(7,'2018-11-07',3,14,0),(8,'2018-11-07',4,14,0),(9,'2018-11-08',3,1,0),(10,'2018-11-08',4,1,0),(11,'2018-11-08',3,14,0),(12,'2018-11-08',4,14,0);
+insert  into `promotion_material_in_stock`(`id`,`day`,`promotion_material_id`,`organization_id`,`in_stock`) values (1,'2018-11-06',3,1,0),(2,'2018-11-06',4,1,0),(3,'2018-11-06',3,14,0),(4,'2018-11-06',4,14,0),(5,'2018-11-07',3,1,0),(6,'2018-11-07',4,1,0),(7,'2018-11-07',3,14,0),(8,'2018-11-07',4,14,0),(9,'2018-11-08',3,1,0),(10,'2018-11-08',4,1,0),(11,'2018-11-08',3,14,0),(12,'2018-11-08',4,14,0),(13,'2018-11-09',3,1,0),(14,'2018-11-09',4,1,0),(15,'2018-11-09',3,14,0),(16,'2018-11-09',4,14,0),(17,'2018-11-10',3,1,0),(18,'2018-11-10',4,1,0),(19,'2018-11-10',3,14,0),(20,'2018-11-10',4,14,0),(24,'2018-11-11',3,1,0),(25,'2018-11-11',4,1,0),(26,'2018-11-11',3,14,0),(27,'2018-11-11',4,14,0);
 
 /*Table structure for table `promotion_material_sale` */
 
@@ -1564,14 +1574,14 @@ DROP TABLE IF EXISTS `route`;
 CREATE TABLE `route` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `name` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
-  `distance` int(11) DEFAULT NULL,
+  `distance` double DEFAULT NULL,
   `note` text COLLATE utf8_unicode_ci,
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM AUTO_INCREMENT=3 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=MyISAM AUTO_INCREMENT=4 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 /*Data for the table `route` */
 
-insert  into `route`(`id`,`name`,`distance`,`note`) values (2,'Thị Vải - Supor',197,'');
+insert  into `route`(`id`,`name`,`distance`,`note`) values (2,'Thị Vải - Supor',1234.5678,'a'),(3,'Gdầu - KCN VN-Sin',128,'');
 
 /*Table structure for table `salary_timesheet_field` */
 
@@ -1616,9 +1626,11 @@ CREATE TABLE `shell_gas_in_stock` (
   `shell_vendor_id` int(11) DEFAULT NULL,
   `in_stock` int(11) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 /*Data for the table `shell_gas_in_stock` */
+
+insert  into `shell_gas_in_stock`(`id`,`day`,`shell_vendor_id`,`in_stock`) values (1,'2018-11-10',1,-40),(2,'2018-11-10',2,-40),(4,'2018-11-11',1,-40),(5,'2018-11-11',2,-40);
 
 /*Table structure for table `shell_import` */
 
@@ -1637,9 +1649,11 @@ CREATE TABLE `shell_import` (
   `created_employee_id` int(11) DEFAULT NULL,
   `vendor_id` int(11) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM AUTO_INCREMENT=38 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=MyISAM AUTO_INCREMENT=40 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 /*Data for the table `shell_import` */
+
+insert  into `shell_import`(`id`,`code`,`created_date`,`shell_id`,`quantity`,`price`,`amount`,`account_id`,`note`,`created_employee_id`,`vendor_id`) values (38,'20181110-SI-0001','2018-11-10',1,1000,500000,500000000,5,'',17,17),(39,'20181110-SI-0002','2018-11-10',2,2000,600000,1200000000,5,'',17,17);
 
 /*Table structure for table `shell_in_stock` */
 
@@ -1653,9 +1667,11 @@ CREATE TABLE `shell_in_stock` (
   `in_stock` int(11) DEFAULT '0' COMMENT 'vo binh rong',
   PRIMARY KEY (`id`),
   KEY `shell_id` (`shell_id`)
-) ENGINE=MyISAM AUTO_INCREMENT=336 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=MyISAM AUTO_INCREMENT=340 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 /*Data for the table `shell_in_stock` */
+
+insert  into `shell_in_stock`(`id`,`day`,`organization_id`,`shell_id`,`in_stock`) values (336,'2018-11-10',1,1,1000),(337,'2018-11-10',1,2,2000),(338,'2018-11-11',1,1,1000),(339,'2018-11-11',1,2,2000);
 
 /*Table structure for table `shell_kind` */
 
@@ -1800,9 +1816,11 @@ CREATE TABLE `shell_vendor` (
   `vendor_id` int(11) DEFAULT NULL,
   `quantity` int(11) DEFAULT '0',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 /*Data for the table `shell_vendor` */
+
+insert  into `shell_vendor`(`id`,`organization_id`,`shell_id`,`vendor_id`,`quantity`) values (1,1,1,17,1000),(2,1,2,17,2000);
 
 /*Table structure for table `shield_decrease` */
 
@@ -1849,11 +1867,11 @@ CREATE TABLE `shield_in_stock` (
   `organization_id` int(11) DEFAULT NULL,
   `in_stock` int(11) DEFAULT '0',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=18 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=33 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 /*Data for the table `shield_in_stock` */
 
-insert  into `shield_in_stock`(`id`,`day`,`vendor_id`,`organization_id`,`in_stock`) values (1,'2018-11-06',14,1,0),(2,'2018-11-06',15,1,0),(3,'2018-11-06',17,1,0),(4,'2018-11-06',14,14,0),(5,'2018-11-06',17,14,0),(6,'2018-11-07',14,1,0),(7,'2018-11-07',15,1,0),(8,'2018-11-07',17,1,0),(9,'2018-11-07',14,14,0),(10,'2018-11-07',17,14,0),(11,'2018-11-08',14,1,0),(12,'2018-11-08',15,1,0),(13,'2018-11-08',17,1,0),(14,'2018-11-08',14,14,0),(15,'2018-11-08',17,14,0);
+insert  into `shield_in_stock`(`id`,`day`,`vendor_id`,`organization_id`,`in_stock`) values (1,'2018-11-06',14,1,0),(2,'2018-11-06',15,1,0),(3,'2018-11-06',17,1,0),(4,'2018-11-06',14,14,0),(5,'2018-11-06',17,14,0),(6,'2018-11-07',14,1,0),(7,'2018-11-07',15,1,0),(8,'2018-11-07',17,1,0),(9,'2018-11-07',14,14,0),(10,'2018-11-07',17,14,0),(11,'2018-11-08',14,1,0),(12,'2018-11-08',15,1,0),(13,'2018-11-08',17,1,0),(14,'2018-11-08',14,14,0),(15,'2018-11-08',17,14,0),(16,'2018-11-09',14,1,0),(17,'2018-11-09',15,1,0),(18,'2018-11-09',17,1,0),(19,'2018-11-09',14,14,0),(20,'2018-11-09',17,14,0),(21,'2018-11-10',14,1,0),(22,'2018-11-10',15,1,0),(23,'2018-11-10',17,1,0),(24,'2018-11-10',14,14,0),(25,'2018-11-10',17,14,0),(28,'2018-11-11',14,1,0),(29,'2018-11-11',15,1,0),(30,'2018-11-11',17,1,0),(31,'2018-11-11',14,14,0),(32,'2018-11-11',17,14,0);
 
 /*Table structure for table `store` */
 
@@ -1885,13 +1903,14 @@ CREATE TABLE `temp_gas_commission` (
   `quantity_12` int(11) DEFAULT NULL,
   `quantity_45` int(11) DEFAULT NULL,
   `quantity_lovo` int(11) DEFAULT NULL,
+  `accessory_kind_id` int(11) DEFAULT NULL,
+  `quantity_accessory` int(11) DEFAULT NULL,
+  `commission_accessory` double DEFAULT NULL,
   `employee_ids` text COLLATE utf8_unicode_ci,
   `employee_count` int(11) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 /*Data for the table `temp_gas_commission` */
-
-insert  into `temp_gas_commission`(`session_id`,`id`,`created_date`,`quantity_12`,`quantity_45`,`quantity_lovo`,`employee_ids`,`employee_count`) values ('abc',2,'2018-11-09',0,0,4321,'17,19',2),('17_1541763209140',2,'2018-11-09',0,0,4321,'17,19',2);
 
 /*Table structure for table `temp_petro_stock` */
 
@@ -2008,9 +2027,29 @@ CREATE TABLE `vehicle_in` (
   `note` text COLLATE utf8_unicode_ci,
   `created_employee_id` int(11) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM AUTO_INCREMENT=24 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=MyISAM AUTO_INCREMENT=28 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 /*Data for the table `vehicle_in` */
+
+insert  into `vehicle_in`(`id`,`code`,`employee_id`,`created_date`,`vehicle_out_id`,`note`,`created_employee_id`) values (26,'20181110-VI-0001',NULL,'2018-11-10',30,'',17),(27,'20181112-VI-0001',NULL,'2018-11-12',31,'',17);
+
+/*Table structure for table `vehicle_in_accessory_detail` */
+
+DROP TABLE IF EXISTS `vehicle_in_accessory_detail`;
+
+CREATE TABLE `vehicle_in_accessory_detail` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `vehicle_in_id` int(11) DEFAULT NULL,
+  `accessory_id` int(11) DEFAULT NULL,
+  `quantity` int(11) DEFAULT NULL,
+  `price` double DEFAULT NULL,
+  `amount` double DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=13 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+/*Data for the table `vehicle_in_accessory_detail` */
+
+insert  into `vehicle_in_accessory_detail`(`id`,`vehicle_in_id`,`accessory_id`,`quantity`,`price`,`amount`) values (8,26,8,1,5000,5000),(9,26,7,5,10000,50000),(10,26,6,10,123456,1234560),(11,27,6,10,123456,1234560),(12,27,8,13,5000,65000);
 
 /*Table structure for table `vehicle_in_detail` */
 
@@ -2024,9 +2063,11 @@ CREATE TABLE `vehicle_in_detail` (
   `price` double DEFAULT NULL,
   `amount` double DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM AUTO_INCREMENT=51 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=MyISAM AUTO_INCREMENT=59 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 /*Data for the table `vehicle_in_detail` */
+
+insert  into `vehicle_in_detail`(`id`,`vehicle_in_id`,`shell_id`,`quantity`,`price`,`amount`) values (56,26,2,20,200000,4000000),(55,26,1,10,100000,1000000),(57,27,1,1,100000,100000),(58,27,2,2,200000,400000);
 
 /*Table structure for table `vehicle_in_return_shell_detail` */
 
@@ -2054,9 +2095,11 @@ CREATE TABLE `vehicle_out` (
   `note` text COLLATE utf8_unicode_ci,
   `created_employee_id` int(11) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM AUTO_INCREMENT=30 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=MyISAM AUTO_INCREMENT=32 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 /*Data for the table `vehicle_out` */
+
+insert  into `vehicle_out`(`id`,`code`,`created_date`,`vehicle_id`,`note`,`created_employee_id`) values (30,'20181110-VO-0001','2018-11-10',6,'',17),(31,'20181112-VO-0001','2018-11-12',6,'',17);
 
 /*Table structure for table `vehicle_out_detail` */
 
@@ -2071,9 +2114,11 @@ CREATE TABLE `vehicle_out_detail` (
   `amount` double DEFAULT NULL,
   `note` text COLLATE utf8_unicode_ci,
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM AUTO_INCREMENT=66 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=MyISAM AUTO_INCREMENT=70 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 /*Data for the table `vehicle_out_detail` */
+
+insert  into `vehicle_out_detail`(`id`,`vehicle_out_id`,`shell_id`,`quantity`,`price`,`amount`,`note`) values (66,30,1,50,100000,5000000,NULL),(67,30,2,60,200000,12000000,NULL),(68,31,1,3,100000,300000,NULL),(69,31,2,4,200000,800000,NULL);
 
 /*Table structure for table `vehicle_out_employee_detail` */
 
@@ -2085,9 +2130,11 @@ CREATE TABLE `vehicle_out_employee_detail` (
   `employee_id` int(11) DEFAULT NULL,
   `note` text COLLATE utf8_unicode_ci,
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM AUTO_INCREMENT=26 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=MyISAM AUTO_INCREMENT=31 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 /*Data for the table `vehicle_out_employee_detail` */
+
+insert  into `vehicle_out_employee_detail`(`id`,`vehicle_out_id`,`employee_id`,`note`) values (26,30,19,'a'),(27,30,17,'b'),(28,31,19,'1'),(29,31,27,'2'),(30,31,26,'3');
 
 /*Table structure for table `vendor` */
 
@@ -2109,7 +2156,7 @@ CREATE TABLE `vendor` (
 
 /*Data for the table `vendor` */
 
-insert  into `vendor`(`id`,`code`,`name`,`organization_id`,`status`,`equal_organization_id`,`has_stock`,`is_gas`,`is_petro`,`is_good`) values (17,'HT','Hưng Thịnh',14,1,14,1,0,0,0),(16,'KDK','KDK',1,1,-1,0,1,0,0),(15,'VNS','Vinashin',1,1,-1,1,1,0,0),(14,'QT','Quang Trung',1,1,1,1,1,0,0),(18,'TCP','Thanh Châu Phát',1,1,-1,0,0,1,0),(19,'PVO MD','PV Oil MĐ',1,1,-1,0,0,1,0),(20,'NIWA','NIWA',1,1,-1,0,0,0,1);
+insert  into `vendor`(`id`,`code`,`name`,`organization_id`,`status`,`equal_organization_id`,`has_stock`,`is_gas`,`is_petro`,`is_good`) values (17,'HT','Hưng Thịnh',14,1,14,1,1,0,0),(16,'KDK','KDK',1,1,-1,0,1,0,0),(15,'VNS','Vinashin',1,1,-1,1,1,0,0),(14,'QT','Quang Trung',1,1,1,1,1,0,0),(18,'TCP','Thanh Châu Phát',1,1,-1,0,0,1,0),(19,'PVO MD','PV Oil MĐ',1,1,-1,0,0,1,0),(20,'NIWA','NIWA',1,1,-1,0,0,0,1);
 
 /*Table structure for table `vendor_debt` */
 
@@ -2140,9 +2187,11 @@ CREATE TABLE `vendor_in_stock` (
   `organization_id` int(11) DEFAULT NULL,
   `amount` double DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=34 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 /*Data for the table `vendor_in_stock` */
+
+insert  into `vendor_in_stock`(`id`,`day`,`vendor_id`,`organization_id`,`amount`) values (1,'2018-11-09',14,1,928015),(2,'2018-11-09',14,14,0),(3,'2018-11-09',15,1,0),(4,'2018-11-09',16,1,0),(5,'2018-11-09',17,1,0),(6,'2018-11-09',17,14,0),(7,'2018-11-09',18,1,0),(8,'2018-11-09',19,1,0),(9,'2018-11-09',20,1,0),(10,'2018-11-10',14,1,928015),(11,'2018-11-10',14,14,0),(12,'2018-11-10',15,1,-5),(13,'2018-11-10',16,1,0),(14,'2018-11-10',17,1,0),(15,'2018-11-10',17,14,0),(16,'2018-11-10',18,1,0),(17,'2018-11-10',19,1,0),(18,'2018-11-10',20,1,0),(25,'2018-11-11',14,1,928015),(26,'2018-11-11',14,14,0),(27,'2018-11-11',15,1,-5),(28,'2018-11-11',16,1,0),(29,'2018-11-11',17,1,0),(30,'2018-11-11',17,14,0),(31,'2018-11-11',18,1,0),(32,'2018-11-11',19,1,0),(33,'2018-11-11',20,1,0);
 
 /*Table structure for table `vendor_organization` */
 
@@ -2560,6 +2609,7 @@ DELIMITER $$
 BEGIN
 	DELETE FROM vehicle_in_detail WHERE vehicle_in_id=_id;
 	DELETE FROM vehicle_in_return_shell_detail WHERE vehicle_in_id=_id;
+	DELETE FROM vehicle_in_accessory_detail WHERE vehicle_in_id=_id;
 	DELETE FROM vehicle_in WHERE id=_id;
     END */$$
 DELIMITER ;
@@ -3918,12 +3968,12 @@ DELIMITER ;
 DELIMITER $$
 
 /*!50003 CREATE DEFINER=`root`@`localhost` PROCEDURE `insertLpgImport`(IN _code VARCHAR(20), IN _vendor_id INT, IN _import_date VARCHAR(20), IN _paper_quantity float
-	, IN _actual_quantity float, IN _price double, IN _amount double, IN _paid double, IN _debt double, IN _rate double, in _account_id int, IN _note TEXT
-	, in _created_employee_id int, OUT _id INT)
+	, IN _actual_quantity float, IN _price double, IN _amount double, IN _paid double, IN _debt double, IN _rate double, in _account_id int, in _route_id int
+	, IN _note TEXT, in _created_employee_id int, OUT _id INT)
 BEGIN
 	
-	INSERT INTO lpg_import (CODE, vendor_id, import_date, paper_quantity, actual_quantity, price, amount, paid, debt, rate, account_id, note, created_employee_id)
-	VALUES (_code, _vendor_id, STR_TO_DATE(_import_date,'%d/%m/%Y'), _paper_quantity, _actual_quantity, _price, _amount, _paid, _debt, _rate, _account_id, _note, _created_employee_id);
+	INSERT INTO lpg_import (CODE, vendor_id, import_date, paper_quantity, actual_quantity, price, amount, paid, debt, rate, account_id, route_id, note, created_employee_id)
+	VALUES (_code, _vendor_id, STR_TO_DATE(_import_date,'%d/%m/%Y'), _paper_quantity, _actual_quantity, _price, _amount, _paid, _debt, _rate, _account_id, _route_id, _note, _created_employee_id);
 	SELECT LAST_INSERT_ID() INTO _id;
     END */$$
 DELIMITER ;
@@ -3935,10 +3985,10 @@ DELIMITER ;
 DELIMITER $$
 
 /*!50003 CREATE DEFINER=`root`@`localhost` PROCEDURE `insertLpgSale`(IN _code VARCHAR(20), IN _customer_id INT, IN _sale_date VARCHAR(20), IN _quantity FLOAT
-	, IN _price DOUBLE, IN _amount DOUBLE, IN _paid DOUBLE, IN _debt DOUBLE, IN _account_id INT, IN _note TEXT, in _lpg_import_id int, IN _created_employee_id INT, OUT _id INT)
+	, IN _price DOUBLE, IN _rate DOUBLE, IN _amount DOUBLE, IN _paid DOUBLE, IN _debt DOUBLE, IN _account_id INT, IN _route_id INT, IN _note TEXT, in _lpg_import_id int, IN _created_employee_id INT, OUT _id INT)
 BEGIN
-	INSERT INTO lpg_sale (CODE, customer_id, sale_date, quantity, price, amount, paid, debt, account_id, note, lpg_import_id, created_employee_id)
-	VALUES (_code, _customer_id, STR_TO_DATE(_sale_date,'%d/%m/%Y'), _quantity, _price, _amount, _paid, _debt, _account_id, _note, _lpg_import_id, _created_employee_id);
+	INSERT INTO lpg_sale (CODE, customer_id, sale_date, quantity, price, rate, amount, paid, debt, account_id, route_id, note, lpg_import_id, created_employee_id)
+	VALUES (_code, _customer_id, STR_TO_DATE(_sale_date,'%d/%m/%Y'), _quantity, _price, _rate, _amount, _paid, _debt, _account_id, _route_id, _note, _lpg_import_id, _created_employee_id);
 	SELECT LAST_INSERT_ID() INTO _id;
     END */$$
 DELIMITER ;
@@ -4343,6 +4393,19 @@ BEGIN
     END */$$
 DELIMITER ;
 
+/* Procedure structure for procedure `insertVehicleInAccessoryDetail` */
+
+/*!50003 DROP PROCEDURE IF EXISTS  `insertVehicleInAccessoryDetail` */;
+
+DELIMITER $$
+
+/*!50003 CREATE DEFINER=`root`@`localhost` PROCEDURE `insertVehicleInAccessoryDetail`(IN _vehicle_in_id INT, IN _accessory_id INT, IN _quantity INT, IN _price DOUBLE, IN _amount DOUBLE)
+BEGIN
+	INSERT INTO vehicle_in_accessory_detail(vehicle_in_id, accessory_id, quantity, price, amount) 
+	VALUES (_vehicle_in_id, _accessory_id, _quantity, _price, _amount);
+    END */$$
+DELIMITER ;
+
 /* Procedure structure for procedure `insertVehicleInDetail` */
 
 /*!50003 DROP PROCEDURE IF EXISTS  `insertVehicleInDetail` */;
@@ -4581,7 +4644,8 @@ DELIMITER ;
 DELIMITER $$
 
 /*!50003 CREATE DEFINER=`root`@`localhost` PROCEDURE `report_gas_commission`(IN _start_date VARCHAR(20), IN _end_date VARCHAR(20), IN _organization_ids TEXT, IN _employee_id INT
-	, IN _session_id VARCHAR(255), OUT _employee_ids TEXT, out _commission_12 double, out _commission_45 double, out _commission_lovo double)
+	, in _accessory_kind_id int, IN _session_id VARCHAR(255), OUT _employee_ids TEXT, out _accessory_kind_ids text, out _commission_12 double
+	, out _commission_45 double, out _commission_lovo double)
 BEGIN
 	DECLARE _from_date DATE;
 	
@@ -4596,48 +4660,80 @@ BEGIN
 	IF _employee_id=0 THEN
 		DELETE FROM temp_gas_commission WHERE session_id=_session_id;
 	
-		INSERT INTO temp_gas_commission(session_id, id, created_date, quantity_12, quantity_45, quantity_lovo, employee_ids, employee_count)
-		SELECT _session_id, tbl.id, tbl.created_date, COALESCE(quantity_12,0) as quantity_12, COALESCE(quantity_45,0) as quantity_45, 0 as quantity_lovo
+		INSERT INTO temp_gas_commission(session_id, id, created_date, quantity_12, quantity_45, quantity_lovo, accessory_kind_id, quantity_accessory, commission_accessory, employee_ids, employee_count)
+		SELECT _session_id, tbl.vehicle_out_id, vo.created_date, COALESCE(tbl.quantity_12,0) as quantity_12, COALESCE(tbl.quantity_45,0) as quantity_45
+			, 0 as quantity_lovo, 0 as accessory_kind_id, 0 AS quantity_accessory, 0 as commission_accessory
 			, GROUP_CONCAT(ve.employee_id) as employee_ids, COUNT(ve.id) as employee_count 
 		FROM
 		(
-			SELECT w.id, w.vehicle_out_id, w.created_date
+			SELECT w.vehicle_out_id
 				, SUM(IF(shell_12.id IS NOT NULL, wdet.quantity,0)) AS quantity_12
-				, SUM(IF(shell_45.id IS NOT NULL, wdet.quantity,0)) AS quantity_45, 0 as quantity_lovo
+				, SUM(IF(shell_45.id IS NOT NULL, wdet.quantity,0)) AS quantity_45
 			FROM gas_wholesale AS w, gas_wholesale_detail AS wdet, employee as eo, shell_vendor AS sv
 			LEFT JOIN (SELECT s.id FROM shell AS s, shell_kind AS sk WHERE s.kind_id=sk.id AND sk.weight=12) AS shell_12 ON sv.shell_id=shell_12.id
 			LEFT JOIN (SELECT s.id FROM shell AS s, shell_kind AS sk WHERE s.kind_id=sk.id AND sk.weight=45) AS shell_45 ON sv.shell_id=shell_45.id
 			WHERE DATE(w.created_date) >= STR_TO_DATE(_start_date,'%d/%m/%Y') AND DATE(w.created_date) <= STR_TO_DATE(_end_date,'%d/%m/%Y')
 				AND w.id=wdet.gas_wholesale_id AND wdet.shell_id=sv.id
 				and w.created_employee_id=eo.id AND _organization_ids LIKE CONCAT('%,',eo.organization_id,',%')
-			GROUP BY w.id
+			GROUP BY w.vehicle_out_id
 		) AS tbl
-		, vehicle_out_employee_detail as ve
-		where tbl.vehicle_out_id=ve.vehicle_out_id
-		group by tbl.id
+		, vehicle_out_employee_detail as ve, vehicle_out as vo
+		where tbl.vehicle_out_id=ve.vehicle_out_id and tbl.vehicle_out_id=vo.id
+		group by tbl.vehicle_out_id
 		UNION ALL
 		SELECT _session_id, lv.id, lv.created_date, 0 as quantity_12, 0 as quantity_45, lv.quantity as quantity_lovo
+			, 0 AS accessory_kind_id, 0 as quantity_accessory, 0 AS commission_accessory
 			, GROUP_CONCAT(lve.employee_id) AS employee_ids, COUNT(lve.id) AS employee_count 
-		FROM lo_vo AS lv, lo_vo_employee_detail as lve
+		FROM lo_vo AS lv, lo_vo_employee_detail as lve, employee as eo
 		WHERE DATE(lv.created_date) >= STR_TO_DATE(_start_date,'%d/%m/%Y') AND DATE(lv.created_date) <= STR_TO_DATE(_end_date,'%d/%m/%Y')
-			and lv.id=lve.lo_vo_id
+			and lv.id=lve.lo_vo_id and lv.created_employee_id=eo.id AND _organization_ids LIKE CONCAT('%,',eo.organization_id,',%')
 		group by lv.id
+		UNION ALL
+		SELECT _session_id, tbl.vehicle_out_id, vo.created_date, 0 AS quantity_12, 0 AS quantity_45, 0 AS quantity_lovo
+			, tbl.kind_id, tbl.quantity_accessory, tbl.commission as commission_accessory
+			, GROUP_CONCAT(ve.employee_id) AS employee_ids, COUNT(ve.id) AS employee_count 
+		FROM
+		(
+			SELECT v.vehicle_out_id, sum(vadet.quantity) as quantity_accessory, a.kind_id, ak.commission
+			FROM vehicle_in AS v, vehicle_in_accessory_detail AS vadet, employee AS eo, accessory as a, accessory_kind as ak
+			WHERE DATE(v.created_date) >= STR_TO_DATE(_start_date,'%d/%m/%Y') AND DATE(v.created_date) <= STR_TO_DATE(_end_date,'%d/%m/%Y')
+				AND v.id=vadet.vehicle_in_id and vadet.accessory_id=a.id and a.kind_id=ak.id
+				AND v.created_employee_id=eo.id AND _organization_ids LIKE CONCAT('%,',eo.organization_id,',%')
+			GROUP BY v.id, a.kind_id
+		) AS tbl
+		, vehicle_out_employee_detail AS ve, vehicle_out as vo
+		WHERE tbl.vehicle_out_id=ve.vehicle_out_id and tbl.vehicle_out_id=vo.id
+		GROUP BY tbl.vehicle_out_id, tbl.kind_id
 		;
 	
 		SELECT COALESCE(group_concat(distinct employee_ids),'') INTO _employee_ids FROM temp_gas_commission WHERE session_id=_session_id;
 	
-		SELECT created_date, 0 AS employee_id, 0 AS amount, SUM(quantity_12) AS quantity_12, SUM(quantity_45) AS quantity_45, SUM(quantity_lovo) AS quantity_lovo
+		SELECT COALESCE(GROUP_CONCAT(DISTINCT accessory_kind_id),'') INTO _accessory_kind_ids FROM temp_gas_commission WHERE session_id=_session_id;
+	
+		SELECT created_date, 0 AS employee_id, SUM(quantity_12) AS quantity_12, SUM(quantity_45) AS quantity_45
+			, SUM(quantity_lovo) AS quantity_lovo, 0 as accessory_kind_id, 0 AS quantity_accessory, 0 as commission_accessory, 0 AS amount
 		FROM temp_gas_commission
 		WHERE session_id=_session_id 
-		GROUP BY created_date;
+		GROUP BY created_date order by created_date;
 	ELSE
-		SELECT tbl.created_date, _employee_id as employee_id, 0 AS quantity_12, 0 AS quantity_45, 0 as quantity_lovo
-			, SUM((t.quantity_12*_commission_12 + t.quantity_45*_commission_45 + t.quantity_lovo*_commission_lovo)/t.employee_count) AS amount
-		FROM (SELECT created_date, session_id FROM temp_gas_commission WHERE session_id=_session_id GROUP BY created_date) AS tbl
-		LEFT JOIN temp_gas_commission AS t ON t.session_id=tbl.session_id AND t.created_date=tbl.created_date 
-		and concat("0,",t.employee_ids,",0") LIKE CONCAT('%,',_employee_id,',%')
-		group by tbl.created_date
-		;
+		if _accessory_kind_id=0 then
+			SELECT tbl.created_date, _employee_id as employee_id, 0 AS quantity_12, 0 AS quantity_45
+				, 0 as quantity_lovo, 0 AS accessory_kind_id, 0 as quantity_accessory, 0 AS commission_accessory
+				, SUM((t.quantity_12*_commission_12 + t.quantity_45*_commission_45 + t.quantity_lovo*_commission_lovo + t.quantity_accessory*t.commission_accessory)/t.employee_count) AS amount
+			FROM (SELECT created_date, session_id FROM temp_gas_commission WHERE session_id=_session_id GROUP BY created_date) AS tbl
+			LEFT JOIN temp_gas_commission AS t ON t.session_id=tbl.session_id AND t.created_date=tbl.created_date 
+			and concat("0,",t.employee_ids,",0") LIKE CONCAT('%,',_employee_id,',%')
+			group by tbl.created_date ORDER BY tbl.created_date
+			;
+		else
+			SELECT tbl.created_date, 0 AS employee_id, 0 AS quantity_12, 0 AS quantity_45
+				, 0 AS quantity_lovo, _accessory_kind_id AS accessory_kind_id, t.quantity_accessory, 0 as commission_accessory, 0 AS amount
+			FROM (SELECT created_date, session_id FROM temp_gas_commission WHERE session_id=_session_id GROUP BY created_date) AS tbl
+			LEFT JOIN temp_gas_commission AS t ON t.session_id=tbl.session_id AND t.created_date=tbl.created_date 
+			AND t.accessory_kind_id=_accessory_kind_id
+			GROUP BY tbl.created_date ORDER BY tbl.created_date
+			;
+		end if;
 	END IF;
     END */$$
 DELIMITER ;
@@ -4648,10 +4744,11 @@ DELIMITER ;
 
 DELIMITER $$
 
-/*!50003 CREATE DEFINER=`root`@`localhost` PROCEDURE `report_gas_employee_commission`(IN _start_date VARCHAR(20), IN _end_date VARCHAR(20), IN _organization_ids TEXT, IN _session_id VARCHAR(255))
+/*!50003 CREATE DEFINER=`root`@`localhost` PROCEDURE `report_gas_employee_commission`(IN _start_date VARCHAR(20), IN _end_date VARCHAR(20), IN _organization_ids TEXT
+	, IN _session_id VARCHAR(255))
 BEGIN
 	DECLARE _from_date DATE;
-	declare _commission_12, _commission_45 double;
+	declare _commission_12, _commission_45, _commission_lovo double;
 	
 	SELECT STR_TO_DATE(_start_date,'%d/%m/%Y') INTO _from_date;
 	
@@ -4659,13 +4756,17 @@ BEGIN
 	
 	SELECT COALESCE(commission,0) INTO _commission_45 FROM shell_kind WHERE weight=45;
 	
+	SELECT CAST(`value` AS SIGNED INTEGER) INTO _commission_lovo FROM parameter WHERE `code`='lovo';
+	
 	DELETE FROM temp_gas_commission WHERE session_id=_session_id;
 	
-	INSERT INTO temp_gas_commission(session_id, id, created_date, quantity_12, quantity_45, employee_ids, employee_count)
-	SELECT _session_id, tbl.id, tbl.created_date, COALESCE(quantity_12,0), COALESCE(quantity_45,0), GROUP_CONCAT(ve.employee_id), COUNT(ve.id) 
+	INSERT INTO temp_gas_commission(session_id, id, created_date, quantity_12, quantity_45, quantity_lovo, accessory_kind_id, quantity_accessory, commission_accessory, employee_ids, employee_count)
+	SELECT _session_id, tbl.vehicle_out_id, vo.created_date, COALESCE(tbl.quantity_12,0) AS quantity_12, COALESCE(tbl.quantity_45,0) AS quantity_45
+		, 0 AS quantity_lovo, 0 AS accessory_kind_id, 0 AS quantity_accessory, 0 AS commission_accessory
+		, GROUP_CONCAT(ve.employee_id) AS employee_ids, COUNT(ve.id) AS employee_count 
 	FROM
 	(
-		SELECT w.id, w.vehicle_out_id, w.created_date
+		SELECT w.vehicle_out_id
 			, SUM(IF(shell_12.id IS NOT NULL, wdet.quantity,0)) AS quantity_12
 			, SUM(IF(shell_45.id IS NOT NULL, wdet.quantity,0)) AS quantity_45
 		FROM gas_wholesale AS w, gas_wholesale_detail AS wdet, employee AS eo, shell_vendor AS sv
@@ -4674,14 +4775,40 @@ BEGIN
 		WHERE DATE(w.created_date) >= STR_TO_DATE(_start_date,'%d/%m/%Y') AND DATE(w.created_date) <= STR_TO_DATE(_end_date,'%d/%m/%Y')
 			AND w.id=wdet.gas_wholesale_id AND wdet.shell_id=sv.id
 			AND w.created_employee_id=eo.id AND _organization_ids LIKE CONCAT('%,',eo.organization_id,',%')
-		GROUP BY w.id
+		GROUP BY w.vehicle_out_id
 	) AS tbl
-	, vehicle_out_employee_detail AS ve
-	WHERE tbl.vehicle_out_id=ve.vehicle_out_id
-	GROUP BY tbl.id;
+	, vehicle_out_employee_detail AS ve, vehicle_out AS vo
+	WHERE tbl.vehicle_out_id=ve.vehicle_out_id AND tbl.vehicle_out_id=vo.id
+	GROUP BY tbl.vehicle_out_id
+	UNION ALL
+	SELECT _session_id, lv.id, lv.created_date, 0 AS quantity_12, 0 AS quantity_45, lv.quantity AS quantity_lovo
+		, 0 AS accessory_kind_id, 0 AS quantity_accessory, 0 AS commission_accessory
+		, GROUP_CONCAT(lve.employee_id) AS employee_ids, COUNT(lve.id) AS employee_count 
+	FROM lo_vo AS lv, lo_vo_employee_detail AS lve, employee AS eo
+	WHERE DATE(lv.created_date) >= STR_TO_DATE(_start_date,'%d/%m/%Y') AND DATE(lv.created_date) <= STR_TO_DATE(_end_date,'%d/%m/%Y')
+		AND lv.id=lve.lo_vo_id AND lv.created_employee_id=eo.id AND _organization_ids LIKE CONCAT('%,',eo.organization_id,',%')
+	GROUP BY lv.id
+	UNION ALL
+	SELECT _session_id, tbl.vehicle_out_id, vo.created_date, 0 AS quantity_12, 0 AS quantity_45, 0 AS quantity_lovo
+		, tbl.kind_id, tbl.quantity_accessory, tbl.commission AS commission_accessory
+		, GROUP_CONCAT(ve.employee_id) AS employee_ids, COUNT(ve.id) AS employee_count 
+	FROM
+	(
+		SELECT v.vehicle_out_id, SUM(vadet.quantity) AS quantity_accessory, a.kind_id, ak.commission
+		FROM vehicle_in AS v, vehicle_in_accessory_detail AS vadet, employee AS eo, accessory AS a, accessory_kind AS ak
+		WHERE DATE(v.created_date) >= STR_TO_DATE(_start_date,'%d/%m/%Y') AND DATE(v.created_date) <= STR_TO_DATE(_end_date,'%d/%m/%Y')
+			AND v.id=vadet.vehicle_in_id AND vadet.accessory_id=a.id AND a.kind_id=ak.id
+			AND v.created_employee_id=eo.id AND _organization_ids LIKE CONCAT('%,',eo.organization_id,',%')
+		GROUP BY v.id, a.kind_id
+	) AS tbl
+	, vehicle_out_employee_detail AS ve, vehicle_out AS vo
+	WHERE tbl.vehicle_out_id=ve.vehicle_out_id AND tbl.vehicle_out_id=vo.id
+	GROUP BY tbl.vehicle_out_id, tbl.kind_id
+	;
 	
 		
-	SELECT tbl_employee.id, tbl_employee.fullname as employee_name, SUM((t.quantity_12*_commission_12 + t.quantity_45*_commission_45)/t.employee_count) AS amount
+	SELECT tbl_employee.id, tbl_employee.fullname as employee_name, SUM((t.quantity_12*_commission_12 + t.quantity_45*_commission_45 
+		+ t.quantity_lovo*_commission_lovo + t.quantity_accessory*t.commission_accessory)/t.employee_count) AS amount
 	FROM (SELECT id, fullname FROM employee WHERE STATUS=1) AS tbl_employee
 	LEFT JOIN temp_gas_commission AS t ON t.session_id=_session_id AND CONCAT("0,",t.employee_ids,",0") LIKE CONCAT('%,',tbl_employee.id,',%')
 	GROUP BY tbl_employee.id
@@ -5069,12 +5196,12 @@ BEGIN
 		select created_date, 0 as petro_id, 0 as opening_stock, 0 as import_quantity, 0 as export_quantity 
 		from temp_petro_stock 
 		where session_id=_session_id 
-		group by created_date;
+		group by created_date ORDER BY created_date;
 	else
 		SELECT tbl.created_date, t.petro_id, t.opening_stock, t.import_quantity, t.export_quantity 
 		FROM (select created_date, session_id from temp_petro_stock where session_id=_session_id group by created_date) as tbl
 		left join temp_petro_stock as t on t.session_id=tbl.session_id and t.created_date=tbl.created_date and t.petro_id=_petro_id
-		;
+		ORDER BY tbl.created_date;
 	end if;
     END */$$
 DELIMITER ;
@@ -5126,11 +5253,12 @@ BEGIN
 		SELECT created_date, 0 AS petro_id, 0 AS opening_stock, 0 AS import_quantity, 0 AS export_quantity 
 		FROM temp_petro_stock 
 		WHERE session_id=_session_id 
-		GROUP BY created_date;
+		GROUP BY created_date ORDER BY created_date;
 	ELSE
 		SELECT tbl.created_date, t.petro_id, t.opening_stock, t.import_quantity, t.export_quantity 
 		FROM (SELECT created_date, session_id FROM temp_petro_stock WHERE session_id=_session_id GROUP BY created_date) AS tbl
-		LEFT JOIN temp_petro_stock AS t ON t.session_id=tbl.session_id AND t.created_date=tbl.created_date AND t.petro_id=_petro_id;
+		LEFT JOIN temp_petro_stock AS t ON t.session_id=tbl.session_id AND t.created_date=tbl.created_date AND t.petro_id=_petro_id
+		ORDER BY tbl.created_date;
 	END IF;
     END */$$
 DELIMITER ;
@@ -6619,7 +6747,7 @@ DELIMITER ;
 DELIMITER $$
 
 /*!50003 CREATE DEFINER=`root`@`localhost` PROCEDURE `updateLpgImport`(IN _id INT, IN _vendor_id INT, IN _import_date VARCHAR(20), IN _paper_quantity FLOAT
-	, IN _actual_quantity FLOAT, IN _price DOUBLE, IN _amount DOUBLE, IN _paid DOUBLE, IN _debt DOUBLE, IN _rate DOUBLE, IN _account_id INT, IN _note TEXT)
+	, IN _actual_quantity FLOAT, IN _price DOUBLE, IN _amount DOUBLE, IN _paid DOUBLE, IN _debt DOUBLE, IN _rate DOUBLE, IN _account_id INT, IN _route_id INT, IN _note TEXT)
 BEGIN
 	UPDATE lpg_import SET vendor_id=_vendor_id
 		, import_date=STR_TO_DATE(_import_date,'%d/%m/%Y')
@@ -6631,6 +6759,7 @@ BEGIN
 		, debt=_debt
 		, rate=_rate
 		, account_id=_account_id
+		, route_id=_route_id
 		, note=_note
 	WHERE id=_id;
     END */$$
@@ -6643,16 +6772,18 @@ DELIMITER ;
 DELIMITER $$
 
 /*!50003 CREATE DEFINER=`root`@`localhost` PROCEDURE `updateLpgSale`(IN _id INT, IN _customer_id INT, IN _sale_date VARCHAR(20), IN _quantity FLOAT
-	, IN _price DOUBLE, IN _amount DOUBLE, IN _paid DOUBLE, IN _debt DOUBLE, IN _account_id INT, IN _note TEXT, IN _lpg_import_id INT)
+	, IN _price DOUBLE, IN _rate DOUBLE, IN _amount DOUBLE, IN _paid DOUBLE, IN _debt DOUBLE, IN _account_id INT, IN _route_id INT, IN _note TEXT, IN _lpg_import_id INT)
 BEGIN
 	UPDATE lpg_sale SET customer_id=_customer_id
 		, sale_date=STR_TO_DATE(_sale_date,'%d/%m/%Y')
 		, quantity=_quantity
 		, price=_price
+		, rate=_rate
 		, amount=_amount
 		, paid=_paid
 		, debt=_debt
 		, account_id=_account_id
+		, route_id=_route_id
 		, note=_note
 		, lpg_import_id=_lpg_import_id
 	WHERE id=_id;
@@ -7065,6 +7196,18 @@ BEGIN
 	UPDATE vehicle_in SET vehicle_out_id=_vehicle_out_id
 		, note=_note
 	WHERE id=_id;
+    END */$$
+DELIMITER ;
+
+/* Procedure structure for procedure `updateVehicleInAccessoryDetail` */
+
+/*!50003 DROP PROCEDURE IF EXISTS  `updateVehicleInAccessoryDetail` */;
+
+DELIMITER $$
+
+/*!50003 CREATE DEFINER=`root`@`localhost` PROCEDURE `updateVehicleInAccessoryDetail`(IN _id INT, IN _quantity INT, IN _price DOUBLE, IN _amount DOUBLE)
+BEGIN
+	UPDATE vehicle_in_accessory_detail SET quantity=_quantity, price=_price, amount=_amount WHERE id=_id;
     END */$$
 DELIMITER ;
 

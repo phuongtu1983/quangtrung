@@ -16,10 +16,12 @@ public class LpgSaleBean {
     private int customerId;
     private int quantity;
     private double price;
+    private double rate;
     private double total;
     private double paid;
     private double debt;
     private int accountId;
+    private int routeId;
     private String note;
     private int canEdit;
     private int lpgImportId;
@@ -139,6 +141,22 @@ public class LpgSaleBean {
 
     public void setCreatedEmployeeId(int createdEmployeeId) {
         this.createdEmployeeId = createdEmployeeId;
+    }
+
+    public double getRate() {
+        return rate;
+    }
+
+    public void setRate(double rate) {
+        this.rate = rate;
+    }
+
+    public int getRouteId() {
+        return routeId;
+    }
+
+    public void setRouteId(int routeId) {
+        this.routeId = routeId;
     }
 
 }

@@ -6,6 +6,8 @@
 package com.stepup.gasoline.qt.report;
 
 import com.stepup.core.util.GenericValidator;
+import com.stepup.core.util.NumberUtil;
+import com.stepup.gasoline.qt.accessorykind.AccessoryKindFormBean;
 import com.stepup.gasoline.qt.core.ExcelExport;
 import com.stepup.gasoline.qt.employee.EmployeeFormBean;
 import com.stepup.gasoline.qt.petro.PetroFormBean;
@@ -27,7 +29,7 @@ import org.apache.poi.poifs.filesystem.POIFSFileSystem;
  */
 public class DynamicColumnExcelReporter {
 
-    private static HSSFCell copyCell(HSSFWorkbook wb, HSSFSheet sheet, int rowNum, int col, int newCol, String content) {
+    private static HSSFCell copyCell(HSSFWorkbook wb, HSSFSheet sheet, int rowNum, int col, int newCol, String name, String content) {
         HSSFRow row = sheet.getRow(rowNum);
         HSSFCell cell = row.getCell(col);
         HSSFCell newCell = row.createCell(newCol);
@@ -35,18 +37,22 @@ public class DynamicColumnExcelReporter {
         if (GenericValidator.isBlankOrNull(content)) {
             newCell.setCellValue(cell.getRichStringCellValue());
         } else {
-            newCell.setCellValue(new HSSFRichTextString(copyCellValue(cell.getRichStringCellValue().getString(), content)));
+            newCell.setCellValue(new HSSFRichTextString(copyCellValue(cell.getRichStringCellValue().getString(), name, content)));
         }
         return newCell;
     }
 
-    private static String copyCellValue(String value, String content) {
+    private static String copyCellValue(String value, String name, String content) {
         String result = "";
         int ind = value.indexOf("${");
         if (ind == 0) {
             ind = value.indexOf(".");
             if (ind > -1) {
-                result = "${dynamicdata" + content + value.substring(ind);
+                if (GenericValidator.isBlankOrNull(name)) {
+                    result = "${dynamicdata" + content + value.substring(ind);
+                } else {
+                    result = "${" + name + content + value.substring(ind);
+                }
             }
         }
         return result;
@@ -64,44 +70,44 @@ public class DynamicColumnExcelReporter {
         for (int i = 0; i < arrPetro.size(); i++) {
             petro = (PetroFormBean) arrPetro.get(i);
             //copy header
-            newCell = copyCell(wb, sheet, row + 1, 2, col, "");
+            newCell = copyCell(wb, sheet, row + 1, 2, col, "", "");
             newCell.setCellValue(new HSSFRichTextString(petro.getName()));
             ExcelExport.setBorder(wb, sheet, row + 1, col + 1, border, color);
             ExcelExport.setBorder(wb, sheet, row + 1, col + 2, border, color);
 
             //copy header nhap
-            newCell = copyCell(wb, sheet, row + 2, 2, col, "");
+            newCell = copyCell(wb, sheet, row + 2, 2, col, "", "");
             newCell.setCellValue(new HSSFRichTextString(newCell.getRichStringCellValue().getString()));
             //copy header xuat
-            newCell = copyCell(wb, sheet, row + 2, 3, col + 1, "");
+            newCell = copyCell(wb, sheet, row + 2, 3, col + 1, "", "");
             newCell.setCellValue(new HSSFRichTextString(newCell.getRichStringCellValue().getString()));
             //copy header ton
-            newCell = copyCell(wb, sheet, row + 2, 4, col + 2, "");
+            newCell = copyCell(wb, sheet, row + 2, 4, col + 2, "", "");
             newCell.setCellValue(new HSSFRichTextString(newCell.getRichStringCellValue().getString()));
 
             //copy header2 nhap
-            copyCell(wb, sheet, row + 3, 2, col, "");
+            copyCell(wb, sheet, row + 3, 2, col, "", "");
             //copy header2 xuat
-            copyCell(wb, sheet, row + 3, 3, col + 1, "");
+            copyCell(wb, sheet, row + 3, 3, col + 1, "", "");
             //copy header2 ton
-            newCell = copyCell(wb, sheet, row + 3, 4, col + 2, "");
+            newCell = copyCell(wb, sheet, row + 3, 4, col + 2, "", "");
             newCell.setCellValue(new HSSFRichTextString("${" + newCell.getRichStringCellValue().getString() + petro.getId() + "}"));
 
             //copy content nhap
-            copyCell(wb, sheet, row + 4, 2, col, petro.getId() + "");
+            copyCell(wb, sheet, row + 4, 2, col, "", petro.getId() + "");
             //copy content xuat
-            copyCell(wb, sheet, row + 4, 3, col + 1, petro.getId() + "");
+            copyCell(wb, sheet, row + 4, 3, col + 1, "", petro.getId() + "");
             //copy content ton
-            copyCell(wb, sheet, row + 4, 4, col + 2, petro.getId() + "");
+            copyCell(wb, sheet, row + 4, 4, col + 2, "", petro.getId() + "");
 
             //copy footer nhap
-            newCell = copyCell(wb, sheet, row + 5, 2, col, petro.getId() + "");
+            newCell = copyCell(wb, sheet, row + 5, 2, col, "", petro.getId() + "");
             newCell.setCellValue(new HSSFRichTextString("$[SUM(" + ExcelExport.getColumnName(col) + "8)]"));
             //copy footer xuat
-            newCell = copyCell(wb, sheet, row + 5, 3, col + 1, petro.getId() + "");
+            newCell = copyCell(wb, sheet, row + 5, 3, col + 1, "", petro.getId() + "");
             newCell.setCellValue(new HSSFRichTextString("$[SUM(" + ExcelExport.getColumnName(col + 1) + "8)]"));
             //copy footer ton
-            newCell = copyCell(wb, sheet, row + 5, 4, col + 2, petro.getId() + "");
+            newCell = copyCell(wb, sheet, row + 5, 4, col + 2, "", petro.getId() + "");
             newCell.setCellValue(new HSSFRichTextString("$[SUM(" + ExcelExport.getColumnName(col + 2) + "8)]"));
 
             sheet.setColumnWidth(col, sheet.getColumnWidth(2));
@@ -117,27 +123,47 @@ public class DynamicColumnExcelReporter {
         fileOut.close();
     }
 
-    public static void createGasCommissionReportColumns(String templateFileName, ArrayList arrEmployee, File f) throws Exception {
+    public static void createGasCommissionReportColumns(String templateFileName, ArrayList arrEmployee, ArrayList arrAccessory, File f) throws Exception {
         POIFSFileSystem fs = new POIFSFileSystem(new FileInputStream(templateFileName));
         HSSFWorkbook wb = new HSSFWorkbook(fs);
         HSSFSheet sheet = wb.getSheetAt(0);
         HSSFCell newCell = null;
+
+        // accessory
+        AccessoryKindFormBean accessoryKind = null;
+        short col = 6, row = 4;
+        for (int i = 0; i < arrAccessory.size(); i++) {
+            accessoryKind = (AccessoryKindFormBean) arrAccessory.get(i);
+            //copy header
+            newCell = copyCell(wb, sheet, row, 4, col, "", "");
+            newCell.setCellValue(new HSSFRichTextString(accessoryKind.getName()));
+
+            //copy sub header
+            newCell = copyCell(wb, sheet, row + 1, 4, col, "", "");
+            newCell.setCellValue(new HSSFRichTextString(NumberUtil.formatMoneyDefault(accessoryKind.getCommission(), "VND")));
+
+            //copy content
+            copyCell(wb, sheet, row + 2, 4, col, "accessorydata", accessoryKind.getId() + "");
+
+            sheet.setColumnWidth(col, sheet.getColumnWidth(4));
+            col += 1;
+        }
+
         EmployeeFormBean employee = null;
-        short col = 7, row = 3;
         for (int i = 0; i < arrEmployee.size(); i++) {
             employee = (EmployeeFormBean) arrEmployee.get(i);
             //copy header
-            newCell = copyCell(wb, sheet, row + 1, 6, col, "");
+            newCell = copyCell(wb, sheet, row, 5, col, "", "");
             newCell.setCellValue(new HSSFRichTextString(employee.getFullname()));
 
             //copy header
-            newCell = copyCell(wb, sheet, row + 2, 6, col, employee.getId() + "");
+            newCell = copyCell(wb, sheet, row + 1, 5, col, "", employee.getId() + "");
             newCell.setCellValue(new HSSFRichTextString("$[SUM(" + ExcelExport.getColumnName(col) + "7)]"));
-            
+
             //copy content nhap
-            copyCell(wb, sheet, row + 3, 6, col, employee.getId() + "");
-            
-            sheet.setColumnWidth(col, sheet.getColumnWidth(6));
+            copyCell(wb, sheet, row + 2, 5, col, "", employee.getId() + "");
+
+            sheet.setColumnWidth(col, sheet.getColumnWidth(5));
             col += 1;
         }
         FileOutputStream fileOut = new FileOutputStream(f);

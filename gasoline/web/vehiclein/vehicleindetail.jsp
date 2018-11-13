@@ -77,6 +77,29 @@
         </tr>
         <tr><td colspan="4"><div><%@include  file="/vehiclein/shelldetails.jsp" %></div></td></tr>
         <tr>
+            <td colspan="4">
+                <fieldset>
+                    <legend><bean:message key="accessory.title"/></legend>
+                    <table>
+                        <tr>
+                            <td>
+                                <button class="i_cross icon small red" onclick="return delTableRow('vehicleInForm', 'vehicleInAccessoryChk', 'vehicleInAccessoryDetailTbl');"><bean:message key="message.del"/></button>
+                                <button class="i_plus icon small green" onclick="return addVehicleInAccessory();"><bean:message key="message.add"/></button>
+                            </td>
+                            <td>
+                                <select style="width: 260px;" name="accessoryIdCombobox" id="accessoryIdCombobox">
+                                    <logic:iterate id="accessory_iter" name="<%=Constants.ACCESSORY_LIST%>">
+                                        <option  value="${accessory_iter.id}">${accessory_iter.name}</option>
+                                    </logic:iterate>
+                                </select>
+                            </td>
+                        </tr>
+                    </table>
+                </fieldset>
+            </td>
+        </tr>
+        <tr><td colspan="4"><div><%@include  file="/vehiclein/accessorydetails.jsp" %></div></td></tr>
+        <tr>
             <td colspan="4" align="center" height="50">
                 <logic:equal name="<%=Constants.VEHICLE_IN%>" property="id" value="0">
                     <%if (PermissionUtil.hasPermission(request, PermissionUtil.OPERATION_ADD, PermissionUtil.PER_VEHICLE_IN)) {%> 
@@ -105,6 +128,7 @@
     <html:hidden property="vehicleOutId" name="<%=Constants.VEHICLE_IN%>" />
     <input type="hidden" id="callbackFunc"/>
     <input type="hidden" name="shellSelectedHidden" value="0"/>
+    <input type="hidden" name="accessorySelectedHidden" value="0"/>
     <input type="hidden" name="returnShellSelectedHidden" value="0"/>
     <input type="hidden" name="vehicleSelectedHidden" value="0"/>
 </form>
@@ -115,4 +139,5 @@
 <div id="shiftCFunctionHideDiv" style="display:none">loadVehicleInPanel()</div>
 <div id="shiftSFunctionHideDiv" style="display:none">saveVehicleIn()</div>
 <div id="vehicleInGoodHideDiv" style="display:none"></div>
+<div id="vehicleInAccessoryHideDiv" style="display:none"></div>
 <div id="vehicleInReturnShellHideDiv" style="display:none"></div>

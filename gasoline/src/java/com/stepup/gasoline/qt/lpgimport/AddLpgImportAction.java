@@ -52,6 +52,7 @@ public class AddLpgImportAction extends SpineAction {
         bean.setDebt(formBean.getDebt());
         bean.setRate(formBean.getRate());
         bean.setAccountId(formBean.getAccountId());
+        bean.setRouteId(formBean.getRouteId());
         bean.setNote(formBean.getNote());
         bean.setCreatedEmployeeId(QTUtil.getEmployeeId(request.getSession()));
         try {

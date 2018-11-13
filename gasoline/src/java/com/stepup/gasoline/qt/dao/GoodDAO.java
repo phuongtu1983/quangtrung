@@ -8,6 +8,7 @@ package com.stepup.gasoline.qt.dao;
 import com.stepup.core.database.DBUtil;
 import com.stepup.core.database.SPUtil;
 import com.stepup.core.util.DateUtil;
+import com.stepup.core.util.StringUtil;
 import com.stepup.gasoline.qt.accessory.AccessoryFormBean;
 import com.stepup.gasoline.qt.accessoryimport.AccessoryImportFormBean;
 import com.stepup.gasoline.qt.accessorykind.AccessoryKindFormBean;
@@ -415,6 +416,43 @@ public class GoodDAO extends BasicDAO {
         String sql = "select * from accessory_kind where 1";
         if (status != 0) {
             sql += " and status=" + status;
+        }
+        sql += " order by name";
+        ArrayList list = new ArrayList();
+        try {
+            rs = DBUtil.executeQuery(sql);
+            AccessoryKindFormBean bean = null;
+            while (rs.next()) {
+                bean = new AccessoryKindFormBean();
+                bean.setId(rs.getInt("id"));
+                bean.setName(rs.getString("name"));
+                bean.setNote(rs.getString("note"));
+                bean.setCommission(rs.getInt("commission"));
+                bean.setStatus(rs.getInt("status"));
+                if (bean.getStatus() == EmployeeBean.STATUS_ACTIVE) {
+                    bean.setStatusName(QTUtil.getBundleString("employee.detail.status.active"));
+                } else if (bean.getStatus() == EmployeeBean.STATUS_INACTIVE) {
+                    bean.setStatusName(QTUtil.getBundleString("employee.detail.status.inactive"));
+                }
+                list.add(bean);
+            }
+        } catch (SQLException sqle) {
+            throw new Exception(sqle.getMessage());
+        } catch (Exception ex) {
+            throw new Exception(ex.getMessage());
+        } finally {
+            if (rs != null) {
+                DBUtil.closeConnection(rs);
+            }
+        }
+        return list;
+    }
+
+    public ArrayList getAccessoryKinds(String accessoryKindIds) throws Exception {
+        ResultSet rs = null;
+        String sql = "select * from accessory_kind where status=" + EmployeeBean.STATUS_ACTIVE;
+        if (!GenericValidator.isBlankOrNull(accessoryKindIds)) {
+            sql += " and id in (" + accessoryKindIds + ")";
         }
         sql += " order by name";
         ArrayList list = new ArrayList();
@@ -2512,7 +2550,7 @@ public class GoodDAO extends BasicDAO {
         }
         return result;
     }
-    
+
     public ArrayList searchShieldImport(String fromDate, String endDate, String organizationIds) throws Exception {
         SPUtil spUtil = null;
         ArrayList list = new ArrayList();

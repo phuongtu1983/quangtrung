@@ -11,7 +11,6 @@ import com.stepup.gasoline.qt.bean.VehicleOutBean;
 import com.stepup.gasoline.qt.core.SpineAction;
 import com.stepup.gasoline.qt.dao.GasDAO;
 import com.stepup.gasoline.qt.dao.GoodDAO;
-import com.stepup.gasoline.qt.dao.VehicleDAO;
 import com.stepup.gasoline.qt.dao.VendorDAO;
 import com.stepup.gasoline.qt.util.Constants;
 import com.stepup.gasoline.qt.util.QTUtil;
@@ -45,6 +44,7 @@ public class VehicleInFormAction extends SpineAction {
         VehicleInBean bean = null;
         String id = request.getParameter("vehicleInId");
         ArrayList arrDetail = null;
+        ArrayList arrAccessoryDetail = null;
         ArrayList arrReturnShelDetail = null;
         GasDAO gasDAO = new GasDAO();
         if (!GenericValidator.isBlankOrNull(id)) {
@@ -52,6 +52,7 @@ public class VehicleInFormAction extends SpineAction {
                 int gasImportId = Integer.parseInt(id);
                 bean = gasDAO.getVehicleIn(gasImportId);
                 arrDetail = gasDAO.getVehicleInDetail(gasImportId);
+                arrAccessoryDetail = gasDAO.getVehicleInAccessoryDetail(gasImportId);
                 arrReturnShelDetail = gasDAO.getVehicleInReturnShellDetail(gasImportId);
             } catch (Exception ex) {
             }
@@ -79,6 +80,11 @@ public class VehicleInFormAction extends SpineAction {
         }
         request.setAttribute(Constants.VEHICLE_IN_SHELL, arrDetail);
 
+        if (arrAccessoryDetail == null) {
+            arrAccessoryDetail = new ArrayList();
+        }
+        request.setAttribute(Constants.VEHICLE_IN_ACCESSORY, arrAccessoryDetail);
+
         if (arrReturnShelDetail == null) {
             arrReturnShelDetail = new ArrayList();
         }
@@ -97,6 +103,17 @@ public class VehicleInFormAction extends SpineAction {
             arrShell = new ArrayList();
         }
         request.setAttribute(Constants.SHELL_LIST, arrShell);
+
+        ArrayList arrAccessory = null;
+        try {
+            GoodDAO goodDAO = new GoodDAO();
+            arrAccessory = goodDAO.getAccessorys(EmployeeBean.STATUS_ACTIVE);
+        } catch (Exception ex) {
+        }
+        if (arrAccessory == null) {
+            arrAccessory = new ArrayList();
+        }
+        request.setAttribute(Constants.ACCESSORY_LIST, arrAccessory);
 
         ArrayList arrShellReturn = null;
         try {

@@ -22,6 +22,7 @@ public class LpgImportBean {
     private double debt;
     private double rate;
     private int accountId;
+    private int routeId;
     private String note;
     private int canEdit;
     private int createdEmployeeId;
@@ -148,6 +149,14 @@ public class LpgImportBean {
 
     public void setCreatedEmployeeId(int createdEmployeeId) {
         this.createdEmployeeId = createdEmployeeId;
+    }
+
+    public int getRouteId() {
+        return routeId;
+    }
+
+    public void setRouteId(int routeId) {
+        this.routeId = routeId;
     }
 
 }

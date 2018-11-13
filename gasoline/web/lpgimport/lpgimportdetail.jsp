@@ -53,9 +53,15 @@
                         </tr>
                         <tr>
                             <td height="30" style="padding-right: 20px"><bean:message key="account.title"/></td>
-                            <td colspan="3">
+                            <td>
                                 <html:select property="accountId" name="<%=Constants.LPG_IMPORT%>" style="width:195px">
                                     <html:options collection="<%=Constants.ACCOUNT_LIST%>" property="id" labelProperty="number"/>
+                                </html:select>
+                            </td>
+                            <td style="padding-right: 20px;padding-left: 10px"><bean:message key="route.title"/></td>
+                            <td>
+                                <html:select property="routeId" name="<%=Constants.LPG_IMPORT%>" style="width:195px">
+                                    <html:options collection="<%=Constants.ROUTE_LIST%>" property="id" labelProperty="name"/>
                                 </html:select>
                             </td>
                         </tr>

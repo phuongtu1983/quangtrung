@@ -12,6 +12,7 @@ package com.stepup.gasoline.qt.report;
 public class GasCommissionReportOutBean {
 
     private String employeeIds;
+    private String accessoryKindIds;
     private double commission12;
     private double commission45;
     private double commissionLoVo;
@@ -46,6 +47,14 @@ public class GasCommissionReportOutBean {
 
     public void setCommissionLoVo(double commissionLoVo) {
         this.commissionLoVo = commissionLoVo;
+    }
+
+    public String getAccessoryKindIds() {
+        return accessoryKindIds;
+    }
+
+    public void setAccessoryKindIds(String accessoryKindIds) {
+        this.accessoryKindIds = accessoryKindIds;
     }
 
 }

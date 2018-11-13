@@ -170,7 +170,7 @@ public class VehicleDAO extends BasicDAO {
                 bean = new RouteFormBean();
                 bean.setId(rs.getInt("id"));
                 bean.setName(rs.getString("name"));
-                bean.setDistance(rs.getInt("distance"));
+                bean.setDistance(rs.getDouble("distance"));
                 bean.setNote(rs.getString("note"));
                 list.add(bean);
             }
@@ -195,7 +195,7 @@ public class VehicleDAO extends BasicDAO {
                 RouteBean bean = new RouteBean();
                 bean.setId(rs.getInt("id"));
                 bean.setName(rs.getString("name"));
-                bean.setDistance(rs.getInt("distance"));
+                bean.setDistance(rs.getDouble("distance"));
                 bean.setNote(rs.getString("note"));
                 return bean;
             }
@@ -220,7 +220,7 @@ public class VehicleDAO extends BasicDAO {
                 RouteBean bean = new RouteBean();
                 bean.setId(rs.getInt("id"));
                 bean.setName(rs.getString("name"));
-                bean.setDistance(rs.getInt("distance"));
+                bean.setDistance(rs.getDouble("distance"));
                 bean.setNote(rs.getString("note"));
                 return bean;
             }

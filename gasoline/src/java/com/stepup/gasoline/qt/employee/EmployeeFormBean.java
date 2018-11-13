@@ -14,6 +14,7 @@ import com.stepup.gasoline.qt.dynamicfield.DynamicFieldValueParentFormBean;
 public class EmployeeFormBean extends DynamicFieldValueParentFormBean {
 
     private int id;
+    private String idcard;
     private String fullname;
     private int status;
     private int seniority;
@@ -39,6 +40,7 @@ public class EmployeeFormBean extends DynamicFieldValueParentFormBean {
         this.birthday = bean.getBirthday();
         this.seniority = bean.getSeniority();
         this.startDate = bean.getStartDate();
+        this.idcard = bean.getIdcard();
     }
 
     public int getId() {
@@ -127,6 +129,14 @@ public class EmployeeFormBean extends DynamicFieldValueParentFormBean {
 
     public void setStartDate(String startDate) {
         this.startDate = startDate;
+    }
+
+    public String getIdcard() {
+        return idcard;
+    }
+
+    public void setIdcard(String idcard) {
+        this.idcard = idcard;
     }
 
 }

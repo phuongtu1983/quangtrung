@@ -11,6 +11,7 @@ package com.stepup.gasoline.qt.bean;
 public class EmployeeBean {
 
     private int id;
+    private String idcard;
     private String fullname;
     private int status;
     private int seniority;
@@ -99,6 +100,14 @@ public class EmployeeBean {
 
     public void setStartDate(String startDate) {
         this.startDate = startDate;
+    }
+
+    public String getIdcard() {
+        return idcard;
+    }
+
+    public void setIdcard(String idcard) {
+        this.idcard = idcard;
     }
 
     public static int STATUS_ACTIVE = 1;

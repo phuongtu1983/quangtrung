@@ -10,6 +10,7 @@ import com.stepup.gasoline.qt.bean.VendorBean;
 import com.stepup.gasoline.qt.core.SpineAction;
 import com.stepup.gasoline.qt.dao.AccountDAO;
 import com.stepup.gasoline.qt.dao.GasDAO;
+import com.stepup.gasoline.qt.dao.VehicleDAO;
 import com.stepup.gasoline.qt.dao.VendorDAO;
 import com.stepup.gasoline.qt.util.Constants;
 import com.stepup.gasoline.qt.util.QTUtil;
@@ -83,6 +84,17 @@ public class LpgImportFormAction extends SpineAction {
             arrAccount = new ArrayList();
         }
         request.setAttribute(Constants.ACCOUNT_LIST, arrAccount);
+        
+        ArrayList arrRoute = null;
+        try {
+            VehicleDAO vehicleDAO = new VehicleDAO();
+            arrRoute = vehicleDAO.getRoutes();
+        } catch (Exception ex) {
+        }
+        if (arrRoute == null) {
+            arrRoute = new ArrayList();
+        }
+        request.setAttribute(Constants.ROUTE_LIST, arrRoute);
 
         return true;
     }

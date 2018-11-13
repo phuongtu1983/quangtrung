@@ -7,6 +7,7 @@ package com.stepup.gasoline.qt.report;
 import com.stepup.core.util.FileUtil;
 import com.stepup.core.util.LogUtil;
 import com.stepup.core.util.StringUtil;
+import com.stepup.gasoline.qt.accessorykind.AccessoryKindFormBean;
 import com.stepup.gasoline.qt.core.BaseAction;
 import com.stepup.gasoline.qt.core.ExcelExport;
 import com.stepup.gasoline.qt.dao.EmployeeDAO;
@@ -93,7 +94,7 @@ public class PrintReportAction extends BaseAction {
                     templateFileName = "employee_commission_gas";
                     String session = QTUtil.getEmployeeId(request.getSession()) + "_" + Calendar.getInstance().getTimeInMillis();
                     list = printGasEmployeeComissionReport(fromDate, toDate, organizationIds, session);
-                }else if(reportName.equals("reportvendordebt")) {
+                } else if (reportName.equals("reportvendordebt")) {
                     templateFileName = "bang_theo_doi_cong_no_ncc";
                     list = printVendorDebtReport(fromDate, toDate, organizationIds);
                 }
@@ -282,27 +283,40 @@ public class PrintReportAction extends BaseAction {
             FileUtil.copyFile(fileName, tempFileName);
             File f = new File(tempFileName);
             ArrayList arrHideCol = new ArrayList();
-            arrHideCol.add(6);
+            arrHideCol.add(4);
+            arrHideCol.add(5);
 
             GasCommissionReportOutBean outBean = new GasCommissionReportOutBean();
-            list = reportDAO.getGasCommissionReport(fromDate, toDate, organizationIds, 0, sessionId, outBean);
+            list = reportDAO.getGasCommissionReport(fromDate, toDate, organizationIds, 0, 0, sessionId, outBean);
 
             EmployeeDAO employeeDAO = new EmployeeDAO();
             ArrayList employees = employeeDAO.getEmployees(outBean.getEmployeeIds());
+
+            GoodDAO goodDAO = new GoodDAO();
+            ArrayList accessoryKinds = goodDAO.getAccessoryKinds(outBean.getAccessoryKindIds());
 
             beans.put("datedata", list);
             beans.put("qtrp_commission12", outBean.getCommission12());
             beans.put("qtrp_commission45", outBean.getCommission45());
             beans.put("qtrp_commission_lovo", outBean.getCommissionLoVo());
 
-            DynamicColumnExcelReporter.createGasCommissionReportColumns(tempFileName, employees, f);
+            DynamicColumnExcelReporter.createGasCommissionReportColumns(tempFileName, employees, accessoryKinds, f);
+
+            AccessoryKindFormBean accessoryKind = null;
+            for (int i = 0; i < accessoryKinds.size(); i++) {
+                accessoryKind = (AccessoryKindFormBean) accessoryKinds.get(i);
+                try {
+                    list = reportDAO.getGasCommissionReport(fromDate, toDate, organizationIds, 1, accessoryKind.getId(), sessionId, null);
+                } catch (Exception ex) {
+                }
+                beans.put("accessorydata" + accessoryKind.getId(), list);
+            }
 
             EmployeeFormBean employee = null;
-
             for (int i = 0; i < employees.size(); i++) {
                 employee = (EmployeeFormBean) employees.get(i);
                 try {
-                    list = reportDAO.getGasCommissionReport(fromDate, toDate, organizationIds, employee.getId(), sessionId, null);
+                    list = reportDAO.getGasCommissionReport(fromDate, toDate, organizationIds, employee.getId(), 0, sessionId, null);
                 } catch (Exception ex) {
                 }
                 beans.put("dynamicdata" + employee.getId(), list);

@@ -11,6 +11,10 @@
             <tr><td>
                     <table cellspacing="0" cellpadding="0" style="border-width: 0px">
                         <tr>
+                            <td height="30" style="padding-right: 20px"><bean:message key="employee.detail.idcard"/></td>
+                            <td colspan="3"><html:text property="idcard" size="40" name="<%=Constants.EMPLOYEE%>"/></td>
+                        </tr>
+                        <tr>
                             <td height="30" style="padding-right: 20px"><bean:message key="employee.detail.fullname"/></td>
                             <td><html:text property="fullname" size="40" name="<%=Constants.EMPLOYEE%>"/></td>
                             <td height="30" style="padding-left: 10px; padding-right: 20px"><bean:message key="employee.detail.email"/></td>

@@ -84,6 +84,7 @@ public class EmployeeDAO extends BasicDAO {
             while (rs.next()) {
                 EmployeeFormBean employee = new EmployeeFormBean();
                 employee.setId(rs.getInt("id"));
+                employee.setIdcard(rs.getString("idcard"));
                 employee.setFullname(rs.getString("fullname"));
                 employee.setEmail(rs.getString("email"));
                 employee.setSalary(rs.getDouble("salary"));
@@ -112,9 +113,9 @@ public class EmployeeDAO extends BasicDAO {
         return null;
     }
 
-    public EmployeeFormBean getEmployeeByNameOrEmail(String fullname, String email) throws Exception {
+    public EmployeeFormBean getEmployeeByIdcard(String idcard) throws Exception {
         ResultSet rs = null;
-        String sql = "select * from employee where fullname='" + fullname + "' or email='" + email + "'"
+        String sql = "select * from employee where idcard='" + idcard + "'"
                 + " and status=" + EmployeeBean.STATUS_ACTIVE;
         try {
             rs = DBUtil.executeQuery(sql);
@@ -279,8 +280,8 @@ public class EmployeeDAO extends BasicDAO {
                 startDate = "STR_TO_DATE('" + bean.getStartDate() + "','%d/%m/%Y')";
             }
             String sql = "";
-            sql = "Insert Into employee (fullname, email, salary, organization_id, status, birthday, start_date, seniority)"
-                    + " Values ('" + bean.getFullname() + "','" + bean.getEmail() + "'," + bean.getSalary() + "," + bean.getOrganizationId()
+            sql = "Insert Into employee (idcard, fullname, email, salary, organization_id, status, birthday, start_date, seniority)"
+                    + " Values ('" + bean.getIdcard() + "','" + bean.getFullname() + "','" + bean.getEmail() + "'," + bean.getSalary() + "," + bean.getOrganizationId()
                     + "," + bean.getStatus() + "," + birthday + "," + startDate + "," + bean.getSeniority() + ")";
             return DBUtil.executeInsert(sql);
         } catch (SQLException sqle) {
@@ -313,7 +314,8 @@ public class EmployeeDAO extends BasicDAO {
                 startDate = "STR_TO_DATE('" + bean.getStartDate() + "','%d/%m/%Y')";
             }
             String sql = "Update employee Set "
-                    + " fullname='" + bean.getFullname() + "'"
+                    + " idcard='" + bean.getIdcard() + "'"
+                    + ", fullname='" + bean.getFullname() + "'"
                     + ", email='" + bean.getEmail() + "'"
                     + ", birthday=" + birthday
                     + ", start_date=" + startDate

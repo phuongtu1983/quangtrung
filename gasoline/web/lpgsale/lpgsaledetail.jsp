@@ -39,24 +39,34 @@
                             <td><html:text property="price" size="30" name="<%=Constants.LPG_SALE%>" onblur="return lpgSaleCaculateAmount();" onkeyup="try2FloatFormatOnKeyUp(this,event);" onkeypress="return readonlyFloat(event);"/></td>
                         </tr>
                         <tr>
-                            <td height="30" style="padding-right: 20px"><bean:message key="amount.title"/></td>
+                            <td height="30" style="padding-right: 20px"><bean:message key="rate.title"/></td>
+                            <td><html:text property="rate" size="30" name="<%=Constants.LPG_SALE%>" onblur="return lpgSaleCaculateAmount();" onkeyup="try2FloatFormatOnKeyUp(this,event);" onkeypress="return readonlyFloat(event);"/></td>
+                            <td style="padding-right: 20px;padding-left: 10px"><bean:message key="amount.title"/></td>
                             <td><html:text property="total" size="30" name="<%=Constants.LPG_SALE%>" readonly="true"/></td>
-                            <td style="padding-right: 20px;padding-left: 10px"><bean:message key="paid.title"/></td>
-                            <td><html:text property="paid" size="30" name="<%=Constants.LPG_SALE%>" onblur="return formPaidChanged('lpgSaleForm');" onkeyup="try2FloatFormatOnKeyUp(this,event);" onkeypress="return readonlyFloat(event);"/></td>
                         </tr>
                         <tr>
-                            <td height="30" style="padding-right: 20px"><bean:message key="debt.title"/></td>
+                            <td height="30" style="padding-right: 20px"><bean:message key="paid.title"/></td>
+                            <td><html:text property="paid" size="30" name="<%=Constants.LPG_SALE%>" onblur="return formPaidChanged('lpgSaleForm');" onkeyup="try2FloatFormatOnKeyUp(this,event);" onkeypress="return readonlyFloat(event);"/></td>
+                            <td style="padding-right: 20px;padding-left: 10px"><bean:message key="debt.title"/></td>
                             <td><html:text property="debt" size="30" name="<%=Constants.LPG_SALE%>" readonly="true"/></td>
-                            <td style="padding-right: 20px;padding-left: 10px"><bean:message key="lpgImport.title"/></td>
+                        </tr>
+                        <tr>
+                            <td height="30" style="padding-right: 20px"><bean:message key="lpgImport.title"/></td>
                             <td>
                                 <html:select property="lpgImportId" name="<%=Constants.LPG_SALE%>" style="width:195px">
                                     <html:options collection="<%=Constants.LPG_IMPORT_LIST%>" property="id" labelProperty="code"/>
                                 </html:select>
                             </td>
+                            <td style="padding-right: 20px;padding-left: 10px"><bean:message key="route.title"/></td>
+                            <td>
+                                <html:select property="routeId" name="<%=Constants.LPG_SALE%>" style="width:195px">
+                                    <html:options collection="<%=Constants.ROUTE_LIST%>" property="id" labelProperty="name"/>
+                                </html:select>
+                            </td>
                         </tr>
                         <tr>
                             <td height="30" style="padding-right: 20px"><bean:message key="note.title"/></td>
-                            <td colspan="3"><html:text property="note" size="86" name="<%=Constants.LPG_SALE%>" /></td>
+                            <td colspan="3"><html:text property="note" size="93" name="<%=Constants.LPG_SALE%>" /></td>
                         </tr>
                     </table>
                 </td></tr>

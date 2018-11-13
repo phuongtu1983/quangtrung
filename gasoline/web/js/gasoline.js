@@ -274,7 +274,7 @@ function menuClick(id) {
     else if (id == 'contractadd')
         getContract(0, 'loadContractPanel');
     else if (id == 'reportlpgimport' || id == 'reportlpgstock' || id == 'reportlpgstocksum' || id == 'reportsum' || id == 'reportsalecustomer' || id == 'reportsale'
-            || id == 'reportcashbook' || id == 'reportpetroimport' || id == 'reportpetrosale' || id == 'reportpetrostock' || id == 'reportgascommission' 
+            || id == 'reportcashbook' || id == 'reportpetroimport' || id == 'reportpetrosale' || id == 'reportpetrostock' || id == 'reportgascommission'
             || id == 'reportgasemployeecommission' || id == 'reportvendordebt')
         showReportPanel(id);
     else if (id == 'shieldimportlist')
@@ -400,6 +400,9 @@ function caculateFormListDetail(goodId, formName) {
     if (quantity == null || price == null || detTotal == null)
         return false;
     detTotal.value = reformatNumberMoneyString(quantity.value) * reformatNumberMoneyString(price.value);
+    tryNumberFormatCurrentcy(quantity, "VND");
+    tryNumberFormatCurrentcy(price, "VND");
+    tryNumberFormatCurrentcy(detTotal, "VND");
     quantity = null;
     price = null;
     detTotal = null;
@@ -1158,7 +1161,14 @@ function getEmployee(id, handle) {
 function saveEmployee() {
     if (scriptFunction == "saveEmployee")
         return false;
-    var field = document.forms['employeeForm'].fullname;
+    var field = document.forms['employeeForm'].idcard;
+    if (field.value == '') {
+        alert("Vui l\u00F2ng nh\u1EADp CMND");
+        field.focus();
+        field = null;
+        return false;
+    }
+    field = document.forms['employeeForm'].fullname;
     if (field.value == '') {
         alert("Vui l\u00F2ng nh\u1EADp t\u00EAn nh\u00E2n vi\u00EAn");
         field.focus();
@@ -1827,7 +1837,7 @@ function getRoute(id, handle) {
         showPopupForm(data);
         document.getElementById('callbackFunc').value = handle;
         document.forms['routeForm'].name.focus();
-        tryNumberFormatCurrentcy(document.forms['routeForm'].distance, "");
+        tryNumberFormatCurrentcy(document.forms['routeForm'].distance, "USD");
     });
 }
 function saveRoute() {
@@ -6468,6 +6478,33 @@ function getVehicleIn(id) {
         }
         returnShellIdCombobox.setComboValue("");
         // ============================
+        var accessoryIdCombobox = dhtmlXComboFromSelect("accessoryIdCombobox");
+        accessoryIdCombobox.enableFilteringMode(true);
+        accessoryIdCombobox.attachEvent("onSelectionChange", function() {
+            setVehicleInAccessorySelectedForm(accessoryIdCombobox.getComboText(), accessoryIdCombobox.getSelectedValue());
+        });
+        accessoryIdCombobox.attachEvent("onBlur", function() {
+            setVehicleInAccessorySelectedForm(accessoryIdCombobox.getComboText(), accessoryIdCombobox.getSelectedValue());
+        });
+        accessoryIdCombobox.DOMelem_input.onkeypress = function(event) {
+            var key;
+            if (window.event)
+                key = window.event.keyCode;//IE
+            else
+                key = event.which;//firefox
+            if (key == 13) {
+                addVehicleInAccessory();
+                accessoryIdCombobox.setComboValue("");
+            }
+        }
+        accessoryIdCombobox.DOMelem_input.onfocus = function(event) {
+            if (isManuallySeleted == 1) {
+                accessoryIdCombobox.openSelect();
+                isManuallySeleted = 0;
+            }
+        }
+        accessoryIdCombobox.setComboValue("");
+        // ============================
         var selectedCombo = dhtmlXComboFromSelect("vehicleOutIdCombobox");
         selectedCombo.enableFilteringMode(true);
         selectedCombo.attachEvent("onSelectionChange", function() {
@@ -6483,6 +6520,19 @@ function getVehicleIn(id) {
                 isManuallySeleted = 0;
             }
         }
+        
+        if (id == 0) {
+                selectedCombo.setComboValue("");
+        } else {
+            var vehicleOutId = document.forms['vehicleInForm'].vehicleOutId.value;
+            if (vehicleOutId != 0) {
+                var ind = selectedCombo.getIndexByValue(vehicleOutId);
+                selectedCombo.selectOption(ind);
+            } else {
+                selectedCombo.unSelectOption();
+                selectedCombo.setComboValue("");
+            }
+        }
 
         var myCalendar = new dhtmlXCalendarObject(["vehicleInCreatedDate"]);
         myCalendar.setSkin('dhx_web');
@@ -6493,6 +6543,7 @@ function getVehicleIn(id) {
         myCalendar.setDateFormat("%d/%m/%Y");
         formatFormDetail('vehicleInForm');
         formatVehicleInReturnShellDetail();
+        formatVehicleInAccessoryDetail();
 
         var vehicleOutCalendar = new dhtmlXCalendarObject(["vehicleInVehicleOutCreatedDate"]);
         vehicleOutCalendar.setSkin('dhx_web');
@@ -6543,6 +6594,8 @@ function saveVehicleIn() {
     amount = null;
     reformatFormDetail('vehicleInForm');
     reformatVehicleInReturnShellDetail();
+    reformatVehicleInAccessoryDetail();
+    document.forms['vehicleInForm'].vehicleOutId.value = document.forms['vehicleInForm'].vehicleSelectedHidden.value;
     scriptFunction = "saveVehicleIn";
     callAjaxCheckError("addVehicleIn.do", null, document.forms['vehicleInForm'], function(data) {
         scriptFunction = "";
@@ -6662,6 +6715,111 @@ function formatVehicleInReturnShellDetail() {
         }
     }
     quantity = null;
+}
+function addVehicleInAccessory() {
+    var good = document.forms['vehicleInForm'].accessorySelectedHidden.value;
+    if (good == -1 || good == 0)
+        return false;
+    var goodId = document.forms['vehicleInForm'].accessoryId;
+    var existed = false;
+    if (goodId != null) {
+        if (goodId.length != null) {
+            for (i = 0; i < goodId.length; i++) {
+                if (goodId[i].value == good) {
+                    existed = true;
+                    break;
+                }
+            }
+        } else if (goodId.value == good)
+            existed = true;
+    }
+    goodId = null;
+    if (existed == true) {
+        alert("H\u00E0ng ho\u00E1 \u0111\u00E3 t\u1ED3n t\u1EA1i");
+        return false;
+    }
+    callAjax("getVehicleInAccessory.do?accessoryId=" + good, null, null, function(data) {
+        setAjaxData(data, 'vehicleInAccessoryHideDiv');
+        var matTable = document.getElementById('vehicleInAccessoryTbl');
+        var detTable = document.getElementById('vehicleInAccessoryDetailTbl');
+        if (matTable.tBodies[0] == null || detTable.tBodies[0] == null) {
+            matTable = null;
+            detTable = null;
+            return;
+        }
+        for (var i = matTable.tBodies[0].rows.length - 1; i >= 0; i--)
+            detTable.tBodies[0].appendChild(matTable.tBodies[0].rows[i]);
+        matTable = null;
+        detTable = null;
+        formatVehicleInAccessoryDetail();
+    });
+    return false;
+}
+function caculateVehicleInAccessoryListDetail(goodId) {
+    var quantity = document.getElementById("accessorydetquantity" + goodId);
+    var price = document.getElementById("accessorydetprice" + goodId);
+    var detTotal = document.getElementById("accessorydetamount" + goodId);
+    if (quantity == null || price == null || detTotal == null)
+        return false;
+    detTotal.value = reformatNumberMoneyString(quantity.value) * reformatNumberMoneyString(price.value);
+    tryNumberFormatCurrentcy(quantity, "VND");
+    tryNumberFormatCurrentcy(price, "VND");
+    tryNumberFormatCurrentcy(detTotal, "VND");
+    quantity = null;
+    price = null;
+    detTotal = null;
+    return false;
+}
+function formatVehicleInAccessoryDetail() {
+    var quantity = document.forms['vehicleInForm'].accessoryQuantity;
+    var price = document.forms['vehicleInForm'].accessoryPrice;
+    var amount = document.forms['vehicleInForm'].accessoryAmount;
+    if (quantity != null) {
+        if (quantity.length != null) {
+            for (var i = 0; i < quantity.length; i++) {
+                tryNumberFormatCurrentcy(quantity[i], "VND");
+                tryNumberFormatCurrentcy(price[i], "VND");
+                tryNumberFormatCurrentcy(amount[i], "VND");
+            }
+        } else {
+            tryNumberFormatCurrentcy(quantity, "VND");
+            tryNumberFormatCurrentcy(price, "VND");
+            tryNumberFormatCurrentcy(amount, "VND");
+        }
+    }
+    quantity = null;
+    price = null;
+    amount = null;
+}
+function reformatVehicleInAccessoryDetail() {
+    var quantity = document.forms['vehicleInForm'].accessoryQuantity;
+    var price = document.forms['vehicleInForm'].accessoryPrice;
+    var amount = document.forms['vehicleInForm'].accessoryAmount;
+    if (quantity != null) {
+        if (quantity.length != null) {
+            for (var i = 0; i < quantity.length; i++) {
+                reformatNumberMoney(quantity[i]);
+                reformatNumberMoney(price[i]);
+                reformatNumberMoney(amount[i]);
+            }
+        } else {
+            reformatNumberMoney(quantity);
+            reformatNumberMoney(price);
+            reformatNumberMoney(amount);
+        }
+    }
+    quantity = null;
+    price = null;
+    amount = null;
+}
+function setVehicleInAccessorySelectedForm(text, value) {
+    if (value == null) {
+        if (text != "")
+            value = "-1";
+        else
+            value = "0";
+    }
+    document.forms['vehicleInForm'].accessorySelectedHidden.value = value;
 }
 function loadExportWholesalePanel() {
     callAjax("getExportWholesalePanel.do", null, null, function(data) {
@@ -8189,6 +8347,7 @@ function getLpgSale(id, handle, lpgImportId) {
         tryNumberFormatCurrentcy(document.forms['lpgSaleForm'].total, "VND");
         tryNumberFormatCurrentcy(document.forms['lpgSaleForm'].paid, "VND");
         tryNumberFormatCurrentcy(document.forms['lpgSaleForm'].debt, "VND");
+        tryNumberFormatCurrentcy(document.forms['lpgSaleForm'].rate, "VND");
         if (id == 0) {
             var currentDate = getCurrentDate();
             document.forms['lpgSaleForm'].lpgSaleDate.value = currentDate;
@@ -8205,6 +8364,7 @@ function saveLpgSale() {
     reformatNumberMoney(document.forms['lpgSaleForm'].total);
     reformatNumberMoney(document.forms['lpgSaleForm'].paid);
     reformatNumberMoney(document.forms['lpgSaleForm'].debt);
+    reformatNumberMoney(document.forms['lpgSaleForm'].rate);
     scriptFunction = "saveLpgSale";
     callAjaxCheckError("addLpgSale.do", null, document.forms['lpgSaleForm'], function(data) {
         scriptFunction = "";
@@ -8227,18 +8387,21 @@ function delLpgSale() {
 function lpgSaleCaculateAmount() {
     var quantity = document.forms['lpgSaleForm'].quantity;
     var price = document.forms['lpgSaleForm'].price;
+    var rate = document.forms['lpgSaleForm'].rate;
     var amount = document.forms['lpgSaleForm'].total;
     var paid = document.forms['lpgSaleForm'].paid;
     var debt = document.forms['lpgSaleForm'].debt;
-    amount.value = reformatNumberMoneyString(quantity.value) * 1 * reformatNumberMoneyString(price.value) * 1;
+    amount.value = reformatNumberMoneyString(quantity.value) * 1 * reformatNumberMoneyString(price.value) * 1 * reformatNumberMoneyString(rate.value) * 1 / 1000;
     paid.value = amount.value;
     debt.value = 0;
     tryNumberFormatCurrentcy(quantity, "VND");
     tryNumberFormatCurrentcy(price, "VND");
+    tryNumberFormatCurrentcy(rate, "VND");
     tryNumberFormatCurrentcy(amount, "VND");
     tryNumberFormatCurrentcy(paid, "VND");
     quantity = null;
     price = null;
+    rate = null;
     amount = null;
     paid = null;
     debt = null;
@@ -9199,7 +9362,7 @@ function getLoVo(id) {
         clearContent();
         setAjaxData(data, 'contentDiv');
         window.dhx_globalImgPath = "js/dhtmlx/combo/imgs/";
-        
+
         var employeeIdCombobox = dhtmlXComboFromSelect("employeeIdCombobox");
         employeeIdCombobox.enableFilteringMode(true);
         employeeIdCombobox.attachEvent("onSelectionChange", function() {
@@ -9233,7 +9396,7 @@ function getLoVo(id) {
             document.forms['loVoForm'].loVoCreatedDate.value = currentDate;
         }
         myCalendar.setDateFormat("%d/%m/%Y");
-        
+
         tryNumberFormatCurrentcy(document.forms['loVoForm'].quantity, "VND");
     });
 }
