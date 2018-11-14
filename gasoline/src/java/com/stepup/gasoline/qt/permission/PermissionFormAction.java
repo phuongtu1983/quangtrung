@@ -166,6 +166,15 @@ public class PermissionFormAction extends SpineAction {
         perBean.setCounter("2.1");
         perBean.setLevel(2);
         perBean.setSharedId(2);
+        perBean.setName(QTUtil.getBundleString("openingStock.title"));
+        perBean.setValue(PermissionUtil.PER_OPENING_STOCK);
+        perBean.setOperations("," + PermissionUtil.OPERATION_LIST + ",");
+        arrFun.add(perBean);
+
+        perBean = new PermissionViewBean();
+        perBean.setCounter("2.1");
+        perBean.setLevel(2);
+        perBean.setSharedId(2);
         perBean.setName(QTUtil.getBundleString("dynamicField.title"));
         perBean.setValue(PermissionUtil.PER_DYNAMIC_FIELD);
         perBean.setOperations("," + PermissionUtil.OPERATION_LIST + "," + PermissionUtil.OPERATION_ADD + "," + PermissionUtil.OPERATION_EDIT + "," + PermissionUtil.OPERATION_DELETE + ",");
@@ -404,7 +413,7 @@ public class PermissionFormAction extends SpineAction {
         perBean.setValue(PermissionUtil.PER_PETRO);
         perBean.setOperations("," + PermissionUtil.OPERATION_LIST + "," + PermissionUtil.OPERATION_ADD + "," + PermissionUtil.OPERATION_EDIT + ",");
         arrFun.add(perBean);
-        
+
         perBean = new PermissionViewBean();
         perBean.setCounter("2.1");
         perBean.setLevel(2);
@@ -503,7 +512,7 @@ public class PermissionFormAction extends SpineAction {
         perBean.setValue(PermissionUtil.PER_PETRO_IMPORT);
         perBean.setOperations("," + PermissionUtil.OPERATION_LIST + "," + PermissionUtil.OPERATION_ADD + "," + PermissionUtil.OPERATION_EDIT + "," + PermissionUtil.OPERATION_DELETE + ",");
         arrFun.add(perBean);
-        
+
         perBean = new PermissionViewBean();
         perBean.setCounter("2.1");
         perBean.setLevel(2);
@@ -512,7 +521,7 @@ public class PermissionFormAction extends SpineAction {
         perBean.setValue(PermissionUtil.PER_SALE_PETRO);
         perBean.setOperations("," + PermissionUtil.OPERATION_LIST + "," + PermissionUtil.OPERATION_ADD + "," + PermissionUtil.OPERATION_EDIT + "," + PermissionUtil.OPERATION_DELETE + ",");
         arrFun.add(perBean);
-        
+
         perBean = new PermissionViewBean();
         perBean.setCounter("2.1");
         perBean.setLevel(2);
@@ -521,7 +530,7 @@ public class PermissionFormAction extends SpineAction {
         perBean.setValue(PermissionUtil.PER_GOOD_IMPORT);
         perBean.setOperations("," + PermissionUtil.OPERATION_LIST + "," + PermissionUtil.OPERATION_ADD + "," + PermissionUtil.OPERATION_EDIT + "," + PermissionUtil.OPERATION_DELETE + ",");
         arrFun.add(perBean);
-        
+
         perBean = new PermissionViewBean();
         perBean.setCounter("2.1");
         perBean.setLevel(2);
@@ -609,7 +618,7 @@ public class PermissionFormAction extends SpineAction {
         perBean.setValue(PermissionUtil.PER_SHELL_RETURN_SUPPLIER);
         perBean.setOperations("," + PermissionUtil.OPERATION_LIST + "," + PermissionUtil.OPERATION_ADD + "," + PermissionUtil.OPERATION_EDIT + "," + PermissionUtil.OPERATION_DELETE + ",");
         arrFun.add(perBean);
-        
+
         perBean = new PermissionViewBean();
         perBean.setCounter("2.1");
         perBean.setLevel(2);
@@ -735,7 +744,7 @@ public class PermissionFormAction extends SpineAction {
         perBean.setValue(PermissionUtil.PER_REPORT_LPG_IMPORT);
         perBean.setOperations("," + PermissionUtil.OPERATION_LIST + ",");
         arrFun.add(perBean);
-        
+
         perBean = new PermissionViewBean();
         perBean.setCounter("3.1");
         perBean.setLevel(2);
@@ -816,7 +825,7 @@ public class PermissionFormAction extends SpineAction {
         perBean.setValue(PermissionUtil.PER_REPORT_CASH_BOOK);
         perBean.setOperations("," + PermissionUtil.OPERATION_LIST + ",");
         arrFun.add(perBean);
-        
+
         perBean = new PermissionViewBean();
         perBean.setCounter("3.1");
         perBean.setLevel(2);
@@ -825,7 +834,7 @@ public class PermissionFormAction extends SpineAction {
         perBean.setValue(PermissionUtil.PER_REPORT_GAS_COMMISION);
         perBean.setOperations("," + PermissionUtil.OPERATION_LIST + ",");
         arrFun.add(perBean);
-        
+
         perBean = new PermissionViewBean();
         perBean.setCounter("3.1");
         perBean.setLevel(2);
@@ -843,7 +852,7 @@ public class PermissionFormAction extends SpineAction {
         perBean.setValue(PermissionUtil.PER_REPORT_PETRO_IMPORT);
         perBean.setOperations("," + PermissionUtil.OPERATION_LIST + ",");
         arrFun.add(perBean);
-        
+
         perBean = new PermissionViewBean();
         perBean.setCounter("3.1");
         perBean.setLevel(2);
@@ -852,7 +861,7 @@ public class PermissionFormAction extends SpineAction {
         perBean.setValue(PermissionUtil.PER_REPORT_PETRO_SALE);
         perBean.setOperations("," + PermissionUtil.OPERATION_LIST + ",");
         arrFun.add(perBean);
-        
+
         perBean = new PermissionViewBean();
         perBean.setCounter("3.1");
         perBean.setLevel(2);
@@ -870,7 +879,7 @@ public class PermissionFormAction extends SpineAction {
         perBean.setValue(PermissionUtil.PER_REPORT_PETRO_STOCK_STORE);
         perBean.setOperations("," + PermissionUtil.OPERATION_LIST + ",");
         arrFun.add(perBean);
-        
+
         perBean = new PermissionViewBean();
         perBean.setCounter("3.1");
         perBean.setLevel(2);

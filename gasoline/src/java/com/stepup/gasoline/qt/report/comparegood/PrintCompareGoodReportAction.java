@@ -62,7 +62,7 @@ public class PrintCompareGoodReportAction extends BaseAction {
             }
             beans.put("dulieu", list);
             exporter.setBeans(beans);
-            exporter.export(request, response, templateFileName, "report.xls");
+            exporter.export(request, response, templateFileName, "good_compare_report.xls");
         } catch (Exception ex) {
             LogUtil.error("FAILED:PrintReportAction:print-" + ex.getMessage());
         }

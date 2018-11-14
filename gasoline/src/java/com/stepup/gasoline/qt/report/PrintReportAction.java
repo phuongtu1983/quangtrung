@@ -75,7 +75,10 @@ public class PrintReportAction extends BaseAction {
                     list = printSaleCustomerReport(fromDate, toDate, organizationIds);
                 } else if (reportName.equals("reportcashbook")) {
                     templateFileName = "bao_cao_quy_tien";
-                    list = printCashBookReport(fromDate, toDate, organizationIds);
+                    CashBookReportOutBean outBean = new CashBookReportOutBean();
+                    list = printCashBookReport(fromDate, toDate, organizationIds, outBean);
+                    beans.put("qtrp_accountOpeningStock", outBean.getAccountOpeningStock());
+                    beans.put("qtrp_cashOpeningStock", outBean.getCashOpeningStock());
                 } else if (reportName.equals("reportpetroimport")) {
                     templateFileName = "bang_theo_doi_nhap_hang_petro";
                     list = printPetroImportReport(fromDate, toDate, organizationIds);
@@ -99,13 +102,13 @@ public class PrintReportAction extends BaseAction {
                     list = printVendorDebtReport(fromDate, toDate, organizationIds);
                 }
                 if (!reportName.equals("reportpetrostock") && !reportName.equals("reportgascommission")) {
-                    templateFileName = request.getSession().getServletContext().getRealPath("/templates/" + templateFileName + ".xls");
+                    String sourceFile = request.getSession().getServletContext().getRealPath("/templates/" + templateFileName + ".xls");
                     if (list == null) {
                         list = new ArrayList();
                     }
                     beans.put("dulieu", list);
                     exporter.setBeans(beans);
-                    exporter.export(request, response, templateFileName, "report.xls");
+                    exporter.export(request, response, sourceFile, templateFileName + ".xls");
                 }
             }
         } catch (Exception ex) {
@@ -190,11 +193,11 @@ public class PrintReportAction extends BaseAction {
         return list;
     }
 
-    private ArrayList printCashBookReport(String fromDate, String toDate, String organizationIds) {
+    private ArrayList printCashBookReport(String fromDate, String toDate, String organizationIds, CashBookReportOutBean outBean) {
         ArrayList list = null;
         try {
             ReportDAO reportDAO = new ReportDAO();
-            list = reportDAO.getCashBookReport(fromDate, toDate, organizationIds);
+            list = reportDAO.getCashBookReport(fromDate, toDate, organizationIds, outBean);
         } catch (Exception ex) {
         }
         return list;
@@ -263,7 +266,7 @@ public class PrintReportAction extends BaseAction {
             }
             exporter.setHiddenCols(hiddenCols);
             exporter.setBeans(beans);
-            exporter.export(request, response, tempFileName, "report.xls");
+            exporter.export(request, response, tempFileName, "petro_stock_report.xls");
             f.delete();
         } catch (Exception ex) {
             System.out.println(ex);
@@ -329,7 +332,7 @@ public class PrintReportAction extends BaseAction {
             }
             exporter.setHiddenCols(hiddenCols);
             exporter.setBeans(beans);
-            exporter.export(request, response, tempFileName, "report.xls");
+            exporter.export(request, response, tempFileName, "gas_commission_report.xls");
             f.delete();
         } catch (Exception ex) {
             System.out.println(ex);

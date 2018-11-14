@@ -8,6 +8,30 @@ package com.stepup.gasoline.qt.dao;
 import com.stepup.core.database.SPUtil;
 import com.stepup.core.util.DateUtil;
 import com.stepup.core.util.GenericValidator;
+import com.stepup.gasoline.qt.openingstock.accessory.AccessoryOpeningStockBean;
+import com.stepup.gasoline.qt.openingstock.accessory.AccessoryOpeningStockUploadBean;
+import com.stepup.gasoline.qt.openingstock.customer.CustomerOpeningStockBean;
+import com.stepup.gasoline.qt.openingstock.customer.CustomerOpeningStockUploadBean;
+import com.stepup.gasoline.qt.openingstock.good.GoodOpeningStockBean;
+import com.stepup.gasoline.qt.openingstock.good.GoodOpeningStockUploadBean;
+import com.stepup.gasoline.qt.openingstock.lpg.LpgOpeningStockBean;
+import com.stepup.gasoline.qt.openingstock.lpg.LpgOpeningStockUploadBean;
+import com.stepup.gasoline.qt.openingstock.money.MoneyOpeningStockBean;
+import com.stepup.gasoline.qt.openingstock.money.MoneyOpeningStockUploadBean;
+import com.stepup.gasoline.qt.openingstock.petro.PetroOpeningStockBean;
+import com.stepup.gasoline.qt.openingstock.petro.PetroOpeningStockUploadBean;
+import com.stepup.gasoline.qt.openingstock.promotionmaterial.PromotionMaterialOpeningStockBean;
+import com.stepup.gasoline.qt.openingstock.promotionmaterial.PromotionMaterialOpeningStockUploadBean;
+import com.stepup.gasoline.qt.openingstock.shell.ShellOpeningStockBean;
+import com.stepup.gasoline.qt.openingstock.shell.ShellOpeningStockUploadBean;
+import com.stepup.gasoline.qt.openingstock.shellgas.ShellGasOpeningStockBean;
+import com.stepup.gasoline.qt.openingstock.shellgas.ShellGasOpeningStockUploadBean;
+import com.stepup.gasoline.qt.openingstock.shield.ShieldOpeningStockBean;
+import com.stepup.gasoline.qt.openingstock.shield.ShieldOpeningStockUploadBean;
+import com.stepup.gasoline.qt.openingstock.vendor.VendorOpeningStockBean;
+import com.stepup.gasoline.qt.openingstock.vendor.VendorOpeningStockUploadBean;
+import com.stepup.gasoline.qt.report.CashBookReportBean;
+import com.stepup.gasoline.qt.report.CashBookReportOutBean;
 import com.stepup.gasoline.qt.report.GasCommissionReportBean;
 import com.stepup.gasoline.qt.report.GasCommissionReportOutBean;
 import com.stepup.gasoline.qt.report.GasEmployeeCommissionReportBean;
@@ -525,12 +549,12 @@ public class ReportDAO extends BasicDAO {
         return list;
     }
 
-    public ArrayList getCashBookReport(String fromDate, String endDate, String organizationIds) throws Exception {
+    public ArrayList getCashBookReport(String fromDate, String endDate, String organizationIds, CashBookReportOutBean outBean) throws Exception {
         SPUtil spUtil = null;
         ArrayList list = new ArrayList();
         ResultSet rs = null;
         try {
-            String sql = "{call report_cash_book(?,?,?)}";
+            String sql = "{call report_cash_book(?,?,?,?,?)}";
             if (GenericValidator.isBlankOrNull(fromDate)) {
                 fromDate = DateUtil.today("dd/MM/yyyy");
             }
@@ -542,25 +566,33 @@ public class ReportDAO extends BasicDAO {
                 spUtil.getCallableStatement().setString("_start_date", fromDate);
                 spUtil.getCallableStatement().setString("_end_date", endDate);
                 spUtil.getCallableStatement().setString("_organization_ids", organizationIds);
+                spUtil.getCallableStatement().registerOutParameter("_account_opening_stock", Types.DOUBLE);
+                spUtil.getCallableStatement().registerOutParameter("_cash_opening_stock", Types.DOUBLE);
 
                 rs = spUtil.executeQuery();
+
+                outBean.setAccountOpeningStock(spUtil.getCallableStatement().getDouble("_account_opening_stock"));
+                outBean.setCashOpeningStock(spUtil.getCallableStatement().getDouble("_cash_opening_stock"));
+                double accountOpeningStock = outBean.getAccountOpeningStock();
+                double cashOpeningStock = outBean.getCashOpeningStock();
                 if (rs != null) {
-                    SaleCustomerReportBean bean = null;
-                    int count = 1;
+                    CashBookReportBean bean = null;
                     while (rs.next()) {
-                        bean = new SaleCustomerReportBean();
-                        bean.setCount(count++);
-                        bean.setCustomerCode(rs.getString("customer_code"));
-                        bean.setCustomerName(rs.getString("customer_name"));
-                        bean.setGas12(rs.getInt("quantity_12"));
-                        bean.setGas45(rs.getInt("quantity_45"));
-                        bean.setRevenue(rs.getDouble("amount"));
-                        bean.setOpeningDebt12(rs.getDouble("opening_debt_12"));
-                        bean.setOpeningDebt45(rs.getDouble("opening_debt_45"));
-                        bean.setOpeningDebt(rs.getDouble("opening_debt"));
-                        bean.setDebt12(bean.getOpeningDebt12() + bean.getGas12() - rs.getInt("shell_return_12"));
-                        bean.setDebt45(bean.getOpeningDebt45() + bean.getGas45() - rs.getInt("shell_return_45"));
-                        bean.setDebt(bean.getOpeningDebt() + rs.getDouble("debt"));
+                        bean = new CashBookReportBean();
+                        bean.setDate(DateUtil.formatDate(rs.getDate("created_date"), "dd/MM"));
+
+                        bean.setAccountIncome(rs.getDouble("account_income_amount"));
+                        bean.setAccountOutcome(rs.getDouble("account_outcome_amount"));
+                        bean.setAccountStock(accountOpeningStock + bean.getAccountIncome() - bean.getAccountOutcome());
+                        accountOpeningStock = bean.getAccountStock();
+                        bean.setAccountNote(rs.getString("account_note"));
+
+                        bean.setCashIncome(rs.getDouble("cash_income_amount"));
+                        bean.setCashOutcome(rs.getDouble("cash_outcome_amount"));
+                        bean.setCashStock(cashOpeningStock + bean.getCashIncome() - bean.getCashOutcome());
+                        cashOpeningStock = bean.getCashStock();
+                        bean.setCashNote(rs.getString("cash_note"));
+
                         list.add(bean);
                     }
                 }
@@ -1215,4 +1247,871 @@ public class ReportDAO extends BasicDAO {
         }
         return list;
     }
+
+    public ArrayList exportAccessoryOpeningStock(String date) throws Exception {
+        SPUtil spUtil = null;
+        ArrayList list = new ArrayList();
+        ResultSet rs = null;
+        try {
+            String sql = "{call export_accessory_opening_stock(?)}";
+            if (GenericValidator.isBlankOrNull(date)) {
+                date = DateUtil.today("dd/MM/yyyy");
+            }
+            spUtil = new SPUtil(sql);
+            if (spUtil != null) {
+                spUtil.getCallableStatement().setString("_date", date);
+
+                rs = spUtil.executeQuery();
+
+                if (rs != null) {
+                    AccessoryOpeningStockBean bean = null;
+                    while (rs.next()) {
+                        bean = new AccessoryOpeningStockBean();
+                        bean.setOrganizationName(rs.getString("organization_name"));
+                        bean.setOrganizationId(rs.getInt("organization_id"));
+                        bean.setAccessoryName(rs.getString("accessory_name"));
+                        bean.setAccessoryId(rs.getInt("accessory_id"));
+                        bean.setOpeningStock(rs.getInt("opening_stock"));
+                        list.add(bean);
+                    }
+                }
+            }
+        } catch (SQLException sqle) {
+            throw new Exception(sqle.getMessage());
+        } catch (Exception ex) {
+            throw new Exception(ex.getMessage());
+        } finally {
+            try {
+                if (spUtil != null) {
+                    spUtil.closeConnection();
+                }
+                if (rs != null) {
+                    rs.close();
+                    rs = null;
+                }
+            } catch (Exception e) {
+                throw new Exception(e.getMessage());
+            }
+        }
+        return list;
+    }
+
+    public void importAccessoryOpeningStock(String date, AccessoryOpeningStockUploadBean bean) throws Exception {
+        if (bean == null) {
+            return;
+        }
+        SPUtil spUtil = null;
+        try {
+            String sql = "{call importAccessoryOpeningStock(?,?,?,?)}";
+            spUtil = new SPUtil(sql);
+            if (spUtil != null) {
+                spUtil.getCallableStatement().setString("_date", date);
+                spUtil.getCallableStatement().setInt("_organization_id", bean.getOrganizationId());
+                spUtil.getCallableStatement().setInt("_accessory_id", bean.getAccessoryId());
+                spUtil.getCallableStatement().setDouble("_in_stock", bean.getOpeningStock());
+                spUtil.execute();
+            }
+        } catch (SQLException sqle) {
+            throw new Exception(sqle.getMessage());
+        } catch (Exception ex) {
+            throw new Exception(ex.getMessage());
+        } finally {
+            try {
+                if (spUtil != null) {
+                    spUtil.closeConnection();
+                }
+            } catch (Exception e) {
+                throw new Exception(e.getMessage());
+            }
+        }
+    }
+
+    public ArrayList exportCustomerOpeningStock(String date) throws Exception {
+        SPUtil spUtil = null;
+        ArrayList list = new ArrayList();
+        ResultSet rs = null;
+        try {
+            String sql = "{call export_customer_opening_stock(?)}";
+            if (GenericValidator.isBlankOrNull(date)) {
+                date = DateUtil.today("dd/MM/yyyy");
+            }
+            spUtil = new SPUtil(sql);
+            if (spUtil != null) {
+                spUtil.getCallableStatement().setString("_date", date);
+
+                rs = spUtil.executeQuery();
+
+                if (rs != null) {
+                    CustomerOpeningStockBean bean = null;
+                    while (rs.next()) {
+                        bean = new CustomerOpeningStockBean();
+                        bean.setOrganizationName(rs.getString("organization_name"));
+                        bean.setOrganizationId(rs.getInt("organization_id"));
+                        bean.setCustomerName(rs.getString("customer_name"));
+                        bean.setCustomerId(rs.getInt("customer_id"));
+                        bean.setOpeningStock(rs.getInt("opening_stock"));
+                        list.add(bean);
+                    }
+                }
+            }
+        } catch (SQLException sqle) {
+            throw new Exception(sqle.getMessage());
+        } catch (Exception ex) {
+            throw new Exception(ex.getMessage());
+        } finally {
+            try {
+                if (spUtil != null) {
+                    spUtil.closeConnection();
+                }
+                if (rs != null) {
+                    rs.close();
+                    rs = null;
+                }
+            } catch (Exception e) {
+                throw new Exception(e.getMessage());
+            }
+        }
+        return list;
+    }
+
+    public void importCustomerOpeningStock(String date, CustomerOpeningStockUploadBean bean) throws Exception {
+        if (bean == null) {
+            return;
+        }
+        SPUtil spUtil = null;
+        try {
+            String sql = "{call importCustomerOpeningStock(?,?,?)}";
+            spUtil = new SPUtil(sql);
+            if (spUtil != null) {
+                spUtil.getCallableStatement().setString("_date", date);
+                spUtil.getCallableStatement().setInt("_customer_id", bean.getCustomerId());
+                spUtil.getCallableStatement().setDouble("_in_stock", bean.getOpeningStock());
+                spUtil.execute();
+            }
+        } catch (SQLException sqle) {
+            throw new Exception(sqle.getMessage());
+        } catch (Exception ex) {
+            throw new Exception(ex.getMessage());
+        } finally {
+            try {
+                if (spUtil != null) {
+                    spUtil.closeConnection();
+                }
+            } catch (Exception e) {
+                throw new Exception(e.getMessage());
+            }
+        }
+    }
+
+    public ArrayList exportGoodOpeningStock(String date) throws Exception {
+        SPUtil spUtil = null;
+        ArrayList list = new ArrayList();
+        ResultSet rs = null;
+        try {
+            String sql = "{call export_good_opening_stock(?)}";
+            if (GenericValidator.isBlankOrNull(date)) {
+                date = DateUtil.today("dd/MM/yyyy");
+            }
+            spUtil = new SPUtil(sql);
+            if (spUtil != null) {
+                spUtil.getCallableStatement().setString("_date", date);
+
+                rs = spUtil.executeQuery();
+
+                if (rs != null) {
+                    GoodOpeningStockBean bean = null;
+                    while (rs.next()) {
+                        bean = new GoodOpeningStockBean();
+                        bean.setOrganizationName(rs.getString("organization_name"));
+                        bean.setOrganizationId(rs.getInt("organization_id"));
+                        bean.setStoreName(rs.getString("store_name"));
+                        bean.setStoreId(rs.getInt("store_id"));
+                        bean.setGoodName(rs.getString("good_name"));
+                        bean.setGoodId(rs.getInt("good_id"));
+                        bean.setOpeningStock(rs.getInt("opening_stock"));
+                        list.add(bean);
+                    }
+                }
+            }
+        } catch (SQLException sqle) {
+            throw new Exception(sqle.getMessage());
+        } catch (Exception ex) {
+            throw new Exception(ex.getMessage());
+        } finally {
+            try {
+                if (spUtil != null) {
+                    spUtil.closeConnection();
+                }
+                if (rs != null) {
+                    rs.close();
+                    rs = null;
+                }
+            } catch (Exception e) {
+                throw new Exception(e.getMessage());
+            }
+        }
+        return list;
+    }
+
+    public void importGoodOpeningStock(String date, GoodOpeningStockUploadBean bean) throws Exception {
+        if (bean == null) {
+            return;
+        }
+        SPUtil spUtil = null;
+        try {
+            String sql = "{call importGoodOpeningStock(?,?,?,?,?)}";
+            spUtil = new SPUtil(sql);
+            if (spUtil != null) {
+                spUtil.getCallableStatement().setString("_date", date);
+                spUtil.getCallableStatement().setInt("_organization_id", bean.getOrganizationId());
+                spUtil.getCallableStatement().setInt("_store_id", bean.getStoreId());
+                spUtil.getCallableStatement().setInt("_good_id", bean.getGoodId());
+                spUtil.getCallableStatement().setDouble("_in_stock", bean.getOpeningStock());
+                spUtil.execute();
+            }
+        } catch (SQLException sqle) {
+            throw new Exception(sqle.getMessage());
+        } catch (Exception ex) {
+            throw new Exception(ex.getMessage());
+        } finally {
+            try {
+                if (spUtil != null) {
+                    spUtil.closeConnection();
+                }
+            } catch (Exception e) {
+                throw new Exception(e.getMessage());
+            }
+        }
+    }
+
+    public ArrayList exportLpgOpeningStock(String date) throws Exception {
+        SPUtil spUtil = null;
+        ArrayList list = new ArrayList();
+        ResultSet rs = null;
+        try {
+            String sql = "{call export_lpg_opening_stock(?)}";
+            if (GenericValidator.isBlankOrNull(date)) {
+                date = DateUtil.today("dd/MM/yyyy");
+            }
+            spUtil = new SPUtil(sql);
+            if (spUtil != null) {
+                spUtil.getCallableStatement().setString("_date", date);
+
+                rs = spUtil.executeQuery();
+
+                if (rs != null) {
+                    LpgOpeningStockBean bean = null;
+                    while (rs.next()) {
+                        bean = new LpgOpeningStockBean();
+                        bean.setOrganizationName(rs.getString("organization_name"));
+                        bean.setOrganizationId(rs.getInt("organization_id"));
+                        bean.setVendorName(rs.getString("vendor_name"));
+                        bean.setVendorId(rs.getInt("vendor_id"));
+                        bean.setOpeningStock(rs.getInt("opening_stock"));
+                        list.add(bean);
+                    }
+                }
+            }
+        } catch (SQLException sqle) {
+            throw new Exception(sqle.getMessage());
+        } catch (Exception ex) {
+            throw new Exception(ex.getMessage());
+        } finally {
+            try {
+                if (spUtil != null) {
+                    spUtil.closeConnection();
+                }
+                if (rs != null) {
+                    rs.close();
+                    rs = null;
+                }
+            } catch (Exception e) {
+                throw new Exception(e.getMessage());
+            }
+        }
+        return list;
+    }
+
+    public void importLpgOpeningStock(String date, LpgOpeningStockUploadBean bean) throws Exception {
+        if (bean == null) {
+            return;
+        }
+        SPUtil spUtil = null;
+        try {
+            String sql = "{call importLpgOpeningStock(?,?,?,?)}";
+            spUtil = new SPUtil(sql);
+            if (spUtil != null) {
+                spUtil.getCallableStatement().setString("_date", date);
+                spUtil.getCallableStatement().setInt("_organization_id", bean.getOrganizationId());
+                spUtil.getCallableStatement().setInt("_vendor_id", bean.getVendorId());
+                spUtil.getCallableStatement().setDouble("_in_stock", bean.getOpeningStock());
+                spUtil.execute();
+            }
+        } catch (SQLException sqle) {
+            throw new Exception(sqle.getMessage());
+        } catch (Exception ex) {
+            throw new Exception(ex.getMessage());
+        } finally {
+            try {
+                if (spUtil != null) {
+                    spUtil.closeConnection();
+                }
+            } catch (Exception e) {
+                throw new Exception(e.getMessage());
+            }
+        }
+    }
+
+    public ArrayList exportMoneyOpeningStock(String date) throws Exception {
+        SPUtil spUtil = null;
+        ArrayList list = new ArrayList();
+        ResultSet rs = null;
+        try {
+            String sql = "{call export_money_opening_stock(?)}";
+            if (GenericValidator.isBlankOrNull(date)) {
+                date = DateUtil.today("dd/MM/yyyy");
+            }
+            spUtil = new SPUtil(sql);
+            if (spUtil != null) {
+                spUtil.getCallableStatement().setString("_date", date);
+
+                rs = spUtil.executeQuery();
+
+                if (rs != null) {
+                    MoneyOpeningStockBean bean = null;
+                    while (rs.next()) {
+                        bean = new MoneyOpeningStockBean();
+                        bean.setOrganizationName(rs.getString("organization_name"));
+                        bean.setOrganizationId(rs.getInt("organization_id"));
+                        bean.setAccountName(rs.getString("account_name"));
+                        bean.setAccountId(rs.getInt("account_id"));
+                        bean.setOpeningStock(rs.getInt("opening_stock"));
+                        list.add(bean);
+                    }
+                }
+            }
+        } catch (SQLException sqle) {
+            throw new Exception(sqle.getMessage());
+        } catch (Exception ex) {
+            throw new Exception(ex.getMessage());
+        } finally {
+            try {
+                if (spUtil != null) {
+                    spUtil.closeConnection();
+                }
+                if (rs != null) {
+                    rs.close();
+                    rs = null;
+                }
+            } catch (Exception e) {
+                throw new Exception(e.getMessage());
+            }
+        }
+        return list;
+    }
+
+    public void importMoneyOpeningStock(String date, MoneyOpeningStockUploadBean bean) throws Exception {
+        if (bean == null) {
+            return;
+        }
+        SPUtil spUtil = null;
+        try {
+            String sql = "{call importMoneyOpeningStock(?,?,?,?)}";
+            spUtil = new SPUtil(sql);
+            if (spUtil != null) {
+                spUtil.getCallableStatement().setString("_date", date);
+                spUtil.getCallableStatement().setInt("_organization_id", bean.getOrganizationId());
+                spUtil.getCallableStatement().setInt("_account_id", bean.getAccountId());
+                spUtil.getCallableStatement().setDouble("_in_stock", bean.getOpeningStock());
+                spUtil.execute();
+            }
+        } catch (SQLException sqle) {
+            throw new Exception(sqle.getMessage());
+        } catch (Exception ex) {
+            throw new Exception(ex.getMessage());
+        } finally {
+            try {
+                if (spUtil != null) {
+                    spUtil.closeConnection();
+                }
+            } catch (Exception e) {
+                throw new Exception(e.getMessage());
+            }
+        }
+    }
+
+    public ArrayList exportPetroOpeningStock(String date) throws Exception {
+        SPUtil spUtil = null;
+        ArrayList list = new ArrayList();
+        ResultSet rs = null;
+        try {
+            String sql = "{call export_petro_opening_stock(?)}";
+            if (GenericValidator.isBlankOrNull(date)) {
+                date = DateUtil.today("dd/MM/yyyy");
+            }
+            spUtil = new SPUtil(sql);
+            if (spUtil != null) {
+                spUtil.getCallableStatement().setString("_date", date);
+
+                rs = spUtil.executeQuery();
+
+                if (rs != null) {
+                    PetroOpeningStockBean bean = null;
+                    while (rs.next()) {
+                        bean = new PetroOpeningStockBean();
+                        bean.setOrganizationName(rs.getString("organization_name"));
+                        bean.setOrganizationId(rs.getInt("organization_id"));
+                        bean.setStoreName(rs.getString("store_name"));
+                        bean.setStoreId(rs.getInt("store_id"));
+                        bean.setPetroName(rs.getString("petro_name"));
+                        bean.setPetroId(rs.getInt("petro_id"));
+                        bean.setOpeningStock(rs.getInt("opening_stock"));
+                        list.add(bean);
+                    }
+                }
+            }
+        } catch (SQLException sqle) {
+            throw new Exception(sqle.getMessage());
+        } catch (Exception ex) {
+            throw new Exception(ex.getMessage());
+        } finally {
+            try {
+                if (spUtil != null) {
+                    spUtil.closeConnection();
+                }
+                if (rs != null) {
+                    rs.close();
+                    rs = null;
+                }
+            } catch (Exception e) {
+                throw new Exception(e.getMessage());
+            }
+        }
+        return list;
+    }
+
+    public void importPetroOpeningStock(String date, PetroOpeningStockUploadBean bean) throws Exception {
+        if (bean == null) {
+            return;
+        }
+        SPUtil spUtil = null;
+        try {
+            String sql = "{call importPetroOpeningStock(?,?,?,?,?)}";
+            spUtil = new SPUtil(sql);
+            if (spUtil != null) {
+                spUtil.getCallableStatement().setString("_date", date);
+                spUtil.getCallableStatement().setInt("_organization_id", bean.getOrganizationId());
+                spUtil.getCallableStatement().setInt("_store_id", bean.getStoreId());
+                spUtil.getCallableStatement().setInt("_petro_id", bean.getPetroId());
+                spUtil.getCallableStatement().setDouble("_in_stock", bean.getOpeningStock());
+                spUtil.execute();
+            }
+        } catch (SQLException sqle) {
+            throw new Exception(sqle.getMessage());
+        } catch (Exception ex) {
+            throw new Exception(ex.getMessage());
+        } finally {
+            try {
+                if (spUtil != null) {
+                    spUtil.closeConnection();
+                }
+            } catch (Exception e) {
+                throw new Exception(e.getMessage());
+            }
+        }
+    }
+
+    public ArrayList exportPromotionMaterialOpeningStock(String date) throws Exception {
+        SPUtil spUtil = null;
+        ArrayList list = new ArrayList();
+        ResultSet rs = null;
+        try {
+            String sql = "{call export_promotion_material_opening_stock(?)}";
+            if (GenericValidator.isBlankOrNull(date)) {
+                date = DateUtil.today("dd/MM/yyyy");
+            }
+            spUtil = new SPUtil(sql);
+            if (spUtil != null) {
+                spUtil.getCallableStatement().setString("_date", date);
+
+                rs = spUtil.executeQuery();
+
+                if (rs != null) {
+                    PromotionMaterialOpeningStockBean bean = null;
+                    while (rs.next()) {
+                        bean = new PromotionMaterialOpeningStockBean();
+                        bean.setOrganizationName(rs.getString("organization_name"));
+                        bean.setOrganizationId(rs.getInt("organization_id"));
+                        bean.setPromotionMaterialName(rs.getString("promotion_material_name"));
+                        bean.setPromotionMaterialId(rs.getInt("promotion_material_id"));
+                        bean.setOpeningStock(rs.getInt("opening_stock"));
+                        list.add(bean);
+                    }
+                }
+            }
+        } catch (SQLException sqle) {
+            throw new Exception(sqle.getMessage());
+        } catch (Exception ex) {
+            throw new Exception(ex.getMessage());
+        } finally {
+            try {
+                if (spUtil != null) {
+                    spUtil.closeConnection();
+                }
+                if (rs != null) {
+                    rs.close();
+                    rs = null;
+                }
+            } catch (Exception e) {
+                throw new Exception(e.getMessage());
+            }
+        }
+        return list;
+    }
+
+    public void importPromotionMaterialOpeningStock(String date, PromotionMaterialOpeningStockUploadBean bean) throws Exception {
+        if (bean == null) {
+            return;
+        }
+        SPUtil spUtil = null;
+        try {
+            String sql = "{call importPromotionMaterialOpeningStock(?,?,?,?)}";
+            spUtil = new SPUtil(sql);
+            if (spUtil != null) {
+                spUtil.getCallableStatement().setString("_date", date);
+                spUtil.getCallableStatement().setInt("_organization_id", bean.getOrganizationId());
+                spUtil.getCallableStatement().setInt("_promotion_material_id", bean.getPromotionMaterialId());
+                spUtil.getCallableStatement().setDouble("_in_stock", bean.getOpeningStock());
+                spUtil.execute();
+            }
+        } catch (SQLException sqle) {
+            throw new Exception(sqle.getMessage());
+        } catch (Exception ex) {
+            throw new Exception(ex.getMessage());
+        } finally {
+            try {
+                if (spUtil != null) {
+                    spUtil.closeConnection();
+                }
+            } catch (Exception e) {
+                throw new Exception(e.getMessage());
+            }
+        }
+    }
+
+    public ArrayList exportShellGasOpeningStock(String date) throws Exception {
+        SPUtil spUtil = null;
+        ArrayList list = new ArrayList();
+        ResultSet rs = null;
+        try {
+            String sql = "{call export_shell_gas_opening_stock(?)}";
+            if (GenericValidator.isBlankOrNull(date)) {
+                date = DateUtil.today("dd/MM/yyyy");
+            }
+            spUtil = new SPUtil(sql);
+            if (spUtil != null) {
+                spUtil.getCallableStatement().setString("_date", date);
+
+                rs = spUtil.executeQuery();
+
+                if (rs != null) {
+                    ShellGasOpeningStockBean bean = null;
+                    while (rs.next()) {
+                        bean = new ShellGasOpeningStockBean();
+                        bean.setOrganizationName(rs.getString("organization_name"));
+                        bean.setOrganizationId(rs.getInt("organization_id"));
+                        bean.setShellName(rs.getString("shell_name"));
+                        bean.setShellId(rs.getInt("shell_id"));
+                        bean.setVendorName(rs.getString("vendor_name"));
+                        bean.setVendorId(rs.getInt("vendor_id"));
+                        bean.setOpeningStock(rs.getInt("opening_stock"));
+                        list.add(bean);
+                    }
+                }
+            }
+        } catch (SQLException sqle) {
+            throw new Exception(sqle.getMessage());
+        } catch (Exception ex) {
+            throw new Exception(ex.getMessage());
+        } finally {
+            try {
+                if (spUtil != null) {
+                    spUtil.closeConnection();
+                }
+                if (rs != null) {
+                    rs.close();
+                    rs = null;
+                }
+            } catch (Exception e) {
+                throw new Exception(e.getMessage());
+            }
+        }
+        return list;
+    }
+
+    public void importShellGasOpeningStock(String date, ShellGasOpeningStockUploadBean bean) throws Exception {
+        if (bean == null) {
+            return;
+        }
+        SPUtil spUtil = null;
+        try {
+            String sql = "{call importShellGasOpeningStock(?,?,?,?,?)}";
+            spUtil = new SPUtil(sql);
+            if (spUtil != null) {
+                spUtil.getCallableStatement().setString("_date", date);
+                spUtil.getCallableStatement().setInt("_organization_id", bean.getOrganizationId());
+                spUtil.getCallableStatement().setInt("_shell_id", bean.getShellId());
+                spUtil.getCallableStatement().setInt("_vendor_id", bean.getVendorId());
+                spUtil.getCallableStatement().setDouble("_in_stock", bean.getOpeningStock());
+                spUtil.execute();
+            }
+        } catch (SQLException sqle) {
+            throw new Exception(sqle.getMessage());
+        } catch (Exception ex) {
+            throw new Exception(ex.getMessage());
+        } finally {
+            try {
+                if (spUtil != null) {
+                    spUtil.closeConnection();
+                }
+            } catch (Exception e) {
+                throw new Exception(e.getMessage());
+            }
+        }
+    }
+
+    public ArrayList exportShellOpeningStock(String date) throws Exception {
+        SPUtil spUtil = null;
+        ArrayList list = new ArrayList();
+        ResultSet rs = null;
+        try {
+            String sql = "{call export_shell_opening_stock(?)}";
+            if (GenericValidator.isBlankOrNull(date)) {
+                date = DateUtil.today("dd/MM/yyyy");
+            }
+            spUtil = new SPUtil(sql);
+            if (spUtil != null) {
+                spUtil.getCallableStatement().setString("_date", date);
+
+                rs = spUtil.executeQuery();
+
+                if (rs != null) {
+                    ShellOpeningStockBean bean = null;
+                    while (rs.next()) {
+                        bean = new ShellOpeningStockBean();
+                        bean.setOrganizationName(rs.getString("organization_name"));
+                        bean.setOrganizationId(rs.getInt("organization_id"));
+                        bean.setShellName(rs.getString("shell_name"));
+                        bean.setShellId(rs.getInt("shell_id"));
+                        bean.setOpeningStock(rs.getInt("opening_stock"));
+                        list.add(bean);
+                    }
+                }
+            }
+        } catch (SQLException sqle) {
+            throw new Exception(sqle.getMessage());
+        } catch (Exception ex) {
+            throw new Exception(ex.getMessage());
+        } finally {
+            try {
+                if (spUtil != null) {
+                    spUtil.closeConnection();
+                }
+                if (rs != null) {
+                    rs.close();
+                    rs = null;
+                }
+            } catch (Exception e) {
+                throw new Exception(e.getMessage());
+            }
+        }
+        return list;
+    }
+
+    public void importShellOpeningStock(String date, ShellOpeningStockUploadBean bean) throws Exception {
+        if (bean == null) {
+            return;
+        }
+        SPUtil spUtil = null;
+        try {
+            String sql = "{call importShellOpeningStock(?,?,?,?)}";
+            spUtil = new SPUtil(sql);
+            if (spUtil != null) {
+                spUtil.getCallableStatement().setString("_date", date);
+                spUtil.getCallableStatement().setInt("_organization_id", bean.getOrganizationId());
+                spUtil.getCallableStatement().setInt("_shell_id", bean.getShellId());
+                spUtil.getCallableStatement().setDouble("_in_stock", bean.getOpeningStock());
+                spUtil.execute();
+            }
+        } catch (SQLException sqle) {
+            throw new Exception(sqle.getMessage());
+        } catch (Exception ex) {
+            throw new Exception(ex.getMessage());
+        } finally {
+            try {
+                if (spUtil != null) {
+                    spUtil.closeConnection();
+                }
+            } catch (Exception e) {
+                throw new Exception(e.getMessage());
+            }
+        }
+    }
+
+    public ArrayList exportShieldOpeningStock(String date) throws Exception {
+        SPUtil spUtil = null;
+        ArrayList list = new ArrayList();
+        ResultSet rs = null;
+        try {
+            String sql = "{call export_shield_opening_stock(?)}";
+            if (GenericValidator.isBlankOrNull(date)) {
+                date = DateUtil.today("dd/MM/yyyy");
+            }
+            spUtil = new SPUtil(sql);
+            if (spUtil != null) {
+                spUtil.getCallableStatement().setString("_date", date);
+
+                rs = spUtil.executeQuery();
+
+                if (rs != null) {
+                    ShieldOpeningStockBean bean = null;
+                    while (rs.next()) {
+                        bean = new ShieldOpeningStockBean();
+                        bean.setOrganizationName(rs.getString("organization_name"));
+                        bean.setOrganizationId(rs.getInt("organization_id"));
+                        bean.setVendorName(rs.getString("vendor_name"));
+                        bean.setVendorId(rs.getInt("vendor_id"));
+                        bean.setOpeningStock(rs.getInt("opening_stock"));
+                        list.add(bean);
+                    }
+                }
+            }
+        } catch (SQLException sqle) {
+            throw new Exception(sqle.getMessage());
+        } catch (Exception ex) {
+            throw new Exception(ex.getMessage());
+        } finally {
+            try {
+                if (spUtil != null) {
+                    spUtil.closeConnection();
+                }
+                if (rs != null) {
+                    rs.close();
+                    rs = null;
+                }
+            } catch (Exception e) {
+                throw new Exception(e.getMessage());
+            }
+        }
+        return list;
+    }
+
+    public void importShieldOpeningStock(String date, ShieldOpeningStockUploadBean bean) throws Exception {
+        if (bean == null) {
+            return;
+        }
+        SPUtil spUtil = null;
+        try {
+            String sql = "{call importShieldOpeningStock(?,?,?,?)}";
+            spUtil = new SPUtil(sql);
+            if (spUtil != null) {
+                spUtil.getCallableStatement().setString("_date", date);
+                spUtil.getCallableStatement().setInt("_organization_id", bean.getOrganizationId());
+                spUtil.getCallableStatement().setInt("_vendor_id", bean.getVendorId());
+                spUtil.getCallableStatement().setDouble("_in_stock", bean.getOpeningStock());
+                spUtil.execute();
+            }
+        } catch (SQLException sqle) {
+            throw new Exception(sqle.getMessage());
+        } catch (Exception ex) {
+            throw new Exception(ex.getMessage());
+        } finally {
+            try {
+                if (spUtil != null) {
+                    spUtil.closeConnection();
+                }
+            } catch (Exception e) {
+                throw new Exception(e.getMessage());
+            }
+        }
+    }
+
+    public ArrayList exportVendorOpeningStock(String date) throws Exception {
+        SPUtil spUtil = null;
+        ArrayList list = new ArrayList();
+        ResultSet rs = null;
+        try {
+            String sql = "{call export_vendor_opening_stock(?)}";
+            if (GenericValidator.isBlankOrNull(date)) {
+                date = DateUtil.today("dd/MM/yyyy");
+            }
+            spUtil = new SPUtil(sql);
+            if (spUtil != null) {
+                spUtil.getCallableStatement().setString("_date", date);
+
+                rs = spUtil.executeQuery();
+
+                if (rs != null) {
+                    VendorOpeningStockBean bean = null;
+                    while (rs.next()) {
+                        bean = new VendorOpeningStockBean();
+                        bean.setOrganizationName(rs.getString("organization_name"));
+                        bean.setOrganizationId(rs.getInt("organization_id"));
+                        bean.setVendorName(rs.getString("vendor_name"));
+                        bean.setVendorId(rs.getInt("vendor_id"));
+                        bean.setOpeningStock(rs.getInt("opening_stock"));
+                        list.add(bean);
+                    }
+                }
+            }
+        } catch (SQLException sqle) {
+            throw new Exception(sqle.getMessage());
+        } catch (Exception ex) {
+            throw new Exception(ex.getMessage());
+        } finally {
+            try {
+                if (spUtil != null) {
+                    spUtil.closeConnection();
+                }
+                if (rs != null) {
+                    rs.close();
+                    rs = null;
+                }
+            } catch (Exception e) {
+                throw new Exception(e.getMessage());
+            }
+        }
+        return list;
+    }
+
+    public void importVendorOpeningStock(String date, VendorOpeningStockUploadBean bean) throws Exception {
+        if (bean == null) {
+            return;
+        }
+        SPUtil spUtil = null;
+        try {
+            String sql = "{call importVendorOpeningStock(?,?,?,?)}";
+            spUtil = new SPUtil(sql);
+            if (spUtil != null) {
+                spUtil.getCallableStatement().setString("_date", date);
+                spUtil.getCallableStatement().setInt("_organization_id", bean.getOrganizationId());
+                spUtil.getCallableStatement().setInt("_vendor_id", bean.getVendorId());
+                spUtil.getCallableStatement().setDouble("_in_stock", bean.getOpeningStock());
+                spUtil.execute();
+            }
+        } catch (SQLException sqle) {
+            throw new Exception(sqle.getMessage());
+        } catch (Exception ex) {
+            throw new Exception(ex.getMessage());
+        } finally {
+            try {
+                if (spUtil != null) {
+                    spUtil.closeConnection();
+                }
+            } catch (Exception e) {
+                throw new Exception(e.getMessage());
+            }
+        }
+    }
+
 }

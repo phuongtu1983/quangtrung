@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+	<workbook>
+        <worksheet name="Sheet1">
+			<section startRow="0" endRow="5">
+				<mapping cell="A1">out.name</mapping>
+                <mapping cell="E4">out.date</mapping>
+            </section>
+			<loop startRow="6" endRow="6" items="datas" var="data" varType="com.stepup.gasoline.qt.openingstock.shellgas.ShellGasOpeningStockUploadBean">
+                <section startRow="6" endRow="6">
+					<mapping row="6" col="0">data.organizationId</mapping>
+					<mapping row="6" col="1">data.vendorId</mapping>
+                    <mapping row="6" col="2">data.shellId</mapping>
+                    <mapping row="6" col="6">data.openingStock</mapping>
+                </section>
+                <loopbreakcondition>
+					<rowcheck offset="0">
+						<cellcheck offset="0">This point is end of data import process</cellcheck>
+                    </rowcheck>
+                </loopbreakcondition>
+			</loop>
+		</worksheet>
+	</workbook>

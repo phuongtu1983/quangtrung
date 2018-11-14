@@ -29,6 +29,8 @@ function menuClick(id) {
         loadPermissionPanel();
     else if (id == 'parameter')
         loadParameterPanel();
+    else if (id == 'openingstock')
+        loadOpeningStockPanel();
     else if (id == 'organizationlist')
         loadOrganizationPanel();
     else if (id == 'organizationadd')
@@ -8145,7 +8147,7 @@ function getAttchmentFile() {
                 s += ("id:" + file.id + ",name:" + file.name + ",uploaded:" + file.uploaded + ",error:" + file.error) + "\n";
             }
             if (file.uploaded == true) {
-                callAjaxCheckError("uploadAction.do?image=" + file.name + "&fileType=" + fileType + "&parentId=" + parentId, null, null, function(data) {
+                callAjaxCheckError("uploadAction.do?attachFile=1&image=" + file.name + "&fileType=" + fileType + "&parentId=" + parentId, null, null, function(data) {
                     prepareHidePopup('uploadFormshowHelpHideDiv');
                     loadAttchmentFileList(fileType, parentId);
                 });
@@ -9455,7 +9457,47 @@ function addLoVoEmployee() {
     });
     return false;
 }
-
+function loadOpeningStockPanel() {
+    callAjax("getOpeningStockPanel.do", null, null, function(data) {
+        clearContent();
+        setAjaxData(data, "contentDiv");
+        var myCalendar = new dhtmlXCalendarObject(["openingStockDate"]);
+        myCalendar.setSkin('dhx_web');
+        myCalendar.setDateFormat("%d/%m/%Y");
+    });
+}
+function printOpeningStockExport(kind){
+    var url = "exportOpeningStock.do?reportName=" + kind;
+    var date = document.getElementById("openingStockDate").value;
+    if (date !== null)
+        url += "&date=" + date;
+    callServer(url);
+    return false;
+}
+function importOpeningStock(openingStockKind) {
+    popupName = 'TH\u00D4NG TIN FILE';
+    callAjax("attchmentFileForm.do", null, null, function(data) {
+        showPopupForm(data);
+        vault = new dhtmlXVaultObject();
+        vault.setImagePath("js/dhtmlx/vault/imgs/");
+        vault.setServerHandlers("UploadHandler.do", "GetInfoHandler.do", "GetIdHandler.do");
+        vault.setFilesLimit(1);
+        vault.create("vaultDiv");
+        vault.onUploadComplete = function(files) {
+            var s = "";
+            for (var i = 0; i < files.length; i++) {
+                var file = files[i];
+                s += ("id:" + file.id + ",name:" + file.name + ",uploaded:" + file.uploaded + ",error:" + file.error) + "\n";
+            }
+            if (file.uploaded == true) {
+                callAjaxCheckError("uploadAction.do?openingStockKind="+openingStockKind+"&image=" + file.name, null, null, function(data) {
+                    prepareHidePopup('uploadFormshowHelpHideDiv');
+                });
+            }
+        };
+    });
+    return false;
+}
 
 
 

@@ -1187,6 +1187,13 @@
         <action path="/delSaleGood" type="com.stepup.gasoline.qt.salegood.DeleteSaleGoodAction" scope="request" validate="false" >
         </action>
         <!-- end sale good -->
+        <!-- start opening stock -->
+        <action path="/getOpeningStockPanel" type="com.stepup.gasoline.qt.core.SpineAction" scope="request" validate="false">
+            <forward name="success" path="/openingstock/openingstockpanel.jsp" />
+        </action>
+        <action path="/exportOpeningStock" type="com.stepup.gasoline.qt.openingstock.ExportOpeningStockAction" scope="request" validate="false" >
+        </action>
+        <!-- end opening stock -->
     </action-mappings>
     
     <controller processorClass="org.apache.struts.tiles.TilesRequestProcessor"/>

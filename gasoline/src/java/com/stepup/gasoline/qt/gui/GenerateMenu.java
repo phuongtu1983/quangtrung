@@ -33,7 +33,7 @@ public class GenerateMenu {
             StringBuilder buffTemp = new StringBuilder();
 
             if (isHasPermission(PermissionUtil.OPERATION_LIST + "," + PermissionUtil.OPERATION_ADD,
-                    PermissionUtil.PER_PERMISSION + "," + PermissionUtil.PER_USER + "," + PermissionUtil.PER_PARAMTER)) {
+                    PermissionUtil.PER_PERMISSION + "," + PermissionUtil.PER_USER + "," + PermissionUtil.PER_PARAMTER + "," + PermissionUtil.PER_OPENING_STOCK)) {
                 buffTemp.append("<item id=\"system\" complex=\"true\" text=\"").append(QTUtil.getBundleString("menu.admin.system.title")).append("\">");//start system
                 if (isHasPermission(PermissionUtil.OPERATION_LIST + "," + PermissionUtil.OPERATION_ADD, PermissionUtil.PER_USER)) {
                     buffTemp.append("<item id=\"users\" complex=\"true\" text=\"").append(QTUtil.getBundleString("user.title")).append("\">");//start users
@@ -50,6 +50,9 @@ public class GenerateMenu {
                 }
                 if (isHasPermission(PermissionUtil.OPERATION_LIST, PermissionUtil.PER_PERMISSION)) {
                     buffTemp.append("<item id=\"permissionlist\" text=\"").append(QTUtil.getBundleString("permission.title")).append("\"/>");//permission
+                }
+                if (isHasPermission(PermissionUtil.OPERATION_LIST, PermissionUtil.PER_OPENING_STOCK)) {
+                    buffTemp.append("<item id=\"openingstock\" text=\"").append(QTUtil.getBundleString("openingStock.title")).append("\"/>");//openingStock
                 }
                 buffTemp.append("</item>");//end system
             }

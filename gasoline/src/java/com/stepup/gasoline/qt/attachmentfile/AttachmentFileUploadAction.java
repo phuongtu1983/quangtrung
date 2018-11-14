@@ -10,6 +10,18 @@ import com.stepup.core.util.StringUtil;
 import com.stepup.gasoline.qt.bean.FileAttachmentBean;
 import com.stepup.gasoline.qt.core.SpineAction;
 import com.stepup.gasoline.qt.dao.FileAttachmentDAO;
+import com.stepup.gasoline.qt.openingstock.OpeningStockAction;
+import com.stepup.gasoline.qt.openingstock.accessory.ImportAccessoryOpeningStock;
+import com.stepup.gasoline.qt.openingstock.customer.ImportCustomerOpeningStock;
+import com.stepup.gasoline.qt.openingstock.good.ImportGoodOpeningStock;
+import com.stepup.gasoline.qt.openingstock.lpg.ImportLpgOpeningStock;
+import com.stepup.gasoline.qt.openingstock.money.ImportMoneyOpeningStock;
+import com.stepup.gasoline.qt.openingstock.petro.ImportPetroOpeningStock;
+import com.stepup.gasoline.qt.openingstock.promotionmaterial.ImportPromotionMaterialOpeningStock;
+import com.stepup.gasoline.qt.openingstock.shell.ImportShellOpeningStock;
+import com.stepup.gasoline.qt.openingstock.shellgas.ImportShellGasOpeningStock;
+import com.stepup.gasoline.qt.openingstock.shield.ImportShieldOpeningStock;
+import com.stepup.gasoline.qt.openingstock.vendor.ImportVendorOpeningStock;
 import com.stepup.gasoline.qt.util.Constants;
 import com.stepup.gasoline.qt.util.QTUtil;
 import javax.servlet.http.HttpServletRequest;
@@ -38,22 +50,62 @@ public class AttachmentFileUploadAction extends SpineAction {
             HttpServletRequest request, HttpServletResponse response) {
         try {
             String image = request.getParameter("image");
-            int fileType = NumberUtil.parseInt(request.getParameter("fileType"), 0);
-            String parentId = request.getParameter("parentId");
-            if (!StringUtil.isBlankOrNull(image)) {
-                int ind = image.lastIndexOf("\\");
-                if (ind > -1) {
-                    String name = image.substring(ind + 1);
-                    String fileName = request.getSession().getServletContext().getRealPath(Constants.UPLOAD_TEMP_PATH + "/" + name);
-                    String hrefDir = Constants.UPLOADED_PATH + "/" + UploadFileUtil.getUploadFolder(fileType);
-                    String destFileDir = request.getSession().getServletContext().getRealPath(hrefDir);
-                    FileUtil.copyFile(fileName, destFileDir, name);
-                    FileUtil.delete(fileName);
-                    FileAttachmentDAO fileDAO = new FileAttachmentDAO();
-                    FileAttachmentBean bean = new FileAttachmentBean(0, name, destFileDir + "/" + name, hrefDir + "/" + name, null, QTUtil.getMemberID(request.getSession()), fileType, NumberUtil.parseInt(parentId, 0));
-                    fileDAO.insertAttachmentFile(bean);
+            String attachFile = request.getParameter("attachFile");
+            if (!StringUtil.isBlankOrNull(attachFile)) {
+                int fileType = NumberUtil.parseInt(request.getParameter("fileType"), 0);
+                String parentId = request.getParameter("parentId");
+                if (!StringUtil.isBlankOrNull(image)) {
+                    int ind = image.lastIndexOf("\\");
+                    if (ind > -1) {
+                        String name = image.substring(ind + 1);
+                        String fileName = request.getSession().getServletContext().getRealPath(Constants.UPLOAD_TEMP_PATH + "/" + name);
+                        String hrefDir = Constants.UPLOADED_PATH + "/" + UploadFileUtil.getUploadFolder(fileType);
+                        String destFileDir = request.getSession().getServletContext().getRealPath(hrefDir);
+                        FileUtil.copyFile(fileName, destFileDir, name);
+                        FileUtil.delete(fileName);
+                        FileAttachmentDAO fileDAO = new FileAttachmentDAO();
+                        FileAttachmentBean bean = new FileAttachmentBean(0, name, destFileDir + "/" + name, hrefDir + "/" + name, null, QTUtil.getMemberID(request.getSession()), fileType, NumberUtil.parseInt(parentId, 0));
+                        fileDAO.insertAttachmentFile(bean);
+                    }
+                }
+            } else {
+                String openingStockKind = request.getParameter("openingStockKind");
+                if (!StringUtil.isBlankOrNull(openingStockKind)) {
+                    int ind = image.lastIndexOf("\\");
+                    if (ind > -1) {
+                        String name = image.substring(ind + 1);
+                        String fileName = request.getSession().getServletContext().getRealPath(Constants.UPLOAD_TEMP_PATH + "/" + name);
+                        OpeningStockAction upload = null;
+                        if (openingStockKind.equals("accessory")) {
+                            upload = new ImportAccessoryOpeningStock();
+                        } else if (openingStockKind.equals("customer")) {
+                            upload = new ImportCustomerOpeningStock();
+                        } else if (openingStockKind.equals("good")) {
+                            upload = new ImportGoodOpeningStock();
+                        } else if (openingStockKind.equals("lpg")) {
+                            upload = new ImportLpgOpeningStock();
+                        } else if (openingStockKind.equals("money")) {
+                            upload = new ImportMoneyOpeningStock();
+                        } else if (openingStockKind.equals("petro")) {
+                            upload = new ImportPetroOpeningStock();
+                        } else if (openingStockKind.equals("promotionMaterial")) {
+                            upload = new ImportPromotionMaterialOpeningStock();
+                        } else if (openingStockKind.equals("shellGas")) {
+                            upload = new ImportShellGasOpeningStock();
+                        } else if (openingStockKind.equals("shell")) {
+                            upload = new ImportShellOpeningStock();
+                        } else if (openingStockKind.equals("shield")) {
+                            upload = new ImportShieldOpeningStock();
+                        } else if (openingStockKind.equals("vendor")) {
+                            upload = new ImportVendorOpeningStock();
+                        }
+                        if (upload != null) {
+                            upload.runImport(request, fileName);
+                        }
+                    }
                 }
             }
+
         } catch (Exception ex) {
         }
         return true;

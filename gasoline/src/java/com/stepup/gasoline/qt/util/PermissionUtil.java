@@ -168,4 +168,5 @@ public class PermissionUtil {
     public static int PER_REPORT_GAS_EMPLOYEE_COMMISION = 80;
     public static int PER_REPORT_VENDOR_DEBT = 81;
     public static int PER_LO_VO = 82;
+    public static int PER_OPENING_STOCK = 83;
 }

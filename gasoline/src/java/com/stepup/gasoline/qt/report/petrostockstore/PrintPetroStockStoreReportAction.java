@@ -111,7 +111,7 @@ public class PrintPetroStockStoreReportAction extends BaseAction {
             }
             exporter.setHiddenCols(hiddenCols);
             exporter.setBeans(beans);
-            exporter.export(request, response, tempFileName, "report.xls");
+            exporter.export(request, response, tempFileName, "petro_stock_store_report.xls");
             f.delete();
         } catch (Exception ex) {
         }
