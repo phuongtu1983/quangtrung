@@ -13,8 +13,8 @@
             </td>
             <td><span><bean:write name="good" property="name"/></span></td>
             <td><span><bean:write name="good" property="unitName"/></span></td>
-            <td><input type="text" size="20" name="changeGoodQuantity" value="0" id="detchangegoodquantity${good.id}" onblur="return caculateSaleAccessoryChangeListDetail('${good.id}');" onkeyup="try2FloatFormatOnKeyUp(this, event);" onkeypress="return readonlyFloat(event);"/></td>
-            <td><input type="text" size="20" name="changeGoodPrice" value="0" id="detchangegoodprice${good.id}" onblur="return caculateSaleAccessoryChangeListDetail('${good.id}');" onkeyup="try2FloatFormatOnKeyUp(this, event);" onkeypress="return readonlyFloat(event);"/></td>
+            <td><input type="text" size="20" name="changeGoodQuantity" value="0" id="detchangegoodquantity${good.id}" onblur="return caculateSaleAccessoryChangeListDetail('${good.id}');" onkeypress="return readonlyFloat(event);"/></td>
+            <td><input type="text" size="20" name="changeGoodPrice" value="0" id="detchangegoodprice${good.id}" onblur="return caculateSaleAccessoryChangeListDetail('${good.id}');" onkeypress="return readonlyFloat(event);"/></td>
             <td><input type="text" size="20" name="changeGoodAmount" value="0" id="detchangegoodamount${good.id}" readonly="readonly"/></td>
         </tr>
     </logic:iterate>

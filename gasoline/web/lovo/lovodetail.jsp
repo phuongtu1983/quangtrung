@@ -16,7 +16,7 @@
         </tr>
         <tr>
             <td height="30" style="padding-right: 20px"><bean:message key="quantity.title"/></td>
-            <td colspan="3"><html:text property="quantity" size="30" name="<%=Constants.LO_VO%>" onkeyup="try2FloatFormatOnKeyUp(this,event);" onkeypress="return readonlyFloat(event);"/></td>
+            <td colspan="3"><html:text property="quantity" size="30" name="<%=Constants.LO_VO%>" onblur="tryNumberFormatCurrentcy(this);" onkeypress="return readonlyFloat(event);"/></td>
         </tr>
         <tr>
             <td height="30" style="padding-right: 20px"><bean:message key="note.title"/></td>

@@ -28,7 +28,7 @@
                         </tr>
                         <tr>
                             <td height="30" style="padding-right: 20px"><bean:message key="price.sale.title"/></td>
-                            <td><html:text property="price" size="30" name="<%=Constants.GAS_PRICE%>" onkeyup="try2FloatFormatOnKeyUp(this,event);" onkeypress="return readonlyFloat(event);"/></td>
+                            <td><html:text property="price" size="30" name="<%=Constants.GAS_PRICE%>" onblur="tryNumberFormatCurrentcy(this);" onkeypress="return readonlyFloat(event);"/></td>
                             <td style="padding-right: 20px;padding-left: 10px"><bean:message key="note.title"/></td>
                             <td><html:text property="note" size="30" name="<%=Constants.GAS_PRICE%>"/></td>
                         </tr>

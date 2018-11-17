@@ -24,8 +24,8 @@
                 </td>
                 <td><span><bean:write name="promotionMaterial" property="promotionMaterialName"/></span></td>
                 <td><span><bean:write name="promotionMaterial" property="unitName"/></span></td>
-                <td><input type="text" size="20" name="quantity" value="${promotionMaterial.quantity}" id="detquantity${promotionMaterial.promotionMaterialId}" onblur="return caculateFormListDetail('${promotionMaterial.promotionMaterialId}','promotionMaterialImportForm');" onkeyup="try2FloatFormatOnKeyUp(this,event);" onkeypress="return readonlyFloat(event);"/></td>
-                <td><input type="text" size="20" name="price" value="${promotionMaterial.price}" id="detprice${promotionMaterial.promotionMaterialId}" onblur="return caculateFormListDetail('${promotionMaterial.promotionMaterialId}','promotionMaterialImportForm');" onkeyup="try2FloatFormatOnKeyUp(this,event);" onkeypress="return readonlyFloat(event);"/></td>
+                <td><input type="text" size="20" name="quantity" value="${promotionMaterial.quantity}" id="detquantity${promotionMaterial.promotionMaterialId}" onblur="return caculateFormListDetail('${promotionMaterial.promotionMaterialId}','promotionMaterialImportForm');" onkeypress="return readonlyFloat(event);"/></td>
+                <td><input type="text" size="20" name="price" value="${promotionMaterial.price}" id="detprice${promotionMaterial.promotionMaterialId}" onblur="return caculateFormListDetail('${promotionMaterial.promotionMaterialId}','promotionMaterialImportForm');" onkeypress="return readonlyFloat(event);"/></td>
                 <td><input type="text" size="20" name="amount" value="${promotionMaterial.amount}" id="detamount${promotionMaterial.promotionMaterialId}" readonly="readonly"/></td>
             </tr>
         </logic:iterate>

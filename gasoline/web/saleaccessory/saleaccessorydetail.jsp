@@ -26,13 +26,13 @@
         </tr>
         <tr>
             <td height="30" style="padding-right: 20px"><bean:message key="discount.title"/></td>
-            <td><html:text property="discount" size="30" name="<%=Constants.SALE_ACCESSORY%>" onblur="return formPaidDiscountChanged('saleAccessoryForm');" onkeyup="try2FloatFormatOnKeyUp(this,event);" onkeypress="return readonlyFloat(event);"/></td>
+            <td><html:text property="discount" size="30" name="<%=Constants.SALE_ACCESSORY%>" onblur="return formPaidDiscountChanged('saleAccessoryForm');" onkeypress="return readonlyFloat(event);"/></td>
             <td style="padding-right: 20px;padding-left: 10px"><bean:message key="amount.title"/></td>
             <td><html:text property="totalPay" size="30" name="<%=Constants.SALE_ACCESSORY%>" readonly="true"/></td>
         </tr>
         <tr>
             <td height="30" style="padding-right: 20px"><bean:message key="paid.title"/></td>
-            <td><html:text property="paid" size="30" name="<%=Constants.SALE_ACCESSORY%>" onblur="return formPaidDiscountChanged('saleAccessoryForm');" onkeyup="try2FloatFormatOnKeyUp(this,event);" onkeypress="return readonlyFloat(event);"/></td>
+            <td><html:text property="paid" size="30" name="<%=Constants.SALE_ACCESSORY%>" onblur="return formPaidDiscountChanged('saleAccessoryForm');" onkeypress="return readonlyFloat(event);"/></td>
             <td style="padding-right: 20px;padding-left: 10px"><bean:message key="debt.title"/></td>
             <td><html:text property="debt" size="30" name="<%=Constants.SALE_ACCESSORY%>" readonly="true"/></td>
         </tr>

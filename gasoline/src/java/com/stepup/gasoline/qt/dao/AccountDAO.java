@@ -20,7 +20,7 @@ import java.util.ArrayList;
  */
 public class AccountDAO extends BasicDAO {
 
-    public ArrayList getAccounts(String organizationIds) throws Exception {
+    public ArrayList getAccountsList(String organizationIds) throws Exception {
         ResultSet rs = null;
         String sql = "SELECT a.*, o.name as organization_name"
                 + " FROM account AS a, organization as o WHERE a.organization_id=o.id and o.status=" + EmployeeBean.STATUS_ACTIVE;
@@ -36,6 +36,42 @@ public class AccountDAO extends BasicDAO {
                 bean = new AccountFormBean();
                 bean.setId(rs.getInt("id"));
                 bean.setNumber(rs.getString("number"));
+                bean.setHolder(rs.getString("holder"));
+                bean.setBank(rs.getString("bank"));
+                bean.setBranch(rs.getString("branch"));
+                bean.setNote(rs.getString("note"));
+                bean.setOrganizationId(rs.getInt("organization_id"));
+                bean.setOrganizationName(rs.getString("organization_name"));
+                equipmentList.add(bean);
+            }
+        } catch (SQLException sqle) {
+            throw new Exception(sqle.getMessage());
+        } catch (Exception ex) {
+            throw new Exception(ex.getMessage());
+        } finally {
+            if (rs != null) {
+                DBUtil.closeConnection(rs);
+            }
+        }
+        return equipmentList;
+    }
+
+    public ArrayList getAccounts(String organizationIds) throws Exception {
+        ResultSet rs = null;
+        String sql = "SELECT a.*, o.name as organization_name"
+                + " FROM account AS a, organization as o WHERE a.organization_id=o.id and o.status=" + EmployeeBean.STATUS_ACTIVE;
+        if (!StringUtil.isBlankOrNull(organizationIds)) {
+            sql += " and a.organization_id in(" + organizationIds + ")";
+        }
+        sql += " order by a.number desc";
+        ArrayList equipmentList = new ArrayList();
+        try {
+            rs = DBUtil.executeQuery(sql);
+            AccountFormBean bean = null;
+            while (rs.next()) {
+                bean = new AccountFormBean();
+                bean.setId(rs.getInt("id"));
+                bean.setNumber(rs.getString("number") + " - " + rs.getString("bank"));
                 bean.setHolder(rs.getString("holder"));
                 bean.setBank(rs.getString("bank"));
                 bean.setBranch(rs.getString("branch"));

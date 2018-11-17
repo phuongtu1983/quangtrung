@@ -13,7 +13,7 @@
             </td>
             <td><span><bean:write name="returnShell" property="shellName"/></span></td>
             <td><span><bean:write name="returnShell" property="unitName"/></span></td>
-            <td><input type="text" size="20" name="returnShellQuantity" value="0" onkeyup="try2FloatFormatOnKeyUp(this, event);" onkeypress="return readonlyFloat(event);"/></td>
+            <td><input type="text" size="20" name="returnShellQuantity" value="0" onblur="tryNumberFormatCurrentcy(this);" onkeypress="return readonlyFloat(event);"/></td>
         </tr>
     </logic:iterate>
 </table>

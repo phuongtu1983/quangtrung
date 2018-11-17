@@ -29,15 +29,15 @@
                         </tr>
                         <tr>
                             <td height="30" style="padding-right: 20px"><bean:message key="contract.detail.shell12"/></td>
-                            <td><html:text property="shell12Price" size="30" name="<%=Constants.CONTRACT%>" onkeyup="try2FloatFormatOnKeyUp(this,event);" onkeypress="return readonlyFloat(event);"/></td>
+                            <td><html:text property="shell12Price" size="30" name="<%=Constants.CONTRACT%>" onblur="tryNumberFormatCurrentcy(this);" onkeypress="return readonlyFloat(event);"/></td>
                             <td style="padding-right: 20px;padding-left: 10px"><bean:message key="contract.detail.shell45"/></td>
-                            <td><html:text property="shell45Price" size="30" name="<%=Constants.CONTRACT%>" onkeyup="try2FloatFormatOnKeyUp(this,event);" onkeypress="return readonlyFloat(event);"/></td>
+                            <td><html:text property="shell45Price" size="30" name="<%=Constants.CONTRACT%>" onblur="tryNumberFormatCurrentcy(this);" onkeypress="return readonlyFloat(event);"/></td>
                         </tr>
                         <tr>
                             <td height="30" style="padding-right: 20px"><bean:message key="contract.detail.creditDate"/></td>
-                            <td><html:text property="creditDate" size="30" name="<%=Constants.CONTRACT%>" onkeyup="try2FloatFormatOnKeyUp(this,event);" onkeypress="return readonlyFloat(event);"/></td>
+                            <td><html:text property="creditDate" size="30" name="<%=Constants.CONTRACT%>" onblur="tryNumberFormatCurrentcy(this);" onkeypress="return readonlyFloat(event);"/></td>
                             <td style="padding-right: 20px;padding-left: 10px"><bean:message key="contract.detail.creditAmount"/></td>
-                            <td><html:text property="creditAmount" size="30" name="<%=Constants.CONTRACT%>" onkeyup="try2FloatFormatOnKeyUp(this,event);" onkeypress="return readonlyFloat(event);"/></td>
+                            <td><html:text property="creditAmount" size="30" name="<%=Constants.CONTRACT%>" onblur="tryNumberFormatCurrentcy(this);" onkeypress="return readonlyFloat(event);"/></td>
                         </tr>
                         <tr>
                             <td height="30" style="padding-right: 20px"><bean:message key="note.title"/></td>

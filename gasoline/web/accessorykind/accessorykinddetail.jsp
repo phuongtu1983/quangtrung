@@ -14,7 +14,7 @@
                             <td height="30" style="padding-right: 20px"><bean:message key="accessoryKind.detail.name"/></td>
                             <td><html:text property="name" size="40" name="<%=Constants.ACCESSORY_KIND%>"/></td>
                             <td style="padding-right: 20px;padding-left: 10px"><bean:message key="accessoryKind.detail.commission"/></td>
-                            <td><html:text property="commission" size="40" name="<%=Constants.ACCESSORY_KIND%>" onkeyup="try2FloatFormatOnKeyUp(this,event);" onkeypress="return readonlyFloat(event);"/></td>
+                            <td><html:text property="commission" size="40" name="<%=Constants.ACCESSORY_KIND%>" onblur="tryNumberFormatCurrentcy(this);" onkeypress="return readonlyFloat(event);"/></td>
                         </tr>
                         <tr>
                             <td height="30" style="padding-right: 20px"><bean:message key="note.title"/></td>

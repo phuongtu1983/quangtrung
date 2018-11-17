@@ -30,13 +30,13 @@
         </tr>
         <tr>
             <td height="30" style="padding-right: 20px"><bean:message key="rate.title"/></td>
-            <td><html:text property="rate" size="30" name="<%=Constants.GOOD_IMPORT%>" onkeyup="try2FloatFormatOnKeyUp(this,event);" onkeypress="return readonlyFloat(event);"/></td>
+            <td><html:text property="rate" size="30" name="<%=Constants.GOOD_IMPORT%>" onblur="tryNumberFormatCurrentcy(this);" onkeypress="return readonlyFloat(event);"/></td>
             <td style="padding-right: 20px;padding-left: 10px"><bean:message key="total.title"/></td>
             <td><html:text property="total" size="30" name="<%=Constants.GOOD_IMPORT%>" readonly="true"/></td>
         </tr>
         <tr>
             <td height="30" style="padding-right: 20px"><bean:message key="paid.title"/></td>
-            <td><html:text property="paid" size="30" name="<%=Constants.GOOD_IMPORT%>" onblur="return formPaidChanged('goodImportForm');" onkeyup="try2FloatFormatOnKeyUp(this,event);" onkeypress="return readonlyFloat(event);"/></td>
+            <td><html:text property="paid" size="30" name="<%=Constants.GOOD_IMPORT%>" onblur="return formPaidChanged('goodImportForm');" onkeypress="return readonlyFloat(event);"/></td>
             <td style="padding-right: 20px;padding-left: 10px"><bean:message key="debt.title"/></td>
             <td><html:text property="debt" size="30" name="<%=Constants.GOOD_IMPORT%>" readonly="true"/></td>
         </tr>

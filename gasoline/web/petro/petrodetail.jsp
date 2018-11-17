@@ -24,7 +24,7 @@
                                 </html:select>
                             </td>
                             <td style="padding-right: 20px;padding-left: 10px"><bean:message key="price.sale.title"/></td>
-                            <td><html:text property="price" size="40" name="<%=Constants.PETRO%>" onkeyup="try2FloatFormatOnKeyUp(this,event);" onkeypress="return readonlyFloat(event);"/></td>
+                            <td><html:text property="price" size="40" name="<%=Constants.PETRO%>" onblur="tryNumberFormatCurrentcy(this);" onkeypress="return readonlyFloat(event);"/></td>
                         </tr>
                         <tr>
                             <td height="30" style="padding-right: 20px"><bean:message key="employee.detail.status"/></td>

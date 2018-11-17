@@ -34,7 +34,7 @@
                                 </div>
                             </td>
                             <td style="padding-right: 20px;padding-left: 10px"><bean:message key="employeeTimesheet.detail.count"/></td>
-                            <td><html:text property="quantity" size="30" name="<%=Constants.EMPLOYEE_TIMESHEET%>" onkeyup="try2FloatFormatOnKeyUp(this,event);" onkeypress="return readonlyFloat(event);"/></td>
+                            <td><html:text property="quantity" size="30" name="<%=Constants.EMPLOYEE_TIMESHEET%>" onblur="tryNumberFormatCurrentcy(this);" onkeypress="return readonlyFloat(event);"/></td>
                         </tr>
                         <tr>
                             <td height="30" style="padding-right: 20px"><bean:message key="note.title"/></td>

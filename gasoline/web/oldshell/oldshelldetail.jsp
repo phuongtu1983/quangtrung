@@ -26,7 +26,7 @@
                             </select>
                         </td>
                         <td style="padding-right: 20px;padding-left: 10px"><bean:message key="quantity.title"/></td>
-                        <td><html:text property="quantity" size="30" name="<%=Constants.OLD_SHELL%>" onkeyup="try2FloatFormatOnKeyUp(this,event);" onkeypress="return readonlyFloat(event);"/></td>
+                        <td><html:text property="quantity" size="30" name="<%=Constants.OLD_SHELL%>" onblur="tryNumberFormatCurrentcy(this);" onkeypress="return readonlyFloat(event);"/></td>
                     </tr>
                     <tr>
                         <td height="30" style="padding-right: 20px"><bean:message key="note.title"/></td>

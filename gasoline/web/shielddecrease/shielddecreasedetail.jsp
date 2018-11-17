@@ -18,7 +18,7 @@
                         </tr>
                         <tr>
                             <td height="30" style="padding-right: 20px"><bean:message key="quantity.title"/></td>
-                            <td><html:text property="quantity" size="30" name="<%=Constants.SHIELD_DECREASE%>" onkeyup="try2FloatFormatOnKeyUp(this,event);" onkeypress="return readonlyFloat(event);"/></td>
+                            <td><html:text property="quantity" size="30" name="<%=Constants.SHIELD_DECREASE%>" onblur="tryNumberFormatCurrentcy(this);" onkeypress="return readonlyFloat(event);"/></td>
                             <td style="padding-right: 20px;padding-left: 10px"><bean:message key="vendor.title"/></td>
                             <td>
                                 <html:select property="vendorId" name="<%=Constants.SHIELD_DECREASE%>" style="width:195px">

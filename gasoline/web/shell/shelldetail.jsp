@@ -18,7 +18,7 @@
                         </tr>
                         <tr>
                             <td height="30" style="padding-right: 20px"><bean:message key="price.sale.title"/></td>
-                            <td><html:text property="price" size="40" name="<%=Constants.SHELL%>" onkeyup="try2FloatFormatOnKeyUp(this,event);" onkeypress="return readonlyFloat(event);"/></td>
+                            <td><html:text property="price" size="40" name="<%=Constants.SHELL%>" onblur="tryNumberFormatCurrentcy(this);" onkeypress="return readonlyFloat(event);"/></td>
                             <td style="padding-right: 20px;padding-left: 10px"><bean:message key="shellKind.title"/></td>
                             <td>
                                 <html:select property="kindId" name="<%=Constants.SHELL%>" style="width:260px">

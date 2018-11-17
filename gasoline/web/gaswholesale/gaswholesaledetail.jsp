@@ -77,19 +77,19 @@
         </tr>
         <tr>
             <td height="30" style="padding-right: 20px"><bean:message key="gasReturn.title"/></td>
-            <td><html:text property="gasReturn" size="30" name="<%=Constants.GAS_WHOLESALE%>" onblur="return gasWholesaleGasReturnChanged();" onkeyup="try2FloatFormatOnKeyUp(this,event);" onkeypress="return readonlyFloat(event);"/></td>
+            <td><html:text property="gasReturn" size="30" name="<%=Constants.GAS_WHOLESALE%>" onblur="return gasWholesaleGasReturnChanged();" onkeypress="return readonlyFloat(event);"/></td>
             <td style="padding-right: 20px;padding-left: 10px"><bean:message key="price.title"/></td>
-            <td><html:text property="gasReturnPrice" size="30" name="<%=Constants.GAS_WHOLESALE%>" onblur="return gasWholesaleGasReturnChanged();" onkeyup="try2FloatFormatOnKeyUp(this,event);" onkeypress="return readonlyFloat(event);"/></td>
+            <td><html:text property="gasReturnPrice" size="30" name="<%=Constants.GAS_WHOLESALE%>" onblur="return gasWholesaleGasReturnChanged();" onkeypress="return readonlyFloat(event);"/></td>
         </tr>
         <tr>
             <td height="30" style="padding-right: 20px"><bean:message key="discount.title"/></td>
-            <td><html:text property="discount" size="30" name="<%=Constants.GAS_WHOLESALE%>" onblur="return gasWholesalePaidDiscountChanged();" onkeyup="try2FloatFormatOnKeyUp(this,event);" onkeypress="return readonlyFloat(event);"/></td>
+            <td><html:text property="discount" size="30" name="<%=Constants.GAS_WHOLESALE%>" onblur="return gasWholesalePaidDiscountChanged();" onkeypress="return readonlyFloat(event);"/></td>
             <td style="padding-right: 20px;padding-left: 10px"><bean:message key="amount.title"/></td>
             <td><html:text property="totalPay" size="30" name="<%=Constants.GAS_WHOLESALE%>" readonly="true" tabindex="-1"/></td>
         </tr>
         <tr>
             <td height="30" style="padding-right: 20px"><bean:message key="paid.title"/></td>
-            <td><html:text property="paid" size="30" name="<%=Constants.GAS_WHOLESALE%>" onblur="return gasWholesalePaidDiscountChanged();" onkeyup="try2FloatFormatOnKeyUp(this,event);" onkeypress="return readonlyFloat(event);"/></td>
+            <td><html:text property="paid" size="30" name="<%=Constants.GAS_WHOLESALE%>" onblur="return gasWholesalePaidDiscountChanged();" onkeypress="return readonlyFloat(event);"/></td>
             <td style="padding-right: 20px;padding-left: 10px"><bean:message key="debt.title"/></td>
             <td><html:text property="debt" size="30" name="<%=Constants.GAS_WHOLESALE%>" readonly="true" tabindex="-1"/></td>
         </tr>

@@ -24,13 +24,13 @@
                             <td height="30" style="padding-right: 20px"><bean:message key="fixedasset.detail.date"/></td>
                             <td><html:text property="startDate" styleId="fixedAssetStartDate" size="40" name="<%=Constants.FIXED_ASSET%>"/></td>
                             <td style="padding-right: 20px;padding-left: 10px"><bean:message key="quantity.title"/></td>
-                            <td><html:text property="quantity" size="40" name="<%=Constants.FIXED_ASSET%>" onkeyup="try2FloatFormatOnKeyUp(this,event);" onkeypress="return readonlyFloat(event);"/></td>
+                            <td><html:text property="quantity" size="40" name="<%=Constants.FIXED_ASSET%>" onblur="tryNumberFormatCurrentcy(this);" onkeypress="return readonlyFloat(event);"/></td>
                         </tr>
                         <tr>
                             <td height="30" style="padding-right: 20px"><bean:message key="fixedasset.detail.rate"/></td>
-                            <td><html:text property="rate" size="40" name="<%=Constants.FIXED_ASSET%>" onkeyup="try2FloatFormatOnKeyUp(this,event);" onkeypress="return readonlyFloat(event);"/></td>
+                            <td><html:text property="rate" size="40" name="<%=Constants.FIXED_ASSET%>" onblur="tryNumberFormatCurrentcy(this);" onkeypress="return readonlyFloat(event);"/></td>
                             <td style="padding-right: 20px;padding-left: 10px"><bean:message key="fixedasset.detail.month"/></td>
-                            <td><html:text property="monthCount" size="40" name="<%=Constants.FIXED_ASSET%>" onkeyup="try2FloatFormatOnKeyUp(this,event);" onkeypress="return readonlyFloat(event);"/></td>
+                            <td><html:text property="monthCount" size="40" name="<%=Constants.FIXED_ASSET%>" onblur="tryNumberFormatCurrentcy(this);" onkeypress="return readonlyFloat(event);"/></td>
                         </tr>
                         <tr>
                             <td height="30" style="padding-right: 20px"><bean:message key="unit.title"/></td>
@@ -40,7 +40,7 @@
                                 </html:select>
                             </td>
                             <td style="padding-left: 10px; padding-right: 20px"><bean:message key="price.title"/></td>
-                            <td><html:text property="price" size="40" name="<%=Constants.FIXED_ASSET%>" onkeyup="try2FloatFormatOnKeyUp(this,event);" onkeypress="return readonlyFloat(event);"/></td>
+                            <td><html:text property="price" size="40" name="<%=Constants.FIXED_ASSET%>" onblur="tryNumberFormatCurrentcy(this);" onkeypress="return readonlyFloat(event);"/></td>
                         </tr>
                         <tr>
                             <td height="30" style="padding-right: 20px"><bean:message key="employee.detail.status"/></td>

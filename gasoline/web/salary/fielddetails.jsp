@@ -19,7 +19,7 @@
                     <input type="hidden" name="salaryFieldId" value='<bean:write name="field" property="id"/>'/>
                     <span><bean:write name="field" property="fieldName"/></span>
                 </td>
-                <td><html:text name="field" property="amount" size="10" onblur="caculateSalaryTotal();" onkeyup="try2FloatFormatOnKeyUp(this,event);" onkeypress="return readonlyFloat(event);"/></td>
+                <td><html:text name="field" property="amount" size="10" onblur="caculateSalaryTotal();" onkeypress="return readonlyFloat(event);"/></td>
                 <td><html:text name="field" property="note" size="10"/></td>
             </tr>
         </logic:iterate>

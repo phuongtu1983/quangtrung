@@ -14,7 +14,7 @@
                             <td height="30" style="padding-right: 20px"><bean:message key="accessory.detail.name"/></td>
                             <td><html:text property="name" size="40" name="<%=Constants.ACCESSORY%>"/></td>
                             <td style="padding-right: 20px;padding-left: 10px"><bean:message key="price.sale.title"/></td>
-                            <td><html:text property="price" size="40" name="<%=Constants.ACCESSORY%>" onkeyup="try2FloatFormatOnKeyUp(this,event);" onkeypress="return readonlyFloat(event);"/></td>
+                            <td><html:text property="price" size="40" name="<%=Constants.ACCESSORY%>" onblur="tryNumberFormatCurrentcy(this);" onkeypress="return readonlyFloat(event);"/></td>
                         </tr>
                         <tr>
                             <td height="30" style="padding-right: 20px"><bean:message key="unit.title"/></td>

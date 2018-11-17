@@ -18,7 +18,7 @@
                         </tr>
                         <tr>
                             <td height="30" style="padding-right: 20px"><bean:message key="employee.detail.salary"/></td>
-                            <td colspan="3"><html:text property="salary" size="40" name="<%=Constants.EMPLOYEE_SALARY%>" onkeyup="try2FloatFormatOnKeyUp(this,event);" onkeypress="return readonlyFloat(event);"/></td>
+                            <td colspan="3"><html:text property="salary" size="40" name="<%=Constants.EMPLOYEE_SALARY%>" onblur="tryNumberFormatCurrentcy(this);" onkeypress="return readonlyFloat(event);"/></td>
                         </tr>
                         <tr>
                             <td height="30" style="padding-right: 20px" colspan="4">

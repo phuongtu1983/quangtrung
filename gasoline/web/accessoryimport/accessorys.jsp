@@ -13,8 +13,8 @@
             </td>
             <td><span><bean:write name="accessory" property="accessoryName"/></span></td>
             <td><span><bean:write name="accessory" property="unitName"/></span></td>
-            <td><input type="text" size="20" name="quantity" id="detquantity${accessory.accessoryId}" value="0" onblur="return caculateFormListDetail('${accessory.accessoryId}','accessoryImportForm');" onkeyup="try2FloatFormatOnKeyUp(this, event);" onkeypress="return readonlyFloat(event);"/></td>
-            <td><input type="text" size="20" name="price" id="detprice${accessory.accessoryId}" value="0" onblur="return caculateFormListDetail('${accessory.accessoryId}','accessoryImportForm');" onkeyup="try2FloatFormatOnKeyUp(this,event);" onkeypress="return readonlyFloat(event);"/></td>
+            <td><input type="text" size="20" name="quantity" id="detquantity${accessory.accessoryId}" value="0" onblur="return caculateFormListDetail('${accessory.accessoryId}','accessoryImportForm');" onkeypress="return readonlyFloat(event);"/></td>
+            <td><input type="text" size="20" name="price" id="detprice${accessory.accessoryId}" value="0" onblur="return caculateFormListDetail('${accessory.accessoryId}','accessoryImportForm');" onkeypress="return readonlyFloat(event);"/></td>
             <td><input type="text" size="20" name="amount" id="detamount${accessory.accessoryId}" value="0" readonly="readonly"/></td>
         </tr>
     </logic:iterate>
