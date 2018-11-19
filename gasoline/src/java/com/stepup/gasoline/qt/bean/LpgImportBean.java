@@ -17,7 +17,9 @@ public class LpgImportBean {
     private int paperQuantity;
     private int actualQuantity;
     private double price;
+    private double vat;
     private double total;
+    private double invoiceTotal;
     private double paid;
     private double debt;
     private double rate;
@@ -157,6 +159,22 @@ public class LpgImportBean {
 
     public void setRouteId(int routeId) {
         this.routeId = routeId;
+    }
+
+    public double getVat() {
+        return vat;
+    }
+
+    public void setVat(double vat) {
+        this.vat = vat;
+    }
+
+    public double getInvoiceTotal() {
+        return invoiceTotal;
+    }
+
+    public void setInvoiceTotal(double invoiceTotal) {
+        this.invoiceTotal = invoiceTotal;
     }
 
 }

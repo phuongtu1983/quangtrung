@@ -14,6 +14,7 @@ public class EmployeeOffIncreaseBean {
     private String code;
     private String createdDate;
     private int employeeId;
+    private int createdEmployeeId;
     private int quantity;
     private String note;
 
@@ -63,6 +64,14 @@ public class EmployeeOffIncreaseBean {
 
     public void setQuantity(int quantity) {
         this.quantity = quantity;
+    }
+
+    public int getCreatedEmployeeId() {
+        return createdEmployeeId;
+    }
+
+    public void setCreatedEmployeeId(int createdEmployeeId) {
+        this.createdEmployeeId = createdEmployeeId;
     }
 
 }

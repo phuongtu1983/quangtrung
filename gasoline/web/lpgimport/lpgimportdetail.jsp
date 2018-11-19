@@ -23,21 +23,26 @@
                                     <html:options collection="<%=Constants.VENDOR_LIST%>" property="id" labelProperty="name"/>
                                 </html:select>
                             </td>
-                            <td style="padding-right: 20px;padding-left: 10px"><bean:message key="lpgImport.detail.paperQuantity"/></td>
-                            <td><html:text property="paperQuantity" size="30" name="<%=Constants.LPG_IMPORT%>" onblur="tryNumberFormatCurrentcy(this);" onkeypress="return readonlyFloat(event);"/></td>
+                            <td style="padding-right: 20px;padding-left: 10px"><bean:message key="route.title"/></td>
+                            <td>
+                                <select style="width: 195px;" name="routeIdCombobox" id="routeIdCombobox">
+                                    <logic:iterate id="route_iter" name="<%=Constants.ROUTE_LIST%>">
+                                        <option  value="${route_iter.id}">${route_iter.name}</option>
+                                    </logic:iterate>
+                                </select>
+                            </td>
                         </tr>
                         <tr>
-                            <td height="30" style="padding-right: 20px"><bean:message key="lpgImport.detail.actualQuantity"/></td>
-                            <td>
-                                <logic:equal name="<%=Constants.LPG_IMPORT%>" property="canEdit" value="1">
-                                    <html:text property="actualQuantity" size="30" name="<%=Constants.LPG_IMPORT%>" onblur="return lpgImportCaculateAmount();" onkeypress="return readonlyFloat(event);"/>
-                                </logic:equal>
-                                <logic:equal name="<%=Constants.LPG_IMPORT%>" property="canEdit" value="0">
-                                    <html:text property="actualQuantity" size="30" name="<%=Constants.LPG_IMPORT%>" readonly="true"/>
-                                </logic:equal>
-                            </td>
-                            <td style="padding-right: 20px;padding-left: 10px"><bean:message key="price.title"/></td>
+                            <td height="30" style="padding-right: 20px"><bean:message key="lpgImport.detail.paperQuantity"/></td>
+                            <td><html:text property="paperQuantity" size="30" name="<%=Constants.LPG_IMPORT%>" onblur="tryNumberFormatCurrentcy(this);" onkeypress="return readonlyFloat(event);"/></td>
+                            <td style="padding-right: 20px;padding-left: 10px"><bean:message key="lpgImport.detail.actualQuantity"/></td>
+                            <td><html:text property="actualQuantity" size="30" name="<%=Constants.LPG_IMPORT%>" onblur="return lpgImportCaculateAmount();" onkeypress="return readonlyFloat(event);"/></td>
+                        </tr>
+                        <tr>
+                            <td height="30" style="padding-right: 20px"><bean:message key="price.title"/></td>
                             <td><html:text property="price" size="30" name="<%=Constants.LPG_IMPORT%>" onblur="return lpgImportCaculateAmount();" onkeypress="return readonlyFloat(event);"/></td>
+                            <td style="padding-right: 20px;padding-left: 10px"><bean:message key="tax.title"/></td>
+                            <td><html:text property="vat" size="30" name="<%=Constants.LPG_IMPORT%>" onblur="return lpgImportCaculateAmount();" onkeypress="return readonlyFloat(event);"/></td>
                         </tr>
                         <tr>
                             <td height="30" style="padding-right: 20px"><bean:message key="rate.title"/></td>
@@ -46,28 +51,24 @@
                             <td><html:text property="total" size="30" name="<%=Constants.LPG_IMPORT%>" readonly="true"/></td>
                         </tr>
                         <tr>
-                            <td height="30" style="padding-right: 20px"><bean:message key="paid.title"/></td>
-                            <td><html:text property="paid" size="30" name="<%=Constants.LPG_IMPORT%>" onblur="return formPaidChanged('lpgImportForm');" onkeypress="return readonlyFloat(event);"/></td>
-                            <td style="padding-right: 20px;padding-left: 10px"><bean:message key="debt.title"/></td>
-                            <td><html:text property="debt" size="30" name="<%=Constants.LPG_IMPORT%>" readonly="true"/></td>
+                            <td height="30" style="padding-right: 20px"><bean:message key="amount.invoice.title"/></td>
+                            <td><html:text property="invoiceTotal" size="30" name="<%=Constants.LPG_IMPORT%>" onblur="return formInvoiceTotalChanged('lpgImportForm');" onkeypress="return readonlyFloat(event);"/></td>
+                            <td style="padding-right: 20px;padding-left: 10px"><bean:message key="paid.title"/></td>
+                            <td><html:text property="paid" size="30" name="<%=Constants.LPG_IMPORT%>" onblur="return lpgImportPaidChanged();" onkeypress="return readonlyFloat(event);"/></td>
                         </tr>
                         <tr>
-                            <td height="30" style="padding-right: 20px"><bean:message key="account.title"/></td>
+                            <td height="30" style="padding-right: 20px"><bean:message key="debt.title"/></td>
+                            <td><html:text property="debt" size="30" name="<%=Constants.LPG_IMPORT%>" readonly="true"/></td>
+                            <td style="padding-right: 20px;padding-left: 10px"><bean:message key="account.title"/></td>
                             <td>
                                 <html:select property="accountId" name="<%=Constants.LPG_IMPORT%>" style="width:195px">
                                     <html:options collection="<%=Constants.ACCOUNT_LIST%>" property="id" labelProperty="number"/>
                                 </html:select>
                             </td>
-                            <td style="padding-right: 20px;padding-left: 10px"><bean:message key="route.title"/></td>
-                            <td>
-                                <html:select property="routeId" name="<%=Constants.LPG_IMPORT%>" style="width:195px">
-                                    <html:options collection="<%=Constants.ROUTE_LIST%>" property="id" labelProperty="name"/>
-                                </html:select>
-                            </td>
                         </tr>
                         <tr>
                             <td height="30" style="padding-right: 20px"><bean:message key="note.title"/></td>
-                            <td colspan="3"><html:text property="note" size="86" name="<%=Constants.LPG_IMPORT%>" /></td>
+                            <td colspan="3"><html:text property="note" size="93" name="<%=Constants.LPG_IMPORT%>" /></td>
                         </tr>
                     </table>
                 </td></tr>
@@ -89,7 +90,7 @@
                                 <%}%>
                             </logic:equal>
                             <%if (PermissionUtil.hasPermission(request, PermissionUtil.OPERATION_ADD, PermissionUtil.PER_LPG_SALE)) {%> 
-                            <button class="i_bended_arrow_left icon small blue" onclick="return getLpgSale(0,'loadLpgSalePanel',<bean:write name="<%=Constants.LPG_IMPORT%>" property="id"/>);"><bean:message key="lpgSale.title"/></button>
+                            <button class="i_bended_arrow_left icon small blue" onclick="return getLpgSale(0, 'loadLpgSalePanel',<bean:write name="<%=Constants.LPG_IMPORT%>" property="id"/>);"><bean:message key="lpgSale.title"/></button>
                             <%}%>
                         </logic:greaterThan>
                         <button class="i_access_denied icon small yellow" onclick="return prepareHidePopup('lpgImportFormshowHelpHideDiv');"><bean:message key="message.close"/></button>
@@ -98,6 +99,8 @@
         </table> 
         <html:hidden property="id" name="<%=Constants.LPG_IMPORT%>" />
         <input type="hidden" id="callbackFunc"/>
+        <html:hidden property="routeId" name="<%=Constants.LPG_IMPORT%>" />
+        <input type="hidden" name="routeSelectedHidden" value="0"/>
     </form>
     <div name="lpgImportFormshowHelpHideDiv" id="showHelpHideDiv" style="display:none">
         Ctrl+C : Đóng

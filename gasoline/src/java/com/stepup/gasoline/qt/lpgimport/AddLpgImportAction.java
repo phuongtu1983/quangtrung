@@ -47,6 +47,8 @@ public class AddLpgImportAction extends SpineAction {
         bean.setPaperQuantity(formBean.getPaperQuantity());
         bean.setActualQuantity(formBean.getActualQuantity());
         bean.setPrice(formBean.getPrice());
+        bean.setVat(formBean.getVat());
+        bean.setInvoiceTotal(formBean.getInvoiceTotal());
         bean.setTotal(formBean.getTotal());
         bean.setPaid(formBean.getPaid());
         bean.setDebt(formBean.getDebt());

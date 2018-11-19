@@ -19,9 +19,11 @@
                         <tr>
                             <td height="30" style="padding-right: 20px"><bean:message key="vendor.title"/></td>
                             <td>
-                                <html:select property="vendorId" name="<%=Constants.DEBT_VENDOR%>" style="width:195px">
-                                    <html:options collection="<%=Constants.VENDOR_LIST%>" property="id" labelProperty="name"/>
-                                </html:select>
+                                <select style="width: 195px;" name="vendorIdCombobox" id="vendorIdCombobox">
+                                    <logic:iterate id="vendor_iter" name="<%=Constants.VENDOR_LIST%>">
+                                        <option  value="${vendor_iter.id}">${vendor_iter.name}</option>
+                                    </logic:iterate>
+                                </select>
                             </td>
                             <td style="padding-right: 20px;padding-left: 10px"><bean:message key="paid.title"/></td>
                             <td><html:text property="paid" size="30" name="<%=Constants.DEBT_VENDOR%>" onblur="tryNumberFormatCurrentcy(this);" onkeypress="return readonlyFloat(event);"/></td>
@@ -64,6 +66,8 @@
         </table> 
         <html:hidden property="id" name="<%=Constants.DEBT_VENDOR%>" />
         <input type="hidden" id="callbackFunc"/>
+        <html:hidden property="vendorId" name="<%=Constants.DEBT_VENDOR%>" />
+        <input type="hidden" name="vendorSelectedHidden" value="0"/>
     </form>
     <div name="debtVendorFormshowHelpHideDiv" id="showHelpHideDiv" style="display:none">
         Ctrl+C : Đóng

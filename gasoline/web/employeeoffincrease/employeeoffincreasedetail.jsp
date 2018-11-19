@@ -19,9 +19,11 @@
                         <tr>
                             <td height="30" style="padding-right: 20px"><bean:message key="employee.title"/></td>
                             <td>
-                                <html:select property="employeeId" name="<%=Constants.EMPLOYEE_OFF_INCREASE%>" style="width:195px">
-                                    <html:options collection="<%=Constants.EMPLOYEE_LIST%>" property="id" labelProperty="fullname"/>
-                                </html:select>
+                                <select style="width: 195px;" name="employeeIdCombobox" id="employeeIdCombobox">
+                                    <logic:iterate id="employee_iter" name="<%=Constants.EMPLOYEE_LIST%>">
+                                        <option  value="${employee_iter.id}">${employee_iter.fullname}</option>
+                                    </logic:iterate>
+                                </select>
                             </td>
                             <td style="padding-right: 20px;padding-left: 10px"><bean:message key="employeeOffIncrease.detail.quantity"/></td>
                             <td><html:text property="quantity" size="30" name="<%=Constants.EMPLOYEE_OFF_INCREASE%>" /></td>
@@ -56,6 +58,8 @@
         </table> 
         <html:hidden property="id" name="<%=Constants.EMPLOYEE_OFF_INCREASE%>" />
         <input type="hidden" id="callbackFunc"/>
+        <html:hidden property="employeeId" name="<%=Constants.EMPLOYEE_OFF_INCREASE%>" />
+        <input type="hidden" name="employeeSelectedHidden" value="0"/>
     </form>
     <div name="employeeOffIncreaseFormshowHelpHideDiv" id="showHelpHideDiv" style="display:none">
         Ctrl+C : Đóng

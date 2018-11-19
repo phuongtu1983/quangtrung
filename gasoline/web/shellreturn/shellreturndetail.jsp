@@ -17,9 +17,11 @@
         <tr>
             <td height="30" style="padding-right: 20px"><bean:message key="customer.title"/></td>
             <td>
-                <html:select property="customerId" name="<%=Constants.SHELL_RETURN%>" style="width:195px">
-                    <html:options collection="<%=Constants.CUSTOMER_LIST%>" property="id" labelProperty="name"/>
-                </html:select>
+                <select style="width: 195px;" name="customerIdCombobox" id="customerIdCombobox">
+                    <logic:iterate id="customer_iter" name="<%=Constants.CUSTOMER_LIST%>">
+                        <option  value="${customer_iter.id}">${customer_iter.name}</option>
+                    </logic:iterate>
+                </select>
             </td>
             <td style="padding-right: 20px;padding-left: 10px"><bean:message key="vehicle.title"/></td>
             <td>
@@ -85,6 +87,8 @@
     <html:hidden property="id" name="<%=Constants.SHELL_RETURN%>" />
     <input type="hidden" id="callbackFunc"/>
     <input type="hidden" name="shellSelectedHidden" value="0"/>
+    <html:hidden property="customerId" name="<%=Constants.SHELL_RETURN%>" />
+    <input type="hidden" name="customerSelectedHidden" value="0"/>
 </form>
 <div name="shellReturnFormshowHelpHideDiv" id="showHelpHideDiv" style="display:none">
     Ctrl+C : Đóng

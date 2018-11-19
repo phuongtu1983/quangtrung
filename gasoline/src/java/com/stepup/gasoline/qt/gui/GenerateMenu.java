@@ -729,16 +729,16 @@ public class GenerateMenu {
                     }
                     buffTemp.append("</item>");
                 }
-                if (isHasPermission(PermissionUtil.OPERATION_LIST + "," + PermissionUtil.OPERATION_ADD, PermissionUtil.PER_DEBT_RETAIL)) {
-                    buffTemp.append("<item id=\"debtretails\" complex=\"true\" text=\"").append(QTUtil.getBundleString("debtRetail.title")).append("\">");
-                    if (isHasPermission(PermissionUtil.OPERATION_LIST, PermissionUtil.PER_DEBT_RETAIL)) {
-                        buffTemp.append("<item id=\"debtretaillist\" text=\"").append(QTUtil.getBundleString("debtRetail.list.title")).append("\"/>");
-                    }
-                    if (isHasPermission(PermissionUtil.OPERATION_ADD, PermissionUtil.PER_DEBT_RETAIL)) {
-                        buffTemp.append("<item id=\"debtretailadd\" text=\"").append(QTUtil.getBundleString("debtRetail.detail.add.title")).append("\"/>");
-                    }
-                    buffTemp.append("</item>");
-                }
+//                if (isHasPermission(PermissionUtil.OPERATION_LIST + "," + PermissionUtil.OPERATION_ADD, PermissionUtil.PER_DEBT_RETAIL)) {
+//                    buffTemp.append("<item id=\"debtretails\" complex=\"true\" text=\"").append(QTUtil.getBundleString("debtRetail.title")).append("\">");
+//                    if (isHasPermission(PermissionUtil.OPERATION_LIST, PermissionUtil.PER_DEBT_RETAIL)) {
+//                        buffTemp.append("<item id=\"debtretaillist\" text=\"").append(QTUtil.getBundleString("debtRetail.list.title")).append("\"/>");
+//                    }
+//                    if (isHasPermission(PermissionUtil.OPERATION_ADD, PermissionUtil.PER_DEBT_RETAIL)) {
+//                        buffTemp.append("<item id=\"debtretailadd\" text=\"").append(QTUtil.getBundleString("debtRetail.detail.add.title")).append("\"/>");
+//                    }
+//                    buffTemp.append("</item>");
+//                }
                 if (isHasPermission(PermissionUtil.OPERATION_LIST + "," + PermissionUtil.OPERATION_ADD, PermissionUtil.PER_DEBT_WHOLESALE)) {
                     buffTemp.append("<item id=\"debtwholesales\" complex=\"true\" text=\"").append(QTUtil.getBundleString("debtWholesale.title")).append("\">");
                     if (isHasPermission(PermissionUtil.OPERATION_LIST, PermissionUtil.PER_DEBT_WHOLESALE)) {

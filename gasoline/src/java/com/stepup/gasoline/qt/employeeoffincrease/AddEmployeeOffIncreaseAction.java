@@ -7,6 +7,7 @@ package com.stepup.gasoline.qt.employeeoffincrease;
 import com.stepup.gasoline.qt.bean.EmployeeOffIncreaseBean;
 import com.stepup.gasoline.qt.core.SpineAction;
 import com.stepup.gasoline.qt.dao.EmployeeDAO;
+import com.stepup.gasoline.qt.util.QTUtil;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import org.apache.struts.action.ActionForm;
@@ -45,6 +46,7 @@ public class AddEmployeeOffIncreaseAction extends SpineAction {
         bean.setQuantity(formBean.getQuantity());
         bean.setCode(formBean.getCode());
         bean.setNote(formBean.getNote());
+        bean.setCreatedEmployeeId(QTUtil.getEmployeeId(request.getSession()));
         try {
             if (bNew) {
                 employeeDAO.insertEmployeeOffIncrease(bean);

@@ -16,6 +16,7 @@ public class LpgSaleBean {
     private int customerId;
     private int quantity;
     private double price;
+    private double vat;
     private double rate;
     private double total;
     private double paid;
@@ -157,6 +158,14 @@ public class LpgSaleBean {
 
     public void setRouteId(int routeId) {
         this.routeId = routeId;
+    }
+
+    public double getVat() {
+        return vat;
+    }
+
+    public void setVat(double vat) {
+        this.vat = vat;
     }
 
 }

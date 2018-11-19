@@ -144,7 +144,9 @@ public class GasDAO extends BasicDAO {
                 bean.setPaperQuantity(rs.getInt("paper_quantity"));
                 bean.setActualQuantity(rs.getInt("actual_quantity"));
                 bean.setPrice(rs.getDouble("price"));
+                bean.setVat(rs.getDouble("vat"));
                 bean.setTotal(rs.getDouble("amount"));
+                bean.setInvoiceTotal(rs.getDouble("invoice_amount"));
                 bean.setPaid(rs.getDouble("paid"));
                 bean.setDebt(rs.getDouble("debt"));
                 bean.setRate(rs.getDouble("rate"));
@@ -179,7 +181,7 @@ public class GasDAO extends BasicDAO {
             } else {
                 createdDate = bean.getImportDate();
             }
-            String sql = "{call insertLpgImport(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)}";
+            String sql = "{call insertLpgImport(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)}";
             spUtil = new SPUtil(sql);
             if (spUtil != null) {
                 spUtil.getCallableStatement().setString("_code", bean.getCode());
@@ -188,6 +190,8 @@ public class GasDAO extends BasicDAO {
                 spUtil.getCallableStatement().setInt("_paper_quantity", bean.getPaperQuantity());
                 spUtil.getCallableStatement().setInt("_actual_quantity", bean.getActualQuantity());
                 spUtil.getCallableStatement().setDouble("_price", bean.getPrice());
+                spUtil.getCallableStatement().setDouble("_vat", bean.getVat());
+                spUtil.getCallableStatement().setDouble("_invoice_amount", bean.getInvoiceTotal());
                 spUtil.getCallableStatement().setDouble("_amount", bean.getTotal());
                 spUtil.getCallableStatement().setDouble("_paid", bean.getPaid());
                 spUtil.getCallableStatement().setDouble("_debt", bean.getDebt());
@@ -228,7 +232,7 @@ public class GasDAO extends BasicDAO {
             } else {
                 createdDate = bean.getImportDate();
             }
-            String sql = "{call updateLpgImport(?,?,?,?,?,?,?,?,?,?,?,?,?)}";
+            String sql = "{call updateLpgImport(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)}";
             spUtil = new SPUtil(sql);
             if (spUtil != null) {
                 spUtil.getCallableStatement().setInt("_id", bean.getId());
@@ -237,6 +241,8 @@ public class GasDAO extends BasicDAO {
                 spUtil.getCallableStatement().setInt("_paper_quantity", bean.getPaperQuantity());
                 spUtil.getCallableStatement().setInt("_actual_quantity", bean.getActualQuantity());
                 spUtil.getCallableStatement().setDouble("_price", bean.getPrice());
+                spUtil.getCallableStatement().setDouble("_vat", bean.getVat());
+                spUtil.getCallableStatement().setDouble("_invoice_amount", bean.getInvoiceTotal());
                 spUtil.getCallableStatement().setDouble("_amount", bean.getTotal());
                 spUtil.getCallableStatement().setDouble("_paid", bean.getPaid());
                 spUtil.getCallableStatement().setDouble("_debt", bean.getDebt());
@@ -5168,6 +5174,7 @@ public class GasDAO extends BasicDAO {
                 bean.setSaleDate(DateUtil.formatDate(rs.getDate("sale_date"), "dd/MM/yyyy"));
                 bean.setQuantity(rs.getInt("quantity"));
                 bean.setPrice(rs.getDouble("price"));
+                bean.setVat(rs.getDouble("vat"));
                 bean.setRate(rs.getDouble("rate"));
                 bean.setTotal(rs.getDouble("amount"));
                 bean.setPaid(rs.getDouble("paid"));
@@ -5204,7 +5211,7 @@ public class GasDAO extends BasicDAO {
             } else {
                 createdDate = bean.getSaleDate();
             }
-            String sql = "{call insertLpgSale(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)}";
+            String sql = "{call insertLpgSale(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)}";
             spUtil = new SPUtil(sql);
             if (spUtil != null) {
                 spUtil.getCallableStatement().setString("_code", bean.getCode());
@@ -5212,6 +5219,7 @@ public class GasDAO extends BasicDAO {
                 spUtil.getCallableStatement().setString("_sale_date", createdDate);
                 spUtil.getCallableStatement().setInt("_quantity", bean.getQuantity());
                 spUtil.getCallableStatement().setDouble("_price", bean.getPrice());
+                spUtil.getCallableStatement().setDouble("_vat", bean.getVat());
                 spUtil.getCallableStatement().setDouble("_rate", bean.getRate());
                 spUtil.getCallableStatement().setDouble("_amount", bean.getTotal());
                 spUtil.getCallableStatement().setDouble("_paid", bean.getPaid());
@@ -5253,7 +5261,7 @@ public class GasDAO extends BasicDAO {
             } else {
                 createdDate = bean.getSaleDate();
             }
-            String sql = "{call updateLpgSale(?,?,?,?,?,?,?,?,?,?,?,?,?)}";
+            String sql = "{call updateLpgSale(?,?,?,?,?,?,?,?,?,?,?,?,?,?)}";
             spUtil = new SPUtil(sql);
             if (spUtil != null) {
                 spUtil.getCallableStatement().setInt("_id", bean.getId());
@@ -5261,6 +5269,7 @@ public class GasDAO extends BasicDAO {
                 spUtil.getCallableStatement().setString("_sale_date", createdDate);
                 spUtil.getCallableStatement().setInt("_quantity", bean.getQuantity());
                 spUtil.getCallableStatement().setDouble("_price", bean.getPrice());
+                spUtil.getCallableStatement().setDouble("_vat", bean.getVat());
                 spUtil.getCallableStatement().setDouble("_rate", bean.getRate());
                 spUtil.getCallableStatement().setDouble("_amount", bean.getTotal());
                 spUtil.getCallableStatement().setDouble("_paid", bean.getPaid());

@@ -99,6 +99,7 @@
     <html:hidden property="id" name="<%=Constants.GAS_IMPORT%>" />
     <input type="hidden" id="callbackFunc"/>
     <input type="hidden" name="foodSelectedHidden" value="0"/>
+    <input type="hidden" name="shellSelectedHidden" value="0"/>
 </form>
 <div name="gasImportFormshowHelpHideDiv" id="showHelpHideDiv" style="display:none">
     Ctrl+C : Đóng

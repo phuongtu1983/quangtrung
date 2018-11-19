@@ -19,9 +19,11 @@
                         <tr>
                             <td height="30" style="padding-right: 20px"><bean:message key="shell.title"/></td>
                             <td>
-                                <html:select property="shellId" name="<%=Constants.SHELL_IMPORT%>" style="width:255px">
-                                    <html:options collection="<%=Constants.SHELL_LIST%>" property="id" labelProperty="name"/>
-                                </html:select>
+                                <select style="width: 250px;" name="shellIdCombobox" id="shellIdCombobox">
+                                    <logic:iterate id="shell_iter" name="<%=Constants.SHELL_LIST%>">
+                                        <option  value="${shell_iter.id}">${shell_iter.name}</option>
+                                    </logic:iterate>
+                                </select>
                             </td>
                             <td style="padding-right: 20px;padding-left: 10px"><bean:message key="vendor.title"/></td>
                             <td><html:select property="vendorId" name="<%=Constants.SHELL_IMPORT%>" style="width:255px">
@@ -78,6 +80,8 @@
         </table> 
         <html:hidden property="id" name="<%=Constants.SHELL_IMPORT%>" />
         <input type="hidden" id="callbackFunc"/>
+        <html:hidden property="shellId" name="<%=Constants.SHELL_IMPORT%>" />
+    <input type="hidden" name="shellSelectedHidden" value="0"/>
     </form>
     <div name="shellImportFormshowHelpHideDiv" id="showHelpHideDiv" style="display:none">
         Ctrl+C : Đóng

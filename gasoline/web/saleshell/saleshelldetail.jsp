@@ -27,9 +27,11 @@
         <tr>
             <td height="30" style="padding-right: 20px""><bean:message key="customer.title"/></td>
             <td colspan="3">
-                <html:select property="customerId" name="<%=Constants.SALE_SHELL%>" style="width:195px">
-                    <html:options collection="<%=Constants.CUSTOMER_LIST%>" property="id" labelProperty="name"/>
-                </html:select>
+                <select style="width: 195px;" name="customerIdCombobox" id="customerIdCombobox">
+                    <logic:iterate id="customer_iter" name="<%=Constants.CUSTOMER_LIST%>">
+                        <option  value="${customer_iter.id}">${customer_iter.name}</option>
+                    </logic:iterate>
+                </select>
             </td>
         </tr>
         <tr>
@@ -99,6 +101,8 @@
     <html:hidden property="id" name="<%=Constants.SALE_SHELL%>" />
     <input type="hidden" id="callbackFunc"/>
     <input type="hidden" name="shellSelectedHidden" value="0"/>
+    <html:hidden property="customerId" name="<%=Constants.SALE_SHELL%>" />
+    <input type="hidden" name="customerSelectedHidden" value="0"/>
 </form>
 <div name="saleShellFormshowHelpHideDiv" id="showHelpHideDiv" style="display:none">
     Ctrl+C : Đóng

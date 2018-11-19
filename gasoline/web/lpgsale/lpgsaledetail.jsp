@@ -19,15 +19,19 @@
                         <tr>
                             <td height="30" style="padding-right: 20px"><bean:message key="customer.title"/></td>
                             <td>
-                                <html:select property="customerId" name="<%=Constants.LPG_SALE%>" style="width:195px">
-                                    <html:options collection="<%=Constants.CUSTOMER_LIST%>" property="id" labelProperty="name"/>
-                                </html:select>
+                                <select style="width: 195px;" name="customerIdCombobox" id="customerIdCombobox">
+                                    <logic:iterate id="customer_iter" name="<%=Constants.CUSTOMER_LIST%>">
+                                        <option  value="${customer_iter.id}">${customer_iter.name}</option>
+                                    </logic:iterate>
+                                </select>
                             </td>
-                            <td style="padding-right: 20px;padding-left: 10px"><bean:message key="account.title"/></td>
+                            <td style="padding-right: 20px;padding-left: 10px"><bean:message key="route.title"/></td>
                             <td>
-                                <html:select property="accountId" name="<%=Constants.LPG_SALE%>" style="width:195px">
-                                    <html:options collection="<%=Constants.ACCOUNT_LIST%>" property="id" labelProperty="number"/>
-                                </html:select>
+                                <select style="width: 195px;" name="routeIdCombobox" id="routeIdCombobox">
+                                    <logic:iterate id="route_iter" name="<%=Constants.ROUTE_LIST%>">
+                                        <option  value="${route_iter.id}">${route_iter.name}</option>
+                                    </logic:iterate>
+                                </select>
                             </td>
                         </tr>
                         <tr>
@@ -41,8 +45,12 @@
                         <tr>
                             <td height="30" style="padding-right: 20px"><bean:message key="rate.title"/></td>
                             <td><html:text property="rate" size="30" name="<%=Constants.LPG_SALE%>" onblur="return lpgSaleCaculateAmount();" onkeypress="return readonlyFloat(event);"/></td>
-                            <td style="padding-right: 20px;padding-left: 10px"><bean:message key="amount.title"/></td>
-                            <td><html:text property="total" size="30" name="<%=Constants.LPG_SALE%>" readonly="true"/></td>
+                            <td style="padding-right: 20px;padding-left: 10px"><bean:message key="tax.title"/></td>
+                            <td><html:text property="vat" size="30" name="<%=Constants.LPG_SALE%>" onblur="return lpgSaleCaculateAmount();" onkeypress="return readonlyFloat(event);"/></td>
+                        </tr>
+                        <tr>
+                            <td height="30" style="padding-right: 20px"><bean:message key="amount.title"/></td>
+                            <td colspan="3"><html:text property="total" size="30" name="<%=Constants.LPG_SALE%>" readonly="true"/></td>
                         </tr>
                         <tr>
                             <td height="30" style="padding-right: 20px"><bean:message key="paid.title"/></td>
@@ -57,10 +65,10 @@
                                     <html:options collection="<%=Constants.LPG_IMPORT_LIST%>" property="id" labelProperty="code"/>
                                 </html:select>
                             </td>
-                            <td style="padding-right: 20px;padding-left: 10px"><bean:message key="route.title"/></td>
+                            <td style="padding-right: 20px;padding-left: 10px"><bean:message key="account.title"/></td>
                             <td>
-                                <html:select property="routeId" name="<%=Constants.LPG_SALE%>" style="width:195px">
-                                    <html:options collection="<%=Constants.ROUTE_LIST%>" property="id" labelProperty="name"/>
+                                <html:select property="accountId" name="<%=Constants.LPG_SALE%>" style="width:195px">
+                                    <html:options collection="<%=Constants.ACCOUNT_LIST%>" property="id" labelProperty="number"/>
                                 </html:select>
                             </td>
                         </tr>
@@ -98,6 +106,10 @@
         </table> 
         <html:hidden property="id" name="<%=Constants.LPG_SALE%>" />
         <input type="hidden" id="callbackFunc"/>
+        <html:hidden property="routeId" name="<%=Constants.LPG_SALE%>" />
+        <input type="hidden" name="routeSelectedHidden" value="0"/>
+        <html:hidden property="customerId" name="<%=Constants.LPG_SALE%>" />
+        <input type="hidden" name="customerSelectedHidden" value="0"/>
     </form>
     <div name="lpgSaleFormshowHelpHideDiv" id="showHelpHideDiv" style="display:none">
         Ctrl+C : Đóng

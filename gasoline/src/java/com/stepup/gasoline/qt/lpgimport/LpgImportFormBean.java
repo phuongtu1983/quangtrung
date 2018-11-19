@@ -20,7 +20,9 @@ public class LpgImportFormBean extends org.apache.struts.action.ActionForm {
     private int paperQuantity;
     private int actualQuantity;
     private double price;
+    private double vat;
     private double total;
+    private double invoiceTotal;
     private double paid;
     private double debt;
     private double rate;
@@ -46,6 +48,8 @@ public class LpgImportFormBean extends org.apache.struts.action.ActionForm {
         this.accountId = bean.getAccountId();
         this.note = bean.getNote();
         this.routeId = bean.getRouteId();
+        this.vat = bean.getVat();
+        this.invoiceTotal = bean.getInvoiceTotal();
     }
 
     public String getCode() {
@@ -166,6 +170,22 @@ public class LpgImportFormBean extends org.apache.struts.action.ActionForm {
 
     public void setRouteId(int routeId) {
         this.routeId = routeId;
+    }
+
+    public double getVat() {
+        return vat;
+    }
+
+    public void setVat(double vat) {
+        this.vat = vat;
+    }
+
+    public double getInvoiceTotal() {
+        return invoiceTotal;
+    }
+
+    public void setInvoiceTotal(double invoiceTotal) {
+        this.invoiceTotal = invoiceTotal;
     }
 
 }

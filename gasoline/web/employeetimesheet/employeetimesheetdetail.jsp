@@ -19,9 +19,11 @@
                         <tr>
                             <td height="30" style="padding-right: 20px"><bean:message key="employee.title"/></td>
                             <td colspan="3">
-                                <html:select property="employeeId" name="<%=Constants.EMPLOYEE_TIMESHEET%>" style="width:195px"  onchange="return timesheetOrganizationChanged(this)">
-                                    <html:options collection="<%=Constants.EMPLOYEE_LIST%>" property="id" labelProperty="fullname"/>
-                                </html:select>
+                                <select style="width: 195px;" name="employeeIdCombobox" id="employeeIdCombobox">
+                                    <logic:iterate id="employee_iter" name="<%=Constants.EMPLOYEE_LIST%>">
+                                        <option  value="${employee_iter.id}">${employee_iter.fullname}</option>
+                                    </logic:iterate>
+                                </select>
                             </td>
                         </tr>
                         <tr>
@@ -66,6 +68,8 @@
         </table> 
         <html:hidden property="id" name="<%=Constants.EMPLOYEE_TIMESHEET%>" />
         <input type="hidden" id="callbackFunc"/>
+        <html:hidden property="employeeId" name="<%=Constants.EMPLOYEE_TIMESHEET%>" />
+        <input type="hidden" name="employeeSelectedHidden" value="0"/>
     </form>
     <div name="employeeTimesheetFormshowHelpHideDiv" id="showHelpHideDiv" style="display:none">
         Ctrl+C : Đóng

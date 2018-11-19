@@ -2219,6 +2219,36 @@ function getEmployeeAdvance(id, handle) {
             document.forms['employeeAdvanceForm'].employeeAdvanceDate.value = currentDate;
         }
         myCalendar.setDateFormat("%d/%m/%Y");
+
+        window.dhx_globalImgPath = "js/dhtmlx/combo/imgs/";
+        // ============================
+        var employeeIdCombobox = dhtmlXComboFromSelect("employeeIdCombobox");
+        employeeIdCombobox.enableFilteringMode(true);
+        employeeIdCombobox.attachEvent("onSelectionChange", function() {
+            setEmployeeSelectedForm('employeeAdvanceForm', employeeIdCombobox.getComboText(), employeeIdCombobox.getSelectedValue());
+        });
+        employeeIdCombobox.attachEvent("onBlur", function() {
+            setEmployeeSelectedForm('employeeAdvanceForm', employeeIdCombobox.getComboText(), employeeIdCombobox.getSelectedValue());
+            employeeIdCombobox.setComboText(employeeIdCombobox.getSelectedText());
+        });
+        employeeIdCombobox.DOMelem_input.onfocus = function(event) {
+            if (isManuallySeleted == 1) {
+                employeeIdCombobox.openSelect();
+                isManuallySeleted = 0;
+            }
+        }
+        if (id == 0) {
+            employeeIdCombobox.setComboValue("");
+        } else {
+            var employeeId = document.forms['employeeAdvanceForm'].employeeId.value;
+            if (employeeId != 0) {
+                var ind = employeeIdCombobox.getIndexByValue(employeeId);
+                employeeIdCombobox.selectOption(ind);
+            } else {
+                employeeIdCombobox.unSelectOption();
+                employeeIdCombobox.setComboValue("");
+            }
+        }
     });
 }
 function saveEmployeeAdvance() {
@@ -2240,6 +2270,7 @@ function saveEmployeeAdvance() {
     }
     field = null;
     reformatNumberMoney(document.forms['employeeAdvanceForm'].amount);
+    document.forms['employeeAdvanceForm'].employeeId.value = document.forms['employeeAdvanceForm'].employeeSelectedHidden.value;
     scriptFunction = "saveEmployeeAdvance";
     callAjaxCheckError("addEmployeeAdvance.do", null, document.forms['employeeAdvanceForm'], function(data) {
         scriptFunction = "";
@@ -2414,6 +2445,36 @@ function getEmployeeTimesheet(id, handle) {
             document.forms['employeeTimesheetForm'].employeeTimesheetDate.value = currentDate;
         }
         myCalendar.setDateFormat("%d/%m/%Y");
+        
+        window.dhx_globalImgPath = "js/dhtmlx/combo/imgs/";
+        // ============================
+        var employeeIdCombobox = dhtmlXComboFromSelect("employeeIdCombobox");
+        employeeIdCombobox.enableFilteringMode(true);
+        employeeIdCombobox.attachEvent("onSelectionChange", function() {
+            setEmployeeSelectedForm('employeeTimesheetForm', employeeIdCombobox.getComboText(), employeeIdCombobox.getSelectedValue());
+        });
+        employeeIdCombobox.attachEvent("onBlur", function() {
+            setEmployeeSelectedForm('employeeTimesheetForm', employeeIdCombobox.getComboText(), employeeIdCombobox.getSelectedValue());
+            employeeIdCombobox.setComboText(employeeIdCombobox.getSelectedText());
+        });
+        employeeIdCombobox.DOMelem_input.onfocus = function(event) {
+            if (isManuallySeleted == 1) {
+                employeeIdCombobox.openSelect();
+                isManuallySeleted = 0;
+            }
+        }
+        if (id == 0) {
+            employeeIdCombobox.setComboValue("");
+        } else {
+            var employeeId = document.forms['employeeTimesheetForm'].employeeId.value;
+            if (employeeId != 0) {
+                var ind = employeeIdCombobox.getIndexByValue(employeeId);
+                employeeIdCombobox.selectOption(ind);
+            } else {
+                employeeIdCombobox.unSelectOption();
+                employeeIdCombobox.setComboValue("");
+            }
+        }
     });
 }
 function saveEmployeeTimesheet() {
@@ -2435,6 +2496,7 @@ function saveEmployeeTimesheet() {
     }
     field = null;
     reformatNumberMoney(document.forms['employeeTimesheetForm'].quantity);
+    document.forms['employeeTimesheetForm'].employeeId.value = document.forms['employeeTimesheetForm'].employeeSelectedHidden.value;
     scriptFunction = "saveEmployeeTimesheet";
     callAjaxCheckError("addEmployeeTimesheet.do", null, document.forms['employeeTimesheetForm'], function(data) {
         scriptFunction = "";
@@ -2516,6 +2578,36 @@ function getEmployeeOff(id, handle) {
             document.forms['employeeOffForm'].toDate.value = currentDate;
         }
         myCalendar.setDateFormat("%d/%m/%Y");
+        
+        window.dhx_globalImgPath = "js/dhtmlx/combo/imgs/";
+        // ============================
+        var employeeIdCombobox = dhtmlXComboFromSelect("employeeIdCombobox");
+        employeeIdCombobox.enableFilteringMode(true);
+        employeeIdCombobox.attachEvent("onSelectionChange", function() {
+            setEmployeeSelectedForm('employeeOffForm', employeeIdCombobox.getComboText(), employeeIdCombobox.getSelectedValue());
+        });
+        employeeIdCombobox.attachEvent("onBlur", function() {
+            setEmployeeSelectedForm('employeeOffForm', employeeIdCombobox.getComboText(), employeeIdCombobox.getSelectedValue());
+            employeeIdCombobox.setComboText(employeeIdCombobox.getSelectedText());
+        });
+        employeeIdCombobox.DOMelem_input.onfocus = function(event) {
+            if (isManuallySeleted == 1) {
+                employeeIdCombobox.openSelect();
+                isManuallySeleted = 0;
+            }
+        }
+        if (id == 0) {
+            employeeIdCombobox.setComboValue("");
+        } else {
+            var employeeId = document.forms['employeeOffForm'].employeeId.value;
+            if (employeeId != 0) {
+                var ind = employeeIdCombobox.getIndexByValue(employeeId);
+                employeeIdCombobox.selectOption(ind);
+            } else {
+                employeeIdCombobox.unSelectOption();
+                employeeIdCombobox.setComboValue("");
+            }
+        }
     });
 }
 function saveEmployeeOff() {
@@ -2536,6 +2628,7 @@ function saveEmployeeOff() {
         return false;
     }
     field = null;
+    document.forms['employeeOffForm'].employeeId.value = document.forms['employeeOffForm'].employeeSelectedHidden.value;
     scriptFunction = "saveEmployeeOff";
     callAjaxCheckError("addEmployeeOff.do", null, document.forms['employeeOffForm'], function(data) {
         scriptFunction = "";
@@ -2932,6 +3025,35 @@ function getShellImport(id, handle) {
             document.forms['shellImportForm'].shellImportDate.value = currentDate;
         }
 //        myCalendar.setDateFormat("%d/%m/%Y");
+        window.dhx_globalImgPath = "js/dhtmlx/combo/imgs/";
+        // ============================
+        var shellIdCombobox = dhtmlXComboFromSelect("shellIdCombobox");
+        shellIdCombobox.enableFilteringMode(true);
+        shellIdCombobox.attachEvent("onSelectionChange", function() {
+            setShellSelectedForm('shellImportForm', shellIdCombobox.getComboText(), shellIdCombobox.getSelectedValue());
+        });
+        shellIdCombobox.attachEvent("onBlur", function() {
+            setShellSelectedForm('shellImportForm', shellIdCombobox.getComboText(), shellIdCombobox.getSelectedValue());
+            shellIdCombobox.setComboText(shellIdCombobox.getSelectedText());
+        });
+        shellIdCombobox.DOMelem_input.onfocus = function(event) {
+            if (isManuallySeleted == 1) {
+                shellIdCombobox.openSelect();
+                isManuallySeleted = 0;
+            }
+        }
+        if (id == 0) {
+            shellIdCombobox.setComboValue("");
+        } else {
+            var shellId = document.forms['shellImportForm'].shellId.value;
+            if (shellId != 0) {
+                var ind = shellIdCombobox.getIndexByValue(shellId);
+                shellIdCombobox.selectOption(ind);
+            } else {
+                shellIdCombobox.unSelectOption();
+                shellIdCombobox.setComboValue("");
+            }
+        }
     });
 }
 function saveShellImport() {
@@ -2940,6 +3062,7 @@ function saveShellImport() {
     reformatNumberMoney(document.forms['shellImportForm'].quantity);
     reformatNumberMoney(document.forms['shellImportForm'].price);
     reformatNumberMoney(document.forms['shellImportForm'].amount);
+    document.forms['shellImportForm'].shellId.value = document.forms['shellImportForm'].shellSelectedHidden.value;
     scriptFunction = "saveShellImport";
     callAjaxCheckError("addShellImport.do", null, document.forms['shellImportForm'], function(data) {
         scriptFunction = "";
@@ -3008,6 +3131,8 @@ function getLpgImport(id, handle) {
         tryNumberFormatCurrentcy(document.forms['lpgImportForm'].paperQuantity, "VND");
         tryNumberFormatCurrentcy(document.forms['lpgImportForm'].actualQuantity, "VND");
         tryNumberFormatCurrentcy(document.forms['lpgImportForm'].price, "USD");
+        tryNumberFormatCurrentcy(document.forms['lpgImportForm'].vat, "USD");
+        tryNumberFormatCurrentcy(document.forms['lpgImportForm'].invoiceTotal, "USD");
         tryNumberFormatCurrentcy(document.forms['lpgImportForm'].total, "VND");
         tryNumberFormatCurrentcy(document.forms['lpgImportForm'].paid, "VND");
         tryNumberFormatCurrentcy(document.forms['lpgImportForm'].debt, "VND");
@@ -3016,7 +3141,47 @@ function getLpgImport(id, handle) {
             var currentDate = getCurrentDate();
             document.forms['lpgImportForm'].lpgImportDate.value = currentDate;
         }
+
+        window.dhx_globalImgPath = "js/dhtmlx/combo/imgs/";
+        // ============================
+        var routeIdCombobox = dhtmlXComboFromSelect("routeIdCombobox");
+        routeIdCombobox.enableFilteringMode(true);
+        routeIdCombobox.attachEvent("onSelectionChange", function() {
+            setRouteSelectedForm('lpgImportForm', routeIdCombobox.getComboText(), routeIdCombobox.getSelectedValue());
+        });
+        routeIdCombobox.attachEvent("onBlur", function() {
+            setRouteSelectedForm('lpgImportForm', routeIdCombobox.getComboText(), routeIdCombobox.getSelectedValue());
+            routeIdCombobox.setComboText(routeIdCombobox.getSelectedText());
+        });
+        routeIdCombobox.DOMelem_input.onfocus = function(event) {
+            if (isManuallySeleted == 1) {
+                routeIdCombobox.openSelect();
+                isManuallySeleted = 0;
+            }
+        }
+        if (id == 0) {
+            routeIdCombobox.setComboValue("");
+        } else {
+            var routeId = document.forms['lpgImportForm'].routeId.value;
+            if (routeId != 0) {
+                var ind = routeIdCombobox.getIndexByValue(routeId);
+                routeIdCombobox.selectOption(ind);
+            } else {
+                routeIdCombobox.unSelectOption();
+                routeIdCombobox.setComboValue("");
+            }
+        }
+
     });
+}
+function setRouteSelectedForm(form, text, value) {
+    if (value == null) {
+        if (text != "")
+            value = "-1";
+        else
+            value = "0";
+    }
+    document.forms[form].routeSelectedHidden.value = value;
 }
 function saveLpgImport() {
     if (scriptFunction == "saveLpgImport")
@@ -3024,10 +3189,13 @@ function saveLpgImport() {
     reformatNumberMoney(document.forms['lpgImportForm'].paperQuantity);
     reformatNumberMoney(document.forms['lpgImportForm'].actualQuantity);
     reformatNumberMoney(document.forms['lpgImportForm'].price);
+    reformatNumberMoney(document.forms['lpgImportForm'].vat);
+    reformatNumberMoney(document.forms['lpgImportForm'].invoiceTotal);
     reformatNumberMoney(document.forms['lpgImportForm'].total);
     reformatNumberMoney(document.forms['lpgImportForm'].paid);
     reformatNumberMoney(document.forms['lpgImportForm'].debt);
     reformatNumberMoney(document.forms['lpgImportForm'].rate);
+    document.forms['lpgImportForm'].routeId.value = document.forms['lpgImportForm'].routeSelectedHidden.value;
     scriptFunction = "saveLpgImport";
     callAjaxCheckError("addLpgImport.do", null, document.forms['lpgImportForm'], function(data) {
         scriptFunction = "";
@@ -3050,22 +3218,59 @@ function delLpgImport() {
 function lpgImportCaculateAmount() {
     var quantity = document.forms['lpgImportForm'].actualQuantity;
     var price = document.forms['lpgImportForm'].price;
+    var vat = document.forms['lpgImportForm'].vat;
     var rate = document.forms['lpgImportForm'].rate;
+    var invoiceAmount = document.forms['lpgImportForm'].invoiceTotal;
     var amount = document.forms['lpgImportForm'].total;
     var paid = document.forms['lpgImportForm'].paid;
     var debt = document.forms['lpgImportForm'].debt;
-    amount.value = reformatNumberMoneyString(quantity.value) * 1 * reformatNumberMoneyString(price.value) * 1 * reformatNumberMoneyString(rate.value) * 1 / 1000;
+    amount.value = reformatNumberMoneyString(quantity.value) * reformatNumberMoneyString(price.value) * (100 + reformatNumberMoneyString(vat.value) * 1) / 100 * reformatNumberMoneyString(rate.value) / 1000;
+    invoiceAmount.value = amount.value;
     paid.value = amount.value;
     debt.value = 0;
     tryNumberFormatCurrentcy(quantity, "VND");
     tryNumberFormatCurrentcy(price, "USD");
+    tryNumberFormatCurrentcy(vat, "USD");
     tryNumberFormatCurrentcy(rate, "VND");
+    tryNumberFormatCurrentcy(invoiceAmount, "VND");
     tryNumberFormatCurrentcy(amount, "VND");
     tryNumberFormatCurrentcy(paid, "VND");
     quantity = null;
     price = null;
+    vat = null;
     rate = null;
     amount = null;
+    invoiceAmount = null;
+    paid = null;
+    debt = null;
+    return false;
+}
+function formInvoiceTotalChanged(formName) {
+    var total = document.forms[formName].invoiceTotal;
+    var paid = document.forms[formName].paid;
+    var debt = document.forms[formName].debt;
+    if (total == null || paid == null || debt == null)
+        return false;
+    paid.value = total.value;
+    debt.value = 0;
+    tryNumberFormatCurrentcy(total, "VND");
+    tryNumberFormatCurrentcy(paid, "VND");
+    total = null;
+    paid = null;
+    debt = null;
+    return false;
+}
+function lpgImportPaidChanged() {
+    var total = document.forms['lpgImportForm'].invoiceTotal;
+    var paid = document.forms['lpgImportForm'].paid;
+    var debt = document.forms['lpgImportForm'].debt;
+    if (total == null || paid == null || debt == null)
+        return false;
+    debt.value = reformatNumberMoneyString(total.value) * 1 - reformatNumberMoneyString(paid.value) * 1;
+    tryNumberFormatCurrentcy(total, "VND");
+    tryNumberFormatCurrentcy(paid, "VND");
+    tryNumberFormatCurrentcy(debt, "VND");
+    total = null;
     paid = null;
     debt = null;
     return false;
@@ -3406,6 +3611,35 @@ function getGasImport(id) {
         tryNumberFormatCurrentcy(document.forms['gasImportForm'].debt, "VND");
         tryNumberFormatCurrentcy(document.forms['gasImportForm'].rate, "VND");
         formatFormDetail('gasImportForm');
+        
+        window.dhx_globalImgPath = "js/dhtmlx/combo/imgs/";
+        // ============================
+        var shellName = dhtmlXComboFromSelect("shellIdCombobox");
+        shellName.enableFilteringMode(true);
+        shellName.attachEvent("onSelectionChange", function() {
+            setShellSelectedForm('gasImportForm', shellName.getComboText(), shellName.getSelectedValue());
+        });
+        shellName.attachEvent("onBlur", function() {
+            setShellSelectedForm('gasImportForm', shellName.getComboText(), shellName.getSelectedValue());
+        });
+        shellName.DOMelem_input.onkeypress = function(event) {
+            var key;
+            if (window.event)
+                key = window.event.keyCode;//IE
+            else
+                key = event.which;//firefox
+            if (key == 13) {
+                addGasImportShell();
+                shellName.setComboValue("");
+            }
+        }
+        shellName.DOMelem_input.onfocus = function(event) {
+            if (isManuallySeleted == 1) {
+                shellName.openSelect();
+                isManuallySeleted = 0;
+            }
+        }
+        shellName.setComboValue("");
     });
 }
 function saveGasImport() {
@@ -3457,11 +3691,7 @@ function saveGasImport() {
     return false;
 }
 function addGasImportShell() {
-    var shell = document.forms['gasImportForm'].shellIdCombobox;
-    if (shell == null && shell.selectedIndex == -1)
-        shell = null;
-    else
-        shell = shell.options[shell.selectedIndex].value;
+    var shell = document.forms['gasImportForm'].shellSelectedHidden.value;
     if (shell == -1 || shell == 0)
         return false;
     var shellId = document.forms['gasImportForm'].shellId;
@@ -5388,6 +5618,7 @@ function getSaleShell(id) {
         clearContent();
         setAjaxData(data, 'contentDiv');
         window.dhx_globalImgPath = "js/dhtmlx/combo/imgs/";
+        // ============================
         var shellIdCombobox = dhtmlXComboFromSelect("goodIdCombobox");
         shellIdCombobox.enableFilteringMode(true);
         shellIdCombobox.attachEvent("onSelectionChange", function() {
@@ -5414,6 +5645,34 @@ function getSaleShell(id) {
             }
         }
         shellIdCombobox.setComboValue("");
+        // ============================
+        var customerIdCombobox = dhtmlXComboFromSelect("customerIdCombobox");
+        customerIdCombobox.enableFilteringMode(true);
+        customerIdCombobox.attachEvent("onSelectionChange", function() {
+            setCustomerSelectedForm('saleShellForm', customerIdCombobox.getComboText(), customerIdCombobox.getSelectedValue());
+        });
+        customerIdCombobox.attachEvent("onBlur", function() {
+            setCustomerSelectedForm('saleShellForm', customerIdCombobox.getComboText(), customerIdCombobox.getSelectedValue());
+            customerIdCombobox.setComboText(customerIdCombobox.getSelectedText());
+        });
+        customerIdCombobox.DOMelem_input.onfocus = function(event) {
+            if (isManuallySeleted == 1) {
+                customerIdCombobox.openSelect();
+                isManuallySeleted = 0;
+            }
+        }
+        if (id == 0) {
+            customerIdCombobox.setComboValue("");
+        } else {
+            var customerId = document.forms['saleShellForm'].customerId.value;
+            if (customerId != 0) {
+                var ind = customerIdCombobox.getIndexByValue(customerId);
+                customerIdCombobox.selectOption(ind);
+            } else {
+                customerIdCombobox.unSelectOption();
+                customerIdCombobox.setComboValue("");
+            }
+        }
 //        var myCalendar = new dhtmlXCalendarObject(["saleShellCreatedDate"]);
 //        myCalendar.setSkin('dhx_web');
         if (id == 0) {
@@ -5472,6 +5731,7 @@ function saveSaleShell() {
     reformatNumberMoney(document.forms['saleShellForm'].discount);
     reformatNumberMoney(document.forms['saleShellForm'].totalPay);
     reformatFormDetail('saleShellForm');
+    document.forms['saleShellForm'].customerId.value = document.forms['saleShellForm'].customerSelectedHidden.value;
     scriptFunction = "saveSaleShell";
     callAjaxCheckError("addSaleShell.do", null, document.forms['saleShellForm'], function(data) {
         scriptFunction = "";
@@ -5710,6 +5970,34 @@ function getShellReturn(id) {
             }
         }
         shellIdCombobox.setComboValue("");
+        // ============================
+        var customerIdCombobox = dhtmlXComboFromSelect("customerIdCombobox");
+        customerIdCombobox.enableFilteringMode(true);
+        customerIdCombobox.attachEvent("onSelectionChange", function() {
+            setCustomerSelectedForm('shellReturnForm', customerIdCombobox.getComboText(), customerIdCombobox.getSelectedValue());
+        });
+        customerIdCombobox.attachEvent("onBlur", function() {
+            setCustomerSelectedForm('shellReturnForm', customerIdCombobox.getComboText(), customerIdCombobox.getSelectedValue());
+            customerIdCombobox.setComboText(customerIdCombobox.getSelectedText());
+        });
+        customerIdCombobox.DOMelem_input.onfocus = function(event) {
+            if (isManuallySeleted == 1) {
+                customerIdCombobox.openSelect();
+                isManuallySeleted = 0;
+            }
+        }
+        if (id == 0) {
+            customerIdCombobox.setComboValue("");
+        } else {
+            var customerId = document.forms['shellReturnForm'].customerId.value;
+            if (customerId != 0) {
+                var ind = customerIdCombobox.getIndexByValue(customerId);
+                customerIdCombobox.selectOption(ind);
+            } else {
+                customerIdCombobox.unSelectOption();
+                customerIdCombobox.setComboValue("");
+            }
+        }
 //        var myCalendar = new dhtmlXCalendarObject(["shellReturnCreatedDate"]);
 //        myCalendar.setSkin('dhx_web');
         if (id == 0) {
@@ -5749,6 +6037,7 @@ function saveShellReturn() {
         reformatNumberMoney(quantity);
     }
     quantity = null;
+    document.forms['shellReturnForm'].customerId.value = document.forms['shellReturnForm'].customerSelectedHidden.value;
     scriptFunction = "saveShellReturn";
     callAjaxCheckError("addShellReturn.do", null, document.forms['shellReturnForm'], function(data) {
         scriptFunction = "";
@@ -6522,9 +6811,9 @@ function getVehicleIn(id) {
                 isManuallySeleted = 0;
             }
         }
-        
+
         if (id == 0) {
-                selectedCombo.setComboValue("");
+            selectedCombo.setComboValue("");
         } else {
             var vehicleOutId = document.forms['vehicleInForm'].vehicleOutId.value;
             if (vehicleOutId != 0) {
@@ -6922,6 +7211,35 @@ function getExportWholesale(id) {
             }
         }
         returnShellIdCombobox.setComboValue("");
+        // ============================
+        var customerIdCombobox = dhtmlXComboFromSelect("customerIdCombobox");
+        customerIdCombobox.enableFilteringMode(true);
+        customerIdCombobox.attachEvent("onSelectionChange", function() {
+            setCustomerSelectedForm('exportWholesaleForm', customerIdCombobox.getComboText(), customerIdCombobox.getSelectedValue());
+        });
+        customerIdCombobox.attachEvent("onBlur", function() {
+            setCustomerSelectedForm('exportWholesaleForm', customerIdCombobox.getComboText(), customerIdCombobox.getSelectedValue());
+            customerIdCombobox.setComboText(customerIdCombobox.getSelectedText());
+        });
+        customerIdCombobox.DOMelem_input.onfocus = function(event) {
+            if (isManuallySeleted == 1) {
+                customerIdCombobox.openSelect();
+                isManuallySeleted = 0;
+            }
+        }
+        if (id == 0) {
+            customerIdCombobox.setComboValue("");
+        } else {
+            var customerId = document.forms['exportWholesaleForm'].customerId.value;
+            if (customerId != 0) {
+                var ind = customerIdCombobox.getIndexByValue(customerId);
+                customerIdCombobox.selectOption(ind);
+            } else {
+                customerIdCombobox.unSelectOption();
+                customerIdCombobox.setComboValue("");
+            }
+        }
+        
         var myCalendar = new dhtmlXCalendarObject(["exportWholesaleCreatedDate"]);
         myCalendar.setSkin('dhx_web');
         if (id == 0) {
@@ -6974,6 +7292,7 @@ function saveExportWholesale() {
     reformatNumberMoney(document.forms['exportWholesaleForm'].debt);
     reformatNumberMoney(document.forms['exportWholesaleForm'].discount);
     reformatNumberMoney(document.forms['exportWholesaleForm'].totalPay);
+    document.forms['exportWholesaleForm'].customerId.value = document.forms['exportWholesaleForm'].customerSelectedHidden.value;
     reformatFormDetail('exportWholesaleForm');
     reformatExportWholesaleReturnShellDetail();
     scriptFunction = "saveExportWholesale";
@@ -7093,14 +7412,6 @@ function formatExportWholesaleReturnShellDetail() {
     }
     quantity = null;
 }
-function addCustomerExportWholesale() {
-    getCustomer(0, 'loadCustomerExportWholesale', 2);
-    return false;
-}
-function loadCustomerExportWholesale() {
-    callAjax("getCustomerListExportWholesale.do", "exportWholesaleCustomerId", null, null);
-    return false;
-}
 function loadDebtVendorPanel() {
     callAjax("getDebtVendorPanel.do", null, null, function(data) {
         clearContent();
@@ -7156,7 +7467,46 @@ function getDebtVendor(id, handle) {
             document.forms['debtVendorForm'].debtVendorDate.value = currentDate;
         }
         myCalendar.setDateFormat("%d/%m/%Y");
+
+        window.dhx_globalImgPath = "js/dhtmlx/combo/imgs/";
+        // ============================
+        var vendorIdCombobox = dhtmlXComboFromSelect("vendorIdCombobox");
+        vendorIdCombobox.enableFilteringMode(true);
+        vendorIdCombobox.attachEvent("onSelectionChange", function() {
+            setVendorSelectedForm('debtVendorForm', vendorIdCombobox.getComboText(), vendorIdCombobox.getSelectedValue());
+        });
+        vendorIdCombobox.attachEvent("onBlur", function() {
+            setVendorSelectedForm('debtVendorForm', vendorIdCombobox.getComboText(), vendorIdCombobox.getSelectedValue());
+            vendorIdCombobox.setComboText(vendorIdCombobox.getSelectedText());
+        });
+        vendorIdCombobox.DOMelem_input.onfocus = function(event) {
+            if (isManuallySeleted == 1) {
+                vendorIdCombobox.openSelect();
+                isManuallySeleted = 0;
+            }
+        }
+        if (id == 0) {
+            vendorIdCombobox.setComboValue("");
+        } else {
+            var vendorId = document.forms['debtVendorForm'].vendorId.value;
+            if (vendorId != 0) {
+                var ind = vendorIdCombobox.getIndexByValue(vendorId);
+                vendorIdCombobox.selectOption(ind);
+            } else {
+                vendorIdCombobox.unSelectOption();
+                vendorIdCombobox.setComboValue("");
+            }
+        }
     });
+}
+function setVendorSelectedForm(form, text, value) {
+    if (value == null) {
+        if (text != "")
+            value = "-1";
+        else
+            value = "0";
+    }
+    document.forms[form].vendorSelectedHidden.value = value;
 }
 function saveDebtVendor() {
     if (scriptFunction == "saveDebtVendor")
@@ -7177,6 +7527,7 @@ function saveDebtVendor() {
     }
     field = null;
     reformatNumberMoney(document.forms['debtVendorForm'].paid);
+    document.forms['debtVendorForm'].vendorId.value = document.forms['debtVendorForm'].vendorSelectedHidden.value;
     scriptFunction = "saveDebtVendor";
     callAjaxCheckError("addDebtVendor.do", null, document.forms['debtVendorForm'], function(data) {
         scriptFunction = "";
@@ -7346,6 +7697,36 @@ function getDebtWholesale(id, handle) {
             document.forms['debtWholesaleForm'].debtWholesaleDate.value = currentDate;
         }
         myCalendar.setDateFormat("%d/%m/%Y");
+
+        window.dhx_globalImgPath = "js/dhtmlx/combo/imgs/";
+        // ============================
+        var customerIdCombobox = dhtmlXComboFromSelect("customerIdCombobox");
+        customerIdCombobox.enableFilteringMode(true);
+        customerIdCombobox.attachEvent("onSelectionChange", function() {
+            setCustomerSelectedForm('debtWholesaleForm', customerIdCombobox.getComboText(), customerIdCombobox.getSelectedValue());
+        });
+        customerIdCombobox.attachEvent("onBlur", function() {
+            setCustomerSelectedForm('debtWholesaleForm', customerIdCombobox.getComboText(), customerIdCombobox.getSelectedValue());
+            customerIdCombobox.setComboText(customerIdCombobox.getSelectedText());
+        });
+        customerIdCombobox.DOMelem_input.onfocus = function(event) {
+            if (isManuallySeleted == 1) {
+                customerIdCombobox.openSelect();
+                isManuallySeleted = 0;
+            }
+        }
+        if (id == 0) {
+            customerIdCombobox.setComboValue("");
+        } else {
+            var customerId = document.forms['debtWholesaleForm'].customerId.value;
+            if (customerId != 0) {
+                var ind = customerIdCombobox.getIndexByValue(customerId);
+                customerIdCombobox.selectOption(ind);
+            } else {
+                customerIdCombobox.unSelectOption();
+                customerIdCombobox.setComboValue("");
+            }
+        }
     });
 }
 function saveDebtWholesale() {
@@ -7367,6 +7748,7 @@ function saveDebtWholesale() {
     }
     field = null;
     reformatNumberMoney(document.forms['debtWholesaleForm'].paid);
+    document.forms['debtWholesaleForm'].customerId.value = document.forms['debtWholesaleForm'].customerSelectedHidden.value;
     scriptFunction = "saveDebtWholesale";
     callAjaxCheckError("addDebtWholesale.do", null, document.forms['debtWholesaleForm'], function(data) {
         scriptFunction = "";
@@ -7631,11 +8013,42 @@ function getEmployeeOffIncrease(id, handle) {
     callAjax(url, null, null, function(data) {
         showPopupForm(data);
         document.getElementById('callbackFunc').value = handle;
+        
+        window.dhx_globalImgPath = "js/dhtmlx/combo/imgs/";
+        // ============================
+        var employeeIdCombobox = dhtmlXComboFromSelect("employeeIdCombobox");
+        employeeIdCombobox.enableFilteringMode(true);
+        employeeIdCombobox.attachEvent("onSelectionChange", function() {
+            setEmployeeSelectedForm('employeeOffIncreaseForm', employeeIdCombobox.getComboText(), employeeIdCombobox.getSelectedValue());
+        });
+        employeeIdCombobox.attachEvent("onBlur", function() {
+            setEmployeeSelectedForm('employeeOffIncreaseForm', employeeIdCombobox.getComboText(), employeeIdCombobox.getSelectedValue());
+            employeeIdCombobox.setComboText(employeeIdCombobox.getSelectedText());
+        });
+        employeeIdCombobox.DOMelem_input.onfocus = function(event) {
+            if (isManuallySeleted == 1) {
+                employeeIdCombobox.openSelect();
+                isManuallySeleted = 0;
+            }
+        }
+        if (id == 0) {
+            employeeIdCombobox.setComboValue("");
+        } else {
+            var employeeId = document.forms['employeeOffIncreaseForm'].employeeId.value;
+            if (employeeId != 0) {
+                var ind = employeeIdCombobox.getIndexByValue(employeeId);
+                employeeIdCombobox.selectOption(ind);
+            } else {
+                employeeIdCombobox.unSelectOption();
+                employeeIdCombobox.setComboValue("");
+            }
+        }
     });
 }
 function saveEmployeeOffIncrease() {
     if (scriptFunction == "saveEmployeeOffIncrease")
         return false;
+    document.forms['employeeOffIncreaseForm'].employeeId.value = document.forms['employeeOffIncreaseForm'].employeeSelectedHidden.value;
     scriptFunction = "saveEmployeeOffIncrease";
     callAjaxCheckError("addEmployeeOffIncrease.do", null, document.forms['employeeOffIncreaseForm'], function(data) {
         scriptFunction = "";
@@ -7709,6 +8122,35 @@ function getEmployeeOffMoney(id, handle) {
             var currentDate = getCurrentDate();
             document.forms['employeeOffMoneyForm'].employeeOffMoneyDate.value = currentDate;
         }
+        window.dhx_globalImgPath = "js/dhtmlx/combo/imgs/";
+        // ============================
+        var employeeIdCombobox = dhtmlXComboFromSelect("employeeIdCombobox");
+        employeeIdCombobox.enableFilteringMode(true);
+        employeeIdCombobox.attachEvent("onSelectionChange", function() {
+            setEmployeeSelectedForm('employeeOffMoneyForm', employeeIdCombobox.getComboText(), employeeIdCombobox.getSelectedValue());
+        });
+        employeeIdCombobox.attachEvent("onBlur", function() {
+            setEmployeeSelectedForm('employeeOffMoneyForm', employeeIdCombobox.getComboText(), employeeIdCombobox.getSelectedValue());
+            employeeIdCombobox.setComboText(employeeIdCombobox.getSelectedText());
+        });
+        employeeIdCombobox.DOMelem_input.onfocus = function(event) {
+            if (isManuallySeleted == 1) {
+                employeeIdCombobox.openSelect();
+                isManuallySeleted = 0;
+            }
+        }
+        if (id == 0) {
+            employeeIdCombobox.setComboValue("");
+        } else {
+            var employeeId = document.forms['employeeOffMoneyForm'].employeeId.value;
+            if (employeeId != 0) {
+                var ind = employeeIdCombobox.getIndexByValue(employeeId);
+                employeeIdCombobox.selectOption(ind);
+            } else {
+                employeeIdCombobox.unSelectOption();
+                employeeIdCombobox.setComboValue("");
+            }
+        }
     });
 }
 function saveEmployeeOffMoney() {
@@ -7739,6 +8181,7 @@ function saveEmployeeOffMoney() {
     reformatNumberMoney(document.forms['employeeOffMoneyForm'].quantity);
     reformatNumberMoney(document.forms['employeeOffMoneyForm'].price);
     reformatNumberMoney(document.forms['employeeOffMoneyForm'].amount);
+    document.forms['employeeOffMoneyForm'].employeeId.value = document.forms['employeeOffMoneyForm'].employeeSelectedHidden.value;
     scriptFunction = "saveEmployeeOffMoney";
     callAjaxCheckError("addEmployeeOffMoney.do", null, document.forms['employeeOffMoneyForm'], function(data) {
         scriptFunction = "";
@@ -8346,6 +8789,7 @@ function getLpgSale(id, handle, lpgImportId) {
         document.getElementById('callbackFunc').value = handle;
         tryNumberFormatCurrentcy(document.forms['lpgSaleForm'].quantity, "VND");
         tryNumberFormatCurrentcy(document.forms['lpgSaleForm'].price, "VND");
+        tryNumberFormatCurrentcy(document.forms['lpgSaleForm'].vat, "VND");
         tryNumberFormatCurrentcy(document.forms['lpgSaleForm'].total, "VND");
         tryNumberFormatCurrentcy(document.forms['lpgSaleForm'].paid, "VND");
         tryNumberFormatCurrentcy(document.forms['lpgSaleForm'].debt, "VND");
@@ -8353,6 +8797,64 @@ function getLpgSale(id, handle, lpgImportId) {
         if (id == 0) {
             var currentDate = getCurrentDate();
             document.forms['lpgSaleForm'].lpgSaleDate.value = currentDate;
+        }
+
+        window.dhx_globalImgPath = "js/dhtmlx/combo/imgs/";
+        // ============================
+        var routeIdCombobox = dhtmlXComboFromSelect("routeIdCombobox");
+        routeIdCombobox.enableFilteringMode(true);
+        routeIdCombobox.attachEvent("onSelectionChange", function() {
+            setRouteSelectedForm('lpgSaleForm', routeIdCombobox.getComboText(), routeIdCombobox.getSelectedValue());
+        });
+        routeIdCombobox.attachEvent("onBlur", function() {
+            setRouteSelectedForm('lpgSaleForm', routeIdCombobox.getComboText(), routeIdCombobox.getSelectedValue());
+            routeIdCombobox.setComboText(routeIdCombobox.getSelectedText());
+        });
+        routeIdCombobox.DOMelem_input.onfocus = function(event) {
+            if (isManuallySeleted == 1) {
+                routeIdCombobox.openSelect();
+                isManuallySeleted = 0;
+            }
+        }
+        if (id == 0) {
+            routeIdCombobox.setComboValue("");
+        } else {
+            var routeId = document.forms['lpgSaleForm'].routeId.value;
+            if (routeId != 0) {
+                var ind = routeIdCombobox.getIndexByValue(routeId);
+                routeIdCombobox.selectOption(ind);
+            } else {
+                routeIdCombobox.unSelectOption();
+                routeIdCombobox.setComboValue("");
+            }
+        }
+        // ============================
+        var customerIdCombobox = dhtmlXComboFromSelect("customerIdCombobox");
+        customerIdCombobox.enableFilteringMode(true);
+        customerIdCombobox.attachEvent("onSelectionChange", function() {
+            setCustomerSelectedForm('lpgSaleForm', customerIdCombobox.getComboText(), customerIdCombobox.getSelectedValue());
+        });
+        customerIdCombobox.attachEvent("onBlur", function() {
+            setCustomerSelectedForm('lpgSaleForm', customerIdCombobox.getComboText(), customerIdCombobox.getSelectedValue());
+            customerIdCombobox.setComboText(customerIdCombobox.getSelectedText());
+        });
+        customerIdCombobox.DOMelem_input.onfocus = function(event) {
+            if (isManuallySeleted == 1) {
+                customerIdCombobox.openSelect();
+                isManuallySeleted = 0;
+            }
+        }
+        if (id == 0) {
+            customerIdCombobox.setComboValue("");
+        } else {
+            var customerId = document.forms['lpgSaleForm'].customerId.value;
+            if (customerId != 0) {
+                var ind = customerIdCombobox.getIndexByValue(customerId);
+                customerIdCombobox.selectOption(ind);
+            } else {
+                customerIdCombobox.unSelectOption();
+                customerIdCombobox.setComboValue("");
+            }
         }
     });
     if (lpgImportId > 0)
@@ -8363,10 +8865,13 @@ function saveLpgSale() {
         return false;
     reformatNumberMoney(document.forms['lpgSaleForm'].quantity);
     reformatNumberMoney(document.forms['lpgSaleForm'].price);
+    reformatNumberMoney(document.forms['lpgSaleForm'].vat);
     reformatNumberMoney(document.forms['lpgSaleForm'].total);
     reformatNumberMoney(document.forms['lpgSaleForm'].paid);
     reformatNumberMoney(document.forms['lpgSaleForm'].debt);
     reformatNumberMoney(document.forms['lpgSaleForm'].rate);
+    document.forms['lpgSaleForm'].routeId.value = document.forms['lpgSaleForm'].routeSelectedHidden.value;
+    document.forms['lpgSaleForm'].customerId.value = document.forms['lpgSaleForm'].customerSelectedHidden.value;
     scriptFunction = "saveLpgSale";
     callAjaxCheckError("addLpgSale.do", null, document.forms['lpgSaleForm'], function(data) {
         scriptFunction = "";
@@ -8389,20 +8894,23 @@ function delLpgSale() {
 function lpgSaleCaculateAmount() {
     var quantity = document.forms['lpgSaleForm'].quantity;
     var price = document.forms['lpgSaleForm'].price;
+    var vat = document.forms['lpgSaleForm'].vat;
     var rate = document.forms['lpgSaleForm'].rate;
     var amount = document.forms['lpgSaleForm'].total;
     var paid = document.forms['lpgSaleForm'].paid;
     var debt = document.forms['lpgSaleForm'].debt;
-    amount.value = reformatNumberMoneyString(quantity.value) * 1 * reformatNumberMoneyString(price.value) * 1 * reformatNumberMoneyString(rate.value) * 1 / 1000;
+    amount.value = reformatNumberMoneyString(quantity.value) * reformatNumberMoneyString(price.value) * (100 + reformatNumberMoneyString(vat.value) * 1) / 100 * reformatNumberMoneyString(rate.value) / 1000;
     paid.value = amount.value;
     debt.value = 0;
     tryNumberFormatCurrentcy(quantity, "VND");
     tryNumberFormatCurrentcy(price, "VND");
+    tryNumberFormatCurrentcy(vat, "VND");
     tryNumberFormatCurrentcy(rate, "VND");
     tryNumberFormatCurrentcy(amount, "VND");
     tryNumberFormatCurrentcy(paid, "VND");
     quantity = null;
     price = null;
+    vat = null;
     rate = null;
     amount = null;
     paid = null;
@@ -9466,7 +9974,7 @@ function loadOpeningStockPanel() {
         myCalendar.setDateFormat("%d/%m/%Y");
     });
 }
-function printOpeningStockExport(kind){
+function printOpeningStockExport(kind) {
     var url = "exportOpeningStock.do?reportName=" + kind;
     var date = document.getElementById("openingStockDate").value;
     if (date !== null)
@@ -9490,7 +9998,7 @@ function importOpeningStock(openingStockKind) {
                 s += ("id:" + file.id + ",name:" + file.name + ",uploaded:" + file.uploaded + ",error:" + file.error) + "\n";
             }
             if (file.uploaded == true) {
-                callAjaxCheckError("uploadAction.do?openingStockKind="+openingStockKind+"&image=" + file.name, null, null, function(data) {
+                callAjaxCheckError("uploadAction.do?openingStockKind=" + openingStockKind + "&image=" + file.name, null, null, function(data) {
                     prepareHidePopup('uploadFormshowHelpHideDiv');
                 });
             }
