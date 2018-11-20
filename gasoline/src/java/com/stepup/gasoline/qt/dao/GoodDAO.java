@@ -8,7 +8,6 @@ package com.stepup.gasoline.qt.dao;
 import com.stepup.core.database.DBUtil;
 import com.stepup.core.database.SPUtil;
 import com.stepup.core.util.DateUtil;
-import com.stepup.core.util.StringUtil;
 import com.stepup.gasoline.qt.accessory.AccessoryFormBean;
 import com.stepup.gasoline.qt.accessoryimport.AccessoryImportFormBean;
 import com.stepup.gasoline.qt.accessorykind.AccessoryKindFormBean;

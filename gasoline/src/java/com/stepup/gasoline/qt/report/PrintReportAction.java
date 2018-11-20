@@ -100,7 +100,11 @@ public class PrintReportAction extends BaseAction {
                 } else if (reportName.equals("reportvendordebt")) {
                     templateFileName = "bang_theo_doi_cong_no_ncc";
                     list = printVendorDebtReport(fromDate, toDate, organizationIds);
+                } else if (reportName.equals("reporttransportfee")) {
+                    templateFileName = "bang_theo_doi_chi_phi_van_chuyen";
+                    list = printTransportFeeReport(fromDate, toDate, organizationIds);
                 }
+
                 if (!reportName.equals("reportpetrostock") && !reportName.equals("reportgascommission")) {
                     String sourceFile = request.getSession().getServletContext().getRealPath("/templates/" + templateFileName + ".xls");
                     if (list == null) {
@@ -359,4 +363,15 @@ public class PrintReportAction extends BaseAction {
         }
         return list;
     }
+
+    private ArrayList printTransportFeeReport(String fromDate, String toDate, String organizationIds) {
+        ArrayList list = null;
+        try {
+            ReportDAO reportDAO = new ReportDAO();
+            list = reportDAO.getTransportFeeReport(fromDate, toDate, organizationIds);
+        } catch (Exception ex) {
+        }
+        return list;
+    }
+
 }

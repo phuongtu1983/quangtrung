@@ -277,7 +277,7 @@ function menuClick(id) {
         getContract(0, 'loadContractPanel');
     else if (id == 'reportlpgimport' || id == 'reportlpgstock' || id == 'reportlpgstocksum' || id == 'reportsum' || id == 'reportsalecustomer' || id == 'reportsale'
             || id == 'reportcashbook' || id == 'reportpetroimport' || id == 'reportpetrosale' || id == 'reportpetrostock' || id == 'reportgascommission'
-            || id == 'reportgasemployeecommission' || id == 'reportvendordebt')
+            || id == 'reportgasemployeecommission' || id == 'reportvendordebt' || id == 'reporttransportfee')
         showReportPanel(id);
     else if (id == 'shieldimportlist')
         loadShieldImportPanel();
@@ -2445,7 +2445,7 @@ function getEmployeeTimesheet(id, handle) {
             document.forms['employeeTimesheetForm'].employeeTimesheetDate.value = currentDate;
         }
         myCalendar.setDateFormat("%d/%m/%Y");
-        
+
         window.dhx_globalImgPath = "js/dhtmlx/combo/imgs/";
         // ============================
         var employeeIdCombobox = dhtmlXComboFromSelect("employeeIdCombobox");
@@ -2578,7 +2578,7 @@ function getEmployeeOff(id, handle) {
             document.forms['employeeOffForm'].toDate.value = currentDate;
         }
         myCalendar.setDateFormat("%d/%m/%Y");
-        
+
         window.dhx_globalImgPath = "js/dhtmlx/combo/imgs/";
         // ============================
         var employeeIdCombobox = dhtmlXComboFromSelect("employeeIdCombobox");
@@ -3611,7 +3611,7 @@ function getGasImport(id) {
         tryNumberFormatCurrentcy(document.forms['gasImportForm'].debt, "VND");
         tryNumberFormatCurrentcy(document.forms['gasImportForm'].rate, "VND");
         formatFormDetail('gasImportForm');
-        
+
         window.dhx_globalImgPath = "js/dhtmlx/combo/imgs/";
         // ============================
         var shellName = dhtmlXComboFromSelect("shellIdCombobox");
@@ -3791,7 +3791,7 @@ function getAccessoryImport(id) {
         tryNumberFormatCurrentcy(document.forms['accessoryImportForm'].paid, "VND");
         tryNumberFormatCurrentcy(document.forms['accessoryImportForm'].debt, "VND");
         formatFormDetail('accessoryImportForm');
-        
+
         window.dhx_globalImgPath = "js/dhtmlx/combo/imgs/";
         // ============================
         var accessoryIdCombobox = dhtmlXComboFromSelect("accessoryIdCombobox");
@@ -3979,7 +3979,7 @@ function getPromotionMaterialImport(id) {
         tryNumberFormatCurrentcy(document.forms['promotionMaterialImportForm'].paid, "VND");
         tryNumberFormatCurrentcy(document.forms['promotionMaterialImportForm'].debt, "VND");
         formatFormDetail('promotionMaterialImportForm');
-        
+
         window.dhx_globalImgPath = "js/dhtmlx/combo/imgs/";
         // ============================
         var promotionMaterialIdCombobox = dhtmlXComboFromSelect("promotionMaterialIdCombobox");
@@ -4168,7 +4168,7 @@ function getPetroImport(id) {
         tryNumberFormatCurrentcy(document.forms['petroImportForm'].debt, "VND");
         tryNumberFormatCurrentcy(document.forms['petroImportForm'].rate, "VND");
         formatFormDetail('petroImportForm');
-        
+
         window.dhx_globalImgPath = "js/dhtmlx/combo/imgs/";
         // ============================
         var petroIdCombobox = dhtmlXComboFromSelect("petroIdCombobox");
@@ -5248,7 +5248,7 @@ function getSaleAccessory(id) {
         tryNumberFormatCurrentcy(document.forms['saleAccessoryForm'].totalPay, "VND");
         formatFormDetail('saleAccessoryForm');
         formatSaleAccessoryChangeDetail();
-        
+
         window.dhx_globalImgPath = "js/dhtmlx/combo/imgs/";
         // ============================
         var accessoryIdCombobox = dhtmlXComboFromSelect("accessoryIdCombobox");
@@ -5630,7 +5630,7 @@ function getSalePetro(id) {
         tryNumberFormatCurrentcy(document.forms['salePetroForm'].discount, "VND");
         tryNumberFormatCurrentcy(document.forms['salePetroForm'].totalPay, "VND");
         formatFormDetail('salePetroForm');
-        
+
         window.dhx_globalImgPath = "js/dhtmlx/combo/imgs/";
         // ============================
         var petroIdCombobox = dhtmlXComboFromSelect("petroIdCombobox");
@@ -7452,7 +7452,7 @@ function getExportWholesale(id) {
                 customerIdCombobox.setComboValue("");
             }
         }
-        
+
         var myCalendar = new dhtmlXCalendarObject(["exportWholesaleCreatedDate"]);
         myCalendar.setSkin('dhx_web');
         if (id == 0) {
@@ -8226,7 +8226,7 @@ function getEmployeeOffIncrease(id, handle) {
     callAjax(url, null, null, function(data) {
         showPopupForm(data);
         document.getElementById('callbackFunc').value = handle;
-        
+
         window.dhx_globalImgPath = "js/dhtmlx/combo/imgs/";
         // ============================
         var employeeIdCombobox = dhtmlXComboFromSelect("employeeIdCombobox");
@@ -8717,7 +8717,7 @@ function getContract(id, handle) {
             loadAttchmentFileList(null, null);
         }
         myCalendar.setDateFormat("%d/%m/%Y");
-        
+
         window.dhx_globalImgPath = "js/dhtmlx/combo/imgs/";
         // ============================
         var customerIdCombobox = dhtmlXComboFromSelect("customerIdCombobox");
@@ -9751,7 +9751,7 @@ function getGoodImport(id) {
         tryNumberFormatCurrentcy(document.forms['goodImportForm'].debt, "VND");
         tryNumberFormatCurrentcy(document.forms['goodImportForm'].rate, "VND");
         formatFormDetail('goodImportForm');
-        
+
         window.dhx_globalImgPath = "js/dhtmlx/combo/imgs/";
         // ============================
         var goodIdCombobox = dhtmlXComboFromSelect("goodIdCombobox");
@@ -9933,7 +9933,7 @@ function getSaleGood(id) {
         tryNumberFormatCurrentcy(document.forms['saleGoodForm'].discount, "VND");
         tryNumberFormatCurrentcy(document.forms['saleGoodForm'].totalPay, "VND");
         formatFormDetail('saleGoodForm');
-        
+
         window.dhx_globalImgPath = "js/dhtmlx/combo/imgs/";
         // ============================
         var goodIdCombobox = dhtmlXComboFromSelect("goodIdCombobox");

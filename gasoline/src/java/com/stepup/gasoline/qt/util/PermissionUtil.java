@@ -169,4 +169,5 @@ public class PermissionUtil {
     public static int PER_REPORT_VENDOR_DEBT = 81;
     public static int PER_LO_VO = 82;
     public static int PER_OPENING_STOCK = 83;
+    public static int PER_REPORT_TRANSPORT_FEE = 84;
 }

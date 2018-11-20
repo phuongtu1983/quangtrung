@@ -49,6 +49,7 @@ import com.stepup.gasoline.qt.report.PetroStockReportOutBean;
 import com.stepup.gasoline.qt.report.SaleCustomerReportBean;
 import com.stepup.gasoline.qt.report.SaleReportBean;
 import com.stepup.gasoline.qt.report.SumReportBean;
+import com.stepup.gasoline.qt.report.TransportFeeReportBean;
 import com.stepup.gasoline.qt.report.VendorDebtReportBean;
 import com.stepup.gasoline.qt.report.comparegood.CompareGoodReportBean;
 import com.stepup.gasoline.qt.report.comparegood.CompareGoodReportOutBean;
@@ -2118,4 +2119,69 @@ public class ReportDAO extends BasicDAO {
         }
     }
 
+    public ArrayList getTransportFeeReport(String fromDate, String endDate, String organizationIds) throws Exception {
+        SPUtil spUtil = null;
+        ArrayList list = new ArrayList();
+        ResultSet rs = null;
+        try {
+            String sql = "{call report_transport_fee(?,?,?,?,?)}";
+            if (GenericValidator.isBlankOrNull(fromDate)) {
+                fromDate = DateUtil.today("dd/MM/yyyy");
+            }
+            if (GenericValidator.isBlankOrNull(endDate)) {
+                endDate = BasicDAO.START_DATE;
+            }
+            spUtil = new SPUtil(sql);
+            if (spUtil != null) {
+                spUtil.getCallableStatement().setString("_start_date", fromDate);
+                spUtil.getCallableStatement().setString("_end_date", endDate);
+                spUtil.getCallableStatement().setString("_organization_ids", organizationIds);
+                spUtil.getCallableStatement().registerOutParameter("_p100_km", Types.FLOAT);
+                spUtil.getCallableStatement().registerOutParameter("_p1000_kg", Types.FLOAT);
+
+                rs = spUtil.executeQuery();
+
+                float p100km = spUtil.getCallableStatement().getFloat("_p100_km");
+                float p1000kg = spUtil.getCallableStatement().getFloat("_p1000_kg");
+
+                if (rs != null) {
+                    TransportFeeReportBean bean = null;
+                    int count = 1;
+                    while (rs.next()) {
+                        bean = new TransportFeeReportBean();
+                        bean.setCount(count++ + "");
+                        bean.setDate(DateUtil.formatDate(rs.getDate("created_date"), "dd/MM/yyyy"));
+                        bean.setRouteName(rs.getString("route_name"));
+                        bean.setDistance(rs.getInt("distance"));
+                        bean.setPaperQuantity(rs.getInt("paper_quantity"));
+                        bean.setActualQuantity(rs.getInt("actual_quantity"));
+                        bean.setDiff(bean.getActualQuantity() - bean.getPaperQuantity());
+                        bean.setTotal(bean.getDistance() * p100km / 1000 + bean.getPaperQuantity() * p1000kg / 1000);
+                        bean.setPrice(rs.getDouble("price"));
+                        bean.setAmount(bean.getTotal() * bean.getPrice());
+                        bean.setStoreName(rs.getString("store_name"));
+                        bean.setNote(rs.getString("note"));
+                        list.add(bean);
+                    }
+                }
+            }
+        } catch (SQLException sqle) {
+            throw new Exception(sqle.getMessage());
+        } catch (Exception ex) {
+            throw new Exception(ex.getMessage());
+        } finally {
+            try {
+                if (spUtil != null) {
+                    spUtil.closeConnection();
+                }
+                if (rs != null) {
+                    rs.close();
+                    rs = null;
+                }
+            } catch (Exception e) {
+                throw new Exception(e.getMessage());
+            }
+        }
+        return list;
+    }
 }
