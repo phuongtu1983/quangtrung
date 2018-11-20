@@ -15,7 +15,9 @@ public class CustomerOpeningStockBean {
     private String organizationName;
     private int customerId;
     private String customerName;
-    private int openingStock;
+    private double openingStock;
+    private int openingStock12;
+    private int openingStock45;
 
     public int getOrganizationId() {
         return organizationId;
@@ -49,12 +51,28 @@ public class CustomerOpeningStockBean {
         this.customerName = customerName;
     }
 
-    public int getOpeningStock() {
+    public double getOpeningStock() {
         return openingStock;
     }
 
-    public void setOpeningStock(int openingStock) {
+    public void setOpeningStock(double openingStock) {
         this.openingStock = openingStock;
+    }
+
+    public int getOpeningStock12() {
+        return openingStock12;
+    }
+
+    public void setOpeningStock12(int openingStock12) {
+        this.openingStock12 = openingStock12;
+    }
+
+    public int getOpeningStock45() {
+        return openingStock45;
+    }
+
+    public void setOpeningStock45(int openingStock45) {
+        this.openingStock45 = openingStock45;
     }
 
 }

@@ -53,7 +53,7 @@
                                 <button class="i_plus icon small green" onclick="return addSaleAccessoryGood();"><bean:message key="message.add"/></button>
                             </td>
                             <td>
-                                <select style="width: 260px;" name="goodIdCombobox" id="goodIdCombobox">
+                                <select style="width: 260px;" name="accessoryIdCombobox" id="accessoryIdCombobox">
                                     <logic:iterate id="good_iter" name="<%=Constants.GOOD_LIST%>">
                                         <option  value="${good_iter.id}">${good_iter.name}</option>
                                     </logic:iterate>
@@ -117,7 +117,8 @@
     </table>
     <html:hidden property="id" name="<%=Constants.SALE_ACCESSORY%>" />
     <input type="hidden" id="callbackFunc"/>
-    <input type="hidden" name="foodSelectedHidden" value="0"/>
+    <input type="hidden" name="accessorySelectedHidden" value="0"/>
+    <input type="hidden" name="changeGoodSelectedHidden" value="0"/>
 </form>
 <div name="saleAccessoryFormshowHelpHideDiv" id="showHelpHideDiv" style="display:none">
     Ctrl+C : Đóng

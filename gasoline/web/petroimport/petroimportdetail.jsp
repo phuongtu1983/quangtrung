@@ -106,7 +106,7 @@
     </table>
     <html:hidden property="id" name="<%=Constants.PETRO_IMPORT%>" />
     <input type="hidden" id="callbackFunc"/>
-    <input type="hidden" name="foodSelectedHidden" value="0"/>
+    <input type="hidden" name="petroSelectedHidden" value="0"/>
 </form>
 <div name="petroImportFormshowHelpHideDiv" id="showHelpHideDiv" style="display:none">
     Ctrl+C : Đóng

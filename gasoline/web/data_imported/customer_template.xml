@@ -9,6 +9,8 @@
                 <section startRow="6" endRow="6">
                     <mapping row="6" col="1">data.customerId</mapping>
                     <mapping row="6" col="4">data.openingStock</mapping>
+					<mapping row="6" col="5">data.openingStock12</mapping>
+					<mapping row="6" col="6">data.openingStock45</mapping>
                 </section>
                 <loopbreakcondition>
 					<rowcheck offset="0">

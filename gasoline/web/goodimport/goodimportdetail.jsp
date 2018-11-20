@@ -106,7 +106,7 @@
     </table>
     <html:hidden property="id" name="<%=Constants.GOOD_IMPORT%>" />
     <input type="hidden" id="callbackFunc"/>
-    <input type="hidden" name="foodSelectedHidden" value="0"/>
+    <input type="hidden" name="goodSelectedHidden" value="0"/>
 </form>
 <div name="goodImportFormshowHelpHideDiv" id="showHelpHideDiv" style="display:none">
     Ctrl+C : Đóng

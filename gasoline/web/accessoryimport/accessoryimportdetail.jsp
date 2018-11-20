@@ -96,7 +96,7 @@
     </table>
     <html:hidden property="id" name="<%=Constants.ACCESSORY_IMPORT%>" />
     <input type="hidden" id="callbackFunc"/>
-    <input type="hidden" name="foodSelectedHidden" value="0"/>
+    <input type="hidden" name="accessorySelectedHidden" value="0"/>
 </form>
 <div name="accessoryImportFormshowHelpHideDiv" id="showHelpHideDiv" style="display:none">
     Ctrl+C : Đóng

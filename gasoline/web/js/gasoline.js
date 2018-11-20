@@ -3791,7 +3791,45 @@ function getAccessoryImport(id) {
         tryNumberFormatCurrentcy(document.forms['accessoryImportForm'].paid, "VND");
         tryNumberFormatCurrentcy(document.forms['accessoryImportForm'].debt, "VND");
         formatFormDetail('accessoryImportForm');
+        
+        window.dhx_globalImgPath = "js/dhtmlx/combo/imgs/";
+        // ============================
+        var accessoryIdCombobox = dhtmlXComboFromSelect("accessoryIdCombobox");
+        accessoryIdCombobox.enableFilteringMode(true);
+        accessoryIdCombobox.attachEvent("onSelectionChange", function() {
+            setAccessorySelectedForm('accessoryImportForm', accessoryIdCombobox.getComboText(), accessoryIdCombobox.getSelectedValue());
+        });
+        accessoryIdCombobox.attachEvent("onBlur", function() {
+            setAccessorySelectedForm('accessoryImportForm', accessoryIdCombobox.getComboText(), accessoryIdCombobox.getSelectedValue());
+        });
+        accessoryIdCombobox.DOMelem_input.onkeypress = function(event) {
+            var key;
+            if (window.event)
+                key = window.event.keyCode;//IE
+            else
+                key = event.which;//firefox
+            if (key == 13) {
+                addAccessoryImportAccessory();
+                accessoryIdCombobox.setComboValue("");
+            }
+        }
+        accessoryIdCombobox.DOMelem_input.onfocus = function(event) {
+            if (isManuallySeleted == 1) {
+                accessoryIdCombobox.openSelect();
+                isManuallySeleted = 0;
+            }
+        }
+        accessoryIdCombobox.setComboValue("");
     });
+}
+function setAccessorySelectedForm(form, text, value) {
+    if (value == null) {
+        if (text != "")
+            value = "-1";
+        else
+            value = "0";
+    }
+    document.forms[form].accessorySelectedHidden.value = value;
 }
 function saveAccessoryImport() {
     if (scriptFunction == "saveAccessoryImport")
@@ -3841,11 +3879,7 @@ function saveAccessoryImport() {
     return false;
 }
 function addAccessoryImportAccessory() {
-    var accessory = document.forms['accessoryImportForm'].accessoryIdCombobox;
-    if (accessory == null && accessory.selectedIndex == -1)
-        accessory = null;
-    else
-        accessory = accessory.options[accessory.selectedIndex].value;
+    var accessory = document.forms['accessoryImportForm'].accessorySelectedHidden.value;
     if (accessory == -1 || accessory == 0)
         return false;
     var accessoryId = document.forms['accessoryImportForm'].accessoryId;
@@ -3945,7 +3979,45 @@ function getPromotionMaterialImport(id) {
         tryNumberFormatCurrentcy(document.forms['promotionMaterialImportForm'].paid, "VND");
         tryNumberFormatCurrentcy(document.forms['promotionMaterialImportForm'].debt, "VND");
         formatFormDetail('promotionMaterialImportForm');
+        
+        window.dhx_globalImgPath = "js/dhtmlx/combo/imgs/";
+        // ============================
+        var promotionMaterialIdCombobox = dhtmlXComboFromSelect("promotionMaterialIdCombobox");
+        promotionMaterialIdCombobox.enableFilteringMode(true);
+        promotionMaterialIdCombobox.attachEvent("onSelectionChange", function() {
+            setPromotoinMaterialSelectedForm('promotionMaterialImportForm', promotionMaterialIdCombobox.getComboText(), promotionMaterialIdCombobox.getSelectedValue());
+        });
+        promotionMaterialIdCombobox.attachEvent("onBlur", function() {
+            setPromotoinMaterialSelectedForm('promotionMaterialImportForm', promotionMaterialIdCombobox.getComboText(), promotionMaterialIdCombobox.getSelectedValue());
+        });
+        promotionMaterialIdCombobox.DOMelem_input.onkeypress = function(event) {
+            var key;
+            if (window.event)
+                key = window.event.keyCode;//IE
+            else
+                key = event.which;//firefox
+            if (key == 13) {
+                addPromotionMaterialImportPromotionMaterial();
+                promotionMaterialIdCombobox.setComboValue("");
+            }
+        }
+        promotionMaterialIdCombobox.DOMelem_input.onfocus = function(event) {
+            if (isManuallySeleted == 1) {
+                promotionMaterialIdCombobox.openSelect();
+                isManuallySeleted = 0;
+            }
+        }
+        promotionMaterialIdCombobox.setComboValue("");
     });
+}
+function setPromotoinMaterialSelectedForm(form, text, value) {
+    if (value == null) {
+        if (text != "")
+            value = "-1";
+        else
+            value = "0";
+    }
+    document.forms[form].promotionMaterialSelectedHidden.value = value;
 }
 function savePromotionMaterialImport() {
     if (scriptFunction == "savePromotionMaterialImport")
@@ -3995,11 +4067,7 @@ function savePromotionMaterialImport() {
     return false;
 }
 function addPromotionMaterialImportPromotionMaterial() {
-    var promotionMaterial = document.forms['promotionMaterialImportForm'].promotionMaterialIdCombobox;
-    if (promotionMaterial == null && promotionMaterial.selectedIndex == -1)
-        promotionMaterial = null;
-    else
-        promotionMaterial = promotionMaterial.options[promotionMaterial.selectedIndex].value;
+    var promotionMaterial = document.forms['promotionMaterialImportForm'].promotionMaterialSelectedHidden.value;
     if (promotionMaterial == -1 || promotionMaterial == 0)
         return false;
     var promotionMaterialId = document.forms['promotionMaterialImportForm'].promotionMaterialId;
@@ -4100,7 +4168,45 @@ function getPetroImport(id) {
         tryNumberFormatCurrentcy(document.forms['petroImportForm'].debt, "VND");
         tryNumberFormatCurrentcy(document.forms['petroImportForm'].rate, "VND");
         formatFormDetail('petroImportForm');
+        
+        window.dhx_globalImgPath = "js/dhtmlx/combo/imgs/";
+        // ============================
+        var petroIdCombobox = dhtmlXComboFromSelect("petroIdCombobox");
+        petroIdCombobox.enableFilteringMode(true);
+        petroIdCombobox.attachEvent("onSelectionChange", function() {
+            setPetroSelectedForm('petroImportForm', petroIdCombobox.getComboText(), petroIdCombobox.getSelectedValue());
+        });
+        petroIdCombobox.attachEvent("onBlur", function() {
+            setPetroSelectedForm('petroImportForm', petroIdCombobox.getComboText(), petroIdCombobox.getSelectedValue());
+        });
+        petroIdCombobox.DOMelem_input.onkeypress = function(event) {
+            var key;
+            if (window.event)
+                key = window.event.keyCode;//IE
+            else
+                key = event.which;//firefox
+            if (key == 13) {
+                addPetroImportPetro();
+                petroIdCombobox.setComboValue("");
+            }
+        }
+        petroIdCombobox.DOMelem_input.onfocus = function(event) {
+            if (isManuallySeleted == 1) {
+                petroIdCombobox.openSelect();
+                isManuallySeleted = 0;
+            }
+        }
+        petroIdCombobox.setComboValue("");
     });
+}
+function setPetroSelectedForm(form, text, value) {
+    if (value == null) {
+        if (text != "")
+            value = "-1";
+        else
+            value = "0";
+    }
+    document.forms[form].petroSelectedHidden.value = value;
 }
 function savePetroImport() {
     if (scriptFunction == "savePetroImport")
@@ -4151,11 +4257,7 @@ function savePetroImport() {
     return false;
 }
 function addPetroImportPetro() {
-    var petro = document.forms['petroImportForm'].petroIdCombobox;
-    if (petro == null && petro.selectedIndex == -1)
-        petro = null;
-    else
-        petro = petro.options[petro.selectedIndex].value;
+    var petro = document.forms['petroImportForm'].petroSelectedHidden.value;
     if (petro == -1 || petro == 0)
         return false;
     var petroId = document.forms['petroImportForm'].petroId;
@@ -5146,7 +5248,72 @@ function getSaleAccessory(id) {
         tryNumberFormatCurrentcy(document.forms['saleAccessoryForm'].totalPay, "VND");
         formatFormDetail('saleAccessoryForm');
         formatSaleAccessoryChangeDetail();
+        
+        window.dhx_globalImgPath = "js/dhtmlx/combo/imgs/";
+        // ============================
+        var accessoryIdCombobox = dhtmlXComboFromSelect("accessoryIdCombobox");
+        accessoryIdCombobox.enableFilteringMode(true);
+        accessoryIdCombobox.attachEvent("onSelectionChange", function() {
+            setAccessorySelectedForm('saleAccessoryForm', accessoryIdCombobox.getComboText(), accessoryIdCombobox.getSelectedValue());
+        });
+        accessoryIdCombobox.attachEvent("onBlur", function() {
+            setAccessorySelectedForm('saleAccessoryForm', accessoryIdCombobox.getComboText(), accessoryIdCombobox.getSelectedValue());
+        });
+        accessoryIdCombobox.DOMelem_input.onkeypress = function(event) {
+            var key;
+            if (window.event)
+                key = window.event.keyCode;//IE
+            else
+                key = event.which;//firefox
+            if (key == 13) {
+                addSaleAccessoryGood();
+                accessoryIdCombobox.setComboValue("");
+            }
+        }
+        accessoryIdCombobox.DOMelem_input.onfocus = function(event) {
+            if (isManuallySeleted == 1) {
+                accessoryIdCombobox.openSelect();
+                isManuallySeleted = 0;
+            }
+        }
+        accessoryIdCombobox.setComboValue("");
+        // ============================
+        var changeGoodIdCombobox = dhtmlXComboFromSelect("changeGoodIdCombobox");
+        changeGoodIdCombobox.enableFilteringMode(true);
+        changeGoodIdCombobox.attachEvent("onSelectionChange", function() {
+            setAccessoryChangeGoodSelectedForm('saleAccessoryForm', changeGoodIdCombobox.getComboText(), changeGoodIdCombobox.getSelectedValue());
+        });
+        changeGoodIdCombobox.attachEvent("onBlur", function() {
+            setAccessoryChangeGoodSelectedForm('saleAccessoryForm', changeGoodIdCombobox.getComboText(), changeGoodIdCombobox.getSelectedValue());
+        });
+        changeGoodIdCombobox.DOMelem_input.onkeypress = function(event) {
+            var key;
+            if (window.event)
+                key = window.event.keyCode;//IE
+            else
+                key = event.which;//firefox
+            if (key == 13) {
+                addSaleAccessoryChangeGood();
+                changeGoodIdCombobox.setComboValue("");
+            }
+        }
+        changeGoodIdCombobox.DOMelem_input.onfocus = function(event) {
+            if (isManuallySeleted == 1) {
+                changeGoodIdCombobox.openSelect();
+                isManuallySeleted = 0;
+            }
+        }
+        changeGoodIdCombobox.setComboValue("");
     });
+}
+function setAccessoryChangeGoodSelectedForm(form, text, value) {
+    if (value == null) {
+        if (text != "")
+            value = "-1";
+        else
+            value = "0";
+    }
+    document.forms[form].changeGoodSelectedHidden.value = value;
 }
 function saveSaleAccessory() {
     if (scriptFunction == "saveSaleAccessory")
@@ -5200,11 +5367,7 @@ function saveSaleAccessory() {
     return false;
 }
 function addSaleAccessoryGood() {
-    var good = document.forms['saleAccessoryForm'].goodIdCombobox;
-    if (good == null && good.selectedIndex == -1)
-        good = null;
-    else
-        good = good.options[good.selectedIndex].value;
+    var good = document.forms['saleAccessoryForm'].accessorySelectedHidden.value;
     if (good == -1 || good == 0)
         return false;
     var goodId = document.forms['saleAccessoryForm'].goodId;
@@ -5249,11 +5412,7 @@ function delSaleAccessory() {
     return false;
 }
 function addSaleAccessoryChangeGood() {
-    var good = document.forms['saleAccessoryForm'].changeGoodIdCombobox;
-    if (good == null && good.selectedIndex == -1)
-        good = null;
-    else
-        good = good.options[good.selectedIndex].value;
+    var good = document.forms['saleAccessoryForm'].changeGoodSelectedHidden.value;
     if (good == -1 || good == 0)
         return false;
     var goodId = document.forms['saleAccessoryForm'].changeGoodId;
@@ -5471,6 +5630,63 @@ function getSalePetro(id) {
         tryNumberFormatCurrentcy(document.forms['salePetroForm'].discount, "VND");
         tryNumberFormatCurrentcy(document.forms['salePetroForm'].totalPay, "VND");
         formatFormDetail('salePetroForm');
+        
+        window.dhx_globalImgPath = "js/dhtmlx/combo/imgs/";
+        // ============================
+        var petroIdCombobox = dhtmlXComboFromSelect("petroIdCombobox");
+        petroIdCombobox.enableFilteringMode(true);
+        petroIdCombobox.attachEvent("onSelectionChange", function() {
+            setPetroSelectedForm('salePetroForm', petroIdCombobox.getComboText(), petroIdCombobox.getSelectedValue());
+        });
+        petroIdCombobox.attachEvent("onBlur", function() {
+            setPetroSelectedForm('salePetroForm', petroIdCombobox.getComboText(), petroIdCombobox.getSelectedValue());
+        });
+        petroIdCombobox.DOMelem_input.onkeypress = function(event) {
+            var key;
+            if (window.event)
+                key = window.event.keyCode;//IE
+            else
+                key = event.which;//firefox
+            if (key == 13) {
+                addSalePetroGood();
+                petroIdCombobox.setComboValue("");
+            }
+        }
+        petroIdCombobox.DOMelem_input.onfocus = function(event) {
+            if (isManuallySeleted == 1) {
+                petroIdCombobox.openSelect();
+                isManuallySeleted = 0;
+            }
+        }
+        petroIdCombobox.setComboValue("");
+        // ============================
+        var customerIdCombobox = dhtmlXComboFromSelect("customerIdCombobox");
+        customerIdCombobox.enableFilteringMode(true);
+        customerIdCombobox.attachEvent("onSelectionChange", function() {
+            setCustomerSelectedForm('salePetroForm', customerIdCombobox.getComboText(), customerIdCombobox.getSelectedValue());
+        });
+        customerIdCombobox.attachEvent("onBlur", function() {
+            setCustomerSelectedForm('salePetroForm', customerIdCombobox.getComboText(), customerIdCombobox.getSelectedValue());
+            customerIdCombobox.setComboText(customerIdCombobox.getSelectedText());
+        });
+        customerIdCombobox.DOMelem_input.onfocus = function(event) {
+            if (isManuallySeleted == 1) {
+                customerIdCombobox.openSelect();
+                isManuallySeleted = 0;
+            }
+        }
+        if (id == 0) {
+            customerIdCombobox.setComboValue("");
+        } else {
+            var customerId = document.forms['salePetroForm'].customerId.value;
+            if (customerId != 0) {
+                var ind = customerIdCombobox.getIndexByValue(customerId);
+                customerIdCombobox.selectOption(ind);
+            } else {
+                customerIdCombobox.unSelectOption();
+                customerIdCombobox.setComboValue("");
+            }
+        }
     });
 }
 function saveSalePetro() {
@@ -5516,6 +5732,7 @@ function saveSalePetro() {
     reformatNumberMoney(document.forms['salePetroForm'].discount);
     reformatNumberMoney(document.forms['salePetroForm'].totalPay);
     reformatFormDetail('salePetroForm');
+    document.forms['salePetroForm'].customerId.value = document.forms['salePetroForm'].customerSelectedHidden.value;
     scriptFunction = "saveSalePetro";
     callAjaxCheckError("addSalePetro.do", null, document.forms['salePetroForm'], function(data) {
         scriptFunction = "";
@@ -5524,11 +5741,7 @@ function saveSalePetro() {
     return false;
 }
 function addSalePetroGood() {
-    var good = document.forms['salePetroForm'].goodIdCombobox;
-    if (good == null && good.selectedIndex == -1)
-        good = null;
-    else
-        good = good.options[good.selectedIndex].value;
+    var good = document.forms['salePetroForm'].petroSelectedHidden.value;
     if (good == -1 || good == 0)
         return false;
     var goodId = document.forms['salePetroForm'].goodId;
@@ -8504,6 +8717,36 @@ function getContract(id, handle) {
             loadAttchmentFileList(null, null);
         }
         myCalendar.setDateFormat("%d/%m/%Y");
+        
+        window.dhx_globalImgPath = "js/dhtmlx/combo/imgs/";
+        // ============================
+        var customerIdCombobox = dhtmlXComboFromSelect("customerIdCombobox");
+        customerIdCombobox.enableFilteringMode(true);
+        customerIdCombobox.attachEvent("onSelectionChange", function() {
+            setCustomerSelectedForm('contractForm', customerIdCombobox.getComboText(), customerIdCombobox.getSelectedValue());
+        });
+        customerIdCombobox.attachEvent("onBlur", function() {
+            setCustomerSelectedForm('contractForm', customerIdCombobox.getComboText(), customerIdCombobox.getSelectedValue());
+            customerIdCombobox.setComboText(customerIdCombobox.getSelectedText());
+        });
+        customerIdCombobox.DOMelem_input.onfocus = function(event) {
+            if (isManuallySeleted == 1) {
+                customerIdCombobox.openSelect();
+                isManuallySeleted = 0;
+            }
+        }
+        if (id == 0) {
+            customerIdCombobox.setComboValue("");
+        } else {
+            var customerId = document.forms['contractForm'].customerId.value;
+            if (customerId != 0) {
+                var ind = customerIdCombobox.getIndexByValue(customerId);
+                customerIdCombobox.selectOption(ind);
+            } else {
+                customerIdCombobox.unSelectOption();
+                customerIdCombobox.setComboValue("");
+            }
+        }
     });
 }
 function saveContract() {
@@ -8520,6 +8763,7 @@ function saveContract() {
     reformatNumberMoney(document.forms['contractForm'].shell45Price);
     reformatNumberMoney(document.forms['contractForm'].creditDate);
     reformatNumberMoney(document.forms['contractForm'].creditAmount);
+    document.forms['contractForm'].customerId.value = document.forms['contractForm'].customerSelectedHidden.value;
     scriptFunction = "saveContract";
     callAjaxCheckError("addContract.do", null, document.forms['contractForm'], function(data) {
         scriptFunction = "";
@@ -9507,6 +9751,35 @@ function getGoodImport(id) {
         tryNumberFormatCurrentcy(document.forms['goodImportForm'].debt, "VND");
         tryNumberFormatCurrentcy(document.forms['goodImportForm'].rate, "VND");
         formatFormDetail('goodImportForm');
+        
+        window.dhx_globalImgPath = "js/dhtmlx/combo/imgs/";
+        // ============================
+        var goodIdCombobox = dhtmlXComboFromSelect("goodIdCombobox");
+        goodIdCombobox.enableFilteringMode(true);
+        goodIdCombobox.attachEvent("onSelectionChange", function() {
+            setPetroSelectedForm('goodImportForm', goodIdCombobox.getComboText(), goodIdCombobox.getSelectedValue());
+        });
+        goodIdCombobox.attachEvent("onBlur", function() {
+            setPetroSelectedForm('goodImportForm', goodIdCombobox.getComboText(), goodIdCombobox.getSelectedValue());
+        });
+        goodIdCombobox.DOMelem_input.onkeypress = function(event) {
+            var key;
+            if (window.event)
+                key = window.event.keyCode;//IE
+            else
+                key = event.which;//firefox
+            if (key == 13) {
+                addGoodImportGood();
+                goodIdCombobox.setComboValue("");
+            }
+        }
+        goodIdCombobox.DOMelem_input.onfocus = function(event) {
+            if (isManuallySeleted == 1) {
+                goodIdCombobox.openSelect();
+                isManuallySeleted = 0;
+            }
+        }
+        goodIdCombobox.setComboValue("");
     });
 }
 function saveGoodImport() {
@@ -9558,11 +9831,7 @@ function saveGoodImport() {
     return false;
 }
 function addGoodImportGood() {
-    var good = document.forms['goodImportForm'].goodIdCombobox;
-    if (good == null && good.selectedIndex == -1)
-        good = null;
-    else
-        good = good.options[good.selectedIndex].value;
+    var good = document.forms['goodImportForm'].goodSelectedHidden.value;
     if (good == -1 || good == 0)
         return false;
     var goodId = document.forms['goodImportForm'].goodId;
@@ -9664,7 +9933,73 @@ function getSaleGood(id) {
         tryNumberFormatCurrentcy(document.forms['saleGoodForm'].discount, "VND");
         tryNumberFormatCurrentcy(document.forms['saleGoodForm'].totalPay, "VND");
         formatFormDetail('saleGoodForm');
+        
+        window.dhx_globalImgPath = "js/dhtmlx/combo/imgs/";
+        // ============================
+        var goodIdCombobox = dhtmlXComboFromSelect("goodIdCombobox");
+        goodIdCombobox.enableFilteringMode(true);
+        goodIdCombobox.attachEvent("onSelectionChange", function() {
+            setGoodSelectedForm('saleGoodForm', goodIdCombobox.getComboText(), goodIdCombobox.getSelectedValue());
+        });
+        goodIdCombobox.attachEvent("onBlur", function() {
+            setGoodSelectedForm('saleGoodForm', goodIdCombobox.getComboText(), goodIdCombobox.getSelectedValue());
+        });
+        goodIdCombobox.DOMelem_input.onkeypress = function(event) {
+            var key;
+            if (window.event)
+                key = window.event.keyCode;//IE
+            else
+                key = event.which;//firefox
+            if (key == 13) {
+                addSaleGoodGood();
+                goodIdCombobox.setComboValue("");
+            }
+        }
+        goodIdCombobox.DOMelem_input.onfocus = function(event) {
+            if (isManuallySeleted == 1) {
+                goodIdCombobox.openSelect();
+                isManuallySeleted = 0;
+            }
+        }
+        goodIdCombobox.setComboValue("");
+        // ============================
+        var customerIdCombobox = dhtmlXComboFromSelect("customerIdCombobox");
+        customerIdCombobox.enableFilteringMode(true);
+        customerIdCombobox.attachEvent("onSelectionChange", function() {
+            setCustomerSelectedForm('saleGoodForm', customerIdCombobox.getComboText(), customerIdCombobox.getSelectedValue());
+        });
+        customerIdCombobox.attachEvent("onBlur", function() {
+            setCustomerSelectedForm('saleGoodForm', customerIdCombobox.getComboText(), customerIdCombobox.getSelectedValue());
+            customerIdCombobox.setComboText(customerIdCombobox.getSelectedText());
+        });
+        customerIdCombobox.DOMelem_input.onfocus = function(event) {
+            if (isManuallySeleted == 1) {
+                customerIdCombobox.openSelect();
+                isManuallySeleted = 0;
+            }
+        }
+        if (id == 0) {
+            customerIdCombobox.setComboValue("");
+        } else {
+            var customerId = document.forms['saleGoodForm'].customerId.value;
+            if (customerId != 0) {
+                var ind = customerIdCombobox.getIndexByValue(customerId);
+                customerIdCombobox.selectOption(ind);
+            } else {
+                customerIdCombobox.unSelectOption();
+                customerIdCombobox.setComboValue("");
+            }
+        }
     });
+}
+function setGoodSelectedForm(form, text, value) {
+    if (value == null) {
+        if (text != "")
+            value = "-1";
+        else
+            value = "0";
+    }
+    document.forms[form].goodSelectedHidden.value = value;
 }
 function saveSaleGood() {
     if (scriptFunction == "saveSaleGood")
@@ -9709,6 +10044,7 @@ function saveSaleGood() {
     reformatNumberMoney(document.forms['saleGoodForm'].discount);
     reformatNumberMoney(document.forms['saleGoodForm'].totalPay);
     reformatFormDetail('saleGoodForm');
+    document.forms['saleGoodForm'].customerId.value = document.forms['saleGoodForm'].customerSelectedHidden.value;
     scriptFunction = "saveSaleGood";
     callAjaxCheckError("addSaleGood.do", null, document.forms['saleGoodForm'], function(data) {
         scriptFunction = "";
@@ -9717,11 +10053,7 @@ function saveSaleGood() {
     return false;
 }
 function addSaleGoodGood() {
-    var good = document.forms['saleGoodForm'].goodIdCombobox;
-    if (good == null && good.selectedIndex == -1)
-        good = null;
-    else
-        good = good.options[good.selectedIndex].value;
+    var good = document.forms['saleGoodForm'].goodSelectedHidden.value;
     if (good == -1 || good == 0)
         return false;
     var goodId = document.forms['saleGoodForm'].goodId;

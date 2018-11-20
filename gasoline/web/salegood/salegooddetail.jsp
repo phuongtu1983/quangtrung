@@ -27,9 +27,11 @@
         <tr>
             <td height="30" style="padding-right: 20px""><bean:message key="customer.title"/></td>
             <td>
-                <html:select property="customerId" name="<%=Constants.SALE_GOOD%>" style="width:195px">
-                    <html:options collection="<%=Constants.CUSTOMER_LIST%>" property="id" labelProperty="name"/>
-                </html:select>
+                <select style="width: 195px;" name="customerIdCombobox" id="customerIdCombobox">
+                    <logic:iterate id="customer_iter" name="<%=Constants.CUSTOMER_LIST%>">
+                        <option  value="${customer_iter.id}">${customer_iter.name}</option>
+                    </logic:iterate>
+                </select>
             </td>
             <td width="170"  style="padding-right: 20px;padding-left: 10px"><bean:message key="store.title"/></td>
             <td>
@@ -106,7 +108,9 @@
     </table>
     <html:hidden property="id" name="<%=Constants.SALE_GOOD%>" />
     <input type="hidden" id="callbackFunc"/>
-    <input type="hidden" name="foodSelectedHidden" value="0"/>
+    <input type="hidden" name="goodSelectedHidden" value="0"/>
+    <html:hidden property="customerId" name="<%=Constants.SALE_GOOD%>" />
+    <input type="hidden" name="customerSelectedHidden" value="0"/>
 </form>
 <div name="saleGoodFormshowHelpHideDiv" id="showHelpHideDiv" style="display:none">
     Ctrl+C : Đóng

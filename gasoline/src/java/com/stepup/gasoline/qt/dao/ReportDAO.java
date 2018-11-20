@@ -1349,7 +1349,9 @@ public class ReportDAO extends BasicDAO {
                         bean.setOrganizationId(rs.getInt("organization_id"));
                         bean.setCustomerName(rs.getString("customer_name"));
                         bean.setCustomerId(rs.getInt("customer_id"));
-                        bean.setOpeningStock(rs.getInt("opening_stock"));
+                        bean.setOpeningStock(rs.getDouble("opening_stock"));
+                        bean.setOpeningStock12(rs.getInt("opening_stock_12"));
+                        bean.setOpeningStock45(rs.getInt("opening_stock_45"));
                         list.add(bean);
                     }
                 }
@@ -1380,12 +1382,14 @@ public class ReportDAO extends BasicDAO {
         }
         SPUtil spUtil = null;
         try {
-            String sql = "{call importCustomerOpeningStock(?,?,?)}";
+            String sql = "{call importCustomerOpeningStock(?,?,?,?,?)}";
             spUtil = new SPUtil(sql);
             if (spUtil != null) {
                 spUtil.getCallableStatement().setString("_date", date);
                 spUtil.getCallableStatement().setInt("_customer_id", bean.getCustomerId());
                 spUtil.getCallableStatement().setDouble("_in_stock", bean.getOpeningStock());
+                spUtil.getCallableStatement().setInt("_in_stock_12", bean.getOpeningStock12());
+                spUtil.getCallableStatement().setInt("_in_stock_45", bean.getOpeningStock45());
                 spUtil.execute();
             }
         } catch (SQLException sqle) {

@@ -27,9 +27,11 @@
         <tr>
             <td height="30" style="padding-right: 20px""><bean:message key="customer.title"/></td>
             <td>
-                <html:select property="customerId" name="<%=Constants.SALE_PETRO%>" style="width:195px">
-                    <html:options collection="<%=Constants.CUSTOMER_LIST%>" property="id" labelProperty="name"/>
-                </html:select>
+                <select style="width: 195px;" name="customerIdCombobox" id="customerIdCombobox">
+                    <logic:iterate id="customer_iter" name="<%=Constants.CUSTOMER_LIST%>">
+                        <option  value="${customer_iter.id}">${customer_iter.name}</option>
+                    </logic:iterate>
+                </select>
             </td>
             <td width="170"  style="padding-right: 20px;padding-left: 10px"><bean:message key="store.title"/></td>
             <td>
@@ -67,7 +69,7 @@
                                 <button class="i_plus icon small green" onclick="return addSalePetroGood();"><bean:message key="message.add"/></button>
                             </td>
                             <td>
-                                <select style="width: 260px;" name="goodIdCombobox" id="goodIdCombobox">
+                                <select style="width: 260px;" name="petroIdCombobox" id="petroIdCombobox">
                                     <logic:iterate id="good_iter" name="<%=Constants.GOOD_LIST%>">
                                         <option  value="${good_iter.id}">${good_iter.name}</option>
                                     </logic:iterate>
@@ -106,7 +108,9 @@
     </table>
     <html:hidden property="id" name="<%=Constants.SALE_PETRO%>" />
     <input type="hidden" id="callbackFunc"/>
-    <input type="hidden" name="foodSelectedHidden" value="0"/>
+    <input type="hidden" name="petroSelectedHidden" value="0"/>
+    <html:hidden property="customerId" name="<%=Constants.SALE_PETRO%>" />
+    <input type="hidden" name="customerSelectedHidden" value="0"/>
 </form>
 <div name="salePetroFormshowHelpHideDiv" id="showHelpHideDiv" style="display:none">
     Ctrl+C : Đóng

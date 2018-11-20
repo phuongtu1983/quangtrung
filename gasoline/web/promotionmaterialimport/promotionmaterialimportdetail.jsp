@@ -96,7 +96,7 @@
     </table>
     <html:hidden property="id" name="<%=Constants.PROMOTION_MATERIAL_IMPORT%>" />
     <input type="hidden" id="callbackFunc"/>
-    <input type="hidden" name="foodSelectedHidden" value="0"/>
+    <input type="hidden" name="promotionMaterialSelectedHidden" value="0"/>
 </form>
 <div name="promotionMaterialImportFormshowHelpHideDiv" id="showHelpHideDiv" style="display:none">
     Ctrl+C : Đóng
