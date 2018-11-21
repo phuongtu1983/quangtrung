@@ -16,6 +16,7 @@ public class PermissionFormBean extends org.apache.struts.action.ActionForm {
     private String[] funcAdd;
     private String[] funcDelete;
     private String[] funcEdit;
+    private String[] funcEditPast;
     private String[] funcView;
     private String[] funcPrint;
     private String[] funcOther;
@@ -127,6 +128,14 @@ public class PermissionFormBean extends org.apache.struts.action.ActionForm {
 
     public void setPermissionOrgId(String[] permissionOrgId) {
         this.permissionOrgId = permissionOrgId;
+    }
+
+    public String[] getFuncEditPast() {
+        return funcEditPast;
+    }
+
+    public void setFuncEditPast(String[] funcEditPast) {
+        this.funcEditPast = funcEditPast;
     }
 
 }

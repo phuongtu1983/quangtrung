@@ -78,6 +78,8 @@ public class PermissionFormAction extends SpineAction {
                     formBean.setFuncPrint(detBean.getFunction().split(","));
                 } else if (detBean.getOperation() == PermissionUtil.OPERATION_OTHER) {
                     formBean.setFuncOther(detBean.getFunction().split(","));
+                } else if (detBean.getOperation() == PermissionUtil.OPERATION_EDIT_PAST) {
+                    formBean.setFuncEditPast(detBean.getFunction().split(","));
                 }
             }
         } catch (Exception ex) {
@@ -150,7 +152,7 @@ public class PermissionFormAction extends SpineAction {
         perBean.setSharedId(2);
         perBean.setName(QTUtil.getBundleString("message.permission.func.list"));
         perBean.setValue(0);
-        perBean.setOperations("," + PermissionUtil.OPERATION_LIST + "," + PermissionUtil.OPERATION_ADD + "," + PermissionUtil.OPERATION_EDIT + "," + PermissionUtil.OPERATION_DELETE + "," + PermissionUtil.OPERATION_PRINT + ",");
+        perBean.setOperations("," + PermissionUtil.OPERATION_LIST + "," + PermissionUtil.OPERATION_ADD + "," + PermissionUtil.OPERATION_EDIT + "," + PermissionUtil.OPERATION_DELETE + "," + PermissionUtil.OPERATION_PRINT + "," + PermissionUtil.OPERATION_EDIT_PAST + ",");
         arrFun.add(perBean);
 
         perBean = new PermissionViewBean();
@@ -357,7 +359,7 @@ public class PermissionFormAction extends SpineAction {
         perBean.setSharedId(2);
         perBean.setName(QTUtil.getBundleString("employeeAdvance.title"));
         perBean.setValue(PermissionUtil.PER_EMPLOYEE_ADVANCE);
-        perBean.setOperations("," + PermissionUtil.OPERATION_LIST + "," + PermissionUtil.OPERATION_ADD + "," + PermissionUtil.OPERATION_EDIT + "," + PermissionUtil.OPERATION_DELETE + ",");
+        perBean.setOperations("," + PermissionUtil.OPERATION_LIST + "," + PermissionUtil.OPERATION_ADD + "," + PermissionUtil.OPERATION_EDIT + "," + PermissionUtil.OPERATION_DELETE + "," + PermissionUtil.OPERATION_EDIT_PAST + ",");
         arrFun.add(perBean);
 
         perBean = new PermissionViewBean();
@@ -393,7 +395,7 @@ public class PermissionFormAction extends SpineAction {
         perBean.setSharedId(2);
         perBean.setName(QTUtil.getBundleString("employeeOffMoney.title"));
         perBean.setValue(PermissionUtil.PER_EMPLOYEE_OFF_MONEY);
-        perBean.setOperations("," + PermissionUtil.OPERATION_LIST + "," + PermissionUtil.OPERATION_ADD + "," + PermissionUtil.OPERATION_EDIT + "," + PermissionUtil.OPERATION_DELETE + ",");
+        perBean.setOperations("," + PermissionUtil.OPERATION_LIST + "," + PermissionUtil.OPERATION_ADD + "," + PermissionUtil.OPERATION_EDIT + "," + PermissionUtil.OPERATION_DELETE + "," + PermissionUtil.OPERATION_EDIT_PAST + ",");
         arrFun.add(perBean);
 
         perBean = new PermissionViewBean();
@@ -438,7 +440,7 @@ public class PermissionFormAction extends SpineAction {
         perBean.setSharedId(2);
         perBean.setName(QTUtil.getBundleString("shellImport.title"));
         perBean.setValue(PermissionUtil.PER_SHELL_IMPORT);
-        perBean.setOperations("," + PermissionUtil.OPERATION_LIST + "," + PermissionUtil.OPERATION_ADD + "," + PermissionUtil.OPERATION_EDIT + "," + PermissionUtil.OPERATION_DELETE + ",");
+        perBean.setOperations("," + PermissionUtil.OPERATION_LIST + "," + PermissionUtil.OPERATION_ADD + "," + PermissionUtil.OPERATION_EDIT + "," + PermissionUtil.OPERATION_DELETE + "," + PermissionUtil.OPERATION_EDIT_PAST + ",");
         arrFun.add(perBean);
 
         perBean = new PermissionViewBean();
@@ -447,7 +449,7 @@ public class PermissionFormAction extends SpineAction {
         perBean.setSharedId(2);
         perBean.setName(QTUtil.getBundleString("lpgImport.title"));
         perBean.setValue(PermissionUtil.PER_LPG_IMPORT);
-        perBean.setOperations("," + PermissionUtil.OPERATION_LIST + "," + PermissionUtil.OPERATION_ADD + "," + PermissionUtil.OPERATION_EDIT + "," + PermissionUtil.OPERATION_DELETE + ",");
+        perBean.setOperations("," + PermissionUtil.OPERATION_LIST + "," + PermissionUtil.OPERATION_ADD + "," + PermissionUtil.OPERATION_EDIT + "," + PermissionUtil.OPERATION_DELETE + "," + PermissionUtil.OPERATION_EDIT_PAST + ",");
         arrFun.add(perBean);
 
         perBean = new PermissionViewBean();
@@ -456,7 +458,7 @@ public class PermissionFormAction extends SpineAction {
         perBean.setSharedId(2);
         perBean.setName(QTUtil.getBundleString("lpgSale.title"));
         perBean.setValue(PermissionUtil.PER_LPG_SALE);
-        perBean.setOperations("," + PermissionUtil.OPERATION_LIST + "," + PermissionUtil.OPERATION_ADD + "," + PermissionUtil.OPERATION_EDIT + "," + PermissionUtil.OPERATION_DELETE + ",");
+        perBean.setOperations("," + PermissionUtil.OPERATION_LIST + "," + PermissionUtil.OPERATION_ADD + "," + PermissionUtil.OPERATION_EDIT + "," + PermissionUtil.OPERATION_DELETE + "," + PermissionUtil.OPERATION_EDIT_PAST + ",");
         arrFun.add(perBean);
 
         perBean = new PermissionViewBean();
@@ -465,7 +467,7 @@ public class PermissionFormAction extends SpineAction {
         perBean.setSharedId(2);
         perBean.setName(QTUtil.getBundleString("fraction.title"));
         perBean.setValue(PermissionUtil.PER_FRACTION);
-        perBean.setOperations("," + PermissionUtil.OPERATION_LIST + "," + PermissionUtil.OPERATION_ADD + "," + PermissionUtil.OPERATION_EDIT + "," + PermissionUtil.OPERATION_DELETE + ",");
+        perBean.setOperations("," + PermissionUtil.OPERATION_LIST + "," + PermissionUtil.OPERATION_ADD + "," + PermissionUtil.OPERATION_EDIT + "," + PermissionUtil.OPERATION_DELETE + "," + PermissionUtil.OPERATION_EDIT_PAST + ",");
         arrFun.add(perBean);
 
         perBean = new PermissionViewBean();
@@ -483,7 +485,7 @@ public class PermissionFormAction extends SpineAction {
         perBean.setSharedId(2);
         perBean.setName(QTUtil.getBundleString("gasImport.title"));
         perBean.setValue(PermissionUtil.PER_GAS_IMPORT);
-        perBean.setOperations("," + PermissionUtil.OPERATION_LIST + "," + PermissionUtil.OPERATION_ADD + "," + PermissionUtil.OPERATION_EDIT + "," + PermissionUtil.OPERATION_DELETE + ",");
+        perBean.setOperations("," + PermissionUtil.OPERATION_LIST + "," + PermissionUtil.OPERATION_ADD + "," + PermissionUtil.OPERATION_EDIT + "," + PermissionUtil.OPERATION_DELETE + "," + PermissionUtil.OPERATION_EDIT_PAST + ",");
         arrFun.add(perBean);
 
         perBean = new PermissionViewBean();
@@ -492,7 +494,7 @@ public class PermissionFormAction extends SpineAction {
         perBean.setSharedId(2);
         perBean.setName(QTUtil.getBundleString("accessoryImport.title"));
         perBean.setValue(PermissionUtil.PER_ACCESSORY_IMPORT);
-        perBean.setOperations("," + PermissionUtil.OPERATION_LIST + "," + PermissionUtil.OPERATION_ADD + "," + PermissionUtil.OPERATION_EDIT + "," + PermissionUtil.OPERATION_DELETE + ",");
+        perBean.setOperations("," + PermissionUtil.OPERATION_LIST + "," + PermissionUtil.OPERATION_ADD + "," + PermissionUtil.OPERATION_EDIT + "," + PermissionUtil.OPERATION_DELETE + "," + PermissionUtil.OPERATION_EDIT_PAST + ",");
         arrFun.add(perBean);
 
         perBean = new PermissionViewBean();
@@ -501,7 +503,7 @@ public class PermissionFormAction extends SpineAction {
         perBean.setSharedId(2);
         perBean.setName(QTUtil.getBundleString("promotionMaterialImport.title"));
         perBean.setValue(PermissionUtil.PER_PROMOTION_MATERIAL_IMPORT);
-        perBean.setOperations("," + PermissionUtil.OPERATION_LIST + "," + PermissionUtil.OPERATION_ADD + "," + PermissionUtil.OPERATION_EDIT + "," + PermissionUtil.OPERATION_DELETE + ",");
+        perBean.setOperations("," + PermissionUtil.OPERATION_LIST + "," + PermissionUtil.OPERATION_ADD + "," + PermissionUtil.OPERATION_EDIT + "," + PermissionUtil.OPERATION_DELETE + "," + PermissionUtil.OPERATION_EDIT_PAST + ",");
         arrFun.add(perBean);
 
         perBean = new PermissionViewBean();
@@ -510,7 +512,7 @@ public class PermissionFormAction extends SpineAction {
         perBean.setSharedId(2);
         perBean.setName(QTUtil.getBundleString("petroImport.title"));
         perBean.setValue(PermissionUtil.PER_PETRO_IMPORT);
-        perBean.setOperations("," + PermissionUtil.OPERATION_LIST + "," + PermissionUtil.OPERATION_ADD + "," + PermissionUtil.OPERATION_EDIT + "," + PermissionUtil.OPERATION_DELETE + ",");
+        perBean.setOperations("," + PermissionUtil.OPERATION_LIST + "," + PermissionUtil.OPERATION_ADD + "," + PermissionUtil.OPERATION_EDIT + "," + PermissionUtil.OPERATION_DELETE + "," + PermissionUtil.OPERATION_EDIT_PAST + ",");
         arrFun.add(perBean);
 
         perBean = new PermissionViewBean();
@@ -519,7 +521,7 @@ public class PermissionFormAction extends SpineAction {
         perBean.setSharedId(2);
         perBean.setName(QTUtil.getBundleString("salePetro.title"));
         perBean.setValue(PermissionUtil.PER_SALE_PETRO);
-        perBean.setOperations("," + PermissionUtil.OPERATION_LIST + "," + PermissionUtil.OPERATION_ADD + "," + PermissionUtil.OPERATION_EDIT + "," + PermissionUtil.OPERATION_DELETE + ",");
+        perBean.setOperations("," + PermissionUtil.OPERATION_LIST + "," + PermissionUtil.OPERATION_ADD + "," + PermissionUtil.OPERATION_EDIT + "," + PermissionUtil.OPERATION_DELETE + "," + PermissionUtil.OPERATION_EDIT_PAST + ",");
         arrFun.add(perBean);
 
         perBean = new PermissionViewBean();
@@ -528,7 +530,7 @@ public class PermissionFormAction extends SpineAction {
         perBean.setSharedId(2);
         perBean.setName(QTUtil.getBundleString("goodImport.title"));
         perBean.setValue(PermissionUtil.PER_GOOD_IMPORT);
-        perBean.setOperations("," + PermissionUtil.OPERATION_LIST + "," + PermissionUtil.OPERATION_ADD + "," + PermissionUtil.OPERATION_EDIT + "," + PermissionUtil.OPERATION_DELETE + ",");
+        perBean.setOperations("," + PermissionUtil.OPERATION_LIST + "," + PermissionUtil.OPERATION_ADD + "," + PermissionUtil.OPERATION_EDIT + "," + PermissionUtil.OPERATION_DELETE + "," + PermissionUtil.OPERATION_EDIT_PAST + ",");
         arrFun.add(perBean);
 
         perBean = new PermissionViewBean();
@@ -537,7 +539,7 @@ public class PermissionFormAction extends SpineAction {
         perBean.setSharedId(2);
         perBean.setName(QTUtil.getBundleString("saleGood.title"));
         perBean.setValue(PermissionUtil.PER_SALE_GOOD);
-        perBean.setOperations("," + PermissionUtil.OPERATION_LIST + "," + PermissionUtil.OPERATION_ADD + "," + PermissionUtil.OPERATION_EDIT + "," + PermissionUtil.OPERATION_DELETE + ",");
+        perBean.setOperations("," + PermissionUtil.OPERATION_LIST + "," + PermissionUtil.OPERATION_ADD + "," + PermissionUtil.OPERATION_EDIT + "," + PermissionUtil.OPERATION_DELETE + "," + PermissionUtil.OPERATION_EDIT_PAST + ",");
         arrFun.add(perBean);
 
         perBean = new PermissionViewBean();
@@ -546,7 +548,7 @@ public class PermissionFormAction extends SpineAction {
         perBean.setSharedId(2);
         perBean.setName(QTUtil.getBundleString("gasWholesale.title"));
         perBean.setValue(PermissionUtil.PER_GAS_WHOLESALE);
-        perBean.setOperations("," + PermissionUtil.OPERATION_LIST + "," + PermissionUtil.OPERATION_ADD + "," + PermissionUtil.OPERATION_EDIT + "," + PermissionUtil.OPERATION_DELETE + ",");
+        perBean.setOperations("," + PermissionUtil.OPERATION_LIST + "," + PermissionUtil.OPERATION_ADD + "," + PermissionUtil.OPERATION_EDIT + "," + PermissionUtil.OPERATION_DELETE + "," + PermissionUtil.OPERATION_EDIT_PAST + ",");
         arrFun.add(perBean);
 
 //        perBean = new PermissionViewBean();
@@ -563,7 +565,7 @@ public class PermissionFormAction extends SpineAction {
         perBean.setSharedId(2);
         perBean.setName(QTUtil.getBundleString("saleAccessory.title"));
         perBean.setValue(PermissionUtil.PER_SALE_ACCESSORY);
-        perBean.setOperations("," + PermissionUtil.OPERATION_LIST + "," + PermissionUtil.OPERATION_ADD + "," + PermissionUtil.OPERATION_EDIT + "," + PermissionUtil.OPERATION_DELETE + ",");
+        perBean.setOperations("," + PermissionUtil.OPERATION_LIST + "," + PermissionUtil.OPERATION_ADD + "," + PermissionUtil.OPERATION_EDIT + "," + PermissionUtil.OPERATION_DELETE + "," + PermissionUtil.OPERATION_EDIT_PAST + ",");
         arrFun.add(perBean);
 
         perBean = new PermissionViewBean();
@@ -581,7 +583,7 @@ public class PermissionFormAction extends SpineAction {
         perBean.setSharedId(2);
         perBean.setName(QTUtil.getBundleString("saleShell.title"));
         perBean.setValue(PermissionUtil.PER_SALE_SHELL);
-        perBean.setOperations("," + PermissionUtil.OPERATION_LIST + "," + PermissionUtil.OPERATION_ADD + "," + PermissionUtil.OPERATION_EDIT + "," + PermissionUtil.OPERATION_DELETE + ",");
+        perBean.setOperations("," + PermissionUtil.OPERATION_LIST + "," + PermissionUtil.OPERATION_ADD + "," + PermissionUtil.OPERATION_EDIT + "," + PermissionUtil.OPERATION_DELETE + "," + PermissionUtil.OPERATION_EDIT_PAST + ",");
         arrFun.add(perBean);
 
         perBean = new PermissionViewBean();
@@ -590,7 +592,7 @@ public class PermissionFormAction extends SpineAction {
         perBean.setSharedId(2);
         perBean.setName(QTUtil.getBundleString("oldShell.title"));
         perBean.setValue(PermissionUtil.PER_OLD_SHELL);
-        perBean.setOperations("," + PermissionUtil.OPERATION_LIST + "," + PermissionUtil.OPERATION_ADD + "," + PermissionUtil.OPERATION_EDIT + "," + PermissionUtil.OPERATION_DELETE + ",");
+        perBean.setOperations("," + PermissionUtil.OPERATION_LIST + "," + PermissionUtil.OPERATION_ADD + "," + PermissionUtil.OPERATION_EDIT + "," + PermissionUtil.OPERATION_DELETE + "," + PermissionUtil.OPERATION_EDIT_PAST + ",");
         arrFun.add(perBean);
 
         perBean = new PermissionViewBean();
@@ -599,7 +601,7 @@ public class PermissionFormAction extends SpineAction {
         perBean.setSharedId(2);
         perBean.setName(QTUtil.getBundleString("shellReturn.title"));
         perBean.setValue(PermissionUtil.PER_SHELL_RETURN);
-        perBean.setOperations("," + PermissionUtil.OPERATION_LIST + "," + PermissionUtil.OPERATION_ADD + "," + PermissionUtil.OPERATION_EDIT + "," + PermissionUtil.OPERATION_DELETE + ",");
+        perBean.setOperations("," + PermissionUtil.OPERATION_LIST + "," + PermissionUtil.OPERATION_ADD + "," + PermissionUtil.OPERATION_EDIT + "," + PermissionUtil.OPERATION_DELETE + "," + PermissionUtil.OPERATION_EDIT_PAST + ",");
         arrFun.add(perBean);
 
 //        perBean = new PermissionViewBean();
@@ -616,7 +618,7 @@ public class PermissionFormAction extends SpineAction {
         perBean.setSharedId(2);
         perBean.setName(QTUtil.getBundleString("shellReturnSupplier.title"));
         perBean.setValue(PermissionUtil.PER_SHELL_RETURN_SUPPLIER);
-        perBean.setOperations("," + PermissionUtil.OPERATION_LIST + "," + PermissionUtil.OPERATION_ADD + "," + PermissionUtil.OPERATION_EDIT + "," + PermissionUtil.OPERATION_DELETE + ",");
+        perBean.setOperations("," + PermissionUtil.OPERATION_LIST + "," + PermissionUtil.OPERATION_ADD + "," + PermissionUtil.OPERATION_EDIT + "," + PermissionUtil.OPERATION_DELETE + "," + PermissionUtil.OPERATION_EDIT_PAST + ",");
         arrFun.add(perBean);
 
         perBean = new PermissionViewBean();
@@ -634,7 +636,7 @@ public class PermissionFormAction extends SpineAction {
         perBean.setSharedId(2);
         perBean.setName(QTUtil.getBundleString("vehicleOut.title"));
         perBean.setValue(PermissionUtil.PER_VEHICLE_OUT);
-        perBean.setOperations("," + PermissionUtil.OPERATION_LIST + "," + PermissionUtil.OPERATION_ADD + "," + PermissionUtil.OPERATION_EDIT + "," + PermissionUtil.OPERATION_DELETE + ",");
+        perBean.setOperations("," + PermissionUtil.OPERATION_LIST + "," + PermissionUtil.OPERATION_ADD + "," + PermissionUtil.OPERATION_EDIT + "," + PermissionUtil.OPERATION_DELETE + "," + PermissionUtil.OPERATION_EDIT_PAST + ",");
         arrFun.add(perBean);
 
         perBean = new PermissionViewBean();
@@ -643,7 +645,7 @@ public class PermissionFormAction extends SpineAction {
         perBean.setSharedId(2);
         perBean.setName(QTUtil.getBundleString("vehicleIn.title"));
         perBean.setValue(PermissionUtil.PER_VEHICLE_IN);
-        perBean.setOperations("," + PermissionUtil.OPERATION_LIST + "," + PermissionUtil.OPERATION_ADD + "," + PermissionUtil.OPERATION_EDIT + "," + PermissionUtil.OPERATION_DELETE + ",");
+        perBean.setOperations("," + PermissionUtil.OPERATION_LIST + "," + PermissionUtil.OPERATION_ADD + "," + PermissionUtil.OPERATION_EDIT + "," + PermissionUtil.OPERATION_DELETE + "," + PermissionUtil.OPERATION_EDIT_PAST + ",");
         arrFun.add(perBean);
 
         perBean = new PermissionViewBean();
@@ -652,7 +654,7 @@ public class PermissionFormAction extends SpineAction {
         perBean.setSharedId(2);
         perBean.setName(QTUtil.getBundleString("exportWholesale.title"));
         perBean.setValue(PermissionUtil.PER_EXPORT_WHOLESALE);
-        perBean.setOperations("," + PermissionUtil.OPERATION_LIST + "," + PermissionUtil.OPERATION_ADD + "," + PermissionUtil.OPERATION_EDIT + "," + PermissionUtil.OPERATION_DELETE + ",");
+        perBean.setOperations("," + PermissionUtil.OPERATION_LIST + "," + PermissionUtil.OPERATION_ADD + "," + PermissionUtil.OPERATION_EDIT + "," + PermissionUtil.OPERATION_DELETE + "," + PermissionUtil.OPERATION_EDIT_PAST + ",");
         arrFun.add(perBean);
 
         perBean = new PermissionViewBean();
@@ -670,7 +672,7 @@ public class PermissionFormAction extends SpineAction {
         perBean.setSharedId(2);
         perBean.setName(QTUtil.getBundleString("debtVendor.title"));
         perBean.setValue(PermissionUtil.PER_DEBT_VENDOR);
-        perBean.setOperations("," + PermissionUtil.OPERATION_LIST + "," + PermissionUtil.OPERATION_ADD + "," + PermissionUtil.OPERATION_EDIT + "," + PermissionUtil.OPERATION_DELETE + ",");
+        perBean.setOperations("," + PermissionUtil.OPERATION_LIST + "," + PermissionUtil.OPERATION_ADD + "," + PermissionUtil.OPERATION_EDIT + "," + PermissionUtil.OPERATION_DELETE + "," + PermissionUtil.OPERATION_EDIT_PAST + ",");
         arrFun.add(perBean);
 
 //        perBean = new PermissionViewBean();
@@ -681,14 +683,13 @@ public class PermissionFormAction extends SpineAction {
 //        perBean.setValue(PermissionUtil.PER_DEBT_RETAIL);
 //        perBean.setOperations("," + PermissionUtil.OPERATION_LIST + "," + PermissionUtil.OPERATION_ADD + "," + PermissionUtil.OPERATION_EDIT + "," + PermissionUtil.OPERATION_DELETE + ",");
 //        arrFun.add(perBean);
-
         perBean = new PermissionViewBean();
         perBean.setCounter("2.1");
         perBean.setLevel(2);
         perBean.setSharedId(2);
         perBean.setName(QTUtil.getBundleString("debtWholesale.title"));
         perBean.setValue(PermissionUtil.PER_DEBT_WHOLESALE);
-        perBean.setOperations("," + PermissionUtil.OPERATION_LIST + "," + PermissionUtil.OPERATION_ADD + "," + PermissionUtil.OPERATION_EDIT + "," + PermissionUtil.OPERATION_DELETE + ",");
+        perBean.setOperations("," + PermissionUtil.OPERATION_LIST + "," + PermissionUtil.OPERATION_ADD + "," + PermissionUtil.OPERATION_EDIT + "," + PermissionUtil.OPERATION_DELETE + "," + PermissionUtil.OPERATION_EDIT_PAST + ",");
         arrFun.add(perBean);
 
         perBean = new PermissionViewBean();
@@ -697,7 +698,7 @@ public class PermissionFormAction extends SpineAction {
         perBean.setSharedId(2);
         perBean.setName(QTUtil.getBundleString("income.title"));
         perBean.setValue(PermissionUtil.PER_INCOME);
-        perBean.setOperations("," + PermissionUtil.OPERATION_LIST + "," + PermissionUtil.OPERATION_ADD + "," + PermissionUtil.OPERATION_EDIT + "," + PermissionUtil.OPERATION_DELETE + ",");
+        perBean.setOperations("," + PermissionUtil.OPERATION_LIST + "," + PermissionUtil.OPERATION_ADD + "," + PermissionUtil.OPERATION_EDIT + "," + PermissionUtil.OPERATION_DELETE + "," + PermissionUtil.OPERATION_EDIT_PAST + ",");
         arrFun.add(perBean);
 
         perBean = new PermissionViewBean();
@@ -706,7 +707,7 @@ public class PermissionFormAction extends SpineAction {
         perBean.setSharedId(2);
         perBean.setName(QTUtil.getBundleString("expense.title"));
         perBean.setValue(PermissionUtil.PER_EXPENSE);
-        perBean.setOperations("," + PermissionUtil.OPERATION_LIST + "," + PermissionUtil.OPERATION_ADD + "," + PermissionUtil.OPERATION_EDIT + "," + PermissionUtil.OPERATION_DELETE + ",");
+        perBean.setOperations("," + PermissionUtil.OPERATION_LIST + "," + PermissionUtil.OPERATION_ADD + "," + PermissionUtil.OPERATION_EDIT + "," + PermissionUtil.OPERATION_DELETE + "," + PermissionUtil.OPERATION_EDIT_PAST + ",");
         arrFun.add(perBean);
 
         perBean = new PermissionViewBean();
@@ -715,7 +716,7 @@ public class PermissionFormAction extends SpineAction {
         perBean.setSharedId(2);
         perBean.setName(QTUtil.getBundleString("shieldImport.title"));
         perBean.setValue(PermissionUtil.PER_SHIELD_IMPORT);
-        perBean.setOperations("," + PermissionUtil.OPERATION_LIST + "," + PermissionUtil.OPERATION_ADD + "," + PermissionUtil.OPERATION_EDIT + "," + PermissionUtil.OPERATION_DELETE + ",");
+        perBean.setOperations("," + PermissionUtil.OPERATION_LIST + "," + PermissionUtil.OPERATION_ADD + "," + PermissionUtil.OPERATION_EDIT + "," + PermissionUtil.OPERATION_DELETE + "," + PermissionUtil.OPERATION_EDIT_PAST + ",");
         arrFun.add(perBean);
 
         perBean = new PermissionViewBean();
@@ -724,7 +725,7 @@ public class PermissionFormAction extends SpineAction {
         perBean.setSharedId(2);
         perBean.setName(QTUtil.getBundleString("shieldDecrease.title"));
         perBean.setValue(PermissionUtil.PER_SHIELD_DECREASE);
-        perBean.setOperations("," + PermissionUtil.OPERATION_LIST + "," + PermissionUtil.OPERATION_ADD + "," + PermissionUtil.OPERATION_EDIT + "," + PermissionUtil.OPERATION_DELETE + ",");
+        perBean.setOperations("," + PermissionUtil.OPERATION_LIST + "," + PermissionUtil.OPERATION_ADD + "," + PermissionUtil.OPERATION_EDIT + "," + PermissionUtil.OPERATION_DELETE + "," + PermissionUtil.OPERATION_EDIT_PAST + ",");
         arrFun.add(perBean);
 
         perBean = new PermissionViewBean();
@@ -733,7 +734,7 @@ public class PermissionFormAction extends SpineAction {
         perBean.setSharedId(3);
         perBean.setName(QTUtil.getBundleString("message.permission.report.list"));
         perBean.setValue(0);
-        perBean.setOperations("," + PermissionUtil.OPERATION_LIST + ",");
+        perBean.setOperations("," + PermissionUtil.OPERATION_PRINT + ",");
         arrFun.add(perBean);
 
         perBean = new PermissionViewBean();
@@ -742,7 +743,7 @@ public class PermissionFormAction extends SpineAction {
         perBean.setSharedId(3);
         perBean.setName(QTUtil.getBundleString("report.lpgImport.title"));
         perBean.setValue(PermissionUtil.PER_REPORT_LPG_IMPORT);
-        perBean.setOperations("," + PermissionUtil.OPERATION_LIST + ",");
+        perBean.setOperations("," + PermissionUtil.OPERATION_PRINT + ",");
         arrFun.add(perBean);
 
         perBean = new PermissionViewBean();
@@ -751,7 +752,7 @@ public class PermissionFormAction extends SpineAction {
         perBean.setSharedId(3);
         perBean.setName(QTUtil.getBundleString("report.vendorDebt.title"));
         perBean.setValue(PermissionUtil.PER_REPORT_VENDOR_DEBT);
-        perBean.setOperations("," + PermissionUtil.OPERATION_LIST + ",");
+        perBean.setOperations("," + PermissionUtil.OPERATION_PRINT + ",");
         arrFun.add(perBean);
 
         perBean = new PermissionViewBean();
@@ -760,7 +761,7 @@ public class PermissionFormAction extends SpineAction {
         perBean.setSharedId(3);
         perBean.setName(QTUtil.getBundleString("report.lpgStock.title"));
         perBean.setValue(PermissionUtil.PER_REPORT_LPG_STOCK);
-        perBean.setOperations("," + PermissionUtil.OPERATION_LIST + ",");
+        perBean.setOperations("," + PermissionUtil.OPERATION_PRINT + ",");
         arrFun.add(perBean);
 
         perBean = new PermissionViewBean();
@@ -769,7 +770,7 @@ public class PermissionFormAction extends SpineAction {
         perBean.setSharedId(3);
         perBean.setName(QTUtil.getBundleString("report.lpgStockSum.title"));
         perBean.setValue(PermissionUtil.PER_REPORT_LPG_STOCK_SUM);
-        perBean.setOperations("," + PermissionUtil.OPERATION_LIST + ",");
+        perBean.setOperations("," + PermissionUtil.OPERATION_PRINT + ",");
         arrFun.add(perBean);
 
         perBean = new PermissionViewBean();
@@ -778,7 +779,7 @@ public class PermissionFormAction extends SpineAction {
         perBean.setSharedId(3);
         perBean.setName(QTUtil.getBundleString("report.lpgStockSumOrganization.title"));
         perBean.setValue(PermissionUtil.PER_REPORT_LPG_STOCK_SUM_ORGANIZATION);
-        perBean.setOperations("," + PermissionUtil.OPERATION_LIST + ",");
+        perBean.setOperations("," + PermissionUtil.OPERATION_PRINT + ",");
         arrFun.add(perBean);
 
         perBean = new PermissionViewBean();
@@ -787,7 +788,7 @@ public class PermissionFormAction extends SpineAction {
         perBean.setSharedId(3);
         perBean.setName(QTUtil.getBundleString("report.sum.title"));
         perBean.setValue(PermissionUtil.PER_REPORT_SUM);
-        perBean.setOperations("," + PermissionUtil.OPERATION_LIST + ",");
+        perBean.setOperations("," + PermissionUtil.OPERATION_PRINT + ",");
         arrFun.add(perBean);
 
         perBean = new PermissionViewBean();
@@ -796,7 +797,7 @@ public class PermissionFormAction extends SpineAction {
         perBean.setSharedId(3);
         perBean.setName(QTUtil.getBundleString("report.compare.title"));
         perBean.setValue(PermissionUtil.PER_REPORT_COMPARE);
-        perBean.setOperations("," + PermissionUtil.OPERATION_LIST + ",");
+        perBean.setOperations("," + PermissionUtil.OPERATION_PRINT + ",");
         arrFun.add(perBean);
 
         perBean = new PermissionViewBean();
@@ -805,7 +806,7 @@ public class PermissionFormAction extends SpineAction {
         perBean.setSharedId(3);
         perBean.setName(QTUtil.getBundleString("report.sale.title"));
         perBean.setValue(PermissionUtil.PER_REPORT_SALE);
-        perBean.setOperations("," + PermissionUtil.OPERATION_LIST + ",");
+        perBean.setOperations("," + PermissionUtil.OPERATION_PRINT + ",");
         arrFun.add(perBean);
 
         perBean = new PermissionViewBean();
@@ -814,7 +815,7 @@ public class PermissionFormAction extends SpineAction {
         perBean.setSharedId(3);
         perBean.setName(QTUtil.getBundleString("report.saleCustomer.title"));
         perBean.setValue(PermissionUtil.PER_REPORT_SALE_CUSTOMER);
-        perBean.setOperations("," + PermissionUtil.OPERATION_LIST + ",");
+        perBean.setOperations("," + PermissionUtil.OPERATION_PRINT + ",");
         arrFun.add(perBean);
 
         perBean = new PermissionViewBean();
@@ -823,7 +824,7 @@ public class PermissionFormAction extends SpineAction {
         perBean.setSharedId(3);
         perBean.setName(QTUtil.getBundleString("report.cashbook.title"));
         perBean.setValue(PermissionUtil.PER_REPORT_CASH_BOOK);
-        perBean.setOperations("," + PermissionUtil.OPERATION_LIST + ",");
+        perBean.setOperations("," + PermissionUtil.OPERATION_PRINT + ",");
         arrFun.add(perBean);
 
         perBean = new PermissionViewBean();
@@ -832,7 +833,7 @@ public class PermissionFormAction extends SpineAction {
         perBean.setSharedId(3);
         perBean.setName(QTUtil.getBundleString("report.gascommission.title"));
         perBean.setValue(PermissionUtil.PER_REPORT_GAS_COMMISION);
-        perBean.setOperations("," + PermissionUtil.OPERATION_LIST + ",");
+        perBean.setOperations("," + PermissionUtil.OPERATION_PRINT + ",");
         arrFun.add(perBean);
 
         perBean = new PermissionViewBean();
@@ -841,7 +842,7 @@ public class PermissionFormAction extends SpineAction {
         perBean.setSharedId(3);
         perBean.setName(QTUtil.getBundleString("report.gasemployeecommission.title"));
         perBean.setValue(PermissionUtil.PER_REPORT_GAS_EMPLOYEE_COMMISION);
-        perBean.setOperations("," + PermissionUtil.OPERATION_LIST + ",");
+        perBean.setOperations("," + PermissionUtil.OPERATION_PRINT + ",");
         arrFun.add(perBean);
 
         perBean = new PermissionViewBean();
@@ -850,7 +851,7 @@ public class PermissionFormAction extends SpineAction {
         perBean.setSharedId(3);
         perBean.setName(QTUtil.getBundleString("report.petroImport.title"));
         perBean.setValue(PermissionUtil.PER_REPORT_PETRO_IMPORT);
-        perBean.setOperations("," + PermissionUtil.OPERATION_LIST + ",");
+        perBean.setOperations("," + PermissionUtil.OPERATION_PRINT + ",");
         arrFun.add(perBean);
 
         perBean = new PermissionViewBean();
@@ -859,7 +860,7 @@ public class PermissionFormAction extends SpineAction {
         perBean.setSharedId(3);
         perBean.setName(QTUtil.getBundleString("report.petroSale.title"));
         perBean.setValue(PermissionUtil.PER_REPORT_PETRO_SALE);
-        perBean.setOperations("," + PermissionUtil.OPERATION_LIST + ",");
+        perBean.setOperations("," + PermissionUtil.OPERATION_PRINT + ",");
         arrFun.add(perBean);
 
         perBean = new PermissionViewBean();
@@ -868,7 +869,7 @@ public class PermissionFormAction extends SpineAction {
         perBean.setSharedId(3);
         perBean.setName(QTUtil.getBundleString("report.petroStock.title"));
         perBean.setValue(PermissionUtil.PER_REPORT_PETRO_STOCK);
-        perBean.setOperations("," + PermissionUtil.OPERATION_LIST + ",");
+        perBean.setOperations("," + PermissionUtil.OPERATION_PRINT + ",");
         arrFun.add(perBean);
 
         perBean = new PermissionViewBean();
@@ -877,7 +878,7 @@ public class PermissionFormAction extends SpineAction {
         perBean.setSharedId(3);
         perBean.setName(QTUtil.getBundleString("report.petroStockStore.title"));
         perBean.setValue(PermissionUtil.PER_REPORT_PETRO_STOCK_STORE);
-        perBean.setOperations("," + PermissionUtil.OPERATION_LIST + ",");
+        perBean.setOperations("," + PermissionUtil.OPERATION_PRINT + ",");
         arrFun.add(perBean);
 
         perBean = new PermissionViewBean();
@@ -886,16 +887,25 @@ public class PermissionFormAction extends SpineAction {
         perBean.setSharedId(3);
         perBean.setName(QTUtil.getBundleString("report.compareGood.title"));
         perBean.setValue(PermissionUtil.PER_REPORT_COMPARE_GOOD);
-        perBean.setOperations("," + PermissionUtil.OPERATION_LIST + ",");
+        perBean.setOperations("," + PermissionUtil.OPERATION_PRINT + ",");
         arrFun.add(perBean);
-        
+
         perBean = new PermissionViewBean();
         perBean.setCounter("3.1");
         perBean.setLevel(2);
         perBean.setSharedId(3);
         perBean.setName(QTUtil.getBundleString("report.transportFee.title"));
         perBean.setValue(PermissionUtil.PER_REPORT_TRANSPORT_FEE);
-        perBean.setOperations("," + PermissionUtil.OPERATION_LIST + ",");
+        perBean.setOperations("," + PermissionUtil.OPERATION_PRINT + ",");
+        arrFun.add(perBean);
+
+        perBean = new PermissionViewBean();
+        perBean.setCounter("3.1");
+        perBean.setLevel(2);
+        perBean.setSharedId(3);
+        perBean.setName(QTUtil.getBundleString("report.vehicleFee.title"));
+        perBean.setValue(PermissionUtil.PER_REPORT_VEHICLE_FEE);
+        perBean.setOperations("," + PermissionUtil.OPERATION_PRINT + ",");
         arrFun.add(perBean);
 
         request.setAttribute(Constants.PERMISSION_FUNC_LIST, arrFun);

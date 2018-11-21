@@ -307,6 +307,8 @@ function menuClick(id) {
         loadLoVoPanel();
     else if (id == 'lovoadd')
         getLoVo(0);
+    else if (id == 'reportvehiclefee')
+        showVehicleFeeReportPanel();
 }
 function clearContent() {
     var contentDiv = document.getElementById("contentDiv");
@@ -3018,13 +3020,13 @@ function getShellImport(id, handle) {
         tryNumberFormatCurrentcy(document.forms['shellImportForm'].quantity, "VND");
         tryNumberFormatCurrentcy(document.forms['shellImportForm'].price, "VND");
         tryNumberFormatCurrentcy(document.forms['shellImportForm'].amount, "VND");
-//        var myCalendar = new dhtmlXCalendarObject(["shellImportDate"]);
-//        myCalendar.setSkin('dhx_web');
         if (id == 0) {
             var currentDate = getCurrentDate();
             document.forms['shellImportForm'].shellImportDate.value = currentDate;
+            var myCalendar = new dhtmlXCalendarObject(["shellImportDate"]);
+            myCalendar.setSkin('dhx_web');
+            myCalendar.setDateFormat("%d/%m/%Y");
         }
-//        myCalendar.setDateFormat("%d/%m/%Y");
         window.dhx_globalImgPath = "js/dhtmlx/combo/imgs/";
         // ============================
         var shellIdCombobox = dhtmlXComboFromSelect("shellIdCombobox");
@@ -10336,6 +10338,50 @@ function importOpeningStock(openingStockKind) {
             }
         };
     });
+    return false;
+}
+function showVehicleFeeReportPanel() {
+    popupName = 'S\u1ED5 theo d\u00F5i chi ph\u00ED xe';
+    var url = 'getVehicleFeeReportPanel.do';
+    callAjax(url, null, null, function(data) {
+        showPopupForm(data);
+        var myCalendar = new dhtmlXCalendarObject(["fromDate", "toDate"]);
+        myCalendar.setSkin('dhx_web');
+        var currentTime = getCurrentDate();
+        document.forms['reportVehicleFeeSearchForm'].fromDate.value = currentTime;
+        document.forms['reportVehicleFeeSearchForm'].toDate.value = currentTime;
+        myCalendar.setDateFormat("%d/%m/%Y");
+    });
+}
+function printVehicleFeeReport(fromDate, toDate) {
+    var list = document.getElementById("reportVehicleFeeSearchFormTime");
+    if (list == null || list.selectedIndex == -1)
+        return false;
+    if (list.selectedIndex == 1) {
+        fromDate = "01/" + fromDate;
+        var ind = toDate.indexOf("/");
+        var month = toDate.substring(0, ind);
+        var year = toDate.substring(ind + 1);
+        toDate = month + "/01/" + year;
+        var d = new Date(toDate);
+        var lastDay = new Date(d.getFullYear(), d.getMonth() + 1, 0).getDate();
+        toDate = lastDay + "/" + month + "/" + year;
+    } else if (list.selectedIndex == 2) {
+        fromDate = "01/01/" + fromDate;
+        toDate = "31/12/" + toDate;
+    }
+    var url = "reportVehicleFeePrint.do?temp=1";
+    if (fromDate !== null)
+        url += "&fromDate=" + fromDate;
+    if (toDate !== null)
+        url += "&toDate=" + toDate;
+    list = document.forms['reportVehicleFeeSearchForm'].vehicleId;
+    if (list != null && list.selectedIndex > -1)
+        list = list.options[list.selectedIndex].value;
+    else
+        list = 0;
+    url += "&vehicleId=" + list;
+    callServer(url);
     return false;
 }
 

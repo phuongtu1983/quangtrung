@@ -130,6 +130,15 @@ public class AddPermissionAction extends SpineAction {
                     funcEdits += "," + formBean.getFuncEdit()[i];
                 }
             }
+            
+            String funcEditPasts = "";
+            if (formBean.getFuncEditPast()!= null) {
+                int length = formBean.getFuncEditPast().length;
+                funcEditPasts = formBean.getFuncEditPast()[0];
+                for (int i = 1; i < length; i++) {
+                    funcEditPasts += "," + formBean.getFuncEditPast()[i];
+                }
+            }
 
             String funcPrints = "";
             if (formBean.getFuncPrint() != null) {
@@ -154,6 +163,9 @@ public class AddPermissionAction extends SpineAction {
                 detailBean = new PermissionDetailBean(PermissionUtil.OPERATION_EDIT, funcEdits);
                 detailBean.setPerId(perId);
                 permissionDAO.insertPermissionDetail(detailBean);
+                detailBean = new PermissionDetailBean(PermissionUtil.OPERATION_EDIT_PAST, funcEditPasts);
+                detailBean.setPerId(perId);
+                permissionDAO.insertPermissionDetail(detailBean);
                 detailBean = new PermissionDetailBean(PermissionUtil.OPERATION_PRINT, funcPrints);
                 detailBean.setPerId(perId);
                 permissionDAO.insertPermissionDetail(detailBean);
@@ -169,6 +181,9 @@ public class AddPermissionAction extends SpineAction {
                 detailBean.setPerId(perId);
                 permissionDAO.updatePermissionDetail(detailBean);
                 detailBean = new PermissionDetailBean(PermissionUtil.OPERATION_EDIT, funcEdits);
+                detailBean.setPerId(perId);
+                permissionDAO.updatePermissionDetail(detailBean);
+                detailBean = new PermissionDetailBean(PermissionUtil.OPERATION_EDIT_PAST, funcEditPasts);
                 detailBean.setPerId(perId);
                 permissionDAO.updatePermissionDetail(detailBean);
                 detailBean = new PermissionDetailBean(PermissionUtil.OPERATION_PRINT, funcPrints);

@@ -14,7 +14,14 @@
                             <td height="30" style="padding-right: 20px"><bean:message key="code.title"/></td>
                             <td><html:text property="code" size="40" name="<%=Constants.SHELL_IMPORT%>" readonly="true"/></td>
                             <td style="padding-right: 20px;padding-left: 10px"><bean:message key="date.title"/></td>
-                            <td><html:text property="createdDate" styleId="shellImportDate" size="40" name="<%=Constants.SHELL_IMPORT%>" readonly="true"/></td>
+                            <td>
+                                <logic:equal name="<%=Constants.SHELL_IMPORT%>" property="id" value="0">
+                                    <html:text property="createdDate" styleId="shellImportDate" size="40" name="<%=Constants.SHELL_IMPORT%>"/>
+                                </logic:equal>
+                                <logic:notEqual name="<%=Constants.SHELL_IMPORT%>" property="id" value="0">
+                                    <html:text property="createdDate" styleId="shellImportDate" size="40" name="<%=Constants.SHELL_IMPORT%>" readonly="true"/>
+                                </logic:notEqual>
+                            </td>
                         </tr>
                         <tr>
                             <td height="30" style="padding-right: 20px"><bean:message key="shell.title"/></td>
@@ -61,19 +68,15 @@
                             <%}%>
                         </logic:equal>
                         <logic:notEqual name="<%=Constants.SHELL_IMPORT%>" property="id" value="0">
-                            <%if (PermissionUtil.hasPermission(request, PermissionUtil.OPERATION_EDIT, PermissionUtil.PER_SHELL_IMPORT)) {%> 
                             <logic:equal name="<%=Constants.SHELL_IMPORT%>" property="canEdit" value="1">
+                                <%if (PermissionUtil.hasPermission(request, PermissionUtil.OPERATION_EDIT, PermissionUtil.PER_SHELL_IMPORT)) {%> 
                                 <button class="i_create_write icon small green" onclick="return saveShellImport();"><bean:message key="message.save"/></button>
-                            </logic:equal>
-                            <%}%>
-                        </logic:notEqual>
-                        <logic:greaterThan name="<%=Constants.SHELL_IMPORT%>" property="id" value="0">
-                            <%if (PermissionUtil.hasPermission(request, PermissionUtil.OPERATION_DELETE, PermissionUtil.PER_SHELL_IMPORT)) {%> 
-                            <logic:equal name="<%=Constants.SHELL_IMPORT%>" property="canEdit" value="1">
+                                <%}%>
+                                <%if (PermissionUtil.hasPermission(request, PermissionUtil.OPERATION_DELETE, PermissionUtil.PER_SHELL_IMPORT)) {%> 
                                 <button class="i_trashcan icon small red" onclick="return delShellImport();"><bean:message key="message.del"/></button>
+                                <%}%>
                             </logic:equal>
-                            <%}%>
-                        </logic:greaterThan>
+                        </logic:notEqual>
                         <button class="i_access_denied icon small yellow" onclick="return prepareHidePopup('shellImportFormshowHelpHideDiv');"><bean:message key="message.close"/></button>
                 </td>
             </tr>
@@ -81,7 +84,7 @@
         <html:hidden property="id" name="<%=Constants.SHELL_IMPORT%>" />
         <input type="hidden" id="callbackFunc"/>
         <html:hidden property="shellId" name="<%=Constants.SHELL_IMPORT%>" />
-    <input type="hidden" name="shellSelectedHidden" value="0"/>
+        <input type="hidden" name="shellSelectedHidden" value="0"/>
     </form>
     <div name="shellImportFormshowHelpHideDiv" id="showHelpHideDiv" style="display:none">
         Ctrl+C : Đóng

@@ -85,6 +85,7 @@ public class PermissionUtil {
 //    public static int OPERATION_VIEW = 5;//5
     public static int OPERATION_PRINT = 6;
     public static int OPERATION_OTHER = 7;
+    public static int OPERATION_EDIT_PAST = 8;
     //function
     public static int PER_PERMISSION = 1;
 //    public static int PER_LOG = 2;
@@ -170,4 +171,5 @@ public class PermissionUtil {
     public static int PER_LO_VO = 82;
     public static int PER_OPENING_STOCK = 83;
     public static int PER_REPORT_TRANSPORT_FEE = 84;
+    public static int PER_REPORT_VEHICLE_FEE = 85;
 }

@@ -52,9 +52,6 @@ public class AddShellImportAction extends SpineAction {
         try {
             if (bNew) {
             } else {
-                if (!formBean.getCreatedDate().equals(bean.getCreatedDate())) {
-                    isUpdate = true;
-                }
                 if (formBean.getShellId() != bean.getShellId()) {
                     isUpdate = true;
                 }
@@ -76,7 +73,6 @@ public class AddShellImportAction extends SpineAction {
         bean = new ShellImportBean();
         bean.setId(formBean.getId());
         bean.setCode(formBean.getCode());
-        bean.setCreatedDate(formBean.getCreatedDate());
         bean.setShellId(formBean.getShellId());
         bean.setPrice(formBean.getPrice());
         bean.setQuantity(formBean.getQuantity());
@@ -87,6 +83,7 @@ public class AddShellImportAction extends SpineAction {
         bean.setCreatedEmployeeId(QTUtil.getEmployeeId(request.getSession()));
         try {
             if (bNew) {
+                bean.setCreatedDate(formBean.getCreatedDate());
                 goodDAO.insertShellImport(bean);
             } else {
                 if (isUpdate) {

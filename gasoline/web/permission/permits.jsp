@@ -20,6 +20,7 @@
             <!--<th width="100px"><bean:message key="message.permission.permit.view"/></th>-->
             <th width="50px"><bean:message key="message.permission.permit.delete"/></th>
             <th width="50px"><bean:message key="message.permission.permit.edit"/></th>
+            <th width="120px"><bean:message key="message.permission.permit.editPast"/></th>
             <th width="50px"><bean:message key="message.permission.permit.print"/></th>
             <th></th>
         </tr>
@@ -62,6 +63,11 @@
                         <%}%>
                 </td>
                 <td>
+                    <%if (bean.getOperations().contains("," + PermissionUtil.OPERATION_EDIT_PAST + ",")) {%>
+                    <div align="center"><input type="checkbox" id="funcEditPast<%=bean.getSharedId()%>" onchange="return permissionLevel1Change(this, 'funcEditPast')" value="<%=bean.getValue()%>"/></div>
+                        <%}%>
+                </td>
+                <td>
                     <%if (bean.getOperations().contains("," + PermissionUtil.OPERATION_PRINT + ",")) {%>
                     <div align="center"><input type="checkbox" id="funcPrint<%=bean.getSharedId()%>" onchange="return permissionLevel1Change(this, 'funcPrint')" value="<%=bean.getValue()%>"/></div>
                         <%}%>
@@ -88,6 +94,11 @@
                 <td>
                     <%if (bean.getOperations().contains("," + PermissionUtil.OPERATION_EDIT + ",")) {%>
                     <div align="center"><html:multibox property="funcEdit" name="<%=Constants.PERMISSION%>"><%=bean.getValue()%></html:multibox></div>
+                    <%}%>
+                </td>
+                <td>
+                    <%if (bean.getOperations().contains("," + PermissionUtil.OPERATION_EDIT_PAST + ",")) {%>
+                    <div align="center"><html:multibox property="funcEditPast" name="<%=Constants.PERMISSION%>"><%=bean.getValue()%></html:multibox></div>
                     <%}%>
                 </td>
                 <td>
@@ -191,6 +202,30 @@
                         <input type="checkbox" checked id="funcEdit<%=bean.getSharedId()%>" value="<%=bean.getValue()%>" name="funcEdit"/>
                         <%} else {%>
                         <input type="checkbox" id="funcEdit<%=bean.getSharedId()%>" value="<%=bean.getValue()%>" name="funcEdit"/>
+                        <%}%>
+                    </div>
+                    <%}%>
+                </td>
+                <td>
+                    <%if (bean.getOperations().contains("," + PermissionUtil.OPERATION_EDIT_PAST + ",")) {%>
+                    <div align="center">
+                        <%
+                            boolean isChecked = false;
+                            if (formBean.getFuncEditPast()!= null) {
+                                int n = formBean.getFuncEditPast().length;
+                                for (int j = 0; j < n; j++) {
+                                    int value = NumberUtil.parseInt(formBean.getFuncEditPast()[j], 0);
+                                    if (bean.getValue() == value) {
+                                        isChecked = true;
+                                        break;
+                                    }
+                                }
+                            }
+                            if (isChecked) {
+                        %>
+                        <input type="checkbox" checked id="funcEditPast<%=bean.getSharedId()%>" value="<%=bean.getValue()%>" name="funcEditPast"/>
+                        <%} else {%>
+                        <input type="checkbox" id="funcEditPast<%=bean.getSharedId()%>" value="<%=bean.getValue()%>" name="funcEditPast"/>
                         <%}%>
                     </div>
                     <%}%>

@@ -1107,7 +1107,7 @@ public class GoodDAO extends BasicDAO {
 
     public ShellImportBean getShellImport(int id) throws Exception {
         ResultSet rs = null;
-        String sql = "select *, IF(MONTH(created_date)=MONTH(SYSDATE()) AND YEAR(created_date)=YEAR(SYSDATE()),1,0) as can_edit from shell_import where id=" + id;
+        String sql = "select *, IF(DATEDIFF(SYSDATE(),created_date)=0,1,0) as can_edit from shell_import where id=" + id;
         try {
             rs = DBUtil.executeQuery(sql);
             while (rs.next()) {
@@ -1189,18 +1189,11 @@ public class GoodDAO extends BasicDAO {
         }
         SPUtil spUtil = null;
         try {
-            String createdDate = "";
-            if (GenericValidator.isBlankOrNull(bean.getCreatedDate())) {
-                createdDate = "null";
-            } else {
-                createdDate = bean.getCreatedDate();
-            }
-            String sql = "{call updateShellImport(?,?,?,?,?,?,?,?,?)}";
+            String sql = "{call updateShellImport(?,?,?,?,?,?,?,?)}";
             spUtil = new SPUtil(sql);
             if (spUtil != null) {
                 spUtil.getCallableStatement().setInt("_id", bean.getId());
                 spUtil.getCallableStatement().setInt("_shell_id", bean.getShellId());
-                spUtil.getCallableStatement().setString("_created_date", createdDate);
                 spUtil.getCallableStatement().setInt("_quantity", bean.getQuantity());
                 spUtil.getCallableStatement().setDouble("_price", bean.getPrice());
                 spUtil.getCallableStatement().setDouble("_amount", bean.getAmount());

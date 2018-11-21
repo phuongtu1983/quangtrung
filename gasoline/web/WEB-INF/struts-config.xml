@@ -1140,6 +1140,11 @@
         </action>
         <action path="/reportCompareGoodPrint" type="com.stepup.gasoline.qt.report.comparegood.PrintCompareGoodReportAction" scope="request" validate="false" >
         </action>
+        <action path="/getVehicleFeeReportPanel" type="com.stepup.gasoline.qt.report.vehiclefee.VehicleFeeReportPanelFormAction" scope="request" validate="false">
+            <forward name="success" path="/report/vehiclefee/panel.jsp" />
+        </action>
+        <action path="/reportVehicleFeePrint" type="com.stepup.gasoline.qt.report.vehiclefee.PrintVehicleFeeReportAction" scope="request" validate="false" >
+        </action>
         <!-- end report -->
         <!-- start good -->
         <action path="/getGoodPanel" type="com.stepup.gasoline.qt.common.BaseStatusFormAction" scope="request" validate="false">
