@@ -40,6 +40,7 @@ public class ExpenseFormBean extends org.apache.struts.action.ActionForm {
         this.content = bean.getContent();
         this.isUsually = bean.getIsUsually() == 1 ? true : false;
         this.type = bean.getType();
+        this.canEdit = bean.getCanEdit();
     }
 
     public String getCode() {

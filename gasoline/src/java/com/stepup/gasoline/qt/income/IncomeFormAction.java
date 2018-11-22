@@ -10,6 +10,7 @@ import com.stepup.gasoline.qt.core.SpineAction;
 import com.stepup.gasoline.qt.dao.AccountDAO;
 import com.stepup.gasoline.qt.dao.PaymentDAO;
 import com.stepup.gasoline.qt.util.Constants;
+import com.stepup.gasoline.qt.util.PermissionUtil;
 import com.stepup.gasoline.qt.util.QTUtil;
 import java.util.ArrayList;
 import javax.servlet.http.HttpServletRequest;
@@ -56,6 +57,10 @@ public class IncomeFormAction extends SpineAction {
                 prefix += number;
                 bean.setCode(prefix);
             } catch (Exception ex) {
+            }
+        } else {
+            if (PermissionUtil.hasPermission(request, PermissionUtil.OPERATION_EDIT_PAST, PermissionUtil.PER_INCOME)) {
+                bean.setCanEdit(1);
             }
         }
         request.setAttribute(Constants.INCOME, bean);

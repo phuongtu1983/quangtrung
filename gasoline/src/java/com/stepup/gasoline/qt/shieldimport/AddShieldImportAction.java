@@ -42,13 +42,13 @@ public class AddShieldImportAction extends SpineAction {
         ShieldImportBean bean = new ShieldImportBean();
         bean.setId(formBean.getId());
         bean.setCode(formBean.getCode());
-        bean.setCreatedDate(formBean.getCreatedDate());
         bean.setQuantity(formBean.getQuantity());
         bean.setNote(formBean.getNote());
         bean.setVendorId(formBean.getVendorId());
         bean.setCreatedEmployeeId(QTUtil.getEmployeeId(request.getSession()));
         try {
             if (bNew) {
+                bean.setCreatedDate(formBean.getCreatedDate());
                 goodDAO.insertShieldImport(bean);
             } else {
                 goodDAO.updateShieldImport(bean);

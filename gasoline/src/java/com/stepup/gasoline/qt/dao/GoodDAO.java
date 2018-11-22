@@ -2597,7 +2597,7 @@ public class GoodDAO extends BasicDAO {
 
     public ShieldImportBean getShieldImport(int id) throws Exception {
         ResultSet rs = null;
-        String sql = "select * from shield_import where id=" + id;
+        String sql = "select *, IF(DATEDIFF(SYSDATE(),created_date)=0,1,0) as can_edit from shield_import where id=" + id;
         try {
             rs = DBUtil.executeQuery(sql);
             while (rs.next()) {
@@ -2607,6 +2607,7 @@ public class GoodDAO extends BasicDAO {
                 bean.setCreatedDate(DateUtil.formatDate(rs.getDate("created_date"), "dd/MM/yyyy"));
                 bean.setQuantity(rs.getInt("quantity"));
                 bean.setVendorId(rs.getInt("vendor_id"));
+                bean.setCanEdit(rs.getInt("can_edit"));
                 bean.setNote(rs.getString("note"));
                 return bean;
             }
@@ -2670,17 +2671,10 @@ public class GoodDAO extends BasicDAO {
         }
         SPUtil spUtil = null;
         try {
-            String createdDate = "";
-            if (GenericValidator.isBlankOrNull(bean.getCreatedDate())) {
-                createdDate = "null";
-            } else {
-                createdDate = bean.getCreatedDate();
-            }
-            String sql = "{call updateShieldImport(?,?,?,?,?)}";
+            String sql = "{call updateShieldImport(?,?,?,?)}";
             spUtil = new SPUtil(sql);
             if (spUtil != null) {
                 spUtil.getCallableStatement().setInt("_id", bean.getId());
-                spUtil.getCallableStatement().setString("_created_date", createdDate);
                 spUtil.getCallableStatement().setInt("_quantity", bean.getQuantity());
                 spUtil.getCallableStatement().setString("_note", bean.getNote());
                 spUtil.getCallableStatement().setInt("_vendor_id", bean.getVendorId());
@@ -2711,17 +2705,26 @@ public class GoodDAO extends BasicDAO {
         return result;
     }
 
-    public int deleteShieldImport(String ids) throws Exception {
-        int result = 0;
+    public void deleteShieldImport(int id) throws Exception {
+        SPUtil spUtil = null;
         try {
-            String sql = "Delete From shield_import Where id in (" + ids + ")";
-            DBUtil.executeUpdate(sql);
-        } catch (SQLException sqle) {
-            throw new Exception(sqle.getMessage());
+            String sql = "{call deleteShieldImport(?)}";
+            spUtil = new SPUtil(sql);
+            if (spUtil != null) {
+                spUtil.getCallableStatement().setInt("_id", id);
+                spUtil.execute();
+            }
         } catch (Exception ex) {
             throw new Exception(ex.getMessage());
+        } finally {
+            try {
+                if (spUtil != null) {
+                    spUtil.closeConnection();
+                }
+            } catch (Exception e) {
+                throw new Exception(e.getMessage());
+            }
         }
-        return result;
     }
 
     public ArrayList searchShieldDecrease(String fromDate, String endDate, String organizationIds) throws Exception {
@@ -2778,7 +2781,7 @@ public class GoodDAO extends BasicDAO {
 
     public ShieldDecreaseBean getShieldDecrease(int id) throws Exception {
         ResultSet rs = null;
-        String sql = "select * from shield_decrease where id=" + id;
+        String sql = "select *, IF(DATEDIFF(SYSDATE(),created_date)=0,1,0) as can_edit from shield_decrease where id=" + id;
         try {
             rs = DBUtil.executeQuery(sql);
             while (rs.next()) {
@@ -2788,6 +2791,7 @@ public class GoodDAO extends BasicDAO {
                 bean.setCreatedDate(DateUtil.formatDate(rs.getDate("created_date"), "dd/MM/yyyy"));
                 bean.setQuantity(rs.getInt("quantity"));
                 bean.setVendorId(rs.getInt("vendor_id"));
+                bean.setCanEdit(rs.getInt("can_edit"));
                 bean.setNote(rs.getString("note"));
                 return bean;
             }
@@ -2851,17 +2855,10 @@ public class GoodDAO extends BasicDAO {
         }
         SPUtil spUtil = null;
         try {
-            String createdDate = "";
-            if (GenericValidator.isBlankOrNull(bean.getCreatedDate())) {
-                createdDate = "null";
-            } else {
-                createdDate = bean.getCreatedDate();
-            }
-            String sql = "{call updateShieldDecrease(?,?,?,?,?)}";
+            String sql = "{call updateShieldDecrease(?,?,?,?)}";
             spUtil = new SPUtil(sql);
             if (spUtil != null) {
                 spUtil.getCallableStatement().setInt("_id", bean.getId());
-                spUtil.getCallableStatement().setString("_created_date", createdDate);
                 spUtil.getCallableStatement().setInt("_quantity", bean.getQuantity());
                 spUtil.getCallableStatement().setString("_note", bean.getNote());
                 spUtil.getCallableStatement().setInt("_vendor_id", bean.getVendorId());
@@ -2892,17 +2889,26 @@ public class GoodDAO extends BasicDAO {
         return result;
     }
 
-    public int deleteShieldDecrease(String ids) throws Exception {
-        int result = 0;
+    public void deleteShieldDecrease(int id) throws Exception {
+        SPUtil spUtil = null;
         try {
-            String sql = "Delete From shield_decrease Where id in (" + ids + ")";
-            DBUtil.executeUpdate(sql);
-        } catch (SQLException sqle) {
-            throw new Exception(sqle.getMessage());
+            String sql = "{call deleteShieldDecrease(?)}";
+            spUtil = new SPUtil(sql);
+            if (spUtil != null) {
+                spUtil.getCallableStatement().setInt("_id", id);
+                spUtil.execute();
+            }
         } catch (Exception ex) {
             throw new Exception(ex.getMessage());
+        } finally {
+            try {
+                if (spUtil != null) {
+                    spUtil.closeConnection();
+                }
+            } catch (Exception e) {
+                throw new Exception(e.getMessage());
+            }
         }
-        return result;
     }
 
     public GoodBean getGood(int goodId) throws Exception {

@@ -4,6 +4,7 @@
  */
 package com.stepup.gasoline.qt.debtvendor;
 
+import com.stepup.core.util.NumberUtil;
 import com.stepup.gasoline.qt.core.SpineAction;
 import com.stepup.gasoline.qt.dao.PaymentDAO;
 import javax.servlet.http.HttpServletRequest;
@@ -30,10 +31,9 @@ public class DeleteDebtVendorAction extends SpineAction {
     @Override
     public boolean doAction(ActionMapping mapping, ActionForm form,
             HttpServletRequest request, HttpServletResponse response) {
-        String id = request.getParameter("debtVendorId");
         try {
             PaymentDAO paymentDAO = new PaymentDAO();
-            paymentDAO.deleteDebtVendor(id);
+            paymentDAO.deleteDebtVendor(NumberUtil.parseInt(request.getParameter("debtVendorId"), 0));
         } catch (Exception ex) {
         }
         return true;

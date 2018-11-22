@@ -4,6 +4,7 @@
  */
 package com.stepup.gasoline.qt.shielddecrease;
 
+import com.stepup.core.util.NumberUtil;
 import com.stepup.gasoline.qt.core.SpineAction;
 import com.stepup.gasoline.qt.dao.GoodDAO;
 import javax.servlet.http.HttpServletRequest;
@@ -30,10 +31,9 @@ public class DeleteShieldDecreaseAction extends SpineAction {
     @Override
     public boolean doAction(ActionMapping mapping, ActionForm form,
             HttpServletRequest request, HttpServletResponse response) {
-        String id = request.getParameter("shieldDecreaseId");
         try {
             GoodDAO goodDAO = new GoodDAO();
-            goodDAO.deleteShieldDecrease(id);
+            goodDAO.deleteShieldDecrease(NumberUtil.parseInt(request.getParameter("shieldDecreaseId"), 0));
         } catch (Exception ex) {
         }
         return true;

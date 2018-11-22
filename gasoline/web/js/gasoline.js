@@ -7689,6 +7689,9 @@ function getDebtVendor(id, handle) {
         if (id == 0) {
             var currentDate = getCurrentDate();
             document.forms['debtVendorForm'].debtVendorDate.value = currentDate;
+            var myCalendar = new dhtmlXCalendarObject(["debtVendorDate"]);
+            myCalendar.setSkin('dhx_web');
+            myCalendar.setDateFormat("%d/%m/%Y");
         }
         myCalendar.setDateFormat("%d/%m/%Y");
 
@@ -7919,6 +7922,9 @@ function getDebtWholesale(id, handle) {
         if (id == 0) {
             var currentDate = getCurrentDate();
             document.forms['debtWholesaleForm'].debtWholesaleDate.value = currentDate;
+            var myCalendar = new dhtmlXCalendarObject(["debtWholesaleDate"]);
+            myCalendar.setSkin('dhx_web');
+            myCalendar.setDateFormat("%d/%m/%Y");
         }
         myCalendar.setDateFormat("%d/%m/%Y");
 
@@ -8040,13 +8046,13 @@ function getIncome(id, handle) {
         document.getElementById('callbackFunc').value = handle;
         document.forms['incomeForm'].amount.focus();
         tryNumberFormatCurrentcy(document.forms['incomeForm'].amount, "VND");
-//        var myCalendar = new dhtmlXCalendarObject(["incomeDate"]);
-//        myCalendar.setSkin('dhx_web');
         if (id == 0) {
             var currentDate = getCurrentDate();
             document.forms['incomeForm'].incomeDate.value = currentDate;
+            var myCalendar = new dhtmlXCalendarObject(["incomeDate"]);
+            myCalendar.setSkin('dhx_web');
+            myCalendar.setDateFormat("%d/%m/%Y");
         }
-//        myCalendar.setDateFormat("%d/%m/%Y");
     });
 }
 function saveIncome() {
@@ -8135,7 +8141,7 @@ function getExpense(id, handle) {
         document.getElementById('callbackFunc').value = handle;
         document.forms['expenseForm'].amount.focus();
         tryNumberFormatCurrentcy(document.forms['expenseForm'].amount, "VND");
-        var myCalendar = new dhtmlXCalendarObject(["expenseFromDate", "expenseToDate"]);
+        var myCalendar = new dhtmlXCalendarObject(["expenseDate", "expenseFromDate", "expenseToDate"]);
         myCalendar.setSkin('dhx_web');
         if (id == 0) {
             var currentDate = getCurrentDate();
@@ -9231,6 +9237,9 @@ function getShieldImport(id, handle) {
         if (id == 0) {
             var currentDate = getCurrentDate();
             document.forms['shieldImportForm'].shieldImportDate.value = currentDate;
+            var myCalendar = new dhtmlXCalendarObject(["shieldImportDate"]);
+            myCalendar.setSkin('dhx_web');
+            myCalendar.setDateFormat("%d/%m/%Y");
         }
         myCalendar.setDateFormat("%d/%m/%Y");
     });

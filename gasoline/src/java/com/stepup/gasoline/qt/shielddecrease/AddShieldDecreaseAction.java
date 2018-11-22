@@ -42,13 +42,13 @@ public class AddShieldDecreaseAction extends SpineAction {
         ShieldDecreaseBean bean = new ShieldDecreaseBean();
         bean.setId(formBean.getId());
         bean.setCode(formBean.getCode());
-        bean.setCreatedDate(formBean.getCreatedDate());
         bean.setQuantity(formBean.getQuantity());
         bean.setNote(formBean.getNote());
         bean.setVendorId(formBean.getVendorId());
         bean.setCreatedEmployeeId(QTUtil.getEmployeeId(request.getSession()));
         try {
             if (bNew) {
+                bean.setCreatedDate(formBean.getCreatedDate());
                 goodDAO.insertShieldDecrease(bean);
             } else {
                 goodDAO.updateShieldDecrease(bean);

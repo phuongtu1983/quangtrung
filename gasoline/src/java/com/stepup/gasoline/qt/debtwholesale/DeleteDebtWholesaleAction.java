@@ -4,6 +4,7 @@
  */
 package com.stepup.gasoline.qt.debtwholesale;
 
+import com.stepup.core.util.NumberUtil;
 import com.stepup.gasoline.qt.core.SpineAction;
 import com.stepup.gasoline.qt.dao.PaymentDAO;
 import javax.servlet.http.HttpServletRequest;
@@ -30,10 +31,9 @@ public class DeleteDebtWholesaleAction extends SpineAction {
     @Override
     public boolean doAction(ActionMapping mapping, ActionForm form,
             HttpServletRequest request, HttpServletResponse response) {
-        String id = request.getParameter("debtWholesaleId");
         try {
             PaymentDAO paymentDAO = new PaymentDAO();
-            paymentDAO.deleteDebtWholesale(id);
+            paymentDAO.deleteDebtWholesale(NumberUtil.parseInt(request.getParameter("debtWholesaleId"), 0));
         } catch (Exception ex) {
         }
         return true;

@@ -21,7 +21,6 @@
                                 <logic:notEqual name="<%=Constants.LPG_IMPORT%>" property="id" value="0">
                                     <html:text property="importDate" styleId="lpgImportDate" size="30" name="<%=Constants.LPG_IMPORT%>" readonly="true"/>
                                 </logic:notEqual>
-                                
                             </td>
                         </tr>
                         <tr>

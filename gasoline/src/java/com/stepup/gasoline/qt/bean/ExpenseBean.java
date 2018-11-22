@@ -22,6 +22,7 @@ public class ExpenseBean {
     private int isUsually;
     private int type;
     private int createdEmployeeId;
+    private int canEdit;
 
     public void setId(int id) {
         this.id = id;
@@ -117,6 +118,14 @@ public class ExpenseBean {
 
     public void setCreatedEmployeeId(int createdEmployeeId) {
         this.createdEmployeeId = createdEmployeeId;
+    }
+
+    public int getCanEdit() {
+        return canEdit;
+    }
+
+    public void setCanEdit(int canEdit) {
+        this.canEdit = canEdit;
     }
 
     public static int TYPE_OTHER = 1;

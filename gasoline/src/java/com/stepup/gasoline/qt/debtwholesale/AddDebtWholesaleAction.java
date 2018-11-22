@@ -42,7 +42,6 @@ public class AddDebtWholesaleAction extends SpineAction {
         DebtWholesaleBean bean = new DebtWholesaleBean();
         bean.setId(formBean.getId());
         bean.setAccountId(formBean.getAccountId());
-        bean.setCreatedDate(formBean.getCreatedDate());
         bean.setPaid(formBean.getPaid());
         bean.setCode(formBean.getCode());
         bean.setCustomerId(formBean.getCustomerId());
@@ -50,6 +49,7 @@ public class AddDebtWholesaleAction extends SpineAction {
         bean.setCreatedEmployeeId(QTUtil.getEmployeeId(request.getSession()));
         try {
             if (bNew) {
+                bean.setCreatedDate(formBean.getCreatedDate());
                 paymentDAO.insertDebtWholesale(bean);
             } else {
                 paymentDAO.updateDebtWholesale(bean);

@@ -42,7 +42,6 @@ public class AddDebtVendorAction extends SpineAction {
         DebtVendorBean bean = new DebtVendorBean();
         bean.setId(formBean.getId());
         bean.setAccountId(formBean.getAccountId());
-        bean.setCreatedDate(formBean.getCreatedDate());
         bean.setPaid(formBean.getPaid());
         bean.setCode(formBean.getCode());
         bean.setVendorId(formBean.getVendorId());
@@ -50,6 +49,7 @@ public class AddDebtVendorAction extends SpineAction {
         bean.setCreatedEmployeeId(QTUtil.getEmployeeId(request.getSession()));
         try {
             if (bNew) {
+                bean.setCreatedDate(formBean.getCreatedDate());
                 paymentDAO.insertDebtVendor(bean);
             } else {
                 paymentDAO.updateDebtVendor(bean);

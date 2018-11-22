@@ -42,7 +42,6 @@ public class AddIncomeAction extends SpineAction {
         IncomeBean bean = new IncomeBean();
         bean.setId(formBean.getId());
         bean.setAccountId(formBean.getAccountId());
-        bean.setCreatedDate(formBean.getCreatedDate());
         bean.setAmount(formBean.getAmount());
         bean.setCode(formBean.getCode());
         bean.setContent(formBean.getContent());
@@ -51,6 +50,7 @@ public class AddIncomeAction extends SpineAction {
         bean.setCreatedEmployeeId(QTUtil.getEmployeeId(request.getSession()));
         try {
             if (bNew) {
+                bean.setCreatedDate(formBean.getCreatedDate());
                 paymentDAO.insertIncome(bean);
             } else {
                 paymentDAO.updateIncome(bean);

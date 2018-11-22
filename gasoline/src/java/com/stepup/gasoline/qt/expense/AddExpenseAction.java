@@ -42,7 +42,6 @@ public class AddExpenseAction extends SpineAction {
         ExpenseBean bean = new ExpenseBean();
         bean.setId(formBean.getId());
         bean.setAccountId(formBean.getAccountId());
-        bean.setCreatedDate(formBean.getCreatedDate());
         bean.setFromDate(formBean.getFromDate());
         bean.setToDate(formBean.getToDate());
         bean.setAmount(formBean.getAmount());
@@ -54,6 +53,7 @@ public class AddExpenseAction extends SpineAction {
         bean.setCreatedEmployeeId(QTUtil.getEmployeeId(request.getSession()));
         try {
             if (bNew) {
+                bean.setCreatedDate(formBean.getCreatedDate());
                 paymentDAO.insertExpense(bean);
             } else {
                 paymentDAO.updateExpense(bean);

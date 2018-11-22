@@ -14,7 +14,14 @@
                             <td height="30" style="padding-right: 20px"><bean:message key="code.title"/></td>
                             <td><html:text property="code" size="30" name="<%=Constants.SHIELD_IMPORT%>" readonly="true"/></td>
                             <td style="padding-right: 20px;padding-left: 10px"><bean:message key="date.title"/></td>
-                            <td><html:text property="createdDate" styleId="shieldImportDate" size="30" name="<%=Constants.SHIELD_IMPORT%>"/></td>
+                            <td>
+                                <logic:equal name="<%=Constants.SHIELD_IMPORT%>" property="id" value="0">
+                                    <html:text property="createdDate" styleId="shieldImportDate" size="30" name="<%=Constants.SHIELD_IMPORT%>"/>
+                                </logic:equal>
+                                <logic:notEqual name="<%=Constants.SHIELD_IMPORT%>" property="id" value="0">
+                                    <html:text property="createdDate" styleId="shieldImportDate" size="30" name="<%=Constants.SHIELD_IMPORT%>" readonly="true"/>
+                                </logic:notEqual>
+                            </td>
                         </tr>
                         <tr>
                             <td height="30" style="padding-right: 20px"><bean:message key="quantity.title"/></td>
@@ -41,15 +48,15 @@
                             <%}%>
                         </logic:equal>
                         <logic:notEqual name="<%=Constants.SHIELD_IMPORT%>" property="id" value="0">
-                            <%if (PermissionUtil.hasPermission(request, PermissionUtil.OPERATION_EDIT, PermissionUtil.PER_SHIELD_IMPORT)) {%> 
-                            <button class="i_create_write icon small green" onclick="return saveShieldImport();"><bean:message key="message.save"/></button>
-                            <%}%>
+                            <logic:equal name="<%=Constants.SHIELD_IMPORT%>" property="canEdit" value="1">
+                                <%if (PermissionUtil.hasPermission(request, PermissionUtil.OPERATION_EDIT, PermissionUtil.PER_SHIELD_IMPORT)) {%> 
+                                <button class="i_create_write icon small green" onclick="return saveShieldImport();"><bean:message key="message.save"/></button>
+                                <%}%>
+                                <%if (PermissionUtil.hasPermission(request, PermissionUtil.OPERATION_DELETE, PermissionUtil.PER_SHIELD_IMPORT)) {%> 
+                                <button class="i_trashcan icon small red" onclick="return delShieldImport();"><bean:message key="message.del"/></button>
+                                <%}%>
+                            </logic:equal>
                         </logic:notEqual>
-                        <logic:greaterThan name="<%=Constants.SHIELD_IMPORT%>" property="id" value="0">
-                            <%if (PermissionUtil.hasPermission(request, PermissionUtil.OPERATION_DELETE, PermissionUtil.PER_SHIELD_IMPORT)) {%> 
-                            <button class="i_trashcan icon small red" onclick="return delShieldImport();"><bean:message key="message.del"/></button>
-                            <%}%>
-                        </logic:greaterThan>
                         <button class="i_access_denied icon small yellow" onclick="return prepareHidePopup('shieldImportFormshowHelpHideDiv');"><bean:message key="message.close"/></button>
                 </td>
             </tr>
