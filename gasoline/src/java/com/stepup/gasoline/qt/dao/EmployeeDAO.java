@@ -410,7 +410,7 @@ public class EmployeeDAO extends BasicDAO {
 
     public EmployeeAdvanceBean getEmployeeAdvance(int id) throws Exception {
         ResultSet rs = null;
-        String sql = "select * from employee_advance where id=" + id;
+        String sql = "select *, IF(DATEDIFF(SYSDATE(),advance_date)=0,1,0) as can_edit from employee_advance where id=" + id;
         try {
             rs = DBUtil.executeQuery(sql);
             while (rs.next()) {
@@ -422,6 +422,7 @@ public class EmployeeDAO extends BasicDAO {
                 bean.setAmount(rs.getDouble("amount"));
                 bean.setAccountId(rs.getInt("account_id"));
                 bean.setNote(rs.getString("note"));
+                bean.setCanEdit(rs.getInt("can_edit"));
                 return bean;
             }
         } catch (SQLException sqle) {
@@ -485,18 +486,11 @@ public class EmployeeDAO extends BasicDAO {
         }
         SPUtil spUtil = null;
         try {
-            String createdDate = "";
-            if (GenericValidator.isBlankOrNull(bean.getAdvanceDate())) {
-                createdDate = "null";
-            } else {
-                createdDate = bean.getAdvanceDate();
-            }
-            String sql = "{call updateEmployeeAdvance(?,?,?,?,?,?)}";
+            String sql = "{call updateEmployeeAdvance(?,?,?,?,?)}";
             spUtil = new SPUtil(sql);
             if (spUtil != null) {
                 spUtil.getCallableStatement().setInt("_id", bean.getId());
                 spUtil.getCallableStatement().setInt("_employee_id", bean.getEmployeeId());
-                spUtil.getCallableStatement().setString("_advance_date", createdDate);
                 spUtil.getCallableStatement().setDouble("_amount", bean.getAmount());
                 spUtil.getCallableStatement().setInt("_account_id", bean.getAccountId());
                 spUtil.getCallableStatement().setString("_note", bean.getNote());
@@ -527,17 +521,26 @@ public class EmployeeDAO extends BasicDAO {
         return result;
     }
 
-    public int deleteEmployeeAdvance(String ids) throws Exception {
-        int result = 0;
+    public void deleteEmployeeAdvance(int id) throws Exception {
+        SPUtil spUtil = null;
         try {
-            String sql = "Delete From employee_advance Where id in (" + ids + ")";
-            DBUtil.executeUpdate(sql);
-        } catch (SQLException sqle) {
-            throw new Exception(sqle.getMessage());
+            String sql = "{call deleteEmployeeAdvance(?)}";
+            spUtil = new SPUtil(sql);
+            if (spUtil != null) {
+                spUtil.getCallableStatement().setInt("_id", id);
+                spUtil.execute();
+            }
         } catch (Exception ex) {
             throw new Exception(ex.getMessage());
+        } finally {
+            try {
+                if (spUtil != null) {
+                    spUtil.closeConnection();
+                }
+            } catch (Exception e) {
+                throw new Exception(e.getMessage());
+            }
         }
-        return result;
     }
 
     public ArrayList searchSalary(String fromDate, String organizationIds) throws Exception {
@@ -1523,17 +1526,26 @@ public class EmployeeDAO extends BasicDAO {
         return list;
     }
 
-    public int deleteEmployeeOffMoney(String ids) throws Exception {
-        int result = 0;
+    public void deleteEmployeeOffMoney(int id) throws Exception {
+        SPUtil spUtil = null;
         try {
-            String sql = "Delete From employee_off_money Where id in (" + ids + ")";
-            DBUtil.executeUpdate(sql);
-        } catch (SQLException sqle) {
-            throw new Exception(sqle.getMessage());
+            String sql = "{call deleteEmployeeOffMoney(?)}";
+            spUtil = new SPUtil(sql);
+            if (spUtil != null) {
+                spUtil.getCallableStatement().setInt("_id", id);
+                spUtil.execute();
+            }
         } catch (Exception ex) {
             throw new Exception(ex.getMessage());
+        } finally {
+            try {
+                if (spUtil != null) {
+                    spUtil.closeConnection();
+                }
+            } catch (Exception e) {
+                throw new Exception(e.getMessage());
+            }
         }
-        return result;
     }
 
     public EmployeeOffMoneyBean getEmployeeOffMoney(int id) throws Exception {
@@ -1617,18 +1629,11 @@ public class EmployeeDAO extends BasicDAO {
         }
         SPUtil spUtil = null;
         try {
-            String createdDate = "";
-            if (GenericValidator.isBlankOrNull(bean.getCreatedDate())) {
-                createdDate = "null";
-            } else {
-                createdDate = bean.getCreatedDate();
-            }
-            String sql = "{call updateEmployeeOffMoney(?,?,?,?,?,?,?,?)}";
+            String sql = "{call updateEmployeeOffMoney(?,?,?,?,?,?,?)}";
             spUtil = new SPUtil(sql);
             if (spUtil != null) {
                 spUtil.getCallableStatement().setInt("_id", bean.getId());
                 spUtil.getCallableStatement().setInt("_employee_id", bean.getEmployeeId());
-                spUtil.getCallableStatement().setString("_created_date", createdDate);
                 spUtil.getCallableStatement().setDouble("_quantity", bean.getQuantity());
                 spUtil.getCallableStatement().setDouble("_price", bean.getPrice());
                 spUtil.getCallableStatement().setDouble("_amount", bean.getAmount());

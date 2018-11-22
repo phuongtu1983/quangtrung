@@ -4,6 +4,7 @@
  */
 package com.stepup.gasoline.qt.employeeadvance;
 
+import com.stepup.core.util.NumberUtil;
 import com.stepup.gasoline.qt.core.SpineAction;
 import com.stepup.gasoline.qt.dao.EmployeeDAO;
 import javax.servlet.http.HttpServletRequest;
@@ -30,10 +31,9 @@ public class DeleteEmployeeAdvanceAction extends SpineAction {
     @Override
     public boolean doAction(ActionMapping mapping, ActionForm form,
             HttpServletRequest request, HttpServletResponse response) {
-        String id = request.getParameter("employeeAdvanceId");
         try {
             EmployeeDAO employeeDAO = new EmployeeDAO();
-            employeeDAO.deleteEmployeeAdvance(id);
+            employeeDAO.deleteEmployeeAdvance(NumberUtil.parseInt(request.getParameter("employeeAdvanceId"), 0));
         } catch (Exception ex) {
         }
         return true;

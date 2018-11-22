@@ -41,13 +41,13 @@ public class AddOldShellAction extends SpineAction {
         OldShellBean bean = new OldShellBean();
         bean.setId(formBean.getId());
         bean.setCode(formBean.getCode());
-        bean.setCreatedDate(formBean.getCreatedDate());
         bean.setQuantity(formBean.getQuantity());
         bean.setShellId(formBean.getShellId());
         bean.setNote(formBean.getNote());
         bean.setCreatedEmployeeId(QTUtil.getEmployeeId(request.getSession()));
         try {
             if (bNew) {
+                bean.setCreatedDate(formBean.getCreatedDate());
                 gasDAO.insertOldShell(bean);
             } else {
                 gasDAO.updateOldShell(bean);

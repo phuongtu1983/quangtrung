@@ -2219,6 +2219,9 @@ function getEmployeeAdvance(id, handle) {
         if (id == 0) {
             var currentDate = getCurrentDate();
             document.forms['employeeAdvanceForm'].employeeAdvanceDate.value = currentDate;
+            var myCalendar = new dhtmlXCalendarObject(["employeeAdvanceDate"]);
+            myCalendar.setSkin('dhx_web');
+            myCalendar.setDateFormat("%d/%m/%Y");
         }
         myCalendar.setDateFormat("%d/%m/%Y");
 
@@ -3142,6 +3145,9 @@ function getLpgImport(id, handle) {
         if (id == 0) {
             var currentDate = getCurrentDate();
             document.forms['lpgImportForm'].lpgImportDate.value = currentDate;
+            var myCalendar = new dhtmlXCalendarObject(["lpgImportDate"]);
+            myCalendar.setSkin('dhx_web');
+            myCalendar.setDateFormat("%d/%m/%Y");
         }
 
         window.dhx_globalImgPath = "js/dhtmlx/combo/imgs/";
@@ -6079,6 +6085,9 @@ function getOldShell(id) {
         if (id == 0) {
             var currentDate = getCurrentDate();
             document.forms['oldShellForm'].oldShellDate.value = currentDate;
+            var myCalendar = new dhtmlXCalendarObject(["oldShellDate"]);
+            myCalendar.setSkin('dhx_web');
+            myCalendar.setDateFormat("%d/%m/%Y");
         }
         myCalendar.setDateFormat("%d/%m/%Y");
     });
@@ -8336,6 +8345,9 @@ function getEmployeeOffMoney(id, handle) {
         if (id == 0) {
             var currentDate = getCurrentDate();
             document.forms['employeeOffMoneyForm'].employeeOffMoneyDate.value = currentDate;
+            var myCalendar = new dhtmlXCalendarObject(["employeeOffMoneyDate"]);
+            myCalendar.setSkin('dhx_web');
+            myCalendar.setDateFormat("%d/%m/%Y");
         }
         window.dhx_globalImgPath = "js/dhtmlx/combo/imgs/";
         // ============================
@@ -9043,6 +9055,9 @@ function getLpgSale(id, handle, lpgImportId) {
         if (id == 0) {
             var currentDate = getCurrentDate();
             document.forms['lpgSaleForm'].lpgSaleDate.value = currentDate;
+            var myCalendar = new dhtmlXCalendarObject(["lpgSaleDate"]);
+            myCalendar.setSkin('dhx_web');
+            myCalendar.setDateFormat("%d/%m/%Y");
         }
 
         window.dhx_globalImgPath = "js/dhtmlx/combo/imgs/";

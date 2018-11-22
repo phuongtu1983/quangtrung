@@ -4,6 +4,7 @@
  */
 package com.stepup.gasoline.qt.oldshell;
 
+import com.stepup.core.util.NumberUtil;
 import com.stepup.gasoline.qt.core.SpineAction;
 import com.stepup.gasoline.qt.dao.GasDAO;
 import javax.servlet.http.HttpServletRequest;
@@ -30,10 +31,9 @@ public class DeleteOldShellAction extends SpineAction {
     @Override
     public boolean doAction(ActionMapping mapping, ActionForm form,
             HttpServletRequest request, HttpServletResponse response) {
-        String id = request.getParameter("oldShellId");
         try {
             GasDAO gasDAO = new GasDAO();
-            gasDAO.deleteOldShell(id);
+            gasDAO.deleteOldShell(NumberUtil.parseInt(request.getParameter("oldShellId"), 0));
         } catch (Exception ex) {
         }
         return true;

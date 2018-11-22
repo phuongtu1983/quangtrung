@@ -42,7 +42,6 @@ public class AddEmployeeOffMoneyAction extends SpineAction {
         EmployeeOffMoneyBean bean = new EmployeeOffMoneyBean();
         bean.setId(formBean.getId());
         bean.setAccountId(formBean.getAccountId());
-        bean.setCreatedDate(formBean.getCreatedDate());
         bean.setQuantity(formBean.getQuantity());
         bean.setPrice(formBean.getPrice());
         bean.setAmount(formBean.getAmount());
@@ -52,6 +51,7 @@ public class AddEmployeeOffMoneyAction extends SpineAction {
         bean.setCreatedEmployeeId(QTUtil.getEmployeeId(request.getSession()));
         try {
             if (bNew) {
+                bean.setCreatedDate(formBean.getCreatedDate());
                 employeeDAO.insertEmployeeOffMoney(bean);
             } else {
                 employeeDAO.updateEmployeeOffMoney(bean);

@@ -11,6 +11,7 @@ import com.stepup.gasoline.qt.core.SpineAction;
 import com.stepup.gasoline.qt.dao.AccountDAO;
 import com.stepup.gasoline.qt.dao.EmployeeDAO;
 import com.stepup.gasoline.qt.util.Constants;
+import com.stepup.gasoline.qt.util.PermissionUtil;
 import com.stepup.gasoline.qt.util.QTUtil;
 import java.util.ArrayList;
 import javax.servlet.http.HttpServletRequest;
@@ -56,6 +57,10 @@ public class EmployeeAdvanceFormAction extends SpineAction {
                 prefix += number;
                 bean.setCode(prefix);
             } catch (Exception ex) {
+            }
+        } else {
+            if (PermissionUtil.hasPermission(request, PermissionUtil.OPERATION_EDIT_PAST, PermissionUtil.PER_EMPLOYEE_ADVANCE)) {
+                bean.setCanEdit(1);
             }
         }
         request.setAttribute(Constants.EMPLOYEE_ADVANCE, bean);

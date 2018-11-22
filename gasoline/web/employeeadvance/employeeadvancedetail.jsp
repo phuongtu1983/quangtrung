@@ -14,7 +14,14 @@
                             <td height="30" style="padding-right: 20px"><bean:message key="code.title"/></td>
                             <td><html:text property="code" size="30" name="<%=Constants.EMPLOYEE_ADVANCE%>" readonly="true"/></td>
                             <td style="padding-right: 20px;padding-left: 10px"><bean:message key="date.title"/></td>
-                            <td><html:text property="advanceDate" styleId="employeeAdvanceDate" size="30" name="<%=Constants.EMPLOYEE_ADVANCE%>"/></td>
+                            <td>
+                                <logic:equal name="<%=Constants.EMPLOYEE_ADVANCE%>" property="id" value="0">
+                                    <html:text property="advanceDate" styleId="employeeAdvanceDate" size="30" name="<%=Constants.EMPLOYEE_ADVANCE%>"/>
+                                </logic:equal>
+                                <logic:notEqual name="<%=Constants.EMPLOYEE_ADVANCE%>" property="id" value="0">
+                                    <html:text property="advanceDate" styleId="employeeAdvanceDate" size="30" name="<%=Constants.EMPLOYEE_ADVANCE%>" readonly="true"/>
+                                </logic:notEqual>
+                            </td>
                         </tr>
                         <tr>
                             <td height="30" style="padding-right: 20px"><bean:message key="employee.title"/></td>
@@ -51,15 +58,15 @@
                             <%}%>
                         </logic:equal>
                         <logic:notEqual name="<%=Constants.EMPLOYEE_ADVANCE%>" property="id" value="0">
-                            <%if (PermissionUtil.hasPermission(request, PermissionUtil.OPERATION_EDIT, PermissionUtil.PER_EMPLOYEE_ADVANCE)) {%> 
-                            <button class="i_create_write icon small green" onclick="return saveEmployeeAdvance();"><bean:message key="message.save"/></button>
-                            <%}%>
+                            <logic:equal name="<%=Constants.EMPLOYEE_ADVANCE%>" property="canEdit" value="1">
+                                <%if (PermissionUtil.hasPermission(request, PermissionUtil.OPERATION_EDIT, PermissionUtil.PER_EMPLOYEE_ADVANCE)) {%> 
+                                <button class="i_create_write icon small green" onclick="return saveEmployeeAdvance();"><bean:message key="message.save"/></button>
+                                <%}%>
+                                <%if (PermissionUtil.hasPermission(request, PermissionUtil.OPERATION_DELETE, PermissionUtil.PER_EMPLOYEE_ADVANCE)) {%> 
+                                <button class="i_trashcan icon small red" onclick="return delEmployeeAdvance();"><bean:message key="message.del"/></button>
+                                <%}%>
+                            </logic:equal>
                         </logic:notEqual>
-                            <logic:greaterThan name="<%=Constants.EMPLOYEE_ADVANCE%>" property="id" value="0">
-                            <%if (PermissionUtil.hasPermission(request, PermissionUtil.OPERATION_DELETE, PermissionUtil.PER_EMPLOYEE_ADVANCE)) {%> 
-                            <button class="i_trashcan icon small red" onclick="return delEmployeeAdvance();"><bean:message key="message.del"/></button>
-                            <%}%>
-                        </logic:greaterThan>
                         <button class="i_access_denied icon small yellow" onclick="return prepareHidePopup('employeeAdvanceFormshowHelpHideDiv');"><bean:message key="message.close"/></button>
                 </td>
             </tr>

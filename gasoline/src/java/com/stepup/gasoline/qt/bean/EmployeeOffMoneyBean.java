@@ -20,6 +20,7 @@ public class EmployeeOffMoneyBean {
     private double amount;
     private String note;
     private int createdEmployeeId;
+    private int canEdit;
 
     public void setId(int id) {
         this.id = id;
@@ -99,6 +100,14 @@ public class EmployeeOffMoneyBean {
 
     public void setCreatedEmployeeId(int createdEmployeeId) {
         this.createdEmployeeId = createdEmployeeId;
+    }
+
+    public int getCanEdit() {
+        return canEdit;
+    }
+
+    public void setCanEdit(int canEdit) {
+        this.canEdit = canEdit;
     }
 
 }

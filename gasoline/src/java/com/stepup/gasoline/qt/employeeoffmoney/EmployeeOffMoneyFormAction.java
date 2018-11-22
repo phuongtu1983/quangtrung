@@ -12,6 +12,7 @@ import com.stepup.gasoline.qt.dao.AccountDAO;
 import com.stepup.gasoline.qt.dao.EmployeeDAO;
 import com.stepup.gasoline.qt.employee.EmployeeFormBean;
 import com.stepup.gasoline.qt.util.Constants;
+import com.stepup.gasoline.qt.util.PermissionUtil;
 import com.stepup.gasoline.qt.util.QTUtil;
 import java.util.ArrayList;
 import javax.servlet.http.HttpServletRequest;
@@ -58,6 +59,10 @@ public class EmployeeOffMoneyFormAction extends SpineAction {
                 bean.setCode(prefix);
             } catch (Exception ex) {
             }
+        } else {
+            if (PermissionUtil.hasPermission(request, PermissionUtil.OPERATION_EDIT_PAST, PermissionUtil.PER_EMPLOYEE_OFF_MONEY)) {
+                bean.setCanEdit(1);
+            }
         }
 
         String organizationIds = QTUtil.getOrganizationManageds(request.getSession());
@@ -85,7 +90,7 @@ public class EmployeeOffMoneyFormAction extends SpineAction {
         }
         request.setAttribute(Constants.EMPLOYEE_LIST, arrEmployee);
         request.setAttribute(Constants.EMPLOYEE_OFF_MONEY, bean);
-        
+
         ArrayList arrAccount = null;
         try {
             AccountDAO accountDAO = new AccountDAO();
