@@ -81,11 +81,11 @@ CREATE TABLE `accessory_in_stock` (
   `in_stock` int(11) DEFAULT NULL,
   `organization_id` int(11) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=158 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=192 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 /*Data for the table `accessory_in_stock` */
 
-insert  into `accessory_in_stock`(`id`,`day`,`accessory_id`,`in_stock`,`organization_id`) values (151,'2018-11-21',6,0,1),(152,'2018-11-21',7,0,1),(153,'2018-11-21',8,0,1),(154,'2018-11-21',6,0,14),(155,'2018-11-21',7,0,14),(156,'2018-11-21',8,0,14);
+insert  into `accessory_in_stock`(`id`,`day`,`accessory_id`,`in_stock`,`organization_id`) values (185,'2018-11-21',6,0,1),(186,'2018-11-21',7,0,1),(187,'2018-11-21',8,0,1),(188,'2018-11-21',6,0,14),(189,'2018-11-21',7,0,14),(190,'2018-11-21',8,0,14);
 
 /*Table structure for table `accessory_kind` */
 
@@ -204,11 +204,11 @@ CREATE TABLE `auto` (
   `auto_date` date DEFAULT NULL,
   `auto_name` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=26 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=31 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 /*Data for the table `auto` */
 
-insert  into `auto`(`id`,`auto_date`,`auto_name`) values (25,'2018-11-21','in_stock');
+insert  into `auto`(`id`,`auto_date`,`auto_name`) values (30,'2018-11-21','in_stock');
 
 /*Table structure for table `contract` */
 
@@ -285,11 +285,11 @@ CREATE TABLE `customer_in_stock` (
   `shell_45` int(11) DEFAULT NULL,
   `amount` double DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=150 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=182 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 /*Data for the table `customer_in_stock` */
 
-insert  into `customer_in_stock`(`id`,`day`,`customer_id`,`shell_12`,`shell_45`,`amount`) values (143,'2018-11-21',1,0,0,0),(144,'2018-11-21',2,0,0,0),(145,'2018-11-21',9,0,0,0),(146,'2018-11-21',10,0,0,0);
+insert  into `customer_in_stock`(`id`,`day`,`customer_id`,`shell_12`,`shell_45`,`amount`) values (175,'2018-11-21',1,0,0,0),(176,'2018-11-21',2,0,0,0),(177,'2018-11-21',9,0,0,0),(178,'2018-11-21',10,0,0,0);
 
 /*Table structure for table `discount` */
 
@@ -481,7 +481,7 @@ CREATE TABLE `employee_off_money` (
   `note` text COLLATE utf8_unicode_ci,
   `created_employee_id` int(11) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 /*Data for the table `employee_off_money` */
 
@@ -653,7 +653,7 @@ CREATE TABLE `fraction_gas` (
   `created_employee_id` int(11) DEFAULT NULL,
   `note` text COLLATE utf8_unicode_ci,
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM AUTO_INCREMENT=21 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=MyISAM AUTO_INCREMENT=24 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 /*Data for the table `fraction_gas` */
 
@@ -667,7 +667,7 @@ CREATE TABLE `fraction_gas_detail` (
   `shell_id` int(11) DEFAULT NULL COMMENT 'shell_id in shell_vendor',
   `quantity` text COLLATE utf8_unicode_ci,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 /*Data for the table `fraction_gas_detail` */
 
@@ -1037,11 +1037,11 @@ CREATE TABLE `good_in_stock` (
   `store_id` int(11) DEFAULT NULL,
   `in_stock` int(11) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=70 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=85 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 /*Data for the table `good_in_stock` */
 
-insert  into `good_in_stock`(`id`,`day`,`good_id`,`organization_id`,`store_id`,`in_stock`) values (67,'2018-11-21',1,1,7,0),(68,'2018-11-21',2,1,7,0),(69,'2018-11-21',3,1,7,0);
+insert  into `good_in_stock`(`id`,`day`,`good_id`,`organization_id`,`store_id`,`in_stock`) values (82,'2018-11-21',1,1,7,0),(83,'2018-11-21',2,1,7,0),(84,'2018-11-21',3,1,7,0);
 
 /*Table structure for table `good_sale` */
 
@@ -1169,11 +1169,11 @@ CREATE TABLE `lpg_in_stock` (
   `day` date DEFAULT NULL,
   `in_stock` int(11) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=156 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=189 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 /*Data for the table `lpg_in_stock` */
 
-insert  into `lpg_in_stock`(`id`,`organization_id`,`vendor_id`,`day`,`in_stock`) values (149,1,14,'2018-11-21',0),(150,1,15,'2018-11-21',0),(151,14,17,'2018-11-21',0),(152,14,14,'2018-11-21',0),(153,1,17,'2018-11-21',0);
+insert  into `lpg_in_stock`(`id`,`organization_id`,`vendor_id`,`day`,`in_stock`) values (182,1,14,'2018-11-21',0),(183,1,15,'2018-11-21',0),(184,14,17,'2018-11-21',0),(185,14,14,'2018-11-21',0),(186,1,17,'2018-11-21',0);
 
 /*Table structure for table `lpg_sale` */
 
@@ -1197,7 +1197,7 @@ CREATE TABLE `lpg_sale` (
   `lpg_import_id` int(11) DEFAULT NULL,
   `created_employee_id` int(11) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 /*Data for the table `lpg_sale` */
 
@@ -1212,11 +1212,11 @@ CREATE TABLE `money_in_stock` (
   `organization_id` int(11) DEFAULT NULL COMMENT 'neu account_id=0 thi la id cua organization',
   `in_stock` double DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=156 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=188 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 /*Data for the table `money_in_stock` */
 
-insert  into `money_in_stock`(`id`,`day`,`account_id`,`organization_id`,`in_stock`) values (149,'2018-11-21',4,1,0),(150,'2018-11-21',5,1,0),(151,'2018-11-21',7,14,0),(152,'2018-11-21',8,14,0);
+insert  into `money_in_stock`(`id`,`day`,`account_id`,`organization_id`,`in_stock`) values (181,'2018-11-21',4,1,0),(182,'2018-11-21',5,1,-500000000),(183,'2018-11-21',7,14,0),(184,'2018-11-21',8,14,0);
 
 /*Table structure for table `old_shell` */
 
@@ -1394,11 +1394,11 @@ CREATE TABLE `petro_in_stock` (
   `store_id` int(11) DEFAULT NULL,
   `in_stock` int(11) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=66 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=80 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 /*Data for the table `petro_in_stock` */
 
-insert  into `petro_in_stock`(`id`,`day`,`petro_id`,`organization_id`,`store_id`,`in_stock`) values (63,'2018-11-21',6,1,4,0),(64,'2018-11-21',6,1,6,0);
+insert  into `petro_in_stock`(`id`,`day`,`petro_id`,`organization_id`,`store_id`,`in_stock`) values (77,'2018-11-21',6,1,4,0),(78,'2018-11-21',6,1,6,0);
 
 /*Table structure for table `petro_sale` */
 
@@ -1502,11 +1502,11 @@ CREATE TABLE `promotion_material_in_stock` (
   `organization_id` int(11) DEFAULT NULL,
   `in_stock` int(11) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=150 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=182 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 /*Data for the table `promotion_material_in_stock` */
 
-insert  into `promotion_material_in_stock`(`id`,`day`,`promotion_material_id`,`organization_id`,`in_stock`) values (143,'2018-11-21',3,1,0),(144,'2018-11-21',4,1,0),(145,'2018-11-21',3,14,0),(146,'2018-11-21',4,14,0);
+insert  into `promotion_material_in_stock`(`id`,`day`,`promotion_material_id`,`organization_id`,`in_stock`) values (175,'2018-11-21',3,1,0),(176,'2018-11-21',4,1,0),(177,'2018-11-21',3,14,0),(178,'2018-11-21',4,14,0);
 
 /*Table structure for table `promotion_material_sale` */
 
@@ -1622,11 +1622,11 @@ CREATE TABLE `shell_gas_in_stock` (
   `shell_vendor_id` int(11) DEFAULT NULL,
   `in_stock` int(11) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=34 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=46 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 /*Data for the table `shell_gas_in_stock` */
 
-insert  into `shell_gas_in_stock`(`id`,`day`,`shell_vendor_id`,`in_stock`) values (33,'2018-11-21',9,0);
+insert  into `shell_gas_in_stock`(`id`,`day`,`shell_vendor_id`,`in_stock`) values (43,'2018-11-21',10,0),(44,'2018-11-21',11,0);
 
 /*Table structure for table `shell_import` */
 
@@ -1645,9 +1645,11 @@ CREATE TABLE `shell_import` (
   `created_employee_id` int(11) DEFAULT NULL,
   `vendor_id` int(11) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM AUTO_INCREMENT=14 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=MyISAM AUTO_INCREMENT=16 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 /*Data for the table `shell_import` */
+
+insert  into `shell_import`(`id`,`code`,`created_date`,`shell_id`,`quantity`,`price`,`amount`,`account_id`,`note`,`created_employee_id`,`vendor_id`) values (15,'20181122-SI-0002','2018-11-22',2,2000,600000,1200000000,5,'',17,14),(14,'20181122-SI-0001','2018-11-21',1,1000,500000,500000000,5,'',17,14);
 
 /*Table structure for table `shell_in_stock` */
 
@@ -1661,11 +1663,11 @@ CREATE TABLE `shell_in_stock` (
   `in_stock` int(11) DEFAULT '0' COMMENT 'vo binh rong',
   PRIMARY KEY (`id`),
   KEY `shell_id` (`shell_id`)
-) ENGINE=MyISAM AUTO_INCREMENT=37 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=MyISAM AUTO_INCREMENT=47 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 /*Data for the table `shell_in_stock` */
 
-insert  into `shell_in_stock`(`id`,`day`,`organization_id`,`shell_id`,`in_stock`) values (36,'2018-11-21',1,1,0);
+insert  into `shell_in_stock`(`id`,`day`,`organization_id`,`shell_id`,`in_stock`) values (45,'2018-11-21',1,1,1000),(46,'2018-11-21',1,2,0);
 
 /*Table structure for table `shell_kind` */
 
@@ -1810,11 +1812,11 @@ CREATE TABLE `shell_vendor` (
   `vendor_id` int(11) DEFAULT NULL,
   `quantity` int(11) DEFAULT '0',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=10 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=12 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 /*Data for the table `shell_vendor` */
 
-insert  into `shell_vendor`(`id`,`organization_id`,`shell_id`,`vendor_id`,`quantity`) values (9,1,1,15,0);
+insert  into `shell_vendor`(`id`,`organization_id`,`shell_id`,`vendor_id`,`quantity`) values (10,1,1,14,1000),(11,1,2,14,2000);
 
 /*Table structure for table `shield_decrease` */
 
@@ -1829,7 +1831,7 @@ CREATE TABLE `shield_decrease` (
   `vendor_id` int(11) DEFAULT NULL,
   `created_employee_id` int(11) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 /*Data for the table `shield_decrease` */
 
@@ -1846,7 +1848,7 @@ CREATE TABLE `shield_import` (
   `vendor_id` int(11) DEFAULT NULL,
   `created_employee_id` int(11) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 /*Data for the table `shield_import` */
 
@@ -1861,11 +1863,11 @@ CREATE TABLE `shield_in_stock` (
   `organization_id` int(11) DEFAULT NULL,
   `in_stock` int(11) DEFAULT '0',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=154 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=187 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 /*Data for the table `shield_in_stock` */
 
-insert  into `shield_in_stock`(`id`,`day`,`vendor_id`,`organization_id`,`in_stock`) values (147,'2018-11-21',14,1,0),(148,'2018-11-21',15,1,0),(149,'2018-11-21',17,1,0),(150,'2018-11-21',14,14,0),(151,'2018-11-21',17,14,0);
+insert  into `shield_in_stock`(`id`,`day`,`vendor_id`,`organization_id`,`in_stock`) values (180,'2018-11-21',14,1,0),(181,'2018-11-21',15,1,0),(182,'2018-11-21',17,1,0),(183,'2018-11-21',14,14,0),(184,'2018-11-21',17,14,0);
 
 /*Table structure for table `store` */
 
@@ -2169,11 +2171,11 @@ CREATE TABLE `vendor_in_stock` (
   `organization_id` int(11) DEFAULT NULL,
   `amount` double DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=325 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=394 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 /*Data for the table `vendor_in_stock` */
 
-insert  into `vendor_in_stock`(`id`,`day`,`vendor_id`,`organization_id`,`amount`) values (310,'2018-11-21',14,1,0),(311,'2018-11-21',14,14,0),(312,'2018-11-21',15,1,0),(313,'2018-11-21',16,1,0),(314,'2018-11-21',17,1,0),(315,'2018-11-21',17,14,0),(316,'2018-11-21',18,1,0),(317,'2018-11-21',19,1,0),(318,'2018-11-21',20,1,0);
+insert  into `vendor_in_stock`(`id`,`day`,`vendor_id`,`organization_id`,`amount`) values (379,'2018-11-21',14,1,0),(380,'2018-11-21',14,14,0),(381,'2018-11-21',15,1,0),(382,'2018-11-21',16,1,0),(383,'2018-11-21',17,1,0),(384,'2018-11-21',17,14,0),(385,'2018-11-21',18,1,0),(386,'2018-11-21',19,1,0),(387,'2018-11-21',20,1,0);
 
 /*Table structure for table `vendor_organization` */
 
@@ -2207,6 +2209,66 @@ CREATE TABLE `wholesale_debt` (
 ) ENGINE=MyISAM AUTO_INCREMENT=5 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 /*Data for the table `wholesale_debt` */
+
+/* Trigger structure for table `fraction_gas_detail` */
+
+DELIMITER $$
+
+/*!50003 DROP TRIGGER*//*!50032 IF EXISTS */ /*!50003 `tg_deleteFractionDetail` */$$
+
+/*!50003 CREATE */ /*!50017 DEFINER = 'root'@'localhost' */ /*!50003 TRIGGER `tg_deleteFractionDetail` AFTER DELETE ON `fraction_gas_detail` FOR EACH ROW BEGIN
+	DECLARE _date_diff, _in_stock_id, _organization_id, _vendor_id, _weight, _shell INT DEFAULT 0;
+	DECLARE _date DATE;
+	
+	SELECT f.created_date, sv.organization_id, sv.vendor_id, sk.weight, s.id INTO _date, _organization_id, _vendor_id, _weight, _shell
+	FROM fraction_gas AS f, shell_vendor AS sv, shell AS s, shell_kind AS sk
+	WHERE f.id=OLD.fraction_id AND sv.id=OLD.shell_id AND sv.shell_id=s.id AND s.kind_id=sk.id;
+	
+	SELECT DATEDIFF(SYSDATE(),_date) INTO _date_diff;
+	WHILE _date_diff>0 DO
+		SET _in_stock_id=0;
+		-- lpg_in_stock
+		SELECT id INTO _in_stock_id
+		FROM lpg_in_stock
+		WHERE DATEDIFF(`day`,_date)=0 AND organization_id= _organization_id AND vendor_id=_vendor_id;
+		IF _in_stock_id<>0 THEN
+			UPDATE lpg_in_stock SET in_stock=in_stock + old.quantity * _weight WHERE id=_in_stock_id;
+		END IF;
+	
+		SET _in_stock_id=0;
+		-- shell_in_stock
+		SELECT id INTO _in_stock_id
+		FROM shell_in_stock
+		WHERE DATEDIFF(`day`,_date)=0 AND organization_id= _organization_id AND shell_id=_shell;
+		IF _in_stock_id<>0 THEN
+			UPDATE shell_in_stock SET in_stock=in_stock + OLD.quantity WHERE id=_in_stock_id;
+		END IF;
+	
+		SET _in_stock_id=0;
+		-- shell_gas_in_stock
+		SELECT ss.id INTO _in_stock_id 
+		FROM shell_gas_in_stock AS ss, shell_vendor AS sv
+		WHERE DATEDIFF(ss.`day`,_date)=0 AND ss.shell_vendor_id=sv.id AND sv.organization_id=_organization_id AND sv.vendor_id=_vendor_id AND sv.shell_id=_shell;
+		IF _in_stock_id<>0 THEN
+			UPDATE shell_gas_in_stock SET in_stock=in_stock - old.quantity WHERE id=_in_stock_id;
+		END IF;
+	
+		SET _in_stock_id=0;
+		-- shield_in_stock
+		SELECT ss.id INTO _in_stock_id
+		FROM shield_in_stock AS ss
+		WHERE DATEDIFF(ss.`day`,_date)=0 AND ss.organization_id=_organization_id AND ss.vendor_id=_vendor_id;
+		IF _in_stock_id<>0 THEN
+			UPDATE shield_in_stock SET in_stock=in_stock  + OLD.quantity WHERE id=_in_stock_id;
+		END IF;
+	
+		SET _date_diff=_date_diff-1;
+		SELECT DATE_ADD(_date, INTERVAL 1 DAY) INTO _date;
+	END WHILE;
+    END */$$
+
+
+DELIMITER ;
 
 /* Procedure structure for procedure `autoCreateFixedAssetDepreciation` */
 
@@ -2907,7 +2969,7 @@ BEGIN
 		FROM money_in_stock as ss, shell_import AS i, employee AS eo
 		WHERE DATEDIFF(ss.`day`,_date)=0 AND ss.organization_id= eo.organization_id AND eo.id=i.created_employee_id AND ss.account_id=i.account_id AND i.id=_id;
 		IF _in_stock_id<>0 THEN
-			UPDATE money_in_stock SET in_stock=in_stock - _old_amount WHERE id=_in_stock_id;
+			UPDATE money_in_stock SET in_stock=in_stock + _old_amount WHERE id=_in_stock_id;
 		END IF;
 	
 		SET _date_diff=_date_diff-1;
@@ -4083,6 +4145,58 @@ DELIMITER $$
 
 /*!50003 CREATE DEFINER=`root`@`localhost` PROCEDURE `insertFractionDetail`(in _fraction_id int, in _shell_id int, in _quantity int)
 BEGIN
+	DECLARE _date_diff, _in_stock_id, _organization_id, _vendor_id, _weight, _shell INT DEFAULT 0;
+	DECLARE _date DATE;
+	
+	SELECT f.created_date, sv.organization_id, sv.vendor_id, sk.weight, s.id INTO _date, _organization_id, _vendor_id, _weight, _shell
+	FROM fraction_gas as f, shell_vendor as sv, shell as s, shell_kind as sk
+	WHERE f.id=_fraction_id and sv.id=_shell_id and sv.shell_id=s.id and s.kind_id=sk.id;
+	
+	SELECT DATEDIFF(SYSDATE(),_date) INTO _date_diff;
+	WHILE _date_diff>0 DO
+		SET _in_stock_id=0;
+		-- lpg_in_stock
+		SELECT id INTO _in_stock_id FROM lpg_in_stock WHERE DATEDIFF(`day`,_date)=0 AND organization_id=_organization_id AND vendor_id=_vendor_id;
+		IF _in_stock_id=0 THEN
+			INSERT INTO lpg_in_stock(`day`, organization_id, vendor_id, in_stock) VALUES (_date, _organization_id, _vendor_id, -_quantity*_weight);
+		ELSE
+			UPDATE lpg_in_stock SET in_stock=in_stock -_quantity*_weight WHERE id=_in_stock_id;
+		END IF;
+	
+		SET _in_stock_id=0;
+		-- shell_in_stock
+		SELECT id INTO _in_stock_id FROM shell_in_stock WHERE DATEDIFF(`day`,_date)=0 AND organization_id=_organization_id AND shell_id=_shell;
+		IF _in_stock_id=0 THEN
+			INSERT INTO shell_in_stock(`day`, organization_id, shell_id, in_stock) VALUES (_date, _organization_id, _shell, -_quantity);
+		ELSE
+			UPDATE shell_in_stock SET in_stock=in_stock - _quantity WHERE id=_in_stock_id;
+		END IF;
+	
+		SET _in_stock_id=0;
+		-- shell_gas_in_stock
+		SELECT ss.id INTO _in_stock_id 
+		FROM shell_gas_in_stock as ss, shell_vendor as sv
+		WHERE DATEDIFF(ss.`day`,_date)=0 and ss.shell_vendor_id=sv.id AND sv.organization_id=_organization_id AND sv.vendor_id=_vendor_id and sv.shell_id=_shell;
+		IF _in_stock_id=0 THEN
+			INSERT INTO shell_gas_in_stock(`day`, shell_vendor_id, in_stock) 
+			select _date, id, _quantity from shell_vendor where organization_id=_organization_id AND vendor_id=_vendor_id;
+		ELSE
+			UPDATE shell_gas_in_stock SET in_stock=in_stock + _quantity WHERE id=_in_stock_id;
+		END IF;
+	
+		SET _in_stock_id=0;
+		-- shield_in_stock
+		SELECT id INTO _in_stock_id FROM shield_in_stock WHERE DATEDIFF(`day`,_date)=0  AND organization_id=_organization_id AND vendor_id=_vendor_id;
+		IF _in_stock_id=0 THEN
+			INSERT INTO shield_in_stock(`day`, organization_id, vendor_id, in_stock) VALUES (_date, _organization_id, _vendor_id, -_quantity);
+		ELSE
+			UPDATE shield_in_stock SET in_stock=in_stock - _quantity WHERE id=_in_stock_id;
+		END IF;
+	
+		SET _date_diff=_date_diff-1;
+		SELECT DATE_ADD(_date, INTERVAL 1 DAY) INTO _date;
+	END WHILE;
+	
 	insert into fraction_gas_detail(fraction_id, shell_id, quantity) values (_fraction_id, _shell_id, _quantity);
     END */$$
 DELIMITER ;
@@ -5489,7 +5603,7 @@ BEGIN
 		IF _in_stock_id=0 THEN
 			INSERT INTO money_in_stock(`day`, organization_id, account_id, in_stock) VALUES (_date, _organization_id, _account_id, _amount);
 		ELSE
-			UPDATE money_in_stock SET in_stock=in_stock + _amount WHERE id=_in_stock_id;
+			UPDATE money_in_stock SET in_stock=in_stock - _amount WHERE id=_in_stock_id;
 		END IF;
 	
 		SET _date_diff=_date_diff-1;
@@ -8012,11 +8126,9 @@ DELIMITER ;
 
 DELIMITER $$
 
-/*!50003 CREATE DEFINER=`root`@`localhost` PROCEDURE `updateFraction`(IN _id INT, IN _created_date VARCHAR(20), IN _note TEXT)
+/*!50003 CREATE DEFINER=`root`@`localhost` PROCEDURE `updateFraction`(IN _id INT, IN _note TEXT)
 BEGIN
-	UPDATE fraction_gas SET created_date=STR_TO_DATE(_created_date,'%d/%m/%Y')
-		, note=_note
-	WHERE id=_id;
+	UPDATE fraction_gas SET note=_note WHERE id=_id;
     END */$$
 DELIMITER ;
 
@@ -8028,6 +8140,55 @@ DELIMITER $$
 
 /*!50003 CREATE DEFINER=`root`@`localhost` PROCEDURE `updateFractionDetail`(in _id int, in _quantity int)
 BEGIN
+	DECLARE _date_diff, _in_stock_id, _organization_id, _vendor_id, _weight, _shell, _old_quantity INT DEFAULT 0;
+	DECLARE _date DATE;
+	
+	SELECT f.created_date, sv.organization_id, sv.vendor_id, sk.weight, s.id, fdet.quantity INTO _date, _organization_id, _vendor_id, _weight, _shell, _old_quantity
+	FROM fraction_gas AS f, fraction_gas_detail as fdet, shell_vendor AS sv, shell AS s, shell_kind AS sk
+	WHERE fdet.id=_id and fdet.fraction_id=f.id and fdet.shell_id=sv.id AND sv.shell_id=s.id AND s.kind_id=sk.id;
+	
+	SELECT DATEDIFF(SYSDATE(),_date) INTO _date_diff;
+	WHILE _date_diff>0 DO
+		SET _in_stock_id=0;
+		-- lpg_in_stock
+		SELECT id INTO _in_stock_id
+		FROM lpg_in_stock
+		WHERE DATEDIFF(`day`,_date)=0 AND organization_id= _organization_id AND vendor_id=_vendor_id;
+		IF _in_stock_id<>0 THEN
+			UPDATE lpg_in_stock SET in_stock=in_stock - (_quantity - _old_quantity) * _weight WHERE id=_in_stock_id;
+		END IF;
+	
+		SET _in_stock_id=0;
+		-- shell_in_stock
+		SELECT id INTO _in_stock_id
+		FROM shell_in_stock
+		WHERE DATEDIFF(`day`,_date)=0 AND organization_id= _organization_id AND shell_id=_shell;
+		IF _in_stock_id<>0 THEN
+			UPDATE shell_in_stock SET in_stock=in_stock - (_quantity - _old_quantity) WHERE id=_in_stock_id;
+		END IF;
+	
+		SET _in_stock_id=0;
+		-- shell_gas_in_stock
+		SELECT ss.id INTO _in_stock_id 
+		FROM shell_gas_in_stock AS ss, shell_vendor AS sv
+		WHERE DATEDIFF(ss.`day`,_date)=0 AND ss.shell_vendor_id=sv.id AND sv.organization_id=_organization_id AND sv.vendor_id=_vendor_id AND sv.shell_id=_shell;
+		IF _in_stock_id<>0 THEN
+			UPDATE shell_gas_in_stock SET in_stock=in_stock + (_quantity - _old_quantity) WHERE id=_in_stock_id;
+		END IF;
+	
+		SET _in_stock_id=0;
+		-- shield_in_stock
+		SELECT ss.id INTO _in_stock_id
+		FROM shield_in_stock AS ss
+		WHERE DATEDIFF(ss.`day`,_date)=0 AND ss.organization_id=_organization_id AND ss.vendor_id=_vendor_id;
+		IF _in_stock_id<>0 THEN
+			UPDATE shield_in_stock SET in_stock=in_stock  - (_quantity - _old_quantity) WHERE id=_in_stock_id;
+		END IF;
+	
+		SET _date_diff=_date_diff-1;
+		SELECT DATE_ADD(_date, INTERVAL 1 DAY) INTO _date;
+	END WHILE;
+	
 	update fraction_gas_detail set quantity=_quantity where id=_id;
     END */$$
 DELIMITER ;
@@ -8832,7 +8993,7 @@ BEGIN
 		FROM money_in_stock AS ss
 		WHERE DATEDIFF(ss.`day`,_date)=0 AND ss.organization_id=_organization_id AND ss.account_id=_old_account_id;
 		IF _in_stock_id<>0 THEN
-			UPDATE money_in_stock SET in_stock=in_stock  - _old_amount WHERE id=_in_stock_id;
+			UPDATE money_in_stock SET in_stock=in_stock  + _old_amount WHERE id=_in_stock_id;
 		END IF;
 	
 		SET _in_stock_id=0;
@@ -8840,7 +9001,7 @@ BEGIN
 		IF _in_stock_id=0 THEN
 			INSERT INTO money_in_stock(`day`, organization_id, account_id, in_stock) VALUES (_date, _organization_id, _account_id, _amount);
 		ELSE
-			UPDATE money_in_stock SET in_stock=in_stock + _amount WHERE id=_in_stock_id;
+			UPDATE money_in_stock SET in_stock=in_stock - _amount WHERE id=_in_stock_id;
 		END IF;
 	
 		SET _date_diff=_date_diff-1;

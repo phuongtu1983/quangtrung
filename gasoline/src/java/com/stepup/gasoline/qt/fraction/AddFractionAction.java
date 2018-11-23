@@ -56,10 +56,10 @@ public class AddFractionAction extends SpineAction {
         bean.setId(formBean.getId());
         bean.setCode(formBean.getCode());
         bean.setNote(formBean.getNote());
-        bean.setCreatedDate(formBean.getCreatedDate());
         bean.setCreatedEmployeeId(QTUtil.getEmployeeId(request.getSession()));
         try {
             if (bNew) {
+                bean.setCreatedDate(formBean.getCreatedDate());
                 int id = gasDAO.insertFraction(bean);
                 formBean.setId(id);
             } else {

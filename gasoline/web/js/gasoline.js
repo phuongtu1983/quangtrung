@@ -3355,13 +3355,13 @@ function getFraction(id) {
             }
         }
         shellIdCombobox.setComboValue("");
-//        var myCalendar = new dhtmlXCalendarObject(["fractionCreatedDate"]);
-//        myCalendar.setSkin('dhx_web');
         if (id == 0) {
             var currentDate = getCurrentDate();
             document.forms['fractionForm'].fractionCreatedDate.value = currentDate;
+            var myCalendar = new dhtmlXCalendarObject(["fractionCreatedDate"]);
+            myCalendar.setSkin('dhx_web');
+            myCalendar.setDateFormat("%d/%m/%Y");
         }
-//        myCalendar.setDateFormat("%d/%m/%Y");
         formatFractionDetail();
     });
 }

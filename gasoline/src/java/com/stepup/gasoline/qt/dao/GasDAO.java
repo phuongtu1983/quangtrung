@@ -444,17 +444,10 @@ public class GasDAO extends BasicDAO {
         }
         SPUtil spUtil = null;
         try {
-            String createdDate = "";
-            if (GenericValidator.isBlankOrNull(bean.getCreatedDate())) {
-                createdDate = "null";
-            } else {
-                createdDate = bean.getCreatedDate();
-            }
-            String sql = "{call updateFraction(?,?,?)}";
+            String sql = "{call updateFraction(?,?)}";
             spUtil = new SPUtil(sql);
             if (spUtil != null) {
                 spUtil.getCallableStatement().setInt("_id", bean.getId());
-                spUtil.getCallableStatement().setString("_created_date", createdDate);
                 spUtil.getCallableStatement().setString("_note", bean.getNote());
                 spUtil.execute();
             }

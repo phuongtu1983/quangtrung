@@ -11,6 +11,7 @@ import com.stepup.gasoline.qt.dao.GasDAO;
 import com.stepup.gasoline.qt.dao.GoodDAO;
 import com.stepup.gasoline.qt.dao.VendorDAO;
 import com.stepup.gasoline.qt.util.Constants;
+import com.stepup.gasoline.qt.util.PermissionUtil;
 import com.stepup.gasoline.qt.util.QTUtil;
 import java.util.ArrayList;
 import javax.servlet.http.HttpServletRequest;
@@ -28,6 +29,7 @@ public class FractionFormAction extends SpineAction {
 
     /**
      * This is the action called from the Struts framework.
+     *
      * @param mapping The ActionMapping used to select this instance.
      * @param form The optional ActionForm bean for this request.
      * @param request The HTTP Request we are processing.
@@ -53,6 +55,9 @@ public class FractionFormAction extends SpineAction {
         FractionFormBean formBean = null;
         if (bean != null) {
             formBean = new FractionFormBean(bean);
+            if (PermissionUtil.hasPermission(request, PermissionUtil.OPERATION_EDIT_PAST, PermissionUtil.PER_FRACTION)) {
+                formBean.setCanEdit(1);
+            }
         } else {
             formBean = new FractionFormBean();
             try {
