@@ -1307,7 +1307,7 @@ public class GoodDAO extends BasicDAO {
 
     public AccessoryImportBean getAccessoryImport(int id) throws Exception {
         ResultSet rs = null;
-        String sql = "select *, IF(MONTH(created_date)=MONTH(SYSDATE()) AND YEAR(created_date)=YEAR(SYSDATE()),1,0)) as can_edit from accessory_import where id=" + id;
+        String sql = "select *, IF(DATEDIFF(created_date,SYSDATE())=0,1,0) as can_edit from accessory_import where id=" + id;
         try {
             rs = DBUtil.executeQuery(sql);
             while (rs.next()) {
@@ -1419,11 +1419,10 @@ public class GoodDAO extends BasicDAO {
         }
         SPUtil spUtil = null;
         try {
-            String sql = "{call updateAccessoryImport(?,?,?,?,?,?,?)}";
+            String sql = "{call updateAccessoryImport(?,?,?,?,?,?)}";
             spUtil = new SPUtil(sql);
             if (spUtil != null) {
                 spUtil.getCallableStatement().setInt("_id", bean.getId());
-                spUtil.getCallableStatement().setInt("_vendor_id", bean.getVendorId());
                 spUtil.getCallableStatement().setDouble("_total", bean.getTotal());
                 spUtil.getCallableStatement().setDouble("_paid", bean.getPaid());
                 spUtil.getCallableStatement().setDouble("_debt", bean.getDebt());
@@ -1833,12 +1832,12 @@ public class GoodDAO extends BasicDAO {
         }
     }
 
-    public ArrayList searchSaleAccessory(String fromDate, String endDate, String organizationIds) throws Exception {
+    public ArrayList searchSaleAccessory(String fromDate, String endDate) throws Exception {
         SPUtil spUtil = null;
         ArrayList list = new ArrayList();
         ResultSet rs = null;
         try {
-            String sql = "{call searchSaleAccessory(?,?,?)}";
+            String sql = "{call searchSaleAccessory(?,?)}";
             if (GenericValidator.isBlankOrNull(fromDate)) {
                 fromDate = DateUtil.today("dd/MM/yyyy");
             }
@@ -1849,7 +1848,6 @@ public class GoodDAO extends BasicDAO {
             if (spUtil != null) {
                 spUtil.getCallableStatement().setString("_start_date", fromDate);
                 spUtil.getCallableStatement().setString("_end_date", endDate);
-                spUtil.getCallableStatement().setString("_organization_ids", organizationIds);
                 rs = spUtil.executeQuery();
                 if (rs != null) {
                     SaleAccessoryFormBean bean = null;
@@ -1889,7 +1887,7 @@ public class GoodDAO extends BasicDAO {
 
     public SaleAccessoryBean getSaleAccessory(int id) throws Exception {
         ResultSet rs = null;
-        String sql = "select *, IF(MONTH(created_date)=MONTH(SYSDATE()) AND YEAR(created_date)=YEAR(SYSDATE()),1,0) as can_edit from accessory_sale where id=" + id;
+        String sql = "select *, IF(DATEDIFF(created_date,SYSDATE())=0,1,0) as can_edit from accessory_sale where id=" + id;
         try {
             rs = DBUtil.executeQuery(sql);
             while (rs.next()) {
@@ -2284,7 +2282,7 @@ public class GoodDAO extends BasicDAO {
 
     public SalePetroBean getSalePetro(int id) throws Exception {
         ResultSet rs = null;
-        String sql = "select *, IF(MONTH(created_date)=MONTH(SYSDATE()) AND YEAR(created_date)=YEAR(SYSDATE()),1,0) as can_edit from petro_sale where id=" + id;
+        String sql = "select *, IF(DATEDIFF(created_date,SYSDATE())=0,1,0) as can_edit from petro_sale where id=" + id;
         try {
             rs = DBUtil.executeQuery(sql);
             while (rs.next()) {
@@ -3239,12 +3237,10 @@ public class GoodDAO extends BasicDAO {
         }
         SPUtil spUtil = null;
         try {
-            String sql = "{call updateGoodImport(?,?,?,?,?,?,?,?,?)}";
+            String sql = "{call updateGoodImport(?,?,?,?,?,?,?)}";
             spUtil = new SPUtil(sql);
             if (spUtil != null) {
                 spUtil.getCallableStatement().setInt("_id", bean.getId());
-                spUtil.getCallableStatement().setInt("_vendor_id", bean.getVendorId());
-                spUtil.getCallableStatement().setInt("_store_id", bean.getStoreId());
                 spUtil.getCallableStatement().setDouble("_rate", bean.getRate());
                 spUtil.getCallableStatement().setDouble("_total", bean.getTotal());
                 spUtil.getCallableStatement().setDouble("_paid", bean.getPaid());
@@ -3432,7 +3428,7 @@ public class GoodDAO extends BasicDAO {
 
     public SaleGoodBean getSaleGood(int id) throws Exception {
         ResultSet rs = null;
-        String sql = "select *, IF(MONTH(created_date)=MONTH(SYSDATE()) AND YEAR(created_date)=YEAR(SYSDATE()),1,0) as can_edit from good_sale where id=" + id;
+        String sql = "select *, IF(DATEDIFF(created_date,SYSDATE())=0,1,0) as can_edit from good_sale where id=" + id;
         try {
             rs = DBUtil.executeQuery(sql);
             while (rs.next()) {

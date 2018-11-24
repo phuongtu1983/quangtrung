@@ -56,7 +56,6 @@ public class AddPetroImportAction extends SpineAction {
         bean.setId(formBean.getId());
         bean.setCode(formBean.getCode());
         bean.setNote(formBean.getNote());
-        bean.setCreatedDate(formBean.getCreatedDate());
         bean.setVendorId(formBean.getVendorId());
         bean.setStoreId(formBean.getStoreId());
         bean.setRate(formBean.getRate());
@@ -67,6 +66,7 @@ public class AddPetroImportAction extends SpineAction {
         bean.setCreatedEmployeeId(QTUtil.getEmployeeId(request.getSession()));
         try {
             if (bNew) {
+                bean.setCreatedDate(formBean.getCreatedDate());
                 int id = gasDAO.insertPetroImport(bean);
                 formBean.setId(id);
             } else {

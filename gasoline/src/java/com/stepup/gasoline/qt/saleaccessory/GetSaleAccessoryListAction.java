@@ -42,7 +42,7 @@ public class GetSaleAccessoryListAction extends Action {
         buff.append("<rows>");
         try {
             GoodDAO goodDAO = new GoodDAO();
-            ArrayList importList = goodDAO.searchSaleAccessory(request.getParameter("fromDate"), request.getParameter("toDate"), QTUtil.getOrganizationManageds(request.getSession()));
+            ArrayList importList = goodDAO.searchSaleAccessory(request.getParameter("fromDate"), request.getParameter("toDate"));
             if (importList != null) {
                 int length = importList.size();
                 for (int i = 0; i < length; i++) {

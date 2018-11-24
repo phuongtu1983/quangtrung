@@ -12,7 +12,14 @@
             <td width="200" height="30"><bean:message key="code.title"/></td>
             <td width="200"><html:text property="code" size="30" name="<%=Constants.GAS_WHOLESALE%>" readonly="true" tabindex="-1"/></td>
             <td width="70" style="padding-right: 50px;padding-left: 10px"><bean:message key="date.title"/></td>
-            <td><html:text property="createdDate" size="30" name="<%=Constants.GAS_WHOLESALE%>" styleId="gasWholesaleCreatedDate" tabindex="1"/></td>
+            <td>
+                <logic:equal name="<%=Constants.GAS_WHOLESALE%>" property="id" value="0">
+                    <html:text property="createdDate" size="30" name="<%=Constants.GAS_WHOLESALE%>" styleId="gasWholesaleCreatedDate"/>
+                </logic:equal>
+                <logic:notEqual name="<%=Constants.GAS_WHOLESALE%>" property="id" value="0">
+                    <html:text property="createdDate" size="30" name="<%=Constants.GAS_WHOLESALE%>" styleId="gasWholesaleCreatedDate" readonly="true"/>
+                </logic:notEqual>
+            </td>
         </tr>
         <tr>
             <td width="200" height="30"><bean:message key="date.title"/></td>
@@ -151,19 +158,15 @@
                     <%}%>
                 </logic:equal>
                 <logic:notEqual name="<%=Constants.GAS_WHOLESALE%>" property="id" value="0">
-                    <%if (PermissionUtil.hasPermission(request, PermissionUtil.OPERATION_EDIT, PermissionUtil.PER_GAS_WHOLESALE)) {%> 
                     <logic:equal name="<%=Constants.GAS_WHOLESALE%>" property="canEdit" value="1">
+                        <%if (PermissionUtil.hasPermission(request, PermissionUtil.OPERATION_EDIT, PermissionUtil.PER_GAS_WHOLESALE)) {%> 
                         <button class="i_create_write icon small green" onclick="return saveGasWholesale();"><bean:message key="message.save"/></button>
-                    </logic:equal>
-                    <%}%>
-                </logic:notEqual>
-                <logic:greaterThan name="<%=Constants.GAS_WHOLESALE%>" property="id" value="0">
-                    <%if (PermissionUtil.hasPermission(request, PermissionUtil.OPERATION_DELETE, PermissionUtil.PER_GAS_WHOLESALE)) {%> 
-                    <logic:equal name="<%=Constants.GAS_WHOLESALE%>" property="canEdit" value="1">
+                        <%}%>
+                        <%if (PermissionUtil.hasPermission(request, PermissionUtil.OPERATION_DELETE, PermissionUtil.PER_GAS_WHOLESALE)) {%> 
                         <button class="i_trashcan icon small red" onclick="return delGasWholesale();"><bean:message key="message.del"/></button>
+                        <%}%>
                     </logic:equal>
-                    <%}%>
-                </logic:greaterThan>
+                </logic:notEqual>
                 <button class="i_access_denied icon small yellow" onclick="return loadGasWholesalePanel();"><bean:message key="message.close"/></button>
             </td>
         </tr>

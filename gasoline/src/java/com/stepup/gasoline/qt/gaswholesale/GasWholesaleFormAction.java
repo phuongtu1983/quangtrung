@@ -10,12 +10,14 @@ import com.stepup.gasoline.qt.bean.GasWholesaleBean;
 import com.stepup.gasoline.qt.bean.VehicleOutBean;
 import com.stepup.gasoline.qt.bean.VendorBean;
 import com.stepup.gasoline.qt.core.SpineAction;
+import com.stepup.gasoline.qt.customer.CustomerFormBean;
 import com.stepup.gasoline.qt.dao.AccountDAO;
 import com.stepup.gasoline.qt.dao.CustomerDAO;
 import com.stepup.gasoline.qt.dao.GasDAO;
 import com.stepup.gasoline.qt.dao.GoodDAO;
 import com.stepup.gasoline.qt.dao.VendorDAO;
 import com.stepup.gasoline.qt.util.Constants;
+import com.stepup.gasoline.qt.util.PermissionUtil;
 import com.stepup.gasoline.qt.util.QTUtil;
 import com.stepup.gasoline.qt.vehicleout.VehicleOutFormBean;
 import java.util.ArrayList;
@@ -63,6 +65,9 @@ public class GasWholesaleFormAction extends SpineAction {
         GasWholesaleFormBean formBean = null;
         if (bean != null) {
             formBean = new GasWholesaleFormBean(bean);
+            if (PermissionUtil.hasPermission(request, PermissionUtil.OPERATION_EDIT_PAST, PermissionUtil.PER_FRACTION)) {
+                formBean.setCanEdit(1);
+            }
         } else {
             formBean = new GasWholesaleFormBean();
             try {
@@ -144,7 +149,18 @@ public class GasWholesaleFormAction extends SpineAction {
         ArrayList arrCustomer = null;
         try {
             CustomerDAO customerDAO = new CustomerDAO();
-            arrCustomer = customerDAO.getCustomers(organizationIds, VendorBean.IS_GAS);
+            if (formBean.getId() == 0) {
+                arrCustomer = customerDAO.getCustomers(organizationIds, VendorBean.IS_GAS);
+            } else {
+                if (arrCustomer == null) {
+                    arrCustomer = new ArrayList();
+                }
+                CustomerFormBean customerFormBean = customerDAO.getCustomer(formBean.getCustomerId());
+                if (customerFormBean == null) {
+                    customerFormBean = new CustomerFormBean();
+                }
+                arrCustomer.add(customerFormBean);
+            }
         } catch (Exception ex) {
         }
         if (arrCustomer == null) {

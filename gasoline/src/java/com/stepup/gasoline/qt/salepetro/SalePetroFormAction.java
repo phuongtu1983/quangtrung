@@ -9,11 +9,14 @@ import com.stepup.gasoline.qt.bean.EmployeeBean;
 import com.stepup.gasoline.qt.bean.SalePetroBean;
 import com.stepup.gasoline.qt.bean.VendorBean;
 import com.stepup.gasoline.qt.core.SpineAction;
+import com.stepup.gasoline.qt.customer.CustomerFormBean;
 import com.stepup.gasoline.qt.dao.AccountDAO;
 import com.stepup.gasoline.qt.dao.CustomerDAO;
 import com.stepup.gasoline.qt.dao.GoodDAO;
 import com.stepup.gasoline.qt.dao.OrganizationDAO;
+import com.stepup.gasoline.qt.store.StoreFormBean;
 import com.stepup.gasoline.qt.util.Constants;
+import com.stepup.gasoline.qt.util.PermissionUtil;
 import com.stepup.gasoline.qt.util.QTUtil;
 import java.util.ArrayList;
 import javax.servlet.http.HttpServletRequest;
@@ -56,6 +59,9 @@ public class SalePetroFormAction extends SpineAction {
         SalePetroFormBean formBean = null;
         if (bean != null) {
             formBean = new SalePetroFormBean(bean);
+            if (PermissionUtil.hasPermission(request, PermissionUtil.OPERATION_EDIT_PAST, PermissionUtil.PER_PETRO_IMPORT)) {
+                formBean.setCanEdit(1);
+            }
         } else {
             formBean = new SalePetroFormBean();
             try {
@@ -101,7 +107,18 @@ public class SalePetroFormAction extends SpineAction {
         ArrayList arrStore = null;
         try {
             OrganizationDAO organizationDAO = new OrganizationDAO();
-            arrStore = organizationDAO.getStores(organizationIds, VendorBean.IS_PETRO);
+            if (formBean.getStoreId() != 0) {
+                StoreFormBean storeFormBean = organizationDAO.getStore(formBean.getStoreId());
+                if (storeFormBean == null) {
+                    storeFormBean = new StoreFormBean();
+                }
+                if (arrStore == null) {
+                    arrStore = new ArrayList();
+                }
+                arrStore.add(storeFormBean);
+            } else {
+                arrStore = organizationDAO.getStores(organizationIds, VendorBean.IS_PETRO);
+            }
         } catch (Exception ex) {
         }
         if (arrStore == null) {
@@ -112,7 +129,18 @@ public class SalePetroFormAction extends SpineAction {
         ArrayList arrCustomer = null;
         try {
             CustomerDAO customerDAO = new CustomerDAO();
-            arrCustomer = customerDAO.getCustomers(organizationIds, VendorBean.IS_PETRO);
+            if (formBean.getCustomerId() != 0) {
+                CustomerFormBean customerFormBean = customerDAO.getCustomer(formBean.getCustomerId());
+                if (customerFormBean == null) {
+                    customerFormBean = new CustomerFormBean();
+                }
+                if (arrCustomer == null) {
+                    arrCustomer = new ArrayList();
+                }
+                arrCustomer.add(customerFormBean);
+            } else {
+                arrCustomer = customerDAO.getCustomers(organizationIds, VendorBean.IS_PETRO);
+            }
         } catch (Exception ex) {
         }
         if (arrCustomer == null) {

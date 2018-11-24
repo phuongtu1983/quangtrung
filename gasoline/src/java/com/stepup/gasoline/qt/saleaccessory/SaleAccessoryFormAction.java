@@ -11,6 +11,7 @@ import com.stepup.gasoline.qt.core.SpineAction;
 import com.stepup.gasoline.qt.dao.AccountDAO;
 import com.stepup.gasoline.qt.dao.GoodDAO;
 import com.stepup.gasoline.qt.util.Constants;
+import com.stepup.gasoline.qt.util.PermissionUtil;
 import com.stepup.gasoline.qt.util.QTUtil;
 import java.util.ArrayList;
 import javax.servlet.http.HttpServletRequest;
@@ -55,6 +56,9 @@ public class SaleAccessoryFormAction extends SpineAction {
         SaleAccessoryFormBean formBean = null;
         if (bean != null) {
             formBean = new SaleAccessoryFormBean(bean);
+            if (PermissionUtil.hasPermission(request, PermissionUtil.OPERATION_EDIT_PAST, PermissionUtil.PER_SALE_ACCESSORY)) {
+                formBean.setCanEdit(1);
+            }
         } else {
             formBean = new SaleAccessoryFormBean();
             try {

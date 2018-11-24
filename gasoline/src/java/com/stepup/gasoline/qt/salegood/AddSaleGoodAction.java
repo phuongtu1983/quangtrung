@@ -56,7 +56,6 @@ public class AddSaleGoodAction extends SpineAction {
         bean.setId(formBean.getId());
         bean.setCode(formBean.getCode());
         bean.setNote(formBean.getNote());
-        bean.setCreatedDate(formBean.getCreatedDate());
         bean.setTotal(formBean.getTotal());
         bean.setPaid(formBean.getPaid());
         bean.setDebt(formBean.getDebt());
@@ -68,6 +67,7 @@ public class AddSaleGoodAction extends SpineAction {
         bean.setCreatedEmployeeId(QTUtil.getEmployeeId(request.getSession()));
         try {
             if (bNew) {
+                bean.setCreatedDate(formBean.getCreatedDate());
                 int id = goodDAO.insertSaleGood(bean);
                 formBean.setId(id);
             } else {

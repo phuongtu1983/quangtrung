@@ -3788,13 +3788,13 @@ function getAccessoryImport(id) {
     callAjax(url, null, null, function(data) {
         clearContent();
         setAjaxData(data, 'contentDiv');
-//        var myCalendar = new dhtmlXCalendarObject(["accessoryImportCreatedDate"]);
-//        myCalendar.setSkin('dhx_web');
         if (id == 0) {
             var currentDate = getCurrentDate();
             document.forms['accessoryImportForm'].accessoryImportCreatedDate.value = currentDate;
+            var myCalendar = new dhtmlXCalendarObject(["accessoryImportCreatedDate"]);
+            myCalendar.setSkin('dhx_web');
+            myCalendar.setDateFormat("%d/%m/%Y");
         }
-//        myCalendar.setDateFormat("%d/%m/%Y");
         tryNumberFormatCurrentcy(document.forms['accessoryImportForm'].total, "VND");
         tryNumberFormatCurrentcy(document.forms['accessoryImportForm'].paid, "VND");
         tryNumberFormatCurrentcy(document.forms['accessoryImportForm'].debt, "VND");
@@ -4164,13 +4164,13 @@ function getPetroImport(id) {
     callAjax(url, null, null, function(data) {
         clearContent();
         setAjaxData(data, 'contentDiv');
-//        var myCalendar = new dhtmlXCalendarObject(["petroImportCreatedDate"]);
-//        myCalendar.setSkin('dhx_web');
         if (id == 0) {
             var currentDate = getCurrentDate();
             document.forms['petroImportForm'].petroImportCreatedDate.value = currentDate;
+            var myCalendar = new dhtmlXCalendarObject(["petroImportCreatedDate"]);
+            myCalendar.setSkin('dhx_web');
+            myCalendar.setDateFormat("%d/%m/%Y");
         }
-//        myCalendar.setDateFormat("%d/%m/%Y");
         tryNumberFormatCurrentcy(document.forms['petroImportForm'].total, "VND");
         tryNumberFormatCurrentcy(document.forms['petroImportForm'].paid, "VND");
         tryNumberFormatCurrentcy(document.forms['petroImportForm'].debt, "VND");
@@ -4528,9 +4528,10 @@ function getGasWholesale(id) {
                 shellName.openSelect();
             }
             document.forms['gasWholesaleForm'].gasWholesaleCreatedDate.value = currentDate;
+            var myCalendar = new dhtmlXCalendarObject(["gasWholesaleCreatedDate"]);
+            myCalendar.setSkin('dhx_web');
+            myCalendar.setDateFormat("%d/%m/%Y");
         }
-        myCalendar.setDateFormat("%d/%m/%Y");
-
         var vehicleOutCalendar = new dhtmlXCalendarObject(["gasWholesaleVehicleOutCreatedDate"]);
         vehicleOutCalendar.setSkin('dhx_web');
         vehicleOutCalendar.setDateFormat("%d/%m/%Y");
@@ -5242,13 +5243,13 @@ function getSaleAccessory(id) {
     callAjax(url, null, null, function(data) {
         clearContent();
         setAjaxData(data, 'contentDiv');
-//        var myCalendar = new dhtmlXCalendarObject(["saleAccessoryCreatedDate"]);
-//        myCalendar.setSkin('dhx_web');
         if (id == 0) {
             var currentDate = getCurrentDate();
             document.forms['saleAccessoryForm'].saleAccessoryCreatedDate.value = currentDate;
+            var myCalendar = new dhtmlXCalendarObject(["saleAccessoryCreatedDate"]);
+            myCalendar.setSkin('dhx_web');
+            myCalendar.setDateFormat("%d/%m/%Y");
         }
-//        myCalendar.setDateFormat("%d/%m/%Y");
         tryNumberFormatCurrentcy(document.forms['saleAccessoryForm'].total, "VND");
         tryNumberFormatCurrentcy(document.forms['saleAccessoryForm'].paid, "VND");
         tryNumberFormatCurrentcy(document.forms['saleAccessoryForm'].debt, "VND");
@@ -5625,13 +5626,13 @@ function getSalePetro(id) {
     callAjax(url, null, null, function(data) {
         clearContent();
         setAjaxData(data, 'contentDiv');
-//        var myCalendar = new dhtmlXCalendarObject(["salePetroCreatedDate"]);
-//        myCalendar.setSkin('dhx_web');
         if (id == 0) {
             var currentDate = getCurrentDate();
             document.forms['salePetroForm'].salePetroCreatedDate.value = currentDate;
+            var myCalendar = new dhtmlXCalendarObject(["salePetroCreatedDate"]);
+            myCalendar.setSkin('dhx_web');
+            myCalendar.setDateFormat("%d/%m/%Y");
         }
-//        myCalendar.setDateFormat("%d/%m/%Y");
         tryNumberFormatCurrentcy(document.forms['salePetroForm'].total, "VND");
         tryNumberFormatCurrentcy(document.forms['salePetroForm'].paid, "VND");
         tryNumberFormatCurrentcy(document.forms['salePetroForm'].debt, "VND");
@@ -9765,13 +9766,13 @@ function getGoodImport(id) {
     callAjax(url, null, null, function(data) {
         clearContent();
         setAjaxData(data, 'contentDiv');
-//        var myCalendar = new dhtmlXCalendarObject(["petroImportCreatedDate"]);
-//        myCalendar.setSkin('dhx_web');
         if (id == 0) {
             var currentDate = getCurrentDate();
             document.forms['goodImportForm'].goodImportCreatedDate.value = currentDate;
+            var myCalendar = new dhtmlXCalendarObject(["goodImportCreatedDate"]);
+            myCalendar.setSkin('dhx_web');
+            myCalendar.setDateFormat("%d/%m/%Y");
         }
-//        myCalendar.setDateFormat("%d/%m/%Y");
         tryNumberFormatCurrentcy(document.forms['goodImportForm'].total, "VND");
         tryNumberFormatCurrentcy(document.forms['goodImportForm'].paid, "VND");
         tryNumberFormatCurrentcy(document.forms['goodImportForm'].debt, "VND");
@@ -9783,10 +9784,10 @@ function getGoodImport(id) {
         var goodIdCombobox = dhtmlXComboFromSelect("goodIdCombobox");
         goodIdCombobox.enableFilteringMode(true);
         goodIdCombobox.attachEvent("onSelectionChange", function() {
-            setPetroSelectedForm('goodImportForm', goodIdCombobox.getComboText(), goodIdCombobox.getSelectedValue());
+            setGoodSelectedForm('goodImportForm', goodIdCombobox.getComboText(), goodIdCombobox.getSelectedValue());
         });
         goodIdCombobox.attachEvent("onBlur", function() {
-            setPetroSelectedForm('goodImportForm', goodIdCombobox.getComboText(), goodIdCombobox.getSelectedValue());
+            setGoodSelectedForm('goodImportForm', goodIdCombobox.getComboText(), goodIdCombobox.getSelectedValue());
         });
         goodIdCombobox.DOMelem_input.onkeypress = function(event) {
             var key;
@@ -9946,13 +9947,13 @@ function getSaleGood(id) {
     callAjax(url, null, null, function(data) {
         clearContent();
         setAjaxData(data, 'contentDiv');
-//        var myCalendar = new dhtmlXCalendarObject(["saleGoodCreatedDate"]);
-//        myCalendar.setSkin('dhx_web');
         if (id == 0) {
             var currentDate = getCurrentDate();
             document.forms['saleGoodForm'].saleGoodCreatedDate.value = currentDate;
+            var myCalendar = new dhtmlXCalendarObject(["saleGoodCreatedDate"]);
+            myCalendar.setSkin('dhx_web');
+            myCalendar.setDateFormat("%d/%m/%Y");
         }
-//        myCalendar.setDateFormat("%d/%m/%Y");
         tryNumberFormatCurrentcy(document.forms['saleGoodForm'].total, "VND");
         tryNumberFormatCurrentcy(document.forms['saleGoodForm'].paid, "VND");
         tryNumberFormatCurrentcy(document.forms['saleGoodForm'].debt, "VND");

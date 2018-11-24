@@ -13,8 +13,11 @@ import com.stepup.gasoline.qt.dao.AccountDAO;
 import com.stepup.gasoline.qt.dao.GoodDAO;
 import com.stepup.gasoline.qt.dao.OrganizationDAO;
 import com.stepup.gasoline.qt.dao.VendorDAO;
+import com.stepup.gasoline.qt.store.StoreFormBean;
 import com.stepup.gasoline.qt.util.Constants;
+import com.stepup.gasoline.qt.util.PermissionUtil;
 import com.stepup.gasoline.qt.util.QTUtil;
+import com.stepup.gasoline.qt.vendor.VendorFormBean;
 import java.util.ArrayList;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -56,6 +59,9 @@ public class GoodImportFormAction extends SpineAction {
         GoodImportFormBean formBean = null;
         if (bean != null) {
             formBean = new GoodImportFormBean(bean);
+            if (PermissionUtil.hasPermission(request, PermissionUtil.OPERATION_EDIT_PAST, PermissionUtil.PER_GOOD_IMPORT)) {
+                formBean.setCanEdit(1);
+            }
         } else {
             formBean = new GoodImportFormBean();
             try {
@@ -101,7 +107,18 @@ public class GoodImportFormAction extends SpineAction {
         ArrayList arrVendor = null;
         try {
             VendorDAO vendorDAO = new VendorDAO();
-            arrVendor = vendorDAO.getVendors(organizationIds, VendorBean.IS_GOOD);
+            if (formBean.getVendorId() != 0) {
+                if (arrVendor == null) {
+                    arrVendor = new ArrayList();
+                }
+                VendorFormBean vendorFormBean = vendorDAO.getVendor(formBean.getVendorId());
+                if (vendorFormBean == null) {
+                    vendorFormBean = new VendorFormBean();
+                }
+                arrVendor.add(vendorFormBean);
+            } else {
+                arrVendor = vendorDAO.getVendors(organizationIds, VendorBean.IS_GOOD);
+            }
         } catch (Exception ex) {
         }
         if (arrVendor == null) {
@@ -112,7 +129,18 @@ public class GoodImportFormAction extends SpineAction {
         ArrayList arrStore = null;
         try {
             OrganizationDAO orgDAO = new OrganizationDAO();
-            arrStore = orgDAO.getStores(organizationIds, VendorBean.IS_GOOD);
+            if (formBean.getStoreId() != 0) {
+                StoreFormBean storeFormBean = orgDAO.getStore(formBean.getStoreId());
+                if (storeFormBean == null) {
+                    storeFormBean = new StoreFormBean();
+                }
+                if (arrStore == null) {
+                    arrStore = new ArrayList();
+                }
+                arrStore.add(storeFormBean);
+            } else {
+                arrStore = orgDAO.getStores(organizationIds, VendorBean.IS_GOOD);
+            }
         } catch (Exception ex) {
         }
         if (arrStore == null) {
