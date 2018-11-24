@@ -1598,7 +1598,7 @@ public class GoodDAO extends BasicDAO {
 
     public PromotionMaterialImportBean getPromotionMaterialImport(int id) throws Exception {
         ResultSet rs = null;
-        String sql = "select *, IF(MONTH(created_date)=MONTH(SYSDATE()) AND YEAR(created_date)=YEAR(SYSDATE()),1,0) as can_edit from promotion_material_import where id=" + id;
+        String sql = "select *, IF(DATEDIFF(created_date,SYSDATE())=0,1,0) as can_edit from promotion_material_import where id=" + id;
         try {
             rs = DBUtil.executeQuery(sql);
             while (rs.next()) {
@@ -1710,11 +1710,10 @@ public class GoodDAO extends BasicDAO {
         }
         SPUtil spUtil = null;
         try {
-            String sql = "{call updatePromotionMaterialImport(?,?,?,?,?,?,?)}";
+            String sql = "{call updatePromotionMaterialImport(?,?,?,?,?,?)}";
             spUtil = new SPUtil(sql);
             if (spUtil != null) {
                 spUtil.getCallableStatement().setInt("_id", bean.getId());
-                spUtil.getCallableStatement().setInt("_vendor_id", bean.getVendorId());
                 spUtil.getCallableStatement().setDouble("_total", bean.getTotal());
                 spUtil.getCallableStatement().setDouble("_paid", bean.getPaid());
                 spUtil.getCallableStatement().setDouble("_debt", bean.getDebt());

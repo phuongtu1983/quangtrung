@@ -65,7 +65,7 @@ public class GasWholesaleFormAction extends SpineAction {
         GasWholesaleFormBean formBean = null;
         if (bean != null) {
             formBean = new GasWholesaleFormBean(bean);
-            if (PermissionUtil.hasPermission(request, PermissionUtil.OPERATION_EDIT_PAST, PermissionUtil.PER_FRACTION)) {
+            if (PermissionUtil.hasPermission(request, PermissionUtil.OPERATION_EDIT_PAST, PermissionUtil.PER_GAS_WHOLESALE)) {
                 formBean.setCanEdit(1);
             }
         } else {

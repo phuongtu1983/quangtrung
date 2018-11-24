@@ -3976,13 +3976,13 @@ function getPromotionMaterialImport(id) {
     callAjax(url, null, null, function(data) {
         clearContent();
         setAjaxData(data, 'contentDiv');
-//        var myCalendar = new dhtmlXCalendarObject(["promotionMaterialImportCreatedDate"]);
-//        myCalendar.setSkin('dhx_web');
         if (id == 0) {
             var currentDate = getCurrentDate();
             document.forms['promotionMaterialImportForm'].promotionMaterialImportCreatedDate.value = currentDate;
+            var myCalendar = new dhtmlXCalendarObject(["promotionMaterialImportCreatedDate"]);
+            myCalendar.setSkin('dhx_web');
+            myCalendar.setDateFormat("%d/%m/%Y");
         }
-//        myCalendar.setDateFormat("%d/%m/%Y");
         tryNumberFormatCurrentcy(document.forms['promotionMaterialImportForm'].total, "VND");
         tryNumberFormatCurrentcy(document.forms['promotionMaterialImportForm'].paid, "VND");
         tryNumberFormatCurrentcy(document.forms['promotionMaterialImportForm'].debt, "VND");
@@ -7470,6 +7470,9 @@ function getExportWholesale(id) {
         if (id == 0) {
             var currentDate = getCurrentDate();
             document.forms['exportWholesaleForm'].exportWholesaleCreatedDate.value = currentDate;
+            var myCalendar = new dhtmlXCalendarObject(["exportWholesaleCreatedDate"]);
+            myCalendar.setSkin('dhx_web');
+            myCalendar.setDateFormat("%d/%m/%Y");
         }
         myCalendar.setDateFormat("%d/%m/%Y");
         tryNumberFormatCurrentcy(document.forms['exportWholesaleForm'].total, "VND");

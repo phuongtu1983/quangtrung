@@ -10,12 +10,14 @@ import com.stepup.gasoline.qt.bean.EmployeeBean;
 import com.stepup.gasoline.qt.bean.ExportWholesaleBean;
 import com.stepup.gasoline.qt.bean.VendorBean;
 import com.stepup.gasoline.qt.core.SpineAction;
+import com.stepup.gasoline.qt.customer.CustomerFormBean;
 import com.stepup.gasoline.qt.dao.AccountDAO;
 import com.stepup.gasoline.qt.dao.CustomerDAO;
 import com.stepup.gasoline.qt.dao.GasDAO;
 import com.stepup.gasoline.qt.dao.GoodDAO;
 import com.stepup.gasoline.qt.dao.VendorDAO;
 import com.stepup.gasoline.qt.util.Constants;
+import com.stepup.gasoline.qt.util.PermissionUtil;
 import com.stepup.gasoline.qt.util.QTUtil;
 import java.util.ArrayList;
 import javax.servlet.http.HttpServletRequest;
@@ -60,6 +62,9 @@ public class ExportWholesaleFormAction extends SpineAction {
         ExportWholesaleFormBean formBean = null;
         if (bean != null) {
             formBean = new ExportWholesaleFormBean(bean);
+            if (PermissionUtil.hasPermission(request, PermissionUtil.OPERATION_EDIT_PAST, PermissionUtil.PER_EXPORT_WHOLESALE)) {
+                formBean.setCanEdit(1);
+            }
         } else {
             formBean = new ExportWholesaleFormBean();
             try {
@@ -73,13 +78,13 @@ public class ExportWholesaleFormAction extends SpineAction {
             } catch (Exception ex) {
             }
         }
-
+        
         request.setAttribute(Constants.EXPORT_WHOLESALE, formBean);
         if (arrDetail == null) {
             arrDetail = new ArrayList();
         }
         request.setAttribute(Constants.EXPORT_WHOLESALE_SHELL, arrDetail);
-
+        
         if (arrReturnShelDetail == null) {
             arrReturnShelDetail = new ArrayList();
         }
@@ -98,7 +103,7 @@ public class ExportWholesaleFormAction extends SpineAction {
             arrShell = new ArrayList();
         }
         request.setAttribute(Constants.SHELL_LIST, arrShell);
-
+        
         ArrayList arrShellReturn = null;
         try {
             GoodDAO goodDAO = new GoodDAO();
@@ -109,7 +114,7 @@ public class ExportWholesaleFormAction extends SpineAction {
             arrShellReturn = new ArrayList();
         }
         request.setAttribute(Constants.SHELL_RETURN_LIST, arrShellReturn);
-
+        
         ArrayList arrAccount = null;
         try {
             AccountDAO accountDAO = new AccountDAO();
@@ -120,18 +125,29 @@ public class ExportWholesaleFormAction extends SpineAction {
             arrAccount = new ArrayList();
         }
         request.setAttribute(Constants.ACCOUNT_LIST, arrAccount);
-
+        
         ArrayList arrCustomer = null;
         try {
             CustomerDAO customerDAO = new CustomerDAO();
-            arrCustomer = customerDAO.getCustomers(organizationIds, CustomerBean.KIND_RETAIL, VendorBean.IS_GAS);
+            if (formBean.getCustomerId() == 0) {
+                arrCustomer = customerDAO.getCustomers(organizationIds, CustomerBean.KIND_RETAIL, VendorBean.IS_GAS);
+            } else {
+                CustomerFormBean customerFormBean = customerDAO.getCustomer(formBean.getCustomerId());
+                if (customerFormBean == null) {
+                    customerFormBean = new CustomerFormBean();
+                }
+                if (arrCustomer == null) {
+                    arrCustomer = new ArrayList();
+                }
+                arrCustomer.add(customerFormBean);
+            }
         } catch (Exception ex) {
         }
         if (arrCustomer == null) {
             arrCustomer = new ArrayList();
         }
         request.setAttribute(Constants.CUSTOMER_LIST, arrCustomer);
-
+        
         return true;
     }
 }

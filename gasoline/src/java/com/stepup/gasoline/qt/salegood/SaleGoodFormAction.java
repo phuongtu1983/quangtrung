@@ -59,7 +59,7 @@ public class SaleGoodFormAction extends SpineAction {
         SaleGoodFormBean formBean = null;
         if (bean != null) {
             formBean = new SaleGoodFormBean(bean);
-            if (PermissionUtil.hasPermission(request, PermissionUtil.OPERATION_EDIT_PAST, PermissionUtil.PER_GOOD_IMPORT)) {
+            if (PermissionUtil.hasPermission(request, PermissionUtil.OPERATION_EDIT_PAST, PermissionUtil.PER_SALE_GOOD)) {
                 formBean.setCanEdit(1);
             }
         } else {

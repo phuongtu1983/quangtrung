@@ -4732,7 +4732,7 @@ public class GasDAO extends BasicDAO {
 
     public ExportWholesaleBean getExportWholesale(int id) throws Exception {
         ResultSet rs = null;
-        String sql = "select *, IF(MONTH(created_date)=MONTH(SYSDATE()) AND YEAR(created_date)=YEAR(SYSDATE()),1,0) as can_edit from gas_export_wholesale where id=" + id;
+        String sql = "select *, IF(DATEDIFF(created_date,SYSDATE())=0,1,0) as can_edit from gas_export_wholesale where id=" + id;
         try {
             rs = DBUtil.executeQuery(sql);
             while (rs.next()) {
@@ -4851,11 +4851,10 @@ public class GasDAO extends BasicDAO {
         }
         SPUtil spUtil = null;
         try {
-            String sql = "{call updateExportWholesale(?,?,?,?,?,?,?,?,?)}";
+            String sql = "{call updateExportWholesale(?,?,?,?,?,?,?,?)}";
             spUtil = new SPUtil(sql);
             if (spUtil != null) {
                 spUtil.getCallableStatement().setInt("_id", bean.getId());
-                spUtil.getCallableStatement().setInt("_customer_id", bean.getCustomerId());
                 spUtil.getCallableStatement().setDouble("_total", bean.getTotal());
                 spUtil.getCallableStatement().setDouble("_paid", bean.getPaid());
                 spUtil.getCallableStatement().setDouble("_debt", bean.getDebt());

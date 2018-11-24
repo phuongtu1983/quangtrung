@@ -59,7 +59,7 @@ public class SalePetroFormAction extends SpineAction {
         SalePetroFormBean formBean = null;
         if (bean != null) {
             formBean = new SalePetroFormBean(bean);
-            if (PermissionUtil.hasPermission(request, PermissionUtil.OPERATION_EDIT_PAST, PermissionUtil.PER_PETRO_IMPORT)) {
+            if (PermissionUtil.hasPermission(request, PermissionUtil.OPERATION_EDIT_PAST, PermissionUtil.PER_SALE_PETRO)) {
                 formBean.setCanEdit(1);
             }
         } else {

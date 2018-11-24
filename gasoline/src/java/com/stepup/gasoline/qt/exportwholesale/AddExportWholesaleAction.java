@@ -57,7 +57,6 @@ public class AddExportWholesaleAction extends SpineAction {
         bean.setId(formBean.getId());
         bean.setCode(formBean.getCode());
         bean.setNote(formBean.getNote());
-        bean.setCreatedDate(formBean.getCreatedDate());
         bean.setCustomerId(formBean.getCustomerId());
         bean.setTotal(formBean.getTotal());
         bean.setPaid(formBean.getPaid());
@@ -68,6 +67,7 @@ public class AddExportWholesaleAction extends SpineAction {
         bean.setCreatedEmployeeId(QTUtil.getEmployeeId(request.getSession()));
         try {
             if (bNew) {
+                bean.setCreatedDate(formBean.getCreatedDate());
                 int id = gasDAO.insertExportWholesale(bean);
                 formBean.setId(id);
             } else {
