@@ -486,11 +486,18 @@ public class EmployeeDAO extends BasicDAO {
         }
         SPUtil spUtil = null;
         try {
-            String sql = "{call updateEmployeeAdvance(?,?,?,?,?)}";
+            String createdDate = "";
+            if (GenericValidator.isBlankOrNull(bean.getAdvanceDate())) {
+                createdDate = "null";
+            } else {
+                createdDate = bean.getAdvanceDate();
+            }
+            String sql = "{call updateEmployeeAdvance(?,?,?,?,?,?)}";
             spUtil = new SPUtil(sql);
             if (spUtil != null) {
                 spUtil.getCallableStatement().setInt("_id", bean.getId());
                 spUtil.getCallableStatement().setInt("_employee_id", bean.getEmployeeId());
+                spUtil.getCallableStatement().setString("_advance_date", createdDate);
                 spUtil.getCallableStatement().setDouble("_amount", bean.getAmount());
                 spUtil.getCallableStatement().setInt("_account_id", bean.getAccountId());
                 spUtil.getCallableStatement().setString("_note", bean.getNote());
@@ -1629,10 +1636,17 @@ public class EmployeeDAO extends BasicDAO {
         }
         SPUtil spUtil = null;
         try {
-            String sql = "{call updateEmployeeOffMoney(?,?,?,?,?,?,?)}";
+            String createdDate = "";
+            if (GenericValidator.isBlankOrNull(bean.getCreatedDate())) {
+                createdDate = "null";
+            } else {
+                createdDate = bean.getCreatedDate();
+            }
+            String sql = "{call updateEmployeeOffMoney(?,?,?,?,?,?,?,?)}";
             spUtil = new SPUtil(sql);
             if (spUtil != null) {
                 spUtil.getCallableStatement().setInt("_id", bean.getId());
+                spUtil.getCallableStatement().setString("_created_date", createdDate);
                 spUtil.getCallableStatement().setInt("_employee_id", bean.getEmployeeId());
                 spUtil.getCallableStatement().setDouble("_quantity", bean.getQuantity());
                 spUtil.getCallableStatement().setDouble("_price", bean.getPrice());

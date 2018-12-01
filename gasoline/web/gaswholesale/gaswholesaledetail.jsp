@@ -12,14 +12,7 @@
             <td width="200" height="30"><bean:message key="code.title"/></td>
             <td width="200"><html:text property="code" size="30" name="<%=Constants.GAS_WHOLESALE%>" readonly="true" tabindex="-1"/></td>
             <td width="70" style="padding-right: 50px;padding-left: 10px"><bean:message key="date.title"/></td>
-            <td>
-                <logic:equal name="<%=Constants.GAS_WHOLESALE%>" property="id" value="0">
-                    <html:text property="createdDate" size="30" name="<%=Constants.GAS_WHOLESALE%>" styleId="gasWholesaleCreatedDate"/>
-                </logic:equal>
-                <logic:notEqual name="<%=Constants.GAS_WHOLESALE%>" property="id" value="0">
-                    <html:text property="createdDate" size="30" name="<%=Constants.GAS_WHOLESALE%>" styleId="gasWholesaleCreatedDate" readonly="true"/>
-                </logic:notEqual>
-            </td>
+            <td><html:text property="createdDate" size="30" name="<%=Constants.GAS_WHOLESALE%>" styleId="gasWholesaleCreatedDate"/></td>
         </tr>
         <tr>
             <td width="200" height="30"><bean:message key="date.title"/></td>

@@ -56,12 +56,12 @@ public class AddShellReturnAction extends SpineAction {
         bean.setId(formBean.getId());
         bean.setCode(formBean.getCode());
         bean.setNote(formBean.getNote());
-        bean.setCreatedDate(formBean.getCreatedDate());
         bean.setCustomerId(formBean.getCustomerId());
         bean.setVehicleId(formBean.getVehicleId());
         bean.setCreatedEmployeeId(QTUtil.getEmployeeId(request.getSession()));
         try {
             if (bNew) {
+                bean.setCreatedDate(formBean.getCreatedDate());
                 int id = gasDAO.insertShellReturn(bean);
                 formBean.setId(id);
             } else {

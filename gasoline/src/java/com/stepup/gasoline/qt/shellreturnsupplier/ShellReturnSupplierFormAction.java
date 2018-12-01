@@ -14,7 +14,9 @@ import com.stepup.gasoline.qt.dao.GoodDAO;
 import com.stepup.gasoline.qt.dao.VehicleDAO;
 import com.stepup.gasoline.qt.dao.VendorDAO;
 import com.stepup.gasoline.qt.util.Constants;
+import com.stepup.gasoline.qt.util.PermissionUtil;
 import com.stepup.gasoline.qt.util.QTUtil;
+import com.stepup.gasoline.qt.vendor.VendorFormBean;
 import java.util.ArrayList;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -56,6 +58,9 @@ public class ShellReturnSupplierFormAction extends SpineAction {
         ShellReturnSupplierFormBean formBean = null;
         if (bean != null) {
             formBean = new ShellReturnSupplierFormBean(bean);
+            if (PermissionUtil.hasPermission(request, PermissionUtil.OPERATION_EDIT_PAST, PermissionUtil.PER_SHELL_RETURN_SUPPLIER)) {
+                formBean.setCanEdit(1);
+            }
         } else {
             formBean = new ShellReturnSupplierFormBean();
             try {
@@ -91,7 +96,18 @@ public class ShellReturnSupplierFormAction extends SpineAction {
         ArrayList arrVendor = null;
         try {
             VendorDAO vendorDAO = new VendorDAO();
-            arrVendor = vendorDAO.getVendors(organizationIds, VendorBean.IS_GAS);
+            if (formBean.getId() == 0) {
+                arrVendor = vendorDAO.getVendors(organizationIds, VendorBean.IS_GAS);
+            } else {
+                if (arrVendor == null) {
+                    arrVendor = new ArrayList();
+                }
+                VendorFormBean vendorFormBean = vendorDAO.getVendor(formBean.getVendorId());
+                if (vendorFormBean == null) {
+                    vendorFormBean = new VendorFormBean();
+                }
+                arrVendor.add(vendorFormBean);
+            }
         } catch (Exception ex) {
         }
         if (arrVendor == null) {

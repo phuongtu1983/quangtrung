@@ -10,6 +10,7 @@ import com.stepup.gasoline.qt.dao.GoodDAO;
 import com.stepup.gasoline.qt.util.QTUtil;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import org.apache.commons.validator.GenericValidator;
 import org.apache.struts.action.ActionForm;
 import org.apache.struts.action.ActionMapping;
 
@@ -64,7 +65,10 @@ public class AddShellImportAction extends SpineAction {
                 if (!formBean.getNote().equals(bean.getNote())) {
                     isUpdate = true;
                 }
-                if (formBean.getVendorId()!= bean.getVendorId()) {
+                if (formBean.getVendorId() != bean.getVendorId()) {
+                    isUpdate = true;
+                }
+                if (!GenericValidator.isBlankOrNull(formBean.getCreatedDate()) && !formBean.getCreatedDate().equals(bean.getCreatedDate())) {
                     isUpdate = true;
                 }
             }
@@ -73,6 +77,7 @@ public class AddShellImportAction extends SpineAction {
         bean = new ShellImportBean();
         bean.setId(formBean.getId());
         bean.setCode(formBean.getCode());
+        bean.setCreatedDate(formBean.getCreatedDate());
         bean.setShellId(formBean.getShellId());
         bean.setPrice(formBean.getPrice());
         bean.setQuantity(formBean.getQuantity());
@@ -83,7 +88,6 @@ public class AddShellImportAction extends SpineAction {
         bean.setCreatedEmployeeId(QTUtil.getEmployeeId(request.getSession()));
         try {
             if (bNew) {
-                bean.setCreatedDate(formBean.getCreatedDate());
                 goodDAO.insertShellImport(bean);
             } else {
                 if (isUpdate) {

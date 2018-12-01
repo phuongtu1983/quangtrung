@@ -10,7 +10,6 @@ import com.stepup.gasoline.qt.bean.GasWholesaleBean;
 import com.stepup.gasoline.qt.bean.VehicleOutBean;
 import com.stepup.gasoline.qt.bean.VendorBean;
 import com.stepup.gasoline.qt.core.SpineAction;
-import com.stepup.gasoline.qt.customer.CustomerFormBean;
 import com.stepup.gasoline.qt.dao.AccountDAO;
 import com.stepup.gasoline.qt.dao.CustomerDAO;
 import com.stepup.gasoline.qt.dao.GasDAO;
@@ -149,18 +148,7 @@ public class GasWholesaleFormAction extends SpineAction {
         ArrayList arrCustomer = null;
         try {
             CustomerDAO customerDAO = new CustomerDAO();
-            if (formBean.getId() == 0) {
-                arrCustomer = customerDAO.getCustomers(organizationIds, VendorBean.IS_GAS);
-            } else {
-                if (arrCustomer == null) {
-                    arrCustomer = new ArrayList();
-                }
-                CustomerFormBean customerFormBean = customerDAO.getCustomer(formBean.getCustomerId());
-                if (customerFormBean == null) {
-                    customerFormBean = new CustomerFormBean();
-                }
-                arrCustomer.add(customerFormBean);
-            }
+            arrCustomer = customerDAO.getCustomers(organizationIds, VendorBean.IS_GAS);
         } catch (Exception ex) {
         }
         if (arrCustomer == null) {

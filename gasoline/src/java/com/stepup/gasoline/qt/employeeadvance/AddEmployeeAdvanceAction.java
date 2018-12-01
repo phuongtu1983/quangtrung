@@ -41,6 +41,7 @@ public class AddEmployeeAdvanceAction extends SpineAction {
         }
         EmployeeAdvanceBean bean = new EmployeeAdvanceBean();
         bean.setId(formBean.getId());
+        bean.setAdvanceDate(formBean.getAdvanceDate());
         bean.setAccountId(formBean.getAccountId());
         bean.setAmount(formBean.getAmount());
         bean.setCode(formBean.getCode());
@@ -49,7 +50,6 @@ public class AddEmployeeAdvanceAction extends SpineAction {
         bean.setCreatedEmployeeId(QTUtil.getEmployeeId(request.getSession()));
         try {
             if (bNew) {
-                bean.setAdvanceDate(formBean.getAdvanceDate());
                 employeeDAO.insertEmployeeAdvance(bean);
             } else {
                 employeeDAO.updateEmployeeAdvance(bean);

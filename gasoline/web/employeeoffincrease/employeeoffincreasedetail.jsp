@@ -14,7 +14,7 @@
                             <td height="30" style="padding-right: 20px"><bean:message key="code.title"/></td>
                             <td><html:text property="code" size="30" name="<%=Constants.EMPLOYEE_OFF_INCREASE%>" readonly="true"/></td>
                             <td style="padding-right: 20px;padding-left: 10px"><bean:message key="date.title"/></td>
-                            <td><html:text property="createdDate" size="30" name="<%=Constants.EMPLOYEE_OFF_INCREASE%>" readonly="true"/></td>
+                            <td><html:text property="createdDate" size="30" name="<%=Constants.EMPLOYEE_OFF_INCREASE%>" styleId="employeeOffIncreaseDate"/></td>
                         </tr>
                         <tr>
                             <td height="30" style="padding-right: 20px"><bean:message key="employee.title"/></td>
@@ -46,12 +46,10 @@
                             <%if (PermissionUtil.hasPermission(request, PermissionUtil.OPERATION_EDIT, PermissionUtil.PER_EMPLOYEE_OFF_INCREASE)) {%> 
                             <button class="i_create_write icon small green" onclick="return saveEmployeeOffIncrease();"><bean:message key="message.save"/></button>
                             <%}%>
-                        </logic:notEqual>
-                        <logic:greaterThan name="<%=Constants.EMPLOYEE_OFF_INCREASE%>" property="id" value="0">
                             <%if (PermissionUtil.hasPermission(request, PermissionUtil.OPERATION_DELETE, PermissionUtil.PER_EMPLOYEE_OFF_INCREASE)) {%> 
                             <button class="i_trashcan icon small red" onclick="return delEmployeeOffIncrease();"><bean:message key="message.del"/></button>
                             <%}%>
-                        </logic:greaterThan>
+                        </logic:notEqual>
                         <button class="i_access_denied icon small yellow" onclick="return prepareHidePopup('employeeOffIncreaseFormshowHelpHideDiv');"><bean:message key="message.close"/></button>
                 </td>
             </tr>

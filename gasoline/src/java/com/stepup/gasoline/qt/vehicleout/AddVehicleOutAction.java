@@ -64,10 +64,11 @@ public class AddVehicleOutAction extends SpineAction {
             if (bNew) {
                 int id = gasDAO.insertVehicleOut(bean);
                 formBean.setId(id);
+                addVehicleOutDetail(formBean);
             } else {
+                addVehicleOutDetail(formBean);
                 gasDAO.updateVehicleOut(bean);
             }
-            addVehicleOutDetail(formBean);
             addVehicleOutEmployee(formBean);
         } catch (Exception ex) {
         }
@@ -117,7 +118,7 @@ public class AddVehicleOutAction extends SpineAction {
                                 oldBean.setAmount(NumberUtil.parseDouble(formBean.getAmount()[i], 0));
                             }
                             if (isUpdate) {
-                                gasDAO.updateVehicleOutDetail(oldBean);
+                                gasDAO.updateVehicleOutDetail(oldBean, formBean.getCreatedDate());
                             }
                         }
                     }

@@ -54,18 +54,19 @@ public class AddFractionAction extends SpineAction {
         }
 
         bean.setId(formBean.getId());
+        bean.setCreatedDate(formBean.getCreatedDate());
         bean.setCode(formBean.getCode());
         bean.setNote(formBean.getNote());
         bean.setCreatedEmployeeId(QTUtil.getEmployeeId(request.getSession()));
         try {
             if (bNew) {
-                bean.setCreatedDate(formBean.getCreatedDate());
                 int id = gasDAO.insertFraction(bean);
                 formBean.setId(id);
+                addFractionShell(formBean);
             } else {
+                addFractionShell(formBean);
                 gasDAO.updateFraction(bean);
             }
-            addFractionShell(formBean);
         } catch (Exception ex) {
         }
         return true;
@@ -104,7 +105,7 @@ public class AddFractionAction extends SpineAction {
                                 oldBean.setQuantity(NumberUtil.parseInt(formBean.getQuantity()[i], 0));
                             }
                             if (isUpdate) {
-                                gasDAO.updateFractionDetail(oldBean);
+                                gasDAO.updateFractionDetail(oldBean, formBean.getCreatedDate());
                             }
                         }
                     }

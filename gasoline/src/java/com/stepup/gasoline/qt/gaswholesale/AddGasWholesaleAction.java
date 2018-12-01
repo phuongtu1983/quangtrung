@@ -56,6 +56,7 @@ public class AddGasWholesaleAction extends SpineAction {
         }
 
         bean.setId(formBean.getId());
+        bean.setCreatedDate(formBean.getCreatedDate());
         bean.setCode(formBean.getCode());
         bean.setNote(formBean.getNote());
         bean.setCustomerId(formBean.getCustomerId());
@@ -72,15 +73,17 @@ public class AddGasWholesaleAction extends SpineAction {
         bean.setCreatedEmployeeId(QTUtil.getEmployeeId(request.getSession()));
         try {
             if (bNew) {
-                bean.setCreatedDate(formBean.getCreatedDate());
                 int id = gasDAO.insertGasWholesale(bean);
                 formBean.setId(id);
+                addGasWholesaleDetail(formBean);
+                addGasWholesalePromotionMaterial(formBean);
+                addGasWholesaleReturnShellDetail(formBean);
             } else {
+                addGasWholesaleDetail(formBean);
+                addGasWholesalePromotionMaterial(formBean);
+                addGasWholesaleReturnShellDetail(formBean);
                 gasDAO.updateGasWholesale(bean);
             }
-            addGasWholesaleDetail(formBean);
-            addGasWholesalePromotionMaterial(formBean);
-            addGasWholesaleReturnShellDetail(formBean);
         } catch (Exception ex) {
         }
         return true;
@@ -129,7 +132,7 @@ public class AddGasWholesaleAction extends SpineAction {
                                 oldBean.setAmount(NumberUtil.parseDouble(formBean.getAmount()[i], 0));
                             }
                             if (isUpdate) {
-                                gasDAO.updateGasWholesaleDetail(oldBean);
+                                gasDAO.updateGasWholesaleDetail(oldBean, formBean.getCreatedDate(), formBean.getCustomerId(), formBean.getAccountId());
                             }
                         }
                     }
@@ -180,7 +183,7 @@ public class AddGasWholesaleAction extends SpineAction {
                                 oldBean.setQuantity(NumberUtil.parseInt(formBean.getPromotionMaterialQuantity()[i], 0));
                             }
                             if (isUpdate) {
-                                gasDAO.updateGasWholesalePromotionMaterialDetail(oldBean);
+                                gasDAO.updateGasWholesalePromotionMaterialDetail(oldBean, formBean.getCreatedDate());
                             }
                         }
                     }
@@ -231,7 +234,7 @@ public class AddGasWholesaleAction extends SpineAction {
                                 oldBean.setQuantity(NumberUtil.parseInt(formBean.getReturnShellQuantity()[i], 0));
                             }
                             if (isUpdate) {
-                                gasDAO.updateGasWholesaleReturnShellDetail(oldBean);
+                                gasDAO.updateGasWholesaleReturnShellDetail(oldBean, formBean.getCreatedDate());
                             }
                         }
                     }

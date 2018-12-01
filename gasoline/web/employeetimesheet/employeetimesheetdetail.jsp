@@ -56,12 +56,10 @@
                             <%if (PermissionUtil.hasPermission(request, PermissionUtil.OPERATION_EDIT, PermissionUtil.PER_EMPLOYEE_TIMESHEET)) {%> 
                             <button class="i_create_write icon small green" onclick="return saveEmployeeTimesheet();"><bean:message key="message.save"/></button>
                             <%}%>
-                        </logic:notEqual>
-                        <logic:greaterThan name="<%=Constants.EMPLOYEE_TIMESHEET%>" property="id" value="0">
                             <%if (PermissionUtil.hasPermission(request, PermissionUtil.OPERATION_DELETE, PermissionUtil.PER_EMPLOYEE_TIMESHEET)) {%> 
                             <button class="i_trashcan icon small red" onclick="return delEmployeeTimesheet();"><bean:message key="message.del"/></button>
                             <%}%>
-                        </logic:greaterThan>
+                        </logic:notEqual>
                         <button class="i_access_denied icon small yellow" onclick="return prepareHidePopup('employeeTimesheetFormshowHelpHideDiv');"><bean:message key="message.close"/></button>
                 </td>
             </tr>

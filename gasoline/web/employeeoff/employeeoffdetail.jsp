@@ -14,7 +14,7 @@
                             <td height="30" style="padding-right: 20px"><bean:message key="code.title"/></td>
                             <td><html:text property="code" size="30" name="<%=Constants.EMPLOYEE_OFF%>" readonly="true"/></td>
                             <td style="padding-right: 20px;padding-left: 10px"><bean:message key="date.title"/></td>
-                            <td><html:text property="createdDate" size="30" name="<%=Constants.EMPLOYEE_OFF%>" readonly="true"/></td>
+                            <td><html:text property="createdDate" size="30" name="<%=Constants.EMPLOYEE_OFF%>" styleId="employeeOffCreatedDate"/></td>
                         </tr>
                         <tr>
                             <td height="30" style="padding-right: 20px"><bean:message key="fromDate.title"/></td>
@@ -48,12 +48,10 @@
                             <%if (PermissionUtil.hasPermission(request, PermissionUtil.OPERATION_EDIT, PermissionUtil.PER_EMPLOYEE_OFF)) {%> 
                             <button class="i_create_write icon small green" onclick="return saveEmployeeOff();"><bean:message key="message.save"/></button>
                             <%}%>
-                        </logic:notEqual>
-                        <logic:greaterThan name="<%=Constants.EMPLOYEE_OFF%>" property="id" value="0">
                             <%if (PermissionUtil.hasPermission(request, PermissionUtil.OPERATION_DELETE, PermissionUtil.PER_EMPLOYEE_OFF)) {%> 
                             <button class="i_trashcan icon small red" onclick="return delEmployeeOff();"><bean:message key="message.del"/></button>
                             <%}%>
-                        </logic:greaterThan>
+                        </logic:notEqual>
                         <button class="i_access_denied icon small yellow" onclick="return prepareHidePopup('employeeOffFormshowHelpHideDiv');"><bean:message key="message.close"/></button>
                 </td>
             </tr>

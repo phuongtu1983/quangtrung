@@ -12,14 +12,7 @@
             <td width="80" height="30"><bean:message key="code.title"/></td>
             <td width="160"><html:text property="code" size="20" name="<%=Constants.FRACTION%>" readonly="true"/></td>
             <td width="100"><bean:message key="date.title"/></td>
-            <td>
-                <logic:equal name="<%=Constants.FRACTION%>" property="id" value="0">
-                    <html:text property="createdDate" size="10" name="<%=Constants.FRACTION%>" styleId="fractionCreatedDate"/>
-                </logic:equal>
-                <logic:notEqual name="<%=Constants.FRACTION%>" property="id" value="0">
-                    <html:text property="createdDate" size="10" name="<%=Constants.FRACTION%>" styleId="fractionCreatedDate" readonly="true"/>
-                </logic:notEqual>
-            </td>
+            <td><html:text property="createdDate" size="10" name="<%=Constants.FRACTION%>" styleId="fractionCreatedDate"/></td>
         </tr>
         <tr>
             <td height="30"><bean:message key="note.title"/></td>

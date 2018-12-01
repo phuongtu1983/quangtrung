@@ -12,9 +12,9 @@ import com.stepup.gasoline.qt.core.SpineAction;
 import com.stepup.gasoline.qt.dao.AccountDAO;
 import com.stepup.gasoline.qt.dao.GasDAO;
 import com.stepup.gasoline.qt.dao.GoodDAO;
-import com.stepup.gasoline.qt.dao.OrganizationDAO;
 import com.stepup.gasoline.qt.dao.VendorDAO;
 import com.stepup.gasoline.qt.util.Constants;
+import com.stepup.gasoline.qt.util.PermissionUtil;
 import com.stepup.gasoline.qt.util.QTUtil;
 import java.util.ArrayList;
 import javax.servlet.http.HttpServletRequest;
@@ -57,6 +57,9 @@ public class GasImportFormAction extends SpineAction {
         GasImportFormBean formBean = null;
         if (bean != null) {
             formBean = new GasImportFormBean(bean);
+            if (PermissionUtil.hasPermission(request, PermissionUtil.OPERATION_EDIT_PAST, PermissionUtil.PER_GAS_IMPORT)) {
+                formBean.setCanEdit(1);
+            }
         } else {
             formBean = new GasImportFormBean();
             try {
@@ -110,17 +113,6 @@ public class GasImportFormAction extends SpineAction {
             arrVendor = new ArrayList();
         }
         request.setAttribute(Constants.VENDOR_LIST, arrVendor);
-
-//        ArrayList arrStore = null;
-//        try {
-//            OrganizationDAO orgDAO = new OrganizationDAO();
-//            arrStore = orgDAO.getStores(organizationIds);
-//        } catch (Exception ex) {
-//        }
-//        if (arrStore == null) {
-//            arrStore = new ArrayList();
-//        }
-//        request.setAttribute(Constants.STORE_LIST, arrStore);
 
         return true;
     }

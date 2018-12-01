@@ -12,14 +12,7 @@
             <td width="160" height="30"><bean:message key="code.title"/></td>
             <td width="160"><html:text property="code" size="30" name="<%=Constants.GOOD_IMPORT%>" readonly="true"/></td>
             <td width="170"  style="padding-right: 20px;padding-left: 10px"><bean:message key="date.title"/></td>
-            <td>
-                <logic:equal name="<%=Constants.GOOD_IMPORT%>" property="id" value="0">
-                    <html:text property="createdDate" size="30" name="<%=Constants.GOOD_IMPORT%>" styleId="goodImportCreatedDate"/>
-                </logic:equal>
-                <logic:notEqual name="<%=Constants.GOOD_IMPORT%>" property="id" value="0">
-                    <html:text property="createdDate" size="30" name="<%=Constants.GOOD_IMPORT%>" styleId="goodImportCreatedDate" readonly="true"/>
-                </logic:notEqual>
-            </td>
+            <td><html:text property="createdDate" size="30" name="<%=Constants.GOOD_IMPORT%>" styleId="goodImportCreatedDate"/></td>
         </tr>
         <tr>
             <td height="30" style="padding-right: 20px"><bean:message key="vendor.title"/></td>

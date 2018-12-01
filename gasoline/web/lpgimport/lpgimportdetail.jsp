@@ -14,14 +14,7 @@
                             <td height="30" style="padding-right: 20px"><bean:message key="code.title"/></td>
                             <td><html:text property="code" size="30" name="<%=Constants.LPG_IMPORT%>" readonly="true"/></td>
                             <td style="padding-right: 20px;padding-left: 10px"><bean:message key="date.title"/></td>
-                            <td>
-                                <logic:equal name="<%=Constants.LPG_IMPORT%>" property="id" value="0">
-                                    <html:text property="importDate" styleId="lpgImportDate" size="30" name="<%=Constants.LPG_IMPORT%>"/>
-                                </logic:equal>
-                                <logic:notEqual name="<%=Constants.LPG_IMPORT%>" property="id" value="0">
-                                    <html:text property="importDate" styleId="lpgImportDate" size="30" name="<%=Constants.LPG_IMPORT%>" readonly="true"/>
-                                </logic:notEqual>
-                            </td>
+                            <td><html:text property="importDate" styleId="lpgImportDate" size="30" name="<%=Constants.LPG_IMPORT%>"/></td>
                         </tr>
                         <tr>
                             <td height="30" style="padding-right: 20px"><bean:message key="vendor.title"/></td>

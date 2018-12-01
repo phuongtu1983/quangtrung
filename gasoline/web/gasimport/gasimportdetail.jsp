@@ -12,7 +12,7 @@
             <td width="160" height="30"><bean:message key="code.title"/></td>
             <td width="160"><html:text property="code" size="30" name="<%=Constants.GAS_IMPORT%>" readonly="true"/></td>
             <td width="170"  style="padding-right: 20px;padding-left: 10px"><bean:message key="date.title"/></td>
-            <td><html:text property="createdDate" size="30" name="<%=Constants.GAS_IMPORT%>" styleId="gasImportCreatedDate" readonly="true"/></td>
+            <td><html:text property="createdDate" size="30" name="<%=Constants.GAS_IMPORT%>" styleId="gasImportCreatedDate"/></td>
         </tr>
         <tr>
             <td height="30" style="padding-right: 20px"><bean:message key="vendor.title"/></td>
@@ -79,19 +79,15 @@
                     <%}%>
                 </logic:equal>
                 <logic:notEqual name="<%=Constants.GAS_IMPORT%>" property="id" value="0">
-                    <%if (PermissionUtil.hasPermission(request, PermissionUtil.OPERATION_EDIT, PermissionUtil.PER_GAS_IMPORT)) {%> 
                     <logic:equal name="<%=Constants.GAS_IMPORT%>" property="canEdit" value="1">
+                        <%if (PermissionUtil.hasPermission(request, PermissionUtil.OPERATION_EDIT, PermissionUtil.PER_GAS_IMPORT)) {%> 
                         <button class="i_create_write icon small green" onclick="return saveGasImport();"><bean:message key="message.save"/></button>
-                    </logic:equal>
-                    <%}%>
-                </logic:notEqual>
-                <logic:greaterThan name="<%=Constants.GAS_IMPORT%>" property="id" value="0">
-                    <%if (PermissionUtil.hasPermission(request, PermissionUtil.OPERATION_DELETE, PermissionUtil.PER_GAS_IMPORT)) {%> 
-                    <logic:equal name="<%=Constants.GAS_IMPORT%>" property="canEdit" value="1">
+                        <%}%>
+                        <%if (PermissionUtil.hasPermission(request, PermissionUtil.OPERATION_DELETE, PermissionUtil.PER_GAS_IMPORT)) {%> 
                         <button class="i_trashcan icon small red" onclick="return delGasImport();"><bean:message key="message.del"/></button>
+                        <%}%>
                     </logic:equal>
-                    <%}%>
-                </logic:greaterThan>
+                </logic:notEqual>
                 <button class="i_access_denied icon small yellow" onclick="return loadGasImportPanel();"><bean:message key="message.close"/></button>
             </td>
         </tr>

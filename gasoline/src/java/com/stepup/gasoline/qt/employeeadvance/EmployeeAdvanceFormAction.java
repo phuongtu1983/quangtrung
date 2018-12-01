@@ -59,6 +59,7 @@ public class EmployeeAdvanceFormAction extends SpineAction {
             } catch (Exception ex) {
             }
         } else {
+            bean = new EmployeeAdvanceBean();
             if (PermissionUtil.hasPermission(request, PermissionUtil.OPERATION_EDIT_PAST, PermissionUtil.PER_EMPLOYEE_ADVANCE)) {
                 bean.setCanEdit(1);
             }
@@ -67,8 +68,12 @@ public class EmployeeAdvanceFormAction extends SpineAction {
 
         String organizationIds = QTUtil.getOrganizationManageds(request.getSession());
         ArrayList arrEmployee = null;
+        ArrayList arrAccount = null;
+
         try {
+            AccountDAO accountDAO = new AccountDAO();
             arrEmployee = employeeDAO.getEmployees(EmployeeBean.STATUS_ACTIVE, organizationIds);
+            arrAccount = accountDAO.getAccounts(organizationIds);
         } catch (Exception ex) {
         }
         if (arrEmployee == null) {
@@ -76,12 +81,6 @@ public class EmployeeAdvanceFormAction extends SpineAction {
         }
         request.setAttribute(Constants.EMPLOYEE_LIST, arrEmployee);
 
-        ArrayList arrAccount = null;
-        try {
-            AccountDAO accountDAO = new AccountDAO();
-            arrAccount = accountDAO.getAccounts(organizationIds);
-        } catch (Exception ex) {
-        }
         if (arrAccount == null) {
             arrAccount = new ArrayList();
         }

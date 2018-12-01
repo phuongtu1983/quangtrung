@@ -41,6 +41,7 @@ public class AddLpgImportAction extends SpineAction {
         }
         LpgImportBean bean = new LpgImportBean();
         bean.setId(formBean.getId());
+        bean.setImportDate(formBean.getImportDate());
         bean.setCode(formBean.getCode());
         bean.setVendorId(formBean.getVendorId());
         bean.setPaperQuantity(formBean.getPaperQuantity());
@@ -58,7 +59,6 @@ public class AddLpgImportAction extends SpineAction {
         bean.setCreatedEmployeeId(QTUtil.getEmployeeId(request.getSession()));
         try {
             if (bNew) {
-                bean.setImportDate(formBean.getImportDate());
                 gasDAO.insertLpgImport(bean);
             } else {
                 gasDAO.updateLpgImport(bean);

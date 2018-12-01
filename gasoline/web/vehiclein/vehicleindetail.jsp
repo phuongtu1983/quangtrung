@@ -107,19 +107,15 @@
                     <%}%>
                 </logic:equal>
                 <logic:notEqual name="<%=Constants.VEHICLE_IN%>" property="id" value="0">
-                    <%if (PermissionUtil.hasPermission(request, PermissionUtil.OPERATION_EDIT, PermissionUtil.PER_VEHICLE_IN)) {%> 
                     <logic:equal name="<%=Constants.VEHICLE_IN%>" property="canEdit" value="1">
+                        <%if (PermissionUtil.hasPermission(request, PermissionUtil.OPERATION_EDIT, PermissionUtil.PER_VEHICLE_IN)) {%> 
                         <button class="i_create_write icon small green" onclick="return saveVehicleIn();"><bean:message key="message.save"/></button>
-                    </logic:equal>
-                    <%}%>
-                </logic:notEqual>
-                <logic:greaterThan name="<%=Constants.VEHICLE_IN%>" property="id" value="0">
-                    <%if (PermissionUtil.hasPermission(request, PermissionUtil.OPERATION_DELETE, PermissionUtil.PER_VEHICLE_IN)) {%> 
-                    <logic:equal name="<%=Constants.VEHICLE_IN%>" property="canEdit" value="1">
+                        <%}%>
+                        <%if (PermissionUtil.hasPermission(request, PermissionUtil.OPERATION_DELETE, PermissionUtil.PER_VEHICLE_IN)) {%> 
                         <button class="i_trashcan icon small red" onclick="return delVehicleIn();"><bean:message key="message.del"/></button>
+                        <%}%>
                     </logic:equal>
-                    <%}%>
-                </logic:greaterThan>
+                </logic:notEqual>
                 <button class="i_access_denied icon small yellow" onclick="return loadVehicleInPanel();"><bean:message key="message.close"/></button>
             </td>
         </tr>

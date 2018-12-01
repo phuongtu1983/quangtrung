@@ -41,6 +41,7 @@ public class AddLpgSaleAction extends SpineAction {
         }
         LpgSaleBean bean = new LpgSaleBean();
         bean.setId(formBean.getId());
+        bean.setSaleDate(formBean.getSaleDate());
         bean.setCode(formBean.getCode());
         bean.setCustomerId(formBean.getCustomerId());
         bean.setQuantity(formBean.getQuantity());
@@ -57,7 +58,6 @@ public class AddLpgSaleAction extends SpineAction {
         bean.setCreatedEmployeeId(QTUtil.getEmployeeId(request.getSession()));
         try {
             if (bNew) {
-                bean.setSaleDate(formBean.getSaleDate());
                 gasDAO.insertLpgSale(bean);
             } else {
                 gasDAO.updateLpgSale(bean);

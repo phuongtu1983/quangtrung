@@ -14,14 +14,7 @@
                             <td height="30" style="padding-right: 20px"><bean:message key="code.title"/></td>
                             <td><html:text property="code" size="30" name="<%=Constants.EMPLOYEE_ADVANCE%>" readonly="true"/></td>
                             <td style="padding-right: 20px;padding-left: 10px"><bean:message key="date.title"/></td>
-                            <td>
-                                <logic:equal name="<%=Constants.EMPLOYEE_ADVANCE%>" property="id" value="0">
-                                    <html:text property="advanceDate" styleId="employeeAdvanceDate" size="30" name="<%=Constants.EMPLOYEE_ADVANCE%>"/>
-                                </logic:equal>
-                                <logic:notEqual name="<%=Constants.EMPLOYEE_ADVANCE%>" property="id" value="0">
-                                    <html:text property="advanceDate" styleId="employeeAdvanceDate" size="30" name="<%=Constants.EMPLOYEE_ADVANCE%>" readonly="true"/>
-                                </logic:notEqual>
-                            </td>
+                            <td><html:text property="advanceDate" styleId="employeeAdvanceDate" size="30" name="<%=Constants.EMPLOYEE_ADVANCE%>"/></td>
                         </tr>
                         <tr>
                             <td height="30" style="padding-right: 20px"><bean:message key="employee.title"/></td>
@@ -74,6 +67,7 @@
         <html:hidden property="id" name="<%=Constants.EMPLOYEE_ADVANCE%>" />
         <input type="hidden" id="callbackFunc"/>
         <html:hidden property="employeeId" name="<%=Constants.EMPLOYEE_ADVANCE%>" />
+        <html:hidden property="isCurrent" name="<%=Constants.EMPLOYEE_ADVANCE%>" />
         <input type="hidden" name="employeeSelectedHidden" value="0"/>
     </form>
     <div name="employeeAdvanceFormshowHelpHideDiv" id="showHelpHideDiv" style="display:none">

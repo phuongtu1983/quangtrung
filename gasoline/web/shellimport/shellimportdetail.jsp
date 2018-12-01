@@ -14,14 +14,7 @@
                             <td height="30" style="padding-right: 20px"><bean:message key="code.title"/></td>
                             <td><html:text property="code" size="40" name="<%=Constants.SHELL_IMPORT%>" readonly="true"/></td>
                             <td style="padding-right: 20px;padding-left: 10px"><bean:message key="date.title"/></td>
-                            <td>
-                                <logic:equal name="<%=Constants.SHELL_IMPORT%>" property="id" value="0">
-                                    <html:text property="createdDate" styleId="shellImportDate" size="40" name="<%=Constants.SHELL_IMPORT%>"/>
-                                </logic:equal>
-                                <logic:notEqual name="<%=Constants.SHELL_IMPORT%>" property="id" value="0">
-                                    <html:text property="createdDate" styleId="shellImportDate" size="40" name="<%=Constants.SHELL_IMPORT%>" readonly="true"/>
-                                </logic:notEqual>
-                            </td>
+                            <td><html:text property="createdDate" styleId="shellImportDate" size="40" name="<%=Constants.SHELL_IMPORT%>"/></td>
                         </tr>
                         <tr>
                             <td height="30" style="padding-right: 20px"><bean:message key="shell.title"/></td>
