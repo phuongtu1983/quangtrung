@@ -5,6 +5,7 @@
 package com.stepup.gasoline.qt.exportwholesale;
 
 import com.stepup.core.util.NumberUtil;
+import com.stepup.core.util.StringUtil;
 import com.stepup.gasoline.qt.bean.ExportWholesaleBean;
 import com.stepup.gasoline.qt.bean.ExportWholesaleDetailBean;
 import com.stepup.gasoline.qt.bean.ExportWholesaleReturnShellDetailBean;
@@ -53,6 +54,11 @@ public class AddExportWholesaleAction extends SpineAction {
         if (bean == null) {
             bean = new ExportWholesaleBean();
         }
+        
+        boolean needUpdate = false;
+        if (StringUtil.isEqual(bean.getCreatedDate(), formBean.getCreatedDate())) {
+            needUpdate = true;
+        }
 
         bean.setId(formBean.getId());
         bean.setCreatedDate(formBean.getCreatedDate());
@@ -70,11 +76,11 @@ public class AddExportWholesaleAction extends SpineAction {
             if (bNew) {
                 int id = gasDAO.insertExportWholesale(bean);
                 formBean.setId(id);
-                addExportWholesaleDetail(formBean);
-                addExportWholesaleReturnShell(formBean);
+                addExportWholesaleDetail(formBean, needUpdate);
+                addExportWholesaleReturnShell(formBean, needUpdate);
             } else {
-                addExportWholesaleDetail(formBean);
-                addExportWholesaleReturnShell(formBean);
+                addExportWholesaleDetail(formBean, needUpdate);
+                addExportWholesaleReturnShell(formBean, needUpdate);
                 gasDAO.updateExportWholesale(bean);
             }
         } catch (Exception ex) {
@@ -82,7 +88,7 @@ public class AddExportWholesaleAction extends SpineAction {
         return true;
     }
 
-    private void addExportWholesaleDetail(ExportWholesaleFormBean formBean) {
+    private void addExportWholesaleDetail(ExportWholesaleFormBean formBean, boolean needUpdate) {
         try {
             GasDAO gasDAO = new GasDAO();
             ArrayList arrDetail = gasDAO.getExportWholesaleDetail(formBean.getId());
@@ -99,7 +105,7 @@ public class AddExportWholesaleAction extends SpineAction {
                         bean.setPrice(NumberUtil.parseDouble(formBean.getPrice()[i], 0));
                         bean.setAmount(NumberUtil.parseDouble(formBean.getAmount()[i], 0));
                         bean.setExportWholesaleId(formBean.getId());
-                        gasDAO.insertExportWholesaleDetail(bean);
+                        gasDAO.insertExportWholesaleDetail(bean, formBean.getCreatedDate());
                     } else {
                         isUpdate = false;
                         int j = 0;
@@ -124,8 +130,11 @@ public class AddExportWholesaleAction extends SpineAction {
                                 isUpdate = true;
                                 oldBean.setAmount(NumberUtil.parseDouble(formBean.getAmount()[i], 0));
                             }
+                            if (needUpdate) {
+                                isUpdate = true;
+                            }
                             if (isUpdate) {
-                                gasDAO.updateExportWholesaleDetail(oldBean, formBean.getCreatedDate(), formBean.getAccountId(), formBean.getCustomerId());
+                                gasDAO.updateExportWholesaleDetail(oldBean, formBean.getCreatedDate());
                             }
                         }
                     }
@@ -143,7 +152,7 @@ public class AddExportWholesaleAction extends SpineAction {
         }
     }
 
-    private void addExportWholesaleReturnShell(ExportWholesaleFormBean formBean) {
+    private void addExportWholesaleReturnShell(ExportWholesaleFormBean formBean, boolean needUpdate) {
         try {
             GasDAO gasDAO = new GasDAO();
             ArrayList arrDetail = gasDAO.getExportWholesaleReturnShellDetail(formBean.getId());
@@ -158,7 +167,7 @@ public class AddExportWholesaleAction extends SpineAction {
                         bean.setShellId(NumberUtil.parseInt(formBean.getReturnShellId()[i], 0));
                         bean.setQuantity(NumberUtil.parseInt(formBean.getReturnShellQuantity()[i], 0));
                         bean.setExportWholesaleId(formBean.getId());
-                        gasDAO.insertExportWholesaleReturnShellDetail(bean);
+                        gasDAO.insertExportWholesaleReturnShellDetail(bean, formBean.getCreatedDate());
                     } else {
                         isUpdate = false;
                         int j = 0;
@@ -171,13 +180,12 @@ public class AddExportWholesaleAction extends SpineAction {
                         }
                         if (j < arrDetail.size()) {
                             arrDetail.remove(j);
-                            if (oldBean.getShellId() != NumberUtil.parseInt(formBean.getReturnShellId()[i], 0)) {
-                                isUpdate = true;
-                                oldBean.setShellId(NumberUtil.parseInt(formBean.getReturnShellId()[i], 0));
-                            }
                             if (oldBean.getQuantity() != NumberUtil.parseInt(formBean.getReturnShellQuantity()[i], 0)) {
                                 isUpdate = true;
                                 oldBean.setQuantity(NumberUtil.parseInt(formBean.getReturnShellQuantity()[i], 0));
+                            }
+                            if (needUpdate) {
+                                isUpdate = true;
                             }
                             if (isUpdate) {
                                 gasDAO.updateExportWholesaleReturnShellDetail(oldBean, formBean.getCreatedDate());

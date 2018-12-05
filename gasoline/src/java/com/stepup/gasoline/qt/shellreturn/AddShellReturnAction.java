@@ -54,20 +54,21 @@ public class AddShellReturnAction extends SpineAction {
         }
 
         bean.setId(formBean.getId());
+        bean.setCreatedDate(formBean.getCreatedDate());
         bean.setCode(formBean.getCode());
         bean.setNote(formBean.getNote());
         bean.setCustomerId(formBean.getCustomerId());
         bean.setVehicleId(formBean.getVehicleId());
         bean.setCreatedEmployeeId(QTUtil.getEmployeeId(request.getSession()));
         try {
-            if (bNew) {
-                bean.setCreatedDate(formBean.getCreatedDate());
+            if (bNew) {   
                 int id = gasDAO.insertShellReturn(bean);
                 formBean.setId(id);
+                addShellReturnShell(formBean);
             } else {
+                addShellReturnShell(formBean);
                 gasDAO.updateShellReturn(bean);
             }
-            addShellReturnShell(formBean);
         } catch (Exception ex) {
         }
         return true;
@@ -88,7 +89,7 @@ public class AddShellReturnAction extends SpineAction {
                         bean.setShellId(NumberUtil.parseInt(formBean.getShellId()[i], 0));
                         bean.setQuantity(NumberUtil.parseInt(formBean.getQuantity()[i], 0));
                         bean.setShellReturnId(formBean.getId());
-                        gasDAO.insertShellReturnDetail(bean);
+                        gasDAO.insertShellReturnDetail(formBean.getCreatedDate(), bean);
                     } else {
                         isUpdate = false;
                         int j = 0;
@@ -106,7 +107,7 @@ public class AddShellReturnAction extends SpineAction {
                                 oldBean.setQuantity(NumberUtil.parseInt(formBean.getQuantity()[i], 0));
                             }
                             if (isUpdate) {
-                                gasDAO.updateShellReturnDetail(oldBean);
+                                gasDAO.updateShellReturnDetail(oldBean, formBean.getCreatedDate(), formBean.getCustomerId());
                             }
                         }
                     }

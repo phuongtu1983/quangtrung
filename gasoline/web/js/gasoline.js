@@ -5902,10 +5902,11 @@ function getSaleShell(id) {
         if (id == 0) {
             var currentDate = getCurrentDate();
             document.forms['saleShellForm'].saleShellCreatedDate.value = currentDate;
-            var myCalendar = new dhtmlXCalendarObject(["saleShellCreatedDate"]);
-            myCalendar.setSkin('dhx_web');
-            myCalendar.setDateFormat("%d/%m/%Y");
         }
+        var myCalendar = new dhtmlXCalendarObject(["saleShellCreatedDate"]);
+        myCalendar.setSkin('dhx_web');
+        myCalendar.setDateFormat("%d/%m/%Y");
+
         tryNumberFormatCurrentcy(document.forms['saleShellForm'].total, "VND");
         tryNumberFormatCurrentcy(document.forms['saleShellForm'].paid, "VND");
         tryNumberFormatCurrentcy(document.forms['saleShellForm'].debt, "VND");
@@ -6085,15 +6086,12 @@ function getOldShell(id) {
         }
 
         tryNumberFormatCurrentcy(document.forms['oldShellForm'].quantity, "VND");
-        var myCalendar = new dhtmlXCalendarObject(["oldShellDate"]);
-        myCalendar.setSkin('dhx_web');
         if (id == 0) {
             var currentDate = getCurrentDate();
             document.forms['oldShellForm'].oldShellDate.value = currentDate;
-            var myCalendar = new dhtmlXCalendarObject(["oldShellDate"]);
-            myCalendar.setSkin('dhx_web');
-            myCalendar.setDateFormat("%d/%m/%Y");
         }
+        var myCalendar = new dhtmlXCalendarObject(["oldShellDate"]);
+        myCalendar.setSkin('dhx_web');
         myCalendar.setDateFormat("%d/%m/%Y");
     });
 }
@@ -6230,10 +6228,11 @@ function getShellReturn(id) {
         if (id == 0) {
             var currentDate = getCurrentDate();
             document.forms['shellReturnForm'].shellReturnCreatedDate.value = currentDate;
-            var myCalendar = new dhtmlXCalendarObject(["shellReturnCreatedDate"]);
-            myCalendar.setSkin('dhx_web');
-            myCalendar.setDateFormat("%d/%m/%Y");
         }
+        var myCalendar = new dhtmlXCalendarObject(["shellReturnCreatedDate"]);
+        myCalendar.setSkin('dhx_web');
+        myCalendar.setDateFormat("%d/%m/%Y");
+
         formatShellReturnDetail();
     });
 }
@@ -6566,10 +6565,10 @@ function getShellReturnSupplier(id) {
         if (id == 0) {
             var currentDate = getCurrentDate();
             document.forms['shellReturnSupplierForm'].shellReturnSupplierCreatedDate.value = currentDate;
-            var myCalendar = new dhtmlXCalendarObject(["shellReturnSupplierCreatedDate"]);
-            myCalendar.setSkin('dhx_web');
-            myCalendar.setDateFormat("%d/%m/%Y");
         }
+        var myCalendar = new dhtmlXCalendarObject(["shellReturnSupplierCreatedDate"]);
+        myCalendar.setSkin('dhx_web');
+        myCalendar.setDateFormat("%d/%m/%Y");
         formatShellReturnSupplierDetail();
     });
 }

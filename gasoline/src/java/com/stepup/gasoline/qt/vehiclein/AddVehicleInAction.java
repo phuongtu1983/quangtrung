@@ -5,6 +5,7 @@
 package com.stepup.gasoline.qt.vehiclein;
 
 import com.stepup.core.util.NumberUtil;
+import com.stepup.core.util.StringUtil;
 import com.stepup.gasoline.qt.bean.VehicleInAccessoryDetailBean;
 import com.stepup.gasoline.qt.bean.VehicleInBean;
 import com.stepup.gasoline.qt.bean.VehicleInDetailBean;
@@ -55,6 +56,11 @@ public class AddVehicleInAction extends SpineAction {
             bean = new VehicleInBean();
         }
 
+        boolean needUpdate = false;
+        if (StringUtil.isEqual(bean.getCreatedDate(), formBean.getCreatedDate())) {
+            needUpdate = true;
+        }
+        
         bean.setId(formBean.getId());
         bean.setCode(formBean.getCode());
         bean.setNote(formBean.getNote());
@@ -65,13 +71,13 @@ public class AddVehicleInAction extends SpineAction {
             if (bNew) {
                 int id = gasDAO.insertVehicleIn(bean);
                 formBean.setId(id);
-                addVehicleInDetail(formBean);
-                addVehicleInAccessoryDetail(formBean);
-                addVehicleInReturnShell(formBean);
+                addVehicleInDetail(formBean, needUpdate);
+                addVehicleInAccessoryDetail(formBean, needUpdate);
+                addVehicleInReturnShell(formBean, needUpdate);
             } else {
-                addVehicleInDetail(formBean);
-                addVehicleInAccessoryDetail(formBean);
-                addVehicleInReturnShell(formBean);
+                addVehicleInDetail(formBean, needUpdate);
+                addVehicleInAccessoryDetail(formBean, needUpdate);
+                addVehicleInReturnShell(formBean, needUpdate);
                 gasDAO.updateVehicleIn(bean);
             }
         } catch (Exception ex) {
@@ -79,7 +85,7 @@ public class AddVehicleInAction extends SpineAction {
         return true;
     }
 
-    private void addVehicleInDetail(VehicleInFormBean formBean) {
+    private void addVehicleInDetail(VehicleInFormBean formBean, boolean needUpdate) {
         try {
             GasDAO gasDAO = new GasDAO();
             ArrayList arrDetail = gasDAO.getVehicleInDetail(formBean.getId());
@@ -96,7 +102,7 @@ public class AddVehicleInAction extends SpineAction {
                         bean.setPrice(NumberUtil.parseDouble(formBean.getPrice()[i], 0));
                         bean.setAmount(NumberUtil.parseDouble(formBean.getAmount()[i], 0));
                         bean.setVehicleInId(formBean.getId());
-                        gasDAO.insertVehicleInDetail(bean);
+                        gasDAO.insertVehicleInDetail(formBean.getCreatedDate(), bean);
                     } else {
                         isUpdate = false;
                         int j = 0;
@@ -121,6 +127,9 @@ public class AddVehicleInAction extends SpineAction {
                                 isUpdate = true;
                                 oldBean.setAmount(NumberUtil.parseDouble(formBean.getAmount()[i], 0));
                             }
+                            if (needUpdate) {
+                                isUpdate = true;
+                            }
                             if (isUpdate) {
                                 gasDAO.updateVehicleInDetail(oldBean, formBean.getCreatedDate());
                             }
@@ -140,7 +149,7 @@ public class AddVehicleInAction extends SpineAction {
         }
     }
 
-    private void addVehicleInAccessoryDetail(VehicleInFormBean formBean) {
+    private void addVehicleInAccessoryDetail(VehicleInFormBean formBean, boolean needUpdate) {
         try {
             GasDAO gasDAO = new GasDAO();
             ArrayList arrDetail = gasDAO.getVehicleInAccessoryDetail(formBean.getId());
@@ -157,7 +166,7 @@ public class AddVehicleInAction extends SpineAction {
                         bean.setPrice(NumberUtil.parseDouble(formBean.getAccessoryPrice()[i], 0));
                         bean.setAmount(NumberUtil.parseDouble(formBean.getAccessoryAmount()[i], 0));
                         bean.setVehicleInId(formBean.getId());
-                        gasDAO.insertVehicleInAccessoryDetail(bean);
+                        gasDAO.insertVehicleInAccessoryDetail(formBean.getCreatedDate(), bean);
                     } else {
                         isUpdate = false;
                         int j = 0;
@@ -182,6 +191,9 @@ public class AddVehicleInAction extends SpineAction {
                                 isUpdate = true;
                                 oldBean.setAmount(NumberUtil.parseDouble(formBean.getAccessoryAmount()[i], 0));
                             }
+                            if (needUpdate) {
+                                isUpdate = true;
+                            }
                             if (isUpdate) {
                                 gasDAO.updateVehicleInAccessoryDetail(oldBean, formBean.getCreatedDate());
                             }
@@ -201,7 +213,7 @@ public class AddVehicleInAction extends SpineAction {
         }
     }
 
-    private void addVehicleInReturnShell(VehicleInFormBean formBean) {
+    private void addVehicleInReturnShell(VehicleInFormBean formBean, boolean needUpdate) {
         try {
             GasDAO gasDAO = new GasDAO();
             ArrayList arrDetail = gasDAO.getVehicleInReturnShellDetail(formBean.getId());
@@ -216,7 +228,7 @@ public class AddVehicleInAction extends SpineAction {
                         bean.setShellId(NumberUtil.parseInt(formBean.getReturnShellId()[i], 0));
                         bean.setQuantity(NumberUtil.parseInt(formBean.getReturnShellQuantity()[i], 0));
                         bean.setVehicleInId(formBean.getId());
-                        gasDAO.insertVehicleInReturnShellDetail(bean);
+                        gasDAO.insertVehicleInReturnShellDetail(formBean.getCreatedDate(), bean);
                     } else {
                         isUpdate = false;
                         int j = 0;
@@ -229,13 +241,12 @@ public class AddVehicleInAction extends SpineAction {
                         }
                         if (j < arrDetail.size()) {
                             arrDetail.remove(j);
-                            if (oldBean.getShellId() != NumberUtil.parseInt(formBean.getReturnShellId()[i], 0)) {
-                                isUpdate = true;
-                                oldBean.setShellId(NumberUtil.parseInt(formBean.getReturnShellId()[i], 0));
-                            }
                             if (oldBean.getQuantity() != NumberUtil.parseInt(formBean.getReturnShellQuantity()[i], 0)) {
                                 isUpdate = true;
                                 oldBean.setQuantity(NumberUtil.parseInt(formBean.getReturnShellQuantity()[i], 0));
+                            }
+                            if (needUpdate) {
+                                isUpdate = true;
                             }
                             if (isUpdate) {
                                 gasDAO.updateVehicleInReturnShellDetail(oldBean, formBean.getCreatedDate());

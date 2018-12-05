@@ -59,7 +59,6 @@ public class EmployeeAdvanceFormAction extends SpineAction {
             } catch (Exception ex) {
             }
         } else {
-            bean = new EmployeeAdvanceBean();
             if (PermissionUtil.hasPermission(request, PermissionUtil.OPERATION_EDIT_PAST, PermissionUtil.PER_EMPLOYEE_ADVANCE)) {
                 bean.setCanEdit(1);
             }

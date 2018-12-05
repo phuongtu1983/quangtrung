@@ -96,18 +96,7 @@ public class ShellReturnFormAction extends SpineAction {
         ArrayList arrCustomer = null;
         try {
             CustomerDAO customerDAO = new CustomerDAO();
-            if (formBean.getId() == 0) {
-                arrCustomer = customerDAO.getCustomers(organizationIds, VendorBean.IS_GAS);
-            } else {
-                if (arrCustomer == null) {
-                    arrCustomer = new ArrayList();
-                }
-                CustomerFormBean customerFormBean = customerDAO.getCustomer(formBean.getCustomerId());
-                if (customerFormBean == null) {
-                    customerFormBean = new CustomerFormBean();
-                }
-                arrCustomer.add(customerFormBean);
-            }
+            arrCustomer = customerDAO.getCustomers(organizationIds, VendorBean.IS_GAS);
         } catch (Exception ex) {
         }
         if (arrCustomer == null) {

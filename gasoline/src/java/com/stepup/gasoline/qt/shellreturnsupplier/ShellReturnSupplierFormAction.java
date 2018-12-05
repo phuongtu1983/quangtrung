@@ -96,18 +96,7 @@ public class ShellReturnSupplierFormAction extends SpineAction {
         ArrayList arrVendor = null;
         try {
             VendorDAO vendorDAO = new VendorDAO();
-            if (formBean.getId() == 0) {
-                arrVendor = vendorDAO.getVendors(organizationIds, VendorBean.IS_GAS);
-            } else {
-                if (arrVendor == null) {
-                    arrVendor = new ArrayList();
-                }
-                VendorFormBean vendorFormBean = vendorDAO.getVendor(formBean.getVendorId());
-                if (vendorFormBean == null) {
-                    vendorFormBean = new VendorFormBean();
-                }
-                arrVendor.add(vendorFormBean);
-            }
+            arrVendor = vendorDAO.getVendors(organizationIds, VendorBean.IS_GAS);
         } catch (Exception ex) {
         }
         if (arrVendor == null) {

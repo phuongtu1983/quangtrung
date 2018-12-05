@@ -61,18 +61,18 @@ public class StringUtil {
     }
 
     /**
-     * Create a word-wrapped version of a String. Wrap at 80 characters and 
-     * use newlines as the delimiter. If a word is over 80 characters long 
-     * use a - sign to split it.
+     * Create a word-wrapped version of a String. Wrap at 80 characters and use
+     * newlines as the delimiter. If a word is over 80 characters long use a -
+     * sign to split it.
      */
     static public String wordWrap(String str) {
         return wordWrap(str, 80, "\n", "-", true);
     }
 
     /**
-     * Create a word-wrapped version of a String. Wrap at a specified width and 
-     * use newlines as the delimiter. If a word is over the width in lenght 
-     * use a - sign to split it.
+     * Create a word-wrapped version of a String. Wrap at a specified width and
+     * use newlines as the delimiter. If a word is over the width in lenght use
+     * a - sign to split it.
      */
     static public String wordWrap(String str, int width) {
         return wordWrap(str, width, "\n", "-", true);
@@ -81,11 +81,12 @@ public class StringUtil {
     /**
      * Word-wrap a string.
      *
-     * @param str   String to word-wrap
+     * @param str String to word-wrap
      * @param width int to wrap at
      * @param delim String to use to separate lines
      * @param split String to use to split a word greater than width long
-     * @param delimInside wheter or not delim should be included in chunk before length reaches width.
+     * @param delimInside wheter or not delim should be included in chunk before
+     * length reaches width.
      *
      * @return String that has been word wrapped
      */
@@ -238,7 +239,6 @@ public class StringUtil {
 //
 //        return str.toString();
 //    }
-    
     public static String encodeString(String s) {
         try {
             s = StringUtil.replaceAllWords(s, "<", "&lt;");
@@ -356,5 +356,14 @@ public class StringUtil {
         }
         temp += content;
         return temp;
+    }
+
+    public static boolean isEqual(String str1, String str2) {
+        if (str1 == null && str2 == null) {
+            return true;
+        } else if (str1 != null && str1.equals(str2)) {
+            return true;
+        }
+        return false;
     }
 }

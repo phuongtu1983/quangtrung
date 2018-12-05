@@ -4,13 +4,13 @@
  */
 package com.stepup.gasoline.qt.shellimport;
 
+import com.stepup.core.util.StringUtil;
 import com.stepup.gasoline.qt.bean.ShellImportBean;
 import com.stepup.gasoline.qt.core.SpineAction;
 import com.stepup.gasoline.qt.dao.GoodDAO;
 import com.stepup.gasoline.qt.util.QTUtil;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import org.apache.commons.validator.GenericValidator;
 import org.apache.struts.action.ActionForm;
 import org.apache.struts.action.ActionMapping;
 
@@ -68,7 +68,7 @@ public class AddShellImportAction extends SpineAction {
                 if (formBean.getVendorId() != bean.getVendorId()) {
                     isUpdate = true;
                 }
-                if (!GenericValidator.isBlankOrNull(formBean.getCreatedDate()) && !formBean.getCreatedDate().equals(bean.getCreatedDate())) {
+                if (!StringUtil.isEqual(formBean.getCreatedDate(), bean.getCreatedDate())) {
                     isUpdate = true;
                 }
             }

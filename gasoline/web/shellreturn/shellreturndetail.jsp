@@ -12,14 +12,7 @@
             <td width="160" height="30"><bean:message key="code.title"/></td>
             <td width="160"><html:text property="code" size="30" name="<%=Constants.SHELL_RETURN%>" readonly="true"/></td>
             <td width="170" style="padding-right: 20px;padding-left: 10px"><bean:message key="date.title"/></td>
-            <td>
-                <logic:equal name="<%=Constants.SHELL_RETURN%>" property="id" value="0">
-                    <html:text property="createdDate" size="30" name="<%=Constants.SHELL_RETURN%>" styleId="shellReturnCreatedDate"/>
-                </logic:equal>
-                <logic:notEqual name="<%=Constants.SHELL_RETURN%>" property="id" value="0">
-                    <html:text property="createdDate" size="30" name="<%=Constants.SHELL_RETURN%>" styleId="shellReturnCreatedDate" readonly="true"/>
-                </logic:notEqual>
-            </td>
+            <td><html:text property="createdDate" size="30" name="<%=Constants.SHELL_RETURN%>" styleId="shellReturnCreatedDate"/></td>
         </tr>
         <tr>
             <td height="30" style="padding-right: 20px"><bean:message key="customer.title"/></td>

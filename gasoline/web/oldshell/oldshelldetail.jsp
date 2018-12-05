@@ -14,14 +14,7 @@
                         <td height="30" style="padding-right: 20px"><bean:message key="code.title"/></td>
                         <td><html:text property="code" size="40" name="<%=Constants.OLD_SHELL%>" readonly="true"/></td>
                         <td style="padding-right: 20px;padding-left: 10px"><bean:message key="date.title"/></td>
-                        <td>
-                            <logic:equal name="<%=Constants.OLD_SHELL%>" property="id" value="0">
-                                <html:text property="createdDate" styleId="oldShellDate" size="30" name="<%=Constants.OLD_SHELL%>"/>
-                            </logic:equal>
-                            <logic:notEqual name="<%=Constants.OLD_SHELL%>" property="id" value="0">
-                                <html:text property="createdDate" styleId="oldShellDate" size="30" name="<%=Constants.OLD_SHELL%>" readonly="true"/>
-                            </logic:notEqual>
-                        </td>
+                        <td><html:text property="createdDate" styleId="oldShellDate" size="30" name="<%=Constants.OLD_SHELL%>"/></td>
                     </tr>
                     <tr>
                         <td height="30" style="padding-right: 20px"><bean:message key="shell.title"/></td>

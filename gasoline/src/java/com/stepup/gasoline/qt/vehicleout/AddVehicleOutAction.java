@@ -5,6 +5,7 @@
 package com.stepup.gasoline.qt.vehicleout;
 
 import com.stepup.core.util.NumberUtil;
+import com.stepup.core.util.StringUtil;
 import com.stepup.gasoline.qt.bean.VehicleOutBean;
 import com.stepup.gasoline.qt.bean.VehicleOutDetailBean;
 import com.stepup.gasoline.qt.bean.VehicleOutEmployeeDetailBean;
@@ -53,7 +54,10 @@ public class AddVehicleOutAction extends SpineAction {
         if (bean == null) {
             bean = new VehicleOutBean();
         }
-
+        boolean needUpdate = false;
+        if (StringUtil.isEqual(bean.getCreatedDate(), formBean.getCreatedDate())) {
+            needUpdate = true;
+        }
         bean.setId(formBean.getId());
         bean.setCode(formBean.getCode());
         bean.setNote(formBean.getNote());
@@ -64,9 +68,9 @@ public class AddVehicleOutAction extends SpineAction {
             if (bNew) {
                 int id = gasDAO.insertVehicleOut(bean);
                 formBean.setId(id);
-                addVehicleOutDetail(formBean);
+                addVehicleOutDetail(formBean, needUpdate);
             } else {
-                addVehicleOutDetail(formBean);
+                addVehicleOutDetail(formBean, needUpdate);
                 gasDAO.updateVehicleOut(bean);
             }
             addVehicleOutEmployee(formBean);
@@ -75,7 +79,7 @@ public class AddVehicleOutAction extends SpineAction {
         return true;
     }
 
-    private void addVehicleOutDetail(VehicleOutFormBean formBean) {
+    private void addVehicleOutDetail(VehicleOutFormBean formBean, boolean needUpdate) {
         try {
             GasDAO gasDAO = new GasDAO();
             ArrayList arrDetail = gasDAO.getVehicleOutDetail(formBean.getId());
@@ -92,7 +96,7 @@ public class AddVehicleOutAction extends SpineAction {
                         bean.setPrice(NumberUtil.parseDouble(formBean.getPrice()[i], 0));
                         bean.setAmount(NumberUtil.parseDouble(formBean.getAmount()[i], 0));
                         bean.setVehicleOutId(formBean.getId());
-                        gasDAO.insertVehicleOutDetail(bean);
+                        gasDAO.insertVehicleOutDetail(formBean.getCreatedDate(), bean);
                     } else {
                         isUpdate = false;
                         int j = 0;
@@ -116,6 +120,9 @@ public class AddVehicleOutAction extends SpineAction {
                             if (oldBean.getAmount() != NumberUtil.parseDouble(formBean.getAmount()[i], 0)) {
                                 isUpdate = true;
                                 oldBean.setAmount(NumberUtil.parseDouble(formBean.getAmount()[i], 0));
+                            }
+                            if (needUpdate) {
+                                isUpdate = true;
                             }
                             if (isUpdate) {
                                 gasDAO.updateVehicleOutDetail(oldBean, formBean.getCreatedDate());

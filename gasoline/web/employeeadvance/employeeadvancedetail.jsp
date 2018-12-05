@@ -67,7 +67,6 @@
         <html:hidden property="id" name="<%=Constants.EMPLOYEE_ADVANCE%>" />
         <input type="hidden" id="callbackFunc"/>
         <html:hidden property="employeeId" name="<%=Constants.EMPLOYEE_ADVANCE%>" />
-        <html:hidden property="isCurrent" name="<%=Constants.EMPLOYEE_ADVANCE%>" />
         <input type="hidden" name="employeeSelectedHidden" value="0"/>
     </form>
     <div name="employeeAdvanceFormshowHelpHideDiv" id="showHelpHideDiv" style="display:none">

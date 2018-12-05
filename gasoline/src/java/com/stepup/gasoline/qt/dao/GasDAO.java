@@ -1599,7 +1599,7 @@ public class GasDAO extends BasicDAO {
             } else {
                 createdDate = bean.getCreatedDate();
             }
-            String sql = "{call updateGasWholesale(?,?,?,?,?,?,?,?,?,?,?,?,?)}";
+            String sql = "{call updateGasWholesale(?,?,?,?,?,?,?,?,?,?,?,?,?,?)}";
             spUtil = new SPUtil(sql);
             if (spUtil != null) {
                 spUtil.getCallableStatement().setInt("_id", bean.getId());
@@ -2617,10 +2617,17 @@ public class GasDAO extends BasicDAO {
         }
         SPUtil spUtil = null;
         try {
-            String sql = "{call updateSaleShell(?,?,?,?,?,?,?,?)}";
+            String createdDate = "";
+            if (GenericValidator.isBlankOrNull(bean.getCreatedDate())) {
+                createdDate = "null";
+            } else {
+                createdDate = bean.getCreatedDate();
+            }
+            String sql = "{call updateSaleShell(?,?,?,?,?,?,?,?,?)}";
             spUtil = new SPUtil(sql);
             if (spUtil != null) {
                 spUtil.getCallableStatement().setInt("_id", bean.getId());
+                spUtil.getCallableStatement().setString("_created_date", createdDate);
                 spUtil.getCallableStatement().setDouble("_total", bean.getTotal());
                 spUtil.getCallableStatement().setDouble("_paid", bean.getPaid());
                 spUtil.getCallableStatement().setDouble("_debt", bean.getDebt());
@@ -2628,6 +2635,7 @@ public class GasDAO extends BasicDAO {
                 spUtil.getCallableStatement().setDouble("_total_pay", bean.getTotalPay());
                 spUtil.getCallableStatement().setInt("_account_id", bean.getAccountId());
                 spUtil.getCallableStatement().setString("_note", bean.getNote());
+                spUtil.getCallableStatement().setInt("_customer_id", bean.getCustomerId());
                 spUtil.execute();
             }
         } catch (SQLException sqle) {
@@ -2710,19 +2718,22 @@ public class GasDAO extends BasicDAO {
         return result;
     }
 
-    public void updateSaleShellDetail(SaleShellDetailBean bean) throws Exception {
+    public void updateSaleShellDetail(SaleShellDetailBean bean, String createdDate, int customerId, int accountId) throws Exception {
         if (bean == null) {
             return;
         }
         SPUtil spUtil = null;
         try {
-            String sql = "{call updateSaleShellDetail(?,?,?,?)}";
+            String sql = "{call updateSaleShellDetail(?,?,?,?,?,?,?)}";
             spUtil = new SPUtil(sql);
             if (spUtil != null) {
                 spUtil.getCallableStatement().setInt("_id", bean.getId());
                 spUtil.getCallableStatement().setInt("_quantity", bean.getQuantity());
                 spUtil.getCallableStatement().setDouble("_price", bean.getPrice());
                 spUtil.getCallableStatement().setDouble("_amount", bean.getAmount());
+                spUtil.getCallableStatement().setString("_created_date", createdDate);
+                spUtil.getCallableStatement().setInt("_customer_id", customerId);
+                spUtil.getCallableStatement().setInt("_account_id", accountId);
                 spUtil.execute();
             }
         } catch (SQLException sqle) {
@@ -2882,10 +2893,17 @@ public class GasDAO extends BasicDAO {
         }
         SPUtil spUtil = null;
         try {
-            String sql = "{call updateOldShell(?,?,?,?)}";
+            String createdDate = "";
+            if (GenericValidator.isBlankOrNull(bean.getCreatedDate())) {
+                createdDate = "null";
+            } else {
+                createdDate = bean.getCreatedDate();
+            }
+            String sql = "{call updateOldShell(?,?,?,?,?)}";
             spUtil = new SPUtil(sql);
             if (spUtil != null) {
                 spUtil.getCallableStatement().setInt("_id", bean.getId());
+                spUtil.getCallableStatement().setString("_created_date", createdDate);
                 spUtil.getCallableStatement().setInt("_quantity", bean.getQuantity());
                 spUtil.getCallableStatement().setInt("_shell_id", bean.getShellId());
                 spUtil.getCallableStatement().setString("_note", bean.getNote());
@@ -3097,10 +3115,17 @@ public class GasDAO extends BasicDAO {
         }
         SPUtil spUtil = null;
         try {
-            String sql = "{call updateShellReturn(?,?,?,?)}";
+            String createdDate = "";
+            if (GenericValidator.isBlankOrNull(bean.getCreatedDate())) {
+                createdDate = "null";
+            } else {
+                createdDate = bean.getCreatedDate();
+            }
+            String sql = "{call updateShellReturn(?,?,?,?,?)}";
             spUtil = new SPUtil(sql);
             if (spUtil != null) {
                 spUtil.getCallableStatement().setInt("_id", bean.getId());
+                spUtil.getCallableStatement().setString("_created_date", createdDate);
                 spUtil.getCallableStatement().setInt("_customer_id", bean.getCustomerId());
                 spUtil.getCallableStatement().setInt("_vehicle_id", bean.getVehicleId());
                 spUtil.getCallableStatement().setString("_note", bean.getNote());
@@ -3153,16 +3178,17 @@ public class GasDAO extends BasicDAO {
         }
     }
 
-    public int insertShellReturnDetail(ShellReturnDetailBean bean) throws Exception {
+    public int insertShellReturnDetail(String createdDate, ShellReturnDetailBean bean) throws Exception {
         if (bean == null) {
             return 0;
         }
         int result = 0;
         SPUtil spUtil = null;
         try {
-            String sql = "{call insertShellReturnDetail(?,?,?)}";
+            String sql = "{call insertShellReturnDetail(?,?,?,?)}";
             spUtil = new SPUtil(sql);
             if (spUtil != null) {
+                spUtil.getCallableStatement().setString("_created_date", createdDate);
                 spUtil.getCallableStatement().setInt("_shell_return_id", bean.getShellReturnId());
                 spUtil.getCallableStatement().setInt("_shell_id", bean.getShellId());
                 spUtil.getCallableStatement().setInt("_quantity", bean.getQuantity());
@@ -3184,17 +3210,19 @@ public class GasDAO extends BasicDAO {
         return result;
     }
 
-    public void updateShellReturnDetail(ShellReturnDetailBean bean) throws Exception {
+    public void updateShellReturnDetail(ShellReturnDetailBean bean, String createdDate, int customerId) throws Exception {
         if (bean == null) {
             return;
         }
         SPUtil spUtil = null;
         try {
-            String sql = "{call updateShellReturnDetail(?,?)}";
+            String sql = "{call updateShellReturnDetail(?,?,?,?)}";
             spUtil = new SPUtil(sql);
             if (spUtil != null) {
                 spUtil.getCallableStatement().setInt("_id", bean.getId());
                 spUtil.getCallableStatement().setInt("_quantity", bean.getQuantity());
+                spUtil.getCallableStatement().setString("_created_date", createdDate);
+                spUtil.getCallableStatement().setInt("_customer_id", customerId);
                 spUtil.execute();
             }
         } catch (SQLException sqle) {
@@ -3768,17 +3796,19 @@ public class GasDAO extends BasicDAO {
         return result;
     }
 
-    public void updateShellReturnSupplierDetail(ShellReturnSupplierDetailBean bean) throws Exception {
+    public void updateShellReturnSupplierDetail(ShellReturnSupplierDetailBean bean, String createdDate, int vendorId) throws Exception {
         if (bean == null) {
             return;
         }
         SPUtil spUtil = null;
         try {
-            String sql = "{call updateShellReturnSupplierDetail(?,?)}";
+            String sql = "{call updateShellReturnSupplierDetail(?,?,?,?)}";
             spUtil = new SPUtil(sql);
             if (spUtil != null) {
                 spUtil.getCallableStatement().setInt("_id", bean.getId());
                 spUtil.getCallableStatement().setInt("_quantity", bean.getQuantity());
+                spUtil.getCallableStatement().setString("_created_date", createdDate);
+                spUtil.getCallableStatement().setInt("_vendor_id", vendorId);
                 spUtil.execute();
             }
         } catch (SQLException sqle) {
@@ -4032,17 +4062,18 @@ public class GasDAO extends BasicDAO {
         }
     }
 
-    public int insertVehicleOutDetail(VehicleOutDetailBean bean) throws Exception {
+    public int insertVehicleOutDetail(String createdDate, VehicleOutDetailBean bean) throws Exception {
         if (bean == null) {
             return 0;
         }
         int result = 0;
         SPUtil spUtil = null;
         try {
-            String sql = "{call insertVehicleOutDetail(?,?,?,?,?)}";
+            String sql = "{call insertVehicleOutDetail(?,?,?,?,?,?)}";
             spUtil = new SPUtil(sql);
             if (spUtil != null) {
                 spUtil.getCallableStatement().setInt("_vehicle_out_id", bean.getVehicleOutId());
+                spUtil.getCallableStatement().setString("_created_date", createdDate);
                 spUtil.getCallableStatement().setInt("_shell_id", bean.getShellId());
                 spUtil.getCallableStatement().setInt("_quantity", bean.getQuantity());
                 spUtil.getCallableStatement().setDouble("_price", bean.getPrice());
@@ -4470,17 +4501,18 @@ public class GasDAO extends BasicDAO {
         }
     }
 
-    public int insertVehicleInDetail(VehicleInDetailBean bean) throws Exception {
+    public int insertVehicleInDetail(String createdDate, VehicleInDetailBean bean) throws Exception {
         if (bean == null) {
             return 0;
         }
         int result = 0;
         SPUtil spUtil = null;
         try {
-            String sql = "{call insertVehicleInDetail(?,?,?,?,?)}";
+            String sql = "{call insertVehicleInDetail(?,?,?,?,?,?)}";
             spUtil = new SPUtil(sql);
             if (spUtil != null) {
                 spUtil.getCallableStatement().setInt("_vehicle_in_id", bean.getVehicleInId());
+                spUtil.getCallableStatement().setString("_created_date", createdDate);
                 spUtil.getCallableStatement().setInt("_shell_id", bean.getShellId());
                 spUtil.getCallableStatement().setInt("_quantity", bean.getQuantity());
                 spUtil.getCallableStatement().setDouble("_price", bean.getPrice());
@@ -4547,17 +4579,18 @@ public class GasDAO extends BasicDAO {
         return result;
     }
 
-    public int insertVehicleInAccessoryDetail(VehicleInAccessoryDetailBean bean) throws Exception {
+    public int insertVehicleInAccessoryDetail(String createdDate, VehicleInAccessoryDetailBean bean) throws Exception {
         if (bean == null) {
             return 0;
         }
         int result = 0;
         SPUtil spUtil = null;
         try {
-            String sql = "{call insertVehicleInAccessoryDetail(?,?,?,?,?)}";
+            String sql = "{call insertVehicleInAccessoryDetail(?,?,?,?,?,?)}";
             spUtil = new SPUtil(sql);
             if (spUtil != null) {
                 spUtil.getCallableStatement().setInt("_vehicle_in_id", bean.getVehicleInId());
+                spUtil.getCallableStatement().setString("_created_date", createdDate);
                 spUtil.getCallableStatement().setInt("_accessory_id", bean.getAccessoryId());
                 spUtil.getCallableStatement().setInt("_quantity", bean.getQuantity());
                 spUtil.getCallableStatement().setDouble("_price", bean.getPrice());
@@ -4670,17 +4703,18 @@ public class GasDAO extends BasicDAO {
         return detailList;
     }
 
-    public int insertVehicleInReturnShellDetail(VehicleInReturnShellDetailBean bean) throws Exception {
+    public int insertVehicleInReturnShellDetail(String createdDate, VehicleInReturnShellDetailBean bean) throws Exception {
         if (bean == null) {
             return 0;
         }
         int result = 0;
         SPUtil spUtil = null;
         try {
-            String sql = "{call insertVehicleInReturnShellDetail(?,?,?)}";
+            String sql = "{call insertVehicleInReturnShellDetail(?,?,?,?)}";
             spUtil = new SPUtil(sql);
             if (spUtil != null) {
                 spUtil.getCallableStatement().setInt("_vehicle_in_id", bean.getVehicleInId());
+                spUtil.getCallableStatement().setString("_created_date", createdDate);
                 spUtil.getCallableStatement().setInt("_shell_id", bean.getShellId());
                 spUtil.getCallableStatement().setInt("_quantity", bean.getQuantity());
                 spUtil.execute();
@@ -4975,14 +5009,14 @@ public class GasDAO extends BasicDAO {
         }
     }
 
-    public int insertExportWholesaleDetail(ExportWholesaleDetailBean bean) throws Exception {
+    public int insertExportWholesaleDetail(ExportWholesaleDetailBean bean, String createdDate) throws Exception {
         if (bean == null) {
             return 0;
         }
         int result = 0;
         SPUtil spUtil = null;
         try {
-            String sql = "{call insertExportWholesaleDetail(?,?,?,?,?)}";
+            String sql = "{call insertExportWholesaleDetail(?,?,?,?,?,?)}";
             spUtil = new SPUtil(sql);
             if (spUtil != null) {
                 spUtil.getCallableStatement().setInt("_gas_export_wholesale_id", bean.getExportWholesaleId());
@@ -4990,6 +5024,7 @@ public class GasDAO extends BasicDAO {
                 spUtil.getCallableStatement().setInt("_quantity", bean.getQuantity());
                 spUtil.getCallableStatement().setDouble("_price", bean.getPrice());
                 spUtil.getCallableStatement().setDouble("_amount", bean.getAmount());
+                spUtil.getCallableStatement().setString("_created_date", createdDate);
                 spUtil.execute();
             }
         } catch (SQLException sqle) {
@@ -5008,13 +5043,13 @@ public class GasDAO extends BasicDAO {
         return result;
     }
 
-    public void updateExportWholesaleDetail(ExportWholesaleDetailBean bean, String createdDate, int accountId, int customerId) throws Exception {
+    public void updateExportWholesaleDetail(ExportWholesaleDetailBean bean, String createdDate) throws Exception {
         if (bean == null) {
             return;
         }
         SPUtil spUtil = null;
         try {
-            String sql = "{call updateExportWholesaleDetail(?,?,?,?,?,?,?)}";
+            String sql = "{call updateExportWholesaleDetail(?,?,?,?,?)}";
             spUtil = new SPUtil(sql);
             if (spUtil != null) {
                 spUtil.getCallableStatement().setInt("_id", bean.getId());
@@ -5022,8 +5057,6 @@ public class GasDAO extends BasicDAO {
                 spUtil.getCallableStatement().setDouble("_price", bean.getPrice());
                 spUtil.getCallableStatement().setDouble("_amount", bean.getAmount());
                 spUtil.getCallableStatement().setString("_created_date", createdDate);
-                spUtil.getCallableStatement().setInt("_account_id", accountId);
-                spUtil.getCallableStatement().setInt("_customer_id", customerId);
                 spUtil.execute();
             }
         } catch (SQLException sqle) {
@@ -5087,19 +5120,20 @@ public class GasDAO extends BasicDAO {
         return detailList;
     }
 
-    public int insertExportWholesaleReturnShellDetail(ExportWholesaleReturnShellDetailBean bean) throws Exception {
+    public int insertExportWholesaleReturnShellDetail(ExportWholesaleReturnShellDetailBean bean, String createdDate) throws Exception {
         if (bean == null) {
             return 0;
         }
         int result = 0;
         SPUtil spUtil = null;
         try {
-            String sql = "{call insertExportWholesaleReturnShellDetail(?,?,?)}";
+            String sql = "{call insertExportWholesaleReturnShellDetail(?,?,?,?)}";
             spUtil = new SPUtil(sql);
             if (spUtil != null) {
                 spUtil.getCallableStatement().setInt("_gas_export_wholesale_id", bean.getExportWholesaleId());
                 spUtil.getCallableStatement().setInt("_shell_id", bean.getShellId());
                 spUtil.getCallableStatement().setInt("_quantity", bean.getQuantity());
+                spUtil.getCallableStatement().setString("_created_date", createdDate);
                 spUtil.execute();
             }
         } catch (SQLException sqle) {

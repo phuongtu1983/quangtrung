@@ -54,6 +54,7 @@ public class AddSaleShellAction extends SpineAction {
         }
 
         bean.setId(formBean.getId());
+        bean.setCreatedDate(formBean.getCreatedDate());
         bean.setCode(formBean.getCode());
         bean.setNote(formBean.getNote());
         bean.setTotal(formBean.getTotal());
@@ -66,13 +67,13 @@ public class AddSaleShellAction extends SpineAction {
         bean.setCreatedEmployeeId(QTUtil.getEmployeeId(request.getSession()));
         try {
             if (bNew) {
-                bean.setCreatedDate(formBean.getCreatedDate());
                 int id = gasDAO.insertSaleShell(bean);
                 formBean.setId(id);
+                addSaleShellDetail(formBean);
             } else {
+                addSaleShellDetail(formBean);
                 gasDAO.updateSaleShell(bean);
             }
-            addSaleShellDetail(formBean);
         } catch (Exception ex) {
         }
         return true;
@@ -121,7 +122,7 @@ public class AddSaleShellAction extends SpineAction {
                                 oldBean.setAmount(NumberUtil.parseDouble(formBean.getAmount()[i], 0));
                             }
                             if (isUpdate) {
-                                gasDAO.updateSaleShellDetail(oldBean);
+                                gasDAO.updateSaleShellDetail(oldBean, formBean.getCreatedDate(), formBean.getCustomerId(), formBean.getAccountId());
                             }
                         }
                     }
