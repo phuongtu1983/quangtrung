@@ -29,8 +29,8 @@
                     <table>
                         <tr>
                             <td>
-                                <button class="i_cross icon small red" onclick="return delTableRow('loVoForm', 'loVoEmployeeChk', 'loVoEmployeeDetailTbl');"><bean:message key="message.del"/></button>
-                                <button class="i_plus icon small green" onclick="return addLoVoEmployee();"><bean:message key="message.add"/></button>
+                                <button class="i_cross icon small red" onclick="return delTableRow('loVoForm', 'loVoEmployeeChk', 'loVoEmployeeDetailTbl');" tabindex="-1"><bean:message key="message.del"/></button>
+                                <button class="i_plus icon small green" onclick="return addLoVoEmployee();" tabindex="-1"><bean:message key="message.add"/></button>
                             </td>
                             <td>
                                 <select style="width: 260px;" name="employeeIdCombobox" id="employeeIdCombobox">

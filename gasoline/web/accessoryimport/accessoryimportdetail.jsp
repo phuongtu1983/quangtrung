@@ -12,14 +12,7 @@
             <td width="160" height="30"><bean:message key="code.title"/></td>
             <td width="160"><html:text property="code" size="30" name="<%=Constants.ACCESSORY_IMPORT%>" readonly="true"/></td>
             <td width="170"  style="padding-right: 20px;padding-left: 10px"><bean:message key="date.title"/></td>
-            <td>
-                <logic:equal name="<%=Constants.ACCESSORY_IMPORT%>" property="id" value="0">
-                    <html:text property="createdDate" size="30" name="<%=Constants.ACCESSORY_IMPORT%>" styleId="accessoryImportCreatedDate"/>
-                </logic:equal>
-                <logic:notEqual name="<%=Constants.ACCESSORY_IMPORT%>" property="id" value="0">
-                    <html:text property="createdDate" size="30" name="<%=Constants.ACCESSORY_IMPORT%>" styleId="accessoryImportCreatedDate" readonly="true"/>
-                </logic:notEqual>
-            </td>
+            <td><html:text property="createdDate" size="30" name="<%=Constants.ACCESSORY_IMPORT%>" styleId="accessoryImportCreatedDate"/></td>
         </tr>
         <tr>
             <td height="30" style="padding-right: 20px"><bean:message key="vendor.title"/></td>
@@ -56,10 +49,8 @@
                     <table>
                         <tr>
                             <td>
-                                <logic:equal name="<%=Constants.ACCESSORY_IMPORT%>" property="id" value="0">
-                                    <button class="i_cross icon small red" onclick="return delTableRow('accessoryImportForm', 'accessoryImportAccessoryChk', 'accessoryImportDetailTbl');"><bean:message key="message.del"/></button>
-                                </logic:equal>
-                                <button class="i_plus icon small green" onclick="return addAccessoryImportAccessory();"><bean:message key="message.add"/></button>
+                                <button class="i_cross icon small red" onclick="return delTableRow('accessoryImportForm', 'accessoryImportAccessoryChk', 'accessoryImportDetailTbl');" tabindex="-1"><bean:message key="message.del"/></button>
+                                <button class="i_plus icon small green" onclick="return addAccessoryImportAccessory();" tabindex="-1"><bean:message key="message.add"/></button>
                             </td>
                             <td>
                                 <select style="width: 260px;" name="accessoryIdCombobox" id="accessoryIdCombobox">

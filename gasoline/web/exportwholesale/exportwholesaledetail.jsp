@@ -57,8 +57,8 @@
                     <table>
                         <tr>
                             <td>
-                                <button class="i_cross icon small red" onclick="return delTableRow('exportWholesaleForm', 'exportWholesaleGoodChk', 'exportWholesaleDetailTbl');"><bean:message key="message.del"/></button>
-                                <button class="i_plus icon small green" onclick="return addExportWholesaleGood();"><bean:message key="message.add"/></button>
+                                <button class="i_cross icon small red" onclick="return delTableRow('exportWholesaleForm', 'exportWholesaleGoodChk', 'exportWholesaleDetailTbl');" tabindex="-1"><bean:message key="message.del"/></button>
+                                <button class="i_plus icon small green" onclick="return addExportWholesaleGood();" tabindex="-1"><bean:message key="message.add"/></button>
                             </td>
                             <td>
                                 <select style="width: 260px;" name="goodIdCombobox" id="goodIdCombobox">

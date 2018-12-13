@@ -5,6 +5,7 @@
 package com.stepup.gasoline.qt.accessoryimport;
 
 import com.stepup.core.util.NumberUtil;
+import com.stepup.core.util.StringUtil;
 import com.stepup.gasoline.qt.bean.AccessoryImportBean;
 import com.stepup.gasoline.qt.bean.AccessoryImportDetailBean;
 import com.stepup.gasoline.qt.core.SpineAction;
@@ -53,7 +54,13 @@ public class AddAccessoryImportAction extends SpineAction {
             bean = new AccessoryImportBean();
         }
 
+        boolean needUpdate = false;
+        if (StringUtil.isEqual(bean.getCreatedDate(), formBean.getCreatedDate())) {
+            needUpdate = true;
+        }
+
         bean.setId(formBean.getId());
+        bean.setCreatedDate(formBean.getCreatedDate());
         bean.setCode(formBean.getCode());
         bean.setNote(formBean.getNote());
         bean.setVendorId(formBean.getVendorId());
@@ -64,19 +71,19 @@ public class AddAccessoryImportAction extends SpineAction {
         bean.setCreatedEmployeeId(QTUtil.getEmployeeId(request.getSession()));
         try {
             if (bNew) {
-                bean.setCreatedDate(formBean.getCreatedDate());
                 int id = goodDAO.insertAccessoryImport(bean);
                 formBean.setId(id);
+                addAccessoryImportAccessory(formBean, needUpdate);
             } else {
+                addAccessoryImportAccessory(formBean, needUpdate);
                 goodDAO.updateAccessoryImport(bean);
             }
-            addAccessoryImportAccessory(formBean);
         } catch (Exception ex) {
         }
         return true;
     }
 
-    private void addAccessoryImportAccessory(AccessoryImportFormBean formBean) {
+    private void addAccessoryImportAccessory(AccessoryImportFormBean formBean, boolean needUpdate) {
         try {
             GoodDAO goodDAO = new GoodDAO();
             ArrayList arrDetail = goodDAO.getAccessoryImportDetail(formBean.getId());
@@ -92,7 +99,7 @@ public class AddAccessoryImportAction extends SpineAction {
                     bean.setPrice(NumberUtil.parseInt(formBean.getPrice()[i], 0));
                     bean.setAmount(NumberUtil.parseInt(formBean.getAmount()[i], 0));
                     bean.setAccessoryImportId(formBean.getId());
-                    goodDAO.insertAccessoryImportDetail(bean);
+                    goodDAO.insertAccessoryImportDetail(bean, formBean.getCreatedDate());
                 } else {
                     isUpdate = false;
                     int j = 0;
@@ -117,8 +124,11 @@ public class AddAccessoryImportAction extends SpineAction {
                             isUpdate = true;
                             oldBean.setAmount(NumberUtil.parseInt(formBean.getAmount()[i], 0));
                         }
+                        if (needUpdate) {
+                            isUpdate = true;
+                        }
                         if (isUpdate) {
-                            goodDAO.updateAccessoryImportDetail(oldBean);
+                            goodDAO.updateAccessoryImportDetail(oldBean, formBean.getCreatedDate());
                         }
                     }
                 }

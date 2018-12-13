@@ -63,10 +63,8 @@
                     <table>
                         <tr>
                             <td>
-                                <logic:equal name="<%=Constants.SALE_GOOD%>" property="id" value="0">
-                                    <button class="i_cross icon small red" onclick="return delTableRow('saleGoodForm', 'saleGoodGoodChk', 'saleGoodDetailTbl');"><bean:message key="message.del"/></button>
-                                </logic:equal>
-                                <button class="i_plus icon small green" onclick="return addSaleGoodGood();"><bean:message key="message.add"/></button>
+                                <button class="i_cross icon small red" onclick="return delTableRow('saleGoodForm', 'saleGoodGoodChk', 'saleGoodDetailTbl');" tabindex="-1"><bean:message key="message.del"/></button>
+                                <button class="i_plus icon small green" onclick="return addSaleGoodGood();" tabindex="-1"><bean:message key="message.add"/></button>
                             </td>
                             <td>
                                 <select style="width: 260px;" name="goodIdCombobox" id="goodIdCombobox">

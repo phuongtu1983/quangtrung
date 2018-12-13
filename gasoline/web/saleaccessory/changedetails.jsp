@@ -20,13 +20,13 @@
                 <td>
                     <input type="checkbox" name="saleAccessoryChangeGoodChk" tabindex="-1" value="<%=((SaleAccessoryChangeDetailBean) pageContext.getAttribute("good")).getId()%>">
                     <input type="hidden" name="saleAccessoryChangeGoodDetailId" value='<bean:write name="good" property="id"/>'/>
-                    <input type="hidden" name="changeGoodId" value='<bean:write name="good" property="id"/>'/>
+                    <input type="hidden" name="changeGoodId" value='<bean:write name="good" property="accessoryId"/>'/>
                 </td>
                 <td><span><bean:write name="good" property="accessoryName"/></span></td>
                 <td><span><bean:write name="good" property="unitName"/></span></td>
-                <td><input type="text" size="20" name="changeGoodQuantity" value="${good.quantity}" id="detchangegoodquantity${good.id}" onblur="return caculateSaleAccessoryChangeListDetail('${good.id}');" onkeypress="return readonlyFloat(event);"/></td>
-                <td><input type="text" size="20" name="changeGoodPrice" value="${good.price}" id="detchangegoodprice${good.id}" onblur="return caculateSaleAccessoryChangeListDetail('${good.id}');" onkeypress="return readonlyFloat(event);"/></td>
-                <td><input type="text" size="20" name="changeGoodAmount" value="${good.amount}" id="detchangegoodamount${good.id}" readonly="readonly"/></td>
+                <td><input type="text" size="20" name="changeGoodQuantity" value="${good.quantity}" id="detchangegoodquantity${good.accessoryId}" onblur="return caculateSaleAccessoryChangeListDetail('${good.accessoryId}');" onkeypress="return readonlyFloat(event);"/></td>
+                <td><input type="text" size="20" name="changeGoodPrice" value="${good.price}" id="detchangegoodprice${good.accessoryId}" onblur="return caculateSaleAccessoryChangeListDetail('${good.accessoryId}');" onkeypress="return readonlyFloat(event);"/></td>
+                <td><input type="text" size="20" name="changeGoodAmount" value="${good.amount}" id="detchangegoodamount${good.accessoryId}" readonly="readonly"/></td>
             </tr>
         </logic:iterate>
     </tbody>

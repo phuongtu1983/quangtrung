@@ -3796,10 +3796,11 @@ function getAccessoryImport(id) {
         if (id == 0) {
             var currentDate = getCurrentDate();
             document.forms['accessoryImportForm'].accessoryImportCreatedDate.value = currentDate;
-            var myCalendar = new dhtmlXCalendarObject(["accessoryImportCreatedDate"]);
-            myCalendar.setSkin('dhx_web');
-            myCalendar.setDateFormat("%d/%m/%Y");
         }
+        var myCalendar = new dhtmlXCalendarObject(["accessoryImportCreatedDate"]);
+        myCalendar.setSkin('dhx_web');
+        myCalendar.setDateFormat("%d/%m/%Y");
+
         tryNumberFormatCurrentcy(document.forms['accessoryImportForm'].total, "VND");
         tryNumberFormatCurrentcy(document.forms['accessoryImportForm'].paid, "VND");
         tryNumberFormatCurrentcy(document.forms['accessoryImportForm'].debt, "VND");
@@ -3984,10 +3985,11 @@ function getPromotionMaterialImport(id) {
         if (id == 0) {
             var currentDate = getCurrentDate();
             document.forms['promotionMaterialImportForm'].promotionMaterialImportCreatedDate.value = currentDate;
-            var myCalendar = new dhtmlXCalendarObject(["promotionMaterialImportCreatedDate"]);
-            myCalendar.setSkin('dhx_web');
-            myCalendar.setDateFormat("%d/%m/%Y");
         }
+        var myCalendar = new dhtmlXCalendarObject(["promotionMaterialImportCreatedDate"]);
+        myCalendar.setSkin('dhx_web');
+        myCalendar.setDateFormat("%d/%m/%Y");
+
         tryNumberFormatCurrentcy(document.forms['promotionMaterialImportForm'].total, "VND");
         tryNumberFormatCurrentcy(document.forms['promotionMaterialImportForm'].paid, "VND");
         tryNumberFormatCurrentcy(document.forms['promotionMaterialImportForm'].debt, "VND");
@@ -5251,10 +5253,11 @@ function getSaleAccessory(id) {
         if (id == 0) {
             var currentDate = getCurrentDate();
             document.forms['saleAccessoryForm'].saleAccessoryCreatedDate.value = currentDate;
-            var myCalendar = new dhtmlXCalendarObject(["saleAccessoryCreatedDate"]);
-            myCalendar.setSkin('dhx_web');
-            myCalendar.setDateFormat("%d/%m/%Y");
         }
+        var myCalendar = new dhtmlXCalendarObject(["saleAccessoryCreatedDate"]);
+        myCalendar.setSkin('dhx_web');
+        myCalendar.setDateFormat("%d/%m/%Y");
+
         tryNumberFormatCurrentcy(document.forms['saleAccessoryForm'].total, "VND");
         tryNumberFormatCurrentcy(document.forms['saleAccessoryForm'].paid, "VND");
         tryNumberFormatCurrentcy(document.forms['saleAccessoryForm'].debt, "VND");
@@ -7695,15 +7698,12 @@ function getDebtVendor(id, handle) {
         document.getElementById('callbackFunc').value = handle;
         document.forms['debtVendorForm'].paid.focus();
         tryNumberFormatCurrentcy(document.forms['debtVendorForm'].paid, "VND");
-        var myCalendar = new dhtmlXCalendarObject(["debtVendorDate"]);
-        myCalendar.setSkin('dhx_web');
         if (id == 0) {
             var currentDate = getCurrentDate();
             document.forms['debtVendorForm'].debtVendorDate.value = currentDate;
-            var myCalendar = new dhtmlXCalendarObject(["debtVendorDate"]);
-            myCalendar.setSkin('dhx_web');
-            myCalendar.setDateFormat("%d/%m/%Y");
         }
+        var myCalendar = new dhtmlXCalendarObject(["debtVendorDate"]);
+        myCalendar.setSkin('dhx_web');
         myCalendar.setDateFormat("%d/%m/%Y");
 
         window.dhx_globalImgPath = "js/dhtmlx/combo/imgs/";
@@ -7928,15 +7928,12 @@ function getDebtWholesale(id, handle) {
         document.getElementById('callbackFunc').value = handle;
         document.forms['debtWholesaleForm'].paid.focus();
         tryNumberFormatCurrentcy(document.forms['debtWholesaleForm'].paid, "VND");
-        var myCalendar = new dhtmlXCalendarObject(["debtWholesaleDate"]);
-        myCalendar.setSkin('dhx_web');
         if (id == 0) {
             var currentDate = getCurrentDate();
             document.forms['debtWholesaleForm'].debtWholesaleDate.value = currentDate;
-            var myCalendar = new dhtmlXCalendarObject(["debtWholesaleDate"]);
-            myCalendar.setSkin('dhx_web');
-            myCalendar.setDateFormat("%d/%m/%Y");
         }
+        var myCalendar = new dhtmlXCalendarObject(["debtWholesaleDate"]);
+        myCalendar.setSkin('dhx_web');
         myCalendar.setDateFormat("%d/%m/%Y");
 
         window.dhx_globalImgPath = "js/dhtmlx/combo/imgs/";
@@ -8060,10 +8057,10 @@ function getIncome(id, handle) {
         if (id == 0) {
             var currentDate = getCurrentDate();
             document.forms['incomeForm'].incomeDate.value = currentDate;
-            var myCalendar = new dhtmlXCalendarObject(["incomeDate"]);
-            myCalendar.setSkin('dhx_web');
-            myCalendar.setDateFormat("%d/%m/%Y");
         }
+        var myCalendar = new dhtmlXCalendarObject(["incomeDate"]);
+        myCalendar.setSkin('dhx_web');
+        myCalendar.setDateFormat("%d/%m/%Y");
     });
 }
 function saveIncome() {
@@ -8152,14 +8149,14 @@ function getExpense(id, handle) {
         document.getElementById('callbackFunc').value = handle;
         document.forms['expenseForm'].amount.focus();
         tryNumberFormatCurrentcy(document.forms['expenseForm'].amount, "VND");
-        var myCalendar = new dhtmlXCalendarObject(["expenseDate", "expenseFromDate", "expenseToDate"]);
-        myCalendar.setSkin('dhx_web');
         if (id == 0) {
             var currentDate = getCurrentDate();
             document.forms['expenseForm'].expenseDate.value = currentDate;
             document.forms['expenseForm'].expenseFromDate.value = currentDate;
             document.forms['expenseForm'].expenseToDate.value = currentDate;
         }
+        var myCalendar = new dhtmlXCalendarObject(["expenseDate", "expenseFromDate", "expenseToDate"]);
+        myCalendar.setSkin('dhx_web');
         myCalendar.setDateFormat("%d/%m/%Y");
     });
 }

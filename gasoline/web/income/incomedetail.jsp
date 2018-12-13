@@ -14,14 +14,7 @@
                             <td height="30" style="padding-right: 20px"><bean:message key="code.title"/></td>
                             <td><html:text property="code" size="30" name="<%=Constants.INCOME%>" readonly="true"/></td>
                             <td style="padding-right: 20px;padding-left: 10px"><bean:message key="date.title"/></td>
-                            <td>
-                                <logic:equal name="<%=Constants.INCOME%>" property="id" value="0">
-                                    <html:text property="createdDate" styleId="incomeDate" size="30" name="<%=Constants.INCOME%>"/>
-                                </logic:equal>
-                                <logic:notEqual name="<%=Constants.INCOME%>" property="id" value="0">
-                                    <html:text property="createdDate" styleId="incomeDate" size="30" name="<%=Constants.INCOME%>" readonly="true"/>
-                                </logic:notEqual>
-                            </td>
+                            <td><html:text property="createdDate" styleId="incomeDate" size="30" name="<%=Constants.INCOME%>"/></td>
                         </tr>
                         <tr>
                             <td height="30" style="padding-right: 20px"><bean:message key="income.detail.type.title"/></td>

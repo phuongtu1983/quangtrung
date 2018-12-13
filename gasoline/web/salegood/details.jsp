@@ -20,13 +20,13 @@
                 <td>
                     <input type="checkbox" name="saleGoodGoodChk" tabindex="-1" value="<%=((SaleGoodDetailBean) pageContext.getAttribute("good")).getId()%>">
                     <input type="hidden" name="saleGoodDetailId" value='<bean:write name="good" property="id"/>'/>
-                    <input type="hidden" name="goodId" value='<bean:write name="good" property="id"/>'/>
+                    <input type="hidden" name="goodId" value='<bean:write name="good" property="goodId"/>'/>
                 </td>
                 <td><span><bean:write name="good" property="goodName"/></span></td>
                 <td><span><bean:write name="good" property="unitName"/></span></td>
-                <td><input type="text" size="20" name="quantity" value="${good.quantity}" id="detquantity${good.id}" onblur="return caculateFormListDetail('${good.id}','saleGoodForm');" onkeypress="return readonlyFloat(event);"/></td>
-                <td><input type="text" size="20" name="price" value="${good.price}" id="detprice${good.id}" onblur="return caculateFormListDetail('${good.id}','saleGoodForm');" onkeypress="return readonlyFloat(event);"/></td>
-                <td><input type="text" size="20" name="amount" value="${good.amount}" id="detamount${good.id}" readonly="readonly"/></td>
+                <td><input type="text" size="20" name="quantity" value="${good.quantity}" id="detquantity${good.goodId}" onblur="return caculateFormListDetail('${good.goodId}','saleGoodForm');" onkeypress="return readonlyFloat(event);"/></td>
+                <td><input type="text" size="20" name="price" value="${good.price}" id="detprice${good.goodId}" onblur="return caculateFormListDetail('${good.goodId}','saleGoodForm');" onkeypress="return readonlyFloat(event);"/></td>
+                <td><input type="text" size="20" name="amount" value="${good.amount}" id="detamount${good.goodId}" readonly="readonly"/></td>
             </tr>
         </logic:iterate>
     </tbody>

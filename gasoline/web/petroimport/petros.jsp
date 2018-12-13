@@ -1,4 +1,3 @@
-<%@ page import="com.stepup.gasoline.qt.bean.PetroImportDetailBean"%>
 <%@ page import="com.stepup.gasoline.qt.util.Constants"%>
 <%@ taglib uri="/WEB-INF/struts-logic.tld" prefix="logic" %>
 <%@ taglib uri="/WEB-INF/struts-bean.tld" prefix="bean" %>

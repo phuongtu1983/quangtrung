@@ -1426,10 +1426,18 @@ public class GoodDAO extends BasicDAO {
         }
         SPUtil spUtil = null;
         try {
-            String sql = "{call updateAccessoryImport(?,?,?,?,?,?)}";
+            String createdDate = "";
+            if (GenericValidator.isBlankOrNull(bean.getCreatedDate())) {
+                createdDate = "null";
+            } else {
+                createdDate = bean.getCreatedDate();
+            }
+            String sql = "{call updateAccessoryImport(?,?,?,?,?,?,?,?)}";
             spUtil = new SPUtil(sql);
             if (spUtil != null) {
                 spUtil.getCallableStatement().setInt("_id", bean.getId());
+                spUtil.getCallableStatement().setString("_created_date", createdDate);
+                spUtil.getCallableStatement().setInt("_vendor_id", bean.getVendorId());
                 spUtil.getCallableStatement().setDouble("_total", bean.getTotal());
                 spUtil.getCallableStatement().setDouble("_paid", bean.getPaid());
                 spUtil.getCallableStatement().setDouble("_debt", bean.getDebt());
@@ -1484,14 +1492,14 @@ public class GoodDAO extends BasicDAO {
         }
     }
 
-    public int insertAccessoryImportDetail(AccessoryImportDetailBean bean) throws Exception {
+    public int insertAccessoryImportDetail(AccessoryImportDetailBean bean, String createdDate) throws Exception {
         if (bean == null) {
             return 0;
         }
         int result = 0;
         SPUtil spUtil = null;
         try {
-            String sql = "{call insertAccessoryImportDetail(?,?,?,?,?)}";
+            String sql = "{call insertAccessoryImportDetail(?,?,?,?,?,?)}";
             spUtil = new SPUtil(sql);
             if (spUtil != null) {
                 spUtil.getCallableStatement().setInt("_accessory_import_id", bean.getAccessoryImportId());
@@ -1499,6 +1507,7 @@ public class GoodDAO extends BasicDAO {
                 spUtil.getCallableStatement().setInt("_quantity", bean.getQuantity());
                 spUtil.getCallableStatement().setDouble("_price", bean.getPrice());
                 spUtil.getCallableStatement().setDouble("_amount", bean.getAmount());
+                spUtil.getCallableStatement().setString("_created_date", createdDate);
                 spUtil.execute();
             }
         } catch (SQLException sqle) {
@@ -1517,19 +1526,20 @@ public class GoodDAO extends BasicDAO {
         return result;
     }
 
-    public void updateAccessoryImportDetail(AccessoryImportDetailBean bean) throws Exception {
+    public void updateAccessoryImportDetail(AccessoryImportDetailBean bean, String createdDate) throws Exception {
         if (bean == null) {
             return;
         }
         SPUtil spUtil = null;
         try {
-            String sql = "{call updateAccessoryImportDetail(?,?,?,?)}";
+            String sql = "{call updateAccessoryImportDetail(?,?,?,?,?)}";
             spUtil = new SPUtil(sql);
             if (spUtil != null) {
                 spUtil.getCallableStatement().setInt("_id", bean.getId());
                 spUtil.getCallableStatement().setInt("_quantity", bean.getQuantity());
                 spUtil.getCallableStatement().setDouble("_price", bean.getPrice());
                 spUtil.getCallableStatement().setDouble("_amount", bean.getAmount());
+                spUtil.getCallableStatement().setString("_created_date", createdDate);
                 spUtil.execute();
             }
         } catch (SQLException sqle) {
@@ -1717,10 +1727,18 @@ public class GoodDAO extends BasicDAO {
         }
         SPUtil spUtil = null;
         try {
-            String sql = "{call updatePromotionMaterialImport(?,?,?,?,?,?)}";
+            String createdDate = "";
+            if (GenericValidator.isBlankOrNull(bean.getCreatedDate())) {
+                createdDate = "null";
+            } else {
+                createdDate = bean.getCreatedDate();
+            }
+            String sql = "{call updatePromotionMaterialImport(?,?,?,?,?,?,?,?)}";
             spUtil = new SPUtil(sql);
             if (spUtil != null) {
                 spUtil.getCallableStatement().setInt("_id", bean.getId());
+                spUtil.getCallableStatement().setString("_created_date", createdDate);
+                spUtil.getCallableStatement().setInt("_vendor_id", bean.getVendorId());
                 spUtil.getCallableStatement().setDouble("_total", bean.getTotal());
                 spUtil.getCallableStatement().setDouble("_paid", bean.getPaid());
                 spUtil.getCallableStatement().setDouble("_debt", bean.getDebt());
@@ -1775,14 +1793,14 @@ public class GoodDAO extends BasicDAO {
         }
     }
 
-    public int insertPromotionMaterialImportDetail(PromotionMaterialImportDetailBean bean) throws Exception {
+    public int insertPromotionMaterialImportDetail(PromotionMaterialImportDetailBean bean, String createdDate) throws Exception {
         if (bean == null) {
             return 0;
         }
         int result = 0;
         SPUtil spUtil = null;
         try {
-            String sql = "{call insertPromotionMaterialImportDetail(?,?,?,?,?)}";
+            String sql = "{call insertPromotionMaterialImportDetail(?,?,?,?,?,?)}";
             spUtil = new SPUtil(sql);
             if (spUtil != null) {
                 spUtil.getCallableStatement().setInt("_promotion_material_import_id", bean.getPromotionMaterialImportId());
@@ -1790,6 +1808,7 @@ public class GoodDAO extends BasicDAO {
                 spUtil.getCallableStatement().setInt("_quantity", bean.getQuantity());
                 spUtil.getCallableStatement().setDouble("_price", bean.getPrice());
                 spUtil.getCallableStatement().setDouble("_amount", bean.getAmount());
+                spUtil.getCallableStatement().setString("_created_date", createdDate);
                 spUtil.execute();
             }
         } catch (SQLException sqle) {
@@ -1808,19 +1827,20 @@ public class GoodDAO extends BasicDAO {
         return result;
     }
 
-    public void updatePromotionMaterialImportDetail(PromotionMaterialImportDetailBean bean) throws Exception {
+    public void updatePromotionMaterialImportDetail(PromotionMaterialImportDetailBean bean, String createdDate) throws Exception {
         if (bean == null) {
             return;
         }
         SPUtil spUtil = null;
         try {
-            String sql = "{call updatePromotionMaterialImportDetail(?,?,?,?)}";
+            String sql = "{call updatePromotionMaterialImportDetail(?,?,?,?,?)}";
             spUtil = new SPUtil(sql);
             if (spUtil != null) {
                 spUtil.getCallableStatement().setInt("_id", bean.getId());
                 spUtil.getCallableStatement().setInt("_quantity", bean.getQuantity());
                 spUtil.getCallableStatement().setDouble("_price", bean.getPrice());
                 spUtil.getCallableStatement().setDouble("_amount", bean.getAmount());
+                spUtil.getCallableStatement().setString("_created_date", createdDate);
                 spUtil.execute();
             }
         } catch (SQLException sqle) {
@@ -2010,10 +2030,17 @@ public class GoodDAO extends BasicDAO {
         }
         SPUtil spUtil = null;
         try {
-            String sql = "{call updateSaleAccessory(?,?,?,?,?,?,?,?)}";
+            String createdDate = "";
+            if (GenericValidator.isBlankOrNull(bean.getCreatedDate())) {
+                createdDate = "null";
+            } else {
+                createdDate = bean.getCreatedDate();
+            }
+            String sql = "{call updateSaleAccessory(?,?,?,?,?,?,?,?,?)}";
             spUtil = new SPUtil(sql);
             if (spUtil != null) {
                 spUtil.getCallableStatement().setInt("_id", bean.getId());
+                spUtil.getCallableStatement().setString("_created_date", createdDate);
                 spUtil.getCallableStatement().setDouble("_total", bean.getTotal());
                 spUtil.getCallableStatement().setDouble("_paid", bean.getPaid());
                 spUtil.getCallableStatement().setDouble("_debt", bean.getDebt());
@@ -2070,14 +2097,14 @@ public class GoodDAO extends BasicDAO {
         }
     }
 
-    public int insertSaleAccessoryDetail(SaleAccessoryDetailBean bean) throws Exception {
+    public int insertSaleAccessoryDetail(SaleAccessoryDetailBean bean, String createdDate) throws Exception {
         if (bean == null) {
             return 0;
         }
         int result = 0;
         SPUtil spUtil = null;
         try {
-            String sql = "{call insertSaleAccessoryDetail(?,?,?,?,?)}";
+            String sql = "{call insertSaleAccessoryDetail(?,?,?,?,?,?)}";
             spUtil = new SPUtil(sql);
             if (spUtil != null) {
                 spUtil.getCallableStatement().setInt("_accessory_sale_id", bean.getSaleAccessoryId());
@@ -2085,6 +2112,7 @@ public class GoodDAO extends BasicDAO {
                 spUtil.getCallableStatement().setInt("_quantity", bean.getQuantity());
                 spUtil.getCallableStatement().setDouble("_price", bean.getPrice());
                 spUtil.getCallableStatement().setDouble("_amount", bean.getAmount());
+                spUtil.getCallableStatement().setString("_created_date", createdDate);
                 spUtil.execute();
             }
         } catch (SQLException sqle) {
@@ -2103,19 +2131,20 @@ public class GoodDAO extends BasicDAO {
         return result;
     }
 
-    public void updateSaleAccessoryDetail(SaleAccessoryDetailBean bean) throws Exception {
+    public void updateSaleAccessoryDetail(SaleAccessoryDetailBean bean, String createdDate) throws Exception {
         if (bean == null) {
             return;
         }
         SPUtil spUtil = null;
         try {
-            String sql = "{call updateSaleAccessoryDetail(?,?,?,?)}";
+            String sql = "{call updateSaleAccessoryDetail(?,?,?,?,?)}";
             spUtil = new SPUtil(sql);
             if (spUtil != null) {
                 spUtil.getCallableStatement().setInt("_id", bean.getId());
                 spUtil.getCallableStatement().setInt("_quantity", bean.getQuantity());
                 spUtil.getCallableStatement().setDouble("_price", bean.getPrice());
                 spUtil.getCallableStatement().setDouble("_amount", bean.getAmount());
+                spUtil.getCallableStatement().setString("_created_date", createdDate);
                 spUtil.execute();
             }
         } catch (SQLException sqle) {

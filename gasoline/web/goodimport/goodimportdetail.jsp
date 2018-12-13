@@ -59,10 +59,8 @@
                     <table>
                         <tr>
                             <td>
-                                <logic:equal name="<%=Constants.GOOD_IMPORT%>" property="id" value="0">
-                                    <button class="i_cross icon small red" onclick="return delTableRow('goodImportForm', 'goodImportGoodChk', 'goodImportDetailTbl');"><bean:message key="message.del"/></button>
-                                </logic:equal>
-                                <button class="i_plus icon small green" onclick="return addGoodImportGood();"><bean:message key="message.add"/></button>
+                                <button class="i_cross icon small red" onclick="return delTableRow('goodImportForm', 'goodImportGoodChk', 'goodImportDetailTbl');" tabindex="-1"><bean:message key="message.del"/></button>
+                                <button class="i_plus icon small green" onclick="return addGoodImportGood();" tabindex="-1"><bean:message key="message.add"/></button>
                             </td>
                             <td>
                                 <select style="width: 260px;" name="goodIdCombobox" id="goodIdCombobox">

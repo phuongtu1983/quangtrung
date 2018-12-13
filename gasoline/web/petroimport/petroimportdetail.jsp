@@ -59,10 +59,8 @@
                     <table>
                         <tr>
                             <td>
-                                <logic:equal name="<%=Constants.PETRO_IMPORT%>" property="id" value="0">
-                                    <button class="i_cross icon small red" onclick="return delTableRow('petroImportForm', 'petroImportPetroChk', 'petroImportDetailTbl');"><bean:message key="message.del"/></button>
-                                </logic:equal>
-                                <button class="i_plus icon small green" onclick="return addPetroImportPetro();"><bean:message key="message.add"/></button>
+                                <button class="i_cross icon small red" onclick="return delTableRow('petroImportForm', 'petroImportPetroChk', 'petroImportDetailTbl');" tabindex="-1"><bean:message key="message.del"/></button>
+                                <button class="i_plus icon small green" onclick="return addPetroImportPetro();" tabindex="-1"><bean:message key="message.add"/></button>
                             </td>
                             <td>
                                 <select style="width: 260px;" name="petroIdCombobox" id="petroIdCombobox">

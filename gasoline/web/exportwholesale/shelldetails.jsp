@@ -18,7 +18,7 @@
                 <td>
                     <input type="checkbox" name="exportWholesaleReturnShellChk" tabindex="-1" value="<%=((ExportWholesaleReturnShellDetailBean) pageContext.getAttribute("shell")).getId()%>">
                     <input type="hidden" name="exportWholesaleReturnShellDetailId" value='<bean:write name="shell" property="id"/>'/>
-                    <input type="hidden" name="returnShellId" value='<bean:write name="shell" property="id"/>'/>
+                    <input type="hidden" name="returnShellId" value='<bean:write name="shell" property="shellId"/>'/>
                 </td>
                 <td><span><bean:write name="shell" property="shellName"/></span></td>
                 <td><span><bean:write name="shell" property="unitName"/></span></td>

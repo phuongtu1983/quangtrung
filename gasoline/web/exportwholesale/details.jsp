@@ -24,9 +24,9 @@
                 </td>
                 <td><span><bean:write name="good" property="shellName"/></span></td>
                 <td><span><bean:write name="good" property="unitName"/></span></td>
-                <td><input type="text" size="20" name="quantity" value="${good.quantity}" id="detquantity${good.id}" onblur="return caculateFormListDetail('${good.id}','exportWholesaleForm');" onkeypress="return readonlyFloat(event);"/></td>
-                <td><input type="text" size="20" name="price" value="${good.price}" id="detprice${good.id}" onblur="return caculateFormListDetail('${good.id}','exportWholesaleForm');" onkeypress="return readonlyFloat(event);"/></td>
-                <td><input type="text" size="20" name="amount" value="${good.amount}" id="detamount${good.id}" readonly="readonly"/></td>
+                <td><input type="text" size="20" name="quantity" value="${good.quantity}" id="detquantity${good.shellId}" onblur="return caculateFormListDetail('${good.shellId}','exportWholesaleForm');" onkeypress="return readonlyFloat(event);"/></td>
+                <td><input type="text" size="20" name="price" value="${good.price}" id="detprice${good.shellId}" onblur="return caculateFormListDetail('${good.shellId}','exportWholesaleForm');" onkeypress="return readonlyFloat(event);"/></td>
+                <td><input type="text" size="20" name="amount" value="${good.amount}" id="detamount${good.shellId}" readonly="readonly"/></td>
             </tr>
         </logic:iterate>
     </tbody>

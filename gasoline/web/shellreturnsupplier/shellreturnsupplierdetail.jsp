@@ -39,8 +39,8 @@
                     <table>
                         <tr>
                             <td>
-                                <button class="i_cross icon small red" onclick="return delTableRow('shellReturnSupplierForm', 'shellReturnSupplierShellChk', 'shellReturnSupplierDetailTbl');"><bean:message key="message.del"/></button>
-                                <button class="i_plus icon small green" onclick="return addShellReturnSupplierShell();"><bean:message key="message.add"/></button>
+                                <button class="i_cross icon small red" onclick="return delTableRow('shellReturnSupplierForm', 'shellReturnSupplierShellChk', 'shellReturnSupplierDetailTbl');" tabindex="-1"><bean:message key="message.del"/></button>
+                                <button class="i_plus icon small green" onclick="return addShellReturnSupplierShell();" tabindex="-1"><bean:message key="message.add"/></button>
                             </td>
                             <td>
                                 <select style="width: 260px;" name="shellIdCombobox" id="shellIdCombobox">

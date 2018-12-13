@@ -15,7 +15,6 @@ import com.stepup.gasoline.qt.dao.VendorDAO;
 import com.stepup.gasoline.qt.util.Constants;
 import com.stepup.gasoline.qt.util.PermissionUtil;
 import com.stepup.gasoline.qt.util.QTUtil;
-import com.stepup.gasoline.qt.vendor.VendorFormBean;
 import java.util.ArrayList;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -106,18 +105,7 @@ public class AccessoryImportFormAction extends SpineAction {
         ArrayList arrVendor = null;
         try {
             VendorDAO vendorDAO = new VendorDAO();
-            if (formBean.getVendorId() != 0) {
-                VendorFormBean vendorFormBean = vendorDAO.getVendor(formBean.getVendorId());
-                if (vendorFormBean == null) {
-                    vendorFormBean = new VendorFormBean();
-                }
-                if (arrVendor == null) {
-                    arrVendor = new ArrayList();
-                }
-                arrVendor.add(vendorFormBean);
-            } else {
-                arrVendor = vendorDAO.getVendors(organizationIds, VendorBean.IS_GOOD);
-            }
+            arrVendor = vendorDAO.getVendors(organizationIds, VendorBean.IS_GOOD);
         } catch (Exception ex) {
         }
         if (arrVendor == null) {

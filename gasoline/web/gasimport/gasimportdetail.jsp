@@ -51,10 +51,8 @@
                     <table>
                         <tr>
                             <td>
-                                <logic:equal name="<%=Constants.GAS_IMPORT%>" property="id" value="0">
-                                    <button class="i_cross icon small red" onclick="return delTableRow('gasImportForm', 'gasImportShellChk', 'gasImportDetailTbl');"><bean:message key="message.del"/></button>
-                                </logic:equal>
-                                <button class="i_plus icon small green" onclick="return addGasImportShell();"><bean:message key="message.add"/></button>
+                                <button class="i_cross icon small red" onclick="return delTableRow('gasImportForm', 'gasImportShellChk', 'gasImportDetailTbl');" tabindex="-1"><bean:message key="message.del"/></button>
+                                <button class="i_plus icon small green" onclick="return addGasImportShell();" tabindex="-1"><bean:message key="message.add"/></button>
                             </td>
                             <td>
                                 <select style="width: 260px;" name="shellIdCombobox" id="shellIdCombobox">

@@ -50,7 +50,7 @@ CREATE TABLE `accessory_import` (
   `note` text COLLATE utf8_unicode_ci,
   `created_employee_id` int(11) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM AUTO_INCREMENT=4 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=MyISAM AUTO_INCREMENT=8 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 /*Data for the table `accessory_import` */
 
@@ -66,7 +66,7 @@ CREATE TABLE `accessory_import_detail` (
   `price` double DEFAULT NULL,
   `amount` double DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM AUTO_INCREMENT=5 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=MyISAM AUTO_INCREMENT=11 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 /*Data for the table `accessory_import_detail` */
 
@@ -81,11 +81,11 @@ CREATE TABLE `accessory_in_stock` (
   `in_stock` int(11) DEFAULT '0',
   `organization_id` int(11) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=1275 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=1342 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 /*Data for the table `accessory_in_stock` */
 
-insert  into `accessory_in_stock`(`id`,`day`,`accessory_id`,`in_stock`,`organization_id`) values (1268,'2018-12-11',6,0,1),(1269,'2018-12-11',7,0,1),(1270,'2018-12-11',8,0,1),(1271,'2018-12-11',6,0,14),(1272,'2018-12-11',7,0,14),(1273,'2018-12-11',8,0,14);
+insert  into `accessory_in_stock`(`id`,`day`,`accessory_id`,`in_stock`,`organization_id`) values (1335,'2018-12-12',6,0,1),(1336,'2018-12-12',7,0,1),(1337,'2018-12-12',8,0,1),(1338,'2018-12-12',6,0,14),(1339,'2018-12-12',7,0,14),(1340,'2018-12-12',8,0,14);
 
 /*Table structure for table `accessory_kind` */
 
@@ -121,7 +121,7 @@ CREATE TABLE `accessory_sale` (
   `note` text COLLATE utf8_unicode_ci,
   `created_employee_id` int(11) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM AUTO_INCREMENT=3 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=MyISAM AUTO_INCREMENT=8 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 /*Data for the table `accessory_sale` */
 
@@ -137,7 +137,7 @@ CREATE TABLE `accessory_sale_change_detail` (
   `price` double DEFAULT NULL,
   `amount` double DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 /*Data for the table `accessory_sale_change_detail` */
 
@@ -153,7 +153,7 @@ CREATE TABLE `accessory_sale_detail` (
   `quantity` int(3) DEFAULT NULL,
   `amount` double DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 /*Data for the table `accessory_sale_detail` */
 
@@ -204,11 +204,11 @@ CREATE TABLE `auto` (
   `auto_date` date DEFAULT NULL,
   `auto_name` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=183 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=192 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 /*Data for the table `auto` */
 
-insert  into `auto`(`id`,`auto_date`,`auto_name`) values (182,'2018-12-11','in_stock');
+insert  into `auto`(`id`,`auto_date`,`auto_name`) values (191,'2018-12-12','in_stock');
 
 /*Table structure for table `contract` */
 
@@ -253,11 +253,11 @@ CREATE TABLE `customer` (
   `is_petro` int(1) DEFAULT '0',
   `is_good` int(1) DEFAULT '0',
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM AUTO_INCREMENT=13 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=MyISAM AUTO_INCREMENT=14 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 /*Data for the table `customer` */
 
-insert  into `customer`(`id`,`code`,`name`,`organization_id`,`status`,`kind`,`address`,`phone`,`bank_account`,`tax`,`presenter`,`presenter_position`,`discount`,`is_gas`,`is_petro`,`is_good`) values (1,'TP','Công ty TNHH Gốm Tân Phát',1,1,2,'Lô số 164, Đường N1, Cụm công nghiệp Gốm sứ, Ấp 4, xã Tân Hạnh, Tp. Biên Hòa, Tỉnh Đồng Nai','0915. 87.36.37','','3603454432','Nguyễn Thị Thanh Thúy','Giám đốc','',1,0,0),(2,'LPGHH','Cửa hàng LPG Huy Hoàng',1,1,1,'Số 125/5 ấp Phú Tâm, xã Hòa Hiệp, huyện Xuyên Mộc, tỉnh Bà Rịa Vũng Tàu','0988789713','','123456789','Nguyễn Tiến Công','Giám đốc','CK1,HT5K',1,0,0),(10,'b','b',1,1,2,'','','','','','','',0,0,1),(9,'a','a',1,1,2,'','','','','','','',0,1,0),(11,'c','c',1,1,2,'','','','','','','',1,0,0),(12,'aa','aa',1,1,2,'','','','','','','',0,1,0);
+insert  into `customer`(`id`,`code`,`name`,`organization_id`,`status`,`kind`,`address`,`phone`,`bank_account`,`tax`,`presenter`,`presenter_position`,`discount`,`is_gas`,`is_petro`,`is_good`) values (1,'TP','Công ty TNHH Gốm Tân Phát',1,1,2,'Lô số 164, Đường N1, Cụm công nghiệp Gốm sứ, Ấp 4, xã Tân Hạnh, Tp. Biên Hòa, Tỉnh Đồng Nai','0915. 87.36.37','','3603454432','Nguyễn Thị Thanh Thúy','Giám đốc','',1,0,0),(2,'LPGHH','Cửa hàng LPG Huy Hoàng',1,1,1,'Số 125/5 ấp Phú Tâm, xã Hòa Hiệp, huyện Xuyên Mộc, tỉnh Bà Rịa Vũng Tàu','0988789713','','123456789','Nguyễn Tiến Công','Giám đốc','CK1,HT5K',1,0,0),(10,'b','b',1,1,2,'','','','','','','',0,0,1),(9,'a','a',1,1,2,'','','','','','','',0,1,0),(11,'c','c',1,1,2,'','','','','','','',1,0,0),(12,'aa','aa',1,1,2,'','','','','','','',0,1,0),(13,'bb','bb',1,1,2,'','','','','','','',0,0,1);
 
 /*Table structure for table `customer_document` */
 
@@ -285,11 +285,11 @@ CREATE TABLE `customer_in_stock` (
   `shell_45` int(11) DEFAULT '0',
   `amount` double DEFAULT '0',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=1310 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=1377 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 /*Data for the table `customer_in_stock` */
 
-insert  into `customer_in_stock`(`id`,`day`,`customer_id`,`shell_12`,`shell_45`,`amount`) values (1302,'2018-12-11',1,0,0,0),(1303,'2018-12-11',2,0,0,0),(1304,'2018-12-11',9,0,0,0),(1305,'2018-12-11',10,0,0,0),(1306,'2018-12-11',11,0,0,0),(1307,'2018-12-11',12,0,0,0),(1309,'2018-12-10',12,0,0,0);
+insert  into `customer_in_stock`(`id`,`day`,`customer_id`,`shell_12`,`shell_45`,`amount`) values (1369,'2018-12-12',1,0,0,0),(1370,'2018-12-12',2,0,0,0),(1371,'2018-12-12',9,0,0,0),(1372,'2018-12-12',10,0,0,0),(1373,'2018-12-12',11,0,0,0),(1374,'2018-12-12',12,0,0,0),(1375,'2018-12-12',13,0,0,0),(1376,'2018-12-11',1,0,0,0);
 
 /*Table structure for table `debug` */
 
@@ -301,7 +301,7 @@ CREATE TABLE `debug` (
 
 /*Data for the table `debug` */
 
-insert  into `debug`(`note`) values ('1'),('6'),('6'),('0'),('1046');
+insert  into `debug`(`note`) values ('1'),('2697'),('1370');
 
 /*Table structure for table `discount` */
 
@@ -583,7 +583,7 @@ CREATE TABLE `expense` (
   `note` text COLLATE utf8_unicode_ci,
   `created_employee_id` int(11) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM AUTO_INCREMENT=2 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=MyISAM AUTO_INCREMENT=3 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 /*Data for the table `expense` */
 
@@ -1016,7 +1016,7 @@ CREATE TABLE `good_import` (
   `note` text COLLATE utf8_unicode_ci,
   `created_employee_id` int(11) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 /*Data for the table `good_import` */
 
@@ -1033,7 +1033,7 @@ CREATE TABLE `good_import_detail` (
   `amount` double DEFAULT NULL,
   `note` text COLLATE utf8_unicode_ci,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 /*Data for the table `good_import_detail` */
 
@@ -1049,11 +1049,11 @@ CREATE TABLE `good_in_stock` (
   `store_id` int(11) DEFAULT NULL,
   `in_stock` int(11) DEFAULT '0',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=560 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=625 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 /*Data for the table `good_in_stock` */
 
-insert  into `good_in_stock`(`id`,`day`,`good_id`,`organization_id`,`store_id`,`in_stock`) values (553,'2018-12-11',1,1,7,0),(554,'2018-12-11',2,1,7,0),(555,'2018-12-11',3,1,7,0),(556,'2018-12-10',1,1,8,0),(557,'2018-12-11',1,1,8,0),(558,'2018-12-10',2,1,8,0),(559,'2018-12-11',2,1,8,0);
+insert  into `good_in_stock`(`id`,`day`,`good_id`,`organization_id`,`store_id`,`in_stock`) values (618,'2018-12-12',1,1,7,0),(619,'2018-12-12',2,1,7,0),(620,'2018-12-12',3,1,7,0),(621,'2018-12-12',1,1,8,0),(622,'2018-12-12',2,1,8,0),(623,'2018-12-12',3,1,8,0);
 
 /*Table structure for table `good_sale` */
 
@@ -1109,7 +1109,7 @@ CREATE TABLE `income` (
   `note` text COLLATE utf8_unicode_ci,
   `created_employee_id` int(11) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM AUTO_INCREMENT=4 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=MyISAM AUTO_INCREMENT=5 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 /*Data for the table `income` */
 
@@ -1181,11 +1181,11 @@ CREATE TABLE `lpg_in_stock` (
   `day` date DEFAULT NULL,
   `in_stock` int(11) DEFAULT '0',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=1297 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=1356 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 /*Data for the table `lpg_in_stock` */
 
-insert  into `lpg_in_stock`(`id`,`organization_id`,`vendor_id`,`day`,`in_stock`) values (1290,1,14,'2018-12-11',0),(1291,1,15,'2018-12-11',0),(1292,14,17,'2018-12-11',0),(1293,14,14,'2018-12-11',0),(1294,1,17,'2018-12-11',0);
+insert  into `lpg_in_stock`(`id`,`organization_id`,`vendor_id`,`day`,`in_stock`) values (1349,1,14,'2018-12-12',0),(1350,1,15,'2018-12-12',0),(1351,14,17,'2018-12-12',0),(1352,14,14,'2018-12-12',0),(1353,1,17,'2018-12-12',0);
 
 /*Table structure for table `lpg_sale` */
 
@@ -1224,11 +1224,11 @@ CREATE TABLE `money_in_stock` (
   `organization_id` int(11) DEFAULT NULL COMMENT 'neu account_id=0 thi la id cua organization',
   `in_stock` double DEFAULT '0',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=1360 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=1430 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 /*Data for the table `money_in_stock` */
 
-insert  into `money_in_stock`(`id`,`day`,`account_id`,`organization_id`,`in_stock`) values (1352,'2018-12-11',4,1,0),(1353,'2018-12-11',5,1,-5000000),(1354,'2018-12-11',7,14,0),(1355,'2018-12-11',8,14,0),(1359,'2018-12-10',4,1,0);
+insert  into `money_in_stock`(`id`,`day`,`account_id`,`organization_id`,`in_stock`) values (1422,'2018-12-12',4,1,0),(1423,'2018-12-12',5,1,-5000000),(1424,'2018-12-12',7,14,0),(1425,'2018-12-12',8,14,0),(1429,'2018-12-11',4,1,0);
 
 /*Table structure for table `old_shell` */
 
@@ -1406,11 +1406,11 @@ CREATE TABLE `petro_in_stock` (
   `store_id` int(11) DEFAULT NULL,
   `in_stock` int(11) DEFAULT '0',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=1087 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=1147 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 /*Data for the table `petro_in_stock` */
 
-insert  into `petro_in_stock`(`id`,`day`,`petro_id`,`organization_id`,`store_id`,`in_stock`) values (1078,'2018-12-11',6,1,4,0),(1079,'2018-12-11',12,1,4,0),(1080,'2018-12-11',6,1,6,0),(1081,'2018-12-11',12,1,6,0),(1085,'2018-12-10',12,1,6,0),(1086,'2018-12-10',6,1,6,0);
+insert  into `petro_in_stock`(`id`,`day`,`petro_id`,`organization_id`,`store_id`,`in_stock`) values (1140,'2018-12-12',6,1,4,0),(1141,'2018-12-12',12,1,4,0),(1142,'2018-12-12',6,1,6,0),(1143,'2018-12-12',12,1,6,0);
 
 /*Table structure for table `petro_sale` */
 
@@ -1483,7 +1483,7 @@ CREATE TABLE `promotion_material_import` (
   `note` text COLLATE utf8_unicode_ci,
   `created_employee_id` int(11) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 /*Data for the table `promotion_material_import` */
 
@@ -1499,7 +1499,7 @@ CREATE TABLE `promotion_material_import_detail` (
   `price` double DEFAULT NULL,
   `amount` double DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 /*Data for the table `promotion_material_import_detail` */
 
@@ -1514,11 +1514,11 @@ CREATE TABLE `promotion_material_in_stock` (
   `organization_id` int(11) DEFAULT NULL,
   `in_stock` int(11) DEFAULT '0',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=1235 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=1294 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 /*Data for the table `promotion_material_in_stock` */
 
-insert  into `promotion_material_in_stock`(`id`,`day`,`promotion_material_id`,`organization_id`,`in_stock`) values (1228,'2018-12-11',3,1,0),(1229,'2018-12-11',4,1,0),(1230,'2018-12-11',3,14,0),(1231,'2018-12-11',4,14,0);
+insert  into `promotion_material_in_stock`(`id`,`day`,`promotion_material_id`,`organization_id`,`in_stock`) values (1287,'2018-12-12',3,1,0),(1288,'2018-12-12',4,1,0),(1289,'2018-12-12',3,14,0),(1290,'2018-12-12',4,14,0);
 
 /*Table structure for table `promotion_material_sale` */
 
@@ -1634,11 +1634,11 @@ CREATE TABLE `shell_gas_in_stock` (
   `shell_vendor_id` int(11) DEFAULT NULL,
   `in_stock` int(11) DEFAULT '0',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=736 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=763 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 /*Data for the table `shell_gas_in_stock` */
 
-insert  into `shell_gas_in_stock`(`id`,`day`,`shell_vendor_id`,`in_stock`) values (733,'2018-12-11',11,0),(734,'2018-12-11',10,0),(735,'2018-12-11',17,0);
+insert  into `shell_gas_in_stock`(`id`,`day`,`shell_vendor_id`,`in_stock`) values (760,'2018-12-12',11,0),(761,'2018-12-12',10,0),(762,'2018-12-12',17,0);
 
 /*Table structure for table `shell_import` */
 
@@ -1675,11 +1675,11 @@ CREATE TABLE `shell_in_stock` (
   `in_stock` int(11) DEFAULT '0' COMMENT 'vo binh rong',
   PRIMARY KEY (`id`),
   KEY `shell_id` (`shell_id`)
-) ENGINE=MyISAM AUTO_INCREMENT=690 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=MyISAM AUTO_INCREMENT=717 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 /*Data for the table `shell_in_stock` */
 
-insert  into `shell_in_stock`(`id`,`day`,`organization_id`,`shell_id`,`in_stock`) values (687,'2018-12-11',1,1,1000),(688,'2018-12-11',1,2,2000),(689,'2018-12-11',1,3,0);
+insert  into `shell_in_stock`(`id`,`day`,`organization_id`,`shell_id`,`in_stock`) values (714,'2018-12-12',1,1,1000),(715,'2018-12-12',1,2,2000),(716,'2018-12-12',1,3,0);
 
 /*Table structure for table `shell_kind` */
 
@@ -1875,11 +1875,11 @@ CREATE TABLE `shield_in_stock` (
   `organization_id` int(11) DEFAULT NULL,
   `in_stock` int(11) DEFAULT '0',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=1274 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=1333 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 /*Data for the table `shield_in_stock` */
 
-insert  into `shield_in_stock`(`id`,`day`,`vendor_id`,`organization_id`,`in_stock`) values (1267,'2018-12-11',14,1,0),(1268,'2018-12-11',15,1,0),(1269,'2018-12-11',17,1,0),(1270,'2018-12-11',14,14,0),(1271,'2018-12-11',17,14,0);
+insert  into `shield_in_stock`(`id`,`day`,`vendor_id`,`organization_id`,`in_stock`) values (1326,'2018-12-12',14,1,0),(1327,'2018-12-12',15,1,0),(1328,'2018-12-12',17,1,0),(1329,'2018-12-12',14,14,0),(1330,'2018-12-12',17,14,0);
 
 /*Table structure for table `store` */
 
@@ -2170,7 +2170,7 @@ CREATE TABLE `vendor_debt` (
   `note` text COLLATE utf8_unicode_ci,
   `created_employee_id` int(11) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM AUTO_INCREMENT=7 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=MyISAM AUTO_INCREMENT=10 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 /*Data for the table `vendor_debt` */
 
@@ -2187,11 +2187,11 @@ CREATE TABLE `vendor_in_stock` (
   `shell_12` int(11) DEFAULT '0',
   `shell_45` int(11) DEFAULT '0',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=2673 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=2812 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 /*Data for the table `vendor_in_stock` */
 
-insert  into `vendor_in_stock`(`id`,`day`,`vendor_id`,`organization_id`,`amount`,`shell_12`,`shell_45`) values (2656,'2018-12-11',14,1,0,1000,2000),(2657,'2018-12-11',14,14,0,0,0),(2658,'2018-12-11',15,1,0,0,0),(2659,'2018-12-11',16,1,0,0,0),(2660,'2018-12-11',17,1,0,0,0),(2661,'2018-12-11',17,14,0,0,0),(2662,'2018-12-11',18,1,0,0,0),(2663,'2018-12-11',19,1,0,0,0),(2664,'2018-12-11',20,1,0,0,0),(2671,'2018-12-10',21,1,0,0,0),(2672,'2018-12-11',21,1,0,0,0);
+insert  into `vendor_in_stock`(`id`,`day`,`vendor_id`,`organization_id`,`amount`,`shell_12`,`shell_45`) values (2797,'2018-12-12',14,1,0,1000,2000),(2798,'2018-12-12',14,14,0,0,0),(2799,'2018-12-12',15,1,0,0,0),(2800,'2018-12-12',16,1,0,0,0),(2801,'2018-12-12',17,1,0,0,0),(2802,'2018-12-12',17,14,0,0,0),(2803,'2018-12-12',18,1,0,0,0),(2804,'2018-12-12',19,1,0,0,0),(2805,'2018-12-12',20,1,0,0,0),(2806,'2018-12-12',21,1,0,0,0);
 
 /*Table structure for table `vendor_organization` */
 
@@ -2222,7 +2222,7 @@ CREATE TABLE `wholesale_debt` (
   `note` text COLLATE utf8_unicode_ci,
   `created_employee_id` int(11) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM AUTO_INCREMENT=5 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=MyISAM AUTO_INCREMENT=7 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 /*Data for the table `wholesale_debt` */
 
@@ -2233,10 +2233,10 @@ DELIMITER $$
 /*!50003 DROP TRIGGER*//*!50032 IF EXISTS */ /*!50003 `tg_deleteAccessoryImportDetail` */$$
 
 /*!50003 CREATE */ /*!50017 DEFINER = 'root'@'localhost' */ /*!50003 TRIGGER `tg_deleteAccessoryImportDetail` AFTER DELETE ON `accessory_import_detail` FOR EACH ROW BEGIN
-	DECLARE _date_diff, _in_stock_id, _organization_id, _account_id INT DEFAULT 0;
+	DECLARE _date_diff, _in_stock_id, _organization_id INT DEFAULT 0;
 	DECLARE _date DATE;
 	
-	SELECT f.created_date, eo.organization_id, f.account_id INTO _date, _organization_id, _account_id
+	SELECT f.created_date, eo.organization_id INTO _date, _organization_id
 	FROM accessory_import AS f, employee AS eo
 	WHERE f.id=old.accessory_import_id AND f.created_employee_id=eo.id;
 	
@@ -2245,17 +2245,8 @@ DELIMITER $$
 		SET _in_stock_id=0;
 		-- accessory_in_stock
 		SELECT id INTO _in_stock_id FROM accessory_in_stock WHERE DATEDIFF(`day`,_date)=0 AND organization_id=_organization_id AND accessory_id=old.accessory_id;
-		IF _in_stock_id<>0 THEN
-			UPDATE accessory_in_stock SET in_stock=in_stock - old.quantity WHERE id=_in_stock_id;
-		END IF;
-	
-		SET _in_stock_id=0;
-		-- money_in_stock
-		SELECT id INTO _in_stock_id FROM money_in_stock WHERE DATEDIFF(`day`,_date)=0 AND organization_id=_organization_id AND account_id=_account_id;
-		IF _in_stock_id<>0 THEN
-			UPDATE money_in_stock SET in_stock=in_stock + old.amount WHERE id=_in_stock_id;
-		END IF;
-	
+		UPDATE accessory_in_stock SET in_stock=in_stock - old.quantity WHERE id=_in_stock_id;
+		
 		SET _date_diff=_date_diff-1;
 		SELECT DATE_ADD(_date, INTERVAL 1 DAY) INTO _date;
 	END WHILE;
@@ -2271,10 +2262,10 @@ DELIMITER $$
 /*!50003 DROP TRIGGER*//*!50032 IF EXISTS */ /*!50003 `tg_deleteSaleAccessoryDetail` */$$
 
 /*!50003 CREATE */ /*!50017 DEFINER = 'root'@'localhost' */ /*!50003 TRIGGER `tg_deleteSaleAccessoryDetail` AFTER DELETE ON `accessory_sale_detail` FOR EACH ROW BEGIN
-	DECLARE _date_diff, _in_stock_id, _organization_id, _account_id INT DEFAULT 0;
+	DECLARE _date_diff, _in_stock_id, _organization_id INT DEFAULT 0;
 	DECLARE _date DATE;
 	
-	SELECT f.created_date, eo.organization_id, f.account_id INTO _date, _organization_id, _account_id
+	SELECT f.created_date, eo.organization_id INTO _date, _organization_id
 	FROM accessory_sale AS f, employee AS eo
 	WHERE f.id=old.accessory_sale_id AND f.created_employee_id=eo.id;
 	
@@ -2285,13 +2276,6 @@ DELIMITER $$
 		SELECT id INTO _in_stock_id FROM accessory_in_stock WHERE DATEDIFF(`day`,_date)=0 AND organization_id=_organization_id AND accessory_id=old.accessory_id;
 		IF _in_stock_id<>0 THEN
 			UPDATE accessory_in_stock SET in_stock=in_stock + old.quantity WHERE id=_in_stock_id;
-		END IF;
-	
-		SET _in_stock_id=0;
-		-- money_in_stock
-		SELECT id INTO _in_stock_id FROM money_in_stock WHERE DATEDIFF(`day`,_date)=0 AND organization_id=_organization_id AND account_id=_account_id;
-		IF _in_stock_id<>0 THEN
-			UPDATE money_in_stock SET in_stock=in_stock - old.amount WHERE id=_in_stock_id;
 		END IF;
 	
 		SET _date_diff=_date_diff-1;
@@ -2595,10 +2579,10 @@ DELIMITER $$
 /*!50003 DROP TRIGGER*//*!50032 IF EXISTS */ /*!50003 `tg_deleteSaleGoodDetail` */$$
 
 /*!50003 CREATE */ /*!50017 DEFINER = 'root'@'localhost' */ /*!50003 TRIGGER `tg_deleteSaleGoodDetail` AFTER DELETE ON `good_sale_detail` FOR EACH ROW BEGIN
-	DECLARE _date_diff, _in_stock_id, _organization_id, _store_id, _account_id, _customer_id INT DEFAULT 0;
+	DECLARE _date_diff, _in_stock_id, _organization_id, _store_id INT DEFAULT 0;
 	DECLARE _date DATE;
 	
-	SELECT f.created_date, eo.organization_id, f.store_id, f.account_id, f.customer_id INTO _date, _organization_id, _store_id, _account_id, _customer_id
+	SELECT f.created_date, eo.organization_id, f.store_id INTO _date, _organization_id, _store_id
 	FROM good_sale AS f, employee AS eo
 	WHERE f.id=old.good_sale_id AND f.created_employee_id=eo.id;
 	
@@ -2607,24 +2591,8 @@ DELIMITER $$
 		SET _in_stock_id=0;
 		-- good_in_stock
 		SELECT id INTO _in_stock_id FROM good_in_stock WHERE DATEDIFF(`day`,_date)=0 AND organization_id=_organization_id AND good_id=old.good_id AND store_id=_store_id;
-		IF _in_stock_id<>0 THEN
-			UPDATE good_in_stock SET in_stock=in_stock + old.quantity WHERE id=_in_stock_id;
-		END IF;
-	
-		SET _in_stock_id=0;
-		-- money_in_stock
-		SELECT id INTO _in_stock_id FROM money_in_stock WHERE DATEDIFF(`day`,_date)=0 AND organization_id=_organization_id AND account_id=_account_id;
-		IF _in_stock_id<>0 THEN
-			UPDATE money_in_stock SET in_stock=in_stock - old.amount WHERE id=_in_stock_id;
-		END IF;
-	
-		SET _in_stock_id=0;
-		-- customer_in_stock
-		SELECT id INTO _in_stock_id FROM customer_in_stock WHERE DATEDIFF(`day`,_date)=0 AND customer_id=_customer_id;
-		IF _in_stock_id<>0 THEN
-			UPDATE customer_in_stock SET amount=amount - old.amount WHERE id=_in_stock_id;
-		END IF;
-	
+		UPDATE good_in_stock SET in_stock=in_stock + old.quantity WHERE id=_in_stock_id;
+		
 		SET _date_diff=_date_diff-1;
 		SELECT DATE_ADD(_date, INTERVAL 1 DAY) INTO _date;
 	END WHILE;
@@ -2698,39 +2666,23 @@ DELIMITER ;
 
 DELIMITER $$
 
-/*!50003 DROP TRIGGER*//*!50032 IF EXISTS */ /*!50003 `tg_deletePromotionMaterialDetail` */$$
+/*!50003 DROP TRIGGER*//*!50032 IF EXISTS */ /*!50003 `tg_deletePromotionMaterialImportDetail` */$$
 
-/*!50003 CREATE */ /*!50017 DEFINER = 'root'@'localhost' */ /*!50003 TRIGGER `tg_deletePromotionMaterialDetail` AFTER DELETE ON `promotion_material_import_detail` FOR EACH ROW BEGIN
-	DECLARE _date_diff, _in_stock_id, _organization_id, _account_id, _vendor_id INT DEFAULT 0;
+/*!50003 CREATE */ /*!50017 DEFINER = 'root'@'localhost' */ /*!50003 TRIGGER `tg_deletePromotionMaterialImportDetail` AFTER DELETE ON `promotion_material_import_detail` FOR EACH ROW BEGIN
+	DECLARE _date_diff, _in_stock_id, _organization_id INT DEFAULT 0;
 	DECLARE _date DATE;
 	
-	SELECT f.created_date, eo.organization_id, f.account_id, f.vendor_id INTO _date, _organization_id, _account_id, _vendor_id
+	SELECT f.created_date, eo.organization_id INTO _date, _organization_id
 	FROM promotion_material_import AS f, employee AS eo
-	WHERE f.id=old.import_id AND f.created_employee_id=eo.id;
+	WHERE f.id=OLD.import_id AND f.created_employee_id=eo.id;
 	
 	SELECT DATEDIFF(SYSDATE(),_date) INTO _date_diff;
 	WHILE _date_diff>0 DO
 		SET _in_stock_id=0;
 		-- promotion_material_in_stock
-		SELECT id INTO _in_stock_id FROM promotion_material_in_stock WHERE DATEDIFF(`day`,_date)=0 AND organization_id=_organization_id AND promotion_material_id=old.promotion_material_id;
-		IF _in_stock_id<>0 THEN
-			UPDATE promotion_material_in_stock SET in_stock=in_stock - old.quantity WHERE id=_in_stock_id;
-		END IF;
-	
-		SET _in_stock_id=0;
-		-- money_in_stock
-		SELECT id INTO _in_stock_id FROM money_in_stock WHERE DATEDIFF(`day`,_date)=0 AND organization_id=_organization_id AND account_id=_account_id;
-		IF _in_stock_id<>0 THEN
-			UPDATE money_in_stock SET in_stock=in_stock + old.amount WHERE id=_in_stock_id;
-		END IF;
-	
-		SET _in_stock_id=0;
-		-- vendor_in_stock
-		SELECT id INTO _in_stock_id FROM vendor_in_stock WHERE DATEDIFF(`day`,_date)=0 AND organization_id=_organization_id AND vendor_id=_vendor_id;
-		IF _in_stock_id<>0 THEN
-			UPDATE vendor_in_stock SET amount=amount - old.amount WHERE id=_in_stock_id;
-		END IF;
-	
+		SELECT id INTO _in_stock_id FROM promotion_material_in_stock WHERE DATEDIFF(`day`,_date)=0 AND organization_id=_organization_id AND promotion_material_id=OLD.promotion_material_id;
+		UPDATE promotion_material_in_stock SET in_stock=in_stock - OLD.quantity WHERE id=_in_stock_id;
+		
 		SET _date_diff=_date_diff-1;
 		SELECT DATE_ADD(_date, INTERVAL 1 DAY) INTO _date;
 	END WHILE;
@@ -3043,6 +2995,31 @@ DELIMITER $$
 
 /*!50003 CREATE DEFINER=`root`@`localhost` PROCEDURE `deleteAccessoryImport`(IN _id INT)
 BEGIN
+	DECLARE _date_diff, _in_stock_id, _organization_id, _old_vendor_id, _old_account_id INT DEFAULT 0;
+	DECLARE _old_paid, _old_debt DOUBLE DEFAULT 0;
+	DECLARE _date DATE;
+	
+	SELECT f.created_date, eo.organization_id, f.paid, f.debt, f.vendor_id, f.account_id
+	INTO _date, _organization_id, _old_paid, _old_debt, _old_vendor_id, _old_account_id
+	FROM accessory_import AS f, employee AS eo
+	WHERE f.id=_id AND f.created_employee_id=eo.id;
+	
+	SELECT DATEDIFF(SYSDATE(),_date) INTO _date_diff;
+	WHILE _date_diff>0 DO
+		SET _in_stock_id=0;
+		-- vendor_in_stock
+		SELECT id INTO _in_stock_id FROM vendor_in_stock WHERE DATEDIFF(`day`,_date)=0 AND organization_id=_organization_id AND vendor_id=_old_vendor_id;
+		UPDATE vendor_in_stock SET amount=amount - _old_debt WHERE id=_in_stock_id;
+			
+		SET _in_stock_id=0;
+		-- money_in_stock
+		SELECT id INTO _in_stock_id FROM money_in_stock WHERE DATEDIFF(`day`,_date)=0 AND organization_id=_organization_id AND account_id=_old_account_id;
+		UPDATE money_in_stock SET in_stock=in_stock - _old_paid WHERE id=_in_stock_id;
+		
+		SET _date_diff=_date_diff-1;
+		SELECT DATE_ADD(_date, INTERVAL 1 DAY) INTO _date;
+	END WHILE;
+	
 	DELETE FROM accessory_import_detail WHERE accessory_import_id=_id;
 	DELETE FROM accessory_import WHERE id=_id;
     END */$$
@@ -3758,6 +3735,31 @@ DELIMITER $$
 
 /*!50003 CREATE DEFINER=`root`@`localhost` PROCEDURE `deletePromotionMaterialImport`(IN _id INT)
 BEGIN
+	DECLARE _date_diff, _in_stock_id, _organization_id, _old_vendor_id, _old_account_id INT DEFAULT 0;
+	DECLARE _old_paid, _old_debt DOUBLE DEFAULT 0;
+	DECLARE _date DATE;
+	
+	SELECT f.created_date, eo.organization_id, f.paid, f.debt, f.vendor_id, f.account_id
+	INTO _date, _organization_id, _old_paid, _old_debt, _old_vendor_id, _old_account_id
+	FROM promotion_material_import AS f, employee AS eo
+	WHERE f.id=_id AND f.created_employee_id=eo.id;
+	
+	SELECT DATEDIFF(SYSDATE(),_date) INTO _date_diff;
+	WHILE _date_diff>0 DO
+		SET _in_stock_id=0;
+		-- vendor_in_stock
+		SELECT id INTO _in_stock_id FROM vendor_in_stock WHERE DATEDIFF(`day`,_date)=0 AND organization_id=_organization_id AND vendor_id=_old_vendor_id;
+		UPDATE vendor_in_stock SET amount=amount - _old_debt WHERE id=_in_stock_id;
+			
+		SET _in_stock_id=0;
+		-- money_in_stock
+		SELECT id INTO _in_stock_id FROM money_in_stock WHERE DATEDIFF(`day`,_date)=0 AND organization_id=_organization_id AND account_id=_old_account_id;
+		UPDATE money_in_stock SET in_stock=in_stock - _old_paid WHERE id=_in_stock_id;
+		
+		SET _date_diff=_date_diff-1;
+		SELECT DATE_ADD(_date, INTERVAL 1 DAY) INTO _date;
+	END WHILE;
+	
 	DELETE FROM promotion_material_import_detail WHERE import_id=_id;
 	DELETE FROM promotion_material_import WHERE id=_id;
     END */$$
@@ -3771,6 +3773,25 @@ DELIMITER $$
 
 /*!50003 CREATE DEFINER=`root`@`localhost` PROCEDURE `deleteSaleAccessory`(IN _id INT)
 BEGIN
+	DECLARE _date_diff, _in_stock_id, _organization_id, _account_id INT DEFAULT 0;
+	DECLARE _paid DOUBLE DEFAULT 0;
+	DECLARE _date DATE;
+	
+	SELECT f.created_date, eo.organization_id, f.account_id, f.paid INTO _date, _organization_id, _account_id, _paid
+	FROM accessory_sale AS f, employee AS eo
+	WHERE f.id=_id AND f.created_employee_id=eo.id;
+	
+	SELECT DATEDIFF(SYSDATE(),_date) INTO _date_diff;
+	WHILE _date_diff>0 DO
+		SET _in_stock_id=0;
+		-- money_in_stock
+		SELECT id INTO _in_stock_id FROM money_in_stock WHERE DATEDIFF(`day`,_date)=0 AND organization_id=_organization_id AND account_id=_account_id;
+		UPDATE money_in_stock SET in_stock=in_stock - _paid WHERE id=_in_stock_id;
+		
+		SET _date_diff=_date_diff-1;
+		SELECT DATE_ADD(_date, INTERVAL 1 DAY) INTO _date;
+	END WHILE;
+	
 	DELETE FROM accessory_sale_detail WHERE accessory_sale_id=_id;
 	DELETE FROM accessory_sale_change_detail WHERE accessory_sale_id=_id;
 	DELETE FROM accessory_sale WHERE id=_id;
@@ -3785,6 +3806,30 @@ DELIMITER $$
 
 /*!50003 CREATE DEFINER=`root`@`localhost` PROCEDURE `deleteSaleGood`(IN _id INT)
 BEGIN
+	DECLARE _date_diff, _in_stock_id, _organization_id, _account_id, _customer_id INT DEFAULT 0;
+	DECLARE _paid, _debt DOUBLE DEFAULT 0;
+	DECLARE _date DATE;
+	
+	SELECT f.created_date, eo.organization_id, f.account_id, f.customer_id, f.paid, f.debt INTO _date, _organization_id, _account_id, _customer_id, _paid, _debt
+	FROM good_sale AS f, employee AS eo
+	WHERE f.id=_id AND f.created_employee_id=eo.id;
+	
+	SELECT DATEDIFF(SYSDATE(),_date) INTO _date_diff;
+	WHILE _date_diff>0 DO
+		SET _in_stock_id=0;
+		-- money_in_stock
+		SELECT id INTO _in_stock_id FROM money_in_stock WHERE DATEDIFF(`day`,_date)=0 AND organization_id=_organization_id AND account_id=_account_id;
+		UPDATE money_in_stock SET in_stock=in_stock - _paid WHERE id=_in_stock_id;
+		
+		SET _in_stock_id=0;
+		-- customer_in_stock
+		SELECT id INTO _in_stock_id FROM customer_in_stock WHERE DATEDIFF(`day`,_date)=0 AND customer_id=_customer_id;
+		UPDATE customer_in_stock SET amount=amount - _debt WHERE id=_in_stock_id;
+		
+		SET _date_diff=_date_diff-1;
+		SELECT DATE_ADD(_date, INTERVAL 1 DAY) INTO _date;
+	END WHILE;
+	
 	DELETE FROM good_sale_detail WHERE good_sale_id=_id;
 	DELETE FROM good_sale WHERE id=_id;
     END */$$
@@ -4683,6 +4728,37 @@ DELIMITER $$
 /*!50003 CREATE DEFINER=`root`@`localhost` PROCEDURE `insertAccessoryImport`(IN _code VARCHAR(20), IN _created_date VARCHAR(20), IN _vendor_id INT
 	, IN _total DOUBLE, IN _paid DOUBLE, IN _debt DOUBLE, IN _account_id INT, IN _note TEXT, IN _created_employee_id INT, OUT _id INT)
 BEGIN
+	DECLARE _date_diff, _in_stock_id, _organization_id INT DEFAULT 0;
+	DECLARE _date DATE;
+	
+	SELECT STR_TO_DATE(_created_date,'%d/%m/%Y') INTO _date;
+	
+	SELECT eo.organization_id INTO _organization_id FROM employee AS eo WHERE eo.id=_created_employee_id;
+	
+	SELECT DATEDIFF(SYSDATE(),_date) INTO _date_diff;
+	WHILE _date_diff>0 DO
+		SET _in_stock_id=0;
+		-- vendor_in_stock
+		SELECT id INTO _in_stock_id FROM vendor_in_stock WHERE DATEDIFF(`day`,_date)=0 AND organization_id=_organization_id AND vendor_id=_vendor_id;
+		IF _in_stock_id=0 THEN
+			INSERT INTO vendor_in_stock(`day`, organization_id, vendor_id, amount) VALUES (_date, _organization_id, _vendor_id, _debt);
+		ELSE
+			UPDATE vendor_in_stock SET amount=amount + _debt WHERE id=_in_stock_id;
+		END IF;
+	
+		SET _in_stock_id=0;
+		-- money_in_stock
+		SELECT id INTO _in_stock_id FROM money_in_stock WHERE DATEDIFF(`day`,_date)=0 AND organization_id=_organization_id AND account_id=_account_id;	
+		IF _in_stock_id=0 THEN
+			INSERT INTO money_in_stock(`day`, organization_id, account_id, in_stock) VALUES (_date, _organization_id, _account_id, _paid);
+		ELSE
+			UPDATE money_in_stock SET in_stock=in_stock + _paid WHERE id=_in_stock_id;
+		END IF;
+	
+		SET _date_diff=_date_diff-1;
+		SELECT DATE_ADD(_date, INTERVAL 1 DAY) INTO _date;
+	END WHILE;
+	
 	INSERT INTO accessory_import (CODE, created_date, vendor_id, total, paid, debt, account_id, note, created_employee_id)
 	VALUES (_code, STR_TO_DATE(_created_date,'%d/%m/%Y'), _vendor_id, _total, _paid, _debt, _account_id, _note, _created_employee_id);
 	SELECT LAST_INSERT_ID() INTO _id;
@@ -4695,12 +4771,15 @@ DELIMITER ;
 
 DELIMITER $$
 
-/*!50003 CREATE DEFINER=`root`@`localhost` PROCEDURE `insertAccessoryImportDetail`(IN _accessory_import_id INT, IN _accessory_id INT, IN _quantity INT, IN _price DOUBLE, IN _amount DOUBLE)
+/*!50003 CREATE DEFINER=`root`@`localhost` PROCEDURE `insertAccessoryImportDetail`(IN _accessory_import_id INT, IN _accessory_id INT, IN _quantity INT, IN _price DOUBLE
+	, IN _amount DOUBLE, IN _created_date VARCHAR(20))
 BEGIN
-	DECLARE _date_diff, _in_stock_id, _organization_id, _account_id INT DEFAULT 0;
+	DECLARE _date_diff, _in_stock_id, _organization_id INT DEFAULT 0;
 	DECLARE _date DATE;
 	
-	SELECT f.created_date, eo.organization_id, f.account_id INTO _date, _organization_id, _account_id
+	SELECT STR_TO_DATE(_created_date,'%d/%m/%Y') INTO _date;
+	
+	SELECT eo.organization_id INTO _organization_id
 	FROM accessory_import AS f, employee AS eo
 	WHERE f.id=_accessory_import_id AND f.created_employee_id=eo.id;
 	
@@ -4714,16 +4793,6 @@ BEGIN
 		ELSE
 			UPDATE accessory_in_stock SET in_stock=in_stock + _quantity WHERE id=_in_stock_id;
 		END IF;
-	
-		SET _in_stock_id=0;
-		-- money_in_stock
-		SELECT id INTO _in_stock_id FROM money_in_stock WHERE DATEDIFF(`day`,_date)=0 AND organization_id=_organization_id AND account_id=_account_id;
-		IF _in_stock_id=0 THEN
-			INSERT INTO money_in_stock(`day`, organization_id, account_id, in_stock) VALUES (_date, _organization_id, _account_id, -_amount);
-		ELSE
-			UPDATE money_in_stock SET in_stock=in_stock - _amount WHERE id=_in_stock_id;
-		END IF;
-	
 		SET _date_diff=_date_diff-1;
 		SELECT DATE_ADD(_date, INTERVAL 1 DAY) INTO _date;
 	END WHILE;
@@ -6791,6 +6860,37 @@ DELIMITER $$
 /*!50003 CREATE DEFINER=`root`@`localhost` PROCEDURE `insertPromotionMaterialImport`(IN _code VARCHAR(20), IN _created_date VARCHAR(20), IN _vendor_id INT
 	, IN _total DOUBLE, IN _paid DOUBLE, IN _debt DOUBLE, IN _account_id INT, IN _note TEXT, IN _created_employee_id INT, OUT _id INT)
 BEGIN
+	DECLARE _date_diff, _in_stock_id, _organization_id INT DEFAULT 0;
+	DECLARE _date DATE;
+	
+	SELECT STR_TO_DATE(_created_date,'%d/%m/%Y') INTO _date;
+	
+	SELECT eo.organization_id INTO _organization_id FROM employee AS eo WHERE eo.id=_created_employee_id;
+	
+	SELECT DATEDIFF(SYSDATE(),_date) INTO _date_diff;
+	WHILE _date_diff>0 DO
+		SET _in_stock_id=0;
+		-- vendor_in_stock
+		SELECT id INTO _in_stock_id FROM vendor_in_stock WHERE DATEDIFF(`day`,_date)=0 AND organization_id=_organization_id AND vendor_id=_vendor_id;
+		IF _in_stock_id=0 THEN
+			INSERT INTO vendor_in_stock(`day`, organization_id, vendor_id, amount) VALUES (_date, _organization_id, _vendor_id, _debt);
+		ELSE
+			UPDATE vendor_in_stock SET amount=amount + _debt WHERE id=_in_stock_id;
+		END IF;
+	
+		SET _in_stock_id=0;
+		-- money_in_stock
+		SELECT id INTO _in_stock_id FROM money_in_stock WHERE DATEDIFF(`day`,_date)=0 AND organization_id=_organization_id AND account_id=_account_id;
+		IF _in_stock_id=0 THEN
+			INSERT INTO money_in_stock(`day`, organization_id, account_id, in_stock) VALUES (_date, _organization_id, _account_id, _paid);
+		ELSE
+			UPDATE money_in_stock SET in_stock=in_stock + _paid WHERE id=_in_stock_id;
+		END IF;
+	
+		SET _date_diff=_date_diff-1;
+		SELECT DATE_ADD(_date, INTERVAL 1 DAY) INTO _date;
+	END WHILE;
+	
 	INSERT INTO promotion_material_import (CODE, created_date, vendor_id, total, paid, debt, account_id, note, created_employee_id)
 	VALUES (_code, STR_TO_DATE(_created_date,'%d/%m/%Y'), _vendor_id, _total, _paid, _debt, _account_id, _note, _created_employee_id);
 	SELECT LAST_INSERT_ID() INTO _id;
@@ -6803,13 +6903,15 @@ DELIMITER ;
 
 DELIMITER $$
 
-/*!50003 CREATE DEFINER=`root`@`localhost` PROCEDURE `insertPromotionMaterialImportDetail`(IN _promotion_material_import_id INT, IN _promotion_material_id INT, IN _quantity INT, IN _price DOUBLE, IN _amount DOUBLE)
+/*!50003 CREATE DEFINER=`root`@`localhost` PROCEDURE `insertPromotionMaterialImportDetail`(IN _promotion_material_import_id INT, IN _promotion_material_id INT
+	, IN _quantity INT, IN _price DOUBLE, IN _amount DOUBLE, IN _created_date VARCHAR(20))
 BEGIN
-	DECLARE _date_diff, _in_stock_id, _organization_id, _account_id, _vendor_id INT DEFAULT 0;
+	DECLARE _date_diff, _in_stock_id, _organization_id INT DEFAULT 0;
 	DECLARE _date DATE;
 	
-	SELECT f.created_date, eo.organization_id, f.account_id, f.vendor_id INTO _date, _organization_id, _account_id, _vendor_id
-	FROM promotion_material_import AS f, employee AS eo
+	SELECT STR_TO_DATE(_created_date,'%d/%m/%Y') INTO _date;
+	
+	SELECT eo.organization_id INTO _organization_id FROM promotion_material_import AS f, employee AS eo
 	WHERE f.id=_promotion_material_import_id AND f.created_employee_id=eo.id;
 	
 	SELECT DATEDIFF(SYSDATE(),_date) INTO _date_diff;
@@ -6821,24 +6923,6 @@ BEGIN
 			INSERT INTO promotion_material_in_stock(`day`, organization_id, promotion_material_id, in_stock) VALUES (_date, _organization_id, _promotion_material_id, _quantity);
 		ELSE
 			UPDATE promotion_material_in_stock SET in_stock=in_stock + _quantity WHERE id=_in_stock_id;
-		END IF;
-	
-		SET _in_stock_id=0;
-		-- money_in_stock
-		SELECT id INTO _in_stock_id FROM money_in_stock WHERE DATEDIFF(`day`,_date)=0 AND organization_id=_organization_id AND account_id=_account_id;
-		IF _in_stock_id=0 THEN
-			INSERT INTO money_in_stock(`day`, organization_id, account_id, in_stock) VALUES (_date, _organization_id, _account_id, -_amount);
-		ELSE
-			UPDATE money_in_stock SET in_stock=in_stock - _amount WHERE id=_in_stock_id;
-		END IF;
-	
-		SET _in_stock_id=0;
-		-- vendor_in_stock
-		SELECT id INTO _in_stock_id FROM vendor_in_stock WHERE DATEDIFF(`day`,_date)=0 AND organization_id=_organization_id AND vendor_id=_vendor_id;
-		IF _in_stock_id=0 THEN
-			INSERT INTO vendor_in_stock(`day`, organization_id, vendor_id, amount) VALUES (_date, _organization_id, _vendor_id, _amount);
-		ELSE
-			UPDATE vendor_in_stock SET amount=amount + _amount WHERE id=_in_stock_id;
 		END IF;
 	
 		SET _date_diff=_date_diff-1;
@@ -6903,6 +6987,28 @@ DELIMITER $$
 /*!50003 CREATE DEFINER=`root`@`localhost` PROCEDURE `insertSaleAccessory`(IN _code VARCHAR(20), IN _created_date VARCHAR(20), IN _total DOUBLE, IN _paid DOUBLE, IN _debt DOUBLE
 	, IN _discount DOUBLE, IN _total_pay DOUBLE, IN _account_id INT, IN _note TEXT, IN _created_employee_id INT, OUT _id INT)
 BEGIN
+	DECLARE _date_diff, _in_stock_id, _organization_id INT DEFAULT 0;
+	DECLARE _date DATE;
+	
+	SELECT STR_TO_DATE(_created_date,'%d/%m/%Y') INTO _date;
+	
+	SELECT eo.organization_id INTO _organization_id FROM employee AS eo WHERE eo.id=_created_employee_id;
+	
+	SELECT DATEDIFF(SYSDATE(),_date) INTO _date_diff;
+	WHILE _date_diff>0 DO
+		SET _in_stock_id=0;
+		-- money_in_stock
+		SELECT id INTO _in_stock_id FROM money_in_stock WHERE DATEDIFF(`day`,_date)=0 AND organization_id=_organization_id AND account_id=_account_id;
+		IF _in_stock_id=0 THEN
+			INSERT INTO money_in_stock(`day`, organization_id, account_id, in_stock) VALUES (_date, _organization_id, _account_id, _paid);
+		ELSE
+			UPDATE money_in_stock SET in_stock=in_stock + _paid WHERE id=_in_stock_id;
+		END IF;
+	
+		SET _date_diff=_date_diff-1;
+		SELECT DATE_ADD(_date, INTERVAL 1 DAY) INTO _date;
+	END WHILE;
+	
 	INSERT INTO accessory_sale (CODE, created_date, total, paid, debt, discount, total_pay, account_id, note, created_employee_id)
 	VALUES (_code, STR_TO_DATE(_created_date,'%d/%m/%Y'), _total, _paid, _debt, _discount, _total_pay, _account_id, _note, _created_employee_id);
 	SELECT LAST_INSERT_ID() INTO _id;
@@ -6928,14 +7034,15 @@ DELIMITER ;
 
 DELIMITER $$
 
-/*!50003 CREATE DEFINER=`root`@`localhost` PROCEDURE `insertSaleAccessoryDetail`(IN _accessory_sale_id INT, IN _accessory_id INT, IN _quantity INT, IN _price DOUBLE, IN _amount DOUBLE)
+/*!50003 CREATE DEFINER=`root`@`localhost` PROCEDURE `insertSaleAccessoryDetail`(IN _accessory_sale_id INT, IN _accessory_id INT, IN _quantity INT, IN _price DOUBLE
+	, IN _amount DOUBLE, IN _created_date VARCHAR(20))
 BEGIN
-	DECLARE _date_diff, _in_stock_id, _organization_id, _account_id INT DEFAULT 0;
+	DECLARE _date_diff, _in_stock_id, _organization_id INT DEFAULT 0;
 	DECLARE _date DATE;
 	
-	SELECT f.created_date, eo.organization_id, f.account_id INTO _date, _organization_id, _account_id
-	FROM accessory_sale AS f, employee AS eo
-	WHERE f.id=_accessory_sale_id AND f.created_employee_id=eo.id;
+	SELECT STR_TO_DATE(_created_date,'%d/%m/%Y') INTO _date;
+	
+	SELECT eo.organization_id INTO _organization_id	FROM accessory_sale AS f, employee AS eo WHERE f.id=_accessory_sale_id AND f.created_employee_id=eo.id;
 	
 	SELECT DATEDIFF(SYSDATE(),_date) INTO _date_diff;
 	WHILE _date_diff>0 DO
@@ -6943,18 +7050,9 @@ BEGIN
 		-- accessory_in_stock
 		SELECT id INTO _in_stock_id FROM accessory_in_stock WHERE DATEDIFF(`day`,_date)=0 AND organization_id=_organization_id AND accessory_id=_accessory_id;
 		IF _in_stock_id=0 THEN
-			INSERT INTO accessory_in_stock(`day`, organization_id, accessory_id, in_stock) VALUES (_date, _organization_id, _accessory_id, _quantity);
+			INSERT INTO accessory_in_stock(`day`, organization_id, accessory_id, in_stock) VALUES (_date, _organization_id, _accessory_id, -_quantity);
 		ELSE
 			UPDATE accessory_in_stock SET in_stock=in_stock - _quantity WHERE id=_in_stock_id;
-		END IF;
-	
-		SET _in_stock_id=0;
-		-- money_in_stock
-		SELECT id INTO _in_stock_id FROM money_in_stock WHERE DATEDIFF(`day`,_date)=0 AND organization_id=_organization_id AND account_id=_account_id;
-		IF _in_stock_id=0 THEN
-			INSERT INTO money_in_stock(`day`, organization_id, account_id, in_stock) VALUES (_date, _organization_id, _account_id, -_amount);
-		ELSE
-			UPDATE money_in_stock SET in_stock=in_stock + _amount WHERE id=_in_stock_id;
 		END IF;
 	
 		SET _date_diff=_date_diff-1;
@@ -9507,9 +9605,70 @@ DELIMITER ;
 
 DELIMITER $$
 
-/*!50003 CREATE DEFINER=`root`@`localhost` PROCEDURE `updateAccessoryImport`(IN _id INT, IN _total DOUBLE, IN _paid DOUBLE, IN _debt DOUBLE, IN _account_id INT, IN _note TEXT)
+/*!50003 CREATE DEFINER=`root`@`localhost` PROCEDURE `updateAccessoryImport`(IN _id INT, IN _created_date VARCHAR(20), IN _vendor_id INT, IN _total DOUBLE
+	, IN _paid DOUBLE, IN _debt DOUBLE, IN _account_id INT, IN _note TEXT)
 BEGIN
-	UPDATE accessory_import SET total=_total, paid=_paid, debt=_debt, account_id=_account_id, note=_note WHERE id=_id;
+	DECLARE _date_diff, _in_stock_id, _organization_id, _old_vendor_id, _old_account_id INT DEFAULT 0;
+	DECLARE _old_paid, _old_debt DOUBLE DEFAULT 0;
+	DECLARE _date, _old_date DATE;
+	
+	SELECT STR_TO_DATE(_created_date,'%d/%m/%Y') INTO _date;
+	
+	SELECT f.created_date, eo.organization_id, f.paid, f.debt, f.vendor_id, f.account_id
+	INTO _old_date, _organization_id, _old_paid, _old_debt, _old_vendor_id, _old_account_id
+	FROM accessory_import AS f, employee AS eo
+	WHERE f.id=_id AND f.created_employee_id=eo.id;
+	
+	IF _old_date<>_date OR _old_vendor_id<>_vendor_id OR _old_account_id<>_account_id OR _old_debt<>_debt OR _old_paid<>_paid THEN
+		SELECT DATEDIFF(SYSDATE(),_old_date) INTO _date_diff;
+		WHILE _date_diff>0 DO
+			SET _in_stock_id=0;
+			-- vendor_in_stock
+			SELECT id INTO _in_stock_id FROM vendor_in_stock WHERE DATEDIFF(`day`,_old_date)=0 AND organization_id=_organization_id AND vendor_id=_old_vendor_id;
+			UPDATE vendor_in_stock SET amount=amount - _old_debt WHERE id=_in_stock_id;
+			
+			SET _in_stock_id=0;
+			-- money_in_stock
+			SELECT id INTO _in_stock_id FROM money_in_stock WHERE DATEDIFF(`day`,_old_date)=0 AND organization_id=_organization_id AND account_id=_old_account_id;
+			UPDATE money_in_stock SET in_stock=in_stock - _old_paid WHERE id=_in_stock_id;
+			
+			SET _date_diff=_date_diff-1;
+			SELECT DATE_ADD(_old_date, INTERVAL 1 DAY) INTO _old_date;
+		END WHILE;
+		
+		SELECT DATEDIFF(SYSDATE(),_date) INTO _date_diff;
+		WHILE _date_diff>0 DO
+			SET _in_stock_id=0;
+			-- vendor_in_stock
+			SELECT id INTO _in_stock_id FROM vendor_in_stock WHERE DATEDIFF(`day`,_date)=0 AND organization_id=_organization_id AND vendor_id=_vendor_id;
+			IF _in_stock_id=0 THEN
+				INSERT INTO vendor_in_stock(`day`, organization_id, vendor_id, amount) VALUES (_date, _organization_id, _vendor_id, _debt);
+			ELSE
+				UPDATE vendor_in_stock SET amount=amount + _debt WHERE id=_in_stock_id;
+			END IF;
+		
+			SET _in_stock_id=0;
+			-- money_in_stock
+			SELECT id INTO _in_stock_id FROM money_in_stock WHERE DATEDIFF(`day`,_date)=0 AND organization_id=_organization_id AND account_id=_account_id;
+			IF _in_stock_id=0 THEN
+				INSERT INTO money_in_stock(`day`, organization_id, account_id, in_stock) VALUES (_date, _organization_id, _account_id, _paid);
+			ELSE
+				UPDATE money_in_stock SET in_stock=in_stock + _paid WHERE id=_in_stock_id;
+			END IF;
+		
+			SET _date_diff=_date_diff-1;
+			SELECT DATE_ADD(_date, INTERVAL 1 DAY) INTO _date;
+		END WHILE;
+	END IF;
+	
+	UPDATE accessory_import SET total=_total
+		, paid=_paid
+		, debt=_debt
+		, account_id=_account_id
+		, note=_note 
+		, created_date=STR_TO_DATE(_created_date,'%d/%m/%Y')
+		, vendor_id=_vendor_id
+	WHERE id=_id;
     END */$$
 DELIMITER ;
 
@@ -9519,36 +9678,45 @@ DELIMITER ;
 
 DELIMITER $$
 
-/*!50003 CREATE DEFINER=`root`@`localhost` PROCEDURE `updateAccessoryImportDetail`(IN _id INT, IN _quantity INT, IN _price DOUBLE, IN _amount DOUBLE)
+/*!50003 CREATE DEFINER=`root`@`localhost` PROCEDURE `updateAccessoryImportDetail`(IN _id INT, IN _quantity INT, IN _price DOUBLE, IN _amount DOUBLE, IN _created_date VARCHAR(20))
 BEGIN
-	DECLARE _date_diff, _in_stock_id, _organization_id, _account_id, _old_quantity, _accessory_id INT DEFAULT 0;
-	declare _old_amount double default 0;
-	DECLARE _date DATE;
+	DECLARE _date_diff, _in_stock_id, _organization_id, _old_quantity, _accessory_id INT DEFAULT 0;
+	DECLARE _date, _old_date DATE;
 	
-	SELECT f.created_date, eo.organization_id, f.account_id, fdet.accessory_id, fdet.quantity, fdet.amount 
-	INTO _date, _organization_id, _account_id, _accessory_id, _old_quantity, _old_amount
+	SELECT STR_TO_DATE(_created_date,'%d/%m/%Y') INTO _date;
+	
+	SELECT f.created_date, eo.organization_id, fdet.accessory_id, fdet.quantity
+	INTO _old_date, _organization_id, _accessory_id, _old_quantity
 	FROM accessory_import_detail as fdet, accessory_import AS f, employee AS eo
 	WHERE fdet.id=_id and f.id=fdet.accessory_import_id AND f.created_employee_id=eo.id;
 	
-	SELECT DATEDIFF(SYSDATE(),_date) INTO _date_diff;
-	WHILE _date_diff>0 DO
-		SET _in_stock_id=0;
-		-- accessory_in_stock
-		SELECT id INTO _in_stock_id FROM accessory_in_stock WHERE DATEDIFF(`day`,_date)=0 AND organization_id=_organization_id AND accessory_id=_accessory_id;
-		IF _in_stock_id<>0 THEN
-			UPDATE accessory_in_stock SET in_stock=in_stock + (_quantity - _old_quantity) WHERE id=_in_stock_id;
-		END IF;
-	
-		SET _in_stock_id=0;
-		-- money_in_stock
-		SELECT id INTO _in_stock_id FROM money_in_stock WHERE DATEDIFF(`day`,_date)=0 AND organization_id=_organization_id AND account_id=_account_id;
-		IF _in_stock_id<>0 THEN
-			UPDATE money_in_stock SET in_stock=in_stock - (_amount - _old_amount) WHERE id=_in_stock_id;
-		END IF;
-	
-		SET _date_diff=_date_diff-1;
-		SELECT DATE_ADD(_date, INTERVAL 1 DAY) INTO _date;
-	END WHILE;
+	IF _old_date<>_date OR _old_quantity<>_quantity THEN
+		SELECT DATEDIFF(SYSDATE(),_old_date) INTO _date_diff;
+		WHILE _date_diff>0 DO
+			SET _in_stock_id=0;
+			-- accessory_in_stock
+			SELECT id INTO _in_stock_id FROM accessory_in_stock WHERE DATEDIFF(`day`,_old_date)=0 AND organization_id=_organization_id AND accessory_id=_accessory_id;
+			UPDATE accessory_in_stock SET in_stock=in_stock - _old_quantity WHERE id=_in_stock_id;
+			
+			SET _date_diff=_date_diff-1;
+			SELECT DATE_ADD(_old_date, INTERVAL 1 DAY) INTO _old_date;
+		END WHILE;
+		
+		SELECT DATEDIFF(SYSDATE(),_date) INTO _date_diff;
+		WHILE _date_diff>0 DO
+			SET _in_stock_id=0;
+			-- accessory_in_stock
+			SELECT id INTO _in_stock_id FROM accessory_in_stock WHERE DATEDIFF(`day`,_date)=0 AND organization_id=_organization_id AND accessory_id=_accessory_id;
+			IF _in_stock_id=0 THEN
+				INSERT INTO accessory_in_stock(`day`, organization_id, accessory_id, in_stock) VALUES (_date, _organization_id, _accessory_id, _quantity);
+			ELSE
+				UPDATE accessory_in_stock SET in_stock=in_stock + _quantity WHERE id=_in_stock_id;
+			END IF;
+		
+			SET _date_diff=_date_diff-1;
+			SELECT DATE_ADD(_date, INTERVAL 1 DAY) INTO _date;
+		END WHILE;
+	end if;
 	
 	UPDATE accessory_import_detail SET quantity=_quantity, price=_price, amount=_amount WHERE id=_id;
     END */$$
@@ -9597,58 +9765,62 @@ DELIMITER ;
 
 DELIMITER $$
 
-/*!50003 CREATE DEFINER=`root`@`localhost` PROCEDURE `updateDebtVendor`(IN _id INT, IN _vendor_id INT, IN _paid DOUBLE, IN _account_id INT, IN _note TEXT)
+/*!50003 CREATE DEFINER=`root`@`localhost` PROCEDURE `updateDebtVendor`(IN _id INT, IN _vendor_id INT, IN _created_date VARCHAR(20), IN _paid DOUBLE, IN _account_id INT, IN _note TEXT)
 BEGIN
 	DECLARE _date_diff, _organization_id, _in_stock_id, _old_account_id, _old_vendor_id INT DEFAULT 0;
 	DECLARE _old_amount DOUBLE;
-	DECLARE _date DATE;
+	DECLARE _date, _old_date DATE;
 		
+	SELECT STR_TO_DATE(_created_date,'%d/%m/%Y') INTO _date;
+	
 	SELECT s.created_date, eo.organization_id, s.paid, s.account_id, s.vendor_id
-	INTO _date, _organization_id, _old_amount, _old_account_id, _old_vendor_id
+	INTO _old_date, _organization_id, _old_amount, _old_account_id, _old_vendor_id
 	FROM vendor_debt AS s, employee AS eo
 	WHERE s.id=_id AND s.created_employee_id=eo.id;
 	
-	SELECT DATEDIFF(SYSDATE(),_date) INTO _date_diff;
-	WHILE _date_diff>0 DO
-		SET _in_stock_id=0;
-		-- vendor_in_stock
-		SELECT ss.id INTO _in_stock_id
-		FROM vendor_in_stock AS ss
-		WHERE DATEDIFF(ss.`day`,_date)=0 AND ss.organization_id= _organization_id AND ss.vendor_id=_old_vendor_id;
-		IF _in_stock_id<>0 THEN
+	if _old_date<>_date or _old_vendor_id<>_vendor_id or _old_account_id<>_account_id or _old_amount<>_paid then
+		SELECT DATEDIFF(SYSDATE(),_old_date) INTO _date_diff;
+		WHILE _date_diff>0 DO
+			SET _in_stock_id=0;
+			-- vendor_in_stock
+			SELECT id INTO _in_stock_id FROM vendor_in_stock WHERE DATEDIFF(`day`,_old_date)=0 AND organization_id=_organization_id AND vendor_id=_old_vendor_id;
 			UPDATE vendor_in_stock SET amount=amount + _old_amount WHERE id=_in_stock_id;
-		END IF;
-	
-		SET _in_stock_id=0;
-		SELECT id INTO _in_stock_id FROM vendor_in_stock WHERE DATEDIFF(`day`,_date)=0 AND organization_id=_organization_id AND vendor_id=_vendor_id;
-		IF _in_stock_id=0 THEN
-			INSERT INTO vendor_in_stock(`day`, organization_id, vendor_id, amount) VALUES (_date, _organization_id, _vendor_id, -_paid);
-		ELSE
-			UPDATE vendor_in_stock SET amount=amount - _paid WHERE id=_in_stock_id;
-		END IF;
-	
-		SET _in_stock_id=0;
-		-- money_in_stock
-		SELECT id INTO _in_stock_id
-		FROM money_in_stock
-		WHERE DATEDIFF(`day`,_date)=0 AND organization_id=_organization_id AND account_id=_old_account_id;
-		IF _in_stock_id<>0 THEN
+			
+			SET _in_stock_id=0;
+			-- money_in_stock
+			SELECT id INTO _in_stock_id FROM money_in_stock WHERE DATEDIFF(`day`,_old_date)=0 AND organization_id=_organization_id AND account_id=_old_account_id;
 			UPDATE money_in_stock SET in_stock=in_stock + _old_amount WHERE id=_in_stock_id;
-		END IF;
+			
+			SET _date_diff=_date_diff-1;
+			SELECT DATE_ADD(_old_date, INTERVAL 1 DAY) INTO _old_date;
+		END WHILE;
+		
+		SELECT DATEDIFF(SYSDATE(),_date) INTO _date_diff;
+		WHILE _date_diff>0 DO
+			SET _in_stock_id=0;
+			-- vendor_in_stock
+			SELECT id INTO _in_stock_id FROM vendor_in_stock WHERE DATEDIFF(`day`,_date)=0 AND organization_id=_organization_id AND vendor_id=_vendor_id;
+			IF _in_stock_id=0 THEN
+				INSERT INTO vendor_in_stock(`day`, organization_id, vendor_id, amount) VALUES (_date, _organization_id, _vendor_id, -_paid);
+			ELSE
+				UPDATE vendor_in_stock SET amount=amount - _paid WHERE id=_in_stock_id;
+			END IF;
+		
+			SET _in_stock_id=0;
+			-- money_in_stock
+			SELECT id INTO _in_stock_id FROM money_in_stock WHERE DATEDIFF(`day`,_date)=0 AND organization_id=_organization_id AND account_id=_account_id;
+			IF _in_stock_id=0 THEN
+				INSERT INTO money_in_stock(`day`, organization_id, account_id, in_stock) VALUES (_date, _organization_id, _account_id, -_paid);
+			ELSE
+				UPDATE money_in_stock SET in_stock=in_stock - _paid WHERE id=_in_stock_id;
+			END IF;
+		
+			SET _date_diff=_date_diff-1;
+			SELECT DATE_ADD(_date, INTERVAL 1 DAY) INTO _date;
+		END WHILE;
+	end if;
 	
-		SET _in_stock_id=0;
-		SELECT id INTO _in_stock_id FROM money_in_stock WHERE DATEDIFF(`day`,_date)=0 AND organization_id=_organization_id AND account_id=_account_id;
-		IF _in_stock_id=0 THEN
-			INSERT INTO money_in_stock(`day`, organization_id, account_id, in_stock) VALUES (_date, _organization_id, _account_id, -_paid);
-		ELSE
-			UPDATE money_in_stock SET in_stock=in_stock - _paid WHERE id=_in_stock_id;
-		END IF;
-	
-		SET _date_diff=_date_diff-1;
-		SELECT DATE_ADD(_date, INTERVAL 1 DAY) INTO _date;
-	END WHILE;
-	
-	UPDATE vendor_debt SET vendor_id=_vendor_id, paid=_paid, account_id=_account_id, note=_note WHERE id=_id;
+	UPDATE vendor_debt SET vendor_id=_vendor_id, paid=_paid, account_id=_account_id, note=_note, created_date=STR_TO_DATE(_created_date,'%d/%m/%Y') WHERE id=_id;
     END */$$
 DELIMITER ;
 
@@ -9658,58 +9830,62 @@ DELIMITER ;
 
 DELIMITER $$
 
-/*!50003 CREATE DEFINER=`root`@`localhost` PROCEDURE `updateDebtWholesale`(IN _id INT, IN _customer_id INT, IN _paid DOUBLE, IN _account_id INT, IN _note TEXT)
+/*!50003 CREATE DEFINER=`root`@`localhost` PROCEDURE `updateDebtWholesale`(IN _id INT, IN _customer_id INT, IN _created_date VARCHAR(20), IN _paid DOUBLE, IN _account_id INT, IN _note TEXT)
 BEGIN
 	DECLARE _date_diff, _organization_id, _in_stock_id, _old_account_id, _old_customer_id INT DEFAULT 0;
 	DECLARE _old_amount DOUBLE;
-	DECLARE _date DATE;
+	DECLARE _date, _old_date DATE;
+		
+	SELECT STR_TO_DATE(_created_date,'%d/%m/%Y') INTO _date;
 		
 	SELECT s.created_date, eo.organization_id, s.paid, s.account_id, s.customer_id
-	INTO _date, _organization_id, _old_amount, _old_account_id, _old_customer_id
+	INTO _old_date, _organization_id, _old_amount, _old_account_id, _old_customer_id
 	FROM wholesale_debt AS s, employee AS eo
 	WHERE s.id=_id AND s.created_employee_id=eo.id;
 	
-	SELECT DATEDIFF(SYSDATE(),_date) INTO _date_diff;
-	WHILE _date_diff>0 DO
-		SET _in_stock_id=0;
-		-- customer_in_stock
-		SELECT ss.id INTO _in_stock_id
-		FROM customer_in_stock AS ss
-		WHERE DATEDIFF(ss.`day`,_date)=0 AND ss.customer_id=_old_customer_id;
-		IF _in_stock_id<>0 THEN
+	IF _old_date<>_date OR _old_customer_id<>_customer_id OR _old_account_id<>_account_id OR _old_amount<>_paid THEN
+		SELECT DATEDIFF(SYSDATE(),_old_date) INTO _date_diff;
+		WHILE _date_diff>0 DO
+			SET _in_stock_id=0;
+			-- customer_in_stock
+			SELECT id INTO _in_stock_id FROM customer_in_stock WHERE DATEDIFF(`day`,_old_date)=0 AND customer_id=_old_customer_id;
 			UPDATE customer_in_stock SET amount=amount + _old_amount WHERE id=_in_stock_id;
-		END IF;
-	
-		SET _in_stock_id=0;
-		SELECT id INTO _in_stock_id FROM customer_in_stock WHERE DATEDIFF(`day`,_date)=0 AND customer_id=_customer_id;
-		IF _in_stock_id=0 THEN
-			INSERT INTO customer_in_stock(`day`, customer_id, amount) VALUES (_date, _customer_id, -_paid);
-		ELSE
-			UPDATE customer_in_stock SET amount=amount - _paid WHERE id=_in_stock_id;
-		END IF;
-	
-		SET _in_stock_id=0;
-		-- money_in_stock
-		SELECT id INTO _in_stock_id
-		FROM money_in_stock
-		WHERE DATEDIFF(`day`,_date)=0 AND organization_id=_organization_id AND account_id=_old_account_id;
-		IF _in_stock_id<>0 THEN
+			
+			SET _in_stock_id=0;
+			-- money_in_stock
+			SELECT id INTO _in_stock_id FROM money_in_stock WHERE DATEDIFF(`day`,_old_date)=0 AND organization_id=_organization_id AND account_id=_old_account_id;
 			UPDATE money_in_stock SET in_stock=in_stock - _old_amount WHERE id=_in_stock_id;
-		END IF;
+			
+			SET _date_diff=_date_diff-1;
+			SELECT DATE_ADD(_old_date, INTERVAL 1 DAY) INTO _old_date;
+		END WHILE;
 	
-		SET _in_stock_id=0;
-		SELECT id INTO _in_stock_id FROM money_in_stock WHERE DATEDIFF(`day`,_date)=0 AND organization_id=_organization_id AND account_id=_account_id;
-		IF _in_stock_id=0 THEN
-			INSERT INTO money_in_stock(`day`, organization_id, account_id, in_stock) VALUES (_date, _organization_id, _account_id, -_paid);
-		ELSE
-			UPDATE money_in_stock SET in_stock=in_stock + _paid WHERE id=_in_stock_id;
-		END IF;
+		SELECT DATEDIFF(SYSDATE(),_date) INTO _date_diff;
+		WHILE _date_diff>0 DO
+			SET _in_stock_id=0;
+			-- customer_in_stock
+			SELECT id INTO _in_stock_id FROM customer_in_stock WHERE DATEDIFF(`day`,_date)=0 AND customer_id=_customer_id;
+			IF _in_stock_id=0 THEN
+				INSERT INTO customer_in_stock(`day`, customer_id, amount) VALUES (_date, _customer_id, -_paid);
+			ELSE
+				UPDATE customer_in_stock SET amount=amount - _paid WHERE id=_in_stock_id;
+			END IF;
+		
+			SET _in_stock_id=0;
+			-- money_in_stock
+			SELECT id INTO _in_stock_id FROM money_in_stock WHERE DATEDIFF(`day`,_date)=0 AND organization_id=_organization_id AND account_id=_account_id;
+			IF _in_stock_id=0 THEN
+				INSERT INTO money_in_stock(`day`, organization_id, account_id, in_stock) VALUES (_date, _organization_id, _account_id, _paid);
+			ELSE
+				UPDATE money_in_stock SET in_stock=in_stock + _paid WHERE id=_in_stock_id;
+			END IF;
+		
+			SET _date_diff=_date_diff-1;
+			SELECT DATE_ADD(_date, INTERVAL 1 DAY) INTO _date;
+		END WHILE;
+	end if;
 	
-		SET _date_diff=_date_diff-1;
-		SELECT DATE_ADD(_date, INTERVAL 1 DAY) INTO _date;
-	END WHILE;
-	
-	UPDATE wholesale_debt SET customer_id=_customer_id, paid=_paid, account_id=_account_id, note=_note WHERE id=_id;
+	UPDATE wholesale_debt SET customer_id=_customer_id, paid=_paid, account_id=_account_id, note=_note, created_date=STR_TO_DATE(_created_date,'%d/%m/%Y') WHERE id=_id;
     END */$$
 DELIMITER ;
 
@@ -9888,42 +10064,49 @@ DELIMITER ;
 
 DELIMITER $$
 
-/*!50003 CREATE DEFINER=`root`@`localhost` PROCEDURE `updateExpense`(IN _id INT, IN _from_date VARCHAR(20), IN _to_date VARCHAR(20)
+/*!50003 CREATE DEFINER=`root`@`localhost` PROCEDURE `updateExpense`(IN _id INT, IN _created_date VARCHAR(20), IN _from_date VARCHAR(20), IN _to_date VARCHAR(20)
 	, IN _amount DOUBLE, IN _account_id INT, IN _note TEXT, IN _content TEXT, in _is_usually int, in _type int)
 BEGIN
 	declare _f_date, _t_date date;
 	declare _y, _m int;
 	DECLARE _date_diff, _organization_id, _in_stock_id, _old_account_id INT DEFAULT 0;
 	DECLARE _old_amount DOUBLE;
-	DECLARE _date DATE;
+	DECLARE _date, _old_date DATE;
+		
+	SELECT STR_TO_DATE(_created_date,'%d/%m/%Y') INTO _date;
 		
 	SELECT s.created_date, eo.organization_id, s.amount, s.account_id
-	INTO _date, _organization_id, _old_amount, _old_account_id
+	INTO _old_date, _organization_id, _old_amount, _old_account_id
 	FROM expense AS s, employee AS eo
 	WHERE s.id=_id AND s.created_employee_id=eo.id;
 	
-	SELECT DATEDIFF(SYSDATE(),_date) INTO _date_diff;
-	WHILE _date_diff>0 DO
-		SET _in_stock_id=0;
-		-- money_in_stock
-		SELECT id INTO _in_stock_id
-		FROM money_in_stock
-		WHERE DATEDIFF(`day`,_date)=0 AND organization_id=_organization_id AND account_id=_old_account_id;
-		IF _in_stock_id<>0 THEN
+	IF _old_date<>_date OR _old_account_id<>_account_id OR _old_amount<>_amount THEN
+		SELECT DATEDIFF(SYSDATE(),_old_date) INTO _date_diff;
+		WHILE _date_diff>0 DO
+			SET _in_stock_id=0;
+			-- money_in_stock
+			SELECT id INTO _in_stock_id FROM money_in_stock WHERE DATEDIFF(`day`,_old_date)=0 AND organization_id=_organization_id AND account_id=_old_account_id;
 			UPDATE money_in_stock SET in_stock=in_stock + _old_amount WHERE id=_in_stock_id;
-		END IF;
+			
+			SET _date_diff=_date_diff-1;
+			SELECT DATE_ADD(_old_date, INTERVAL 1 DAY) INTO _old_date;
+		END WHILE;
 	
-		SET _in_stock_id=0;
-		SELECT id INTO _in_stock_id FROM money_in_stock WHERE DATEDIFF(`day`,_date)=0 AND organization_id=_organization_id AND account_id=_account_id;
-		IF _in_stock_id=0 THEN
-			INSERT INTO money_in_stock(`day`, organization_id, account_id, in_stock) VALUES (_date, _organization_id, _account_id, -_amount);
-		ELSE
-			UPDATE money_in_stock SET in_stock=in_stock - _amount WHERE id=_in_stock_id;
-		END IF;
-	
-		SET _date_diff=_date_diff-1;
-		SELECT DATE_ADD(_date, INTERVAL 1 DAY) INTO _date;
-	END WHILE;
+		SELECT DATEDIFF(SYSDATE(),_date) INTO _date_diff;
+		WHILE _date_diff>0 DO
+			SET _in_stock_id=0;
+			-- money_in_stock
+			SELECT id INTO _in_stock_id FROM money_in_stock WHERE DATEDIFF(`day`,_date)=0 AND organization_id=_organization_id AND account_id=_account_id;
+			IF _in_stock_id=0 THEN
+				INSERT INTO money_in_stock(`day`, organization_id, account_id, in_stock) VALUES (_date, _organization_id, _account_id, -_amount);
+			ELSE
+				UPDATE money_in_stock SET in_stock=in_stock - _amount WHERE id=_in_stock_id;
+			END IF;
+		
+			SET _date_diff=_date_diff-1;
+			SELECT DATE_ADD(_date, INTERVAL 1 DAY) INTO _date;
+		END WHILE;
+	end if;
 	
 	set _f_date = STR_TO_DATE(_from_date,'%d/%m/%Y');
 	SET _t_date = STR_TO_DATE(_to_date,'%d/%m/%Y');
@@ -9940,6 +10123,7 @@ BEGIN
 		, content=_content
 		, is_usually=_is_usually
 		, `type`=_type
+		, created_date=STR_TO_DATE(_created_date,'%d/%m/%Y')
 	WHERE id=_id;
     END */$$
 DELIMITER ;
@@ -10893,41 +11077,48 @@ DELIMITER ;
 
 DELIMITER $$
 
-/*!50003 CREATE DEFINER=`root`@`localhost` PROCEDURE `updateIncome`(IN _id INT, IN _amount DOUBLE, IN _account_id INT, IN _note TEXT, IN _content TEXT, in _type int)
+/*!50003 CREATE DEFINER=`root`@`localhost` PROCEDURE `updateIncome`(IN _id INT, IN _created_date VARCHAR(20), IN _amount DOUBLE, IN _account_id INT, IN _note TEXT, IN _content TEXT, in _type int)
 BEGIN
 	DECLARE _date_diff, _organization_id, _in_stock_id, _old_account_id INT DEFAULT 0;
 	DECLARE _old_amount DOUBLE;
-	DECLARE _date DATE;
+	DECLARE _date, _old_date DATE;
+		
+	SELECT STR_TO_DATE(_created_date,'%d/%m/%Y') INTO _date;
 		
 	SELECT s.created_date, eo.organization_id, s.amount, s.account_id
-	INTO _date, _organization_id, _old_amount, _old_account_id
+	INTO _old_date, _organization_id, _old_amount, _old_account_id
 	FROM income AS s, employee AS eo
 	WHERE s.id=_id AND s.created_employee_id=eo.id;
 	
-	SELECT DATEDIFF(SYSDATE(),_date) INTO _date_diff;
-	WHILE _date_diff>0 DO
-		SET _in_stock_id=0;
-		-- money_in_stock
-		SELECT id INTO _in_stock_id
-		FROM money_in_stock
-		WHERE DATEDIFF(`day`,_date)=0 AND organization_id=_organization_id AND account_id=_old_account_id;
-		IF _in_stock_id<>0 THEN
+	if _old_date<>_date or _old_account_id<>_account_id or _old_amount<>_amount then
+		SELECT DATEDIFF(SYSDATE(),_old_date) INTO _date_diff;
+		WHILE _date_diff>0 DO
+			SET _in_stock_id=0;
+			-- money_in_stock
+			SELECT id INTO _in_stock_id FROM money_in_stock WHERE DATEDIFF(`day`,_old_date)=0 AND organization_id=_organization_id AND account_id=_old_account_id;
 			UPDATE money_in_stock SET in_stock=in_stock - _old_amount WHERE id=_in_stock_id;
-		END IF;
+			
+			SET _date_diff=_date_diff-1;
+			SELECT DATE_ADD(_old_date, INTERVAL 1 DAY) INTO _old_date;
+		END WHILE;
 	
-		SET _in_stock_id=0;
-		SELECT id INTO _in_stock_id FROM money_in_stock WHERE DATEDIFF(`day`,_date)=0 AND organization_id=_organization_id AND account_id=_account_id;
-		IF _in_stock_id=0 THEN
-			INSERT INTO money_in_stock(`day`, organization_id, account_id, in_stock) VALUES (_date, _organization_id, _account_id, -_amount);
-		ELSE
-			UPDATE money_in_stock SET in_stock=in_stock + _amount WHERE id=_in_stock_id;
-		END IF;
+		SELECT DATEDIFF(SYSDATE(),_date) INTO _date_diff;
+		WHILE _date_diff>0 DO
+			SET _in_stock_id=0;
+			-- money_in_stock
+			SELECT id INTO _in_stock_id FROM money_in_stock WHERE DATEDIFF(`day`,_date)=0 AND organization_id=_organization_id AND account_id=_account_id;
+			IF _in_stock_id=0 THEN
+				INSERT INTO money_in_stock(`day`, organization_id, account_id, in_stock) VALUES (_date, _organization_id, _account_id, _amount);
+			ELSE
+				UPDATE money_in_stock SET in_stock=in_stock + _amount WHERE id=_in_stock_id;
+			END IF;
+		
+			SET _date_diff=_date_diff-1;
+			SELECT DATE_ADD(_date, INTERVAL 1 DAY) INTO _date;
+		END WHILE;
+	end if;
 	
-		SET _date_diff=_date_diff-1;
-		SELECT DATE_ADD(_date, INTERVAL 1 DAY) INTO _date;
-	END WHILE;
-	
-	UPDATE income SET amount=_amount, account_id=_account_id, note=_note, content=_content, `type`=_type WHERE id=_id;
+	UPDATE income SET amount=_amount, account_id=_account_id, note=_note, content=_content, `type`=_type, created_date=STR_TO_DATE(_created_date,'%d/%m/%Y') WHERE id=_id;
     END */$$
 DELIMITER ;
 
@@ -11329,9 +11520,70 @@ DELIMITER ;
 
 DELIMITER $$
 
-/*!50003 CREATE DEFINER=`root`@`localhost` PROCEDURE `updatePromotionMaterialImport`(IN _id INT, IN _total DOUBLE, IN _paid DOUBLE, IN _debt DOUBLE, IN _account_id INT, IN _note TEXT)
+/*!50003 CREATE DEFINER=`root`@`localhost` PROCEDURE `updatePromotionMaterialImport`(IN _id INT, IN _created_date VARCHAR(20), IN _vendor_id INT, IN _total DOUBLE
+	, IN _paid DOUBLE, IN _debt DOUBLE, IN _account_id INT, IN _note TEXT)
 BEGIN
-	UPDATE promotion_material_import SET total=_total, paid=_paid, debt=_debt, account_id=_account_id, note=_note WHERE id=_id;
+	DECLARE _date_diff, _in_stock_id, _organization_id, _old_vendor_id, _old_account_id INT DEFAULT 0;
+	DECLARE _old_paid, _old_debt DOUBLE DEFAULT 0;
+	DECLARE _date, _old_date DATE;
+	
+	SELECT STR_TO_DATE(_created_date,'%d/%m/%Y') INTO _date;
+	
+	SELECT f.created_date, eo.organization_id, f.paid, f.debt, f.vendor_id, f.account_id
+	INTO _old_date, _organization_id, _old_paid, _old_debt, _old_vendor_id, _old_account_id
+	FROM promotion_material_import AS f, employee AS eo
+	WHERE f.id=_id AND f.created_employee_id=eo.id;
+	
+	IF _old_date<>_date OR _old_vendor_id<>_vendor_id OR _old_account_id<>_account_id OR _old_debt<>_debt OR _old_paid<>_paid THEN
+		SELECT DATEDIFF(SYSDATE(),_old_date) INTO _date_diff;
+		WHILE _date_diff>0 DO
+			SET _in_stock_id=0;
+			-- vendor_in_stock
+			SELECT id INTO _in_stock_id FROM vendor_in_stock WHERE DATEDIFF(`day`,_old_date)=0 AND organization_id=_organization_id AND vendor_id=_old_vendor_id;
+			UPDATE vendor_in_stock SET amount=amount - _old_debt WHERE id=_in_stock_id;
+			
+			SET _in_stock_id=0;
+			-- money_in_stock
+			SELECT id INTO _in_stock_id FROM money_in_stock WHERE DATEDIFF(`day`,_old_date)=0 AND organization_id=_organization_id AND account_id=_old_account_id;
+			UPDATE money_in_stock SET in_stock=in_stock - _old_paid WHERE id=_in_stock_id;
+			
+			SET _date_diff=_date_diff-1;
+			SELECT DATE_ADD(_old_date, INTERVAL 1 DAY) INTO _old_date;
+		END WHILE;
+		
+		SELECT DATEDIFF(SYSDATE(),_date) INTO _date_diff;
+		WHILE _date_diff>0 DO
+			SET _in_stock_id=0;
+			-- vendor_in_stock
+			SELECT id INTO _in_stock_id FROM vendor_in_stock WHERE DATEDIFF(`day`,_date)=0 AND organization_id=_organization_id AND vendor_id=_vendor_id;
+			IF _in_stock_id=0 THEN
+				INSERT INTO vendor_in_stock(`day`, organization_id, vendor_id, amount) VALUES (_date, _organization_id, _vendor_id, _debt);
+			ELSE
+				UPDATE vendor_in_stock SET amount=amount + _debt WHERE id=_in_stock_id;
+			END IF;
+		
+			SET _in_stock_id=0;
+			-- money_in_stock
+			SELECT id INTO _in_stock_id FROM money_in_stock WHERE DATEDIFF(`day`,_date)=0 AND organization_id=_organization_id AND account_id=_account_id;
+			IF _in_stock_id=0 THEN
+				INSERT INTO money_in_stock(`day`, organization_id, account_id, in_stock) VALUES (_date, _organization_id, _account_id, _paid);
+			ELSE
+				UPDATE money_in_stock SET in_stock=in_stock + _paid WHERE id=_in_stock_id;
+			END IF;
+		
+			SET _date_diff=_date_diff-1;
+			SELECT DATE_ADD(_date, INTERVAL 1 DAY) INTO _date;
+		END WHILE;
+	END IF;
+	
+	UPDATE promotion_material_import SET total=_total
+		, paid=_paid
+		, debt=_debt
+		, account_id=_account_id
+		, note=_note 
+		, vendor_id=_vendor_id
+		, created_date=STR_TO_DATE(_created_date,'%d/%m/%Y')
+	WHERE id=_id;
     END */$$
 DELIMITER ;
 
@@ -11341,43 +11593,45 @@ DELIMITER ;
 
 DELIMITER $$
 
-/*!50003 CREATE DEFINER=`root`@`localhost` PROCEDURE `updatePromotionMaterialImportDetail`(IN _id INT, IN _quantity INT, IN _price DOUBLE, IN _amount DOUBLE)
+/*!50003 CREATE DEFINER=`root`@`localhost` PROCEDURE `updatePromotionMaterialImportDetail`(IN _id INT, IN _quantity INT, IN _price DOUBLE, IN _amount DOUBLE, IN _created_date VARCHAR(20))
 BEGIN
-	DECLARE _date_diff, _in_stock_id, _organization_id, _account_id, _vendor_id, _old_quantity, _promotion_material_id INT DEFAULT 0;
-	declare _old_amount double default 0;
-	DECLARE _date DATE;
+	DECLARE _date_diff, _in_stock_id, _organization_id, _old_quantity, _promotion_material_id INT DEFAULT 0;
+	DECLARE _date, _old_date DATE;
 	
-	SELECT f.created_date, eo.organization_id, f.account_id, f.vendor_id, fdet.promotion_material_id, fdet.quantity, fdet.amount
-	INTO _date, _organization_id, _account_id, _vendor_id, _promotion_material_id, _old_quantity, _old_amount
+	SELECT STR_TO_DATE(_created_date,'%d/%m/%Y') INTO _date;
+	
+	SELECT f.created_date, eo.organization_id, fdet.promotion_material_id, fdet.quantity
+	INTO _old_date, _organization_id, _promotion_material_id, _old_quantity
 	FROM promotion_material_import_detail AS fdet, promotion_material_import AS f, employee AS eo
 	WHERE fdet.id=_id AND f.id=fdet.import_id AND f.created_employee_id=eo.id;
 	
-	SELECT DATEDIFF(SYSDATE(),_date) INTO _date_diff;
-	WHILE _date_diff>0 DO
-		SET _in_stock_id=0;
-		-- promotion_material_in_stock
-		SELECT id INTO _in_stock_id FROM promotion_material_in_stock WHERE DATEDIFF(`day`,_date)=0 AND organization_id=_organization_id AND promotion_material_id=_promotion_material_id;
-		IF _in_stock_id<>0 THEN
-			UPDATE promotion_material_in_stock SET in_stock=in_stock + (_quantity - _old_quantity) WHERE id=_in_stock_id;
-		END IF;
+	if _old_date<>_date or _old_quantity<>_quantity then
+		SELECT DATEDIFF(SYSDATE(),_old_date) INTO _date_diff;
+		WHILE _date_diff>0 DO
+			SET _in_stock_id=0;
+			-- promotion_material_in_stock
+			SELECT id INTO _in_stock_id FROM promotion_material_in_stock WHERE DATEDIFF(`day`,_old_date)=0 AND organization_id=_organization_id AND promotion_material_id=_promotion_material_id;
+			UPDATE promotion_material_in_stock SET in_stock=in_stock - _old_quantity WHERE id=_in_stock_id;
+			
+			SET _date_diff=_date_diff-1;
+			SELECT DATE_ADD(_old_date, INTERVAL 1 DAY) INTO _old_date;
+		END WHILE;
 	
-		SET _in_stock_id=0;
-		-- money_in_stock
-		SELECT id INTO _in_stock_id FROM money_in_stock WHERE DATEDIFF(`day`,_date)=0 AND organization_id=_organization_id AND account_id=_account_id;
-		IF _in_stock_id<>0 THEN
-			UPDATE money_in_stock SET in_stock=in_stock - (_amount - _old_amount) WHERE id=_in_stock_id;
-		END IF;
-	
-		SET _in_stock_id=0;
-		-- vendor_in_stock
-		SELECT id INTO _in_stock_id FROM vendor_in_stock WHERE DATEDIFF(`day`,_date)=0 AND organization_id=_organization_id AND vendor_id=_vendor_id;
-		IF _in_stock_id<>0 THEN
-			UPDATE vendor_in_stock SET amount=amount + (_amount - _old_amount) WHERE id=_in_stock_id;
-		END IF;
-	
-		SET _date_diff=_date_diff-1;
-		SELECT DATE_ADD(_date, INTERVAL 1 DAY) INTO _date;
-	END WHILE;
+		SELECT DATEDIFF(SYSDATE(),_date) INTO _date_diff;
+		WHILE _date_diff>0 DO
+			SET _in_stock_id=0;
+			-- promotion_material_in_stock
+			SELECT id INTO _in_stock_id FROM promotion_material_in_stock WHERE DATEDIFF(`day`,_date)=0 AND organization_id=_organization_id AND promotion_material_id=_promotion_material_id;
+			IF _in_stock_id=0 THEN
+				INSERT INTO promotion_material_in_stock(`day`, organization_id, promotion_material_id, in_stock) VALUES (_date, _organization_id, _promotion_material_id, _quantity);
+			ELSE
+				UPDATE promotion_material_in_stock SET in_stock=in_stock + _quantity WHERE id=_in_stock_id;
+			END IF;
+		
+			SET _date_diff=_date_diff-1;
+			SELECT DATE_ADD(_date, INTERVAL 1 DAY) INTO _date;
+		END WHILE;
+	end if;
 	
 	UPDATE promotion_material_import_detail SET quantity=_quantity, price=_price, amount=_amount WHERE id=_id;
     END */$$
@@ -11413,8 +11667,46 @@ DELIMITER ;
 
 DELIMITER $$
 
-/*!50003 CREATE DEFINER=`root`@`localhost` PROCEDURE `updateSaleAccessory`(IN _id INT, IN _total DOUBLE, IN _paid DOUBLE, IN _debt DOUBLE, IN _discount DOUBLE, IN _total_pay DOUBLE, IN _account_id INT, IN _note TEXT)
+/*!50003 CREATE DEFINER=`root`@`localhost` PROCEDURE `updateSaleAccessory`(IN _id INT, IN _created_date VARCHAR(20), IN _total DOUBLE, IN _paid DOUBLE, IN _debt DOUBLE
+	, IN _discount DOUBLE, IN _total_pay DOUBLE, IN _account_id INT, IN _note TEXT)
 BEGIN
+	DECLARE _date_diff, _in_stock_id, _organization_id, _old_account_id INT DEFAULT 0;
+	DECLARE _old_paid DOUBLE DEFAULT 0;
+	DECLARE _date, _old_date DATE;
+	
+	SELECT STR_TO_DATE(_created_date,'%d/%m/%Y') INTO _date;
+	
+	SELECT f.created_date, eo.organization_id, f.account_id, f.paid
+	INTO _old_date, _organization_id, _old_account_id, _old_paid
+	FROM accessory_sale AS f, employee AS eo
+	WHERE f.id=_id AND f.created_employee_id=eo.id;
+	
+	IF _old_date<>_date OR _old_account_id<>_account_id OR _old_paid<>_paid THEN
+		SELECT DATEDIFF(SYSDATE(),_old_date) INTO _date_diff;
+		WHILE _date_diff>0 DO
+			SET _in_stock_id=0;
+			-- money_in_stock
+			SELECT id INTO _in_stock_id FROM money_in_stock WHERE DATEDIFF(`day`,_old_date)=0 AND organization_id=_organization_id AND account_id=_old_account_id;
+			UPDATE money_in_stock SET in_stock=in_stock - _old_paid WHERE id=_in_stock_id;
+			SET _date_diff=_date_diff-1;
+			SELECT DATE_ADD(_old_date, INTERVAL 1 DAY) INTO _old_date;
+		END WHILE;
+		
+		SELECT DATEDIFF(SYSDATE(),_date) INTO _date_diff;
+		WHILE _date_diff>0 DO
+			SET _in_stock_id=0;
+			-- money_in_stock
+			SELECT id INTO _in_stock_id FROM money_in_stock WHERE DATEDIFF(`day`,_date)=0 AND organization_id=_organization_id AND account_id=_account_id;
+			IF _in_stock_id=0 THEN
+				INSERT INTO money_in_stock(`day`, organization_id, account_id, in_stock) VALUES (_date, _organization_id, _account_id, _paid);
+			ELSE
+				UPDATE money_in_stock SET in_stock=in_stock + _paid WHERE id=_in_stock_id;
+			END IF;
+			SET _date_diff=_date_diff-1;
+			SELECT DATE_ADD(_date, INTERVAL 1 DAY) INTO _date;
+		END WHILE;
+	END IF;
+	
 	UPDATE accessory_sale SET total=_total
 		, paid=_paid
 		, debt=_debt
@@ -11422,6 +11714,7 @@ BEGIN
 		, total_pay=_total_pay
 		, account_id=_account_id
 		, note=_note
+		, created_date=STR_TO_DATE(_created_date,'%d/%m/%Y')
 	WHERE id=_id;
     END */$$
 DELIMITER ;
@@ -11444,36 +11737,45 @@ DELIMITER ;
 
 DELIMITER $$
 
-/*!50003 CREATE DEFINER=`root`@`localhost` PROCEDURE `updateSaleAccessoryDetail`(IN _id INT, IN _quantity INT, IN _price DOUBLE, IN _amount DOUBLE)
+/*!50003 CREATE DEFINER=`root`@`localhost` PROCEDURE `updateSaleAccessoryDetail`(IN _id INT, IN _quantity INT, IN _price DOUBLE, IN _amount DOUBLE, IN _created_date VARCHAR(20))
 BEGIN
-	DECLARE _date_diff, _in_stock_id, _organization_id, _account_id, _old_quantity, _accessory_id INT DEFAULT 0;
-	declare _old_amount double default 0;
-	DECLARE _date DATE;
+	DECLARE _date_diff, _in_stock_id, _organization_id, _old_quantity, _accessory_id INT DEFAULT 0;
+	DECLARE _date, _old_date DATE;
 	
-	SELECT f.created_date, eo.organization_id, f.account_id, fdet.accessory_id, fdet.quantity, fdet.amount 
-	INTO _date, _organization_id, _account_id, _accessory_id, _old_quantity, _old_amount
+	SELECT STR_TO_DATE(_created_date,'%d/%m/%Y') INTO _date;
+	
+	SELECT f.created_date, eo.organization_id, fdet.accessory_id, fdet.quantity
+	INTO _old_date, _organization_id, _accessory_id, _old_quantity
 	FROM accessory_sale_detail as fdet, accessory_sale AS f, employee AS eo
 	WHERE fdet.id=_id and f.id=fdet.accessory_sale_id AND f.created_employee_id=eo.id;
 	
-	SELECT DATEDIFF(SYSDATE(),_date) INTO _date_diff;
-	WHILE _date_diff>0 DO
-		SET _in_stock_id=0;
-		-- accessory_in_stock
-		SELECT id INTO _in_stock_id FROM accessory_in_stock WHERE DATEDIFF(`day`,_date)=0 AND organization_id=_organization_id AND accessory_id=_accessory_id;
-		IF _in_stock_id<>0 THEN
-			UPDATE accessory_in_stock SET in_stock=in_stock - (_quantity - _old_quantity) WHERE id=_in_stock_id;
-		END IF;
+	IF _old_date<>_date OR _old_quantity<>_quantity THEN
+		SELECT DATEDIFF(SYSDATE(),_old_date) INTO _date_diff;
+		WHILE _date_diff>0 DO
+			SET _in_stock_id=0;
+			-- accessory_in_stock
+			SELECT id INTO _in_stock_id FROM accessory_in_stock WHERE DATEDIFF(`day`,_old_date)=0 AND organization_id=_organization_id AND accessory_id=_accessory_id;
+			UPDATE accessory_in_stock SET in_stock=in_stock + _old_quantity WHERE id=_in_stock_id;
+			
+			SET _date_diff=_date_diff-1;
+			SELECT DATE_ADD(_old_date, INTERVAL 1 DAY) INTO _old_date;
+		END WHILE;
 	
-		SET _in_stock_id=0;
-		-- money_in_stock
-		SELECT id INTO _in_stock_id FROM money_in_stock WHERE DATEDIFF(`day`,_date)=0 AND organization_id=_organization_id AND account_id=_account_id;
-		IF _in_stock_id<>0 THEN
-			UPDATE money_in_stock SET in_stock=in_stock + (_amount - _old_amount) WHERE id=_in_stock_id;
+		SELECT DATEDIFF(SYSDATE(),_date) INTO _date_diff;
+		WHILE _date_diff>0 DO
+			SET _in_stock_id=0;
+			-- accessory_in_stock
+			SELECT id INTO _in_stock_id FROM accessory_in_stock WHERE DATEDIFF(`day`,_date)=0 AND organization_id=_organization_id AND accessory_id=_accessory_id;
+			IF _in_stock_id=0 THEN
+			INSERT INTO accessory_in_stock(`day`, organization_id, accessory_id, in_stock) VALUES (_date, _organization_id, _accessory_id, -_quantity);
+		ELSE
+			UPDATE accessory_in_stock SET in_stock=in_stock - _quantity WHERE id=_in_stock_id;
 		END IF;
-	
-		SET _date_diff=_date_diff-1;
-		SELECT DATE_ADD(_date, INTERVAL 1 DAY) INTO _date;
-	END WHILE;
+		
+			SET _date_diff=_date_diff-1;
+			SELECT DATE_ADD(_date, INTERVAL 1 DAY) INTO _date;
+		END WHILE;
+	end if;
 	
 	UPDATE accessory_sale_detail SET quantity=_quantity, price=_price, amount=_amount WHERE id=_id;
     END */$$
