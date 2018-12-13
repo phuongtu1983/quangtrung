@@ -4172,10 +4172,11 @@ function getPetroImport(id) {
         if (id == 0) {
             var currentDate = getCurrentDate();
             document.forms['petroImportForm'].petroImportCreatedDate.value = currentDate;
-            var myCalendar = new dhtmlXCalendarObject(["petroImportCreatedDate"]);
-            myCalendar.setSkin('dhx_web');
-            myCalendar.setDateFormat("%d/%m/%Y");
         }
+        var myCalendar = new dhtmlXCalendarObject(["petroImportCreatedDate"]);
+        myCalendar.setSkin('dhx_web');
+        myCalendar.setDateFormat("%d/%m/%Y");
+
         tryNumberFormatCurrentcy(document.forms['petroImportForm'].total, "VND");
         tryNumberFormatCurrentcy(document.forms['petroImportForm'].paid, "VND");
         tryNumberFormatCurrentcy(document.forms['petroImportForm'].debt, "VND");
@@ -5633,10 +5634,11 @@ function getSalePetro(id) {
         if (id == 0) {
             var currentDate = getCurrentDate();
             document.forms['salePetroForm'].salePetroCreatedDate.value = currentDate;
-            var myCalendar = new dhtmlXCalendarObject(["salePetroCreatedDate"]);
-            myCalendar.setSkin('dhx_web');
-            myCalendar.setDateFormat("%d/%m/%Y");
         }
+        var myCalendar = new dhtmlXCalendarObject(["salePetroCreatedDate"]);
+        myCalendar.setSkin('dhx_web');
+        myCalendar.setDateFormat("%d/%m/%Y");
+
         tryNumberFormatCurrentcy(document.forms['salePetroForm'].total, "VND");
         tryNumberFormatCurrentcy(document.forms['salePetroForm'].paid, "VND");
         tryNumberFormatCurrentcy(document.forms['salePetroForm'].debt, "VND");
@@ -9781,10 +9783,11 @@ function getGoodImport(id) {
         if (id == 0) {
             var currentDate = getCurrentDate();
             document.forms['goodImportForm'].goodImportCreatedDate.value = currentDate;
-            var myCalendar = new dhtmlXCalendarObject(["goodImportCreatedDate"]);
-            myCalendar.setSkin('dhx_web');
-            myCalendar.setDateFormat("%d/%m/%Y");
         }
+        var myCalendar = new dhtmlXCalendarObject(["goodImportCreatedDate"]);
+        myCalendar.setSkin('dhx_web');
+        myCalendar.setDateFormat("%d/%m/%Y");
+
         tryNumberFormatCurrentcy(document.forms['goodImportForm'].total, "VND");
         tryNumberFormatCurrentcy(document.forms['goodImportForm'].paid, "VND");
         tryNumberFormatCurrentcy(document.forms['goodImportForm'].debt, "VND");
@@ -9962,10 +9965,12 @@ function getSaleGood(id) {
         if (id == 0) {
             var currentDate = getCurrentDate();
             document.forms['saleGoodForm'].saleGoodCreatedDate.value = currentDate;
-            var myCalendar = new dhtmlXCalendarObject(["saleGoodCreatedDate"]);
-            myCalendar.setSkin('dhx_web');
-            myCalendar.setDateFormat("%d/%m/%Y");
         }
+
+        var myCalendar = new dhtmlXCalendarObject(["saleGoodCreatedDate"]);
+        myCalendar.setSkin('dhx_web');
+        myCalendar.setDateFormat("%d/%m/%Y");
+
         tryNumberFormatCurrentcy(document.forms['saleGoodForm'].total, "VND");
         tryNumberFormatCurrentcy(document.forms['saleGoodForm'].paid, "VND");
         tryNumberFormatCurrentcy(document.forms['saleGoodForm'].debt, "VND");

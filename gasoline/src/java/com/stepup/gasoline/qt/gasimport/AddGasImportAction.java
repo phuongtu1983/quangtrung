@@ -5,6 +5,7 @@
 package com.stepup.gasoline.qt.gasimport;
 
 import com.stepup.core.util.NumberUtil;
+import com.stepup.core.util.StringUtil;
 import com.stepup.gasoline.qt.bean.GasImportBean;
 import com.stepup.gasoline.qt.bean.GasImportDetailBean;
 import com.stepup.gasoline.qt.core.SpineAction;
@@ -53,6 +54,11 @@ public class AddGasImportAction extends SpineAction {
             bean = new GasImportBean();
         }
 
+        boolean needUpdate = false;
+        if (StringUtil.isEqual(bean.getCreatedDate(), formBean.getCreatedDate())) {
+            needUpdate = true;
+        }
+
         bean.setId(formBean.getId());
         bean.setCreatedDate(formBean.getCreatedDate());
         bean.setCode(formBean.getCode());
@@ -69,9 +75,9 @@ public class AddGasImportAction extends SpineAction {
             if (bNew) {
                 int id = gasDAO.insertGasImport(bean);
                 formBean.setId(id);
-                addGasImportShell(formBean);
+                addGasImportShell(formBean, needUpdate);
             } else {
-                addGasImportShell(formBean);
+                addGasImportShell(formBean, needUpdate);
                 gasDAO.updateGasImport(bean);
             }
         } catch (Exception ex) {
@@ -79,7 +85,7 @@ public class AddGasImportAction extends SpineAction {
         return true;
     }
 
-    private void addGasImportShell(GasImportFormBean formBean) {
+    private void addGasImportShell(GasImportFormBean formBean, boolean needUpdate) {
         try {
             GasDAO gasDAO = new GasDAO();
             ArrayList arrDetail = gasDAO.getGasImportDetail(formBean.getId());
@@ -95,7 +101,7 @@ public class AddGasImportAction extends SpineAction {
                     bean.setPrice(NumberUtil.parseInt(formBean.getPrice()[i], 0));
                     bean.setAmount(NumberUtil.parseInt(formBean.getAmount()[i], 0));
                     bean.setGasImportId(formBean.getId());
-                    gasDAO.insertGasImportDetail(bean);
+                    gasDAO.insertGasImportDetail(bean, formBean.getCreatedDate(), formBean.getVendorId());
                 } else {
                     isUpdate = false;
                     int j = 0;
@@ -120,8 +126,11 @@ public class AddGasImportAction extends SpineAction {
                             isUpdate = true;
                             oldBean.setAmount(NumberUtil.parseInt(formBean.getAmount()[i], 0));
                         }
+                        if (needUpdate) {
+                            isUpdate = true;
+                        }
                         if (isUpdate) {
-                            gasDAO.updateGasImportDetail(oldBean, formBean.getCreatedDate(), formBean.getVendorId(), formBean.getAccountId());
+                            gasDAO.updateGasImportDetail(oldBean, formBean.getCreatedDate(), formBean.getVendorId());
                         }
                     }
                 }

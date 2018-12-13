@@ -2409,10 +2409,17 @@ public class GoodDAO extends BasicDAO {
         }
         SPUtil spUtil = null;
         try {
-            String sql = "{call updateSalePetro(?,?,?,?,?,?,?,?,?,?)}";
+            String createdDate = "";
+            if (com.stepup.core.util.GenericValidator.isBlankOrNull(bean.getCreatedDate())) {
+                createdDate = "null";
+            } else {
+                createdDate = bean.getCreatedDate();
+            }
+            String sql = "{call updateSalePetro(?,?,?,?,?,?,?,?,?,?,?)}";
             spUtil = new SPUtil(sql);
             if (spUtil != null) {
                 spUtil.getCallableStatement().setInt("_id", bean.getId());
+                spUtil.getCallableStatement().setString("_created_date", createdDate);
                 spUtil.getCallableStatement().setInt("_customer_id", bean.getCustomerId());
                 spUtil.getCallableStatement().setInt("_store_id", bean.getStoreId());
                 spUtil.getCallableStatement().setDouble("_total", bean.getTotal());
@@ -2471,14 +2478,14 @@ public class GoodDAO extends BasicDAO {
         }
     }
 
-    public int insertSalePetroDetail(SalePetroDetailBean bean) throws Exception {
+    public int insertSalePetroDetail(SalePetroDetailBean bean, String createdDate, int storeId) throws Exception {
         if (bean == null) {
             return 0;
         }
         int result = 0;
         SPUtil spUtil = null;
         try {
-            String sql = "{call insertSalePetroDetail(?,?,?,?,?)}";
+            String sql = "{call insertSalePetroDetail(?,?,?,?,?,?,?)}";
             spUtil = new SPUtil(sql);
             if (spUtil != null) {
                 spUtil.getCallableStatement().setInt("_petro_sale_id", bean.getSalePetroId());
@@ -2486,6 +2493,8 @@ public class GoodDAO extends BasicDAO {
                 spUtil.getCallableStatement().setInt("_quantity", bean.getQuantity());
                 spUtil.getCallableStatement().setDouble("_price", bean.getPrice());
                 spUtil.getCallableStatement().setDouble("_amount", bean.getAmount());
+                spUtil.getCallableStatement().setString("_created_date", createdDate);
+                spUtil.getCallableStatement().setInt("_store_id", storeId);
                 spUtil.execute();
             }
         } catch (SQLException sqle) {
@@ -2504,19 +2513,21 @@ public class GoodDAO extends BasicDAO {
         return result;
     }
 
-    public void updateSalePetroDetail(SalePetroDetailBean bean) throws Exception {
+    public void updateSalePetroDetail(SalePetroDetailBean bean, String createdDate, int storeId) throws Exception {
         if (bean == null) {
             return;
         }
         SPUtil spUtil = null;
         try {
-            String sql = "{call updateSalePetroDetail(?,?,?,?)}";
+            String sql = "{call updateSalePetroDetail(?,?,?,?,?,?)}";
             spUtil = new SPUtil(sql);
             if (spUtil != null) {
                 spUtil.getCallableStatement().setInt("_id", bean.getId());
                 spUtil.getCallableStatement().setInt("_quantity", bean.getQuantity());
                 spUtil.getCallableStatement().setDouble("_price", bean.getPrice());
                 spUtil.getCallableStatement().setDouble("_amount", bean.getAmount());
+                spUtil.getCallableStatement().setString("_created_date", createdDate);
+                spUtil.getCallableStatement().setInt("_store_id", storeId);
                 spUtil.execute();
             }
         } catch (SQLException sqle) {
@@ -3243,16 +3254,25 @@ public class GoodDAO extends BasicDAO {
         }
         SPUtil spUtil = null;
         try {
-            String sql = "{call updateGoodImport(?,?,?,?,?,?,?)}";
+            String createdDate = "";
+            if (com.stepup.core.util.GenericValidator.isBlankOrNull(bean.getCreatedDate())) {
+                createdDate = "null";
+            } else {
+                createdDate = bean.getCreatedDate();
+            }
+            String sql = "{call updateGoodImport(?,?,?,?,?,?,?,?,?,?)}";
             spUtil = new SPUtil(sql);
             if (spUtil != null) {
                 spUtil.getCallableStatement().setInt("_id", bean.getId());
+                spUtil.getCallableStatement().setString("_created_date", createdDate);
                 spUtil.getCallableStatement().setDouble("_rate", bean.getRate());
                 spUtil.getCallableStatement().setDouble("_total", bean.getTotal());
                 spUtil.getCallableStatement().setDouble("_paid", bean.getPaid());
                 spUtil.getCallableStatement().setDouble("_debt", bean.getDebt());
                 spUtil.getCallableStatement().setInt("_account_id", bean.getAccountId());
                 spUtil.getCallableStatement().setString("_note", bean.getNote());
+                spUtil.getCallableStatement().setInt("_vendor_id", bean.getVendorId());
+                spUtil.getCallableStatement().setInt("_store_id", bean.getStoreId());
                 spUtil.execute();
             }
         } catch (SQLException sqle) {
@@ -3302,14 +3322,14 @@ public class GoodDAO extends BasicDAO {
         }
     }
 
-    public int insertGoodImportDetail(GoodImportDetailBean bean) throws Exception {
+    public int insertGoodImportDetail(GoodImportDetailBean bean, String createdDate, int storeId) throws Exception {
         if (bean == null) {
             return 0;
         }
         int result = 0;
         SPUtil spUtil = null;
         try {
-            String sql = "{call insertGoodImportDetail(?,?,?,?,?)}";
+            String sql = "{call insertGoodImportDetail(?,?,?,?,?,?,?)}";
             spUtil = new SPUtil(sql);
             if (spUtil != null) {
                 spUtil.getCallableStatement().setInt("_good_import_id", bean.getGoodImportId());
@@ -3317,6 +3337,8 @@ public class GoodDAO extends BasicDAO {
                 spUtil.getCallableStatement().setInt("_quantity", bean.getQuantity());
                 spUtil.getCallableStatement().setDouble("_price", bean.getPrice());
                 spUtil.getCallableStatement().setDouble("_amount", bean.getAmount());
+                spUtil.getCallableStatement().setString("_created_date", createdDate);
+                spUtil.getCallableStatement().setInt("_store_id", storeId);
                 spUtil.execute();
             }
         } catch (SQLException sqle) {
@@ -3335,19 +3357,21 @@ public class GoodDAO extends BasicDAO {
         return result;
     }
 
-    public void updateGoodImportDetail(GoodImportDetailBean bean) throws Exception {
+    public void updateGoodImportDetail(GoodImportDetailBean bean, String createdDate, int storeId) throws Exception {
         if (bean == null) {
             return;
         }
         SPUtil spUtil = null;
         try {
-            String sql = "{call updateGoodImportDetail(?,?,?,?)}";
+            String sql = "{call updateGoodImportDetail(?,?,?,?,?,?)}";
             spUtil = new SPUtil(sql);
             if (spUtil != null) {
                 spUtil.getCallableStatement().setInt("_id", bean.getId());
                 spUtil.getCallableStatement().setInt("_quantity", bean.getQuantity());
                 spUtil.getCallableStatement().setDouble("_price", bean.getPrice());
                 spUtil.getCallableStatement().setDouble("_amount", bean.getAmount());
+                spUtil.getCallableStatement().setString("_created_date", createdDate);
+                spUtil.getCallableStatement().setInt("_store_id", storeId);
                 spUtil.execute();
             }
         } catch (SQLException sqle) {
@@ -3555,10 +3579,17 @@ public class GoodDAO extends BasicDAO {
         }
         SPUtil spUtil = null;
         try {
-            String sql = "{call updateSaleGood(?,?,?,?,?,?,?,?,?,?)}";
+            String createdDate = "";
+            if (GenericValidator.isBlankOrNull(bean.getCreatedDate())) {
+                createdDate = "null";
+            } else {
+                createdDate = bean.getCreatedDate();
+            }
+            String sql = "{call updateSaleGood(?,?,?,?,?,?,?,?,?,?,?)}";
             spUtil = new SPUtil(sql);
             if (spUtil != null) {
                 spUtil.getCallableStatement().setInt("_id", bean.getId());
+                spUtil.getCallableStatement().setString("_created_date", createdDate);
                 spUtil.getCallableStatement().setInt("_customer_id", bean.getCustomerId());
                 spUtil.getCallableStatement().setInt("_store_id", bean.getStoreId());
                 spUtil.getCallableStatement().setDouble("_total", bean.getTotal());
@@ -3617,14 +3648,14 @@ public class GoodDAO extends BasicDAO {
         }
     }
 
-    public int insertSaleGoodDetail(SaleGoodDetailBean bean) throws Exception {
+    public int insertSaleGoodDetail(SaleGoodDetailBean bean, String createdDate, int storeId) throws Exception {
         if (bean == null) {
             return 0;
         }
         int result = 0;
         SPUtil spUtil = null;
         try {
-            String sql = "{call insertSaleGoodDetail(?,?,?,?,?)}";
+            String sql = "{call insertSaleGoodDetail(?,?,?,?,?,?,?)}";
             spUtil = new SPUtil(sql);
             if (spUtil != null) {
                 spUtil.getCallableStatement().setInt("_good_sale_id", bean.getSaleGoodId());
@@ -3632,6 +3663,8 @@ public class GoodDAO extends BasicDAO {
                 spUtil.getCallableStatement().setInt("_quantity", bean.getQuantity());
                 spUtil.getCallableStatement().setDouble("_price", bean.getPrice());
                 spUtil.getCallableStatement().setDouble("_amount", bean.getAmount());
+                spUtil.getCallableStatement().setString("_created_date", createdDate);
+                spUtil.getCallableStatement().setInt("_store_id", storeId);
                 spUtil.execute();
             }
         } catch (SQLException sqle) {
@@ -3650,19 +3683,21 @@ public class GoodDAO extends BasicDAO {
         return result;
     }
 
-    public void updateSaleGoodDetail(SaleGoodDetailBean bean) throws Exception {
+    public void updateSaleGoodDetail(SaleGoodDetailBean bean, String createdDate, int storeId) throws Exception {
         if (bean == null) {
             return;
         }
         SPUtil spUtil = null;
         try {
-            String sql = "{call updateSaleGoodDetail(?,?,?,?)}";
+            String sql = "{call updateSaleGoodDetail(?,?,?,?,?,?)}";
             spUtil = new SPUtil(sql);
             if (spUtil != null) {
                 spUtil.getCallableStatement().setInt("_id", bean.getId());
                 spUtil.getCallableStatement().setInt("_quantity", bean.getQuantity());
                 spUtil.getCallableStatement().setDouble("_price", bean.getPrice());
                 spUtil.getCallableStatement().setDouble("_amount", bean.getAmount());
+                spUtil.getCallableStatement().setString("_created_date", createdDate);
+                spUtil.getCallableStatement().setInt("_store_id", storeId);
                 spUtil.execute();
             }
         } catch (SQLException sqle) {

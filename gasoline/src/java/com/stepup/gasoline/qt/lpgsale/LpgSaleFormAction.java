@@ -86,9 +86,6 @@ public class LpgSaleFormAction extends SpineAction {
             }
         } catch (Exception ex) {
         }
-        if (arrLpgImport == null) {
-            arrLpgImport = new ArrayList();
-        }
         request.setAttribute(Constants.LPG_IMPORT_LIST, arrLpgImport);
 
         request.setAttribute(Constants.LPG_SALE, bean);

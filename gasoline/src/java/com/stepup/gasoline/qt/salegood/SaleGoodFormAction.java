@@ -9,12 +9,10 @@ import com.stepup.gasoline.qt.bean.EmployeeBean;
 import com.stepup.gasoline.qt.bean.SaleGoodBean;
 import com.stepup.gasoline.qt.bean.VendorBean;
 import com.stepup.gasoline.qt.core.SpineAction;
-import com.stepup.gasoline.qt.customer.CustomerFormBean;
 import com.stepup.gasoline.qt.dao.AccountDAO;
 import com.stepup.gasoline.qt.dao.CustomerDAO;
 import com.stepup.gasoline.qt.dao.GoodDAO;
 import com.stepup.gasoline.qt.dao.OrganizationDAO;
-import com.stepup.gasoline.qt.store.StoreFormBean;
 import com.stepup.gasoline.qt.util.Constants;
 import com.stepup.gasoline.qt.util.PermissionUtil;
 import com.stepup.gasoline.qt.util.QTUtil;
@@ -107,18 +105,7 @@ public class SaleGoodFormAction extends SpineAction {
         ArrayList arrStore = null;
         try {
             OrganizationDAO organizationDAO = new OrganizationDAO();
-            if (formBean.getStoreId() != 0) {
-                StoreFormBean storeFormBean = organizationDAO.getStore(formBean.getStoreId());
-                if (storeFormBean == null) {
-                    storeFormBean = new StoreFormBean();
-                }
-                if (arrStore == null) {
-                    arrStore = new ArrayList();
-                }
-                arrStore.add(storeFormBean);
-            } else {
-                arrStore = organizationDAO.getStores(organizationIds, VendorBean.IS_GOOD);
-            }
+            arrStore = organizationDAO.getStores(organizationIds, VendorBean.IS_GOOD);
         } catch (Exception ex) {
         }
         if (arrStore == null) {
@@ -129,18 +116,7 @@ public class SaleGoodFormAction extends SpineAction {
         ArrayList arrCustomer = null;
         try {
             CustomerDAO customerDAO = new CustomerDAO();
-            if (formBean.getCustomerId() != 0) {
-                CustomerFormBean customerFormBean = customerDAO.getCustomer(formBean.getCustomerId());
-                if (customerFormBean == null) {
-                    customerFormBean = new CustomerFormBean();
-                }
-                if (arrCustomer == null) {
-                    arrCustomer = new ArrayList();
-                }
-                arrCustomer.add(customerFormBean);
-            } else {
-                arrCustomer = customerDAO.getCustomers(organizationIds, VendorBean.IS_GOOD);
-            }
+            arrCustomer = customerDAO.getCustomers(organizationIds, VendorBean.IS_GOOD);
         } catch (Exception ex) {
         }
         if (arrCustomer == null) {

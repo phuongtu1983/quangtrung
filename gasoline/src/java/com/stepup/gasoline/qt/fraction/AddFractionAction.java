@@ -5,6 +5,7 @@
 package com.stepup.gasoline.qt.fraction;
 
 import com.stepup.core.util.NumberUtil;
+import com.stepup.core.util.StringUtil;
 import com.stepup.gasoline.qt.bean.FractionBean;
 import com.stepup.gasoline.qt.bean.FractionDetailBean;
 import com.stepup.gasoline.qt.core.SpineAction;
@@ -53,6 +54,11 @@ public class AddFractionAction extends SpineAction {
             bean = new FractionBean();
         }
 
+        boolean needUpdate = false;
+        if (StringUtil.isEqual(bean.getCreatedDate(), formBean.getCreatedDate())) {
+            needUpdate = true;
+        }
+        
         bean.setId(formBean.getId());
         bean.setCreatedDate(formBean.getCreatedDate());
         bean.setCode(formBean.getCode());
@@ -62,9 +68,9 @@ public class AddFractionAction extends SpineAction {
             if (bNew) {
                 int id = gasDAO.insertFraction(bean);
                 formBean.setId(id);
-                addFractionShell(formBean);
+                addFractionShell(formBean, needUpdate);
             } else {
-                addFractionShell(formBean);
+                addFractionShell(formBean, needUpdate);
                 gasDAO.updateFraction(bean);
             }
         } catch (Exception ex) {
@@ -72,7 +78,7 @@ public class AddFractionAction extends SpineAction {
         return true;
     }
 
-    private void addFractionShell(FractionFormBean formBean) {
+    private void addFractionShell(FractionFormBean formBean, boolean needUpdate) {
         try {
             GasDAO gasDAO = new GasDAO();
             ArrayList arrDetail = gasDAO.getFractionDetail(formBean.getId());
@@ -87,7 +93,7 @@ public class AddFractionAction extends SpineAction {
                         bean.setShellId(NumberUtil.parseInt(formBean.getShellId()[i], 0));
                         bean.setQuantity(NumberUtil.parseInt(formBean.getQuantity()[i], 0));
                         bean.setFractionId(formBean.getId());
-                        gasDAO.insertFractionDetail(bean);
+                        gasDAO.insertFractionDetail(bean, formBean.getCreatedDate());
                     } else {
                         isUpdate = false;
                         int j = 0;
@@ -103,6 +109,9 @@ public class AddFractionAction extends SpineAction {
                             if (oldBean.getQuantity() != NumberUtil.parseDouble(formBean.getQuantity()[i], 0)) {
                                 isUpdate = true;
                                 oldBean.setQuantity(NumberUtil.parseInt(formBean.getQuantity()[i], 0));
+                            }
+                            if (needUpdate) {
+                                isUpdate = true;
                             }
                             if (isUpdate) {
                                 gasDAO.updateFractionDetail(oldBean, formBean.getCreatedDate());

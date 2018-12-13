@@ -5,10 +5,10 @@
 package com.stepup.gasoline.qt.goodimport;
 
 import com.stepup.core.util.NumberUtil;
+import com.stepup.core.util.StringUtil;
 import com.stepup.gasoline.qt.bean.GoodImportBean;
 import com.stepup.gasoline.qt.bean.GoodImportDetailBean;
 import com.stepup.gasoline.qt.core.SpineAction;
-import com.stepup.gasoline.qt.dao.GasDAO;
 import com.stepup.gasoline.qt.dao.GoodDAO;
 import com.stepup.gasoline.qt.util.QTUtil;
 import java.util.ArrayList;
@@ -54,8 +54,17 @@ public class AddGoodImportAction extends SpineAction {
             bean = new GoodImportBean();
         }
 
+        boolean needUpdate = false;
+        if (StringUtil.isEqual(bean.getCreatedDate(), formBean.getCreatedDate())) {
+            needUpdate = true;
+        }
+        if (bean.getStoreId() != formBean.getStoreId()) {
+            needUpdate = true;
+        }
+
         bean.setId(formBean.getId());
         bean.setCode(formBean.getCode());
+        bean.setCreatedDate(formBean.getCreatedDate());
         bean.setNote(formBean.getNote());
         bean.setVendorId(formBean.getVendorId());
         bean.setStoreId(formBean.getStoreId());
@@ -67,19 +76,20 @@ public class AddGoodImportAction extends SpineAction {
         bean.setCreatedEmployeeId(QTUtil.getEmployeeId(request.getSession()));
         try {
             if (bNew) {
-                bean.setCreatedDate(formBean.getCreatedDate());
                 int id = goodDAO.insertGoodImport(bean);
                 formBean.setId(id);
+                addGoodImportGood(formBean, needUpdate);
             } else {
+                addGoodImportGood(formBean, needUpdate);
                 goodDAO.updateGoodImport(bean);
             }
-            addGoodImportGood(formBean);
+
         } catch (Exception ex) {
         }
         return true;
     }
 
-    private void addGoodImportGood(GoodImportFormBean formBean) {
+    private void addGoodImportGood(GoodImportFormBean formBean, boolean needUpdate) {
         try {
             GoodDAO goodDAO = new GoodDAO();
             ArrayList arrDetail = goodDAO.getGoodImportDetail(formBean.getId());
@@ -95,7 +105,7 @@ public class AddGoodImportAction extends SpineAction {
                     bean.setPrice(NumberUtil.parseInt(formBean.getPrice()[i], 0));
                     bean.setAmount(NumberUtil.parseInt(formBean.getAmount()[i], 0));
                     bean.setGoodImportId(formBean.getId());
-                    goodDAO.insertGoodImportDetail(bean);
+                    goodDAO.insertGoodImportDetail(bean, formBean.getCreatedDate(), formBean.getStoreId());
                 } else {
                     isUpdate = false;
                     int j = 0;
@@ -112,16 +122,19 @@ public class AddGoodImportAction extends SpineAction {
                             isUpdate = true;
                             oldBean.setQuantity(NumberUtil.parseInt(formBean.getQuantity()[i], 0));
                         }
-                        if (oldBean.getPrice()!= NumberUtil.parseDouble(formBean.getPrice()[i], 0)) {
+                        if (oldBean.getPrice() != NumberUtil.parseDouble(formBean.getPrice()[i], 0)) {
                             isUpdate = true;
                             oldBean.setPrice(NumberUtil.parseInt(formBean.getPrice()[i], 0));
                         }
-                        if (oldBean.getAmount()!= NumberUtil.parseDouble(formBean.getAmount()[i], 0)) {
+                        if (oldBean.getAmount() != NumberUtil.parseDouble(formBean.getAmount()[i], 0)) {
                             isUpdate = true;
                             oldBean.setAmount(NumberUtil.parseInt(formBean.getAmount()[i], 0));
                         }
+                        if (needUpdate) {
+                            isUpdate = true;
+                        }
                         if (isUpdate) {
-                            goodDAO.updateGoodImportDetail(oldBean);
+                            goodDAO.updateGoodImportDetail(oldBean, formBean.getCreatedDate(), formBean.getStoreId());
                         }
                     }
                 }

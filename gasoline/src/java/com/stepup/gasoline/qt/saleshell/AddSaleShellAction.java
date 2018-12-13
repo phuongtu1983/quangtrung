@@ -5,6 +5,7 @@
 package com.stepup.gasoline.qt.saleshell;
 
 import com.stepup.core.util.NumberUtil;
+import com.stepup.core.util.StringUtil;
 import com.stepup.gasoline.qt.bean.SaleShellBean;
 import com.stepup.gasoline.qt.bean.SaleShellDetailBean;
 import com.stepup.gasoline.qt.core.SpineAction;
@@ -53,6 +54,11 @@ public class AddSaleShellAction extends SpineAction {
             bean = new SaleShellBean();
         }
 
+        boolean needUpdate = false;
+        if (StringUtil.isEqual(bean.getCreatedDate(), formBean.getCreatedDate())) {
+            needUpdate = true;
+        }
+
         bean.setId(formBean.getId());
         bean.setCreatedDate(formBean.getCreatedDate());
         bean.setCode(formBean.getCode());
@@ -69,9 +75,9 @@ public class AddSaleShellAction extends SpineAction {
             if (bNew) {
                 int id = gasDAO.insertSaleShell(bean);
                 formBean.setId(id);
-                addSaleShellDetail(formBean);
+                addSaleShellDetail(formBean, needUpdate);
             } else {
-                addSaleShellDetail(formBean);
+                addSaleShellDetail(formBean, needUpdate);
                 gasDAO.updateSaleShell(bean);
             }
         } catch (Exception ex) {
@@ -79,7 +85,7 @@ public class AddSaleShellAction extends SpineAction {
         return true;
     }
 
-    private void addSaleShellDetail(SaleShellFormBean formBean) {
+    private void addSaleShellDetail(SaleShellFormBean formBean, boolean needUpdate) {
         try {
             GasDAO gasDAO = new GasDAO();
             ArrayList arrDetail = gasDAO.getSaleShellDetail(formBean.getId());
@@ -96,7 +102,7 @@ public class AddSaleShellAction extends SpineAction {
                         bean.setPrice(NumberUtil.parseDouble(formBean.getPrice()[i], 0));
                         bean.setAmount(NumberUtil.parseDouble(formBean.getAmount()[i], 0));
                         bean.setSaleShellId(formBean.getId());
-                        gasDAO.insertSaleShellDetail(bean);
+                        gasDAO.insertSaleShellDetail(bean, formBean.getCreatedDate());
                     } else {
                         isUpdate = false;
                         int j = 0;
@@ -121,8 +127,11 @@ public class AddSaleShellAction extends SpineAction {
                                 isUpdate = true;
                                 oldBean.setAmount(NumberUtil.parseDouble(formBean.getAmount()[i], 0));
                             }
+                            if (needUpdate) {
+                                isUpdate = true;
+                            }
                             if (isUpdate) {
-                                gasDAO.updateSaleShellDetail(oldBean, formBean.getCreatedDate(), formBean.getCustomerId(), formBean.getAccountId());
+                                gasDAO.updateSaleShellDetail(oldBean, formBean.getCreatedDate());
                             }
                         }
                     }

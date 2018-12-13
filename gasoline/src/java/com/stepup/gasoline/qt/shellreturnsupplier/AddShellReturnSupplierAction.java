@@ -5,6 +5,7 @@
 package com.stepup.gasoline.qt.shellreturnsupplier;
 
 import com.stepup.core.util.NumberUtil;
+import com.stepup.core.util.StringUtil;
 import com.stepup.gasoline.qt.bean.ShellReturnSupplierBean;
 import com.stepup.gasoline.qt.bean.ShellReturnSupplierDetailBean;
 import com.stepup.gasoline.qt.core.SpineAction;
@@ -53,6 +54,11 @@ public class AddShellReturnSupplierAction extends SpineAction {
             bean = new ShellReturnSupplierBean();
         }
 
+        boolean needUpdate = false;
+        if (StringUtil.isEqual(bean.getCreatedDate(), formBean.getCreatedDate())) {
+            needUpdate = true;
+        }
+
         bean.setId(formBean.getId());
         bean.setCreatedDate(formBean.getCreatedDate());
         bean.setCode(formBean.getCode());
@@ -64,9 +70,9 @@ public class AddShellReturnSupplierAction extends SpineAction {
             if (bNew) {
                 int id = gasDAO.insertShellReturnSupplier(bean);
                 formBean.setId(id);
-                addShellReturnSupplierShell(formBean);
+                addShellReturnSupplierShell(formBean, needUpdate);
             } else {
-                addShellReturnSupplierShell(formBean);
+                addShellReturnSupplierShell(formBean, needUpdate);
                 gasDAO.updateShellReturnSupplier(bean);
             }
         } catch (Exception ex) {
@@ -74,7 +80,7 @@ public class AddShellReturnSupplierAction extends SpineAction {
         return true;
     }
 
-    private void addShellReturnSupplierShell(ShellReturnSupplierFormBean formBean) {
+    private void addShellReturnSupplierShell(ShellReturnSupplierFormBean formBean, boolean needUpdate) {
         try {
             GasDAO gasDAO = new GasDAO();
             ArrayList arrDetail = gasDAO.getShellReturnSupplierDetail(formBean.getId());
@@ -89,7 +95,7 @@ public class AddShellReturnSupplierAction extends SpineAction {
                         bean.setShellId(NumberUtil.parseInt(formBean.getShellId()[i], 0));
                         bean.setQuantity(NumberUtil.parseInt(formBean.getQuantity()[i], 0));
                         bean.setShellReturnSupplierId(formBean.getId());
-                        gasDAO.insertShellReturnSupplierDetail(bean);
+                        gasDAO.insertShellReturnSupplierDetail(bean, formBean.getCreatedDate(), formBean.getVendorId());
                     } else {
                         isUpdate = false;
                         int j = 0;
@@ -105,6 +111,9 @@ public class AddShellReturnSupplierAction extends SpineAction {
                             if (oldBean.getQuantity() != NumberUtil.parseDouble(formBean.getQuantity()[i], 0)) {
                                 isUpdate = true;
                                 oldBean.setQuantity(NumberUtil.parseInt(formBean.getQuantity()[i], 0));
+                            }
+                            if (needUpdate) {
+                                isUpdate = true;
                             }
                             if (isUpdate) {
                                 gasDAO.updateShellReturnSupplierDetail(oldBean, formBean.getCreatedDate(), formBean.getVendorId());

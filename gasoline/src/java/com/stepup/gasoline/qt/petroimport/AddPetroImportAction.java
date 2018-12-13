@@ -5,6 +5,7 @@
 package com.stepup.gasoline.qt.petroimport;
 
 import com.stepup.core.util.NumberUtil;
+import com.stepup.core.util.StringUtil;
 import com.stepup.gasoline.qt.bean.PetroImportBean;
 import com.stepup.gasoline.qt.bean.PetroImportDetailBean;
 import com.stepup.gasoline.qt.core.SpineAction;
@@ -53,7 +54,16 @@ public class AddPetroImportAction extends SpineAction {
             bean = new PetroImportBean();
         }
 
+        boolean needUpdate = false;
+        if (StringUtil.isEqual(bean.getCreatedDate(), formBean.getCreatedDate())) {
+            needUpdate = true;
+        }
+        if (bean.getStoreId() != formBean.getStoreId()) {
+            needUpdate = true;
+        }
+
         bean.setId(formBean.getId());
+        bean.setCreatedDate(formBean.getCreatedDate());
         bean.setCode(formBean.getCode());
         bean.setNote(formBean.getNote());
         bean.setVendorId(formBean.getVendorId());
@@ -66,19 +76,19 @@ public class AddPetroImportAction extends SpineAction {
         bean.setCreatedEmployeeId(QTUtil.getEmployeeId(request.getSession()));
         try {
             if (bNew) {
-                bean.setCreatedDate(formBean.getCreatedDate());
                 int id = gasDAO.insertPetroImport(bean);
                 formBean.setId(id);
+                addPetroImportPetro(formBean, needUpdate);
             } else {
+                addPetroImportPetro(formBean, needUpdate);
                 gasDAO.updatePetroImport(bean);
             }
-            addPetroImportPetro(formBean);
         } catch (Exception ex) {
         }
         return true;
     }
 
-    private void addPetroImportPetro(PetroImportFormBean formBean) {
+    private void addPetroImportPetro(PetroImportFormBean formBean, boolean needUpdate) {
         try {
             GasDAO gasDAO = new GasDAO();
             ArrayList arrDetail = gasDAO.getPetroImportDetail(formBean.getId());
@@ -94,7 +104,7 @@ public class AddPetroImportAction extends SpineAction {
                     bean.setPrice(NumberUtil.parseInt(formBean.getPrice()[i], 0));
                     bean.setAmount(NumberUtil.parseInt(formBean.getAmount()[i], 0));
                     bean.setPetroImportId(formBean.getId());
-                    gasDAO.insertPetroImportDetail(bean);
+                    gasDAO.insertPetroImportDetail(bean, formBean.getCreatedDate(), formBean.getStoreId());
                 } else {
                     isUpdate = false;
                     int j = 0;
@@ -111,16 +121,19 @@ public class AddPetroImportAction extends SpineAction {
                             isUpdate = true;
                             oldBean.setQuantity(NumberUtil.parseInt(formBean.getQuantity()[i], 0));
                         }
-                        if (oldBean.getPrice()!= NumberUtil.parseDouble(formBean.getPrice()[i], 0)) {
+                        if (oldBean.getPrice() != NumberUtil.parseDouble(formBean.getPrice()[i], 0)) {
                             isUpdate = true;
                             oldBean.setPrice(NumberUtil.parseInt(formBean.getPrice()[i], 0));
                         }
-                        if (oldBean.getAmount()!= NumberUtil.parseDouble(formBean.getAmount()[i], 0)) {
+                        if (oldBean.getAmount() != NumberUtil.parseDouble(formBean.getAmount()[i], 0)) {
                             isUpdate = true;
                             oldBean.setAmount(NumberUtil.parseInt(formBean.getAmount()[i], 0));
                         }
+                        if (needUpdate) {
+                            isUpdate = true;
+                        }
                         if (isUpdate) {
-                            gasDAO.updatePetroImportDetail(oldBean);
+                            gasDAO.updatePetroImportDetail(oldBean, formBean.getCreatedDate(), formBean.getStoreId());
                         }
                     }
                 }
