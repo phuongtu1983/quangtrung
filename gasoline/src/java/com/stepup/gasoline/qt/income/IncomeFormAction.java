@@ -5,6 +5,7 @@
 package com.stepup.gasoline.qt.income;
 
 import com.stepup.core.util.DateUtil;
+import com.stepup.core.util.NumberUtil;
 import com.stepup.gasoline.qt.bean.IncomeBean;
 import com.stepup.gasoline.qt.core.SpineAction;
 import com.stepup.gasoline.qt.dao.AccountDAO;
@@ -44,7 +45,7 @@ public class IncomeFormAction extends SpineAction {
         PaymentDAO paymentDAO = new PaymentDAO();
         if (!GenericValidator.isBlankOrNull(incomeId)) {
             try {
-                bean = paymentDAO.getIncome(Integer.parseInt(incomeId));
+                bean = paymentDAO.getIncome(NumberUtil.parseInt(incomeId, 0));
             } catch (Exception ex) {
             }
         }

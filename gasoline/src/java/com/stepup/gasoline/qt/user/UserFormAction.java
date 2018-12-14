@@ -4,6 +4,7 @@
  */
 package com.stepup.gasoline.qt.user;
 
+import com.stepup.core.util.NumberUtil;
 import com.stepup.gasoline.qt.bean.EmployeeBean;
 import com.stepup.gasoline.qt.bean.UserBean;
 import com.stepup.gasoline.qt.core.SpineAction;
@@ -45,7 +46,7 @@ public class UserFormAction extends SpineAction {
         if (!GenericValidator.isBlankOrNull(userid)) {
             UserDAO userDAO = new UserDAO();
             try {
-                bean = userDAO.getUser(Integer.parseInt(userid));
+                bean = userDAO.getUser(NumberUtil.parseInt(userid, 0));
             } catch (Exception ex) {
             }
         }

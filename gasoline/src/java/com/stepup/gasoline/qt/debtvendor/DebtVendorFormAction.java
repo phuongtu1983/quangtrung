@@ -5,6 +5,7 @@
 package com.stepup.gasoline.qt.debtvendor;
 
 import com.stepup.core.util.DateUtil;
+import com.stepup.core.util.NumberUtil;
 import com.stepup.gasoline.qt.bean.DebtVendorBean;
 import com.stepup.gasoline.qt.core.SpineAction;
 import com.stepup.gasoline.qt.dao.AccountDAO;
@@ -44,7 +45,7 @@ public class DebtVendorFormAction extends SpineAction {
         PaymentDAO paymentDAO = new PaymentDAO();
         if (!GenericValidator.isBlankOrNull(debtVendorId)) {
             try {
-                bean = paymentDAO.getDebtVendor(Integer.parseInt(debtVendorId));
+                bean = paymentDAO.getDebtVendor(NumberUtil.parseInt(debtVendorId, 0));
             } catch (Exception ex) {
             }
         }

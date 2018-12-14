@@ -12,7 +12,7 @@
                     <table cellspacing="0" cellpadding="0" style="border-width: 0px">
                         <tr>
                             <td height="30" style="padding-right: 20px"><bean:message key="organization.title"/></td>
-                            <td><html:text property="organizationName" size="40" name="<%=Constants.ORGANIZATION_TIMESHEET%>" readonly="true"/></td>
+                            <td><html:text property="organizationName" size="40" name="<%=Constants.ORGANIZATION_TIMESHEET%>" readonly="true" tabindex="-1"/></td>
                         </tr>
                         <tr>
                             <td height="30" style="padding-right: 20px" colspan="2">

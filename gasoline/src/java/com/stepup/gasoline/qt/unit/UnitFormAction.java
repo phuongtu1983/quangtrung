@@ -4,6 +4,7 @@
  */
 package com.stepup.gasoline.qt.unit;
 
+import com.stepup.core.util.NumberUtil;
 import com.stepup.gasoline.qt.bean.EmployeeBean;
 import com.stepup.gasoline.qt.bean.UnitBean;
 import com.stepup.gasoline.qt.core.SpineAction;
@@ -43,7 +44,7 @@ public class UnitFormAction extends SpineAction {
         if (!GenericValidator.isBlankOrNull(unitid)) {
             UnitDAO unitDAO = new UnitDAO();
             try {
-                bean = unitDAO.getUnit(Integer.parseInt(unitid));
+                bean = unitDAO.getUnit(NumberUtil.parseInt(unitid, 0));
             } catch (Exception ex) {
             }
         }

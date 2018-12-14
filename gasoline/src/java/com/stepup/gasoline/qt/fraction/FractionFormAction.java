@@ -5,6 +5,7 @@
 package com.stepup.gasoline.qt.fraction;
 
 import com.stepup.core.util.DateUtil;
+import com.stepup.core.util.NumberUtil;
 import com.stepup.gasoline.qt.bean.FractionBean;
 import com.stepup.gasoline.qt.core.SpineAction;
 import com.stepup.gasoline.qt.dao.GasDAO;
@@ -46,7 +47,7 @@ public class FractionFormAction extends SpineAction {
         GasDAO gasDAO = new GasDAO();
         if (!GenericValidator.isBlankOrNull(id)) {
             try {
-                int fractionId = Integer.parseInt(id);
+                int fractionId = NumberUtil.parseInt(id, 0);
                 bean = gasDAO.getFraction(fractionId);
                 arrDetail = gasDAO.getFractionDetail(fractionId);
             } catch (Exception ex) {

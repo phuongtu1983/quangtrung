@@ -10,14 +10,14 @@
     <table style="width: 100%">
         <tr>
             <td width="160" height="30"><bean:message key="code.title"/></td>
-            <td width="160"><html:text property="code" size="30" name="<%=Constants.SHELL_RETURN_SUPPLIER%>" readonly="true"/></td>
+            <td width="160"><html:text property="code" size="30" name="<%=Constants.SHELL_RETURN_SUPPLIER%>" readonly="true" tabindex="-1"/></td>
             <td width="170" style="padding-right: 20px;padding-left: 10px"><bean:message key="date.title"/></td>
-            <td><html:text property="createdDate" size="30" name="<%=Constants.SHELL_RETURN_SUPPLIER%>" styleId="shellReturnSupplierCreatedDate"/></td>
+            <td><html:text property="createdDate" size="30" name="<%=Constants.SHELL_RETURN_SUPPLIER%>" styleId="shellReturnSupplierCreatedDate" tabindex="-1"/></td>
         </tr>
         <tr>
             <td height="30" style="padding-right: 20px"><bean:message key="vendor.title"/></td>
             <td>
-                <html:select property="vendorId" name="<%=Constants.SHELL_RETURN_SUPPLIER%>" style="width:195px">
+                <html:select property="vendorId" name="<%=Constants.SHELL_RETURN_SUPPLIER%>" style="width:195px" tabindex="0">
                     <html:options collection="<%=Constants.VENDOR_LIST%>" property="id" labelProperty="name"/>
                 </html:select>
             </td>

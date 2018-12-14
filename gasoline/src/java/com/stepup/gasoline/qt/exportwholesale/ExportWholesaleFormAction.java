@@ -5,6 +5,7 @@
 package com.stepup.gasoline.qt.exportwholesale;
 
 import com.stepup.core.util.DateUtil;
+import com.stepup.core.util.NumberUtil;
 import com.stepup.gasoline.qt.bean.CustomerBean;
 import com.stepup.gasoline.qt.bean.EmployeeBean;
 import com.stepup.gasoline.qt.bean.ExportWholesaleBean;
@@ -51,7 +52,7 @@ public class ExportWholesaleFormAction extends SpineAction {
         GasDAO gasDAO = new GasDAO();
         if (!GenericValidator.isBlankOrNull(id)) {
             try {
-                int gasImportId = Integer.parseInt(id);
+                int gasImportId = NumberUtil.parseInt(id, 0);
                 bean = gasDAO.getExportWholesale(gasImportId);
                 arrDetail = gasDAO.getExportWholesaleDetail(gasImportId);
                 arrReturnShelDetail = gasDAO.getExportWholesaleReturnShellDetail(gasImportId);
@@ -77,18 +78,18 @@ public class ExportWholesaleFormAction extends SpineAction {
             } catch (Exception ex) {
             }
         }
-        
+
         request.setAttribute(Constants.EXPORT_WHOLESALE, formBean);
         if (arrDetail == null) {
             arrDetail = new ArrayList();
         }
         request.setAttribute(Constants.EXPORT_WHOLESALE_SHELL, arrDetail);
-        
+
         if (arrReturnShelDetail == null) {
             arrReturnShelDetail = new ArrayList();
         }
         request.setAttribute(Constants.EXPORT_WHOLESALE_RETURN, arrReturnShelDetail);
-        
+
         String organizationIds = QTUtil.getOrganizationManageds(request.getSession());
         ArrayList arrShell = null;
         try {
@@ -102,7 +103,7 @@ public class ExportWholesaleFormAction extends SpineAction {
             arrShell = new ArrayList();
         }
         request.setAttribute(Constants.SHELL_LIST, arrShell);
-        
+
         ArrayList arrShellReturn = null;
         try {
             GoodDAO goodDAO = new GoodDAO();
@@ -113,7 +114,7 @@ public class ExportWholesaleFormAction extends SpineAction {
             arrShellReturn = new ArrayList();
         }
         request.setAttribute(Constants.SHELL_RETURN_LIST, arrShellReturn);
-        
+
         ArrayList arrAccount = null;
         try {
             AccountDAO accountDAO = new AccountDAO();
@@ -124,7 +125,7 @@ public class ExportWholesaleFormAction extends SpineAction {
             arrAccount = new ArrayList();
         }
         request.setAttribute(Constants.ACCOUNT_LIST, arrAccount);
-        
+
         ArrayList arrCustomer = null;
         try {
             CustomerDAO customerDAO = new CustomerDAO();
@@ -135,7 +136,7 @@ public class ExportWholesaleFormAction extends SpineAction {
             arrCustomer = new ArrayList();
         }
         request.setAttribute(Constants.CUSTOMER_LIST, arrCustomer);
-        
+
         return true;
     }
 }

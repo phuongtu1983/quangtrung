@@ -4,6 +4,7 @@
  */
 package com.stepup.gasoline.qt.petro;
 
+import com.stepup.core.util.NumberUtil;
 import com.stepup.gasoline.qt.bean.EmployeeBean;
 import com.stepup.gasoline.qt.bean.PetroBean;
 import com.stepup.gasoline.qt.core.SpineAction;
@@ -44,7 +45,7 @@ public class PetroFormAction extends SpineAction {
         if (!GenericValidator.isBlankOrNull(petroId)) {
             GoodDAO goodDAO = new GoodDAO();
             try {
-                bean = goodDAO.getPetro(Integer.parseInt(petroId));
+                bean = goodDAO.getPetro(NumberUtil.parseInt(petroId, 0));
             } catch (Exception ex) {
             }
         }

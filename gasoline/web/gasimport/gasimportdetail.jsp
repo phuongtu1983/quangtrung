@@ -10,14 +10,14 @@
     <table style="width: 100%">
         <tr>
             <td width="160" height="30"><bean:message key="code.title"/></td>
-            <td width="160"><html:text property="code" size="30" name="<%=Constants.GAS_IMPORT%>" readonly="true"/></td>
+            <td width="160"><html:text property="code" size="30" name="<%=Constants.GAS_IMPORT%>" readonly="true" tabindex="-1"/></td>
             <td width="170"  style="padding-right: 20px;padding-left: 10px"><bean:message key="date.title"/></td>
-            <td><html:text property="createdDate" size="30" name="<%=Constants.GAS_IMPORT%>" styleId="gasImportCreatedDate"/></td>
+            <td><html:text property="createdDate" size="30" name="<%=Constants.GAS_IMPORT%>" styleId="gasImportCreatedDate" tabindex="-1"/></td>
         </tr>
         <tr>
             <td height="30" style="padding-right: 20px"><bean:message key="vendor.title"/></td>
             <td>
-                <html:select property="vendorId" name="<%=Constants.GAS_IMPORT%>" style="width:195px">
+                <html:select property="vendorId" name="<%=Constants.GAS_IMPORT%>" style="width:195px" tabindex="0">
                     <html:options collection="<%=Constants.VENDOR_LIST%>" property="id" labelProperty="name"/>
                 </html:select>
             </td>
@@ -32,13 +32,13 @@
             <td height="30" style="padding-right: 20px"><bean:message key="rate.title"/></td>
             <td><html:text property="rate" size="30" name="<%=Constants.GAS_IMPORT%>" onblur="tryNumberFormatCurrentcy(this);" onkeypress="return readonlyFloat(event);"/></td>
             <td style="padding-right: 20px;padding-left: 10px"><bean:message key="total.title"/></td>
-            <td><html:text property="total" size="30" name="<%=Constants.GAS_IMPORT%>" readonly="true"/></td>
+            <td><html:text property="total" size="30" name="<%=Constants.GAS_IMPORT%>" readonly="true" tabindex="-1"/></td>
         </tr>
         <tr>
             <td height="30" style="padding-right: 20px"><bean:message key="paid.title"/></td>
             <td><html:text property="paid" size="30" name="<%=Constants.GAS_IMPORT%>" onblur="return formPaidChanged('gasImportForm');" onkeypress="return readonlyFloat(event);"/></td>
             <td style="padding-right: 20px;padding-left: 10px"><bean:message key="debt.title"/></td>
-            <td><html:text property="debt" size="30" name="<%=Constants.GAS_IMPORT%>" readonly="true"/></td>
+            <td><html:text property="debt" size="30" name="<%=Constants.GAS_IMPORT%>" readonly="true" tabindex="-1"/></td>
         </tr>
         <tr>
             <td height="30"><bean:message key="note.title"/></td>

@@ -4,6 +4,7 @@
  */
 package com.stepup.gasoline.qt.fixedassetgroup;
 
+import com.stepup.core.util.NumberUtil;
 import com.stepup.gasoline.qt.bean.EmployeeBean;
 import com.stepup.gasoline.qt.bean.FixedAssetGroupBean;
 import com.stepup.gasoline.qt.core.SpineAction;
@@ -42,7 +43,7 @@ public class FixedAssetGroupFormAction extends SpineAction {
         FixedAssetDAO assetDAO = new FixedAssetDAO();
         if (!GenericValidator.isBlankOrNull(fixedAssetGroupId)) {
             try {
-                FixedAssetGroupBean bean = assetDAO.getFixedAssetGroup(Integer.parseInt(fixedAssetGroupId));
+                FixedAssetGroupBean bean = assetDAO.getFixedAssetGroup(NumberUtil.parseInt(fixedAssetGroupId, 0));
                 if (bean != null) {
                     formBean = new FixedAssetGroupFormBean(bean);
                 }

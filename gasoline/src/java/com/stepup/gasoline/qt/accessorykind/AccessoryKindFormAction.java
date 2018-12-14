@@ -4,6 +4,7 @@
  */
 package com.stepup.gasoline.qt.accessorykind;
 
+import com.stepup.core.util.NumberUtil;
 import com.stepup.gasoline.qt.bean.EmployeeBean;
 import com.stepup.gasoline.qt.core.SpineAction;
 import com.stepup.gasoline.qt.dao.GoodDAO;
@@ -41,7 +42,7 @@ public class AccessoryKindFormAction extends SpineAction {
         GoodDAO goodDAO = new GoodDAO();
         if (!GenericValidator.isBlankOrNull(kindid)) {
             try {
-                formBean = goodDAO.getAccessoryKind(Integer.parseInt(kindid));
+                formBean = goodDAO.getAccessoryKind(NumberUtil.parseInt(kindid, 0));
             } catch (Exception ex) {
             }
         }

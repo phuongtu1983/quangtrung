@@ -26,7 +26,7 @@
                 <td><span><bean:write name="good" property="unitName"/></span></td>
                 <td><input type="text" size="20" name="changeGoodQuantity" value="${good.quantity}" id="detchangegoodquantity${good.accessoryId}" onblur="return caculateSaleAccessoryChangeListDetail('${good.accessoryId}');" onkeypress="return readonlyFloat(event);"/></td>
                 <td><input type="text" size="20" name="changeGoodPrice" value="${good.price}" id="detchangegoodprice${good.accessoryId}" onblur="return caculateSaleAccessoryChangeListDetail('${good.accessoryId}');" onkeypress="return readonlyFloat(event);"/></td>
-                <td><input type="text" size="20" name="changeGoodAmount" value="${good.amount}" id="detchangegoodamount${good.accessoryId}" readonly="readonly"/></td>
+                <td><input type="text" size="20" name="changeGoodAmount" value="${good.amount}" id="detchangegoodamount${good.accessoryId}" readonly="readonly" tabindex="-1"/></td>
             </tr>
         </logic:iterate>
     </tbody>

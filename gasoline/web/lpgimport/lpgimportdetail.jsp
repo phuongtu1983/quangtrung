@@ -12,9 +12,9 @@
                     <table cellspacing="0" cellpadding="0" style="border-width: 0px">
                         <tr>
                             <td height="30" style="padding-right: 20px"><bean:message key="code.title"/></td>
-                            <td><html:text property="code" size="30" name="<%=Constants.LPG_IMPORT%>" readonly="true"/></td>
+                            <td><html:text property="code" size="30" name="<%=Constants.LPG_IMPORT%>" readonly="true" tabindex="-1"/></td>
                             <td style="padding-right: 20px;padding-left: 10px"><bean:message key="date.title"/></td>
-                            <td><html:text property="importDate" styleId="lpgImportDate" size="30" name="<%=Constants.LPG_IMPORT%>"/></td>
+                            <td><html:text property="importDate" styleId="lpgImportDate" size="30" name="<%=Constants.LPG_IMPORT%>" tabindex="-1"/></td>
                         </tr>
                         <tr>
                             <td height="30" style="padding-right: 20px"><bean:message key="vendor.title"/></td>
@@ -48,7 +48,7 @@
                             <td height="30" style="padding-right: 20px"><bean:message key="rate.title"/></td>
                             <td><html:text property="rate" size="30" name="<%=Constants.LPG_IMPORT%>" onblur="return lpgImportCaculateAmount();" onkeypress="return readonlyFloat(event);"/></td>
                             <td style="padding-right: 20px;padding-left: 10px"><bean:message key="amount.title"/></td>
-                            <td><html:text property="total" size="30" name="<%=Constants.LPG_IMPORT%>" readonly="true"/></td>
+                            <td><html:text property="total" size="30" name="<%=Constants.LPG_IMPORT%>" readonly="true" tabindex="-1"/></td>
                         </tr>
                         <tr>
                             <td height="30" style="padding-right: 20px"><bean:message key="amount.invoice.title"/></td>
@@ -58,7 +58,7 @@
                         </tr>
                         <tr>
                             <td height="30" style="padding-right: 20px"><bean:message key="debt.title"/></td>
-                            <td><html:text property="debt" size="30" name="<%=Constants.LPG_IMPORT%>" readonly="true"/></td>
+                            <td><html:text property="debt" size="30" name="<%=Constants.LPG_IMPORT%>" readonly="true" tabindex="-1"/></td>
                             <td style="padding-right: 20px;padding-left: 10px"><bean:message key="account.title"/></td>
                             <td>
                                 <html:select property="accountId" name="<%=Constants.LPG_IMPORT%>" style="width:195px">

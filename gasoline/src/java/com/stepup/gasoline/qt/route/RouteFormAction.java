@@ -4,6 +4,7 @@
  */
 package com.stepup.gasoline.qt.route;
 
+import com.stepup.core.util.NumberUtil;
 import com.stepup.gasoline.qt.bean.RouteBean;
 import com.stepup.gasoline.qt.core.SpineAction;
 import com.stepup.gasoline.qt.dao.VehicleDAO;
@@ -38,7 +39,7 @@ public class RouteFormAction extends SpineAction {
         if (!GenericValidator.isBlankOrNull(routeId)) {
             VehicleDAO vehicleDAO = new VehicleDAO();
             try {
-                bean = vehicleDAO.getRoute(Integer.parseInt(routeId));
+                bean = vehicleDAO.getRoute(NumberUtil.parseInt(routeId, 0));
             } catch (Exception ex) {
             }
         }

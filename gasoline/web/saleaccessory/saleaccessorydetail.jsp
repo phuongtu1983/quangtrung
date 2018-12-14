@@ -10,31 +10,31 @@
     <table style="width: 100%">
         <tr>
             <td width="160" height="30"><bean:message key="code.title"/></td>
-            <td width="160"><html:text property="code" size="30" name="<%=Constants.SALE_ACCESSORY%>" readonly="true"/></td>
+            <td width="160"><html:text property="code" size="30" name="<%=Constants.SALE_ACCESSORY%>" readonly="true" tabindex="-1"/></td>
             <td width="170"  style="padding-right: 20px;padding-left: 10px"><bean:message key="date.title"/></td>
-            <td><html:text property="createdDate" size="30" name="<%=Constants.SALE_ACCESSORY%>" styleId="saleAccessoryCreatedDate"/></td>
+            <td><html:text property="createdDate" size="30" name="<%=Constants.SALE_ACCESSORY%>" styleId="saleAccessoryCreatedDate" tabindex="-1"/></td>
         </tr>
         <tr>
             <td height="30" style="padding-right: 20px""><bean:message key="account.title"/></td>
             <td>
-                <html:select property="accountId" name="<%=Constants.SALE_ACCESSORY%>" style="width:195px">
+                <html:select property="accountId" name="<%=Constants.SALE_ACCESSORY%>" style="width:195px" tabindex="0">
                     <html:options collection="<%=Constants.ACCOUNT_LIST%>" property="id" labelProperty="number"/>
                 </html:select>
             </td>
             <td width="170"  style="padding-right: 20px;padding-left: 10px"><bean:message key="total.title"/></td>
-            <td><html:text property="total" size="30" name="<%=Constants.SALE_ACCESSORY%>" readonly="true"/></td>
+            <td><html:text property="total" size="30" name="<%=Constants.SALE_ACCESSORY%>" readonly="true" tabindex="-1"/></td>
         </tr>
         <tr>
             <td height="30" style="padding-right: 20px"><bean:message key="discount.title"/></td>
             <td><html:text property="discount" size="30" name="<%=Constants.SALE_ACCESSORY%>" onblur="return formPaidDiscountChanged('saleAccessoryForm');" onkeypress="return readonlyFloat(event);"/></td>
             <td style="padding-right: 20px;padding-left: 10px"><bean:message key="amount.title"/></td>
-            <td><html:text property="totalPay" size="30" name="<%=Constants.SALE_ACCESSORY%>" readonly="true"/></td>
+            <td><html:text property="totalPay" size="30" name="<%=Constants.SALE_ACCESSORY%>" readonly="true" tabindex="-1"/></td>
         </tr>
         <tr>
             <td height="30" style="padding-right: 20px"><bean:message key="paid.title"/></td>
             <td><html:text property="paid" size="30" name="<%=Constants.SALE_ACCESSORY%>" onblur="return formPaidDiscountChanged('saleAccessoryForm');" onkeypress="return readonlyFloat(event);"/></td>
             <td style="padding-right: 20px;padding-left: 10px"><bean:message key="debt.title"/></td>
-            <td><html:text property="debt" size="30" name="<%=Constants.SALE_ACCESSORY%>" readonly="true"/></td>
+            <td><html:text property="debt" size="30" name="<%=Constants.SALE_ACCESSORY%>" readonly="true" tabindex="-1"/></td>
         </tr>
         <tr>
             <td height="30" style="padding-right: 20px"><bean:message key="note.title"/></td>
@@ -70,10 +70,8 @@
                     <table>
                         <tr>
                             <td>
-                                <logic:equal name="<%=Constants.SALE_ACCESSORY%>" property="id" value="0">
-                                    <button class="i_cross icon small red" onclick="return delTableRow('saleAccessoryForm', 'saleAccessoryChangeGoodChk', 'saleAccessoryChangeGoodDetailTbl');"><bean:message key="message.del"/></button>
-                                </logic:equal>
-                                <button class="i_plus icon small green" onclick="return addSaleAccessoryChangeGood();"><bean:message key="message.add"/></button>
+                                <button class="i_cross icon small red" onclick="return delTableRow('saleAccessoryForm', 'saleAccessoryChangeGoodChk', 'saleAccessoryChangeGoodDetailTbl');" tabindex="-1"><bean:message key="message.del"/></button>
+                                <button class="i_plus icon small green" onclick="return addSaleAccessoryChangeGood();" tabindex="-1"><bean:message key="message.add"/></button>
                             </td>
                             <td>
                                 <select style="width: 260px;" name="changeGoodIdCombobox" id="changeGoodIdCombobox">

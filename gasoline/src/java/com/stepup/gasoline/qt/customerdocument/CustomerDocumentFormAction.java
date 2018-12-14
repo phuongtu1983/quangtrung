@@ -4,6 +4,7 @@
  */
 package com.stepup.gasoline.qt.customerdocument;
 
+import com.stepup.core.util.NumberUtil;
 import com.stepup.gasoline.qt.core.SpineAction;
 import com.stepup.gasoline.qt.dao.CustomerDAO;
 import com.stepup.gasoline.qt.util.Constants;
@@ -37,7 +38,7 @@ public class CustomerDocumentFormAction extends SpineAction {
         CustomerDAO customerDAO = new CustomerDAO();
         if (!GenericValidator.isBlankOrNull(customerDocumentId)) {
             try {
-                formBean = customerDAO.getDocument(Integer.parseInt(customerDocumentId));
+                formBean = customerDAO.getDocument(NumberUtil.parseInt(customerDocumentId, 0));
             } catch (Exception ex) {
             }
         }

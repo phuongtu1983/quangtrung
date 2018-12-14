@@ -5,6 +5,7 @@
 package com.stepup.gasoline.qt.shieldimport;
 
 import com.stepup.core.util.DateUtil;
+import com.stepup.core.util.NumberUtil;
 import com.stepup.gasoline.qt.bean.ShieldImportBean;
 import com.stepup.gasoline.qt.bean.VendorBean;
 import com.stepup.gasoline.qt.core.SpineAction;
@@ -44,7 +45,7 @@ public class ShieldImportFormAction extends SpineAction {
         GoodDAO goodDAO = new GoodDAO();
         if (!GenericValidator.isBlankOrNull(shieldImportId)) {
             try {
-                bean = goodDAO.getShieldImport(Integer.parseInt(shieldImportId));
+                bean = goodDAO.getShieldImport(NumberUtil.parseInt(shieldImportId, 0));
             } catch (Exception ex) {
             }
         }

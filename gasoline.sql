@@ -81,7 +81,7 @@ CREATE TABLE `accessory_in_stock` (
   `in_stock` int(11) DEFAULT '0',
   `organization_id` int(11) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=1342 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=1341 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 /*Data for the table `accessory_in_stock` */
 
@@ -137,7 +137,7 @@ CREATE TABLE `accessory_sale_change_detail` (
   `price` double DEFAULT NULL,
   `amount` double DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 /*Data for the table `accessory_sale_change_detail` */
 
@@ -153,7 +153,7 @@ CREATE TABLE `accessory_sale_detail` (
   `quantity` int(3) DEFAULT NULL,
   `amount` double DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 /*Data for the table `accessory_sale_detail` */
 
@@ -204,11 +204,11 @@ CREATE TABLE `auto` (
   `auto_date` date DEFAULT NULL,
   `auto_name` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=192 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=193 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 /*Data for the table `auto` */
 
-insert  into `auto`(`id`,`auto_date`,`auto_name`) values (191,'2018-12-12','in_stock');
+insert  into `auto`(`id`,`auto_date`,`auto_name`) values (191,'2018-12-12','in_stock'),(192,'2018-12-13','employee_salary');
 
 /*Table structure for table `contract` */
 
@@ -227,9 +227,11 @@ CREATE TABLE `contract` (
   `employee_id` int(11) DEFAULT NULL,
   `created_employee_id` int(11) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 /*Data for the table `contract` */
+
+insert  into `contract`(`id`,`code`,`customer_id`,`created_date`,`shell_12_price`,`shell_45_price`,`credit_date`,`credit_amount`,`note`,`employee_id`,`created_employee_id`) values (1,'20181213-CO-0001',2,'2018-12-13',0,0,0,0,'',17,17);
 
 /*Table structure for table `customer` */
 
@@ -512,9 +514,11 @@ CREATE TABLE `employee_salary` (
   `month_day` int(2) DEFAULT NULL,
   `working_day` int(2) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=MyISAM AUTO_INCREMENT=9 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 /*Data for the table `employee_salary` */
+
+insert  into `employee_salary`(`id`,`code`,`employee_id`,`created_date`,`basic_salary`,`real_salary`,`total`,`month_day`,`working_day`) values (1,'20181213-ES-0001',1,'2018-12-12',0,0,0,9,9),(2,'20181213-ES-0002',19,'2018-12-12',0,0,0,9,9),(3,'20181213-ES-0003',26,'2018-12-12',0,0,0,9,9),(4,'20181213-ES-0004',18,'2018-12-12',2000000,2000000,2000000,9,9),(5,'20181213-ES-0005',28,'2018-12-12',0,0,0,9,9),(6,'20181213-ES-0006',17,'2018-12-12',3000000,3000000,3000000,9,9),(7,'20181213-ES-0007',25,'2018-12-12',0,0,0,9,9),(8,'20181213-ES-0008',27,'2018-12-12',0,0,0,9,9);
 
 /*Table structure for table `employee_salary_field` */
 
@@ -583,9 +587,11 @@ CREATE TABLE `expense` (
   `note` text COLLATE utf8_unicode_ci,
   `created_employee_id` int(11) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM AUTO_INCREMENT=3 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=MyISAM AUTO_INCREMENT=4 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 /*Data for the table `expense` */
+
+insert  into `expense`(`id`,`code`,`created_date`,`amount`,`content`,`account_id`,`from_date`,`to_date`,`month_count`,`is_usually`,`type`,`note`,`created_employee_id`) values (3,'20181213-EX-0001','2018-12-13',0,'',5,'2018-12-13','2018-12-13',0,0,1,'',17);
 
 /*Table structure for table `fixed_asset` */
 
@@ -1049,7 +1055,7 @@ CREATE TABLE `good_in_stock` (
   `store_id` int(11) DEFAULT NULL,
   `in_stock` int(11) DEFAULT '0',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=625 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=624 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 /*Data for the table `good_in_stock` */
 
@@ -1109,9 +1115,11 @@ CREATE TABLE `income` (
   `note` text COLLATE utf8_unicode_ci,
   `created_employee_id` int(11) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM AUTO_INCREMENT=5 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=MyISAM AUTO_INCREMENT=6 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 /*Data for the table `income` */
+
+insert  into `income`(`id`,`code`,`created_date`,`content`,`amount`,`account_id`,`type`,`note`,`created_employee_id`) values (5,'20181213-IC-0001','2018-12-13','abc',10000000,5,1,'',17);
 
 /*Table structure for table `lo_vo` */
 
@@ -1125,9 +1133,11 @@ CREATE TABLE `lo_vo` (
   `note` text COLLATE utf8_unicode_ci,
   `created_employee_id` int(11) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 /*Data for the table `lo_vo` */
+
+insert  into `lo_vo`(`id`,`code`,`created_date`,`quantity`,`note`,`created_employee_id`) values (1,'20181213-LV-0001','2018-12-13',0,'',17);
 
 /*Table structure for table `lo_vo_employee_detail` */
 
@@ -1181,7 +1191,7 @@ CREATE TABLE `lpg_in_stock` (
   `day` date DEFAULT NULL,
   `in_stock` int(11) DEFAULT '0',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=1356 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=1354 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 /*Data for the table `lpg_in_stock` */
 
@@ -1406,7 +1416,7 @@ CREATE TABLE `petro_in_stock` (
   `store_id` int(11) DEFAULT NULL,
   `in_stock` int(11) DEFAULT '0',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=1147 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=1144 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 /*Data for the table `petro_in_stock` */
 
@@ -1483,7 +1493,7 @@ CREATE TABLE `promotion_material_import` (
   `note` text COLLATE utf8_unicode_ci,
   `created_employee_id` int(11) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 /*Data for the table `promotion_material_import` */
 
@@ -1499,7 +1509,7 @@ CREATE TABLE `promotion_material_import_detail` (
   `price` double DEFAULT NULL,
   `amount` double DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 /*Data for the table `promotion_material_import_detail` */
 
@@ -1514,7 +1524,7 @@ CREATE TABLE `promotion_material_in_stock` (
   `organization_id` int(11) DEFAULT NULL,
   `in_stock` int(11) DEFAULT '0',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=1294 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=1291 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 /*Data for the table `promotion_material_in_stock` */
 
@@ -1875,7 +1885,7 @@ CREATE TABLE `shield_in_stock` (
   `organization_id` int(11) DEFAULT NULL,
   `in_stock` int(11) DEFAULT '0',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=1333 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=1331 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 /*Data for the table `shield_in_stock` */
 
@@ -2170,9 +2180,11 @@ CREATE TABLE `vendor_debt` (
   `note` text COLLATE utf8_unicode_ci,
   `created_employee_id` int(11) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM AUTO_INCREMENT=10 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=MyISAM AUTO_INCREMENT=11 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 /*Data for the table `vendor_debt` */
+
+insert  into `vendor_debt`(`id`,`code`,`created_date`,`vendor_id`,`paid`,`account_id`,`note`,`created_employee_id`) values (10,'20181213-DV-0001','2018-12-13',18,1000,5,'',17);
 
 /*Table structure for table `vendor_in_stock` */
 
@@ -2187,7 +2199,7 @@ CREATE TABLE `vendor_in_stock` (
   `shell_12` int(11) DEFAULT '0',
   `shell_45` int(11) DEFAULT '0',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=2812 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=2807 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 /*Data for the table `vendor_in_stock` */
 
@@ -2222,9 +2234,11 @@ CREATE TABLE `wholesale_debt` (
   `note` text COLLATE utf8_unicode_ci,
   `created_employee_id` int(11) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM AUTO_INCREMENT=7 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=MyISAM AUTO_INCREMENT=8 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 /*Data for the table `wholesale_debt` */
+
+insert  into `wholesale_debt`(`id`,`code`,`created_date`,`customer_id`,`paid`,`account_id`,`note`,`created_employee_id`) values (7,'20181213-DW-0001','2018-12-13',1,100000,5,'',17);
 
 /* Trigger structure for table `accessory_import_detail` */
 

@@ -10,19 +10,19 @@
     <table style="width: 100%">
         <tr>
             <td width="160" height="30"><bean:message key="code.title"/></td>
-            <td width="160"><html:text property="code" size="30" name="<%=Constants.SALE_SHELL%>" readonly="true"/></td>
+            <td width="160"><html:text property="code" size="30" name="<%=Constants.SALE_SHELL%>" readonly="true" tabindex="-1"/></td>
             <td width="170"  style="padding-right: 20px;padding-left: 10px"><bean:message key="date.title"/></td>
-            <td><html:text property="createdDate" size="30" name="<%=Constants.SALE_SHELL%>" styleId="saleShellCreatedDate"/></td>
+            <td><html:text property="createdDate" size="30" name="<%=Constants.SALE_SHELL%>" styleId="saleShellCreatedDate" tabindex="-1"/></td>
         </tr>
         <tr>
             <td height="30" style="padding-right: 20px""><bean:message key="account.title"/></td>
             <td>
-                <html:select property="accountId" name="<%=Constants.SALE_SHELL%>" style="width:195px">
+                <html:select property="accountId" name="<%=Constants.SALE_SHELL%>" style="width:195px" tabindex="0">
                     <html:options collection="<%=Constants.ACCOUNT_LIST%>" property="id" labelProperty="number"/>
                 </html:select>
             </td>
             <td width="170"  style="padding-right: 20px;padding-left: 10px"><bean:message key="total.title"/></td>
-            <td><html:text property="total" size="30" name="<%=Constants.SALE_SHELL%>" readonly="true"/></td>
+            <td><html:text property="total" size="30" name="<%=Constants.SALE_SHELL%>" readonly="true" tabindex="-1"/></td>
         </tr>
         <tr>
             <td height="30" style="padding-right: 20px""><bean:message key="customer.title"/></td>
@@ -38,13 +38,13 @@
             <td height="30" style="padding-right: 20px"><bean:message key="discount.title"/></td>
             <td><html:text property="discount" size="30" name="<%=Constants.SALE_SHELL%>" onblur="return formPaidDiscountChanged('saleShellForm');" onkeypress="return readonlyFloat(event);"/></td>
             <td style="padding-right: 20px;padding-left: 10px"><bean:message key="amount.title"/></td>
-            <td><html:text property="totalPay" size="30" name="<%=Constants.SALE_SHELL%>" readonly="true"/></td>
+            <td><html:text property="totalPay" size="30" name="<%=Constants.SALE_SHELL%>" readonly="true" tabindex="-1"/></td>
         </tr>
         <tr>
             <td height="30" style="padding-right: 20px"><bean:message key="paid.title"/></td>
             <td><html:text property="paid" size="30" name="<%=Constants.SALE_SHELL%>" onblur="return formPaidDiscountChanged('saleShellForm');" onkeypress="return readonlyFloat(event);"/></td>
             <td style="padding-right: 20px;padding-left: 10px"><bean:message key="debt.title"/></td>
-            <td><html:text property="debt" size="30" name="<%=Constants.SALE_SHELL%>" readonly="true"/></td>
+            <td><html:text property="debt" size="30" name="<%=Constants.SALE_SHELL%>" readonly="true" tabindex="-1"/></td>
         </tr>
         <tr>
             <td height="30" style="padding-right: 20px"><bean:message key="note.title"/></td>
@@ -57,8 +57,8 @@
                     <table>
                         <tr>
                             <td>
-                                <button class="i_cross icon small red" onclick="return delTableRow('saleShellForm', 'saleShellGoodChk', 'saleShellDetailTbl');"><bean:message key="message.del"/></button>
-                                <button class="i_plus icon small green" onclick="return addSaleShellGood();"><bean:message key="message.add"/></button>
+                                <button class="i_cross icon small red" onclick="return delTableRow('saleShellForm', 'saleShellGoodChk', 'saleShellDetailTbl');" tabindex="-1"><bean:message key="message.del"/></button>
+                                <button class="i_plus icon small green" onclick="return addSaleShellGood();" tabindex="-1"><bean:message key="message.add"/></button>
                             </td>
                             <td>
                                 <select style="width: 260px;" name="goodIdCombobox" id="goodIdCombobox">

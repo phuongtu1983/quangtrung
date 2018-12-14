@@ -5,6 +5,7 @@
 package com.stepup.gasoline.qt.fixedassetdepreciation;
 
 import com.stepup.core.util.DateUtil;
+import com.stepup.core.util.NumberUtil;
 import com.stepup.gasoline.qt.bean.FixedAssetDepreciationBean;
 import com.stepup.gasoline.qt.core.SpineAction;
 import com.stepup.gasoline.qt.dao.FixedAssetDAO;
@@ -41,7 +42,7 @@ public class FixedAssetDepreciationFormAction extends SpineAction {
         FixedAssetDAO assetDAO = new FixedAssetDAO();
         if (!GenericValidator.isBlankOrNull(id)) {
             try {
-                int depreciationId = Integer.parseInt(id);
+                int depreciationId = NumberUtil.parseInt(id, 0);
                 bean = assetDAO.getFixedAssetDepreciation(depreciationId);
                 arrDetail = assetDAO.getFixedAssetDepreciationDetail(depreciationId);
             } catch (Exception ex) {

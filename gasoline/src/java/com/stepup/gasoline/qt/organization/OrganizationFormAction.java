@@ -4,6 +4,7 @@
  */
 package com.stepup.gasoline.qt.organization;
 
+import com.stepup.core.util.NumberUtil;
 import com.stepup.gasoline.qt.bean.DynamicFieldBean;
 import com.stepup.gasoline.qt.bean.EmployeeBean;
 import com.stepup.gasoline.qt.bean.OrganizationBean;
@@ -46,7 +47,7 @@ public class OrganizationFormAction extends DynamicFieldFreeValueAction {
         if (!GenericValidator.isBlankOrNull(organizationId)) {
             OrganizationDAO organizationDAO = new OrganizationDAO();
             try {
-                int id = Integer.parseInt(organizationId);
+                int id = NumberUtil.parseInt(organizationId, 0);
                 bean = organizationDAO.getOrganization(id);
                 arrShellDetail = organizationDAO.getOrganizationShellDetail(id);
             } catch (Exception ex) {

@@ -5,6 +5,7 @@
 package com.stepup.gasoline.qt.lpgimport;
 
 import com.stepup.core.util.DateUtil;
+import com.stepup.core.util.NumberUtil;
 import com.stepup.gasoline.qt.bean.LpgImportBean;
 import com.stepup.gasoline.qt.bean.VendorBean;
 import com.stepup.gasoline.qt.core.SpineAction;
@@ -46,7 +47,7 @@ public class LpgImportFormAction extends SpineAction {
         GasDAO gasDAO = new GasDAO();
         if (!GenericValidator.isBlankOrNull(lpgImportId)) {
             try {
-                bean = gasDAO.getLpgImport(Integer.parseInt(lpgImportId));
+                bean = gasDAO.getLpgImport(NumberUtil.parseInt(lpgImportId, 0));
             } catch (Exception ex) {
             }
         }

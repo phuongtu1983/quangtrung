@@ -10,14 +10,14 @@
     <table style="width: 100%">
         <tr>
             <td width="160" height="30"><bean:message key="code.title"/></td>
-            <td width="160"><html:text property="code" size="30" name="<%=Constants.SHELL_RETURN%>" readonly="true"/></td>
+            <td width="160"><html:text property="code" size="30" name="<%=Constants.SHELL_RETURN%>" readonly="true" tabindex="-1"/></td>
             <td width="170" style="padding-right: 20px;padding-left: 10px"><bean:message key="date.title"/></td>
-            <td><html:text property="createdDate" size="30" name="<%=Constants.SHELL_RETURN%>" styleId="shellReturnCreatedDate"/></td>
+            <td><html:text property="createdDate" size="30" name="<%=Constants.SHELL_RETURN%>" styleId="shellReturnCreatedDate" tabindex="-1"/></td>
         </tr>
         <tr>
             <td height="30" style="padding-right: 20px"><bean:message key="customer.title"/></td>
             <td>
-                <select style="width: 195px;" name="customerIdCombobox" id="customerIdCombobox">
+                <select style="width: 195px;" name="customerIdCombobox" id="customerIdCombobox" tabindex="0">
                     <logic:iterate id="customer_iter" name="<%=Constants.CUSTOMER_LIST%>">
                         <option  value="${customer_iter.id}">${customer_iter.name}</option>
                     </logic:iterate>

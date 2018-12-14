@@ -12,23 +12,23 @@
                     <table cellspacing="0" cellpadding="0" style="border-width: 0px">
                         <tr>
                             <td height="30" style="padding-right: 20px"><bean:message key="code.title"/></td>
-                            <td><html:text property="code" size="30" name="<%=Constants.GAS_PRICE%>" readonly="true"/></td>
+                            <td><html:text property="code" size="30" name="<%=Constants.GAS_PRICE%>" readonly="true" tabindex="-1"/></td>
                             <td style="padding-right: 20px;padding-left: 10px"><bean:message key="customer.detail.kind"/></td>
                             <td>
-                                <html:select property="kind" name="<%=Constants.GAS_PRICE%>" style="width:195px">
+                                <html:select property="kind" name="<%=Constants.GAS_PRICE%>" style="width:195px" tabindex="-1">
                                     <html:options collection="<%=Constants.CUSTOMER_KIND_LIST%>" property="value" labelProperty="label"/>
                                 </html:select>
                             </td>
                         </tr>
                         <tr>
                             <td height="30" style="padding-right: 20px"><bean:message key="fromDate.title"/></td>
-                            <td><html:text property="fromDate" styleId="gasPriceFromDate" size="30" name="<%=Constants.GAS_PRICE%>"/></td>
+                            <td><html:text property="fromDate" styleId="gasPriceFromDate" size="30" name="<%=Constants.GAS_PRICE%>" tabindex="-1"/></td>
                             <td style="padding-right: 20px;padding-left: 10px"><bean:message key="toDate.title"/></td>
-                            <td><html:text property="toDate" styleId="gasPriceToDate" size="30" name="<%=Constants.GAS_PRICE%>"/></td>
+                            <td><html:text property="toDate" styleId="gasPriceToDate" size="30" name="<%=Constants.GAS_PRICE%>" tabindex="-1"/></td>
                         </tr>
                         <tr>
                             <td height="30" style="padding-right: 20px"><bean:message key="price.sale.title"/></td>
-                            <td><html:text property="price" size="30" name="<%=Constants.GAS_PRICE%>" onblur="tryNumberFormatCurrentcy(this);" onkeypress="return readonlyFloat(event);"/></td>
+                            <td><html:text property="price" size="30" name="<%=Constants.GAS_PRICE%>" onblur="tryNumberFormatCurrentcy(this);" onkeypress="return readonlyFloat(event);" tabindex="0"/></td>
                             <td style="padding-right: 20px;padding-left: 10px"><bean:message key="note.title"/></td>
                             <td><html:text property="note" size="30" name="<%=Constants.GAS_PRICE%>"/></td>
                         </tr>

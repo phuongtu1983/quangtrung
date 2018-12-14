@@ -4,6 +4,7 @@
  */
 package com.stepup.gasoline.qt.employeeoffmoney;
 
+import com.stepup.core.util.NumberUtil;
 import com.stepup.core.util.OutputUtil;
 import com.stepup.gasoline.qt.bean.EmployeeOffMoneyBean;
 import com.stepup.gasoline.qt.core.SpineAction;
@@ -34,7 +35,7 @@ public class GetDayOffSalaryEmployeeAction extends SpineAction {
             HttpServletRequest request, HttpServletResponse response) {
         try {
             EmployeeDAO employeeDAO = new EmployeeDAO();
-            int employeeId = Integer.parseInt(request.getParameter("employeeId"));
+            int employeeId = NumberUtil.parseInt(request.getParameter("employeeId"), 0);
             EmployeeOffMoneyBean moneyBean = employeeDAO.getDayOffAndSalaryOfEmployee(employeeId);
             String json = "{\"id\":\"" + employeeId + "\"";
             if (moneyBean != null) {

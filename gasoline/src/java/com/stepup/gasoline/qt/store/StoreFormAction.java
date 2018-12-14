@@ -4,6 +4,7 @@
  */
 package com.stepup.gasoline.qt.store;
 
+import com.stepup.core.util.NumberUtil;
 import com.stepup.gasoline.qt.bean.EmployeeBean;
 import com.stepup.gasoline.qt.core.SpineAction;
 import com.stepup.gasoline.qt.dao.OrganizationDAO;
@@ -41,7 +42,7 @@ public class StoreFormAction extends SpineAction {
         OrganizationDAO organizationDAO = new OrganizationDAO();
         if (!GenericValidator.isBlankOrNull(storeid)) {
             try {
-                formBean = organizationDAO.getStore(Integer.parseInt(storeid));
+                formBean = organizationDAO.getStore(NumberUtil.parseInt(storeid, 0));
             } catch (Exception ex) {
             }
         }
@@ -49,7 +50,7 @@ public class StoreFormAction extends SpineAction {
             formBean = new StoreFormBean();
         }
         request.setAttribute(Constants.STORE, formBean);
-        
+
         ArrayList arrStatus = new ArrayList();
         LabelValueBean value;
         value = new LabelValueBean();
@@ -61,7 +62,7 @@ public class StoreFormAction extends SpineAction {
         value.setValue(EmployeeBean.STATUS_INACTIVE + "");
         arrStatus.add(value);
         request.setAttribute(Constants.STATUS_LIST, arrStatus);
-        
+
         ArrayList arrOrganization = null;
         try {
             arrOrganization = organizationDAO.getOrganizations(EmployeeBean.STATUS_ACTIVE, QTUtil.getOrganizationManageds(request.getSession()));
@@ -71,7 +72,7 @@ public class StoreFormAction extends SpineAction {
             arrOrganization = new ArrayList();
         }
         request.setAttribute(Constants.ORGANIZATION_LIST, arrOrganization);
-        
+
         return true;
     }
 }

@@ -12,12 +12,14 @@
                     <table cellspacing="0" cellpadding="0" style="border-width: 0px">
                         <tr>
                             <td height="30" style="padding-right: 20px"><bean:message key="code.title"/></td>
-                            <td><html:text property="code" size="30" name="<%=Constants.DEBT_WHOLESALE%>" readonly="true"/></td>
+                            <td><html:text property="code" size="30" name="<%=Constants.DEBT_WHOLESALE%>" readonly="true" tabindex="-1"/></td>
                             <td style="padding-right: 20px;padding-left: 10px"><bean:message key="date.title"/></td>
-                            <td><html:text property="createdDate" styleId="debtWholesaleDate" size="30" name="<%=Constants.DEBT_WHOLESALE%>"/></td>
+                            <td><html:text property="createdDate" styleId="debtWholesaleDate" size="30" name="<%=Constants.DEBT_WHOLESALE%>" tabindex="-1"/></td>
                         </tr>
                         <tr>
-                            <td height="30" style="padding-right: 20px"><bean:message key="customer.title"/></td>
+                            <td height="30" style="padding-right: 20px"><bean:message key="paid.title"/></td>
+                            <td><html:text property="paid" size="30" name="<%=Constants.DEBT_WHOLESALE%>" onblur="tryNumberFormatCurrentcy(this);" onkeypress="return readonlyFloat(event);" tabindex="0"/></td>
+                            <td style="padding-right: 20px;padding-left: 10px"><bean:message key="customer.title"/></td>
                             <td>
                                 <select style="width: 195px;" name="customerIdCombobox" id="customerIdCombobox">
                                     <logic:iterate id="customer_iter" name="<%=Constants.CUSTOMER_LIST%>">
@@ -25,8 +27,6 @@
                                     </logic:iterate>
                                 </select>
                             </td>
-                            <td style="padding-right: 20px;padding-left: 10px"><bean:message key="paid.title"/></td>
-                            <td><html:text property="paid" size="30" name="<%=Constants.DEBT_WHOLESALE%>" onblur="tryNumberFormatCurrentcy(this);" onkeypress="return readonlyFloat(event);"/></td>
                         </tr>
                         <tr>
                             <td height="30" style="padding-right: 20px"><bean:message key="account.title"/></td>

@@ -25,8 +25,8 @@
                 <td><span><bean:write name="good" property="petroName"/></span></td>
                 <td><span><bean:write name="good" property="unitName"/></span></td>
                 <td><input type="text" size="20" name="quantity" value="${good.quantity}" id="detquantity${good.petroId}" onblur="return caculateFormListDetail('${good.petroId}','salePetroForm');" onkeypress="return readonlyFloat(event);"/></td>
-                <td><input type="text" size="20" name="price" value="${good.price}" id="detprice${good.petroId}" onblur="return caculateFormListDetail('${good.petroId}','salePetroForm');" onkeypress="return readonlyFloat(event);"/></td>
-                <td><input type="text" size="20" name="amount" value="${good.amount}" id="detamount${good.petroId}" readonly="readonly"/></td>
+                <td><input type="text" size="20" name="price" value="${good.price}" id="detprice${good.petroId}" onblur="return caculateFormListDetail('${good.petroId}','salePetroForm');" onkeypress="return readonlyFloat(event);" tabindex="-1"/></td>
+                <td><input type="text" size="20" name="amount" value="${good.amount}" id="detamount${good.petroId}" readonly="readonly" tabindex="-1"/></td>
             </tr>
         </logic:iterate>
     </tbody>

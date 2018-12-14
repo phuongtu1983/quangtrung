@@ -4,6 +4,7 @@
  */
 package com.stepup.gasoline.qt.employee;
 
+import com.stepup.core.util.NumberUtil;
 import com.stepup.gasoline.qt.bean.DynamicFieldBean;
 import com.stepup.gasoline.qt.core.SpineAction;
 import com.stepup.gasoline.qt.dao.EmployeeDAO;
@@ -40,7 +41,7 @@ public class EmployeeSalaryFormAction extends SpineAction {
         EmployeeDAO employeeDAO = new EmployeeDAO();
         if (!GenericValidator.isBlankOrNull(employeeid)) {
             try {
-                formBean = employeeDAO.getEmployee(Integer.parseInt(employeeid));
+                formBean = employeeDAO.getEmployee(NumberUtil.parseInt(employeeid, 0));
             } catch (Exception ex) {
             }
         }

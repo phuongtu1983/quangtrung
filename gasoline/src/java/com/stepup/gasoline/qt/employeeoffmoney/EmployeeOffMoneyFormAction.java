@@ -5,6 +5,7 @@
 package com.stepup.gasoline.qt.employeeoffmoney;
 
 import com.stepup.core.util.DateUtil;
+import com.stepup.core.util.NumberUtil;
 import com.stepup.gasoline.qt.bean.EmployeeOffMoneyBean;
 import com.stepup.gasoline.qt.bean.EmployeeBean;
 import com.stepup.gasoline.qt.core.SpineAction;
@@ -45,7 +46,7 @@ public class EmployeeOffMoneyFormAction extends SpineAction {
         EmployeeDAO employeeDAO = new EmployeeDAO();
         if (!GenericValidator.isBlankOrNull(employeeOffMoneyId)) {
             try {
-                bean = employeeDAO.getEmployeeOffMoney(Integer.parseInt(employeeOffMoneyId));
+                bean = employeeDAO.getEmployeeOffMoney(NumberUtil.parseInt(employeeOffMoneyId, 0));
             } catch (Exception ex) {
             }
         }

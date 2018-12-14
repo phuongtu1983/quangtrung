@@ -5,6 +5,7 @@
 package com.stepup.gasoline.qt.dao;
 
 import com.stepup.core.database.DBUtil;
+import com.stepup.core.util.NumberUtil;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
@@ -41,7 +42,7 @@ public class BasicDAO {
                 }
                 result += "1";
             } else {
-                int num = Integer.parseInt(result.substring(prefix.length())) + 1;
+                int num = NumberUtil.parseInt(result.substring(prefix.length()), 0) + 1;
                 result = num + "";
                 while (result.length() < length) {
                     result = "0" + result;

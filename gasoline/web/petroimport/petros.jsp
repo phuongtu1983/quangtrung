@@ -14,7 +14,7 @@
             <td><span><bean:write name="petro" property="unitName"/></span></td>
             <td><input type="text" size="20" name="quantity" id="detquantity${petro.petroId}" value="0" onblur="return caculateFormListDetail('${petro.petroId}','petroImportForm');" onkeypress="return readonlyFloat(event);"/></td>
             <td><input type="text" size="20" name="price" id="detprice${petro.petroId}" value="0" onblur="return caculateFormListDetail('${petro.petroId}','petroImportForm');" onkeypress="return readonlyFloat(event);"/></td>
-            <td><input type="text" size="20" name="amount" id="detamount${petro.petroId}" value="0" readonly="readonly"/></td>
+            <td><input type="text" size="20" name="amount" id="detamount${petro.petroId}" value="0" readonly="readonly" tabindex="-1"/></td>
         </tr>
     </logic:iterate>
 </table>

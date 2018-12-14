@@ -5,6 +5,7 @@
 package com.stepup.gasoline.qt.gasprice;
 
 import com.stepup.core.util.DateUtil;
+import com.stepup.core.util.NumberUtil;
 import com.stepup.gasoline.qt.bean.CustomerBean;
 import com.stepup.gasoline.qt.bean.GasPriceBean;
 import com.stepup.gasoline.qt.core.SpineAction;
@@ -43,7 +44,7 @@ public class GasPriceFormAction extends SpineAction {
         GasDAO gasDAO = new GasDAO();
         if (!GenericValidator.isBlankOrNull(gasPriceId)) {
             try {
-                bean = gasDAO.getGasPrice(Integer.parseInt(gasPriceId));
+                bean = gasDAO.getGasPrice(NumberUtil.parseInt(gasPriceId, 0));
             } catch (Exception ex) {
             }
         }
@@ -70,7 +71,6 @@ public class GasPriceFormAction extends SpineAction {
         value.setValue(CustomerBean.KIND_RETAIL + "");
         arrKind.add(value);
         request.setAttribute(Constants.CUSTOMER_KIND_LIST, arrKind);
-
 
         return true;
     }

@@ -15,14 +15,14 @@
                     <table cellspacing="0" cellpadding="0" style="border-width: 0px">
                         <tr>
                             <td height="30" style="padding-right: 20px"><bean:message key="code.title"/></td>
-                            <td><html:text property="code" size="30" name="<%=Constants.CONTRACT%>" readonly="true"/></td>
+                            <td><html:text property="code" size="30" name="<%=Constants.CONTRACT%>" readonly="true" tabindex="-1"/></td>
                             <td style="padding-right: 20px;padding-left: 10px"><bean:message key="date.title"/></td>
-                            <td><html:text property="createdDate" styleId="contractDate" size="30" name="<%=Constants.CONTRACT%>" readonly="true"/></td>
+                            <td><html:text property="createdDate" styleId="contractDate" size="30" name="<%=Constants.CONTRACT%>" tabindex="-1"/></td>
                         </tr>
                         <tr>
                             <td height="30" style="padding-right: 20px"><bean:message key="customer.title"/></td>
                             <td colspan="3">
-                                <select style="width: 195px;" name="customerIdCombobox" id="customerIdCombobox">
+                                <select style="width: 195px;" name="customerIdCombobox" id="customerIdCombobox" tabindex="0">
                                     <logic:iterate id="customer_iter" name="<%=Constants.CUSTOMER_LIST%>">
                                         <option  value="${customer_iter.id}">${customer_iter.name}</option>
                                     </logic:iterate>

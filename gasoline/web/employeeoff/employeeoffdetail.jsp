@@ -12,15 +12,9 @@
                     <table cellspacing="0" cellpadding="0" style="border-width: 0px">
                         <tr>
                             <td height="30" style="padding-right: 20px"><bean:message key="code.title"/></td>
-                            <td><html:text property="code" size="30" name="<%=Constants.EMPLOYEE_OFF%>" readonly="true"/></td>
+                            <td><html:text property="code" size="30" name="<%=Constants.EMPLOYEE_OFF%>" readonly="true" tabindex="-1"/></td>
                             <td style="padding-right: 20px;padding-left: 10px"><bean:message key="date.title"/></td>
-                            <td><html:text property="createdDate" size="30" name="<%=Constants.EMPLOYEE_OFF%>" styleId="employeeOffCreatedDate"/></td>
-                        </tr>
-                        <tr>
-                            <td height="30" style="padding-right: 20px"><bean:message key="fromDate.title"/></td>
-                            <td><html:text property="fromDate" styleId="employeeOffFromDate" size="30" name="<%=Constants.EMPLOYEE_OFF%>"/></td>
-                            <td style="padding-right: 20px;padding-left: 10px"><bean:message key="toDate.title"/></td>
-                            <td><html:text property="toDate" styleId="employeeOffToDate" size="30" name="<%=Constants.EMPLOYEE_OFF%>"/></td>
+                            <td><html:text property="createdDate" size="30" name="<%=Constants.EMPLOYEE_OFF%>" styleId="employeeOffCreatedDate" tabindex="-1"/></td>
                         </tr>
                         <tr>
                             <td height="30" style="padding-right: 20px"><bean:message key="employee.title"/></td>
@@ -33,6 +27,12 @@
                             </td>
                             <td style="padding-right: 20px;padding-left: 10px"><bean:message key="note.title"/></td>
                             <td><html:text property="note" size="30" name="<%=Constants.EMPLOYEE_OFF%>" /></td>
+                        </tr>
+                        <tr>
+                            <td height="30" style="padding-right: 20px"><bean:message key="fromDate.title"/></td>
+                            <td><html:text property="fromDate" styleId="employeeOffFromDate" size="30" name="<%=Constants.EMPLOYEE_OFF%>"/></td>
+                            <td style="padding-right: 20px;padding-left: 10px"><bean:message key="toDate.title"/></td>
+                            <td><html:text property="toDate" styleId="employeeOffToDate" size="30" name="<%=Constants.EMPLOYEE_OFF%>"/></td>
                         </tr>
                     </table>
                 </td></tr>

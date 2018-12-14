@@ -4,6 +4,7 @@
  */
 package com.stepup.gasoline.qt.dynamicfield;
 
+import com.stepup.core.util.NumberUtil;
 import com.stepup.gasoline.qt.bean.EmployeeBean;
 import com.stepup.gasoline.qt.core.SpineAction;
 import com.stepup.gasoline.qt.dao.DynamicFieldDAO;
@@ -41,7 +42,7 @@ public class DynamicFieldFormAction extends SpineAction {
         if (!GenericValidator.isBlankOrNull(fieldId)) {
             DynamicFieldDAO dynamicFieldDAO = new DynamicFieldDAO();
             try {
-                bean = dynamicFieldDAO.getDynamicField(Integer.parseInt(fieldId));
+                bean = dynamicFieldDAO.getDynamicField(NumberUtil.parseInt(fieldId, 0));
             } catch (Exception ex) {
             }
         }

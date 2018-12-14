@@ -13,8 +13,8 @@
             <td><span><bean:write name="accessory" property="name"/></span></td>
             <td><span><bean:write name="accessory" property="unitName"/></span></td>
             <td><input type="text" size="20" name="accessoryQuantity" id="accessorydetquantity${accessory.id}" value="0" onblur="return caculateVehicleInAccessoryListDetail('${accessory.id}');" onkeypress="return readonlyFloat(event);"/></td>
-            <td><input type="text" size="20" name="accessoryPrice" id="accessorydetprice${accessory.id}" value="${accessory.price}" onblur="return caculateVehicleInAccessoryListDetail('${accessory.id}');" onkeypress="return readonlyFloat(event);"/></td>
-            <td><input type="text" size="20" name="accessoryAmount" id="accessorydetamount${accessory.id}" value="0" readonly="readonly"/></td>
+            <td><input type="text" size="20" name="accessoryPrice" id="accessorydetprice${accessory.id}" value="${accessory.price}" onblur="return caculateVehicleInAccessoryListDetail('${accessory.id}');" onkeypress="return readonlyFloat(event);" tabindex="-1"/></td>
+            <td><input type="text" size="20" name="accessoryAmount" id="accessorydetamount${accessory.id}" value="0" readonly="readonly" tabindex="-1"/></td>
         </tr>
     </logic:iterate>
 </table>

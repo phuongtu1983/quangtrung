@@ -4,6 +4,7 @@
  */
 package com.stepup.gasoline.qt.organization;
 
+import com.stepup.core.util.NumberUtil;
 import com.stepup.gasoline.qt.bean.DynamicFieldBean;
 import com.stepup.gasoline.qt.bean.OrganizationBean;
 import com.stepup.gasoline.qt.core.SpineAction;
@@ -41,7 +42,7 @@ public class OrganizationTimesheetFormAction extends SpineAction {
         OrganizationDAO organizationDAO = new OrganizationDAO();
         if (!GenericValidator.isBlankOrNull(organizationId)) {
             try {
-                formBean = organizationDAO.getOrganization(Integer.parseInt(organizationId));
+                formBean = organizationDAO.getOrganization(NumberUtil.parseInt(organizationId, 0));
             } catch (Exception ex) {
             }
         }

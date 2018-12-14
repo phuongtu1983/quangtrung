@@ -10,9 +10,9 @@
     <table style="width: 100%">
         <tr>
             <td width="160" height="30"><bean:message key="code.title"/></td>
-            <td width="260"><html:text property="code" size="30" name="<%=Constants.EXPORT_WHOLESALE%>" readonly="true"/></td>
+            <td width="260"><html:text property="code" size="30" name="<%=Constants.EXPORT_WHOLESALE%>" readonly="true" tabindex="-1"/></td>
             <td width="170"  style="padding-right: 20px;padding-left: 10px"><bean:message key="date.title"/></td>
-            <td><html:text property="createdDate" size="30" name="<%=Constants.EXPORT_WHOLESALE%>" styleId="exportWholesaleCreatedDate"/></td>
+            <td><html:text property="createdDate" size="30" name="<%=Constants.EXPORT_WHOLESALE%>" styleId="exportWholesaleCreatedDate" tabindex="-1"/></td>
         </tr>
         <tr>
             <td height="30" style="padding-right: 20px"><bean:message key="customer.title"/></td>
@@ -24,19 +24,19 @@
                 </select>
             </td>
             <td style="padding-right: 20px;padding-left: 10px"><bean:message key="total.title"/></td>
-            <td colspan="3"><html:text property="total" size="30" name="<%=Constants.EXPORT_WHOLESALE%>" readonly="true"/></td>
+            <td colspan="3"><html:text property="total" size="30" name="<%=Constants.EXPORT_WHOLESALE%>" readonly="true" tabindex="-1"/></td>
         </tr>
         <tr>
             <td height="30" style="padding-right: 20px"><bean:message key="discount.title"/></td>
             <td><html:text property="discount" size="30" name="<%=Constants.EXPORT_WHOLESALE%>" onblur="return formPaidDiscountChanged('exportWholesaleForm');" onkeypress="return readonlyFloat(event);"/></td>
             <td style="padding-right: 20px;padding-left: 10px"><bean:message key="amount.title"/></td>
-            <td><html:text property="totalPay" size="30" name="<%=Constants.EXPORT_WHOLESALE%>" readonly="true"/></td>
+            <td><html:text property="totalPay" size="30" name="<%=Constants.EXPORT_WHOLESALE%>" readonly="true" tabindex="-1"/></td>
         </tr>
         <tr>
             <td height="30" style="padding-right: 20px"><bean:message key="paid.title"/></td>
             <td><html:text property="paid" size="30" name="<%=Constants.EXPORT_WHOLESALE%>" onblur="return formPaidDiscountChanged('exportWholesaleForm');" onkeypress="return readonlyFloat(event);"/></td>
             <td style="padding-right: 20px;padding-left: 10px"><bean:message key="debt.title"/></td>
-            <td><html:text property="debt" size="30" name="<%=Constants.EXPORT_WHOLESALE%>" readonly="true"/></td>
+            <td><html:text property="debt" size="30" name="<%=Constants.EXPORT_WHOLESALE%>" readonly="true" tabindex="-1"/></td>
         </tr>
         <tr>
             <td height="30" style="padding-right: 20px""><bean:message key="account.title"/></td>
@@ -80,8 +80,8 @@
                     <table>
                         <tr>
                             <td>
-                                <button class="i_cross icon small red" onclick="return delTableRow('exportWholesaleForm', 'exportWholesaleReturnShellChk', 'exportWholesaleReturnShellDetailTbl');"><bean:message key="message.del"/></button>
-                                <button class="i_plus icon small green" onclick="return addExportWholesaleReturnShell();"><bean:message key="message.add"/></button>
+                                <button class="i_cross icon small red" onclick="return delTableRow('exportWholesaleForm', 'exportWholesaleReturnShellChk', 'exportWholesaleReturnShellDetailTbl');" tabindex="-1"><bean:message key="message.del"/></button>
+                                <button class="i_plus icon small green" onclick="return addExportWholesaleReturnShell();" tabindex="-1"><bean:message key="message.add"/></button>
                             </td>
                             <td>
                                 <select style="width: 260px;" name="returnShellIdCombobox" id="returnShellIdCombobox">

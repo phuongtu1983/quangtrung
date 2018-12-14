@@ -4,6 +4,7 @@
  */
 package com.stepup.gasoline.qt.employee;
 
+import com.stepup.core.util.NumberUtil;
 import com.stepup.gasoline.qt.bean.DynamicFieldBean;
 import com.stepup.gasoline.qt.bean.EmployeeBean;
 import com.stepup.gasoline.qt.bean.OrganizationBean;
@@ -45,7 +46,7 @@ public class EmployeeFormAction extends DynamicFieldValueAction {
         int seletecOrganizationId = 0;
         if (!GenericValidator.isBlankOrNull(employeeid)) {
             try {
-                formBean = employeeDAO.getEmployee(Integer.parseInt(employeeid));
+                formBean = employeeDAO.getEmployee(NumberUtil.parseInt(employeeid, 0));
             } catch (Exception ex) {
             }
         }

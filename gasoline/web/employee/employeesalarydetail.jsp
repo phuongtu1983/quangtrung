@@ -14,7 +14,7 @@
                             <td height="30" style="padding-right: 20px"><bean:message key="employee.detail.fullname"/></td>
                             <td><html:text property="fullname" size="40" name="<%=Constants.EMPLOYEE_SALARY%>"/></td>
                             <td height="30" style="padding-left: 10px; padding-right: 20px"><bean:message key="organization.title"/></td>
-                            <td><html:text property="organizationName" size="40" name="<%=Constants.EMPLOYEE_SALARY%>" readonly="true"/></td>
+                            <td><html:text property="organizationName" size="40" name="<%=Constants.EMPLOYEE_SALARY%>" readonly="true" tabindex="-1"/></td>
                         </tr>
                         <tr>
                             <td height="30" style="padding-right: 20px"><bean:message key="employee.detail.salary"/></td>

@@ -5,6 +5,7 @@
 package com.stepup.gasoline.qt.employeetimesheet;
 
 import com.stepup.core.util.DateUtil;
+import com.stepup.core.util.NumberUtil;
 import com.stepup.gasoline.qt.bean.DynamicFieldBean;
 import com.stepup.gasoline.qt.bean.EmployeeTimesheetBean;
 import com.stepup.gasoline.qt.bean.EmployeeBean;
@@ -45,7 +46,7 @@ public class EmployeeTimesheetFormAction extends SpineAction {
         EmployeeDAO employeeDAO = new EmployeeDAO();
         if (!GenericValidator.isBlankOrNull(employeeTimesheetId)) {
             try {
-                bean = employeeDAO.getEmployeeTimesheet(Integer.parseInt(employeeTimesheetId));
+                bean = employeeDAO.getEmployeeTimesheet(NumberUtil.parseInt(employeeTimesheetId, 0));
             } catch (Exception ex) {
             }
         }

@@ -5,6 +5,7 @@
 package com.stepup.gasoline.qt.oldshell;
 
 import com.stepup.core.util.DateUtil;
+import com.stepup.core.util.NumberUtil;
 import com.stepup.gasoline.qt.bean.EmployeeBean;
 import com.stepup.gasoline.qt.bean.OldShellBean;
 import com.stepup.gasoline.qt.core.SpineAction;
@@ -43,7 +44,7 @@ public class OldShellFormAction extends SpineAction {
         GasDAO gasDAO = new GasDAO();
         if (!GenericValidator.isBlankOrNull(oldShellId)) {
             try {
-                bean = gasDAO.getOldShell(Integer.parseInt(oldShellId));
+                bean = gasDAO.getOldShell(NumberUtil.parseInt(oldShellId, 0));
             } catch (Exception ex) {
             }
         }

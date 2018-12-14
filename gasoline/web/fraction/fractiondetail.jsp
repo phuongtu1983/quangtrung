@@ -10,13 +10,13 @@
     <table style="width: 100%">
         <tr>
             <td width="80" height="30"><bean:message key="code.title"/></td>
-            <td width="160"><html:text property="code" size="20" name="<%=Constants.FRACTION%>" readonly="true"/></td>
+            <td width="160"><html:text property="code" size="20" name="<%=Constants.FRACTION%>" readonly="true" tabindex="-1"/></td>
             <td width="100"><bean:message key="date.title"/></td>
-            <td><html:text property="createdDate" size="10" name="<%=Constants.FRACTION%>" styleId="fractionCreatedDate"/></td>
+            <td><html:text property="createdDate" size="10" name="<%=Constants.FRACTION%>" styleId="fractionCreatedDate" tabindex="-1"/></td>
         </tr>
         <tr>
             <td height="30"><bean:message key="note.title"/></td>
-            <td colspan="3"><html:textarea rows="3" cols="93" property="note" name="<%=Constants.FRACTION%>"/></td>
+            <td colspan="3"><html:textarea rows="3" cols="93" property="note" name="<%=Constants.FRACTION%>" tabindex="-1"/></td>
         </tr>
         <tr>
             <td colspan="4">

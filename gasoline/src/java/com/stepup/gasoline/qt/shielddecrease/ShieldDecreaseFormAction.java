@@ -5,6 +5,7 @@
 package com.stepup.gasoline.qt.shielddecrease;
 
 import com.stepup.core.util.DateUtil;
+import com.stepup.core.util.NumberUtil;
 import com.stepup.gasoline.qt.bean.ShieldDecreaseBean;
 import com.stepup.gasoline.qt.bean.VendorBean;
 import com.stepup.gasoline.qt.core.SpineAction;
@@ -44,7 +45,7 @@ public class ShieldDecreaseFormAction extends SpineAction {
         GoodDAO goodDAO = new GoodDAO();
         if (!GenericValidator.isBlankOrNull(shieldDecreaseId)) {
             try {
-                bean = goodDAO.getShieldDecrease(Integer.parseInt(shieldDecreaseId));
+                bean = goodDAO.getShieldDecrease(NumberUtil.parseInt(shieldDecreaseId, 0));
             } catch (Exception ex) {
             }
         }
@@ -58,7 +59,7 @@ public class ShieldDecreaseFormAction extends SpineAction {
                 bean.setCode(prefix);
             } catch (Exception ex) {
             }
-        }else {
+        } else {
             if (PermissionUtil.hasPermission(request, PermissionUtil.OPERATION_EDIT_PAST, PermissionUtil.PER_SHIELD_DECREASE)) {
                 bean.setCanEdit(1);
             }

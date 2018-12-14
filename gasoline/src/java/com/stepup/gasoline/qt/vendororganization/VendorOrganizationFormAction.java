@@ -4,6 +4,7 @@
  */
 package com.stepup.gasoline.qt.vendororganization;
 
+import com.stepup.core.util.NumberUtil;
 import com.stepup.gasoline.qt.bean.EmployeeBean;
 import com.stepup.gasoline.qt.core.SpineAction;
 import com.stepup.gasoline.qt.dao.OrganizationDAO;
@@ -42,7 +43,7 @@ public class VendorOrganizationFormAction extends SpineAction {
         VendorDAO vendorDAO = new VendorDAO();
         if (!GenericValidator.isBlankOrNull(vendorOrganizationId)) {
             try {
-                formBean = vendorDAO.getVendorOrganization(Integer.parseInt(vendorOrganizationId));
+                formBean = vendorDAO.getVendorOrganization(NumberUtil.parseInt(vendorOrganizationId, 0));
             } catch (Exception ex) {
             }
         }

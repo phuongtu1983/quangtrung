@@ -5,6 +5,7 @@
 package com.stepup.gasoline.qt.salepetro;
 
 import com.stepup.core.util.DateUtil;
+import com.stepup.core.util.NumberUtil;
 import com.stepup.gasoline.qt.bean.EmployeeBean;
 import com.stepup.gasoline.qt.bean.SalePetroBean;
 import com.stepup.gasoline.qt.bean.VendorBean;
@@ -48,7 +49,7 @@ public class SalePetroFormAction extends SpineAction {
         GoodDAO goodDAO = new GoodDAO();
         if (!GenericValidator.isBlankOrNull(id)) {
             try {
-                int gasImportId = Integer.parseInt(id);
+                int gasImportId = NumberUtil.parseInt(id, 0);
                 bean = goodDAO.getSalePetro(gasImportId);
                 arrDetail = goodDAO.getSalePetroDetail(gasImportId);
             } catch (Exception ex) {

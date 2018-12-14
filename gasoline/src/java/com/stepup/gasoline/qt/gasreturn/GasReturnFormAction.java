@@ -5,6 +5,7 @@
 package com.stepup.gasoline.qt.gasreturn;
 
 import com.stepup.core.util.DateUtil;
+import com.stepup.core.util.NumberUtil;
 import com.stepup.gasoline.qt.bean.EmployeeBean;
 import com.stepup.gasoline.qt.bean.GasReturnBean;
 import com.stepup.gasoline.qt.bean.VendorBean;
@@ -47,7 +48,7 @@ public class GasReturnFormAction extends SpineAction {
         GasDAO gasDAO = new GasDAO();
         if (!GenericValidator.isBlankOrNull(id)) {
             try {
-                int gasImportId = Integer.parseInt(id);
+                int gasImportId = NumberUtil.parseInt(id, 0);
                 bean = gasDAO.getGasReturn(gasImportId);
                 arrDetail = gasDAO.getGasReturnDetail(gasImportId);
             } catch (Exception ex) {
@@ -98,7 +99,7 @@ public class GasReturnFormAction extends SpineAction {
             arrAccount = new ArrayList();
         }
         request.setAttribute(Constants.ACCOUNT_LIST, arrAccount);
-        
+
         ArrayList arrCustomer = null;
         try {
             CustomerDAO customerDAO = new CustomerDAO();

@@ -5,6 +5,7 @@
 package com.stepup.gasoline.qt.vehiclein;
 
 import com.stepup.core.util.DateUtil;
+import com.stepup.core.util.NumberUtil;
 import com.stepup.gasoline.qt.bean.EmployeeBean;
 import com.stepup.gasoline.qt.bean.VehicleInBean;
 import com.stepup.gasoline.qt.bean.VehicleOutBean;
@@ -50,7 +51,7 @@ public class VehicleInFormAction extends SpineAction {
         GasDAO gasDAO = new GasDAO();
         if (!GenericValidator.isBlankOrNull(id)) {
             try {
-                int gasImportId = Integer.parseInt(id);
+                int gasImportId = NumberUtil.parseInt(id, 0);
                 bean = gasDAO.getVehicleIn(gasImportId);
                 arrDetail = gasDAO.getVehicleInDetail(gasImportId);
                 arrAccessoryDetail = gasDAO.getVehicleInAccessoryDetail(gasImportId);

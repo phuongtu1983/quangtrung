@@ -2214,13 +2214,6 @@ function getEmployeeAdvance(id, handle) {
         document.getElementById('callbackFunc').value = handle;
         document.forms['employeeAdvanceForm'].amount.focus();
         tryNumberFormatCurrentcy(document.forms['employeeAdvanceForm'].amount, "VND");
-        if (id == 0) {
-            var currentDate = getCurrentDate();
-            document.forms['employeeAdvanceForm'].employeeAdvanceDate.value = currentDate;
-        }
-        var myCalendar = new dhtmlXCalendarObject(["employeeAdvanceDate"]);
-        myCalendar.setSkin('dhx_web');
-        myCalendar.setDateFormat("%d/%m/%Y");
 
         window.dhx_globalImgPath = "js/dhtmlx/combo/imgs/";
         // ============================
@@ -2241,6 +2234,9 @@ function getEmployeeAdvance(id, handle) {
         }
         if (id == 0) {
             employeeIdCombobox.setComboValue("");
+            employeeIdCombobox.openSelect();
+            var currentDate = getCurrentDate();
+            document.forms['employeeAdvanceForm'].employeeAdvanceDate.value = currentDate;
         } else {
             var employeeId = document.forms['employeeAdvanceForm'].employeeId.value;
             if (employeeId != 0) {
@@ -2251,6 +2247,9 @@ function getEmployeeAdvance(id, handle) {
                 employeeIdCombobox.setComboValue("");
             }
         }
+        var myCalendar = new dhtmlXCalendarObject(["employeeAdvanceDate"]);
+        myCalendar.setSkin('dhx_web');
+        myCalendar.setDateFormat("%d/%m/%Y");
     });
 }
 function saveEmployeeAdvance() {
@@ -2446,13 +2445,6 @@ function getEmployeeTimesheet(id, handle) {
         document.getElementById('callbackFunc').value = handle;
         document.forms['employeeTimesheetForm'].quantity.focus();
         tryNumberFormatCurrentcy(document.forms['employeeTimesheetForm'].quantity, "VND");
-        if (id == 0) {
-            var currentDate = getCurrentDate();
-            document.forms['employeeTimesheetForm'].employeeTimesheetDate.value = currentDate;
-        }
-        var myCalendar = new dhtmlXCalendarObject(["employeeTimesheetDate"]);
-        myCalendar.setSkin('dhx_web');
-        myCalendar.setDateFormat("%d/%m/%Y");
 
         window.dhx_globalImgPath = "js/dhtmlx/combo/imgs/";
         // ============================
@@ -2473,6 +2465,9 @@ function getEmployeeTimesheet(id, handle) {
         }
         if (id == 0) {
             employeeIdCombobox.setComboValue("");
+            var currentDate = getCurrentDate();
+            document.forms['employeeTimesheetForm'].employeeTimesheetDate.value = currentDate;
+            employeeIdCombobox.openSelect();
         } else {
             var employeeId = document.forms['employeeTimesheetForm'].employeeId.value;
             if (employeeId != 0) {
@@ -2483,6 +2478,9 @@ function getEmployeeTimesheet(id, handle) {
                 employeeIdCombobox.setComboValue("");
             }
         }
+        var myCalendar = new dhtmlXCalendarObject(["employeeTimesheetDate"]);
+        myCalendar.setSkin('dhx_web');
+        myCalendar.setDateFormat("%d/%m/%Y");
     });
 }
 function saveEmployeeTimesheet() {
@@ -2578,14 +2576,6 @@ function getEmployeeOff(id, handle) {
     callAjax(url, null, null, function(data) {
         showPopupForm(data);
         document.getElementById('callbackFunc').value = handle;
-        if (id == 0) {
-            var currentDate = getCurrentDate();
-            document.forms['employeeOffForm'].fromDate.value = currentDate;
-            document.forms['employeeOffForm'].toDate.value = currentDate;
-        }
-        var myCalendar = new dhtmlXCalendarObject(["employeeOffFromDate", "employeeOffToDate", "employeeOffCreatedDate"]);
-        myCalendar.setSkin('dhx_web');
-        myCalendar.setDateFormat("%d/%m/%Y");
 
         window.dhx_globalImgPath = "js/dhtmlx/combo/imgs/";
         // ============================
@@ -2605,7 +2595,11 @@ function getEmployeeOff(id, handle) {
             }
         }
         if (id == 0) {
+            var currentDate = getCurrentDate();
+            document.forms['employeeOffForm'].fromDate.value = currentDate;
+            document.forms['employeeOffForm'].toDate.value = currentDate;
             employeeIdCombobox.setComboValue("");
+            employeeIdCombobox.openSelect();
         } else {
             var employeeId = document.forms['employeeOffForm'].employeeId.value;
             if (employeeId != 0) {
@@ -2616,6 +2610,9 @@ function getEmployeeOff(id, handle) {
                 employeeIdCombobox.setComboValue("");
             }
         }
+        var myCalendar = new dhtmlXCalendarObject(["employeeOffFromDate", "employeeOffToDate", "employeeOffCreatedDate"]);
+        myCalendar.setSkin('dhx_web');
+        myCalendar.setDateFormat("%d/%m/%Y");
     });
 }
 function saveEmployeeOff() {
@@ -3026,13 +3023,6 @@ function getShellImport(id, handle) {
         tryNumberFormatCurrentcy(document.forms['shellImportForm'].quantity, "VND");
         tryNumberFormatCurrentcy(document.forms['shellImportForm'].price, "VND");
         tryNumberFormatCurrentcy(document.forms['shellImportForm'].amount, "VND");
-        if (id == 0) {
-            var currentDate = getCurrentDate();
-            document.forms['shellImportForm'].shellImportDate.value = currentDate;
-        }
-        var myCalendar = new dhtmlXCalendarObject(["shellImportDate"]);
-        myCalendar.setSkin('dhx_web');
-        myCalendar.setDateFormat("%d/%m/%Y");
 
         window.dhx_globalImgPath = "js/dhtmlx/combo/imgs/";
         // ============================
@@ -3053,6 +3043,9 @@ function getShellImport(id, handle) {
         }
         if (id == 0) {
             shellIdCombobox.setComboValue("");
+            var currentDate = getCurrentDate();
+            document.forms['shellImportForm'].shellImportDate.value = currentDate;
+            shellIdCombobox.openSelect();
         } else {
             var shellId = document.forms['shellImportForm'].shellId.value;
             if (shellId != 0) {
@@ -3063,6 +3056,9 @@ function getShellImport(id, handle) {
                 shellIdCombobox.setComboValue("");
             }
         }
+        var myCalendar = new dhtmlXCalendarObject(["shellImportDate"]);
+        myCalendar.setSkin('dhx_web');
+        myCalendar.setDateFormat("%d/%m/%Y");
     });
 }
 function saveShellImport() {
@@ -3362,6 +3358,7 @@ function getFraction(id) {
         if (id == 0) {
             var currentDate = getCurrentDate();
             document.forms['fractionForm'].fractionCreatedDate.value = currentDate;
+            shellIdCombobox.openSelect();
         }
         var myCalendar = new dhtmlXCalendarObject(["fractionCreatedDate"]);
         myCalendar.setSkin('dhx_web');
@@ -6770,15 +6767,13 @@ function getVehicleOut(id) {
             }
         }
         employeeIdCombobox.setComboValue("");
-        var myCalendar = new dhtmlXCalendarObject(["vehicleOutCreatedDate"]);
-        myCalendar.setSkin('dhx_web');
         if (id == 0) {
             var currentDate = getCurrentDate();
             document.forms['vehicleOutForm'].vehicleOutCreatedDate.value = currentDate;
+            shellIdCombobox.openSelect();
         }
         var myCalendar = new dhtmlXCalendarObject(["vehicleOutCreatedDate"]);
         myCalendar.setSkin('dhx_web');
-        myCalendar.setDateFormat("%d/%m/%Y");
         myCalendar.setDateFormat("%d/%m/%Y");
         formatFormDetail('vehicleOutForm');
     });
@@ -7050,6 +7045,9 @@ function getVehicleIn(id) {
 
         if (id == 0) {
             selectedCombo.setComboValue("");
+            var currentDate = getCurrentDate();
+            document.forms['vehicleInForm'].vehicleInCreatedDate.value = currentDate;
+            shellIdCombobox.openSelect();
         } else {
             var vehicleOutId = document.forms['vehicleInForm'].vehicleOutId.value;
             if (vehicleOutId != 0) {
@@ -7061,10 +7059,6 @@ function getVehicleIn(id) {
             }
         }
 
-        if (id == 0) {
-            var currentDate = getCurrentDate();
-            document.forms['vehicleInForm'].vehicleInCreatedDate.value = currentDate;
-        }
         var myCalendar = new dhtmlXCalendarObject(["vehicleInCreatedDate"]);
         myCalendar.setSkin('dhx_web');
         myCalendar.setDateFormat("%d/%m/%Y");
@@ -7466,6 +7460,9 @@ function getExportWholesale(id) {
         }
         if (id == 0) {
             customerIdCombobox.setComboValue("");
+            var currentDate = getCurrentDate();
+            document.forms['exportWholesaleForm'].exportWholesaleCreatedDate.value = currentDate;
+            customerIdCombobox.openSelect();
         } else {
             var customerId = document.forms['exportWholesaleForm'].customerId.value;
             if (customerId != 0) {
@@ -7477,10 +7474,6 @@ function getExportWholesale(id) {
             }
         }
 
-        if (id == 0) {
-            var currentDate = getCurrentDate();
-            document.forms['exportWholesaleForm'].exportWholesaleCreatedDate.value = currentDate;
-        }
         var myCalendar = new dhtmlXCalendarObject(["exportWholesaleCreatedDate"]);
         myCalendar.setSkin('dhx_web');
         myCalendar.setDateFormat("%d/%m/%Y");
@@ -8272,8 +8265,8 @@ function getEmployeeOffIncrease(id, handle) {
         if (id == 0) {
             var currentDate = getCurrentDate();
             document.forms['employeeOffIncreaseForm'].employeeOffIncreaseDate.value = currentDate;
-
             employeeIdCombobox.setComboValue("");
+            employeeIdCombobox.openSelect();
         } else {
             var employeeId = document.forms['employeeOffIncreaseForm'].employeeId.value;
             if (employeeId != 0) {
@@ -8362,14 +8355,7 @@ function getEmployeeOffMoney(id, handle) {
         tryNumberFormatCurrentcy(document.forms['employeeOffMoneyForm'].quantity, "VND");
         tryNumberFormatCurrentcy(document.forms['employeeOffMoneyForm'].price, "VND");
         tryNumberFormatCurrentcy(document.forms['employeeOffMoneyForm'].amount, "VND");
-        if (id == 0) {
-            var currentDate = getCurrentDate();
-            document.forms['employeeOffMoneyForm'].employeeOffMoneyDate.value = currentDate;
-        }
-        var myCalendar = new dhtmlXCalendarObject(["employeeOffMoneyDate"]);
-        myCalendar.setSkin('dhx_web');
-        myCalendar.setDateFormat("%d/%m/%Y");
-
+        
         window.dhx_globalImgPath = "js/dhtmlx/combo/imgs/";
         // ============================
         var employeeIdCombobox = dhtmlXComboFromSelect("employeeIdCombobox");
@@ -8396,6 +8382,14 @@ function getEmployeeOffMoney(id, handle) {
             employeeIdCombobox.unSelectOption();
             employeeIdCombobox.setComboValue("");
         }
+        if (id == 0) {
+            var currentDate = getCurrentDate();
+            document.forms['employeeOffMoneyForm'].employeeOffMoneyDate.value = currentDate;
+            employeeIdCombobox.openSelect();
+        }
+        var myCalendar = new dhtmlXCalendarObject(["employeeOffMoneyDate"]);
+        myCalendar.setSkin('dhx_web');
+        myCalendar.setDateFormat("%d/%m/%Y");
     });
 }
 function saveEmployeeOffMoney() {
@@ -8740,14 +8734,14 @@ function getContract(id, handle) {
         tryNumberFormatCurrentcy(document.forms['contractForm'].shell45Price, "VND");
         tryNumberFormatCurrentcy(document.forms['contractForm'].creditDate, "VND");
         tryNumberFormatCurrentcy(document.forms['contractForm'].creditAmount, "VND");
-        var myCalendar = new dhtmlXCalendarObject(["contractDate"]);
-        myCalendar.setSkin('dhx_web');
         if (id == 0) {
             var currentDate = getCurrentDate();
             document.forms['contractForm'].contractDate.value = currentDate;
         } else {
             loadAttchmentFileList(null, null);
         }
+        var myCalendar = new dhtmlXCalendarObject(["contractDate"]);
+        myCalendar.setSkin('dhx_web');
         myCalendar.setDateFormat("%d/%m/%Y");
 
         window.dhx_globalImgPath = "js/dhtmlx/combo/imgs/";
@@ -9070,13 +9064,6 @@ function getLpgSale(id, handle, lpgImportId) {
         tryNumberFormatCurrentcy(document.forms['lpgSaleForm'].paid, "VND");
         tryNumberFormatCurrentcy(document.forms['lpgSaleForm'].debt, "VND");
         tryNumberFormatCurrentcy(document.forms['lpgSaleForm'].rate, "VND");
-        if (id == 0) {
-            var currentDate = getCurrentDate();
-            document.forms['lpgSaleForm'].lpgSaleDate.value = currentDate;
-        }
-        var myCalendar = new dhtmlXCalendarObject(["lpgSaleDate"]);
-        myCalendar.setSkin('dhx_web');
-        myCalendar.setDateFormat("%d/%m/%Y");
 
         window.dhx_globalImgPath = "js/dhtmlx/combo/imgs/";
         // ============================
@@ -9125,6 +9112,9 @@ function getLpgSale(id, handle, lpgImportId) {
         }
         if (id == 0) {
             customerIdCombobox.setComboValue("");
+            var currentDate = getCurrentDate();
+            document.forms['lpgSaleForm'].lpgSaleDate.value = currentDate;
+            customerIdCombobox.openSelect();
         } else {
             var customerId = document.forms['lpgSaleForm'].customerId.value;
             if (customerId != 0) {
@@ -9135,6 +9125,9 @@ function getLpgSale(id, handle, lpgImportId) {
                 customerIdCombobox.setComboValue("");
             }
         }
+        var myCalendar = new dhtmlXCalendarObject(["lpgSaleDate"]);
+        myCalendar.setSkin('dhx_web');
+        myCalendar.setDateFormat("%d/%m/%Y");
     });
     if (lpgImportId > 0)
         return false;
@@ -10272,12 +10265,12 @@ function getLoVo(id) {
             }
         }
         employeeIdCombobox.setComboValue("");
-        var myCalendar = new dhtmlXCalendarObject(["loVoCreatedDate"]);
-        myCalendar.setSkin('dhx_web');
         if (id == 0) {
             var currentDate = getCurrentDate();
             document.forms['loVoForm'].loVoCreatedDate.value = currentDate;
         }
+        var myCalendar = new dhtmlXCalendarObject(["loVoCreatedDate"]);
+        myCalendar.setSkin('dhx_web');
         myCalendar.setDateFormat("%d/%m/%Y");
 
         tryNumberFormatCurrentcy(document.forms['loVoForm'].quantity, "VND");

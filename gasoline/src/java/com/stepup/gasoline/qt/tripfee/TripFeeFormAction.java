@@ -5,6 +5,7 @@
 package com.stepup.gasoline.qt.tripfee;
 
 import com.stepup.core.util.DateUtil;
+import com.stepup.core.util.NumberUtil;
 import com.stepup.gasoline.qt.bean.TripFeeBean;
 import com.stepup.gasoline.qt.core.SpineAction;
 import com.stepup.gasoline.qt.dao.VehicleDAO;
@@ -40,7 +41,7 @@ public class TripFeeFormAction extends SpineAction {
         VehicleDAO vehicleDAO = new VehicleDAO();
         if (!GenericValidator.isBlankOrNull(tripFeeId)) {
             try {
-                bean = vehicleDAO.getTripFee(Integer.parseInt(tripFeeId));
+                bean = vehicleDAO.getTripFee(NumberUtil.parseInt(tripFeeId, 0));
             } catch (Exception ex) {
             }
         }
@@ -66,7 +67,6 @@ public class TripFeeFormAction extends SpineAction {
             arrVehicle = new ArrayList();
         }
         request.setAttribute(Constants.VEHICLE_LIST, arrVehicle);
-
 
         return true;
     }

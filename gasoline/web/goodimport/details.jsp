@@ -6,9 +6,9 @@
     <thead>
         <tr>
             <td width="30px"><bean:message key="message.del"/></td>
-            <td width="170px"><bean:message key="good.detail.name"/></td>
-            <td width="170px"><bean:message key="unit.title"/></td>
-            <td width="200px"><bean:message key="quantity.title"/></td>
+            <td width="270px"><bean:message key="good.detail.name"/></td>
+            <td width="100px"><bean:message key="unit.title"/></td>
+            <td width="150px"><bean:message key="quantity.title"/></td>
             <td width="200px"><bean:message key="price.title"/></td>
             <td width="200px"><bean:message key="amount.title"/></td>
             <td></td>
@@ -26,7 +26,7 @@
                 <td><span><bean:write name="good" property="unitName"/></span></td>
                 <td><input type="text" size="20" name="quantity" value="${good.quantity}" id="detquantity${good.goodId}" onblur="return caculateFormListDetail('${good.goodId}','goodImportForm');" onkeypress="return readonlyFloat(event);"/></td>
                 <td><input type="text" size="20" name="price" value="${good.price}" id="detprice${good.goodId}" onblur="return caculateFormListDetail('${good.goodId}','goodImportForm');" onkeypress="return readonlyFloat(event);"/></td>
-                <td><input type="text" size="20" name="amount" value="${good.amount}" id="detamount${good.goodId}" readonly="readonly"/></td>
+                <td><input type="text" size="20" name="amount" value="${good.amount}" id="detamount${good.goodId}" readonly="readonly" tabindex="-1"/></td>
             </tr>
         </logic:iterate>
     </tbody>

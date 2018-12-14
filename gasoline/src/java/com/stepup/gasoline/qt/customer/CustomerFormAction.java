@@ -47,7 +47,7 @@ public class CustomerFormAction extends DynamicFieldValueAction {
         int seletecOrganizationId = 0;
         if (!GenericValidator.isBlankOrNull(customerid)) {
             try {
-                formBean = customerDAO.getCustomer(Integer.parseInt(customerid));
+                formBean = customerDAO.getCustomer(NumberUtil.parseInt(customerid, 0));
             } catch (Exception ex) {
             }
         }

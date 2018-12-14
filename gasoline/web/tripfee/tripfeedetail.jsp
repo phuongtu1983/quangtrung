@@ -12,19 +12,19 @@
                     <table cellspacing="0" cellpadding="0" style="border-width: 0px">
                         <tr>
                             <td height="30" style="padding-right: 20px"><bean:message key="code.title"/></td>
-                            <td><html:text property="code" size="30" name="<%=Constants.TRIP_FEE%>" readonly="true"/></td>
+                            <td><html:text property="code" size="30" name="<%=Constants.TRIP_FEE%>" readonly="true" tabindex="-1"/></td>
                             <td style="padding-right: 20px;padding-left: 10px"><bean:message key="date.title"/></td>
-                            <td><html:text property="createdDate" styleId="tripFeeDate" size="30" name="<%=Constants.TRIP_FEE%>"/></td>
+                            <td><html:text property="createdDate" styleId="tripFeeDate" size="30" name="<%=Constants.TRIP_FEE%>" tabindex="-1"/></td>
                         </tr>
                         <tr>
                             <td height="30" style="padding-right: 20px"><bean:message key="tripFee.detail.vehicle"/></td>
                             <td>
-                                <html:select property="vehicleId" name="<%=Constants.TRIP_FEE%>" style="width:195px">
+                                <html:select property="vehicleId" name="<%=Constants.TRIP_FEE%>" style="width:195px" tabindex="-1">
                                     <html:options collection="<%=Constants.VEHICLE_LIST%>" property="id" labelProperty="plate"/>
                                 </html:select>
                             </td>
                             <td style="padding-right: 20px;padding-left: 10px"><bean:message key="content.title"/></td>
-                            <td><html:text property="fee" size="30" name="<%=Constants.TRIP_FEE%>"/></td>
+                            <td><html:text property="fee" size="30" name="<%=Constants.TRIP_FEE%>" tabindex="0"/></td>
                         </tr>
                         <tr>
                             <td height="30" style="padding-right: 20px"><bean:message key="quantity.title"/></td>
@@ -34,7 +34,7 @@
                         </tr>
                         <tr>
                             <td height="30" style="padding-right: 20px"><bean:message key="amount.title"/></td>
-                            <td><html:text property="amount" size="30" name="<%=Constants.TRIP_FEE%>" readonly="true"/></td>
+                            <td><html:text property="amount" size="30" name="<%=Constants.TRIP_FEE%>" readonly="true" tabindex="-1"/></td>
                             <td style="padding-right: 20px;padding-left: 10px"><bean:message key="note.title"/></td>
                             <td><html:text property="note" size="30" name="<%=Constants.TRIP_FEE%>"/></td>
                         </tr>

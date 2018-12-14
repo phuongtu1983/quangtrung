@@ -5,6 +5,7 @@
 package com.stepup.gasoline.qt.contract;
 
 import com.stepup.core.util.DateUtil;
+import com.stepup.core.util.NumberUtil;
 import com.stepup.gasoline.qt.bean.ContractBean;
 import com.stepup.gasoline.qt.bean.VendorBean;
 import com.stepup.gasoline.qt.core.SpineAction;
@@ -43,7 +44,7 @@ public class ContractFormAction extends SpineAction {
         ContractDAO contractDAO = new ContractDAO();
         if (!GenericValidator.isBlankOrNull(contractId)) {
             try {
-                bean = contractDAO.getContract(Integer.parseInt(contractId));
+                bean = contractDAO.getContract(NumberUtil.parseInt(contractId, 0));
             } catch (Exception ex) {
             }
         }
@@ -63,7 +64,7 @@ public class ContractFormAction extends SpineAction {
         String organizationIds = QTUtil.getOrganizationManageds(request.getSession());
         ArrayList arrCustomer = null;
         try {
-            CustomerDAO customerDAO  = new CustomerDAO();
+            CustomerDAO customerDAO = new CustomerDAO();
             arrCustomer = customerDAO.getCustomers(organizationIds, VendorBean.IS_GAS);
         } catch (Exception ex) {
         }

@@ -4,6 +4,7 @@
  */
 package com.stepup.gasoline.qt.permission;
 
+import com.stepup.core.util.NumberUtil;
 import com.stepup.gasoline.qt.bean.EmployeeBean;
 import com.stepup.gasoline.qt.bean.PermissionBean;
 import com.stepup.gasoline.qt.bean.PermissionDetailBean;
@@ -46,7 +47,7 @@ public class PermissionFormAction extends SpineAction {
         PermissionDAO permissionDAO = new PermissionDAO();
         if (!GenericValidator.isBlankOrNull(id)) {
             try {
-                PermissionBean bean = permissionDAO.getPermission(Integer.parseInt(id));
+                PermissionBean bean = permissionDAO.getPermission(NumberUtil.parseInt(id, 0));
                 if (bean != null) {
                     formBean = new PermissionFormBean(bean);
                 }

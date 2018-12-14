@@ -10,13 +10,13 @@
     <table style="width: 100%">
         <tr>
             <td width="160" height="30"><bean:message key="code.title"/></td>
-            <td width="160"><html:text property="code" size="30" name="<%=Constants.LO_VO%>" readonly="true"/></td>
+            <td width="160"><html:text property="code" size="30" name="<%=Constants.LO_VO%>" readonly="true" tabindex="-1"/></td>
             <td width="170"  style="padding-right: 20px;padding-left: 10px"><bean:message key="date.title"/></td>
-            <td><html:text property="createdDate" size="30" name="<%=Constants.LO_VO%>" styleId="loVoCreatedDate"/></td>
+            <td><html:text property="createdDate" size="30" name="<%=Constants.LO_VO%>" styleId="loVoCreatedDate" tabindex="-1"/></td>
         </tr>
         <tr>
             <td height="30" style="padding-right: 20px"><bean:message key="quantity.title"/></td>
-            <td colspan="3"><html:text property="quantity" size="30" name="<%=Constants.LO_VO%>" onblur="tryNumberFormatCurrentcy(this);" onkeypress="return readonlyFloat(event);"/></td>
+            <td colspan="3"><html:text property="quantity" size="30" name="<%=Constants.LO_VO%>" onblur="tryNumberFormatCurrentcy(this);" onkeypress="return readonlyFloat(event);" tabindex="1"/></td>
         </tr>
         <tr>
             <td height="30" style="padding-right: 20px"><bean:message key="note.title"/></td>

@@ -4,6 +4,7 @@
  */
 package com.stepup.gasoline.qt.account;
 
+import com.stepup.core.util.NumberUtil;
 import com.stepup.gasoline.qt.bean.AccountBean;
 import com.stepup.gasoline.qt.bean.EmployeeBean;
 import com.stepup.gasoline.qt.core.SpineAction;
@@ -43,7 +44,7 @@ public class AccountFormAction extends SpineAction {
         AccountDAO accountDAO = new AccountDAO();
         if (!GenericValidator.isBlankOrNull(accountid)) {
             try {
-                formBean = accountDAO.getAccount(Integer.parseInt(accountid));
+                formBean = accountDAO.getAccount(NumberUtil.parseInt(accountid, 0));
             } catch (Exception ex) {
             }
         }
@@ -62,7 +63,7 @@ public class AccountFormAction extends SpineAction {
             arrOrganization = new ArrayList();
         }
         request.setAttribute(Constants.ORGANIZATION_LIST, arrOrganization);
-        
+
         ArrayList arrStatus = new ArrayList();
         LabelValueBean value;
         value = new LabelValueBean();

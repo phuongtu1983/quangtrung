@@ -5,6 +5,7 @@
 package com.stepup.gasoline.qt.expense;
 
 import com.stepup.core.util.DateUtil;
+import com.stepup.core.util.NumberUtil;
 import com.stepup.gasoline.qt.bean.ExpenseBean;
 import com.stepup.gasoline.qt.core.SpineAction;
 import com.stepup.gasoline.qt.dao.AccountDAO;
@@ -44,7 +45,7 @@ public class ExpenseFormAction extends SpineAction {
         PaymentDAO paymentDAO = new PaymentDAO();
         if (!GenericValidator.isBlankOrNull(expenseId)) {
             try {
-                ExpenseBean bean = paymentDAO.getExpense(Integer.parseInt(expenseId));
+                ExpenseBean bean = paymentDAO.getExpense(NumberUtil.parseInt(expenseId, 0));
                 if (bean != null) {
                     formBean = new ExpenseFormBean(bean);
                 }
@@ -61,7 +62,7 @@ public class ExpenseFormAction extends SpineAction {
                 formBean.setCode(prefix);
             } catch (Exception ex) {
             }
-        }else {
+        } else {
             if (PermissionUtil.hasPermission(request, PermissionUtil.OPERATION_EDIT_PAST, PermissionUtil.PER_EXPENSE)) {
                 formBean.setCanEdit(1);
             }
@@ -79,7 +80,7 @@ public class ExpenseFormAction extends SpineAction {
             arrAccount = new ArrayList();
         }
         request.setAttribute(Constants.ACCOUNT_LIST, arrAccount);
-        
+
         ArrayList arrStatus = new ArrayList();
         LabelValueBean value;
         value = new LabelValueBean();

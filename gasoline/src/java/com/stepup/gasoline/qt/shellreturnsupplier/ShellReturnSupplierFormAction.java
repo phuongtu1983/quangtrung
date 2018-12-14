@@ -5,6 +5,7 @@
 package com.stepup.gasoline.qt.shellreturnsupplier;
 
 import com.stepup.core.util.DateUtil;
+import com.stepup.core.util.NumberUtil;
 import com.stepup.gasoline.qt.bean.EmployeeBean;
 import com.stepup.gasoline.qt.bean.ShellReturnSupplierBean;
 import com.stepup.gasoline.qt.bean.VendorBean;
@@ -48,7 +49,7 @@ public class ShellReturnSupplierFormAction extends SpineAction {
         GasDAO gasDAO = new GasDAO();
         if (!GenericValidator.isBlankOrNull(id)) {
             try {
-                int shellReturnSupplierId = Integer.parseInt(id);
+                int shellReturnSupplierId = NumberUtil.parseInt(id, 0);
                 bean = gasDAO.getShellReturnSupplier(shellReturnSupplierId);
                 arrDetail = gasDAO.getShellReturnSupplierDetail(shellReturnSupplierId);
             } catch (Exception ex) {

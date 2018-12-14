@@ -10,16 +10,16 @@
     <table style="width: 100%">
         <tr>
             <td width="160" height="30"><bean:message key="code.title"/></td>
-            <td width="160"><html:text property="code" size="30" name="<%=Constants.VEHICLE_IN%>" readonly="true"/></td>
+            <td width="160"><html:text property="code" size="30" name="<%=Constants.VEHICLE_IN%>" readonly="true" tabindex="-1"/></td>
             <td width="170"  style="padding-right: 20px;padding-left: 10px"><bean:message key="date.title"/></td>
-            <td><html:text property="createdDate" size="30" name="<%=Constants.VEHICLE_IN%>" styleId="vehicleInCreatedDate"/></td>
+            <td><html:text property="createdDate" size="30" name="<%=Constants.VEHICLE_IN%>" styleId="vehicleInCreatedDate" tabindex="-1"/></td>
         </tr>
         <tr>
             <td width="200" height="30"><bean:message key="date.title"/></td>
             <td width="200"><input type="text" size="30" tabindex="-1" id="vehicleInVehicleOutCreatedDate"></td>
             <td style="padding-right: 50px;padding-left: 10px"><bean:message key="vehicleOut.title"/></td>
             <td>
-                <select style="width: 195px;" name="vehicleOutIdCombobox" id="vehicleOutIdCombobox">
+                <select style="width: 195px;" name="vehicleOutIdCombobox" id="vehicleOutIdCombobox" tabindex="-1">
                     <logic:iterate id="vehicle_iter" name="<%=Constants.VEHICLE_OUT_LIST%>">
                         <option  value="${vehicle_iter.id}">${vehicle_iter.code}</option>
                     </logic:iterate>
@@ -28,7 +28,7 @@
         </tr>
         <tr>
             <td height="30" style="padding-right: 20px"><bean:message key="note.title"/></td>
-            <td colspan="3"><html:text property="note" size="100" name="<%=Constants.VEHICLE_IN%>"/></td>
+            <td colspan="3"><html:text property="note" size="100" name="<%=Constants.VEHICLE_IN%>" tabindex="-1"/></td>
         </tr>
         <tr>
             <td colspan="4">
@@ -60,8 +60,8 @@
                     <table>
                         <tr>
                             <td>
-                                <button class="i_cross icon small red" onclick="return delTableRow('vehicleInForm', 'vehicleInReturnShellChk', 'vehicleInReturnShellDetailTbl');"><bean:message key="message.del"/></button>
-                                <button class="i_plus icon small green" onclick="return addVehicleInReturnShell();"><bean:message key="message.add"/></button>
+                                <button class="i_cross icon small red" onclick="return delTableRow('vehicleInForm', 'vehicleInReturnShellChk', 'vehicleInReturnShellDetailTbl');" tabindex="-1"><bean:message key="message.del"/></button>
+                                <button class="i_plus icon small green" onclick="return addVehicleInReturnShell();" tabindex="-1"><bean:message key="message.add"/></button>
                             </td>
                             <td>
                                 <select style="width: 260px;" name="returnShellIdCombobox" id="returnShellIdCombobox">
@@ -83,8 +83,8 @@
                     <table>
                         <tr>
                             <td>
-                                <button class="i_cross icon small red" onclick="return delTableRow('vehicleInForm', 'vehicleInAccessoryChk', 'vehicleInAccessoryDetailTbl');"><bean:message key="message.del"/></button>
-                                <button class="i_plus icon small green" onclick="return addVehicleInAccessory();"><bean:message key="message.add"/></button>
+                                <button class="i_cross icon small red" onclick="return delTableRow('vehicleInForm', 'vehicleInAccessoryChk', 'vehicleInAccessoryDetailTbl');" tabindex="-1"><bean:message key="message.del"/></button>
+                                <button class="i_plus icon small green" onclick="return addVehicleInAccessory();" tabindex="-1"><bean:message key="message.add"/></button>
                             </td>
                             <td>
                                 <select style="width: 260px;" name="accessoryIdCombobox" id="accessoryIdCombobox">

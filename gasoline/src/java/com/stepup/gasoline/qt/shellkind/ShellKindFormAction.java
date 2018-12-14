@@ -4,6 +4,7 @@
  */
 package com.stepup.gasoline.qt.shellkind;
 
+import com.stepup.core.util.NumberUtil;
 import com.stepup.gasoline.qt.bean.EmployeeBean;
 import com.stepup.gasoline.qt.bean.ShellKindBean;
 import com.stepup.gasoline.qt.core.SpineAction;
@@ -42,7 +43,7 @@ public class ShellKindFormAction extends SpineAction {
         if (!GenericValidator.isBlankOrNull(kindId)) {
             GoodDAO goodDAO = new GoodDAO();
             try {
-                bean = goodDAO.getShellKind(Integer.parseInt(kindId));
+                bean = goodDAO.getShellKind(NumberUtil.parseInt(kindId, 0));
             } catch (Exception ex) {
             }
         }

@@ -5,6 +5,7 @@
 package com.stepup.gasoline.qt.shellimport;
 
 import com.stepup.core.util.DateUtil;
+import com.stepup.core.util.NumberUtil;
 import com.stepup.gasoline.qt.bean.EmployeeBean;
 import com.stepup.gasoline.qt.bean.ShellImportBean;
 import com.stepup.gasoline.qt.bean.VendorBean;
@@ -46,7 +47,7 @@ public class ShellImportFormAction extends SpineAction {
         GoodDAO goodDAO = new GoodDAO();
         if (!GenericValidator.isBlankOrNull(shellImportId)) {
             try {
-                bean = goodDAO.getShellImport(Integer.parseInt(shellImportId));
+                bean = goodDAO.getShellImport(NumberUtil.parseInt(shellImportId, 0));
             } catch (Exception ex) {
             }
         }

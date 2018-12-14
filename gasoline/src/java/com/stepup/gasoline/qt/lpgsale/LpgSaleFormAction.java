@@ -49,7 +49,7 @@ public class LpgSaleFormAction extends SpineAction {
         GasDAO gasDAO = new GasDAO();
         if (!GenericValidator.isBlankOrNull(lpgSaleId)) {
             try {
-                bean = gasDAO.getLpgSale(Integer.parseInt(lpgSaleId));
+                bean = gasDAO.getLpgSale(NumberUtil.parseInt(lpgSaleId, 0));
             } catch (Exception ex) {
             }
         }

@@ -10,27 +10,27 @@
     <table width="100%">
         <tr>
             <td height="30" style="padding-right: 20px"><bean:message key="code.title"/></td>
-            <td><html:text property="code" size="30" name="<%=Constants.SALARY%>" readonly="true"/></td>
+            <td><html:text property="code" size="30" name="<%=Constants.SALARY%>" readonly="true" tabindex="-1"/></td>
             <td style="padding-right: 20px;padding-left: 10px"><bean:message key="employeeOff.detail.total"/></td>
-            <td><html:text property="total" size="30" name="<%=Constants.SALARY%>" readonly="true"/></td>
+            <td><html:text property="total" size="30" name="<%=Constants.SALARY%>" readonly="true" tabindex="-1"/></td>
         </tr>
         <tr>
             <td height="30" style="padding-right: 20px"><bean:message key="employee.title"/></td>
-            <td><html:text property="employeeName" size="30" name="<%=Constants.SALARY%>" readonly="true"/></td>
+            <td><html:text property="employeeName" size="30" name="<%=Constants.SALARY%>" readonly="true" tabindex="-1"/></td>
             <td height="30" style="padding-left: 10px; padding-right: 20px"><bean:message key="date.title"/></td>
-            <td><html:text property="createdDate" size="30" name="<%=Constants.SALARY%>" readonly="true"/></td>
+            <td><html:text property="createdDate" size="30" name="<%=Constants.SALARY%>" readonly="true" tabindex="-1"/></td>
         </tr>
         <tr>
             <td height="30" style="padding-right: 20px"><bean:message key="employeeOff.detail.monthDay"/></td>
-            <td><html:text property="monthDay" size="30" name="<%=Constants.SALARY%>" readonly="true"/></td>
+            <td><html:text property="monthDay" size="30" name="<%=Constants.SALARY%>" readonly="true" tabindex="-1"/></td>
             <td style="padding-right: 20px;padding-left: 10px"><bean:message key="employeeOff.detail.workingDay"/></td>
-            <td><html:text property="workingDay" size="30" name="<%=Constants.SALARY%>" readonly="true"/></td>
+            <td><html:text property="workingDay" size="30" name="<%=Constants.SALARY%>" readonly="true" tabindex="-1"/></td>
         </tr>
         <tr>
             <td height="30" style="padding-right: 20px"><bean:message key="employeeOff.detail.basicSalary"/></td>
-            <td><html:text property="basicSalary" size="30" name="<%=Constants.SALARY%>" readonly="true"/></td>
+            <td><html:text property="basicSalary" size="30" name="<%=Constants.SALARY%>" readonly="true" tabindex="-1"/></td>
             <td style="padding-right: 20px;padding-left: 10px"><bean:message key="employeeOff.detail.realSalary"/></td>
-            <td><html:text property="realSalary" size="30" name="<%=Constants.SALARY%>" readonly="true"/></td>
+            <td><html:text property="realSalary" size="30" name="<%=Constants.SALARY%>" readonly="true" tabindex="-1"/></td>
         </tr>
         <tr>
             <td colspan="4">

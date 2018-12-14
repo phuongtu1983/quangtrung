@@ -16,9 +16,9 @@
         <logic:iterate id="timesheet" name="<%=Constants.SALARY_TIMESHEET_LIST%>">
             <tr>
                 <td><span><bean:write name="timesheet" property="fieldName"/></span></td>
-                <td><span><input name="timesheetQuantity" size="10" value="<bean:write name="timesheet" property="quantity"/>" type="text" readonly="readonly"></span></td>
-                <td><span><input name="timesheetPrice" size="10" value="<bean:write name="timesheet" property="price"/>" type="text" readonly="readonly"></span></td>
-                <td><span><input name="timesheetAmount" size="10" value="<bean:write name="timesheet" property="amount"/>" type="text" readonly="readonly"></span></td>
+                <td><span><input name="timesheetQuantity" size="10" value="<bean:write name="timesheet" property="quantity"/>" type="text" readonly="readonly" tabindex="-1"></span></td>
+                <td><span><input name="timesheetPrice" size="10" value="<bean:write name="timesheet" property="price"/>" type="text" readonly="readonly" tabindex="-1"></span></td>
+                <td><span><input name="timesheetAmount" size="10" value="<bean:write name="timesheet" property="amount"/>" type="text" readonly="readonly" tabindex="-1"></span></td>
             </tr>
         </logic:iterate>
     </tbody>

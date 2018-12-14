@@ -4,6 +4,7 @@
  */
 package com.stepup.gasoline.qt.vehicle;
 
+import com.stepup.core.util.NumberUtil;
 import com.stepup.gasoline.qt.bean.VehicleBean;
 import com.stepup.gasoline.qt.core.SpineAction;
 import com.stepup.gasoline.qt.dao.VehicleDAO;
@@ -38,7 +39,7 @@ public class VehicleFormAction extends SpineAction {
         if (!GenericValidator.isBlankOrNull(vehicleId)) {
             VehicleDAO vehicleDAO = new VehicleDAO();
             try {
-                bean = vehicleDAO.getVehicle(Integer.parseInt(vehicleId));
+                bean = vehicleDAO.getVehicle(NumberUtil.parseInt(vehicleId, 0));
             } catch (Exception ex) {
             }
         }

@@ -5,6 +5,7 @@
 package com.stepup.gasoline.qt.promotionmaterialimport;
 
 import com.stepup.core.util.DateUtil;
+import com.stepup.core.util.NumberUtil;
 import com.stepup.gasoline.qt.bean.PromotionMaterialImportBean;
 import com.stepup.gasoline.qt.bean.EmployeeBean;
 import com.stepup.gasoline.qt.bean.VendorBean;
@@ -47,7 +48,7 @@ public class PromotionMaterialImportFormAction extends SpineAction {
         GoodDAO goodDAO = new GoodDAO();
         if (!GenericValidator.isBlankOrNull(id)) {
             try {
-                int promotionMaterialImportId = Integer.parseInt(id);
+                int promotionMaterialImportId = NumberUtil.parseInt(id, 0);
                 bean = goodDAO.getPromotionMaterialImport(promotionMaterialImportId);
                 arrDetail = goodDAO.getPromotionMaterialImportDetail(promotionMaterialImportId);
             } catch (Exception ex) {

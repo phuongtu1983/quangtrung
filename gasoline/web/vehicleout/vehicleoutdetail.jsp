@@ -10,21 +10,21 @@
     <table style="width: 100%">
         <tr>
             <td width="160" height="30"><bean:message key="code.title"/></td>
-            <td width="160"><html:text property="code" size="30" name="<%=Constants.VEHICLE_OUT%>" readonly="true"/></td>
+            <td width="160"><html:text property="code" size="30" name="<%=Constants.VEHICLE_OUT%>" readonly="true" tabindex="-1"/></td>
             <td width="170"  style="padding-right: 20px;padding-left: 10px"><bean:message key="date.title"/></td>
-            <td><html:text property="createdDate" size="30" name="<%=Constants.VEHICLE_OUT%>" styleId="vehicleOutCreatedDate"/></td>
+            <td><html:text property="createdDate" size="30" name="<%=Constants.VEHICLE_OUT%>" styleId="vehicleOutCreatedDate" tabindex="-1"/></td>
         </tr>
         <tr>
             <td height="30" style="padding-right: 20px""><bean:message key="vehicle.title"/></td>
             <td colspan="3">
-                <html:select property="vehicleId" name="<%=Constants.VEHICLE_OUT%>" style="width:195px">
+                <html:select property="vehicleId" name="<%=Constants.VEHICLE_OUT%>" style="width:195px" tabindex="-1">
                     <html:options collection="<%=Constants.VEHICLE_LIST%>" property="id" labelProperty="plate"/>
                 </html:select>
             </td>
         </tr>
         <tr>
             <td height="30" style="padding-right: 20px"><bean:message key="note.title"/></td>
-            <td colspan="3"><html:text property="note" size="100" name="<%=Constants.VEHICLE_OUT%>"/></td>
+            <td colspan="3"><html:text property="note" size="100" name="<%=Constants.VEHICLE_OUT%>" tabindex="-1"/></td>
         </tr>
         <tr>
             <td colspan="4">
@@ -33,8 +33,8 @@
                     <table>
                         <tr>
                             <td>
-                                <button class="i_cross icon small red" onclick="return delTableRow('vehicleOutForm', 'vehicleOutGoodChk', 'vehicleOutDetailTbl');"><bean:message key="message.del"/></button>
-                                <button class="i_plus icon small green" onclick="return addVehicleOutGood();"><bean:message key="message.add"/></button>
+                                <button class="i_cross icon small red" onclick="return delTableRow('vehicleOutForm', 'vehicleOutGoodChk', 'vehicleOutDetailTbl');" tabindex="-1"><bean:message key="message.del"/></button>
+                                <button class="i_plus icon small green" onclick="return addVehicleOutGood();" tabindex="-1"><bean:message key="message.add"/></button>
                             </td>
                             <td>
                                 <select style="width: 260px;" name="goodIdCombobox" id="goodIdCombobox">

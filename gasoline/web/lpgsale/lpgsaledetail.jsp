@@ -12,9 +12,9 @@
                     <table cellspacing="0" cellpadding="0" style="border-width: 0px">
                         <tr>
                             <td height="30" style="padding-right: 20px"><bean:message key="code.title"/></td>
-                            <td><html:text property="code" size="30" name="<%=Constants.LPG_SALE%>" readonly="true"/></td>
+                            <td><html:text property="code" size="30" name="<%=Constants.LPG_SALE%>" readonly="true" tabindex="-1"/></td>
                             <td style="padding-right: 20px;padding-left: 10px"><bean:message key="date.title"/></td>
-                            <td><html:text property="saleDate" styleId="lpgSaleDate" size="30" name="<%=Constants.LPG_SALE%>"/></td>
+                            <td><html:text property="saleDate" styleId="lpgSaleDate" size="30" name="<%=Constants.LPG_SALE%>" tabindex="-1"/></td>
                         </tr>
                         <tr>
                             <td height="30" style="padding-right: 20px"><bean:message key="customer.title"/></td>
@@ -50,13 +50,13 @@
                         </tr>
                         <tr>
                             <td height="30" style="padding-right: 20px"><bean:message key="amount.title"/></td>
-                            <td colspan="3"><html:text property="total" size="30" name="<%=Constants.LPG_SALE%>" readonly="true"/></td>
+                            <td colspan="3"><html:text property="total" size="30" name="<%=Constants.LPG_SALE%>" readonly="true" tabindex="-1"/></td>
                         </tr>
                         <tr>
                             <td height="30" style="padding-right: 20px"><bean:message key="paid.title"/></td>
                             <td><html:text property="paid" size="30" name="<%=Constants.LPG_SALE%>" onblur="return formPaidChanged('lpgSaleForm');" onkeypress="return readonlyFloat(event);"/></td>
                             <td style="padding-right: 20px;padding-left: 10px"><bean:message key="debt.title"/></td>
-                            <td><html:text property="debt" size="30" name="<%=Constants.LPG_SALE%>" readonly="true"/></td>
+                            <td><html:text property="debt" size="30" name="<%=Constants.LPG_SALE%>" readonly="true" tabindex="-1"/></td>
                         </tr>
                         <tr>
                             <td height="30" style="padding-right: 20px"><bean:message key="lpgImport.title"/></td>

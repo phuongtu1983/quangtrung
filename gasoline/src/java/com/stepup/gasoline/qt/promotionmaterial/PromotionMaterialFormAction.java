@@ -4,6 +4,7 @@
  */
 package com.stepup.gasoline.qt.promotionmaterial;
 
+import com.stepup.core.util.NumberUtil;
 import com.stepup.gasoline.qt.bean.EmployeeBean;
 import com.stepup.gasoline.qt.core.SpineAction;
 import com.stepup.gasoline.qt.dao.GoodDAO;
@@ -42,7 +43,7 @@ public class PromotionMaterialFormAction extends SpineAction {
         GoodDAO goodDAO = new GoodDAO();
         if (!GenericValidator.isBlankOrNull(promotionMaterialId)) {
             try {
-                formBean = goodDAO.getPromotionMaterial(Integer.parseInt(promotionMaterialId));
+                formBean = goodDAO.getPromotionMaterial(NumberUtil.parseInt(promotionMaterialId, 0));
             } catch (Exception ex) {
             }
         }
@@ -73,7 +74,7 @@ public class PromotionMaterialFormAction extends SpineAction {
             arrUnit = new ArrayList();
         }
         request.setAttribute(Constants.UNIT_LIST, arrUnit);
-        
+
         return true;
     }
 

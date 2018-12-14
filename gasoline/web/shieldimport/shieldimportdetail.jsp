@@ -12,20 +12,13 @@
                     <table cellspacing="0" cellpadding="0" style="border-width: 0px">
                         <tr>
                             <td height="30" style="padding-right: 20px"><bean:message key="code.title"/></td>
-                            <td><html:text property="code" size="30" name="<%=Constants.SHIELD_IMPORT%>" readonly="true"/></td>
+                            <td><html:text property="code" size="30" name="<%=Constants.SHIELD_IMPORT%>" readonly="true" tabindex="-1"/></td>
                             <td style="padding-right: 20px;padding-left: 10px"><bean:message key="date.title"/></td>
-                            <td>
-                                <logic:equal name="<%=Constants.SHIELD_IMPORT%>" property="id" value="0">
-                                    <html:text property="createdDate" styleId="shieldImportDate" size="30" name="<%=Constants.SHIELD_IMPORT%>"/>
-                                </logic:equal>
-                                <logic:notEqual name="<%=Constants.SHIELD_IMPORT%>" property="id" value="0">
-                                    <html:text property="createdDate" styleId="shieldImportDate" size="30" name="<%=Constants.SHIELD_IMPORT%>" readonly="true"/>
-                                </logic:notEqual>
-                            </td>
+                            <td><html:text property="createdDate" styleId="shieldImportDate" size="30" name="<%=Constants.SHIELD_IMPORT%>" tabindex="-1"/></td>
                         </tr>
                         <tr>
                             <td height="30" style="padding-right: 20px"><bean:message key="quantity.title"/></td>
-                            <td><html:text property="quantity" size="30" name="<%=Constants.SHIELD_IMPORT%>" onblur="tryNumberFormatCurrentcy(this);" onkeypress="return readonlyFloat(event);"/></td>
+                            <td><html:text property="quantity" size="30" name="<%=Constants.SHIELD_IMPORT%>" onblur="tryNumberFormatCurrentcy(this);" onkeypress="return readonlyFloat(event);" tabindex="0"/></td>
                             <td style="padding-right: 20px;padding-left: 10px"><bean:message key="vendor.title"/></td>
                             <td>
                                 <html:select property="vendorId" name="<%=Constants.SHIELD_IMPORT%>" style="width:195px">
