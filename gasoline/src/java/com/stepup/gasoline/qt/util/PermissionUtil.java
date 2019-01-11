@@ -172,4 +172,5 @@ public class PermissionUtil {
     public static int PER_OPENING_STOCK = 83;
     public static int PER_REPORT_TRANSPORT_FEE = 84;
     public static int PER_REPORT_VEHICLE_FEE = 85;
+    public static int PER_REPORT_COMPARE_VENDOR = 86;
 }

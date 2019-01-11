@@ -41,6 +41,7 @@ public class VehicleOutFormBean extends org.apache.struts.action.ActionForm {
         this.vehicleId = bean.getVehicleId();
         this.note = bean.getNote();
         this.canEdit = bean.getCanEdit();
+        this.vehiclePlate = bean.getVehiclePlate();
     }
 
     public String getCreatedDate() {

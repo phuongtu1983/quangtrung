@@ -50,7 +50,7 @@ public class GetVehicleOutByDateAction extends SpineAction {
             VehicleOutFormBean bean = null;
             for (int i = 0; i < arrVehicleOut.size(); i++) {
                 bean = (VehicleOutFormBean) arrVehicleOut.get(i);
-                json += "[\"" + bean.getId() + "\",\"" + bean.getCode() + "\"]";
+                json += "[\"" + bean.getId() + "\",\"" + bean.getCode() + " - " + bean.getVehiclePlate() + "\"]";
                 if (i < arrVehicleOut.size() - 1) {
                     json += ",";
                 }

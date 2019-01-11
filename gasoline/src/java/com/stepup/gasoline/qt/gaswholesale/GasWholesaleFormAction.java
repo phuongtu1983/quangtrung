@@ -81,23 +81,23 @@ public class GasWholesaleFormAction extends SpineAction {
             } catch (Exception ex) {
             }
         }
-
+        
         request.setAttribute(Constants.GAS_WHOLESALE, formBean);
         if (arrDetail == null) {
             arrDetail = new ArrayList();
         }
         request.setAttribute(Constants.GAS_WHOLESALE_SHELL, arrDetail);
-
+        
         if (arrPromotionMaterialDetail == null) {
             arrPromotionMaterialDetail = new ArrayList();
         }
         request.setAttribute(Constants.GAS_WHOLESALE_PROMOTION_MATERIAL, arrPromotionMaterialDetail);
-
+        
         if (arrReturnShellDetail == null) {
             arrReturnShellDetail = new ArrayList();
         }
         request.setAttribute(Constants.GAS_WHOLESALE_RETURN_SHELL, arrReturnShellDetail);
-
+        
         ArrayList arrShell = null;
         try {
             GoodDAO goodDAO = new GoodDAO();
@@ -111,7 +111,7 @@ public class GasWholesaleFormAction extends SpineAction {
             arrShell = new ArrayList();
         }
         request.setAttribute(Constants.SHELL_LIST, arrShell);
-
+        
         ArrayList arrShellReturn = null;
         try {
             GoodDAO goodDAO = new GoodDAO();
@@ -122,7 +122,7 @@ public class GasWholesaleFormAction extends SpineAction {
             arrShellReturn = new ArrayList();
         }
         request.setAttribute(Constants.SHELL_RETURN_LIST, arrShellReturn);
-
+        
         ArrayList arrPromotionMaterial = null;
         try {
             GoodDAO goodDAO = new GoodDAO();
@@ -133,7 +133,7 @@ public class GasWholesaleFormAction extends SpineAction {
             arrPromotionMaterial = new ArrayList();
         }
         request.setAttribute(Constants.PROMOTION_MATERIAL_LIST, arrPromotionMaterial);
-
+        
         String organizationIds = QTUtil.getOrganizationManageds(request.getSession());
         ArrayList arrAccount = null;
         try {
@@ -145,7 +145,7 @@ public class GasWholesaleFormAction extends SpineAction {
             arrAccount = new ArrayList();
         }
         request.setAttribute(Constants.ACCOUNT_LIST, arrAccount);
-
+        
         ArrayList arrCustomer = null;
         try {
             CustomerDAO customerDAO = new CustomerDAO();
@@ -156,7 +156,7 @@ public class GasWholesaleFormAction extends SpineAction {
             arrCustomer = new ArrayList();
         }
         request.setAttribute(Constants.CUSTOMER_LIST, arrCustomer);
-
+        
         ArrayList arrVehicleOut = null;
         try {
             if (formBean.getId() == 0) {
@@ -166,12 +166,24 @@ public class GasWholesaleFormAction extends SpineAction {
                     vehicleOutSavedDate = today;
                 }
                 arrVehicleOut = gasDAO.searchVehicleOut(vehicleOutSavedDate, vehicleOutSavedDate, organizationIds);
+                if (arrVehicleOut == null) {
+                    arrVehicleOut = new ArrayList();
+                }
+                VehicleOutFormBean vehicleOutBean = null;
+                for (int i = 0; i < arrVehicleOut.size(); i++) {
+                    vehicleOutBean = (VehicleOutFormBean) arrVehicleOut.get(i);
+                    vehicleOutBean.setCode(vehicleOutBean.getCode() + " - " + vehicleOutBean.getVehiclePlate());
+                }
             } else {
                 if (arrVehicleOut == null) {
                     arrVehicleOut = new ArrayList();
                 }
                 VehicleOutBean vehicleOutbean = gasDAO.getVehicleOut(formBean.getVehicleOutId());
                 VehicleOutFormBean vehicleOutFormBean = new VehicleOutFormBean(vehicleOutbean);
+                if (vehicleOutFormBean == null) {
+                    vehicleOutFormBean = new VehicleOutFormBean();
+                }
+                vehicleOutFormBean.setCode(vehicleOutFormBean.getCode() + " - " + vehicleOutFormBean.getVehiclePlate());
                 arrVehicleOut.add(vehicleOutFormBean);
             }
         } catch (Exception ex) {
@@ -180,7 +192,7 @@ public class GasWholesaleFormAction extends SpineAction {
             arrVehicleOut = new ArrayList();
         }
         request.setAttribute(Constants.VEHICLE_OUT_LIST, arrVehicleOut);
-
+        
         return true;
     }
 }

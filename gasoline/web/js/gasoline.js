@@ -7,6 +7,8 @@ var savedDate = "";
 var savedCustomer = 0;
 var savedVehicle = 0;
 var savedDate2 = '';
+var savedFromDate = '';
+var savedToDate = '';
 function createLayout() {
     dhxLayout = new dhtmlXLayoutObject(document.body, "2E", "dhx_web");
     dhxLayout.setEffect("resize", false);
@@ -309,6 +311,8 @@ function menuClick(id) {
         getLoVo(0);
     else if (id == 'reportvehiclefee')
         showVehicleFeeReportPanel();
+    else if (id == 'reportcomparevendor')
+        showCompareVendorReportPanel();
 }
 function clearContent() {
     var contentDiv = document.getElementById("contentDiv");
@@ -3477,7 +3481,7 @@ function loadGasPricePanel() {
 function loadGasPriceList(fromDate, toDate) {
     var mygrid = new dhtmlXGridObject('gasPriceList');
     mygrid.setImagePath("js/dhtmlx/grid/imgs/");
-    mygrid.setHeader("M\u00E3 phi\u1EBFu,H\u00ECnh th\u1EE9c b\u00E1n h\u00E0ng,T\u1EEB ng\u00E0y,\u0110\u1EBFn ng\u00E0y,Gi\u00E1 b\u00E1n,Ghi ch\u00FA");
+    mygrid.setHeader("M\u00E3 phi\u1EBFu,Kh\u00E1ch h\u00E0ng,T\u1EEB ng\u00E0y,\u0110\u1EBFn ng\u00E0y,Gi\u00E1 b\u00E1n,Ghi ch\u00FA");
     mygrid.attachHeader("#text_filter,#select_filter,#text_filter,#text_filter,#text_filter,#text_filter");
     mygrid.setInitWidths("150,200,150,150,150,*");
     mygrid.setColTypes("link,ro,ro,ro,ro,ro");
@@ -3508,13 +3512,53 @@ function getGasPrice(id, handle) {
         document.getElementById('callbackFunc').value = handle;
         document.forms['gasPriceForm'].price.focus();
         tryNumberFormatCurrentcy(document.forms['gasPriceForm'].price, "VND");
+        
+        window.dhx_globalImgPath = "js/dhtmlx/combo/imgs/";
+        // ============================
+        var customerIdCombobox = dhtmlXComboFromSelect("customerIdCombobox");
+        customerIdCombobox.enableFilteringMode(true);
+        customerIdCombobox.attachEvent("onSelectionChange", function() {
+            setCustomerSelectedForm('gasPriceForm', customerIdCombobox.getComboText(), customerIdCombobox.getSelectedValue());
+        });
+        customerIdCombobox.attachEvent("onBlur", function() {
+            setCustomerSelectedForm('gasPriceForm', customerIdCombobox.getComboText(), customerIdCombobox.getSelectedValue());
+            customerIdCombobox.setComboText(customerIdCombobox.getSelectedText());
+        });
+        customerIdCombobox.DOMelem_input.onfocus = function(event) {
+            if (isManuallySeleted == 1) {
+                customerIdCombobox.openSelect();
+                isManuallySeleted = 0;
+            }
+        }
+        if (id == 0) {
+            customerIdCombobox.setComboValue("");
+            customerIdCombobox.openSelect();
+            var currentDate = getCurrentDate();
+            
+            document.forms['gasPriceForm'].gasPriceToDate.value = currentDate;
+            if (savedFromDate == "") 
+                document.forms['gasPriceForm'].gasPriceFromDate.value = currentDate;
+            else
+                document.forms['gasPriceForm'].gasPriceFromDate.value = savedFromDate;
+            
+            if (savedToDate == "")
+                document.forms['gasPriceForm'].gasPriceToDate.value = currentDate;
+            else
+                document.forms['gasPriceForm'].gasPriceToDate.value = savedToDate;
+            
+        } else {
+            var customerId = document.forms['gasPriceForm'].customerId.value;
+            if (customerId != 0) {
+                var ind = customerIdCombobox.getIndexByValue(customerId);
+                customerIdCombobox.selectOption(ind);
+            } else {
+                customerIdCombobox.unSelectOption();
+                customerIdCombobox.setComboValue("");
+            }
+        }
+        
         var myCalendar = new dhtmlXCalendarObject(["gasPriceFromDate", "gasPriceToDate"]);
         myCalendar.setSkin('dhx_web');
-        if (id == 0) {
-            var currentDate = getCurrentDate();
-            document.forms['gasPriceForm'].gasPriceFromDate.value = currentDate;
-            document.forms['gasPriceForm'].gasPriceToDate.value = currentDate;
-        }
         myCalendar.setDateFormat("%d/%m/%Y");
     });
 }
@@ -3544,6 +3588,9 @@ function saveGasPrice() {
     }
     field = null;
     reformatNumberMoney(document.forms['gasPriceForm'].price);
+    savedFromDate = document.forms['gasPriceForm'].fromDate.value;
+    savedToDate = document.forms['gasPriceForm'].toDate.value;
+    document.forms['gasPriceForm'].customerId.value = document.forms['gasPriceForm'].customerSelectedHidden.value;
     scriptFunction = "saveGasPrice";
     callAjaxCheckError("addGasPrice.do", null, document.forms['gasPriceForm'], function(data) {
         scriptFunction = "";
@@ -4389,12 +4436,12 @@ function getGasWholesale(id) {
             }
         }
         if (id == 0) {
-            if (savedCustomer == 0)
+//            if (savedCustomer == 0)
                 customerIdCombobox.setComboValue("");
-            else {
-                var ind = customerIdCombobox.getIndexByValue(savedCustomer);
-                customerIdCombobox.selectOption(ind);
-            }
+//            else {
+//                var ind = customerIdCombobox.getIndexByValue(savedCustomer);
+//                customerIdCombobox.selectOption(ind);
+//            }
         } else {
             var customerId = document.forms['gasWholesaleForm'].customerId.value;
             if (customerId != 0) {
@@ -4528,7 +4575,7 @@ function getGasWholesale(id) {
                 customerIdCombobox.openSelect();
             } else {
                 currentDate = savedDate;
-                shellName.openSelect();
+                customerIdCombobox.openSelect();
             }
             document.forms['gasWholesaleForm'].gasWholesaleCreatedDate.value = currentDate;
         }
@@ -9452,6 +9499,24 @@ function showCompareReportPanel() {
         document.forms['reportCompareSearchForm'].fromDate.value = currentTime;
         document.forms['reportCompareSearchForm'].toDate.value = currentTime;
         myCalendar.setDateFormat("%d/%m/%Y");
+        // ============================
+        window.dhx_globalImgPath = "js/dhtmlx/combo/imgs/";
+        var customerIdCombobox = dhtmlXComboFromSelect("customerIdComboboxPopup");
+        customerIdCombobox.enableFilteringMode(true);
+        customerIdCombobox.attachEvent("onSelectionChange", function() {
+            setCustomerSelectedForm('reportCompareSearchForm', customerIdCombobox.getComboText(), customerIdCombobox.getSelectedValue());
+        });
+        customerIdCombobox.attachEvent("onBlur", function() {
+            setCustomerSelectedForm('reportCompareSearchForm', customerIdCombobox.getComboText(), customerIdCombobox.getSelectedValue());
+            customerIdCombobox.setComboText(customerIdCombobox.getSelectedText());
+        });
+        customerIdCombobox.DOMelem_input.onfocus = function(event) {
+            if (isManuallySeleted == 1) {
+                customerIdCombobox.openSelect();
+                isManuallySeleted = 0;
+            }
+        }
+        customerIdCombobox.setComboValue("");
     });
 }
 function printComapreReport(fromDate, toDate) {
@@ -9476,12 +9541,8 @@ function printComapreReport(fromDate, toDate) {
         url += "&fromDate=" + fromDate;
     if (toDate !== null)
         url += "&toDate=" + toDate;
-    list = document.forms['reportCompareSearchForm'].customerId;
-    if (list != null && list.selectedIndex > -1)
-        list = list.options[list.selectedIndex].value;
-    else
-        list = 0;
-    url += "&customerId=" + list;
+    list = null;
+    url += "&customerId=" + document.forms['reportCompareSearchForm'].customerSelectedHidden.value;
     callServer(url);
     return false;
 }
@@ -10416,7 +10477,50 @@ function printVehicleFeeReport(fromDate, toDate) {
     callServer(url);
     return false;
 }
-
+function showCompareVendorReportPanel() {
+    popupName = 'Bi\u00EAn b\u1EA3n \u0111\u1ED1i chi\u1EBFu c\u00F4ng n\u1EE3 nh\u00E0 cung c\u1EA5p';
+    var url = 'getCompareVendorReportPanel.do';
+    callAjax(url, null, null, function(data) {
+        showPopupForm(data);
+        var myCalendar = new dhtmlXCalendarObject(["fromDate", "toDate"]);
+        myCalendar.setSkin('dhx_web');
+        var currentTime = getCurrentDate();
+        document.forms['reportCompareVendorSearchForm'].fromDate.value = currentTime;
+        document.forms['reportCompareVendorSearchForm'].toDate.value = currentTime;
+        myCalendar.setDateFormat("%d/%m/%Y");
+    });
+}
+function printComapreVendorReport(fromDate, toDate) {
+    var list = document.getElementById("reportCompareVendorSearchFormTime");
+    if (list == null || list.selectedIndex == -1)
+        return false;
+    if (list.selectedIndex == 1) {
+        fromDate = "01/" + fromDate;
+        var ind = toDate.indexOf("/");
+        var month = toDate.substring(0, ind);
+        var year = toDate.substring(ind + 1);
+        toDate = month + "/01/" + year;
+        var d = new Date(toDate);
+        var lastDay = new Date(d.getFullYear(), d.getMonth() + 1, 0).getDate();
+        toDate = lastDay + "/" + month + "/" + year;
+    } else if (list.selectedIndex == 2) {
+        fromDate = "01/01/" + fromDate;
+        toDate = "31/12/" + toDate;
+    }
+    var url = "reportCompareVendorPrint.do?temp=1";
+    if (fromDate !== null)
+        url += "&fromDate=" + fromDate;
+    if (toDate !== null)
+        url += "&toDate=" + toDate;
+    list = document.forms['reportCompareVendorSearchForm'].customerId;
+    if (list != null && list.selectedIndex > -1)
+        list = list.options[list.selectedIndex].value;
+    else
+        list = 0;
+    url += "&vendorId=" + list;
+    callServer(url);
+    return false;
+}
 
 
 

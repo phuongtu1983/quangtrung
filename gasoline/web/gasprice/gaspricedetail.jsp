@@ -13,18 +13,20 @@
                         <tr>
                             <td height="30" style="padding-right: 20px"><bean:message key="code.title"/></td>
                             <td><html:text property="code" size="30" name="<%=Constants.GAS_PRICE%>" readonly="true" tabindex="-1"/></td>
-                            <td style="padding-right: 20px;padding-left: 10px"><bean:message key="customer.detail.kind"/></td>
+                            <td style="padding-right: 20px;padding-left: 10px"><bean:message key="customer.title"/></td>
                             <td>
-                                <html:select property="kind" name="<%=Constants.GAS_PRICE%>" style="width:195px" tabindex="-1">
-                                    <html:options collection="<%=Constants.CUSTOMER_KIND_LIST%>" property="value" labelProperty="label"/>
-                                </html:select>
+                                <select style="width: 195px;" name="customerIdCombobox" id="customerIdCombobox">
+                                    <logic:iterate id="customer_iter" name="<%=Constants.CUSTOMER_LIST%>">
+                                        <option  value="${customer_iter.id}">${customer_iter.name}</option>
+                                    </logic:iterate>
+                                </select>
                             </td>
                         </tr>
                         <tr>
                             <td height="30" style="padding-right: 20px"><bean:message key="fromDate.title"/></td>
-                            <td><html:text property="fromDate" styleId="gasPriceFromDate" size="30" name="<%=Constants.GAS_PRICE%>" tabindex="-1"/></td>
+                            <td><html:text property="fromDate" styleId="gasPriceFromDate" size="30" name="<%=Constants.GAS_PRICE%>"/></td>
                             <td style="padding-right: 20px;padding-left: 10px"><bean:message key="toDate.title"/></td>
-                            <td><html:text property="toDate" styleId="gasPriceToDate" size="30" name="<%=Constants.GAS_PRICE%>" tabindex="-1"/></td>
+                            <td><html:text property="toDate" styleId="gasPriceToDate" size="30" name="<%=Constants.GAS_PRICE%>"/></td>
                         </tr>
                         <tr>
                             <td height="30" style="padding-right: 20px"><bean:message key="price.sale.title"/></td>
@@ -58,6 +60,8 @@
         </table> 
         <html:hidden property="id" name="<%=Constants.GAS_PRICE%>" />
         <input type="hidden" id="callbackFunc"/>
+        <input type="hidden" name="customerSelectedHidden" value="0"/>
+        <html:hidden property="customerId" name="<%=Constants.GAS_PRICE%>" />
     </form>
     <div name="gasPriceFormshowHelpHideDiv" id="showHelpHideDiv" style="display:none">
         Ctrl+C : Đóng

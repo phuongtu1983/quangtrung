@@ -18,8 +18,8 @@ public class GasPriceFormBean extends org.apache.struts.action.ActionForm {
     private String toDate;
     private double price;
     private String note;
-    private int kind;
-    private String kindName;
+    private int customerId;
+    private String customerName;
 
     public GasPriceFormBean() {
     }
@@ -31,7 +31,7 @@ public class GasPriceFormBean extends org.apache.struts.action.ActionForm {
         this.toDate = bean.getToDate();
         this.price = bean.getPrice();
         this.note = bean.getNote();
-        this.kind = bean.getKind();
+        this.customerId = bean.getCustomerId();
     }
 
     public String getCode() {
@@ -82,20 +82,20 @@ public class GasPriceFormBean extends org.apache.struts.action.ActionForm {
         this.toDate = toDate;
     }
 
-    public int getKind() {
-        return kind;
+    public int getCustomerId() {
+        return customerId;
     }
 
-    public void setKind(int kind) {
-        this.kind = kind;
+    public void setCustomerId(int customerId) {
+        this.customerId = customerId;
     }
 
-    public String getKindName() {
-        return kindName;
+    public String getCustomerName() {
+        return customerName;
     }
 
-    public void setKindName(String kindName) {
-        this.kindName = kindName;
+    public void setCustomerName(String customerName) {
+        this.customerName = customerName;
     }
 
 }

@@ -4,14 +4,14 @@
 <%@ taglib uri="/WEB-INF/struts-bean.tld" prefix="bean" %>
 <%@ taglib uri="/WEB-INF/struts-html.tld" prefix="html" %>
 <%@ taglib uri="/WEB-INF/struts-logic.tld" prefix="logic" %>
-<form name='reportCompareSearchForm' id='reportCompareSearchForm'>
+<form name='reportCompareVendorSearchForm' id='reportCompareVendorSearchForm'>
     <fieldset>
         <legend class="lbl10b"><bean:message key="search.title"/></legend>
         <table>
             <tr>
                 <td style="padding-right: 20px">Thời gian</td>
                 <td colspan="2">
-                    <select id="reportCompareSearchFormTime" style="width:200px" onchange="return reportTimeChange(this, 'reportCompareSearchForm')">
+                    <select id="reportCompareVendorSearchFormTime" style="width:200px" onchange="return reportTimeChange(this, 'reportCompareVendorSearchForm')">
                         <option value="1">Ngày</option>
                         <option value="2">Tháng</option>
                         <option value="3">Năm</option>
@@ -25,22 +25,21 @@
                 </td>
             </tr>
             <tr>
-                <td><bean:message key="customer.title"/></td>
+                <td><bean:message key="vendor.title"/></td>
                 <td>
-                    <select style="width: 260px;" name="customerId" id="customerIdComboboxPopup">
-                        <logic:iterate id="customer_iter" name="<%=Constants.CUSTOMER_LIST%>">
-                            <option  value="${customer_iter.id}">${customer_iter.name}</option>
+                    <select style="width: 260px;" name="customerVendorId" id="customerVendorIdCombobox">
+                        <logic:iterate id="vendor_iter" name="<%=Constants.VENDOR_LIST%>">
+                            <option  value="${vendor_iter.id}">${vendor_iter.name}</option>
                         </logic:iterate>
                     </select>
                 </td>
             </tr>
             <tr>
                 <td colspan="3" align="center">
-                    <button class="i_printer icon small" onclick="return printComapreReport(document.forms['reportCompareSearchForm'].fromDate.value, document.forms['reportCompareSearchForm'].toDate.value);">In</button>
+                    <button class="i_printer icon small" onclick="return printComapreReport(document.forms['reportCompareVendorSearchForm'].fromDate.value, document.forms['reportCompareVendorSearchForm'].toDate.value);">In</button>
                     <button class="i_access_denied icon small yellow" onclick="return hidePopupForm();"><bean:message key="message.close"/></button>
                 </td>
             </tr>
         </table>
     </fieldset>
-    <input type="hidden" name="customerSelectedHidden" value="0"/>
 </form>

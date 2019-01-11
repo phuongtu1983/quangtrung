@@ -16,7 +16,7 @@ public class GasPriceBean {
     private String toDate;
     private double price;
     private String note;
-    private int kind;
+    private int customerId;
 
     public void setId(int id) {
         this.id = id;
@@ -66,12 +66,12 @@ public class GasPriceBean {
         this.toDate = toDate;
     }
 
-    public int getKind() {
-        return kind;
+    public int getCustomerId() {
+        return customerId;
     }
 
-    public void setKind(int kind) {
-        this.kind = kind;
+    public void setCustomerId(int customerId) {
+        this.customerId = customerId;
     }
 
 }

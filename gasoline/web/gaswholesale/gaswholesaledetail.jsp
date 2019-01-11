@@ -83,7 +83,7 @@
         </tr>
         <tr>
             <td height="30" style="padding-right: 20px"><bean:message key="discount.title"/></td>
-            <td><html:text property="discount" size="30" name="<%=Constants.GAS_WHOLESALE%>" onblur="return gasWholesalePaidDiscountChanged();" onkeypress="return readonlyFloat(event);"/></td>
+            <td><html:text property="discount" size="30" name="<%=Constants.GAS_WHOLESALE%>" onblur="return gasWholesalePaidDiscountChanged(1);" onkeypress="return readonlyFloat(event);"/></td>
             <td style="padding-right: 20px;padding-left: 10px"><bean:message key="amount.title"/></td>
             <td><html:text property="totalPay" size="30" name="<%=Constants.GAS_WHOLESALE%>" readonly="true" tabindex="-1"/></td>
         </tr>

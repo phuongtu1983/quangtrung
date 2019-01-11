@@ -814,6 +814,9 @@ public class GenerateMenu {
                     if (isHasPermission(PermissionUtil.OPERATION_PRINT, PermissionUtil.PER_REPORT_COMPARE)) {
                         buffTemp.append("<item id=\"reportcompare\" text=\"").append(QTUtil.getBundleString("report.compare.title")).append("\"/>");
                     }
+                    if (isHasPermission(PermissionUtil.OPERATION_PRINT, PermissionUtil.PER_REPORT_COMPARE_VENDOR)) {
+                        buffTemp.append("<item id=\"reportcomparevendor\" text=\"").append(QTUtil.getBundleString("report.compareVendor.title")).append("\"/>");
+                    }
                     if (isHasPermission(PermissionUtil.OPERATION_PRINT, PermissionUtil.PER_REPORT_SALE)) {
                         buffTemp.append("<item id=\"reportsale\" text=\"").append(QTUtil.getBundleString("report.sale.title")).append("\"/>");
                     }

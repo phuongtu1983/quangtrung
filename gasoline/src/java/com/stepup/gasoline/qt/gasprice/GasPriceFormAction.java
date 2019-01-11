@@ -6,9 +6,10 @@ package com.stepup.gasoline.qt.gasprice;
 
 import com.stepup.core.util.DateUtil;
 import com.stepup.core.util.NumberUtil;
-import com.stepup.gasoline.qt.bean.CustomerBean;
 import com.stepup.gasoline.qt.bean.GasPriceBean;
+import com.stepup.gasoline.qt.bean.VendorBean;
 import com.stepup.gasoline.qt.core.SpineAction;
+import com.stepup.gasoline.qt.dao.CustomerDAO;
 import com.stepup.gasoline.qt.dao.GasDAO;
 import com.stepup.gasoline.qt.util.Constants;
 import com.stepup.gasoline.qt.util.QTUtil;
@@ -61,16 +62,17 @@ public class GasPriceFormAction extends SpineAction {
         }
         request.setAttribute(Constants.GAS_PRICE, bean);
 
-        ArrayList arrKind = new ArrayList();
-        LabelValueBean value = new LabelValueBean();
-        value.setLabel(QTUtil.getBundleString("customer.detail.kind.wholesale"));
-        value.setValue(CustomerBean.KIND_WHOLESALE + "");
-        arrKind.add(value);
-        value = new LabelValueBean();
-        value.setLabel(QTUtil.getBundleString("customer.detail.kind.retail"));
-        value.setValue(CustomerBean.KIND_RETAIL + "");
-        arrKind.add(value);
-        request.setAttribute(Constants.CUSTOMER_KIND_LIST, arrKind);
+        ArrayList arrCustomer = null;
+        try {
+            String organizationIds = QTUtil.getOrganizationManageds(request.getSession());
+            CustomerDAO customerDAO = new CustomerDAO();
+            arrCustomer = customerDAO.getCustomers(organizationIds, VendorBean.IS_GAS);
+        } catch (Exception ex) {
+        }
+        if (arrCustomer == null) {
+            arrCustomer = new ArrayList();
+        }
+        request.setAttribute(Constants.CUSTOMER_LIST, arrCustomer);
 
         return true;
     }

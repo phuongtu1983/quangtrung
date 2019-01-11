@@ -14,6 +14,7 @@ public class VehicleOutBean {
     private String code;
     private String createdDate;
     private int vehicleId;
+    private String vehiclePlate;
     private String note;
     private int canEdit;
     private int createdEmployeeId;
@@ -72,6 +73,14 @@ public class VehicleOutBean {
 
     public void setCreatedEmployeeId(int createdEmployeeId) {
         this.createdEmployeeId = createdEmployeeId;
+    }
+
+    public String getVehiclePlate() {
+        return vehiclePlate;
+    }
+
+    public void setVehiclePlate(String vehiclePlate) {
+        this.vehiclePlate = vehiclePlate;
     }
 
 }

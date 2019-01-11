@@ -53,6 +53,8 @@ import com.stepup.gasoline.qt.report.TransportFeeReportBean;
 import com.stepup.gasoline.qt.report.VendorDebtReportBean;
 import com.stepup.gasoline.qt.report.comparegood.CompareGoodReportBean;
 import com.stepup.gasoline.qt.report.comparegood.CompareGoodReportOutBean;
+import com.stepup.gasoline.qt.report.comparevendor.CompareVendorReportBean;
+import com.stepup.gasoline.qt.report.comparevendor.CompareVendorReportOutBean;
 import com.stepup.gasoline.qt.report.lpgstocksumorganization.LpgStockSumOrganizationReportBean;
 import com.stepup.gasoline.qt.report.lpgstocksumorganization.LpgStockSumOrganizationReportOutBean;
 import com.stepup.gasoline.qt.report.vehiclefee.VehicleFeeReportBean;
@@ -1089,6 +1091,7 @@ public class ReportDAO extends BasicDAO {
                         bean.setQuantityAccessory(rs.getInt("quantity_accessory"));
                         bean.setCommissionAccessory(rs.getDouble("commission_accessory"));
                         bean.setAmount(rs.getDouble("amount"));
+                        bean.setVehiclePlate(rs.getString("vehicle_plate"));
                         list.add(bean);
                     }
                 }
@@ -2218,6 +2221,65 @@ public class ReportDAO extends BasicDAO {
                         bean.setPrice(rs.getDouble("price"));
                         bean.setAmount(bean.getQuantity() * bean.getPrice());
                         bean.setNote(rs.getString("note"));
+                        list.add(bean);
+                    }
+                }
+            }
+        } catch (SQLException sqle) {
+            throw new Exception(sqle.getMessage());
+        } catch (Exception ex) {
+            throw new Exception(ex.getMessage());
+        } finally {
+            try {
+                if (spUtil != null) {
+                    spUtil.closeConnection();
+                }
+                if (rs != null) {
+                    rs.close();
+                    rs = null;
+                }
+            } catch (Exception e) {
+                throw new Exception(e.getMessage());
+            }
+        }
+        return list;
+    }
+    
+    public ArrayList getCompareVendorReport(String fromDate, String endDate, String organizationIds, int vendorId, CompareVendorReportOutBean outBean) throws Exception {
+        SPUtil spUtil = null;
+        ArrayList list = new ArrayList();
+        ResultSet rs = null;
+        try {
+            String sql = "{call report_compare_vendor(?,?,?,?,?)}";
+            if (GenericValidator.isBlankOrNull(fromDate)) {
+                fromDate = DateUtil.today("dd/MM/yyyy");
+            }
+            if (GenericValidator.isBlankOrNull(endDate)) {
+                endDate = BasicDAO.START_DATE;
+            }
+            spUtil = new SPUtil(sql);
+            if (spUtil != null) {
+                spUtil.getCallableStatement().setString("_start_date", fromDate);
+                spUtil.getCallableStatement().setString("_end_date", endDate);
+                spUtil.getCallableStatement().setString("_organization_ids", organizationIds);
+                spUtil.getCallableStatement().setInt("_vendor_id", vendorId);
+                spUtil.getCallableStatement().registerOutParameter("_opening_debt", Types.DOUBLE);
+                
+                rs = spUtil.executeQuery();
+                
+                double openingDebt = spUtil.getCallableStatement().getDouble("_opening_debt");
+                outBean.setOpeningStockAmount(openingDebt);
+                if (rs != null) {
+                    CompareVendorReportBean bean = null;
+                    while (rs.next()) {
+                        bean = new CompareVendorReportBean();
+                        bean.setDate(DateUtil.formatDate(rs.getDate("created_date"), "dd/MM"));
+                        bean.setContent(rs.getString("content"));
+                        bean.setUnit(rs.getString("unit_name"));
+                        bean.setQuantity(rs.getDouble("quantity"));
+                        bean.setPrice(rs.getDouble("price"));
+                        bean.setPayAmount(rs.getDouble("pay_amount"));
+                        bean.setDebtAmount(rs.getDouble("debt_amount"));
                         list.add(bean);
                     }
                 }

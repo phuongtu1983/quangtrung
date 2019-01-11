@@ -611,12 +611,8 @@ public class GasDAO extends BasicDAO {
                         bean.setCode(rs.getString("code"));
                         bean.setFromDate(DateUtil.formatDate(rs.getDate("from_date"), "dd/MM/yyyy"));
                         bean.setToDate(DateUtil.formatDate(rs.getDate("to_date"), "dd/MM/yyyy"));
-                        bean.setKind(rs.getInt("kind"));
-                        if (bean.getKind() == CustomerBean.KIND_RETAIL) {
-                            bean.setKindName(QTUtil.getBundleString("customer.detail.kind.retail"));
-                        } else if (bean.getKind() == CustomerBean.KIND_WHOLESALE) {
-                            bean.setKindName(QTUtil.getBundleString("customer.detail.kind.wholesale"));
-                        }
+                        bean.setCustomerId(rs.getInt("customer_id"));
+                        bean.setCustomerName(rs.getString("customer_name"));
                         bean.setPrice(rs.getDouble("price"));
                         bean.setNote(rs.getString("note"));
                         list.add(bean);
@@ -655,7 +651,7 @@ public class GasDAO extends BasicDAO {
                 bean.setFromDate(DateUtil.formatDate(rs.getDate("from_date"), "dd/MM/yyyy"));
                 bean.setToDate(DateUtil.formatDate(rs.getDate("to_date"), "dd/MM/yyyy"));
                 bean.setPrice(rs.getDouble("price"));
-                bean.setKind(rs.getInt("kind"));
+                bean.setCustomerId(rs.getInt("customer_id"));
                 bean.setNote(rs.getString("note"));
                 return bean;
             }
@@ -697,7 +693,7 @@ public class GasDAO extends BasicDAO {
                 spUtil.getCallableStatement().setString("_from_date", fromDate);
                 spUtil.getCallableStatement().setString("_to_date", toDate);
                 spUtil.getCallableStatement().setDouble("_price", bean.getPrice());
-                spUtil.getCallableStatement().setInt("_kind", bean.getKind());
+                spUtil.getCallableStatement().setInt("_customer_id", bean.getCustomerId());
                 spUtil.getCallableStatement().setString("_note", bean.getNote());
                 spUtil.getCallableStatement().registerOutParameter("_id", Types.INTEGER);
                 spUtil.execute();
@@ -744,7 +740,7 @@ public class GasDAO extends BasicDAO {
                 spUtil.getCallableStatement().setString("_from_date", fromDate);
                 spUtil.getCallableStatement().setString("_to_date", toDate);
                 spUtil.getCallableStatement().setDouble("_price", bean.getPrice());
-                spUtil.getCallableStatement().setInt("_kind", bean.getKind());
+                spUtil.getCallableStatement().setInt("_customer_id", bean.getCustomerId());
                 spUtil.getCallableStatement().setString("_note", bean.getNote());
                 spUtil.execute();
             }
@@ -3919,7 +3915,8 @@ public class GasDAO extends BasicDAO {
 
     public VehicleOutBean getVehicleOut(int id) throws Exception {
         ResultSet rs = null;
-        String sql = "select *, IF(DATEDIFF(SYSDATE(),created_date)=0,1,0) as can_edit from vehicle_out where id=" + id;
+        String sql = "select vo.*, v.plate, IF(DATEDIFF(SYSDATE(),vo.created_date)=0,1,0) as can_edit from vehicle_out as vo, vehicle as v"
+                + " where vo.vehicle_id=v.id and vo.id=" + id;
         try {
             rs = DBUtil.executeQuery(sql);
             while (rs.next()) {
@@ -3928,6 +3925,7 @@ public class GasDAO extends BasicDAO {
                 bean.setCode(rs.getString("code"));
                 bean.setCreatedDate(DateUtil.formatDate(rs.getDate("created_date"), "dd/MM/yyyy"));
                 bean.setVehicleId(rs.getInt("vehicle_id"));
+                bean.setVehiclePlate(rs.getString("plate"));
                 bean.setNote(rs.getString("note"));
                 bean.setCanEdit(rs.getInt("can_edit"));
                 return bean;

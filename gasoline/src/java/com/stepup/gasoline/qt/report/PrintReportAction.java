@@ -290,8 +290,8 @@ public class PrintReportAction extends BaseAction {
             FileUtil.copyFile(fileName, tempFileName);
             File f = new File(tempFileName);
             ArrayList arrHideCol = new ArrayList();
-            arrHideCol.add(4);
             arrHideCol.add(5);
+            arrHideCol.add(6);
 
             GasCommissionReportOutBean outBean = new GasCommissionReportOutBean();
             list = reportDAO.getGasCommissionReport(fromDate, toDate, organizationIds, 0, 0, sessionId, outBean);

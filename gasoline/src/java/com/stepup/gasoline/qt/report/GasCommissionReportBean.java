@@ -20,6 +20,7 @@ public class GasCommissionReportBean {
     private int quantityAccessory;
     private double commissionAccessory;
     private double amount;
+    private String vehiclePlate;
 
     public String getDate() {
         return date;
@@ -91,6 +92,14 @@ public class GasCommissionReportBean {
 
     public void setAccessoryKindId(int accessoryKindId) {
         this.accessoryKindId = accessoryKindId;
+    }
+
+    public String getVehiclePlate() {
+        return vehiclePlate;
+    }
+
+    public void setVehiclePlate(String vehiclePlate) {
+        this.vehiclePlate = vehiclePlate;
     }
 
 }

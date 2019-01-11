@@ -131,21 +131,21 @@ public class DynamicColumnExcelReporter {
 
         // accessory
         AccessoryKindFormBean accessoryKind = null;
-        short col = 6, row = 4;
+        short col = 7, row = 4;
         for (int i = 0; i < arrAccessory.size(); i++) {
             accessoryKind = (AccessoryKindFormBean) arrAccessory.get(i);
             //copy header
-            newCell = copyCell(wb, sheet, row, 4, col, "", "");
+            newCell = copyCell(wb, sheet, row, 5, col, "", "");
             newCell.setCellValue(new HSSFRichTextString(accessoryKind.getName()));
 
             //copy sub header
-            newCell = copyCell(wb, sheet, row + 1, 4, col, "", "");
+            newCell = copyCell(wb, sheet, row + 1, 5, col, "", "");
             newCell.setCellValue(new HSSFRichTextString(NumberUtil.formatMoneyDefault(accessoryKind.getCommission(), "VND")));
 
             //copy content
-            copyCell(wb, sheet, row + 2, 4, col, "accessorydata", accessoryKind.getId() + "");
+            copyCell(wb, sheet, row + 2, 5, col, "accessorydata", accessoryKind.getId() + "");
 
-            sheet.setColumnWidth(col, sheet.getColumnWidth(4));
+            sheet.setColumnWidth(col, sheet.getColumnWidth(5));
             col += 1;
         }
 
@@ -153,17 +153,17 @@ public class DynamicColumnExcelReporter {
         for (int i = 0; i < arrEmployee.size(); i++) {
             employee = (EmployeeFormBean) arrEmployee.get(i);
             //copy header
-            newCell = copyCell(wb, sheet, row, 5, col, "", "");
+            newCell = copyCell(wb, sheet, row, 6, col, "", "");
             newCell.setCellValue(new HSSFRichTextString(employee.getFullname()));
 
             //copy header
-            newCell = copyCell(wb, sheet, row + 1, 5, col, "", employee.getId() + "");
+            newCell = copyCell(wb, sheet, row + 1, 6, col, "", employee.getId() + "");
             newCell.setCellValue(new HSSFRichTextString("$[SUM(" + ExcelExport.getColumnName(col) + "7)]"));
 
             //copy content nhap
-            copyCell(wb, sheet, row + 2, 5, col, "", employee.getId() + "");
+            copyCell(wb, sheet, row + 2, 6, col, "", employee.getId() + "");
 
-            sheet.setColumnWidth(col, sheet.getColumnWidth(5));
+            sheet.setColumnWidth(col, sheet.getColumnWidth(6));
             col += 1;
         }
         FileOutputStream fileOut = new FileOutputStream(f);

@@ -35,7 +35,7 @@ public class GetGasPriceListAction extends BaseAction {
                     GasPriceFormBean bean = (GasPriceFormBean) list.get(i);
                     buff.append("<row id=\"").append(bean.getId()).append("\">");
                     buff.append("<cell>").append(bean.getCode()).append("^javascript:getGasPrice(").append(bean.getId()).append(",\"loadGasPricePanel\")^_self</cell>");
-                    buff.append("<cell>").append(bean.getKindName()).append("</cell>");
+                    buff.append("<cell>").append(bean.getCustomerName()).append("</cell>");
                     buff.append("<cell>").append(bean.getFromDate()).append("</cell>");
                     buff.append("<cell>").append(bean.getToDate()).append("</cell>");
                     buff.append("<cell>").append(NumberUtil.formatMoneyDefault(bean.getPrice(), "VND")).append("</cell>");
