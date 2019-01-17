@@ -5,8 +5,10 @@
 package com.stepup.gasoline.qt.vendor;
 
 import com.stepup.gasoline.qt.core.SpineAction;
+import com.stepup.gasoline.qt.dao.OrganizationDAO;
 import com.stepup.gasoline.qt.dao.VendorDAO;
 import com.stepup.gasoline.qt.util.Constants;
+import com.stepup.gasoline.qt.util.QTUtil;
 import java.util.ArrayList;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -35,7 +37,8 @@ public class GasReturnVendorFormAction extends SpineAction {
         GasReturnVendorFormBean formBean = null;
         VendorDAO vendorDAO = new VendorDAO();
         try {
-            formBean = vendorDAO.getGasReturnVendor();
+            String organizationIds = QTUtil.getOrganizationManageds(request.getSession());
+            formBean = vendorDAO.getGasReturnVendor(organizationIds);
         } catch (Exception ex) {
         }
         if (formBean == null) {
@@ -53,6 +56,18 @@ public class GasReturnVendorFormAction extends SpineAction {
             arrVendor = new ArrayList();
         }
         request.setAttribute(Constants.VENDOR_LIST, arrVendor);
+
+        ArrayList arrOrganization = null;
+        try {
+            OrganizationDAO organizationDAO = new OrganizationDAO();
+            String organizationIds = QTUtil.getOrganizationManageds(request.getSession());
+            arrOrganization = organizationDAO.getOrganizations(organizationIds);
+        } catch (Exception ex) {
+        }
+        if (arrOrganization == null) {
+            arrOrganization = new ArrayList();
+        }
+        request.setAttribute(Constants.ORGANIZATION_LIST, arrOrganization);
 
         return true;
     }

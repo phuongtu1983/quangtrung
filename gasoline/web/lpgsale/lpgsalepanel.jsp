@@ -21,6 +21,15 @@
         </table>
     </fieldset>
 </form>
+<table>
+    <tr>
+        <td>
+            <%if (PermissionUtil.hasPermission(request, PermissionUtil.OPERATION_ADD, PermissionUtil.PER_LPG_SALE)) {%> 
+            <button class="i_create_write icon small green" onclick="return getLpgSale(0, 'loadLpgSalePanel',0);"><bean:message key="message.add"/></button>
+            <%}%>
+        </td>
+    </tr>
+</table>
 <form name='lpgSalesForm' id='lpgSalesForm'>
     <div id='lpgSaleList' style="width:100%; height:768px;"></div>
     <div id="recinfoArea"></div>

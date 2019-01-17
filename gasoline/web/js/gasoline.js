@@ -279,7 +279,7 @@ function menuClick(id) {
         getContract(0, 'loadContractPanel');
     else if (id == 'reportlpgimport' || id == 'reportlpgstock' || id == 'reportlpgstocksum' || id == 'reportsum' || id == 'reportsalecustomer' || id == 'reportsale'
             || id == 'reportcashbook' || id == 'reportpetroimport' || id == 'reportpetrosale' || id == 'reportpetrostock' || id == 'reportgascommission'
-            || id == 'reportgasemployeecommission' || id == 'reportvendordebt' || id == 'reporttransportfee')
+            || id == 'reportgasemployeecommission' || id == 'reportvendordebt' || id == 'reporttransportfee' || id == 'reportvehiclesale' || id == 'reportlpgsale')
         showReportPanel(id);
     else if (id == 'shieldimportlist')
         loadShieldImportPanel();
@@ -313,6 +313,14 @@ function menuClick(id) {
         showVehicleFeeReportPanel();
     else if (id == 'reportcomparevendor')
         showCompareVendorReportPanel();
+    else if (id == 'reportcomparelpg')
+        showCompareLPGReportPanel();
+    else if (id == 'transportservicelist')
+        loadTransportServicePanel();
+    else if (id == 'transportserviceadd')
+        getTransportService(0, 'loadTransportServicePanel');
+    else if (id == 'reporttransportservice')
+        showTransportServiceReportPanel();
 }
 function clearContent() {
     var contentDiv = document.getElementById("contentDiv");
@@ -3512,7 +3520,7 @@ function getGasPrice(id, handle) {
         document.getElementById('callbackFunc').value = handle;
         document.forms['gasPriceForm'].price.focus();
         tryNumberFormatCurrentcy(document.forms['gasPriceForm'].price, "VND");
-        
+
         window.dhx_globalImgPath = "js/dhtmlx/combo/imgs/";
         // ============================
         var customerIdCombobox = dhtmlXComboFromSelect("customerIdCombobox");
@@ -3534,18 +3542,18 @@ function getGasPrice(id, handle) {
             customerIdCombobox.setComboValue("");
             customerIdCombobox.openSelect();
             var currentDate = getCurrentDate();
-            
+
             document.forms['gasPriceForm'].gasPriceToDate.value = currentDate;
-            if (savedFromDate == "") 
+            if (savedFromDate == "")
                 document.forms['gasPriceForm'].gasPriceFromDate.value = currentDate;
             else
                 document.forms['gasPriceForm'].gasPriceFromDate.value = savedFromDate;
-            
+
             if (savedToDate == "")
                 document.forms['gasPriceForm'].gasPriceToDate.value = currentDate;
             else
                 document.forms['gasPriceForm'].gasPriceToDate.value = savedToDate;
-            
+
         } else {
             var customerId = document.forms['gasPriceForm'].customerId.value;
             if (customerId != 0) {
@@ -3556,7 +3564,7 @@ function getGasPrice(id, handle) {
                 customerIdCombobox.setComboValue("");
             }
         }
-        
+
         var myCalendar = new dhtmlXCalendarObject(["gasPriceFromDate", "gasPriceToDate"]);
         myCalendar.setSkin('dhx_web');
         myCalendar.setDateFormat("%d/%m/%Y");
@@ -4437,7 +4445,7 @@ function getGasWholesale(id) {
         }
         if (id == 0) {
 //            if (savedCustomer == 0)
-                customerIdCombobox.setComboValue("");
+            customerIdCombobox.setComboValue("");
 //            else {
 //                var ind = customerIdCombobox.getIndexByValue(savedCustomer);
 //                customerIdCombobox.selectOption(ind);
@@ -8402,7 +8410,7 @@ function getEmployeeOffMoney(id, handle) {
         tryNumberFormatCurrentcy(document.forms['employeeOffMoneyForm'].quantity, "VND");
         tryNumberFormatCurrentcy(document.forms['employeeOffMoneyForm'].price, "VND");
         tryNumberFormatCurrentcy(document.forms['employeeOffMoneyForm'].amount, "VND");
-        
+
         window.dhx_globalImgPath = "js/dhtmlx/combo/imgs/";
         // ============================
         var employeeIdCombobox = dhtmlXComboFromSelect("employeeIdCombobox");
@@ -9222,8 +9230,8 @@ function lpgSaleCaculateAmount() {
     paid.value = amount.value;
     debt.value = 0;
     tryNumberFormatCurrentcy(quantity, "VND");
-    tryNumberFormatCurrentcy(price, "VND");
-    tryNumberFormatCurrentcy(vat, "VND");
+    tryNumberFormatCurrentcy(price, "USD");
+    tryNumberFormatCurrentcy(vat, "USD");
     tryNumberFormatCurrentcy(rate, "VND");
     tryNumberFormatCurrentcy(amount, "VND");
     tryNumberFormatCurrentcy(paid, "VND");
@@ -10521,6 +10529,252 @@ function printComapreVendorReport(fromDate, toDate) {
     callServer(url);
     return false;
 }
+function showCompareLPGReportPanel() {
+    popupName = 'Bi\u00EAn b\u1EA3n \u0111\u1ED1i chi\u1EBFu c\u00F4ng n\u1EE3';
+    var url = 'getCompareLPGReportPanel.do';
+    callAjax(url, null, null, function(data) {
+        showPopupForm(data);
+        var myCalendar = new dhtmlXCalendarObject(["fromDate", "toDate"]);
+        myCalendar.setSkin('dhx_web');
+        var currentTime = getCurrentDate();
+        document.forms['reportCompareLPGSearchForm'].fromDate.value = currentTime;
+        document.forms['reportCompareLPGSearchForm'].toDate.value = currentTime;
+        myCalendar.setDateFormat("%d/%m/%Y");
+        // ============================
+        window.dhx_globalImgPath = "js/dhtmlx/combo/imgs/";
+        var customerIdCombobox = dhtmlXComboFromSelect("customerIdComboboxPopup");
+        customerIdCombobox.enableFilteringMode(true);
+        customerIdCombobox.attachEvent("onSelectionChange", function() {
+            setCustomerSelectedForm('reportCompareLPGSearchForm', customerIdCombobox.getComboText(), customerIdCombobox.getSelectedValue());
+        });
+        customerIdCombobox.attachEvent("onBlur", function() {
+            setCustomerSelectedForm('reportCompareLPGSearchForm', customerIdCombobox.getComboText(), customerIdCombobox.getSelectedValue());
+            customerIdCombobox.setComboText(customerIdCombobox.getSelectedText());
+        });
+        customerIdCombobox.DOMelem_input.onfocus = function(event) {
+            if (isManuallySeleted == 1) {
+                customerIdCombobox.openSelect();
+                isManuallySeleted = 0;
+            }
+        }
+        customerIdCombobox.setComboValue("");
+    });
+}
+function printComapreLPGReport(fromDate, toDate) {
+    var list = document.getElementById("reportCompareLPGSearchFormTime");
+    if (list == null || list.selectedIndex == -1)
+        return false;
+    if (list.selectedIndex == 1) {
+        fromDate = "01/" + fromDate;
+        var ind = toDate.indexOf("/");
+        var month = toDate.substring(0, ind);
+        var year = toDate.substring(ind + 1);
+        toDate = month + "/01/" + year;
+        var d = new Date(toDate);
+        var lastDay = new Date(d.getFullYear(), d.getMonth() + 1, 0).getDate();
+        toDate = lastDay + "/" + month + "/" + year;
+    } else if (list.selectedIndex == 2) {
+        fromDate = "01/01/" + fromDate;
+        toDate = "31/12/" + toDate;
+    }
+    var url = "reportCompareLPGPrint.do?temp=1";
+    if (fromDate !== null)
+        url += "&fromDate=" + fromDate;
+    if (toDate !== null)
+        url += "&toDate=" + toDate;
+    list = null;
+    url += "&customerId=" + document.forms['reportCompareLPGSearchForm'].customerSelectedHidden.value;
+    callServer(url);
+    return false;
+}
+function loadTransportServicePanel() {
+    callAjax("getTransportServicePanel.do", null, null, function(data) {
+        clearContent();
+        setAjaxData(data, "contentDiv");
+        var myCalendar = new dhtmlXCalendarObject(["fromDate", "toDate"]);
+        myCalendar.setSkin('dhx_web');
+        var currentTime = getCurrentDate();
+        document.forms['transportServiceSearchForm'].fromDate.value = currentTime;
+        document.forms['transportServiceSearchForm'].toDate.value = currentTime;
+        myCalendar.setDateFormat("%d/%m/%Y");
+        loadTransportServiceList(currentTime, currentTime);
+    });
+    return false;
+}
+function loadTransportServiceList(fromDate, toDate) {
+    var mygrid = new dhtmlXGridObject('transportServiceList');
+    mygrid.setImagePath("js/dhtmlx/grid/imgs/");
+    mygrid.setHeader("S\u1ED1 phi\u1EBFu,Kh\u00E1ch h\u00E0ng,S\u1ED1 l\u01B0\u1EE3ng,\u0110\u01A1n gi\u00E1,Th\u00E0nh ti\u1EC1n,Thanh to\u00E1n,C\u00F2n l\u1EA1i,Ghi ch\u00FA");
+    mygrid.attachHeader("#text_filter,#text_filter,#text_filter,#text_filter,#text_filter,#text_filter,#text_filter,#text_filter");
+    mygrid.setInitWidths("150,200,150,150,150,150,150,*");
+    mygrid.setColTypes("link,ro,ro,ro,ro,ro,ro,ro");
+    mygrid.setColSorting("str,str,str,str,str,str,str,str");
+    mygrid.setSkin("light");
+    var height = contentHeight - 210;
+    mygrid.al(true, height); //enableAutoHeight
+    mygrid.enablePaging(true, 15, 3, "recinfoArea");
+    mygrid.setPagingSkin("toolbar", "dhx_skyblue");
+    mygrid.init();
+    var url = "getTransportServiceList.do?t=1";
+    if (fromDate != null)
+        url += "&fromDate=" + fromDate;
+    if (toDate != null)
+        url += "&toDate=" + toDate;
+    callAjax(url, null, null, function(data) {
+        mygrid.parse(data);
+    });
+    return false;
+}
+function getTransportService(id, handle) {
+    popupName = 'TH\u00D4NG TIN PHI\u1EBEU V\u1EACN CHUY\u1EC2N';
+    var url = 'transportServiceForm.do';
+    if (id != 0)
+        url += '?transportServiceId=' + id
+    callAjax(url, null, null, function(data) {
+        showPopupForm(data);
+        document.getElementById('callbackFunc').value = handle;
+        tryNumberFormatCurrentcy(document.forms['transportServiceForm'].inQuantity, "VND");
+        tryNumberFormatCurrentcy(document.forms['transportServiceForm'].outQuantity, "VND");
+        tryNumberFormatCurrentcy(document.forms['transportServiceForm'].price, "USD");
+        tryNumberFormatCurrentcy(document.forms['transportServiceForm'].rate, "USD");
+        tryNumberFormatCurrentcy(document.forms['transportServiceForm'].amount, "VND");
+        tryNumberFormatCurrentcy(document.forms['transportServiceForm'].paid, "VND");
+        tryNumberFormatCurrentcy(document.forms['transportServiceForm'].debt, "VND");
+        if (id == 0) {
+            var currentDate = getCurrentDate();
+            document.forms['transportServiceForm'].createdDate.value = currentDate;
+        }
+        var myCalendar = new dhtmlXCalendarObject(["transportServiceDate"]);
+        myCalendar.setSkin('dhx_web');
+        myCalendar.setDateFormat("%d/%m/%Y");
 
+    });
+}
+function saveTransportService() {
+    if (scriptFunction == "saveTransportService")
+        return false;
+    reformatNumberMoney(document.forms['transportServiceForm'].inQuantity);
+    reformatNumberMoney(document.forms['transportServiceForm'].outQuantity);
+    reformatNumberMoney(document.forms['transportServiceForm'].price);
+    reformatNumberMoney(document.forms['transportServiceForm'].rate);
+    reformatNumberMoney(document.forms['transportServiceForm'].amount);
+    reformatNumberMoney(document.forms['transportServiceForm'].paid);
+    reformatNumberMoney(document.forms['transportServiceForm'].debt);
+    scriptFunction = "saveTransportService";
+    callAjaxCheckError("addTransportService.do", null, document.forms['transportServiceForm'], function(data) {
+        scriptFunction = "";
+        var handle = document.getElementById('callbackFunc').value;
+        if (confirm('B\u1EA1n c\u00F3 mu\u1ED1n nh\u1EADp ti\u1EBFp th\u00F4ng tin kh\u00E1c ?'))
+            getTransportService(0, handle);
+        else if (handle != '')
+            eval(handle + "()");
+        prepareHidePopup('transportServiceFormshowHelpHideDiv');
+    });
+    return false;
+}
+function delTransportService() {
+    callAjaxCheckError('delTransportService.do?transportServiceId=' + document.forms['transportServiceForm'].id.value, null, null, function() {
+        loadTransportServicePanel();
+        prepareHidePopup('transportServiceFormshowHelpHideDiv');
+    });
+    return false;
+}
+function transportServiceCaculateAmount() {
+    var quantity = document.forms['transportServiceForm'].outQuantity;
+    var price = document.forms['transportServiceForm'].price;
+    var rate = document.forms['transportServiceForm'].rate;
+    var amount = document.forms['transportServiceForm'].amount;
+    var paid = document.forms['transportServiceForm'].paid;
+    var debt = document.forms['transportServiceForm'].debt;
+    amount.value = reformatNumberMoneyString(quantity.value) * reformatNumberMoneyString(price.value) * reformatNumberMoneyString(rate.value) / 1000;
+    paid.value = amount.value;
+    debt.value = 0;
+    tryNumberFormatCurrentcy(quantity, "VND");
+    tryNumberFormatCurrentcy(price, "USD");
+    tryNumberFormatCurrentcy(rate, "VND");
+    tryNumberFormatCurrentcy(amount, "VND");
+    tryNumberFormatCurrentcy(paid, "VND");
+    tryNumberFormatCurrentcy(debt, "VND");
+    quantity = null;
+    price = null;
+    rate = null;
+    amount = null;
+    paid = null;
+    debt = null;
+    return false;
+}
+function transportServicePaidChanged() {
+    var total = document.forms['transportServiceForm'].amount;
+    var paid = document.forms['transportServiceForm'].paid;
+    var debt = document.forms['transportServiceForm'].debt;
+    if (total == null || paid == null || debt == null)
+        return false;
+    debt.value = reformatNumberMoneyString(total.value) * 1 - reformatNumberMoneyString(paid.value) * 1;
+    tryNumberFormatCurrentcy(total, "VND");
+    tryNumberFormatCurrentcy(paid, "VND");
+    tryNumberFormatCurrentcy(debt, "VND");
+    total = null;
+    paid = null;
+    debt = null;
+    return false;
+}
+function showTransportServiceReportPanel() {
+    popupName = 'Bi\u00EAn b\u1EA3n \u0111\u1ED1i chi\u1EBFu c\u00F4ng n\u1EE3';
+    var url = 'getTransportServiceReportPanel.do';
+    callAjax(url, null, null, function(data) {
+        showPopupForm(data);
+        var myCalendar = new dhtmlXCalendarObject(["fromDate", "toDate"]);
+        myCalendar.setSkin('dhx_web');
+        var currentTime = getCurrentDate();
+        document.forms['reportTransportServiceSearchForm'].fromDate.value = currentTime;
+        document.forms['reportTransportServiceSearchForm'].toDate.value = currentTime;
+        myCalendar.setDateFormat("%d/%m/%Y");
+        // ============================
+        window.dhx_globalImgPath = "js/dhtmlx/combo/imgs/";
+        var customerIdCombobox = dhtmlXComboFromSelect("vendorIdComboboxPopup");
+        customerIdCombobox.enableFilteringMode(true);
+        customerIdCombobox.attachEvent("onSelectionChange", function() {
+            setVendorSelectedForm('reportTransportServiceSearchForm', customerIdCombobox.getComboText(), customerIdCombobox.getSelectedValue());
+        });
+        customerIdCombobox.attachEvent("onBlur", function() {
+            setVendorSelectedForm('reportTransportServiceSearchForm', customerIdCombobox.getComboText(), customerIdCombobox.getSelectedValue());
+            customerIdCombobox.setComboText(customerIdCombobox.getSelectedText());
+        });
+        customerIdCombobox.DOMelem_input.onfocus = function(event) {
+            if (isManuallySeleted == 1) {
+                customerIdCombobox.openSelect();
+                isManuallySeleted = 0;
+            }
+        }
+        customerIdCombobox.setComboValue("");
+    });
+}
+function printTransportServiceReport(fromDate, toDate) {
+    var list = document.getElementById("reportTransportServiceSearchFormTime");
+    if (list == null || list.selectedIndex == -1)
+        return false;
+    if (list.selectedIndex == 1) {
+        fromDate = "01/" + fromDate;
+        var ind = toDate.indexOf("/");
+        var month = toDate.substring(0, ind);
+        var year = toDate.substring(ind + 1);
+        toDate = month + "/01/" + year;
+        var d = new Date(toDate);
+        var lastDay = new Date(d.getFullYear(), d.getMonth() + 1, 0).getDate();
+        toDate = lastDay + "/" + month + "/" + year;
+    } else if (list.selectedIndex == 2) {
+        fromDate = "01/01/" + fromDate;
+        toDate = "31/12/" + toDate;
+    }
+    var url = "reportTransportServicePrint.do?temp=1";
+    if (fromDate !== null)
+        url += "&fromDate=" + fromDate;
+    if (toDate !== null)
+        url += "&toDate=" + toDate;
+    list = null;
+    url += "&vendorId=" + document.forms['reportTransportServiceSearchForm'].vendorSelectedHidden.value;
+    callServer(url);
+    return false;
+}
 
 

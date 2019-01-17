@@ -140,6 +140,7 @@ public class GasDAO extends BasicDAO {
                 bean.setId(rs.getInt("id"));
                 bean.setCode(rs.getString("code"));
                 bean.setVendorId(rs.getInt("vendor_id"));
+                bean.setImportVendorId(rs.getInt("import_vendor_id"));
                 bean.setImportDate(DateUtil.formatDate(rs.getDate("import_date"), "dd/MM/yyyy"));
                 bean.setPaperQuantity(rs.getInt("paper_quantity"));
                 bean.setActualQuantity(rs.getInt("actual_quantity"));
@@ -181,11 +182,12 @@ public class GasDAO extends BasicDAO {
             } else {
                 createdDate = bean.getImportDate();
             }
-            String sql = "{call insertLpgImport(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)}";
+            String sql = "{call insertLpgImport(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)}";
             spUtil = new SPUtil(sql);
             if (spUtil != null) {
                 spUtil.getCallableStatement().setString("_code", bean.getCode());
                 spUtil.getCallableStatement().setInt("_vendor_id", bean.getVendorId());
+                spUtil.getCallableStatement().setInt("_import_vendor_id", bean.getImportVendorId());
                 spUtil.getCallableStatement().setString("_import_date", createdDate);
                 spUtil.getCallableStatement().setInt("_paper_quantity", bean.getPaperQuantity());
                 spUtil.getCallableStatement().setInt("_actual_quantity", bean.getActualQuantity());
@@ -232,12 +234,13 @@ public class GasDAO extends BasicDAO {
             } else {
                 createdDate = bean.getImportDate();
             }
-            String sql = "{call updateLpgImport(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)}";
+            String sql = "{call updateLpgImport(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)}";
             spUtil = new SPUtil(sql);
             if (spUtil != null) {
                 spUtil.getCallableStatement().setInt("_id", bean.getId());
                 spUtil.getCallableStatement().setString("_import_date", createdDate);
                 spUtil.getCallableStatement().setInt("_vendor_id", bean.getVendorId());
+                spUtil.getCallableStatement().setInt("_import_vendor_id", bean.getImportVendorId());
                 spUtil.getCallableStatement().setInt("_paper_quantity", bean.getPaperQuantity());
                 spUtil.getCallableStatement().setInt("_actual_quantity", bean.getActualQuantity());
                 spUtil.getCallableStatement().setDouble("_price", bean.getPrice());

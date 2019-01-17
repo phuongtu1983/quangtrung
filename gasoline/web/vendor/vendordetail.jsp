@@ -17,6 +17,18 @@
                             <td><html:text property="name" size="40" name="<%=Constants.VENDOR%>"/></td>
                         </tr>
                         <tr>
+                            <td height="30" style="padding-right: 20px"><bean:message key="vendor.detail.address"/></td>
+                            <td><html:text property="address" size="40" name="<%=Constants.VENDOR%>"/></td>
+                            <td height="30" style="padding-left: 10px; padding-right: 20px"><bean:message key="vendor.detail.tax"/></td>
+                            <td><html:text property="tax" size="40" name="<%=Constants.VENDOR%>"/></td>
+                        </tr>
+                        <tr>
+                            <td height="30" style="padding-right: 20px"><bean:message key="vendor.detail.phone"/></td>
+                            <td><html:text property="phone" size="40" name="<%=Constants.VENDOR%>"/></td>
+                            <td height="30" style="padding-left: 10px; padding-right: 20px"><bean:message key="vendor.detail.fax"/></td>
+                            <td><html:text property="fax" size="40" name="<%=Constants.VENDOR%>"/></td>
+                        </tr>
+                        <tr>
                             <td height="30" style="padding-right: 20px"><bean:message key="organization.title"/></td>
                             <td>
                                 <html:select property="organizationId" name="<%=Constants.VENDOR%>" style="width:255px" onchange="return dynamicFieldOrganizationChanged(this,'vendor','vendorDynamicField')">

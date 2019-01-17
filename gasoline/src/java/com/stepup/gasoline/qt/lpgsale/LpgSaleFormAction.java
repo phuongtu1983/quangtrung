@@ -77,12 +77,14 @@ public class LpgSaleFormAction extends SpineAction {
             } else {
                 lpgImportId = NumberUtil.parseInt(request.getParameter("lpgImportId"), 0);
             }
-            LpgImportBean importBean = gasDAO.getLpgImportForSale(lpgImportId);
-            if (importBean != null && bean.getId() == 0 && importBean.getActualQuantity() > 0) {
-                arrLpgImport.add(importBean);
-                bean.setQuantity(importBean.getActualQuantity());
-            } else if (bean.getId() > 0) {
-                arrLpgImport.add(importBean);
+            if (lpgImportId > 0) {
+                LpgImportBean importBean = gasDAO.getLpgImportForSale(lpgImportId);
+                if (importBean != null && bean.getId() == 0 && importBean.getActualQuantity() > 0) {
+                    arrLpgImport.add(importBean);
+                    bean.setQuantity(importBean.getActualQuantity());
+                } else if (bean.getId() > 0) {
+                    arrLpgImport.add(importBean);
+                }
             }
         } catch (Exception ex) {
         }

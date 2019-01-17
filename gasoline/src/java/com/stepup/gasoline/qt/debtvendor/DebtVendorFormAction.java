@@ -20,6 +20,7 @@ import javax.servlet.http.HttpServletResponse;
 import org.apache.commons.validator.GenericValidator;
 import org.apache.struts.action.ActionForm;
 import org.apache.struts.action.ActionMapping;
+import org.apache.struts.util.LabelValueBean;
 
 /**
  *
@@ -88,6 +89,18 @@ public class DebtVendorFormAction extends SpineAction {
             arrAccount = new ArrayList();
         }
         request.setAttribute(Constants.ACCOUNT_LIST, arrAccount);
+
+        ArrayList arrKind = new ArrayList();
+        LabelValueBean value;
+        value = new LabelValueBean();
+        value.setLabel(QTUtil.getBundleString("debtVendor.detail.kind.good.title"));
+        value.setValue(DebtVendorBean.KIND_GOOD + "");
+        arrKind.add(value);
+        value = new LabelValueBean();
+        value.setLabel(QTUtil.getBundleString("debtVendor.detail.kind.transport.title"));
+        value.setValue(DebtVendorBean.KIND_TRANSPORT + "");
+        arrKind.add(value);
+        request.setAttribute(Constants.KIND_LIST, arrKind);
 
         return true;
     }

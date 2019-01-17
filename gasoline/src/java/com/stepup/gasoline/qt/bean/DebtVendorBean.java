@@ -19,6 +19,7 @@ public class DebtVendorBean {
     private String note;
     private int createdEmployeeId;
     private int canEdit;
+    private int kind;
 
     public void setId(int id) {
         this.id = id;
@@ -92,4 +93,13 @@ public class DebtVendorBean {
         this.canEdit = canEdit;
     }
 
+    public int getKind() {
+        return kind;
+    }
+
+    public void setKind(int kind) {
+        this.kind = kind;
+    }
+    public static int KIND_GOOD = 1;
+    public static int KIND_TRANSPORT = 2;
 }

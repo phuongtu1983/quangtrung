@@ -40,6 +40,7 @@
         <form-bean name="goodForm" type="com.stepup.gasoline.qt.good.GoodFormBean"/>
         <form-bean name="employeeAdvanceForm" type="com.stepup.gasoline.qt.employeeadvance.EmployeeAdvanceFormBean"/>
         <form-bean name="lpgImportForm" type="com.stepup.gasoline.qt.lpgimport.LpgImportFormBean"/>
+        <form-bean name="transportServiceForm" type="com.stepup.gasoline.qt.transportservice.TransportServiceFormBean"/>
         <form-bean name="lpgSaleForm" type="com.stepup.gasoline.qt.lpgsale.LpgSaleFormBean"/>
         <form-bean name="tripFeeForm" type="com.stepup.gasoline.qt.tripfee.TripFeeFormBean"/>
         <form-bean name="shieldImportForm" type="com.stepup.gasoline.qt.shieldimport.ShieldImportFormBean"/>
@@ -1150,6 +1151,16 @@
         </action>
         <action path="/reportCompareVendorPrint" type="com.stepup.gasoline.qt.report.comparevendor.PrintCompareVendorReportAction" scope="request" validate="false" >
         </action>
+        <action path="/getCompareLPGReportPanel" type="com.stepup.gasoline.qt.report.comparelpg.CompareLPGReportPanelFormAction" scope="request" validate="false">
+            <forward name="success" path="/report/comparelpg/panel.jsp" />
+        </action>
+        <action path="/reportCompareLPGPrint" type="com.stepup.gasoline.qt.report.comparelpg.PrintCompareLPGReportAction" scope="request" validate="false" >
+        </action>
+        <action path="/getTransportServiceReportPanel" type="com.stepup.gasoline.qt.report.transportservice.TransportServiceReportPanelFormAction" scope="request" validate="false">
+            <forward name="success" path="/report/transportservice/panel.jsp" />
+        </action>
+        <action path="/reportTransportServicePrint" type="com.stepup.gasoline.qt.report.transportservice.PrintTransportServiceReportAction" scope="request" validate="false" >
+        </action>
         <!-- end report -->
         <!-- start good -->
         <action path="/getGoodPanel" type="com.stepup.gasoline.qt.common.BaseStatusFormAction" scope="request" validate="false">
@@ -1204,6 +1215,20 @@
         <action path="/exportOpeningStock" type="com.stepup.gasoline.qt.openingstock.ExportOpeningStockAction" scope="request" validate="false" >
         </action>
         <!-- end opening stock -->
+        <!-- start transport service -->
+        <action path="/getTransportServicePanel" type="com.stepup.gasoline.qt.common.BaseStatusFormAction" scope="request" validate="false">
+            <forward name="success" path="/transportservice/transportservicepanel.jsp" />
+        </action>
+        <action path="/getTransportServiceList" type="com.stepup.gasoline.qt.transportservice.GetTransportServiceListAction" scope="request" validate="false" >
+        </action>
+        <action path="/transportServiceForm" type="com.stepup.gasoline.qt.transportservice.TransportServiceFormAction" scope="request" validate="false">
+            <forward name="success" path="/transportservice/transportservicedetail.jsp" />
+        </action>
+        <action path="/addTransportService" name ="transportServiceForm" scope="request" type="com.stepup.gasoline.qt.transportservice.AddTransportServiceAction" input="/transportServiceForm.do">
+        </action>
+        <action path="/delTransportService" type="com.stepup.gasoline.qt.transportservice.DeleteTransportServiceAction" scope="request" validate="false" >
+        </action>
+        <!-- end transport service -->
     </action-mappings>
     
     <controller processorClass="org.apache.struts.tiles.TilesRequestProcessor"/>

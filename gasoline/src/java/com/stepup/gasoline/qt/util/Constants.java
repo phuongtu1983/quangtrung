@@ -26,6 +26,7 @@ public class Constants {
     public static final String VENDOR_ORGANIZATION = "vendorOrganization";
     public static final String VENDOR_ORGANIZATION_lIST = "vendorOrganizationList";
     public static final String VENDOR_LIST = "vendorList";
+    public static final String STOCK_VENDOR_LIST = "stockVendorList";
     public static final String STATUS_LIST = "statusList";
     public static final String SELECTED = "selected";
     public static final String PERMISSION = "permission";
@@ -84,6 +85,8 @@ public class Constants {
     public static final String GOOD = "good";
     public static final String TRIP_FEE = "tripFee";
     public static final String GAS_PRICE = "gasPrice";
+    public static final String TRANSPORT_SERVICE = "transportService";
+    public static final String TRANSPORT_SERVICE_LIST = "transportServiceList";
     public static final String LPG_IMPORT = "lpgImport";
     public static final String LPG_IMPORT_LIST = "lpgImportList";
     public static final String LPG_SALE = "lpgSale";
@@ -160,4 +163,5 @@ public class Constants {
     public static final String GOOD_IMPORT_GOOD = "goodImportGood";
     public static final String SALE_GOOD = "saleGood";
     public static final String SALE_GOOD_GOOD = "saleGoodGood";
+    public static final String KIND_LIST = "kindList";
 }

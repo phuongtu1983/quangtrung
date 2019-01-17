@@ -13,6 +13,7 @@ public class VendorOpeningStockUploadBean {
     private int organizationId;
     private int vendorId;
     private double openingStock;
+    private double openingStockTransport;
 
     public int getOrganizationId() {
         return organizationId;
@@ -36,6 +37,14 @@ public class VendorOpeningStockUploadBean {
 
     public void setOpeningStock(double openingStock) {
         this.openingStock = openingStock;
+    }
+
+    public double getOpeningStockTransport() {
+        return openingStockTransport;
+    }
+
+    public void setOpeningStockTransport(double openingStockTransport) {
+        this.openingStockTransport = openingStockTransport;
     }
 
 }

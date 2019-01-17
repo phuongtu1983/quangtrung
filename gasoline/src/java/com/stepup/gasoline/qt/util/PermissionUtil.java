@@ -173,4 +173,9 @@ public class PermissionUtil {
     public static int PER_REPORT_TRANSPORT_FEE = 84;
     public static int PER_REPORT_VEHICLE_FEE = 85;
     public static int PER_REPORT_COMPARE_VENDOR = 86;
+    public static int PER_REPORT_VEHICLE_SALE = 87;
+    public static int PER_REPORT_COMPARE_LPG = 88;
+    public static int PER_REPORT_LPG_SALE = 89;
+    public static int PER_TRANSPORT_SERVICE = 90;
+    public static int PER_REPORT_TRANSPORT_SERVICE = 91;
 }

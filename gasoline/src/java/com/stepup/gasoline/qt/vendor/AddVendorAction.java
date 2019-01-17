@@ -74,6 +74,18 @@ public class AddVendorAction extends AddDynamicFieldValueAction {
                 if (!formBean.getName().equals(oldBean.getName())) {
                     isUpdate = true;
                 }
+                if (!formBean.getAddress().equals(oldBean.getAddress())) {
+                    isUpdate = true;
+                }
+                if (!formBean.getTax().equals(oldBean.getTax())) {
+                    isUpdate = true;
+                }
+                if (!formBean.getPhone().equals(oldBean.getPhone())) {
+                    isUpdate = true;
+                }
+                if (!formBean.getFax().equals(oldBean.getFax())) {
+                    isUpdate = true;
+                }
                 if (!formBean.getCode().equals(oldBean.getCode())) {
                     isUpdate = true;
                 }
@@ -104,6 +116,10 @@ public class AddVendorAction extends AddDynamicFieldValueAction {
         VendorBean bean = new VendorBean();
         bean.setId(formBean.getId());
         bean.setName(formBean.getName());
+        bean.setAddress(formBean.getAddress());
+        bean.setTax(formBean.getTax());
+        bean.setPhone(formBean.getPhone());
+        bean.setFax(formBean.getFax());
         bean.setCode(formBean.getCode());
         bean.setStatus(formBean.getStatus());
         bean.setOrganizationId(formBean.getOrganizationId());

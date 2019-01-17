@@ -47,6 +47,7 @@ public class AddDebtVendorAction extends SpineAction {
         bean.setCode(formBean.getCode());
         bean.setVendorId(formBean.getVendorId());
         bean.setNote(formBean.getNote());
+        bean.setKind(formBean.getKind());
         bean.setCreatedEmployeeId(QTUtil.getEmployeeId(request.getSession()));
         try {
             if (bNew) {

@@ -184,6 +184,10 @@ public class VendorDAO extends BasicDAO {
                 vendor.setId(rs.getInt("id"));
                 vendor.setCode(rs.getString("code"));
                 vendor.setName(rs.getString("name"));
+                vendor.setAddress(rs.getString("address"));
+                vendor.setTax(rs.getString("tax"));
+                vendor.setPhone(rs.getString("phone"));
+                vendor.setFax(rs.getString("fax"));
                 vendor.setStatus(rs.getInt("status"));
                 vendor.setOrganizationId(rs.getInt("organization_id"));
                 vendor.setEqualOrganizationId(rs.getInt("equal_organization_id"));
@@ -248,10 +252,14 @@ public class VendorDAO extends BasicDAO {
         int result = 0;
         SPUtil spUtil = null;
         try {
-            String sql = "{call insertVendor(?,?,?,?,?,?,?,?,?,?)}";
+            String sql = "{call insertVendor(?,?,?,?,?,?,?,?,?,?,?,?,?,?)}";
             spUtil = new SPUtil(sql);
             if (spUtil != null) {
                 spUtil.getCallableStatement().setString("_name", bean.getName());
+                spUtil.getCallableStatement().setString("_address", bean.getAddress());
+                spUtil.getCallableStatement().setString("_tax", bean.getTax());
+                spUtil.getCallableStatement().setString("_phone", bean.getPhone());
+                spUtil.getCallableStatement().setString("_fax", bean.getFax());
                 spUtil.getCallableStatement().setString("_code", bean.getCode());
                 spUtil.getCallableStatement().setInt("_organization_id", bean.getOrganizationId());
                 spUtil.getCallableStatement().setInt("_status", bean.getStatus());
@@ -286,10 +294,14 @@ public class VendorDAO extends BasicDAO {
         }
         SPUtil spUtil = null;
         try {
-            String sql = "{call updateVendor(?,?,?,?,?,?,?,?,?,?)}";
+            String sql = "{call updateVendor(?,?,?,?,?,?,?,?,?,?,?,?,?,?)}";
             spUtil = new SPUtil(sql);
             if (spUtil != null) {
                 spUtil.getCallableStatement().setString("_name", bean.getName());
+                spUtil.getCallableStatement().setString("_address", bean.getAddress());
+                spUtil.getCallableStatement().setString("_tax", bean.getTax());
+                spUtil.getCallableStatement().setString("_phone", bean.getPhone());
+                spUtil.getCallableStatement().setString("_fax", bean.getFax());
                 spUtil.getCallableStatement().setString("_code", bean.getCode());
                 spUtil.getCallableStatement().setInt("_organization_id", bean.getOrganizationId());
                 spUtil.getCallableStatement().setInt("_status", bean.getStatus());
@@ -317,15 +329,16 @@ public class VendorDAO extends BasicDAO {
 
     }
 
-    public GasReturnVendorFormBean getGasReturnVendor() throws Exception {
+    public GasReturnVendorFormBean getGasReturnVendor(String organizationIds) throws Exception {
         ResultSet rs = null;
-        String sql = "select * from gas_return_vendor limit 1";
+        String sql = "select * from gas_return_vendor where " + organizationIds + " LIKE CONCAT('%,',organization_id,',%') limit 1";
         try {
             rs = DBUtil.executeQuery(sql);
             while (rs.next()) {
                 GasReturnVendorFormBean vendor = new GasReturnVendorFormBean();
                 vendor.setId(rs.getInt("id"));
                 vendor.setVendorId(rs.getInt("vendor_id"));
+                vendor.setOrganizationId(rs.getInt("organization_id"));
                 return vendor;
             }
         } catch (SQLException sqle) {
@@ -347,11 +360,12 @@ public class VendorDAO extends BasicDAO {
         int result = 0;
         SPUtil spUtil = null;
         try {
-            String sql = "{call insertGasReturnVendor(?,?)}";
+            String sql = "{call insertGasReturnVendor(?,?,?)}";
             spUtil = new SPUtil(sql);
             if (spUtil != null) {
                 spUtil.getCallableStatement().setInt("_id", bean.getId());
                 spUtil.getCallableStatement().setInt("_vendor_id", bean.getVendorId());
+                spUtil.getCallableStatement().setInt("_organization_id", bean.getOrganizationId());
                 spUtil.execute();
             }
         } catch (SQLException sqle) {

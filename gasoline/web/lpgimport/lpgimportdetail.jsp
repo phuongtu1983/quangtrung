@@ -23,13 +23,11 @@
                                     <html:options collection="<%=Constants.VENDOR_LIST%>" property="id" labelProperty="name"/>
                                 </html:select>
                             </td>
-                            <td style="padding-right: 20px;padding-left: 10px"><bean:message key="route.title"/></td>
+                            <td style="padding-right: 20px;padding-left: 10px"><bean:message key="lpgImport.detail.importVendor"/></td>
                             <td>
-                                <select style="width: 195px;" name="routeIdCombobox" id="routeIdCombobox">
-                                    <logic:iterate id="route_iter" name="<%=Constants.ROUTE_LIST%>">
-                                        <option  value="${route_iter.id}">${route_iter.name}</option>
-                                    </logic:iterate>
-                                </select>
+                                <html:select property="importVendorId" name="<%=Constants.LPG_IMPORT%>" style="width:195px">
+                                    <html:options collection="<%=Constants.STOCK_VENDOR_LIST%>" property="id" labelProperty="name"/>
+                                </html:select>
                             </td>
                         </tr>
                         <tr>
@@ -64,6 +62,16 @@
                                 <html:select property="accountId" name="<%=Constants.LPG_IMPORT%>" style="width:195px">
                                     <html:options collection="<%=Constants.ACCOUNT_LIST%>" property="id" labelProperty="number"/>
                                 </html:select>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td height="30" style="padding-right: 20px"><bean:message key="route.title"/></td>
+                            <td colspan="3">
+                                <select style="width: 560px;" name="routeIdCombobox" id="routeIdCombobox">
+                                    <logic:iterate id="route_iter" name="<%=Constants.ROUTE_LIST%>">
+                                        <option  value="${route_iter.id}">${route_iter.name}</option>
+                                    </logic:iterate>
+                                </select>
                             </td>
                         </tr>
                         <tr>

@@ -12,9 +12,15 @@
                     <table cellspacing="0" cellpadding="0" style="border-width: 0px">
                         <tr>
                             <td height="30" style="padding-right: 20px"><bean:message key="vendor.title"/></td>
-                            <td colspan="3">
+                            <td>
                                 <html:select property="vendorId" name="<%=Constants.GAS_RETURN_VENDOR%>" style="width:255px">
                                     <html:options collection="<%=Constants.VENDOR_LIST%>" property="id" labelProperty="vendorName"/>
+                                </html:select>
+                            </td>
+                            <td style="padding-right: 20px;padding-left: 10px"><bean:message key="organization.title"/></td>
+                            <td>
+                                <html:select property="organizationId" name="<%=Constants.GAS_RETURN_VENDOR%>" style="width:255px">
+                                    <html:options collection="<%=Constants.ORGANIZATION_LIST%>" property="id" labelProperty="name"/>
                                 </html:select>
                             </td>
                         </tr>

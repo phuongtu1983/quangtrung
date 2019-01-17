@@ -53,6 +53,9 @@ public class PrintReportAction extends BaseAction {
                 if (reportName.equals("reportlpgimport")) {
                     templateFileName = "bang_theo_doi_nhap_hang_lpg";
                     list = printLpgImportReport(fromDate, toDate, organizationIds);
+                } else if (reportName.equals("reportlpgsale")) {
+                    templateFileName = "bang_theo_doi_ban_hang_lpg";
+                    list = printLpgSaleReport(fromDate, toDate, organizationIds);
                 } else if (reportName.equals("reportlpgstock")) {
                     templateFileName = "so_theo_doi_san_luong_khi_hoa_long_lpg";
                     LpgStockReportOutBean outBean = new LpgStockReportOutBean();
@@ -103,6 +106,9 @@ public class PrintReportAction extends BaseAction {
                 } else if (reportName.equals("reporttransportfee")) {
                     templateFileName = "bang_theo_doi_chi_phi_van_chuyen";
                     list = printTransportFeeReport(fromDate, toDate, organizationIds);
+                } else if (reportName.equals("reportvehiclesale")) {
+                    templateFileName = "bang_theo_doi_ban_hang_van_chuyen";
+                    list = printTransportSaleReport(fromDate, toDate, organizationIds);
                 }
 
                 if (!reportName.equals("reportpetrostock") && !reportName.equals("reportgascommission")) {
@@ -132,6 +138,16 @@ public class PrintReportAction extends BaseAction {
         try {
             ReportDAO reportDAO = new ReportDAO();
             list = reportDAO.getLpgImportReport(fromDate, toDate, organizationIds);
+        } catch (Exception ex) {
+        }
+        return list;
+    }
+    
+    private ArrayList printLpgSaleReport(String fromDate, String toDate, String organizationIds) {
+        ArrayList list = null;
+        try {
+            ReportDAO reportDAO = new ReportDAO();
+            list = reportDAO.getLpgSaleReport(fromDate, toDate, organizationIds);
         } catch (Exception ex) {
         }
         return list;
@@ -369,6 +385,18 @@ public class PrintReportAction extends BaseAction {
         try {
             ReportDAO reportDAO = new ReportDAO();
             list = reportDAO.getTransportFeeReport(fromDate, toDate, organizationIds);
+        } catch (Exception ex) {
+        }
+        return list;
+    }
+
+    private ArrayList printTransportSaleReport(String fromDate, String toDate, String organizationIds) {
+        ArrayList list = null;
+        try {
+            VendorDAO vendorDAO = new VendorDAO();
+            String vendorIds = vendorDAO.getVendorOfOrganizations(organizationIds);
+            ReportDAO reportDAO = new ReportDAO();
+            list = reportDAO.getTransportSaleReport(fromDate, toDate, organizationIds, vendorIds);
         } catch (Exception ex) {
         }
         return list;

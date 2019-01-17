@@ -45,6 +45,8 @@ public class BaseReportPanelFormAction extends SpineAction {
             header = QTUtil.getBundleString("report.sum.title");
         } else if (name.equals("reportcompare")) {
             header = QTUtil.getBundleString("report.compare.title");
+        } else if (name.equals("reportcomparelpg")) {
+            header = QTUtil.getBundleString("report.compareLPG.title");
         } else if (name.equals("reportsale")) {
             header = QTUtil.getBundleString("report.sale.title");
         } else if (name.equals("reportsalecustomer")) {
@@ -65,8 +67,14 @@ public class BaseReportPanelFormAction extends SpineAction {
             header = QTUtil.getBundleString("report.vendorDebt.title");
         } else if (name.equals("reporttransportfee")) {
             header = QTUtil.getBundleString("report.transportFee.title");
-        }else if (name.equals("reportcomparevendor")) {
+        } else if (name.equals("reportcomparevendor")) {
             header = QTUtil.getBundleString("report.compareVendor.title");
+        } else if (name.equals("reportvehiclesale")) {
+            header = QTUtil.getBundleString("report.vehicleSale.title");
+        } else if (name.equals("reportlpgsale")) {
+            header = QTUtil.getBundleString("report.lpgSale.title");
+        } else if (name.equals("reporttransportservice")) {
+            header = QTUtil.getBundleString("report.transportService.title");
         }
         reportBean.setName(name);
         reportBean.setHeader(header);

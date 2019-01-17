@@ -10,6 +10,7 @@
 					<mapping row="6" col="0">data.organizationId</mapping>
                     <mapping row="6" col="1">data.vendorId</mapping>
                     <mapping row="6" col="4">data.openingStock</mapping>
+					<mapping row="6" col="5">data.openingStockTransport</mapping>
                 </section>
                 <loopbreakcondition>
 					<rowcheck offset="0">

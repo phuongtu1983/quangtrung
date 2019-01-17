@@ -14,6 +14,10 @@ public class VendorBean {
     private String code;
     private int status;
     private String name;
+    private String address;
+    private String tax;
+    private String phone;
+    private String fax;
     private int organizationId;
     private int equalOrganizationId;
     private int hasStock;
@@ -99,6 +103,38 @@ public class VendorBean {
 
     public void setIsGood(int isGood) {
         this.isGood = isGood;
+    }
+
+    public String getAddress() {
+        return address;
+    }
+
+    public void setAddress(String address) {
+        this.address = address;
+    }
+
+    public String getTax() {
+        return tax;
+    }
+
+    public void setTax(String tax) {
+        this.tax = tax;
+    }
+
+    public String getPhone() {
+        return phone;
+    }
+
+    public void setPhone(String phone) {
+        this.phone = phone;
+    }
+
+    public String getFax() {
+        return fax;
+    }
+
+    public void setFax(String fax) {
+        this.fax = fax;
     }
 
     public static final int IS_GAS = 1;

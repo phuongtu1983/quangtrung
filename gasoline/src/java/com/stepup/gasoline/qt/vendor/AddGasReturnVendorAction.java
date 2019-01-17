@@ -36,6 +36,7 @@ public class AddGasReturnVendorAction extends SpineAction {
         GasReturnVendorBean bean = new GasReturnVendorBean();
         bean.setId(formBean.getId());
         bean.setVendorId(formBean.getVendorId());
+        bean.setOrganizationId(formBean.getOrganizationId());
         try {
             vendorDAO.insertGasReturnVendor(bean);
         } catch (Exception ex) {

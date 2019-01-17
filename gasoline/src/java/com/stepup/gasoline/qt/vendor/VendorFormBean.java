@@ -18,6 +18,10 @@ public class VendorFormBean extends DynamicFieldValueParentFormBean {
     private int status;
     private String statusName;
     private String name;
+    private String address;
+    private String tax;
+    private String phone;
+    private String fax;
     private int organizationId;
     private int equalOrganizationId;
     private String organizationName;
@@ -34,6 +38,10 @@ public class VendorFormBean extends DynamicFieldValueParentFormBean {
         this.code = bean.getCode();
         this.status = bean.getStatus();
         this.name = bean.getName();
+        this.address = bean.getAddress();
+        this.tax = bean.getTax();
+        this.phone = bean.getPhone();
+        this.fax = bean.getFax();
         this.organizationId = bean.getOrganizationId();
         this.equalOrganizationId = bean.getEqualOrganizationId();
         this.hasStock = bean.getHasStock() == 1 ? true : false;
@@ -136,6 +144,38 @@ public class VendorFormBean extends DynamicFieldValueParentFormBean {
 
     public void setIsGood(boolean isGood) {
         this.isGood = isGood;
+    }
+
+    public String getAddress() {
+        return address;
+    }
+
+    public void setAddress(String address) {
+        this.address = address;
+    }
+
+    public String getTax() {
+        return tax;
+    }
+
+    public void setTax(String tax) {
+        this.tax = tax;
+    }
+
+    public String getPhone() {
+        return phone;
+    }
+
+    public void setPhone(String phone) {
+        this.phone = phone;
+    }
+
+    public String getFax() {
+        return fax;
+    }
+
+    public void setFax(String fax) {
+        this.fax = fax;
     }
 
 }

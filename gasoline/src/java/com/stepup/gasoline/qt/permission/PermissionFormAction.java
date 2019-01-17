@@ -662,6 +662,15 @@ public class PermissionFormAction extends SpineAction {
         perBean.setCounter("2.1");
         perBean.setLevel(2);
         perBean.setSharedId(2);
+        perBean.setName(QTUtil.getBundleString("transportService.title"));
+        perBean.setValue(PermissionUtil.PER_TRANSPORT_SERVICE);
+        perBean.setOperations("," + PermissionUtil.OPERATION_LIST + "," + PermissionUtil.OPERATION_ADD + "," + PermissionUtil.OPERATION_EDIT + "," + PermissionUtil.OPERATION_DELETE + ",");
+        arrFun.add(perBean);
+
+        perBean = new PermissionViewBean();
+        perBean.setCounter("2.1");
+        perBean.setLevel(2);
+        perBean.setSharedId(2);
         perBean.setName(QTUtil.getBundleString("contract.title"));
         perBean.setValue(PermissionUtil.PER_CONTRACT);
         perBean.setOperations("," + PermissionUtil.OPERATION_LIST + "," + PermissionUtil.OPERATION_ADD + "," + PermissionUtil.OPERATION_EDIT + "," + PermissionUtil.OPERATION_DELETE + "," + PermissionUtil.OPERATION_PRINT + ",");
@@ -751,6 +760,15 @@ public class PermissionFormAction extends SpineAction {
         perBean.setCounter("3.1");
         perBean.setLevel(2);
         perBean.setSharedId(3);
+        perBean.setName(QTUtil.getBundleString("report.lpgSale.title"));
+        perBean.setValue(PermissionUtil.PER_REPORT_LPG_SALE);
+        perBean.setOperations("," + PermissionUtil.OPERATION_PRINT + ",");
+        arrFun.add(perBean);
+
+        perBean = new PermissionViewBean();
+        perBean.setCounter("3.1");
+        perBean.setLevel(2);
+        perBean.setSharedId(3);
         perBean.setName(QTUtil.getBundleString("report.vendorDebt.title"));
         perBean.setValue(PermissionUtil.PER_REPORT_VENDOR_DEBT);
         perBean.setOperations("," + PermissionUtil.OPERATION_PRINT + ",");
@@ -798,6 +816,15 @@ public class PermissionFormAction extends SpineAction {
         perBean.setSharedId(3);
         perBean.setName(QTUtil.getBundleString("report.compare.title"));
         perBean.setValue(PermissionUtil.PER_REPORT_COMPARE);
+        perBean.setOperations("," + PermissionUtil.OPERATION_PRINT + ",");
+        arrFun.add(perBean);
+
+        perBean = new PermissionViewBean();
+        perBean.setCounter("3.1");
+        perBean.setLevel(2);
+        perBean.setSharedId(3);
+        perBean.setName(QTUtil.getBundleString("report.compareLPG.title"));
+        perBean.setValue(PermissionUtil.PER_REPORT_COMPARE_LPG);
         perBean.setOperations("," + PermissionUtil.OPERATION_PRINT + ",");
         arrFun.add(perBean);
 
@@ -906,6 +933,24 @@ public class PermissionFormAction extends SpineAction {
         perBean.setSharedId(3);
         perBean.setName(QTUtil.getBundleString("report.vehicleFee.title"));
         perBean.setValue(PermissionUtil.PER_REPORT_VEHICLE_FEE);
+        perBean.setOperations("," + PermissionUtil.OPERATION_PRINT + ",");
+        arrFun.add(perBean);
+
+        perBean = new PermissionViewBean();
+        perBean.setCounter("3.1");
+        perBean.setLevel(2);
+        perBean.setSharedId(3);
+        perBean.setName(QTUtil.getBundleString("report.vehicleSale.title"));
+        perBean.setValue(PermissionUtil.PER_REPORT_VEHICLE_SALE);
+        perBean.setOperations("," + PermissionUtil.OPERATION_PRINT + ",");
+        arrFun.add(perBean);
+
+        perBean = new PermissionViewBean();
+        perBean.setCounter("3.1");
+        perBean.setLevel(2);
+        perBean.setSharedId(3);
+        perBean.setName(QTUtil.getBundleString("report.transportService.title"));
+        perBean.setValue(PermissionUtil.PER_REPORT_TRANSPORT_SERVICE);
         perBean.setOperations("," + PermissionUtil.OPERATION_PRINT + ",");
         arrFun.add(perBean);
 

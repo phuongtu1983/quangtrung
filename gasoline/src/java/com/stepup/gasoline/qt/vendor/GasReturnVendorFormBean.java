@@ -14,6 +14,7 @@ public class GasReturnVendorFormBean extends org.apache.struts.action.ActionForm
 
     private int id;
     private int vendorId;
+    private int organizationId;
 
     public GasReturnVendorFormBean() {
     }
@@ -21,6 +22,7 @@ public class GasReturnVendorFormBean extends org.apache.struts.action.ActionForm
     public GasReturnVendorFormBean(GasReturnVendorBean bean) {
         this.id = bean.getId();
         this.vendorId = bean.getVendorId();
+        this.organizationId = bean.getOrganizationId();
     }
 
     public int getId() {
@@ -37,6 +39,14 @@ public class GasReturnVendorFormBean extends org.apache.struts.action.ActionForm
 
     public void setVendorId(int vendorId) {
         this.vendorId = vendorId;
+    }
+
+    public int getOrganizationId() {
+        return organizationId;
+    }
+
+    public void setOrganizationId(int organizationId) {
+        this.organizationId = organizationId;
     }
 
 }
