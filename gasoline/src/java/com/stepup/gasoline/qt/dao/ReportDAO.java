@@ -53,6 +53,8 @@ import com.stepup.gasoline.qt.report.SumReportBean;
 import com.stepup.gasoline.qt.report.TransportFeeReportBean;
 import com.stepup.gasoline.qt.report.TransportSaleReportBean;
 import com.stepup.gasoline.qt.report.VendorDebtReportBean;
+import com.stepup.gasoline.qt.report.comparegas.CompareGasReportBean;
+import com.stepup.gasoline.qt.report.comparegas.CompareGasReportOutBean;
 import com.stepup.gasoline.qt.report.comparegood.CompareGoodReportBean;
 import com.stepup.gasoline.qt.report.comparegood.CompareGoodReportOutBean;
 import com.stepup.gasoline.qt.report.comparelpg.CompareLPGReportBean;
@@ -2523,6 +2525,89 @@ public class ReportDAO extends BasicDAO {
                         list.add(bean);
                     }
                     outBean.setClosingDebt(amountDebt);
+                }
+            }
+        } catch (SQLException sqle) {
+            throw new Exception(sqle.getMessage());
+        } catch (Exception ex) {
+            throw new Exception(ex.getMessage());
+        } finally {
+            try {
+                if (spUtil != null) {
+                    spUtil.closeConnection();
+                }
+                if (rs != null) {
+                    rs.close();
+                    rs = null;
+                }
+            } catch (Exception e) {
+                throw new Exception(e.getMessage());
+            }
+        }
+        return list;
+    }
+
+    public ArrayList getCompareGasReport(String fromDate, String endDate, String organizationIds, int vendorId, CompareGasReportOutBean outBean) throws Exception {
+        SPUtil spUtil = null;
+        ArrayList list = new ArrayList();
+        ResultSet rs = null;
+        try {
+            String sql = "{call report_compare_gas(?,?,?,?,?,?,?)}";
+            if (GenericValidator.isBlankOrNull(fromDate)) {
+                fromDate = DateUtil.today("dd/MM/yyyy");
+            }
+            if (GenericValidator.isBlankOrNull(endDate)) {
+                endDate = BasicDAO.START_DATE;
+            }
+            spUtil = new SPUtil(sql);
+            if (spUtil != null) {
+                spUtil.getCallableStatement().setString("_start_date", fromDate);
+                spUtil.getCallableStatement().setString("_end_date", endDate);
+                spUtil.getCallableStatement().setString("_organization_ids", organizationIds);
+                spUtil.getCallableStatement().setInt("_vendor_id", vendorId);
+                spUtil.getCallableStatement().registerOutParameter("_shell12_debt", Types.DOUBLE);
+                spUtil.getCallableStatement().registerOutParameter("_shell45_debt", Types.DOUBLE);
+                spUtil.getCallableStatement().registerOutParameter("_amount_debt", Types.DOUBLE);
+
+                rs = spUtil.executeQuery();
+
+                double amountDebt = spUtil.getCallableStatement().getDouble("_amount_debt");
+                int shell12Debt = spUtil.getCallableStatement().getInt("_shell12_debt");
+                int shell45Debt = spUtil.getCallableStatement().getInt("_shell45_debt");
+                outBean.setAmountDebt(amountDebt);
+                outBean.setShell12Debt(shell12Debt);
+                outBean.setShell45Debt(shell45Debt);
+                if (rs != null) {
+                    CompareGasReportBean bean = null;
+                    while (rs.next()) {
+                        bean = new CompareGasReportBean();
+                        bean.setDate(DateUtil.formatDate(rs.getDate("created_date"), "dd/MM"));
+                        bean.setQuantity12(rs.getInt("quantity_12"));
+                        bean.setQuantity45(rs.getInt("quantity_45"));
+                        bean.setQuantitySum(bean.getQuantity12() + bean.getQuantity45());
+                        bean.setAmount12(rs.getDouble("amount_12"));
+                        bean.setAmount45(rs.getDouble("amount_45"));
+                        bean.setAmount(bean.getAmount12() + bean.getAmount45());
+                        if (bean.getQuantity12() != 0) {
+                            bean.setPrice12(bean.getAmount12() / bean.getQuantity12());
+                        }
+                        if (bean.getQuantity45() != 0) {
+                            bean.setPrice45(bean.getAmount45() / bean.getQuantity45());
+                        }
+                        bean.setPaid(rs.getDouble("paid"));
+                        bean.setDebt(amountDebt + bean.getAmount() - rs.getDouble("paid"));
+                        bean.setReturnShell12(rs.getInt("shell_return_12"));
+                        bean.setReturnShell45(rs.getInt("shell_return_45"));
+                        bean.setDebtShell12(shell12Debt + bean.getQuantity12() - bean.getReturnShell12());
+                        bean.setDebtShell45(shell45Debt + bean.getQuantity45() - bean.getReturnShell45());
+                        amountDebt = bean.getDebt();
+                        shell12Debt = bean.getDebtShell12();
+                        shell45Debt = bean.getDebtShell45();
+                        list.add(bean);
+                    }
+                    outBean.setClosingAmountDebt(amountDebt);
+                    outBean.setClosingShell12Debt(shell12Debt);
+                    outBean.setClosingShell45Debt(shell45Debt);
                 }
             }
         } catch (SQLException sqle) {

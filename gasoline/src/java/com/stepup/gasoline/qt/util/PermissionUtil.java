@@ -178,4 +178,5 @@ public class PermissionUtil {
     public static int PER_REPORT_LPG_SALE = 89;
     public static int PER_TRANSPORT_SERVICE = 90;
     public static int PER_REPORT_TRANSPORT_SERVICE = 91;
+    public static int PER_REPORT_COMPARE_GAS = 92;
 }

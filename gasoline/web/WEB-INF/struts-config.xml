@@ -1161,6 +1161,11 @@
         </action>
         <action path="/reportTransportServicePrint" type="com.stepup.gasoline.qt.report.transportservice.PrintTransportServiceReportAction" scope="request" validate="false" >
         </action>
+        <action path="/getCompareGasReportPanel" type="com.stepup.gasoline.qt.report.comparegas.CompareGasReportPanelFormAction" scope="request" validate="false">
+            <forward name="success" path="/report/comparegas/panel.jsp" />
+        </action>
+        <action path="/reportCompareGasPrint" type="com.stepup.gasoline.qt.report.comparegas.PrintCompareGasReportAction" scope="request" validate="false" >
+        </action>
         <!-- end report -->
         <!-- start good -->
         <action path="/getGoodPanel" type="com.stepup.gasoline.qt.common.BaseStatusFormAction" scope="request" validate="false">
