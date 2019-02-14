@@ -23,10 +23,10 @@
                                     <html:options collection="<%=Constants.VENDOR_LIST%>" property="id" labelProperty="name"/>
                                 </html:select>
                             </td>
-                            <td style="padding-right: 20px;padding-left: 10px"><bean:message key="lpgImport.detail.importVendor"/></td>
+                            <td style="padding-right: 20px;padding-left: 10px"><bean:message key="lpgImport.detail.kind"/></td>
                             <td>
-                                <html:select property="importVendorId" name="<%=Constants.LPG_IMPORT%>" style="width:195px">
-                                    <html:options collection="<%=Constants.STOCK_VENDOR_LIST%>" property="id" labelProperty="name"/>
+                                <html:select property="kind" name="<%=Constants.LPG_IMPORT%>" style="width:195px">
+                                    <html:options collection="<%=Constants.LPG_IMPORT_KIND_LIST%>" property="value" labelProperty="label"/>
                                 </html:select>
                             </td>
                         </tr>

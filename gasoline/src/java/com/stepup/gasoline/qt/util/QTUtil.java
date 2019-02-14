@@ -17,6 +17,7 @@ import java.util.ResourceBundle;
 import java.util.StringTokenizer;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
+import org.apache.commons.validator.GenericValidator;
 
 /**
  *
@@ -82,6 +83,21 @@ public class QTUtil {
         if ((session != null) && (session.getAttribute(Constants.EMPLOYEE_OBJ) != null)) {
             OnlineUser user = (OnlineUser) session.getAttribute(Constants.EMPLOYEE_OBJ);
             fullName = user.getFullName();
+        }
+        return fullName;
+    }
+
+    public static String getMemberFirstName(HttpSession session) {
+        String fullName = "";
+        if ((session != null) && (session.getAttribute(Constants.EMPLOYEE_OBJ) != null)) {
+            OnlineUser user = (OnlineUser) session.getAttribute(Constants.EMPLOYEE_OBJ);
+            fullName = user.getFullName();
+            if (!GenericValidator.isBlankOrNull(fullName)) {
+                int ind = fullName.lastIndexOf(" ");
+                if (ind > -1) {
+                    fullName = fullName.substring(ind);
+                }
+            }
         }
         return fullName;
     }

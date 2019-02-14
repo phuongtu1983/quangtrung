@@ -11,10 +11,12 @@ import com.stepup.core.util.StringUtil;
 import com.stepup.gasoline.qt.bean.EmployeeBean;
 import com.stepup.gasoline.qt.bean.GasReturnVendorBean;
 import com.stepup.gasoline.qt.bean.VendorBean;
+import com.stepup.gasoline.qt.bean.VendorCustomerBean;
 import com.stepup.gasoline.qt.bean.VendorOrganizationBean;
 import com.stepup.gasoline.qt.util.QTUtil;
 import com.stepup.gasoline.qt.vendor.GasReturnVendorFormBean;
 import com.stepup.gasoline.qt.vendor.VendorFormBean;
+import com.stepup.gasoline.qt.vendorcustomer.VendorCustomerFormBean;
 import com.stepup.gasoline.qt.vendororganization.VendorOrganizationFormBean;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -607,4 +609,108 @@ public class VendorDAO extends BasicDAO {
         }
         return vendorList;
     }
+
+    public int insertVendorCustomer(VendorCustomerBean bean) throws Exception {
+        if (bean == null) {
+            return 0;
+        }
+        int result = 0;
+        SPUtil spUtil = null;
+        try {
+            String sql = "{call insertVendorCustomer(?,?,?,?)}";
+            spUtil = new SPUtil(sql);
+            if (spUtil != null) {
+                spUtil.getCallableStatement().setInt("_organization_id", bean.getOrganizationId());
+                spUtil.getCallableStatement().setInt("_vendor_id", bean.getVendorId());
+                spUtil.getCallableStatement().setInt("_customer_id", bean.getCustomerId());
+                spUtil.getCallableStatement().setInt("_id", bean.getId());
+                spUtil.execute();
+            }
+        } catch (SQLException sqle) {
+            throw new Exception(sqle.getMessage());
+        } catch (Exception ex) {
+            throw new Exception(ex.getMessage());
+        } finally {
+            try {
+                if (spUtil != null) {
+                    spUtil.closeConnection();
+                }
+            } catch (Exception e) {
+                throw new Exception(e.getMessage());
+            }
+        }
+        return result;
+    }
+
+    public int deleteVendorCustomer(String ids) throws Exception {
+        int result = 0;
+        try {
+            String sql = "Delete From vendor_customer Where id in (" + ids + ")";
+            DBUtil.executeUpdate(sql);
+        } catch (SQLException sqle) {
+            throw new Exception(sqle.getMessage());
+        } catch (Exception ex) {
+            throw new Exception(ex.getMessage());
+        }
+        return result;
+    }
+
+    public ArrayList getVendorCustomers(String organizationIds) throws Exception {
+        ResultSet rs = null;
+        String sql = "SELECT vc.id, v.name as vendor_name, c.name as customer_name"
+                + " FROM vendor_customer AS vc, vendor AS v, customer as c"
+                + " WHERE vc.vendor_id=v.id AND vc.customer_id=c.id"
+                + " and v.status=" + EmployeeBean.STATUS_ACTIVE + " and c.status=" + EmployeeBean.STATUS_ACTIVE;
+        if (!organizationIds.isEmpty()) {
+            sql += " and v.organization_id IN (" + organizationIds + ")";
+        }
+        sql += " order by v.name desc";
+        ArrayList vendorList = new ArrayList();
+        try {
+            rs = DBUtil.executeQuery(sql);
+            VendorCustomerFormBean bean = null;
+            while (rs.next()) {
+                bean = new VendorCustomerFormBean();
+                bean.setId(rs.getInt("id"));
+                bean.setCustomerName(rs.getString("customer_name"));
+                bean.setVendorName(rs.getString("vendor_name"));
+                vendorList.add(bean);
+            }
+        } catch (SQLException sqle) {
+            throw new Exception(sqle.getMessage());
+        } catch (Exception ex) {
+            throw new Exception(ex.getMessage());
+        } finally {
+            if (rs != null) {
+                DBUtil.closeConnection(rs);
+            }
+        }
+        return vendorList;
+    }
+
+    public VendorCustomerFormBean getVendorCustomer(int vendorCustomerId) throws Exception {
+        ResultSet rs = null;
+        String sql = "select vc.* from vendor_customer as vc, vendor as v, customer as c where vc.vendor_id=v.id and vc.customer_id=c.id and vc.id=" + vendorCustomerId;
+        try {
+            rs = DBUtil.executeQuery(sql);
+            while (rs.next()) {
+                VendorCustomerFormBean vendor = new VendorCustomerFormBean();
+                vendor.setId(rs.getInt("id"));
+                vendor.setOrganizationId(rs.getInt("organization_id"));
+                vendor.setVendorId(rs.getInt("vendor_id"));
+                vendor.setCustomerId(rs.getInt("customer_id"));
+                return vendor;
+            }
+        } catch (SQLException sqle) {
+            throw new Exception(sqle.getMessage());
+        } catch (Exception ex) {
+            throw new Exception(ex.getMessage());
+        } finally {
+            if (rs != null) {
+                DBUtil.closeConnection(rs);
+            }
+        }
+        return null;
+    }
+
 }

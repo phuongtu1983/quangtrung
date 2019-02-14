@@ -9,7 +9,6 @@ import com.stepup.core.database.DBUtil;
 import com.stepup.core.database.SPUtil;
 import com.stepup.core.util.DateUtil;
 import com.stepup.core.util.GenericValidator;
-import com.stepup.gasoline.qt.bean.CustomerBean;
 import com.stepup.gasoline.qt.bean.ExportWholesaleBean;
 import com.stepup.gasoline.qt.bean.ExportWholesaleDetailBean;
 import com.stepup.gasoline.qt.bean.ExportWholesaleReturnShellDetailBean;
@@ -140,7 +139,7 @@ public class GasDAO extends BasicDAO {
                 bean.setId(rs.getInt("id"));
                 bean.setCode(rs.getString("code"));
                 bean.setVendorId(rs.getInt("vendor_id"));
-                bean.setImportVendorId(rs.getInt("import_vendor_id"));
+                bean.setKind(rs.getInt("kind"));
                 bean.setImportDate(DateUtil.formatDate(rs.getDate("import_date"), "dd/MM/yyyy"));
                 bean.setPaperQuantity(rs.getInt("paper_quantity"));
                 bean.setActualQuantity(rs.getInt("actual_quantity"));
@@ -187,7 +186,7 @@ public class GasDAO extends BasicDAO {
             if (spUtil != null) {
                 spUtil.getCallableStatement().setString("_code", bean.getCode());
                 spUtil.getCallableStatement().setInt("_vendor_id", bean.getVendorId());
-                spUtil.getCallableStatement().setInt("_import_vendor_id", bean.getImportVendorId());
+                spUtil.getCallableStatement().setInt("_kind", bean.getKind());
                 spUtil.getCallableStatement().setString("_import_date", createdDate);
                 spUtil.getCallableStatement().setInt("_paper_quantity", bean.getPaperQuantity());
                 spUtil.getCallableStatement().setInt("_actual_quantity", bean.getActualQuantity());
@@ -240,7 +239,7 @@ public class GasDAO extends BasicDAO {
                 spUtil.getCallableStatement().setInt("_id", bean.getId());
                 spUtil.getCallableStatement().setString("_import_date", createdDate);
                 spUtil.getCallableStatement().setInt("_vendor_id", bean.getVendorId());
-                spUtil.getCallableStatement().setInt("_import_vendor_id", bean.getImportVendorId());
+                spUtil.getCallableStatement().setInt("_kind", bean.getKind());
                 spUtil.getCallableStatement().setInt("_paper_quantity", bean.getPaperQuantity());
                 spUtil.getCallableStatement().setInt("_actual_quantity", bean.getActualQuantity());
                 spUtil.getCallableStatement().setDouble("_price", bean.getPrice());
@@ -5250,7 +5249,6 @@ public class GasDAO extends BasicDAO {
                         bean.setPrice(rs.getDouble("price"));
                         bean.setTotal(rs.getDouble("amount"));
                         bean.setNote(rs.getString("note"));
-                        bean.setLpgImportCode(rs.getString("lpg_import_code"));
                         list.add(bean);
                     }
                 }
@@ -5284,6 +5282,7 @@ public class GasDAO extends BasicDAO {
                 LpgSaleBean bean = new LpgSaleBean();
                 bean.setId(rs.getInt("id"));
                 bean.setCode(rs.getString("code"));
+                bean.setKind(rs.getInt("kind"));
                 bean.setCustomerId(rs.getInt("customer_id"));
                 bean.setSaleDate(DateUtil.formatDate(rs.getDate("sale_date"), "dd/MM/yyyy"));
                 bean.setQuantity(rs.getInt("quantity"));
@@ -5297,7 +5296,6 @@ public class GasDAO extends BasicDAO {
                 bean.setRouteId(rs.getInt("route_id"));
                 bean.setNote(rs.getString("note"));
                 bean.setCanEdit(rs.getInt("can_edit"));
-                bean.setLpgImportId(rs.getInt("lpg_import_id"));
                 return bean;
             }
         } catch (SQLException sqle) {
@@ -5329,6 +5327,7 @@ public class GasDAO extends BasicDAO {
             spUtil = new SPUtil(sql);
             if (spUtil != null) {
                 spUtil.getCallableStatement().setString("_code", bean.getCode());
+                spUtil.getCallableStatement().setInt("_kind", bean.getKind());
                 spUtil.getCallableStatement().setInt("_customer_id", bean.getCustomerId());
                 spUtil.getCallableStatement().setString("_sale_date", createdDate);
                 spUtil.getCallableStatement().setInt("_quantity", bean.getQuantity());
@@ -5341,7 +5340,6 @@ public class GasDAO extends BasicDAO {
                 spUtil.getCallableStatement().setInt("_account_id", bean.getAccountId());
                 spUtil.getCallableStatement().setInt("_route_id", bean.getRouteId());
                 spUtil.getCallableStatement().setString("_note", bean.getNote());
-                spUtil.getCallableStatement().setInt("_lpg_import_id", bean.getLpgImportId());
                 spUtil.getCallableStatement().setInt("_created_employee_id", bean.getCreatedEmployeeId());
                 spUtil.getCallableStatement().registerOutParameter("_id", Types.INTEGER);
                 spUtil.execute();
@@ -5379,6 +5377,7 @@ public class GasDAO extends BasicDAO {
             spUtil = new SPUtil(sql);
             if (spUtil != null) {
                 spUtil.getCallableStatement().setInt("_id", bean.getId());
+                spUtil.getCallableStatement().setInt("_kind", bean.getKind());
                 spUtil.getCallableStatement().setInt("_customer_id", bean.getCustomerId());
                 spUtil.getCallableStatement().setString("_sale_date", createdDate);
                 spUtil.getCallableStatement().setInt("_quantity", bean.getQuantity());
@@ -5391,7 +5390,6 @@ public class GasDAO extends BasicDAO {
                 spUtil.getCallableStatement().setInt("_account_id", bean.getAccountId());
                 spUtil.getCallableStatement().setInt("_route_id", bean.getRouteId());
                 spUtil.getCallableStatement().setString("_note", bean.getNote());
-                spUtil.getCallableStatement().setInt("_lpg_import_id", bean.getLpgImportId());
                 spUtil.execute();
             }
         } catch (SQLException sqle) {

@@ -24,6 +24,7 @@ import javax.servlet.http.HttpServletResponse;
 import org.apache.commons.validator.GenericValidator;
 import org.apache.struts.action.ActionForm;
 import org.apache.struts.action.ActionMapping;
+import org.apache.struts.util.LabelValueBean;
 
 /**
  *
@@ -69,27 +70,6 @@ public class LpgSaleFormAction extends SpineAction {
             }
         }
 
-        ArrayList arrLpgImport = new ArrayList();
-        try {
-            int lpgImportId = 0;
-            if (bean.getId() > 0) {
-                lpgImportId = bean.getLpgImportId();
-            } else {
-                lpgImportId = NumberUtil.parseInt(request.getParameter("lpgImportId"), 0);
-            }
-            if (lpgImportId > 0) {
-                LpgImportBean importBean = gasDAO.getLpgImportForSale(lpgImportId);
-                if (importBean != null && bean.getId() == 0 && importBean.getActualQuantity() > 0) {
-                    arrLpgImport.add(importBean);
-                    bean.setQuantity(importBean.getActualQuantity());
-                } else if (bean.getId() > 0) {
-                    arrLpgImport.add(importBean);
-                }
-            }
-        } catch (Exception ex) {
-        }
-        request.setAttribute(Constants.LPG_IMPORT_LIST, arrLpgImport);
-
         request.setAttribute(Constants.LPG_SALE, bean);
 
         String organizationIds = QTUtil.getOrganizationManageds(request.getSession());
@@ -125,6 +105,18 @@ public class LpgSaleFormAction extends SpineAction {
             arrRoute = new ArrayList();
         }
         request.setAttribute(Constants.ROUTE_LIST, arrRoute);
+
+        ArrayList arrStatus = new ArrayList();
+        LabelValueBean value;
+        value = new LabelValueBean();
+        value.setLabel(QTUtil.getBundleString("lpgSale.detail.kind.sale"));
+        value.setValue(LpgSaleBean.KIND_SALE + "");
+        arrStatus.add(value);
+        value = new LabelValueBean();
+        value.setLabel(QTUtil.getBundleString("lpgSale.detail.kind.return"));
+        value.setValue(LpgSaleBean.KIND_RETURN + "");
+        arrStatus.add(value);
+        request.setAttribute(Constants.LPG_SALE_KIND_LIST, arrStatus);
 
         return true;
     }

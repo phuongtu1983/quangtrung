@@ -212,13 +212,14 @@ public class GenerateMenu {
                     buffTemp.append("</item>");//end vendors
 
                     buffTemp.append("<item id=\"vendororganizations\" complex=\"true\" text=\"").append(QTUtil.getBundleString("vendorOrganization.title")).append("\">");//start vendorOrganizations
-                    if (isHasPermission(PermissionUtil.OPERATION_LIST, PermissionUtil.PER_VENDOR)) {
-                        buffTemp.append("<item id=\"vendororganizationlist\" text=\"").append(QTUtil.getBundleString("vendorOrganization.list.title")).append("\"/>");//list vendor
-                    }
-                    if (isHasPermission(PermissionUtil.OPERATION_ADD, PermissionUtil.PER_VENDOR)) {
-                        buffTemp.append("<item id=\"vendororganizationadd\" text=\"").append(QTUtil.getBundleString("vendorOrganization.detail.add.title")).append("\"/>");//add vendor
-                    }
+                    buffTemp.append("<item id=\"vendororganizationlist\" text=\"").append(QTUtil.getBundleString("vendorOrganization.list.title")).append("\"/>");//list vendor
+                    buffTemp.append("<item id=\"vendororganizationadd\" text=\"").append(QTUtil.getBundleString("vendorOrganization.detail.add.title")).append("\"/>");//add vendor
                     buffTemp.append("</item>");//end vendorOrganizations
+                    
+                    buffTemp.append("<item id=\"vendorcustomers\" complex=\"true\" text=\"").append(QTUtil.getBundleString("vendorCustomer.title")).append("\">");//start vendorCustomers
+                    buffTemp.append("<item id=\"vendorcustomerlist\" text=\"").append(QTUtil.getBundleString("vendorCustomer.list.title")).append("\"/>");//list vendor
+                    buffTemp.append("<item id=\"vendorcustomeradd\" text=\"").append(QTUtil.getBundleString("vendorCustomer.detail.add.title")).append("\"/>");//add vendor
+                    buffTemp.append("</item>");//end vendorCustomers
                 }
                 buffTemp.append("</item>");//end vendor
             }

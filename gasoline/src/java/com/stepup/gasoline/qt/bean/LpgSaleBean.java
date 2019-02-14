@@ -13,6 +13,7 @@ public class LpgSaleBean {
     private int id;
     private String code;
     private String saleDate;
+    private int kind;
     private int customerId;
     private int quantity;
     private double price;
@@ -25,7 +26,6 @@ public class LpgSaleBean {
     private int routeId;
     private String note;
     private int canEdit;
-    private int lpgImportId;
     private int createdEmployeeId;
 
     public LpgSaleBean() {
@@ -128,14 +128,6 @@ public class LpgSaleBean {
         this.quantity = quantity;
     }
 
-    public int getLpgImportId() {
-        return lpgImportId;
-    }
-
-    public void setLpgImportId(int lpgImportId) {
-        this.lpgImportId = lpgImportId;
-    }
-
     public int getCreatedEmployeeId() {
         return createdEmployeeId;
     }
@@ -168,4 +160,13 @@ public class LpgSaleBean {
         this.vat = vat;
     }
 
+    public int getKind() {
+        return kind;
+    }
+
+    public void setKind(int kind) {
+        this.kind = kind;
+    }
+    public static int KIND_SALE = 1;
+    public static int KIND_RETURN = 2;
 }

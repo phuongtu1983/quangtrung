@@ -77,6 +77,10 @@ function menuClick(id) {
         loadVendorOrganizationPanel();
     else if (id == 'vendororganizationadd')
         getVendorOrganization(0, 'loadVendorOrganizationPanel');
+    else if (id == 'vendorcustomerlist')
+        loadVendorCustomerPanel();
+    else if (id == 'vendorcustomeradd')
+        getVendorCustomer(0, 'loadVendorCustomerPanel');
     else if (id == 'vendorfiellist')
         loadDynamicFieldPanel("vendor");
     else if (id == 'accountlist')
@@ -9083,11 +9087,11 @@ function loadLpgSalePanel() {
 function loadLpgSaleList(fromDate, toDate) {
     var mygrid = new dhtmlXGridObject('lpgSaleList');
     mygrid.setImagePath("js/dhtmlx/grid/imgs/");
-    mygrid.setHeader("S\u1ED1 phi\u1EBFu,Kh\u00E1ch h\u00E0ng,S\u1ED1 l\u01B0\u1EE3ng,\u0110\u01A1n gi\u00E1,Th\u00E0nh ti\u1EC1n,S\u1ED1 phi\u1EBFu nh\u1EADp,Ghi ch\u00FA");
-    mygrid.attachHeader("#text_filter,#text_filter,#text_filter,#text_filter,#text_filter,#select_filter,#text_filter");
-    mygrid.setInitWidths("150,200,150,150,150,150,*");
-    mygrid.setColTypes("link,ro,ro,ro,ro,ro,ro");
-    mygrid.setColSorting("str,str,str,str,str,str,str");
+    mygrid.setHeader("S\u1ED1 phi\u1EBFu,Kh\u00E1ch h\u00E0ng,S\u1ED1 l\u01B0\u1EE3ng,\u0110\u01A1n gi\u00E1,Th\u00E0nh ti\u1EC1n,Ghi ch\u00FA");
+    mygrid.attachHeader("#text_filter,#text_filter,#text_filter,#text_filter,#text_filter,#text_filter");
+    mygrid.setInitWidths("150,200,150,150,150,*");
+    mygrid.setColTypes("link,ro,ro,ro,ro,ro");
+    mygrid.setColSorting("str,str,str,str,str,str");
     mygrid.setSkin("light");
     var height = contentHeight - 210;
     mygrid.al(true, height); //enableAutoHeight
@@ -10836,4 +10840,93 @@ function printComapreGasReport(fromDate, toDate) {
     callServer(url);
     return false;
 }
-
+function loadVendorCustomerPanel() {
+    callAjax("getVendorCustomerPanel.do", null, null, function(data) {
+        clearContent();
+        setAjaxData(data, "contentDiv");
+        loadVendorCustomerList();
+    });
+}
+function loadVendorCustomerList() {
+    var mygrid = new dhtmlXGridObject('vendorCustomerList');
+    mygrid.setImagePath("js/dhtmlx/grid/imgs/");
+    mygrid.setHeader("Nh\u00E0 cung c\u1EA5p,Kh\u00E1ch h\u00E0ng");
+    mygrid.attachHeader("#text_filter,#text_filter");
+    mygrid.setInitWidths("300,*");
+    mygrid.setColTypes("link,ro");
+    mygrid.setColSorting("str,str");
+    mygrid.setSkin("light");
+    var height = contentHeight - 210;
+    mygrid.al(true, height); //enableAutoHeight
+    mygrid.enablePaging(true, 15, 3, "recinfoArea");
+    mygrid.setPagingSkin("toolbar", "dhx_skyblue");
+    mygrid.init();
+    var url = "getVendorCustomerList.do";
+    callAjax(url, null, null, function(data) {
+        mygrid.parse(data);
+    });
+    return false;
+}
+function getVendorCustomer(id, handle) {
+    popupName = 'TH\u00D4NG TIN NH\u00C0 CUNG C\u1EA4P - KH\u00C1CH H\u00C0NG';
+    var url = 'vendorCustomerForm.do';
+    if (id != 0)
+        url += '?vendorCustomerId=' + id
+    callAjax(url, null, null, function(data) {
+        showPopupForm(data);
+        document.getElementById('callbackFunc').value = handle;
+        
+        window.dhx_globalImgPath = "js/dhtmlx/combo/imgs/";
+        // ============================
+        var customerIdCombobox = dhtmlXComboFromSelect("customerIdCombobox");
+        customerIdCombobox.enableFilteringMode(true);
+        customerIdCombobox.attachEvent("onSelectionChange", function() {
+            setCustomerSelectedForm('vendorCustomerForm', customerIdCombobox.getComboText(), customerIdCombobox.getSelectedValue());
+        });
+        customerIdCombobox.attachEvent("onBlur", function() {
+            setCustomerSelectedForm('vendorCustomerForm', customerIdCombobox.getComboText(), customerIdCombobox.getSelectedValue());
+            customerIdCombobox.setComboText(customerIdCombobox.getSelectedText());
+        });
+        customerIdCombobox.DOMelem_input.onfocus = function(event) {
+            if (isManuallySeleted == 1) {
+                customerIdCombobox.openSelect();
+                isManuallySeleted = 0;
+            }
+        }
+        if (id == 0) {
+            customerIdCombobox.setComboValue("");
+        } else {
+            var customerId = document.forms['vendorCustomerForm'].customerId.value;
+            if (customerId != 0) {
+                var ind = customerIdCombobox.getIndexByValue(customerId);
+                customerIdCombobox.selectOption(ind);
+            } else {
+                customerIdCombobox.unSelectOption();
+                customerIdCombobox.setComboValue("");
+            }
+        }
+    });
+}
+function saveVendorCustomer() {
+    if (scriptFunction == "saveVendorCustomer")
+        return false;
+    document.forms['vendorCustomerForm'].customerId.value = document.forms['vendorCustomerForm'].customerSelectedHidden.value;
+    scriptFunction = "saveVendorCustomer";
+    callAjaxCheckError("addVendorCustomer.do", null, document.forms['vendorCustomerForm'], function(data) {
+        scriptFunction = "";
+        var handle = document.getElementById('callbackFunc').value;
+        if (confirm('B\u1EA1n c\u00F3 mu\u1ED1n nh\u1EADp ti\u1EBFp th\u00F4ng tin kh\u00E1c ?'))
+            getVendorCustomer(0, handle);
+        else if (handle != '')
+            eval(handle + "()");
+        prepareHidePopup('vendorCustomerFormshowHelpHideDiv');
+    });
+    return false;
+}
+function delVendorCustomer() {
+    callAjaxCheckError('delVendorCustomer.do?vendorCustomerId=' + document.forms['vendorCustomerForm'].id.value, null, null, function() {
+        loadVendorCustomerPanel();
+        prepareHidePopup('dynamicFieldFormshowHelpHideDiv');
+    });
+    return false;
+}

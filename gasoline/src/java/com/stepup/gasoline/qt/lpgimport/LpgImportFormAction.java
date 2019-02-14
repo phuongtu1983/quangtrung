@@ -16,13 +16,13 @@ import com.stepup.gasoline.qt.dao.VendorDAO;
 import com.stepup.gasoline.qt.util.Constants;
 import com.stepup.gasoline.qt.util.PermissionUtil;
 import com.stepup.gasoline.qt.util.QTUtil;
-import com.stepup.gasoline.qt.vendor.GasReturnVendorFormBean;
 import java.util.ArrayList;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import org.apache.commons.validator.GenericValidator;
 import org.apache.struts.action.ActionForm;
 import org.apache.struts.action.ActionMapping;
+import org.apache.struts.util.LabelValueBean;
 
 /**
  *
@@ -62,11 +62,6 @@ public class LpgImportFormAction extends SpineAction {
                 String number = gasDAO.getNextLpgImportNumber(prefix, 4);
                 prefix += number;
                 bean.setCode(prefix);
-                
-                GasReturnVendorFormBean returnVendorFormBean = vendorDAO.getGasReturnVendor(organizationIds);
-                if (returnVendorFormBean != null) {
-                    bean.setImportVendorId(returnVendorFormBean.getVendorId());
-                }
             } catch (Exception ex) {
             }
         } else {
@@ -75,23 +70,29 @@ public class LpgImportFormAction extends SpineAction {
             }
         }
         request.setAttribute(Constants.LPG_IMPORT, bean);
-        
+
         ArrayList arrVendor = null;
-        ArrayList arrStockVendor = null;
         try {
-            arrStockVendor = vendorDAO.getVendorHasStocks(organizationIds, VendorBean.IS_GAS);
             arrVendor = vendorDAO.getVendors(organizationIds, VendorBean.IS_GAS);
         } catch (Exception ex) {
-        }
-        if (arrStockVendor == null) {
-            arrStockVendor = new ArrayList();
         }
         if (arrVendor == null) {
             arrVendor = new ArrayList();
         }
         request.setAttribute(Constants.VENDOR_LIST, arrVendor);
-        request.setAttribute(Constants.STOCK_VENDOR_LIST, arrStockVendor);
-        
+
+        ArrayList arrStatus = new ArrayList();
+        LabelValueBean value;
+        value = new LabelValueBean();
+        value.setLabel(QTUtil.getBundleString("lpgImport.detail.kind.buy"));
+        value.setValue(LpgImportBean.KIND_BUY + "");
+        arrStatus.add(value);
+        value = new LabelValueBean();
+        value.setLabel(QTUtil.getBundleString("lpgImport.detail.kind.borrow"));
+        value.setValue(LpgImportBean.KIND_BORROW + "");
+        arrStatus.add(value);
+        request.setAttribute(Constants.LPG_IMPORT_KIND_LIST, arrStatus);
+
         ArrayList arrAccount = null;
         try {
             AccountDAO accountDAO = new AccountDAO();
@@ -102,7 +103,7 @@ public class LpgImportFormAction extends SpineAction {
             arrAccount = new ArrayList();
         }
         request.setAttribute(Constants.ACCOUNT_LIST, arrAccount);
-        
+
         ArrayList arrRoute = null;
         try {
             VehicleDAO vehicleDAO = new VehicleDAO();
@@ -113,7 +114,7 @@ public class LpgImportFormAction extends SpineAction {
             arrRoute = new ArrayList();
         }
         request.setAttribute(Constants.ROUTE_LIST, arrRoute);
-        
+
         return true;
     }
 }

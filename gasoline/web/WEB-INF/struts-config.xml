@@ -63,6 +63,7 @@
         <form-bean name="vendorForm" type="com.stepup.gasoline.qt.vendor.VendorFormBean"/>
         <form-bean name="gasReturnVendorForm" type="com.stepup.gasoline.qt.vendor.GasReturnVendorFormBean"/>
         <form-bean name="vendorOrganizationForm" type="com.stepup.gasoline.qt.vendororganization.VendorOrganizationFormBean"/>
+        <form-bean name="vendorCustomerForm" type="com.stepup.gasoline.qt.vendorcustomer.VendorCustomerFormBean"/>
         <form-bean name="customerForm" type="com.stepup.gasoline.qt.customer.CustomerFormBean"/>
         <form-bean name="customerDocumentForm" type="com.stepup.gasoline.qt.customerdocument.CustomerDocumentFormBean"/>
         <form-bean name="dynamicFieldForm" type="com.stepup.gasoline.qt.dynamicfield.DynamicFieldFormBean"/>
@@ -1115,6 +1116,20 @@
         <action path="/delVendorOrganization" type="com.stepup.gasoline.qt.vendororganization.DeleteVendorOrganizationAction" scope="request" validate="false" >
         </action>
         <!-- end vendor organization -->
+        <!-- start vendor customer -->
+        <action path="/getVendorCustomerPanel" type="com.stepup.gasoline.qt.common.BaseStatusFormAction" scope="request" validate="false">
+            <forward name="success" path="/vendorcustomer/vendorcustomerpanel.jsp" />
+        </action>
+        <action path="/getVendorCustomerList" type="com.stepup.gasoline.qt.vendorcustomer.GetVendorCustomerListAction" scope="request" validate="false" >
+        </action>
+        <action path="/vendorCustomerForm" type="com.stepup.gasoline.qt.vendorcustomer.VendorCustomerFormAction" scope="request" validate="false">
+            <forward name="success" path="/vendorcustomer/vendorcustomerdetail.jsp" />
+        </action>
+        <action path="/addVendorCustomer" name ="vendorCustomerForm" scope="request" type="com.stepup.gasoline.qt.vendorcustomer.AddVendorCustomerAction" input="/vendorCustomerForm.do">
+        </action>
+        <action path="/delVendorCustomer" type="com.stepup.gasoline.qt.vendorcustomer.DeleteVendorCustomerAction" scope="request" validate="false" >
+        </action>
+        <!-- end vendor customer -->
         <!-- start report -->
         <action path="/getReportPanel" type="com.stepup.gasoline.qt.common.BaseReportPanelFormAction" scope="request" validate="false">
             <forward name="success" path="/report/reportspanel.jsp" />

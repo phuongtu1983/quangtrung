@@ -43,6 +43,7 @@ public class AddLpgSaleAction extends SpineAction {
         bean.setId(formBean.getId());
         bean.setSaleDate(formBean.getSaleDate());
         bean.setCode(formBean.getCode());
+        bean.setKind(formBean.getKind());
         bean.setCustomerId(formBean.getCustomerId());
         bean.setQuantity(formBean.getQuantity());
         bean.setPrice(formBean.getPrice());
@@ -54,7 +55,6 @@ public class AddLpgSaleAction extends SpineAction {
         bean.setAccountId(formBean.getAccountId());
         bean.setRouteId(formBean.getRouteId());
         bean.setNote(formBean.getNote());
-        bean.setLpgImportId(formBean.getLpgImportId());
         bean.setCreatedEmployeeId(QTUtil.getEmployeeId(request.getSession()));
         try {
             if (bNew) {

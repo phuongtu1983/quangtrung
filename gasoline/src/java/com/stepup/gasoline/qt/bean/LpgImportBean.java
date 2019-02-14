@@ -14,7 +14,7 @@ public class LpgImportBean {
     private String code;
     private String importDate;
     private int vendorId;
-    private int importVendorId;
+    private int kind;
     private int paperQuantity;
     private int actualQuantity;
     private double price;
@@ -178,12 +178,15 @@ public class LpgImportBean {
         this.invoiceTotal = invoiceTotal;
     }
 
-    public int getImportVendorId() {
-        return importVendorId;
+    public int getKind() {
+        return kind;
     }
 
-    public void setImportVendorId(int importVendorId) {
-        this.importVendorId = importVendorId;
+    public void setKind(int kind) {
+        this.kind = kind;
     }
+
+    public static int KIND_BUY = 1;
+    public static int KIND_BORROW = 2;
 
 }

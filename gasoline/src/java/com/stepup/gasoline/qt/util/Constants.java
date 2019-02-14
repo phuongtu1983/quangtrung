@@ -23,10 +23,10 @@ public class Constants {
     public static final String SHELL_IMPORT = "shellImport";
     public static final String VENDOR = "vendor";
     public static final String GAS_RETURN_VENDOR = "gasreturnvendor";
+    public static final String VENDOR_CUSTOMER = "vendorCustomer";
     public static final String VENDOR_ORGANIZATION = "vendorOrganization";
     public static final String VENDOR_ORGANIZATION_lIST = "vendorOrganizationList";
     public static final String VENDOR_LIST = "vendorList";
-    public static final String STOCK_VENDOR_LIST = "stockVendorList";
     public static final String STATUS_LIST = "statusList";
     public static final String SELECTED = "selected";
     public static final String PERMISSION = "permission";
@@ -89,7 +89,9 @@ public class Constants {
     public static final String TRANSPORT_SERVICE_LIST = "transportServiceList";
     public static final String LPG_IMPORT = "lpgImport";
     public static final String LPG_IMPORT_LIST = "lpgImportList";
+    public static final String LPG_IMPORT_KIND_LIST = "lpgImportKindList";
     public static final String LPG_SALE = "lpgSale";
+    public static final String LPG_SALE_KIND_LIST = "lpgSaleKindList";
     public static final String FRACTION = "fraction";
     public static final String GAS_IMPORT = "gasImport";
     public static final String PETRO_IMPORT = "petroImport";

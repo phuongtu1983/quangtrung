@@ -15,6 +15,7 @@ public class LpgSaleFormBean extends org.apache.struts.action.ActionForm {
     private int id;
     private String code;
     private String saleDate;
+    private int kind;
     private int customerId;
     private String customerName;
     private int quantity;
@@ -26,8 +27,6 @@ public class LpgSaleFormBean extends org.apache.struts.action.ActionForm {
     private double debt;
     private int accountId;
     private int routeId;
-    private int lpgImportId;
-    private String lpgImportCode;
     private String note;
 
     public LpgSaleFormBean() {
@@ -37,6 +36,7 @@ public class LpgSaleFormBean extends org.apache.struts.action.ActionForm {
         this.id = bean.getId();
         this.code = bean.getCode();
         this.saleDate = bean.getSaleDate();
+        this.kind = bean.getKind();
         this.customerId = bean.getCustomerId();
         this.quantity = bean.getQuantity();
         this.price = bean.getPrice();
@@ -46,7 +46,6 @@ public class LpgSaleFormBean extends org.apache.struts.action.ActionForm {
         this.accountId = bean.getAccountId();
         this.routeId = bean.getRouteId();
         this.note = bean.getNote();
-        this.lpgImportId = bean.getLpgImportId();
         this.rate = bean.getRate();
         this.vat = bean.getVat();
     }
@@ -147,22 +146,6 @@ public class LpgSaleFormBean extends org.apache.struts.action.ActionForm {
         this.quantity = quantity;
     }
 
-    public int getLpgImportId() {
-        return lpgImportId;
-    }
-
-    public void setLpgImportId(int lpgImportId) {
-        this.lpgImportId = lpgImportId;
-    }
-
-    public String getLpgImportCode() {
-        return lpgImportCode;
-    }
-
-    public void setLpgImportCode(String lpgImportCode) {
-        this.lpgImportCode = lpgImportCode;
-    }
-
     public double getRate() {
         return rate;
     }
@@ -185,6 +168,14 @@ public class LpgSaleFormBean extends org.apache.struts.action.ActionForm {
 
     public void setVat(double vat) {
         this.vat = vat;
+    }
+
+    public int getKind() {
+        return kind;
+    }
+
+    public void setKind(int kind) {
+        this.kind = kind;
     }
 
 }

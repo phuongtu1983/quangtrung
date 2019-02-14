@@ -25,13 +25,11 @@
                                     </logic:iterate>
                                 </select>
                             </td>
-                            <td style="padding-right: 20px;padding-left: 10px"><bean:message key="route.title"/></td>
+                            <td style="padding-right: 20px;padding-left: 10px"><bean:message key="lpgSale.detail.kind"/></td>
                             <td>
-                                <select style="width: 195px;" name="routeIdCombobox" id="routeIdCombobox">
-                                    <logic:iterate id="route_iter" name="<%=Constants.ROUTE_LIST%>">
-                                        <option  value="${route_iter.id}">${route_iter.name}</option>
-                                    </logic:iterate>
-                                </select>
+                                <html:select property="kind" name="<%=Constants.LPG_SALE%>" style="width:195px">
+                                    <html:options collection="<%=Constants.LPG_SALE_KIND_LIST%>" property="value" labelProperty="label"/>
+                                </html:select>
                             </td>
                         </tr>
                         <tr>
@@ -50,26 +48,29 @@
                         </tr>
                         <tr>
                             <td height="30" style="padding-right: 20px"><bean:message key="amount.title"/></td>
-                            <td colspan="3"><html:text property="total" size="30" name="<%=Constants.LPG_SALE%>" readonly="true" tabindex="-1"/></td>
-                        </tr>
-                        <tr>
-                            <td height="30" style="padding-right: 20px"><bean:message key="paid.title"/></td>
+                            <td><html:text property="total" size="30" name="<%=Constants.LPG_SALE%>" readonly="true" tabindex="-1"/></td>
+                            <td style="padding-right: 20px;padding-left: 10px"><bean:message key="paid.title"/></td>
                             <td><html:text property="paid" size="30" name="<%=Constants.LPG_SALE%>" onblur="return formPaidChanged('lpgSaleForm');" onkeypress="return readonlyFloat(event);"/></td>
-                            <td style="padding-right: 20px;padding-left: 10px"><bean:message key="debt.title"/></td>
-                            <td><html:text property="debt" size="30" name="<%=Constants.LPG_SALE%>" readonly="true" tabindex="-1"/></td>
                         </tr>
                         <tr>
-                            <td height="30" style="padding-right: 20px"><bean:message key="lpgImport.title"/></td>
-                            <td>
-                                <html:select property="lpgImportId" name="<%=Constants.LPG_SALE%>" style="width:195px">
-                                    <html:options collection="<%=Constants.LPG_IMPORT_LIST%>" property="id" labelProperty="code"/>
-                                </html:select>
-                            </td>
+                            <td height="30" style="padding-right: 20px"><bean:message key="debt.title"/></td>
+                            <td><html:text property="debt" size="30" name="<%=Constants.LPG_SALE%>" readonly="true" tabindex="-1"/></td>
                             <td style="padding-right: 20px;padding-left: 10px"><bean:message key="account.title"/></td>
                             <td>
                                 <html:select property="accountId" name="<%=Constants.LPG_SALE%>" style="width:195px">
                                     <html:options collection="<%=Constants.ACCOUNT_LIST%>" property="id" labelProperty="number"/>
                                 </html:select>
+
+                            </td>
+                        </tr>
+                        <tr>
+                            <td height="30" style="padding-right: 20px"><bean:message key="route.title"/></td>
+                            <td colspan="3">
+                                <select style="width: 560px;" name="routeIdCombobox" id="routeIdCombobox">
+                                    <logic:iterate id="route_iter" name="<%=Constants.ROUTE_LIST%>">
+                                        <option  value="${route_iter.id}">${route_iter.name}</option>
+                                    </logic:iterate>
+                                </select>
                             </td>
                         </tr>
                         <tr>
