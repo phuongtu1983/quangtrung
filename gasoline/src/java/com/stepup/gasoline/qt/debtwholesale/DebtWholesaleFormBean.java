@@ -21,6 +21,7 @@ public class DebtWholesaleFormBean extends org.apache.struts.action.ActionForm {
     private int accountId;
     private String note;
     private int canEdit;
+    private int kind;
 
     public DebtWholesaleFormBean() {
     }
@@ -33,6 +34,7 @@ public class DebtWholesaleFormBean extends org.apache.struts.action.ActionForm {
         this.paid = bean.getPaid();
         this.accountId = bean.getAccountId();
         this.note = bean.getNote();
+        this.kind = bean.getKind();
     }
 
     public String getCode() {
@@ -105,6 +107,14 @@ public class DebtWholesaleFormBean extends org.apache.struts.action.ActionForm {
 
     public void setNote(String note) {
         this.note = note;
+    }
+
+    public int getKind() {
+        return kind;
+    }
+
+    public void setKind(int kind) {
+        this.kind = kind;
     }
 
 }

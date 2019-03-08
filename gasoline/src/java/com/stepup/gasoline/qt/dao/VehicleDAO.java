@@ -551,16 +551,21 @@ public class VehicleDAO extends BasicDAO {
                 TransportServiceBean bean = new TransportServiceBean();
                 bean.setId(rs.getInt("id"));
                 bean.setCode(rs.getString("code"));
-                bean.setVendorId(rs.getInt("vendor_id"));
-                bean.setCustomer(rs.getString("customer"));
                 bean.setCreatedDate(DateUtil.formatDate(rs.getDate("created_date"), "dd/MM/yyyy"));
+                bean.setVendorId(rs.getInt("vendor_id"));
+                bean.setCustomerId(rs.getInt("customer_id"));
+                bean.setTransporterId(rs.getInt("transporter_id"));
+                bean.setChargeForVendor(rs.getInt("charge_for_vendor"));
+                bean.setChargeForCustomer(rs.getInt("charge_for_customer"));
                 bean.setInQuantity(rs.getInt("in_quantity"));
                 bean.setOutQuantity(rs.getInt("out_quantity"));
                 bean.setPrice(rs.getDouble("price"));
+                bean.setPriceDiff(rs.getDouble("price_diff"));
                 bean.setAmount(rs.getDouble("amount"));
                 bean.setPaid(rs.getDouble("paid"));
                 bean.setDebt(rs.getDouble("debt"));
                 bean.setRate(rs.getDouble("rate"));
+                bean.setRateDiff(rs.getDouble("rate_diff"));
                 bean.setAccountId(rs.getInt("account_id"));
                 bean.setNote(rs.getString("note"));
                 return bean;
@@ -590,20 +595,25 @@ public class VehicleDAO extends BasicDAO {
             } else {
                 createdDate = bean.getCreatedDate();
             }
-            String sql = "{call insertTransportService(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)}";
+            String sql = "{call insertTransportService(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)}";
             spUtil = new SPUtil(sql);
             if (spUtil != null) {
                 spUtil.getCallableStatement().setString("_code", bean.getCode());
                 spUtil.getCallableStatement().setInt("_vendor_id", bean.getVendorId());
-                spUtil.getCallableStatement().setString("_customer", bean.getCustomer());
+                spUtil.getCallableStatement().setInt("_customer_id", bean.getCustomerId());
+                spUtil.getCallableStatement().setInt("_transporter_id", bean.getTransporterId());
+                spUtil.getCallableStatement().setInt("_charge_for_vendor", bean.getChargeForVendor());
+                spUtil.getCallableStatement().setInt("_charge_for_customer", bean.getChargeForCustomer());
                 spUtil.getCallableStatement().setString("_created_date", createdDate);
                 spUtil.getCallableStatement().setDouble("_in_quantity", bean.getInQuantity());
                 spUtil.getCallableStatement().setDouble("_out_quantity", bean.getOutQuantity());
                 spUtil.getCallableStatement().setDouble("_price", bean.getPrice());
+                spUtil.getCallableStatement().setDouble("_price_diff", bean.getPriceDiff());
                 spUtil.getCallableStatement().setDouble("_amount", bean.getAmount());
                 spUtil.getCallableStatement().setDouble("_paid", bean.getPaid());
                 spUtil.getCallableStatement().setDouble("_debt", bean.getDebt());
                 spUtil.getCallableStatement().setDouble("_rate", bean.getRate());
+                spUtil.getCallableStatement().setDouble("_rate_diff", bean.getRateDiff());
                 spUtil.getCallableStatement().setInt("_account_id", bean.getAccountId());
                 spUtil.getCallableStatement().setString("_note", bean.getNote());
                 spUtil.getCallableStatement().setInt("_created_employee_id", bean.getCreatedEmployeeId());
@@ -639,20 +649,25 @@ public class VehicleDAO extends BasicDAO {
             } else {
                 createdDate = bean.getCreatedDate();
             }
-            String sql = "{call updateTransportService(?,?,?,?,?,?,?,?,?,?,?,?,?)}";
+            String sql = "{call updateTransportService(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)}";
             spUtil = new SPUtil(sql);
             if (spUtil != null) {
                 spUtil.getCallableStatement().setInt("_id", bean.getId());
-                spUtil.getCallableStatement().setString("_created_date", createdDate);
                 spUtil.getCallableStatement().setInt("_vendor_id", bean.getVendorId());
-                spUtil.getCallableStatement().setString("_customer", bean.getCustomer());
+                spUtil.getCallableStatement().setInt("_customer_id", bean.getCustomerId());
+                spUtil.getCallableStatement().setInt("_transporter_id", bean.getTransporterId());
+                spUtil.getCallableStatement().setInt("_charge_for_vendor", bean.getChargeForVendor());
+                spUtil.getCallableStatement().setInt("_charge_for_customer", bean.getChargeForCustomer());
+                spUtil.getCallableStatement().setString("_created_date", createdDate);
                 spUtil.getCallableStatement().setDouble("_in_quantity", bean.getInQuantity());
                 spUtil.getCallableStatement().setDouble("_out_quantity", bean.getOutQuantity());
                 spUtil.getCallableStatement().setDouble("_price", bean.getPrice());
+                spUtil.getCallableStatement().setDouble("_price_diff", bean.getPriceDiff());
                 spUtil.getCallableStatement().setDouble("_amount", bean.getAmount());
                 spUtil.getCallableStatement().setDouble("_paid", bean.getPaid());
                 spUtil.getCallableStatement().setDouble("_debt", bean.getDebt());
                 spUtil.getCallableStatement().setDouble("_rate", bean.getRate());
+                spUtil.getCallableStatement().setDouble("_rate_diff", bean.getRateDiff());
                 spUtil.getCallableStatement().setInt("_account_id", bean.getAccountId());
                 spUtil.getCallableStatement().setString("_note", bean.getNote());
                 spUtil.execute();

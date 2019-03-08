@@ -19,6 +19,7 @@ public class DebtWholesaleBean {
     private String note;
     private int createdEmployeeId;
     private int canEdit;
+    private int kind;
 
     public void setId(int id) {
         this.id = id;
@@ -90,6 +91,14 @@ public class DebtWholesaleBean {
 
     public void setCanEdit(int canEdit) {
         this.canEdit = canEdit;
+    }
+
+    public int getKind() {
+        return kind;
+    }
+
+    public void setKind(int kind) {
+        this.kind = kind;
     }
 
 }

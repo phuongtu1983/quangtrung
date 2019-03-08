@@ -14,11 +14,16 @@ public class TransportServiceBean {
     private String code;
     private String createdDate;
     private int vendorId;
-    private String customer;
+    private int customerId;
+    private int transporterId;
+    private int chargeForVendor;
+    private int chargeForCustomer;
     private double inQuantity;
     private double outQuantity;
     private double price;
+    private double priceDiff;
     private double rate;
+    private double rateDiff;
     private double amount;
     private double paid;
     private double debt;
@@ -141,12 +146,52 @@ public class TransportServiceBean {
         this.createdEmployeeId = createdEmployeeId;
     }
 
-    public String getCustomer() {
-        return customer;
+    public int getCustomerId() {
+        return customerId;
     }
 
-    public void setCustomer(String customer) {
-        this.customer = customer;
+    public void setCustomerId(int customerId) {
+        this.customerId = customerId;
+    }
+
+    public double getPriceDiff() {
+        return priceDiff;
+    }
+
+    public void setPriceDiff(double priceDiff) {
+        this.priceDiff = priceDiff;
+    }
+
+    public int getTransporterId() {
+        return transporterId;
+    }
+
+    public void setTransporterId(int transporterId) {
+        this.transporterId = transporterId;
+    }
+
+    public int getChargeForVendor() {
+        return chargeForVendor;
+    }
+
+    public void setChargeForVendor(int chargeForVendor) {
+        this.chargeForVendor = chargeForVendor;
+    }
+
+    public int getChargeForCustomer() {
+        return chargeForCustomer;
+    }
+
+    public void setChargeForCustomer(int chargeForCustomer) {
+        this.chargeForCustomer = chargeForCustomer;
+    }
+
+    public double getRateDiff() {
+        return rateDiff;
+    }
+
+    public void setRateDiff(double rateDiff) {
+        this.rateDiff = rateDiff;
     }
 
 }

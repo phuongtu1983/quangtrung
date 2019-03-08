@@ -15,6 +15,8 @@ public class LpgStockReportBean {
     private String content;
     private int openingStock;
     private int importQuantity;
+    private int exportQuantity;
+    private int stockQuantity;
     private int export12Quantity;
     private int export45Quantity;
     private int convertQuantity;
@@ -100,6 +102,22 @@ public class LpgStockReportBean {
 
     public void setNote(String note) {
         this.note = note;
+    }
+
+    public int getExportQuantity() {
+        return exportQuantity;
+    }
+
+    public void setExportQuantity(int exportQuantity) {
+        this.exportQuantity = exportQuantity;
+    }
+
+    public int getStockQuantity() {
+        return stockQuantity;
+    }
+
+    public void setStockQuantity(int stockQuantity) {
+        this.stockQuantity = stockQuantity;
     }
 
 }

@@ -25,11 +25,31 @@
                 </td>
             </tr>
             <tr>
-                <td><bean:message key="vendor.title"/></td>
+                <td><bean:message key="transportService.detail.transporter"/></td>
+                <td>
+                    <select style="width: 260px;" name="transporterId" id="transporterIdComboboxPopup">
+                        <logic:iterate id="transporter_iter" name="<%=Constants.TRANSPORTER_LIST%>">
+                            <option  value="${transporter_iter.id}">${transporter_iter.name}</option>
+                        </logic:iterate>
+                    </select>
+                </td>
+            </tr>
+            <tr>
+                <td><bean:message key="transportService.detail.vendor"/></td>
                 <td>
                     <select style="width: 260px;" name="vendorId" id="vendorIdComboboxPopup">
                         <logic:iterate id="vendor_iter" name="<%=Constants.VENDOR_LIST%>">
                             <option  value="${vendor_iter.id}">${vendor_iter.name}</option>
+                        </logic:iterate>
+                    </select>
+                </td>
+            </tr>
+            <tr>
+                <td><bean:message key="transportService.detail.customer"/></td>
+                <td>
+                    <select style="width: 260px;" name="customerId" id="customerIdComboboxPopup">
+                        <logic:iterate id="customer_iter" name="<%=Constants.CUSTOMER_LIST%>">
+                            <option  value="${customer_iter.id}">${customer_iter.name}</option>
                         </logic:iterate>
                     </select>
                 </td>
@@ -43,4 +63,6 @@
         </table>
     </fieldset>
     <input type="hidden" name="vendorSelectedHidden" value="0"/>
+    <input type="hidden" name="customerSelectedHidden" value="0"/>
+    <input type="hidden" name="transporterSelectedHidden" value="0"/>
 </form>

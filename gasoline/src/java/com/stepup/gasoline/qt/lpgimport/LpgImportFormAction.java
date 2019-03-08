@@ -91,6 +91,10 @@ public class LpgImportFormAction extends SpineAction {
         value.setLabel(QTUtil.getBundleString("lpgImport.detail.kind.borrow"));
         value.setValue(LpgImportBean.KIND_BORROW + "");
         arrStatus.add(value);
+        value = new LabelValueBean();
+        value.setLabel(QTUtil.getBundleString("lpgImport.detail.kind.back"));
+        value.setValue(LpgImportBean.KIND_BACK + "");
+        arrStatus.add(value);
         request.setAttribute(Constants.LPG_IMPORT_KIND_LIST, arrStatus);
 
         ArrayList arrAccount = null;

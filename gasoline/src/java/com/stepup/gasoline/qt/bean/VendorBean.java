@@ -24,6 +24,7 @@ public class VendorBean {
     private int isGas;
     private int isPetro;
     private int isGood;
+    private int isTransport;
 
     public int getId() {
         return id;
@@ -137,7 +138,16 @@ public class VendorBean {
         this.fax = fax;
     }
 
+    public int getIsTransport() {
+        return isTransport;
+    }
+
+    public void setIsTransport(int isTransport) {
+        this.isTransport = isTransport;
+    }
+
     public static final int IS_GAS = 1;
     public static final int IS_PETRO = 2;
     public static final int IS_GOOD = 3;
+    public static final int IS_TRANSPORT = 4;
 }

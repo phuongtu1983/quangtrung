@@ -20,7 +20,7 @@ import org.apache.struts.action.ActionMapping;
  * @author phuongtu
  */
 public class GetLpgSaleListAction extends BaseAction {
-    
+
     @Override
     public boolean doAction(ActionMapping mapping, ActionForm form,
             HttpServletRequest request, HttpServletResponse response) {
@@ -38,7 +38,7 @@ public class GetLpgSaleListAction extends BaseAction {
                     buff.append("<cell>").append(bean.getCode()).append("^javascript:getLpgSale(").append(bean.getId()).append(",\"loadLpgSalePanel\")^_self</cell>");
                     buff.append("<cell>").append(bean.getCustomerName()).append("</cell>");
                     buff.append("<cell>").append(NumberUtil.formatMoneyDefault(bean.getQuantity(), "VND")).append("</cell>");
-                    buff.append("<cell>").append(NumberUtil.formatMoneyDefault(bean.getPrice(), "VND")).append("</cell>");
+                    buff.append("<cell>").append(NumberUtil.formatMoneyDefault(bean.getPrice() + bean.getPriceTransport(), "VND")).append("</cell>");
                     buff.append("<cell>").append(NumberUtil.formatMoneyDefault(bean.getTotal(), "VND")).append("</cell>");
                     buff.append("<cell>").append(bean.getNote()).append("</cell>");
                     buff.append("</row>");
@@ -47,16 +47,16 @@ public class GetLpgSaleListAction extends BaseAction {
         } catch (Exception ex) {
         }
         buff.append("</rows>");
-        
+
         OutputUtil.sendXmlStringToOutput(response, buff.toString());
         return true;
     }
-    
+
     @Override
     protected boolean isReturnStream() {
         return true;
     }
-    
+
     @Override
     protected String getActionName() {
         return this.getClass().getName();

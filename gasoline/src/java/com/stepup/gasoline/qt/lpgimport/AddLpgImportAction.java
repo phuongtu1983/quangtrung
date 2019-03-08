@@ -4,6 +4,7 @@
  */
 package com.stepup.gasoline.qt.lpgimport;
 
+import com.stepup.core.util.OutputUtil;
 import com.stepup.gasoline.qt.bean.LpgImportBean;
 import com.stepup.gasoline.qt.core.SpineAction;
 import com.stepup.gasoline.qt.dao.GasDAO;
@@ -34,7 +35,7 @@ public class AddLpgImportAction extends SpineAction {
             HttpServletRequest request, HttpServletResponse response) {
         LpgImportFormBean formBean = (LpgImportFormBean) form;
         GasDAO gasDAO = new GasDAO();
-        
+
         boolean bNew = true;
         if (formBean.getId() != 0) {
             bNew = false;
@@ -60,13 +61,22 @@ public class AddLpgImportAction extends SpineAction {
         bean.setCreatedEmployeeId(QTUtil.getEmployeeId(request.getSession()));
         try {
             if (bNew) {
-                gasDAO.insertLpgImport(bean);
+                int id = gasDAO.insertLpgImport(bean);
+                bean.setId(id);
             } else {
                 gasDAO.updateLpgImport(bean);
             }
         } catch (Exception ex) {
             ex.printStackTrace();
         }
+        String json = "{\"id\":\"" + bean.getId() + "\"";
+        json += "}";
+        OutputUtil.sendStringToOutput(response, json);
+        return true;
+    }
+
+    @Override
+    protected boolean isReturnStream() {
         return true;
     }
 }

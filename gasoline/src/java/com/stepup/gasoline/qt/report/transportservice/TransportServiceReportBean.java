@@ -13,16 +13,24 @@ public class TransportServiceReportBean {
 
     private int count;
     private String date;
-    private String vendorName;
     private String content;
     private double inQuantity;
     private double outQuantity;
     private double price;
+    private double priceDiff;
     private double rate;
+    private double rateDiff;
     private double amount;
+    private double amountDiff;
+    private double total;
     private double paid;
     private double debt;
     private String note;
+    private String customerName;
+    private String customerAddress;
+    private String customerTax;
+    private String customerPhone;
+    private String customerFax;
 
     public String getDate() {
         return date;
@@ -38,14 +46,6 @@ public class TransportServiceReportBean {
 
     public void setCount(int count) {
         this.count = count;
-    }
-
-    public String getVendorName() {
-        return vendorName;
-    }
-
-    public void setVendorName(String vendorName) {
-        this.vendorName = vendorName;
     }
 
     public String getContent() {
@@ -118,6 +118,78 @@ public class TransportServiceReportBean {
 
     public void setNote(String note) {
         this.note = note;
+    }
+
+    public String getCustomerName() {
+        return customerName;
+    }
+
+    public void setCustomerName(String customerName) {
+        this.customerName = customerName;
+    }
+
+    public String getCustomerAddress() {
+        return customerAddress;
+    }
+
+    public void setCustomerAddress(String customerAddress) {
+        this.customerAddress = customerAddress;
+    }
+
+    public String getCustomerTax() {
+        return customerTax;
+    }
+
+    public void setCustomerTax(String customerTax) {
+        this.customerTax = customerTax;
+    }
+
+    public String getCustomerPhone() {
+        return customerPhone;
+    }
+
+    public void setCustomerPhone(String customerPhone) {
+        this.customerPhone = customerPhone;
+    }
+
+    public String getCustomerFax() {
+        return customerFax;
+    }
+
+    public void setCustomerFax(String customerFax) {
+        this.customerFax = customerFax;
+    }
+
+    public double getPriceDiff() {
+        return priceDiff;
+    }
+
+    public void setPriceDiff(double priceDiff) {
+        this.priceDiff = priceDiff;
+    }
+
+    public double getRateDiff() {
+        return rateDiff;
+    }
+
+    public void setRateDiff(double rateDiff) {
+        this.rateDiff = rateDiff;
+    }
+
+    public double getAmountDiff() {
+        return amountDiff;
+    }
+
+    public void setAmountDiff(double amountDiff) {
+        this.amountDiff = amountDiff;
+    }
+
+    public double getTotal() {
+        return total;
+    }
+
+    public void setTotal(double total) {
+        this.total = total;
     }
 
 }

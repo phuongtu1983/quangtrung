@@ -739,6 +739,15 @@ public class PermissionFormAction extends SpineAction {
         arrFun.add(perBean);
 
         perBean = new PermissionViewBean();
+        perBean.setCounter("2.1");
+        perBean.setLevel(2);
+        perBean.setSharedId(2);
+        perBean.setName(QTUtil.getBundleString("debtAdjustment.title"));
+        perBean.setValue(PermissionUtil.PER_DEBT_ADJUSTMENT);
+        perBean.setOperations("," + PermissionUtil.OPERATION_LIST + "," + PermissionUtil.OPERATION_ADD + "," + PermissionUtil.OPERATION_EDIT + "," + PermissionUtil.OPERATION_DELETE + "," + PermissionUtil.OPERATION_EDIT_PAST + ",");
+        arrFun.add(perBean);
+
+        perBean = new PermissionViewBean();
         perBean.setCounter("3");
         perBean.setLevel(0);
         perBean.setSharedId(3);
@@ -827,7 +836,16 @@ public class PermissionFormAction extends SpineAction {
         perBean.setValue(PermissionUtil.PER_REPORT_COMPARE_LPG);
         perBean.setOperations("," + PermissionUtil.OPERATION_PRINT + ",");
         arrFun.add(perBean);
-        
+
+        perBean = new PermissionViewBean();
+        perBean.setCounter("3.1");
+        perBean.setLevel(2);
+        perBean.setSharedId(3);
+        perBean.setName(QTUtil.getBundleString("report.compareLPGVendorCustomer.title"));
+        perBean.setValue(PermissionUtil.PER_REPORT_COMPARE_LPG_VENDOR_CUSTOMER);
+        perBean.setOperations("," + PermissionUtil.OPERATION_PRINT + ",");
+        arrFun.add(perBean);
+
         perBean = new PermissionViewBean();
         perBean.setCounter("3.1");
         perBean.setLevel(2);

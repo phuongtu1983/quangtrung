@@ -62,7 +62,6 @@ import com.stepup.gasoline.qt.petroimport.PetroImportFormBean;
 import com.stepup.gasoline.qt.saleshell.SaleShellFormBean;
 import com.stepup.gasoline.qt.shellreturn.ShellReturnFormBean;
 import com.stepup.gasoline.qt.shellreturnsupplier.ShellReturnSupplierFormBean;
-import com.stepup.gasoline.qt.util.QTUtil;
 import com.stepup.gasoline.qt.vehiclein.VehicleInFormBean;
 import com.stepup.gasoline.qt.vehicleout.VehicleOutFormBean;
 import java.sql.ResultSet;
@@ -100,6 +99,7 @@ public class GasDAO extends BasicDAO {
                         bean = new LpgImportFormBean();
                         bean.setId(rs.getInt("id"));
                         bean.setCode(rs.getString("code"));
+                        bean.setImportDate(DateUtil.formatDate(rs.getDate("import_date"), "dd/MM/yyyy"));
                         bean.setVendorName(rs.getString("vendor_name"));
                         bean.setActualQuantity(rs.getInt("actual_quantity"));
                         bean.setPrice(rs.getDouble("price"));
@@ -5247,6 +5247,7 @@ public class GasDAO extends BasicDAO {
                         bean.setCustomerName(rs.getString("customer_name"));
                         bean.setQuantity(rs.getInt("quantity"));
                         bean.setPrice(rs.getDouble("price"));
+                        bean.setPriceTransport(rs.getDouble("price_transport"));
                         bean.setTotal(rs.getDouble("amount"));
                         bean.setNote(rs.getString("note"));
                         list.add(bean);
@@ -5287,6 +5288,7 @@ public class GasDAO extends BasicDAO {
                 bean.setSaleDate(DateUtil.formatDate(rs.getDate("sale_date"), "dd/MM/yyyy"));
                 bean.setQuantity(rs.getInt("quantity"));
                 bean.setPrice(rs.getDouble("price"));
+                bean.setPriceTransport(rs.getDouble("price_transport"));
                 bean.setVat(rs.getDouble("vat"));
                 bean.setRate(rs.getDouble("rate"));
                 bean.setTotal(rs.getDouble("amount"));
@@ -5296,6 +5298,7 @@ public class GasDAO extends BasicDAO {
                 bean.setRouteId(rs.getInt("route_id"));
                 bean.setNote(rs.getString("note"));
                 bean.setCanEdit(rs.getInt("can_edit"));
+                bean.setCreatedEmployeeId(rs.getInt("created_employee_id"));
                 return bean;
             }
         } catch (SQLException sqle) {
@@ -5323,7 +5326,7 @@ public class GasDAO extends BasicDAO {
             } else {
                 createdDate = bean.getSaleDate();
             }
-            String sql = "{call insertLpgSale(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)}";
+            String sql = "{call insertLpgSale(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)}";
             spUtil = new SPUtil(sql);
             if (spUtil != null) {
                 spUtil.getCallableStatement().setString("_code", bean.getCode());
@@ -5332,6 +5335,7 @@ public class GasDAO extends BasicDAO {
                 spUtil.getCallableStatement().setString("_sale_date", createdDate);
                 spUtil.getCallableStatement().setInt("_quantity", bean.getQuantity());
                 spUtil.getCallableStatement().setDouble("_price", bean.getPrice());
+                spUtil.getCallableStatement().setDouble("_price_transport", bean.getPriceTransport());
                 spUtil.getCallableStatement().setDouble("_vat", bean.getVat());
                 spUtil.getCallableStatement().setDouble("_rate", bean.getRate());
                 spUtil.getCallableStatement().setDouble("_amount", bean.getTotal());
@@ -5373,7 +5377,7 @@ public class GasDAO extends BasicDAO {
             } else {
                 createdDate = bean.getSaleDate();
             }
-            String sql = "{call updateLpgSale(?,?,?,?,?,?,?,?,?,?,?,?,?,?)}";
+            String sql = "{call updateLpgSale(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)}";
             spUtil = new SPUtil(sql);
             if (spUtil != null) {
                 spUtil.getCallableStatement().setInt("_id", bean.getId());
@@ -5382,6 +5386,7 @@ public class GasDAO extends BasicDAO {
                 spUtil.getCallableStatement().setString("_sale_date", createdDate);
                 spUtil.getCallableStatement().setInt("_quantity", bean.getQuantity());
                 spUtil.getCallableStatement().setDouble("_price", bean.getPrice());
+                spUtil.getCallableStatement().setDouble("_price_transport", bean.getPriceTransport());
                 spUtil.getCallableStatement().setDouble("_vat", bean.getVat());
                 spUtil.getCallableStatement().setDouble("_rate", bean.getRate());
                 spUtil.getCallableStatement().setDouble("_amount", bean.getTotal());
@@ -5437,32 +5442,6 @@ public class GasDAO extends BasicDAO {
                 throw new Exception(e.getMessage());
             }
         }
-    }
-
-    public LpgImportBean getLpgImportForSale(int id) throws Exception {
-        ResultSet rs = null;
-        String sql = "SELECT i.id, i.CODE, i.actual_quantity, COALESCE(SUM(s.quantity),0) AS saled_quantity"
-                + " FROM lpg_import AS i LEFT JOIN lpg_sale AS s ON i.id=s.lpg_import_id"
-                + " WHERE i.id=" + id;
-        try {
-            rs = DBUtil.executeQuery(sql);
-            while (rs.next()) {
-                LpgImportBean bean = new LpgImportBean();
-                bean.setId(rs.getInt("id"));
-                bean.setCode(rs.getString("code"));
-                bean.setActualQuantity(rs.getInt("actual_quantity") - rs.getInt("saled_quantity"));
-                return bean;
-            }
-        } catch (SQLException sqle) {
-            throw new Exception(sqle.getMessage());
-        } catch (Exception ex) {
-            throw new Exception(ex.getMessage());
-        } finally {
-            if (rs != null) {
-                DBUtil.closeConnection(rs);
-            }
-        }
-        return null;
     }
 
     public ArrayList searchLoVo(String fromDate, String endDate, String organizationIds) throws Exception {

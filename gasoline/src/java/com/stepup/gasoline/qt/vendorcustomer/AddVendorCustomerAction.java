@@ -7,6 +7,7 @@ package com.stepup.gasoline.qt.vendorcustomer;
 import com.stepup.gasoline.qt.bean.VendorCustomerBean;
 import com.stepup.gasoline.qt.core.SpineAction;
 import com.stepup.gasoline.qt.dao.VendorDAO;
+import com.stepup.gasoline.qt.util.QTUtil;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import org.apache.struts.action.ActionForm;
@@ -38,6 +39,7 @@ public class AddVendorCustomerAction extends SpineAction {
         bean.setCustomerId(formBean.getCustomerId());
         bean.setVendorId(formBean.getVendorId());
         bean.setCustomerId(formBean.getCustomerId());
+        bean.setOrganizationId(QTUtil.getOrganizationId(request.getSession()));
         try {
             vendorDAO.insertVendorCustomer(bean);
         } catch (Exception ex) {

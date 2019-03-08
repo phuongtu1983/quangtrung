@@ -5,7 +5,6 @@
 package com.stepup.gasoline.qt.vendorcustomer;
 
 import com.stepup.core.util.NumberUtil;
-import com.stepup.gasoline.qt.bean.CustomerBean;
 import com.stepup.gasoline.qt.bean.EmployeeBean;
 import com.stepup.gasoline.qt.core.SpineAction;
 import com.stepup.gasoline.qt.dao.CustomerDAO;

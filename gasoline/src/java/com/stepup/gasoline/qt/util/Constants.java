@@ -27,6 +27,8 @@ public class Constants {
     public static final String VENDOR_ORGANIZATION = "vendorOrganization";
     public static final String VENDOR_ORGANIZATION_lIST = "vendorOrganizationList";
     public static final String VENDOR_LIST = "vendorList";
+    public static final String TRANSPORTER_LIST = "transporterList";
+    public static final String TRANSPORTER_CHARGE_FOR_LIST = "transporterChargeForList";
     public static final String STATUS_LIST = "statusList";
     public static final String SELECTED = "selected";
     public static final String PERMISSION = "permission";
@@ -141,6 +143,7 @@ public class Constants {
     public static final String EXPORT_WHOLESALE_SHELL = "exportWholesaleShell";
     public static final String EXPORT_WHOLESALE_RETURN = "exportWholesaleReturn";
     public static final String DEBT_VENDOR = "debtVendor";
+    public static final String DEBT_ADJUSTMENT = "debtAdjustment";
     public static final String DEBT_RETAIL = "debtRetail";
     public static final String DEBT_WHOLESALE = "debtWholesale";
     public static final String INCOME = "income";

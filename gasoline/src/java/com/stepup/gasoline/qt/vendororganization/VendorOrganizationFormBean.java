@@ -16,6 +16,7 @@ public class VendorOrganizationFormBean extends org.apache.struts.action.ActionF
     private int organizationId;
     private int vendorId;
     private String organizationName;
+    private String linkOrganizationName;
     private String vendorName;
 
     public VendorOrganizationFormBean() {
@@ -65,6 +66,14 @@ public class VendorOrganizationFormBean extends org.apache.struts.action.ActionF
 
     public void setVendorName(String vendorName) {
         this.vendorName = vendorName;
+    }
+
+    public String getLinkOrganizationName() {
+        return linkOrganizationName;
+    }
+
+    public void setLinkOrganizationName(String linkOrganizationName) {
+        this.linkOrganizationName = linkOrganizationName;
     }
 
 }

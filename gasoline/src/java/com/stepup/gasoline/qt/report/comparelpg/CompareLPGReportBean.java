@@ -15,9 +15,13 @@ public class CompareLPGReportBean {
     private String date;
     private String content;
     private double quantity;
+    private double vat;
     private double price;
+    private double priceTransport;
     private double rate;
     private double amount;
+    private double amountTransport;
+    private double total;
     private double paid;
     private double debt;
 
@@ -91,6 +95,38 @@ public class CompareLPGReportBean {
 
     public void setDebt(double debt) {
         this.debt = debt;
+    }
+
+    public double getPriceTransport() {
+        return priceTransport;
+    }
+
+    public void setPriceTransport(double priceTransport) {
+        this.priceTransport = priceTransport;
+    }
+
+    public double getAmountTransport() {
+        return amountTransport;
+    }
+
+    public void setAmountTransport(double amountTransport) {
+        this.amountTransport = amountTransport;
+    }
+
+    public double getTotal() {
+        return total;
+    }
+
+    public void setTotal(double total) {
+        this.total = total;
+    }
+
+    public double getVat() {
+        return vat;
+    }
+
+    public void setVat(double vat) {
+        this.vat = vat;
     }
 
 }

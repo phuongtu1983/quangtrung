@@ -17,24 +17,34 @@
                             <td><html:text property="createdDate" styleId="transportServiceDate" size="30" name="<%=Constants.TRANSPORT_SERVICE%>" tabindex="-1"/></td>
                         </tr>
                         <tr>
-                            <td height="30" style="padding-right: 20px"><bean:message key="vendor.title"/></td>
+                            <td height="30" style="padding-right: 20px"><bean:message key="transportService.detail.vendor"/></td>
                             <td>
                                 <html:select property="vendorId" name="<%=Constants.TRANSPORT_SERVICE%>" style="width:195px">
                                     <html:options collection="<%=Constants.VENDOR_LIST%>" property="id" labelProperty="name"/>
                                 </html:select>
                             </td>
-                            <td style="padding-right: 20px;padding-left: 10px"><bean:message key="account.title"/></td>
+                            <td style="padding-right: 20px;padding-left: 10px"><bean:message key="transportService.detail.customer"/></td>
                             <td>
-                                <html:select property="accountId" name="<%=Constants.TRANSPORT_SERVICE%>" style="width:195px">
-                                    <html:options collection="<%=Constants.ACCOUNT_LIST%>" property="id" labelProperty="number"/>
-                                </html:select>
+                                <select style="width: 195px;" name="customerIdCombobox" id="customerIdCombobox">
+                                    <logic:iterate id="customer_iter" name="<%=Constants.CUSTOMER_LIST%>">
+                                        <option  value="${customer_iter.id}">${customer_iter.name}</option>
+                                    </logic:iterate>
+                                </select>
                             </td>
                         </tr>
                         <tr>
-                            <td height="30" style="padding-right: 20px"><bean:message key="transportService.detail.customer"/></td>
-                            <td><html:text property="customer" size="30" name="<%=Constants.TRANSPORT_SERVICE%>"/></td>
-                            <td style="padding-right: 20px;padding-left: 10px"><bean:message key="price.title"/></td>
-                            <td><html:text property="price" size="30" name="<%=Constants.TRANSPORT_SERVICE%>" onblur="return transportServiceCaculateAmount();" onkeypress="return readonlyFloat(event);"/></td>
+                            <td height="30" style="padding-right: 20px"><bean:message key="transportService.detail.transporter"/></td>
+                            <td>
+                                <html:select property="transporterId" name="<%=Constants.TRANSPORT_SERVICE%>" style="width:195px">
+                                    <html:options collection="<%=Constants.TRANSPORTER_LIST%>" property="id" labelProperty="name"/>
+                                </html:select>
+                            </td>
+                            <td style="padding-right: 20px;padding-left: 10px"><bean:message key="transportService.detail.chargeFor"/></td>
+                            <td>
+                                <html:select property="chargeFor" name="<%=Constants.TRANSPORT_SERVICE%>" style="width:195px">
+                                    <html:options collection="<%=Constants.TRANSPORTER_CHARGE_FOR_LIST%>" property="value" labelProperty="label"/>
+                                </html:select>
+                            </td>
                         </tr>
                         <tr>
                             <td height="30" style="padding-right: 20px"><bean:message key="transportService.detail.inQuantity"/></td>
@@ -43,16 +53,32 @@
                             <td><html:text property="outQuantity" size="30" name="<%=Constants.TRANSPORT_SERVICE%>" onblur="return transportServiceCaculateAmount();" onkeypress="return readonlyFloat(event);"/></td>
                         </tr>
                         <tr>
-                            <td height="30" style="padding-right: 20px"><bean:message key="rate.title"/></td>
-                            <td><html:text property="rate" size="30" name="<%=Constants.TRANSPORT_SERVICE%>" onblur="return transportServiceCaculateAmount();" onkeypress="return readonlyFloat(event);"/></td>
-                            <td style="padding-right: 20px;padding-left: 10px"><bean:message key="amount.title"/></td>
-                            <td><html:text property="amount" size="30" name="<%=Constants.TRANSPORT_SERVICE%>" readonly="true" tabindex="-1"/></td>
+                            <td height="30" style="padding-right: 20px"><bean:message key="price.title"/></td>
+                            <td><html:text property="price" size="30" name="<%=Constants.TRANSPORT_SERVICE%>" onblur="return transportServiceCaculateAmount();" onkeypress="return readonlyFloat(event);"/></td>
+                            <td style="padding-right: 20px;padding-left: 10px"><bean:message key="transportService.detail.priceDiff"/></td>
+                            <td><html:text property="priceDiff" size="30" name="<%=Constants.TRANSPORT_SERVICE%>" onblur="return transportServiceCaculateAmount();" onkeypress="return readonlyFloat(event);"/></td>
                         </tr>
                         <tr>
-                            <td height="30" style="padding-right: 20px"><bean:message key="paid.title"/></td>
+                            <td height="30" style="padding-right: 20px"><bean:message key="rate.title"/></td>
+                            <td><html:text property="rate" size="30" name="<%=Constants.TRANSPORT_SERVICE%>" onblur="return transportServiceCaculateAmount();" onkeypress="return readonlyFloat(event);"/></td>
+                            <td style="padding-right: 20px;padding-left: 10px"><bean:message key="transportService.detail.rateDiff"/></td>
+                            <td><html:text property="rateDiff" size="30" name="<%=Constants.TRANSPORT_SERVICE%>" onblur="return transportServiceCaculateAmount();" onkeypress="return readonlyFloat(event);"/></td>
+                        </tr>
+                        <tr>
+                            <td height="30" style="padding-right: 20px"><bean:message key="amount.title"/></td>
+                            <td><html:text property="amount" size="30" name="<%=Constants.TRANSPORT_SERVICE%>" readonly="true" tabindex="-1"/></td>
+                            <td style="padding-right: 20px;padding-left: 10px"><bean:message key="paid.title"/></td>
                             <td><html:text property="paid" size="30" name="<%=Constants.TRANSPORT_SERVICE%>" onblur="return transportServicePaidChanged();" onkeypress="return readonlyFloat(event);"/></td>
-                            <td style="padding-right: 20px;padding-left: 10px"><bean:message key="debt.title"/></td>
+                        </tr>
+                        <tr>
+                            <td height="30" style="padding-right: 20px"><bean:message key="debt.title"/></td>
                             <td><html:text property="debt" size="30" name="<%=Constants.TRANSPORT_SERVICE%>" readonly="true" tabindex="-1"/></td>
+                            <td style="padding-right: 20px;padding-left: 10px"><bean:message key="account.title"/></td>
+                            <td>
+                                <html:select property="accountId" name="<%=Constants.TRANSPORT_SERVICE%>" style="width:195px">
+                                    <html:options collection="<%=Constants.ACCOUNT_LIST%>" property="id" labelProperty="number"/>
+                                </html:select>
+                            </td>
                         </tr>
                         <tr>
                             <td height="30" style="padding-right: 20px"><bean:message key="note.title"/></td>
@@ -82,6 +108,8 @@
         </table> 
         <html:hidden property="id" name="<%=Constants.TRANSPORT_SERVICE%>" />
         <input type="hidden" id="callbackFunc"/>
+        <html:hidden property="customerId" name="<%=Constants.TRANSPORT_SERVICE%>" />
+        <input type="hidden" name="customerSelectedHidden" value="0"/>
     </form>
     <div name="transportServiceFormshowHelpHideDiv" id="showHelpHideDiv" style="display:none">
         Ctrl+C : Đóng

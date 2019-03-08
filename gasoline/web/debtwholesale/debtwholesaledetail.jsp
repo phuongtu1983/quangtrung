@@ -29,8 +29,14 @@
                             </td>
                         </tr>
                         <tr>
-                            <td height="30" style="padding-right: 20px"><bean:message key="account.title"/></td>
-                            <td colspan="3">
+                            <td height="30" style="padding-right: 20px"><bean:message key="kind.title"/></td>
+                            <td>
+                                <html:select property="kind" name="<%=Constants.DEBT_WHOLESALE%>" style="width:195px">
+                                    <html:options collection="<%=Constants.KIND_LIST%>" property="value" labelProperty="label"/>
+                                </html:select>
+                            </td>
+                            <td><bean:message key="account.title"/></td>
+                            <td>
                                 <html:select property="accountId" name="<%=Constants.DEBT_WHOLESALE%>" style="width:195px">
                                     <html:options collection="<%=Constants.ACCOUNT_LIST%>" property="id" labelProperty="number"/>
                                 </html:select>

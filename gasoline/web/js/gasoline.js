@@ -319,6 +319,8 @@ function menuClick(id) {
         showCompareVendorReportPanel();
     else if (id == 'reportcomparelpg')
         showCompareLPGReportPanel();
+    else if (id == 'reportcomparelpgvendorcustomer')
+        showCompareLPGVendorCustomerReportPanel();
     else if (id == 'transportservicelist')
         loadTransportServicePanel();
     else if (id == 'transportserviceadd')
@@ -327,6 +329,8 @@ function menuClick(id) {
         showTransportServiceReportPanel();
     else if (id == 'reportcomparegas')
         showCompareGasReportPanel();
+    else if (id == 'debtadjustmentlist')
+        loadDebtAdjustmentPanel();
 }
 function clearContent() {
     var contentDiv = document.getElementById("contentDiv");
@@ -500,10 +504,10 @@ function caculateListTotal(formName) {
         tryNumberFormatCurrentcy(document.forms[formName].discount, "VND");
         tryNumberFormatCurrentcy(document.forms[formName].totalPay, "VND");
     }
-    document.forms[formName].paid.value = sum;
-    document.forms[formName].debt.value = 0;
+    document.forms[formName].paid.value = 0;
+    document.forms[formName].debt.value = sum;
     tryNumberFormatCurrentcy(document.forms[formName].total, "VND");
-    tryNumberFormatCurrentcy(document.forms[formName].paid, "VND");
+    tryNumberFormatCurrentcy(document.forms[formName].debt, "VND");
     return false;
 }
 function logout() {
@@ -3122,11 +3126,11 @@ function loadLpgImportPanel() {
 function loadLpgImportList(fromDate, toDate) {
     var mygrid = new dhtmlXGridObject('lpgImportList');
     mygrid.setImagePath("js/dhtmlx/grid/imgs/");
-    mygrid.setHeader("S\u1ED1 phi\u1EBFu,Nh\u00E0 cung c\u1EA5p,S\u1ED1 l\u01B0\u1EE3ng th\u1EF1c t\u1EBF,\u0110\u01A1n gi\u00E1,Th\u00E0nh ti\u1EC1n,T\u1EF7 gi\u00E1,Ghi ch\u00FA");
-    mygrid.attachHeader("#text_filter,#text_filter,#text_filter,#text_filter,#text_filter,#text_filter,#text_filter");
-    mygrid.setInitWidths("150,200,150,150,150,150,*");
-    mygrid.setColTypes("link,ro,ro,ro,ro,ro,ro");
-    mygrid.setColSorting("str,str,str,str,str,str,str");
+    mygrid.setHeader("S\u1ED1 phi\u1EBFu,Ng\u00E0y,Nh\u00E0 cung c\u1EA5p,S\u1ED1 l\u01B0\u1EE3ng th\u1EF1c t\u1EBF,\u0110\u01A1n gi\u00E1,Th\u00E0nh ti\u1EC1n,T\u1EF7 gi\u00E1,Ghi ch\u00FA");
+    mygrid.attachHeader("#text_filter,#text_filter,#text_filter,#text_filter,#text_filter,#text_filter,#text_filter,#text_filter");
+    mygrid.setInitWidths("150,150,200,150,150,150,150,*");
+    mygrid.setColTypes("link,ro,ro,ro,ro,ro,ro,ro");
+    mygrid.setColSorting("str,str,str,str,str,str,str,str");
     mygrid.setSkin("light");
     var height = contentHeight - 210;
     mygrid.al(true, height); //enableAutoHeight
@@ -3228,9 +3232,13 @@ function saveLpgImport() {
         var handle = document.getElementById('callbackFunc').value;
         if (confirm('B\u1EA1n c\u00F3 mu\u1ED1n nh\u1EADp ti\u1EBFp th\u00F4ng tin kh\u00E1c ?'))
             getLpgImport(0, handle);
-        else if (handle != '')
-            eval(handle + "()");
-        prepareHidePopup('lpgImportFormshowHelpHideDiv');
+        else {
+            var obj = eval('(' + data + ')');
+            getLpgImport(obj.id, handle);
+        }
+//        else if (handle != '')
+//            eval(handle + "()");
+//        prepareHidePopup('lpgImportFormshowHelpHideDiv');
     });
     return false;
 }
@@ -3242,7 +3250,7 @@ function delLpgImport() {
     return false;
 }
 function lpgImportCaculateAmount() {
-    var quantity = document.forms['lpgImportForm'].actualQuantity;
+    var quantity = document.forms['lpgImportForm'].paperQuantity;
     var price = document.forms['lpgImportForm'].price;
     var vat = document.forms['lpgImportForm'].vat;
     var rate = document.forms['lpgImportForm'].rate;
@@ -3252,15 +3260,15 @@ function lpgImportCaculateAmount() {
     var debt = document.forms['lpgImportForm'].debt;
     amount.value = reformatNumberMoneyString(quantity.value) * reformatNumberMoneyString(price.value) * (100 + reformatNumberMoneyString(vat.value) * 1) / 100 * reformatNumberMoneyString(rate.value) / 1000;
     invoiceAmount.value = amount.value;
-    paid.value = amount.value;
-    debt.value = 0;
+    paid.value = 0;
+    debt.value = amount.value;
     tryNumberFormatCurrentcy(quantity, "VND");
     tryNumberFormatCurrentcy(price, "USD");
     tryNumberFormatCurrentcy(vat, "USD");
     tryNumberFormatCurrentcy(rate, "VND");
     tryNumberFormatCurrentcy(invoiceAmount, "VND");
     tryNumberFormatCurrentcy(amount, "VND");
-    tryNumberFormatCurrentcy(paid, "VND");
+    tryNumberFormatCurrentcy(debt, "VND");
     quantity = null;
     price = null;
     vat = null;
@@ -3277,17 +3285,18 @@ function formInvoiceTotalChanged(formName) {
     var debt = document.forms[formName].debt;
     if (total == null || paid == null || debt == null)
         return false;
-    paid.value = total.value;
-    debt.value = 0;
+    paid.value = 0;
+    debt.value = total.value;
     tryNumberFormatCurrentcy(total, "VND");
-    tryNumberFormatCurrentcy(paid, "VND");
+    tryNumberFormatCurrentcy(debt, "VND");
     total = null;
     paid = null;
     debt = null;
     return false;
 }
 function lpgImportPaidChanged() {
-    var total = document.forms['lpgImportForm'].invoiceTotal;
+//    var total = document.forms['lpgImportForm'].invoiceTotal;
+    var total = document.forms['lpgImportForm'].total;
     var paid = document.forms['lpgImportForm'].paid;
     var debt = document.forms['lpgImportForm'].debt;
     if (total == null || paid == null || debt == null)
@@ -4669,7 +4678,9 @@ function gasWholesalePaidDiscountChanged(recalculatePaid) {
         return false;
     totalPay.value = reformatNumberMoneyString(total.value) * 1 - reformatNumberMoneyString(gasReturnAmount.value) * 1 - reformatNumberMoneyString(discount.value) * 1;
     if (recalculatePaid == 1)
-        paid.value = totalPay.value;
+        paid.value = 0;
+//        paid.value = totalPay.value;
+
     debt.value = reformatNumberMoneyString(totalPay.value) * 1 - reformatNumberMoneyString(paid.value) * 1;
     tryNumberFormatCurrentcy(total, "VND");
     tryNumberFormatCurrentcy(paid, "VND");
@@ -5597,12 +5608,12 @@ function caculateSaleAccessoryTotal() {
     document.forms['saleAccessoryForm'].total.value = sum;
     document.forms['saleAccessoryForm'].discount.value = 0;
     document.forms['saleAccessoryForm'].totalPay.value = sum;
-    document.forms['saleAccessoryForm'].paid.value = sum;
-    document.forms['saleAccessoryForm'].debt.value = 0;
+    document.forms['saleAccessoryForm'].paid.value = 0;
+    document.forms['saleAccessoryForm'].debt.value = sum;
     tryNumberFormatCurrentcy(document.forms['saleAccessoryForm'].discount, "VND");
     tryNumberFormatCurrentcy(document.forms['saleAccessoryForm'].totalPay, "VND");
     tryNumberFormatCurrentcy(document.forms['saleAccessoryForm'].total, "VND");
-    tryNumberFormatCurrentcy(document.forms['saleAccessoryForm'].paid, "VND");
+    tryNumberFormatCurrentcy(document.forms['saleAccessoryForm'].debt, "VND");
     return false;
 }
 function reformatSaleAccessoryChangeDetail() {
@@ -9120,6 +9131,7 @@ function getLpgSale(id, handle, lpgImportId) {
         document.getElementById('callbackFunc').value = handle;
         tryNumberFormatCurrentcy(document.forms['lpgSaleForm'].quantity, "VND");
         tryNumberFormatCurrentcy(document.forms['lpgSaleForm'].price, "VND");
+        tryNumberFormatCurrentcy(document.forms['lpgSaleForm'].priceTransport, "VND");
         tryNumberFormatCurrentcy(document.forms['lpgSaleForm'].vat, "VND");
         tryNumberFormatCurrentcy(document.forms['lpgSaleForm'].total, "VND");
         tryNumberFormatCurrentcy(document.forms['lpgSaleForm'].paid, "VND");
@@ -9198,6 +9210,7 @@ function saveLpgSale() {
         return false;
     reformatNumberMoney(document.forms['lpgSaleForm'].quantity);
     reformatNumberMoney(document.forms['lpgSaleForm'].price);
+    reformatNumberMoney(document.forms['lpgSaleForm'].priceTransport);
     reformatNumberMoney(document.forms['lpgSaleForm'].vat);
     reformatNumberMoney(document.forms['lpgSaleForm'].total);
     reformatNumberMoney(document.forms['lpgSaleForm'].paid);
@@ -9227,22 +9240,25 @@ function delLpgSale() {
 function lpgSaleCaculateAmount() {
     var quantity = document.forms['lpgSaleForm'].quantity;
     var price = document.forms['lpgSaleForm'].price;
+    var priceTransport = document.forms['lpgSaleForm'].priceTransport;
     var vat = document.forms['lpgSaleForm'].vat;
     var rate = document.forms['lpgSaleForm'].rate;
     var amount = document.forms['lpgSaleForm'].total;
     var paid = document.forms['lpgSaleForm'].paid;
     var debt = document.forms['lpgSaleForm'].debt;
-    amount.value = reformatNumberMoneyString(quantity.value) * reformatNumberMoneyString(price.value) * (100 + reformatNumberMoneyString(vat.value) * 1) / 100 * reformatNumberMoneyString(rate.value) / 1000;
-    paid.value = amount.value;
-    debt.value = 0;
+    amount.value = reformatNumberMoneyString(quantity.value) * (reformatNumberMoneyString(price.value) * 1 + reformatNumberMoneyString(priceTransport.value) * 1) * (100 + reformatNumberMoneyString(vat.value) * 1) / 100 * reformatNumberMoneyString(rate.value) / 1000;
+    paid.value = 0;
+    debt.value = amount.value;
     tryNumberFormatCurrentcy(quantity, "VND");
     tryNumberFormatCurrentcy(price, "USD");
+    tryNumberFormatCurrentcy(priceTransport, "USD");
     tryNumberFormatCurrentcy(vat, "USD");
     tryNumberFormatCurrentcy(rate, "VND");
     tryNumberFormatCurrentcy(amount, "VND");
-    tryNumberFormatCurrentcy(paid, "VND");
+    tryNumberFormatCurrentcy(debt, "VND");
     quantity = null;
     price = null;
+    priceTransport = null;
     vat = null;
     rate = null;
     amount = null;
@@ -10642,7 +10658,9 @@ function getTransportService(id, handle) {
         tryNumberFormatCurrentcy(document.forms['transportServiceForm'].inQuantity, "VND");
         tryNumberFormatCurrentcy(document.forms['transportServiceForm'].outQuantity, "VND");
         tryNumberFormatCurrentcy(document.forms['transportServiceForm'].price, "USD");
+        tryNumberFormatCurrentcy(document.forms['transportServiceForm'].priceDiff, "USD");
         tryNumberFormatCurrentcy(document.forms['transportServiceForm'].rate, "USD");
+        tryNumberFormatCurrentcy(document.forms['transportServiceForm'].rateDiff, "USD");
         tryNumberFormatCurrentcy(document.forms['transportServiceForm'].amount, "VND");
         tryNumberFormatCurrentcy(document.forms['transportServiceForm'].paid, "VND");
         tryNumberFormatCurrentcy(document.forms['transportServiceForm'].debt, "VND");
@@ -10654,6 +10672,35 @@ function getTransportService(id, handle) {
         myCalendar.setSkin('dhx_web');
         myCalendar.setDateFormat("%d/%m/%Y");
 
+        window.dhx_globalImgPath = "js/dhtmlx/combo/imgs/";
+        // ============================
+        var customerIdCombobox = dhtmlXComboFromSelect("customerIdCombobox");
+        customerIdCombobox.enableFilteringMode(true);
+        customerIdCombobox.attachEvent("onSelectionChange", function() {
+            setCustomerSelectedForm('transportServiceForm', customerIdCombobox.getComboText(), customerIdCombobox.getSelectedValue());
+        });
+        customerIdCombobox.attachEvent("onBlur", function() {
+            setCustomerSelectedForm('transportServiceForm', customerIdCombobox.getComboText(), customerIdCombobox.getSelectedValue());
+            customerIdCombobox.setComboText(customerIdCombobox.getSelectedText());
+        });
+        customerIdCombobox.DOMelem_input.onfocus = function(event) {
+            if (isManuallySeleted == 1) {
+                customerIdCombobox.openSelect();
+                isManuallySeleted = 0;
+            }
+        }
+        if (id == 0) {
+            customerIdCombobox.setComboValue("");
+        } else {
+            var customerId = document.forms['transportServiceForm'].customerId.value;
+            if (customerId != 0) {
+                var ind = customerIdCombobox.getIndexByValue(customerId);
+                customerIdCombobox.selectOption(ind);
+            } else {
+                customerIdCombobox.unSelectOption();
+                customerIdCombobox.setComboValue("");
+            }
+        }
     });
 }
 function saveTransportService() {
@@ -10662,10 +10709,13 @@ function saveTransportService() {
     reformatNumberMoney(document.forms['transportServiceForm'].inQuantity);
     reformatNumberMoney(document.forms['transportServiceForm'].outQuantity);
     reformatNumberMoney(document.forms['transportServiceForm'].price);
+    reformatNumberMoney(document.forms['transportServiceForm'].priceDiff);
     reformatNumberMoney(document.forms['transportServiceForm'].rate);
+    reformatNumberMoney(document.forms['transportServiceForm'].rateDiff);
     reformatNumberMoney(document.forms['transportServiceForm'].amount);
     reformatNumberMoney(document.forms['transportServiceForm'].paid);
     reformatNumberMoney(document.forms['transportServiceForm'].debt);
+    document.forms['transportServiceForm'].customerId.value = document.forms['transportServiceForm'].customerSelectedHidden.value;
     scriptFunction = "saveTransportService";
     callAjaxCheckError("addTransportService.do", null, document.forms['transportServiceForm'], function(data) {
         scriptFunction = "";
@@ -10686,22 +10736,29 @@ function delTransportService() {
     return false;
 }
 function transportServiceCaculateAmount() {
-    var quantity = document.forms['transportServiceForm'].outQuantity;
+    var quantityIn = document.forms['transportServiceForm'].inQuantity;
+    var quantityOut = document.forms['transportServiceForm'].outQuantity;
     var price = document.forms['transportServiceForm'].price;
+    var priceDiff = document.forms['transportServiceForm'].priceDiff;
     var rate = document.forms['transportServiceForm'].rate;
+    var rateDiff = document.forms['transportServiceForm'].rateDiff;
     var amount = document.forms['transportServiceForm'].amount;
     var paid = document.forms['transportServiceForm'].paid;
     var debt = document.forms['transportServiceForm'].debt;
-    amount.value = reformatNumberMoneyString(quantity.value) * reformatNumberMoneyString(price.value) * reformatNumberMoneyString(rate.value) / 1000;
-    paid.value = amount.value;
-    debt.value = 0;
-    tryNumberFormatCurrentcy(quantity, "VND");
+    var diff = reformatNumberMoneyString(quantityOut.value) * 1 - reformatNumberMoneyString(quantityIn.value) * 1;
+    amount.value = (reformatNumberMoneyString(quantityIn.value) * reformatNumberMoneyString(price.value) * reformatNumberMoneyString(rate.value) + diff * reformatNumberMoneyString(priceDiff.value) * reformatNumberMoneyString(rateDiff.value)) / 1000;
+    paid.value = 0;
+    debt.value = amount.value;
+    tryNumberFormatCurrentcy(quantityIn, "VND");
+    tryNumberFormatCurrentcy(quantityOut, "VND");
     tryNumberFormatCurrentcy(price, "USD");
     tryNumberFormatCurrentcy(rate, "VND");
+    tryNumberFormatCurrentcy(rateDiff, "VND");
     tryNumberFormatCurrentcy(amount, "VND");
     tryNumberFormatCurrentcy(paid, "VND");
     tryNumberFormatCurrentcy(debt, "VND");
-    quantity = null;
+    quantityIn = null;
+    quantityOut = null;
     price = null;
     rate = null;
     amount = null;
@@ -10737,13 +10794,31 @@ function showTransportServiceReportPanel() {
         myCalendar.setDateFormat("%d/%m/%Y");
         // ============================
         window.dhx_globalImgPath = "js/dhtmlx/combo/imgs/";
-        var customerIdCombobox = dhtmlXComboFromSelect("vendorIdComboboxPopup");
+
+        var vendorIdCombobox = dhtmlXComboFromSelect("vendorIdComboboxPopup");
+        vendorIdCombobox.enableFilteringMode(true);
+        vendorIdCombobox.attachEvent("onSelectionChange", function() {
+            setVendorSelectedForm('reportTransportServiceSearchForm', vendorIdCombobox.getComboText(), vendorIdCombobox.getSelectedValue());
+        });
+        vendorIdCombobox.attachEvent("onBlur", function() {
+            setVendorSelectedForm('reportTransportServiceSearchForm', vendorIdCombobox.getComboText(), vendorIdCombobox.getSelectedValue());
+            vendorIdCombobox.setComboText(vendorIdCombobox.getSelectedText());
+        });
+        vendorIdCombobox.DOMelem_input.onfocus = function(event) {
+            if (isManuallySeleted == 1) {
+                vendorIdCombobox.openSelect();
+                isManuallySeleted = 0;
+            }
+        }
+        vendorIdCombobox.setComboValue("");
+
+        var customerIdCombobox = dhtmlXComboFromSelect("customerIdComboboxPopup");
         customerIdCombobox.enableFilteringMode(true);
         customerIdCombobox.attachEvent("onSelectionChange", function() {
-            setVendorSelectedForm('reportTransportServiceSearchForm', customerIdCombobox.getComboText(), customerIdCombobox.getSelectedValue());
+            setCustomerSelectedForm('reportTransportServiceSearchForm', customerIdCombobox.getComboText(), customerIdCombobox.getSelectedValue());
         });
         customerIdCombobox.attachEvent("onBlur", function() {
-            setVendorSelectedForm('reportTransportServiceSearchForm', customerIdCombobox.getComboText(), customerIdCombobox.getSelectedValue());
+            setCustomerSelectedForm('reportTransportServiceSearchForm', customerIdCombobox.getComboText(), customerIdCombobox.getSelectedValue());
             customerIdCombobox.setComboText(customerIdCombobox.getSelectedText());
         });
         customerIdCombobox.DOMelem_input.onfocus = function(event) {
@@ -10753,6 +10828,23 @@ function showTransportServiceReportPanel() {
             }
         }
         customerIdCombobox.setComboValue("");
+
+        var transporterIdCombobox = dhtmlXComboFromSelect("transporterIdComboboxPopup");
+        transporterIdCombobox.enableFilteringMode(true);
+        transporterIdCombobox.attachEvent("onSelectionChange", function() {
+            setTransporterSelectedForm('reportTransportServiceSearchForm', transporterIdCombobox.getComboText(), transporterIdCombobox.getSelectedValue());
+        });
+        transporterIdCombobox.attachEvent("onBlur", function() {
+            setTransporterSelectedForm('reportTransportServiceSearchForm', transporterIdCombobox.getComboText(), transporterIdCombobox.getSelectedValue());
+            transporterIdCombobox.setComboText(transporterIdCombobox.getSelectedText());
+        });
+        transporterIdCombobox.DOMelem_input.onfocus = function(event) {
+            if (isManuallySeleted == 1) {
+                transporterIdCombobox.openSelect();
+                isManuallySeleted = 0;
+            }
+        }
+        transporterIdCombobox.setComboValue("");
     });
 }
 function printTransportServiceReport(fromDate, toDate) {
@@ -10779,6 +10871,8 @@ function printTransportServiceReport(fromDate, toDate) {
         url += "&toDate=" + toDate;
     list = null;
     url += "&vendorId=" + document.forms['reportTransportServiceSearchForm'].vendorSelectedHidden.value;
+    url += "&customerId=" + document.forms['reportTransportServiceSearchForm'].customerSelectedHidden.value;
+    url += "&transporterId=" + document.forms['reportTransportServiceSearchForm'].transporterSelectedHidden.value;
     callServer(url);
     return false;
 }
@@ -10875,7 +10969,7 @@ function getVendorCustomer(id, handle) {
     callAjax(url, null, null, function(data) {
         showPopupForm(data);
         document.getElementById('callbackFunc').value = handle;
-        
+
         window.dhx_globalImgPath = "js/dhtmlx/combo/imgs/";
         // ============================
         var customerIdCombobox = dhtmlXComboFromSelect("customerIdCombobox");
@@ -10928,5 +11022,231 @@ function delVendorCustomer() {
         loadVendorCustomerPanel();
         prepareHidePopup('dynamicFieldFormshowHelpHideDiv');
     });
+    return false;
+}
+function createLpgImportAuto(lpgSaleId, kind) {
+    if (scriptFunction == "createLpgImportAuto")
+        return false;
+    scriptFunction = "createLpgImportAuto";
+    callAjaxCheckError("createLpgImportAuto.do?lpgSaleId=" + lpgSaleId + "&kind=" + kind, null, null, function(data) {
+        scriptFunction = "";
+        prepareHidePopup('lpgSaleFormshowHelpHideDiv');
+    });
+    return false;
+}
+function setTransporterSelectedForm(form, text, value) {
+    if (value == null) {
+        if (text != "")
+            value = "-1";
+        else
+            value = "0";
+    }
+    document.forms[form].transporterSelectedHidden.value = value;
+}
+function loadDebtAdjustmentPanel() {
+    callAjax("getDebtAdjustmentPanel.do", null, null, function(data) {
+        clearContent();
+        setAjaxData(data, "contentDiv");
+        var myCalendar = new dhtmlXCalendarObject(["fromDate", "toDate"]);
+        myCalendar.setSkin('dhx_web');
+        var currentTime = getCurrentDate();
+        document.forms['debtAdjustmentSearchForm'].fromDate.value = currentTime;
+        document.forms['debtAdjustmentSearchForm'].toDate.value = currentTime;
+        myCalendar.setDateFormat("%d/%m/%Y");
+        loadDebtAdjustmentList(currentTime, currentTime);
+    });
+    return false;
+}
+function loadDebtAdjustmentList(fromDate, toDate) {
+    var mygrid = new dhtmlXGridObject('debtAdjustmentList');
+    mygrid.setImagePath("js/dhtmlx/grid/imgs/");
+    mygrid.setHeader("S\u1ED1 phi\u1EBFu,Ng\u00E0y,Nh\u00E0 cung c\u1EA5p,Kh\u00E1ch h\u00E0ng,S\u1ED1 ti\u1EC1n,Ghi ch\u00FA");
+    mygrid.attachHeader("#text_filter,#text_filter,#text_filter,#text_filter,#text_filter,#text_filter");
+    mygrid.setInitWidths("150,200,200,200,200,*");
+    mygrid.setColTypes("link,ro,ro,ro,ro,ro");
+    mygrid.setColSorting("str,str,str,str,str,str");
+    mygrid.setSkin("light");
+    var height = contentHeight - 210;
+    mygrid.al(true, height); //enableAutoHeight
+    mygrid.enablePaging(true, 15, 3, "recinfoArea");
+    mygrid.setPagingSkin("toolbar", "dhx_skyblue");
+    mygrid.init();
+    var url = "getDebtAdjustmentList.do?t=1";
+    if (fromDate != null)
+        url += "&fromDate=" + fromDate;
+    if (toDate != null)
+        url += "&toDate=" + toDate;
+    callAjax(url, null, null, function(data) {
+        mygrid.parse(data);
+    });
+    return false;
+}
+function getDebtAdjustment(id, handle) {
+    popupName = 'TH\u00D4NG TIN \u0110I\u1EC0U CH\u1EC8NH C\u00D4NG N\u1EE2';
+    var url = 'debtAdjustmentForm.do';
+    if (id != 0)
+        url += '?debtAdjustmentId=' + id
+    callAjax(url, null, null, function(data) {
+        showPopupForm(data);
+        document.getElementById('callbackFunc').value = handle;
+        document.forms['debtAdjustmentForm'].amount.focus();
+        tryNumberFormatCurrentcy(document.forms['debtAdjustmentForm'].amount, "VND");
+        if (id == 0) {
+            var currentDate = getCurrentDate();
+            document.forms['debtAdjustmentForm'].createdDate.value = currentDate;
+        }
+        var myCalendar = new dhtmlXCalendarObject(["debtAdjustmentDate"]);
+        myCalendar.setSkin('dhx_web');
+        myCalendar.setDateFormat("%d/%m/%Y");
+
+        window.dhx_globalImgPath = "js/dhtmlx/combo/imgs/";
+
+        var vendorIdCombobox = dhtmlXComboFromSelect("vendorIdComboboxPopup");
+        vendorIdCombobox.enableFilteringMode(true);
+        vendorIdCombobox.attachEvent("onSelectionChange", function() {
+            setVendorSelectedForm('debtAdjustmentForm', vendorIdCombobox.getComboText(), vendorIdCombobox.getSelectedValue());
+        });
+        vendorIdCombobox.attachEvent("onBlur", function() {
+            setVendorSelectedForm('debtAdjustmentForm', vendorIdCombobox.getComboText(), vendorIdCombobox.getSelectedValue());
+            vendorIdCombobox.setComboText(vendorIdCombobox.getSelectedText());
+        });
+        vendorIdCombobox.DOMelem_input.onfocus = function(event) {
+            if (isManuallySeleted == 1) {
+                vendorIdCombobox.openSelect();
+                isManuallySeleted = 0;
+            }
+        }
+        vendorIdCombobox.setComboValue("");
+
+        var customerIdCombobox = dhtmlXComboFromSelect("customerIdComboboxPopup");
+        customerIdCombobox.enableFilteringMode(true);
+        customerIdCombobox.attachEvent("onSelectionChange", function() {
+            setCustomerSelectedForm('debtAdjustmentForm', customerIdCombobox.getComboText(), customerIdCombobox.getSelectedValue());
+        });
+        customerIdCombobox.attachEvent("onBlur", function() {
+            setCustomerSelectedForm('debtAdjustmentForm', customerIdCombobox.getComboText(), customerIdCombobox.getSelectedValue());
+            customerIdCombobox.setComboText(customerIdCombobox.getSelectedText());
+        });
+        customerIdCombobox.DOMelem_input.onfocus = function(event) {
+            if (isManuallySeleted == 1) {
+                customerIdCombobox.openSelect();
+                isManuallySeleted = 0;
+            }
+        }
+        customerIdCombobox.setComboValue("");
+
+        if (id == 0) {
+            vendorIdCombobox.setComboValue("");
+            customerIdCombobox.setComboValue("");
+        } else {
+            var vendorId = document.forms['debtAdjustmentForm'].vendorId.value;
+            if (vendorId != 0) {
+                var ind = vendorIdCombobox.getIndexByValue(vendorId);
+                vendorIdCombobox.selectOption(ind);
+            } else {
+                vendorIdCombobox.unSelectOption();
+                vendorIdCombobox.setComboValue("");
+            }
+
+            var customerId = document.forms['debtAdjustmentForm'].customerId.value;
+            if (customerId != 0) {
+                var ind = customerIdCombobox.getIndexByValue(customerId);
+                customerIdCombobox.selectOption(ind);
+            } else {
+                customerIdCombobox.unSelectOption();
+                customerIdCombobox.setComboValue("");
+            }
+        }
+    });
+}
+function saveDebtAdjustment() {
+    if (scriptFunction == "saveDebtAdjustment")
+        return false;
+    var field = document.forms['debtAdjustmentForm'].amount;
+    if (field.value == '') {
+        alert("Vui l\u00F2ng nh\u1EADp s\u1ED1 ti\u1EC1n");
+        field.focus();
+        field = null;
+        return false;
+    }
+    field = null;
+    reformatNumberMoney(document.forms['debtAdjustmentForm'].amount);
+    document.forms['debtAdjustmentForm'].vendorId.value = document.forms['debtAdjustmentForm'].vendorSelectedHidden.value;
+    document.forms['debtAdjustmentForm'].customerId.value = document.forms['debtAdjustmentForm'].customerSelectedHidden.value;
+    scriptFunction = "saveDebtAdjustment";
+    callAjaxCheckError("addDebtAdjustment.do", null, document.forms['debtAdjustmentForm'], function(data) {
+        scriptFunction = "";
+        var handle = document.getElementById('callbackFunc').value;
+        if (confirm('B\u1EA1n c\u00F3 mu\u1ED1n nh\u1EADp ti\u1EBFp th\u00F4ng tin kh\u00E1c ?'))
+            getDebtAdjustment(0, handle);
+        else if (handle != '')
+            eval(handle + "()");
+        prepareHidePopup('debtAdjustmentFormshowHelpHideDiv');
+    });
+    return false;
+}
+function delDebtAdjustment() {
+    callAjaxCheckError('delDebtAdjustment.do?debtAdjustmentId=' + document.forms['debtAdjustmentForm'].id.value, null, null, function() {
+        loadDebtAdjustmentPanel();
+        prepareHidePopup('debtAdjustmentFormshowHelpHideDiv');
+    });
+    return false;
+}
+function showCompareLPGVendorCustomerReportPanel() {
+    popupName = 'Bi\u00EAn b\u1EA3n \u0111\u1ED1i chi\u1EBFu c\u00F4ng n\u1EE3 NCC - KH';
+    var url = 'getCompareLPGVendorCustomerReportPanel.do';
+    callAjax(url, null, null, function(data) {
+        showPopupForm(data);
+        var myCalendar = new dhtmlXCalendarObject(["fromDate", "toDate"]);
+        myCalendar.setSkin('dhx_web');
+        var currentTime = getCurrentDate();
+        document.forms['reportCompareLPGVendorCustomerSearchForm'].fromDate.value = currentTime;
+        document.forms['reportCompareLPGVendorCustomerSearchForm'].toDate.value = currentTime;
+        myCalendar.setDateFormat("%d/%m/%Y");
+        // ============================
+        window.dhx_globalImgPath = "js/dhtmlx/combo/imgs/";
+        var customerIdCombobox = dhtmlXComboFromSelect("customerIdComboboxPopup");
+        customerIdCombobox.enableFilteringMode(true);
+        customerIdCombobox.attachEvent("onSelectionChange", function() {
+            setCustomerSelectedForm('reportCompareLPGVendorCustomerSearchForm', customerIdCombobox.getComboText(), customerIdCombobox.getSelectedValue());
+        });
+        customerIdCombobox.attachEvent("onBlur", function() {
+            setCustomerSelectedForm('reportCompareLPGVendorCustomerSearchForm', customerIdCombobox.getComboText(), customerIdCombobox.getSelectedValue());
+            customerIdCombobox.setComboText(customerIdCombobox.getSelectedText());
+        });
+        customerIdCombobox.DOMelem_input.onfocus = function(event) {
+            if (isManuallySeleted == 1) {
+                customerIdCombobox.openSelect();
+                isManuallySeleted = 0;
+            }
+        }
+        customerIdCombobox.setComboValue("");
+    });
+}
+function printComapreLPGVendorCustomerReport(fromDate, toDate) {
+    var list = document.getElementById("reportCompareLPGVendorCustomerSearchFormTime");
+    if (list == null || list.selectedIndex == -1)
+        return false;
+    if (list.selectedIndex == 1) {
+        fromDate = "01/" + fromDate;
+        var ind = toDate.indexOf("/");
+        var month = toDate.substring(0, ind);
+        var year = toDate.substring(ind + 1);
+        toDate = month + "/01/" + year;
+        var d = new Date(toDate);
+        var lastDay = new Date(d.getFullYear(), d.getMonth() + 1, 0).getDate();
+        toDate = lastDay + "/" + month + "/" + year;
+    } else if (list.selectedIndex == 2) {
+        fromDate = "01/01/" + fromDate;
+        toDate = "31/12/" + toDate;
+    }
+    var url = "reportCompareLPGVendorCustomerPrint.do?temp=1";
+    if (fromDate !== null)
+        url += "&fromDate=" + fromDate;
+    if (toDate !== null)
+        url += "&toDate=" + toDate;
+    list = null;
+    url += "&vendorCustomerId=" + document.forms['reportCompareLPGVendorCustomerSearchForm'].customerSelectedHidden.value;
+    callServer(url);
     return false;
 }

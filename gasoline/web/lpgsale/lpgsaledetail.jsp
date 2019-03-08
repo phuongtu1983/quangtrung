@@ -18,27 +18,30 @@
                         </tr>
                         <tr>
                             <td height="30" style="padding-right: 20px"><bean:message key="customer.title"/></td>
-                            <td>
-                                <select style="width: 195px;" name="customerIdCombobox" id="customerIdCombobox">
+                            <td colspan="3">
+                                <select style="width: 560px;" name="customerIdCombobox" id="customerIdCombobox">
                                     <logic:iterate id="customer_iter" name="<%=Constants.CUSTOMER_LIST%>">
                                         <option  value="${customer_iter.id}">${customer_iter.name}</option>
                                     </logic:iterate>
                                 </select>
                             </td>
-                            <td style="padding-right: 20px;padding-left: 10px"><bean:message key="lpgSale.detail.kind"/></td>
+                        </tr>
+                        <tr>
+                            <td height="30" style="padding-right: 20px"><bean:message key="lpgSale.detail.kind"/></td>
                             <td>
                                 <html:select property="kind" name="<%=Constants.LPG_SALE%>" style="width:195px">
                                     <html:options collection="<%=Constants.LPG_SALE_KIND_LIST%>" property="value" labelProperty="label"/>
                                 </html:select>
+                                
                             </td>
+                            <td style="padding-right: 20px;padding-left: 10px"><bean:message key="quantity.title"/></td>
+                            <td><html:text property="quantity" size="30" name="<%=Constants.LPG_SALE%>" onblur="return lpgSaleCaculateAmount();" onkeypress="return readonlyFloat(event);"/></td>
                         </tr>
                         <tr>
-                            <td height="30" style="padding-right: 20px"><bean:message key="quantity.title"/></td>
-                            <td>
-                                <html:text property="quantity" size="30" name="<%=Constants.LPG_SALE%>" onblur="return lpgSaleCaculateAmount();" onkeypress="return readonlyFloat(event);"/>
-                            </td>
-                            <td style="padding-right: 20px;padding-left: 10px"><bean:message key="price.title"/></td>
+                            <td height="30" style="padding-right: 20px"><bean:message key="price.title"/></td>
                             <td><html:text property="price" size="30" name="<%=Constants.LPG_SALE%>" onblur="return lpgSaleCaculateAmount();" onkeypress="return readonlyFloat(event);"/></td>
+                            <td style="padding-right: 20px;padding-left: 10px"><bean:message key="lpgSale.detail.priceTransport"/></td>
+                            <td><html:text property="priceTransport" size="30" name="<%=Constants.LPG_SALE%>" onblur="return lpgSaleCaculateAmount();" onkeypress="return readonlyFloat(event);"/></td>
                         </tr>
                         <tr>
                             <td height="30" style="padding-right: 20px"><bean:message key="rate.title"/></td>
@@ -60,7 +63,6 @@
                                 <html:select property="accountId" name="<%=Constants.LPG_SALE%>" style="width:195px">
                                     <html:options collection="<%=Constants.ACCOUNT_LIST%>" property="id" labelProperty="number"/>
                                 </html:select>
-
                             </td>
                         </tr>
                         <tr>
@@ -96,6 +98,14 @@
                                 <button class="i_trashcan icon small red" onclick="return delLpgSale();"><bean:message key="message.del"/></button>
                                 <%}%>
                             </logic:equal>
+                            <%if (PermissionUtil.hasPermission(request, PermissionUtil.OPERATION_ADD, PermissionUtil.PER_LPG_IMPORT)) {%> 
+                            <logic:equal name="<%=Constants.LPG_SALE%>" property="kind" value="2">
+                                <button class="i_bended_arrow_left icon small blue" onclick="return createLpgImportAuto(<bean:write name="<%=Constants.LPG_SALE%>" property="id"/>, <bean:write name="<%=Constants.LPG_SALE%>" property="kind"/>);"><bean:message key="lpgSale.detail.lpgImport"/></button>
+                            </logic:equal>
+                            <logic:equal name="<%=Constants.LPG_SALE%>" property="kind" value="3">
+                                <button class="i_bended_arrow_left icon small blue" onclick="return createLpgImportAuto(<bean:write name="<%=Constants.LPG_SALE%>" property="id"/>, <bean:write name="<%=Constants.LPG_SALE%>" property="kind"/>);"><bean:message key="lpgSale.detail.lpgImport"/></button>
+                            </logic:equal>
+                            <%}%>
                         </logic:notEqual>
                         <button class="i_access_denied icon small yellow" onclick="return prepareHidePopup('lpgSaleFormshowHelpHideDiv');"><bean:message key="message.close"/></button>
                 </td>

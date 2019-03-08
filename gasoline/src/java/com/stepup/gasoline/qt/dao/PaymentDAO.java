@@ -8,11 +8,13 @@ package com.stepup.gasoline.qt.dao;
 import com.stepup.core.database.DBUtil;
 import com.stepup.core.database.SPUtil;
 import com.stepup.core.util.DateUtil;
+import com.stepup.gasoline.qt.bean.DebtAdjustmentBean;
 import com.stepup.gasoline.qt.bean.DebtRetailBean;
 import com.stepup.gasoline.qt.bean.DebtVendorBean;
 import com.stepup.gasoline.qt.bean.DebtWholesaleBean;
 import com.stepup.gasoline.qt.bean.ExpenseBean;
 import com.stepup.gasoline.qt.bean.IncomeBean;
+import com.stepup.gasoline.qt.debtadjustment.DebtAdjustmentFormBean;
 import com.stepup.gasoline.qt.debtretail.DebtRetailFormBean;
 import com.stepup.gasoline.qt.debtvendor.DebtVendorFormBean;
 import com.stepup.gasoline.qt.debtwholesale.DebtWholesaleFormBean;
@@ -478,6 +480,7 @@ public class PaymentDAO extends BasicDAO {
                 bean.setAccountId(rs.getInt("account_id"));
                 bean.setCanEdit(rs.getInt("can_edit"));
                 bean.setNote(rs.getString("note"));
+                bean.setKind(rs.getInt("kind"));
                 return bean;
             }
         } catch (SQLException sqle) {
@@ -505,7 +508,7 @@ public class PaymentDAO extends BasicDAO {
             } else {
                 createdDate = bean.getCreatedDate();
             }
-            String sql = "{call insertDebtWholesale(?,?,?,?,?,?,?,?)}";
+            String sql = "{call insertDebtWholesale(?,?,?,?,?,?,?,?,?)}";
             spUtil = new SPUtil(sql);
             if (spUtil != null) {
                 spUtil.getCallableStatement().setString("_code", bean.getCode());
@@ -515,6 +518,7 @@ public class PaymentDAO extends BasicDAO {
                 spUtil.getCallableStatement().setInt("_account_id", bean.getAccountId());
                 spUtil.getCallableStatement().setString("_note", bean.getNote());
                 spUtil.getCallableStatement().setInt("_created_employee_id", bean.getCreatedEmployeeId());
+                spUtil.getCallableStatement().setInt("_kind", bean.getKind());
                 spUtil.getCallableStatement().registerOutParameter("_id", Types.INTEGER);
                 spUtil.execute();
                 result = spUtil.getCallableStatement().getInt("_id");
@@ -547,7 +551,7 @@ public class PaymentDAO extends BasicDAO {
             } else {
                 createdDate = bean.getCreatedDate();
             }
-            String sql = "{call updateDebtWholesale(?,?,?,?,?,?)}";
+            String sql = "{call updateDebtWholesale(?,?,?,?,?,?,?)}";
             spUtil = new SPUtil(sql);
             if (spUtil != null) {
                 spUtil.getCallableStatement().setInt("_id", bean.getId());
@@ -556,6 +560,7 @@ public class PaymentDAO extends BasicDAO {
                 spUtil.getCallableStatement().setDouble("_paid", bean.getPaid());
                 spUtil.getCallableStatement().setInt("_account_id", bean.getAccountId());
                 spUtil.getCallableStatement().setString("_note", bean.getNote());
+                spUtil.getCallableStatement().setInt("_kind", bean.getKind());
                 spUtil.execute();
             }
         } catch (SQLException sqle) {
@@ -1014,6 +1019,204 @@ public class PaymentDAO extends BasicDAO {
         SPUtil spUtil = null;
         try {
             String sql = "{call deleteExpense(?)}";
+            spUtil = new SPUtil(sql);
+            if (spUtil != null) {
+                spUtil.getCallableStatement().setInt("_id", id);
+                spUtil.execute();
+            }
+        } catch (Exception ex) {
+            throw new Exception(ex.getMessage());
+        } finally {
+            try {
+                if (spUtil != null) {
+                    spUtil.closeConnection();
+                }
+            } catch (Exception e) {
+                throw new Exception(e.getMessage());
+            }
+        }
+    }
+
+    public ArrayList searchDebtAdjustment(String fromDate, String endDate, String organizationIds) throws Exception {
+        SPUtil spUtil = null;
+        ArrayList list = new ArrayList();
+        ResultSet rs = null;
+        try {
+            String sql = "{call searchDebtAdjustment(?,?,?)}";
+            if (GenericValidator.isBlankOrNull(fromDate)) {
+                fromDate = DateUtil.today("dd/MM/yyyy");
+            }
+            if (GenericValidator.isBlankOrNull(endDate)) {
+                endDate = this.START_DATE;
+            }
+            spUtil = new SPUtil(sql);
+            if (spUtil != null) {
+                spUtil.getCallableStatement().setString("_start_date", fromDate);
+                spUtil.getCallableStatement().setString("_end_date", endDate);
+                spUtil.getCallableStatement().setString("_organization_ids", organizationIds);
+                rs = spUtil.executeQuery();
+                if (rs != null) {
+                    DebtAdjustmentFormBean bean = null;
+                    while (rs.next()) {
+                        bean = new DebtAdjustmentFormBean();
+                        bean.setId(rs.getInt("id"));
+                        bean.setCode(rs.getString("code"));
+                        bean.setCreatedDate(DateUtil.formatDate(rs.getDate("created_date"), "dd/MM/yyyy"));
+                        bean.setAmount(rs.getDouble("amount"));
+                        bean.setNote(rs.getString("note"));
+                        bean.setVendorName(rs.getString("vendorName"));
+                        bean.setCustomerName(rs.getString("customerName"));
+                        list.add(bean);
+                    }
+                }
+            }
+        } catch (SQLException sqle) {
+            throw new Exception(sqle.getMessage());
+        } catch (Exception ex) {
+            throw new Exception(ex.getMessage());
+        } finally {
+            try {
+                if (spUtil != null) {
+                    spUtil.closeConnection();
+                }
+                if (rs != null) {
+                    rs.close();
+                    rs = null;
+                }
+            } catch (Exception e) {
+                throw new Exception(e.getMessage());
+            }
+        }
+        return list;
+    }
+
+    public DebtAdjustmentBean getDebtAdjustment(int id) throws Exception {
+        ResultSet rs = null;
+        String sql = "select *, IF(DATEDIFF(SYSDATE(),created_date)=0,1,0) as can_edit from debt_adjustment where id=" + id;
+        try {
+            rs = DBUtil.executeQuery(sql);
+            while (rs.next()) {
+                DebtAdjustmentBean bean = new DebtAdjustmentBean();
+                bean.setId(rs.getInt("id"));
+                bean.setCode(rs.getString("code"));
+                bean.setCreatedDate(DateUtil.formatDate(rs.getDate("created_date"), "dd/MM/yyyy"));
+                bean.setAmount(rs.getDouble("amount"));
+                bean.setNote(rs.getString("note"));
+                bean.setVendorId(rs.getInt("vendor_id"));
+                bean.setCustomerId(rs.getInt("customer_id"));
+                bean.setKind(rs.getInt("kind"));
+                bean.setCanEdit(rs.getInt("can_edit"));
+                return bean;
+            }
+        } catch (SQLException sqle) {
+            throw new Exception(sqle.getMessage());
+        } catch (Exception ex) {
+            throw new Exception(ex.getMessage());
+        } finally {
+            if (rs != null) {
+                DBUtil.closeConnection(rs);
+            }
+        }
+        return null;
+    }
+
+    public int insertDebtAdjustment(DebtAdjustmentBean bean) throws Exception {
+        if (bean == null) {
+            return 0;
+        }
+        int result = 0;
+        SPUtil spUtil = null;
+        try {
+            String createdDate = "";
+            if (GenericValidator.isBlankOrNull(bean.getCreatedDate())) {
+                createdDate = "null";
+            } else {
+                createdDate = bean.getCreatedDate();
+            }
+            String sql = "{call insertDebtAdjustment(?,?,?,?,?,?,?,?,?)}";
+            spUtil = new SPUtil(sql);
+            if (spUtil != null) {
+                spUtil.getCallableStatement().setString("_code", bean.getCode());
+                spUtil.getCallableStatement().setString("_created_date", createdDate);
+                spUtil.getCallableStatement().setDouble("_amount", bean.getAmount());
+                spUtil.getCallableStatement().setInt("_vendor_id", bean.getVendorId());
+                spUtil.getCallableStatement().setInt("_customer_id", bean.getCustomerId());
+                spUtil.getCallableStatement().setInt("_kind", bean.getKind());
+                spUtil.getCallableStatement().setString("_note", bean.getNote());
+                spUtil.getCallableStatement().setInt("_created_employee_id", bean.getCreatedEmployeeId());
+                spUtil.getCallableStatement().registerOutParameter("_id", Types.INTEGER);
+                spUtil.execute();
+                result = spUtil.getCallableStatement().getInt("_id");
+            }
+        } catch (SQLException sqle) {
+            throw new Exception(sqle.getMessage());
+        } catch (Exception ex) {
+            throw new Exception(ex.getMessage());
+        } finally {
+            try {
+                if (spUtil != null) {
+                    spUtil.closeConnection();
+                }
+            } catch (Exception e) {
+                throw new Exception(e.getMessage());
+            }
+        }
+        return result;
+    }
+
+    public void updateDebtAdjustment(DebtAdjustmentBean bean) throws Exception {
+        if (bean == null) {
+            return;
+        }
+        SPUtil spUtil = null;
+        try {
+            String createdDate = "";
+            if (GenericValidator.isBlankOrNull(bean.getCreatedDate())) {
+                createdDate = "null";
+            } else {
+                createdDate = bean.getCreatedDate();
+            }
+            String sql = "{call updateDebtAdjustment(?,?,?,?,?,?,?)}";
+            spUtil = new SPUtil(sql);
+            if (spUtil != null) {
+                spUtil.getCallableStatement().setInt("_id", bean.getId());
+                spUtil.getCallableStatement().setString("_created_date", createdDate);
+                spUtil.getCallableStatement().setDouble("_amount", bean.getAmount());
+                spUtil.getCallableStatement().setInt("_vendor_id", bean.getVendorId());
+                spUtil.getCallableStatement().setInt("_customer_id", bean.getCustomerId());
+                spUtil.getCallableStatement().setInt("_kind", bean.getKind());
+                spUtil.getCallableStatement().setString("_note", bean.getNote());
+                spUtil.execute();
+            }
+        } catch (SQLException sqle) {
+            throw new Exception(sqle.getMessage());
+        } catch (Exception ex) {
+            throw new Exception(ex.getMessage());
+        } finally {
+            try {
+                if (spUtil != null) {
+                    spUtil.closeConnection();
+                }
+            } catch (Exception e) {
+                throw new Exception(e.getMessage());
+            }
+        }
+    }
+
+    public String getNextDebtAdjustmentNumber(String prefix, int length) throws Exception {
+        String result = "";
+        try {
+            result = this.getNextNumber(prefix, length, "code", "debt_adjustment");
+        } catch (Exception ex) {
+            throw new Exception(ex.getMessage());
+        }
+        return result;
+    }
+
+    public void deleteDebtAdjustment(int id) throws Exception {
+        SPUtil spUtil = null;
+        try {
+            String sql = "{call deleteDebtAdjustment(?)}";
             spUtil = new SPUtil(sql);
             if (spUtil != null) {
                 spUtil.getCallableStatement().setInt("_id", id);

@@ -39,10 +39,12 @@ public class PrintTransportServiceReportAction extends BaseAction {
             String fromDate = request.getParameter("fromDate");
             String toDate = request.getParameter("toDate");
             int vendorId = NumberUtil.parseInt(request.getParameter("vendorId"), 0);
+            int customerId = NumberUtil.parseInt(request.getParameter("customerId"), 0);
+            int transporterId = NumberUtil.parseInt(request.getParameter("transporterId"), 0);
             String organizationIds = QTUtil.getOrganizationManageds(request.getSession());
             ArrayList list = null;
             TransportServiceReportOutBean outBean = new TransportServiceReportOutBean();
-            list = printTransportServiceReport(fromDate, toDate, vendorId, organizationIds, outBean);
+            list = printTransportServiceReport(QTUtil.getOrganizationId(request.getSession()), fromDate, toDate, vendorId, customerId, transporterId, organizationIds, outBean);
             beans.put("qtrp_companyName", outBean.getCompanyName());
             beans.put("qtrp_companyAddress", outBean.getCompanyAddress());
             beans.put("qtrp_companyPhone", outBean.getCompanyPhone());
@@ -78,7 +80,7 @@ public class PrintTransportServiceReportAction extends BaseAction {
         return true;
     }
 
-    private ArrayList printTransportServiceReport(String fromDate, String toDate, int vendorId, String organizationIds, TransportServiceReportOutBean outBean) {
+    private ArrayList printTransportServiceReport(int organizationId, String fromDate, String toDate, int vendorId, int customerId, int transporterId, String organizationIds, TransportServiceReportOutBean outBean) {
         ArrayList list = null;
         try {
             OrganizationDAO organizationDAO = new OrganizationDAO();
@@ -89,17 +91,8 @@ public class PrintTransportServiceReportAction extends BaseAction {
                 outBean.setCompanyName(orgBean.getName());
                 outBean.setCompanyPhone(orgBean.getPhone());
             }
-            VendorDAO vendorDAO = new VendorDAO();
-            VendorFormBean vendorBean = vendorDAO.getVendor(vendorId);
-            if (vendorBean != null) {
-                outBean.setCustomerAddress(vendorBean.getAddress());
-                outBean.setCustomerName(vendorBean.getName());
-                outBean.setCustomerTax(vendorBean.getTax());
-                outBean.setCustomerPhone(vendorBean.getPhone());
-                outBean.setCustomerFax(vendorBean.getFax());
-            }
             ReportDAO reportDAO = new ReportDAO();
-            list = reportDAO.getTransportServiceReport(fromDate, toDate, organizationIds, vendorId, outBean);
+            list = reportDAO.getTransportServiceReport(organizationId, fromDate, toDate, organizationIds, vendorId, customerId, transporterId, outBean);
         } catch (Exception ex) {
         }
         return list;

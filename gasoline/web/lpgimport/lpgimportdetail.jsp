@@ -32,9 +32,9 @@
                         </tr>
                         <tr>
                             <td height="30" style="padding-right: 20px"><bean:message key="lpgImport.detail.paperQuantity"/></td>
-                            <td><html:text property="paperQuantity" size="30" name="<%=Constants.LPG_IMPORT%>" onblur="tryNumberFormatCurrentcy(this);" onkeypress="return readonlyFloat(event);"/></td>
+                            <td><html:text property="paperQuantity" size="30" name="<%=Constants.LPG_IMPORT%>" onblur="return lpgImportCaculateAmount();" onkeypress="return readonlyFloat(event);"/></td>
                             <td style="padding-right: 20px;padding-left: 10px"><bean:message key="lpgImport.detail.actualQuantity"/></td>
-                            <td><html:text property="actualQuantity" size="30" name="<%=Constants.LPG_IMPORT%>" onblur="return lpgImportCaculateAmount();" onkeypress="return readonlyFloat(event);"/></td>
+                            <td><html:text property="actualQuantity" size="30" name="<%=Constants.LPG_IMPORT%>" onblur="tryNumberFormatCurrentcy(this);" onkeypress="return readonlyFloat(event);"/></td>
                         </tr>
                         <tr>
                             <td height="30" style="padding-right: 20px"><bean:message key="price.title"/></td>
@@ -50,7 +50,8 @@
                         </tr>
                         <tr>
                             <td height="30" style="padding-right: 20px"><bean:message key="amount.invoice.title"/></td>
-                            <td><html:text property="invoiceTotal" size="30" name="<%=Constants.LPG_IMPORT%>" onblur="return formInvoiceTotalChanged('lpgImportForm');" onkeypress="return readonlyFloat(event);"/></td>
+                            <!--return formInvoiceTotalChanged('lpgImportForm');-->
+                            <td><html:text property="invoiceTotal" size="30" name="<%=Constants.LPG_IMPORT%>" onblur="tryNumberFormatCurrentcy(this);" onkeypress="return readonlyFloat(event);"/></td>
                             <td style="padding-right: 20px;padding-left: 10px"><bean:message key="paid.title"/></td>
                             <td><html:text property="paid" size="30" name="<%=Constants.LPG_IMPORT%>" onblur="return lpgImportPaidChanged();" onkeypress="return readonlyFloat(event);"/></td>
                         </tr>

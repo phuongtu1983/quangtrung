@@ -215,7 +215,7 @@ public class GenerateMenu {
                     buffTemp.append("<item id=\"vendororganizationlist\" text=\"").append(QTUtil.getBundleString("vendorOrganization.list.title")).append("\"/>");//list vendor
                     buffTemp.append("<item id=\"vendororganizationadd\" text=\"").append(QTUtil.getBundleString("vendorOrganization.detail.add.title")).append("\"/>");//add vendor
                     buffTemp.append("</item>");//end vendorOrganizations
-                    
+
                     buffTemp.append("<item id=\"vendorcustomers\" complex=\"true\" text=\"").append(QTUtil.getBundleString("vendorCustomer.title")).append("\">");//start vendorCustomers
                     buffTemp.append("<item id=\"vendorcustomerlist\" text=\"").append(QTUtil.getBundleString("vendorCustomer.list.title")).append("\"/>");//list vendor
                     buffTemp.append("<item id=\"vendorcustomeradd\" text=\"").append(QTUtil.getBundleString("vendorCustomer.detail.add.title")).append("\"/>");//add vendor
@@ -720,7 +720,7 @@ public class GenerateMenu {
             buffTemp = new StringBuilder();
             if (isHasPermission(PermissionUtil.OPERATION_LIST + "," + PermissionUtil.OPERATION_ADD,
                     PermissionUtil.PER_CONTRACT + "," + PermissionUtil.PER_DEBT_VENDOR + "," + PermissionUtil.PER_DEBT_WHOLESALE + "," + PermissionUtil.PER_INCOME
-                    + "," + PermissionUtil.PER_EXPENSE)) {
+                    + "," + PermissionUtil.PER_EXPENSE + "," + PermissionUtil.PER_DEBT_ADJUSTMENT)) {
                 if (isHasPermission(PermissionUtil.OPERATION_LIST + "," + PermissionUtil.OPERATION_ADD, PermissionUtil.PER_CONTRACT)) {
                     buffTemp.append("<item id=\"contracts\" complex=\"true\" text=\"").append(QTUtil.getBundleString("contract.title")).append("\">");
                     if (isHasPermission(PermissionUtil.OPERATION_LIST, PermissionUtil.PER_CONTRACT)) {
@@ -781,6 +781,16 @@ public class GenerateMenu {
                     }
                     buffTemp.append("</item>");
                 }
+                if (isHasPermission(PermissionUtil.OPERATION_LIST + "," + PermissionUtil.OPERATION_ADD, PermissionUtil.PER_DEBT_ADJUSTMENT)) {
+                    buffTemp.append("<item id=\"debtadjustments\" complex=\"true\" text=\"").append(QTUtil.getBundleString("debtAdjustment.title")).append("\">");
+                    if (isHasPermission(PermissionUtil.OPERATION_LIST, PermissionUtil.PER_DEBT_ADJUSTMENT)) {
+                        buffTemp.append("<item id=\"debtadjustmentlist\" text=\"").append(QTUtil.getBundleString("debtAdjustment.list.title")).append("\"/>");
+                    }
+                    if (isHasPermission(PermissionUtil.OPERATION_ADD, PermissionUtil.PER_DEBT_ADJUSTMENT)) {
+                        buffTemp.append("<item id=\"debtadjustmentadd\" text=\"").append(QTUtil.getBundleString("debtAdjustment.detail.add.title")).append("\"/>");
+                    }
+                    buffTemp.append("</item>");
+                }
             }
             if (buffTemp.length() > 0) {
                 buff.append("<item id=\"paymentfunction\" complex=\"true\" text=\"").append(QTUtil.getBundleString("menu.function.payment.title")).append("\">");//start function payment
@@ -796,7 +806,8 @@ public class GenerateMenu {
                     + "," + PermissionUtil.PER_REPORT_CASH_BOOK + "," + PermissionUtil.PER_REPORT_GAS_COMMISION + "," + PermissionUtil.PER_REPORT_GAS_EMPLOYEE_COMMISION
                     + "," + PermissionUtil.PER_REPORT_PETRO_IMPORT + "," + PermissionUtil.PER_REPORT_PETRO_SALE + "," + PermissionUtil.PER_REPORT_PETRO_STOCK
                     + "," + PermissionUtil.PER_REPORT_PETRO_STOCK_STORE + "," + PermissionUtil.PER_REPORT_COMPARE_GOOD + "," + PermissionUtil.PER_REPORT_TRANSPORT_FEE
-                    + "," + PermissionUtil.PER_REPORT_VEHICLE_FEE + "," + PermissionUtil.PER_REPORT_VEHICLE_SALE + "," + PermissionUtil.PER_REPORT_COMPARE_LPG
+                    + "," + PermissionUtil.PER_REPORT_VEHICLE_FEE + "," + PermissionUtil.PER_REPORT_VEHICLE_SALE + "," + PermissionUtil.PER_REPORT_COMPARE_LPG 
+                            + "," + PermissionUtil.PER_REPORT_COMPARE_LPG_VENDOR_CUSTOMER
                     + "," + PermissionUtil.PER_REPORT_LPG_SALE + "," + PermissionUtil.PER_REPORT_TRANSPORT_SERVICE + "," + PermissionUtil.PER_REPORT_COMPARE_GAS)) {
                 if (isHasPermission(PermissionUtil.OPERATION_PRINT + "", PermissionUtil.PER_REPORT_LPG_IMPORT + "," + PermissionUtil.PER_REPORT_VENDOR_DEBT
                         + "," + PermissionUtil.PER_REPORT_LPG_STOCK + "," + PermissionUtil.PER_REPORT_LPG_STOCK_SUM + "," + PermissionUtil.PER_REPORT_LPG_STOCK_SUM_ORGANIZATION
@@ -806,7 +817,7 @@ public class GenerateMenu {
                         + "," + PermissionUtil.PER_REPORT_PETRO_SALE + "," + PermissionUtil.PER_REPORT_PETRO_STOCK + "," + PermissionUtil.PER_REPORT_PETRO_STOCK_STORE
                         + "," + PermissionUtil.PER_REPORT_COMPARE_GOOD + "," + PermissionUtil.PER_REPORT_TRANSPORT_FEE + "," + PermissionUtil.PER_REPORT_VEHICLE_FEE
                         + "," + PermissionUtil.PER_REPORT_VEHICLE_SALE + "," + PermissionUtil.PER_REPORT_COMPARE_LPG + "," + PermissionUtil.PER_REPORT_LPG_SALE
-                        + "," + PermissionUtil.PER_REPORT_TRANSPORT_SERVICE + "," + PermissionUtil.PER_REPORT_COMPARE_GAS)) {
+                        + "," + PermissionUtil.PER_REPORT_TRANSPORT_SERVICE + "," + PermissionUtil.PER_REPORT_COMPARE_GAS + "," + PermissionUtil.PER_REPORT_COMPARE_LPG_VENDOR_CUSTOMER)) {
                     buffTemp.append("<item id=\"reportgas\" complex=\"true\" text=\"").append(QTUtil.getBundleString("report.gas.title")).append("\">");
                     if (isHasPermission(PermissionUtil.OPERATION_PRINT, PermissionUtil.PER_REPORT_LPG_IMPORT)) {
                         buffTemp.append("<item id=\"reportlpgimport\" text=\"").append(QTUtil.getBundleString("report.lpgImport.title")).append("\"/>");
@@ -834,6 +845,9 @@ public class GenerateMenu {
                     }
                     if (isHasPermission(PermissionUtil.OPERATION_PRINT, PermissionUtil.PER_REPORT_COMPARE_LPG)) {
                         buffTemp.append("<item id=\"reportcomparelpg\" text=\"").append(QTUtil.getBundleString("report.compareLPG.title")).append("\"/>");
+                    }
+                    if (isHasPermission(PermissionUtil.OPERATION_PRINT, PermissionUtil.PER_REPORT_COMPARE_LPG_VENDOR_CUSTOMER)) {
+                        buffTemp.append("<item id=\"reportcomparelpgvendorcustomer\" text=\"").append(QTUtil.getBundleString("report.compareLPGVendorCustomer.title")).append("\"/>");
                     }
                     if (isHasPermission(PermissionUtil.OPERATION_PRINT, PermissionUtil.PER_REPORT_COMPARE_GAS)) {
                         buffTemp.append("<item id=\"reportcomparegas\" text=\"").append(QTUtil.getBundleString("report.compareGas.title")).append("\"/>");

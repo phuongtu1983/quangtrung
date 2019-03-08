@@ -9,7 +9,7 @@
     <data-sources>
         <data-source type="org.apache.tomcat.dbcp.dbcp.BasicDataSource" key="DBQTGA" id="DBQTGA">
             <set-property property="driverClassName" value="com.mysql.jdbc.Driver" />                        
-            <set-property property="url" value="jdbc:mysql://localhost:3306/gasoline?useUnicode=true&amp;characterEncoding=utf-8&amp;zeroDateTimeBehavior=convertToNull" />
+            <set-property property="url" value="jdbc:mysql://localhost:3306/gasoline_local?useUnicode=true&amp;characterEncoding=utf-8&amp;zeroDateTimeBehavior=convertToNull" />
             <set-property property="username" value="root" />
             <set-property property="password" value="828006" />
             <set-property property="maxActive" value="1000" />
@@ -97,6 +97,7 @@
         <form-bean name="debtWholesaleForm" type="com.stepup.gasoline.qt.debtwholesale.DebtWholesaleFormBean"/>
         <form-bean name="incomeForm" type="com.stepup.gasoline.qt.income.IncomeFormBean"/>
         <form-bean name="expenseForm" type="com.stepup.gasoline.qt.expense.ExpenseFormBean"/>
+        <form-bean name="debtAdjustmentForm" type="com.stepup.gasoline.qt.debtadjustment.DebtAdjustmentFormBean"/>
     </form-beans>
     
     <global-exceptions>
@@ -557,6 +558,8 @@
         <action path="/addLpgSale" name ="lpgSaleForm" scope="request" type="com.stepup.gasoline.qt.lpgsale.AddLpgSaleAction" input="/lpgSaleForm.do">
         </action>
         <action path="/delLpgSale" type="com.stepup.gasoline.qt.lpgsale.DeleteLpgSaleAction" scope="request" validate="false" >
+        </action>
+        <action path="/createLpgImportAuto" type="com.stepup.gasoline.qt.lpgsale.CreateLpgImportAutoAction" scope="request" validate="false">
         </action>
         <!-- end lpg sale -->
         <!-- start fraction -->
@@ -1181,6 +1184,11 @@
         </action>
         <action path="/reportCompareGasPrint" type="com.stepup.gasoline.qt.report.comparegas.PrintCompareGasReportAction" scope="request" validate="false" >
         </action>
+        <action path="/getCompareLPGVendorCustomerReportPanel" type="com.stepup.gasoline.qt.report.comparelpgvendorcustomer.CompareLPGVendorCustomerReportPanelFormAction" scope="request" validate="false">
+            <forward name="success" path="/report/comparelpgvendorcustomer/panel.jsp" />
+        </action>
+        <action path="/reportCompareLPGVendorCustomerPrint" type="com.stepup.gasoline.qt.report.comparelpgvendorcustomer.PrintCompareLPGVendorCustomerReportAction" scope="request" validate="false" >
+        </action>
         <!-- end report -->
         <!-- start good -->
         <action path="/getGoodPanel" type="com.stepup.gasoline.qt.common.BaseStatusFormAction" scope="request" validate="false">
@@ -1249,6 +1257,20 @@
         <action path="/delTransportService" type="com.stepup.gasoline.qt.transportservice.DeleteTransportServiceAction" scope="request" validate="false" >
         </action>
         <!-- end transport service -->
+        <!-- start debtadjustment -->
+        <action path="/getDebtAdjustmentPanel" type="com.stepup.gasoline.qt.common.BaseStatusFormAction" scope="request" validate="false">
+            <forward name="success" path="/debtadjustment/debtadjustmentpanel.jsp" />
+        </action>
+        <action path="/getDebtAdjustmentList" type="com.stepup.gasoline.qt.debtadjustment.GetDebtAdjustmentListAction" scope="request" validate="false" >
+        </action>
+        <action path="/debtAdjustmentForm" type="com.stepup.gasoline.qt.debtadjustment.DebtAdjustmentFormAction" scope="request" validate="false">
+            <forward name="success" path="/debtadjustment/debtadjustmentdetail.jsp" />
+        </action>
+        <action path="/addDebtAdjustment" name ="debtAdjustmentForm" scope="request" type="com.stepup.gasoline.qt.debtadjustment.AddDebtAdjustmentAction" input="/debtAdjustmentForm.do">
+        </action>
+        <action path="/delDebtAdjustment" type="com.stepup.gasoline.qt.debtadjustment.DeleteDebtAdjustmentAction" scope="request" validate="false" >
+        </action>
+        <!-- end debtadjustment -->
     </action-mappings>
     
     <controller processorClass="org.apache.struts.tiles.TilesRequestProcessor"/>

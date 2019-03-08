@@ -72,7 +72,7 @@ public class VendorOrganizationFormAction extends SpineAction {
                 arrVendor = new ArrayList();
                 VendorFormBean vendorBean = new VendorFormBean();
                 vendorBean.setId(formBean.getVendorId());
-                vendorBean.setName(formBean.getVendorName() + " - " + formBean.getOrganizationName());
+                vendorBean.setName(formBean.getVendorName() + " - " + formBean.getLinkOrganizationName());
                 arrVendor.add(vendorBean);
             }
         } catch (Exception ex) {

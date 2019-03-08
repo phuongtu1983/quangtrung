@@ -47,6 +47,7 @@ public class AddLpgSaleAction extends SpineAction {
         bean.setCustomerId(formBean.getCustomerId());
         bean.setQuantity(formBean.getQuantity());
         bean.setPrice(formBean.getPrice());
+        bean.setPriceTransport(formBean.getPriceTransport());
         bean.setVat(formBean.getVat());
         bean.setRate(formBean.getRate());
         bean.setTotal(formBean.getTotal());

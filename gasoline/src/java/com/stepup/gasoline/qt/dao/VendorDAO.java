@@ -31,12 +31,14 @@ public class VendorDAO extends BasicDAO {
 
     public ArrayList getVendors(int status, String organizationIds) throws Exception {
         ResultSet rs = null;
-        String sql = "select v.*, o.name as organization_name from vendor as v, organization as o where v.organization_id=o.id and o.status=" + EmployeeBean.STATUS_ACTIVE;
+        String sql = "select v.*, o.name as organization_name"
+                + " from vendor_organization AS vo, vendor AS v, organization AS o"
+                + " where vo.vendor_id=v.id AND vo.organization_id=o.id and o.status=" + EmployeeBean.STATUS_ACTIVE;
         if (status != 0) {
             sql += " and v.status=" + status;
         }
         if (!organizationIds.isEmpty()) {
-            sql += " and v.organization_id in(" + organizationIds + ")";
+            sql += " and vo.organization_id in(" + organizationIds + ")";
         }
         sql += " order by v.name desc";
         ArrayList vendorList = new ArrayList();
@@ -87,8 +89,11 @@ public class VendorDAO extends BasicDAO {
             case VendorBean.IS_GOOD:
                 sql += " and v.is_good=1";
                 break;
+            case VendorBean.IS_TRANSPORT:
+                sql += " and v.is_transport=1";
+                break;
             default:
-                sql += " and (v.is_gas=1 or v.is_petro=1 or v.is_good=1)";
+                sql += " and (v.is_gas=1 or v.is_petro=1 or v.is_good=1 or v.is_transport=1)";
                 break;
         }
         sql += " order by v.name desc";
@@ -140,8 +145,11 @@ public class VendorDAO extends BasicDAO {
             case VendorBean.IS_GOOD:
                 sql += " and v.is_good=1";
                 break;
+            case VendorBean.IS_TRANSPORT:
+                sql += " and v.is_transport=1";
+                break;
             default:
-                sql += " and v.is_gas=1 and v.is_petro=1 and v.is_good=1";
+                sql += " and v.is_gas=1 and v.is_petro=1 and v.is_good=1 and v.is_transport=1";
                 break;
         }
         sql += " order by v.name desc";
@@ -197,6 +205,7 @@ public class VendorDAO extends BasicDAO {
                 vendor.setIsGas(rs.getInt("is_gas") == 1 ? true : false);
                 vendor.setIsPetro(rs.getInt("is_petro") == 1 ? true : false);
                 vendor.setIsGood(rs.getInt("is_good") == 1 ? true : false);
+                vendor.setIsTransport(rs.getInt("is_transport") == 1 ? true : false);
                 if (vendor.getStatus() == EmployeeBean.STATUS_ACTIVE) {
                     vendor.setStatusName(QTUtil.getBundleString("employee.detail.status.active"));
                 } else if (vendor.getStatus() == EmployeeBean.STATUS_INACTIVE) {
@@ -233,6 +242,7 @@ public class VendorDAO extends BasicDAO {
                 vendor.setIsGas(rs.getInt("is_gas") == 1 ? true : false);
                 vendor.setIsPetro(rs.getInt("is_petro") == 1 ? true : false);
                 vendor.setIsGood(rs.getInt("is_good") == 1 ? true : false);
+                vendor.setIsTransport(rs.getInt("is_transport") == 1 ? true : false);
                 return vendor;
             }
         } catch (SQLException sqle) {
@@ -254,7 +264,7 @@ public class VendorDAO extends BasicDAO {
         int result = 0;
         SPUtil spUtil = null;
         try {
-            String sql = "{call insertVendor(?,?,?,?,?,?,?,?,?,?,?,?,?,?)}";
+            String sql = "{call insertVendor(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)}";
             spUtil = new SPUtil(sql);
             if (spUtil != null) {
                 spUtil.getCallableStatement().setString("_name", bean.getName());
@@ -270,6 +280,7 @@ public class VendorDAO extends BasicDAO {
                 spUtil.getCallableStatement().setInt("_is_gas", bean.getIsGas());
                 spUtil.getCallableStatement().setInt("_is_petro", bean.getIsPetro());
                 spUtil.getCallableStatement().setInt("_is_good", bean.getIsGood());
+                spUtil.getCallableStatement().setInt("_is_transport", bean.getIsTransport());
                 spUtil.getCallableStatement().registerOutParameter("_id", Types.INTEGER);
                 spUtil.execute();
                 result = spUtil.getCallableStatement().getInt("_id");
@@ -296,7 +307,7 @@ public class VendorDAO extends BasicDAO {
         }
         SPUtil spUtil = null;
         try {
-            String sql = "{call updateVendor(?,?,?,?,?,?,?,?,?,?,?,?,?,?)}";
+            String sql = "{call updateVendor(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)}";
             spUtil = new SPUtil(sql);
             if (spUtil != null) {
                 spUtil.getCallableStatement().setString("_name", bean.getName());
@@ -312,6 +323,7 @@ public class VendorDAO extends BasicDAO {
                 spUtil.getCallableStatement().setInt("_is_gas", bean.getIsGas());
                 spUtil.getCallableStatement().setInt("_is_petro", bean.getIsPetro());
                 spUtil.getCallableStatement().setInt("_is_good", bean.getIsGood());
+                spUtil.getCallableStatement().setInt("_is_transport", bean.getIsTransport());
                 spUtil.getCallableStatement().setInt("_id", bean.getId());
                 spUtil.execute();
             }
@@ -388,8 +400,9 @@ public class VendorDAO extends BasicDAO {
 
     public VendorOrganizationFormBean getVendorOrganization(int vendorOrganizationId) throws Exception {
         ResultSet rs = null;
-        String sql = "select vo.*, v.name as vendor_name, o.name as organization_name "
-                + " from vendor_organization as vo, vendor as v, organization as o where vo.vendor_id=v.id and vo.organization_id=o.id and vo.id=" + vendorOrganizationId;
+        String sql = "select vo.*, v.name as vendor_name, o.name as organization_name, ot.name as link_organization_name"
+                + " from vendor_organization as vo, vendor as v, organization as o, organization AS ot"
+                + " where vo.vendor_id=v.id and vo.organization_id=o.id and v.organization_id=ot.id and vo.id=" + vendorOrganizationId;
         try {
             rs = DBUtil.executeQuery(sql);
             while (rs.next()) {
@@ -397,6 +410,7 @@ public class VendorDAO extends BasicDAO {
                 vendor.setId(rs.getInt("id"));
                 vendor.setOrganizationId(rs.getInt("organization_id"));
                 vendor.setOrganizationName(rs.getString("organization_name"));
+                vendor.setLinkOrganizationName(rs.getString("link_organization_name"));
                 vendor.setVendorId(rs.getInt("vendor_id"));
                 vendor.setVendorName(rs.getString("vendor_name"));
                 return vendor;
@@ -662,7 +676,7 @@ public class VendorDAO extends BasicDAO {
                 + " WHERE vc.vendor_id=v.id AND vc.customer_id=c.id"
                 + " and v.status=" + EmployeeBean.STATUS_ACTIVE + " and c.status=" + EmployeeBean.STATUS_ACTIVE;
         if (!organizationIds.isEmpty()) {
-            sql += " and v.organization_id IN (" + organizationIds + ")";
+            sql += " and vc.organization_id IN (" + organizationIds + ")";
         }
         sql += " order by v.name desc";
         ArrayList vendorList = new ArrayList();
@@ -691,6 +705,31 @@ public class VendorDAO extends BasicDAO {
     public VendorCustomerFormBean getVendorCustomer(int vendorCustomerId) throws Exception {
         ResultSet rs = null;
         String sql = "select vc.* from vendor_customer as vc, vendor as v, customer as c where vc.vendor_id=v.id and vc.customer_id=c.id and vc.id=" + vendorCustomerId;
+        try {
+            rs = DBUtil.executeQuery(sql);
+            while (rs.next()) {
+                VendorCustomerFormBean vendor = new VendorCustomerFormBean();
+                vendor.setId(rs.getInt("id"));
+                vendor.setOrganizationId(rs.getInt("organization_id"));
+                vendor.setVendorId(rs.getInt("vendor_id"));
+                vendor.setCustomerId(rs.getInt("customer_id"));
+                return vendor;
+            }
+        } catch (SQLException sqle) {
+            throw new Exception(sqle.getMessage());
+        } catch (Exception ex) {
+            throw new Exception(ex.getMessage());
+        } finally {
+            if (rs != null) {
+                DBUtil.closeConnection(rs);
+            }
+        }
+        return null;
+    }
+
+    public VendorCustomerFormBean getVendorCustomerByCustomer(int customerId) throws Exception {
+        ResultSet rs = null;
+        String sql = "select * from vendor_customer where customer_id=" + customerId;
         try {
             rs = DBUtil.executeQuery(sql);
             while (rs.next()) {

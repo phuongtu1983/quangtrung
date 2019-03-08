@@ -17,6 +17,7 @@ public class LpgSaleBean {
     private int customerId;
     private int quantity;
     private double price;
+    private double priceTransport;
     private double vat;
     private double rate;
     private double total;
@@ -167,6 +168,16 @@ public class LpgSaleBean {
     public void setKind(int kind) {
         this.kind = kind;
     }
-    public static int KIND_SALE = 1;
-    public static int KIND_RETURN = 2;
+
+    public double getPriceTransport() {
+        return priceTransport;
+    }
+
+    public void setPriceTransport(double priceTransport) {
+        this.priceTransport = priceTransport;
+    }
+
+    public static final int KIND_SALE = 1;
+    public static final int KIND_RETURN = 2;
+    public static final int KIND_LEND = 3;
 }

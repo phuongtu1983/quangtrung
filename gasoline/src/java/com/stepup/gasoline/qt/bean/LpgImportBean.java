@@ -188,5 +188,6 @@ public class LpgImportBean {
 
     public static int KIND_BUY = 1;
     public static int KIND_BORROW = 2;
+    public static int KIND_BACK = 3;
 
 }

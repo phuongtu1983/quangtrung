@@ -36,6 +36,7 @@ public class GetLpgImportListAction extends BaseAction {
                     LpgImportFormBean bean = (LpgImportFormBean) list.get(i);
                     buff.append("<row id=\"").append(bean.getId()).append("\">");
                     buff.append("<cell>").append(bean.getCode()).append("^javascript:getLpgImport(").append(bean.getId()).append(",\"loadLpgImportPanel\")^_self</cell>");
+                    buff.append("<cell>").append(bean.getImportDate()).append("</cell>");
                     buff.append("<cell>").append(bean.getVendorName()).append("</cell>");
                     buff.append("<cell>").append(NumberUtil.formatMoneyDefault(bean.getActualQuantity(), "VND")).append("</cell>");
                     buff.append("<cell>").append(NumberUtil.formatMoneyDefault(bean.getPrice(), "VND")).append("</cell>");

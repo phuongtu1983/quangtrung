@@ -17,6 +17,7 @@ public class LpgSaleReportBean {
     private String customerName;
     private double quantity;
     private double price;
+    private double priceTransport;
     private double vat;
     private double rate;
     private double amount;
@@ -109,6 +110,14 @@ public class LpgSaleReportBean {
 
     public void setAccount(String account) {
         this.account = account;
+    }
+
+    public double getPriceTransport() {
+        return priceTransport;
+    }
+
+    public void setPriceTransport(double priceTransport) {
+        this.priceTransport = priceTransport;
     }
 
 }

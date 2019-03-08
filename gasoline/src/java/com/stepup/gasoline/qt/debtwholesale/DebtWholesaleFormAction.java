@@ -6,7 +6,7 @@ package com.stepup.gasoline.qt.debtwholesale;
 
 import com.stepup.core.util.DateUtil;
 import com.stepup.core.util.NumberUtil;
-import com.stepup.gasoline.qt.bean.CustomerBean;
+import com.stepup.gasoline.qt.bean.DebtVendorBean;
 import com.stepup.gasoline.qt.bean.DebtWholesaleBean;
 import com.stepup.gasoline.qt.core.SpineAction;
 import com.stepup.gasoline.qt.dao.AccountDAO;
@@ -21,6 +21,7 @@ import javax.servlet.http.HttpServletResponse;
 import org.apache.commons.validator.GenericValidator;
 import org.apache.struts.action.ActionForm;
 import org.apache.struts.action.ActionMapping;
+import org.apache.struts.util.LabelValueBean;
 
 /**
  *
@@ -89,6 +90,18 @@ public class DebtWholesaleFormAction extends SpineAction {
             arrAccount = new ArrayList();
         }
         request.setAttribute(Constants.ACCOUNT_LIST, arrAccount);
+
+        ArrayList arrKind = new ArrayList();
+        LabelValueBean value;
+        value = new LabelValueBean();
+        value.setLabel(QTUtil.getBundleString("debtVendor.detail.kind.good.title"));
+        value.setValue(DebtVendorBean.KIND_GOOD + "");
+        arrKind.add(value);
+        value = new LabelValueBean();
+        value.setLabel(QTUtil.getBundleString("debtVendor.detail.kind.transport.title"));
+        value.setValue(DebtVendorBean.KIND_TRANSPORT + "");
+        arrKind.add(value);
+        request.setAttribute(Constants.KIND_LIST, arrKind);
 
         return true;
     }

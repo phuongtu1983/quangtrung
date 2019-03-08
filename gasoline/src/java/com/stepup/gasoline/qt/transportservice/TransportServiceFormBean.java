@@ -17,15 +17,21 @@ public class TransportServiceFormBean extends org.apache.struts.action.ActionFor
     private String createdDate;
     private int vendorId;
     private String vendorName;
-    private String customer;
+    private int customerId;
+    private String customerName;
+    private int transporterId;
+    private String transporterName;
     private double inQuantity;
     private double outQuantity;
     private double price;
+    private double priceDiff;
     private double rate;
+    private double rateDiff;
     private double amount;
     private double paid;
     private double debt;
     private int accountId;
+    private int chargeFor;
     private String note;
 
     public TransportServiceFormBean() {
@@ -36,16 +42,24 @@ public class TransportServiceFormBean extends org.apache.struts.action.ActionFor
         this.code = bean.getCode();
         this.createdDate = bean.getCreatedDate();
         this.vendorId = bean.getVendorId();
-        this.customer = bean.getCustomer();
+        this.customerId = bean.getCustomerId();
+        this.transporterId = bean.getTransporterId();
         this.inQuantity = bean.getInQuantity();
         this.outQuantity = bean.getOutQuantity();
         this.price = bean.getPrice();
+        this.priceDiff = bean.getPriceDiff();
         this.paid = bean.getPaid();
         this.debt = bean.getDebt();
         this.rate = bean.getRate();
+        this.rateDiff = bean.getRateDiff();
         this.amount = bean.getAmount();
         this.accountId = bean.getAccountId();
         this.note = bean.getNote();
+        if (bean.getChargeForVendor() == 1) {
+            this.chargeFor = CHARGE_FOR_VENDOR;
+        } else {
+            this.chargeFor = CHARGE_FOR_CUSTOMER;
+        }
     }
 
     public String getCode() {
@@ -160,12 +174,62 @@ public class TransportServiceFormBean extends org.apache.struts.action.ActionFor
         this.note = note;
     }
 
-    public String getCustomer() {
-        return customer;
+    public int getCustomerId() {
+        return customerId;
     }
 
-    public void setCustomer(String customer) {
-        this.customer = customer;
+    public void setCustomerId(int customerId) {
+        this.customerId = customerId;
     }
 
+    public String getCustomerName() {
+        return customerName;
+    }
+
+    public void setCustomerName(String customerName) {
+        this.customerName = customerName;
+    }
+
+    public double getPriceDiff() {
+        return priceDiff;
+    }
+
+    public void setPriceDiff(double priceDiff) {
+        this.priceDiff = priceDiff;
+    }
+
+    public int getChargeFor() {
+        return chargeFor;
+    }
+
+    public void setChargeFor(int chargeFor) {
+        this.chargeFor = chargeFor;
+    }
+
+    public int getTransporterId() {
+        return transporterId;
+    }
+
+    public void setTransporterId(int transporterId) {
+        this.transporterId = transporterId;
+    }
+
+    public String getTransporterName() {
+        return transporterName;
+    }
+
+    public void setTransporterName(String transporterName) {
+        this.transporterName = transporterName;
+    }
+
+    public double getRateDiff() {
+        return rateDiff;
+    }
+
+    public void setRateDiff(double rateDiff) {
+        this.rateDiff = rateDiff;
+    }
+
+    public static final int CHARGE_FOR_VENDOR = 1;
+    public static final int CHARGE_FOR_CUSTOMER = 2;
 }

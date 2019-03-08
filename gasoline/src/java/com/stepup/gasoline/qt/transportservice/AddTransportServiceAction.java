@@ -44,14 +44,22 @@ public class AddTransportServiceAction extends SpineAction {
         bean.setCode(formBean.getCode());
         bean.setCreatedDate(formBean.getCreatedDate());
         bean.setVendorId(formBean.getVendorId());
-        bean.setCustomer(formBean.getCustomer());
+        bean.setCustomerId(formBean.getCustomerId());
+        bean.setTransporterId(formBean.getTransporterId());
+        if (formBean.getChargeFor() == formBean.CHARGE_FOR_VENDOR) {
+            bean.setChargeForVendor(1);
+        } else {
+            bean.setChargeForCustomer(1);
+        }
         bean.setInQuantity(formBean.getInQuantity());
         bean.setOutQuantity(formBean.getOutQuantity());
         bean.setPrice(formBean.getPrice());
+        bean.setPriceDiff(formBean.getPriceDiff());
         bean.setAmount(formBean.getAmount());
         bean.setPaid(formBean.getPaid());
         bean.setDebt(formBean.getDebt());
         bean.setRate(formBean.getRate());
+        bean.setRateDiff(formBean.getRateDiff());
         bean.setAccountId(formBean.getAccountId());
         bean.setNote(formBean.getNote());
         bean.setCreatedEmployeeId(QTUtil.getEmployeeId(request.getSession()));

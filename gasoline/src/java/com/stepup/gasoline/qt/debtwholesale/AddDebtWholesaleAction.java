@@ -48,6 +48,7 @@ public class AddDebtWholesaleAction extends SpineAction {
         bean.setCustomerId(formBean.getCustomerId());
         bean.setNote(formBean.getNote());
         bean.setCreatedEmployeeId(QTUtil.getEmployeeId(request.getSession()));
+        bean.setKind(formBean.getKind());
         try {
             if (bNew) {
                 paymentDAO.insertDebtWholesale(bean);
