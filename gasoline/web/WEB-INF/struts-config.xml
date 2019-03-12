@@ -9,7 +9,7 @@
     <data-sources>
         <data-source type="org.apache.tomcat.dbcp.dbcp.BasicDataSource" key="DBQTGA" id="DBQTGA">
             <set-property property="driverClassName" value="com.mysql.jdbc.Driver" />                        
-            <set-property property="url" value="jdbc:mysql://localhost:3306/gasoline_local?useUnicode=true&amp;characterEncoding=utf-8&amp;zeroDateTimeBehavior=convertToNull" />
+            <set-property property="url" value="jdbc:mysql://localhost:3306/gasoline?useUnicode=true&amp;characterEncoding=utf-8&amp;zeroDateTimeBehavior=convertToNull" />
             <set-property property="username" value="root" />
             <set-property property="password" value="828006" />
             <set-property property="maxActive" value="1000" />

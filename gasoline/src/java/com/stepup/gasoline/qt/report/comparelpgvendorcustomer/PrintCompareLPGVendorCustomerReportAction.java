@@ -41,7 +41,6 @@ public class PrintCompareLPGVendorCustomerReportAction extends BaseAction {
             CompareLPGVendorCustomerReportOutBean outBean = new CompareLPGVendorCustomerReportOutBean();
             list = printCompareLPGVendorCustomerReport(fromDate, toDate, organizationIds, vendorCustomerId, outBean);
             beans.put("qtrp_vendorName", outBean.getVendorName());
-            beans.put("qtrp_stock", outBean.getStock());
             beans.put("qtrp_openingStock", outBean.getOpeningStock());
             beans.put("qtrp_endingStock", outBean.getEndingStock());
             String templateFileName = request.getSession().getServletContext().getRealPath("/templates/doi_chieu_ncc_kh.xls");

@@ -153,6 +153,7 @@ public class GasDAO extends BasicDAO {
                 bean.setAccountId(rs.getInt("account_id"));
                 bean.setRouteId(rs.getInt("route_id"));
                 bean.setNote(rs.getString("note"));
+                bean.setLinkLpgCodes(rs.getString("link_lpg_codes"));
                 bean.setCanEdit(rs.getInt("can_edit"));
                 return bean;
             }
@@ -181,7 +182,7 @@ public class GasDAO extends BasicDAO {
             } else {
                 createdDate = bean.getImportDate();
             }
-            String sql = "{call insertLpgImport(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)}";
+            String sql = "{call insertLpgImport(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)}";
             spUtil = new SPUtil(sql);
             if (spUtil != null) {
                 spUtil.getCallableStatement().setString("_code", bean.getCode());
@@ -200,6 +201,7 @@ public class GasDAO extends BasicDAO {
                 spUtil.getCallableStatement().setInt("_account_id", bean.getAccountId());
                 spUtil.getCallableStatement().setInt("_route_id", bean.getRouteId());
                 spUtil.getCallableStatement().setString("_note", bean.getNote());
+                spUtil.getCallableStatement().setString("_link_lpg_codes", bean.getLinkLpgCodes());
                 spUtil.getCallableStatement().setInt("_created_employee_id", bean.getCreatedEmployeeId());
                 spUtil.getCallableStatement().registerOutParameter("_id", Types.INTEGER);
                 spUtil.execute();
@@ -233,7 +235,7 @@ public class GasDAO extends BasicDAO {
             } else {
                 createdDate = bean.getImportDate();
             }
-            String sql = "{call updateLpgImport(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)}";
+            String sql = "{call updateLpgImport(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)}";
             spUtil = new SPUtil(sql);
             if (spUtil != null) {
                 spUtil.getCallableStatement().setInt("_id", bean.getId());
@@ -252,6 +254,7 @@ public class GasDAO extends BasicDAO {
                 spUtil.getCallableStatement().setInt("_account_id", bean.getAccountId());
                 spUtil.getCallableStatement().setInt("_route_id", bean.getRouteId());
                 spUtil.getCallableStatement().setString("_note", bean.getNote());
+                spUtil.getCallableStatement().setString("_link_lpg_codes", bean.getLinkLpgCodes());
                 spUtil.execute();
             }
         } catch (SQLException sqle) {

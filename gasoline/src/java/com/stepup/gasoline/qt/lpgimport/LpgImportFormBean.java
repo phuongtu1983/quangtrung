@@ -30,6 +30,7 @@ public class LpgImportFormBean extends org.apache.struts.action.ActionForm {
     private int accountId;
     private int routeId;
     private String note;
+    private String linkLpgCodes;
 
     public LpgImportFormBean() {
     }
@@ -52,6 +53,7 @@ public class LpgImportFormBean extends org.apache.struts.action.ActionForm {
         this.routeId = bean.getRouteId();
         this.vat = bean.getVat();
         this.invoiceTotal = bean.getInvoiceTotal();
+        this.linkLpgCodes = bean.getLinkLpgCodes();
     }
 
     public String getCode() {
@@ -196,6 +198,14 @@ public class LpgImportFormBean extends org.apache.struts.action.ActionForm {
 
     public void setKind(int kind) {
         this.kind = kind;
+    }
+
+    public String getLinkLpgCodes() {
+        return linkLpgCodes;
+    }
+
+    public void setLinkLpgCodes(String linkLpgCodes) {
+        this.linkLpgCodes = linkLpgCodes;
     }
 
 }

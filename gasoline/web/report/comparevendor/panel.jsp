@@ -36,7 +36,7 @@
             </tr>
             <tr>
                 <td colspan="3" align="center">
-                    <button class="i_printer icon small" onclick="return printComapreReport(document.forms['reportCompareVendorSearchForm'].fromDate.value, document.forms['reportCompareVendorSearchForm'].toDate.value);">In</button>
+                    <button class="i_printer icon small" onclick="return printComapreVendorReport(document.forms['reportCompareVendorSearchForm'].fromDate.value, document.forms['reportCompareVendorSearchForm'].toDate.value);">In</button>
                     <button class="i_access_denied icon small yellow" onclick="return hidePopupForm();"><bean:message key="message.close"/></button>
                 </td>
             </tr>

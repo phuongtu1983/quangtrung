@@ -41,8 +41,8 @@ public class TransportServiceReportPanelFormAction extends SpineAction {
         try {
             String organizationIds = QTUtil.getOrganizationManageds(request.getSession());
             VendorDAO vendorDAO = new VendorDAO();
-            arrVendor = vendorDAO.getVendors(organizationIds, VendorBean.IS_GAS);
-            arrTransporter = vendorDAO.getVendors(organizationIds, VendorBean.IS_TRANSPORT);
+            arrVendor = vendorDAO.getVendors(organizationIds, VendorBean.IS_GAS + "");
+            arrTransporter = vendorDAO.getVendors(organizationIds, VendorBean.IS_TRANSPORT + "");
 
             CustomerDAO customerDAO = new CustomerDAO();
             arrCustomer = customerDAO.getCustomers(organizationIds, VendorBean.IS_GAS);

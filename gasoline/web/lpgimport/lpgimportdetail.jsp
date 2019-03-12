@@ -76,6 +76,10 @@
                             </td>
                         </tr>
                         <tr>
+                            <td height="30" style="padding-right: 20px"><bean:message key="lpgImport.detail.linkLpgCodes"/></td>
+                            <td colspan="3"><html:text property="linkLpgCodes" size="93" name="<%=Constants.LPG_IMPORT%>" /></td>
+                        </tr>
+                        <tr>
                             <td height="30" style="padding-right: 20px"><bean:message key="note.title"/></td>
                             <td colspan="3"><html:text property="note" size="93" name="<%=Constants.LPG_IMPORT%>" /></td>
                         </tr>

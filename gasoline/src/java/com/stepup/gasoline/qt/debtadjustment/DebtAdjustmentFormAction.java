@@ -70,7 +70,7 @@ public class DebtAdjustmentFormAction extends SpineAction {
                 formBean.setCanEdit(1);
             }
         }
-        
+
         request.setAttribute(Constants.DEBT_ADJUSTMENT, formBean);
 
         ArrayList arrVendor = null;
@@ -78,7 +78,7 @@ public class DebtAdjustmentFormAction extends SpineAction {
         try {
             String organizationIds = QTUtil.getOrganizationManageds(request.getSession());
             VendorDAO vendorDAO = new VendorDAO();
-            arrVendor = vendorDAO.getVendors(organizationIds, VendorBean.IS_GAS);
+            arrVendor = vendorDAO.getVendors(organizationIds, VendorBean.IS_GAS + "");
 
             CustomerDAO customerDAO = new CustomerDAO();
             arrCustomer = customerDAO.getCustomers(organizationIds, VendorBean.IS_GAS);

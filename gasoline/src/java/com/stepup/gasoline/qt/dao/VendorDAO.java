@@ -72,30 +72,28 @@ public class VendorDAO extends BasicDAO {
         return vendorList;
     }
 
-    public ArrayList getVendors(String organizationIds, int vendorKind) throws Exception {
+    public ArrayList getVendors(String organizationIds, String vendorKinds) throws Exception {
         ResultSet rs = null;
         String sql = "select v.*, o.name as organization_name from vendor_organization AS vo, vendor as v, organization as o"
                 + " where vo.vendor_id=v.id AND vo.organization_id=o.id and o.status=" + EmployeeBean.STATUS_ACTIVE + " and v.status=" + EmployeeBean.STATUS_ACTIVE;
         if (!StringUtil.isBlankOrNull(organizationIds)) {
             sql += " and vo.organization_id in (" + organizationIds + ")";
         }
-        switch (vendorKind) {
-            case VendorBean.IS_GAS:
-                sql += " and v.is_gas=1";
-                break;
-            case VendorBean.IS_PETRO:
-                sql += " and v.is_petro=1";
-                break;
-            case VendorBean.IS_GOOD:
-                sql += " and v.is_good=1";
-                break;
-            case VendorBean.IS_TRANSPORT:
-                sql += " and v.is_transport=1";
-                break;
-            default:
-                sql += " and (v.is_gas=1 or v.is_petro=1 or v.is_good=1 or v.is_transport=1)";
-                break;
+
+        vendorKinds = "0," + vendorKinds + ",0";
+
+        if (vendorKinds.indexOf("," + VendorBean.IS_GAS + ",") > -1) {
+            sql += " and v.is_gas=1";
+        } else if (vendorKinds.indexOf("," + VendorBean.IS_PETRO + ",") > -1) {
+            sql += " and v.is_petro=1";
+        } else if (vendorKinds.indexOf("," + VendorBean.IS_GOOD + ",") > -1) {
+            sql += " and v.is_good=1";
+        } else if (vendorKinds.indexOf("," + VendorBean.IS_TRANSPORT + ",") > -1) {
+            sql += " and v.is_transport=1";
+        } else {
+            sql += " and (v.is_gas=1 or v.is_petro=1 or v.is_good=1 or v.is_transport=1)";
         }
+
         sql += " order by v.name desc";
         ArrayList vendorList = new ArrayList();
         try {

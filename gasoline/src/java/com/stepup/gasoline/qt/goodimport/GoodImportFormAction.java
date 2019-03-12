@@ -106,7 +106,7 @@ public class GoodImportFormAction extends SpineAction {
         ArrayList arrVendor = null;
         try {
             VendorDAO vendorDAO = new VendorDAO();
-            arrVendor = vendorDAO.getVendors(organizationIds, VendorBean.IS_GOOD);
+            arrVendor = vendorDAO.getVendors(organizationIds, VendorBean.IS_GOOD + "");
         } catch (Exception ex) {
         }
         if (arrVendor == null) {

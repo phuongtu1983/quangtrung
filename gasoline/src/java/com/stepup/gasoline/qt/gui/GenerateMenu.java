@@ -806,8 +806,8 @@ public class GenerateMenu {
                     + "," + PermissionUtil.PER_REPORT_CASH_BOOK + "," + PermissionUtil.PER_REPORT_GAS_COMMISION + "," + PermissionUtil.PER_REPORT_GAS_EMPLOYEE_COMMISION
                     + "," + PermissionUtil.PER_REPORT_PETRO_IMPORT + "," + PermissionUtil.PER_REPORT_PETRO_SALE + "," + PermissionUtil.PER_REPORT_PETRO_STOCK
                     + "," + PermissionUtil.PER_REPORT_PETRO_STOCK_STORE + "," + PermissionUtil.PER_REPORT_COMPARE_GOOD + "," + PermissionUtil.PER_REPORT_TRANSPORT_FEE
-                    + "," + PermissionUtil.PER_REPORT_VEHICLE_FEE + "," + PermissionUtil.PER_REPORT_VEHICLE_SALE + "," + PermissionUtil.PER_REPORT_COMPARE_LPG 
-                            + "," + PermissionUtil.PER_REPORT_COMPARE_LPG_VENDOR_CUSTOMER
+                    + "," + PermissionUtil.PER_REPORT_VEHICLE_FEE + "," + PermissionUtil.PER_REPORT_VEHICLE_SALE + "," + PermissionUtil.PER_REPORT_COMPARE_LPG
+                    + "," + PermissionUtil.PER_REPORT_COMPARE_LPG_VENDOR_CUSTOMER
                     + "," + PermissionUtil.PER_REPORT_LPG_SALE + "," + PermissionUtil.PER_REPORT_TRANSPORT_SERVICE + "," + PermissionUtil.PER_REPORT_COMPARE_GAS)) {
                 if (isHasPermission(PermissionUtil.OPERATION_PRINT + "", PermissionUtil.PER_REPORT_LPG_IMPORT + "," + PermissionUtil.PER_REPORT_VENDOR_DEBT
                         + "," + PermissionUtil.PER_REPORT_LPG_STOCK + "," + PermissionUtil.PER_REPORT_LPG_STOCK_SUM + "," + PermissionUtil.PER_REPORT_LPG_STOCK_SUM_ORGANIZATION
@@ -817,7 +817,8 @@ public class GenerateMenu {
                         + "," + PermissionUtil.PER_REPORT_PETRO_SALE + "," + PermissionUtil.PER_REPORT_PETRO_STOCK + "," + PermissionUtil.PER_REPORT_PETRO_STOCK_STORE
                         + "," + PermissionUtil.PER_REPORT_COMPARE_GOOD + "," + PermissionUtil.PER_REPORT_TRANSPORT_FEE + "," + PermissionUtil.PER_REPORT_VEHICLE_FEE
                         + "," + PermissionUtil.PER_REPORT_VEHICLE_SALE + "," + PermissionUtil.PER_REPORT_COMPARE_LPG + "," + PermissionUtil.PER_REPORT_LPG_SALE
-                        + "," + PermissionUtil.PER_REPORT_TRANSPORT_SERVICE + "," + PermissionUtil.PER_REPORT_COMPARE_GAS + "," + PermissionUtil.PER_REPORT_COMPARE_LPG_VENDOR_CUSTOMER)) {
+                        + "," + PermissionUtil.PER_REPORT_TRANSPORT_SERVICE + "," + PermissionUtil.PER_REPORT_COMPARE_GAS + "," + PermissionUtil.PER_REPORT_COMPARE_LPG_VENDOR_CUSTOMER
+                        + "," + PermissionUtil.PER_REPORT_COMPARE_VENDOR)) {
                     buffTemp.append("<item id=\"reportgas\" complex=\"true\" text=\"").append(QTUtil.getBundleString("report.gas.title")).append("\">");
                     if (isHasPermission(PermissionUtil.OPERATION_PRINT, PermissionUtil.PER_REPORT_LPG_IMPORT)) {
                         buffTemp.append("<item id=\"reportlpgimport\" text=\"").append(QTUtil.getBundleString("report.lpgImport.title")).append("\"/>");

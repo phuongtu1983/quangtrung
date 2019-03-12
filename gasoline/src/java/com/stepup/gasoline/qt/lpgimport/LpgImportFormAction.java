@@ -73,7 +73,7 @@ public class LpgImportFormAction extends SpineAction {
 
         ArrayList arrVendor = null;
         try {
-            arrVendor = vendorDAO.getVendors(organizationIds, VendorBean.IS_GAS);
+            arrVendor = vendorDAO.getVendors(organizationIds, VendorBean.IS_GAS + "");
         } catch (Exception ex) {
         }
         if (arrVendor == null) {

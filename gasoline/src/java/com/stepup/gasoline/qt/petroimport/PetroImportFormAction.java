@@ -108,7 +108,7 @@ public class PetroImportFormAction extends SpineAction {
         ArrayList arrVendor = null;
         try {
             VendorDAO vendorDAO = new VendorDAO();
-            arrVendor = vendorDAO.getVendors(organizationIds, VendorBean.IS_PETRO);
+            arrVendor = vendorDAO.getVendors(organizationIds, VendorBean.IS_PETRO + "");
         } catch (Exception ex) {
         }
         if (arrVendor == null) {

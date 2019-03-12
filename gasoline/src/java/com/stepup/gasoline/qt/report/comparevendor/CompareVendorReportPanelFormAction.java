@@ -38,7 +38,7 @@ public class CompareVendorReportPanelFormAction extends SpineAction {
         try {
             String organizationIds = QTUtil.getOrganizationManageds(request.getSession());
             VendorDAO vendorDAO = new VendorDAO();
-            arrVendor = vendorDAO.getVendors(organizationIds, VendorBean.IS_GAS);
+            arrVendor = vendorDAO.getVendors(organizationIds, VendorBean.IS_GAS + "");
         } catch (Exception ex) {
         }
         if (arrVendor == null) {

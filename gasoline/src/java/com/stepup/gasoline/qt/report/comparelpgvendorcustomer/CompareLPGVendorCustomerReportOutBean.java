@@ -11,18 +11,9 @@ package com.stepup.gasoline.qt.report.comparelpgvendorcustomer;
  */
 public class CompareLPGVendorCustomerReportOutBean {
 
-    private double stock;
     private double openingStock;
     private double endingStock;
     private String vendorName;
-
-    public double getStock() {
-        return stock;
-    }
-
-    public void setStock(double stock) {
-        this.stock = stock;
-    }
 
     public double getOpeningStock() {
         return openingStock;

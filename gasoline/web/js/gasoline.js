@@ -329,6 +329,8 @@ function menuClick(id) {
         showTransportServiceReportPanel();
     else if (id == 'reportcomparegas')
         showCompareGasReportPanel();
+    else if (id == 'reportcomparevendor')
+        showCompareVendorReportPanel();
     else if (id == 'debtadjustmentlist')
         loadDebtAdjustmentPanel();
 }

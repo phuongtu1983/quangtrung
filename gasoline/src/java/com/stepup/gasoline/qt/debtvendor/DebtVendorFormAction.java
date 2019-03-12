@@ -71,7 +71,7 @@ public class DebtVendorFormAction extends SpineAction {
         ArrayList arrVendor = null;
         try {
             VendorDAO vendorDAO = new VendorDAO();
-            arrVendor = vendorDAO.getVendors(organizationIds, 0);
+            arrVendor = vendorDAO.getVendors(organizationIds, "");
         } catch (Exception ex) {
         }
         if (arrVendor == null) {

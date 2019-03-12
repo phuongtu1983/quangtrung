@@ -38,7 +38,7 @@ public class LpgStockSumOrganizationReportPanelFormAction extends SpineAction {
         ArrayList arrVendor = null;
         try {
             VendorDAO vendorDAO = new VendorDAO();
-            arrVendor = vendorDAO.getVendors(organizationIds, VendorBean.IS_GAS);
+            arrVendor = vendorDAO.getVendors(organizationIds, VendorBean.IS_GAS + "");
         } catch (Exception ex) {
         }
         if (arrVendor == null) {

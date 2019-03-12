@@ -841,6 +841,15 @@ public class PermissionFormAction extends SpineAction {
         perBean.setCounter("3.1");
         perBean.setLevel(2);
         perBean.setSharedId(3);
+        perBean.setName(QTUtil.getBundleString("report.compareVendor.title"));
+        perBean.setValue(PermissionUtil.PER_REPORT_COMPARE_VENDOR);
+        perBean.setOperations("," + PermissionUtil.OPERATION_PRINT + ",");
+        arrFun.add(perBean);
+        
+        perBean = new PermissionViewBean();
+        perBean.setCounter("3.1");
+        perBean.setLevel(2);
+        perBean.setSharedId(3);
         perBean.setName(QTUtil.getBundleString("report.compareLPGVendorCustomer.title"));
         perBean.setValue(PermissionUtil.PER_REPORT_COMPARE_LPG_VENDOR_CUSTOMER);
         perBean.setOperations("," + PermissionUtil.OPERATION_PRINT + ",");

@@ -71,7 +71,7 @@ public class TransportServiceFormAction extends SpineAction {
 
         ArrayList arrVendor = null;
         try {
-            arrVendor = vendorDAO.getVendors(organizationIds, VendorBean.IS_GAS);
+            arrVendor = vendorDAO.getVendors(organizationIds, VendorBean.IS_GAS + "");
         } catch (Exception ex) {
         }
         if (arrVendor == null) {
@@ -92,7 +92,7 @@ public class TransportServiceFormAction extends SpineAction {
 
         ArrayList arrTransporter = null;
         try {
-            arrTransporter = vendorDAO.getVendors(organizationIds, VendorBean.IS_TRANSPORT);
+            arrTransporter = vendorDAO.getVendors(organizationIds, VendorBean.IS_TRANSPORT + "");
         } catch (Exception ex) {
         }
         if (arrTransporter == null) {

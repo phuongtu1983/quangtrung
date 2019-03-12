@@ -139,10 +139,10 @@ function readonlyFloat(e) {
         keypressed = window.event.keyCode; //IE
     else
         keypressed = e.which; //NON-IE, Standard
-    if (keypressed < 48 || keypressed > 57) {
+    if (keypressed < 48 || keypressed > 57 || keypressed==45) {
         // //CharCode của 0 là 48 (Theo bảng mã ASCII)
         //CharCode của 9 là 57 (Theo bảng mã ASCII)
-        if (keypressed != 8 && keypressed != 127 && keypressed != 0 && keypressed != 46)
+        if (keypressed != 8 && keypressed != 127 && keypressed != 0 && keypressed != 46 && keypressed != 45)
             return false;//Phím Delete và Phím Back va phim .
 
     } else
@@ -177,7 +177,7 @@ function try2FloatFormatOnKeyUp(obj, e, stillInput) {
         keypressed = window.event.keyCode; //IE
     else
         keypressed = e.which; //NON-IE, Standard
-    if ((keypressed >= 48 && keypressed <= 57) || (keypressed >= 96 && keypressed <= 105)) {
+    if ((keypressed >= 48 && keypressed <= 57) || (keypressed >= 96 && keypressed <= 105) || keypressed==45) {
         if (obj.value == "0.0")
             return;
         tryNumberFormatCurrentcy(obj, "USD", stillInput);

@@ -58,6 +58,7 @@ public class AddLpgImportAction extends SpineAction {
         bean.setAccountId(formBean.getAccountId());
         bean.setRouteId(formBean.getRouteId());
         bean.setNote(formBean.getNote());
+        bean.setLinkLpgCodes(formBean.getLinkLpgCodes());
         bean.setCreatedEmployeeId(QTUtil.getEmployeeId(request.getSession()));
         try {
             if (bNew) {

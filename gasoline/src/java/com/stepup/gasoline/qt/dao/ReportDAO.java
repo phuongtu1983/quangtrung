@@ -2690,7 +2690,9 @@ public class ReportDAO extends BasicDAO {
                         bean.setContent(rs.getString("content"));
                         bean.setNote(rs.getString("note"));
                         bean.setInQuantity(rs.getDouble("in_quantity"));
-                        bean.setOutQuantity(rs.getDouble("out_quantity"));
+                        if ("MUON".equals(rs.getString("content_code"))) {
+                            bean.setOutQuantity(rs.getDouble("link_lpg_quantity") + bean.getInQuantity());
+                        }
                         bean.setTransportQuantity(rs.getDouble("transport_quantity"));
                         bean.setPrice(rs.getDouble("price"));
                         bean.setRate(rs.getDouble("rate"));

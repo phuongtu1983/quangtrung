@@ -29,6 +29,7 @@ public class LpgImportBean {
     private String note;
     private int canEdit;
     private int createdEmployeeId;
+    private String linkLpgCodes;
 
     public LpgImportBean() {
         this.canEdit = 1;
@@ -185,6 +186,16 @@ public class LpgImportBean {
     public void setKind(int kind) {
         this.kind = kind;
     }
+
+    public String getLinkLpgCodes() {
+        return linkLpgCodes;
+    }
+
+    public void setLinkLpgCodes(String linkLpgCodes) {
+        this.linkLpgCodes = linkLpgCodes;
+    }
+
+    
 
     public static int KIND_BUY = 1;
     public static int KIND_BORROW = 2;
