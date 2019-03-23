@@ -90,6 +90,7 @@
         <form-bean name="salePetroForm" type="com.stepup.gasoline.qt.salepetro.SalePetroFormBean"/>
         <form-bean name="saleGoodForm" type="com.stepup.gasoline.qt.salegood.SaleGoodFormBean"/>
         <form-bean name="fixedAssetDepreciationForm" type="com.stepup.gasoline.qt.fixedassetdepreciation.FixedAssetDepreciationFormBean"/>
+        <form-bean name="saleInnerForm" type="com.stepup.gasoline.qt.saleinner.SaleInnerFormBean"/>
         <form-bean name="saleShellForm" type="com.stepup.gasoline.qt.saleshell.SaleShellFormBean"/>
         <form-bean name="debtVendorForm" type="com.stepup.gasoline.qt.debtvendor.DebtVendorFormBean"/>
         <form-bean name="contractForm" type="com.stepup.gasoline.qt.contract.ContractFormBean"/>
@@ -752,6 +753,23 @@
         <action path="/delSalePetro" type="com.stepup.gasoline.qt.salepetro.DeleteSalePetroAction" scope="request" validate="false" >
         </action>
         <!-- end sale petro -->
+        <!-- start sale inner -->
+        <action path="/getSaleInnerPanel" type="com.stepup.gasoline.qt.common.BaseFormAction" scope="request" validate="false">
+            <forward name="success" path="/saleinner/saleinnerpanel.jsp" />
+        </action>
+        <action path="/getSaleInnerList" type="com.stepup.gasoline.qt.saleinner.GetSaleInnerListAction" scope="request" validate="false" >
+        </action>
+        <action path="/saleInnerForm" type="com.stepup.gasoline.qt.saleinner.SaleInnerFormAction" scope="request" validate="false">
+            <forward name="success" path="/saleinner/saleinnerdetail.jsp" />
+        </action>
+        <action path="/addSaleInner" name ="saleInnerForm" scope="request" type="com.stepup.gasoline.qt.saleinner.AddSaleInnerAction" input="/saleInnerForm.do">
+        </action>
+        <action path="/getSaleInnerGood" type="com.stepup.gasoline.qt.saleinner.GetSaleInnerGoodAction" scope="request" validate="false">
+            <forward name="success" path="/saleinner/goods.jsp" />
+        </action>
+        <action path="/delSaleInner" type="com.stepup.gasoline.qt.saleinner.DeleteSaleInnerAction" scope="request" validate="false" >
+        </action>
+        <!-- end sale inner -->
         <!-- start sale shell -->
         <action path="/getSaleShellPanel" type="com.stepup.gasoline.qt.common.BaseFormAction" scope="request" validate="false">
             <forward name="success" path="/saleshell/saleshellpanel.jsp" />

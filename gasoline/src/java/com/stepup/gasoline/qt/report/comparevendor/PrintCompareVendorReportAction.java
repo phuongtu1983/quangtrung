@@ -47,9 +47,8 @@ public class PrintCompareVendorReportAction extends BaseAction {
             beans.put("qtrp_companyPhone", outBean.getCompanyPhone());
             beans.put("qtrp_companyFax", outBean.getCompanyFax());
             beans.put("qtrp_vendorName", outBean.getVendorName());
-//            beans.put("qtrp_vendorAddress", outBean.getVendorAddress());
-//            beans.put("qtrp_vendorTax", outBean.getVendorTax());
-            beans.put("qtrp_openingStockAmount", outBean.getOpeningStockAmount());
+            beans.put("qtrp_openingStock", outBean.getOpeningStockAmount());
+            beans.put("qtrp_endingStock", outBean.getEndingStockAmount());
             String templateFileName = request.getSession().getServletContext().getRealPath("/templates/doi_chieu_ncc.xls");
             beans.put("qtrp_fromDate", fromDate);
             beans.put("qtrp_toDate", toDate);
@@ -85,9 +84,7 @@ public class PrintCompareVendorReportAction extends BaseAction {
             VendorDAO vendorDAO = new VendorDAO();
             VendorFormBean vendorBean = vendorDAO.getVendor(vendorId);
             if (vendorBean != null) {
-//                outBean.setVendorAddress(vendorBean.get());
                 outBean.setVendorName(vendorBean.getName());
-//                outBean.setVendorTax(vendorBean.getTax());
             }
             ReportDAO reportDAO = new ReportDAO();
             list = reportDAO.getCompareVendorReport(fromDate, toDate, organizationIds, vendorId, outBean);

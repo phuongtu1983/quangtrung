@@ -12,13 +12,12 @@ package com.stepup.gasoline.qt.report.comparevendor;
 public class CompareVendorReportOutBean {
 
     private double openingStockAmount;
+    private double endingStockAmount;
     private String companyName;
     private String companyAddress;
     private String companyPhone;
     private String companyFax;
     private String vendorName;
-//    private String vendorAddress;
-//    private String vendorTax;
 
     public double getOpeningStockAmount() {
         return openingStockAmount;
@@ -68,19 +67,12 @@ public class CompareVendorReportOutBean {
         this.vendorName = vendorName;
     }
 
-//    public String getVendorAddress() {
-//        return vendorAddress;
-//    }
-//
-//    public void setVendorAddress(String vendorAddress) {
-//        this.vendorAddress = vendorAddress;
-//    }
-//
-//    public String getVendorTax() {
-//        return vendorTax;
-//    }
-//
-//    public void setVendorTax(String vendorTax) {
-//        this.vendorTax = vendorTax;
-//    }
+    public double getEndingStockAmount() {
+        return endingStockAmount;
+    }
+
+    public void setEndingStockAmount(double endingStockAmount) {
+        this.endingStockAmount = endingStockAmount;
+    }
+
 }

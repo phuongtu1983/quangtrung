@@ -27,7 +27,7 @@
             <tr>
                 <td><bean:message key="vendor.title"/></td>
                 <td>
-                    <select style="width: 260px;" name="customerVendorId" id="customerVendorIdCombobox">
+                    <select style="width: 260px;" name="customerId" id="customerIdCombobox">
                         <logic:iterate id="vendor_iter" name="<%=Constants.VENDOR_LIST%>">
                             <option  value="${vendor_iter.id}">${vendor_iter.name}</option>
                         </logic:iterate>

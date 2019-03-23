@@ -247,8 +247,10 @@ public class ReportDAO extends BasicDAO {
                         bean.setVehicleOut45(rs.getInt("vehicle_out_45"));
                         bean.setVehicleIn12(rs.getInt("vehicle_in_12"));
                         bean.setVehicleIn45(rs.getInt("vehicle_in_45"));
-                        bean.setClosingStock12(bean.getGas12Stock() + bean.getFraction12() - bean.getVehicleOut12() + bean.getVehicleIn12());
-                        bean.setClosingStock45(bean.getGas45Stock() + bean.getFraction45() - bean.getVehicleOut45() + bean.getVehicleIn45());
+                        bean.setSale12(rs.getInt("sale_12"));
+                        bean.setSale45(rs.getInt("sale_45"));
+                        bean.setClosingStock12(bean.getGas12Stock() + bean.getFraction12() - bean.getVehicleOut12() - bean.getSale12() + bean.getVehicleIn12());
+                        bean.setClosingStock45(bean.getGas45Stock() + bean.getFraction45() - bean.getVehicleOut45() - bean.getSale45() + bean.getVehicleIn45());
                         bean.setClosingStock(gasStock + rs.getInt("import_quantity") - bean.getFraction12() * 12 - bean.getFraction45() * 45);
                         bean.setShieldImport(rs.getInt("shield_import"));
                         bean.setShieldDecrease(rs.getInt("shield_decrease"));
@@ -660,9 +662,11 @@ public class ReportDAO extends BasicDAO {
                         bean.setVehicleOut45(rs.getInt("vehicle_out_45"));
                         bean.setVehicleIn12(rs.getInt("vehicle_in_12"));
                         bean.setVehicleIn45(rs.getInt("vehicle_in_45"));
+                        bean.setSale12(rs.getInt("sale_12"));
+                        bean.setSale45(rs.getInt("sale_45"));
                         bean.setImportQuantity(rs.getInt("import_quantity"));
-                        bean.setClosingStock12(bean.getGas12Stock() + bean.getFraction12() - bean.getVehicleOut12() + bean.getVehicleIn12());
-                        bean.setClosingStock45(bean.getGas45Stock() + bean.getFraction45() - bean.getVehicleOut45() + bean.getVehicleIn45());
+                        bean.setClosingStock12(bean.getGas12Stock() + bean.getFraction12() - bean.getVehicleOut12() - bean.getSale12() + bean.getVehicleIn12());
+                        bean.setClosingStock45(bean.getGas45Stock() + bean.getFraction45() - bean.getVehicleOut45() - bean.getSale45() + bean.getVehicleIn45());
                         bean.setClosingStock(gasStock + bean.getImportQuantity() - bean.getFraction12() * 12 - bean.getFraction45() * 45);
                         bean.setShieldImport(rs.getInt("shield_import"));
                         bean.setShieldDecrease(rs.getInt("shield_decrease"));
@@ -2272,14 +2276,17 @@ public class ReportDAO extends BasicDAO {
                         bean = new CompareVendorReportBean();
                         bean.setDate(DateUtil.formatDate(rs.getDate("created_date"), "dd/MM"));
                         bean.setContent(rs.getString("content"));
-                        bean.setUnit(rs.getString("unit_name"));
                         bean.setQuantity(rs.getDouble("quantity"));
                         bean.setPrice(rs.getDouble("price"));
-                        bean.setPayAmount(rs.getDouble("pay_amount"));
-                        bean.setDebtAmount(rs.getDouble("debt_amount"));
+                        bean.setRate(rs.getDouble("rate"));
+                        bean.setAmount(rs.getDouble("amount"));
+                        bean.setPaid(rs.getDouble("paid"));
+                        bean.setDebt(openingDebt + bean.getAmount() - bean.getPaid());
+                        openingDebt = bean.getDebt();
                         list.add(bean);
                     }
                 }
+                outBean.setEndingStockAmount(openingDebt);
             }
         } catch (SQLException sqle) {
             throw new Exception(sqle.getMessage());

@@ -333,6 +333,10 @@ function menuClick(id) {
         showCompareVendorReportPanel();
     else if (id == 'debtadjustmentlist')
         loadDebtAdjustmentPanel();
+    else if (id == 'saleinnerlist')
+        loadSaleInnerPanel();
+    else if (id == 'saleinneradd')
+        getSaleInner(0);
 }
 function clearContent() {
     var contentDiv = document.getElementById("contentDiv");
@@ -387,13 +391,13 @@ function formatFormDetail(formName) {
         if (quantity.length != null) {
             for (var i = 0; i < quantity.length; i++) {
                 tryNumberFormatCurrentcy(quantity[i], "VND");
-                tryNumberFormatCurrentcy(price[i], "VND");
-                tryNumberFormatCurrentcy(amount[i], "VND");
+                if(price!=null) tryNumberFormatCurrentcy(price[i], "VND");
+                if(amount!=null) tryNumberFormatCurrentcy(amount[i], "VND");
             }
         } else {
             tryNumberFormatCurrentcy(quantity, "VND");
-            tryNumberFormatCurrentcy(price, "VND");
-            tryNumberFormatCurrentcy(amount, "VND");
+            if(price!=null) tryNumberFormatCurrentcy(price, "VND");
+            if(amount!=null) tryNumberFormatCurrentcy(amount, "VND");
         }
     }
     quantity = null;
@@ -408,13 +412,13 @@ function reformatFormDetail(formName) {
         if (quantity.length != null) {
             for (var i = 0; i < quantity.length; i++) {
                 reformatNumberMoney(quantity[i]);
-                reformatNumberMoney(price[i]);
-                reformatNumberMoney(amount[i]);
+                if(price!=null) reformatNumberMoney(price[i]);
+                if(amount!=null) reformatNumberMoney(amount[i]);
             }
         } else {
             reformatNumberMoney(quantity);
-            reformatNumberMoney(price);
-            reformatNumberMoney(amount);
+            if(price!=null) reformatNumberMoney(price);
+            if(amount!=null) reformatNumberMoney(amount);
         }
     }
     quantity = null;
@@ -6860,8 +6864,8 @@ function saveVehicleOut() {
         alert('Vui l\u00F2ng ch\u1ECDn h\u00E0ng h\u00F3a');
         return false;
     }
-    var price = document.forms['vehicleOutForm'].price;
-    var amount = document.forms['vehicleOutForm'].amount;
+//    var price = document.forms['vehicleOutForm'].price;
+//    var amount = document.forms['vehicleOutForm'].amount;
     if (quantity.length != null) {
         for (var i = 0; i < quantity.length; i++) {
             var number = Number(quantity[i].value);
@@ -6881,8 +6885,8 @@ function saveVehicleOut() {
         }
     }
     quantity = null;
-    price = null;
-    amount = null;
+//    price = null;
+//    amount = null;
     reformatFormDetail('vehicleOutForm');
     scriptFunction = "saveVehicleOut";
     callAjaxCheckError("addVehicleOut.do", null, document.forms['vehicleOutForm'], function(data) {
@@ -7046,6 +7050,7 @@ function getVehicleIn(id) {
             }
         }
         shellIdCombobox.setComboValue("");
+/*
         // ============================
         var returnShellIdCombobox = dhtmlXComboFromSelect("returnShellIdCombobox");
         returnShellIdCombobox.enableFilteringMode(true);
@@ -7073,6 +7078,7 @@ function getVehicleIn(id) {
             }
         }
         returnShellIdCombobox.setComboValue("");
+*/
         // ============================
         var accessoryIdCombobox = dhtmlXComboFromSelect("accessoryIdCombobox");
         accessoryIdCombobox.enableFilteringMode(true);
@@ -7138,7 +7144,7 @@ function getVehicleIn(id) {
         myCalendar.setDateFormat("%d/%m/%Y");
 
         formatFormDetail('vehicleInForm');
-        formatVehicleInReturnShellDetail();
+//        formatVehicleInReturnShellDetail();
         formatVehicleInAccessoryDetail();
 
         var vehicleOutCalendar = new dhtmlXCalendarObject(["vehicleInVehicleOutCreatedDate"]);
@@ -7165,8 +7171,8 @@ function saveVehicleIn() {
         alert('Vui l\u00F2ng ch\u1ECDn h\u00E0ng h\u00F3a');
         return false;
     }
-    var price = document.forms['vehicleInForm'].price;
-    var amount = document.forms['vehicleInForm'].amount;
+//    var price = document.forms['vehicleInForm'].price;
+//    var amount = document.forms['vehicleInForm'].amount;
     if (quantity.length != null) {
         for (var i = 0; i < quantity.length; i++) {
             var number = Number(quantity[i].value);
@@ -7186,10 +7192,10 @@ function saveVehicleIn() {
         }
     }
     quantity = null;
-    price = null;
-    amount = null;
+//    price = null;
+//    amount = null;
     reformatFormDetail('vehicleInForm');
-    reformatVehicleInReturnShellDetail();
+//    reformatVehicleInReturnShellDetail();
     reformatVehicleInAccessoryDetail();
     document.forms['vehicleInForm'].vehicleOutId.value = document.forms['vehicleInForm'].vehicleSelectedHidden.value;
     scriptFunction = "saveVehicleIn";
@@ -11250,5 +11256,218 @@ function printComapreLPGVendorCustomerReport(fromDate, toDate) {
     list = null;
     url += "&vendorCustomerId=" + document.forms['reportCompareLPGVendorCustomerSearchForm'].customerSelectedHidden.value;
     callServer(url);
+    return false;
+}
+function loadSaleInnerPanel() {
+    callAjax("getSaleInnerPanel.do", null, null, function(data) {
+        clearContent();
+        setAjaxData(data, "contentDiv");
+        var myCalendar = new dhtmlXCalendarObject(["fromDate", "toDate"]);
+        myCalendar.setSkin('dhx_web');
+        var currentTime = getCurrentDate();
+        document.forms['saleInnerSearchForm'].fromDate.value = currentTime;
+        document.forms['saleInnerSearchForm'].toDate.value = currentTime;
+        myCalendar.setDateFormat("%d/%m/%Y");
+        loadSaleInnerList(currentTime, currentTime);
+    });
+    return false;
+}
+function loadSaleInnerList(fromDate, toDate) {
+    var mygrid = new dhtmlXGridObject('saleInnerList');
+    mygrid.setImagePath("js/dhtmlx/grid/imgs/");
+    mygrid.setHeader("M\u00E3 phi\u1EBFu,Ng\u00E0y,T\u1ED5ng ti\u1EC1n,Thanh to\u00E1n,C\u00F2n n\u1EE3,Ghi ch\u00FA");
+    mygrid.attachHeader("#text_filter,#text_filter,#text_filter,#text_filter,#text_filter,#text_filter");
+    mygrid.setInitWidths("150,100,150,150,150,*");
+    mygrid.setColTypes("link,ro,ro,ro,ro,ro");
+    mygrid.setColSorting("str,str,str,str,str,str");
+    mygrid.setSkin("light");
+    var height = contentHeight - 210;
+    mygrid.al(true, height); //enableAutoHeight
+    mygrid.enablePaging(true, 15, 3, "recinfoArea");
+    mygrid.setPagingSkin("toolbar", "dhx_skyblue");
+    mygrid.init();
+    var url = "getSaleInnerList.do?t=1";
+    if (fromDate != null)
+        url += "&fromDate=" + fromDate;
+    if (toDate != null)
+        url += "&toDate=" + toDate;
+    callAjax(url, null, null, function(data) {
+        mygrid.parse(data);
+    });
+    return false;
+}
+function getSaleInner(id) {
+    var url = 'saleInnerForm.do';
+    if (id != 0)
+        url += '?saleInnerId=' + id
+    callAjax(url, null, null, function(data) {
+        clearContent();
+        setAjaxData(data, 'contentDiv');
+        window.dhx_globalImgPath = "js/dhtmlx/combo/imgs/";
+        // ============================
+        var innerIdCombobox = dhtmlXComboFromSelect("goodIdCombobox");
+        innerIdCombobox.enableFilteringMode(true);
+        innerIdCombobox.attachEvent("onSelectionChange", function() {
+            setShellSelectedForm('saleInnerForm', innerIdCombobox.getComboText(), innerIdCombobox.getSelectedValue());
+        });
+        innerIdCombobox.attachEvent("onBlur", function() {
+            setShellSelectedForm('saleInnerForm', innerIdCombobox.getComboText(), innerIdCombobox.getSelectedValue());
+        });
+        innerIdCombobox.DOMelem_input.onkeypress = function(event) {
+            var key;
+            if (window.event)
+                key = window.event.keyCode;//IE
+            else
+                key = event.which;//firefox
+            if (key == 13) {
+                addSaleInnerGood();
+                innerIdCombobox.setComboValue("");
+            }
+        }
+        innerIdCombobox.DOMelem_input.onfocus = function(event) {
+            if (isManuallySeleted == 1) {
+                innerIdCombobox.openSelect();
+                isManuallySeleted = 0;
+            }
+        }
+        innerIdCombobox.setComboValue("");
+        // ============================
+        var employeeIdCombobox = dhtmlXComboFromSelect("employeeIdCombobox");
+        employeeIdCombobox.enableFilteringMode(true);
+        employeeIdCombobox.attachEvent("onSelectionChange", function() {
+            setEmployeeSelectedForm('saleInnerForm', employeeIdCombobox.getComboText(), employeeIdCombobox.getSelectedValue());
+        });
+        employeeIdCombobox.attachEvent("onBlur", function() {
+            setEmployeeSelectedForm('saleInnerForm', employeeIdCombobox.getComboText(), employeeIdCombobox.getSelectedValue());
+            employeeIdCombobox.setComboText(employeeIdCombobox.getSelectedText());
+        });
+        employeeIdCombobox.DOMelem_input.onfocus = function(event) {
+            if (isManuallySeleted == 1) {
+                employeeIdCombobox.openSelect();
+                isManuallySeleted = 0;
+            }
+        }
+        if (id == 0) {
+            employeeIdCombobox.setComboValue("");
+        } else {
+            var employeeId = document.forms['saleInnerForm'].employeeId.value;
+            if (employeeId != 0) {
+                var ind = employeeIdCombobox.getIndexByValue(employeeId);
+                employeeIdCombobox.selectOption(ind);
+            } else {
+                employeeIdCombobox.unSelectOption();
+                employeeIdCombobox.setComboValue("");
+            }
+        }
+        if (id == 0) {
+            var currentDate = getCurrentDate();
+            document.forms['saleInnerForm'].saleInnerCreatedDate.value = currentDate;
+        }
+        var myCalendar = new dhtmlXCalendarObject(["saleInnerCreatedDate"]);
+        myCalendar.setSkin('dhx_web');
+        myCalendar.setDateFormat("%d/%m/%Y");
+
+        tryNumberFormatCurrentcy(document.forms['saleInnerForm'].total, "VND");
+        tryNumberFormatCurrentcy(document.forms['saleInnerForm'].paid, "VND");
+        tryNumberFormatCurrentcy(document.forms['saleInnerForm'].debt, "VND");
+        tryNumberFormatCurrentcy(document.forms['saleInnerForm'].discount, "VND");
+        tryNumberFormatCurrentcy(document.forms['saleInnerForm'].totalPay, "VND");
+        formatFormDetail('saleInnerForm');
+    });
+}
+function saveSaleInner() {
+    if (scriptFunction == "saveSaleInner")
+        return false;
+    var quantity = document.forms['saleInnerForm'].quantity;
+    if (quantity == null) {
+        alert('Vui l\u00F2ng ch\u1ECDn h\u00E0ng h\u00F3a');
+        return false;
+    }
+    var price = document.forms['saleInnerForm'].price;
+    var amount = document.forms['saleInnerForm'].amount;
+    if (quantity.length != null) {
+        for (var i = 0; i < quantity.length; i++) {
+            var number = Number(quantity[i].value);
+            if (number == 0) {
+                alert('Vui l\u00F2ng nh\u1EADp s\u1ED1 l\u01B0\u1EE3ng');
+                quantity[i].focus();
+                quantity = null;
+                return false;
+            }
+            reformatNumberMoney(quantity[i]);
+            reformatNumberMoney(price[i]);
+            reformatNumberMoney(amount[i]);
+        }
+    } else {
+        if (quantity.value == "0") {
+            alert('Vui l\u00F2ng nh\u1EADp s\u1ED1 l\u01B0\u1EE3ng');
+            quantity.focus();
+            quantity = null;
+            return false;
+        }
+        reformatNumberMoney(quantity);
+        reformatNumberMoney(price);
+        reformatNumberMoney(amount);
+    }
+    quantity = null;
+    price = null;
+    amount = null;
+    reformatNumberMoney(document.forms['saleInnerForm'].total);
+    reformatNumberMoney(document.forms['saleInnerForm'].paid);
+    reformatNumberMoney(document.forms['saleInnerForm'].debt);
+    reformatNumberMoney(document.forms['saleInnerForm'].discount);
+    reformatNumberMoney(document.forms['saleInnerForm'].totalPay);
+    reformatFormDetail('saleInnerForm');
+    document.forms['saleInnerForm'].employeeId.value = document.forms['saleInnerForm'].employeeSelectedHidden.value;
+    scriptFunction = "saveSaleInner";
+    callAjaxCheckError("addSaleInner.do", null, document.forms['saleInnerForm'], function(data) {
+        scriptFunction = "";
+        loadSaleInnerPanel();
+    });
+    return false;
+}
+function addSaleInnerGood() {
+    var good = document.forms['saleInnerForm'].shellSelectedHidden.value;
+    if (good == -1 || good == 0)
+        return false;
+    var goodId = document.forms['saleInnerForm'].goodId;
+    var existed = false;
+    if (goodId != null) {
+        if (goodId.length != null) {
+            for (i = 0; i < goodId.length; i++) {
+                if (goodId[i].value == good) {
+                    existed = true;
+                    break;
+                }
+            }
+        } else if (goodId.value == good)
+            existed = true;
+    }
+    goodId = null;
+    if (existed == true) {
+        alert("H\u00E0ng ho\u00E1 \u0111\u00E3 t\u1ED3n t\u1EA1i");
+        return false;
+    }
+    callAjax("getSaleInnerGood.do?goodId=" + good, null, null, function(data) {
+        setAjaxData(data, 'saleInnerGoodHideDiv');
+        var matTable = document.getElementById('saleInnerGoodTbl');
+        var detTable = document.getElementById('saleInnerDetailTbl');
+        if (matTable.tBodies[0] == null || detTable.tBodies[0] == null) {
+            matTable = null;
+            detTable = null;
+            return;
+        }
+        for (var i = matTable.tBodies[0].rows.length - 1; i >= 0; i--)
+            detTable.tBodies[0].appendChild(matTable.tBodies[0].rows[i]);
+        matTable = null;
+        detTable = null;
+        formatFormDetail('saleInnerForm');
+    });
+    return false;
+}
+function delSaleInner() {
+    callAjaxCheckError('delSaleInner.do?saleInnerId=' + document.forms['saleInnerForm'].id.value, null, null, function() {
+        loadSaleInnerPanel();
+    });
     return false;
 }

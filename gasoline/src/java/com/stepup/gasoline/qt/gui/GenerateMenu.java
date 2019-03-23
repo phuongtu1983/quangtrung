@@ -457,7 +457,7 @@ public class GenerateMenu {
                     PermissionUtil.PER_SHELL_IMPORT + "," + PermissionUtil.PER_LPG_IMPORT + "," + PermissionUtil.PER_LPG_SALE + "," + PermissionUtil.PER_FRACTION
                     + "," + PermissionUtil.PER_GAS_PRICE + "," + PermissionUtil.PER_GAS_IMPORT + "," + PermissionUtil.PER_GAS_WHOLESALE
                     + "," + PermissionUtil.PER_SALE_SHELL + "," + PermissionUtil.PER_OLD_SHELL + "," + PermissionUtil.PER_SHELL_RETURN
-                    + "," + PermissionUtil.PER_SHELL_RETURN_SUPPLIER + "," + PermissionUtil.PER_LO_VO)) {
+                    + "," + PermissionUtil.PER_SHELL_RETURN_SUPPLIER + "," + PermissionUtil.PER_LO_VO + "," + PermissionUtil.PER_SALE_INNER)) {
                 if (isHasPermission(PermissionUtil.OPERATION_LIST + "," + PermissionUtil.OPERATION_ADD, PermissionUtil.PER_SHELL_IMPORT)) {
                     buffTemp.append("<item id=\"shellimports\" complex=\"true\" text=\"").append(QTUtil.getBundleString("shellImport.title")).append("\">");
                     if (isHasPermission(PermissionUtil.OPERATION_LIST, PermissionUtil.PER_SHELL_IMPORT)) {
@@ -538,6 +538,16 @@ public class GenerateMenu {
 //                    }
 //                    buffTemp.append("</item>");
 //                }
+                if (isHasPermission(PermissionUtil.OPERATION_LIST + "," + PermissionUtil.OPERATION_ADD, PermissionUtil.PER_SALE_INNER)) {
+                    buffTemp.append("<item id=\"saleinners\" complex=\"true\" text=\"").append(QTUtil.getBundleString("saleInner.title")).append("\">");
+                    if (isHasPermission(PermissionUtil.OPERATION_LIST, PermissionUtil.PER_SALE_INNER)) {
+                        buffTemp.append("<item id=\"saleinnerlist\" text=\"").append(QTUtil.getBundleString("saleInner.list.title")).append("\"/>");
+                    }
+                    if (isHasPermission(PermissionUtil.OPERATION_ADD, PermissionUtil.PER_SALE_INNER)) {
+                        buffTemp.append("<item id=\"saleinneradd\" text=\"").append(QTUtil.getBundleString("saleInner.detail.add.title")).append("\"/>");
+                    }
+                    buffTemp.append("</item>");
+                }
                 if (isHasPermission(PermissionUtil.OPERATION_LIST + "," + PermissionUtil.OPERATION_ADD, PermissionUtil.PER_SALE_SHELL)) {
                     buffTemp.append("<item id=\"saleshells\" complex=\"true\" text=\"").append(QTUtil.getBundleString("saleShell.title")).append("\">");
                     if (isHasPermission(PermissionUtil.OPERATION_LIST, PermissionUtil.PER_SALE_SHELL)) {

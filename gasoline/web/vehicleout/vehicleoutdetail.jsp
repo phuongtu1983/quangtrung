@@ -9,9 +9,9 @@
 <form name="vehicleOutForm">
     <table style="width: 100%">
         <tr>
-            <td width="160" height="30"><bean:message key="code.title"/></td>
+            <td width="100" height="30"><bean:message key="code.title"/></td>
             <td width="160"><html:text property="code" size="30" name="<%=Constants.VEHICLE_OUT%>" readonly="true" tabindex="-1"/></td>
-            <td width="170"  style="padding-right: 20px;padding-left: 10px"><bean:message key="date.title"/></td>
+            <td width="70"  style="padding-right: 20px;padding-left: 10px"><bean:message key="date.title"/></td>
             <td><html:text property="createdDate" size="30" name="<%=Constants.VEHICLE_OUT%>" styleId="vehicleOutCreatedDate" tabindex="-1"/></td>
         </tr>
         <tr>
@@ -24,7 +24,7 @@
         </tr>
         <tr>
             <td height="30" style="padding-right: 20px"><bean:message key="note.title"/></td>
-            <td colspan="3"><html:text property="note" size="100" name="<%=Constants.VEHICLE_OUT%>" tabindex="-1"/></td>
+            <td colspan="3"><html:text property="note" size="83" name="<%=Constants.VEHICLE_OUT%>" tabindex="-1"/></td>
         </tr>
         <tr>
             <td colspan="4">

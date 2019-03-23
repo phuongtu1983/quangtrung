@@ -25,7 +25,7 @@
             <td><html:text property="total" size="30" name="<%=Constants.SALE_SHELL%>" readonly="true" tabindex="-1"/></td>
         </tr>
         <tr>
-            <td height="30" style="padding-right: 20px""><bean:message key="customer.title"/></td>
+            <td height="30" style="padding-right: 20px"><bean:message key="customer.title"/></td>
             <td colspan="3">
                 <select style="width: 195px;" name="customerIdCombobox" id="customerIdCombobox">
                     <logic:iterate id="customer_iter" name="<%=Constants.CUSTOMER_LIST%>">

@@ -120,6 +120,8 @@ public class Constants {
     public static final String SALE_ACCESSORY_CHANGE_GOOD = "saleAccessoryChangeGood";
     public static final String SALE_PETRO = "salePetro";
     public static final String SALE_PETRO_GOOD = "salePetroGood";
+    public static final String SALE_INNER = "saleInner";
+    public static final String SALE_INNER_GOOD = "saleInnerGood";
     public static final String SALE_SHELL = "saleShell";
     public static final String SALE_SHELL_GOOD = "saleShellGood";
     public static final String OLD_SHELL = "oldShell";

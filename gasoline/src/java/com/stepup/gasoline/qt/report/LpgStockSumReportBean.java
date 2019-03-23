@@ -21,6 +21,8 @@ public class LpgStockSumReportBean {
     private int vehicleOut45;
     private int vehicleIn12;
     private int vehicleIn45;
+    private int sale12;
+    private int sale45;
     private int closingStock12;
     private int closingStock45;
     private int closingStock;
@@ -154,6 +156,22 @@ public class LpgStockSumReportBean {
 
     public void setFinalStock(int finalStock) {
         this.finalStock = finalStock;
+    }
+
+    public int getSale12() {
+        return sale12;
+    }
+
+    public void setSale12(int sale12) {
+        this.sale12 = sale12;
+    }
+
+    public int getSale45() {
+        return sale45;
+    }
+
+    public void setSale45(int sale45) {
+        this.sale45 = sale45;
     }
 
 }

@@ -13,11 +13,12 @@ public class CompareVendorReportBean {
 
     private String date;
     private String content;
-    private String unit;
     private double quantity;
     private double price;
-    private double payAmount;
-    private double debtAmount;
+    private double rate;
+    private double amount;
+    private double paid;
+    private double debt;
 
     public String getDate() {
         return date;
@@ -35,12 +36,28 @@ public class CompareVendorReportBean {
         this.content = content;
     }
 
-    public String getUnit() {
-        return unit;
+    public double getAmount() {
+        return amount;
     }
 
-    public void setUnit(String unit) {
-        this.unit = unit;
+    public void setAmount(double amount) {
+        this.amount = amount;
+    }
+
+    public double getPaid() {
+        return paid;
+    }
+
+    public void setPaid(double paid) {
+        this.paid = paid;
+    }
+
+    public double getDebt() {
+        return debt;
+    }
+
+    public void setDebt(double debt) {
+        this.debt = debt;
     }
 
     public double getQuantity() {
@@ -59,20 +76,12 @@ public class CompareVendorReportBean {
         this.price = price;
     }
 
-    public double getPayAmount() {
-        return payAmount;
+    public double getRate() {
+        return rate;
     }
 
-    public void setPayAmount(double payAmount) {
-        this.payAmount = payAmount;
-    }
-
-    public double getDebtAmount() {
-        return debtAmount;
-    }
-
-    public void setDebtAmount(double debtAmount) {
-        this.debtAmount = debtAmount;
+    public void setRate(double rate) {
+        this.rate = rate;
     }
 
 }

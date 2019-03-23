@@ -9,13 +9,13 @@
 <form name="vehicleInForm">
     <table style="width: 100%">
         <tr>
-            <td width="160" height="30"><bean:message key="code.title"/></td>
+            <td width="150" height="30"><bean:message key="code.title"/></td>
             <td width="160"><html:text property="code" size="30" name="<%=Constants.VEHICLE_IN%>" readonly="true" tabindex="-1"/></td>
             <td width="170"  style="padding-right: 20px;padding-left: 10px"><bean:message key="date.title"/></td>
             <td><html:text property="createdDate" size="30" name="<%=Constants.VEHICLE_IN%>" styleId="vehicleInCreatedDate" tabindex="-1"/></td>
         </tr>
         <tr>
-            <td width="200" height="30"><bean:message key="date.title"/></td>
+            <td><bean:message key="vehicleOut.detail.date.title"/></td>
             <td width="200"><input type="text" size="30" tabindex="-1" id="vehicleInVehicleOutCreatedDate"></td>
             <td style="padding-right: 50px;padding-left: 10px"><bean:message key="vehicleOut.title"/></td>
             <td>
@@ -53,29 +53,6 @@
             </td>
         </tr>
         <tr><td colspan="4"><div><%@include  file="/vehiclein/details.jsp" %></div></td></tr>
-        <tr>
-            <td colspan="4">
-                <fieldset>
-                    <legend><bean:message key="shellReturn.title"/></legend>
-                    <table>
-                        <tr>
-                            <td>
-                                <button class="i_cross icon small red" onclick="return delTableRow('vehicleInForm', 'vehicleInReturnShellChk', 'vehicleInReturnShellDetailTbl');" tabindex="-1"><bean:message key="message.del"/></button>
-                                <button class="i_plus icon small green" onclick="return addVehicleInReturnShell();" tabindex="-1"><bean:message key="message.add"/></button>
-                            </td>
-                            <td>
-                                <select style="width: 260px;" name="returnShellIdCombobox" id="returnShellIdCombobox">
-                                    <logic:iterate id="returnShell_iter" name="<%=Constants.SHELL_RETURN_LIST%>">
-                                        <option  value="${returnShell_iter.id}">${returnShell_iter.name}</option>
-                                    </logic:iterate>
-                                </select>
-                            </td>
-                        </tr>
-                    </table>
-                </fieldset>
-            </td>
-        </tr>
-        <tr><td colspan="4"><div><%@include  file="/vehiclein/shelldetails.jsp" %></div></td></tr>
         <tr>
             <td colspan="4">
                 <fieldset>
