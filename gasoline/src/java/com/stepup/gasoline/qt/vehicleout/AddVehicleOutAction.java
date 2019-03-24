@@ -93,8 +93,8 @@ public class AddVehicleOutAction extends SpineAction {
                         VehicleOutDetailBean bean = new VehicleOutDetailBean();
                         bean.setShellId(NumberUtil.parseInt(formBean.getShellId()[i], 0));
                         bean.setQuantity(NumberUtil.parseInt(formBean.getQuantity()[i], 0));
-                        bean.setPrice(NumberUtil.parseDouble(formBean.getPrice()[i], 0));
-                        bean.setAmount(NumberUtil.parseDouble(formBean.getAmount()[i], 0));
+//                        bean.setPrice(NumberUtil.parseDouble(formBean.getPrice()[i], 0));
+//                        bean.setAmount(NumberUtil.parseDouble(formBean.getAmount()[i], 0));
                         bean.setVehicleOutId(formBean.getId());
                         gasDAO.insertVehicleOutDetail(formBean.getCreatedDate(), bean);
                     } else {
@@ -113,14 +113,14 @@ public class AddVehicleOutAction extends SpineAction {
                                 isUpdate = true;
                                 oldBean.setQuantity(NumberUtil.parseInt(formBean.getQuantity()[i], 0));
                             }
-                            if (oldBean.getPrice() != NumberUtil.parseDouble(formBean.getPrice()[i], 0)) {
-                                isUpdate = true;
-                                oldBean.setPrice(NumberUtil.parseDouble(formBean.getPrice()[i], 0));
-                            }
-                            if (oldBean.getAmount() != NumberUtil.parseDouble(formBean.getAmount()[i], 0)) {
-                                isUpdate = true;
-                                oldBean.setAmount(NumberUtil.parseDouble(formBean.getAmount()[i], 0));
-                            }
+//                            if (oldBean.getPrice() != NumberUtil.parseDouble(formBean.getPrice()[i], 0)) {
+//                                isUpdate = true;
+//                                oldBean.setPrice(NumberUtil.parseDouble(formBean.getPrice()[i], 0));
+//                            }
+//                            if (oldBean.getAmount() != NumberUtil.parseDouble(formBean.getAmount()[i], 0)) {
+//                                isUpdate = true;
+//                                oldBean.setAmount(NumberUtil.parseDouble(formBean.getAmount()[i], 0));
+//                            }
                             if (needUpdate) {
                                 isUpdate = true;
                             }
