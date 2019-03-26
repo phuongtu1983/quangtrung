@@ -19,6 +19,7 @@ public class GasWholesaleDetailBean {
     private int quantity;
     private double price;
     private double amount;
+    private double shellWeight;
 
     public int getId() {
         return id;
@@ -90,6 +91,14 @@ public class GasWholesaleDetailBean {
 
     public void setUnitName(String unitName) {
         this.unitName = unitName;
+    }
+
+    public double getShellWeight() {
+        return shellWeight;
+    }
+
+    public void setShellWeight(double shellWeight) {
+        this.shellWeight = shellWeight;
     }
 
 }

@@ -9,6 +9,7 @@ import com.stepup.core.database.DBUtil;
 import com.stepup.core.database.SPUtil;
 import com.stepup.core.util.DateUtil;
 import com.stepup.core.util.GenericValidator;
+import com.stepup.gasoline.qt.bean.EmployeeBean;
 import com.stepup.gasoline.qt.bean.ExportWholesaleBean;
 import com.stepup.gasoline.qt.bean.ExportWholesaleDetailBean;
 import com.stepup.gasoline.qt.bean.ExportWholesaleReturnShellDetailBean;
@@ -23,8 +24,10 @@ import com.stepup.gasoline.qt.bean.GasRetailPromotionMaterialDetailBean;
 import com.stepup.gasoline.qt.bean.GasRetailReturnShellDetailBean;
 import com.stepup.gasoline.qt.bean.GasReturnBean;
 import com.stepup.gasoline.qt.bean.GasReturnDetailBean;
+import com.stepup.gasoline.qt.bean.GasWholeSaleFeeBean;
 import com.stepup.gasoline.qt.bean.GasWholesaleBean;
 import com.stepup.gasoline.qt.bean.GasWholesaleDetailBean;
+import com.stepup.gasoline.qt.bean.GasWholesaleFeeDetailBean;
 import com.stepup.gasoline.qt.bean.GasWholesalePromotionMaterialDetailBean;
 import com.stepup.gasoline.qt.bean.GasWholesaleReturnShellDetailBean;
 import com.stepup.gasoline.qt.bean.LoVoBean;
@@ -56,6 +59,7 @@ import com.stepup.gasoline.qt.gasprice.GasPriceFormBean;
 import com.stepup.gasoline.qt.gasretail.GasRetailFormBean;
 import com.stepup.gasoline.qt.gasreturn.GasReturnFormBean;
 import com.stepup.gasoline.qt.gaswholesale.GasWholesaleFormBean;
+import com.stepup.gasoline.qt.gaswholesalefee.GasWholeSaleFeeFormBean;
 import com.stepup.gasoline.qt.lovo.LoVoFormBean;
 import com.stepup.gasoline.qt.lpgimport.LpgImportFormBean;
 import com.stepup.gasoline.qt.lpgsale.LpgSaleFormBean;
@@ -65,6 +69,7 @@ import com.stepup.gasoline.qt.saleinner.SaleInnerFormBean;
 import com.stepup.gasoline.qt.saleshell.SaleShellFormBean;
 import com.stepup.gasoline.qt.shellreturn.ShellReturnFormBean;
 import com.stepup.gasoline.qt.shellreturnsupplier.ShellReturnSupplierFormBean;
+import com.stepup.gasoline.qt.util.QTUtil;
 import com.stepup.gasoline.qt.vehiclein.VehicleInFormBean;
 import com.stepup.gasoline.qt.vehicleout.VehicleOutFormBean;
 import java.sql.ResultSet;
@@ -1507,6 +1512,7 @@ public class GasDAO extends BasicDAO {
                 bean.setGasReturn(rs.getInt("gas_return"));
                 bean.setGasReturnPrice(rs.getDouble("gas_return_price"));
                 bean.setGasReturnAmount(rs.getDouble("gas_return_amount"));
+                bean.setOldDebt(rs.getDouble("paid_old_debt_amount"));
                 return bean;
             }
         } catch (SQLException sqle) {
@@ -1523,9 +1529,9 @@ public class GasDAO extends BasicDAO {
 
     public ArrayList getGasWholesaleDetail(int gasWholesaleId) throws Exception {
         ResultSet rs = null;
-        String sql = "select det.*, s.name as shell_name, s.unit_id, u.name as unit_name, v.code as vendor_code, sv.id as shell_vendor_id"
-                + " from gas_wholesale_detail as det, shell_vendor as sv, vendor as v, shell as s, unit as u"
-                + " where det.shell_id=sv.id and sv.shell_id=s.id and sv.vendor_id=v.id and s.unit_id=u.id and det.gas_wholesale_id=" + gasWholesaleId
+        String sql = "select det.*, s.name as shell_name, s.unit_id, u.name as unit_name, v.code as vendor_code, sv.id as shell_vendor_id, sk.weight"
+                + " from gas_wholesale_detail as det, shell_vendor as sv, vendor as v, shell as s, unit as u, shell_kind AS sk"
+                + " where det.shell_id=sv.id and sv.shell_id=s.id and sv.vendor_id=v.id and s.unit_id=u.id and s.kind_id=sk.id and det.gas_wholesale_id=" + gasWholesaleId
                 + " order by det.id";
         ArrayList detailList = new ArrayList();
         try {
@@ -1542,6 +1548,7 @@ public class GasDAO extends BasicDAO {
                 bean.setShellName(rs.getString("shell_name") + " - " + rs.getString("vendor_code"));
                 bean.setUnitId(rs.getInt("unit_id"));
                 bean.setUnitName(rs.getString("unit_name"));
+                bean.setShellWeight(rs.getDouble("weight"));
                 detailList.add(bean);
             }
         } catch (SQLException sqle) {
@@ -1569,7 +1576,7 @@ public class GasDAO extends BasicDAO {
             } else {
                 createdDate = bean.getCreatedDate();
             }
-            String sql = "{call insertGasWholesale(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)}";
+            String sql = "{call insertGasWholesale(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)}";
             spUtil = new SPUtil(sql);
             if (spUtil != null) {
                 spUtil.getCallableStatement().setString("_code", bean.getCode());
@@ -1587,6 +1594,7 @@ public class GasDAO extends BasicDAO {
                 spUtil.getCallableStatement().setDouble("_gas_return_price", bean.getGasReturnPrice());
                 spUtil.getCallableStatement().setDouble("_gas_return_amount", bean.getGasReturnAmount());
                 spUtil.getCallableStatement().setInt("_created_employee_id", bean.getCreatedEmployeeId());
+                spUtil.getCallableStatement().setDouble("_old_paid_debt", bean.getOldDebt());
                 spUtil.getCallableStatement().registerOutParameter("_id", Types.INTEGER);
                 spUtil.execute();
                 result = spUtil.getCallableStatement().getInt("_id");
@@ -1619,7 +1627,7 @@ public class GasDAO extends BasicDAO {
             } else {
                 createdDate = bean.getCreatedDate();
             }
-            String sql = "{call updateGasWholesale(?,?,?,?,?,?,?,?,?,?,?,?,?,?)}";
+            String sql = "{call updateGasWholesale(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)}";
             spUtil = new SPUtil(sql);
             if (spUtil != null) {
                 spUtil.getCallableStatement().setInt("_id", bean.getId());
@@ -1636,6 +1644,7 @@ public class GasDAO extends BasicDAO {
                 spUtil.getCallableStatement().setDouble("_gas_return_price", bean.getGasReturnPrice());
                 spUtil.getCallableStatement().setDouble("_gas_return_amount", bean.getGasReturnAmount());
                 spUtil.getCallableStatement().setDouble("_customer_id", bean.getCustomerId());
+                spUtil.getCallableStatement().setDouble("_old_paid_debt", bean.getOldDebt());
                 spUtil.execute();
             }
         } catch (SQLException sqle) {
@@ -1782,6 +1791,39 @@ public class GasDAO extends BasicDAO {
                 bean.setPromotionMaterialName(rs.getString("promotion_material_name"));
                 bean.setUnitId(rs.getInt("unit_id"));
                 bean.setUnitName(rs.getString("unit_name"));
+                detailList.add(bean);
+            }
+        } catch (SQLException sqle) {
+            throw new Exception(sqle.getMessage());
+        } catch (Exception ex) {
+            throw new Exception(ex.getMessage());
+        } finally {
+            if (rs != null) {
+                DBUtil.closeConnection(rs);
+            }
+        }
+        return detailList;
+    }
+    
+    public ArrayList getGasWholesaleFeeDetail(int gasWholesaleId) throws Exception {
+        ResultSet rs = null;
+        String sql = "select det.*, f.name as fee_name"
+                + " from gas_wholesale_fee_detail as det, gas_wholesale_fee f"
+                + " where det.fee_id=f.id and det.gas_wholesale_id=" + gasWholesaleId
+                + " order by det.id";
+        ArrayList detailList = new ArrayList();
+        try {
+            rs = DBUtil.executeQuery(sql);
+            GasWholesaleFeeDetailBean bean = null;
+            while (rs.next()) {
+                bean = new GasWholesaleFeeDetailBean();
+                bean.setId(rs.getInt("id"));
+                bean.setGasWholesaleId(rs.getInt("gas_wholesale_id"));
+                bean.setKind(rs.getInt("kind"));
+                bean.setAmount(rs.getDouble("amount"));
+                bean.setFeeId(rs.getInt("fee_id"));
+                bean.setFeeName(rs.getString("fee_name"));
+                bean.setNote(rs.getString("note"));
                 detailList.add(bean);
             }
         } catch (SQLException sqle) {
@@ -1977,6 +2019,80 @@ public class GasDAO extends BasicDAO {
         return result;
     }
 
+    public int insertGasWholesaleFeeDetail(GasWholesaleFeeDetailBean bean) throws Exception {
+        if (bean == null) {
+            return 0;
+        }
+        int result = 0;
+        SPUtil spUtil = null;
+        try {
+            String sql = "{call insertGasWholesaleFeeDetail(?,?,?,?)}";
+            spUtil = new SPUtil(sql);
+            if (spUtil != null) {
+                spUtil.getCallableStatement().setInt("_gas_wholesale_id", bean.getGasWholesaleId());
+                spUtil.getCallableStatement().setInt("_fee_id", bean.getFeeId());
+                spUtil.getCallableStatement().setDouble("_amount", bean.getAmount());
+                spUtil.getCallableStatement().setString("_note", bean.getNote());
+                spUtil.execute();
+            }
+        } catch (SQLException sqle) {
+            throw new Exception(sqle.getMessage());
+        } catch (Exception ex) {
+            throw new Exception(ex.getMessage());
+        } finally {
+            try {
+                if (spUtil != null) {
+                    spUtil.closeConnection();
+                }
+            } catch (Exception e) {
+                throw new Exception(e.getMessage());
+            }
+        }
+        return result;
+    }
+
+    public void updateGasWholesaleFeeDetail(GasWholesaleFeeDetailBean bean) throws Exception {
+        if (bean == null) {
+            return;
+        }
+        SPUtil spUtil = null;
+        try {
+            String sql = "{call updateGasWholesaleFeeDetail(?,?,?)}";
+            spUtil = new SPUtil(sql);
+            if (spUtil != null) {
+                spUtil.getCallableStatement().setInt("_id", bean.getId());
+                spUtil.getCallableStatement().setDouble("_amount", bean.getAmount());
+                spUtil.getCallableStatement().setString("_note", bean.getNote());
+                spUtil.execute();
+            }
+        } catch (SQLException sqle) {
+            throw new Exception(sqle.getMessage());
+        } catch (Exception ex) {
+            throw new Exception(ex.getMessage());
+        } finally {
+            try {
+                if (spUtil != null) {
+                    spUtil.closeConnection();
+                }
+            } catch (Exception e) {
+                throw new Exception(e.getMessage());
+            }
+        }
+    }
+
+    public int deleteGasWholesaleFeeDetails(String ids) throws Exception {
+        int result = 0;
+        try {
+            String sql = "Delete From gas_wholesale_fee_detail Where id in (" + ids + ")";
+            DBUtil.executeUpdate(sql);
+        } catch (SQLException sqle) {
+            throw new Exception(sqle.getMessage());
+        } catch (Exception ex) {
+            throw new Exception(ex.getMessage());
+        }
+        return result;
+    }
+    
     public ArrayList searchGasRetail(String fromDate, String endDate) throws Exception {
         SPUtil spUtil = null;
         ArrayList list = new ArrayList();
@@ -6054,4 +6170,137 @@ public class GasDAO extends BasicDAO {
         return result;
     }
 
+    public ArrayList getGasWholeSaleFees(int status) throws Exception {
+        ResultSet rs = null;
+        String sql = "select * from gas_wholesale_fee where 1";
+        if (status != 0) {
+            sql += " and status=" + status;
+        }
+        sql += " order by name";
+        ArrayList unitList = new ArrayList();
+        try {
+            rs = DBUtil.executeQuery(sql);
+            GasWholeSaleFeeFormBean bean = null;
+            while (rs.next()) {
+                bean = new GasWholeSaleFeeFormBean();
+                bean.setId(rs.getInt("id"));
+                bean.setName(rs.getString("name"));
+                bean.setKind(rs.getInt("kind"));
+                if (bean.getKind() == GasWholeSaleFeeBean.KIND_INCREASE) {
+                    bean.setKindName(QTUtil.getBundleString("gasWholeSale.fee.detail.kind.increase.title"));
+                } else if (bean.getKind() == GasWholeSaleFeeBean.KIND_DECREASE) {
+                    bean.setKindName(QTUtil.getBundleString("gasWholeSale.fee.detail.kind.decrease.title"));
+                }
+                bean.setStatus(rs.getInt("status"));
+                if (bean.getStatus() == EmployeeBean.STATUS_ACTIVE) {
+                    bean.setStatusName(QTUtil.getBundleString("employee.detail.status.active"));
+                } else if (bean.getStatus() == EmployeeBean.STATUS_INACTIVE) {
+                    bean.setStatusName(QTUtil.getBundleString("employee.detail.status.inactive"));
+                }
+                unitList.add(bean);
+            }
+        } catch (SQLException sqle) {
+            throw new Exception(sqle.getMessage());
+        } catch (Exception ex) {
+            throw new Exception(ex.getMessage());
+        } finally {
+            if (rs != null) {
+                DBUtil.closeConnection(rs);
+            }
+        }
+        return unitList;
+    }
+
+    public GasWholeSaleFeeBean getGasWholeSaleFee(int feeId) throws Exception {
+        ResultSet rs = null;
+        String sql = "select * from gas_wholesale_fee where id=" + feeId;
+        try {
+            rs = DBUtil.executeQuery(sql);
+            while (rs.next()) {
+                GasWholeSaleFeeBean bean = new GasWholeSaleFeeBean();
+                bean.setId(rs.getInt("id"));
+                bean.setName(rs.getString("name"));
+                bean.setStatus(rs.getInt("status"));
+                bean.setKind(rs.getInt("kind"));
+                return bean;
+            }
+        } catch (SQLException sqle) {
+            throw new Exception(sqle.getMessage());
+        } catch (Exception ex) {
+            throw new Exception(ex.getMessage());
+        } finally {
+            if (rs != null) {
+                DBUtil.closeConnection(rs);
+            }
+        }
+        return null;
+    }
+
+    public GasWholeSaleFeeBean getGasWholeSaleFeeByName(String name) throws Exception {
+        ResultSet rs = null;
+        String sql = "select * from gas_wholesale_fee where name='" + name + "' and status=" + EmployeeBean.STATUS_ACTIVE;
+        try {
+            rs = DBUtil.executeQuery(sql);
+            while (rs.next()) {
+                GasWholeSaleFeeBean bean = new GasWholeSaleFeeBean();
+                bean.setId(rs.getInt("id"));
+                bean.setName(rs.getString("name"));
+                bean.setStatus(rs.getInt("status"));
+                bean.setKind(rs.getInt("kind"));
+                return bean;
+            }
+        } catch (SQLException sqle) {
+            throw new Exception(sqle.getMessage());
+        } catch (Exception ex) {
+            throw new Exception(ex.getMessage());
+        } finally {
+            if (rs != null) {
+                DBUtil.closeConnection(rs);
+            }
+        }
+        return null;
+    }
+
+    public void insertGasWholeSaleFee(GasWholeSaleFeeBean bean) throws Exception {
+        if (bean == null) {
+            return;
+        }
+        try {
+            String sql = "Insert Into gas_wholesale_fee(name, kind, status) Values ('" + bean.getName() + "'," + bean.getKind() + "," + bean.getStatus() + ")";
+            DBUtil.executeUpdate(sql);
+        } catch (SQLException sqle) {
+            throw new Exception(sqle.getMessage());
+        } catch (Exception ex) {
+            throw new Exception(ex.getMessage());
+        } finally {
+            try {
+            } catch (Exception e) {
+                throw new Exception(e.getMessage());
+            }
+
+        }
+    }
+
+    public void updateGasWholeSaleFee(GasWholeSaleFeeBean bean) throws Exception {
+        if (bean == null) {
+            return;
+        }
+        try {
+            String sql = "Update gas_wholesale_fee Set "
+                    + " name='" + bean.getName() + "'"
+                    + ", kind=" + bean.getKind()
+                    + ", status=" + bean.getStatus()
+                    + " Where id=" + bean.getId();
+            DBUtil.executeUpdate(sql);
+        } catch (SQLException sqle) {
+            throw new Exception(sqle.getMessage());
+        } catch (Exception ex) {
+            throw new Exception(ex.getMessage());
+        } finally {
+            try {
+            } catch (Exception e) {
+                throw new Exception(e.getMessage());
+            }
+        }
+    }
 }

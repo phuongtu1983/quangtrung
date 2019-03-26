@@ -29,6 +29,7 @@ public class GasWholesaleFormBean extends org.apache.struts.action.ActionForm {
     private int gasReturn;
     private double gasReturnPrice;
     private double gasReturnAmount;
+    private double oldDebt;
 
     private String[] gasWholesaleDetailId;
     private String[] shellId;
@@ -43,6 +44,11 @@ public class GasWholesaleFormBean extends org.apache.struts.action.ActionForm {
     private String[] gasWholesaleReturnShellDetailId;
     private String[] returnShellId;
     private String[] returnShellQuantity;
+
+    private String[] gasWholesaleFeeDetailId;
+    private String[] feeId;
+    private String[] feeAmount;
+    private String[] feeNote;
 
     public GasWholesaleFormBean() {
         this.canEdit = 1;
@@ -65,6 +71,7 @@ public class GasWholesaleFormBean extends org.apache.struts.action.ActionForm {
         this.gasReturn = bean.getGasReturn();
         this.gasReturnPrice = bean.getGasReturnPrice();
         this.gasReturnAmount = bean.getGasReturnAmount();
+        this.oldDebt = bean.getOldDebt();
     }
 
     public String getCreatedDate() {
@@ -289,6 +296,46 @@ public class GasWholesaleFormBean extends org.apache.struts.action.ActionForm {
 
     public void setGasReturnAmount(double gasReturnAmount) {
         this.gasReturnAmount = gasReturnAmount;
+    }
+
+    public String[] getGasWholesaleFeeDetailId() {
+        return gasWholesaleFeeDetailId;
+    }
+
+    public void setGasWholesaleFeeDetailId(String[] gasWholesaleFeeDetailId) {
+        this.gasWholesaleFeeDetailId = gasWholesaleFeeDetailId;
+    }
+
+    public String[] getFeeId() {
+        return feeId;
+    }
+
+    public void setFeeId(String[] feeId) {
+        this.feeId = feeId;
+    }
+
+    public String[] getFeeAmount() {
+        return feeAmount;
+    }
+
+    public void setFeeAmount(String[] feeAmount) {
+        this.feeAmount = feeAmount;
+    }
+
+    public String[] getFeeNote() {
+        return feeNote;
+    }
+
+    public void setFeeNote(String[] feeNote) {
+        this.feeNote = feeNote;
+    }
+
+    public double getOldDebt() {
+        return oldDebt;
+    }
+
+    public void setOldDebt(double oldDebt) {
+        this.oldDebt = oldDebt;
     }
 
 }

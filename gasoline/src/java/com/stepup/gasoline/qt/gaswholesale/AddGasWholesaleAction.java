@@ -8,6 +8,7 @@ import com.stepup.core.util.NumberUtil;
 import com.stepup.core.util.StringUtil;
 import com.stepup.gasoline.qt.bean.GasWholesaleBean;
 import com.stepup.gasoline.qt.bean.GasWholesaleDetailBean;
+import com.stepup.gasoline.qt.bean.GasWholesaleFeeDetailBean;
 import com.stepup.gasoline.qt.bean.GasWholesalePromotionMaterialDetailBean;
 import com.stepup.gasoline.qt.bean.GasWholesaleReturnShellDetailBean;
 import com.stepup.gasoline.qt.core.SpineAction;
@@ -76,6 +77,7 @@ public class AddGasWholesaleAction extends SpineAction {
         bean.setGasReturn(formBean.getGasReturn());
         bean.setGasReturnPrice(formBean.getGasReturnPrice());
         bean.setGasReturnAmount(formBean.getGasReturnAmount());
+        bean.setOldDebt(formBean.getOldDebt());
         bean.setCreatedEmployeeId(QTUtil.getEmployeeId(request.getSession()));
         try {
             if (bNew) {
@@ -84,10 +86,12 @@ public class AddGasWholesaleAction extends SpineAction {
                 addGasWholesaleDetail(formBean, needUpdate);
                 addGasWholesalePromotionMaterial(formBean, needUpdate);
                 addGasWholesaleReturnShellDetail(formBean, needUpdate);
+                addGasWholesaleFee(formBean);
             } else {
                 addGasWholesaleDetail(formBean, needUpdate);
                 addGasWholesalePromotionMaterial(formBean, needUpdate);
                 addGasWholesaleReturnShellDetail(formBean, needUpdate);
+                addGasWholesaleFee(formBean);
                 gasDAO.updateGasWholesale(bean);
             }
         } catch (Exception ex) {
@@ -263,6 +267,62 @@ public class AddGasWholesaleAction extends SpineAction {
             }
             ids += "0";
             gasDAO.deleteGasWholesaleReturnShellDetails(ids);
+        } catch (Exception ex) {
+        }
+    }
+
+    private void addGasWholesaleFee(GasWholesaleFormBean formBean) {
+        try {
+            GasDAO gasDAO = new GasDAO();
+            ArrayList arrDetail = gasDAO.getGasWholesaleFeeDetail(formBean.getId());
+            if (formBean.getFeeId() != null) {
+                int length = formBean.getFeeId().length;
+                int id = 0;
+                boolean isUpdate = false;
+                for (int i = 0; i < length; i++) {
+                    id = NumberUtil.parseInt(formBean.getGasWholesaleFeeDetailId()[i], 0);
+                    if (id == 0) {
+                        GasWholesaleFeeDetailBean bean = new GasWholesaleFeeDetailBean();
+                        bean.setFeeId(NumberUtil.parseInt(formBean.getFeeId()[i], 0));
+                        bean.setAmount(NumberUtil.parseInt(formBean.getFeeAmount()[i], 0));
+                        bean.setNote(formBean.getFeeNote()[i]);
+                        bean.setGasWholesaleId(formBean.getId());
+                        gasDAO.insertGasWholesaleFeeDetail(bean);
+                    } else {
+                        isUpdate = false;
+                        int j = 0;
+                        GasWholesaleFeeDetailBean oldBean = null;
+                        for (; j < arrDetail.size(); j++) {
+                            oldBean = (GasWholesaleFeeDetailBean) arrDetail.get(j);
+                            if (oldBean.getId() == id) {
+                                break;
+                            }
+                        }
+                        if (j < arrDetail.size()) {
+                            arrDetail.remove(j);
+                            if (oldBean.getAmount() != NumberUtil.parseInt(formBean.getFeeAmount()[i], 0)) {
+                                isUpdate = true;
+                                oldBean.setAmount(NumberUtil.parseInt(formBean.getFeeAmount()[i], 0));
+                            }
+                            if (!oldBean.getNote().equals(formBean.getFeeNote()[i])) {
+                                isUpdate = true;
+                                oldBean.setNote(formBean.getFeeNote()[i]);
+                            }
+                            if (isUpdate) {
+                                gasDAO.updateGasWholesaleFeeDetail(oldBean);
+                            }
+                        }
+                    }
+                }
+            }
+            String ids = "0,";
+            GasWholesaleFeeDetailBean oldBean = null;
+            for (int i = 0; i < arrDetail.size(); i++) {
+                oldBean = (GasWholesaleFeeDetailBean) arrDetail.get(i);
+                ids += oldBean.getId() + ",";
+            }
+            ids += "0";
+            gasDAO.deleteGasWholesaleFeeDetails(ids);
         } catch (Exception ex) {
         }
     }

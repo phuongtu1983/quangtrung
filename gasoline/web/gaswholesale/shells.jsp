@@ -9,6 +9,7 @@
                 <input type="checkbox" name="gasWholesaleShellChk" tabindex="-1" value="<bean:write name="shell" property="shellId"/>">
                 <input type="hidden" name="gasWholesaleDetailId" value='0'/>
                 <input type="hidden" name="shellId" value='<bean:write name="shell" property="shellId"/>'/>
+                <input type="hidden" name="shellWeight" value='<bean:write name="shell" property="shellWeight"/>'/>
             </td>
             <td><span><bean:write name="shell" property="shellName"/></span></td>
             <td><span><bean:write name="shell" property="unitName"/></span></td>

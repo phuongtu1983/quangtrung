@@ -17,6 +17,7 @@ public class ShellBean {
     private int unitId;
     private String unitName;
     private double price;
+    private double weight;
     private int status;
 
     public void setId(int id) {
@@ -82,4 +83,13 @@ public class ShellBean {
     public void setUnitName(String unitName) {
         this.unitName = unitName;
     }
+
+    public double getWeight() {
+        return weight;
+    }
+
+    public void setWeight(double weight) {
+        this.weight = weight;
+    }
+
 }

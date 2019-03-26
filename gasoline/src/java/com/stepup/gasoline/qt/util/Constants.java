@@ -104,6 +104,9 @@ public class Constants {
     public static final String GAS_IMPORT_SHELL = "gasImportShell";
     public static final String ACCESSORY_IMPORT_ACCESSORY = "accessoryImportAccessory";
     public static final String PROMOTION_MATERIAL_IMPORT_PROMOTION_MATERIAL = "promotionMaterialImportPromotionMaterial";
+    public static final String GAS_WHOLESALE_FEE = "gasWholesaleFee";
+    public static final String GAS_WHOLESALE_FEE_LIST = "gasWholesaleFeeList";
+    public static final String GAS_WHOLESALE_FEE_KIND_LIST = "gasWholesaleFeeKindList";
     public static final String GAS_WHOLESALE = "gasWholesale";
     public static final String GAS_WHOLESALE_SHELL = "gasWholesaleShell";
     public static final String GAS_WHOLESALE_ACCESSORY = "gasWholesaleAccessory";

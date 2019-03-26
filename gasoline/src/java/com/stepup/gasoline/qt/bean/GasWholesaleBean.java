@@ -23,6 +23,7 @@ public class GasWholesaleBean {
     private int gasReturn;
     private double gasReturnPrice;
     private double gasReturnAmount;
+    private double oldDebt;
     private int accountId;
     private String note;
     private int canEdit;
@@ -162,6 +163,14 @@ public class GasWholesaleBean {
 
     public void setCreatedEmployeeId(int createdEmployeeId) {
         this.createdEmployeeId = createdEmployeeId;
+    }
+
+    public double getOldDebt() {
+        return oldDebt;
+    }
+
+    public void setOldDebt(double oldDebt) {
+        this.oldDebt = oldDebt;
     }
 
 }

@@ -182,4 +182,5 @@ public class PermissionUtil {
     public static int PER_DEBT_ADJUSTMENT = 93;
     public static int PER_REPORT_COMPARE_LPG_VENDOR_CUSTOMER = 94;
     public static int PER_SALE_INNER = 95;
+    public static int PER_GAS_WHOLESALE_FEE = 96;
 }

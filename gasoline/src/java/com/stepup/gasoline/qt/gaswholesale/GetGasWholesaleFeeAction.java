@@ -5,11 +5,10 @@
 package com.stepup.gasoline.qt.gaswholesale;
 
 import com.stepup.core.util.NumberUtil;
-import com.stepup.gasoline.qt.bean.ShellBean;
-import com.stepup.gasoline.qt.bean.GasWholesaleDetailBean;
-import com.stepup.gasoline.qt.bean.ShellVendorDetailBean;
+import com.stepup.gasoline.qt.bean.GasWholeSaleFeeBean;
+import com.stepup.gasoline.qt.bean.GasWholesaleFeeDetailBean;
 import com.stepup.gasoline.qt.core.SpineAction;
-import com.stepup.gasoline.qt.dao.GoodDAO;
+import com.stepup.gasoline.qt.dao.GasDAO;
 import com.stepup.gasoline.qt.util.Constants;
 import java.util.ArrayList;
 import javax.servlet.http.HttpServletRequest;
@@ -21,7 +20,7 @@ import org.apache.struts.action.ActionMapping;
  *
  * @author phuongtu
  */
-public class GetGasWholesaleShellAction extends SpineAction {
+public class GetGasWholesaleFeeAction extends SpineAction {
 
     /**
      * This is the action called from the Struts framework.
@@ -36,27 +35,21 @@ public class GetGasWholesaleShellAction extends SpineAction {
     @Override
     public boolean doAction(ActionMapping mapping, ActionForm form,
             HttpServletRequest request, HttpServletResponse response) {
-        int shellId = NumberUtil.parseInt(request.getParameter("shellId"), 0);
+        int feeId = NumberUtil.parseInt(request.getParameter("feeId"), 0);
         ArrayList arrDetail = new ArrayList();
-        GasWholesaleDetailBean bean = new GasWholesaleDetailBean();
+        GasWholesaleFeeDetailBean feeDetailBean = new GasWholesaleFeeDetailBean();
         try {
-            GoodDAO goodDAO = new GoodDAO();
-            ShellVendorDetailBean shellVendorBean = goodDAO.getShellVendor(shellId);
-            if (shellVendorBean == null) {
-                shellVendorBean = new ShellVendorDetailBean();
-            }
-            ShellBean shellBean = goodDAO.getShell(shellVendorBean.getShellId());
-            if (shellBean != null) {
-                bean.setShellName(shellVendorBean.getName());
-                bean.setShellId(shellVendorBean.getId());
-                bean.setUnitId(shellBean.getUnitId());
-                bean.setUnitName(shellBean.getUnitName());
-                bean.setShellWeight(shellBean.getWeight());
+            GasDAO gasDAO = new GasDAO();
+            GasWholeSaleFeeBean bean = gasDAO.getGasWholeSaleFee(feeId);
+            if (bean != null) {
+                feeDetailBean.setFeeId(bean.getId());
+                feeDetailBean.setFeeName(bean.getName());
+                feeDetailBean.setKind(bean.getKind());
             }
         } catch (Exception ex) {
         }
-        arrDetail.add(bean);
-        request.setAttribute(Constants.GAS_WHOLESALE_SHELL, arrDetail);
+        arrDetail.add(feeDetailBean);
+        request.setAttribute(Constants.GAS_WHOLESALE_FEE, arrDetail);
 
         return true;
     }

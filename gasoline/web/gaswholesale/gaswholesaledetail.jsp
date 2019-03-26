@@ -15,7 +15,7 @@
             <td><html:text property="createdDate" size="30" name="<%=Constants.GAS_WHOLESALE%>" styleId="gasWholesaleCreatedDate"/></td>
         </tr>
         <tr>
-            <td width="200" height="30"><bean:message key="date.title"/></td>
+            <td width="200" height="30"><bean:message key="vehicleOut.detail.date.title"/></td>
             <td width="200"><input type="text" size="30" tabindex="-1" id="gasWholesaleVehicleOutCreatedDate"></td>
             <td style="padding-right: 50px;padding-left: 10px"><bean:message key="vehicleOut.title"/></td>
             <td>
@@ -28,13 +28,15 @@
         </tr>
         <tr>
             <td height="30" style="padding-right: 20px"><bean:message key="customer.title"/></td>
-            <td colspan="3">
-                <select style="width: 530px;" name="customerIdCombobox" id="customerIdCombobox">
+            <td>
+                <select style="width: 195px;" name="customerIdCombobox" id="customerIdCombobox">
                     <logic:iterate id="customer_iter" name="<%=Constants.CUSTOMER_LIST%>">
                         <option  value="${customer_iter.id}">${customer_iter.name}</option>
                     </logic:iterate>
                 </select>
             </td>
+            <td width="70" style="padding-right: 50px;padding-left: 10px"><bean:message key="gasWholesale.detail.oldDebt.title"/></td>
+            <td><html:text property="oldDebt" size="30" name="<%=Constants.GAS_WHOLESALE%>" onblur="tryNumberFormatCurrentcy(this);" onkeypress="return readonlyFloat(event);"/></td>
         </tr>
         <tr>
             <td height="30" style="padding-right: 20px"><bean:message key="account.title"/></td>
@@ -74,6 +76,31 @@
         </tr>
         <tr>
             <td colspan="4"><div><%@include  file="/gaswholesale/details.jsp" %></div></td>
+        </tr>
+        <tr>
+            <td colspan="4">
+                <fieldset>
+                    <legend><bean:message key="gasWholeSale.fee.list.title"/></legend>
+                    <table>
+                        <tr>
+                            <td>
+                                <button class="i_cross icon small red" onclick="return delTableRow('gasWholesaleForm', 'gasWholesaleFeeChk', 'gasWholesaleFeeDetailTbl');" tabindex="-1"><bean:message key="message.del"/></button>
+                                <button class="i_plus icon small green" onclick="return addGasWholesaleFee();" tabindex="-1"><bean:message key="message.add"/></button>
+                            </td>
+                            <td>
+                                <select style="width: 260px;" name="feeIdCombobox" id="feeIdCombobox">
+                                    <logic:iterate id="fee_iter" name="<%=Constants.GAS_WHOLESALE_FEE_LIST%>">
+                                        <option  value="${fee_iter.id}">${fee_iter.name}</option>
+                                    </logic:iterate>
+                                </select>
+                            </td>
+                        </tr>
+                    </table>
+                </fieldset>
+            </td>
+        </tr>
+        <tr>
+            <td colspan="4"><div><%@include  file="/gaswholesale/feedetails.jsp" %></div></td>
         </tr>
         <tr>
             <td height="30" style="padding-right: 20px"><bean:message key="gasReturn.title"/></td>
@@ -171,6 +198,7 @@
     <input type="hidden" id="callbackFunc"/>
     <input type="hidden" name="shellSelectedHidden" value="0"/>
     <input type="hidden" name="returnShellSelectedHidden" value="0"/>
+    <input type="hidden" name="feeSelectedHidden" value="0"/>
     <input type="hidden" name="promotionMaterialSelectedHidden" value="0"/>
     <input type="hidden" name="vehicleSelectedHidden" value="0"/>
     <input type="hidden" name="customerSelectedHidden" value="0"/>
@@ -183,3 +211,4 @@
 <div id="gasWholesaleShellHideDiv" style="display:none"></div>
 <div id="gasWholesalePromotionMaterialHideDiv" style="display:none"></div>
 <div id="gasWholesaleReturnShellHideDiv" style="display:none"></div>
+<div id="gasWholesaleFeeHideDiv" style="display:none"></div>

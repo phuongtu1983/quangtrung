@@ -508,7 +508,7 @@ public class PaymentDAO extends BasicDAO {
             } else {
                 createdDate = bean.getCreatedDate();
             }
-            String sql = "{call insertDebtWholesale(?,?,?,?,?,?,?,?,?)}";
+            String sql = "{call insertDebtWholesale(?,?,?,?,?,?,?,?,?,?)}";
             spUtil = new SPUtil(sql);
             if (spUtil != null) {
                 spUtil.getCallableStatement().setString("_code", bean.getCode());
@@ -519,6 +519,7 @@ public class PaymentDAO extends BasicDAO {
                 spUtil.getCallableStatement().setString("_note", bean.getNote());
                 spUtil.getCallableStatement().setInt("_created_employee_id", bean.getCreatedEmployeeId());
                 spUtil.getCallableStatement().setInt("_kind", bean.getKind());
+                spUtil.getCallableStatement().setInt("_gas_wholesale_id", 0);
                 spUtil.getCallableStatement().registerOutParameter("_id", Types.INTEGER);
                 spUtil.execute();
                 result = spUtil.getCallableStatement().getInt("_id");

@@ -71,6 +71,7 @@
         <form-bean name="passwordForm" type="com.stepup.gasoline.qt.auth.PasswordFormBean"/>
         <form-bean name="resetPasswordForm" type="com.stepup.gasoline.qt.auth.ResetPasswordForm"/>
         <form-bean name="unitForm" type="com.stepup.gasoline.qt.unit.UnitFormBean"/>
+        <form-bean name="gasWholeSaleFeeForm" type="com.stepup.gasoline.qt.gaswholesalefee.GasWholeSaleFeeFormBean"/>
         <form-bean name="fractionForm" type="com.stepup.gasoline.qt.fraction.FractionFormBean"/>
         <form-bean name="gasImportForm" type="com.stepup.gasoline.qt.gasimport.GasImportFormBean"/>
         <form-bean name="gasReturnForm" type="com.stepup.gasoline.qt.gasreturn.GasReturnFormBean"/>
@@ -225,18 +226,18 @@
         <action path="/changePassword" type="com.stepup.gasoline.qt.auth.ChangePasswordAction" input="/passwordForm.do" name="passwordForm" scope="request" >
         </action>
         <!-- end user -->
-        <!-- start unit -->
-        <action path="/getUnitPanel" type="com.stepup.gasoline.qt.common.BaseStatusFormAction" scope="request" validate="false">
-            <forward name="success" path="/unit/unitpanel.jsp" />
+        <!-- start gaswholesalefee -->
+        <action path="/getGasWholeSaleFeePanel" type="com.stepup.gasoline.qt.common.BaseStatusFormAction" scope="request" validate="false">
+            <forward name="success" path="/gaswholesalefee/gaswholesalefeepanel.jsp" />
         </action>
-        <action path="/getUnitList" type="com.stepup.gasoline.qt.unit.GetUnitListAction" scope="request" validate="false" >
+        <action path="/getGasWholeSaleFeeList" type="com.stepup.gasoline.qt.gaswholesalefee.GetGasWholeSaleFeeListAction" scope="request" validate="false" >
         </action>
-        <action path="/unitForm" type="com.stepup.gasoline.qt.unit.UnitFormAction" scope="request" validate="false">
-            <forward name="success" path="/unit/unitdetail.jsp" />
+        <action path="/gasWholeSaleFeeForm" type="com.stepup.gasoline.qt.gaswholesalefee.GasWholeSaleFeeFormAction" scope="request" validate="false">
+            <forward name="success" path="/gaswholesalefee/gaswholesalefeedetail.jsp" />
         </action>
-        <action path="/addUnit" name ="unitForm" scope="request" type="com.stepup.gasoline.qt.unit.AddUnitAction" input="/unitForm.do">
+        <action path="/addGasWholeSaleFee" name ="gasWholeSaleFeeForm" scope="request" type="com.stepup.gasoline.qt.gaswholesalefee.AddGasWholeSaleFeeAction" input="/gasWholeSaleFeeForm.do">
         </action>
-        <!-- end unit -->
+        <!-- end gaswholesalefee -->
         <!-- start shellKind -->
         <action path="/getShellKindPanel" type="com.stepup.gasoline.qt.common.BaseStatusFormAction" scope="request" validate="false">
             <forward name="success" path="/shellkind/shellkindpanel.jsp" />
@@ -689,7 +690,22 @@
         </action>
         <action path="/getVehicleOutByDateAction" scope="request" type="com.stepup.gasoline.qt.gaswholesale.GetVehicleOutByDateAction">
         </action>
+        <action path="/getGasWholesaleFee" type="com.stepup.gasoline.qt.gaswholesale.GetGasWholesaleFeeAction" scope="request" validate="false">
+            <forward name="success" path="/gaswholesale/fees.jsp" />
+        </action>
         <!-- end gas wholesale -->
+        <!-- start unit -->
+        <action path="/getUnitPanel" type="com.stepup.gasoline.qt.common.BaseStatusFormAction" scope="request" validate="false">
+            <forward name="success" path="/unit/unitpanel.jsp" />
+        </action>
+        <action path="/getUnitList" type="com.stepup.gasoline.qt.unit.GetUnitListAction" scope="request" validate="false" >
+        </action>
+        <action path="/unitForm" type="com.stepup.gasoline.qt.unit.UnitFormAction" scope="request" validate="false">
+            <forward name="success" path="/unit/unitdetail.jsp" />
+        </action>
+        <action path="/addUnit" name ="unitForm" scope="request" type="com.stepup.gasoline.qt.unit.AddUnitAction" input="/unitForm.do">
+        </action>
+        <!-- end unit -->
         <!-- start gas retail -->
         <action path="/getGasRetailPanel" type="com.stepup.gasoline.qt.common.BaseFormAction" scope="request" validate="false">
             <forward name="success" path="/gasretail/gasretailpanel.jsp" />

@@ -243,7 +243,7 @@ public class GoodDAO extends BasicDAO {
 
     public ShellBean getShell(int shellId) throws Exception {
         ResultSet rs = null;
-        String sql = "select s.*, u.name as unit_name from shell as s, unit as u where s.unit_id=u.id and s.id=" + shellId;
+        String sql = "select s.*, u.name as unit_name, sk.weight from shell as s, unit as u, shell_kind AS sk where s.unit_id=u.id and s.kind_id=sk.id and s.id=" + shellId;
         try {
             rs = DBUtil.executeQuery(sql);
             while (rs.next()) {
@@ -255,6 +255,7 @@ public class GoodDAO extends BasicDAO {
                 bean.setUnitName(rs.getString("unit_name"));
                 bean.setKindId(rs.getInt("kind_id"));
                 bean.setPrice(rs.getDouble("price"));
+                bean.setWeight(rs.getDouble("weight"));
                 bean.setStatus(rs.getInt("status"));
                 return bean;
             }

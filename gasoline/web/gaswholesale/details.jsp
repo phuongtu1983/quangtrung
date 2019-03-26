@@ -21,6 +21,7 @@
                     <input type="checkbox" name="gasWholesaleShellChk" tabindex="-1" value="<%=((GasWholesaleDetailBean) pageContext.getAttribute("shell")).getId()%>">
                     <input type="hidden" name="gasWholesaleDetailId" value='<bean:write name="shell" property="id"/>'/>
                     <input type="hidden" name="shellId" value='<bean:write name="shell" property="shellId"/>'/>
+                    <input type="hidden" name="shellWeight" value='<bean:write name="shell" property="shellWeight"/>'/>
                 </td>
                 <td><span><bean:write name="shell" property="shellName"/></span></td>
                 <td><span><bean:write name="shell" property="unitName"/></span></td>

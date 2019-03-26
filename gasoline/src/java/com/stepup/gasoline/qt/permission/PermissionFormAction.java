@@ -552,6 +552,15 @@ public class PermissionFormAction extends SpineAction {
         perBean.setOperations("," + PermissionUtil.OPERATION_LIST + "," + PermissionUtil.OPERATION_ADD + "," + PermissionUtil.OPERATION_EDIT + "," + PermissionUtil.OPERATION_DELETE + "," + PermissionUtil.OPERATION_EDIT_PAST + ",");
         arrFun.add(perBean);
 
+        perBean = new PermissionViewBean();
+        perBean.setCounter("2.1");
+        perBean.setLevel(2);
+        perBean.setSharedId(2);
+        perBean.setName(QTUtil.getBundleString("gasWholeSale.fee.list.title"));
+        perBean.setValue(PermissionUtil.PER_GAS_WHOLESALE_FEE);
+        perBean.setOperations("," + PermissionUtil.OPERATION_LIST + "," + PermissionUtil.OPERATION_ADD + "," + PermissionUtil.OPERATION_EDIT + ",");
+        arrFun.add(perBean);
+
 //        perBean = new PermissionViewBean();
 //        perBean.setCounter("2.1");
 //        perBean.setLevel(2);
@@ -577,7 +586,7 @@ public class PermissionFormAction extends SpineAction {
         perBean.setValue(PermissionUtil.PER_FIXED_ASSET_DEPRECIATION);
         perBean.setOperations("," + PermissionUtil.OPERATION_LIST + "," + PermissionUtil.OPERATION_ADD + "," + PermissionUtil.OPERATION_EDIT + "," + PermissionUtil.OPERATION_DELETE + ",");
         arrFun.add(perBean);
-        
+
         perBean = new PermissionViewBean();
         perBean.setCounter("2.1");
         perBean.setLevel(2);
@@ -854,7 +863,7 @@ public class PermissionFormAction extends SpineAction {
         perBean.setValue(PermissionUtil.PER_REPORT_COMPARE_VENDOR);
         perBean.setOperations("," + PermissionUtil.OPERATION_PRINT + ",");
         arrFun.add(perBean);
-        
+
         perBean = new PermissionViewBean();
         perBean.setCounter("3.1");
         perBean.setLevel(2);

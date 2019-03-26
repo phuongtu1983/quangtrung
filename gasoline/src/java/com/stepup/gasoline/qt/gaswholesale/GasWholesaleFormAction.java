@@ -50,6 +50,7 @@ public class GasWholesaleFormAction extends SpineAction {
         String id = request.getParameter("gasWholesaleId");
         ArrayList arrDetail = null;
         ArrayList arrPromotionMaterialDetail = null;
+        ArrayList arrFeeDetail = null;
         ArrayList arrReturnShellDetail = null;
         GasDAO gasDAO = new GasDAO();
         if (!GenericValidator.isBlankOrNull(id)) {
@@ -59,6 +60,7 @@ public class GasWholesaleFormAction extends SpineAction {
                 arrDetail = gasDAO.getGasWholesaleDetail(gasImportId);
                 arrPromotionMaterialDetail = gasDAO.getGasWholesalePromotionMaterialDetail(gasImportId);
                 arrReturnShellDetail = gasDAO.getGasWholesaleReturnShellDetail(gasImportId);
+                arrFeeDetail = gasDAO.getGasWholesaleFeeDetail(gasImportId);
             } catch (Exception ex) {
             }
         }
@@ -93,6 +95,11 @@ public class GasWholesaleFormAction extends SpineAction {
         }
         request.setAttribute(Constants.GAS_WHOLESALE_PROMOTION_MATERIAL, arrPromotionMaterialDetail);
         
+        if (arrFeeDetail == null) {
+            arrFeeDetail = new ArrayList();
+        }
+        request.setAttribute(Constants.GAS_WHOLESALE_FEE, arrFeeDetail);
+        
         if (arrReturnShellDetail == null) {
             arrReturnShellDetail = new ArrayList();
         }
@@ -111,6 +118,16 @@ public class GasWholesaleFormAction extends SpineAction {
             arrShell = new ArrayList();
         }
         request.setAttribute(Constants.SHELL_LIST, arrShell);
+        
+        ArrayList arrFee = null;
+        try {
+            arrFee = gasDAO.getGasWholeSaleFees(EmployeeBean.STATUS_ACTIVE);
+        } catch (Exception ex) {
+        }
+        if (arrFee == null) {
+            arrFee = new ArrayList();
+        }
+        request.setAttribute(Constants.GAS_WHOLESALE_FEE_LIST, arrFee);
         
         ArrayList arrShellReturn = null;
         try {
