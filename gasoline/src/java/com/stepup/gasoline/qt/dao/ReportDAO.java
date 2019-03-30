@@ -49,6 +49,7 @@ import com.stepup.gasoline.qt.report.PetroStockReportBean;
 import com.stepup.gasoline.qt.report.PetroStockReportOutBean;
 import com.stepup.gasoline.qt.report.SaleCustomerReportBean;
 import com.stepup.gasoline.qt.report.SaleReportBean;
+import com.stepup.gasoline.qt.report.ShellReportBean;
 import com.stepup.gasoline.qt.report.SumReportBean;
 import com.stepup.gasoline.qt.report.TransportFeeReportBean;
 import com.stepup.gasoline.qt.report.TransportSaleReportBean;
@@ -2707,6 +2708,61 @@ public class ReportDAO extends BasicDAO {
                         bean.setPaid(rs.getDouble("paid"));
                         bean.setDebt(openingStock + bean.getAmount() - rs.getDouble("paid"));
                         openingStock = bean.getDebt();
+                        list.add(bean);
+                    }
+                }
+            }
+        } catch (SQLException sqle) {
+            throw new Exception(sqle.getMessage());
+        } catch (Exception ex) {
+            throw new Exception(ex.getMessage());
+        } finally {
+            try {
+                if (spUtil != null) {
+                    spUtil.closeConnection();
+                }
+                if (rs != null) {
+                    rs.close();
+                    rs = null;
+                }
+            } catch (Exception e) {
+                throw new Exception(e.getMessage());
+            }
+        }
+        return list;
+    }
+
+    public ArrayList getGasShellReport(String fromDate, String endDate, String organizationIds, String sessionId) throws Exception {
+        SPUtil spUtil = null;
+        ArrayList list = new ArrayList();
+        ResultSet rs = null;
+        try {
+            String sql = "{call report_shell(?,?,?)}";
+            if (GenericValidator.isBlankOrNull(fromDate)) {
+                fromDate = DateUtil.today("dd/MM/yyyy");
+            }
+            if (GenericValidator.isBlankOrNull(endDate)) {
+                endDate = BasicDAO.START_DATE;
+            }
+            spUtil = new SPUtil(sql);
+            if (spUtil != null) {
+                spUtil.getCallableStatement().setString("_start_date", fromDate);
+                spUtil.getCallableStatement().setString("_end_date", endDate);
+                spUtil.getCallableStatement().setString("_organization_ids", organizationIds);
+
+                rs = spUtil.executeQuery();
+
+                if (rs != null) {
+                    ShellReportBean bean = null;
+                    while (rs.next()) {
+                        bean = new ShellReportBean();
+                        bean.setShellVendorId(rs.getInt("shell_vendor_id"));
+                        bean.setName(rs.getString("shell_name"));
+                        bean.setOpeningStock(rs.getDouble("opening_stock"));
+                        bean.setCreatedDate(DateUtil.formatDate(rs.getDate("created_date"), "dd/MM"));
+                        bean.setQuantity(rs.getInt("quantity"));
+                        bean.setChangeCreatedDate(DateUtil.formatDate(rs.getDate("change_created_date"), "dd/MM"));
+                        bean.setChangeQuantity(rs.getInt("change_quantity"));
                         list.add(bean);
                     }
                 }

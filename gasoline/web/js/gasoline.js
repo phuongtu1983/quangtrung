@@ -285,7 +285,8 @@ function menuClick(id) {
         getContract(0, 'loadContractPanel');
     else if (id == 'reportlpgimport' || id == 'reportlpgstock' || id == 'reportlpgstocksum' || id == 'reportsum' || id == 'reportsalecustomer' || id == 'reportsale'
             || id == 'reportcashbook' || id == 'reportpetroimport' || id == 'reportpetrosale' || id == 'reportpetrostock' || id == 'reportgascommission'
-            || id == 'reportgasemployeecommission' || id == 'reportvendordebt' || id == 'reporttransportfee' || id == 'reportvehiclesale' || id == 'reportlpgsale')
+            || id == 'reportgasemployeecommission' || id == 'reportvendordebt' || id == 'reporttransportfee' || id == 'reportvehiclesale' || id == 'reportlpgsale'
+            || id == 'reportshell')
         showReportPanel(id);
     else if (id == 'shieldimportlist')
         loadShieldImportPanel();

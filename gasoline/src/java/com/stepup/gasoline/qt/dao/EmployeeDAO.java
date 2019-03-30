@@ -450,7 +450,7 @@ public class EmployeeDAO extends BasicDAO {
             } else {
                 createdDate = bean.getAdvanceDate();
             }
-            String sql = "{call insertEmployeeAdvance(?,?,?,?,?,?,?,?)}";
+            String sql = "{call insertEmployeeAdvance(?,?,?,?,?,?,?,?,?)}";
             spUtil = new SPUtil(sql);
             if (spUtil != null) {
                 spUtil.getCallableStatement().setString("_code", bean.getCode());
@@ -460,6 +460,7 @@ public class EmployeeDAO extends BasicDAO {
                 spUtil.getCallableStatement().setInt("_account_id", bean.getAccountId());
                 spUtil.getCallableStatement().setString("_note", bean.getNote());
                 spUtil.getCallableStatement().setInt("_created_employee_id", bean.getCreatedEmployeeId());
+                spUtil.getCallableStatement().setInt("_inner_sale_id", 0);
                 spUtil.getCallableStatement().registerOutParameter("_id", Types.INTEGER);
                 spUtil.execute();
                 result = spUtil.getCallableStatement().getInt("_id");

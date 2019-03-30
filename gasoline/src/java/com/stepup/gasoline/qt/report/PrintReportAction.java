@@ -4,6 +4,7 @@
  */
 package com.stepup.gasoline.qt.report;
 
+import com.stepup.core.util.DateUtil;
 import com.stepup.core.util.FileUtil;
 import com.stepup.core.util.LogUtil;
 import com.stepup.core.util.StringUtil;
@@ -19,10 +20,14 @@ import com.stepup.gasoline.qt.petro.PetroFormBean;
 import com.stepup.gasoline.qt.util.QTUtil;
 import com.stepup.gasoline.qt.vendor.VendorFormBean;
 import java.io.File;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.concurrent.TimeUnit;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import org.apache.struts.action.ActionForm;
@@ -93,11 +98,11 @@ public class PrintReportAction extends BaseAction {
                     String session = QTUtil.getEmployeeId(request.getSession()) + "_" + Calendar.getInstance().getTimeInMillis();
                     printPetroStockReport(fromDate, toDate, organizationIds, request, response, templateFileName, session, beans, exporter);
                 } else if (reportName.equals("reportgascommission")) {
-                    templateFileName = "commission_gas";
+                    templateFileName = "chiet_khau_ban_hang";
                     String session = QTUtil.getEmployeeId(request.getSession()) + "_" + Calendar.getInstance().getTimeInMillis();
                     printGasCommissionReport(fromDate, toDate, organizationIds, request, response, templateFileName, session, beans, exporter);
                 } else if (reportName.equals("reportgasemployeecommission")) {
-                    templateFileName = "employee_commission_gas";
+                    templateFileName = "thanh_toan_tien_chiet_khau";
                     String session = QTUtil.getEmployeeId(request.getSession()) + "_" + Calendar.getInstance().getTimeInMillis();
                     list = printGasEmployeeComissionReport(fromDate, toDate, organizationIds, session);
                 } else if (reportName.equals("reportvendordebt")) {
@@ -109,9 +114,13 @@ public class PrintReportAction extends BaseAction {
                 } else if (reportName.equals("reportvehiclesale")) {
                     templateFileName = "bang_theo_doi_ban_hang_van_chuyen";
                     list = printTransportSaleReport(fromDate, toDate, organizationIds);
+                } else if (reportName.equals("reportshell")) {
+                    templateFileName = "thong_ke_vo";
+                    String session = QTUtil.getEmployeeId(request.getSession()) + "_" + Calendar.getInstance().getTimeInMillis();
+                    printShellReport(fromDate, toDate, organizationIds, request, response, templateFileName, session, beans, exporter);
                 }
 
-                if (!reportName.equals("reportpetrostock") && !reportName.equals("reportgascommission")) {
+                if (!reportName.equals("reportpetrostock") && !reportName.equals("reportgascommission") && !reportName.equals("reportshell")) {
                     String sourceFile = request.getSession().getServletContext().getRealPath("/templates/" + templateFileName + ".xls");
                     if (list == null) {
                         list = new ArrayList();
@@ -142,7 +151,7 @@ public class PrintReportAction extends BaseAction {
         }
         return list;
     }
-    
+
     private ArrayList printLpgSaleReport(String fromDate, String toDate, String organizationIds) {
         ArrayList list = null;
         try {
@@ -243,7 +252,7 @@ public class PrintReportAction extends BaseAction {
         return list;
     }
 
-    private ArrayList printPetroStockReport(String fromDate, String toDate, String organizationIds, HttpServletRequest request, HttpServletResponse response,
+    private void printPetroStockReport(String fromDate, String toDate, String organizationIds, HttpServletRequest request, HttpServletResponse response,
             String fileName, String sessionId, Map beans, ExcelExport exporter) {
         ArrayList list = null;
         try {
@@ -291,7 +300,6 @@ public class PrintReportAction extends BaseAction {
         } catch (Exception ex) {
             System.out.println(ex);
         }
-        return list;
     }
 
     private ArrayList printGasCommissionReport(String fromDate, String toDate, String organizationIds, HttpServletRequest request, HttpServletResponse response,
@@ -400,6 +408,170 @@ public class PrintReportAction extends BaseAction {
         } catch (Exception ex) {
         }
         return list;
+    }
+
+    private void printShellReport(String fromDate, String toDate, String organizationIds, HttpServletRequest request, HttpServletResponse response,
+            String fileName, String sessionId, Map beans, ExcelExport exporter) {
+
+        String tempFileName = request.getSession().getServletContext().getRealPath("/templates/" + fileName + "_temp.xls");
+        fileName = request.getSession().getServletContext().getRealPath("/templates/" + fileName + ".xls");
+
+        Date dFromDate = DateUtil.convertStringToDate(fromDate, "dd/MM/yyyy");
+        Date dToDate = DateUtil.convertStringToDate(toDate, "dd/MM/yyyy");
+        long diffInMillies = Math.abs(dToDate.getTime() - dFromDate.getTime());
+        long diff = TimeUnit.DAYS.convert(diffInMillies, TimeUnit.MILLISECONDS);
+
+        if (diff < 0) {
+            return;
+        }
+
+        ArrayList arrDate = new ArrayList();
+
+        DateFormat dateFormat = new SimpleDateFormat("dd/MM");
+        Calendar c = Calendar.getInstance();
+        c.setTime(dFromDate);
+
+        arrDate.add(dateFormat.format(c.getTime()));
+        for (int i = 0; i < diff; i++) {
+            c.add(Calendar.DATE, 1);
+            arrDate.add(dateFormat.format(c.getTime()));
+        }
+        if (diff != 0) {
+            c.setTime(dToDate);
+            arrDate.add(dateFormat.format(c.getTime()));
+        }
+
+        try {
+
+            FileUtil.copyFile(fileName, tempFileName);
+            File f = new File(tempFileName);
+            ArrayList arrHideCol = new ArrayList();
+            arrHideCol.add(3);
+
+            ArrayList shellList = null;
+            try {
+                ReportDAO reportDAO = new ReportDAO();
+                shellList = reportDAO.getGasShellReport(fromDate, toDate, organizationIds, sessionId);
+            } catch (Exception ex) {
+            }
+
+            ArrayList shells = null;
+            shells = getShellListForShellReport(shellList, "", "");
+            for (int i = 0; i < shells.size(); i++) {
+                ShellReportBean bean = (ShellReportBean) shells.get(i);
+                bean.setClosingStock(bean.getOpeningStock() + getSumQuantityForShellReport(shellList, bean.getShellVendorId()));
+            }
+            beans.put("datedata", shells);
+
+            DynamicColumnExcelReporter.createColumnForShellReport(tempFileName, arrDate, f, shells.size());
+
+            for (int i = 0; i < arrDate.size(); i++) {
+                ArrayList operations = null;
+                ArrayList changes = null;
+                String date = (String) arrDate.get(i);
+                try {
+                    operations = getShellListForShellReport(shellList, date, "operation"); // mua ban gas
+                    changes = getShellListForShellReport(shellList, date, "change"); // mua ban vo gas
+                } catch (Exception ex) {
+                }
+                if (operations == null) {
+                    operations = new ArrayList();
+                }
+                if (changes == null) {
+                    changes = new ArrayList();
+                }
+
+                beans.put("dynamicdata" + date.replace("/", ""), operations);
+                beans.put("dulieudong" + date.replace("/", ""), changes);
+            }
+
+            short[] hiddenCols = new short[arrHideCol.size()];
+            for (int i = 0; i < arrHideCol.size(); i++) {
+                hiddenCols[i] = Short.parseShort(arrHideCol.get(i) + "");
+            }
+            exporter.setHiddenCols(hiddenCols);
+            exporter.setBeans(beans);
+            exporter.export(request, response, tempFileName, "thong_ke_vo.xls");
+            f.delete();
+        } catch (Exception ex) {
+            LogUtil.error("FAILED:ShellReportPrint:print-" + ex.getMessage());
+            ex.printStackTrace();
+        }
+    }
+
+    private ArrayList getShellListForShellReport(ArrayList list, String date, String kind) {
+        ArrayList result = new ArrayList();
+        int id = 0;
+        ShellReportBean bean = null;
+        int count = 1;
+        for (int i = 0; i < list.size(); i++) {
+            bean = (ShellReportBean) list.get(i);
+            if (!date.equals("")) {
+                ShellReportBean oldBean = null;
+                if (result.size() > 0) {
+                    oldBean = (ShellReportBean) result.get(result.size() - 1);
+                    if (oldBean.getShellVendorId() != bean.getShellVendorId()) {
+                        oldBean = null;
+                    }
+                }
+                if (oldBean == null) {
+                    ShellReportBean newBean = new ShellReportBean();
+                    newBean.setShellVendorId(bean.getShellVendorId());
+                    if (kind.equals("operation")) {
+                        newBean.setCreatedDate(bean.getCreatedDate());
+                        if (date.equals(bean.getCreatedDate())) {
+                            newBean.setQuantity(bean.getQuantity());
+                        }
+                    } else if (kind.equals("change")) {
+                        newBean.setCreatedDate(bean.getChangeCreatedDate());
+                        if (date.equals(bean.getChangeCreatedDate())) {
+                            newBean.setQuantity(bean.getChangeQuantity());
+                        }
+                    }
+                    result.add(newBean);
+                    continue;
+                }
+                if (kind.equals("operation")) {
+                    if (date.equals(bean.getCreatedDate())) {
+                        oldBean.setQuantity(bean.getQuantity());
+                    }
+                } else if (kind.equals("change")) {
+                    if (date.equals(bean.getChangeCreatedDate())) {
+                        oldBean.setQuantity(bean.getChangeQuantity());
+                    }
+                }
+
+            } else {
+                if (id == bean.getShellVendorId()) {
+                    continue;
+                }
+                bean.setCount(count++);
+                result.add(bean);
+            }
+            id = bean.getShellVendorId();
+        }
+        return result;
+    }
+
+    private double getSumQuantityForShellReport(ArrayList list, int shellVendorId) {
+        double sum = 0;
+        String date = "";
+        String changeDate = "";
+        ShellReportBean bean = null;
+        for (int i = 0; i < list.size(); i++) {
+            bean = (ShellReportBean) list.get(i);
+            if (shellVendorId == bean.getShellVendorId()) {
+                if (!date.equals(bean.getCreatedDate())) {
+                    date = bean.getCreatedDate();
+                    sum += bean.getQuantity();
+                }
+                if (!changeDate.equals(bean.getChangeCreatedDate())) {
+                    changeDate = bean.getChangeCreatedDate();
+                    sum += bean.getChangeQuantity();
+                }
+            }
+        }
+        return sum;
     }
 
 }

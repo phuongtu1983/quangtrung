@@ -58,6 +58,35 @@ public class DynamicColumnExcelReporter {
         return result;
     }
 
+    private static HSSFCell copyCell(HSSFWorkbook wb, HSSFSheet sheet, int rowNum, int col, int newCol, String code, String name, String content) {
+        HSSFRow row = sheet.getRow(rowNum);
+        HSSFCell cell = row.getCell(col);
+        HSSFCell newCell = row.createCell(newCol);
+        ExcelExport.copyStyle(wb, cell, newCell);
+        if (GenericValidator.isBlankOrNull(content)) {
+            newCell.setCellValue(cell.getRichStringCellValue());
+        } else {
+            newCell.setCellValue(new HSSFRichTextString(copyCellValue(cell.getRichStringCellValue().getString(), code, name, content)));
+        }
+        return newCell;
+    }
+
+    private static String copyCellValue(String value, String code, String name, String content) {
+        String result = "";
+        int ind = value.indexOf("${");
+        if (ind == 0) {
+            ind = value.indexOf(".");
+            if (ind > -1) {
+                if (GenericValidator.isBlankOrNull(name)) {
+                    result = "${" + code + content + value.substring(ind);
+                } else {
+                    result = "${" + name + content + value.substring(ind);
+                }
+            }
+        }
+        return result;
+    }
+
     public static void createPetroStockReportColumns(String templateFileName, ArrayList arrPetro, File f) throws Exception {
         POIFSFileSystem fs = new POIFSFileSystem(new FileInputStream(templateFileName));
         HSSFWorkbook wb = new HSSFWorkbook(fs);
@@ -164,6 +193,57 @@ public class DynamicColumnExcelReporter {
             copyCell(wb, sheet, row + 2, 6, col, "", employee.getId() + "");
 
             sheet.setColumnWidth(col, sheet.getColumnWidth(6));
+            col += 1;
+        }
+        FileOutputStream fileOut = new FileOutputStream(f);
+        wb.write(fileOut);
+        fileOut.close();
+    }
+
+    public static void createColumnForShellReport(String templateFileName, ArrayList arrDate, File f, int rowSize) throws Exception {
+        POIFSFileSystem fs = new POIFSFileSystem(new FileInputStream(templateFileName));
+        HSSFWorkbook wb = new HSSFWorkbook(fs);
+        //Sheet xuat nhap ban hang
+        HSSFSheet sheet = wb.getSheetAt(0);
+        HSSFCell newCell = null;
+        short col = 5;
+        for (int i = 0; i < arrDate.size(); i++) {
+            String date = (String) arrDate.get(i);
+            //copy ton cuoi (stock) header
+            newCell = copyCell(wb, sheet, 0, 3, col, "", "");
+            newCell.setCellValue(new HSSFRichTextString("$[SUM(" + ExcelExport.getColumnName(col) + "3)]"));
+//
+            //copy ngay (date) header
+            newCell = copyCell(wb, sheet, 1, 3, col, "", "");
+            newCell.setCellValue(new HSSFRichTextString(date));
+
+            //copy content
+            copyCell(wb, sheet, 2, 3, col, "", date.replace("/", ""));
+
+            sheet.setColumnWidth(col, sheet.getColumnWidth(3));
+
+            col += 1;
+        }
+        
+        //Sheet xuat nhap mua ban
+        sheet = wb.getSheetAt(1);
+        newCell = null;
+        col = 4;
+        for (int i = 0; i < arrDate.size(); i++) {
+            String date = (String) arrDate.get(i);
+            //copy ton cuoi (stock) header
+            newCell = copyCell(wb, sheet, 0, 3, col, "", "");
+            newCell.setCellValue(new HSSFRichTextString("$[SUM(" + ExcelExport.getColumnName(col) + "3)]"));
+//
+            //copy ngay (date) header
+            newCell = copyCell(wb, sheet, 1, 3, col, "", "");
+            newCell.setCellValue(new HSSFRichTextString(date));
+
+            //copy content
+            copyCell(wb, sheet, 2, 3, col, "dulieudong", "", date.replace("/", ""));
+
+            sheet.setColumnWidth(col, sheet.getColumnWidth(3));
+
             col += 1;
         }
         FileOutputStream fileOut = new FileOutputStream(f);

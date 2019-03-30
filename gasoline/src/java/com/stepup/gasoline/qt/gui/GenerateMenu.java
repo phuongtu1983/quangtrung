@@ -885,6 +885,9 @@ public class GenerateMenu {
                     if (isHasPermission(PermissionUtil.OPERATION_PRINT, PermissionUtil.PER_REPORT_GAS_EMPLOYEE_COMMISION)) {
                         buffTemp.append("<item id=\"reportgasemployeecommission\" text=\"").append(QTUtil.getBundleString("report.gasemployeecommission.title")).append("\"/>");
                     }
+                    if (isHasPermission(PermissionUtil.OPERATION_PRINT, PermissionUtil.PER_REPORT_GAS_EMPLOYEE_COMMISION)) {
+                        buffTemp.append("<item id=\"reportshell\" text=\"").append(QTUtil.getBundleString("report.shell.title")).append("\"/>");
+                    }
                     buffTemp.append("</item>");
                     buffTemp.append("<item id=\"reportpetro\" complex=\"true\" text=\"").append(QTUtil.getBundleString("report.petro.title")).append("\">");
                     if (isHasPermission(PermissionUtil.OPERATION_PRINT, PermissionUtil.PER_REPORT_PETRO_IMPORT)) {
