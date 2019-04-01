@@ -184,4 +184,9 @@ public class PermissionUtil {
     public static int PER_SALE_INNER = 95;
     public static int PER_GAS_WHOLESALE_FEE = 96;
     public static int PER_REPORT_SHELL = 97;
+    public static int PER_DAY_OFF = 98;
+    public static int PER_OTHER_BONUS = 99;
+    public static int PER_PANELTY = 100;
+    public static int PER_EMPLOYEE_OTHER_BONUS = 101;
+    public static int PER_EMPLOYEE_PANELTY = 102;
 }

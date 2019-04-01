@@ -43,7 +43,7 @@
                             <td><html:text property="presenterPosition" size="40" name="<%=Constants.CUSTOMER%>"/></td>
                         </tr>
                         <tr>
-                            <td height="30" style="padding-right: 20px"><bean:message key="customer.detail.bankAccount"/></td>
+                            <td height="30" style="padding-right: 20px"><bean:message key="account.title"/></td>
                             <td colspan="3"><html:text property="bankAccount" size="107" name="<%=Constants.CUSTOMER%>"/></td>
                         </tr>
                         <tr>

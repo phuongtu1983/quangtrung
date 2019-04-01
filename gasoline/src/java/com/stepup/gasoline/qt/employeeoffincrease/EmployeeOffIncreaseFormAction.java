@@ -10,6 +10,7 @@ import com.stepup.gasoline.qt.bean.EmployeeBean;
 import com.stepup.gasoline.qt.bean.EmployeeOffIncreaseBean;
 import com.stepup.gasoline.qt.core.SpineAction;
 import com.stepup.gasoline.qt.dao.EmployeeDAO;
+import com.stepup.gasoline.qt.dao.OrganizationDAO;
 import com.stepup.gasoline.qt.util.Constants;
 import com.stepup.gasoline.qt.util.QTUtil;
 import java.util.ArrayList;
@@ -71,6 +72,17 @@ public class EmployeeOffIncreaseFormAction extends SpineAction {
             arrEmployee = new ArrayList();
         }
         request.setAttribute(Constants.EMPLOYEE_LIST, arrEmployee);
+
+        ArrayList arrDayoff = null;
+        try {
+            OrganizationDAO organizationDAO = new OrganizationDAO();
+            arrDayoff = organizationDAO.getDayoffsList(organizationIds);
+        } catch (Exception ex) {
+        }
+        if (arrDayoff == null) {
+            arrDayoff = new ArrayList();
+        }
+        request.setAttribute(Constants.DAY_OFF_LIST, arrDayoff);
 
         return true;
     }

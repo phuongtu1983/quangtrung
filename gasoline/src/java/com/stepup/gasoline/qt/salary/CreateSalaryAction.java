@@ -10,6 +10,7 @@ import com.stepup.gasoline.qt.bean.SalaryBean;
 import com.stepup.gasoline.qt.core.SpineAction;
 import com.stepup.gasoline.qt.dao.AutoDAO;
 import com.stepup.gasoline.qt.dao.EmployeeDAO;
+import com.stepup.gasoline.qt.util.QTUtil;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -41,13 +42,13 @@ public class CreateSalaryAction extends SpineAction {
         try {
             AutoDAO autoDAO = new AutoDAO();
             autoDAO.insertAutoSalaryEmployee();
-            createSalary();
+            createSalary(request);
         } catch (Exception ex) {
         }
         return true;
     }
 
-    private void createSalary() {
+    private void createSalary(HttpServletRequest request) {
         try {
             Calendar calendar = Calendar.getInstance();
             calendar.setTime(new Date());
@@ -62,8 +63,12 @@ public class CreateSalaryAction extends SpineAction {
             EmployeeBean bean = null;
             SalaryBean salaryBean = null;
             String code = "";
+            String organizationIds = QTUtil.getOrganizationManageds(request.getSession());
+            String startDate = DateUtil.getFirstDayOfMonth("dd/MM/yyyy");
+            String fromDate = DateUtil.getLastDayOfMonth("dd/MM/yyyy");
             for (int i = 0; i < arrEmp.size(); i++) {
                 bean = (EmployeeBean) arrEmp.get(i);
+                String session = bean.getId() + "_" + QTUtil.getEmployeeId(request.getSession()) + "_" + Calendar.getInstance().getTimeInMillis();
                 code = employeeDAO.getNextEmployeeSalaryNumber(prefix, 4);
                 salaryBean = new SalaryBean();
                 salaryBean.setCode(prefix + code);
@@ -71,7 +76,7 @@ public class CreateSalaryAction extends SpineAction {
                 salaryBean.setEmployeeId(bean.getId());
                 salaryBean.setMonthDay(workingDays);
                 salaryBean.setBasicSalary(bean.getSalary());
-                employeeDAO.insertSalary(salaryBean);
+                employeeDAO.insertSalary(salaryBean, startDate, fromDate, organizationIds, session);
             }
         } catch (Exception ex) {
 

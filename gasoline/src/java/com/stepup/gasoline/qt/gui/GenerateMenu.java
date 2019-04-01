@@ -58,7 +58,8 @@ public class GenerateMenu {
             }
 
             if (isHasPermission(PermissionUtil.OPERATION_LIST + "," + PermissionUtil.OPERATION_ADD,
-                    PermissionUtil.PER_ORGANIZATION + "," + PermissionUtil.PER_STORE + "," + PermissionUtil.PER_EMPLOYEE + "," + PermissionUtil.PER_ACCOUNT)) {
+                    PermissionUtil.PER_ORGANIZATION + "," + PermissionUtil.PER_STORE + "," + PermissionUtil.PER_EMPLOYEE + "," + PermissionUtil.PER_ACCOUNT
+                    + "," + PermissionUtil.PER_DAY_OFF + "," + PermissionUtil.PER_OTHER_BONUS)) {
                 buffTemp.append("<item id=\"organization\" complex=\"true\" text=\"").append(QTUtil.getBundleString("menu.admin.organization.title")).append("\">");//start organization
                 if (isHasPermission(PermissionUtil.OPERATION_LIST + "," + PermissionUtil.OPERATION_ADD, PermissionUtil.PER_ORGANIZATION)) {
                     buffTemp.append("<item id=\"organizations\" complex=\"true\" text=\"").append(QTUtil.getBundleString("organization.title")).append("\">");//start organizations
@@ -102,6 +103,36 @@ public class GenerateMenu {
                         buffTemp.append("<item id=\"accountadd\" text=\"").append(QTUtil.getBundleString("account.detail.add.title")).append("\"/>");//add account
                     }
                     buffTemp.append("</item>");//end accounts
+                }
+                if (isHasPermission(PermissionUtil.OPERATION_LIST + "," + PermissionUtil.OPERATION_ADD, PermissionUtil.PER_DAY_OFF)) {
+                    buffTemp.append("<item id=\"dayoffs\" complex=\"true\" text=\"").append(QTUtil.getBundleString("dayoff.title")).append("\">");//start dayoffs
+                    if (isHasPermission(PermissionUtil.OPERATION_LIST, PermissionUtil.PER_DAY_OFF)) {
+                        buffTemp.append("<item id=\"dayofflist\" text=\"").append(QTUtil.getBundleString("dayoff.list.title")).append("\"/>");//list dayoff
+                    }
+                    if (isHasPermission(PermissionUtil.OPERATION_ADD, PermissionUtil.PER_DAY_OFF)) {
+                        buffTemp.append("<item id=\"dayoffadd\" text=\"").append(QTUtil.getBundleString("dayoff.detail.add.title")).append("\"/>");//add dayoff
+                    }
+                    buffTemp.append("</item>");//end dayoffs
+                }
+                if (isHasPermission(PermissionUtil.OPERATION_LIST + "," + PermissionUtil.OPERATION_ADD, PermissionUtil.PER_OTHER_BONUS)) {
+                    buffTemp.append("<item id=\"otherbonuss\" complex=\"true\" text=\"").append(QTUtil.getBundleString("otherBonus.title")).append("\">");//start otherbonuss
+                    if (isHasPermission(PermissionUtil.OPERATION_LIST, PermissionUtil.PER_OTHER_BONUS)) {
+                        buffTemp.append("<item id=\"otherbonuslist\" text=\"").append(QTUtil.getBundleString("otherBonus.list.title")).append("\"/>");//list otherbonus
+                    }
+                    if (isHasPermission(PermissionUtil.OPERATION_ADD, PermissionUtil.PER_OTHER_BONUS)) {
+                        buffTemp.append("<item id=\"otherbonusadd\" text=\"").append(QTUtil.getBundleString("otherBonus.detail.add.title")).append("\"/>");//add otherbonus
+                    }
+                    buffTemp.append("</item>");//end otherbonuss
+                }
+                if (isHasPermission(PermissionUtil.OPERATION_LIST + "," + PermissionUtil.OPERATION_ADD, PermissionUtil.PER_PANELTY)) {
+                    buffTemp.append("<item id=\"paneltys\" complex=\"true\" text=\"").append(QTUtil.getBundleString("panelty.title")).append("\">");//start paneltys
+                    if (isHasPermission(PermissionUtil.OPERATION_LIST, PermissionUtil.PER_PANELTY)) {
+                        buffTemp.append("<item id=\"paneltylist\" text=\"").append(QTUtil.getBundleString("panelty.list.title")).append("\"/>");//list panelty
+                    }
+                    if (isHasPermission(PermissionUtil.OPERATION_ADD, PermissionUtil.PER_PANELTY)) {
+                        buffTemp.append("<item id=\"paneltyadd\" text=\"").append(QTUtil.getBundleString("panelty.detail.add.title")).append("\"/>");//add panelty
+                    }
+                    buffTemp.append("</item>");//end paneltys
                 }
                 buffTemp.append("</item>");//end organization
             }
@@ -315,7 +346,8 @@ public class GenerateMenu {
             buffTemp = new StringBuilder();
             if (isHasPermission(PermissionUtil.OPERATION_LIST + "," + PermissionUtil.OPERATION_ADD,
                     PermissionUtil.PER_EMPLOYEE_ADVANCE + "," + PermissionUtil.PER_EMPLOYEE_TIMESHEET + "," + PermissionUtil.PER_EMPLOYEE_OFF
-                    + "," + PermissionUtil.PER_EMPLOYEE_OFF_INCREASE + "," + PermissionUtil.PER_EMPLOYEE_OFF_MONEY + "," + PermissionUtil.PER_SALARY)) {
+                    + "," + PermissionUtil.PER_EMPLOYEE_OFF_INCREASE + "," + PermissionUtil.PER_EMPLOYEE_OFF_MONEY + "," + PermissionUtil.PER_SALARY
+                    + "," + PermissionUtil.PER_EMPLOYEE_OTHER_BONUS + "," + PermissionUtil.PER_EMPLOYEE_PANELTY)) {
                 if (isHasPermission(PermissionUtil.OPERATION_LIST + "," + PermissionUtil.OPERATION_ADD, PermissionUtil.PER_EMPLOYEE_ADVANCE)) {
                     buffTemp.append("<item id=\"employeeadvances\" complex=\"true\" text=\"").append(QTUtil.getBundleString("employeeAdvance.title")).append("\">");
                     if (isHasPermission(PermissionUtil.OPERATION_LIST, PermissionUtil.PER_EMPLOYEE_ADVANCE)) {
@@ -363,6 +395,26 @@ public class GenerateMenu {
                     }
                     if (isHasPermission(PermissionUtil.OPERATION_ADD, PermissionUtil.PER_EMPLOYEE_OFF_MONEY)) {
                         buffTemp.append("<item id=\"employeeoffmoneyadd\" text=\"").append(QTUtil.getBundleString("employeeOffMoney.detail.add.title")).append("\"/>");
+                    }
+                    buffTemp.append("</item>");
+                }
+                if (isHasPermission(PermissionUtil.OPERATION_LIST + "," + PermissionUtil.OPERATION_ADD, PermissionUtil.PER_EMPLOYEE_OTHER_BONUS)) {
+                    buffTemp.append("<item id=\"employeeotherbonuss\" complex=\"true\" text=\"").append(QTUtil.getBundleString("otherBonus.title")).append("\">");
+                    if (isHasPermission(PermissionUtil.OPERATION_LIST, PermissionUtil.PER_EMPLOYEE_OTHER_BONUS)) {
+                        buffTemp.append("<item id=\"employeeotherbonuslist\" text=\"").append(QTUtil.getBundleString("otherBonus.list.title")).append("\"/>");
+                    }
+                    if (isHasPermission(PermissionUtil.OPERATION_ADD, PermissionUtil.PER_EMPLOYEE_OTHER_BONUS)) {
+                        buffTemp.append("<item id=\"employeeotherbonusadd\" text=\"").append(QTUtil.getBundleString("otherBonus.detail.add.title")).append("\"/>");
+                    }
+                    buffTemp.append("</item>");
+                }
+                if (isHasPermission(PermissionUtil.OPERATION_LIST + "," + PermissionUtil.OPERATION_ADD, PermissionUtil.PER_EMPLOYEE_OTHER_BONUS)) {
+                    buffTemp.append("<item id=\"employeepaneltys\" complex=\"true\" text=\"").append(QTUtil.getBundleString("panelty.title")).append("\">");
+                    if (isHasPermission(PermissionUtil.OPERATION_LIST, PermissionUtil.PER_EMPLOYEE_OTHER_BONUS)) {
+                        buffTemp.append("<item id=\"employeepaneltylist\" text=\"").append(QTUtil.getBundleString("panelty.list.title")).append("\"/>");
+                    }
+                    if (isHasPermission(PermissionUtil.OPERATION_ADD, PermissionUtil.PER_EMPLOYEE_OTHER_BONUS)) {
+                        buffTemp.append("<item id=\"employeepaneltyadd\" text=\"").append(QTUtil.getBundleString("panelty.detail.add.title")).append("\"/>");
                     }
                     buffTemp.append("</item>");
                 }

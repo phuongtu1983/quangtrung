@@ -19,6 +19,10 @@ public class SalaryBean {
     private double total;
     private int monthDay;
     private int workingDay;
+    private double commission;
+    private double bonus;
+    private double bhxh;
+    private double actualReceived;
 
     public void setId(int id) {
         this.id = id;
@@ -90,6 +94,38 @@ public class SalaryBean {
 
     public void setWorkingDay(int workingDay) {
         this.workingDay = workingDay;
+    }
+
+    public double getCommission() {
+        return commission;
+    }
+
+    public void setCommission(double commission) {
+        this.commission = commission;
+    }
+
+    public double getBonus() {
+        return bonus;
+    }
+
+    public void setBonus(double bonus) {
+        this.bonus = bonus;
+    }
+
+    public double getBhxh() {
+        return bhxh;
+    }
+
+    public void setBhxh(double bhxh) {
+        this.bhxh = bhxh;
+    }
+
+    public double getActualReceived() {
+        return actualReceived;
+    }
+
+    public void setActualReceived(double actualReceived) {
+        this.actualReceived = actualReceived;
     }
 
 }

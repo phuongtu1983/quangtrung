@@ -51,11 +51,16 @@
         <form-bean name="employeeOffIncreaseForm" type="com.stepup.gasoline.qt.employeeoffincrease.EmployeeOffIncreaseFormBean"/>
         <form-bean name="employeeOffMoneyForm" type="com.stepup.gasoline.qt.employeeoffmoney.EmployeeOffMoneyFormBean"/>
         <form-bean name="employeeTimesheetForm" type="com.stepup.gasoline.qt.employeetimesheet.EmployeeTimesheetFormBean"/>
+        <form-bean name="employeeOtherBonusForm" type="com.stepup.gasoline.qt.employeeotherbonus.EmployeeOtherBonusFormBean"/>
+        <form-bean name="employeePaneltyForm" type="com.stepup.gasoline.qt.employeepanelty.EmployeePaneltyFormBean"/>
         <form-bean name="salaryForm" type="com.stepup.gasoline.qt.salary.SalaryFormBean"/>
         <form-bean name="storeForm" type="com.stepup.gasoline.qt.store.StoreFormBean"/>
         <form-bean name="fixedAssetGroupForm" type="com.stepup.gasoline.qt.fixedassetgroup.FixedAssetGroupFormBean"/>
         <form-bean name="fixedAssetForm" type="com.stepup.gasoline.qt.fixedasset.FixedAssetFormBean"/>
         <form-bean name="accountForm" type="com.stepup.gasoline.qt.account.AccountFormBean"/>
+        <form-bean name="dayoffForm" type="com.stepup.gasoline.qt.dayoff.DayoffFormBean"/>
+        <form-bean name="otherBonusForm" type="com.stepup.gasoline.qt.otherbonus.OtherBonusFormBean"/>
+        <form-bean name="paneltyForm" type="com.stepup.gasoline.qt.panelty.PaneltyFormBean"/>
         <form-bean name="employeeForm" type="com.stepup.gasoline.qt.employee.EmployeeFormBean"/>
         <form-bean name="employeeSalaryForm" type="com.stepup.gasoline.qt.employee.EmployeeSalaryFormBean"/>
         <form-bean name="organizationTimesheetForm" type="com.stepup.gasoline.qt.organization.OrganizationTimesheetFormBean"/>
@@ -494,6 +499,34 @@
         <action path="/getDayOffAndSalaryOfEmployee" scope="request" type="com.stepup.gasoline.qt.employeeoffmoney.GetDayOffSalaryEmployeeAction">
         </action>
         <!-- end employeeoffmoney -->
+        <!-- start employeeotherbonus -->
+        <action path="/getEmployeeOtherBonusPanel" type="com.stepup.gasoline.qt.common.BaseStatusFormAction" scope="request" validate="false">
+            <forward name="success" path="/employeeotherbonus/employeeotherbonuspanel.jsp" />
+        </action>
+        <action path="/getEmployeeOtherBonusList" type="com.stepup.gasoline.qt.employeeotherbonus.GetEmployeeOtherBonusListAction" scope="request" validate="false" >
+        </action>
+        <action path="/employeeOtherBonusForm" type="com.stepup.gasoline.qt.employeeotherbonus.EmployeeOtherBonusFormAction" scope="request" validate="false">
+            <forward name="success" path="/employeeotherbonus/employeeotherbonusdetail.jsp" />
+        </action>
+        <action path="/addEmployeeOtherBonus" name ="employeeOtherBonusForm" scope="request" type="com.stepup.gasoline.qt.employeeotherbonus.AddEmployeeOtherBonusAction" input="/employeeOtherBonusForm.do">
+        </action>
+        <action path="/delEmployeeOtherBonus" type="com.stepup.gasoline.qt.employeeotherbonus.DeleteEmployeeOtherBonusAction" scope="request" validate="false" >
+        </action>
+        <!-- end employeeotherbonus -->
+        <!-- start employeepanelty -->
+        <action path="/getEmployeePaneltyPanel" type="com.stepup.gasoline.qt.common.BaseStatusFormAction" scope="request" validate="false">
+            <forward name="success" path="/employeepanelty/employeepaneltypanel.jsp" />
+        </action>
+        <action path="/getEmployeePaneltyList" type="com.stepup.gasoline.qt.employeepanelty.GetEmployeePaneltyListAction" scope="request" validate="false" >
+        </action>
+        <action path="/employeePaneltyForm" type="com.stepup.gasoline.qt.employeepanelty.EmployeePaneltyFormAction" scope="request" validate="false">
+            <forward name="success" path="/employeepanelty/employeepaneltydetail.jsp" />
+        </action>
+        <action path="/addEmployeePanelty" name ="employeePaneltyForm" scope="request" type="com.stepup.gasoline.qt.employeepanelty.AddEmployeePaneltyAction" input="/employeePaneltyForm.do">
+        </action>
+        <action path="/delEmployeePanelty" type="com.stepup.gasoline.qt.employeepanelty.DeleteEmployeePaneltyAction" scope="request" validate="false" >
+        </action>
+        <!-- end employeepanelty -->
         <!-- start petro -->
         <action path="/getPetroPanel" type="com.stepup.gasoline.qt.common.BaseStatusFormAction" scope="request" validate="false">
             <forward name="success" path="/petro/petropanel.jsp" />
@@ -1305,6 +1338,48 @@
         <action path="/delDebtAdjustment" type="com.stepup.gasoline.qt.debtadjustment.DeleteDebtAdjustmentAction" scope="request" validate="false" >
         </action>
         <!-- end debtadjustment -->
+        <!-- start dayoff -->
+        <action path="/getDayoffPanel" type="com.stepup.gasoline.qt.common.BaseStatusFormAction" scope="request" validate="false">
+            <forward name="success" path="/dayoff/dayoffpanel.jsp" />
+        </action>
+        <action path="/getDayoffList" type="com.stepup.gasoline.qt.dayoff.GetDayoffListAction" scope="request" validate="false" >
+        </action>
+        <action path="/dayoffForm" type="com.stepup.gasoline.qt.dayoff.DayoffFormAction" scope="request" validate="false">
+            <forward name="success" path="/dayoff/dayoffdetail.jsp" />
+        </action>
+        <action path="/addDayoff" name ="dayoffForm" scope="request" type="com.stepup.gasoline.qt.dayoff.AddDayoffAction" input="/dayoffForm.do">
+        </action>
+        <action path="/delDayoff" type="com.stepup.gasoline.qt.dayoff.DeleteDayoffAction" scope="request" validate="false" >
+        </action>
+        <!-- end dayoff -->
+        <!-- start otherbonus -->
+        <action path="/getOtherBonusPanel" type="com.stepup.gasoline.qt.common.BaseStatusFormAction" scope="request" validate="false">
+            <forward name="success" path="/otherbonus/otherbonuspanel.jsp" />
+        </action>
+        <action path="/getOtherBonusList" type="com.stepup.gasoline.qt.otherbonus.GetOtherBonusListAction" scope="request" validate="false" >
+        </action>
+        <action path="/otherBonusForm" type="com.stepup.gasoline.qt.otherbonus.OtherBonusFormAction" scope="request" validate="false">
+            <forward name="success" path="/otherbonus/otherbonusdetail.jsp" />
+        </action>
+        <action path="/addOtherBonus" name ="otherBonusForm" scope="request" type="com.stepup.gasoline.qt.otherbonus.AddOtherBonusAction" input="/otherBonusForm.do">
+        </action>
+        <action path="/delOtherBonus" type="com.stepup.gasoline.qt.otherbonus.DeleteOtherBonusAction" scope="request" validate="false" >
+        </action>
+        <!-- end otherbonus -->
+        <!-- start panelty -->
+        <action path="/getPaneltyPanel" type="com.stepup.gasoline.qt.common.BaseStatusFormAction" scope="request" validate="false">
+            <forward name="success" path="/panelty/paneltypanel.jsp" />
+        </action>
+        <action path="/getPaneltyList" type="com.stepup.gasoline.qt.panelty.GetPaneltyListAction" scope="request" validate="false" >
+        </action>
+        <action path="/paneltyForm" type="com.stepup.gasoline.qt.panelty.PaneltyFormAction" scope="request" validate="false">
+            <forward name="success" path="/panelty/paneltydetail.jsp" />
+        </action>
+        <action path="/addPanelty" name ="paneltyForm" scope="request" type="com.stepup.gasoline.qt.panelty.AddPaneltyAction" input="/paneltyForm.do">
+        </action>
+        <action path="/delPanelty" type="com.stepup.gasoline.qt.panelty.DeletePaneltyAction" scope="request" validate="false" >
+        </action>
+        <!-- end panelty -->
     </action-mappings>
     
     <controller processorClass="org.apache.struts.tiles.TilesRequestProcessor"/>

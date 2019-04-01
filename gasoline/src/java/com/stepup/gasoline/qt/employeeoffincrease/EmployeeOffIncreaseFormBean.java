@@ -15,6 +15,7 @@ public class EmployeeOffIncreaseFormBean extends org.apache.struts.action.Action
     private int id;
     private String code;
     private String createdDate;
+    private int dayoffId;
     private int employeeId;
     private String employeeName;
     private int quantity;
@@ -27,6 +28,7 @@ public class EmployeeOffIncreaseFormBean extends org.apache.struts.action.Action
         this.id = bean.getId();
         this.code = bean.getCode();
         this.createdDate = bean.getCreatedDate();
+        this.dayoffId = bean.getDayoffId();
         this.employeeId = bean.getEmployeeId();
         this.quantity = bean.getQuantity();
         this.note = bean.getNote();
@@ -86,6 +88,14 @@ public class EmployeeOffIncreaseFormBean extends org.apache.struts.action.Action
 
     public void setQuantity(int quantity) {
         this.quantity = quantity;
+    }
+
+    public int getDayoffId() {
+        return dayoffId;
+    }
+
+    public void setDayoffId(int dayoffId) {
+        this.dayoffId = dayoffId;
     }
 
 }

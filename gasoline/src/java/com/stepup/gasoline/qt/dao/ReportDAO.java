@@ -1152,7 +1152,7 @@ public class ReportDAO extends BasicDAO {
         ArrayList list = new ArrayList();
         ResultSet rs = null;
         try {
-            String sql = "{call report_gas_employee_commission(?,?,?,?)}";
+            String sql = "{call report_gas_employee_commission(?,?,?,?,?)}";
             if (GenericValidator.isBlankOrNull(fromDate)) {
                 fromDate = DateUtil.today("dd/MM/yyyy");
             }
@@ -1165,6 +1165,7 @@ public class ReportDAO extends BasicDAO {
                 spUtil.getCallableStatement().setString("_end_date", endDate);
                 spUtil.getCallableStatement().setString("_organization_ids", organizationIds);
                 spUtil.getCallableStatement().setString("_session_id", sessionId);
+                spUtil.getCallableStatement().setInt("_need_delete", 1);
 
                 rs = spUtil.executeQuery();
 

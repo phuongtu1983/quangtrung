@@ -42,6 +42,7 @@ public class AddEmployeeOffIncreaseAction extends SpineAction {
         EmployeeOffIncreaseBean bean = new EmployeeOffIncreaseBean();
         bean.setId(formBean.getId());
         bean.setCreatedDate(formBean.getCreatedDate());
+        bean.setDayoffId(formBean.getDayoffId());
         bean.setEmployeeId(formBean.getEmployeeId());
         bean.setQuantity(formBean.getQuantity());
         bean.setCode(formBean.getCode());

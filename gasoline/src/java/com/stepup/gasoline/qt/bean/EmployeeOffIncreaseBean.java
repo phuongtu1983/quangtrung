@@ -13,6 +13,7 @@ public class EmployeeOffIncreaseBean {
     private int id;
     private String code;
     private String createdDate;
+    private int dayoffId;
     private int employeeId;
     private int createdEmployeeId;
     private int quantity;
@@ -72,6 +73,14 @@ public class EmployeeOffIncreaseBean {
 
     public void setCreatedEmployeeId(int createdEmployeeId) {
         this.createdEmployeeId = createdEmployeeId;
+    }
+
+    public int getDayoffId() {
+        return dayoffId;
+    }
+
+    public void setDayoffId(int dayoffId) {
+        this.dayoffId = dayoffId;
     }
 
 }

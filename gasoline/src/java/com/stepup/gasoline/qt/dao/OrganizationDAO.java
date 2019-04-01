@@ -7,13 +7,19 @@ package com.stepup.gasoline.qt.dao;
 import com.stepup.core.database.DBUtil;
 import com.stepup.core.database.SPUtil;
 import com.stepup.core.util.StringUtil;
+import com.stepup.gasoline.qt.bean.DayoffBean;
 import com.stepup.gasoline.qt.bean.EmployeeBean;
 import com.stepup.gasoline.qt.bean.OrganizationBean;
 import com.stepup.gasoline.qt.bean.OrganizationShellDetailBean;
 import com.stepup.gasoline.qt.bean.OrganizationTimesheetFieldBean;
+import com.stepup.gasoline.qt.bean.OtherBonusBean;
+import com.stepup.gasoline.qt.bean.PaneltyBean;
 import com.stepup.gasoline.qt.bean.StoreBean;
 import com.stepup.gasoline.qt.bean.VendorBean;
+import com.stepup.gasoline.qt.dayoff.DayoffFormBean;
 import com.stepup.gasoline.qt.dynamicfield.DynamicFieldValueFormBean;
+import com.stepup.gasoline.qt.otherbonus.OtherBonusFormBean;
+import com.stepup.gasoline.qt.panelty.PaneltyFormBean;
 import com.stepup.gasoline.qt.store.StoreFormBean;
 import com.stepup.gasoline.qt.util.QTUtil;
 import java.sql.ResultSet;
@@ -653,4 +659,434 @@ public class OrganizationDAO extends BasicDAO {
             }
         }
     }
+
+    public ArrayList getDayoffsList(String organizationIds) throws Exception {
+        ResultSet rs = null;
+        String sql = "SELECT a.*, o.name as organization_name"
+                + " FROM dayoff AS a, organization as o WHERE a.organization_id=o.id and o.status=" + EmployeeBean.STATUS_ACTIVE;
+        if (!StringUtil.isBlankOrNull(organizationIds)) {
+            sql += " and a.organization_id in(" + organizationIds + ")";
+        }
+        sql += " order by a.name desc";
+        ArrayList equipmentList = new ArrayList();
+        try {
+            rs = DBUtil.executeQuery(sql);
+            DayoffFormBean bean = null;
+            while (rs.next()) {
+                bean = new DayoffFormBean();
+                bean.setId(rs.getInt("id"));
+                bean.setName(rs.getString("name"));
+                bean.setNote(rs.getString("note"));
+                bean.setOrganizationId(rs.getInt("organization_id"));
+                bean.setOrganizationName(rs.getString("organization_name"));
+                equipmentList.add(bean);
+            }
+        } catch (SQLException sqle) {
+            throw new Exception(sqle.getMessage());
+        } catch (Exception ex) {
+            throw new Exception(ex.getMessage());
+        } finally {
+            if (rs != null) {
+                DBUtil.closeConnection(rs);
+            }
+        }
+        return equipmentList;
+    }
+
+    public DayoffFormBean getDayoff(int dayoffId) throws Exception {
+        ResultSet rs = null;
+        String sql = "select a.* from dayoff as a where a.id=" + dayoffId;
+        try {
+            rs = DBUtil.executeQuery(sql);
+            while (rs.next()) {
+                DayoffFormBean bean = new DayoffFormBean();
+                bean.setId(rs.getInt("id"));
+                bean.setName(rs.getString("name"));
+                bean.setNote(rs.getString("note"));
+                bean.setOrganizationId(rs.getInt("organization_id"));
+                return bean;
+            }
+        } catch (SQLException sqle) {
+            throw new Exception(sqle.getMessage());
+        } catch (Exception ex) {
+            throw new Exception(ex.getMessage());
+        } finally {
+            if (rs != null) {
+                DBUtil.closeConnection(rs);
+            }
+        }
+        return null;
+    }
+
+    public DayoffFormBean getDayoffByName(String name) throws Exception {
+        ResultSet rs = null;
+        String sql = "select a.* from dayoff as a where a.name='" + name + "'";
+        try {
+            rs = DBUtil.executeQuery(sql);
+            while (rs.next()) {
+                DayoffFormBean bean = new DayoffFormBean();
+                bean.setId(rs.getInt("id"));
+                bean.setName(rs.getString("name"));
+                bean.setNote(rs.getString("note"));
+                bean.setOrganizationId(rs.getInt("organization_id"));
+                return bean;
+            }
+        } catch (SQLException sqle) {
+            throw new Exception(sqle.getMessage());
+        } catch (Exception ex) {
+            throw new Exception(ex.getMessage());
+        } finally {
+            if (rs != null) {
+                DBUtil.closeConnection(rs);
+            }
+        }
+        return null;
+    }
+
+    public void insertDayoff(DayoffBean bean) throws Exception {
+        if (bean == null) {
+            return;
+        }
+        try {
+            String sql = "";
+            sql = "Insert Into dayoff (name, note, organization_id) Values ('" + bean.getName() + "','" + bean.getNote() + "'," + bean.getOrganizationId() + ")";
+            DBUtil.executeInsert(sql);
+        } catch (SQLException sqle) {
+            throw new Exception(sqle.getMessage());
+        } catch (Exception ex) {
+            throw new Exception(ex.getMessage());
+        } finally {
+            try {
+            } catch (Exception e) {
+                throw new Exception(e.getMessage());
+            }
+
+        }
+    }
+
+    public void updateDayoff(DayoffBean bean) throws Exception {
+        if (bean == null) {
+            return;
+        }
+        try {
+            String sql = "Update dayoff Set "
+                    + " name='" + bean.getName() + "'"
+                    + ", note='" + bean.getNote() + "'"
+                    + ", organization_id=" + bean.getOrganizationId()
+                    + " Where id=" + bean.getId();
+            DBUtil.executeUpdate(sql);
+        } catch (SQLException sqle) {
+            throw new Exception(sqle.getMessage());
+        } catch (Exception ex) {
+            throw new Exception(ex.getMessage());
+        } finally {
+            try {
+            } catch (Exception e) {
+                throw new Exception(e.getMessage());
+            }
+        }
+    }
+
+    public void deleteDayoff(int id) throws Exception {
+        try {
+            String sql = "Delete from dayoff Where id=" + id;
+            DBUtil.executeUpdate(sql);
+        } catch (SQLException sqle) {
+            throw new Exception(sqle.getMessage());
+        } catch (Exception ex) {
+            throw new Exception(ex.getMessage());
+        } finally {
+            try {
+            } catch (Exception e) {
+                throw new Exception(e.getMessage());
+            }
+        }
+    }
+
+    public ArrayList getOtherBonussList(String organizationIds) throws Exception {
+        ResultSet rs = null;
+        String sql = "SELECT a.*, o.name as organization_name"
+                + " FROM other_bonus AS a, organization as o WHERE a.organization_id=o.id and o.status=" + EmployeeBean.STATUS_ACTIVE;
+        if (!StringUtil.isBlankOrNull(organizationIds)) {
+            sql += " and a.organization_id in(" + organizationIds + ")";
+        }
+        sql += " order by a.name desc";
+        ArrayList equipmentList = new ArrayList();
+        try {
+            rs = DBUtil.executeQuery(sql);
+            OtherBonusFormBean bean = null;
+            while (rs.next()) {
+                bean = new OtherBonusFormBean();
+                bean.setId(rs.getInt("id"));
+                bean.setName(rs.getString("name"));
+                bean.setNote(rs.getString("note"));
+                bean.setOrganizationId(rs.getInt("organization_id"));
+                bean.setOrganizationName(rs.getString("organization_name"));
+                equipmentList.add(bean);
+            }
+        } catch (SQLException sqle) {
+            throw new Exception(sqle.getMessage());
+        } catch (Exception ex) {
+            throw new Exception(ex.getMessage());
+        } finally {
+            if (rs != null) {
+                DBUtil.closeConnection(rs);
+            }
+        }
+        return equipmentList;
+    }
+
+    public OtherBonusFormBean getOtherBonus(int otherBonusId) throws Exception {
+        ResultSet rs = null;
+        String sql = "select a.* from other_bonus as a where a.id=" + otherBonusId;
+        try {
+            rs = DBUtil.executeQuery(sql);
+            while (rs.next()) {
+                OtherBonusFormBean bean = new OtherBonusFormBean();
+                bean.setId(rs.getInt("id"));
+                bean.setName(rs.getString("name"));
+                bean.setNote(rs.getString("note"));
+                bean.setOrganizationId(rs.getInt("organization_id"));
+                return bean;
+            }
+        } catch (SQLException sqle) {
+            throw new Exception(sqle.getMessage());
+        } catch (Exception ex) {
+            throw new Exception(ex.getMessage());
+        } finally {
+            if (rs != null) {
+                DBUtil.closeConnection(rs);
+            }
+        }
+        return null;
+    }
+
+    public OtherBonusFormBean getOtherBonusByName(String name) throws Exception {
+        ResultSet rs = null;
+        String sql = "select a.* from other_bonus as a where a.name='" + name + "'";
+        try {
+            rs = DBUtil.executeQuery(sql);
+            while (rs.next()) {
+                OtherBonusFormBean bean = new OtherBonusFormBean();
+                bean.setId(rs.getInt("id"));
+                bean.setName(rs.getString("name"));
+                bean.setNote(rs.getString("note"));
+                bean.setOrganizationId(rs.getInt("organization_id"));
+                return bean;
+            }
+        } catch (SQLException sqle) {
+            throw new Exception(sqle.getMessage());
+        } catch (Exception ex) {
+            throw new Exception(ex.getMessage());
+        } finally {
+            if (rs != null) {
+                DBUtil.closeConnection(rs);
+            }
+        }
+        return null;
+    }
+
+    public void insertOtherBonus(OtherBonusBean bean) throws Exception {
+        if (bean == null) {
+            return;
+        }
+        try {
+            String sql = "";
+            sql = "Insert Into other_bonus (name, note, organization_id) Values ('" + bean.getName() + "','" + bean.getNote() + "'," + bean.getOrganizationId() + ")";
+            DBUtil.executeInsert(sql);
+        } catch (SQLException sqle) {
+            throw new Exception(sqle.getMessage());
+        } catch (Exception ex) {
+            throw new Exception(ex.getMessage());
+        } finally {
+            try {
+            } catch (Exception e) {
+                throw new Exception(e.getMessage());
+            }
+
+        }
+    }
+
+    public void updateOtherBonus(OtherBonusBean bean) throws Exception {
+        if (bean == null) {
+            return;
+        }
+        try {
+            String sql = "Update other_bonus Set "
+                    + " name='" + bean.getName() + "'"
+                    + ", note='" + bean.getNote() + "'"
+                    + ", organization_id=" + bean.getOrganizationId()
+                    + " Where id=" + bean.getId();
+            DBUtil.executeUpdate(sql);
+        } catch (SQLException sqle) {
+            throw new Exception(sqle.getMessage());
+        } catch (Exception ex) {
+            throw new Exception(ex.getMessage());
+        } finally {
+            try {
+            } catch (Exception e) {
+                throw new Exception(e.getMessage());
+            }
+        }
+    }
+
+    public void deleteOtherBonus(int id) throws Exception {
+        try {
+            String sql = "Delete from other_bonus Where id=" + id;
+            DBUtil.executeUpdate(sql);
+        } catch (SQLException sqle) {
+            throw new Exception(sqle.getMessage());
+        } catch (Exception ex) {
+            throw new Exception(ex.getMessage());
+        } finally {
+            try {
+            } catch (Exception e) {
+                throw new Exception(e.getMessage());
+            }
+        }
+    }
+
+    public ArrayList getPaneltysList(String organizationIds) throws Exception {
+        ResultSet rs = null;
+        String sql = "SELECT a.*, o.name as organization_name"
+                + " FROM panelty AS a, organization as o WHERE a.organization_id=o.id and o.status=" + EmployeeBean.STATUS_ACTIVE;
+        if (!StringUtil.isBlankOrNull(organizationIds)) {
+            sql += " and a.organization_id in(" + organizationIds + ")";
+        }
+        sql += " order by a.name desc";
+        ArrayList equipmentList = new ArrayList();
+        try {
+            rs = DBUtil.executeQuery(sql);
+            PaneltyFormBean bean = null;
+            while (rs.next()) {
+                bean = new PaneltyFormBean();
+                bean.setId(rs.getInt("id"));
+                bean.setName(rs.getString("name"));
+                bean.setNote(rs.getString("note"));
+                bean.setOrganizationId(rs.getInt("organization_id"));
+                bean.setOrganizationName(rs.getString("organization_name"));
+                equipmentList.add(bean);
+            }
+        } catch (SQLException sqle) {
+            throw new Exception(sqle.getMessage());
+        } catch (Exception ex) {
+            throw new Exception(ex.getMessage());
+        } finally {
+            if (rs != null) {
+                DBUtil.closeConnection(rs);
+            }
+        }
+        return equipmentList;
+    }
+
+    public PaneltyFormBean getPanelty(int paneltyId) throws Exception {
+        ResultSet rs = null;
+        String sql = "select a.* from panelty as a where a.id=" + paneltyId;
+        try {
+            rs = DBUtil.executeQuery(sql);
+            while (rs.next()) {
+                PaneltyFormBean bean = new PaneltyFormBean();
+                bean.setId(rs.getInt("id"));
+                bean.setName(rs.getString("name"));
+                bean.setNote(rs.getString("note"));
+                bean.setOrganizationId(rs.getInt("organization_id"));
+                return bean;
+            }
+        } catch (SQLException sqle) {
+            throw new Exception(sqle.getMessage());
+        } catch (Exception ex) {
+            throw new Exception(ex.getMessage());
+        } finally {
+            if (rs != null) {
+                DBUtil.closeConnection(rs);
+            }
+        }
+        return null;
+    }
+
+    public PaneltyFormBean getPaneltyByName(String name) throws Exception {
+        ResultSet rs = null;
+        String sql = "select a.* from panelty as a where a.name='" + name + "'";
+        try {
+            rs = DBUtil.executeQuery(sql);
+            while (rs.next()) {
+                PaneltyFormBean bean = new PaneltyFormBean();
+                bean.setId(rs.getInt("id"));
+                bean.setName(rs.getString("name"));
+                bean.setNote(rs.getString("note"));
+                bean.setOrganizationId(rs.getInt("organization_id"));
+                return bean;
+            }
+        } catch (SQLException sqle) {
+            throw new Exception(sqle.getMessage());
+        } catch (Exception ex) {
+            throw new Exception(ex.getMessage());
+        } finally {
+            if (rs != null) {
+                DBUtil.closeConnection(rs);
+            }
+        }
+        return null;
+    }
+
+    public void insertPanelty(PaneltyBean bean) throws Exception {
+        if (bean == null) {
+            return;
+        }
+        try {
+            String sql = "";
+            sql = "Insert Into panelty (name, note, organization_id) Values ('" + bean.getName() + "','" + bean.getNote() + "'," + bean.getOrganizationId() + ")";
+            DBUtil.executeInsert(sql);
+        } catch (SQLException sqle) {
+            throw new Exception(sqle.getMessage());
+        } catch (Exception ex) {
+            throw new Exception(ex.getMessage());
+        } finally {
+            try {
+            } catch (Exception e) {
+                throw new Exception(e.getMessage());
+            }
+
+        }
+    }
+
+    public void updatePanelty(PaneltyBean bean) throws Exception {
+        if (bean == null) {
+            return;
+        }
+        try {
+            String sql = "Update panelty Set "
+                    + " name='" + bean.getName() + "'"
+                    + ", note='" + bean.getNote() + "'"
+                    + ", organization_id=" + bean.getOrganizationId()
+                    + " Where id=" + bean.getId();
+            DBUtil.executeUpdate(sql);
+        } catch (SQLException sqle) {
+            throw new Exception(sqle.getMessage());
+        } catch (Exception ex) {
+            throw new Exception(ex.getMessage());
+        } finally {
+            try {
+            } catch (Exception e) {
+                throw new Exception(e.getMessage());
+            }
+        }
+    }
+
+    public void deletePanelty(int id) throws Exception {
+        try {
+            String sql = "Delete from panelty Where id=" + id;
+            DBUtil.executeUpdate(sql);
+        } catch (SQLException sqle) {
+            throw new Exception(sqle.getMessage());
+        } catch (Exception ex) {
+            throw new Exception(ex.getMessage());
+        } finally {
+            try {
+            } catch (Exception e) {
+                throw new Exception(e.getMessage());
+            }
+        }
+    }
+
 }

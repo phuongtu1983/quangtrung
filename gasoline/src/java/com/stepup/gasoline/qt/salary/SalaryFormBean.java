@@ -23,6 +23,10 @@ public class SalaryFormBean extends org.apache.struts.action.ActionForm {
     private double total;
     private int monthDay;
     private int workingDay;
+    private double commission;
+    private double bonus;
+    private double bhxh;
+    private double actualReceived;
     private String[] salaryFieldId;
     private String[] amount;
     private String[] note;
@@ -40,6 +44,10 @@ public class SalaryFormBean extends org.apache.struts.action.ActionForm {
         this.total = bean.getTotal();
         this.monthDay = bean.getMonthDay();
         this.workingDay = bean.getWorkingDay();
+        this.commission = bean.getCommission();
+        this.bonus = bean.getBonus();
+        this.bhxh = bean.getBhxh();
+        this.actualReceived = bean.getActualReceived();
     }
 
     public String getCode() {
@@ -152,6 +160,38 @@ public class SalaryFormBean extends org.apache.struts.action.ActionForm {
 
     public void setNote(String[] note) {
         this.note = note;
+    }
+
+    public double getCommission() {
+        return commission;
+    }
+
+    public void setCommission(double commission) {
+        this.commission = commission;
+    }
+
+    public double getBonus() {
+        return bonus;
+    }
+
+    public void setBonus(double bonus) {
+        this.bonus = bonus;
+    }
+
+    public double getBhxh() {
+        return bhxh;
+    }
+
+    public void setBhxh(double bhxh) {
+        this.bhxh = bhxh;
+    }
+
+    public double getActualReceived() {
+        return actualReceived;
+    }
+
+    public void setActualReceived(double actualReceived) {
+        this.actualReceived = actualReceived;
     }
 
 }

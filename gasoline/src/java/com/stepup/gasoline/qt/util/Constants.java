@@ -174,4 +174,12 @@ public class Constants {
     public static final String SALE_GOOD = "saleGood";
     public static final String SALE_GOOD_GOOD = "saleGoodGood";
     public static final String KIND_LIST = "kindList";
+    public static final String DAY_OFF = "dayoff";
+    public static final String DAY_OFF_LIST = "dayoffList";
+    public static final String OTHER_BONUS = "otherBonus";
+    public static final String OTHER_BONUS_LIST = "otherBonusList";
+    public static final String PANELTY = "panelty";
+    public static final String PANELTY_LIST = "paneltyList";
+    public static final String EMPLOYEE_PANELTY = "employeePanelty";
+    public static final String EMPLOYEE_OTHER_BONUS = "employeeOtherBonus";
 }

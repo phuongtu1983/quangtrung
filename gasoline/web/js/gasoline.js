@@ -9,6 +9,8 @@ var savedVehicle = 0;
 var savedDate2 = '';
 var savedFromDate = '';
 var savedToDate = '';
+var savedDayoff = 0;
+var savedQuantityDayoff = 0;
 function createLayout() {
     dhxLayout = new dhtmlXLayoutObject(document.body, "2E", "dhx_web");
     dhxLayout.setEffect("resize", false);
@@ -340,6 +342,26 @@ function menuClick(id) {
         loadSaleInnerPanel();
     else if (id == 'saleinneradd')
         getSaleInner(0);
+    else if (id == 'dayofflist')
+        loadDayoffPanel();
+    else if (id == 'dayoffadd')
+        getDayoff(0, 'loadDayoffPanel');
+    else if (id == 'otherbonuslist')
+        loadOtherBonusPanel();
+    else if (id == 'otherbonusadd')
+        getOtherBonus(0, 'loadOtherBonusPanel');
+    else if (id == 'paneltylist')
+        loadPaneltyPanel();
+    else if (id == 'paneltyadd')
+        getPanelty(0, 'loadPaneltyPanel');
+    else if (id == 'employeeotherbonuslist')
+        loadEmployeeOtherBonusPanel();
+    else if (id == 'employeeotherbonusadd')
+        getEmployeeOtherBonus(0, 'loadEmployeeOtherBonusPanel');
+    else if (id == 'employeepaneltylist')
+        loadEmployeePaneltyPanel();
+    else if (id == 'employeepaneltyadd')
+        getEmployeePanelty(0, 'loadEmployeePaneltyPanel');
 }
 function clearContent() {
     var contentDiv = document.getElementById("contentDiv");
@@ -455,7 +477,7 @@ function caculateFormListDetail(goodId, formName) {
 }
 function caculateListTotal(formName) {
     var feeAmount = document.forms[formName].feeAmount;
-    var feeKind= document.forms[formName].feeKind;
+    var feeKind = document.forms[formName].feeKind;
     var quantity = document.forms[formName].quantity;
     var price = document.forms[formName].price;
     var shellWeight = document.forms[formName].shellWeight;
@@ -1766,7 +1788,7 @@ function saveAccount() {
         return false;
     var field = document.forms['accountForm'].number;
     if (field.value == '') {
-        alert("Vui l\u00F2ng nh\u1EADp số tài khoản");
+        alert("Vui l\u00F2ng nh\u1EADp s\u1ED1 t\u00E0i kho\u1EA3n");
         field.focus();
         field = null;
         return false;
@@ -8506,11 +8528,24 @@ function getEmployeeOffIncrease(id, handle) {
         var myCalendar = new dhtmlXCalendarObject(["employeeOffIncreaseDate"]);
         myCalendar.setSkin('dhx_web');
         myCalendar.setDateFormat("%d/%m/%Y");
+
+        var list = document.forms['employeeOffIncreaseForm'].dayoffId;
+        if (list != null)
+            list.selectedIndex = savedDayoff;
+        list = null;
+        document.forms['employeeOffIncreaseForm'].quantity.value = savedQuantityDayoff;
     });
 }
 function saveEmployeeOffIncrease() {
     if (scriptFunction == "saveEmployeeOffIncrease")
         return false;
+    var list = document.forms['employeeOffIncreaseForm'].dayoffId;
+    if (list != null && list.selectedIndex > -1)
+        savedDayoff = list.selectedIndex;
+    else
+        savedDayoff = 0;
+    list = null;
+    savedQuantityDayoff = document.forms['employeeOffIncreaseForm'].quantity.value;
     document.forms['employeeOffIncreaseForm'].employeeId.value = document.forms['employeeOffIncreaseForm'].employeeSelectedHidden.value;
     scriptFunction = "saveEmployeeOffIncrease";
     callAjaxCheckError("addEmployeeOffIncrease.do", null, document.forms['employeeOffIncreaseForm'], function(data) {
@@ -11683,7 +11718,444 @@ function saveGasWholeSaleFee() {
     });
     return false;
 }
+function loadDayoffPanel() {
+    callAjax("getDayoffPanel.do", null, null, function(data) {
+        clearContent();
+        setAjaxData(data, "contentDiv");
+        loadDayoffList();
+    });
+}
+function loadDayoffList() {
+    var mygrid = new dhtmlXGridObject('dayoffList');
+    mygrid.setImagePath("js/dhtmlx/grid/imgs/");
+    mygrid.setHeader("T\u00EAn ng\u00E0y ngh\u1EC9 b\u00F9,Ghi ch\u00FA");
+    mygrid.attachHeader("#text_filter,#text_filter");
+    mygrid.setInitWidths("250,*");
+    mygrid.setColTypes("link,ro");
+    mygrid.setColSorting("str,str");
+    mygrid.setSkin("light");
+    var height = contentHeight - 210;
+    mygrid.al(true, height); //enableAutoHeight
+    mygrid.enablePaging(true, 15, 3, "recinfoArea");
+    mygrid.setPagingSkin("toolbar", "dhx_skyblue");
+    mygrid.init();
+    var url = "getDayoffList.do";
+    callAjax(url, null, null, function(data) {
+        mygrid.parse(data);
+    });
+    return false;
+}
+function getDayoff(id, handle) {
+    popupName = 'TH\u00D4NG TIN NG\u00C0Y NGH\u1EC8 B\u00D9';
+    var url = 'dayoffForm.do';
+    if (id != 0)
+        url += '?dayoffId=' + id
+    callAjax(url, null, null, function(data) {
+        showPopupForm(data);
+        document.getElementById('callbackFunc').value = handle;
+        document.forms['dayoffForm'].name.focus();
+    });
+}
+function saveDayoff() {
+    if (scriptFunction == "saveDayoff")
+        return false;
+    var field = document.forms['dayoffForm'].name;
+    if (field.value == '') {
+        alert("Vui l\u00F2ng nh\u1EADp t\u00EAn ng\u00E0y ngh\u1EC9 b\u00F9");
+        field.focus();
+        field = null;
+        return false;
+    }
+    field = null;
+    scriptFunction = "saveDayoff";
+    callAjaxCheckError("addDayoff.do", null, document.forms['dayoffForm'], function(data) {
+        scriptFunction = "";
+        var handle = document.getElementById('callbackFunc').value;
+        if (confirm('B\u1EA1n c\u00F3 mu\u1ED1n nh\u1EADp ti\u1EBFp th\u00F4ng tin kh\u00E1c ?'))
+            getDayoff(0, handle);
+        else if (handle != '')
+            eval(handle + "()");
+        prepareHidePopup('dayoffFormshowHelpHideDiv');
+    });
+    return false;
+}
+function delDayoff() {
+    callAjaxCheckError('delDayoff.do?dayoffId=' + document.forms['dayoffForm'].id.value, null, null, function() {
+        loadDayoffPanel();
+        prepareHidePopup('dayoffFormshowHelpHideDiv');
+    });
+    return false;
+}
+function loadOtherBonusPanel() {
+    callAjax("getOtherBonusPanel.do", null, null, function(data) {
+        clearContent();
+        setAjaxData(data, "contentDiv");
+        loadOtherBonusList();
+    });
+}
+function loadOtherBonusList() {
+    var mygrid = new dhtmlXGridObject('otherBonusList');
+    mygrid.setImagePath("js/dhtmlx/grid/imgs/");
+    mygrid.setHeader("T\u00EAn kho\u1EA3n th\u01B0\u1EDFng kh\u00E1c,Ghi ch\u00FA");
+    mygrid.attachHeader("#text_filter,#text_filter");
+    mygrid.setInitWidths("250,*");
+    mygrid.setColTypes("link,ro");
+    mygrid.setColSorting("str,str");
+    mygrid.setSkin("light");
+    var height = contentHeight - 210;
+    mygrid.al(true, height); //enableAutoHeight
+    mygrid.enablePaging(true, 15, 3, "recinfoArea");
+    mygrid.setPagingSkin("toolbar", "dhx_skyblue");
+    mygrid.init();
+    var url = "getOtherBonusList.do";
+    callAjax(url, null, null, function(data) {
+        mygrid.parse(data);
+    });
+    return false;
+}
+function getOtherBonus(id, handle) {
+    popupName = 'TH\u00D4NG TIN KHO\u1EA2N TH\u01AF\u1EDENG KH\u00C1C';
+    var url = 'otherBonusForm.do';
+    if (id != 0)
+        url += '?otherBonusId=' + id
+    callAjax(url, null, null, function(data) {
+        showPopupForm(data);
+        document.getElementById('callbackFunc').value = handle;
+        document.forms['otherBonusForm'].name.focus();
+    });
+}
+function saveOtherBonus() {
+    if (scriptFunction == "saveOtherBonus")
+        return false;
+    var field = document.forms['otherBonusForm'].name;
+    if (field.value == '') {
+        alert("Vui l\u00F2ng nh\u1EADp t\u00EAn kho\u1EA3n th\u01B0\u1EDFng kh\u00E1c");
+        field.focus();
+        field = null;
+        return false;
+    }
+    field = null;
+    scriptFunction = "saveOtherBonus";
+    callAjaxCheckError("addOtherBonus.do", null, document.forms['otherBonusForm'], function(data) {
+        scriptFunction = "";
+        var handle = document.getElementById('callbackFunc').value;
+        if (confirm('B\u1EA1n c\u00F3 mu\u1ED1n nh\u1EADp ti\u1EBFp th\u00F4ng tin kh\u00E1c ?'))
+            getOtherBonus(0, handle);
+        else if (handle != '')
+            eval(handle + "()");
+        prepareHidePopup('otherBonusFormshowHelpHideDiv');
+    });
+    return false;
+}
+function delOtherBonus() {
+    callAjaxCheckError('delOtherBonus.do?otherBonusId=' + document.forms['otherBonusForm'].id.value, null, null, function() {
+        loadOtherBonusPanel();
+        prepareHidePopup('otherBonusFormshowHelpHideDiv');
+    });
+    return false;
+}
+function loadPaneltyPanel() {
+    callAjax("getPaneltyPanel.do", null, null, function(data) {
+        clearContent();
+        setAjaxData(data, "contentDiv");
+        loadPaneltyList();
+    });
+}
+function loadPaneltyList() {
+    var mygrid = new dhtmlXGridObject('paneltyList');
+    mygrid.setImagePath("js/dhtmlx/grid/imgs/");
+    mygrid.setHeader("T\u00EAn kho\u1EA3n th\u01B0\u1EDFng kh\u00E1c,Ghi ch\u00FA");
+    mygrid.attachHeader("#text_filter,#text_filter");
+    mygrid.setInitWidths("250,*");
+    mygrid.setColTypes("link,ro");
+    mygrid.setColSorting("str,str");
+    mygrid.setSkin("light");
+    var height = contentHeight - 210;
+    mygrid.al(true, height); //enableAutoHeight
+    mygrid.enablePaging(true, 15, 3, "recinfoArea");
+    mygrid.setPagingSkin("toolbar", "dhx_skyblue");
+    mygrid.init();
+    var url = "getPaneltyList.do";
+    callAjax(url, null, null, function(data) {
+        mygrid.parse(data);
+    });
+    return false;
+}
+function getPanelty(id, handle) {
+    popupName = 'TH\u00D4NG TIN KHO\u1EA2N TH\u01AF\u1EDENG KH\u00C1C';
+    var url = 'paneltyForm.do';
+    if (id != 0)
+        url += '?paneltyId=' + id
+    callAjax(url, null, null, function(data) {
+        showPopupForm(data);
+        document.getElementById('callbackFunc').value = handle;
+        document.forms['paneltyForm'].name.focus();
+    });
+}
+function savePanelty() {
+    if (scriptFunction == "savePanelty")
+        return false;
+    var field = document.forms['paneltyForm'].name;
+    if (field.value == '') {
+        alert("Vui l\u00F2ng nh\u1EADp t\u00EAn kho\u1EA3n th\u01B0\u1EDFng kh\u00E1c");
+        field.focus();
+        field = null;
+        return false;
+    }
+    field = null;
+    scriptFunction = "savePanelty";
+    callAjaxCheckError("addPanelty.do", null, document.forms['paneltyForm'], function(data) {
+        scriptFunction = "";
+        var handle = document.getElementById('callbackFunc').value;
+        if (confirm('B\u1EA1n c\u00F3 mu\u1ED1n nh\u1EADp ti\u1EBFp th\u00F4ng tin kh\u00E1c ?'))
+            getPanelty(0, handle);
+        else if (handle != '')
+            eval(handle + "()");
+        prepareHidePopup('paneltyFormshowHelpHideDiv');
+    });
+    return false;
+}
+function delPanelty() {
+    callAjaxCheckError('delPanelty.do?paneltyId=' + document.forms['paneltyForm'].id.value, null, null, function() {
+        loadPaneltyPanel();
+        prepareHidePopup('paneltyFormshowHelpHideDiv');
+    });
+    return false;
+}
+function loadEmployeeOtherBonusPanel() {
+    callAjax("getEmployeeOtherBonusPanel.do", null, null, function(data) {
+        clearContent();
+        setAjaxData(data, "contentDiv");
+        var myCalendar = new dhtmlXCalendarObject(["fromDate", "toDate"]);
+        myCalendar.setSkin('dhx_web');
+        var currentTime = getCurrentDate();
+        document.forms['employeeOtherBonusSearchForm'].fromDate.value = currentTime;
+        document.forms['employeeOtherBonusSearchForm'].toDate.value = currentTime;
+        myCalendar.setDateFormat("%d/%m/%Y");
+        loadEmployeeOtherBonusList(currentTime, currentTime);
+    });
+    return false;
+}
+function loadEmployeeOtherBonusList(fromDate, toDate) {
+    var mygrid = new dhtmlXGridObject('employeeOtherBonusList');
+    mygrid.setImagePath("js/dhtmlx/grid/imgs/");
+    mygrid.setHeader("S\u1ED1 phi\u1EBFu,Nh\u00E2n vi\u00EAn,Ng\u00E0y,Kho\u1EA3n th\u01B0\u1EDFng th\u00EAm,S\u1ED1 ti\u1EC1n,Ghi ch\u00FA");
+    mygrid.attachHeader("#text_filter,#text_filter,#text_filter,#text_filter,#text_filter,#text_filter");
+    mygrid.setInitWidths("150,200,200,200,200,*");
+    mygrid.setColTypes("link,ro,ro,ro,ro,ro");
+    mygrid.setColSorting("str,str,str,str,str,str");
+    mygrid.setSkin("light");
+    var height = contentHeight - 210;
+    mygrid.al(true, height); //enableAutoHeight
+    mygrid.enablePaging(true, 15, 3, "recinfoArea");
+    mygrid.setPagingSkin("toolbar", "dhx_skyblue");
+    mygrid.init();
+    var url = "getEmployeeOtherBonusList.do?t=1";
+    if (fromDate != null)
+        url += "&fromDate=" + fromDate;
+    if (toDate != null)
+        url += "&toDate=" + toDate;
+    callAjax(url, null, null, function(data) {
+        mygrid.parse(data);
+    });
+    return false;
+}
+function getEmployeeOtherBonus(id, handle) {
+    popupName = 'TH\u00D4NG TIN KHO\u1EA2N TH\u01AF\u1EDENG TH\u00CAM';
+    var url = 'employeeOtherBonusForm.do';
+    if (id != 0)
+        url += '?employeeOtherBonusId=' + id
+    callAjax(url, null, null, function(data) {
+        showPopupForm(data);
+        document.getElementById('callbackFunc').value = handle;
+        document.forms['employeeOtherBonusForm'].amount.focus();
+        tryNumberFormatCurrentcy(document.forms['employeeOtherBonusForm'].amount, "VND");
 
+        window.dhx_globalImgPath = "js/dhtmlx/combo/imgs/";
+        // ============================
+        var employeeIdCombobox = dhtmlXComboFromSelect("employeeIdCombobox");
+        employeeIdCombobox.enableFilteringMode(true);
+        employeeIdCombobox.attachEvent("onSelectionChange", function() {
+            setEmployeeSelectedForm('employeeOtherBonusForm', employeeIdCombobox.getComboText(), employeeIdCombobox.getSelectedValue());
+        });
+        employeeIdCombobox.attachEvent("onBlur", function() {
+            setEmployeeSelectedForm('employeeOtherBonusForm', employeeIdCombobox.getComboText(), employeeIdCombobox.getSelectedValue());
+            employeeIdCombobox.setComboText(employeeIdCombobox.getSelectedText());
+            employeeOtherBonusEmployeeChanged(employeeIdCombobox.getSelectedValue());
+        });
+        employeeIdCombobox.DOMelem_input.onfocus = function(event) {
+            if (isManuallySeleted == 1) {
+                employeeIdCombobox.openSelect();
+                isManuallySeleted = 0;
+            }
+        }
+        var employeeId = document.forms['employeeOtherBonusForm'].employeeId.value;
+        if (employeeId != 0) {
+            var ind = employeeIdCombobox.getIndexByValue(employeeId);
+            employeeIdCombobox.selectOption(ind);
+        } else {
+            employeeIdCombobox.unSelectOption();
+            employeeIdCombobox.setComboValue("");
+        }
+        if (id == 0) {
+            var currentDate = getCurrentDate();
+            document.forms['employeeOtherBonusForm'].employeeOtherBonusDate.value = currentDate;
+            employeeIdCombobox.openSelect();
+        }
+        var myCalendar = new dhtmlXCalendarObject(["employeeOtherBonusDate"]);
+        myCalendar.setSkin('dhx_web');
+        myCalendar.setDateFormat("%d/%m/%Y");
+    });
+}
+function saveEmployeeOtherBonus() {
+    if (scriptFunction == "saveEmployeeOtherBonus")
+        return false;
+    var field = document.forms['employeeOtherBonusForm'].amount;
+    if (field.value == '') {
+        alert("Vui l\u00F2ng nh\u1EADp s\u1ED1 ti\u1EC1n");
+        field.focus();
+        field = null;
+        return false;
+    }
+    field = null;
+    reformatNumberMoney(document.forms['employeeOtherBonusForm'].amount);
+    document.forms['employeeOtherBonusForm'].employeeId.value = document.forms['employeeOtherBonusForm'].employeeSelectedHidden.value;
+    scriptFunction = "saveEmployeeOtherBonus";
+    callAjaxCheckError("addEmployeeOtherBonus.do", null, document.forms['employeeOtherBonusForm'], function(data) {
+        scriptFunction = "";
+        var handle = document.getElementById('callbackFunc').value;
+        if (confirm('B\u1EA1n c\u00F3 mu\u1ED1n nh\u1EADp ti\u1EBFp th\u00F4ng tin kh\u00E1c ?'))
+            getEmployeeOtherBonus(0, handle);
+        else if (handle != '')
+            eval(handle + "()");
+        prepareHidePopup('employeeOtherBonusFormshowHelpHideDiv');
+    });
+    return false;
+}
+function delEmployeeOtherBonus() {
+    callAjaxCheckError('delEmployeeOtherBonus.do?employeeOtherBonusId=' + document.forms['employeeOtherBonusForm'].id.value, null, null, function() {
+        loadEmployeeOtherBonusPanel();
+        prepareHidePopup('employeeOtherBonusFormshowHelpHideDiv');
+    });
+    return false;
+}
+function loadEmployeePaneltyPanel() {
+    callAjax("getEmployeePaneltyPanel.do", null, null, function(data) {
+        clearContent();
+        setAjaxData(data, "contentDiv");
+        var myCalendar = new dhtmlXCalendarObject(["fromDate", "toDate"]);
+        myCalendar.setSkin('dhx_web');
+        var currentTime = getCurrentDate();
+        document.forms['employeePaneltySearchForm'].fromDate.value = currentTime;
+        document.forms['employeePaneltySearchForm'].toDate.value = currentTime;
+        myCalendar.setDateFormat("%d/%m/%Y");
+        loadEmployeePaneltyList(currentTime, currentTime);
+    });
+    return false;
+}
+function loadEmployeePaneltyList(fromDate, toDate) {
+    var mygrid = new dhtmlXGridObject('employeePaneltyList');
+    mygrid.setImagePath("js/dhtmlx/grid/imgs/");
+    mygrid.setHeader("S\u1ED1 phi\u1EBFu,Nh\u00E2n vi\u00EAn,Ng\u00E0y,Kho\u1EA3n chi,S\u1ED1 ti\u1EC1n,Ghi ch\u00FA");
+    mygrid.attachHeader("#text_filter,#text_filter,#text_filter,#text_filter,#text_filter,#text_filter");
+    mygrid.setInitWidths("150,200,200,200,200,*");
+    mygrid.setColTypes("link,ro,ro,ro,ro,ro");
+    mygrid.setColSorting("str,str,str,str,str,str");
+    mygrid.setSkin("light");
+    var height = contentHeight - 210;
+    mygrid.al(true, height); //enableAutoHeight
+    mygrid.enablePaging(true, 15, 3, "recinfoArea");
+    mygrid.setPagingSkin("toolbar", "dhx_skyblue");
+    mygrid.init();
+    var url = "getEmployeePaneltyList.do?t=1";
+    if (fromDate != null)
+        url += "&fromDate=" + fromDate;
+    if (toDate != null)
+        url += "&toDate=" + toDate;
+    callAjax(url, null, null, function(data) {
+        mygrid.parse(data);
+    });
+    return false;
+}
+function getEmployeePanelty(id, handle) {
+    popupName = 'TH\u00D4NG TIN KHO\u1EA2N CHI';
+    var url = 'employeePaneltyForm.do';
+    if (id != 0)
+        url += '?employeePaneltyId=' + id
+    callAjax(url, null, null, function(data) {
+        showPopupForm(data);
+        document.getElementById('callbackFunc').value = handle;
+        document.forms['employeePaneltyForm'].amount.focus();
+        tryNumberFormatCurrentcy(document.forms['employeePaneltyForm'].amount, "VND");
+
+        window.dhx_globalImgPath = "js/dhtmlx/combo/imgs/";
+        // ============================
+        var employeeIdCombobox = dhtmlXComboFromSelect("employeeIdCombobox");
+        employeeIdCombobox.enableFilteringMode(true);
+        employeeIdCombobox.attachEvent("onSelectionChange", function() {
+            setEmployeeSelectedForm('employeePaneltyForm', employeeIdCombobox.getComboText(), employeeIdCombobox.getSelectedValue());
+        });
+        employeeIdCombobox.attachEvent("onBlur", function() {
+            setEmployeeSelectedForm('employeePaneltyForm', employeeIdCombobox.getComboText(), employeeIdCombobox.getSelectedValue());
+            employeeIdCombobox.setComboText(employeeIdCombobox.getSelectedText());
+            employeePaneltyEmployeeChanged(employeeIdCombobox.getSelectedValue());
+        });
+        employeeIdCombobox.DOMelem_input.onfocus = function(event) {
+            if (isManuallySeleted == 1) {
+                employeeIdCombobox.openSelect();
+                isManuallySeleted = 0;
+            }
+        }
+        var employeeId = document.forms['employeePaneltyForm'].employeeId.value;
+        if (employeeId != 0) {
+            var ind = employeeIdCombobox.getIndexByValue(employeeId);
+            employeeIdCombobox.selectOption(ind);
+        } else {
+            employeeIdCombobox.unSelectOption();
+            employeeIdCombobox.setComboValue("");
+        }
+        if (id == 0) {
+            var currentDate = getCurrentDate();
+            document.forms['employeePaneltyForm'].employeePaneltyDate.value = currentDate;
+            employeeIdCombobox.openSelect();
+        }
+        var myCalendar = new dhtmlXCalendarObject(["employeePaneltyDate"]);
+        myCalendar.setSkin('dhx_web');
+        myCalendar.setDateFormat("%d/%m/%Y");
+    });
+}
+function saveEmployeePanelty() {
+    if (scriptFunction == "saveEmployeePanelty")
+        return false;
+    var field = document.forms['employeePaneltyForm'].amount;
+    if (field.value == '') {
+        alert("Vui l\u00F2ng nh\u1EADp s\u1ED1 ti\u1EC1n");
+        field.focus();
+        field = null;
+        return false;
+    }
+    field = null;
+    reformatNumberMoney(document.forms['employeePaneltyForm'].amount);
+    document.forms['employeePaneltyForm'].employeeId.value = document.forms['employeePaneltyForm'].employeeSelectedHidden.value;
+    scriptFunction = "saveEmployeePanelty";
+    callAjaxCheckError("addEmployeePanelty.do", null, document.forms['employeePaneltyForm'], function(data) {
+        scriptFunction = "";
+        var handle = document.getElementById('callbackFunc').value;
+        if (confirm('B\u1EA1n c\u00F3 mu\u1ED1n nh\u1EADp ti\u1EBFp th\u00F4ng tin kh\u00E1c ?'))
+            getEmployeePanelty(0, handle);
+        else if (handle != '')
+            eval(handle + "()");
+        prepareHidePopup('employeePaneltyFormshowHelpHideDiv');
+    });
+    return false;
+}
+function delEmployeePanelty() {
+    callAjaxCheckError('delEmployeePanelty.do?employeePaneltyId=' + document.forms['employeePaneltyForm'].id.value, null, null, function() {
+        loadEmployeePaneltyPanel();
+        prepareHidePopup('employeePaneltyFormshowHelpHideDiv');
+    });
+    return false;
+}
 
 
 

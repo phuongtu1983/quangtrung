@@ -18,12 +18,20 @@
                         </tr>
                         <tr>
                             <td height="30" style="padding-right: 20px"><bean:message key="employee.title"/></td>
-                            <td>
+                            <td colspan="3">
                                 <select style="width: 195px;" name="employeeIdCombobox" id="employeeIdCombobox">
                                     <logic:iterate id="employee_iter" name="<%=Constants.EMPLOYEE_LIST%>">
                                         <option  value="${employee_iter.id}">${employee_iter.fullname}</option>
                                     </logic:iterate>
                                 </select>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td height="30" style="padding-right: 20px"><bean:message key="dayoff.title"/></td>
+                            <td>
+                                <html:select property="dayoffId" name="<%=Constants.EMPLOYEE_OFF_INCREASE%>" style="width:195px">
+                                    <html:options collection="<%=Constants.DAY_OFF_LIST%>" property="id" labelProperty="name"/>
+                                </html:select>
                             </td>
                             <td style="padding-right: 20px;padding-left: 10px"><bean:message key="employeeOffIncrease.detail.quantity"/></td>
                             <td><html:text property="quantity" size="30" name="<%=Constants.EMPLOYEE_OFF_INCREASE%>" /></td>
