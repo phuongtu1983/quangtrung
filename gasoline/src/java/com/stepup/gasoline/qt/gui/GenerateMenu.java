@@ -873,8 +873,8 @@ public class GenerateMenu {
                     + "," + PermissionUtil.PER_REPORT_PETRO_IMPORT + "," + PermissionUtil.PER_REPORT_PETRO_SALE + "," + PermissionUtil.PER_REPORT_PETRO_STOCK
                     + "," + PermissionUtil.PER_REPORT_PETRO_STOCK_STORE + "," + PermissionUtil.PER_REPORT_COMPARE_GOOD + "," + PermissionUtil.PER_REPORT_TRANSPORT_FEE
                     + "," + PermissionUtil.PER_REPORT_VEHICLE_FEE + "," + PermissionUtil.PER_REPORT_VEHICLE_SALE + "," + PermissionUtil.PER_REPORT_COMPARE_LPG
-                    + "," + PermissionUtil.PER_REPORT_COMPARE_LPG_VENDOR_CUSTOMER
-                    + "," + PermissionUtil.PER_REPORT_LPG_SALE + "," + PermissionUtil.PER_REPORT_TRANSPORT_SERVICE + "," + PermissionUtil.PER_REPORT_COMPARE_GAS)) {
+                    + "," + PermissionUtil.PER_REPORT_COMPARE_LPG_VENDOR_CUSTOMER + "," + PermissionUtil.PER_REPORT_LPG_SALE
+                    + "," + PermissionUtil.PER_REPORT_TRANSPORT_SERVICE + "," + PermissionUtil.PER_REPORT_COMPARE_GAS + "," + PermissionUtil.PER_REPORT_EMPLOYEE_SALARY)) {
                 if (isHasPermission(PermissionUtil.OPERATION_PRINT + "", PermissionUtil.PER_REPORT_LPG_IMPORT + "," + PermissionUtil.PER_REPORT_VENDOR_DEBT
                         + "," + PermissionUtil.PER_REPORT_LPG_STOCK + "," + PermissionUtil.PER_REPORT_LPG_STOCK_SUM + "," + PermissionUtil.PER_REPORT_LPG_STOCK_SUM_ORGANIZATION
                         + "," + PermissionUtil.PER_REPORT_SUM + "," + PermissionUtil.PER_REPORT_COMPARE + "," + PermissionUtil.PER_REPORT_SALE
@@ -884,7 +884,7 @@ public class GenerateMenu {
                         + "," + PermissionUtil.PER_REPORT_COMPARE_GOOD + "," + PermissionUtil.PER_REPORT_TRANSPORT_FEE + "," + PermissionUtil.PER_REPORT_VEHICLE_FEE
                         + "," + PermissionUtil.PER_REPORT_VEHICLE_SALE + "," + PermissionUtil.PER_REPORT_COMPARE_LPG + "," + PermissionUtil.PER_REPORT_LPG_SALE
                         + "," + PermissionUtil.PER_REPORT_TRANSPORT_SERVICE + "," + PermissionUtil.PER_REPORT_COMPARE_GAS + "," + PermissionUtil.PER_REPORT_COMPARE_LPG_VENDOR_CUSTOMER
-                        + "," + PermissionUtil.PER_REPORT_COMPARE_VENDOR)) {
+                        + "," + PermissionUtil.PER_REPORT_COMPARE_VENDOR + "," + PermissionUtil.PER_REPORT_EMPLOYEE_SALARY)) {
                     buffTemp.append("<item id=\"reportgas\" complex=\"true\" text=\"").append(QTUtil.getBundleString("report.gas.title")).append("\">");
                     if (isHasPermission(PermissionUtil.OPERATION_PRINT, PermissionUtil.PER_REPORT_LPG_IMPORT)) {
                         buffTemp.append("<item id=\"reportlpgimport\" text=\"").append(QTUtil.getBundleString("report.lpgImport.title")).append("\"/>");
@@ -972,6 +972,17 @@ public class GenerateMenu {
                     }
                     if (isHasPermission(PermissionUtil.OPERATION_PRINT, PermissionUtil.PER_REPORT_TRANSPORT_SERVICE)) {
                         buffTemp.append("<item id=\"reporttransportservice\" text=\"").append(QTUtil.getBundleString("report.transportService.title")).append("\"/>");
+                    }
+                    buffTemp.append("</item>");
+                    buffTemp.append("<item id=\"reportaccountant\" complex=\"true\" text=\"").append(QTUtil.getBundleString("report.accountant.title")).append("\">");
+                    if (isHasPermission(PermissionUtil.OPERATION_PRINT, PermissionUtil.PER_REPORT_EMPLOYEE_SALARY)) {
+                        buffTemp.append("<item id=\"reportemployeesalary\" text=\"").append(QTUtil.getBundleString("report.employeesalary.title")).append("\"/>");
+                    }
+                    if (isHasPermission(PermissionUtil.OPERATION_PRINT, PermissionUtil.PER_REPORT_EMPLOYEE_SALARY)) {
+                        buffTemp.append("<item id=\"reportemployeeoff\" text=\"").append(QTUtil.getBundleString("report.employeeoff.title")).append("\"/>");
+                    }
+                    if (isHasPermission(PermissionUtil.OPERATION_PRINT, PermissionUtil.PER_REPORT_EMPLOYEE_WORKING)) {
+                        buffTemp.append("<item id=\"reportemployeeworking\" text=\"").append(QTUtil.getBundleString("report.employeeworking.title")).append("\"/>");
                     }
                     buffTemp.append("</item>");
                 }

@@ -1061,6 +1061,33 @@ public class PermissionFormAction extends SpineAction {
         perBean.setValue(PermissionUtil.PER_REPORT_TRANSPORT_SERVICE);
         perBean.setOperations("," + PermissionUtil.OPERATION_PRINT + ",");
         arrFun.add(perBean);
+        
+        perBean = new PermissionViewBean();
+        perBean.setCounter("3.1");
+        perBean.setLevel(2);
+        perBean.setSharedId(3);
+        perBean.setName(QTUtil.getBundleString("report.employeesalary.title"));
+        perBean.setValue(PermissionUtil.PER_REPORT_EMPLOYEE_SALARY);
+        perBean.setOperations("," + PermissionUtil.OPERATION_PRINT + ",");
+        arrFun.add(perBean);
+        
+        perBean = new PermissionViewBean();
+        perBean.setCounter("3.1");
+        perBean.setLevel(2);
+        perBean.setSharedId(3);
+        perBean.setName(QTUtil.getBundleString("report.employeeoff.title"));
+        perBean.setValue(PermissionUtil.PER_REPORT_EMPLOYEE_OFF);
+        perBean.setOperations("," + PermissionUtil.OPERATION_PRINT + ",");
+        arrFun.add(perBean);
+        
+        perBean = new PermissionViewBean();
+        perBean.setCounter("3.1");
+        perBean.setLevel(2);
+        perBean.setSharedId(3);
+        perBean.setName(QTUtil.getBundleString("report.employeeworking.title"));
+        perBean.setValue(PermissionUtil.PER_REPORT_EMPLOYEE_WORKING);
+        perBean.setOperations("," + PermissionUtil.OPERATION_PRINT + ",");
+        arrFun.add(perBean);
 
         request.setAttribute(Constants.PERMISSION_FUNC_LIST, arrFun);
 

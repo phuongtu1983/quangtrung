@@ -22,6 +22,9 @@ public class SalaryBean {
     private double commission;
     private double bonus;
     private double bhxh;
+    private double advance;
+    private double panelty;
+    private double seniority;
     private double actualReceived;
 
     public void setId(int id) {
@@ -126,6 +129,30 @@ public class SalaryBean {
 
     public void setActualReceived(double actualReceived) {
         this.actualReceived = actualReceived;
+    }
+
+    public double getAdvance() {
+        return advance;
+    }
+
+    public void setAdvance(double advance) {
+        this.advance = advance;
+    }
+
+    public double getPanelty() {
+        return panelty;
+    }
+
+    public void setPanelty(double panelty) {
+        this.panelty = panelty;
+    }
+
+    public double getSeniority() {
+        return seniority;
+    }
+
+    public void setSeniority(double seniority) {
+        this.seniority = seniority;
     }
 
 }

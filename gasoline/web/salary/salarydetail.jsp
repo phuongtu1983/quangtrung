@@ -39,6 +39,16 @@
             <td><html:text property="bonus" size="30" name="<%=Constants.SALARY%>" readonly="true" tabindex="-1"/></td>
         </tr>
         <tr>
+            <td height="30" style="padding-right: 20px"><bean:message key="employeeOff.detail.seniority"/></td>
+            <td colspan=""><html:text property="seniority" size="30" name="<%=Constants.SALARY%>" readonly="true" tabindex="-1"/></td>
+        </tr>
+        <tr>
+            <td height="30" style="padding-right: 20px"><bean:message key="employeeOff.detail.advance"/></td>
+            <td><html:text property="advance" size="30" name="<%=Constants.SALARY%>" readonly="true" tabindex="-1"/></td>
+            <td style="padding-right: 20px;padding-left: 10px"><bean:message key="employeeOff.detail.panelty"/></td>
+            <td><html:text property="panelty" size="30" name="<%=Constants.SALARY%>" readonly="true" tabindex="-1"/></td>
+        </tr>
+        <tr>
             <td height="30" style="padding-right: 20px"><bean:message key="employeeOff.detail.bhxh"/></td>
             <td><html:text property="bhxh" size="30" name="<%=Constants.SALARY%>" readonly="true" tabindex="-1"/></td>
             <td style="padding-right: 20px;padding-left: 10px"><bean:message key="employeeOff.detail.actualReceived"/></td>

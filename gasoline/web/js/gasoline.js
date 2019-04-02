@@ -290,6 +290,10 @@ function menuClick(id) {
             || id == 'reportgasemployeecommission' || id == 'reportvendordebt' || id == 'reporttransportfee' || id == 'reportvehiclesale' || id == 'reportlpgsale'
             || id == 'reportshell')
         showReportPanel(id);
+    else if (id == 'reportemployeesalary')
+        showMonthlyReportPanel(id);
+    else if (id == 'reportemployeeoff')
+        showYearlyReportPanel(id);
     else if (id == 'shieldimportlist')
         loadShieldImportPanel();
     else if (id == 'shieldimportadd')
@@ -362,6 +366,10 @@ function menuClick(id) {
         loadEmployeePaneltyPanel();
     else if (id == 'employeepaneltyadd')
         getEmployeePanelty(0, 'loadEmployeePaneltyPanel');
+    else if (id == 'reportemployeesalary')
+        showEmployeeSalaryReportPanel();
+    else if (id == 'reportemployeeworking')
+        printDirectlyReport('reportemployeeworking');
 }
 function clearContent() {
     var contentDiv = document.getElementById("contentDiv");
@@ -2791,6 +2799,13 @@ function getSalary(id, handle) {
         tryNumberFormatCurrentcy(document.forms['salaryForm'].workingDay, "VND");
         tryNumberFormatCurrentcy(document.forms['salaryForm'].basicSalary, "VND");
         tryNumberFormatCurrentcy(document.forms['salaryForm'].realSalary, "VND");
+        tryNumberFormatCurrentcy(document.forms['salaryForm'].commission, "VND");
+        tryNumberFormatCurrentcy(document.forms['salaryForm'].bonus, "VND");
+        tryNumberFormatCurrentcy(document.forms['salaryForm'].bhxh, "VND");
+        tryNumberFormatCurrentcy(document.forms['salaryForm'].advance, "VND");
+        tryNumberFormatCurrentcy(document.forms['salaryForm'].panelty, "VND");
+        tryNumberFormatCurrentcy(document.forms['salaryForm'].seniority, "VND");
+        tryNumberFormatCurrentcy(document.forms['salaryForm'].actualReceived, "VND");
         var quantity = document.forms['salaryForm'].timesheetQuantity;
         var price = document.forms['salaryForm'].timesheetPrice;
         var amount = document.forms['salaryForm'].timesheetAmount;
@@ -9163,13 +9178,14 @@ function reportTimeChange(list, form) {
         dd = '0' + dd;
     if (mm < 10)
         mm = '0' + mm;
-    if (list.selectedIndex == 0) {
+    list = list[list.selectedIndex].value;
+    if (list == 1) {
         currentTime = dd + '/' + mm + '/' + yyyy;
         myCalendar.setDateFormat("%d/%m/%Y");
-    } else if (list.selectedIndex == 1) {
+    } else if (list == 2) {
         currentTime = mm + '/' + yyyy;
         myCalendar.setDateFormat("%m/%Y");
-    } else if (list.selectedIndex == 2) {
+    } else if (list == 3) {
         currentTime = yyyy;
         myCalendar.setDateFormat("%Y");
     }
@@ -12156,6 +12172,91 @@ function delEmployeePanelty() {
     });
     return false;
 }
-
+function showMonthlyReportPanel(name) {
+    var url = 'getMonthlyReportPanel.do?reportName=' + name;
+    callAjax(url, null, null, function(data) {
+        showPopupForm(data);
+        changePopupFormHeader(document.getElementById("monthlyReportSearchFormHeader").value);
+        var myCalendar = new dhtmlXCalendarObject(["fromDate", "toDate"]);
+        myCalendar.setSkin('dhx_web');
+        var currentTime = getCurrentDate();
+        document.forms['monthlyReportSearchForm'].fromDate.value = currentTime;
+        document.forms['monthlyReportSearchForm'].toDate.value = currentTime;
+        myCalendar.setDateFormat("%d/%m/%Y");
+        var list = document.forms['monthlyReportSearchForm'].monthlyReportSearchFormTime;
+        if(list!=null) reportTimeChange(list,'monthlyReportSearchForm');
+    });
+}
+function printMonthlyReport(fromDate, toDate) {
+    var list = document.getElementById("monthlyReportSearchFormTime");
+    if (list == null || list.selectedIndex == -1)
+        return false;
+    list = list[list.selectedIndex].value;
+    if (list == 2) {
+        fromDate = "01/" + fromDate;
+        var ind = toDate.indexOf("/");
+        var month = toDate.substring(0, ind);
+        var year = toDate.substring(ind + 1);
+        toDate = month + "/01/" + year;
+        var d = new Date(toDate);
+        var lastDay = new Date(d.getFullYear(), d.getMonth() + 1, 0).getDate();
+        toDate = lastDay + "/" + month + "/" + year;
+    } else if (list == 3) {
+        fromDate = "01/01/" + fromDate;
+        toDate = "31/12/" + toDate;
+    }
+    var url = "reportPrint.do?reportName=" + document.getElementById("monthlyReportSearchFormName").value;
+    if (fromDate !== null)
+        url += "&fromDate=" + fromDate;
+    if (toDate !== null)
+        url += "&toDate=" + toDate;
+    callServer(url);
+    return false;
+}
+function showYearlyReportPanel(name) {
+    var url = 'getYearlyReportPanel.do?reportName=' + name;
+    callAjax(url, null, null, function(data) {
+        showPopupForm(data);
+        changePopupFormHeader(document.getElementById("yearlyReportSearchFormHeader").value);
+        var myCalendar = new dhtmlXCalendarObject(["fromDate", "toDate"]);
+        myCalendar.setSkin('dhx_web');
+        var currentTime = getCurrentDate();
+        document.forms['yearlyReportSearchForm'].fromDate.value = currentTime;
+        document.forms['yearlyReportSearchForm'].toDate.value = currentTime;
+        myCalendar.setDateFormat("%d/%m/%Y");
+        var list = document.forms['yearlyReportSearchForm'].yearlyReportSearchFormTime;
+        if(list!=null) reportTimeChange(list,'yearlyReportSearchForm');
+    });
+}
+function printYearlyReport(fromDate, toDate) {
+    var list = document.getElementById("yearlyReportSearchFormTime");
+    if (list == null || list.selectedIndex == -1)
+        return false;
+    list = list[list.selectedIndex].value;
+    if (list == 2) {
+        fromDate = "01/" + fromDate;
+        var ind = toDate.indexOf("/");
+        var month = toDate.substring(0, ind);
+        var year = toDate.substring(ind + 1);
+        toDate = month + "/01/" + year;
+        var d = new Date(toDate);
+        var lastDay = new Date(d.getFullYear(), d.getMonth() + 1, 0).getDate();
+        toDate = lastDay + "/" + month + "/" + year;
+    } else if (list == 3) {
+        fromDate = "01/01/" + fromDate;
+        toDate = "31/12/" + toDate;
+    }
+    var url = "reportPrint.do?reportName=" + document.getElementById("yearlyReportSearchFormName").value;
+    if (fromDate !== null)
+        url += "&fromDate=" + fromDate;
+    if (toDate !== null)
+        url += "&toDate=" + toDate;
+    callServer(url);
+    return false;
+}
+function printDirectlyReport(reportName) {
+    callServer("reportPrint.do?reportName=" + reportName);
+    return false;
+}
 
 

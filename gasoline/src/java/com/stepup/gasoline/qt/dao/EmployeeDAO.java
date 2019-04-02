@@ -620,9 +620,12 @@ public class EmployeeDAO extends BasicDAO {
                 bean.setTotal(rs.getDouble("total"));
                 bean.setMonthDay(rs.getInt("month_day"));
                 bean.setWorkingDay(rs.getInt("working_day"));
-                bean.setCommission(rs.getInt("commission"));
-                bean.setBonus(rs.getInt("bonus"));
-                bean.setBhxh(rs.getInt("bhxh"));
+                bean.setCommission(rs.getDouble("commission"));
+                bean.setBonus(rs.getDouble("bonus"));
+                bean.setBhxh(rs.getDouble("bhxh"));
+                bean.setAdvance(rs.getDouble("advance"));
+                bean.setPanelty(rs.getDouble("panelty"));
+                bean.setSeniority(rs.getDouble("seniority"));
                 bean.setActualReceived(rs.getInt("actual_received"));
                 return bean;
             }

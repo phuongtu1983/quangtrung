@@ -26,6 +26,9 @@ public class SalaryFormBean extends org.apache.struts.action.ActionForm {
     private double commission;
     private double bonus;
     private double bhxh;
+    private double advance;
+    private double panelty;
+    private double seniority;
     private double actualReceived;
     private String[] salaryFieldId;
     private String[] amount;
@@ -47,6 +50,9 @@ public class SalaryFormBean extends org.apache.struts.action.ActionForm {
         this.commission = bean.getCommission();
         this.bonus = bean.getBonus();
         this.bhxh = bean.getBhxh();
+        this.advance = bean.getAdvance();
+        this.panelty = bean.getPanelty();
+        this.seniority = bean.getSeniority();
         this.actualReceived = bean.getActualReceived();
     }
 
@@ -192,6 +198,30 @@ public class SalaryFormBean extends org.apache.struts.action.ActionForm {
 
     public void setActualReceived(double actualReceived) {
         this.actualReceived = actualReceived;
+    }
+
+    public double getAdvance() {
+        return advance;
+    }
+
+    public void setAdvance(double advance) {
+        this.advance = advance;
+    }
+
+    public double getPanelty() {
+        return panelty;
+    }
+
+    public void setPanelty(double panelty) {
+        this.panelty = panelty;
+    }
+
+    public double getSeniority() {
+        return seniority;
+    }
+
+    public void setSeniority(double seniority) {
+        this.seniority = seniority;
     }
 
 }

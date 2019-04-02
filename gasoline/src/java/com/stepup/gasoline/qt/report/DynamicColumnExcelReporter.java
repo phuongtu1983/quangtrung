@@ -8,6 +8,7 @@ package com.stepup.gasoline.qt.report;
 import com.stepup.core.util.GenericValidator;
 import com.stepup.core.util.NumberUtil;
 import com.stepup.gasoline.qt.accessorykind.AccessoryKindFormBean;
+import com.stepup.gasoline.qt.bean.DayoffBean;
 import com.stepup.gasoline.qt.core.ExcelExport;
 import com.stepup.gasoline.qt.employee.EmployeeFormBean;
 import com.stepup.gasoline.qt.petro.PetroFormBean;
@@ -224,7 +225,7 @@ public class DynamicColumnExcelReporter {
 
             col += 1;
         }
-        
+
         //Sheet xuat nhap mua ban
         sheet = wb.getSheetAt(1);
         newCell = null;
@@ -243,6 +244,32 @@ public class DynamicColumnExcelReporter {
             copyCell(wb, sheet, 2, 3, col, "dulieudong", "", date.replace("/", ""));
 
             sheet.setColumnWidth(col, sheet.getColumnWidth(3));
+
+            col += 1;
+        }
+        FileOutputStream fileOut = new FileOutputStream(f);
+        wb.write(fileOut);
+        fileOut.close();
+    }
+
+    public static void createColumnForEmployeeOffReport(String templateFileName, ArrayList arrDayoff, File f) throws Exception {
+        POIFSFileSystem fs = new POIFSFileSystem(new FileInputStream(templateFileName));
+        HSSFWorkbook wb = new HSSFWorkbook(fs);
+        //Sheet xuat nhap ban hang
+        HSSFSheet sheet = wb.getSheetAt(0);
+        HSSFCell newCell = null;
+        short col = 20;
+        for (int i = 0; i < arrDayoff.size(); i++) {
+            DayoffBean bean = (DayoffBean) arrDayoff.get(i);
+
+            //copy ten ngay nghi header
+            newCell = copyCell(wb, sheet, 5, 19, col, "", "");
+            newCell.setCellValue(new HSSFRichTextString(bean.getName()));
+
+            //copy content
+            copyCell(wb, sheet, 6, 19, col, "", bean.getId() + "");
+
+            sheet.setColumnWidth(col, sheet.getColumnWidth(19));
 
             col += 1;
         }

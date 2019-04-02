@@ -189,4 +189,7 @@ public class PermissionUtil {
     public static int PER_PANELTY = 100;
     public static int PER_EMPLOYEE_OTHER_BONUS = 101;
     public static int PER_EMPLOYEE_PANELTY = 102;
+    public static int PER_REPORT_EMPLOYEE_SALARY = 103;
+    public static int PER_REPORT_EMPLOYEE_OFF = 104;
+    public static int PER_REPORT_EMPLOYEE_WORKING = 105;
 }

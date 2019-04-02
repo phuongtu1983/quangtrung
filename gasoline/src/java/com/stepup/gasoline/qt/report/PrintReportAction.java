@@ -6,9 +6,12 @@ package com.stepup.gasoline.qt.report;
 
 import com.stepup.core.util.DateUtil;
 import com.stepup.core.util.FileUtil;
+import com.stepup.core.util.GenericValidator;
 import com.stepup.core.util.LogUtil;
+import com.stepup.core.util.NumberUtil;
 import com.stepup.core.util.StringUtil;
 import com.stepup.gasoline.qt.accessorykind.AccessoryKindFormBean;
+import com.stepup.gasoline.qt.bean.DayoffBean;
 import com.stepup.gasoline.qt.core.BaseAction;
 import com.stepup.gasoline.qt.core.ExcelExport;
 import com.stepup.gasoline.qt.dao.EmployeeDAO;
@@ -52,8 +55,12 @@ public class PrintReportAction extends BaseAction {
                 ExcelExport exporter = new ExcelExport();
                 String fromDate = request.getParameter("fromDate");
                 String toDate = request.getParameter("toDate");
-                beans.put("qtrp_fromDate", fromDate);
-                beans.put("qtrp_toDate", toDate);
+                if (!GenericValidator.isBlankOrNull(fromDate)) {
+                    beans.put("qtrp_fromDate", fromDate);
+                }
+                if (!GenericValidator.isBlankOrNull(toDate)) {
+                    beans.put("qtrp_toDate", toDate);
+                }
                 ArrayList list = null;
                 if (reportName.equals("reportlpgimport")) {
                     templateFileName = "bang_theo_doi_nhap_hang_lpg";
@@ -118,9 +125,36 @@ public class PrintReportAction extends BaseAction {
                     templateFileName = "thong_ke_vo";
                     String session = QTUtil.getEmployeeId(request.getSession()) + "_" + Calendar.getInstance().getTimeInMillis();
                     printShellReport(fromDate, toDate, organizationIds, request, response, templateFileName, session, beans, exporter);
+                } else if (reportName.equals("reportemployeesalary")) {
+                    Date dFromDate = DateUtil.convertStringToDate(fromDate, "dd/MM/yyyy");
+                    Date dToDate = DateUtil.convertStringToDate(toDate, "dd/MM/yyyy");
+
+                    int workingDays = 0;
+
+                    Calendar fromCalendar = Calendar.getInstance();
+                    Calendar toCalendar = Calendar.getInstance();
+                    fromCalendar.setTime(dFromDate);
+                    toCalendar.setTime(dToDate);
+//                    SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy");
+                    while (fromCalendar.get(Calendar.YEAR) < toCalendar.get(Calendar.YEAR)
+                            || (fromCalendar.get(Calendar.YEAR) == toCalendar.get(Calendar.YEAR) && fromCalendar.get(Calendar.MONTH) <= toCalendar.get(Calendar.MONTH))) {
+//                        String today = formatter.format(toCalendar.getTime());
+                        workingDays += toCalendar.get(Calendar.DAY_OF_MONTH) - toCalendar.get(Calendar.WEEK_OF_MONTH) + 1;
+                        toCalendar.add((Calendar.MONTH), -1);
+                    }
+                    beans.put("qtrp_month_day", workingDays);
+
+                    templateFileName = "bang_thanh_toan_luong";
+                    list = printEmployeeSalaryReport(fromDate, toDate, organizationIds);
+                } else if (reportName.equals("reportemployeeoff")) {
+                    templateFileName = "bang_theo_doi_ngay_nghi_phep";
+                    printEmployeeOffReport(fromDate, organizationIds, request, response, templateFileName, beans, exporter);
+                } else if (reportName.equals("reportemployeeworking")) {
+                    templateFileName = "bang_theo_doi_thoi_gian_cong_tac";
+                    list = printEmployeeWorkingTimeReport(organizationIds);
                 }
 
-                if (!reportName.equals("reportpetrostock") && !reportName.equals("reportgascommission") && !reportName.equals("reportshell")) {
+                if (!reportName.equals("reportpetrostock") && !reportName.equals("reportgascommission") && !reportName.equals("reportshell") && !reportName.equals("reportemployeeoff")) {
                     String sourceFile = request.getSession().getServletContext().getRealPath("/templates/" + templateFileName + ".xls");
                     if (list == null) {
                         list = new ArrayList();
@@ -540,7 +574,6 @@ public class PrintReportAction extends BaseAction {
                         oldBean.setQuantity(bean.getChangeQuantity());
                     }
                 }
-
             } else {
                 if (id == bean.getShellVendorId()) {
                     continue;
@@ -572,6 +605,182 @@ public class PrintReportAction extends BaseAction {
             }
         }
         return sum;
+    }
+
+    private ArrayList printEmployeeSalaryReport(String fromDate, String toDate, String organizationIds) {
+        ArrayList list = null;
+        try {
+            ReportDAO reportDAO = new ReportDAO();
+            list = reportDAO.getEmployeeSalaryReport(fromDate, toDate, organizationIds);
+        } catch (Exception ex) {
+        }
+        return list;
+    }
+
+    private void printEmployeeOffReport(String fromDate, String organizationIds, HttpServletRequest request, HttpServletResponse response,
+            String fileName, Map beans, ExcelExport exporter) {
+
+        String tempFileName = request.getSession().getServletContext().getRealPath("/templates/" + fileName + "_temp.xls");
+        fileName = request.getSession().getServletContext().getRealPath("/templates/" + fileName + ".xls");
+
+        Date dFromDate = DateUtil.convertStringToDate(fromDate, "dd/MM/yyyy");
+
+        DateFormat dateFormat = new SimpleDateFormat("yyyy");
+        Calendar c = Calendar.getInstance();
+        c.setTime(dFromDate);
+        int year = NumberUtil.parseInt(dateFormat.format(c.getTime()), 0);
+        beans.put("qtrp_year", year);
+
+        try {
+
+            FileUtil.copyFile(fileName, tempFileName);
+            File f = new File(tempFileName);
+            ArrayList arrHideCol = new ArrayList();
+            arrHideCol.add(19);
+
+            ArrayList employeeList = null;
+            try {
+                ReportDAO reportDAO = new ReportDAO();
+                employeeList = reportDAO.getEmployeeOffReport(year, organizationIds);
+            } catch (Exception ex) {
+            }
+
+            ArrayList employees = null;
+            ArrayList arrDayoffIncrease = new ArrayList();
+
+            employees = getEmployeeListForEmployeeOffReport(employeeList);
+            arrDayoffIncrease = getDayOffListForEmployeeOffReport(employeeList);
+//            for (int i = 0; i < employees.size(); i++) {
+//                EmployeeOffReportBean bean = (EmployeeOffReportBean) employees.get(i);
+//                bean.setClosingStock(bean.getOpeningStock() + getSumQuantityForShellReport(employeeList, bean.getShellVendorId()));
+//            }
+            beans.put("datedata", employees);
+
+            DynamicColumnExcelReporter.createColumnForEmployeeOffReport(tempFileName, arrDayoffIncrease, f);
+            for (int i = 0; i < arrDayoffIncrease.size(); i++) {
+                ArrayList dayoffs = null;
+                DayoffBean bean = (DayoffBean) arrDayoffIncrease.get(i);
+                try {
+                    dayoffs = getEmployeeListAndDayOffForEmployeeOffReport(employeeList, bean.getId());
+                } catch (Exception ex) {
+                }
+                if (dayoffs == null) {
+                    dayoffs = new ArrayList();
+                }
+                beans.put("dynamicdata" + bean.getId(), dayoffs);
+            }
+            short[] hiddenCols = new short[arrHideCol.size()];
+            for (int i = 0; i < arrHideCol.size(); i++) {
+                hiddenCols[i] = Short.parseShort(arrHideCol.get(i) + "");
+            }
+            exporter.setHiddenCols(hiddenCols);
+            exporter.setBeans(beans);
+            exporter.export(request, response, tempFileName, "bang_theo_doi_ngay_nghi_phep.xls");
+            f.delete();
+        } catch (Exception ex) {
+            LogUtil.error("FAILED:EmployeeOffReportPrint:print-" + ex.getMessage());
+            ex.printStackTrace();
+        }
+    }
+
+    private ArrayList getEmployeeListForEmployeeOffReport(ArrayList list) {
+        ArrayList result = new ArrayList();
+        int id = 0;
+        EmployeeOffReportBean bean = null;
+        int count = 1;
+        for (int i = 0; i < list.size(); i++) {
+            bean = (EmployeeOffReportBean) list.get(i);
+            if (id == bean.getEmployeeId()) {
+                continue;
+            }
+            EmployeeOffReportBean newBean = new EmployeeOffReportBean();
+            newBean.setCount(count++);
+            newBean.setEmployeeId(bean.getEmployeeId());
+            newBean.setEmployeeName(bean.getEmployeeName());
+            newBean.setMonth01(bean.getMonth01());
+            newBean.setMonth02(bean.getMonth02());
+            newBean.setMonth03(bean.getMonth03());
+            newBean.setMonth04(bean.getMonth04());
+            newBean.setMonth05(bean.getMonth05());
+            newBean.setMonth06(bean.getMonth06());
+            newBean.setMonth07(bean.getMonth07());
+            newBean.setMonth08(bean.getMonth08());
+            newBean.setMonth09(bean.getMonth09());
+            newBean.setMonth10(bean.getMonth10());
+            newBean.setMonth11(bean.getMonth11());
+            newBean.setMonth12(bean.getMonth12());
+            newBean.setDayoffQuantityTotal(bean.getDayoffQuantityTotal());
+            newBean.setTotal(bean.getMonth01() + bean.getMonth02() + bean.getMonth03() + bean.getMonth04() + bean.getMonth05() + bean.getMonth06()
+                    + bean.getMonth07() + bean.getMonth08() + bean.getMonth09() + bean.getMonth10() + bean.getMonth11() + bean.getMonth12());
+            newBean.setTotalYear(bean.getTotalYear() + bean.getDayoffQuantityTotal());
+            newBean.setRest(newBean.getTotalYear() - newBean.getTotal());
+            result.add(newBean);
+            id = bean.getEmployeeId();
+        }
+        return result;
+    }
+
+    private ArrayList getDayOffListForEmployeeOffReport(ArrayList list) {
+        ArrayList result = new ArrayList();
+        String ids = "0,";
+        DayoffBean dayoffBean = null;
+        EmployeeOffReportBean bean = null;
+        for (int i = 0; i < list.size(); i++) {
+            bean = (EmployeeOffReportBean) list.get(i);
+            if (bean.getDayoffId() == 0) {
+                continue;
+            }
+            if (!ids.equals("0,")) {
+                if (ids.indexOf("," + bean.getDayoffId() + ",") >= 0) {
+                    continue;
+                }
+            }
+            dayoffBean = new DayoffBean();
+            dayoffBean.setId(bean.getDayoffId());
+            dayoffBean.setName(bean.getDayoffName());
+            result.add(dayoffBean);
+            ids += bean.getDayoffId() + ",";
+        }
+        return result;
+    }
+
+    private ArrayList getEmployeeListAndDayOffForEmployeeOffReport(ArrayList list, int dayoffId) {
+        ArrayList result = new ArrayList();
+        EmployeeOffReportBean bean = null;
+        for (int i = 0; i < list.size(); i++) {
+            bean = (EmployeeOffReportBean) list.get(i);
+            EmployeeOffDayReportBean oldBean = null;
+            if (result.size() > 0) {
+                oldBean = (EmployeeOffDayReportBean) result.get(result.size() - 1);
+                if (oldBean.getEmployeeId() != bean.getEmployeeId()) {
+                    oldBean = null;
+                }
+            }
+            if (oldBean == null) {
+                EmployeeOffDayReportBean dayoffBean = new EmployeeOffDayReportBean();
+                dayoffBean.setEmployeeId(bean.getEmployeeId());
+                dayoffBean.setDayoffId(bean.getDayoffId());
+                if (bean.getDayoffId() == dayoffId) {
+                    dayoffBean.setQuantity(bean.getDayoffQuantity());
+                }
+                result.add(dayoffBean);
+                continue;
+            }
+            if (bean.getDayoffId() == dayoffId) {
+                oldBean.setQuantity(bean.getDayoffQuantity());
+            }
+        }
+        return result;
+    }
+
+    private ArrayList printEmployeeWorkingTimeReport(String organizationIds) {
+        ArrayList list = null;
+        try {
+            ReportDAO reportDAO = new ReportDAO();
+            list = reportDAO.getEmployeeWorkingTimeReport(organizationIds);
+        } catch (Exception ex) {
+        }
+        return list;
     }
 
 }

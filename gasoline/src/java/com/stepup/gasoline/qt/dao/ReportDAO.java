@@ -32,6 +32,9 @@ import com.stepup.gasoline.qt.openingstock.vendor.VendorOpeningStockBean;
 import com.stepup.gasoline.qt.openingstock.vendor.VendorOpeningStockUploadBean;
 import com.stepup.gasoline.qt.report.CashBookReportBean;
 import com.stepup.gasoline.qt.report.CashBookReportOutBean;
+import com.stepup.gasoline.qt.report.EmployeeOffReportBean;
+import com.stepup.gasoline.qt.report.EmployeeSalaryReportBean;
+import com.stepup.gasoline.qt.report.EmployeeWorkingTimeReportBean;
 import com.stepup.gasoline.qt.report.GasCommissionReportBean;
 import com.stepup.gasoline.qt.report.GasCommissionReportOutBean;
 import com.stepup.gasoline.qt.report.GasEmployeeCommissionReportBean;
@@ -2333,7 +2336,6 @@ public class ReportDAO extends BasicDAO {
 
                 if (rs != null) {
                     TransportSaleReportBean bean = null;
-                    int count = 1;
                     while (rs.next()) {
                         bean = new TransportSaleReportBean();
                         bean.setDate(DateUtil.formatDate(rs.getDate("created_date"), "dd/MM/yyyy"));
@@ -2787,4 +2789,174 @@ public class ReportDAO extends BasicDAO {
         }
         return list;
     }
+
+    public ArrayList getEmployeeSalaryReport(String fromDate, String endDate, String organizationIds) throws Exception {
+        SPUtil spUtil = null;
+        ArrayList list = new ArrayList();
+        ResultSet rs = null;
+        try {
+            String sql = "{call report_employee_salary(?,?,?)}";
+            if (GenericValidator.isBlankOrNull(fromDate)) {
+                fromDate = DateUtil.today("dd/MM/yyyy");
+            }
+            if (GenericValidator.isBlankOrNull(endDate)) {
+                endDate = BasicDAO.START_DATE;
+            }
+            spUtil = new SPUtil(sql);
+            if (spUtil != null) {
+                spUtil.getCallableStatement().setString("_start_date", fromDate);
+                spUtil.getCallableStatement().setString("_end_date", endDate);
+                spUtil.getCallableStatement().setString("_organization_ids", organizationIds);
+
+                rs = spUtil.executeQuery();
+
+                if (rs != null) {
+                    EmployeeSalaryReportBean bean = null;
+                    int count = 1;
+                    while (rs.next()) {
+                        bean = new EmployeeSalaryReportBean();
+                        bean.setCount(count++);
+                        bean.setFullname(rs.getString("employee_name"));
+                        bean.setWorkingDay(rs.getInt("working_day"));
+                        bean.setBasicSalary(rs.getDouble("basic_salary"));
+                        bean.setRealSalary(rs.getDouble("real_salary"));
+                        bean.setSalaryField(rs.getDouble("salary_field"));
+                        bean.setCommission(rs.getDouble("commission"));
+                        bean.setBonus(rs.getDouble("bonus"));
+                        bean.setTotal(rs.getDouble("total"));
+                        bean.setAdvance(rs.getDouble("advance"));
+                        bean.setBhxh(rs.getDouble("bhxh"));
+                        bean.setPanelty(rs.getDouble("panelty"));
+                        bean.setActualReceived(rs.getDouble("actual_received"));
+                        list.add(bean);
+                    }
+                }
+            }
+        } catch (SQLException sqle) {
+            throw new Exception(sqle.getMessage());
+        } catch (Exception ex) {
+            throw new Exception(ex.getMessage());
+        } finally {
+            try {
+                if (spUtil != null) {
+                    spUtil.closeConnection();
+                }
+                if (rs != null) {
+                    rs.close();
+                    rs = null;
+                }
+            } catch (Exception e) {
+                throw new Exception(e.getMessage());
+            }
+        }
+        return list;
+    }
+
+    public ArrayList getEmployeeOffReport(int year, String organizationIds) throws Exception {
+        SPUtil spUtil = null;
+        ArrayList list = new ArrayList();
+        ResultSet rs = null;
+        try {
+            String sql = "{call report_employee_off(?,?)}";
+            spUtil = new SPUtil(sql);
+            if (spUtil != null) {
+                spUtil.getCallableStatement().setInt("_year", year);
+                spUtil.getCallableStatement().setString("_organization_ids", organizationIds);
+
+                rs = spUtil.executeQuery();
+                if (rs != null) {
+                    EmployeeOffReportBean bean = null;
+                    while (rs.next()) {
+                        bean = new EmployeeOffReportBean();
+                        bean.setEmployeeId(rs.getInt("id"));
+                        bean.setEmployeeName(rs.getString("employee_name"));
+                        bean.setMonth01(rs.getFloat("month_01"));
+                        bean.setMonth02(rs.getFloat("month_02"));
+                        bean.setMonth03(rs.getFloat("month_03"));
+                        bean.setMonth04(rs.getFloat("month_04"));
+                        bean.setMonth05(rs.getFloat("month_05"));
+                        bean.setMonth06(rs.getFloat("month_06"));
+                        bean.setMonth07(rs.getFloat("month_07"));
+                        bean.setMonth08(rs.getFloat("month_08"));
+                        bean.setMonth09(rs.getFloat("month_09"));
+                        bean.setMonth10(rs.getFloat("month_10"));
+                        bean.setMonth11(rs.getFloat("month_11"));
+                        bean.setMonth12(rs.getFloat("month_12"));
+                        bean.setTotalYear(rs.getFloat("total"));
+                        bean.setDayoffQuantity(rs.getFloat("dayoff_quantity"));
+                        bean.setDayoffName(rs.getString("dayoff_name"));
+                        bean.setDayoffId(rs.getInt("dayoff_id"));
+                        bean.setDayoffQuantityTotal(rs.getFloat("dayoff_quantity_total"));
+                        list.add(bean);
+                    }
+                }
+            }
+        } catch (SQLException sqle) {
+            throw new Exception(sqle.getMessage());
+        } catch (Exception ex) {
+            throw new Exception(ex.getMessage());
+        } finally {
+            try {
+                if (spUtil != null) {
+                    spUtil.closeConnection();
+                }
+                if (rs != null) {
+                    rs.close();
+                    rs = null;
+                }
+            } catch (Exception e) {
+                throw new Exception(e.getMessage());
+            }
+        }
+        return list;
+    }
+
+    public ArrayList getEmployeeWorkingTimeReport(String organizationIds) throws Exception {
+        SPUtil spUtil = null;
+        ArrayList list = new ArrayList();
+        ResultSet rs = null;
+        try {
+            String sql = "{call report_employee_working_time(?)}";
+            spUtil = new SPUtil(sql);
+            if (spUtil != null) {
+                spUtil.getCallableStatement().setString("_organization_ids", organizationIds);
+
+                rs = spUtil.executeQuery();
+
+                if (rs != null) {
+                    EmployeeWorkingTimeReportBean bean = null;
+                    int count = 1;
+                    while (rs.next()) {
+                        bean = new EmployeeWorkingTimeReportBean();
+                        bean.setCount(count++);
+                        bean.setEmployeeName(rs.getString("employee_name"));
+                        bean.setStartDate(DateUtil.formatDate(rs.getDate("start_date"), "dd/MM/yyyy"));
+                        bean.setYearCount(rs.getFloat("year_count"));
+                        bean.setEnought2(rs.getFloat("enought2"));
+                        bean.setSeniority(rs.getFloat("seniority") * bean.getEnought2());
+                        bean.setNotEnought2(rs.getFloat("not_enought2"));
+                        list.add(bean);
+                    }
+                }
+            }
+        } catch (SQLException sqle) {
+            throw new Exception(sqle.getMessage());
+        } catch (Exception ex) {
+            throw new Exception(ex.getMessage());
+        } finally {
+            try {
+                if (spUtil != null) {
+                    spUtil.closeConnection();
+                }
+                if (rs != null) {
+                    rs.close();
+                    rs = null;
+                }
+            } catch (Exception e) {
+                throw new Exception(e.getMessage());
+            }
+        }
+        return list;
+    }
+
 }

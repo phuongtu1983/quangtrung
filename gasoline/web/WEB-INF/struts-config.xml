@@ -1204,6 +1204,12 @@
         <action path="/getReportPanel" type="com.stepup.gasoline.qt.common.BaseReportPanelFormAction" scope="request" validate="false">
             <forward name="success" path="/report/reportspanel.jsp" />
         </action>
+        <action path="/getMonthlyReportPanel" type="com.stepup.gasoline.qt.common.BaseReportPanelFormAction" scope="request" validate="false">
+            <forward name="success" path="/report/monthlyreportspanel.jsp" />
+        </action>
+        <action path="/getYearlyReportPanel" type="com.stepup.gasoline.qt.common.BaseReportPanelFormAction" scope="request" validate="false">
+            <forward name="success" path="/report/yearlyreportspanel.jsp" />
+        </action>
         <action path="/reportPrint" type="com.stepup.gasoline.qt.report.PrintReportAction" scope="request" validate="false" >
         </action>
         <action path="/getCompareReportPanel" type="com.stepup.gasoline.qt.report.compare.CompareReportPanelFormAction" scope="request" validate="false">

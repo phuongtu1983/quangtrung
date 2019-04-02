@@ -57,7 +57,7 @@ public class CreateSalaryAction extends SpineAction {
             String yesterday = formatter.format(calendar.getTime());
             String prefix = DateUtil.today("yyyyMMdd") + "-ES-";
 
-            int workingDays = calendar.get(Calendar.DAY_OF_MONTH) - calendar.get(Calendar.WEEK_OF_MONTH);
+            int workingDays = calendar.get(Calendar.DAY_OF_MONTH) - calendar.get(Calendar.WEEK_OF_MONTH) + 1;
             EmployeeDAO employeeDAO = new EmployeeDAO();
             ArrayList arrEmp = employeeDAO.getNotSalaryEmployee(yesterday);
             EmployeeBean bean = null;
