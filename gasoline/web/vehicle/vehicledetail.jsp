@@ -15,6 +15,10 @@
                             <td><html:text property="plate" size="40" name="<%=Constants.VEHICLE%>"/></td>
                         </tr>
                         <tr>
+                            <td height="30" style="padding-right: 20px"><bean:message key="vehicle.detail.allowance"/></td>
+                            <td><html:text property="allowance" size="40" name="<%=Constants.VEHICLE%>" onblur="tryNumberFormatCurrentcy(this);" onkeypress="return readonlyFloat(event);"/></td>
+                        </tr>
+                        <tr>
                             <td height="30" style="padding-right: 20px"><bean:message key="note.title"/></td>
                             <td><html:text property="note" size="90" name="<%=Constants.VEHICLE%>"/></td>
                         </tr>

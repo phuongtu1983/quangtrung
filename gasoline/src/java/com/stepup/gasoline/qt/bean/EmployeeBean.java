@@ -14,7 +14,7 @@ public class EmployeeBean {
     private String idcard;
     private String fullname;
     private int status;
-    private int seniority;
+    private int salaryBhxh;
     private String email;
     private int organizationId;
     private double salary;
@@ -86,12 +86,12 @@ public class EmployeeBean {
         this.birthday = birthday;
     }
 
-    public int getSeniority() {
-        return seniority;
+    public int getSalaryBhxh() {
+        return salaryBhxh;
     }
 
-    public void setSeniority(int seniority) {
-        this.seniority = seniority;
+    public void setSalaryBhxh(int salaryBhxh) {
+        this.salaryBhxh = salaryBhxh;
     }
 
     public String getStartDate() {

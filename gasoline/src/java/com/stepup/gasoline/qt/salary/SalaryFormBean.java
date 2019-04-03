@@ -30,6 +30,8 @@ public class SalaryFormBean extends org.apache.struts.action.ActionForm {
     private double panelty;
     private double seniority;
     private double actualReceived;
+    private double fieldAmount;
+    private double timesheetAmount;
     private String[] salaryFieldId;
     private String[] amount;
     private String[] note;
@@ -54,6 +56,8 @@ public class SalaryFormBean extends org.apache.struts.action.ActionForm {
         this.panelty = bean.getPanelty();
         this.seniority = bean.getSeniority();
         this.actualReceived = bean.getActualReceived();
+        this.fieldAmount = bean.getFieldAmount();
+        this.timesheetAmount = bean.getTimesheetAmount();
     }
 
     public String getCode() {
@@ -222,6 +226,22 @@ public class SalaryFormBean extends org.apache.struts.action.ActionForm {
 
     public void setSeniority(double seniority) {
         this.seniority = seniority;
+    }
+
+    public double getFieldAmount() {
+        return fieldAmount;
+    }
+
+    public void setFieldAmount(double fieldAmount) {
+        this.fieldAmount = fieldAmount;
+    }
+
+    public double getTimesheetAmount() {
+        return timesheetAmount;
+    }
+
+    public void setTimesheetAmount(double timesheetAmount) {
+        this.timesheetAmount = timesheetAmount;
     }
 
 }

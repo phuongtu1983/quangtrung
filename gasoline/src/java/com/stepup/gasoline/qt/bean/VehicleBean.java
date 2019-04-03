@@ -13,6 +13,7 @@ public class VehicleBean {
     private int id;
     private String plate;
     private String note;
+    private double allowance;
 
     public void setId(int id) {
         this.id = id;
@@ -36,6 +37,14 @@ public class VehicleBean {
 
     public void setNote(String note) {
         this.note = note;
+    }
+
+    public double getAllowance() {
+        return allowance;
+    }
+
+    public void setAllowance(double allowance) {
+        this.allowance = allowance;
     }
 
 }

@@ -76,6 +76,9 @@ public class AddVehicleAction extends SpineAction {
                 if (!formBean.getNote().equals(bean.getNote())) {
                     isUpdate = true;
                 }
+                if (formBean.getAllowance() != bean.getAllowance()) {
+                    isUpdate = true;
+                }
             }
         } catch (Exception ex) {
         }
@@ -83,6 +86,7 @@ public class AddVehicleAction extends SpineAction {
         bean.setId(formBean.getId());
         bean.setPlate(formBean.getPlate());
         bean.setNote(formBean.getNote());
+        bean.setAllowance(formBean.getAllowance());
         try {
             if (bNew) {
                 vehicleDAO.insertVehicle(bean);

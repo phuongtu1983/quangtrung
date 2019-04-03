@@ -13,6 +13,7 @@ public class TripFeeBean {
     private int id;
     private String code;
     private String createdDate;
+    private int employeeId;
     private int vehicleId;
     private int quantity;
     private double price;
@@ -99,6 +100,14 @@ public class TripFeeBean {
 
     public void setCreatedEmployeeId(int createdEmployeeId) {
         this.createdEmployeeId = createdEmployeeId;
+    }
+
+    public int getEmployeeId() {
+        return employeeId;
+    }
+
+    public void setEmployeeId(int employeeId) {
+        this.employeeId = employeeId;
     }
 
 }

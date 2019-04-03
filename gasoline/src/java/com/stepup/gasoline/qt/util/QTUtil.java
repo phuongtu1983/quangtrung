@@ -214,7 +214,7 @@ public class QTUtil {
     }
 
     public static int getActualOff(String fromDate, String toDate) {
-        int result = 0;
+        int result = 1;
         try {
             Calendar fromC = Calendar.getInstance();
             fromC.setTime(DateUtil.convertStringToDate(fromDate, "dd/MM/yyyy"));

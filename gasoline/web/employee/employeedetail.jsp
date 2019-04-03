@@ -37,14 +37,14 @@
                         <tr>
                             <td height="30" style="padding-right: 20px"><bean:message key="employee.detail.salary"/></td>
                             <td><html:text property="salary" size="40" name="<%=Constants.EMPLOYEE%>" onblur="tryNumberFormatCurrentcy(this);" onkeypress="return readonlyFloat(event);"/></td>
-                            <td height="30" style="padding-left: 10px; padding-right: 20px"><bean:message key="employee.detail.birthday"/></td>
-                            <td><html:text property="birthday" styleId="employeeBirthday" size="30" name="<%=Constants.EMPLOYEE%>"/></td>
+                            <td height="30" style="padding-left: 10px; padding-right: 20px"><bean:message key="employee.detail.salaryBhxh"/></td>
+                            <td><html:text property="salaryBhxh" size="40" name="<%=Constants.EMPLOYEE%>" onblur="tryNumberFormatCurrentcy(this);" onkeypress="return readonlyFloat(event);"/></td>
                         </tr>
                         <tr>
-                            <td height="30" style="padding-right: 20px"><bean:message key="employee.detail.seniority"/></td>
-                            <td><html:text property="seniority" size="40" name="<%=Constants.EMPLOYEE%>" onblur="tryNumberFormatCurrentcy(this);" onkeypress="return readonlyFloat(event);"/></td>
+                            <td height="30" style="padding-right: 20px"><bean:message key="employee.detail.birthday"/></td>
+                            <td><html:text property="birthday" styleId="employeeBirthday" size="40" name="<%=Constants.EMPLOYEE%>"/></td>
                             <td height="30" style="padding-left: 10px; padding-right: 20px"><bean:message key="employee.detail.startdate"/></td>
-                            <td><html:text property="startDate" styleId="startDate" size="30" name="<%=Constants.EMPLOYEE%>"/></td>
+                            <td><html:text property="startDate" styleId="startDate" size="40" name="<%=Constants.EMPLOYEE%>"/></td>
                         </tr>
                         <tr>
                             <td height="30" style="padding-right: 20px" colspan="4">

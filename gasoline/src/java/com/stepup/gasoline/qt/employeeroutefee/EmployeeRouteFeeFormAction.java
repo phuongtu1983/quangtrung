@@ -2,12 +2,12 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
-package com.stepup.gasoline.qt.tripfee;
+package com.stepup.gasoline.qt.employeeroutefee;
 
 import com.stepup.core.util.DateUtil;
 import com.stepup.core.util.NumberUtil;
 import com.stepup.gasoline.qt.bean.EmployeeBean;
-import com.stepup.gasoline.qt.bean.TripFeeBean;
+import com.stepup.gasoline.qt.bean.EmployeeRouteFeeBean;
 import com.stepup.gasoline.qt.core.SpineAction;
 import com.stepup.gasoline.qt.dao.EmployeeDAO;
 import com.stepup.gasoline.qt.dao.VehicleDAO;
@@ -24,7 +24,7 @@ import org.apache.struts.action.ActionMapping;
  *
  * @author phuongtu
  */
-public class TripFeeFormAction extends SpineAction {
+public class EmployeeRouteFeeFormAction extends SpineAction {
 
     /**
      * This is the action called from the Struts framework.
@@ -39,51 +39,60 @@ public class TripFeeFormAction extends SpineAction {
     @Override
     public boolean doAction(ActionMapping mapping, ActionForm form,
             HttpServletRequest request, HttpServletResponse response) {
-        TripFeeBean bean = null;
-        String tripFeeId = request.getParameter("tripFeeId");
+        EmployeeRouteFeeBean bean = null;
+        String employeeRouteFeeId = request.getParameter("employeeRouteFeeId");
         VehicleDAO vehicleDAO = new VehicleDAO();
-        if (!GenericValidator.isBlankOrNull(tripFeeId)) {
+        if (!GenericValidator.isBlankOrNull(employeeRouteFeeId)) {
             try {
-                bean = vehicleDAO.getTripFee(NumberUtil.parseInt(tripFeeId, 0));
+                bean = vehicleDAO.getEmployeeRouteFee(NumberUtil.parseInt(employeeRouteFeeId, 0));
             } catch (Exception ex) {
             }
         }
         if (bean == null) {
-            bean = new TripFeeBean();
+            bean = new EmployeeRouteFeeBean();
             try {
                 String prefix = "";
-                prefix = DateUtil.today("yyyyMMdd") + "-EA-";
-                String number = vehicleDAO.getNextTripFeeNumber(prefix, 4);
+                prefix = DateUtil.today("yyyyMMdd") + "-ER-";
+                String number = vehicleDAO.getNextEmployeeRouteFeeNumber(prefix, 4);
                 prefix += number;
                 bean.setCode(prefix);
             } catch (Exception ex) {
             }
         }
-        request.setAttribute(Constants.TRIP_FEE, bean);
 
+        request.setAttribute(Constants.EMPLOYEE_ROUTE_FEE, bean);
+
+        String organizationIds = QTUtil.getOrganizationManageds(request.getSession());
+        ArrayList arrEmployee = null;
+        ArrayList arrRoute = null;
         ArrayList arrVehicle = null;
+
+        try {
+            EmployeeDAO employeeDAO = new EmployeeDAO();
+            arrEmployee = employeeDAO.getEmployees(EmployeeBean.STATUS_ACTIVE, organizationIds);
+        } catch (Exception ex) {
+        }
+        try {
+            arrRoute = vehicleDAO.getRoutes();
+        } catch (Exception ex) {
+        }
         try {
             arrVehicle = vehicleDAO.getVehicles();
         } catch (Exception ex) {
         }
-        if (arrVehicle == null) {
-            arrVehicle = new ArrayList();
-        }
-        request.setAttribute(Constants.VEHICLE_LIST, arrVehicle);
-
-        ArrayList arrEmployee = null;
-
-        try {
-            EmployeeDAO employeeDAO = new EmployeeDAO();
-            arrEmployee = employeeDAO.getEmployees(EmployeeBean.STATUS_ACTIVE, QTUtil.getOrganizationManageds(request.getSession()));
-        } catch (Exception ex) {
-        }
-
         if (arrEmployee == null) {
             arrEmployee = new ArrayList();
         }
+        if (arrRoute == null) {
+            arrRoute = new ArrayList();
+        }
+        if (arrVehicle == null) {
+            arrVehicle = new ArrayList();
+        }
 
         request.setAttribute(Constants.EMPLOYEE_LIST, arrEmployee);
+        request.setAttribute(Constants.ROUTE_LIST, arrRoute);
+        request.setAttribute(Constants.VEHICLE_LIST, arrVehicle);
 
         return true;
     }

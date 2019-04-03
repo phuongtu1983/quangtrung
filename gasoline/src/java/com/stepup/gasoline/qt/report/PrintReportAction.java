@@ -135,10 +135,8 @@ public class PrintReportAction extends BaseAction {
                     Calendar toCalendar = Calendar.getInstance();
                     fromCalendar.setTime(dFromDate);
                     toCalendar.setTime(dToDate);
-//                    SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy");
                     while (fromCalendar.get(Calendar.YEAR) < toCalendar.get(Calendar.YEAR)
                             || (fromCalendar.get(Calendar.YEAR) == toCalendar.get(Calendar.YEAR) && fromCalendar.get(Calendar.MONTH) <= toCalendar.get(Calendar.MONTH))) {
-//                        String today = formatter.format(toCalendar.getTime());
                         workingDays += toCalendar.get(Calendar.DAY_OF_MONTH) - toCalendar.get(Calendar.WEEK_OF_MONTH) + 1;
                         toCalendar.add((Calendar.MONTH), -1);
                     }

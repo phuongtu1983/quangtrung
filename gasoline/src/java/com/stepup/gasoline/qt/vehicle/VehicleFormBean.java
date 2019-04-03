@@ -15,6 +15,7 @@ public class VehicleFormBean extends org.apache.struts.action.ActionForm {
     private int id;
     private String plate;
     private String note;
+    private double allowance;
 
     public VehicleFormBean() {
     }
@@ -23,6 +24,7 @@ public class VehicleFormBean extends org.apache.struts.action.ActionForm {
         this.id = bean.getId();
         this.plate = bean.getPlate();
         this.note = bean.getNote();
+        this.allowance = bean.getAllowance();
     }
 
     public int getId() {
@@ -47,6 +49,14 @@ public class VehicleFormBean extends org.apache.struts.action.ActionForm {
 
     public void setNote(String note) {
         this.note = note;
+    }
+
+    public double getAllowance() {
+        return allowance;
+    }
+
+    public void setAllowance(double allowance) {
+        this.allowance = allowance;
     }
 
 }

@@ -20,6 +20,7 @@ public class EmployeeOffFormBean extends org.apache.struts.action.ActionForm {
     private String fromDate;
     private String toDate;
     private String note;
+    private float actualOffDay;
 
     public EmployeeOffFormBean() {
     }
@@ -32,6 +33,7 @@ public class EmployeeOffFormBean extends org.apache.struts.action.ActionForm {
         this.fromDate = bean.getFromDate();
         this.toDate = bean.getToDate();
         this.note = bean.getNote();
+        this.actualOffDay = bean.getActualOffDay();
     }
 
     public String getCode() {
@@ -96,6 +98,14 @@ public class EmployeeOffFormBean extends org.apache.struts.action.ActionForm {
 
     public void setToDate(String toDate) {
         this.toDate = toDate;
+    }
+
+    public float getActualOffDay() {
+        return actualOffDay;
+    }
+
+    public void setActualOffDay(float actualOffDay) {
+        this.actualOffDay = actualOffDay;
     }
 
 }

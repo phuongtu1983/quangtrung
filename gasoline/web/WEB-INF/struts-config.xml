@@ -42,6 +42,7 @@
         <form-bean name="lpgImportForm" type="com.stepup.gasoline.qt.lpgimport.LpgImportFormBean"/>
         <form-bean name="transportServiceForm" type="com.stepup.gasoline.qt.transportservice.TransportServiceFormBean"/>
         <form-bean name="lpgSaleForm" type="com.stepup.gasoline.qt.lpgsale.LpgSaleFormBean"/>
+        <form-bean name="employeeRouteFeeForm" type="com.stepup.gasoline.qt.employeeroutefee.EmployeeRouteFeeFormBean"/>
         <form-bean name="tripFeeForm" type="com.stepup.gasoline.qt.tripfee.TripFeeFormBean"/>
         <form-bean name="shieldImportForm" type="com.stepup.gasoline.qt.shieldimport.ShieldImportFormBean"/>
         <form-bean name="shieldDecreaseForm" type="com.stepup.gasoline.qt.shielddecrease.ShieldDecreaseFormBean"/>
@@ -1262,6 +1263,11 @@
         </action>
         <action path="/reportCompareLPGVendorCustomerPrint" type="com.stepup.gasoline.qt.report.comparelpgvendorcustomer.PrintCompareLPGVendorCustomerReportAction" scope="request" validate="false" >
         </action>
+        <action path="/getEmployeeVehicleSalaryReportPanel" type="com.stepup.gasoline.qt.report.employeevehiclesalary.EmployeeVehicleSalaryReportPanelFormAction" scope="request" validate="false">
+            <forward name="success" path="/report/employeevehiclesalary/panel.jsp" />
+        </action>
+        <action path="/reportEmployeeVehicleSalaryPrint" type="com.stepup.gasoline.qt.report.employeevehiclesalary.PrintEmployeeVehicleSalaryReportAction" scope="request" validate="false" >
+        </action>
         <!-- end report -->
         <!-- start good -->
         <action path="/getGoodPanel" type="com.stepup.gasoline.qt.common.BaseStatusFormAction" scope="request" validate="false">
@@ -1386,6 +1392,22 @@
         <action path="/delPanelty" type="com.stepup.gasoline.qt.panelty.DeletePaneltyAction" scope="request" validate="false" >
         </action>
         <!-- end panelty -->
+        <!-- start employeeroutefee -->
+        <action path="/getEmployeeRouteFeePanel" type="com.stepup.gasoline.qt.common.BaseStatusFormAction" scope="request" validate="false">
+            <forward name="success" path="/employeeroutefee/employeeroutefeepanel.jsp" />
+        </action>
+        <action path="/getEmployeeRouteFeeList" type="com.stepup.gasoline.qt.employeeroutefee.GetEmployeeRouteFeeListAction" scope="request" validate="false" >
+        </action>
+        <action path="/employeeRouteFeeForm" type="com.stepup.gasoline.qt.employeeroutefee.EmployeeRouteFeeFormAction" scope="request" validate="false">
+            <forward name="success" path="/employeeroutefee/employeeroutefeedetail.jsp" />
+        </action>
+        <action path="/addEmployeeRouteFee" name ="employeeRouteFeeForm" scope="request" type="com.stepup.gasoline.qt.employeeroutefee.AddEmployeeRouteFeeAction" input="/employeeRouteFeeForm.do">
+        </action>
+        <action path="/delEmployeeRouteFee" type="com.stepup.gasoline.qt.employeeroutefee.DeleteEmployeeRouteFeeAction" scope="request" validate="false" >
+        </action>
+        <action path="/createLpgImportAuto" type="com.stepup.gasoline.qt.employeeroutefee.CreateLpgImportAutoAction" scope="request" validate="false">
+        </action>
+        <!-- end employeeroutefee -->
     </action-mappings>
     
     <controller processorClass="org.apache.struts.tiles.TilesRequestProcessor"/>

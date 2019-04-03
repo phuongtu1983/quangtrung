@@ -370,6 +370,12 @@ function menuClick(id) {
         showEmployeeSalaryReportPanel();
     else if (id == 'reportemployeeworking')
         printDirectlyReport('reportemployeeworking');
+    else if (id == 'employeeroutefeelist')
+        loadEmployeeRouteFeePanel();
+    else if (id == 'employeeroutefeeadd')
+        getEmployeeRouteFee(0, 'loadEmployeeRouteFeePanel', 0);
+    else if (id == 'reportemployeevehiclesalary')
+        showEmployeeVehicleSalaryReportPanel();
 }
 function clearContent() {
     var contentDiv = document.getElementById("contentDiv");
@@ -1255,6 +1261,7 @@ function getEmployee(id, handle) {
         document.getElementById('callbackFunc').value = handle;
         document.forms['employeeForm'].fullname.focus();
         tryNumberFormatCurrentcy(document.forms['employeeForm'].salary, "VND");
+        tryNumberFormatCurrentcy(document.forms['employeeForm'].salaryBhxh, "VND");
         var myCalendar = new dhtmlXCalendarObject(["employeeBirthday", "startDate"]);
         myCalendar.setSkin('dhx_web');
         myCalendar.setDateFormat("%d/%m/%Y");
@@ -1279,6 +1286,7 @@ function saveEmployee() {
     }
     field = null;
     reformatNumberMoney(document.forms['employeeForm'].salary);
+    reformatNumberMoney(document.forms['employeeForm'].salaryBhxh);
     scriptFunction = "saveEmployee";
     callAjaxCheckError("addEmployee.do", null, document.forms['employeeForm'], function(data) {
         scriptFunction = "";
@@ -1871,6 +1879,7 @@ function getVehicle(id, handle) {
         showPopupForm(data);
         document.getElementById('callbackFunc').value = handle;
         document.forms['vehicleForm'].plate.focus();
+        tryNumberFormatCurrentcy(document.forms['vehicleForm'].allowance, "VND");
     });
 }
 function saveVehicle() {
@@ -1884,6 +1893,7 @@ function saveVehicle() {
         return false;
     }
     field = null;
+    reformatNumberMoney(document.forms['vehicleForm'].allowance);
     scriptFunction = "saveVehicle";
     callAjaxCheckError("addVehicle.do", null, document.forms['vehicleForm'], function(data) {
         scriptFunction = "";
@@ -2738,9 +2748,13 @@ function saveEmployeeOff() {
         var handle = document.getElementById('callbackFunc').value;
         if (confirm('B\u1EA1n c\u00F3 mu\u1ED1n nh\u1EADp ti\u1EBFp th\u00F4ng tin kh\u00E1c ?'))
             getEmployeeOff(0, handle);
-        else if (handle != '')
-            eval(handle + "()");
-        prepareHidePopup('employeeOffFormshowHelpHideDiv');
+        else {
+            var obj = eval('(' + data + ')');
+            getEmployeeOff(obj.id, handle);
+        }
+//        else if (handle != '')
+//            eval(handle + "()");
+//        prepareHidePopup('employeeOffFormshowHelpHideDiv');
     });
     return false;
 }
@@ -3018,6 +3032,38 @@ function getTripFee(id, handle) {
         tryNumberFormatCurrentcy(document.forms['tripFeeForm'].quantity, "VND");
         tryNumberFormatCurrentcy(document.forms['tripFeeForm'].price, "VND");
         tryNumberFormatCurrentcy(document.forms['tripFeeForm'].amount, "VND");
+        
+        window.dhx_globalImgPath = "js/dhtmlx/combo/imgs/";
+        // ============================
+        var employeeIdCombobox = dhtmlXComboFromSelect("employeeIdCombobox");
+        employeeIdCombobox.enableFilteringMode(true);
+        employeeIdCombobox.attachEvent("onSelectionChange", function() {
+            setEmployeeSelectedForm('tripFeeForm', employeeIdCombobox.getComboText(), employeeIdCombobox.getSelectedValue());
+        });
+        employeeIdCombobox.attachEvent("onBlur", function() {
+            setEmployeeSelectedForm('tripFeeForm', employeeIdCombobox.getComboText(), employeeIdCombobox.getSelectedValue());
+            employeeIdCombobox.setComboText(employeeIdCombobox.getSelectedText());
+        });
+        employeeIdCombobox.DOMelem_input.onfocus = function(event) {
+            if (isManuallySeleted == 1) {
+                employeeIdCombobox.openSelect();
+                isManuallySeleted = 0;
+            }
+        }
+        if (id == 0) {
+            employeeIdCombobox.setComboValue("");
+            employeeIdCombobox.openSelect();
+        } else {
+            var employeeId = document.forms['tripFeeForm'].employeeId.value;
+            if (employeeId != 0) {
+                var ind = employeeIdCombobox.getIndexByValue(employeeId);
+                employeeIdCombobox.selectOption(ind);
+            } else {
+                employeeIdCombobox.unSelectOption();
+                employeeIdCombobox.setComboValue("");
+            }
+        }
+        
         var myCalendar = new dhtmlXCalendarObject(["tripFeeDate"]);
         myCalendar.setSkin('dhx_web');
         if (id == 0) {
@@ -3048,6 +3094,7 @@ function saveTripFee() {
     reformatNumberMoney(document.forms['tripFeeForm'].quantity);
     reformatNumberMoney(document.forms['tripFeeForm'].price);
     reformatNumberMoney(document.forms['tripFeeForm'].amount);
+    document.forms['tripFeeForm'].employeeId.value = document.forms['tripFeeForm'].employeeSelectedHidden.value;
     scriptFunction = "saveTripFee";
     callAjaxCheckError("addTripFee.do", null, document.forms['tripFeeForm'], function(data) {
         scriptFunction = "";
@@ -12184,7 +12231,8 @@ function showMonthlyReportPanel(name) {
         document.forms['monthlyReportSearchForm'].toDate.value = currentTime;
         myCalendar.setDateFormat("%d/%m/%Y");
         var list = document.forms['monthlyReportSearchForm'].monthlyReportSearchFormTime;
-        if(list!=null) reportTimeChange(list,'monthlyReportSearchForm');
+        if (list != null)
+            reportTimeChange(list, 'monthlyReportSearchForm');
     });
 }
 function printMonthlyReport(fromDate, toDate) {
@@ -12225,7 +12273,8 @@ function showYearlyReportPanel(name) {
         document.forms['yearlyReportSearchForm'].toDate.value = currentTime;
         myCalendar.setDateFormat("%d/%m/%Y");
         var list = document.forms['yearlyReportSearchForm'].yearlyReportSearchFormTime;
-        if(list!=null) reportTimeChange(list,'yearlyReportSearchForm');
+        if (list != null)
+            reportTimeChange(list, 'yearlyReportSearchForm');
     });
 }
 function printYearlyReport(fromDate, toDate) {
@@ -12258,5 +12307,214 @@ function printDirectlyReport(reportName) {
     callServer("reportPrint.do?reportName=" + reportName);
     return false;
 }
+function loadEmployeeRouteFeePanel() {
+    callAjax("getEmployeeRouteFeePanel.do", null, null, function(data) {
+        clearContent();
+        setAjaxData(data, "contentDiv");
+        var myCalendar = new dhtmlXCalendarObject(["fromDate", "toDate"]);
+        myCalendar.setSkin('dhx_web');
+        var currentTime = getCurrentDate();
+        document.forms['employeeRouteFeeSearchForm'].fromDate.value = currentTime;
+        document.forms['employeeRouteFeeSearchForm'].toDate.value = currentTime;
+        myCalendar.setDateFormat("%d/%m/%Y");
+        loadEmployeeRouteFeeList(currentTime, currentTime);
+    });
+    return false;
+}
+function loadEmployeeRouteFeeList(fromDate, toDate) {
+    var mygrid = new dhtmlXGridObject('employeeRouteFeeList');
+    mygrid.setImagePath("js/dhtmlx/grid/imgs/");
+    mygrid.setHeader("S\u1ED1 phi\u1EBFu,Ng\u00E0y,Tuy\u1EBFn \u0111\u01B0\u1EDDng,KM,SL b\u01A1m,Th\u1EF1c nh\u1EADn,T\u1ED5ng l\u00EDt,\u0110\u01A1n gi\u00E1,Th\u00E0nh ti\u1EC1n,Ghi ch\u00FA");
+    mygrid.attachHeader("#text_filter,#text_filter,#text_filter,#text_filter,#text_filter,#text_filter,#text_filter,#text_filter,#text_filter,#text_filter");
+    mygrid.setInitWidths("150,150,200,150,150,150,150,150,150,*");
+    mygrid.setColTypes("link,ro,ro,ro,ro,ro,ro,ro,ro,ro");
+    mygrid.setColSorting("str,str,str,str,str,str,str,str,str,str");
+    mygrid.setSkin("light");
+    var height = contentHeight - 210;
+    mygrid.al(true, height); //enableAutoHeight
+    mygrid.enablePaging(true, 15, 3, "recinfoArea");
+    mygrid.setPagingSkin("toolbar", "dhx_skyblue");
+    mygrid.init();
+    var url = "getEmployeeRouteFeeList.do?t=1";
+    if (fromDate != null)
+        url += "&fromDate=" + fromDate;
+    if (toDate != null)
+        url += "&toDate=" + toDate;
+    callAjax(url, null, null, function(data) {
+        mygrid.parse(data);
+    });
+    return false;
+}
+function getEmployeeRouteFee(id, handle, lpgImportId) {
+    popupName = 'CHI PH\u00CD NH\u00C2N VI\u00CAN V\u1EACN CHUY\u1EC2N';
+    var url = 'employeeRouteFeeForm.do?temp=1';
+    if (id != 0)
+        url += '&employeeRouteFeeId=' + id;
+    if (lpgImportId != 0)
+        url += '&lpgImportId=' + lpgImportId;
+    callAjax(url, null, null, function(data) {
+        showPopupForm(data);
+        document.getElementById('callbackFunc').value = handle;
+        tryNumberFormatCurrentcy(document.forms['employeeRouteFeeForm'].inQuantity, "VND");
+        tryNumberFormatCurrentcy(document.forms['employeeRouteFeeForm'].outQuantity, "VND");
+        tryNumberFormatCurrentcy(document.forms['employeeRouteFeeForm'].price, "VND");
+
+        window.dhx_globalImgPath = "js/dhtmlx/combo/imgs/";
+        // ============================
+        var routeIdCombobox = dhtmlXComboFromSelect("routeIdCombobox");
+        routeIdCombobox.enableFilteringMode(true);
+        routeIdCombobox.attachEvent("onSelectionChange", function() {
+            setRouteSelectedForm('employeeRouteFeeForm', routeIdCombobox.getComboText(), routeIdCombobox.getSelectedValue());
+        });
+        routeIdCombobox.attachEvent("onBlur", function() {
+            setRouteSelectedForm('employeeRouteFeeForm', routeIdCombobox.getComboText(), routeIdCombobox.getSelectedValue());
+            routeIdCombobox.setComboText(routeIdCombobox.getSelectedText());
+        });
+        routeIdCombobox.DOMelem_input.onfocus = function(event) {
+            if (isManuallySeleted == 1) {
+                routeIdCombobox.openSelect();
+                isManuallySeleted = 0;
+            }
+        }
+        if (id == 0) {
+            routeIdCombobox.setComboValue("");
+        } else {
+            var routeId = document.forms['employeeRouteFeeForm'].routeId.value;
+            if (routeId != 0) {
+                var ind = routeIdCombobox.getIndexByValue(routeId);
+                routeIdCombobox.selectOption(ind);
+            } else {
+                routeIdCombobox.unSelectOption();
+                routeIdCombobox.setComboValue("");
+            }
+        }
+        // ============================
+        var employeeIdCombobox = dhtmlXComboFromSelect("employeeIdCombobox");
+        employeeIdCombobox.enableFilteringMode(true);
+        employeeIdCombobox.attachEvent("onSelectionChange", function() {
+            setEmployeeSelectedForm('employeeRouteFeeForm', employeeIdCombobox.getComboText(), employeeIdCombobox.getSelectedValue());
+        });
+        employeeIdCombobox.attachEvent("onBlur", function() {
+            setEmployeeSelectedForm('employeeRouteFeeForm', employeeIdCombobox.getComboText(), employeeIdCombobox.getSelectedValue());
+            employeeIdCombobox.setComboText(employeeIdCombobox.getSelectedText());
+        });
+        employeeIdCombobox.DOMelem_input.onfocus = function(event) {
+            if (isManuallySeleted == 1) {
+                employeeIdCombobox.openSelect();
+                isManuallySeleted = 0;
+            }
+        }
+        if (id == 0) {
+            employeeIdCombobox.setComboValue("");
+            employeeIdCombobox.openSelect();
+        } else {
+            var employeeId = document.forms['employeeRouteFeeForm'].employeeId.value;
+            if (employeeId != 0) {
+                var ind = employeeIdCombobox.getIndexByValue(employeeId);
+                employeeIdCombobox.selectOption(ind);
+            } else {
+                employeeIdCombobox.unSelectOption();
+                employeeIdCombobox.setComboValue("");
+            }
+        }
+        var myCalendar = new dhtmlXCalendarObject(["employeeRouteFeeDate"]);
+        myCalendar.setSkin('dhx_web');
+        myCalendar.setDateFormat("%d/%m/%Y");
+        if (id == 0) {
+            var currentTime = getCurrentDate();
+            document.forms['employeeRouteFeeForm'].employeeRouteFeeDate.value = currentTime;
+        }
+    });
+}
+function saveEmployeeRouteFee() {
+    if (scriptFunction == "saveEmployeeRouteFee")
+        return false;
+    reformatNumberMoney(document.forms['employeeRouteFeeForm'].inQuantity);
+    reformatNumberMoney(document.forms['employeeRouteFeeForm'].outQuantity);
+    reformatNumberMoney(document.forms['employeeRouteFeeForm'].price);
+    document.forms['employeeRouteFeeForm'].routeId.value = document.forms['employeeRouteFeeForm'].routeSelectedHidden.value;
+    document.forms['employeeRouteFeeForm'].employeeId.value = document.forms['employeeRouteFeeForm'].employeeSelectedHidden.value;
+    scriptFunction = "saveEmployeeRouteFee";
+    callAjaxCheckError("addEmployeeRouteFee.do", null, document.forms['employeeRouteFeeForm'], function(data) {
+        scriptFunction = "";
+        var handle = document.getElementById('callbackFunc').value;
+        if (confirm('B\u1EA1n c\u00F3 mu\u1ED1n nh\u1EADp ti\u1EBFp th\u00F4ng tin kh\u00E1c ?'))
+            getEmployeeRouteFee(0, handle, 0);
+        else if (handle != '')
+            eval(handle + "()");
+        prepareHidePopup('employeeRouteFeeFormshowHelpHideDiv');
+    });
+    return false;
+}
+function delEmployeeRouteFee() {
+    callAjaxCheckError('delEmployeeRouteFee.do?employeeRouteFeeId=' + document.forms['employeeRouteFeeForm'].id.value, null, null, function() {
+        loadEmployeeRouteFeePanel();
+        prepareHidePopup('employeeRouteFeeFormshowHelpHideDiv');
+    });
+    return false;
+}
+function showEmployeeVehicleSalaryReportPanel() {
+    popupName = 'B\u1EA2NG L\u01AF\u01A0NG NH\u00C2N VI\u00CAN V\u1EACN CHUY\u1EC2N';
+    var url = 'getEmployeeVehicleSalaryReportPanel.do';
+    callAjax(url, null, null, function(data) {
+        showPopupForm(data);
+        var myCalendar = new dhtmlXCalendarObject(["fromDate", "toDate"]);
+        myCalendar.setSkin('dhx_web');
+        var currentTime = getCurrentDate();
+        document.forms['reportEmployeeVehicleSalarySearchForm'].fromDate.value = currentTime;
+        document.forms['reportEmployeeVehicleSalarySearchForm'].toDate.value = currentTime;
+        myCalendar.setDateFormat("%d/%m/%Y");
+        // ============================
+        window.dhx_globalImgPath = "js/dhtmlx/combo/imgs/";
+        var employeeIdCombobox = dhtmlXComboFromSelect("employeeIdComboboxPopup");
+        employeeIdCombobox.enableFilteringMode(true);
+        employeeIdCombobox.attachEvent("onSelectionChange", function() {
+            setEmployeeSelectedForm('reportEmployeeVehicleSalarySearchForm', employeeIdCombobox.getComboText(), employeeIdCombobox.getSelectedValue());
+        });
+        employeeIdCombobox.attachEvent("onBlur", function() {
+            setEmployeeSelectedForm('reportEmployeeVehicleSalarySearchForm', employeeIdCombobox.getComboText(), employeeIdCombobox.getSelectedValue());
+            employeeIdCombobox.setComboText(employeeIdCombobox.getSelectedText());
+        });
+        employeeIdCombobox.DOMelem_input.onfocus = function(event) {
+            if (isManuallySeleted == 1) {
+                employeeIdCombobox.openSelect();
+                isManuallySeleted = 0;
+            }
+        }
+        employeeIdCombobox.setComboValue("");
+        var list = document.forms['reportEmployeeVehicleSalarySearchForm'].reportEmployeeVehicleSalarySearchFormTime;
+        if (list != null)
+            reportTimeChange(list, 'reportEmployeeVehicleSalarySearchForm');
+    });
+}
+function printEmployeeVehicleSalaryReport(fromDate, toDate) {
+    var list = document.getElementById("reportEmployeeVehicleSalarySearchFormTime");
+    if (list == null || list.selectedIndex == -1)
+        return false;
+    list = list[list.selectedIndex].value;
+    if (list == 2) {
+        fromDate = "01/" + fromDate;
+        var ind = toDate.indexOf("/");
+        var month = toDate.substring(0, ind);
+        var year = toDate.substring(ind + 1);
+        toDate = month + "/01/" + year;
+        var d = new Date(toDate);
+        var lastDay = new Date(d.getFullYear(), d.getMonth() + 1, 0).getDate();
+        toDate = lastDay + "/" + month + "/" + year;
+    } else if (list == 3) {
+        fromDate = "01/01/" + fromDate;
+        toDate = "31/12/" + toDate;
+    }
+    var url = "reportEmployeeVehicleSalaryPrint.do?temp=1";
+    if (fromDate !== null)
+        url += "&fromDate=" + fromDate;
+    if (toDate !== null)
+        url += "&toDate=" + toDate;
+    list = null;
+    url += "&employeeId=" + document.forms['reportEmployeeVehicleSalarySearchForm'].employeeSelectedHidden.value;
+    callServer(url);
+    return false;
+}
+
 
 

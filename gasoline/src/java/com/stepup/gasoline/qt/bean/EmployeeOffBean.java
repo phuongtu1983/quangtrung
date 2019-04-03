@@ -14,7 +14,7 @@ public class EmployeeOffBean {
     private String code;
     private String createdDate;
     private int employeeId;
-    private int actualOffDay;
+    private float actualOffDay;
     private String fromDate;
     private String toDate;
     private String note;
@@ -76,11 +76,11 @@ public class EmployeeOffBean {
         this.toDate = toDate;
     }
 
-    public int getActualOffDay() {
+    public float getActualOffDay() {
         return actualOffDay;
     }
 
-    public void setActualOffDay(int actualOffDay) {
+    public void setActualOffDay(float actualOffDay) {
         this.actualOffDay = actualOffDay;
     }
 

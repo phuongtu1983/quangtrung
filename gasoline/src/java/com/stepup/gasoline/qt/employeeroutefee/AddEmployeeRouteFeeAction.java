@@ -2,9 +2,9 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
-package com.stepup.gasoline.qt.tripfee;
+package com.stepup.gasoline.qt.employeeroutefee;
 
-import com.stepup.gasoline.qt.bean.TripFeeBean;
+import com.stepup.gasoline.qt.bean.EmployeeRouteFeeBean;
 import com.stepup.gasoline.qt.core.SpineAction;
 import com.stepup.gasoline.qt.dao.VehicleDAO;
 import com.stepup.gasoline.qt.util.QTUtil;
@@ -17,7 +17,7 @@ import org.apache.struts.action.ActionMapping;
  *
  * @author phuongtu
  */
-public class AddTripFeeAction extends SpineAction {
+public class AddEmployeeRouteFeeAction extends SpineAction {
 
     /**
      * This is the action called from the Struts framework.
@@ -32,30 +32,31 @@ public class AddTripFeeAction extends SpineAction {
     @Override
     public boolean doAction(ActionMapping mapping, ActionForm form,
             HttpServletRequest request, HttpServletResponse response) {
-        TripFeeFormBean formBean = (TripFeeFormBean) form;
+        EmployeeRouteFeeFormBean formBean = (EmployeeRouteFeeFormBean) form;
         VehicleDAO vehicleDAO = new VehicleDAO();
 
         boolean bNew = true;
         if (formBean.getId() != 0) {
             bNew = false;
         }
-        TripFeeBean bean = new TripFeeBean();
+        EmployeeRouteFeeBean bean = new EmployeeRouteFeeBean();
         bean.setId(formBean.getId());
-        bean.setCode(formBean.getCode());
         bean.setCreatedDate(formBean.getCreatedDate());
-        bean.setQuantity(formBean.getQuantity());
-        bean.setPrice(formBean.getPrice());
-        bean.setAmount(formBean.getAmount());
+        bean.setCode(formBean.getCode());
         bean.setEmployeeId(formBean.getEmployeeId());
+        bean.setRouteId(formBean.getRouteId());
         bean.setVehicleId(formBean.getVehicleId());
+        bean.setInQuantity(formBean.getInQuantity());
+        bean.setOutQuantity(formBean.getOutQuantity());
+        bean.setPrice(formBean.getPrice());
+        bean.setStore(formBean.getStore());
         bean.setNote(formBean.getNote());
-        bean.setFee(formBean.getFee());
         bean.setCreatedEmployeeId(QTUtil.getEmployeeId(request.getSession()));
         try {
             if (bNew) {
-                vehicleDAO.insertTripFee(bean);
+                vehicleDAO.insertEmployeeRouteFee(bean);
             } else {
-                vehicleDAO.updateTripFee(bean);
+                vehicleDAO.updateEmployeeRouteFee(bean);
             }
         } catch (Exception ex) {
             ex.printStackTrace();

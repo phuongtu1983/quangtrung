@@ -9,10 +9,14 @@ import com.stepup.core.database.DBUtil;
 import com.stepup.core.database.SPUtil;
 import com.stepup.core.util.DateUtil;
 import com.stepup.core.util.GenericValidator;
+import com.stepup.gasoline.qt.bean.EmployeeRouteFeeBean;
 import com.stepup.gasoline.qt.bean.TripFeeBean;
 import com.stepup.gasoline.qt.bean.RouteBean;
 import com.stepup.gasoline.qt.bean.TransportServiceBean;
 import com.stepup.gasoline.qt.bean.VehicleBean;
+import com.stepup.gasoline.qt.employeeroutefee.EmployeeRouteFeeFormBean;
+import com.stepup.gasoline.qt.report.employeevehiclesalary.EmployeeRouteFeeReportFormBean;
+import com.stepup.gasoline.qt.report.employeevehiclesalary.TripFeeReportFormBean;
 import com.stepup.gasoline.qt.tripfee.TripFeeFormBean;
 import com.stepup.gasoline.qt.route.RouteFormBean;
 import com.stepup.gasoline.qt.transportservice.TransportServiceFormBean;
@@ -27,7 +31,7 @@ import java.util.ArrayList;
  * @author Administrator
  */
 public class VehicleDAO extends BasicDAO {
-
+    
     public ArrayList getVehicles() throws Exception {
         ResultSet rs = null;
         String sql = "select * from vehicle where 1";
@@ -54,7 +58,7 @@ public class VehicleDAO extends BasicDAO {
         }
         return list;
     }
-
+    
     public VehicleBean getVehicle(int vehicleId) throws Exception {
         ResultSet rs = null;
         String sql = "select * from vehicle where id=" + vehicleId;
@@ -65,6 +69,7 @@ public class VehicleDAO extends BasicDAO {
                 bean.setId(rs.getInt("id"));
                 bean.setPlate(rs.getString("plate"));
                 bean.setNote(rs.getString("note"));
+                bean.setAllowance(rs.getDouble("allowance"));
                 return bean;
             }
         } catch (SQLException sqle) {
@@ -78,7 +83,7 @@ public class VehicleDAO extends BasicDAO {
         }
         return null;
     }
-
+    
     public VehicleBean getVehicleByPlate(String plate) throws Exception {
         ResultSet rs = null;
         String sql = "select * from vehicle where plate='" + plate + "'";
@@ -89,6 +94,7 @@ public class VehicleDAO extends BasicDAO {
                 bean.setId(rs.getInt("id"));
                 bean.setPlate(rs.getString("plate"));
                 bean.setNote(rs.getString("note"));
+                bean.setAllowance(rs.getDouble("allowance"));
                 return bean;
             }
         } catch (SQLException sqle) {
@@ -102,15 +108,15 @@ public class VehicleDAO extends BasicDAO {
         }
         return null;
     }
-
+    
     public void insertVehicle(VehicleBean bean) throws Exception {
         if (bean == null) {
             return;
         }
         try {
             String sql = "";
-            sql = "Insert Into vehicle (plate, note)"
-                    + " Values ('" + bean.getPlate() + "','" + bean.getNote() + "')";
+            sql = "Insert Into vehicle (plate, note, allowance)"
+                    + " Values ('" + bean.getPlate() + "','" + bean.getNote() + "'," + bean.getAllowance() + ")";
             DBUtil.executeInsert(sql);
         } catch (SQLException sqle) {
             throw new Exception(sqle.getMessage());
@@ -121,10 +127,10 @@ public class VehicleDAO extends BasicDAO {
             } catch (Exception e) {
                 throw new Exception(e.getMessage());
             }
-
+            
         }
     }
-
+    
     public void updateVehicle(VehicleBean bean) throws Exception {
         if (bean == null) {
             return;
@@ -133,6 +139,7 @@ public class VehicleDAO extends BasicDAO {
             String sql = "Update vehicle Set "
                     + " plate='" + bean.getPlate() + "'"
                     + ", note='" + bean.getNote() + "'"
+                    + ", allowance=" + bean.getAllowance()
                     + " Where id=" + bean.getId();
             DBUtil.executeUpdate(sql);
         } catch (SQLException sqle) {
@@ -146,7 +153,7 @@ public class VehicleDAO extends BasicDAO {
             }
         }
     }
-
+    
     public int deleteVehicle(String ids) throws Exception {
         int result = 0;
         try {
@@ -159,7 +166,7 @@ public class VehicleDAO extends BasicDAO {
         }
         return result;
     }
-
+    
     public ArrayList getRoutes() throws Exception {
         ResultSet rs = null;
         String sql = "select * from route where 1";
@@ -187,7 +194,7 @@ public class VehicleDAO extends BasicDAO {
         }
         return list;
     }
-
+    
     public RouteBean getRoute(int routeId) throws Exception {
         ResultSet rs = null;
         String sql = "select * from route where id=" + routeId;
@@ -212,7 +219,7 @@ public class VehicleDAO extends BasicDAO {
         }
         return null;
     }
-
+    
     public RouteBean getRouteByName(String name) throws Exception {
         ResultSet rs = null;
         String sql = "select * from route where name='" + name + "'";
@@ -237,7 +244,7 @@ public class VehicleDAO extends BasicDAO {
         }
         return null;
     }
-
+    
     public void insertRoute(RouteBean bean) throws Exception {
         if (bean == null) {
             return;
@@ -256,10 +263,10 @@ public class VehicleDAO extends BasicDAO {
             } catch (Exception e) {
                 throw new Exception(e.getMessage());
             }
-
+            
         }
     }
-
+    
     public void updateRoute(RouteBean bean) throws Exception {
         if (bean == null) {
             return;
@@ -282,7 +289,7 @@ public class VehicleDAO extends BasicDAO {
             }
         }
     }
-
+    
     public int deleteRoute(String ids) throws Exception {
         int result = 0;
         try {
@@ -295,7 +302,7 @@ public class VehicleDAO extends BasicDAO {
         }
         return result;
     }
-
+    
     public ArrayList searchTripFee(String fromDate, String endDate, String organizationIds) throws Exception {
         SPUtil spUtil = null;
         ArrayList list = new ArrayList();
@@ -348,7 +355,7 @@ public class VehicleDAO extends BasicDAO {
         }
         return list;
     }
-
+    
     public TripFeeBean getTripFee(int id) throws Exception {
         ResultSet rs = null;
         String sql = "select * from trip_fee where id=" + id;
@@ -360,6 +367,7 @@ public class VehicleDAO extends BasicDAO {
                 bean.setCode(rs.getString("code"));
                 bean.setFee(rs.getString("fee"));
                 bean.setVehicleId(rs.getInt("vehicle_id"));
+                bean.setEmployeeId(rs.getInt("employee_id"));
                 bean.setCreatedDate(DateUtil.formatDate(rs.getDate("created_date"), "dd/MM/yyyy"));
                 bean.setQuantity(rs.getInt("quantity"));
                 bean.setPrice(rs.getDouble("price"));
@@ -378,7 +386,7 @@ public class VehicleDAO extends BasicDAO {
         }
         return null;
     }
-
+    
     public int insertTripFee(TripFeeBean bean) throws Exception {
         if (bean == null) {
             return 0;
@@ -392,10 +400,11 @@ public class VehicleDAO extends BasicDAO {
             } else {
                 createdDate = bean.getCreatedDate();
             }
-            String sql = "{call insertTripFee(?,?,?,?,?,?,?,?,?,?)}";
+            String sql = "{call insertTripFee(?,?,?,?,?,?,?,?,?,?,?)}";
             spUtil = new SPUtil(sql);
             if (spUtil != null) {
                 spUtil.getCallableStatement().setString("_code", bean.getCode());
+                spUtil.getCallableStatement().setInt("_employee_id", bean.getEmployeeId());
                 spUtil.getCallableStatement().setInt("_vehicle_id", bean.getVehicleId());
                 spUtil.getCallableStatement().setString("_created_date", createdDate);
                 spUtil.getCallableStatement().setInt("_quantity", bean.getQuantity());
@@ -423,7 +432,7 @@ public class VehicleDAO extends BasicDAO {
         }
         return result;
     }
-
+    
     public void updateTripFee(TripFeeBean bean) throws Exception {
         if (bean == null) {
             return;
@@ -436,10 +445,11 @@ public class VehicleDAO extends BasicDAO {
             } else {
                 createdDate = bean.getCreatedDate();
             }
-            String sql = "{call updateTripFee(?,?,?,?,?,?,?,?)}";
+            String sql = "{call updateTripFee(?,?,?,?,?,?,?,?,?)}";
             spUtil = new SPUtil(sql);
             if (spUtil != null) {
                 spUtil.getCallableStatement().setInt("_id", bean.getId());
+                spUtil.getCallableStatement().setInt("_employee_id", bean.getEmployeeId());
                 spUtil.getCallableStatement().setInt("_vehicle_id", bean.getVehicleId());
                 spUtil.getCallableStatement().setString("_created_date", createdDate);
                 spUtil.getCallableStatement().setInt("_quantity", bean.getQuantity());
@@ -463,7 +473,7 @@ public class VehicleDAO extends BasicDAO {
             }
         }
     }
-
+    
     public String getNextTripFeeNumber(String prefix, int length) throws Exception {
         String result = "";
         try {
@@ -473,7 +483,7 @@ public class VehicleDAO extends BasicDAO {
         }
         return result;
     }
-
+    
     public int deleteTripFee(String ids) throws Exception {
         int result = 0;
         try {
@@ -486,7 +496,7 @@ public class VehicleDAO extends BasicDAO {
         }
         return result;
     }
-
+    
     public ArrayList searchTransportService(String fromDate, String endDate, String organizationIds) throws Exception {
         SPUtil spUtil = null;
         ArrayList list = new ArrayList();
@@ -541,7 +551,7 @@ public class VehicleDAO extends BasicDAO {
         }
         return list;
     }
-
+    
     public TransportServiceBean getTransportService(int id) throws Exception {
         ResultSet rs = null;
         String sql = "select t.*, v.name as vendor_name from transport_service as t, vendor as v where t.vendor_id=v.id and t.id=" + id;
@@ -581,7 +591,7 @@ public class VehicleDAO extends BasicDAO {
         }
         return null;
     }
-
+    
     public int insertTransportService(TransportServiceBean bean) throws Exception {
         if (bean == null) {
             return 0;
@@ -636,7 +646,7 @@ public class VehicleDAO extends BasicDAO {
         }
         return result;
     }
-
+    
     public void updateTransportService(TransportServiceBean bean) throws Exception {
         if (bean == null) {
             return;
@@ -686,7 +696,7 @@ public class VehicleDAO extends BasicDAO {
             }
         }
     }
-
+    
     public String getNextTransportServiceNumber(String prefix, int length) throws Exception {
         String result = "";
         try {
@@ -696,7 +706,7 @@ public class VehicleDAO extends BasicDAO {
         }
         return result;
     }
-
+    
     public void deleteTransportService(int id) throws Exception {
         SPUtil spUtil = null;
         try {
@@ -718,4 +728,332 @@ public class VehicleDAO extends BasicDAO {
             }
         }
     }
+    
+    public ArrayList searchEmployeeRouteFee(String fromDate, String endDate, String organizationIds) throws Exception {
+        SPUtil spUtil = null;
+        ArrayList list = new ArrayList();
+        ResultSet rs = null;
+        try {
+            String sql = "{call searchEmployeeRouteFee(?,?,?)}";
+            if (GenericValidator.isBlankOrNull(fromDate)) {
+                fromDate = DateUtil.today("dd/MM/yyyy");
+            }
+            if (GenericValidator.isBlankOrNull(endDate)) {
+                endDate = this.START_DATE;
+            }
+            spUtil = new SPUtil(sql);
+            if (spUtil != null) {
+                spUtil.getCallableStatement().setString("_start_date", fromDate);
+                spUtil.getCallableStatement().setString("_end_date", endDate);
+                spUtil.getCallableStatement().setString("_organization_ids", organizationIds);
+                rs = spUtil.executeQuery();
+                if (rs != null) {
+                    EmployeeRouteFeeFormBean bean = null;
+                    while (rs.next()) {
+                        bean = new EmployeeRouteFeeFormBean();
+                        bean.setId(rs.getInt("id"));
+                        bean.setCode(rs.getString("code"));
+                        bean.setCreatedDate(DateUtil.formatDate(rs.getDate("created_date"), "dd/MM/yyyy"));
+                        bean.setRouteName(rs.getString("route_name"));
+                        bean.setDistance(rs.getDouble("distance"));
+                        bean.setInQuantity(rs.getInt("in_quantity"));
+                        bean.setOutQuantity(rs.getInt("out_quantity"));
+                        bean.setTotalQuantity(rs.getInt("total_quantity"));
+                        bean.setPrice(rs.getDouble("price"));
+                        bean.setAmount(rs.getDouble("amount"));
+                        bean.setNote(rs.getString("note"));
+                        list.add(bean);
+                    }
+                }
+            }
+        } catch (SQLException sqle) {
+            throw new Exception(sqle.getMessage());
+        } catch (Exception ex) {
+            throw new Exception(ex.getMessage());
+        } finally {
+            try {
+                if (spUtil != null) {
+                    spUtil.closeConnection();
+                }
+                if (rs != null) {
+                    rs.close();
+                    rs = null;
+                }
+            } catch (Exception e) {
+                throw new Exception(e.getMessage());
+            }
+        }
+        return list;
+    }
+    
+    public EmployeeRouteFeeBean getEmployeeRouteFee(int id) throws Exception {
+        ResultSet rs = null;
+        String sql = "select * from employee_route_fee where id=" + id;
+        try {
+            rs = DBUtil.executeQuery(sql);
+            while (rs.next()) {
+                EmployeeRouteFeeBean bean = new EmployeeRouteFeeBean();
+                bean.setId(rs.getInt("id"));
+                bean.setCode(rs.getString("code"));
+                bean.setCreatedDate(DateUtil.formatDate(rs.getDate("created_date"), "dd/MM/yyyy"));
+                bean.setEmployeeId(rs.getInt("employee_id"));
+                bean.setVehicleId(rs.getInt("vehicle_id"));
+                bean.setRouteId(rs.getInt("route_id"));
+                bean.setInQuantity(rs.getInt("in_quantity"));
+                bean.setOutQuantity(rs.getInt("out_quantity"));
+                bean.setTotalQuantity(rs.getInt("total_quantity"));
+                bean.setParam100km(rs.getInt("param_100km"));
+                bean.setParam1000kg(rs.getInt("param_1000kg"));
+                bean.setPrice(rs.getDouble("price"));
+                bean.setAmount(rs.getDouble("amount"));
+                bean.setStore(rs.getString("store"));
+                bean.setNote(rs.getString("note"));
+                bean.setCreatedEmployeeId(rs.getInt("created_employee_id"));
+                return bean;
+            }
+        } catch (SQLException sqle) {
+            throw new Exception(sqle.getMessage());
+        } catch (Exception ex) {
+            throw new Exception(ex.getMessage());
+        } finally {
+            if (rs != null) {
+                DBUtil.closeConnection(rs);
+            }
+        }
+        return null;
+    }
+    
+    public int insertEmployeeRouteFee(EmployeeRouteFeeBean bean) throws Exception {
+        if (bean == null) {
+            return 0;
+        }
+        int result = 0;
+        SPUtil spUtil = null;
+        try {
+            String createdDate = "";
+            if (GenericValidator.isBlankOrNull(bean.getCreatedDate())) {
+                createdDate = "null";
+            } else {
+                createdDate = bean.getCreatedDate();
+            }
+            String sql = "{call insertEmployeeRouteFee(?,?,?,?,?,?,?,?,?,?,?,?)}";
+            spUtil = new SPUtil(sql);
+            if (spUtil != null) {
+                spUtil.getCallableStatement().setString("_code", bean.getCode());
+                spUtil.getCallableStatement().setString("_created_date", createdDate);
+                spUtil.getCallableStatement().setInt("_employee_id", bean.getEmployeeId());
+                spUtil.getCallableStatement().setInt("_vehicle_id", bean.getVehicleId());
+                spUtil.getCallableStatement().setInt("_route_id", bean.getRouteId());
+                spUtil.getCallableStatement().setInt("_in_quantity", bean.getInQuantity());
+                spUtil.getCallableStatement().setInt("_out_quantity", bean.getOutQuantity());
+                spUtil.getCallableStatement().setDouble("_price", bean.getPrice());
+                spUtil.getCallableStatement().setString("_store", bean.getStore());
+                spUtil.getCallableStatement().setString("_note", bean.getNote());
+                spUtil.getCallableStatement().setInt("_created_employee_id", bean.getCreatedEmployeeId());
+                spUtil.getCallableStatement().registerOutParameter("_id", Types.INTEGER);
+                spUtil.execute();
+                result = spUtil.getCallableStatement().getInt("_id");
+            }
+        } catch (SQLException sqle) {
+            throw new Exception(sqle.getMessage());
+        } catch (Exception ex) {
+            throw new Exception(ex.getMessage());
+        } finally {
+            try {
+                if (spUtil != null) {
+                    spUtil.closeConnection();
+                }
+            } catch (Exception e) {
+                throw new Exception(e.getMessage());
+            }
+        }
+        return result;
+    }
+    
+    public void updateEmployeeRouteFee(EmployeeRouteFeeBean bean) throws Exception {
+        if (bean == null) {
+            return;
+        }
+        SPUtil spUtil = null;
+        try {
+            String createdDate = "";
+            if (GenericValidator.isBlankOrNull(bean.getCreatedDate())) {
+                createdDate = "null";
+            } else {
+                createdDate = bean.getCreatedDate();
+            }
+            String sql = "{call updateEmployeeRouteFee(?,?,?,?,?,?,?,?,?,?)}";
+            spUtil = new SPUtil(sql);
+            if (spUtil != null) {
+                spUtil.getCallableStatement().setInt("_id", bean.getId());
+                spUtil.getCallableStatement().setString("_created_date", createdDate);
+                spUtil.getCallableStatement().setInt("_employee_id", bean.getEmployeeId());
+                spUtil.getCallableStatement().setInt("_vehicle_id", bean.getVehicleId());
+                spUtil.getCallableStatement().setInt("_route_id", bean.getRouteId());
+                spUtil.getCallableStatement().setInt("_in_quantity", bean.getInQuantity());
+                spUtil.getCallableStatement().setInt("_out_quantity", bean.getOutQuantity());
+                spUtil.getCallableStatement().setDouble("_price", bean.getPrice());
+                spUtil.getCallableStatement().setString("_store", bean.getStore());
+                spUtil.getCallableStatement().setString("_note", bean.getNote());
+                spUtil.execute();
+            }
+        } catch (SQLException sqle) {
+            throw new Exception(sqle.getMessage());
+        } catch (Exception ex) {
+            throw new Exception(ex.getMessage());
+        } finally {
+            try {
+                if (spUtil != null) {
+                    spUtil.closeConnection();
+                }
+            } catch (Exception e) {
+                throw new Exception(e.getMessage());
+            }
+        }
+    }
+    
+    public String getNextEmployeeRouteFeeNumber(String prefix, int length) throws Exception {
+        String result = "";
+        try {
+            result = this.getNextNumber(prefix, length, "code", "employee_route_fee");
+        } catch (Exception ex) {
+            throw new Exception(ex.getMessage());
+        }
+        return result;
+    }
+    
+    public void deleteEmployeeRouteFee(int id) throws Exception {
+        SPUtil spUtil = null;
+        try {
+            String sql = "{call deleteEmployeeRouteFee(?)}";
+            spUtil = new SPUtil(sql);
+            if (spUtil != null) {
+                spUtil.getCallableStatement().setInt("_id", id);
+                spUtil.execute();
+            }
+        } catch (Exception ex) {
+            throw new Exception(ex.getMessage());
+        } finally {
+            try {
+                if (spUtil != null) {
+                    spUtil.closeConnection();
+                }
+            } catch (Exception e) {
+                throw new Exception(e.getMessage());
+            }
+        }
+    }
+    
+    public ArrayList reportEmployeeRouteFee(String fromDate, String endDate, int employeeId) throws Exception {
+        SPUtil spUtil = null;
+        ArrayList list = new ArrayList();
+        ResultSet rs = null;
+        try {
+            String sql = "{call report_employee_route_fee(?,?,?)}";
+            if (GenericValidator.isBlankOrNull(fromDate)) {
+                fromDate = DateUtil.today("dd/MM/yyyy");
+            }
+            if (GenericValidator.isBlankOrNull(endDate)) {
+                endDate = this.START_DATE;
+            }
+            spUtil = new SPUtil(sql);
+            if (spUtil != null) {
+                spUtil.getCallableStatement().setString("_start_date", fromDate);
+                spUtil.getCallableStatement().setString("_end_date", endDate);
+                spUtil.getCallableStatement().setInt("_employee_id", employeeId);
+                rs = spUtil.executeQuery();
+                if (rs != null) {
+                    EmployeeRouteFeeReportFormBean bean = null;
+                    int count = 1;
+                    while (rs.next()) {
+                        bean = new EmployeeRouteFeeReportFormBean();
+                        bean.setCount(count++);
+                        bean.setCreatedDate(DateUtil.formatDate(rs.getDate("created_date"), "dd/MM/yyyy"));
+                        bean.setRouteName(rs.getString("route_name"));
+                        bean.setDistance(rs.getDouble("distance"));
+                        bean.setInQuantity(rs.getInt("in_quantity"));
+                        bean.setOutQuantity(rs.getInt("out_quantity"));
+                        bean.setDiffQuantity(bean.getInQuantity() - bean.getOutQuantity());
+                        bean.setTotalQuantity(bean.getDistance() * rs.getInt("param_100km") / 100 + bean.getInQuantity() * rs.getInt("param_1000kg") / 100);
+                        bean.setPrice(rs.getDouble("price"));
+                        bean.setAmount(bean.getPrice() * bean.getTotalQuantity());
+                        bean.setNote(rs.getString("note"));
+                        bean.setStore(rs.getString("store"));
+                        list.add(bean);
+                    }
+                }
+            }
+        } catch (SQLException sqle) {
+            throw new Exception(sqle.getMessage());
+        } catch (Exception ex) {
+            throw new Exception(ex.getMessage());
+        } finally {
+            try {
+                if (spUtil != null) {
+                    spUtil.closeConnection();
+                }
+                if (rs != null) {
+                    rs.close();
+                    rs = null;
+                }
+            } catch (Exception e) {
+                throw new Exception(e.getMessage());
+            }
+        }
+        return list;
+    }
+    
+    public ArrayList reportTripFee(String fromDate, String endDate, int employeeId) throws Exception {
+        SPUtil spUtil = null;
+        ArrayList list = new ArrayList();
+        ResultSet rs = null;
+        try {
+            String sql = "{call report_trip_fee(?,?,?)}";
+            if (GenericValidator.isBlankOrNull(fromDate)) {
+                fromDate = DateUtil.today("dd/MM/yyyy");
+            }
+            if (GenericValidator.isBlankOrNull(endDate)) {
+                endDate = this.START_DATE;
+            }
+            spUtil = new SPUtil(sql);
+            if (spUtil != null) {
+                spUtil.getCallableStatement().setString("_start_date", fromDate);
+                spUtil.getCallableStatement().setString("_end_date", endDate);
+                spUtil.getCallableStatement().setInt("_employee_id", employeeId);
+                rs = spUtil.executeQuery();
+                if (rs != null) {
+                    TripFeeReportFormBean bean = null;
+                    int count = 1;
+                    while (rs.next()) {
+                        bean = new TripFeeReportFormBean();
+                        bean.setCount(count++);
+                        bean.setFee(rs.getString("fee"));
+                        bean.setQuantity(rs.getInt("quantity"));
+                        bean.setPrice(rs.getDouble("price"));
+                        bean.setAmount(rs.getDouble("amount"));
+                        bean.setNote(rs.getString("note"));
+                        list.add(bean);
+                    }
+                }
+            }
+        } catch (SQLException sqle) {
+            throw new Exception(sqle.getMessage());
+        } catch (Exception ex) {
+            throw new Exception(ex.getMessage());
+        } finally {
+            try {
+                if (spUtil != null) {
+                    spUtil.closeConnection();
+                }
+                if (rs != null) {
+                    rs.close();
+                    rs = null;
+                }
+            } catch (Exception e) {
+                throw new Exception(e.getMessage());
+            }
+        }
+        return list;
+    }
+    
 }

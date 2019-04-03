@@ -15,6 +15,7 @@ public class TripFeeFormBean extends org.apache.struts.action.ActionForm {
     private int id;
     private String code;
     private String createdDate;
+    private int employeeId;
     private int vehicleId;
     private String vehiclePlate;
     private int quantity;
@@ -36,6 +37,7 @@ public class TripFeeFormBean extends org.apache.struts.action.ActionForm {
         this.amount = bean.getAmount();
         this.note = bean.getNote();
         this.fee = bean.getFee();
+        this.employeeId = bean.getEmployeeId();
     }
 
     public String getCode() {
@@ -116,6 +118,14 @@ public class TripFeeFormBean extends org.apache.struts.action.ActionForm {
 
     public void setFee(String fee) {
         this.fee = fee;
+    }
+
+    public int getEmployeeId() {
+        return employeeId;
+    }
+
+    public void setEmployeeId(int employeeId) {
+        this.employeeId = employeeId;
     }
 
 }

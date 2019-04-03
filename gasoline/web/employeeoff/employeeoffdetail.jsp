@@ -25,14 +25,18 @@
                                     </logic:iterate>
                                 </select>
                             </td>
-                            <td style="padding-right: 20px;padding-left: 10px"><bean:message key="note.title"/></td>
-                            <td><html:text property="note" size="30" name="<%=Constants.EMPLOYEE_OFF%>" /></td>
+                            <td style="padding-right: 20px;padding-left: 10px"><bean:message key="quantity.title"/></td>
+                            <td><html:text property="actualOffDay" size="30" name="<%=Constants.EMPLOYEE_OFF%>" /></td>
                         </tr>
                         <tr>
                             <td height="30" style="padding-right: 20px"><bean:message key="fromDate.title"/></td>
                             <td><html:text property="fromDate" styleId="employeeOffFromDate" size="30" name="<%=Constants.EMPLOYEE_OFF%>"/></td>
                             <td style="padding-right: 20px;padding-left: 10px"><bean:message key="toDate.title"/></td>
                             <td><html:text property="toDate" styleId="employeeOffToDate" size="30" name="<%=Constants.EMPLOYEE_OFF%>"/></td>
+                        </tr>
+                        <tr>
+                            <td height="30" style="padding-right: 20px"><bean:message key="note.title"/></td>
+                            <td colspan="3"><html:text property="note" size="93" name="<%=Constants.EMPLOYEE_OFF%>" /></td>
                         </tr>
                     </table>
                 </td></tr>

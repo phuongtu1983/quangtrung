@@ -26,6 +26,8 @@ public class SalaryBean {
     private double panelty;
     private double seniority;
     private double actualReceived;
+    private double fieldAmount;
+    private double timesheetAmount;
 
     public void setId(int id) {
         this.id = id;
@@ -153,6 +155,22 @@ public class SalaryBean {
 
     public void setSeniority(double seniority) {
         this.seniority = seniority;
+    }
+
+    public double getFieldAmount() {
+        return fieldAmount;
+    }
+
+    public void setFieldAmount(double fieldAmount) {
+        this.fieldAmount = fieldAmount;
+    }
+
+    public double getTimesheetAmount() {
+        return timesheetAmount;
+    }
+
+    public void setTimesheetAmount(double timesheetAmount) {
+        this.timesheetAmount = timesheetAmount;
     }
 
 }

@@ -4,6 +4,7 @@
  */
 package com.stepup.gasoline.qt.employeeoff;
 
+import com.stepup.core.util.OutputUtil;
 import com.stepup.gasoline.qt.bean.EmployeeOffBean;
 import com.stepup.gasoline.qt.core.SpineAction;
 import com.stepup.gasoline.qt.dao.EmployeeDAO;
@@ -34,7 +35,7 @@ public class AddEmployeeOffAction extends SpineAction {
             HttpServletRequest request, HttpServletResponse response) {
         EmployeeOffFormBean formBean = (EmployeeOffFormBean) form;
         EmployeeDAO employeeDAO = new EmployeeDAO();
-
+        
         boolean bNew = true;
         if (formBean.getId() != 0) {
             bNew = false;
@@ -47,18 +48,31 @@ public class AddEmployeeOffAction extends SpineAction {
         bean.setCode(formBean.getCode());
         bean.setToDate(formBean.getToDate());
         bean.setNote(formBean.getNote());
-        bean.setActualOffDay(QTUtil.getActualOff(formBean.getFromDate(), formBean.getToDate()));
+        if (formBean.getActualOffDay() == 0) {
+            bean.setActualOffDay(QTUtil.getActualOff(formBean.getFromDate(), formBean.getToDate()));
+        } else {
+            bean.setActualOffDay(formBean.getActualOffDay());
+        }
         bean.setCreatedEmployeeId(QTUtil.getEmployeeId(request.getSession()));
         try {
             if (bNew) {
-                employeeDAO.insertEmployeeOff(bean);
+                int id = employeeDAO.insertEmployeeOff(bean);
+                bean.setId(id);
             } else {
                 employeeDAO.updateEmployeeOff(bean);
             }
         } catch (Exception ex) {
             ex.printStackTrace();
         }
+        
+        String json = "{\"id\":\"" + bean.getId() + "\"";
+        json += "}";
+        OutputUtil.sendStringToOutput(response, json);
         return true;
     }
-
+    
+    @Override
+    protected boolean isReturnStream() {
+        return true;
+    }
 }

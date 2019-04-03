@@ -96,7 +96,7 @@ public class EmployeeDAO extends BasicDAO {
                 employee.setOrganizationName(rs.getString("organization_name"));
                 employee.setBirthday(DateUtil.formatDate(rs.getDate("birthday"), "dd/MM/yyyy"));
                 employee.setStartDate(DateUtil.formatDate(rs.getDate("start_date"), "dd/MM/yyyy"));
-                employee.setSeniority(rs.getInt("seniority"));
+                employee.setSalaryBhxh(rs.getInt("salary_bhxh"));
                 employee.setStatus(rs.getInt("status"));
                 if (employee.getStatus() == EmployeeBean.STATUS_ACTIVE) {
                     employee.setStatusName(QTUtil.getBundleString("employee.detail.status.active"));
@@ -130,7 +130,7 @@ public class EmployeeDAO extends BasicDAO {
                 employee.setEmail(rs.getString("email"));
                 employee.setBirthday(DateUtil.formatDate(rs.getDate("birthday"), "dd/MM/yyyy"));
                 employee.setStartDate(DateUtil.formatDate(rs.getDate("start_date"), "dd/MM/yyyy"));
-                employee.setSeniority(rs.getInt("seniority"));
+                employee.setSalaryBhxh(rs.getInt("salary_bhxh"));
                 employee.setStatus(rs.getInt("status"));
                 return employee;
             }
@@ -284,9 +284,9 @@ public class EmployeeDAO extends BasicDAO {
                 startDate = "STR_TO_DATE('" + bean.getStartDate() + "','%d/%m/%Y')";
             }
             String sql = "";
-            sql = "Insert Into employee (idcard, fullname, email, salary, organization_id, status, birthday, start_date, seniority)"
+            sql = "Insert Into employee (idcard, fullname, email, salary, organization_id, status, birthday, start_date, salary_bhxh)"
                     + " Values ('" + bean.getIdcard() + "','" + bean.getFullname() + "','" + bean.getEmail() + "'," + bean.getSalary() + "," + bean.getOrganizationId()
-                    + "," + bean.getStatus() + "," + birthday + "," + startDate + "," + bean.getSeniority() + ")";
+                    + "," + bean.getStatus() + "," + birthday + "," + startDate + "," + bean.getSalaryBhxh() + ")";
             return DBUtil.executeInsert(sql);
         } catch (SQLException sqle) {
             throw new Exception(sqle.getMessage());
@@ -326,7 +326,7 @@ public class EmployeeDAO extends BasicDAO {
                     + ", salary=" + bean.getSalary()
                     + ", organization_id=" + bean.getOrganizationId()
                     + ", status=" + bean.getStatus()
-                    + ", seniority=" + bean.getSeniority()
+                    + ", salary_bhxh=" + bean.getSalaryBhxh()
                     + " Where id=" + bean.getId();
             DBUtil.executeUpdate(sql);
         } catch (SQLException sqle) {
@@ -626,7 +626,51 @@ public class EmployeeDAO extends BasicDAO {
                 bean.setAdvance(rs.getDouble("advance"));
                 bean.setPanelty(rs.getDouble("panelty"));
                 bean.setSeniority(rs.getDouble("seniority"));
-                bean.setActualReceived(rs.getInt("actual_received"));
+                bean.setActualReceived(rs.getDouble("actual_received"));
+                bean.setFieldAmount(rs.getDouble("field_amount"));
+                bean.setTimesheetAmount(rs.getDouble("timesheet_amount"));
+                return bean;
+            }
+        } catch (SQLException sqle) {
+            throw new Exception(sqle.getMessage());
+        } catch (Exception ex) {
+            throw new Exception(ex.getMessage());
+        } finally {
+            if (rs != null) {
+                DBUtil.closeConnection(rs);
+            }
+        }
+        return null;
+    }
+
+    public SalaryFormBean getSalary(int employeeId, int month, int year) throws Exception {
+        ResultSet rs = null;
+        String sql = "select s.*, e.fullname, e.organization_id from employee_salary as s, employee as e"
+                + " where s.employee_id=e.id and s.employee_id=" + employeeId + " and s.salary_month=" + month + " and s.salary_year=" + year;
+        try {
+            rs = DBUtil.executeQuery(sql);
+            while (rs.next()) {
+                SalaryFormBean bean = new SalaryFormBean();
+                bean.setId(rs.getInt("id"));
+                bean.setCode(rs.getString("code"));
+                bean.setOrganizationId(rs.getInt("organization_id"));
+                bean.setEmployeeId(rs.getInt("employee_id"));
+                bean.setEmployeeName(rs.getString("fullname"));
+                bean.setCreatedDate(DateUtil.formatDate(rs.getDate("created_date"), "dd/MM/yyyy"));
+                bean.setBasicSalary(rs.getDouble("basic_salary"));
+                bean.setRealSalary(rs.getDouble("real_salary"));
+                bean.setTotal(rs.getDouble("total"));
+                bean.setMonthDay(rs.getInt("month_day"));
+                bean.setWorkingDay(rs.getInt("working_day"));
+                bean.setCommission(rs.getDouble("commission"));
+                bean.setBonus(rs.getDouble("bonus"));
+                bean.setBhxh(rs.getDouble("bhxh"));
+                bean.setAdvance(rs.getDouble("advance"));
+                bean.setPanelty(rs.getDouble("panelty"));
+                bean.setSeniority(rs.getDouble("seniority"));
+                bean.setActualReceived(rs.getDouble("actual_received"));
+                bean.setFieldAmount(rs.getDouble("field_amount"));
+                bean.setTimesheetAmount(rs.getDouble("timesheet_amount"));
                 return bean;
             }
         } catch (SQLException sqle) {
@@ -960,6 +1004,7 @@ public class EmployeeDAO extends BasicDAO {
                 bean.setId(rs.getInt("id"));
                 bean.setCode(rs.getString("code"));
                 bean.setEmployeeId(rs.getInt("employee_id"));
+                bean.setActualOffDay(rs.getFloat("actual_off_day"));
                 bean.setCreatedDate(DateUtil.formatDate(rs.getDate("created_date"), "dd/MM/yyyy"));
                 bean.setFromDate(DateUtil.formatDate(rs.getDate("from_date"), "dd/MM/yyyy"));
                 bean.setToDate(DateUtil.formatDate(rs.getDate("to_date"), "dd/MM/yyyy"));
@@ -1012,7 +1057,7 @@ public class EmployeeDAO extends BasicDAO {
                 spUtil.getCallableStatement().setString("_from_date", fromDate);
                 spUtil.getCallableStatement().setString("_to_date", toDate);
                 spUtil.getCallableStatement().setString("_note", bean.getNote());
-                spUtil.getCallableStatement().setInt("_actual_off_day", bean.getActualOffDay());
+                spUtil.getCallableStatement().setFloat("_actual_off_day", bean.getActualOffDay());
                 spUtil.getCallableStatement().setInt("_created_employee_id", bean.getCreatedEmployeeId());
                 spUtil.getCallableStatement().registerOutParameter("_id", Types.INTEGER);
                 spUtil.execute();
@@ -1059,7 +1104,7 @@ public class EmployeeDAO extends BasicDAO {
                 spUtil.getCallableStatement().setInt("_employee_id", bean.getEmployeeId());
                 spUtil.getCallableStatement().setString("_from_date", fromDate);
                 spUtil.getCallableStatement().setString("_to_date", toDate);
-                spUtil.getCallableStatement().setInt("_actual_off_day", bean.getActualOffDay());
+                spUtil.getCallableStatement().setFloat("_actual_off_day", bean.getActualOffDay());
                 spUtil.getCallableStatement().setString("_note", bean.getNote());
                 spUtil.execute();
             }
@@ -2165,6 +2210,46 @@ public class EmployeeDAO extends BasicDAO {
                 throw new Exception(e.getMessage());
             }
         }
+    }
+
+    public ArrayList getEmployeesVehicle(String organizationIds) throws Exception {
+        ResultSet rs = null;
+        String sql = "select DISTINCT e.*, o.name as organization_name from employee as e, organization as o, employee_route_fee AS f"
+                + " where e.organization_id=o.id and e.id=f.employee_id and o.status=" + EmployeeBean.STATUS_ACTIVE + " and e.status=" + EmployeeBean.STATUS_ACTIVE;
+        if (!StringUtil.isBlankOrNull(organizationIds)) {
+            sql += " and e.organization_id in (" + organizationIds + ")";
+        }
+        sql += " order by e.fullname desc";
+        ArrayList employeeList = new ArrayList();
+        try {
+            rs = DBUtil.executeQuery(sql);
+            EmployeeFormBean bean = null;
+            while (rs.next()) {
+                bean = new EmployeeFormBean();
+                bean.setId(rs.getInt("id"));
+                bean.setFullname(rs.getString("fullname"));
+                bean.setEmail(rs.getString("email"));
+                bean.setSalary(rs.getDouble("salary"));
+                bean.setOrganizationId(rs.getInt("organization_id"));
+                bean.setOrganizationName(rs.getString("organization_name"));
+                bean.setStatus(rs.getInt("status"));
+                if (bean.getStatus() == EmployeeBean.STATUS_ACTIVE) {
+                    bean.setStatusName(QTUtil.getBundleString("employee.detail.status.active"));
+                } else if (bean.getStatus() == EmployeeBean.STATUS_INACTIVE) {
+                    bean.setStatusName(QTUtil.getBundleString("employee.detail.status.inactive"));
+                }
+                employeeList.add(bean);
+            }
+        } catch (SQLException sqle) {
+            throw new Exception(sqle.getMessage());
+        } catch (Exception ex) {
+            throw new Exception(ex.getMessage());
+        } finally {
+            if (rs != null) {
+                DBUtil.closeConnection(rs);
+            }
+        }
+        return employeeList;
     }
 
 }

@@ -182,4 +182,5 @@ public class Constants {
     public static final String PANELTY_LIST = "paneltyList";
     public static final String EMPLOYEE_PANELTY = "employeePanelty";
     public static final String EMPLOYEE_OTHER_BONUS = "employeeOtherBonus";
+    public static final String EMPLOYEE_ROUTE_FEE = "employeeRouteFee";
 }

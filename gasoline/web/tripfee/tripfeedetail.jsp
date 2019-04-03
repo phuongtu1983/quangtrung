@@ -17,14 +17,24 @@
                             <td><html:text property="createdDate" styleId="tripFeeDate" size="30" name="<%=Constants.TRIP_FEE%>" tabindex="-1"/></td>
                         </tr>
                         <tr>
-                            <td height="30" style="padding-right: 20px"><bean:message key="tripFee.detail.vehicle"/></td>
+                            <td height="30" style="padding-right: 20px"><bean:message key="employee.title"/></td>
+                            <td>
+                                <select style="width: 200px;" name="employeeIdCombobox" id="employeeIdCombobox">
+                                    <logic:iterate id="employee_iter" name="<%=Constants.EMPLOYEE_LIST%>">
+                                        <option  value="${employee_iter.id}">${employee_iter.fullname}</option>
+                                    </logic:iterate>
+                                </select>
+                            </td>
+                            <td style="padding-right: 20px;padding-left: 10px"><bean:message key="tripFee.detail.vehicle"/></td>
                             <td>
                                 <html:select property="vehicleId" name="<%=Constants.TRIP_FEE%>" style="width:195px" tabindex="-1">
                                     <html:options collection="<%=Constants.VEHICLE_LIST%>" property="id" labelProperty="plate"/>
                                 </html:select>
                             </td>
-                            <td style="padding-right: 20px;padding-left: 10px"><bean:message key="content.title"/></td>
-                            <td><html:text property="fee" size="30" name="<%=Constants.TRIP_FEE%>" tabindex="0"/></td>
+                        </tr>
+                        <tr>
+                            <td height="30" style="padding-right: 20px"><bean:message key="content.title"/></td>
+                            <td colspan="3"><html:text property="fee" size="80" name="<%=Constants.TRIP_FEE%>" tabindex="0"/></td>
                         </tr>
                         <tr>
                             <td height="30" style="padding-right: 20px"><bean:message key="quantity.title"/></td>
@@ -64,6 +74,8 @@
         </table> 
         <html:hidden property="id" name="<%=Constants.TRIP_FEE%>" />
         <input type="hidden" id="callbackFunc"/>
+        <html:hidden property="employeeId" name="<%=Constants.TRIP_FEE%>" />
+        <input type="hidden" name="employeeSelectedHidden" value="0"/>
     </form>
     <div name="tripFeeFormshowHelpHideDiv" id="showHelpHideDiv" style="display:none">
         Ctrl+C : Đóng

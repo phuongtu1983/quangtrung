@@ -17,7 +17,7 @@ public class EmployeeFormBean extends DynamicFieldValueParentFormBean {
     private String idcard;
     private String fullname;
     private int status;
-    private int seniority;
+    private int salaryBhxh;
     private String statusName;
     private String email;
     private int organizationId;
@@ -27,7 +27,6 @@ public class EmployeeFormBean extends DynamicFieldValueParentFormBean {
     private double salary;
 
     public EmployeeFormBean() {
-        this.seniority = 1;
     }
 
     public EmployeeFormBean(EmployeeBean bean) {
@@ -38,7 +37,7 @@ public class EmployeeFormBean extends DynamicFieldValueParentFormBean {
         this.organizationId = bean.getOrganizationId();
         this.salary = bean.getSalary();
         this.birthday = bean.getBirthday();
-        this.seniority = bean.getSeniority();
+        this.salaryBhxh = bean.getSalaryBhxh();
         this.startDate = bean.getStartDate();
         this.idcard = bean.getIdcard();
     }
@@ -115,12 +114,12 @@ public class EmployeeFormBean extends DynamicFieldValueParentFormBean {
         this.birthday = birthday;
     }
 
-    public int getSeniority() {
-        return seniority;
+    public int getSalaryBhxh() {
+        return salaryBhxh;
     }
 
-    public void setSeniority(int seniority) {
-        this.seniority = seniority;
+    public void setSalaryBhxh(int salaryBhxh) {
+        this.salaryBhxh = salaryBhxh;
     }
 
     public String getStartDate() {
