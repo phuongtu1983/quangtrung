@@ -155,6 +155,10 @@ function menuClick(id) {
         loadTripFeePanel();
     else if (id == 'tripfeeadd')
         getTripFee(0, 'loadTripFeePanel');
+    else if (id == 'tripoillist')
+        loadTripOilPanel();
+    else if (id == 'tripoiladd')
+        getTripOil(0, 'loadTripOilPanel');
     else if (id == 'shellimportlist')
         loadShellImportPanel();
     else if (id == 'shellimportadd')
@@ -376,6 +380,10 @@ function menuClick(id) {
         getEmployeeRouteFee(0, 'loadEmployeeRouteFeePanel', 0);
     else if (id == 'reportemployeevehiclesalary')
         showEmployeeVehicleSalaryReportPanel();
+    else if (id == 'borrowlist')
+        loadBorrowPanel();
+    else if (id == 'borrowadd')
+        getBorrow(0);
 }
 function clearContent() {
     var contentDiv = document.getElementById("contentDiv");
@@ -429,14 +437,16 @@ function formatFormDetail(formName) {
     if (quantity != null) {
         if (quantity.length != null) {
             for (var i = 0; i < quantity.length; i++) {
-                tryNumberFormatCurrentcy(quantity[i], "VND");
+                if (quantity != null)
+                    tryNumberFormatCurrentcy(quantity[i], "VND");
                 if (price != null)
                     tryNumberFormatCurrentcy(price[i], "VND");
                 if (amount != null)
                     tryNumberFormatCurrentcy(amount[i], "VND");
             }
         } else {
-            tryNumberFormatCurrentcy(quantity, "VND");
+            if (quantity != null)
+                tryNumberFormatCurrentcy(quantity, "VND");
             if (price != null)
                 tryNumberFormatCurrentcy(price, "VND");
             if (amount != null)
@@ -4532,7 +4542,7 @@ function loadGasWholesaleList(fromDate, toDate) {
     var mygrid = new dhtmlXGridObject('gasWholesaleList');
     mygrid.setImagePath("js/dhtmlx/grid/imgs/");
     mygrid.setHeader("M\u00E3 phi\u1EBFu,Ng\u00E0y,Kh\u00E1ch h\u00E0ng,T\u1ED5ng ti\u1EC1n,Thanh to\u00E1n,C\u00F2n n\u1EE3,Ghi ch\u00FA");
-    mygrid.attachHeader("#text_filter,#text_filter,#select_filter,#text_filter,#text_filter,#text_filter,#text_filter");
+    mygrid.attachHeader("#text_filter,#text_filter,#text_filter,#text_filter,#text_filter,#text_filter,#text_filter");
     mygrid.setInitWidths("150,100,150,150,150,*");
     mygrid.setColTypes("link,ro,ro,ro,ro,ro");
     mygrid.setColSorting("str,str,str,str,str,str");
@@ -12515,6 +12525,302 @@ function printEmployeeVehicleSalaryReport(fromDate, toDate) {
     callServer(url);
     return false;
 }
+function loadTripOilPanel() {
+    callAjax("getTripOilPanel.do", null, null, function(data) {
+        clearContent();
+        setAjaxData(data, "contentDiv");
+        var myCalendar = new dhtmlXCalendarObject(["fromDate", "toDate"]);
+        myCalendar.setSkin('dhx_web');
+        var currentTime = getCurrentDate();
+        document.forms['tripOilSearchForm'].fromDate.value = currentTime;
+        document.forms['tripOilSearchForm'].toDate.value = currentTime;
+        myCalendar.setDateFormat("%d/%m/%Y");
+        loadTripOilList(currentTime, currentTime);
+    });
+    return false;
+}
+function loadTripOilList(fromDate, toDate) {
+    var mygrid = new dhtmlXGridObject('tripOilList');
+    mygrid.setImagePath("js/dhtmlx/grid/imgs/");
+    mygrid.setHeader("S\u1ED1 phi\u1EBFu,Xe,Ng\u00E0y,Th\u00E0nh ti\u1EC1n,Ghi ch\u00FA");
+    mygrid.attachHeader("#text_filter,#text_filter,#text_filter,#text_filter,#text_filter");
+    mygrid.setInitWidths("150,150,200,200,200,*");
+    mygrid.setColTypes("link,ro,ro,ro,ro,ro");
+    mygrid.setColSorting("str,str,str,str,str,str");
+    mygrid.setSkin("light");
+    var height = contentHeight - 210;
+    mygrid.al(true, height); //enableAutoHeight
+    mygrid.enablePaging(true, 15, 3, "recinfoArea");
+    mygrid.setPagingSkin("toolbar", "dhx_skyblue");
+    mygrid.init();
+    var url = "getTripOilList.do?t=1";
+    if (fromDate != null)
+        url += "&fromDate=" + fromDate;
+    if (toDate != null)
+        url += "&toDate=" + toDate;
+    callAjax(url, null, null, function(data) {
+        mygrid.parse(data);
+    });
+    return false;
+}
+function getTripOil(id, handle) {
+    popupName = 'TH\u00D4NG TIN \u1EE8NG D\u1EA6U';
+    var url = 'tripOilForm.do';
+    if (id != 0)
+        url += '?tripOilId=' + id
+    callAjax(url, null, null, function(data) {
+        showPopupForm(data);
+        document.getElementById('callbackFunc').value = handle;
+        tryNumberFormatCurrentcy(document.forms['tripOilForm'].quantity, "VND");
+        tryNumberFormatCurrentcy(document.forms['tripOilForm'].price, "VND");
+        tryNumberFormatCurrentcy(document.forms['tripOilForm'].amount, "VND");
+        
+        window.dhx_globalImgPath = "js/dhtmlx/combo/imgs/";
+        // ============================
+        var employeeIdCombobox = dhtmlXComboFromSelect("employeeIdCombobox");
+        employeeIdCombobox.enableFilteringMode(true);
+        employeeIdCombobox.attachEvent("onSelectionChange", function() {
+            setEmployeeSelectedForm('tripOilForm', employeeIdCombobox.getComboText(), employeeIdCombobox.getSelectedValue());
+        });
+        employeeIdCombobox.attachEvent("onBlur", function() {
+            setEmployeeSelectedForm('tripOilForm', employeeIdCombobox.getComboText(), employeeIdCombobox.getSelectedValue());
+            employeeIdCombobox.setComboText(employeeIdCombobox.getSelectedText());
+        });
+        employeeIdCombobox.DOMelem_input.onfocus = function(event) {
+            if (isManuallySeleted == 1) {
+                employeeIdCombobox.openSelect();
+                isManuallySeleted = 0;
+            }
+        }
+        if (id == 0) {
+            employeeIdCombobox.setComboValue("");
+            employeeIdCombobox.openSelect();
+        } else {
+            var employeeId = document.forms['tripOilForm'].employeeId.value;
+            if (employeeId != 0) {
+                var ind = employeeIdCombobox.getIndexByValue(employeeId);
+                employeeIdCombobox.selectOption(ind);
+            } else {
+                employeeIdCombobox.unSelectOption();
+                employeeIdCombobox.setComboValue("");
+            }
+        }
+        
+        var myCalendar = new dhtmlXCalendarObject(["tripOilDate"]);
+        myCalendar.setSkin('dhx_web');
+        if (id == 0) {
+            var currentDate = getCurrentDate();
+            document.forms['tripOilForm'].tripOilDate.value = currentDate;
+        }
+        myCalendar.setDateFormat("%d/%m/%Y");
+    });
+}
+function saveTripOil() {
+    if (scriptFunction == "saveTripOil")
+        return false;
+    var field = document.forms['tripOilForm'].createdDate;
+    if (field.value == '') {
+        alert("Vui l\u00F2ng nh\u1EADp ng\u00E0y t\u1EA1o");
+        field.focus();
+        field = null;
+        return false;
+    }
+    field = null;
+    reformatNumberMoney(document.forms['tripOilForm'].quantity);
+    reformatNumberMoney(document.forms['tripOilForm'].price);
+    reformatNumberMoney(document.forms['tripOilForm'].amount);
+    document.forms['tripOilForm'].employeeId.value = document.forms['tripOilForm'].employeeSelectedHidden.value;
+    scriptFunction = "saveTripOil";
+    callAjaxCheckError("addTripOil.do", null, document.forms['tripOilForm'], function(data) {
+        scriptFunction = "";
+        var handle = document.getElementById('callbackFunc').value;
+        if (confirm('B\u1EA1n c\u00F3 mu\u1ED1n nh\u1EADp ti\u1EBFp th\u00F4ng tin kh\u00E1c ?'))
+            getTripOil(0, handle);
+        else if (handle != '')
+            eval(handle + "()");
+        prepareHidePopup('tripOilFormshowHelpHideDiv');
+    });
+    return false;
+}
+function delTripOil() {
+    callAjaxCheckError('delTripOil.do?tripOilId=' + document.forms['tripOilForm'].id.value, null, null, function() {
+        loadTripOilPanel();
+        prepareHidePopup('tripOilFormshowHelpHideDiv');
+    });
+    return false;
+}
+function loadBorrowPanel() {
+    callAjax("getBorrowPanel.do", null, null, function(data) {
+        clearContent();
+        setAjaxData(data, "contentDiv");
+        var myCalendar = new dhtmlXCalendarObject(["fromDate", "toDate"]);
+        myCalendar.setSkin('dhx_web');
+        var currentTime = getCurrentDate();
+        document.forms['borrowSearchForm'].fromDate.value = currentTime;
+        document.forms['borrowSearchForm'].toDate.value = currentTime;
+        myCalendar.setDateFormat("%d/%m/%Y");
+        loadBorrowList(currentTime, currentTime);
+    });
+    return false;
+}
+function loadBorrowList(fromDate, toDate) {
+    var mygrid = new dhtmlXGridObject('borrowList');
+    mygrid.setImagePath("js/dhtmlx/grid/imgs/");
+    mygrid.setHeader("S\u1ED1 phi\u1EBFu,Ng\u00E0y,T\u00EAn nh\u00E2n vi\u00EAn,T\u1ED5ng ti\u1EC1n,Ghi ch\u00FA");
+    mygrid.attachHeader("#text_filter,#text_filter,#text_filter,#text_filter,#text_filter");
+    mygrid.setInitWidths("150,100,150,150,*");
+    mygrid.setColTypes("link,ro,ro,ro,ro");
+    mygrid.setColSorting("str,str,str,str,str");
+    mygrid.setSkin("light");
+    var height = contentHeight - 210;
+    mygrid.al(true, height); //enableAutoHeight
+    mygrid.enablePaging(true, 15, 3, "recinfoArea");
+    mygrid.setPagingSkin("toolbar", "dhx_skyblue");
+    mygrid.init();
+    var url = "getBorrowList.do?t=1";
+    if (fromDate != null)
+        url += "&fromDate=" + fromDate;
+    if (toDate != null)
+        url += "&toDate=" + toDate;
+    callAjax(url, null, null, function(data) {
+        mygrid.parse(data);
+    });
+    return false;
+}
+function getBorrow(id) {
+    var url = 'borrowForm.do';
+    if (id != 0)
+        url += '?borrowId=' + id
+    callAjax(url, null, null, function(data) {
+        clearContent();
+        setAjaxData(data, 'contentDiv');
+        if (id == 0) {
+            var currentDate = getCurrentDate();
+            document.forms['borrowForm'].borrowCreatedDate.value = currentDate;
+        }
+        var myCalendar = new dhtmlXCalendarObject(["borrowCreatedDate","payDateSelected"]);
+        myCalendar.setSkin('dhx_web');
+        myCalendar.setDateFormat("%d/%m/%Y");
+
+        tryNumberFormatCurrentcy(document.forms['borrowForm'].total, "VND");
+        formatFormDetail('borrowForm');
+
+        window.dhx_globalImgPath = "js/dhtmlx/combo/imgs/";
+        // ============================
+        // ============================
+        var employeeIdCombobox = dhtmlXComboFromSelect("employeeIdCombobox");
+        employeeIdCombobox.enableFilteringMode(true);
+        employeeIdCombobox.attachEvent("onSelectionChange", function() {
+            setEmployeeSelectedForm('borrowForm', employeeIdCombobox.getComboText(), employeeIdCombobox.getSelectedValue());
+        });
+        employeeIdCombobox.attachEvent("onBlur", function() {
+            setEmployeeSelectedForm('borrowForm', employeeIdCombobox.getComboText(), employeeIdCombobox.getSelectedValue());
+            employeeIdCombobox.setComboText(employeeIdCombobox.getSelectedText());
+        });
+        employeeIdCombobox.DOMelem_input.onfocus = function(event) {
+            if (isManuallySeleted == 1) {
+                employeeIdCombobox.openSelect();
+                isManuallySeleted = 0;
+            }
+        }
+        if (id == 0) {
+            employeeIdCombobox.setComboValue("");
+            employeeIdCombobox.openSelect();
+        } else {
+            var employeeId = document.forms['borrowForm'].employeeId.value;
+            if (employeeId != 0) {
+                var ind = employeeIdCombobox.getIndexByValue(employeeId);
+                employeeIdCombobox.selectOption(ind);
+            } else {
+                employeeIdCombobox.unSelectOption();
+                employeeIdCombobox.setComboValue("");
+            }
+        }
+    });
+}
+function saveBorrow() {
+    if (scriptFunction == "saveBorrow")
+        return false;
+    var amount = document.forms['borrowForm'].amount;
+    if (amount == null) {
+        alert('Vui l\u00F2ng nh\u1EADp ti\u1EBFn \u0111\u1ED9 thanh to\u00E1n');
+        return false;
+    }
+    if (amount.length != null) {
+        for (var i = 0; i < amount.length; i++) {
+            var number = Number(amount[i].value);
+            if (number == 0) {
+                alert('Vui l\u00F2ng nh\u1EADp s\u1ED1 ti\u1EC1n');
+                quantity[i].focus();
+                quantity = null;
+                return false;
+            }
+            reformatNumberMoney(amount[i]);
+        }
+    } else {
+        if (amount.value == "0") {
+            alert('Vui l\u00F2ng nh\u1EADp s\u1ED1 ti\u1EC1n');
+            quantity.focus();
+            quantity = null;
+            return false;
+        }
+        reformatNumberMoney(amount);
+    }
+    amount = null;
+    reformatNumberMoney(document.forms['borrowForm'].total);
+    scriptFunction = "saveBorrow";
+    callAjaxCheckError("addBorrow.do", null, document.forms['borrowForm'], function(data) {
+        scriptFunction = "";
+        loadBorrowPanel();
+    });
+    return false;
+}
+function addBorrowPayDate() {
+    var payDateSelected = document.forms['borrowForm'].payDateSelected.value;
+    if (payDateSelected == "")
+        return false;
+    var payDate = document.forms['borrowForm'].payDate;
+    var existed = false;
+    if (payDate != null) {
+        if (payDate.length != null) {
+            for (i = 0; i < payDate.length; i++) {
+                if (payDate[i].value == payDateSelected) {
+                    existed = true;
+                    break;
+                }
+            }
+        } else if (payDate.value == payDateSelected)
+            existed = true;
+    }
+    if (existed == true) {
+        alert("Ng\u00E0y thanh to\u00E1n \u0111\u00E3 t\u1ED3n t\u1EA1i");
+        return false;
+    }
+    callAjax("getBorrowPayDate.do?payDate=" + payDate + "&borrowId"+document.forms['borrowForm'].id.value, null, null, function(data) {
+        setAjaxData(data, 'borrowPayDateHideDiv');
+        var matTable = document.getElementById('borrowPayDateTbl');
+        var detTable = document.getElementById('borrowDetailTbl');
+        if (matTable.tBodies[0] == null || detTable.tBodies[0] == null) {
+            matTable = null;
+            detTable = null;
+            return;
+        }
+        for (var i = matTable.tBodies[0].rows.length - 1; i >= 0; i--)
+            detTable.tBodies[0].appendChild(matTable.tBodies[0].rows[i]);
+        matTable = null;
+        detTable = null;
+        formatFormDetail('borrowForm');
+    });
+    return false;
+}
+function delBorrow() {
+    callAjaxCheckError('delBorrow.do?borrowId=' + document.forms['borrowForm'].id.value, null, null, function() {
+        loadBorrowPanel();
+    });
+    return false;
+}
+
+
 
 
 

@@ -2,12 +2,12 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
-package com.stepup.gasoline.qt.tripfee;
+package com.stepup.gasoline.qt.tripoil;
 
 import com.stepup.core.util.DateUtil;
 import com.stepup.core.util.NumberUtil;
 import com.stepup.gasoline.qt.bean.EmployeeBean;
-import com.stepup.gasoline.qt.bean.TripFeeBean;
+import com.stepup.gasoline.qt.bean.TripOilBean;
 import com.stepup.gasoline.qt.core.SpineAction;
 import com.stepup.gasoline.qt.dao.EmployeeDAO;
 import com.stepup.gasoline.qt.dao.VehicleDAO;
@@ -24,7 +24,7 @@ import org.apache.struts.action.ActionMapping;
  *
  * @author phuongtu
  */
-public class TripFeeFormAction extends SpineAction {
+public class TripOilFormAction extends SpineAction {
 
     /**
      * This is the action called from the Struts framework.
@@ -39,27 +39,27 @@ public class TripFeeFormAction extends SpineAction {
     @Override
     public boolean doAction(ActionMapping mapping, ActionForm form,
             HttpServletRequest request, HttpServletResponse response) {
-        TripFeeBean bean = null;
-        String tripFeeId = request.getParameter("tripFeeId");
+        TripOilBean bean = null;
+        String tripOilId = request.getParameter("tripOilId");
         VehicleDAO vehicleDAO = new VehicleDAO();
-        if (!GenericValidator.isBlankOrNull(tripFeeId)) {
+        if (!GenericValidator.isBlankOrNull(tripOilId)) {
             try {
-                bean = vehicleDAO.getTripFee(NumberUtil.parseInt(tripFeeId, 0));
+                bean = vehicleDAO.getTripOil(NumberUtil.parseInt(tripOilId, 0));
             } catch (Exception ex) {
             }
         }
         if (bean == null) {
-            bean = new TripFeeBean();
+            bean = new TripOilBean();
             try {
                 String prefix = "";
-                prefix = DateUtil.today("yyyyMMdd") + "-TF-";
-                String number = vehicleDAO.getNextTripFeeNumber(prefix, 4);
+                prefix = DateUtil.today("yyyyMMdd") + "-TO-";
+                String number = vehicleDAO.getNextTripOilNumber(prefix, 4);
                 prefix += number;
                 bean.setCode(prefix);
             } catch (Exception ex) {
             }
         }
-        request.setAttribute(Constants.TRIP_FEE, bean);
+        request.setAttribute(Constants.TRIP_OIL, bean);
 
         ArrayList arrVehicle = null;
         try {

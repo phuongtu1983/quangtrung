@@ -44,6 +44,7 @@
         <form-bean name="lpgSaleForm" type="com.stepup.gasoline.qt.lpgsale.LpgSaleFormBean"/>
         <form-bean name="employeeRouteFeeForm" type="com.stepup.gasoline.qt.employeeroutefee.EmployeeRouteFeeFormBean"/>
         <form-bean name="tripFeeForm" type="com.stepup.gasoline.qt.tripfee.TripFeeFormBean"/>
+        <form-bean name="tripOilForm" type="com.stepup.gasoline.qt.tripoil.TripOilFormBean"/>
         <form-bean name="shieldImportForm" type="com.stepup.gasoline.qt.shieldimport.ShieldImportFormBean"/>
         <form-bean name="shieldDecreaseForm" type="com.stepup.gasoline.qt.shielddecrease.ShieldDecreaseFormBean"/>
         <form-bean name="oldShellForm" type="com.stepup.gasoline.qt.oldshell.OldShellFormBean"/>
@@ -80,6 +81,7 @@
         <form-bean name="gasWholeSaleFeeForm" type="com.stepup.gasoline.qt.gaswholesalefee.GasWholeSaleFeeFormBean"/>
         <form-bean name="fractionForm" type="com.stepup.gasoline.qt.fraction.FractionFormBean"/>
         <form-bean name="gasImportForm" type="com.stepup.gasoline.qt.gasimport.GasImportFormBean"/>
+        <form-bean name="borrowForm" type="com.stepup.gasoline.qt.borrow.BorrowFormBean"/>
         <form-bean name="gasReturnForm" type="com.stepup.gasoline.qt.gasreturn.GasReturnFormBean"/>
         <form-bean name="shellReturnForm" type="com.stepup.gasoline.qt.shellreturn.ShellReturnFormBean"/>
         <form-bean name="shellReturnSupplierForm" type="com.stepup.gasoline.qt.shellreturnsupplier.ShellReturnSupplierFormBean"/>
@@ -554,6 +556,20 @@
         <action path="/delTripFee" type="com.stepup.gasoline.qt.tripfee.DeleteTripFeeAction" scope="request" validate="false" >
         </action>
         <!-- end tripfee -->
+        <!-- start tripoil -->
+        <action path="/getTripOilPanel" type="com.stepup.gasoline.qt.common.BaseStatusFormAction" scope="request" validate="false">
+            <forward name="success" path="/tripoil/tripoilpanel.jsp" />
+        </action>
+        <action path="/getTripOilList" type="com.stepup.gasoline.qt.tripoil.GetTripOilListAction" scope="request" validate="false" >
+        </action>
+        <action path="/tripOilForm" type="com.stepup.gasoline.qt.tripoil.TripOilFormAction" scope="request" validate="false">
+            <forward name="success" path="/tripoil/tripoildetail.jsp" />
+        </action>
+        <action path="/addTripOil" name ="tripOilForm" scope="request" type="com.stepup.gasoline.qt.tripoil.AddTripOilAction" input="/tripOilForm.do">
+        </action>
+        <action path="/delTripOil" type="com.stepup.gasoline.qt.tripoil.DeleteTripOilAction" scope="request" validate="false" >
+        </action>
+        <!-- end tripoil -->
         <!-- start shell impot-->
         <action path="/getShellImportPanel" type="com.stepup.gasoline.qt.common.BaseStatusFormAction" scope="request" validate="false">
             <forward name="success" path="/shellimport/shellimportpanel.jsp" />
@@ -1408,6 +1424,23 @@
         <action path="/createLpgImportAuto" type="com.stepup.gasoline.qt.employeeroutefee.CreateLpgImportAutoAction" scope="request" validate="false">
         </action>
         <!-- end employeeroutefee -->
+        <!-- start borrow -->
+        <action path="/getBorrowPanel" type="com.stepup.gasoline.qt.common.BaseFormAction" scope="request" validate="false">
+            <forward name="success" path="/borrow/borrowpanel.jsp" />
+        </action>
+        <action path="/getBorrowList" type="com.stepup.gasoline.qt.borrow.GetBorrowListAction" scope="request" validate="false" >
+        </action>
+        <action path="/borrowForm" type="com.stepup.gasoline.qt.borrow.BorrowFormAction" scope="request" validate="false">
+            <forward name="success" path="/borrow/borrowdetail.jsp" />
+        </action>
+        <action path="/addBorrow" name ="borrowForm" scope="request" type="com.stepup.gasoline.qt.borrow.AddBorrowAction" input="/borrowForm.do">
+        </action>
+        <action path="/getBorrowPayDate" type="com.stepup.gasoline.qt.borrow.GetBorrowPayDateAction" scope="request" validate="false">
+            <forward name="success" path="/borrow/paydates.jsp" />
+        </action>
+        <action path="/delBorrow" type="com.stepup.gasoline.qt.borrow.DeleteBorrowAction" scope="request" validate="false" >
+        </action>
+        <!-- end borrow -->
     </action-mappings>
     
     <controller processorClass="org.apache.struts.tiles.TilesRequestProcessor"/>

@@ -347,7 +347,7 @@ public class GenerateMenu {
             if (isHasPermission(PermissionUtil.OPERATION_LIST + "," + PermissionUtil.OPERATION_ADD,
                     PermissionUtil.PER_EMPLOYEE_ADVANCE + "," + PermissionUtil.PER_EMPLOYEE_TIMESHEET + "," + PermissionUtil.PER_EMPLOYEE_OFF
                     + "," + PermissionUtil.PER_EMPLOYEE_OFF_INCREASE + "," + PermissionUtil.PER_EMPLOYEE_OFF_MONEY + "," + PermissionUtil.PER_SALARY
-                    + "," + PermissionUtil.PER_EMPLOYEE_OTHER_BONUS + "," + PermissionUtil.PER_EMPLOYEE_PANELTY)) {
+                    + "," + PermissionUtil.PER_EMPLOYEE_OTHER_BONUS + "," + PermissionUtil.PER_EMPLOYEE_PANELTY + "," + PermissionUtil.PER_BORROW)) {
                 if (isHasPermission(PermissionUtil.OPERATION_LIST + "," + PermissionUtil.OPERATION_ADD, PermissionUtil.PER_EMPLOYEE_ADVANCE)) {
                     buffTemp.append("<item id=\"employeeadvances\" complex=\"true\" text=\"").append(QTUtil.getBundleString("employeeAdvance.title")).append("\">");
                     if (isHasPermission(PermissionUtil.OPERATION_LIST, PermissionUtil.PER_EMPLOYEE_ADVANCE)) {
@@ -355,6 +355,16 @@ public class GenerateMenu {
                     }
                     if (isHasPermission(PermissionUtil.OPERATION_ADD, PermissionUtil.PER_EMPLOYEE_ADVANCE)) {
                         buffTemp.append("<item id=\"employeeadvanceadd\" text=\"").append(QTUtil.getBundleString("employeeAdvance.detail.add.title")).append("\"/>");
+                    }
+                    buffTemp.append("</item>");
+                }
+                if (isHasPermission(PermissionUtil.OPERATION_LIST + "," + PermissionUtil.OPERATION_ADD, PermissionUtil.PER_BORROW)) {
+                    buffTemp.append("<item id=\"borrows\" complex=\"true\" text=\"").append(QTUtil.getBundleString("borrow.title")).append("\">");
+                    if (isHasPermission(PermissionUtil.OPERATION_LIST, PermissionUtil.PER_BORROW)) {
+                        buffTemp.append("<item id=\"borrowlist\" text=\"").append(QTUtil.getBundleString("borrow.list.title")).append("\"/>");
+                    }
+                    if (isHasPermission(PermissionUtil.OPERATION_ADD, PermissionUtil.PER_BORROW)) {
+                        buffTemp.append("<item id=\"borrowadd\" text=\"").append(QTUtil.getBundleString("borrow.detail.add.title")).append("\"/>");
                     }
                     buffTemp.append("</item>");
                 }
@@ -446,7 +456,7 @@ public class GenerateMenu {
             buffTemp = new StringBuilder();
             if (isHasPermission(PermissionUtil.OPERATION_LIST + "," + PermissionUtil.OPERATION_ADD,
                     PermissionUtil.PER_TRIP_FEE + "," + PermissionUtil.PER_VEHICLE_OUT + "," + PermissionUtil.PER_VEHICLE_IN + "," + PermissionUtil.PER_EXPORT_WHOLESALE
-                    + "," + PermissionUtil.PER_TRANSPORT_SERVICE + "," + PermissionUtil.PER_EMPLOYEE_ROUTE_FEE)) {
+                    + "," + PermissionUtil.PER_TRANSPORT_SERVICE + "," + PermissionUtil.PER_EMPLOYEE_ROUTE_FEE + "," + PermissionUtil.PER_TRIP_OIL)) {
                 if (isHasPermission(PermissionUtil.OPERATION_LIST + "," + PermissionUtil.OPERATION_ADD, PermissionUtil.PER_TRIP_FEE)) {
                     buffTemp.append("<item id=\"tripfees\" complex=\"true\" text=\"").append(QTUtil.getBundleString("tripFee.title")).append("\">");
                     if (isHasPermission(PermissionUtil.OPERATION_LIST, PermissionUtil.PER_TRIP_FEE)) {
@@ -454,6 +464,16 @@ public class GenerateMenu {
                     }
                     if (isHasPermission(PermissionUtil.OPERATION_ADD, PermissionUtil.PER_TRIP_FEE)) {
                         buffTemp.append("<item id=\"tripfeeadd\" text=\"").append(QTUtil.getBundleString("tripFee.detail.add.title")).append("\"/>");
+                    }
+                    buffTemp.append("</item>");
+                }
+                if (isHasPermission(PermissionUtil.OPERATION_LIST + "," + PermissionUtil.OPERATION_ADD, PermissionUtil.PER_TRIP_OIL)) {
+                    buffTemp.append("<item id=\"tripoils\" complex=\"true\" text=\"").append(QTUtil.getBundleString("tripOil.title")).append("\">");
+                    if (isHasPermission(PermissionUtil.OPERATION_LIST, PermissionUtil.PER_TRIP_OIL)) {
+                        buffTemp.append("<item id=\"tripoillist\" text=\"").append(QTUtil.getBundleString("tripOil.list.title")).append("\"/>");
+                    }
+                    if (isHasPermission(PermissionUtil.OPERATION_ADD, PermissionUtil.PER_TRIP_OIL)) {
+                        buffTemp.append("<item id=\"tripoiladd\" text=\"").append(QTUtil.getBundleString("tripOil.detail.add.title")).append("\"/>");
                     }
                     buffTemp.append("</item>");
                 }

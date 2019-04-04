@@ -389,6 +389,15 @@ public class PermissionFormAction extends SpineAction {
         perBean.setValue(PermissionUtil.PER_EMPLOYEE_ADVANCE);
         perBean.setOperations("," + PermissionUtil.OPERATION_LIST + "," + PermissionUtil.OPERATION_ADD + "," + PermissionUtil.OPERATION_EDIT + "," + PermissionUtil.OPERATION_DELETE + "," + PermissionUtil.OPERATION_EDIT_PAST + ",");
         arrFun.add(perBean);
+        
+        perBean = new PermissionViewBean();
+        perBean.setCounter("2.1");
+        perBean.setLevel(2);
+        perBean.setSharedId(2);
+        perBean.setName(QTUtil.getBundleString("borrow.title"));
+        perBean.setValue(PermissionUtil.PER_BORROW);
+        perBean.setOperations("," + PermissionUtil.OPERATION_LIST + "," + PermissionUtil.OPERATION_ADD + "," + PermissionUtil.OPERATION_EDIT + "," + PermissionUtil.OPERATION_DELETE + "," + PermissionUtil.OPERATION_EDIT_PAST + ",");
+        arrFun.add(perBean);
 
         perBean = new PermissionViewBean();
         perBean.setCounter("2.1");
@@ -477,6 +486,15 @@ public class PermissionFormAction extends SpineAction {
         perBean.setSharedId(2);
         perBean.setName(QTUtil.getBundleString("tripFee.title"));
         perBean.setValue(PermissionUtil.PER_TRIP_FEE);
+        perBean.setOperations("," + PermissionUtil.OPERATION_LIST + "," + PermissionUtil.OPERATION_ADD + "," + PermissionUtil.OPERATION_EDIT + "," + PermissionUtil.OPERATION_DELETE + ",");
+        arrFun.add(perBean);
+        
+        perBean = new PermissionViewBean();
+        perBean.setCounter("2.1");
+        perBean.setLevel(2);
+        perBean.setSharedId(2);
+        perBean.setName(QTUtil.getBundleString("tripOil.title"));
+        perBean.setValue(PermissionUtil.PER_TRIP_OIL);
         perBean.setOperations("," + PermissionUtil.OPERATION_LIST + "," + PermissionUtil.OPERATION_ADD + "," + PermissionUtil.OPERATION_EDIT + "," + PermissionUtil.OPERATION_DELETE + ",");
         arrFun.add(perBean);
         

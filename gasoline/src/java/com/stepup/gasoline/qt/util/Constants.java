@@ -183,4 +183,7 @@ public class Constants {
     public static final String EMPLOYEE_PANELTY = "employeePanelty";
     public static final String EMPLOYEE_OTHER_BONUS = "employeeOtherBonus";
     public static final String EMPLOYEE_ROUTE_FEE = "employeeRouteFee";
+    public static final String TRIP_OIL = "tripOil";
+    public static final String BORROW = "borrow";
+    public static final String BORROW_PAY_DATE = "borrowPayDate";
 }

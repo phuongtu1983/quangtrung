@@ -7,16 +7,10 @@ package com.stepup.gasoline.qt.report.employeevehiclesalary;
 import com.stepup.core.util.DateUtil;
 import com.stepup.core.util.LogUtil;
 import com.stepup.core.util.NumberUtil;
-import com.stepup.gasoline.qt.bean.OrganizationBean;
 import com.stepup.gasoline.qt.core.BaseAction;
 import com.stepup.gasoline.qt.core.ExcelExport;
-import com.stepup.gasoline.qt.customer.CustomerFormBean;
-import com.stepup.gasoline.qt.dao.CustomerDAO;
 import com.stepup.gasoline.qt.dao.EmployeeDAO;
-import com.stepup.gasoline.qt.dao.OrganizationDAO;
-import com.stepup.gasoline.qt.dao.ReportDAO;
 import com.stepup.gasoline.qt.dao.VehicleDAO;
-import com.stepup.gasoline.qt.employee.EmployeeFormBean;
 import com.stepup.gasoline.qt.salary.SalaryFormBean;
 import com.stepup.gasoline.qt.util.QTUtil;
 import java.text.DateFormat;
@@ -91,6 +85,17 @@ public class PrintEmployeeVehicleSalaryReportAction extends BaseAction {
                 tripFee = new ArrayList();
             }
             beans.put("tripFee", tripFee);
+            
+            ArrayList tripOil = null;
+            try {
+                VehicleDAO vehicleDAO = new VehicleDAO();
+                tripOil = vehicleDAO.reportTripOil(fromDate, toDate, employeeId);
+            } catch (Exception ex) {
+            }
+            if (tripOil == null) {
+                tripOil = new ArrayList();
+            }
+            beans.put("tripOil", tripOil);
             
             beans.put("qtrp_date", dateFormat.format(c.getTime()));
             beans.put("qtrp_employeeName", outBean.getEmployeeName());

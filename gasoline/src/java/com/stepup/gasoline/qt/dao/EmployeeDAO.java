@@ -11,6 +11,8 @@ import com.stepup.core.util.DateUtil;
 import com.stepup.core.util.GenericValidator;
 import com.stepup.core.util.StringUtil;
 import com.stepup.gasoline.qt.auth.OnlineUserImpl;
+import com.stepup.gasoline.qt.bean.BorrowBean;
+import com.stepup.gasoline.qt.bean.BorrowDetailBean;
 import com.stepup.gasoline.qt.bean.EmployeeAdvanceBean;
 import com.stepup.gasoline.qt.bean.EmployeeBean;
 import com.stepup.gasoline.qt.bean.EmployeeOffBean;
@@ -21,6 +23,7 @@ import com.stepup.gasoline.qt.bean.EmployeePaneltyBean;
 import com.stepup.gasoline.qt.bean.EmployeeSalaryFieldBean;
 import com.stepup.gasoline.qt.bean.EmployeeTimesheetBean;
 import com.stepup.gasoline.qt.bean.SalaryBean;
+import com.stepup.gasoline.qt.borrow.BorrowFormBean;
 import com.stepup.gasoline.qt.dynamicfield.DynamicFieldValueFormBean;
 import com.stepup.gasoline.qt.employee.EmployeeFormBean;
 import com.stepup.gasoline.qt.employeeadvance.EmployeeAdvanceFormBean;
@@ -2252,4 +2255,284 @@ public class EmployeeDAO extends BasicDAO {
         return employeeList;
     }
 
+    public ArrayList searchBorrow(String fromDate, String endDate, String organizationIds) throws Exception {
+        SPUtil spUtil = null;
+        ArrayList list = new ArrayList();
+        ResultSet rs = null;
+        try {
+            String sql = "{call searchBorrow(?,?,?)}";
+            if (GenericValidator.isBlankOrNull(fromDate)) {
+                fromDate = DateUtil.today("dd/MM/yyyy");
+            }
+            if (GenericValidator.isBlankOrNull(endDate)) {
+                endDate = this.START_DATE;
+            }
+            spUtil = new SPUtil(sql);
+            if (spUtil != null) {
+                spUtil.getCallableStatement().setString("_start_date", fromDate);
+                spUtil.getCallableStatement().setString("_end_date", endDate);
+                spUtil.getCallableStatement().setString("_organization_ids", organizationIds);
+                rs = spUtil.executeQuery();
+                if (rs != null) {
+                    BorrowFormBean bean = null;
+                    while (rs.next()) {
+                        bean = new BorrowFormBean();
+                        bean.setId(rs.getInt("id"));
+                        bean.setCode(rs.getString("code"));
+                        bean.setCreatedDate(DateUtil.formatDate(rs.getDate("created_date"), "dd/MM/yyyy"));
+                        bean.setEmployeeName(rs.getString("employee_name"));
+                        bean.setTotal(rs.getDouble("total"));
+                        bean.setNote(rs.getString("note"));
+                        list.add(bean);
+                    }
+                }
+            }
+        } catch (SQLException sqle) {
+            throw new Exception(sqle.getMessage());
+        } catch (Exception ex) {
+            throw new Exception(ex.getMessage());
+        } finally {
+            try {
+                if (spUtil != null) {
+                    spUtil.closeConnection();
+                }
+                if (rs != null) {
+                    rs.close();
+                    rs = null;
+                }
+            } catch (Exception e) {
+                throw new Exception(e.getMessage());
+            }
+        }
+        return list;
+    }
+
+    public BorrowBean getBorrow(int id) throws Exception {
+        ResultSet rs = null;
+        String sql = "select *, IF(DATEDIFF(created_date,SYSDATE())=0,1,0) as can_edit from borrow where id=" + id;
+        try {
+            rs = DBUtil.executeQuery(sql);
+            while (rs.next()) {
+                BorrowBean bean = new BorrowBean();
+                bean.setId(rs.getInt("id"));
+                bean.setCode(rs.getString("code"));
+                bean.setCreatedDate(DateUtil.formatDate(rs.getDate("created_date"), "dd/MM/yyyy"));
+                bean.setEmployeeId(rs.getInt("employee_id"));
+                bean.setTotal(rs.getDouble("total"));
+                bean.setAccountId(rs.getInt("account_id"));
+                bean.setNote(rs.getString("note"));
+                bean.setCanEdit(rs.getInt("can_edit"));
+                return bean;
+            }
+        } catch (SQLException sqle) {
+            throw new Exception(sqle.getMessage());
+        } catch (Exception ex) {
+            throw new Exception(ex.getMessage());
+        } finally {
+            if (rs != null) {
+                DBUtil.closeConnection(rs);
+            }
+        }
+        return null;
+    }
+
+    public ArrayList getBorrowDetail(int borrowId) throws Exception {
+        ResultSet rs = null;
+        String sql = "select det.* from borrow_detail as det where det.borrow_id=" + borrowId + " order by det.id";
+        ArrayList detailList = new ArrayList();
+        try {
+            rs = DBUtil.executeQuery(sql);
+            BorrowDetailBean bean = null;
+            while (rs.next()) {
+                bean = new BorrowDetailBean();
+                bean.setId(rs.getInt("id"));
+                bean.setBorrowId(rs.getInt("borrow_id"));
+                bean.setPayDate(DateUtil.formatDate(rs.getDate("pay_date"), "MM/yyyy"));
+                bean.setAmount(rs.getDouble("amount"));
+                detailList.add(bean);
+            }
+        } catch (SQLException sqle) {
+            throw new Exception(sqle.getMessage());
+        } catch (Exception ex) {
+            throw new Exception(ex.getMessage());
+        } finally {
+            if (rs != null) {
+                DBUtil.closeConnection(rs);
+            }
+        }
+        return detailList;
+    }
+
+    public int insertBorrow(BorrowBean bean) throws Exception {
+        if (bean == null) {
+            return 0;
+        }
+        int result = 0;
+        SPUtil spUtil = null;
+        try {
+            String createdDate = "";
+            if (GenericValidator.isBlankOrNull(bean.getCreatedDate())) {
+                createdDate = "null";
+            } else {
+                createdDate = bean.getCreatedDate();
+            }
+            String sql = "{call insertBorrow(?,?,?,?,?,?,?,?)}";
+            spUtil = new SPUtil(sql);
+            if (spUtil != null) {
+                spUtil.getCallableStatement().setString("_code", bean.getCode());
+                spUtil.getCallableStatement().setString("_created_date", createdDate);
+                spUtil.getCallableStatement().setInt("_employee_id", bean.getEmployeeId());
+                spUtil.getCallableStatement().setDouble("_total", bean.getTotal());
+                spUtil.getCallableStatement().setInt("_account_id", bean.getAccountId());
+                spUtil.getCallableStatement().setString("_note", bean.getNote());
+                spUtil.getCallableStatement().setInt("_created_employee_id", bean.getCreatedEmployeeId());
+                spUtil.getCallableStatement().registerOutParameter("_id", Types.INTEGER);
+                spUtil.execute();
+                result = spUtil.getCallableStatement().getInt("_id");
+            }
+        } catch (SQLException sqle) {
+            throw new Exception(sqle.getMessage());
+        } catch (Exception ex) {
+            throw new Exception(ex.getMessage());
+        } finally {
+            try {
+                if (spUtil != null) {
+                    spUtil.closeConnection();
+                }
+            } catch (Exception e) {
+                throw new Exception(e.getMessage());
+            }
+        }
+        return result;
+    }
+
+    public void updateBorrow(BorrowBean bean) throws Exception {
+        if (bean == null) {
+            return;
+        }
+        SPUtil spUtil = null;
+        try {
+            String createdDate = "";
+            if (GenericValidator.isBlankOrNull(bean.getCreatedDate())) {
+                createdDate = "null";
+            } else {
+                createdDate = bean.getCreatedDate();
+            }
+            String sql = "{call updateBorrow(?,?,?,?,?,?)}";
+            spUtil = new SPUtil(sql);
+            if (spUtil != null) {
+                spUtil.getCallableStatement().setInt("_id", bean.getId());
+                spUtil.getCallableStatement().setString("_created_date", createdDate);
+                spUtil.getCallableStatement().setInt("_employee_id", bean.getEmployeeId());
+                spUtil.getCallableStatement().setDouble("_total", bean.getTotal());
+                spUtil.getCallableStatement().setInt("_account_id", bean.getAccountId());
+                spUtil.getCallableStatement().setString("_note", bean.getNote());
+                spUtil.execute();
+            }
+        } catch (SQLException sqle) {
+            throw new Exception(sqle.getMessage());
+        } catch (Exception ex) {
+            throw new Exception(ex.getMessage());
+        } finally {
+            try {
+                if (spUtil != null) {
+                    spUtil.closeConnection();
+                }
+            } catch (Exception e) {
+                throw new Exception(e.getMessage());
+            }
+        }
+    }
+
+    public String getNextBorrowNumber(String prefix, int length) throws Exception {
+        String result = "";
+        try {
+            result = this.getNextNumber(prefix, length, "code", "borrow");
+        } catch (Exception ex) {
+            throw new Exception(ex.getMessage());
+        }
+        return result;
+    }
+
+    public void deleteBorrow(int id) throws Exception {
+        SPUtil spUtil = null;
+        try {
+            String sql = "{call deleteBorrow(?)}";
+            spUtil = new SPUtil(sql);
+            if (spUtil != null) {
+                spUtil.getCallableStatement().setInt("_id", id);
+                spUtil.execute();
+            }
+        } catch (Exception ex) {
+            throw new Exception(ex.getMessage());
+        } finally {
+            try {
+                if (spUtil != null) {
+                    spUtil.closeConnection();
+                }
+            } catch (Exception e) {
+                throw new Exception(e.getMessage());
+            }
+        }
+    }
+
+    public int insertBorrowDetail(BorrowDetailBean bean, String createdDate) throws Exception {
+        if (bean == null) {
+            return 0;
+        }
+        int result = 0;
+        SPUtil spUtil = null;
+        try {
+            String sql = "{call insertBorrowDetail(?,?,?)}";
+            spUtil = new SPUtil(sql);
+            if (spUtil != null) {
+                spUtil.getCallableStatement().setInt("_borrow_id", bean.getBorrowId());
+                spUtil.getCallableStatement().setString("_pay_date", bean.getPayDate());
+                spUtil.getCallableStatement().setDouble("_amount", bean.getAmount());
+                spUtil.execute();
+            }
+        } catch (SQLException sqle) {
+            throw new Exception(sqle.getMessage());
+        } catch (Exception ex) {
+            throw new Exception(ex.getMessage());
+        } finally {
+            try {
+                if (spUtil != null) {
+                    spUtil.closeConnection();
+                }
+            } catch (Exception e) {
+                throw new Exception(e.getMessage());
+            }
+        }
+        return result;
+    }
+
+    public void updateBorrowDetail(BorrowDetailBean bean, String createdDate) throws Exception {
+        if (bean == null) {
+            return;
+        }
+        SPUtil spUtil = null;
+        try {
+            String sql = "{call updateBorrowDetail(,?,?)}";
+            spUtil = new SPUtil(sql);
+            if (spUtil != null) {
+                spUtil.getCallableStatement().setInt("_id", bean.getId());
+                spUtil.getCallableStatement().setString("_pay_date", bean.getPayDate());
+                spUtil.getCallableStatement().setDouble("_amount", bean.getAmount());
+                spUtil.execute();
+            }
+        } catch (SQLException sqle) {
+            throw new Exception(sqle.getMessage());
+        } catch (Exception ex) {
+            throw new Exception(ex.getMessage());
+        } finally {
+            try {
+                if (spUtil != null) {
+                    spUtil.closeConnection();
+                }
+            } catch (Exception e) {
+                throw new Exception(e.getMessage());
+            }
+        }
+    }
 }
