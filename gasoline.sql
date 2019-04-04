@@ -666,12 +666,18 @@ CREATE TABLE `employee_salary` (
   `seniority` double DEFAULT NULL COMMENT 'tien tham nien',
   `field_amount` double DEFAULT NULL,
   `timesheet_amount` double DEFAULT NULL,
+  `trip_allowance` double DEFAULT NULL COMMENT 'phu cap duong di',
+  `oil_salary` double DEFAULT NULL COMMENT 'dau khoan',
+  `trip_oil` double DEFAULT NULL COMMENT 'ung dau',
+  `trip_fee` double DEFAULT NULL COMMENT 'chi phi xe',
+  `borrow` double DEFAULT NULL COMMENT 'muon luong',
+  `borrow_rest` double DEFAULT NULL COMMENT 'muon luong con lai',
   PRIMARY KEY (`id`)
 ) ENGINE=MyISAM AUTO_INCREMENT=27 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 /*Data for the table `employee_salary` */
 
-insert  into `employee_salary`(`id`,`code`,`salary_month`,`salary_year`,`employee_id`,`created_date`,`basic_salary`,`real_salary`,`total`,`month_day`,`working_day`,`commission`,`bonus`,`advance`,`bhxh`,`actual_received`,`panelty`,`seniority`,`field_amount`,`timesheet_amount`) values (1,'20190403-ES-0001',4,2019,1,'2019-04-02',0,0,0,2,2,0,0,0,0,0,0,0,0,0),(2,'20190403-ES-0002',4,2019,19,'2019-04-02',0,0,0,2,2,0,0,0,0,0,0,0,0,0),(3,'20190403-ES-0003',4,2019,18,'2019-04-02',2000000,2000000,2360000,2,2,0,0,0,0,2360000,0,360000,0,0),(4,'20190403-ES-0004',4,2019,17,'2019-04-02',7300000,7300000,7592000,2,2,0,0,0,0,7592000,0,292000,0,0),(5,'20190403-ES-0005',4,2019,20,'2019-04-02',5300000,5300000,5512000,2,2,0,0,0,0,5512000,0,212000,0,0),(6,'20190403-ES-0006',4,2019,21,'2019-04-02',4800000,4800000,4800000,2,2,0,0,0,0,4800000,0,0,0,0),(7,'20190403-ES-0007',4,2019,23,'2019-04-02',5800000,5800000,7032000,2,2,0,0,0,0,7032000,0,232000,1000000,0),(8,'20190403-ES-0008',4,2019,24,'2019-04-02',0,0,0,2,2,0,0,0,0,0,0,0,0,0),(9,'20190403-ES-0009',4,2019,25,'2019-04-02',5300000,5300000,5300000,2,2,0,0,0,0,5300000,0,0,0,0),(10,'20190403-ES-0010',4,2019,26,'2019-04-02',4800000,4800000,4800000,2,2,0,0,0,0,4800000,0,0,0,0),(11,'20190403-ES-0011',4,2019,27,'2019-04-02',4800000,4800000,4800000,2,2,0,0,0,0,4800000,0,0,0,0),(12,'20190403-ES-0012',4,2019,28,'2019-04-02',5300000,5300000,5300000,2,2,0,0,0,0,5300000,0,0,0,0),(13,'20190403-ES-0013',4,2019,29,'2019-04-02',4800000,4800000,4800000,2,2,0,0,0,0,4800000,0,0,0,0),(14,'20190403-ES-0014',4,2019,30,'2019-04-02',4800000,4800000,4800000,2,2,0,0,0,0,4800000,0,0,0,0),(15,'20190403-ES-0015',4,2019,31,'2019-04-02',0,0,0,2,2,0,0,0,0,0,0,0,0,0),(16,'20190403-ES-0016',4,2019,32,'2019-04-02',6300000,6300000,6300000,2,2,0,0,0,0,6300000,0,0,0,0),(17,'20190403-ES-0017',4,2019,33,'2019-04-02',4800000,4800000,5800000,2,2,0,0,0,304000,5496000,0,0,1000000,0),(18,'20190403-ES-0018',4,2019,34,'2019-04-02',4800000,4800000,4800000,2,2,0,0,0,0,4800000,0,0,0,0),(19,'20190403-ES-0019',4,2019,35,'2019-04-02',5300000,5300000,5300000,2,2,0,0,0,0,5300000,0,0,0,0),(20,'20190403-ES-0020',4,2019,36,'2019-04-02',5300000,5300000,5300000,2,2,0,0,0,0,5300000,0,0,0,0),(21,'20190403-ES-0021',4,2019,37,'2019-04-02',3307000,3307000,3307000,2,2,0,0,0,0,3307000,0,0,0,0),(22,'20190403-ES-0022',4,2019,38,'2019-04-02',6300000,6300000,6300000,2,2,0,0,0,0,6300000,0,0,0,0),(23,'20190403-ES-0023',4,2019,39,'2019-04-02',5300000,5300000,5300000,2,2,0,0,0,0,5300000,0,0,0,0),(24,'20190403-ES-0024',4,2019,40,'2019-04-02',5300000,5300000,5300000,2,2,0,0,0,0,5300000,0,0,0,0),(25,'20190403-ES-0025',4,2019,41,'2019-04-02',4800000,4800000,4800000,2,2,0,0,0,0,4800000,0,0,0,0),(26,'20190403-ES-0026',4,2019,42,'2019-04-02',0,0,0,2,2,0,0,0,0,0,0,0,0,0);
+insert  into `employee_salary`(`id`,`code`,`salary_month`,`salary_year`,`employee_id`,`created_date`,`basic_salary`,`real_salary`,`total`,`month_day`,`working_day`,`commission`,`bonus`,`advance`,`bhxh`,`actual_received`,`panelty`,`seniority`,`field_amount`,`timesheet_amount`,`trip_allowance`,`oil_salary`,`trip_oil`,`trip_fee`,`borrow`,`borrow_rest`) values (1,'20190403-ES-0001',4,2019,1,'2019-04-02',0,0,0,2,2,0,0,0,0,0,0,0,0,0,NULL,NULL,NULL,NULL,NULL,NULL),(2,'20190403-ES-0002',4,2019,19,'2019-04-02',0,0,0,2,2,0,0,0,0,0,0,0,0,0,NULL,NULL,NULL,NULL,NULL,NULL),(3,'20190403-ES-0003',4,2019,18,'2019-04-02',2000000,2000000,2360000,2,2,0,0,0,0,2360000,0,360000,0,0,NULL,NULL,NULL,NULL,NULL,NULL),(4,'20190403-ES-0004',4,2019,17,'2019-04-02',7300000,7300000,7592000,2,2,0,0,0,0,7592000,0,292000,0,0,NULL,NULL,NULL,NULL,NULL,NULL),(5,'20190403-ES-0005',4,2019,20,'2019-04-02',5300000,5300000,5512000,2,2,0,0,0,0,5512000,0,212000,0,0,NULL,NULL,NULL,NULL,NULL,NULL),(6,'20190403-ES-0006',4,2019,21,'2019-04-02',4800000,4800000,4800000,2,2,0,0,0,0,4800000,0,0,0,0,NULL,NULL,NULL,NULL,NULL,NULL),(7,'20190403-ES-0007',4,2019,23,'2019-04-02',5800000,5800000,7032000,2,2,0,0,0,0,7032000,0,232000,1000000,0,NULL,NULL,NULL,NULL,NULL,NULL),(8,'20190403-ES-0008',4,2019,24,'2019-04-02',0,0,0,2,2,0,0,0,0,0,0,0,0,0,NULL,NULL,NULL,NULL,NULL,NULL),(9,'20190403-ES-0009',4,2019,25,'2019-04-02',5300000,5300000,5300000,2,2,0,0,0,0,5300000,0,0,0,0,NULL,NULL,NULL,NULL,NULL,NULL),(10,'20190403-ES-0010',4,2019,26,'2019-04-02',4800000,4800000,4800000,2,2,0,0,0,0,4800000,0,0,0,0,NULL,NULL,NULL,NULL,NULL,NULL),(11,'20190403-ES-0011',4,2019,27,'2019-04-02',4800000,4800000,4800000,2,2,0,0,0,0,4800000,0,0,0,0,NULL,NULL,NULL,NULL,NULL,NULL),(12,'20190403-ES-0012',4,2019,28,'2019-04-02',5300000,5300000,5300000,2,2,0,0,0,0,5300000,0,0,0,0,NULL,NULL,NULL,NULL,NULL,NULL),(13,'20190403-ES-0013',4,2019,29,'2019-04-02',4800000,4800000,4800000,2,2,0,0,0,0,4800000,0,0,0,0,NULL,NULL,NULL,NULL,NULL,NULL),(14,'20190403-ES-0014',4,2019,30,'2019-04-02',4800000,4800000,4800000,2,2,0,0,0,0,4800000,0,0,0,0,NULL,NULL,NULL,NULL,NULL,NULL),(15,'20190403-ES-0015',4,2019,31,'2019-04-02',0,0,0,2,2,0,0,0,0,0,0,0,0,0,NULL,NULL,NULL,NULL,NULL,NULL),(16,'20190403-ES-0016',4,2019,32,'2019-04-02',6300000,6300000,6300000,2,2,0,0,0,0,6300000,0,0,0,0,NULL,NULL,NULL,NULL,NULL,NULL),(17,'20190403-ES-0017',4,2019,33,'2019-04-02',4800000,4800000,5800000,2,2,0,0,0,304000,5496000,0,0,1000000,0,NULL,NULL,NULL,NULL,NULL,NULL),(18,'20190403-ES-0018',4,2019,34,'2019-04-02',4800000,4800000,4800000,2,2,0,0,0,0,4800000,0,0,0,0,NULL,NULL,NULL,NULL,NULL,NULL),(19,'20190403-ES-0019',4,2019,35,'2019-04-02',5300000,5300000,5300000,2,2,0,0,0,0,5300000,0,0,0,0,NULL,NULL,NULL,NULL,NULL,NULL),(20,'20190403-ES-0020',4,2019,36,'2019-04-02',5300000,5300000,5300000,2,2,0,0,0,0,5300000,0,0,0,0,NULL,NULL,NULL,NULL,NULL,NULL),(21,'20190403-ES-0021',4,2019,37,'2019-04-02',3307000,3307000,3307000,2,2,0,0,0,0,3307000,0,0,0,0,NULL,NULL,NULL,NULL,NULL,NULL),(22,'20190403-ES-0022',4,2019,38,'2019-04-02',6300000,6300000,6300000,2,2,0,0,0,0,6300000,0,0,0,0,NULL,NULL,NULL,NULL,NULL,NULL),(23,'20190403-ES-0023',4,2019,39,'2019-04-02',5300000,5300000,5300000,2,2,0,0,0,0,5300000,0,0,0,0,NULL,NULL,NULL,NULL,NULL,NULL),(24,'20190403-ES-0024',4,2019,40,'2019-04-02',5300000,5300000,5300000,2,2,0,0,0,0,5300000,0,0,0,0,NULL,NULL,NULL,NULL,NULL,NULL),(25,'20190403-ES-0025',4,2019,41,'2019-04-02',4800000,4800000,4800000,2,2,0,0,0,0,4800000,0,0,0,0,NULL,NULL,NULL,NULL,NULL,NULL),(26,'20190403-ES-0026',4,2019,42,'2019-04-02',0,0,0,2,2,0,0,0,0,0,0,0,0,0,NULL,NULL,NULL,NULL,NULL,NULL);
 
 /*Table structure for table `employee_salary_field` */
 
@@ -7823,7 +7829,8 @@ DELIMITER $$
 	, OUT _id INT)
 BEGIN
 	declare _real_salary, _total, _timesheet_total, _field_total, _commission_total, _bonus_total, _advance_total, _bhxh_total, _panelty_total
-		, _seniority_total, _commission_12, _commission_45, _commission_lovo, _bhxh_salary double default 0;
+		, _seniority_total, _commission_12, _commission_45, _commission_lovo, _bhxh_salary, _trip_allowance, _borrow, _borrow_rest
+		, _oil_salary, _trip_oil, _trip_fee, _param_100km, _param_1000kg double default 0;
 	declare _off_day, _working_day, _total_day_off, _this_month_off_day, _salary_month, _salary_year int default 0;
 	declare _date, _employee_start_date, _current_date date;
 	
@@ -7832,6 +7839,8 @@ BEGIN
 	SELECT COALESCE(commission,0) INTO _commission_45 FROM shell_kind WHERE weight=45;
 	
 	SELECT CAST(`value` AS SIGNED INTEGER) INTO _commission_lovo FROM parameter WHERE `code`='lovo';
+	SELECT `value` INTO _param_100km FROM parameter WHERE CODE='100km';
+	SELECT `value` INTO _param_1000kg FROM parameter WHERE CODE='1000kggas';
 	
 	select sysdate() into _current_date;
 	
@@ -7871,8 +7880,28 @@ BEGIN
 		SET _working_day = _month_day;
 	end if;
 	
-	insert into employee_salary (code, employee_id, created_date, basic_salary, real_salary, total, month_day, working_day, salary_month, salary_year)
-	values (_code, _employee_id, _date, _basic_salary, basic_salary * _working_day / _month_day, 0, _month_day, _working_day, _salary_month, _salary_year);
+	call getOtherFieldForEmployeeVehicleSalaryReport(_employee_id, _salary_month, _salary_year, _trip_allowance, _borrow, _borrow_rest);
+	
+	SELECT coalesce(sum(r.distance * _param_100km / 100 + i.in_quantity * _param_1000kg / 1000),0) as _oil_salary
+		, _param_100km AS param_100km, _param_1000kg AS param_1000kg
+	FROM employee_route_fee AS i, route AS r
+	WHERE i.route_id=r.id AND i.employee_id=_employee_id
+		AND DATE(i.created_date) >= STR_TO_DATE(_start_date,'%d/%m/%Y') AND DATE(i.created_date) <= STR_TO_DATE(_end_date,'%d/%m/%Y');
+	
+	SELECT coalesce(sum(t.amount),0) as _trip_fee
+	FROM trip_fee AS t
+	WHERE t.employee_id=_employee_id 
+		AND DATE(t.created_date) >= STR_TO_DATE(_start_date,'%d/%m/%Y') AND DATE(t.created_date) <= STR_TO_DATE(_end_date,'%d/%m/%Y');
+	
+	SELECT coalesce(sum(t.amount),0) as _trip_oil
+	FROM trip_oil AS t
+	WHERE t.employee_id=_employee_id
+		AND DATE(t.created_date) >= STR_TO_DATE(_start_date,'%d/%m/%Y') AND DATE(t.created_date) <= STR_TO_DATE(_end_date,'%d/%m/%Y');
+	
+	insert into employee_salary (code, employee_id, created_date, basic_salary, real_salary, total, month_day, working_day, salary_month, salary_year,
+		trip_allowance, oil_salary, trip_oil, trip_fee, borrow, borrow_rest)
+	values (_code, _employee_id, _date, _basic_salary, basic_salary * _working_day / _month_day, 0, _month_day, _working_day, _salary_month, _salary_year
+		, _trip_allowance,_oil_salary, _trip_oil, _trip_fee, _borrow, _borrow_rest);
 	
 	SELECT LAST_INSERT_ID() INTO _id;
 	
@@ -7920,7 +7949,8 @@ BEGIN
 	FROM parameter
 	WHERE code='insurancepersonal';
 	
-	update employee_salary set total=basic_salary * _working_day / _month_day +_timesheet_total+_field_total + _commission_total + _bonus_total + _seniority_total
+	update employee_salary set total=basic_salary * _working_day / _month_day +_timesheet_total+_field_total + _commission_total + _bonus_total 
+			+ _seniority_total + _oil_salary
 		, commission=_commission_total
 		, bonus=_bonus_total
 		, advance=_advance_total
@@ -7929,7 +7959,8 @@ BEGIN
 		, seniority=_seniority_total
 		, field_amount=_field_total
 		, timesheet_amount=_timesheet_total
-		, actual_received = basic_salary * _working_day / _month_day + _timesheet_total + _field_total + _commission_total + _bonus_total + _seniority_total  - _advance_total - _bhxh_total - _panelty_total
+		, actual_received = basic_salary * _working_day / _month_day + _timesheet_total + _field_total + _commission_total + _bonus_total 
+			+ _seniority_total + _oil_salary - trip_oil - borrow - _advance_total - _bhxh_total - _panelty_total
 	where id=_id;
     END */$$
 DELIMITER ;
