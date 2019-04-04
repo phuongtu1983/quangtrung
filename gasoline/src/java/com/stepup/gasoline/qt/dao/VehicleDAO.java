@@ -17,6 +17,7 @@ import com.stepup.gasoline.qt.bean.TripOilBean;
 import com.stepup.gasoline.qt.bean.VehicleBean;
 import com.stepup.gasoline.qt.employeeroutefee.EmployeeRouteFeeFormBean;
 import com.stepup.gasoline.qt.report.employeevehiclesalary.EmployeeRouteFeeReportFormBean;
+import com.stepup.gasoline.qt.report.employeevehiclesalary.EmployeeVehicleSalaryReportOutBean;
 import com.stepup.gasoline.qt.report.employeevehiclesalary.TripFeeReportFormBean;
 import com.stepup.gasoline.qt.report.employeevehiclesalary.TripOilReportFormBean;
 import com.stepup.gasoline.qt.tripfee.TripFeeFormBean;
@@ -34,7 +35,7 @@ import java.util.ArrayList;
  * @author Administrator
  */
 public class VehicleDAO extends BasicDAO {
-    
+
     public ArrayList getVehicles() throws Exception {
         ResultSet rs = null;
         String sql = "select * from vehicle where 1";
@@ -61,7 +62,7 @@ public class VehicleDAO extends BasicDAO {
         }
         return list;
     }
-    
+
     public VehicleBean getVehicle(int vehicleId) throws Exception {
         ResultSet rs = null;
         String sql = "select * from vehicle where id=" + vehicleId;
@@ -86,7 +87,7 @@ public class VehicleDAO extends BasicDAO {
         }
         return null;
     }
-    
+
     public VehicleBean getVehicleByPlate(String plate) throws Exception {
         ResultSet rs = null;
         String sql = "select * from vehicle where plate='" + plate + "'";
@@ -111,7 +112,7 @@ public class VehicleDAO extends BasicDAO {
         }
         return null;
     }
-    
+
     public void insertVehicle(VehicleBean bean) throws Exception {
         if (bean == null) {
             return;
@@ -130,10 +131,10 @@ public class VehicleDAO extends BasicDAO {
             } catch (Exception e) {
                 throw new Exception(e.getMessage());
             }
-            
+
         }
     }
-    
+
     public void updateVehicle(VehicleBean bean) throws Exception {
         if (bean == null) {
             return;
@@ -156,7 +157,7 @@ public class VehicleDAO extends BasicDAO {
             }
         }
     }
-    
+
     public int deleteVehicle(String ids) throws Exception {
         int result = 0;
         try {
@@ -169,7 +170,7 @@ public class VehicleDAO extends BasicDAO {
         }
         return result;
     }
-    
+
     public ArrayList getRoutes() throws Exception {
         ResultSet rs = null;
         String sql = "select * from route where 1";
@@ -197,7 +198,7 @@ public class VehicleDAO extends BasicDAO {
         }
         return list;
     }
-    
+
     public RouteBean getRoute(int routeId) throws Exception {
         ResultSet rs = null;
         String sql = "select * from route where id=" + routeId;
@@ -222,7 +223,7 @@ public class VehicleDAO extends BasicDAO {
         }
         return null;
     }
-    
+
     public RouteBean getRouteByName(String name) throws Exception {
         ResultSet rs = null;
         String sql = "select * from route where name='" + name + "'";
@@ -247,7 +248,7 @@ public class VehicleDAO extends BasicDAO {
         }
         return null;
     }
-    
+
     public void insertRoute(RouteBean bean) throws Exception {
         if (bean == null) {
             return;
@@ -266,10 +267,10 @@ public class VehicleDAO extends BasicDAO {
             } catch (Exception e) {
                 throw new Exception(e.getMessage());
             }
-            
+
         }
     }
-    
+
     public void updateRoute(RouteBean bean) throws Exception {
         if (bean == null) {
             return;
@@ -292,7 +293,7 @@ public class VehicleDAO extends BasicDAO {
             }
         }
     }
-    
+
     public int deleteRoute(String ids) throws Exception {
         int result = 0;
         try {
@@ -305,7 +306,7 @@ public class VehicleDAO extends BasicDAO {
         }
         return result;
     }
-    
+
     public ArrayList searchTripFee(String fromDate, String endDate, String organizationIds) throws Exception {
         SPUtil spUtil = null;
         ArrayList list = new ArrayList();
@@ -358,7 +359,7 @@ public class VehicleDAO extends BasicDAO {
         }
         return list;
     }
-    
+
     public TripFeeBean getTripFee(int id) throws Exception {
         ResultSet rs = null;
         String sql = "select * from trip_fee where id=" + id;
@@ -389,7 +390,7 @@ public class VehicleDAO extends BasicDAO {
         }
         return null;
     }
-    
+
     public int insertTripFee(TripFeeBean bean) throws Exception {
         if (bean == null) {
             return 0;
@@ -435,7 +436,7 @@ public class VehicleDAO extends BasicDAO {
         }
         return result;
     }
-    
+
     public void updateTripFee(TripFeeBean bean) throws Exception {
         if (bean == null) {
             return;
@@ -476,7 +477,7 @@ public class VehicleDAO extends BasicDAO {
             }
         }
     }
-    
+
     public String getNextTripFeeNumber(String prefix, int length) throws Exception {
         String result = "";
         try {
@@ -486,7 +487,7 @@ public class VehicleDAO extends BasicDAO {
         }
         return result;
     }
-    
+
     public int deleteTripFee(String ids) throws Exception {
         int result = 0;
         try {
@@ -499,7 +500,7 @@ public class VehicleDAO extends BasicDAO {
         }
         return result;
     }
-    
+
     public ArrayList searchTransportService(String fromDate, String endDate, String organizationIds) throws Exception {
         SPUtil spUtil = null;
         ArrayList list = new ArrayList();
@@ -554,7 +555,7 @@ public class VehicleDAO extends BasicDAO {
         }
         return list;
     }
-    
+
     public TransportServiceBean getTransportService(int id) throws Exception {
         ResultSet rs = null;
         String sql = "select t.*, v.name as vendor_name from transport_service as t, vendor as v where t.vendor_id=v.id and t.id=" + id;
@@ -594,7 +595,7 @@ public class VehicleDAO extends BasicDAO {
         }
         return null;
     }
-    
+
     public int insertTransportService(TransportServiceBean bean) throws Exception {
         if (bean == null) {
             return 0;
@@ -649,7 +650,7 @@ public class VehicleDAO extends BasicDAO {
         }
         return result;
     }
-    
+
     public void updateTransportService(TransportServiceBean bean) throws Exception {
         if (bean == null) {
             return;
@@ -699,7 +700,7 @@ public class VehicleDAO extends BasicDAO {
             }
         }
     }
-    
+
     public String getNextTransportServiceNumber(String prefix, int length) throws Exception {
         String result = "";
         try {
@@ -709,7 +710,7 @@ public class VehicleDAO extends BasicDAO {
         }
         return result;
     }
-    
+
     public void deleteTransportService(int id) throws Exception {
         SPUtil spUtil = null;
         try {
@@ -731,7 +732,7 @@ public class VehicleDAO extends BasicDAO {
             }
         }
     }
-    
+
     public ArrayList searchEmployeeRouteFee(String fromDate, String endDate, String organizationIds) throws Exception {
         SPUtil spUtil = null;
         ArrayList list = new ArrayList();
@@ -788,7 +789,7 @@ public class VehicleDAO extends BasicDAO {
         }
         return list;
     }
-    
+
     public EmployeeRouteFeeBean getEmployeeRouteFee(int id) throws Exception {
         ResultSet rs = null;
         String sql = "select * from employee_route_fee where id=" + id;
@@ -825,7 +826,7 @@ public class VehicleDAO extends BasicDAO {
         }
         return null;
     }
-    
+
     public int insertEmployeeRouteFee(EmployeeRouteFeeBean bean) throws Exception {
         if (bean == null) {
             return 0;
@@ -872,7 +873,7 @@ public class VehicleDAO extends BasicDAO {
         }
         return result;
     }
-    
+
     public void updateEmployeeRouteFee(EmployeeRouteFeeBean bean) throws Exception {
         if (bean == null) {
             return;
@@ -914,7 +915,7 @@ public class VehicleDAO extends BasicDAO {
             }
         }
     }
-    
+
     public String getNextEmployeeRouteFeeNumber(String prefix, int length) throws Exception {
         String result = "";
         try {
@@ -924,7 +925,7 @@ public class VehicleDAO extends BasicDAO {
         }
         return result;
     }
-    
+
     public void deleteEmployeeRouteFee(int id) throws Exception {
         SPUtil spUtil = null;
         try {
@@ -946,7 +947,7 @@ public class VehicleDAO extends BasicDAO {
             }
         }
     }
-    
+
     public ArrayList reportEmployeeRouteFee(String fromDate, String endDate, int employeeId) throws Exception {
         SPUtil spUtil = null;
         ArrayList list = new ArrayList();
@@ -1005,7 +1006,7 @@ public class VehicleDAO extends BasicDAO {
         }
         return list;
     }
-    
+
     public ArrayList reportTripFee(String fromDate, String endDate, int employeeId) throws Exception {
         SPUtil spUtil = null;
         ArrayList list = new ArrayList();
@@ -1058,7 +1059,7 @@ public class VehicleDAO extends BasicDAO {
         }
         return list;
     }
-    
+
     public ArrayList searchTripOil(String fromDate, String endDate, String organizationIds) throws Exception {
         SPUtil spUtil = null;
         ArrayList list = new ArrayList();
@@ -1110,7 +1111,7 @@ public class VehicleDAO extends BasicDAO {
         }
         return list;
     }
-    
+
     public TripOilBean getTripOil(int id) throws Exception {
         ResultSet rs = null;
         String sql = "select * from trip_oil where id=" + id;
@@ -1140,7 +1141,7 @@ public class VehicleDAO extends BasicDAO {
         }
         return null;
     }
-    
+
     public int insertTripOil(TripOilBean bean) throws Exception {
         if (bean == null) {
             return 0;
@@ -1185,7 +1186,7 @@ public class VehicleDAO extends BasicDAO {
         }
         return result;
     }
-    
+
     public void updateTripOil(TripOilBean bean) throws Exception {
         if (bean == null) {
             return;
@@ -1225,7 +1226,7 @@ public class VehicleDAO extends BasicDAO {
             }
         }
     }
-    
+
     public String getNextTripOilNumber(String prefix, int length) throws Exception {
         String result = "";
         try {
@@ -1235,7 +1236,7 @@ public class VehicleDAO extends BasicDAO {
         }
         return result;
     }
-    
+
     public int deleteTripOil(String ids) throws Exception {
         int result = 0;
         try {
@@ -1248,7 +1249,7 @@ public class VehicleDAO extends BasicDAO {
         }
         return result;
     }
-    
+
     public ArrayList reportTripOil(String fromDate, String endDate, int employee) throws Exception {
         SPUtil spUtil = null;
         ArrayList list = new ArrayList();
@@ -1301,5 +1302,38 @@ public class VehicleDAO extends BasicDAO {
         }
         return list;
     }
-    
+
+    public void getOtherFieldForEmployeeVehicleSalaryReport(int employeeId, int month, int year, EmployeeVehicleSalaryReportOutBean outBean) throws Exception {
+        SPUtil spUtil = null;
+        try {
+            String sql = "{call getOtherFieldForEmployeeVehicleSalaryReport(?,?,?,?,?,?)}";
+            spUtil = new SPUtil(sql);
+            if (spUtil != null) {
+                spUtil.getCallableStatement().setInt("_employee_id", employeeId);
+                spUtil.getCallableStatement().setInt("_month", month);
+                spUtil.getCallableStatement().setInt("_year", year);
+                spUtil.getCallableStatement().registerOutParameter("_trip_allowance", Types.DOUBLE);
+                spUtil.getCallableStatement().registerOutParameter("_borrow", Types.DOUBLE);
+                spUtil.getCallableStatement().registerOutParameter("_borrow_rest", Types.DOUBLE);
+                spUtil.execute();
+
+                outBean.setTripAllowance(spUtil.getCallableStatement().getDouble("_trip_allowance"));
+                outBean.setBorrow(spUtil.getCallableStatement().getDouble("_borrow"));
+                outBean.setBorrowRest(spUtil.getCallableStatement().getDouble("_borrow_rest"));
+            }
+        } catch (SQLException sqle) {
+            throw new Exception(sqle.getMessage());
+        } catch (Exception ex) {
+            throw new Exception(ex.getMessage());
+        } finally {
+            try {
+                if (spUtil != null) {
+                    spUtil.closeConnection();
+                }
+            } catch (Exception e) {
+                throw new Exception(e.getMessage());
+            }
+        }
+    }
+
 }

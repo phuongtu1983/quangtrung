@@ -12,7 +12,6 @@ import com.stepup.gasoline.qt.core.ExcelExport;
 import com.stepup.gasoline.qt.dao.EmployeeDAO;
 import com.stepup.gasoline.qt.dao.VehicleDAO;
 import com.stepup.gasoline.qt.salary.SalaryFormBean;
-import com.stepup.gasoline.qt.util.QTUtil;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -41,7 +40,6 @@ public class PrintEmployeeVehicleSalaryReportAction extends BaseAction {
             String fromDate = request.getParameter("fromDate");
             String toDate = request.getParameter("toDate");
             int employeeId = NumberUtil.parseInt(request.getParameter("employeeId"), 0);
-            String organizationIds = QTUtil.getOrganizationManageds(request.getSession());
 
             Date dFromDate = DateUtil.convertStringToDate(fromDate, "dd/MM/yyyy");
             DateFormat dateFormat = new SimpleDateFormat("MM/yyyy");
@@ -49,7 +47,7 @@ public class PrintEmployeeVehicleSalaryReportAction extends BaseAction {
             c.setTime(dFromDate);
 
             EmployeeVehicleSalaryReportOutBean outBean = new EmployeeVehicleSalaryReportOutBean();
-
+            VehicleDAO vehicleDAO = new VehicleDAO();
             try {
                 EmployeeDAO employeeDAO = new EmployeeDAO();
                 SalaryFormBean salaryFormBean = employeeDAO.getSalary(employeeId, c.get(Calendar.MONTH) + 1, c.get(Calendar.YEAR));
@@ -66,7 +64,7 @@ public class PrintEmployeeVehicleSalaryReportAction extends BaseAction {
 
             ArrayList employeeRouteFeeList = null;
             try {
-                VehicleDAO vehicleDAO = new VehicleDAO();
+
                 employeeRouteFeeList = vehicleDAO.reportEmployeeRouteFee(fromDate, toDate, employeeId);
             } catch (Exception ex) {
             }
@@ -77,7 +75,6 @@ public class PrintEmployeeVehicleSalaryReportAction extends BaseAction {
 
             ArrayList tripFee = null;
             try {
-                VehicleDAO vehicleDAO = new VehicleDAO();
                 tripFee = vehicleDAO.reportTripFee(fromDate, toDate, employeeId);
             } catch (Exception ex) {
             }
@@ -85,10 +82,9 @@ public class PrintEmployeeVehicleSalaryReportAction extends BaseAction {
                 tripFee = new ArrayList();
             }
             beans.put("tripFee", tripFee);
-            
+
             ArrayList tripOil = null;
             try {
-                VehicleDAO vehicleDAO = new VehicleDAO();
                 tripOil = vehicleDAO.reportTripOil(fromDate, toDate, employeeId);
             } catch (Exception ex) {
             }
@@ -96,7 +92,12 @@ public class PrintEmployeeVehicleSalaryReportAction extends BaseAction {
                 tripOil = new ArrayList();
             }
             beans.put("tripOil", tripOil);
-            
+
+            try {
+                vehicleDAO.getOtherFieldForEmployeeVehicleSalaryReport(employeeId, c.get(Calendar.MONTH) + 1, c.get(Calendar.YEAR), outBean);
+            } catch (Exception ex) {
+            }
+
             beans.put("qtrp_date", dateFormat.format(c.getTime()));
             beans.put("qtrp_employeeName", outBean.getEmployeeName());
             beans.put("qtrp_salary", outBean.getSalary());
@@ -105,6 +106,8 @@ public class PrintEmployeeVehicleSalaryReportAction extends BaseAction {
             beans.put("qtrp_bhxh", outBean.getBhxh());
             beans.put("qtrp_seniority", outBean.getSeniority());
             beans.put("qtrp_advance", outBean.getAdvance());
+            beans.put("qtrp_borrow", outBean.getBorrow());
+            beans.put("qtrp_borrow_rest", outBean.getBorrowRest());
 
             String templateFileName = request.getSession().getServletContext().getRealPath("/templates/luong_nhan_vien.xls");
 

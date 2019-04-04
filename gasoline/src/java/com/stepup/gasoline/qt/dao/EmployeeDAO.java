@@ -2476,7 +2476,7 @@ public class EmployeeDAO extends BasicDAO {
         }
     }
 
-    public int insertBorrowDetail(BorrowDetailBean bean, String createdDate) throws Exception {
+    public int insertBorrowDetail(BorrowDetailBean bean) throws Exception {
         if (bean == null) {
             return 0;
         }
@@ -2507,13 +2507,13 @@ public class EmployeeDAO extends BasicDAO {
         return result;
     }
 
-    public void updateBorrowDetail(BorrowDetailBean bean, String createdDate) throws Exception {
+    public void updateBorrowDetail(BorrowDetailBean bean) throws Exception {
         if (bean == null) {
             return;
         }
         SPUtil spUtil = null;
         try {
-            String sql = "{call updateBorrowDetail(,?,?)}";
+            String sql = "{call updateBorrowDetail(?,?,?)}";
             spUtil = new SPUtil(sql);
             if (spUtil != null) {
                 spUtil.getCallableStatement().setInt("_id", bean.getId());
@@ -2534,5 +2534,18 @@ public class EmployeeDAO extends BasicDAO {
                 throw new Exception(e.getMessage());
             }
         }
+    }
+
+    public int deleteBorrowDetail(String ids) throws Exception {
+        int result = 0;
+        try {
+            String sql = "Delete From borrow_detail Where id in (" + ids + ")";
+            DBUtil.executeUpdate(sql);
+        } catch (SQLException sqle) {
+            throw new Exception(sqle.getMessage());
+        } catch (Exception ex) {
+            throw new Exception(ex.getMessage());
+        }
+        return result;
     }
 }

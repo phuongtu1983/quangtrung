@@ -6,7 +6,7 @@
     <thead>
         <tr>
             <td width="30px"><bean:message key="message.del"/></td>
-            <td width="170px"><bean:message key="borrow.detail.payDatee"/></td>
+            <td width="170px"><bean:message key="borrow.detail.payDate"/></td>
             <td width="200px"><bean:message key="amount.title"/></td>
             <td></td>
         </tr>
@@ -18,7 +18,7 @@
                     <input type="checkbox" name="borrowPayDateChk" tabindex="-1" value="<%=((BorrowDetailBean) pageContext.getAttribute("payDate")).getId()%>">
                     <input type="hidden" name="borrowDetailId" value='<bean:write name="payDate" property="id"/>'/>
                 </td>
-                <td><span><bean:write name="payDate" property="payDate"/></span></td>
+                <td><input type="text" name="payDate" size="20" tabindex="-1" value="${payDate.payDate}" readonly="readonly"></td>
                 <td><input type="text" size="20" name="amount" value="${payDate.amount}" onblur="tryNumberFormatCurrentcy(this);" onkeypress="return readonlyFloat(event);"/></td>
             </tr>
         </logic:iterate>

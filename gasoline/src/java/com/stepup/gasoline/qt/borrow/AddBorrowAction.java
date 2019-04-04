@@ -10,7 +10,6 @@ import com.stepup.gasoline.qt.bean.BorrowBean;
 import com.stepup.gasoline.qt.bean.BorrowDetailBean;
 import com.stepup.gasoline.qt.core.SpineAction;
 import com.stepup.gasoline.qt.dao.EmployeeDAO;
-import com.stepup.gasoline.qt.dao.GasDAO;
 import com.stepup.gasoline.qt.util.QTUtil;
 import java.util.ArrayList;
 import javax.servlet.http.HttpServletRequest;
@@ -88,7 +87,6 @@ public class AddBorrowAction extends SpineAction {
             ArrayList arrDetail = employeeDAO.getBorrowDetail(formBean.getId());
             int length = formBean.getPayDate().length;
             int id = 0;
-            boolean isUpdate = false;
             for (int i = 0; i < length; i++) {
                 id = NumberUtil.parseInt(formBean.getBorrowDetailId()[i], 0);
                 if (id == 0) {
@@ -96,9 +94,8 @@ public class AddBorrowAction extends SpineAction {
                     bean.setPayDate(formBean.getPayDate()[i]);
                     bean.setAmount(NumberUtil.parseInt(formBean.getAmount()[i], 0));
                     bean.setBorrowId(formBean.getId());
-                    employeeDAO.insertBorrowDetail(bean, formBean.getCreatedDate());
+                    employeeDAO.insertBorrowDetail(bean);
                 } else {
-                    isUpdate = false;
                     int j = 0;
                     BorrowDetailBean oldBean = null;
                     for (; j < arrDetail.size(); j++) {
@@ -109,19 +106,20 @@ public class AddBorrowAction extends SpineAction {
                     }
                     if (j < arrDetail.size()) {
                         arrDetail.remove(j);
-                        if (oldBean.getAmount() != NumberUtil.parseDouble(formBean.getAmount()[i], 0)) {
-                            isUpdate = true;
-                            oldBean.setAmount(NumberUtil.parseInt(formBean.getAmount()[i], 0));
-                        }
-                        if (needUpdate) {
-                            isUpdate = true;
-                        }
-                        if (isUpdate) {
-                            employeeDAO.updateBorrowDetail(oldBean, formBean.getCreatedDate());
-                        }
+                        oldBean.setPayDate(formBean.getPayDate()[i]);
+                        oldBean.setAmount(NumberUtil.parseInt(formBean.getAmount()[i], 0));
+                        employeeDAO.updateBorrowDetail(oldBean);
                     }
                 }
             }
+            String ids = "0,";
+            BorrowDetailBean oldBean = null;
+            for (int i = 0; i < arrDetail.size(); i++) {
+                oldBean = (BorrowDetailBean) arrDetail.get(i);
+                ids += oldBean.getId() + ",";
+            }
+            ids += "0";
+            employeeDAO.deleteBorrowDetail(ids);
         } catch (Exception ex) {
         }
     }

@@ -18,6 +18,8 @@ public class EmployeeVehicleSalaryReportOutBean {
     private double bhxh;
     private double seniority;
     private double advance;
+    private double borrow;
+    private double borrowRest;
 
     public String getEmployeeName() {
         return employeeName;
@@ -73,6 +75,22 @@ public class EmployeeVehicleSalaryReportOutBean {
 
     public void setAdvance(double advance) {
         this.advance = advance;
+    }
+
+    public double getBorrow() {
+        return borrow;
+    }
+
+    public void setBorrow(double borrow) {
+        this.borrow = borrow;
+    }
+
+    public double getBorrowRest() {
+        return borrowRest;
+    }
+
+    public void setBorrowRest(double borrowRest) {
+        this.borrowRest = borrowRest;
     }
 
 }

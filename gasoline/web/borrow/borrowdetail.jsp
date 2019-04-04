@@ -41,14 +41,14 @@
         <tr>
             <td colspan="4">
                 <fieldset>
-                    <legend><bean:message key="detail.title"/></legend>
+                    <legend><bean:message key="borrow.detail.title"/></legend>
                     <table>
                         <tr>
                             <td>
                                 <button class="i_cross icon small red" onclick="return delTableRow('borrowForm', 'borrowPayDateChk', 'borrowDetailTbl');" tabindex="-1"><bean:message key="message.del"/></button>
                                 <button class="i_plus icon small green" onclick="return addBorrowPayDate();" tabindex="-1"><bean:message key="message.add"/></button>
                             </td>
-                            <td><input type="text" value="" id="payDateSelected"></td>
+                            <td><input type="text" value="" id="payDateSelected" onkeypress="return onBorrowPayDateKeyPress();"></td>
                         </tr>
                     </table>
                 </fieldset>

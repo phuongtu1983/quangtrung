@@ -437,20 +437,28 @@ function formatFormDetail(formName) {
     if (quantity != null) {
         if (quantity.length != null) {
             for (var i = 0; i < quantity.length; i++) {
-                if (quantity != null)
-                    tryNumberFormatCurrentcy(quantity[i], "VND");
-                if (price != null)
-                    tryNumberFormatCurrentcy(price[i], "VND");
-                if (amount != null)
-                    tryNumberFormatCurrentcy(amount[i], "VND");
+                tryNumberFormatCurrentcy(quantity[i], "VND");
             }
         } else {
-            if (quantity != null)
-                tryNumberFormatCurrentcy(quantity, "VND");
-            if (price != null)
-                tryNumberFormatCurrentcy(price, "VND");
-            if (amount != null)
-                tryNumberFormatCurrentcy(amount, "VND");
+            tryNumberFormatCurrentcy(quantity, "VND");
+        }
+    }
+    if (price != null) {
+        if (price.length != null) {
+            for (var i = 0; i < price.length; i++) {
+                tryNumberFormatCurrentcy(price[i], "VND");
+            }
+        } else {
+            tryNumberFormatCurrentcy(price, "VND");
+        }
+    }
+    if (amount != null) {
+        if (amount.length != null) {
+            for (var i = 0; i < amount.length; i++) {
+                tryNumberFormatCurrentcy(amount[i], "VND");
+            }
+        } else {
+            tryNumberFormatCurrentcy(amount, "VND");
         }
     }
     quantity = null;
@@ -3042,7 +3050,7 @@ function getTripFee(id, handle) {
         tryNumberFormatCurrentcy(document.forms['tripFeeForm'].quantity, "VND");
         tryNumberFormatCurrentcy(document.forms['tripFeeForm'].price, "VND");
         tryNumberFormatCurrentcy(document.forms['tripFeeForm'].amount, "VND");
-        
+
         window.dhx_globalImgPath = "js/dhtmlx/combo/imgs/";
         // ============================
         var employeeIdCombobox = dhtmlXComboFromSelect("employeeIdCombobox");
@@ -3073,7 +3081,7 @@ function getTripFee(id, handle) {
                 employeeIdCombobox.setComboValue("");
             }
         }
-        
+
         var myCalendar = new dhtmlXCalendarObject(["tripFeeDate"]);
         myCalendar.setSkin('dhx_web');
         if (id == 0) {
@@ -12574,7 +12582,7 @@ function getTripOil(id, handle) {
         tryNumberFormatCurrentcy(document.forms['tripOilForm'].quantity, "VND");
         tryNumberFormatCurrentcy(document.forms['tripOilForm'].price, "VND");
         tryNumberFormatCurrentcy(document.forms['tripOilForm'].amount, "VND");
-        
+
         window.dhx_globalImgPath = "js/dhtmlx/combo/imgs/";
         // ============================
         var employeeIdCombobox = dhtmlXComboFromSelect("employeeIdCombobox");
@@ -12605,7 +12613,7 @@ function getTripOil(id, handle) {
                 employeeIdCombobox.setComboValue("");
             }
         }
-        
+
         var myCalendar = new dhtmlXCalendarObject(["tripOilDate"]);
         myCalendar.setSkin('dhx_web');
         if (id == 0) {
@@ -12698,9 +12706,13 @@ function getBorrow(id) {
             var currentDate = getCurrentDate();
             document.forms['borrowForm'].borrowCreatedDate.value = currentDate;
         }
-        var myCalendar = new dhtmlXCalendarObject(["borrowCreatedDate","payDateSelected"]);
+        var myCalendar = new dhtmlXCalendarObject(["borrowCreatedDate"]);
         myCalendar.setSkin('dhx_web');
         myCalendar.setDateFormat("%d/%m/%Y");
+
+        var myCalendar2 = new dhtmlXCalendarObject(["payDateSelected"]);
+        myCalendar2.setSkin('dhx_web');
+        myCalendar2.setDateFormat("%m/%Y");
 
         tryNumberFormatCurrentcy(document.forms['borrowForm'].total, "VND");
         formatFormDetail('borrowForm');
@@ -12768,6 +12780,7 @@ function saveBorrow() {
     }
     amount = null;
     reformatNumberMoney(document.forms['borrowForm'].total);
+    document.forms['borrowForm'].employeeId.value = document.forms['borrowForm'].employeeSelectedHidden.value;
     scriptFunction = "saveBorrow";
     callAjaxCheckError("addBorrow.do", null, document.forms['borrowForm'], function(data) {
         scriptFunction = "";
@@ -12796,7 +12809,7 @@ function addBorrowPayDate() {
         alert("Ng\u00E0y thanh to\u00E1n \u0111\u00E3 t\u1ED3n t\u1EA1i");
         return false;
     }
-    callAjax("getBorrowPayDate.do?payDate=" + payDate + "&borrowId"+document.forms['borrowForm'].id.value, null, null, function(data) {
+    callAjax("getBorrowPayDate.do?payDate=" + payDateSelected + "&borrowId" + document.forms['borrowForm'].id.value, null, null, function(data) {
         setAjaxData(data, 'borrowPayDateHideDiv');
         var matTable = document.getElementById('borrowPayDateTbl');
         var detTable = document.getElementById('borrowDetailTbl');
@@ -12819,7 +12832,18 @@ function delBorrow() {
     });
     return false;
 }
-
+function onBorrowPayDateKeyPress() {
+    //Hàm dùng để ngăn người dùng nhập các ký tự khác ký tự số vào TextBox
+    var keypressed = null;
+    if (window.event)
+        keypressed = window.event.keyCode; //IE
+    else
+        keypressed = e.which; //NON-IE, Standard
+    if (keypressed == 13) // enter key
+        return addBorrowPayDate();
+    else
+        return true;
+}
 
 
 
