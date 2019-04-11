@@ -978,7 +978,7 @@ public class VehicleDAO extends BasicDAO {
                         bean.setInQuantity(rs.getInt("in_quantity"));
                         bean.setOutQuantity(rs.getInt("out_quantity"));
                         bean.setDiffQuantity(bean.getInQuantity() - bean.getOutQuantity());
-                        bean.setTotalQuantity(bean.getDistance() * rs.getInt("param_100km") / 100 + bean.getInQuantity() * rs.getInt("param_1000kg") / 100);
+                        bean.setTotalQuantity(bean.getDistance() * rs.getInt("param_100km") / 100 + bean.getInQuantity() * rs.getInt("param_1000kg") / 1000);
                         bean.setPrice(rs.getDouble("price"));
                         bean.setAmount(bean.getPrice() * bean.getTotalQuantity());
                         bean.setNote(rs.getString("note"));

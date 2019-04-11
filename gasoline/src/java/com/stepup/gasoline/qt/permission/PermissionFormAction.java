@@ -389,7 +389,7 @@ public class PermissionFormAction extends SpineAction {
         perBean.setValue(PermissionUtil.PER_EMPLOYEE_ADVANCE);
         perBean.setOperations("," + PermissionUtil.OPERATION_LIST + "," + PermissionUtil.OPERATION_ADD + "," + PermissionUtil.OPERATION_EDIT + "," + PermissionUtil.OPERATION_DELETE + "," + PermissionUtil.OPERATION_EDIT_PAST + ",");
         arrFun.add(perBean);
-        
+
         perBean = new PermissionViewBean();
         perBean.setCounter("2.1");
         perBean.setLevel(2);
@@ -484,11 +484,56 @@ public class PermissionFormAction extends SpineAction {
         perBean.setCounter("2.1");
         perBean.setLevel(2);
         perBean.setSharedId(2);
+        perBean.setName(QTUtil.getBundleString("unitRate.title"));
+        perBean.setValue(PermissionUtil.PER_UNIT_RATE);
+        perBean.setOperations("," + PermissionUtil.OPERATION_LIST + "," + PermissionUtil.OPERATION_ADD + "," + PermissionUtil.OPERATION_EDIT + "," + PermissionUtil.OPERATION_DELETE + ",");
+        arrFun.add(perBean);
+
+        perBean = new PermissionViewBean();
+        perBean.setCounter("2.1");
+        perBean.setLevel(2);
+        perBean.setSharedId(2);
+        perBean.setName(QTUtil.getBundleString("agency.title"));
+        perBean.setValue(PermissionUtil.PER_AGENCY);
+        perBean.setOperations("," + PermissionUtil.OPERATION_LIST + "," + PermissionUtil.OPERATION_ADD + "," + PermissionUtil.OPERATION_EDIT + ",");
+        arrFun.add(perBean);
+
+        perBean = new PermissionViewBean();
+        perBean.setCounter("2.1");
+        perBean.setLevel(2);
+        perBean.setSharedId(2);
+        perBean.setName(QTUtil.getBundleString("oilGroup.title"));
+        perBean.setValue(PermissionUtil.PER_OIL_GROUP);
+        perBean.setOperations("," + PermissionUtil.OPERATION_LIST + "," + PermissionUtil.OPERATION_ADD + "," + PermissionUtil.OPERATION_EDIT + ",");
+        arrFun.add(perBean);
+
+        perBean = new PermissionViewBean();
+        perBean.setCounter("2.1");
+        perBean.setLevel(2);
+        perBean.setSharedId(2);
+        perBean.setName(QTUtil.getBundleString("employeeOilCommission.title"));
+        perBean.setValue(PermissionUtil.PER_EMPLOYEE_OIL_COMMISSION);
+        perBean.setOperations("," + PermissionUtil.OPERATION_LIST + "," + PermissionUtil.OPERATION_ADD + "," + PermissionUtil.OPERATION_EDIT + "," + PermissionUtil.OPERATION_DELETE + ",");
+        arrFun.add(perBean);
+
+        perBean = new PermissionViewBean();
+        perBean.setCounter("2.1");
+        perBean.setLevel(2);
+        perBean.setSharedId(2);
+        perBean.setName(QTUtil.getBundleString("oil.title"));
+        perBean.setValue(PermissionUtil.PER_OIL);
+        perBean.setOperations("," + PermissionUtil.OPERATION_LIST + "," + PermissionUtil.OPERATION_ADD + "," + PermissionUtil.OPERATION_EDIT + ",");
+        arrFun.add(perBean);
+
+        perBean = new PermissionViewBean();
+        perBean.setCounter("2.1");
+        perBean.setLevel(2);
+        perBean.setSharedId(2);
         perBean.setName(QTUtil.getBundleString("tripFee.title"));
         perBean.setValue(PermissionUtil.PER_TRIP_FEE);
         perBean.setOperations("," + PermissionUtil.OPERATION_LIST + "," + PermissionUtil.OPERATION_ADD + "," + PermissionUtil.OPERATION_EDIT + "," + PermissionUtil.OPERATION_DELETE + ",");
         arrFun.add(perBean);
-        
+
         perBean = new PermissionViewBean();
         perBean.setCounter("2.1");
         perBean.setLevel(2);
@@ -497,7 +542,7 @@ public class PermissionFormAction extends SpineAction {
         perBean.setValue(PermissionUtil.PER_TRIP_OIL);
         perBean.setOperations("," + PermissionUtil.OPERATION_LIST + "," + PermissionUtil.OPERATION_ADD + "," + PermissionUtil.OPERATION_EDIT + "," + PermissionUtil.OPERATION_DELETE + ",");
         arrFun.add(perBean);
-        
+
         perBean = new PermissionViewBean();
         perBean.setCounter("2.1");
         perBean.setLevel(2);
@@ -1088,7 +1133,7 @@ public class PermissionFormAction extends SpineAction {
         perBean.setValue(PermissionUtil.PER_REPORT_TRANSPORT_SERVICE);
         perBean.setOperations("," + PermissionUtil.OPERATION_PRINT + ",");
         arrFun.add(perBean);
-        
+
         perBean = new PermissionViewBean();
         perBean.setCounter("3.1");
         perBean.setLevel(2);
@@ -1097,7 +1142,7 @@ public class PermissionFormAction extends SpineAction {
         perBean.setValue(PermissionUtil.PER_REPORT_EMPLOYEE_SALARY);
         perBean.setOperations("," + PermissionUtil.OPERATION_PRINT + ",");
         arrFun.add(perBean);
-        
+
         perBean = new PermissionViewBean();
         perBean.setCounter("3.1");
         perBean.setLevel(2);
@@ -1106,7 +1151,7 @@ public class PermissionFormAction extends SpineAction {
         perBean.setValue(PermissionUtil.PER_REPORT_EMPLOYEE_OFF);
         perBean.setOperations("," + PermissionUtil.OPERATION_PRINT + ",");
         arrFun.add(perBean);
-        
+
         perBean = new PermissionViewBean();
         perBean.setCounter("3.1");
         perBean.setLevel(2);
@@ -1115,7 +1160,7 @@ public class PermissionFormAction extends SpineAction {
         perBean.setValue(PermissionUtil.PER_REPORT_EMPLOYEE_WORKING);
         perBean.setOperations("," + PermissionUtil.OPERATION_PRINT + ",");
         arrFun.add(perBean);
-        
+
         perBean = new PermissionViewBean();
         perBean.setCounter("3.1");
         perBean.setLevel(2);

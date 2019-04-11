@@ -14,9 +14,9 @@ public class EmployeeRouteFeeReportFormBean extends org.apache.struts.action.Act
     private String createdDate;
     private String routeName;
     private double distance;
-    private int inQuantity;
-    private int outQuantity;
-    private int diffQuantity;
+    private double inQuantity;
+    private double outQuantity;
+    private double diffQuantity;
     private double totalQuantity;
     private int param100km;
     private int param1000kg;
@@ -60,27 +60,27 @@ public class EmployeeRouteFeeReportFormBean extends org.apache.struts.action.Act
         this.distance = distance;
     }
 
-    public int getInQuantity() {
+    public double getInQuantity() {
         return inQuantity;
     }
 
-    public void setInQuantity(int inQuantity) {
+    public void setInQuantity(double inQuantity) {
         this.inQuantity = inQuantity;
     }
 
-    public int getOutQuantity() {
+    public double getOutQuantity() {
         return outQuantity;
     }
 
-    public void setOutQuantity(int outQuantity) {
+    public void setOutQuantity(double outQuantity) {
         this.outQuantity = outQuantity;
     }
 
-    public int getDiffQuantity() {
+    public double getDiffQuantity() {
         return diffQuantity;
     }
 
-    public void setDiffQuantity(int diffQuantity) {
+    public void setDiffQuantity(double diffQuantity) {
         this.diffQuantity = diffQuantity;
     }
 

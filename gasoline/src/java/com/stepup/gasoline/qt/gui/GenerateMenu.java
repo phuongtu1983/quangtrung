@@ -226,6 +226,63 @@ public class GenerateMenu {
             }
 
             if (isHasPermission(PermissionUtil.OPERATION_LIST + "," + PermissionUtil.OPERATION_ADD,
+                    PermissionUtil.PER_UNIT_RATE + "," + PermissionUtil.PER_AGENCY + "," + PermissionUtil.PER_OIL_GROUP + "," + PermissionUtil.PER_OIL
+                    + "," + PermissionUtil.PER_EMPLOYEE_OIL_COMMISSION)) {
+                buffTemp.append("<item id=\"oil\" complex=\"true\" text=\"").append(QTUtil.getBundleString("menu.admin.oil.title")).append("\">");//start oil
+                if (isHasPermission(PermissionUtil.OPERATION_LIST + "," + PermissionUtil.OPERATION_ADD, PermissionUtil.PER_UNIT_RATE)) {
+                    buffTemp.append("<item id=\"unitrates\" complex=\"true\" text=\"").append(QTUtil.getBundleString("unitRate.title")).append("\">");//start rates
+                    if (isHasPermission(PermissionUtil.OPERATION_LIST, PermissionUtil.PER_UNIT_RATE)) {
+                        buffTemp.append("<item id=\"unitratelist\" text=\"").append(QTUtil.getBundleString("unitRate.list.title")).append("\"/>");//list rate
+                    }
+                    if (isHasPermission(PermissionUtil.OPERATION_ADD, PermissionUtil.PER_UNIT_RATE)) {
+                        buffTemp.append("<item id=\"unitrateadd\" text=\"").append(QTUtil.getBundleString("unitRate.detail.add.title")).append("\"/>");//add rate
+                    }
+                    buffTemp.append("</item>");//end rates
+                }
+                if (isHasPermission(PermissionUtil.OPERATION_LIST + "," + PermissionUtil.OPERATION_ADD, PermissionUtil.PER_AGENCY)) {
+                    buffTemp.append("<item id=\"agencys\" complex=\"true\" text=\"").append(QTUtil.getBundleString("agency.title")).append("\">");//start agency
+                    if (isHasPermission(PermissionUtil.OPERATION_LIST, PermissionUtil.PER_AGENCY)) {
+                        buffTemp.append("<item id=\"agencylist\" text=\"").append(QTUtil.getBundleString("agency.list.title")).append("\"/>");//list agency
+                    }
+                    if (isHasPermission(PermissionUtil.OPERATION_ADD, PermissionUtil.PER_AGENCY)) {
+                        buffTemp.append("<item id=\"agencydadd\" text=\"").append(QTUtil.getBundleString("agency.detail.add.title")).append("\"/>");//add agency
+                    }
+                    buffTemp.append("</item>");//end agencys
+                }
+                if (isHasPermission(PermissionUtil.OPERATION_LIST + "," + PermissionUtil.OPERATION_ADD, PermissionUtil.PER_OIL_GROUP)) {
+                    buffTemp.append("<item id=\"oilgroups\" complex=\"true\" text=\"").append(QTUtil.getBundleString("oilGroup.title")).append("\">");//start oil group
+                    if (isHasPermission(PermissionUtil.OPERATION_LIST, PermissionUtil.PER_OIL_GROUP)) {
+                        buffTemp.append("<item id=\"oilgrouplist\" text=\"").append(QTUtil.getBundleString("oilGroup.list.title")).append("\"/>");//list oil group
+                    }
+                    if (isHasPermission(PermissionUtil.OPERATION_ADD, PermissionUtil.PER_OIL_GROUP)) {
+                        buffTemp.append("<item id=\"oilgroupadd\" text=\"").append(QTUtil.getBundleString("oilGroup.detail.add.title")).append("\"/>");//add oil group
+                    }
+                    buffTemp.append("</item>");//end oil groups
+                }
+                if (isHasPermission(PermissionUtil.OPERATION_LIST + "," + PermissionUtil.OPERATION_ADD, PermissionUtil.PER_OIL)) {
+                    buffTemp.append("<item id=\"oils\" complex=\"true\" text=\"").append(QTUtil.getBundleString("oil.title")).append("\">");//start oil
+                    if (isHasPermission(PermissionUtil.OPERATION_LIST, PermissionUtil.PER_OIL)) {
+                        buffTemp.append("<item id=\"oillist\" text=\"").append(QTUtil.getBundleString("oil.list.title")).append("\"/>");//list oil
+                    }
+                    if (isHasPermission(PermissionUtil.OPERATION_ADD, PermissionUtil.PER_OIL)) {
+                        buffTemp.append("<item id=\"oiladd\" text=\"").append(QTUtil.getBundleString("oil.detail.add.title")).append("\"/>");//add oil
+                    }
+                    buffTemp.append("</item>");//end oils
+                }
+                if (isHasPermission(PermissionUtil.OPERATION_LIST + "," + PermissionUtil.OPERATION_ADD, PermissionUtil.PER_EMPLOYEE_OIL_COMMISSION)) {
+                    buffTemp.append("<item id=\"employeeoilcommissions\" complex=\"true\" text=\"").append(QTUtil.getBundleString("employeeOilCommission.title")).append("\">");
+                    if (isHasPermission(PermissionUtil.OPERATION_LIST, PermissionUtil.PER_EMPLOYEE_OIL_COMMISSION)) {
+                        buffTemp.append("<item id=\"employeeoilcommissionlist\" text=\"").append(QTUtil.getBundleString("employeeOilCommission.list.title")).append("\"/>");
+                    }
+                    if (isHasPermission(PermissionUtil.OPERATION_ADD, PermissionUtil.PER_EMPLOYEE_OIL_COMMISSION)) {
+                        buffTemp.append("<item id=\"employeeoilcommissionadd\" text=\"").append(QTUtil.getBundleString("employeeOilCommission.detail.add.title")).append("\"/>");
+                    }
+                    buffTemp.append("</item>");
+                }
+                buffTemp.append("</item>");//end oil
+            }
+
+            if (isHasPermission(PermissionUtil.OPERATION_LIST + "," + PermissionUtil.OPERATION_ADD,
                     PermissionUtil.PER_VENDOR)) {
                 buffTemp.append("<item id=\"vendor\" complex=\"true\" text=\"").append(QTUtil.getBundleString("menu.admin.vendor.title")).append("\">");//start vendor
                 if (isHasPermission(PermissionUtil.OPERATION_LIST + "," + PermissionUtil.OPERATION_ADD, PermissionUtil.PER_VENDOR)) {

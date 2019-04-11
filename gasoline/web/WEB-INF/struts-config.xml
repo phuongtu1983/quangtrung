@@ -78,6 +78,10 @@
         <form-bean name="passwordForm" type="com.stepup.gasoline.qt.auth.PasswordFormBean"/>
         <form-bean name="resetPasswordForm" type="com.stepup.gasoline.qt.auth.ResetPasswordForm"/>
         <form-bean name="unitForm" type="com.stepup.gasoline.qt.unit.UnitFormBean"/>
+        <form-bean name="oilGroupForm" type="com.stepup.gasoline.qt.oilgroup.OilGroupFormBean"/>
+        <form-bean name="employeeOilCommissionForm" type="com.stepup.gasoline.qt.employeeoilcommission.EmployeeOilCommissionFormBean"/>
+        <form-bean name="agencyForm" type="com.stepup.gasoline.qt.agency.AgencyFormBean"/>
+        <form-bean name="unitRateForm" type="com.stepup.gasoline.qt.unitrate.UnitRateFormBean"/>
         <form-bean name="gasWholeSaleFeeForm" type="com.stepup.gasoline.qt.gaswholesalefee.GasWholeSaleFeeFormBean"/>
         <form-bean name="fractionForm" type="com.stepup.gasoline.qt.fraction.FractionFormBean"/>
         <form-bean name="gasImportForm" type="com.stepup.gasoline.qt.gasimport.GasImportFormBean"/>
@@ -1441,6 +1445,58 @@
         <action path="/delBorrow" type="com.stepup.gasoline.qt.borrow.DeleteBorrowAction" scope="request" validate="false" >
         </action>
         <!-- end borrow -->
+        <!-- start unitrate -->
+        <action path="/getUnitRatePanel" type="com.stepup.gasoline.qt.common.BaseStatusFormAction" scope="request" validate="false">
+            <forward name="success" path="/unitrate/unitratepanel.jsp" />
+        </action>
+        <action path="/getUnitRateList" type="com.stepup.gasoline.qt.unitrate.GetUnitRateListAction" scope="request" validate="false" >
+        </action>
+        <action path="/unitRateForm" type="com.stepup.gasoline.qt.unitrate.UnitRateFormAction" scope="request" validate="false">
+            <forward name="success" path="/unitrate/unitratedetail.jsp" />
+        </action>
+        <action path="/addUnitRate" name ="unitRateForm" scope="request" type="com.stepup.gasoline.qt.unitrate.AddUnitRateAction" input="/unitRateForm.do">
+        </action>
+        <action path="/delUnitRate" type="com.stepup.gasoline.qt.unitrate.DeleteUnitRateAction" scope="request" validate="false" >
+        </action>
+        <!-- end unit -->
+        <!-- start agency -->
+        <action path="/getAgencyPanel" type="com.stepup.gasoline.qt.common.BaseStatusFormAction" scope="request" validate="false">
+            <forward name="success" path="/agency/agencypanel.jsp" />
+        </action>
+        <action path="/getAgencyList" type="com.stepup.gasoline.qt.agency.GetAgencyListAction" scope="request" validate="false" >
+        </action>
+        <action path="/agencyForm" type="com.stepup.gasoline.qt.agency.AgencyFormAction" scope="request" validate="false">
+            <forward name="success" path="/agency/agencydetail.jsp" />
+        </action>
+        <action path="/addAgency" name ="agencyForm" scope="request" type="com.stepup.gasoline.qt.agency.AddAgencyAction" input="/agencyForm.do">
+        </action>
+        <!-- end agency -->
+        <!-- start oilgroup -->
+        <action path="/getOilGroupPanel" type="com.stepup.gasoline.qt.common.BaseStatusFormAction" scope="request" validate="false">
+            <forward name="success" path="/oilgroup/oilgrouppanel.jsp" />
+        </action>
+        <action path="/getOilGroupList" type="com.stepup.gasoline.qt.oilgroup.GetOilGroupListAction" scope="request" validate="false" >
+        </action>
+        <action path="/oilGroupForm" type="com.stepup.gasoline.qt.oilgroup.OilGroupFormAction" scope="request" validate="false">
+            <forward name="success" path="/oilgroup/oilgroupdetail.jsp" />
+        </action>
+        <action path="/addOilGroup" name ="oilGroupForm" scope="request" type="com.stepup.gasoline.qt.oilgroup.AddOilGroupAction" input="/oilGroupForm.do">
+        </action>
+        <!-- end oilgroup -->
+        <!-- start employeeoilcommission -->
+        <action path="/getEmployeeOilCommissionPanel" type="com.stepup.gasoline.qt.common.BaseStatusFormAction" scope="request" validate="false">
+            <forward name="success" path="/employeeoilcommission/employeeoilcommissionpanel.jsp" />
+        </action>
+        <action path="/getEmployeeOilCommissionList" type="com.stepup.gasoline.qt.employeeoilcommission.GetEmployeeOilCommissionListAction" scope="request" validate="false" >
+        </action>
+        <action path="/employeeOilCommissionForm" type="com.stepup.gasoline.qt.employeeoilcommission.EmployeeOilCommissionFormAction" scope="request" validate="false">
+            <forward name="success" path="/employeeoilcommission/employeeoilcommissiondetail.jsp" />
+        </action>
+        <action path="/addEmployeeOilCommission" name ="employeeOilCommissionForm" scope="request" type="com.stepup.gasoline.qt.employeeoilcommission.AddEmployeeOilCommissionAction" input="/employeeOilCommissionForm.do">
+        </action>
+        <action path="/delEmployeeOilCommission" type="com.stepup.gasoline.qt.employeeoilcommission.DeleteEmployeeOilCommissionAction" scope="request" validate="false" >
+        </action>
+        <!-- end employeeoilcommission -->
     </action-mappings>
     
     <controller processorClass="org.apache.struts.tiles.TilesRequestProcessor"/>

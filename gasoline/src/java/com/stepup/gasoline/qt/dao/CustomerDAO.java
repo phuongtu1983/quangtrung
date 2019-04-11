@@ -8,6 +8,8 @@ package com.stepup.gasoline.qt.dao;
 import com.stepup.core.database.DBUtil;
 import com.stepup.core.util.DateUtil;
 import com.stepup.core.util.StringUtil;
+import com.stepup.gasoline.qt.agency.AgencyFormBean;
+import com.stepup.gasoline.qt.bean.AgencyBean;
 import com.stepup.gasoline.qt.bean.EmployeeBean;
 import com.stepup.gasoline.qt.bean.CustomerBean;
 import com.stepup.gasoline.qt.bean.CustomerDocumentBean;
@@ -684,4 +686,141 @@ public class CustomerDAO extends BasicDAO {
         return result;
     }
 
+    public ArrayList getAgencys(int status) throws Exception {
+        ResultSet rs = null;
+        String sql = "select * from agency where 1";
+        if (status != 0) {
+            sql += " and status=" + status;
+        }
+        sql += " order by name";
+        ArrayList agencyList = new ArrayList();
+        try {
+            rs = DBUtil.executeQuery(sql);
+            AgencyFormBean bean = null;
+            while (rs.next()) {
+                bean = new AgencyFormBean();
+                bean.setId(rs.getInt("id"));
+                bean.setName(rs.getString("name"));
+                bean.setPhone(rs.getString("phone"));
+                bean.setAddress(rs.getString("address"));
+                bean.setNote(rs.getString("note"));
+                bean.setStatus(rs.getInt("status"));
+                if (bean.getStatus() == EmployeeBean.STATUS_ACTIVE) {
+                    bean.setStatusName(QTUtil.getBundleString("employee.detail.status.active"));
+                } else if (bean.getStatus() == EmployeeBean.STATUS_INACTIVE) {
+                    bean.setStatusName(QTUtil.getBundleString("employee.detail.status.inactive"));
+                }
+                agencyList.add(bean);
+            }
+        } catch (SQLException sqle) {
+            throw new Exception(sqle.getMessage());
+        } catch (Exception ex) {
+            throw new Exception(ex.getMessage());
+        } finally {
+            if (rs != null) {
+                DBUtil.closeConnection(rs);
+            }
+        }
+        return agencyList;
+    }
+
+    public AgencyBean getAgency(int agencyId) throws Exception {
+        ResultSet rs = null;
+        String sql = "select * from agency where id=" + agencyId;
+        try {
+            rs = DBUtil.executeQuery(sql);
+            while (rs.next()) {
+                AgencyBean bean = new AgencyBean();
+                bean.setId(rs.getInt("id"));
+                bean.setName(rs.getString("name"));
+                bean.setPhone(rs.getString("phone"));
+                bean.setAddress(rs.getString("address"));
+                bean.setNote(rs.getString("note"));
+                bean.setStatus(rs.getInt("status"));
+                return bean;
+            }
+        } catch (SQLException sqle) {
+            throw new Exception(sqle.getMessage());
+        } catch (Exception ex) {
+            throw new Exception(ex.getMessage());
+        } finally {
+            if (rs != null) {
+                DBUtil.closeConnection(rs);
+            }
+        }
+        return null;
+    }
+
+    public AgencyBean getAgencyByName(String name) throws Exception {
+        ResultSet rs = null;
+        String sql = "select * from agency where name='" + name + "' and status=" + EmployeeBean.STATUS_ACTIVE;
+        try {
+            rs = DBUtil.executeQuery(sql);
+            while (rs.next()) {
+                AgencyBean bean = new AgencyBean();
+                bean.setId(rs.getInt("id"));
+                bean.setName(rs.getString("name"));
+                bean.setPhone(rs.getString("phone"));
+                bean.setAddress(rs.getString("address"));
+                bean.setNote(rs.getString("note"));
+                bean.setStatus(rs.getInt("status"));
+                return bean;
+            }
+        } catch (SQLException sqle) {
+            throw new Exception(sqle.getMessage());
+        } catch (Exception ex) {
+            throw new Exception(ex.getMessage());
+        } finally {
+            if (rs != null) {
+                DBUtil.closeConnection(rs);
+            }
+        }
+        return null;
+    }
+
+    public void insertAgency(AgencyBean bean) throws Exception {
+        if (bean == null) {
+            return;
+        }
+        try {
+            String sql = "Insert Into agency(name, phone, address, note, status) Values ('" + bean.getName() + "','" + bean.getPhone() + "','" + bean.getAddress()
+                    + "','" + bean.getNote() + "'," + bean.getStatus() + ")";
+            DBUtil.executeUpdate(sql);
+        } catch (SQLException sqle) {
+            throw new Exception(sqle.getMessage());
+        } catch (Exception ex) {
+            throw new Exception(ex.getMessage());
+        } finally {
+            try {
+            } catch (Exception e) {
+                throw new Exception(e.getMessage());
+            }
+
+        }
+    }
+
+    public void updateAgency(AgencyBean bean) throws Exception {
+        if (bean == null) {
+            return;
+        }
+        try {
+            String sql = "Update agency Set "
+                    + " name='" + bean.getName() + "'"
+                    + ", phone='" + bean.getPhone() + "'"
+                    + ", address='" + bean.getAddress() + "'"
+                    + ", note='" + bean.getNote() + "'"
+                    + ", status=" + bean.getStatus()
+                    + " Where id=" + bean.getId();
+            DBUtil.executeUpdate(sql);
+        } catch (SQLException sqle) {
+            throw new Exception(sqle.getMessage());
+        } catch (Exception ex) {
+            throw new Exception(ex.getMessage());
+        } finally {
+            try {
+            } catch (Exception e) {
+                throw new Exception(e.getMessage());
+            }
+        }
+    }
 }

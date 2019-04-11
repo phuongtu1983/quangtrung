@@ -15,6 +15,7 @@ import com.stepup.gasoline.qt.bean.AccessoryBean;
 import com.stepup.gasoline.qt.bean.AccessoryImportBean;
 import com.stepup.gasoline.qt.bean.AccessoryImportDetailBean;
 import com.stepup.gasoline.qt.bean.AccessoryKindBean;
+import com.stepup.gasoline.qt.bean.OilGroupBean;
 import com.stepup.gasoline.qt.bean.EmployeeBean;
 import com.stepup.gasoline.qt.bean.GoodBean;
 import com.stepup.gasoline.qt.bean.GoodImportBean;
@@ -38,6 +39,7 @@ import com.stepup.gasoline.qt.bean.ShieldDecreaseBean;
 import com.stepup.gasoline.qt.bean.ShieldImportBean;
 import com.stepup.gasoline.qt.good.GoodFormBean;
 import com.stepup.gasoline.qt.goodimport.GoodImportFormBean;
+import com.stepup.gasoline.qt.oilgroup.OilGroupFormBean;
 import com.stepup.gasoline.qt.petro.PetroFormBean;
 import com.stepup.gasoline.qt.promotionmaterial.PromotionMaterialFormBean;
 import com.stepup.gasoline.qt.promotionmaterialimport.PromotionMaterialImportFormBean;
@@ -3756,5 +3758,134 @@ public class GoodDAO extends BasicDAO {
             throw new Exception(ex.getMessage());
         }
         return result;
+    }
+
+    public ArrayList getOilGroups(int status) throws Exception {
+        ResultSet rs = null;
+        String sql = "select * from oil_group where 1";
+        if (status != 0) {
+            sql += " and status=" + status;
+        }
+        sql += " order by name";
+        ArrayList agencyList = new ArrayList();
+        try {
+            rs = DBUtil.executeQuery(sql);
+            OilGroupFormBean bean = null;
+            while (rs.next()) {
+                bean = new OilGroupFormBean();
+                bean.setId(rs.getInt("id"));
+                bean.setName(rs.getString("name"));
+                bean.setNote(rs.getString("note"));
+                bean.setStatus(rs.getInt("status"));
+                if (bean.getStatus() == EmployeeBean.STATUS_ACTIVE) {
+                    bean.setStatusName(QTUtil.getBundleString("employee.detail.status.active"));
+                } else if (bean.getStatus() == EmployeeBean.STATUS_INACTIVE) {
+                    bean.setStatusName(QTUtil.getBundleString("employee.detail.status.inactive"));
+                }
+                agencyList.add(bean);
+            }
+        } catch (SQLException sqle) {
+            throw new Exception(sqle.getMessage());
+        } catch (Exception ex) {
+            throw new Exception(ex.getMessage());
+        } finally {
+            if (rs != null) {
+                DBUtil.closeConnection(rs);
+            }
+        }
+        return agencyList;
+    }
+
+    public OilGroupBean getOilGroup(int oilGroupId) throws Exception {
+        ResultSet rs = null;
+        String sql = "select * from oil_group where id=" + oilGroupId;
+        try {
+            rs = DBUtil.executeQuery(sql);
+            while (rs.next()) {
+                OilGroupBean bean = new OilGroupBean();
+                bean.setId(rs.getInt("id"));
+                bean.setName(rs.getString("name"));
+                bean.setNote(rs.getString("note"));
+                bean.setStatus(rs.getInt("status"));
+                return bean;
+            }
+        } catch (SQLException sqle) {
+            throw new Exception(sqle.getMessage());
+        } catch (Exception ex) {
+            throw new Exception(ex.getMessage());
+        } finally {
+            if (rs != null) {
+                DBUtil.closeConnection(rs);
+            }
+        }
+        return null;
+    }
+
+    public OilGroupBean getOilGroupByName(String name) throws Exception {
+        ResultSet rs = null;
+        String sql = "select * from oil_group where name='" + name + "' and status=" + EmployeeBean.STATUS_ACTIVE;
+        try {
+            rs = DBUtil.executeQuery(sql);
+            while (rs.next()) {
+                OilGroupBean bean = new OilGroupBean();
+                bean.setId(rs.getInt("id"));
+                bean.setName(rs.getString("name"));
+                bean.setNote(rs.getString("note"));
+                bean.setStatus(rs.getInt("status"));
+                return bean;
+            }
+        } catch (SQLException sqle) {
+            throw new Exception(sqle.getMessage());
+        } catch (Exception ex) {
+            throw new Exception(ex.getMessage());
+        } finally {
+            if (rs != null) {
+                DBUtil.closeConnection(rs);
+            }
+        }
+        return null;
+    }
+
+    public void insertOilGroup(OilGroupBean bean) throws Exception {
+        if (bean == null) {
+            return;
+        }
+        try {
+            String sql = "Insert Into oil_group(name, note, status) Values ('" + bean.getName() + "','" + bean.getNote() + "'," + bean.getStatus() + ")";
+            DBUtil.executeUpdate(sql);
+        } catch (SQLException sqle) {
+            throw new Exception(sqle.getMessage());
+        } catch (Exception ex) {
+            throw new Exception(ex.getMessage());
+        } finally {
+            try {
+            } catch (Exception e) {
+                throw new Exception(e.getMessage());
+            }
+
+        }
+    }
+
+    public void updateOilGroup(OilGroupBean bean) throws Exception {
+        if (bean == null) {
+            return;
+        }
+        try {
+            String sql = "Update oil_group Set "
+                    + " name='" + bean.getName() + "'"
+                    + ", note='" + bean.getNote() + "'"
+                    + ", status=" + bean.getStatus()
+                    + " Where id=" + bean.getId();
+            DBUtil.executeUpdate(sql);
+        } catch (SQLException sqle) {
+            throw new Exception(sqle.getMessage());
+        } catch (Exception ex) {
+            throw new Exception(ex.getMessage());
+        } finally {
+            try {
+            } catch (Exception e) {
+                throw new Exception(e.getMessage());
+            }
+        }
     }
 }

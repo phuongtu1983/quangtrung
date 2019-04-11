@@ -384,6 +384,22 @@ function menuClick(id) {
         loadBorrowPanel();
     else if (id == 'borrowadd')
         getBorrow(0);
+    else if (id == 'unitratelist')
+        loadUnitRatePanel();
+    else if (id == 'unitrateadd')
+        getUnitRate(0, 'loadUnitRatePanel');
+    else if (id == 'agencylist')
+        loadAgencyPanel();
+    else if (id == 'agencyadd')
+        getAgency(0, 'loadAgencyPanel');
+    else if (id == 'oilgrouplist')
+        loadOilGroupPanel();
+    else if (id == 'oilgroupadd')
+        getOilGroup(0, 'loadOilGroupPanel');
+    else if (id == 'employeeoilcommissionlist')
+        loadEmployeeOilCommissionPanel();
+    else if (id == 'employeeoilcommissionadd')
+        getEmployeeOilCommission(0, 'loadEmployeeOilCommissionPanel');
 }
 function clearContent() {
     var contentDiv = document.getElementById("contentDiv");
@@ -12844,7 +12860,267 @@ function onBorrowPayDateKeyPress() {
     else
         return true;
 }
-
-
+function loadUnitRatePanel() {
+    callAjax("getUnitRatePanel.do", null, null, function(data) {
+        clearContent();
+        setAjaxData(data, "contentDiv");
+        loadUnitRateList();
+    });
+}
+function loadUnitRateList() {
+    var mygrid = new dhtmlXGridObject('unitRateList');
+    mygrid.setImagePath("js/dhtmlx/grid/imgs/");
+    mygrid.setHeader("\u0110\u01A1n v\u1ECB t\u00EDnh c\u01A1 b\u1EA3n,\u0110\u01A1n v\u1ECB t\u00EDnh qui \u0111\u1ED5i,H\u1EC7 s\u1ED1");
+    mygrid.attachHeader("#text_filter,#text_filter,#text_filter");
+    mygrid.setInitWidths("*,250,150");
+    mygrid.setColTypes("link,ro,ro");
+    mygrid.setColSorting("str,str,str");
+    mygrid.setSkin("light");
+    var height = contentHeight - 210;
+    mygrid.al(true, height); //enableAutoHeight
+    mygrid.enablePaging(true, 15, 3, "recinfoArea");
+    mygrid.setPagingSkin("toolbar", "dhx_skyblue");
+    mygrid.init();
+    var url = "getUnitRateList.do";
+    callAjax(url, null, null, function(data) {
+        mygrid.parse(data);
+    });
+    return false;
+}
+function getUnitRate(id, handle) {
+    popupName = 'TH\u00D4NG TIN QUI \u0110\u1ED4I \u0110\u01A0N V\u1ECA T\u00CDNH';
+    var url = 'unitRateForm.do';
+    if (id != 0)
+        url += '?unitRateId=' + id
+    callAjax(url, null, null, function(data) {
+        showPopupForm(data);
+        document.getElementById('callbackFunc').value = handle;
+        tryNumberFormatCurrentcy(document.forms['unitRateForm'].rate, "VND");
+    });
+}
+function saveUnitRate() {
+    if (scriptFunction == "saveUnitRate")
+        return false;
+    reformatNumberMoney(document.forms['unitRateForm'].rate);
+    scriptFunction = "saveUnitRate";
+    callAjaxCheckError("addUnitRate.do", null, document.forms['unitRateForm'], function(data) {
+        scriptFunction = "";
+        var handle = document.getElementById('callbackFunc').value;
+        if (confirm('B\u1EA1n c\u00F3 mu\u1ED1n nh\u1EADp ti\u1EBFp th\u00F4ng tin kh\u00E1c ?'))
+            getUnitRate(0, handle);
+        else if (handle != '')
+            eval(handle + "()");
+        prepareHidePopup('unitRateFormshowHelpHideDiv');
+    });
+    return false;
+}
+function delUnitRate() {
+    callAjaxCheckError('delUnitRate.do?unitRateId=' + document.forms['unitRateForm'].id.value, null, null, function() {
+        loadUnitRatePanel();
+        prepareHidePopup('unitRateFormshowHelpHideDiv');
+    });
+    return false;
+}
+function loadAgencyPanel() {
+    callAjax("getAgencyPanel.do", null, null, function(data) {
+        clearContent();
+        setAjaxData(data, "contentDiv");
+        loadAgencyList();
+    });
+}
+function loadAgencyList() {
+    var mygrid = new dhtmlXGridObject('agencyList');
+    mygrid.setImagePath("js/dhtmlx/grid/imgs/");
+    mygrid.setHeader("T\u00EAn \u0111\u1EA1i l\u00FD,S\u1ED1 \u0111i\u1EC7n tho\u1EA1i,\u0110\u1ECBa ch\u1EC9,Ghi ch\u00FA");
+    mygrid.attachHeader("#text_filter,#text_filter,#text_filter,#text_filter");
+    mygrid.setInitWidths("200,150,250,*");
+    mygrid.setColTypes("link,ro,ro,ro");
+    mygrid.setColSorting("str,str,str,str");
+    mygrid.setSkin("light");
+    var height = contentHeight - 210;
+    mygrid.al(true, height); //enableAutoHeight
+    mygrid.enablePaging(true, 15, 3, "recinfoArea");
+    mygrid.setPagingSkin("toolbar", "dhx_skyblue");
+    mygrid.init();
+    var list = document.forms['agencySearchForm'].statusCombobox;
+    if (list != null && list.selectedIndex > -1)
+        list = list.options[list.selectedIndex].value;
+    else
+        list = 0;
+    var url = "getAgencyList.do?status=" + list;
+    callAjax(url, null, null, function(data) {
+        mygrid.parse(data);
+    });
+    return false;
+}
+function getAgency(id, handle) {
+    popupName = 'TH\u00D4NG TIN \u0110\u1EA0I L\u00DD';
+    var url = 'agencyForm.do';
+    if (id != 0)
+        url += '?agencyId=' + id
+    callAjax(url, null, null, function(data) {
+        showPopupForm(data);
+        document.getElementById('callbackFunc').value = handle;
+        document.forms['agencyForm'].name.focus();
+    });
+}
+function saveAgency() {
+    if (scriptFunction == "saveAgency")
+        return false;
+    var field = document.forms['agencyForm'].name;
+    if (field.value == '') {
+        alert("Vui l\u00F2ng nh\u1EADp t\u00EAn \u0111\u1EA1i l\u00FD");
+        field.focus();
+        field = null;
+        return false;
+    }
+    field = null;
+    scriptFunction = "saveAgency";
+    callAjaxCheckError("addAgency.do", null, document.forms['agencyForm'], function(data) {
+        scriptFunction = "";
+        var handle = document.getElementById('callbackFunc').value;
+        if (confirm('B\u1EA1n c\u00F3 mu\u1ED1n nh\u1EADp ti\u1EBFp th\u00F4ng tin kh\u00E1c ?'))
+            getAgency(0, handle);
+        else if (handle != '')
+            eval(handle + "()");
+        prepareHidePopup('agencyFormshowHelpHideDiv');
+    });
+    return false;
+}
+function loadOilGroupPanel() {
+    callAjax("getOilGroupPanel.do", null, null, function(data) {
+        clearContent();
+        setAjaxData(data, "contentDiv");
+        loadOilGroupList();
+    });
+}
+function loadOilGroupList() {
+    var mygrid = new dhtmlXGridObject('oilGroupList');
+    mygrid.setImagePath("js/dhtmlx/grid/imgs/");
+    mygrid.setHeader("T\u00EAn nh\u00F3m d\u1EA7u nh\u1EDBt,Ghi ch\u00FA");
+    mygrid.attachHeader("#text_filter,#text_filter");
+    mygrid.setInitWidths("200,*");
+    mygrid.setColTypes("link,ro");
+    mygrid.setColSorting("str,str");
+    mygrid.setSkin("light");
+    var height = contentHeight - 210;
+    mygrid.al(true, height); //enableAutoHeight
+    mygrid.enablePaging(true, 15, 3, "recinfoArea");
+    mygrid.setPagingSkin("toolbar", "dhx_skyblue");
+    mygrid.init();
+    var list = document.forms['oilGroupSearchForm'].statusCombobox;
+    if (list != null && list.selectedIndex > -1)
+        list = list.options[list.selectedIndex].value;
+    else
+        list = 0;
+    var url = "getOilGroupList.do?status=" + list;
+    callAjax(url, null, null, function(data) {
+        mygrid.parse(data);
+    });
+    return false;
+}
+function getOilGroup(id, handle) {
+    popupName = 'TH\u00D4NG TIN NH\u00D3M D\u1EA6U NH\u1EDAT';
+    var url = 'oilGroupForm.do';
+    if (id != 0)
+        url += '?oilGroupId=' + id
+    callAjax(url, null, null, function(data) {
+        showPopupForm(data);
+        document.getElementById('callbackFunc').value = handle;
+        document.forms['oilGroupForm'].name.focus();
+    });
+}
+function saveOilGroup() {
+    if (scriptFunction == "saveOilGroup")
+        return false;
+    var field = document.forms['oilGroupForm'].name;
+    if (field.value == '') {
+        alert("Vui l\u00F2ng nh\u1EADp t\u00EAn nh\u00F3m d\u1EA7u nh\u1EDBt");
+        field.focus();
+        field = null;
+        return false;
+    }
+    field = null;
+    scriptFunction = "saveOilGroup";
+    callAjaxCheckError("addOilGroup.do", null, document.forms['oilGroupForm'], function(data) {
+        scriptFunction = "";
+        var handle = document.getElementById('callbackFunc').value;
+        if (confirm('B\u1EA1n c\u00F3 mu\u1ED1n nh\u1EADp ti\u1EBFp th\u00F4ng tin kh\u00E1c ?'))
+            getOilGroup(0, handle);
+        else if (handle != '')
+            eval(handle + "()");
+        prepareHidePopup('oilGroupFormshowHelpHideDiv');
+    });
+    return false;
+}
+function loadEmployeeOilCommissionPanel() {
+    callAjax("getEmployeeOilCommissionPanel.do", null, null, function(data) {
+        clearContent();
+        setAjaxData(data, "contentDiv");
+        loadEmployeeOilCommissionList();
+    });
+}
+function loadEmployeeOilCommissionList() {
+    var mygrid = new dhtmlXGridObject('employeeOilCommissionList');
+    mygrid.setImagePath("js/dhtmlx/grid/imgs/");
+    mygrid.setHeader("T\u00EAn lo\u1EA1i chi\u1EBFt kh\u1EA5u,S\u1ED1 ti\u1EC1n,Ghi ch\u00FA");
+    mygrid.attachHeader("#text_filter,#text_filter,#text_filter");
+    mygrid.setInitWidths("250,150,*");
+    mygrid.setColTypes("link,ro,ro");
+    mygrid.setColSorting("str,str,str");
+    mygrid.setSkin("light");
+    var height = contentHeight - 210;
+    mygrid.al(true, height); //enableAutoHeight
+    mygrid.enablePaging(true, 15, 3, "recinfoArea");
+    mygrid.setPagingSkin("toolbar", "dhx_skyblue");
+    mygrid.init();
+    var url = "getEmployeeOilCommissionList.do";
+    callAjax(url, null, null, function(data) {
+        mygrid.parse(data);
+    });
+    return false;
+}
+function getEmployeeOilCommission(id, handle) {
+    popupName = 'TH\u00D4NG TIN QUI LO\u1EA0I CHI\u1EBET KH\u1EA4U B\u00C1N D\u1EA6U NH\u1EDAT';
+    var url = 'employeeOilCommissionForm.do';
+    if (id != 0)
+        url += '?employeeOilCommissionId=' + id
+    callAjax(url, null, null, function(data) {
+        showPopupForm(data);
+        document.getElementById('callbackFunc').value = handle;
+        tryNumberFormatCurrentcy(document.forms['employeeOilCommissionForm'].amount, "VND");
+    });
+}
+function saveEmployeeOilCommission() {
+    if (scriptFunction == "saveEmployeeOilCommission")
+        return false;
+    var field = document.forms['employeeOilCommissionForm'].name;
+    if (field.value == '') {
+        alert("Vui l\u00F2ng nh\u1EADp t\u00EAn lo\u1EA1i chi\u1EBFt kh\u1EA5u");
+        field.focus();
+        field = null;
+        return false;
+    }
+    field = null;
+    reformatNumberMoney(document.forms['employeeOilCommissionForm'].amount);
+    scriptFunction = "saveEmployeeOilCommission";
+    callAjaxCheckError("addEmployeeOilCommission.do", null, document.forms['employeeOilCommissionForm'], function(data) {
+        scriptFunction = "";
+        var handle = document.getElementById('callbackFunc').value;
+        if (confirm('B\u1EA1n c\u00F3 mu\u1ED1n nh\u1EADp ti\u1EBFp th\u00F4ng tin kh\u00E1c ?'))
+            getEmployeeOilCommission(0, handle);
+        else if (handle != '')
+            eval(handle + "()");
+        prepareHidePopup('employeeOilCommissionFormshowHelpHideDiv');
+    });
+    return false;
+}
+function delEmployeeOilCommission() {
+    callAjaxCheckError('delEmployeeOilCommission.do?employeeOilCommissionId=' + document.forms['employeeOilCommissionForm'].id.value, null, null, function() {
+        loadEmployeeOilCommissionPanel();
+        prepareHidePopup('employeeOilCommissionFormshowHelpHideDiv');
+    });
+    return false;
+}
 
 

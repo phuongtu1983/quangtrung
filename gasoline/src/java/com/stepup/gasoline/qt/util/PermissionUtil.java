@@ -196,4 +196,11 @@ public class PermissionUtil {
     public static int PER_REPORT_EMPLOYEE_VEHICLE_SALARY = 107;
     public static int PER_TRIP_OIL = 108;
     public static int PER_BORROW = 109;
+    public static int PER_UNIT_RATE = 110;
+    public static int PER_AGENCY = 111;
+    public static int PER_OIL_GROUP = 112;
+    public static int PER_OIL = 113;
+    public static int PER_EMPLOYEE_COMMISSION = 114;
+    public static int PER_AGENCTY_CUSTOMER_COMMISSION = 115;
+    public static int PER_EMPLOYEE_OIL_COMMISSION = 116;
 }
