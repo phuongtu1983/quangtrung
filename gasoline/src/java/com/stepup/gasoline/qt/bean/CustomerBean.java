@@ -15,17 +15,20 @@ public class CustomerBean {
     private int status;
     private String name;
     private int organizationId;
-    private int kind;
+//    private int kind;
+    private float commissionPercentage;
     private String address;
     private String phone;
     private String bankAccount;
     private String tax;
     private String presenter;
     private String presenterPosition;
-    private String discount;
+//    private String discount;
+    private int commissionKind;
     private int isGas;
     private int isPetro;
     private int isGood;
+    private int isOil;
 
     public int getId() {
         return id;
@@ -67,14 +70,13 @@ public class CustomerBean {
         this.name = name;
     }
 
-    public int getKind() {
-        return kind;
-    }
-
-    public void setKind(int kind) {
-        this.kind = kind;
-    }
-
+//    public int getKind() {
+//        return kind;
+//    }
+//
+//    public void setKind(int kind) {
+//        this.kind = kind;
+//    }
     public String getPhone() {
         return phone;
     }
@@ -123,14 +125,13 @@ public class CustomerBean {
         this.address = address;
     }
 
-    public String getDiscount() {
-        return discount;
-    }
-
-    public void setDiscount(String discount) {
-        this.discount = discount;
-    }
-
+//    public String getDiscount() {
+//        return discount;
+//    }
+//
+//    public void setDiscount(String discount) {
+//        this.discount = discount;
+//    }
     public int getIsGas() {
         return isGas;
     }
@@ -155,6 +156,30 @@ public class CustomerBean {
         this.isGood = isGood;
     }
 
-    public static int KIND_RETAIL = 1;
-    public static int KIND_WHOLESALE = 2;
+    public float getCommissionPercentage() {
+        return commissionPercentage;
+    }
+
+    public void setCommissionPercentage(float commissionPercentage) {
+        this.commissionPercentage = commissionPercentage;
+    }
+
+    public int getCommissionKind() {
+        return commissionKind;
+    }
+
+    public void setCommissionKind(int commissionKind) {
+        this.commissionKind = commissionKind;
+    }
+
+    public int getIsOil() {
+        return isOil;
+    }
+
+    public void setIsOil(int isOil) {
+        this.isOil = isOil;
+    }
+
+    public static int COMMISSION_KIND_BILL = 1;
+    public static int COMMISSION_KIND_DIRECTLY = 2;
 }

@@ -6,7 +6,6 @@ package com.stepup.gasoline.qt.exportwholesale;
 
 import com.stepup.core.util.DateUtil;
 import com.stepup.core.util.NumberUtil;
-import com.stepup.gasoline.qt.bean.CustomerBean;
 import com.stepup.gasoline.qt.bean.EmployeeBean;
 import com.stepup.gasoline.qt.bean.ExportWholesaleBean;
 import com.stepup.gasoline.qt.bean.VendorBean;
@@ -129,7 +128,7 @@ public class ExportWholesaleFormAction extends SpineAction {
         ArrayList arrCustomer = null;
         try {
             CustomerDAO customerDAO = new CustomerDAO();
-            arrCustomer = customerDAO.getCustomers(organizationIds, CustomerBean.KIND_WHOLESALE, VendorBean.IS_GAS);
+            arrCustomer = customerDAO.getCustomers(organizationIds, VendorBean.IS_GAS);
         } catch (Exception ex) {
         }
         if (arrCustomer == null) {

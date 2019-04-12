@@ -6,7 +6,6 @@ package com.stepup.gasoline.qt.lpgsale;
 
 import com.stepup.core.util.DateUtil;
 import com.stepup.core.util.NumberUtil;
-import com.stepup.gasoline.qt.bean.CustomerBean;
 import com.stepup.gasoline.qt.bean.LpgImportBean;
 import com.stepup.gasoline.qt.bean.LpgSaleBean;
 import com.stepup.gasoline.qt.bean.VendorBean;
@@ -103,7 +102,7 @@ public class LpgSaleFormAction extends SpineAction {
         if (arrCustomer == null) {
             try {
                 CustomerDAO customerDAO = new CustomerDAO();
-                arrCustomer = customerDAO.getCustomers(organizationIds, CustomerBean.KIND_WHOLESALE, VendorBean.IS_GAS);
+                arrCustomer = customerDAO.getCustomers(organizationIds, VendorBean.IS_GAS);
             } catch (Exception ex) {
             }
             if (arrCustomer == null) {

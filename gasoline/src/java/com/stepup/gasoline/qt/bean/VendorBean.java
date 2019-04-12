@@ -150,4 +150,5 @@ public class VendorBean {
     public static final int IS_PETRO = 2;
     public static final int IS_GOOD = 3;
     public static final int IS_TRANSPORT = 4;
+    public static final int IS_OIL = 5;
 }

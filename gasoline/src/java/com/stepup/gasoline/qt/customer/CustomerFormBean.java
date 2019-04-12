@@ -18,8 +18,9 @@ public class CustomerFormBean extends DynamicFieldValueParentFormBean {
     private int status;
     private String statusName;
     private String name;
-    private int kind;
-    private String kindName;
+//    private int kind;
+//    private String kindName;
+    private float commissionPercentage;
     private int organizationId;
     private String organizationName;
     private String address;
@@ -28,13 +29,16 @@ public class CustomerFormBean extends DynamicFieldValueParentFormBean {
     private String tax;
     private String presenter;
     private String presenterPosition;
-    private String discount;
+//    private String discount;
+    private int commissionKind;
+    private String commissionKindName;
     private String[] customerDocumentId;
     private String[] documentId;
     private String[] customerDocumentExpiredDate;
     private boolean isGas;
     private boolean isPetro;
     private boolean isGood;
+    private boolean isOil;
 
     public CustomerFormBean() {
     }
@@ -45,17 +49,18 @@ public class CustomerFormBean extends DynamicFieldValueParentFormBean {
         this.status = bean.getStatus();
         this.name = bean.getName();
         this.organizationId = bean.getOrganizationId();
-        this.kind = bean.getKind();
+//        this.kind = bean.getKind();
         this.address = bean.getAddress();
         this.phone = bean.getPhone();
         this.bankAccount = bean.getBankAccount();
         this.tax = bean.getTax();
         this.presenter = bean.getPresenter();
         this.presenterPosition = bean.getPresenterPosition();
-        this.discount = bean.getDiscount();
+//        this.discount = bean.getDiscount();
         this.isGas = bean.getIsGas() == 1 ? true : false;
         this.isPetro = bean.getIsPetro() == 1 ? true : false;
         this.isGood = bean.getIsGood() == 1 ? true : false;
+        this.isOil = bean.getIsOil() == 1 ? true : false;
     }
 
     public int getId() {
@@ -114,22 +119,21 @@ public class CustomerFormBean extends DynamicFieldValueParentFormBean {
         this.name = name;
     }
 
-    public int getKind() {
-        return kind;
-    }
-
-    public void setKind(int kind) {
-        this.kind = kind;
-    }
-
-    public String getKindName() {
-        return kindName;
-    }
-
-    public void setKindName(String kindName) {
-        this.kindName = kindName;
-    }
-
+//    public int getKind() {
+//        return kind;
+//    }
+//
+//    public void setKind(int kind) {
+//        this.kind = kind;
+//    }
+//
+//    public String getKindName() {
+//        return kindName;
+//    }
+//
+//    public void setKindName(String kindName) {
+//        this.kindName = kindName;
+//    }
     public String getPhone() {
         return phone;
     }
@@ -202,14 +206,13 @@ public class CustomerFormBean extends DynamicFieldValueParentFormBean {
         this.customerDocumentExpiredDate = customerDocumentExpiredDate;
     }
 
-    public String getDiscount() {
-        return discount;
-    }
-
-    public void setDiscount(String discount) {
-        this.discount = discount;
-    }
-
+//    public String getDiscount() {
+//        return discount;
+//    }
+//
+//    public void setDiscount(String discount) {
+//        this.discount = discount;
+//    }
     public boolean getIsGas() {
         return isGas;
     }
@@ -233,4 +236,37 @@ public class CustomerFormBean extends DynamicFieldValueParentFormBean {
     public void setIsGood(boolean isGood) {
         this.isGood = isGood;
     }
+
+    public float getCommissionPercentage() {
+        return commissionPercentage;
+    }
+
+    public void setCommissionPercentage(float commissionPercentage) {
+        this.commissionPercentage = commissionPercentage;
+    }
+
+    public int getCommissionKind() {
+        return commissionKind;
+    }
+
+    public void setCommissionKind(int commissionKind) {
+        this.commissionKind = commissionKind;
+    }
+
+    public String getCommissionKindName() {
+        return commissionKindName;
+    }
+
+    public void setCommissionKindName(String commissionKindName) {
+        this.commissionKindName = commissionKindName;
+    }
+
+    public boolean getIsOil() {
+        return isOil;
+    }
+
+    public void setIsOil(boolean isOil) {
+        this.isOil = isOil;
+    }
+
 }

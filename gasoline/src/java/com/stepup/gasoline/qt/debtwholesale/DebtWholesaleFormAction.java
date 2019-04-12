@@ -72,7 +72,7 @@ public class DebtWholesaleFormAction extends SpineAction {
         ArrayList arrCustomer = null;
         try {
             CustomerDAO customerDAO = new CustomerDAO();
-            arrCustomer = customerDAO.getCustomers(organizationIds, 0, 0);
+            arrCustomer = customerDAO.getCustomers(organizationIds, 0);
         } catch (Exception ex) {
         }
         if (arrCustomer == null) {

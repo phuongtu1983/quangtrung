@@ -51,14 +51,14 @@
                             <td colspan="3"><html:text property="address" size="107" name="<%=Constants.CUSTOMER%>"/></td>
                         </tr>
                         <tr>
-                            <td height="30" style="padding-right: 20px"><bean:message key="customer.detail.kind"/></td>
+                            <td height="30" style="padding-right: 20px"><bean:message key="customer.detail.commission"/></td>
                             <td>
-                                <html:select property="kind" name="<%=Constants.CUSTOMER%>" style="width:255px">
-                                    <html:options collection="<%=Constants.CUSTOMER_KIND_LIST%>" property="value" labelProperty="label"/>
+                                <html:select property="commissionKind" name="<%=Constants.CUSTOMER%>" style="width:255px">
+                                    <html:options collection="<%=Constants.CUSTOMER_COMMISSION_KIND_LIST%>" property="value" labelProperty="label"/>
                                 </html:select>
                             </td>
-                            <td height="30" style="padding-left: 10px; padding-right: 20px"><bean:message key="customerDiscount.title"/></td>
-                            <td><html:text property="discount" size="40" name="<%=Constants.CUSTOMER%>"/></td>
+                            <td height="30" style="padding-left: 10px; padding-right: 20px"><bean:message key="customer.detail.percentage"/></td>
+                            <td><html:text property="commissionPercentage" size="40" name="<%=Constants.CUSTOMER%>" onblur="tryNumberFormatCurrentcy(this);" onkeypress="return readonlyFloat(event);"/></td>
                         </tr>
                         <tr>
                             <td height="30" style="padding-right: 20px"><bean:message key="customer.detail.isGas"/></td>
@@ -68,7 +68,9 @@
                             </tr>
                             <tr>
                                 <td height="30" style="padding-right: 20px"><bean:message key="customer.detail.isGood"/></td>
-                            <td colspan="3"><html:checkbox property="isGood" name="<%=Constants.CUSTOMER%>"></html:checkbox></td>
+                            <td><html:checkbox property="isGood" name="<%=Constants.CUSTOMER%>"></html:checkbox></td>
+                            <td style="padding-left: 10px; padding-right: 20px"><bean:message key="customer.detail.isOil"/></td>
+                            <td><html:checkbox property="isOil" name="<%=Constants.CUSTOMER%>"></html:checkbox></td>
                             </tr>
                             <tr>
                                 <td height="30" style="padding-right: 20px" colspan="4">

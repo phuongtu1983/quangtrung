@@ -72,7 +72,7 @@ public class Constants {
     public static final String PROMOTION_MATERIAL_LIST = "promotionMaterialList";
     public static final String CUSTOMER = "customer";
     public static final String CUSTOMER_LIST = "customerList";
-    public static final String CUSTOMER_KIND_LIST = "customerKindList";
+    public static final String CUSTOMER_COMMISSION_KIND_LIST = "customerKindList";
     public static final String CUSTOMER_DOCUMENT_LIST = "customerDocumentList";
     public static final String EMPLOYEE_ADVANCE = "employeeAdvance";
     public static final String EMPLOYEE_TIMESHEET = "employeeTimesheet";

@@ -89,7 +89,10 @@ public class AddCustomerAction extends AddDynamicFieldValueAction {
                 if (!formBean.getPresenterPosition().equals(oldBean.getPresenterPosition())) {
                     isUpdate = true;
                 }
-                if (!formBean.getDiscount().equals(oldBean.getDiscount())) {
+//                if (!formBean.getDiscount().equals(oldBean.getDiscount())) {
+//                    isUpdate = true;
+//                }
+                if (formBean.getCommissionPercentage() != oldBean.getCommissionPercentage()) {
                     isUpdate = true;
                 }
                 if (!formBean.getBankAccount().equals(oldBean.getBankAccount())) {
@@ -107,7 +110,10 @@ public class AddCustomerAction extends AddDynamicFieldValueAction {
                 if (formBean.getStatus() != oldBean.getStatus()) {
                     isUpdate = true;
                 }
-                if (formBean.getKind() != oldBean.getKind()) {
+//                if (formBean.getKind() != oldBean.getKind()) {
+//                    isUpdate = true;
+//                }
+                if (formBean.getCommissionKind() != oldBean.getCommissionKind()) {
                     isUpdate = true;
                 }
                 if (formBean.getIsGas() != oldBean.getIsGas()) {
@@ -119,6 +125,9 @@ public class AddCustomerAction extends AddDynamicFieldValueAction {
                 if (formBean.getIsGood() != oldBean.getIsGood()) {
                     isUpdate = true;
                 }
+                if (formBean.getIsOil() != oldBean.getIsOil()) {
+                    isUpdate = true;
+                }
             }
         } catch (Exception ex) {
         }
@@ -128,17 +137,20 @@ public class AddCustomerAction extends AddDynamicFieldValueAction {
         bean.setCode(formBean.getCode());
         bean.setStatus(formBean.getStatus());
         bean.setOrganizationId(formBean.getOrganizationId());
-        bean.setKind(formBean.getKind());
+//        bean.setKind(formBean.getKind());
+        bean.setCommissionKind(formBean.getCommissionKind());
         bean.setAddress(formBean.getAddress());
         bean.setPhone(formBean.getPhone());
         bean.setBankAccount(formBean.getBankAccount());
         bean.setTax(formBean.getTax());
         bean.setPresenter(formBean.getPresenter());
         bean.setPresenterPosition(formBean.getPresenterPosition());
-        bean.setDiscount(formBean.getDiscount());
+//        bean.setDiscount(formBean.getDiscount());
+        bean.setCommissionPercentage(formBean.getCommissionPercentage());
         bean.setIsGas(formBean.getIsGas() == true ? 1 : 0);
         bean.setIsPetro(formBean.getIsPetro() == true ? 1 : 0);
         bean.setIsGood(formBean.getIsGood() == true ? 1 : 0);
+        bean.setIsOil(formBean.getIsOil()== true ? 1 : 0);
         try {
             if (bNew) {
                 customerId = customerDAO.insertCustomer(bean);

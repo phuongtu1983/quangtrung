@@ -91,7 +91,7 @@ public class PrintCompareReportAction extends BaseAction {
                 outBean.setCustomerAddress(customerBean.getAddress());
                 outBean.setCustomerName(customerBean.getName());
                 outBean.setCustomerTax(customerBean.getTax());
-                outBean.setDiscount("," + customerBean.getDiscount() + ",");
+//                outBean.setDiscount("," + customerBean.getDiscount() + ",");
             }
             ReportDAO reportDAO = new ReportDAO();
             list = reportDAO.getCompareReport(fromDate, toDate, organizationIds, customerId, outBean);

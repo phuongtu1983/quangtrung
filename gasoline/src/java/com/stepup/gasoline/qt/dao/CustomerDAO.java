@@ -58,11 +58,16 @@ public class CustomerDAO extends BasicDAO {
                 } else if (bean.getStatus() == EmployeeBean.STATUS_INACTIVE) {
                     bean.setStatusName(QTUtil.getBundleString("employee.detail.status.inactive"));
                 }
-                bean.setKind(rs.getInt("kind"));
-                if (bean.getKind() == CustomerBean.KIND_RETAIL) {
-                    bean.setKindName(QTUtil.getBundleString("customer.detail.kind.retail"));
-                } else if (bean.getKind() == CustomerBean.KIND_WHOLESALE) {
-                    bean.setKindName(QTUtil.getBundleString("customer.detail.kind.wholesale"));
+//                bean.setKind(rs.getInt("kind"));
+//                if (bean.getKind() == CustomerBean.KIND_RETAIL) {
+//                    bean.setKindName(QTUtil.getBundleString("customer.detail.kind.retail"));
+//                } else if (bean.getKind() == CustomerBean.KIND_WHOLESALE) {
+//                    bean.setKindName(QTUtil.getBundleString("customer.detail.kind.wholesale"));
+//                }
+                if (bean.getCommissionKind() == CustomerBean.COMMISSION_KIND_BILL) {
+                    bean.setCommissionKindName(QTUtil.getBundleString("customer.detail.commission.bill"));
+                } else if (bean.getCommissionKind() == CustomerBean.COMMISSION_KIND_DIRECTLY) {
+                    bean.setCommissionKindName(QTUtil.getBundleString("customer.detail.kind.directly"));
                 }
                 customerList.add(bean);
             }
@@ -95,8 +100,11 @@ public class CustomerDAO extends BasicDAO {
             case VendorBean.IS_GOOD:
                 sql += " and c.is_good=1";
                 break;
+            case VendorBean.IS_OIL:
+                sql += " and c.is_oil=1";
+                break;
             default:
-                sql += " and c.is_gas=1 and c.is_petro=1 and c.is_good=1";
+                sql += " and c.is_gas=1 and c.is_petro=1 and c.is_good=1 or c.is_oil=1";
                 break;
         }
         sql += " order by c.name desc";
@@ -117,11 +125,16 @@ public class CustomerDAO extends BasicDAO {
                 } else if (bean.getStatus() == EmployeeBean.STATUS_INACTIVE) {
                     bean.setStatusName(QTUtil.getBundleString("employee.detail.status.inactive"));
                 }
-                bean.setKind(rs.getInt("kind"));
-                if (bean.getKind() == CustomerBean.KIND_RETAIL) {
-                    bean.setKindName(QTUtil.getBundleString("customer.detail.kind.retail"));
-                } else if (bean.getKind() == CustomerBean.KIND_WHOLESALE) {
-                    bean.setKindName(QTUtil.getBundleString("customer.detail.kind.wholesale"));
+//                bean.setKind(rs.getInt("kind"));
+//                if (bean.getKind() == CustomerBean.KIND_RETAIL) {
+//                    bean.setKindName(QTUtil.getBundleString("customer.detail.kind.retail"));
+//                } else if (bean.getKind() == CustomerBean.KIND_WHOLESALE) {
+//                    bean.setKindName(QTUtil.getBundleString("customer.detail.kind.wholesale"));
+//                }
+                if (bean.getCommissionKind() == CustomerBean.COMMISSION_KIND_BILL) {
+                    bean.setCommissionKindName(QTUtil.getBundleString("customer.detail.commission.bill"));
+                } else if (bean.getCommissionKind() == CustomerBean.COMMISSION_KIND_DIRECTLY) {
+                    bean.setCommissionKindName(QTUtil.getBundleString("customer.detail.kind.directly"));
                 }
                 customerList.add(bean);
             }
@@ -136,64 +149,65 @@ public class CustomerDAO extends BasicDAO {
         }
         return customerList;
     }
-
-    public ArrayList getCustomers(String organizationIds, int kind, int customerKind) throws Exception {
-        ResultSet rs = null;
-        String sql = "select c.*, o.name as organization_name from customer as c, organization as o where c.organization_id=o.id and o.status=" + EmployeeBean.STATUS_ACTIVE
-                + " and c.status=" + EmployeeBean.STATUS_ACTIVE;
-        if (!StringUtil.isBlankOrNull(organizationIds)) {
-            sql += " and c.organization_id in (" + organizationIds + ")";
-        }
-        if (kind != 0) {
-            sql += " and c.kind=" + kind;
-        }
-        switch (customerKind) {
-            case VendorBean.IS_GAS:
-                sql += " and c.is_gas=1";
-                break;
-            case VendorBean.IS_PETRO:
-                sql += " and c.is_petro=1";
-                break;
-            case VendorBean.IS_GOOD:
-                sql += " and c.is_good=1";
-                break;
-            default:
-                sql += " and (c.is_gas=1 or c.is_petro=1 or c.is_good=1)";
-                break;
-        }
-        sql += " order by c.name desc";
-        ArrayList customerList = new ArrayList();
-        try {
-            rs = DBUtil.executeQuery(sql);
-            CustomerFormBean bean = null;
-            while (rs.next()) {
-                bean = new CustomerFormBean();
-                bean.setId(rs.getInt("id"));
-                bean.setName(rs.getString("name"));
-                bean.setCode(rs.getString("code"));
-                bean.setOrganizationId(rs.getInt("organization_id"));
-                bean.setOrganizationName(rs.getString("organization_name"));
-                bean.setStatus(rs.getInt("status"));
-                bean.setKind(rs.getInt("kind"));
-                customerList.add(bean);
-            }
-        } catch (SQLException sqle) {
-            throw new Exception(sqle.getMessage());
-        } catch (Exception ex) {
-            throw new Exception(ex.getMessage());
-        } finally {
-            if (rs != null) {
-                DBUtil.closeConnection(rs);
-            }
-        }
-        return customerList;
-    }
+//
+//    public ArrayList getCustomers(String organizationIds, int customerKind) throws Exception {
+//        ResultSet rs = null;
+//        String sql = "select c.*, o.name as organization_name from customer as c, organization as o where c.organization_id=o.id and o.status=" + EmployeeBean.STATUS_ACTIVE
+//                + " and c.status=" + EmployeeBean.STATUS_ACTIVE;
+//        if (!StringUtil.isBlankOrNull(organizationIds)) {
+//            sql += " and c.organization_id in (" + organizationIds + ")";
+//        }
+//        switch (customerKind) {
+//            case VendorBean.IS_GAS:
+//                sql += " and c.is_gas=1";
+//                break;
+//            case VendorBean.IS_PETRO:
+//                sql += " and c.is_petro=1";
+//                break;
+//            case VendorBean.IS_GOOD:
+//                sql += " and c.is_good=1";
+//                break;
+//            case VendorBean.IS_OIL:
+//                sql += " and c.is_oil=1";
+//                break;
+//            default:
+//                sql += " and (c.is_gas=1 or c.is_petro=1 or c.is_good=1 or c.is_oil=1)";
+//                break;
+//        }
+//        sql += " order by c.name desc";
+//        ArrayList customerList = new ArrayList();
+//        try {
+//            rs = DBUtil.executeQuery(sql);
+//            CustomerFormBean bean = null;
+//            while (rs.next()) {
+//                bean = new CustomerFormBean();
+//                bean.setId(rs.getInt("id"));
+//                bean.setName(rs.getString("name"));
+//                bean.setCode(rs.getString("code"));
+//                bean.setOrganizationId(rs.getInt("organization_id"));
+//                bean.setOrganizationName(rs.getString("organization_name"));
+//                bean.setStatus(rs.getInt("status"));
+////                bean.setKind(rs.getInt("kind"));
+//                bean.setCommissionKind(rs.getInt("commission_kind"));
+//                customerList.add(bean);
+//            }
+//        } catch (SQLException sqle) {
+//            throw new Exception(sqle.getMessage());
+//        } catch (Exception ex) {
+//            throw new Exception(ex.getMessage());
+//        } finally {
+//            if (rs != null) {
+//                DBUtil.closeConnection(rs);
+//            }
+//        }
+//        return customerList;
+//    }
 
     public CustomerFormBean getCustomer(int customerId) throws Exception {
         ResultSet rs = null;
-        String sql = "select id, status, organization_id, kind, coalesce(code,'') as code, coalesce(name,'') as name, coalesce(address,'') as address"
+        String sql = "select id, status, organization_id, coalesce(code,'') as code, coalesce(name,'') as name, coalesce(address,'') as address"
                 + ", coalesce(phone,'') as phone, coalesce(bank_account,'') as bank_account, coalesce(tax,'') as tax, coalesce(presenter,'') as presenter"
-                + ", coalesce(presenter_position,'') as presenter_position, coalesce(discount,'') as discount, is_gas, is_petro, is_good"
+                + ", coalesce(presenter_position,'') as presenter_position, is_gas, is_petro, is_good, is_oil, commission_percentage, commission_kind"
                 + " from customer where id=" + customerId;
         try {
             rs = DBUtil.executeQuery(sql);
@@ -210,21 +224,29 @@ public class CustomerDAO extends BasicDAO {
                 customer.setTax(rs.getString("tax"));
                 customer.setPresenter(rs.getString("presenter"));
                 customer.setPresenterPosition(rs.getString("presenter_position"));
-                customer.setDiscount(rs.getString("discount"));
+//                customer.setDiscount(rs.getString("discount"));
+                customer.setCommissionPercentage(rs.getFloat("commission_percentage"));
                 if (customer.getStatus() == EmployeeBean.STATUS_ACTIVE) {
                     customer.setStatusName(QTUtil.getBundleString("employee.detail.status.active"));
                 } else if (customer.getStatus() == EmployeeBean.STATUS_INACTIVE) {
                     customer.setStatusName(QTUtil.getBundleString("employee.detail.status.inactive"));
                 }
-                customer.setKind(rs.getInt("kind"));
-                if (customer.getKind() == CustomerBean.KIND_RETAIL) {
-                    customer.setStatusName(QTUtil.getBundleString("customer.detail.kind.retail"));
-                } else if (customer.getKind() == CustomerBean.KIND_WHOLESALE) {
-                    customer.setStatusName(QTUtil.getBundleString("customer.detail.kind.wholesale"));
+                customer.setCommissionKind(rs.getInt("commission_kind"));
+//                customer.setKind(rs.getInt("kind"));
+//                if (customer.getKind() == CustomerBean.KIND_RETAIL) {
+//                    customer.setStatusName(QTUtil.getBundleString("customer.detail.kind.retail"));
+//                } else if (customer.getKind() == CustomerBean.KIND_WHOLESALE) {
+//                    customer.setStatusName(QTUtil.getBundleString("customer.detail.kind.wholesale"));
+//                }
+                if (customer.getCommissionKind() == CustomerBean.COMMISSION_KIND_BILL) {
+                    customer.setCommissionKindName(QTUtil.getBundleString("customer.detail.commission.bill"));
+                } else if (customer.getCommissionKind() == CustomerBean.COMMISSION_KIND_DIRECTLY) {
+                    customer.setCommissionKindName(QTUtil.getBundleString("customer.detail.kind.directly"));
                 }
                 customer.setIsGas(rs.getInt("is_gas") == 1 ? true : false);
                 customer.setIsPetro(rs.getInt("is_petro") == 1 ? true : false);
                 customer.setIsGood(rs.getInt("is_good") == 1 ? true : false);
+                customer.setIsOil(rs.getInt("is_oil") == 1 ? true : false);
                 return customer;
             }
         } catch (SQLException sqle) {
@@ -251,17 +273,20 @@ public class CustomerDAO extends BasicDAO {
                 customer.setCode(rs.getString("code"));
                 customer.setOrganizationId(rs.getInt("organization_id"));
                 customer.setStatus(rs.getInt("status"));
-                customer.setKind(rs.getInt("kind"));
+//                customer.setKind(rs.getInt("kind"));
+                customer.setCommissionKind(rs.getInt("commission_kind"));
                 customer.setAddress(rs.getString("address"));
                 customer.setPhone(rs.getString("phone"));
                 customer.setBankAccount(rs.getString("bank_account"));
                 customer.setTax(rs.getString("tax"));
                 customer.setPresenter(rs.getString("presenter"));
                 customer.setPresenterPosition(rs.getString("presenter_position"));
-                customer.setDiscount(rs.getString("discount"));
+//                customer.setDiscount(rs.getString("discount"));
+                customer.setCommissionPercentage(rs.getFloat("commission_percentage"));
                 customer.setIsGas(rs.getInt("is_gas") == 1 ? true : false);
                 customer.setIsPetro(rs.getInt("is_petro") == 1 ? true : false);
                 customer.setIsGood(rs.getInt("is_good") == 1 ? true : false);
+                customer.setIsOil(rs.getInt("is_oil") == 1 ? true : false);
                 return customer;
             }
         } catch (SQLException sqle) {
@@ -282,10 +307,11 @@ public class CustomerDAO extends BasicDAO {
         }
         try {
             String sql = "";
-            sql = "Insert Into customer (name, code, organization_id, status, kind, phone, bank_account, tax, presenter, presenter_position, address, discount, is_gas, is_petro, is_good)"
-                    + " Values ('" + bean.getName() + "','" + bean.getCode() + "'," + bean.getOrganizationId() + "," + bean.getStatus() + "," + bean.getKind()
+            sql = "Insert Into customer (name, code, organization_id, status, phone, bank_account, tax, presenter, presenter_position, address, is_gas, is_petro, is_good, is_oil, commission_kind, commission_percentage)"
+                    + " Values ('" + bean.getName() + "','" + bean.getCode() + "'," + bean.getOrganizationId() + "," + bean.getStatus()
                     + ",'" + bean.getPhone() + "','" + bean.getBankAccount() + "','" + bean.getTax() + "','" + bean.getPresenter()
-                    + "','" + bean.getPresenterPosition() + "','" + bean.getAddress() + "','" + bean.getDiscount() + "'," + bean.getIsGas() + "," + bean.getIsPetro() + "," + bean.getIsGood() + ")";
+                    + "','" + bean.getPresenterPosition() + "','" + bean.getAddress() + "'," + bean.getIsGas() + "," + bean.getIsPetro() + "," + bean.getIsGood() + "," + bean.getIsOil()
+                    + "," + bean.getCommissionKind() + "," + bean.getCommissionPercentage() + ")";
             return DBUtil.executeInsert(sql);
         } catch (SQLException sqle) {
             throw new Exception(sqle.getMessage());
@@ -310,17 +336,20 @@ public class CustomerDAO extends BasicDAO {
                     + ", code='" + bean.getCode() + "'"
                     + ", organization_id=" + bean.getOrganizationId()
                     + ", status=" + bean.getStatus()
-                    + ", kind=" + bean.getKind()
+                    //                    + ", kind=" + bean.getKind()
                     + ", address='" + bean.getAddress() + "'"
                     + ", phone='" + bean.getPhone() + "'"
                     + ", bank_account='" + bean.getBankAccount() + "'"
                     + ", tax='" + bean.getTax() + "'"
                     + ", presenter='" + bean.getPresenter() + "'"
                     + ", presenter_position='" + bean.getPresenterPosition() + "'"
-                    + ", discount='" + bean.getDiscount() + "'"
+                    //                    + ", discount='" + bean.getDiscount() + "'"
                     + ", is_gas=" + bean.getIsGas()
                     + ", is_petro=" + bean.getIsPetro()
                     + ", is_good=" + bean.getIsGood()
+                    + ", is_oil=" + bean.getIsOil()
+                    + ", commission_kind=" + bean.getCommissionKind()
+                    + ", commission_percentage=" + bean.getCommissionPercentage()
                     + " Where id=" + bean.getId();
             DBUtil.executeUpdate(sql);
         } catch (SQLException sqle) {

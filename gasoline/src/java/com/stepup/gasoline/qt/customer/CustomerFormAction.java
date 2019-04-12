@@ -74,13 +74,21 @@ public class CustomerFormAction extends DynamicFieldValueAction {
         ArrayList arrOrganization = null;
         String kind = request.getParameter("kind");
         if (GenericValidator.isBlankOrNull(kind)) {
+//            value = new LabelValueBean();
+//            value.setLabel(QTUtil.getBundleString("customer.detail.kind.wholesale"));
+//            value.setValue(CustomerBean.KIND_WHOLESALE + "");
+//            arrKind.add(value);
+//            value = new LabelValueBean();
+//            value.setLabel(QTUtil.getBundleString("customer.detail.kind.retail"));
+//            value.setValue(CustomerBean.KIND_RETAIL + "");
+//            arrKind.add(value);
             value = new LabelValueBean();
-            value.setLabel(QTUtil.getBundleString("customer.detail.kind.wholesale"));
-            value.setValue(CustomerBean.KIND_WHOLESALE + "");
+            value.setLabel(QTUtil.getBundleString("customer.detail.commission.bill"));
+            value.setValue(CustomerBean.COMMISSION_KIND_BILL + "");
             arrKind.add(value);
             value = new LabelValueBean();
-            value.setLabel(QTUtil.getBundleString("customer.detail.kind.retail"));
-            value.setValue(CustomerBean.KIND_RETAIL + "");
+            value.setLabel(QTUtil.getBundleString("customer.detail.commission.directly"));
+            value.setValue(CustomerBean.COMMISSION_KIND_DIRECTLY + "");
             arrKind.add(value);
             try {
                 OrganizationDAO organizationDAO = new OrganizationDAO();
@@ -89,15 +97,26 @@ public class CustomerFormAction extends DynamicFieldValueAction {
             }
         } else {
             int kindNum = NumberUtil.parseInt(kind, 0);
-            if (kindNum == CustomerBean.KIND_WHOLESALE) {
+//            if (kindNum == CustomerBean.KIND_WHOLESALE) {
+//                value = new LabelValueBean();
+//                value.setLabel(QTUtil.getBundleString("customer.detail.kind.wholesale"));
+//                value.setValue(CustomerBean.KIND_WHOLESALE + "");
+//                arrKind.add(value);
+//            } else if (kindNum == CustomerBean.KIND_RETAIL) {
+//                value = new LabelValueBean();
+//                value.setLabel(QTUtil.getBundleString("customer.detail.kind.retail"));
+//                value.setValue(CustomerBean.KIND_RETAIL + "");
+//                arrKind.add(value);
+//            }
+            if (kindNum == CustomerBean.COMMISSION_KIND_BILL) {
                 value = new LabelValueBean();
-                value.setLabel(QTUtil.getBundleString("customer.detail.kind.wholesale"));
-                value.setValue(CustomerBean.KIND_WHOLESALE + "");
+                value.setLabel(QTUtil.getBundleString("customer.detail.commission.bill"));
+                value.setValue(CustomerBean.COMMISSION_KIND_BILL + "");
                 arrKind.add(value);
-            } else if (kindNum == CustomerBean.KIND_RETAIL) {
+            } else if (kindNum == CustomerBean.COMMISSION_KIND_DIRECTLY) {
                 value = new LabelValueBean();
-                value.setLabel(QTUtil.getBundleString("customer.detail.kind.retail"));
-                value.setValue(CustomerBean.KIND_RETAIL + "");
+                value.setLabel(QTUtil.getBundleString("customer.detail.kind.directly"));
+                value.setValue(CustomerBean.COMMISSION_KIND_DIRECTLY + "");
                 arrKind.add(value);
             }
             try {
@@ -107,7 +126,7 @@ public class CustomerFormAction extends DynamicFieldValueAction {
             } catch (Exception ex) {
             }
         }
-        request.setAttribute(Constants.CUSTOMER_KIND_LIST, arrKind);
+        request.setAttribute(Constants.CUSTOMER_COMMISSION_KIND_LIST, arrKind);
 
         if (arrOrganization == null) {
             arrOrganization = new ArrayList();

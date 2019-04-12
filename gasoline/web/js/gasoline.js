@@ -2262,7 +2262,8 @@ function getCustomer(id, handle, kind) {
         showPopupForm(data);
         document.getElementById('callbackFunc').value = handle;
         document.forms['customerForm'].code.focus();
-
+        tryNumberFormatCurrentcy(document.forms['customerForm'].commissionPercentage, "VND");
+        
         var customerDocumentExpiredDate = document.getElementsByName("customerDocumentExpiredDate");
         var ids = "";
         var i;
@@ -2296,6 +2297,7 @@ function saveCustomer() {
         return false;
     }
     field = null;
+    reformatNumberMoney(document.forms['customerForm'].commissionPercentage);
     scriptFunction = "saveCustomer";
     callAjaxCheckError("addCustomer.do", null, document.forms['customerForm'], function(data) {
         scriptFunction = "";
