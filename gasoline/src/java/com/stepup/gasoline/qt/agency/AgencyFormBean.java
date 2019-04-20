@@ -20,6 +20,12 @@ public class AgencyFormBean extends org.apache.struts.action.ActionForm {
     private int status;
     private String statusName;
 
+    private String[] agencyCustomerDetailId;
+    private String[] customerId;
+    private String[] agencyCustomerCommissionFrom;
+    private String[] agencyCustomerCommissionTo;
+    private String[] agencyCustomerCommission;
+
     public AgencyFormBean() {
     }
 
@@ -86,6 +92,46 @@ public class AgencyFormBean extends org.apache.struts.action.ActionForm {
 
     public void setNote(String note) {
         this.note = note;
+    }
+
+    public String[] getAgencyCustomerDetailId() {
+        return agencyCustomerDetailId;
+    }
+
+    public void setAgencyCustomerDetailId(String[] agencyCustomerDetailId) {
+        this.agencyCustomerDetailId = agencyCustomerDetailId;
+    }
+
+    public String[] getCustomerId() {
+        return customerId;
+    }
+
+    public void setCustomerId(String[] customerId) {
+        this.customerId = customerId;
+    }
+
+    public String[] getAgencyCustomerCommissionFrom() {
+        return agencyCustomerCommissionFrom;
+    }
+
+    public void setAgencyCustomerCommissionFrom(String[] agencyCustomerCommissionFrom) {
+        this.agencyCustomerCommissionFrom = agencyCustomerCommissionFrom;
+    }
+
+    public String[] getAgencyCustomerCommissionTo() {
+        return agencyCustomerCommissionTo;
+    }
+
+    public void setAgencyCustomerCommissionTo(String[] agencyCustomerCommissionTo) {
+        this.agencyCustomerCommissionTo = agencyCustomerCommissionTo;
+    }
+
+    public String[] getAgencyCustomerCommission() {
+        return agencyCustomerCommission;
+    }
+
+    public void setAgencyCustomerCommission(String[] agencyCustomerCommission) {
+        this.agencyCustomerCommission = agencyCustomerCommission;
     }
 
 }

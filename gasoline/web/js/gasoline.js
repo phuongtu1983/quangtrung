@@ -391,7 +391,7 @@ function menuClick(id) {
     else if (id == 'agencylist')
         loadAgencyPanel();
     else if (id == 'agencyadd')
-        getAgency(0, 'loadAgencyPanel');
+        getAgency(0);
     else if (id == 'oilgrouplist')
         loadOilGroupPanel();
     else if (id == 'oilgroupadd')
@@ -400,6 +400,10 @@ function menuClick(id) {
         loadEmployeeOilCommissionPanel();
     else if (id == 'employeeoilcommissionadd')
         getEmployeeOilCommission(0, 'loadEmployeeOilCommissionPanel');
+    else if (id == 'oillist')
+        loadOilPanel();
+    else if (id == 'oiladd')
+        getOil(0, 'loadOilPanel');
 }
 function clearContent() {
     var contentDiv = document.getElementById("contentDiv");
@@ -5171,7 +5175,6 @@ function setFeeSelectedForm(form, text, value) {
     }
     document.forms[form].feeSelectedHidden.value = value;
 }
-
 function addGasWholesaleFee() {
     var fee = document.forms['gasWholesaleForm'].feeSelectedHidden.value;
     if (fee == -1 || fee == 0)
@@ -12929,6 +12932,7 @@ function loadAgencyPanel() {
         setAjaxData(data, "contentDiv");
         loadAgencyList();
     });
+    return false;
 }
 function loadAgencyList() {
     var mygrid = new dhtmlXGridObject('agencyList');
@@ -12955,15 +12959,44 @@ function loadAgencyList() {
     });
     return false;
 }
-function getAgency(id, handle) {
-    popupName = 'TH\u00D4NG TIN \u0110\u1EA0I L\u00DD';
+function getAgency(id) {
     var url = 'agencyForm.do';
     if (id != 0)
         url += '?agencyId=' + id
     callAjax(url, null, null, function(data) {
-        showPopupForm(data);
-        document.getElementById('callbackFunc').value = handle;
+        clearContent();
+        setAjaxData(data, 'contentDiv');
         document.forms['agencyForm'].name.focus();
+        formatAgencyCustomerDetail();
+        
+        window.dhx_globalImgPath = "js/dhtmlx/combo/imgs/";
+        // ============================
+        var customerCombobox = dhtmlXComboFromSelect("customerIdCombobox");
+        customerCombobox.enableFilteringMode(true);
+        customerCombobox.attachEvent("onSelectionChange", function() {
+            setCustomerSelectedForm('agencyForm', customerCombobox.getComboText(), customerCombobox.getSelectedValue());
+        });
+        customerCombobox.attachEvent("onBlur", function() {
+            setCustomerSelectedForm('agencyForm', customerCombobox.getComboText(), customerCombobox.getSelectedValue());
+        });
+        customerCombobox.DOMelem_input.onkeypress = function(event) {
+            var key;
+            if (window.event)
+                key = window.event.keyCode;//IE
+            else
+                key = event.which;//firefox
+            if (key == 13) {
+                addAgencyCustomer();
+                customerCombobox.setComboValue("");
+            }
+        }
+        customerCombobox.DOMelem_input.onfocus = function(event) {
+            if (isManuallySeleted == 1) {
+                customerCombobox.openSelect();
+                isManuallySeleted = 0;
+            }
+        }
+        customerCombobox.setComboValue("");
     });
 }
 function saveAgency() {
@@ -12983,11 +13016,90 @@ function saveAgency() {
         var handle = document.getElementById('callbackFunc').value;
         if (confirm('B\u1EA1n c\u00F3 mu\u1ED1n nh\u1EADp ti\u1EBFp th\u00F4ng tin kh\u00E1c ?'))
             getAgency(0, handle);
-        else if (handle != '')
-            eval(handle + "()");
-        prepareHidePopup('agencyFormshowHelpHideDiv');
+        else loadAgencyPanel();
     });
     return false;
+}
+function addAgencyCustomer() {
+    var customer = document.forms['agencyForm'].customerSelectedHidden.value;
+    if (addAgencyCustomer == -1 || addAgencyCustomer == 0)
+        return false;
+    var customerId = document.forms['agencyForm'].customerId;
+    var existed = false;
+    if (customerId != null) {
+        if (customerId.length != null) {
+            for (i = 0; i < customerId.length; i++) {
+                if (customerId[i].value == customer) {
+                    existed = true;
+                    break;
+                }
+            }
+        } else if (customerId.value == customer)
+            existed = true;
+    }
+    customerId = null;
+    if (existed == true) {
+        alert("Kh\u00E1ch h\u00E0ng \u0111\u00E3 t\u1ED3n t\u1EA1i");
+        return false;
+    }
+    callAjax("getAgencyCustomer.do?customerId=" + customer, null, null, function(data) {
+        setAjaxData(data, 'agencyCustomerHideDiv');
+        var matTable = document.getElementById('agencyCustomerTbl');
+        var detTable = document.getElementById('agencyCustomerDetailTbl');
+        if (matTable.tBodies[0] == null || detTable.tBodies[0] == null) {
+            matTable = null;
+            detTable = null;
+            return;
+        }
+        for (var i = matTable.tBodies[0].rows.length - 1; i >= 0; i--)
+            detTable.tBodies[0].appendChild(matTable.tBodies[0].rows[i]);
+        matTable = null;
+        detTable = null;
+        formatAgencyCustomerDetail();
+    });
+    return false;
+}
+function formatAgencyCustomerDetail() {
+    var agencyCustomerCommissionFrom = document.forms['agencyForm'].agencyCustomerCommissionFrom;
+    var agencyCustomerCommissionTo= document.forms['agencyForm'].agencyCustomerCommissionTo;
+    var agencyCustomerCommission = document.forms['agencyForm'].agencyCustomerCommission;
+    if (agencyCustomerCommission != null) {
+        if (agencyCustomerCommission.length != null) {
+            for (var i = 0; i < agencyCustomerCommission.length; i++) {
+                tryNumberFormatCurrentcy(agencyCustomerCommissionFrom[i], "VND");
+                tryNumberFormatCurrentcy(agencyCustomerCommissionTo[i], "VND");
+                tryNumberFormatCurrentcy(agencyCustomerCommission[i], "VND");
+            }
+        } else {
+            tryNumberFormatCurrentcy(agencyCustomerCommissionFrom, "VND");
+            tryNumberFormatCurrentcy(agencyCustomerCommissionTo, "VND");
+            tryNumberFormatCurrentcy(agencyCustomerCommission, "VND");
+        }
+    }
+    agencyCustomerCommissionFrom = null;
+    agencyCustomerCommissionTo = null;
+    agencyCustomerCommission = null;
+}
+function reformatAgencyCustomerDetail() {
+    var agencyCustomerCommissionFrom = document.forms['agencyForm'].agencyCustomerCommissionFrom;
+    var agencyCustomerCommissionTo= document.forms['agencyForm'].agencyCustomerCommissionTo;
+    var agencyCustomerCommission = document.forms['agencyForm'].agencyCustomerCommission;
+    if (agencyCustomerCommission != null) {
+        if (agencyCustomerCommission.length != null) {
+            for (var i = 0; i < agencyCustomerCommission.length; i++) {
+                reformatNumberMoney(agencyCustomerCommissionFrom[i]);
+                reformatNumberMoney(agencyCustomerCommissionTo[i]);
+                reformatNumberMoney(agencyCustomerCommission[i]);
+            }
+        } else {
+            reformatNumberMoney(agencyCustomerCommissionFrom);
+            reformatNumberMoney(agencyCustomerCommissionTo);
+            reformatNumberMoney(agencyCustomerCommission);
+        }
+    }
+    agencyCustomerCommissionFrom = null;
+    agencyCustomerCommissionTo = null;
+    agencyCustomerCommission = null;
 }
 function loadOilGroupPanel() {
     callAjax("getOilGroupPanel.do", null, null, function(data) {
@@ -13124,5 +13236,79 @@ function delEmployeeOilCommission() {
     });
     return false;
 }
-
+function loadOilPanel() {
+    callAjax("getOilPanel.do", null, null, function(data) {
+        clearContent();
+        setAjaxData(data, "contentDiv");
+        loadOilList();
+    });
+}
+function loadOilList() {
+    var mygrid = new dhtmlXGridObject('oilList');
+    mygrid.setImagePath("js/dhtmlx/grid/imgs/");
+    mygrid.setHeader("M\u00E3 d\u1EA7u nh\u1EDBt,T\u00EAn d\u1EA7u nh\u1EDBt,\u0110\u01A1n v\u1ECB t\u00EDnh c\u01A1 b\u1EA3n,\u0110\u01A1n v\u1ECB t\u00EDnh mua b\u00E1n");
+    mygrid.attachHeader("#text_filter,#text_filter,#text_filter,#text_filter");
+    mygrid.setInitWidths("100,*,150,150");
+    mygrid.setColTypes("link,ro,ro,ro");
+    mygrid.setColSorting("str,str,str,str");
+    mygrid.setSkin("light");
+    var height = contentHeight - 210;
+    mygrid.al(true, height); //enableAutoHeight
+    mygrid.enablePaging(true, 15, 3, "recinfoArea");
+    mygrid.setPagingSkin("toolbar", "dhx_skyblue");
+    mygrid.init();
+    var list = document.forms['oilSearchForm'].statusCombobox;
+    if (list != null && list.selectedIndex > -1)
+        list = list.options[list.selectedIndex].value;
+    else
+        list = 0;
+    var url = "getOilList.do?status=" + list;
+    callAjax(url, null, null, function(data) {
+        mygrid.parse(data);
+    });
+    return false;
+}
+function getOil(id, handle) {
+    popupName = 'TH\u00D4NG TIN D\u1EA6U NH\u1EDAT';
+    var url = 'oilForm.do';
+    if (id != 0)
+        url += '?oilId=' + id
+    callAjax(url, null, null, function(data) {
+        showPopupForm(data);
+        document.getElementById('callbackFunc').value = handle;
+        document.forms['oilForm'].code.focus();
+        tryNumberFormatCurrentcy(document.forms['oilForm'].weight, "VND");
+    });
+}
+function saveOil() {
+    if (scriptFunction == "saveOil")
+        return false;
+    var field = document.forms['oilForm'].code;
+    if (field.value == '') {
+        alert("Vui l\u00F2ng nh\u1EADp m\u00E3 d\u1EA7u nh\u1EDBt");
+        field.focus();
+        field = null;
+        return false;
+    }
+    field = document.forms['oilForm'].name;
+    if (field.value == '') {
+        alert("Vui l\u00F2ng nh\u1EADp t\u00EAn d\u1EA7u nh\u1EDBt");
+        field.focus();
+        field = null;
+        return false;
+    }
+    field = null;
+    reformatNumberMoney(document.forms['oilForm'].weight);
+    scriptFunction = "saveOil";
+    callAjaxCheckError("addOil.do", null, document.forms['oilForm'], function(data) {
+        scriptFunction = "";
+        var handle = document.getElementById('callbackFunc').value;
+        if (confirm('B\u1EA1n c\u00F3 mu\u1ED1n nh\u1EADp ti\u1EBFp th\u00F4ng tin kh\u00E1c ?'))
+            getOil(0, handle);
+        else if (handle != '')
+            eval(handle + "()");
+        prepareHidePopup('oilFormshowHelpHideDiv');
+    });
+    return false;
+}
 

@@ -4,9 +4,12 @@
  */
 package com.stepup.gasoline.qt.agency;
 
+import com.stepup.core.util.NumberUtil;
 import com.stepup.gasoline.qt.bean.AgencyBean;
+import com.stepup.gasoline.qt.bean.AgencyCustomerDetailBean;
 import com.stepup.gasoline.qt.core.SpineAction;
 import com.stepup.gasoline.qt.dao.CustomerDAO;
+import java.util.ArrayList;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import org.apache.struts.action.ActionForm;
@@ -96,8 +99,11 @@ public class AddAgencyAction extends SpineAction {
         bean.setStatus(formBean.getStatus());
         try {
             if (bNew) {
-                customerDAO.insertAgency(bean);
+                int id = customerDAO.insertAgency(bean);
+                formBean.setId(id);
+                addAgencyCustomer(formBean);
             } else {
+                addAgencyCustomer(formBean);
                 if (isUpdate) {
                     customerDAO.updateAgency(bean);
                 }
@@ -106,5 +112,66 @@ public class AddAgencyAction extends SpineAction {
             ex.printStackTrace();
         }
         return true;
+    }
+
+    private void addAgencyCustomer(AgencyFormBean formBean) {
+        try {
+            CustomerDAO customerDAO = new CustomerDAO();
+            ArrayList arrDetail = customerDAO.getAgencyCustomerDetail(formBean.getId());
+            if (formBean.getCustomerId() != null) {
+                int length = formBean.getCustomerId().length;
+                int id = 0;
+                boolean isUpdate = false;
+                for (int i = 0; i < length; i++) {
+                    id = NumberUtil.parseInt(formBean.getAgencyCustomerDetailId()[i], 0);
+                    if (id == 0) {
+                        AgencyCustomerDetailBean bean = new AgencyCustomerDetailBean();
+                        bean.setCustomerId(NumberUtil.parseInt(formBean.getCustomerId()[i], 0));
+                        bean.setCommissionFrom(NumberUtil.parseInt(formBean.getAgencyCustomerCommissionFrom()[i], 0));
+                        bean.setCommissionTo(NumberUtil.parseInt(formBean.getAgencyCustomerCommissionTo()[i], 0));
+                        bean.setCommission(NumberUtil.parseInt(formBean.getAgencyCustomerCommission()[i], 0));
+                        bean.setAgencyId(formBean.getId());
+                        customerDAO.insertAgencyCustomerDetail(bean);
+                    } else {
+                        isUpdate = false;
+                        int j = 0;
+                        AgencyCustomerDetailBean oldBean = null;
+                        for (; j < arrDetail.size(); j++) {
+                            oldBean = (AgencyCustomerDetailBean) arrDetail.get(j);
+                            if (oldBean.getId() == id) {
+                                break;
+                            }
+                        }
+                        if (j < arrDetail.size()) {
+                            arrDetail.remove(j);
+                            if (oldBean.getCommissionFrom() != NumberUtil.parseInt(formBean.getAgencyCustomerCommissionFrom()[i], 0)) {
+                                isUpdate = true;
+                                oldBean.setCommissionFrom(NumberUtil.parseInt(formBean.getAgencyCustomerCommissionFrom()[i], 0));
+                            }
+                            if (oldBean.getCommissionTo() != NumberUtil.parseInt(formBean.getAgencyCustomerCommissionTo()[i], 0)) {
+                                isUpdate = true;
+                                oldBean.setCommissionTo(NumberUtil.parseInt(formBean.getAgencyCustomerCommissionTo()[i], 0));
+                            }
+                            if (oldBean.getCommission() != NumberUtil.parseInt(formBean.getAgencyCustomerCommission()[i], 0)) {
+                                isUpdate = true;
+                                oldBean.setCommission(NumberUtil.parseInt(formBean.getAgencyCustomerCommission()[i], 0));
+                            }
+                            if (isUpdate) {
+                                customerDAO.updateAgencyCustomerDetail(oldBean);
+                            }
+                        }
+                    }
+                }
+            }
+            String ids = "0,";
+            AgencyCustomerDetailBean oldBean = null;
+            for (int i = 0; i < arrDetail.size(); i++) {
+                oldBean = (AgencyCustomerDetailBean) arrDetail.get(i);
+                ids += oldBean.getId() + ",";
+            }
+            ids += "0";
+            customerDAO.deleteAgencyCustomerDetails(ids);
+        } catch (Exception ex) {
+        }
     }
 }

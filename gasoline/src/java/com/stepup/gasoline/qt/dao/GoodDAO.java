@@ -20,6 +20,7 @@ import com.stepup.gasoline.qt.bean.EmployeeBean;
 import com.stepup.gasoline.qt.bean.GoodBean;
 import com.stepup.gasoline.qt.bean.GoodImportBean;
 import com.stepup.gasoline.qt.bean.GoodImportDetailBean;
+import com.stepup.gasoline.qt.bean.OilBean;
 import com.stepup.gasoline.qt.bean.PetroBean;
 import com.stepup.gasoline.qt.bean.PromotionMaterialBean;
 import com.stepup.gasoline.qt.bean.PromotionMaterialImportBean;
@@ -39,6 +40,7 @@ import com.stepup.gasoline.qt.bean.ShieldDecreaseBean;
 import com.stepup.gasoline.qt.bean.ShieldImportBean;
 import com.stepup.gasoline.qt.good.GoodFormBean;
 import com.stepup.gasoline.qt.goodimport.GoodImportFormBean;
+import com.stepup.gasoline.qt.oil.OilFormBean;
 import com.stepup.gasoline.qt.oilgroup.OilGroupFormBean;
 import com.stepup.gasoline.qt.petro.PetroFormBean;
 import com.stepup.gasoline.qt.promotionmaterial.PromotionMaterialFormBean;
@@ -3888,4 +3890,161 @@ public class GoodDAO extends BasicDAO {
             }
         }
     }
+
+    public OilBean getOil(int oilId) throws Exception {
+        ResultSet rs = null;
+        String sql = "select p.* from oil as p where p.id=" + oilId;
+        try {
+            rs = DBUtil.executeQuery(sql);
+            while (rs.next()) {
+                OilBean bean = new OilBean();
+                bean.setId(rs.getInt("id"));
+                bean.setCode(rs.getString("code"));
+                bean.setName(rs.getString("name"));
+                bean.setGroupId(rs.getInt("group_id"));
+                bean.setWeight(rs.getFloat("weight"));
+                bean.setWeightUnitId(rs.getInt("weight_unit_id"));
+                bean.setBaseUnitId(rs.getInt("base_unit_id"));
+                bean.setSaleUnitId(rs.getInt("sale_unit_id"));
+                bean.setEmployeeCommissionId(rs.getInt("employee_commission_id"));
+                bean.setOrganizationId(rs.getInt("organization_id"));
+                bean.setStatus(rs.getInt("status"));
+                return bean;
+            }
+        } catch (SQLException sqle) {
+            throw new Exception(sqle.getMessage());
+        } catch (Exception ex) {
+            throw new Exception(ex.getMessage());
+        } finally {
+            if (rs != null) {
+                DBUtil.closeConnection(rs);
+            }
+        }
+        return null;
+    }
+
+    public ArrayList getOils(int status, String organizationIds) throws Exception {
+        ResultSet rs = null;
+        String sql = "select p.id, p.code, p.name, b.name as base_unit_name, s.name as sale_unit_name"
+                + " from oil as p, unit as b, unit as s"
+                + " where p.base_unit_id=b.id and p.sale_unit_id=s.id and b.status=" + EmployeeBean.STATUS_ACTIVE + " and s.status=" + EmployeeBean.STATUS_ACTIVE;
+        if (status != 0) {
+            sql += " and p.status=" + status;
+        }
+        if (!organizationIds.isEmpty()) {
+            sql += " and p.organization_id in(" + organizationIds + ")";
+        }
+        sql += " order by p.name";
+        ArrayList list = new ArrayList();
+        try {
+            rs = DBUtil.executeQuery(sql);
+            OilFormBean bean = null;
+            while (rs.next()) {
+                bean = new OilFormBean();
+                bean.setId(rs.getInt("id"));
+                bean.setCode(rs.getString("code"));
+                bean.setName(rs.getString("name"));
+                bean.setBaseUnitName(rs.getString("base_unit_name"));
+                bean.setSaleUnitName(rs.getString("sale_unit_name"));
+                list.add(bean);
+            }
+        } catch (SQLException sqle) {
+            throw new Exception(sqle.getMessage());
+        } catch (Exception ex) {
+            throw new Exception(ex.getMessage());
+        } finally {
+            if (rs != null) {
+                DBUtil.closeConnection(rs);
+            }
+        }
+        return list;
+
+    }
+
+    public OilBean getOilByName(String name) throws Exception {
+        ResultSet rs = null;
+        String sql = "select * from oil where name='" + name + "'"
+                + " and status=" + EmployeeBean.STATUS_ACTIVE;
+        try {
+            rs = DBUtil.executeQuery(sql);
+            while (rs.next()) {
+                OilBean bean = new OilBean();
+                bean.setId(rs.getInt("id"));
+                bean.setCode(rs.getString("code"));
+                bean.setName(rs.getString("name"));
+                bean.setGroupId(rs.getInt("group_id"));
+                bean.setWeight(rs.getFloat("weight"));
+                bean.setWeightUnitId(rs.getInt("weight_unit_id"));
+                bean.setBaseUnitId(rs.getInt("base_unit_id"));
+                bean.setSaleUnitId(rs.getInt("sale_unit_id"));
+                bean.setEmployeeCommissionId(rs.getInt("employee_commission_id"));
+                bean.setOrganizationId(rs.getInt("organization_id"));
+                bean.setStatus(rs.getInt("status"));
+                return bean;
+            }
+        } catch (SQLException sqle) {
+            throw new Exception(sqle.getMessage());
+        } catch (Exception ex) {
+            throw new Exception(ex.getMessage());
+        } finally {
+            if (rs != null) {
+                DBUtil.closeConnection(rs);
+            }
+        }
+        return null;
+    }
+
+    public void insertOil(OilBean bean) throws Exception {
+        if (bean == null) {
+            return;
+        }
+        try {
+            String sql = "";
+            sql = "Insert Into oil (code,name,group_id,weight_unit_id,weight,base_unit_id,sale_unit_id,employee_commission_id,status,organization_id)"
+                    + " Values ('" + bean.getCode() + "','" + bean.getName() + "'," + bean.getGroupId() + "," + bean.getWeightUnitId() + "," + bean.getWeight()
+                    + "," + bean.getBaseUnitId() + "," + bean.getSaleUnitId() + "," + bean.getEmployeeCommissionId() + "," + bean.getStatus() + "," + bean.getOrganizationId() + ")";
+            DBUtil.executeInsert(sql);
+        } catch (SQLException sqle) {
+            throw new Exception(sqle.getMessage());
+        } catch (Exception ex) {
+            throw new Exception(ex.getMessage());
+        } finally {
+            try {
+            } catch (Exception e) {
+                throw new Exception(e.getMessage());
+            }
+
+        }
+    }
+
+    public void updateOil(OilBean bean) throws Exception {
+        if (bean == null) {
+            return;
+        }
+        try {
+            String sql = "Update oil Set "
+                    + " code='" + bean.getCode() + "'"
+                    + ", name='" + bean.getName() + "'"
+                    + ", group_id=" + bean.getGroupId()
+                    + ", weight_unit_id=" + bean.getWeightUnitId()
+                    + ", weight=" + bean.getWeight()
+                    + ", base_unit_id=" + bean.getBaseUnitId()
+                    + ", sale_unit_id=" + bean.getSaleUnitId()
+                    + ", employee_commission_id=" + bean.getEmployeeCommissionId()
+                    + ", organization_id=" + bean.getOrganizationId()
+                    + ", status=" + bean.getStatus()
+                    + " Where id=" + bean.getId();
+            DBUtil.executeUpdate(sql);
+        } catch (SQLException sqle) {
+            throw new Exception(sqle.getMessage());
+        } catch (Exception ex) {
+            throw new Exception(ex.getMessage());
+        } finally {
+            try {
+            } catch (Exception e) {
+                throw new Exception(e.getMessage());
+            }
+        }
+    }
+
 }

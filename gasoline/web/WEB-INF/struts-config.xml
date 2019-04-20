@@ -38,6 +38,7 @@
         <form-bean name="accessoryForm" type="com.stepup.gasoline.qt.accessory.AccessoryFormBean"/>
         <form-bean name="petroForm" type="com.stepup.gasoline.qt.petro.PetroFormBean"/>
         <form-bean name="goodForm" type="com.stepup.gasoline.qt.good.GoodFormBean"/>
+        <form-bean name="oilForm" type="com.stepup.gasoline.qt.oil.OilFormBean"/>
         <form-bean name="employeeAdvanceForm" type="com.stepup.gasoline.qt.employeeadvance.EmployeeAdvanceFormBean"/>
         <form-bean name="lpgImportForm" type="com.stepup.gasoline.qt.lpgimport.LpgImportFormBean"/>
         <form-bean name="transportServiceForm" type="com.stepup.gasoline.qt.transportservice.TransportServiceFormBean"/>
@@ -1470,6 +1471,9 @@
         </action>
         <action path="/addAgency" name ="agencyForm" scope="request" type="com.stepup.gasoline.qt.agency.AddAgencyAction" input="/agencyForm.do">
         </action>
+        <action path="/getAgencyCustomer" type="com.stepup.gasoline.qt.agency.GetAgencyCustomerAction" scope="request" validate="false">
+            <forward name="success" path="/agency/customers.jsp" />
+        </action>
         <!-- end agency -->
         <!-- start oilgroup -->
         <action path="/getOilGroupPanel" type="com.stepup.gasoline.qt.common.BaseStatusFormAction" scope="request" validate="false">
@@ -1497,6 +1501,18 @@
         <action path="/delEmployeeOilCommission" type="com.stepup.gasoline.qt.employeeoilcommission.DeleteEmployeeOilCommissionAction" scope="request" validate="false" >
         </action>
         <!-- end employeeoilcommission -->
+        <!-- start oil -->
+        <action path="/getOilPanel" type="com.stepup.gasoline.qt.common.BaseStatusFormAction" scope="request" validate="false">
+            <forward name="success" path="/oil/oilpanel.jsp" />
+        </action>
+        <action path="/getOilList" type="com.stepup.gasoline.qt.oil.GetOilListAction" scope="request" validate="false" >
+        </action>
+        <action path="/oilForm" type="com.stepup.gasoline.qt.oil.OilFormAction" scope="request" validate="false">
+            <forward name="success" path="/oil/oildetail.jsp" />
+        </action>
+        <action path="/addOil" name ="oilForm" scope="request" type="com.stepup.gasoline.qt.oil.AddOilAction" input="/oilForm.do">
+        </action>
+        <!-- end oil -->
     </action-mappings>
     
     <controller processorClass="org.apache.struts.tiles.TilesRequestProcessor"/>

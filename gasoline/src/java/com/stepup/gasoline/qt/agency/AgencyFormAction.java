@@ -41,10 +41,13 @@ public class AgencyFormAction extends SpineAction {
             HttpServletRequest request, HttpServletResponse response) {
         AgencyBean bean = null;
         String agencyid = request.getParameter("agencyId");
+        ArrayList arrFeeDetail = null;
         if (!GenericValidator.isBlankOrNull(agencyid)) {
             CustomerDAO customerDAO = new CustomerDAO();
             try {
-                bean = customerDAO.getAgency(NumberUtil.parseInt(agencyid, 0));
+                int agencyId = NumberUtil.parseInt(agencyid, 0);
+                bean = customerDAO.getAgency(agencyId);
+                arrFeeDetail = customerDAO.getAgencyCustomerDetail(agencyId);
             } catch (Exception ex) {
             }
         }
@@ -55,6 +58,22 @@ public class AgencyFormAction extends SpineAction {
             formBean = new AgencyFormBean(bean);
         }
         request.setAttribute(Constants.AGENCY, formBean);
+
+        if (arrFeeDetail == null) {
+            arrFeeDetail = new ArrayList();
+        }
+        request.setAttribute(Constants.AGENCY_CUSTOMER, arrFeeDetail);
+
+        ArrayList arrCustomer = null;
+        try {
+            CustomerDAO customerDAO = new CustomerDAO();
+            arrCustomer = customerDAO.getCustomers(EmployeeBean.STATUS_ACTIVE, QTUtil.getOrganizationManageds(request.getSession()));
+        } catch (Exception ex) {
+        }
+        if (arrCustomer == null) {
+            arrCustomer = new ArrayList();
+        }
+        request.setAttribute(Constants.CUSTOMER_LIST, arrCustomer);
 
         ArrayList arrStatus = new ArrayList();
         LabelValueBean value;
