@@ -203,4 +203,6 @@ public class PermissionUtil {
     public static int PER_EMPLOYEE_COMMISSION = 114;
     public static int PER_AGENCTY_CUSTOMER_COMMISSION = 115;
     public static int PER_EMPLOYEE_OIL_COMMISSION = 116;
+    public static int PER_OIL_IMPORT = 117;
+    public static int PER_SALE_OIL = 118;
 }

@@ -25,6 +25,7 @@ public class VendorBean {
     private int isPetro;
     private int isGood;
     private int isTransport;
+    private int isOil;
 
     public int getId() {
         return id;
@@ -144,6 +145,14 @@ public class VendorBean {
 
     public void setIsTransport(int isTransport) {
         this.isTransport = isTransport;
+    }
+
+    public int getIsOil() {
+        return isOil;
+    }
+
+    public void setIsOil(int isOil) {
+        this.isOil = isOil;
     }
 
     public static final int IS_GAS = 1;

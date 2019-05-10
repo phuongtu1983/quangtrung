@@ -65,6 +65,10 @@
                             <td><html:checkbox property="isTransport" name="<%=Constants.VENDOR%>"></html:checkbox></td>
                             </tr>
                             <tr>
+                                <td height="30" style="padding-right: 20px"><bean:message key="vendor.detail.isOil"/></td>
+                            <td colspan="3"><html:checkbox property="isOil" name="<%=Constants.VENDOR%>"></html:checkbox></td>
+                            </tr>
+                            <tr>
                                 <td height="30" style="padding-right: 20px" colspan="4">
                                     <div id="vendorDynamicField"><%@include  file="/dynamicfield/fieldvalues.jsp"%></div>
                             </td>

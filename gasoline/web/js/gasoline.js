@@ -404,6 +404,14 @@ function menuClick(id) {
         loadOilPanel();
     else if (id == 'oiladd')
         getOil(0, 'loadOilPanel');
+    else if (id == 'oilimportlist')
+        loadOilImportPanel();
+    else if (id == 'oilimportadd')
+        getOilImport(0);
+    else if (id == 'saleoillist')
+        loadSaleOilPanel();
+    else if (id == 'saleoiladd')
+        getSaleOil(0);
 }
 function clearContent() {
     var contentDiv = document.getElementById("contentDiv");
@@ -13311,4 +13319,412 @@ function saveOil() {
     });
     return false;
 }
+function loadOilImportPanel() {
+    callAjax("getOilImportPanel.do", null, null, function(data) {
+        clearContent();
+        setAjaxData(data, "contentDiv");
+        var myCalendar = new dhtmlXCalendarObject(["fromDate", "toDate"]);
+        myCalendar.setSkin('dhx_web');
+        var currentTime = getCurrentDate();
+        document.forms['oilImportSearchForm'].fromDate.value = currentTime;
+        document.forms['oilImportSearchForm'].toDate.value = currentTime;
+        myCalendar.setDateFormat("%d/%m/%Y");
+        loadOilImportList(currentTime, currentTime);
+    });
+    return false;
+}
+function loadOilImportList(fromDate, toDate) {
+    var mygrid = new dhtmlXGridObject('oilImportList');
+    mygrid.setImagePath("js/dhtmlx/grid/imgs/");
+    mygrid.setHeader("M\u00E3 phi\u1EBFu,Ng\u00E0y,Nh\u00E0 cung c\u1EA5p,T\u1ED5ng ti\u1EC1n,Thanh to\u00E1n,C\u00F2n n\u1EE3,Ghi ch\u00FA");
+    mygrid.attachHeader("#text_filter,#text_filter,#select_filter,#text_filter,#text_filter,#text_filter,#text_filter");
+    mygrid.setInitWidths("150,100,150,150,150,*");
+    mygrid.setColTypes("link,ro,ro,ro,ro,ro");
+    mygrid.setColSorting("str,str,str,str,str,str");
+    mygrid.setSkin("light");
+    var height = contentHeight - 210;
+    mygrid.al(true, height); //enableAutoHeight
+    mygrid.enablePaging(true, 15, 3, "recinfoArea");
+    mygrid.setPagingSkin("toolbar", "dhx_skyblue");
+    mygrid.init();
+    var url = "getOilImportList.do?t=1";
+    if (fromDate != null)
+        url += "&fromDate=" + fromDate;
+    if (toDate != null)
+        url += "&toDate=" + toDate;
+    callAjax(url, null, null, function(data) {
+        mygrid.parse(data);
+    });
+    return false;
+}
+function getOilImport(id) {
+    var url = 'oilImportForm.do';
+    if (id != 0)
+        url += '?oilImportId=' + id
+    callAjax(url, null, null, function(data) {
+        clearContent();
+        setAjaxData(data, 'contentDiv');
+        if (id == 0) {
+            var currentDate = getCurrentDate();
+            document.forms['oilImportForm'].oilImportCreatedDate.value = currentDate;
+        }
+        var myCalendar = new dhtmlXCalendarObject(["oilImportCreatedDate"]);
+        myCalendar.setSkin('dhx_web');
+        myCalendar.setDateFormat("%d/%m/%Y");
+
+        tryNumberFormatCurrentcy(document.forms['oilImportForm'].total, "VND");
+        tryNumberFormatCurrentcy(document.forms['oilImportForm'].paid, "VND");
+        tryNumberFormatCurrentcy(document.forms['oilImportForm'].debt, "VND");
+        tryNumberFormatCurrentcy(document.forms['oilImportForm'].rate, "VND");
+        formatFormDetail('oilImportForm');
+
+        window.dhx_globalImgPath = "js/dhtmlx/combo/imgs/";
+        // ============================
+        var oilIdCombobox = dhtmlXComboFromSelect("oilIdCombobox");
+        oilIdCombobox.enableFilteringMode(true);
+        oilIdCombobox.attachEvent("onSelectionChange", function() {
+            setOilSelectedForm('oilImportForm', oilIdCombobox.getComboText(), oilIdCombobox.getSelectedValue());
+        });
+        oilIdCombobox.attachEvent("onBlur", function() {
+            setOilSelectedForm('oilImportForm', oilIdCombobox.getComboText(), oilIdCombobox.getSelectedValue());
+        });
+        oilIdCombobox.DOMelem_input.onkeypress = function(event) {
+            var key;
+            if (window.event)
+                key = window.event.keyCode;//IE
+            else
+                key = event.which;//firefox
+            if (key == 13) {
+                addOilImportOil();
+                oilIdCombobox.setComboValue("");
+            }
+        }
+        oilIdCombobox.DOMelem_input.onfocus = function(event) {
+            if (isManuallySeleted == 1) {
+                oilIdCombobox.openSelect();
+                isManuallySeleted = 0;
+            }
+        }
+        oilIdCombobox.setComboValue("");
+    });
+}
+function saveOilImport() {
+    if (scriptFunction == "saveOilImport")
+        return false;
+    var quantity = document.forms['oilImportForm'].quantity;
+    if (quantity == null) {
+        alert('Vui l\u00F2ng ch\u1ECDn h\u00E0ng h\u00F3a');
+        return false;
+    }
+    var price = document.forms['oilImportForm'].price;
+    var amount = document.forms['oilImportForm'].amount;
+    if (quantity.length != null) {
+        for (var i = 0; i < quantity.length; i++) {
+            var number = Number(quantity[i].value);
+            if (number == 0) {
+                alert('Vui l\u00F2ng nh\u1EADp s\u1ED1 l\u01B0\u1EE3ng');
+                quantity[i].focus();
+                quantity = null;
+                return false;
+            }
+            reformatNumberMoney(quantity[i]);
+            reformatNumberMoney(price[i]);
+            reformatNumberMoney(amount[i]);
+        }
+    } else {
+        if (quantity.value == "0") {
+            alert('Vui l\u00F2ng nh\u1EADp s\u1ED1 l\u01B0\u1EE3ng');
+            quantity.focus();
+            quantity = null;
+            return false;
+        }
+        reformatNumberMoney(quantity);
+        reformatNumberMoney(price);
+        reformatNumberMoney(amount);
+    }
+    quantity = null;
+    price = null;
+    amount = null;
+    reformatNumberMoney(document.forms['oilImportForm'].total);
+    reformatNumberMoney(document.forms['oilImportForm'].paid);
+    reformatNumberMoney(document.forms['oilImportForm'].debt);
+    reformatNumberMoney(document.forms['oilImportForm'].rate);
+    scriptFunction = "saveOilImport";
+    callAjaxCheckError("addOilImport.do", null, document.forms['oilImportForm'], function(data) {
+        scriptFunction = "";
+        loadOilImportPanel();
+    });
+    return false;
+}
+function addOilImportOil() {
+    var oil = document.forms['oilImportForm'].oilSelectedHidden.value;
+    if (oil == -1 || oil == 0)
+        return false;
+    var oilId = document.forms['oilImportForm'].oilId;
+    var existed = false;
+    if (oilId != null) {
+        if (oilId.length != null) {
+            for (i = 0; i < oilId.length; i++) {
+                if (oilId[i].value == oil) {
+                    existed = true;
+                    break;
+                }
+            }
+        } else if (oilId.value == oil)
+            existed = true;
+    }
+    oilId = null;
+    if (existed == true) {
+        alert("H\u00E0ng ho\u00E1 \u0111\u00E3 t\u1ED3n t\u1EA1i");
+        return false;
+    }
+    callAjax("getOilImportOil.do?oilId=" + oil, null, null, function(data) {
+        setAjaxData(data, 'oilImportOilHideDiv');
+        var matTable = document.getElementById('oilImportOilTbl');
+        var detTable = document.getElementById('oilImportDetailTbl');
+        if (matTable.tBodies[0] == null || detTable.tBodies[0] == null) {
+            matTable = null;
+            detTable = null;
+            return;
+        }
+        for (var i = matTable.tBodies[0].rows.length - 1; i >= 0; i--)
+            detTable.tBodies[0].appendChild(matTable.tBodies[0].rows[i]);
+        matTable = null;
+        detTable = null;
+        formatFormDetail('oilImportForm');
+    });
+    return false;
+}
+function delOilImport() {
+    callAjaxCheckError('delOilImport.do?oilImportId=' + document.forms['oilImportForm'].id.value, null, null, function() {
+        loadOilImportPanel();
+    });
+    return false;
+}
+function loadSaleOilPanel() {
+    callAjax("getSaleOilPanel.do", null, null, function(data) {
+        clearContent();
+        setAjaxData(data, "contentDiv");
+        var myCalendar = new dhtmlXCalendarObject(["fromDate", "toDate"]);
+        myCalendar.setSkin('dhx_web');
+        var currentTime = getCurrentDate();
+        document.forms['saleOilSearchForm'].fromDate.value = currentTime;
+        document.forms['saleOilSearchForm'].toDate.value = currentTime;
+        myCalendar.setDateFormat("%d/%m/%Y");
+        loadSaleOilList(currentTime, currentTime);
+    });
+    return false;
+}
+function loadSaleOilList(fromDate, toDate) {
+    var mygrid = new dhtmlXGridObject('saleOilList');
+    mygrid.setImagePath("js/dhtmlx/grid/imgs/");
+    mygrid.setHeader("M\u00E3 phi\u1EBFu,Ng\u00E0y,T\u1ED5ng ti\u1EC1n,Thanh to\u00E1n,C\u00F2n n\u1EE3,Ghi ch\u00FA");
+    mygrid.attachHeader("#text_filter,#text_filter,#text_filter,#text_filter,#text_filter,#text_filter");
+    mygrid.setInitWidths("150,100,150,150,*");
+    mygrid.setColTypes("link,ro,ro,ro,ro");
+    mygrid.setColSorting("str,str,str,str,str");
+    mygrid.setSkin("light");
+    var height = contentHeight - 210;
+    mygrid.al(true, height); //enableAutoHeight
+    mygrid.enablePaging(true, 15, 3, "recinfoArea");
+    mygrid.setPagingSkin("toolbar", "dhx_skyblue");
+    mygrid.init();
+    var url = "getSaleOilList.do?t=1";
+    if (fromDate != null)
+        url += "&fromDate=" + fromDate;
+    if (toDate != null)
+        url += "&toDate=" + toDate;
+    callAjax(url, null, null, function(data) {
+        mygrid.parse(data);
+    });
+    return false;
+}
+function getSaleOil(id) {
+    var url = 'saleOilForm.do';
+    if (id != 0)
+        url += '?saleOilId=' + id
+    callAjax(url, null, null, function(data) {
+        clearContent();
+        setAjaxData(data, 'contentDiv');
+        if (id == 0) {
+            var currentDate = getCurrentDate();
+            document.forms['saleOilForm'].saleOilCreatedDate.value = currentDate;
+        }
+
+        var myCalendar = new dhtmlXCalendarObject(["saleOilCreatedDate"]);
+        myCalendar.setSkin('dhx_web');
+        myCalendar.setDateFormat("%d/%m/%Y");
+
+        tryNumberFormatCurrentcy(document.forms['saleOilForm'].total, "VND");
+        tryNumberFormatCurrentcy(document.forms['saleOilForm'].paid, "VND");
+        tryNumberFormatCurrentcy(document.forms['saleOilForm'].debt, "VND");
+        tryNumberFormatCurrentcy(document.forms['saleOilForm'].discount, "VND");
+        tryNumberFormatCurrentcy(document.forms['saleOilForm'].totalPay, "VND");
+        formatFormDetail('saleOilForm');
+
+        window.dhx_globalImgPath = "js/dhtmlx/combo/imgs/";
+        // ============================
+        var oilIdCombobox = dhtmlXComboFromSelect("oilIdCombobox");
+        oilIdCombobox.enableFilteringMode(true);
+        oilIdCombobox.attachEvent("onSelectionChange", function() {
+            setOilSelectedForm('saleOilForm', oilIdCombobox.getComboText(), oilIdCombobox.getSelectedValue());
+        });
+        oilIdCombobox.attachEvent("onBlur", function() {
+            setOilSelectedForm('saleOilForm', oilIdCombobox.getComboText(), oilIdCombobox.getSelectedValue());
+        });
+        oilIdCombobox.DOMelem_input.onkeypress = function(event) {
+            var key;
+            if (window.event)
+                key = window.event.keyCode;//IE
+            else
+                key = event.which;//firefox
+            if (key == 13) {
+                addSaleOilOil();
+                oilIdCombobox.setComboValue("");
+            }
+        }
+        oilIdCombobox.DOMelem_input.onfocus = function(event) {
+            if (isManuallySeleted == 1) {
+                oilIdCombobox.openSelect();
+                isManuallySeleted = 0;
+            }
+        }
+        oilIdCombobox.setComboValue("");
+        // ============================
+        var customerIdCombobox = dhtmlXComboFromSelect("customerIdCombobox");
+        customerIdCombobox.enableFilteringMode(true);
+        customerIdCombobox.attachEvent("onSelectionChange", function() {
+            setCustomerSelectedForm('saleOilForm', customerIdCombobox.getComboText(), customerIdCombobox.getSelectedValue());
+        });
+        customerIdCombobox.attachEvent("onBlur", function() {
+            setCustomerSelectedForm('saleOilForm', customerIdCombobox.getComboText(), customerIdCombobox.getSelectedValue());
+            customerIdCombobox.setComboText(customerIdCombobox.getSelectedText());
+        });
+        customerIdCombobox.DOMelem_input.onfocus = function(event) {
+            if (isManuallySeleted == 1) {
+                customerIdCombobox.openSelect();
+                isManuallySeleted = 0;
+            }
+        }
+        if (id == 0) {
+            customerIdCombobox.setComboValue("");
+        } else {
+            var customerId = document.forms['saleOilForm'].customerId.value;
+            if (customerId != 0) {
+                var ind = customerIdCombobox.getIndexByValue(customerId);
+                customerIdCombobox.selectOption(ind);
+            } else {
+                customerIdCombobox.unSelectOption();
+                customerIdCombobox.setComboValue("");
+            }
+        }
+    });
+}
+function setOilSelectedForm(form, text, value) {
+    if (value == null) {
+        if (text != "")
+            value = "-1";
+        else
+            value = "0";
+    }
+    document.forms[form].oilSelectedHidden.value = value;
+}
+function saveSaleOil() {
+    if (scriptFunction == "saveSaleOil")
+        return false;
+    var quantity = document.forms['saleOilForm'].quantity;
+    if (quantity == null) {
+        alert('Vui l\u00F2ng ch\u1ECDn h\u00E0ng h\u00F3a');
+        return false;
+    }
+    var price = document.forms['saleOilForm'].price;
+    var amount = document.forms['saleOilForm'].amount;
+    if (quantity.length != null) {
+        for (var i = 0; i < quantity.length; i++) {
+            var number = Number(quantity[i].value);
+            if (number == 0) {
+                alert('Vui l\u00F2ng nh\u1EADp s\u1ED1 l\u01B0\u1EE3ng');
+                quantity[i].focus();
+                quantity = null;
+                return false;
+            }
+            reformatNumberMoney(quantity[i]);
+            reformatNumberMoney(price[i]);
+            reformatNumberMoney(amount[i]);
+        }
+    } else {
+        if (quantity.value == "0") {
+            alert('Vui l\u00F2ng nh\u1EADp s\u1ED1 l\u01B0\u1EE3ng');
+            quantity.focus();
+            quantity = null;
+            return false;
+        }
+        reformatNumberMoney(quantity);
+        reformatNumberMoney(price);
+        reformatNumberMoney(amount);
+    }
+    quantity = null;
+    price = null;
+    amount = null;
+    reformatNumberMoney(document.forms['saleOilForm'].total);
+    reformatNumberMoney(document.forms['saleOilForm'].paid);
+    reformatNumberMoney(document.forms['saleOilForm'].debt);
+    reformatNumberMoney(document.forms['saleOilForm'].discount);
+    reformatNumberMoney(document.forms['saleOilForm'].totalPay);
+    reformatFormDetail('saleOilForm');
+    document.forms['saleOilForm'].customerId.value = document.forms['saleOilForm'].customerSelectedHidden.value;
+    scriptFunction = "saveSaleOil";
+    callAjaxCheckError("addSaleOil.do", null, document.forms['saleOilForm'], function(data) {
+        scriptFunction = "";
+        loadSaleOilPanel();
+    });
+    return false;
+}
+function addSaleOilOil() {
+    var oil = document.forms['saleOilForm'].oilSelectedHidden.value;
+    if (oil == -1 || oil == 0)
+        return false;
+    var oilId = document.forms['saleOilForm'].oilId;
+    var existed = false;
+    if (oilId != null) {
+        if (oilId.length != null) {
+            for (i = 0; i < oilId.length; i++) {
+                if (oilId[i].value == oil) {
+                    existed = true;
+                    break;
+                }
+            }
+        } else if (oilId.value == oil)
+            existed = true;
+    }
+    oilId = null;
+    if (existed == true) {
+        alert("H\u00E0ng ho\u00E1 \u0111\u00E3 t\u1ED3n t\u1EA1i");
+        return false;
+    }
+    callAjax("getSaleOilOil.do?oilId=" + oil, null, null, function(data) {
+        setAjaxData(data, 'saleOilOilHideDiv');
+        var matTable = document.getElementById('saleOilOilTbl');
+        var detTable = document.getElementById('saleOilDetailTbl');
+        if (matTable.tBodies[0] == null || detTable.tBodies[0] == null) {
+            matTable = null;
+            detTable = null;
+            return;
+        }
+        for (var i = matTable.tBodies[0].rows.length - 1; i >= 0; i--)
+            detTable.tBodies[0].appendChild(matTable.tBodies[0].rows[i]);
+        matTable = null;
+        detTable = null;
+        formatFormDetail('saleOilForm');
+    });
+    return false;
+}
+function delSaleOil() {
+    callAjaxCheckError('delSaleOil.do?saleOilId=' + document.forms['saleOilForm'].id.value, null, null, function() {
+        loadSaleOilPanel();
+    });
+    return false;
+}
+
+
 

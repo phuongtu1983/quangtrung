@@ -783,6 +783,26 @@ public class GenerateMenu {
                     }
                     buffTemp.append("</item>");
                 }
+                if (isHasPermission(PermissionUtil.OPERATION_LIST + "," + PermissionUtil.OPERATION_ADD, PermissionUtil.PER_OIL_IMPORT)) {
+                    buffTemp.append("<item id=\"oilimports\" complex=\"true\" text=\"").append(QTUtil.getBundleString("oilImport.title")).append("\">");
+                    if (isHasPermission(PermissionUtil.OPERATION_LIST, PermissionUtil.PER_OIL_IMPORT)) {
+                        buffTemp.append("<item id=\"oilimportlist\" text=\"").append(QTUtil.getBundleString("oilImport.list.title")).append("\"/>");
+                    }
+                    if (isHasPermission(PermissionUtil.OPERATION_ADD, PermissionUtil.PER_OIL_IMPORT)) {
+                        buffTemp.append("<item id=\"oilimportadd\" text=\"").append(QTUtil.getBundleString("oilImport.detail.add.title")).append("\"/>");
+                    }
+                    buffTemp.append("</item>");
+                }
+                if (isHasPermission(PermissionUtil.OPERATION_LIST + "," + PermissionUtil.OPERATION_ADD, PermissionUtil.PER_SALE_OIL)) {
+                    buffTemp.append("<item id=\"saleoils\" complex=\"true\" text=\"").append(QTUtil.getBundleString("saleOil.title")).append("\">");
+                    if (isHasPermission(PermissionUtil.OPERATION_LIST, PermissionUtil.PER_SALE_OIL)) {
+                        buffTemp.append("<item id=\"saleoillist\" text=\"").append(QTUtil.getBundleString("saleOil.list.title")).append("\"/>");
+                    }
+                    if (isHasPermission(PermissionUtil.OPERATION_ADD, PermissionUtil.PER_SALE_OIL)) {
+                        buffTemp.append("<item id=\"saleoiladd\" text=\"").append(QTUtil.getBundleString("saleOil.detail.add.title")).append("\"/>");
+                    }
+                    buffTemp.append("</item>");
+                }
                 if (isHasPermission(PermissionUtil.OPERATION_LIST + "," + PermissionUtil.OPERATION_ADD, PermissionUtil.PER_GOOD_IMPORT)) {
                     buffTemp.append("<item id=\"goodimports\" complex=\"true\" text=\"").append(QTUtil.getBundleString("goodImport.title")).append("\">");
                     if (isHasPermission(PermissionUtil.OPERATION_LIST, PermissionUtil.PER_GOOD_IMPORT)) {

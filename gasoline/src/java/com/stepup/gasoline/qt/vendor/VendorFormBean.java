@@ -30,6 +30,7 @@ public class VendorFormBean extends DynamicFieldValueParentFormBean {
     private boolean isPetro;
     private boolean isGood;
     private boolean isTransport;
+    private boolean isOil;
 
     public VendorFormBean() {
     }
@@ -50,6 +51,7 @@ public class VendorFormBean extends DynamicFieldValueParentFormBean {
         this.isPetro = bean.getIsPetro() == 1 ? true : false;
         this.isGood = bean.getIsGood() == 1 ? true : false;
         this.isTransport = bean.getIsTransport() == 1 ? true : false;
+        this.isOil = bean.getIsOil()== 1 ? true : false;
     }
 
     public int getId() {
@@ -186,6 +188,14 @@ public class VendorFormBean extends DynamicFieldValueParentFormBean {
 
     public void setIsTransport(boolean isTransport) {
         this.isTransport = isTransport;
+    }
+
+    public boolean getIsOil() {
+        return isOil;
+    }
+
+    public void setIsOil(boolean isOil) {
+        this.isOil = isOil;
     }
 
 }
