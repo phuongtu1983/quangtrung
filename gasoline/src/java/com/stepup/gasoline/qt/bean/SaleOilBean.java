@@ -13,6 +13,7 @@ public class SaleOilBean {
     private int id;
     private String code;
     private String createdDate;
+    private double totalBeforeCommisison;
     private double total;
     private double paid;
     private double debt;
@@ -23,6 +24,11 @@ public class SaleOilBean {
     private int canEdit;
     private int customerId;
     private int createdEmployeeId;
+    private float commission;
+    private int commissionKind;
+    private float commissionAmount;
+    private float gapCustomerAmount;
+    private float gapAgencyAmount;
 
     public void setId(int id) {
         this.id = id;
@@ -128,4 +134,53 @@ public class SaleOilBean {
         this.createdEmployeeId = createdEmployeeId;
     }
 
+    public float getCommission() {
+        return commission;
+    }
+
+    public void setCommission(float commission) {
+        this.commission = commission;
+    }
+
+    public int getCommissionKind() {
+        return commissionKind;
+    }
+
+    public void setCommissionKind(int commissionKind) {
+        this.commissionKind = commissionKind;
+    }
+
+    public float getCommissionAmount() {
+        return commissionAmount;
+    }
+
+    public void setCommissionAmount(float commissionAmount) {
+        this.commissionAmount = commissionAmount;
+    }
+
+    public float getGapCustomerAmount() {
+        return gapCustomerAmount;
+    }
+
+    public void setGapCustomerAmount(float gapCustomerAmount) {
+        this.gapCustomerAmount = gapCustomerAmount;
+    }
+
+    public float getGapAgencyAmount() {
+        return gapAgencyAmount;
+    }
+
+    public void setGapAgencyAmount(float gapAgencyAmount) {
+        this.gapAgencyAmount = gapAgencyAmount;
+    }
+
+    public double getTotalBeforeCommisison() {
+        return totalBeforeCommisison;
+    }
+
+    public void setTotalBeforeCommisison(double totalBeforeCommisison) {
+        this.totalBeforeCommisison = totalBeforeCommisison;
+    }
+    public static int COMMISSION_KIND_INVOICE = 1;
+    public static int COMMISSION_KIND_DIRECT = 2;
 }

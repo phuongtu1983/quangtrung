@@ -26,6 +26,7 @@ public class VendorBean {
     private int isGood;
     private int isTransport;
     private int isOil;
+    private float commissionOnImport;
 
     public int getId() {
         return id;
@@ -153,6 +154,14 @@ public class VendorBean {
 
     public void setIsOil(int isOil) {
         this.isOil = isOil;
+    }
+
+    public float getCommissionOnImport() {
+        return commissionOnImport;
+    }
+
+    public void setCommissionOnImport(float commissionOnImport) {
+        this.commissionOnImport = commissionOnImport;
     }
 
     public static final int IS_GAS = 1;

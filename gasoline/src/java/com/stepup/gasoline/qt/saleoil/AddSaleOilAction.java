@@ -69,6 +69,12 @@ public class AddSaleOilAction extends SpineAction {
         bean.setTotalPay(formBean.getTotalPay());
         bean.setAccountId(formBean.getAccountId());
         bean.setCustomerId(formBean.getCustomerId());
+        bean.setCommission(formBean.getCommission());
+        bean.setCommissionKind(formBean.getCommissionKind());
+        bean.setCommissionAmount(formBean.getCommissionAmount());
+        bean.setGapAgencyAmount(formBean.getGapAgencyAmount());
+        bean.setGapCustomerAmount(formBean.getGapCustomerAmount());
+        bean.setTotalBeforeCommisison(formBean.getTotalBeforeCommisison());
         bean.setCreatedEmployeeId(QTUtil.getEmployeeId(request.getSession()));
         try {
             if (bNew) {
@@ -100,6 +106,12 @@ public class AddSaleOilAction extends SpineAction {
                     bean.setQuantity(NumberUtil.parseInt(formBean.getQuantity()[i], 0));
                     bean.setPrice(NumberUtil.parseDouble(formBean.getPrice()[i], 0));
                     bean.setAmount(NumberUtil.parseDouble(formBean.getAmount()[i], 0));
+                    bean.setPriceBeforeCommission(NumberUtil.parseFloat(formBean.getPriceBeforeCommission()[i], 0));
+                    bean.setCommissionPrice(NumberUtil.parseFloat(formBean.getCommissionPrice()[i], 0));
+                    bean.setFirstAmount(NumberUtil.parseDouble(formBean.getFirstAmount()[i], 0));
+                    bean.setCommission(NumberUtil.parseFloat(formBean.getCommissionDetail()[i], 0));
+                    bean.setGapAgencyAmount(NumberUtil.parseDouble(formBean.getGapAgencyAmountDetail()[i], 0));
+                    bean.setGapCustomerAmount(NumberUtil.parseDouble(formBean.getGapCustomerAmountDetail()[i], 0));
                     bean.setSaleOilId(formBean.getId());
                     goodDAO.insertSaleOilDetail(bean, formBean.getCreatedDate());
                 } else {
@@ -125,6 +137,30 @@ public class AddSaleOilAction extends SpineAction {
                         if (oldBean.getAmount() != NumberUtil.parseDouble(formBean.getAmount()[i], 0)) {
                             isUpdate = true;
                             oldBean.setAmount(NumberUtil.parseDouble(formBean.getAmount()[i], 0));
+                        }
+                        if (oldBean.getPriceBeforeCommission() != NumberUtil.parseDouble(formBean.getPriceBeforeCommission()[i], 0)) {
+                            isUpdate = true;
+                            oldBean.setPriceBeforeCommission(NumberUtil.parseDouble(formBean.getPriceBeforeCommission()[i], 0));
+                        }
+                        if (oldBean.getCommissionPrice() != NumberUtil.parseDouble(formBean.getCommissionPrice()[i], 0)) {
+                            isUpdate = true;
+                            oldBean.setCommissionPrice(NumberUtil.parseFloat(formBean.getCommissionPrice()[i], 0));
+                        }
+                        if (oldBean.getFirstAmount() != NumberUtil.parseDouble(formBean.getFirstAmount()[i], 0)) {
+                            isUpdate = true;
+                            oldBean.setFirstAmount(NumberUtil.parseDouble(formBean.getFirstAmount()[i], 0));
+                        }
+                        if (oldBean.getCommission() != NumberUtil.parseDouble(formBean.getCommissionDetail()[i], 0)) {
+                            isUpdate = true;
+                            oldBean.setCommission(NumberUtil.parseFloat(formBean.getCommissionDetail()[i], 0));
+                        }
+                        if (oldBean.getGapAgencyAmount() != NumberUtil.parseDouble(formBean.getGapAgencyAmountDetail()[i], 0)) {
+                            isUpdate = true;
+                            oldBean.setGapAgencyAmount(NumberUtil.parseDouble(formBean.getGapAgencyAmountDetail()[i], 0));
+                        }
+                        if (oldBean.getGapCustomerAmount() != NumberUtil.parseDouble(formBean.getGapCustomerAmountDetail()[i], 0)) {
+                            isUpdate = true;
+                            oldBean.setGapCustomerAmount(NumberUtil.parseDouble(formBean.getGapCustomerAmountDetail()[i], 0));
                         }
                         if (needUpdate) {
                             isUpdate = true;

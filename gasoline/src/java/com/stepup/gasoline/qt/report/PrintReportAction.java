@@ -19,6 +19,7 @@ import com.stepup.gasoline.qt.dao.GoodDAO;
 import com.stepup.gasoline.qt.dao.ReportDAO;
 import com.stepup.gasoline.qt.dao.VendorDAO;
 import com.stepup.gasoline.qt.employee.EmployeeFormBean;
+import com.stepup.gasoline.qt.oil.OilFormBean;
 import com.stepup.gasoline.qt.petro.PetroFormBean;
 import com.stepup.gasoline.qt.util.QTUtil;
 import com.stepup.gasoline.qt.vendor.VendorFormBean;
@@ -150,9 +151,17 @@ public class PrintReportAction extends BaseAction {
                 } else if (reportName.equals("reportemployeeworking")) {
                     templateFileName = "bang_theo_doi_thoi_gian_cong_tac";
                     list = printEmployeeWorkingTimeReport(organizationIds);
+                } else if (reportName.equals("reportoilimport")) {
+                    templateFileName = "bang_theo_doi_nhap_dau_nhot";
+                    list = printOilImportReport(fromDate, toDate, organizationIds);
+                } else if (reportName.equals("reportoilstocksum")) {
+                    templateFileName = "so_theo_doi_nxt_tong_hop_oil";
+                    String session = QTUtil.getEmployeeId(request.getSession()) + "_" + Calendar.getInstance().getTimeInMillis();
+                    printOilStockReport(fromDate, toDate, organizationIds, request, response, templateFileName, session, beans, exporter);
                 }
 
-                if (!reportName.equals("reportpetrostock") && !reportName.equals("reportgascommission") && !reportName.equals("reportshell") && !reportName.equals("reportemployeeoff")) {
+                if (!reportName.equals("reportpetrostock") && !reportName.equals("reportgascommission") && !reportName.equals("reportshell")
+                        && !reportName.equals("reportemployeeoff") && !reportName.equals("reportoilstocksum")) {
                     String sourceFile = request.getSession().getServletContext().getRealPath("/templates/" + templateFileName + ".xls");
                     if (list == null) {
                         list = new ArrayList();
@@ -779,6 +788,66 @@ public class PrintReportAction extends BaseAction {
         } catch (Exception ex) {
         }
         return list;
+    }
+
+    private ArrayList printOilImportReport(String fromDate, String toDate, String organizationIds) {
+        ArrayList list = null;
+        try {
+            ReportDAO reportDAO = new ReportDAO();
+            list = reportDAO.getPetroOilReport(fromDate, toDate, organizationIds);
+        } catch (Exception ex) {
+        }
+        return list;
+    }
+
+    private void printOilStockReport(String fromDate, String toDate, String organizationIds, HttpServletRequest request, HttpServletResponse response,
+            String fileName, String sessionId, Map beans, ExcelExport exporter) {
+        ArrayList list = null;
+        try {
+            String tempFileName = request.getSession().getServletContext().getRealPath("/templates/" + fileName + "_temp.xls");
+            fileName = request.getSession().getServletContext().getRealPath("/templates/" + fileName + ".xls");
+            GoodDAO goodDAO = new GoodDAO();
+            ReportDAO reportDAO = new ReportDAO();
+
+            FileUtil.copyFile(fileName, tempFileName);
+            File f = new File(tempFileName);
+            ArrayList arrHideCol = new ArrayList();
+            arrHideCol.add(2);
+            arrHideCol.add(3);
+            arrHideCol.add(4);
+
+            OilStockReportOutBean outBean = new OilStockReportOutBean();
+            list = reportDAO.getOilStockReport(fromDate, toDate, organizationIds, 0, sessionId, outBean);
+
+            ArrayList oils = goodDAO.getOils(outBean.getOilIds());
+
+            beans.put("datedata", list);
+            DynamicColumnExcelReporter.createOilStockReportColumns(tempFileName, oils, f);
+
+            OilFormBean oil = null;
+
+            for (int i = 0; i < oils.size(); i++) {
+                oil = (OilFormBean) oils.get(i);
+                try {
+                    list = reportDAO.getOilStockReport(fromDate, toDate, organizationIds, oil.getId(), sessionId, outBean);
+                } catch (Exception ex) {
+                }
+                beans.put("dynamicdata" + oil.getId(), list);
+                beans.put("openingStock" + oil.getId(), outBean.getOpeningStock());
+            }
+            reportDAO.clearOilStockReport(sessionId);
+
+            short[] hiddenCols = new short[arrHideCol.size()];
+            for (int i = 0; i < arrHideCol.size(); i++) {
+                hiddenCols[i] = Short.parseShort(arrHideCol.get(i) + "");
+            }
+            exporter.setHiddenCols(hiddenCols);
+            exporter.setBeans(beans);
+            exporter.export(request, response, tempFileName, "oil_stock_report.xls");
+            f.delete();
+        } catch (Exception ex) {
+            System.out.println(ex);
+        }
     }
 
 }

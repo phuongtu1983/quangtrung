@@ -46,6 +46,9 @@ import com.stepup.gasoline.qt.report.LpgStockSumReportBean;
 import com.stepup.gasoline.qt.report.LpgStockReportBean;
 import com.stepup.gasoline.qt.report.LpgStockReportOutBean;
 import com.stepup.gasoline.qt.report.LpgStockSumReportOutBean;
+import com.stepup.gasoline.qt.report.OilImportReportBean;
+import com.stepup.gasoline.qt.report.OilStockReportBean;
+import com.stepup.gasoline.qt.report.OilStockReportOutBean;
 import com.stepup.gasoline.qt.report.PetroImportReportBean;
 import com.stepup.gasoline.qt.report.PetroSaleReportBean;
 import com.stepup.gasoline.qt.report.PetroStockReportBean;
@@ -2935,6 +2938,227 @@ public class ReportDAO extends BasicDAO {
                         bean.setEnought2(rs.getFloat("enought2"));
                         bean.setSeniority(rs.getFloat("seniority") * bean.getEnought2());
                         bean.setNotEnought2(rs.getFloat("not_enought2"));
+                        list.add(bean);
+                    }
+                }
+            }
+        } catch (SQLException sqle) {
+            throw new Exception(sqle.getMessage());
+        } catch (Exception ex) {
+            throw new Exception(ex.getMessage());
+        } finally {
+            try {
+                if (spUtil != null) {
+                    spUtil.closeConnection();
+                }
+                if (rs != null) {
+                    rs.close();
+                    rs = null;
+                }
+            } catch (Exception e) {
+                throw new Exception(e.getMessage());
+            }
+        }
+        return list;
+    }
+
+    public ArrayList getPetroOilReport(String fromDate, String endDate, String organizationIds) throws Exception {
+        SPUtil spUtil = null;
+        ArrayList list = new ArrayList();
+        ResultSet rs = null;
+        try {
+            String sql = "{call report_oil_import(?,?,?)}";
+            if (GenericValidator.isBlankOrNull(fromDate)) {
+                fromDate = DateUtil.today("dd/MM/yyyy");
+            }
+            if (GenericValidator.isBlankOrNull(endDate)) {
+                endDate = BasicDAO.START_DATE;
+            }
+            spUtil = new SPUtil(sql);
+            if (spUtil != null) {
+                spUtil.getCallableStatement().setString("_start_date", fromDate);
+                spUtil.getCallableStatement().setString("_end_date", endDate);
+                spUtil.getCallableStatement().setString("_organization_ids", organizationIds);
+
+                rs = spUtil.executeQuery();
+
+                if (rs != null) {
+                    OilImportReportBean bean = null;
+                    int count = 1;
+                    while (rs.next()) {
+                        bean = new OilImportReportBean();
+                        bean.setCount(count++ + "");
+                        bean.setDate(DateUtil.formatDate(rs.getDate("created_date"), "dd/MM/yyyy"));
+                        bean.setVendorName(rs.getString("vendor_name"));
+                        bean.setOilName(rs.getString("oilName"));
+                        bean.setQuantity(rs.getInt("quantity"));
+                        bean.setPrice(rs.getDouble("price"));
+                        bean.setAmount(rs.getDouble("amount"));
+                        bean.setPaid(rs.getDouble("paid"));
+                        bean.setNote(rs.getString("note"));
+                        list.add(bean);
+                    }
+                }
+            }
+        } catch (SQLException sqle) {
+            throw new Exception(sqle.getMessage());
+        } catch (Exception ex) {
+            throw new Exception(ex.getMessage());
+        } finally {
+            try {
+                if (spUtil != null) {
+                    spUtil.closeConnection();
+                }
+                if (rs != null) {
+                    rs.close();
+                    rs = null;
+                }
+            } catch (Exception e) {
+                throw new Exception(e.getMessage());
+            }
+        }
+        return list;
+    }
+
+    public ArrayList getOilStockStoreReport(String fromDate, String endDate, String organizationIds, int storeId, int oilId, String session_id, OilStockReportOutBean outBean) throws Exception {
+        SPUtil spUtil = null;
+        ArrayList list = new ArrayList();
+        ResultSet rs = null;
+        try {
+            String sql = "{call report_oil_stock_store(?,?,?,?,?,?,?)}";
+            if (GenericValidator.isBlankOrNull(fromDate)) {
+                fromDate = DateUtil.today("dd/MM/yyyy");
+            }
+            if (GenericValidator.isBlankOrNull(endDate)) {
+                endDate = BasicDAO.START_DATE;
+            }
+            spUtil = new SPUtil(sql);
+            if (spUtil != null) {
+                spUtil.getCallableStatement().setString("_start_date", fromDate);
+                spUtil.getCallableStatement().setString("_end_date", endDate);
+                spUtil.getCallableStatement().setString("_organization_ids", organizationIds);
+                spUtil.getCallableStatement().setInt("_store_id", storeId);
+                spUtil.getCallableStatement().setInt("_oil_id", oilId);
+                spUtil.getCallableStatement().setString("_session_id", session_id);
+                spUtil.getCallableStatement().registerOutParameter("_oil_ids", Types.VARCHAR);
+
+                rs = spUtil.executeQuery();
+
+                if (outBean != null) {
+                    outBean.setOilIds(spUtil.getCallableStatement().getString("_oil_ids"));
+                }
+                if (rs != null) {
+                    OilStockReportBean bean = null;
+                    int stock = 0;
+                    boolean firstTime = true;
+                    while (rs.next()) {
+                        bean = new OilStockReportBean();
+                        bean.setDate(DateUtil.formatDate(rs.getDate("created_date"), "dd/MM/yyyy"));
+                        bean.setOilId(rs.getInt("oil_id"));
+                        bean.setImportQuantity(rs.getInt("import_quantity"));
+                        bean.setSaleQuantity(rs.getInt("export_quantity"));
+                        if (firstTime) {
+                            stock = rs.getInt("opening_stock");
+                            outBean.setOpeningStock(stock);
+                            firstTime = false;
+                        }
+                        bean.setStock(stock + bean.getImportQuantity() - bean.getSaleQuantity());
+                        stock = bean.getStock();
+                        list.add(bean);
+                    }
+                }
+            }
+        } catch (SQLException sqle) {
+            throw new Exception(sqle.getMessage());
+        } catch (Exception ex) {
+            throw new Exception(ex.getMessage());
+        } finally {
+            try {
+                if (spUtil != null) {
+                    spUtil.closeConnection();
+                }
+                if (rs != null) {
+                    rs.close();
+                    rs = null;
+                }
+            } catch (Exception e) {
+                throw new Exception(e.getMessage());
+            }
+        }
+        return list;
+    }
+
+    public void clearOilStockReport(String session_id) throws Exception {
+        SPUtil spUtil = null;
+        ResultSet rs = null;
+        try {
+            String sql = "{call clear_oil_stock_report(?)}";
+            spUtil = new SPUtil(sql);
+            if (spUtil != null) {
+                spUtil.getCallableStatement().setString("_session_id", session_id);
+
+                rs = spUtil.executeQuery();
+            }
+        } catch (SQLException sqle) {
+            throw new Exception(sqle.getMessage());
+        } catch (Exception ex) {
+            throw new Exception(ex.getMessage());
+        } finally {
+            try {
+                if (spUtil != null) {
+                    spUtil.closeConnection();
+                }
+                if (rs != null) {
+                    rs.close();
+                    rs = null;
+                }
+            } catch (Exception e) {
+                throw new Exception(e.getMessage());
+            }
+        }
+    }
+
+    public ArrayList getOilStockReport(String fromDate, String endDate, String organizationIds, int oilId, String session_id, OilStockReportOutBean outBean) throws Exception {
+        SPUtil spUtil = null;
+        ArrayList list = new ArrayList();
+        ResultSet rs = null;
+        try {
+            String sql = "{call report_oil_stock(?,?,?,?,?,?)}";
+            if (GenericValidator.isBlankOrNull(fromDate)) {
+                fromDate = DateUtil.today("dd/MM/yyyy");
+            }
+            if (GenericValidator.isBlankOrNull(endDate)) {
+                endDate = BasicDAO.START_DATE;
+            }
+            spUtil = new SPUtil(sql);
+            if (spUtil != null) {
+                spUtil.getCallableStatement().setString("_start_date", fromDate);
+                spUtil.getCallableStatement().setString("_end_date", endDate);
+                spUtil.getCallableStatement().setString("_organization_ids", organizationIds);
+                spUtil.getCallableStatement().setInt("_oil_id", oilId);
+                spUtil.getCallableStatement().setString("_session_id", session_id);
+                spUtil.getCallableStatement().registerOutParameter("_oil_ids", Types.VARCHAR);
+
+                rs = spUtil.executeQuery();
+
+                outBean.setOilIds(spUtil.getCallableStatement().getString("_oil_ids"));
+                if (rs != null) {
+                    OilStockReportBean bean = null;
+                    int stock = 0;
+                    boolean firstTime = true;
+                    while (rs.next()) {
+                        bean = new OilStockReportBean();
+                        bean.setDate(DateUtil.formatDate(rs.getDate("created_date"), "dd/MM/yyyy"));
+                        bean.setOilId(rs.getInt("oil_id"));
+                        bean.setImportQuantity(rs.getInt("import_quantity"));
+                        bean.setSaleQuantity(rs.getInt("export_quantity"));
+                        if (firstTime) {
+                            stock = rs.getInt("opening_stock");
+                            outBean.setOpeningStock(stock);
+                            firstTime = false;
+                        }
+                        bean.setStock(stock + bean.getImportQuantity() - bean.getSaleQuantity());
+                        stock = bean.getStock();
                         list.add(bean);
                     }
                 }

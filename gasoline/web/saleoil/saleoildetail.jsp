@@ -9,30 +9,48 @@
 <form name="saleOilForm">
     <table style="width: 100%">
         <tr>
-            <td width="160" height="30"><bean:message key="code.title"/></td>
+            <td width="250" height="30"><bean:message key="code.title"/></td>
             <td width="160"><html:text property="code" size="30" name="<%=Constants.SALE_OIL%>" readonly="true" tabindex="-1"/></td>
-            <td width="170"  style="padding-right: 20px;padding-left: 10px"><bean:message key="date.title"/></td>
+            <td width="200"  style="padding-right: 20px;padding-left: 10px"><bean:message key="date.title"/></td>
             <td><html:text property="createdDate" size="30" name="<%=Constants.SALE_OIL%>" styleId="saleOilCreatedDate" tabindex="-1"/></td>
         </tr>
         <tr>
-            <td height="30" style="padding-right: 20px""><bean:message key="account.title"/></td>
+            <td height="30" style="padding-right: 20px"><bean:message key="account.title"/></td>
             <td>
                 <html:select property="accountId" name="<%=Constants.SALE_OIL%>" style="width:195px" tabindex="0">
                     <html:options collection="<%=Constants.ACCOUNT_LIST%>" property="id" labelProperty="number"/>
                 </html:select>
             </td>
-            <td width="170"  style="padding-right: 20px;padding-left: 10px"><bean:message key="total.title"/></td>
+            <td style="padding-right: 20px;padding-left: 10px"><bean:message key="total.title"/></td>
             <td><html:text property="total" size="30" name="<%=Constants.SALE_OIL%>" readonly="true" tabindex="-1"/></td>
         </tr>
         <tr>
-            <td height="30" style="padding-right: 20px""><bean:message key="customer.title"/></td>
-            <td colspan="3">
+            <td height="30" style="padding-right: 20px"><bean:message key="customer.title"/></td>
+            <td>
                 <select style="width: 195px;" name="customerIdCombobox" id="customerIdCombobox">
                     <logic:iterate id="customer_iter" name="<%=Constants.CUSTOMER_LIST%>">
                         <option  value="${customer_iter.id}">${customer_iter.name}</option>
                     </logic:iterate>
                 </select>
             </td>
+            <td width="170"  style="padding-right: 20px;padding-left: 10px"><bean:message key="customer.detail.percentage"/></td>
+            <td><html:text property="commission" size="30" name="<%=Constants.SALE_OIL%>" onblur="tryNumberFormatCurrentcy(this);" onkeypress="return readonlyFloat(event);"/></td>
+        </tr>
+        <tr>
+            <td height="30" style="padding-right: 20px"><bean:message key="saleOil.detail.commission.kind"/></td>
+            <td>
+                <html:select property="commissionKind" name="<%=Constants.SALE_OIL%>" style="width:195px" tabindex="0" onchange="return saleOilSetCommission();">
+                    <html:options collection="<%=Constants.COMMISSION_KIND_LIST%>" property="value" labelProperty="label"/>
+                </html:select>
+            </td>
+            <td width="170"  style="padding-right: 20px;padding-left: 10px"><bean:message key="saleOil.detail.commission"/></td>
+            <td><html:text property="commissionAmount" size="30" name="<%=Constants.SALE_OIL%>" readonly="true" tabindex="-1"/></td>
+        </tr>
+        <tr>
+            <td height="30" style="padding-right: 20px"><bean:message key="saleOil.detail.gapCustomer"/></td>
+            <td><html:text property="gapCustomerAmount" size="30" name="<%=Constants.SALE_OIL%>" readonly="true" tabindex="-1"/></td>
+            <td width="170"  style="padding-right: 20px;padding-left: 10px"><bean:message key="saleOil.detail.gapAgency"/></td>
+            <td><html:text property="gapAgencyAmount" size="30" name="<%=Constants.SALE_OIL%>" readonly="true" tabindex="-1"/></td>
         </tr>
         <tr>
             <td height="30" style="padding-right: 20px"><bean:message key="discount.title"/></td>
@@ -48,7 +66,7 @@
         </tr>
         <tr>
             <td height="30" style="padding-right: 20px"><bean:message key="note.title"/></td>
-            <td colspan="3"><html:text property="note" size="100" name="<%=Constants.SALE_OIL%>"/></td>
+            <td colspan="3"><html:text property="note" size="105" name="<%=Constants.SALE_OIL%>"/></td>
         </tr>
         <tr>
             <td colspan="4">
@@ -57,7 +75,7 @@
                     <table>
                         <tr>
                             <td>
-                                <button class="i_cross icon small red" onclick="return delTableRow('saleOilForm', 'saleOilOilChk', 'saleOilDetailTbl');" tabindex="-1"><bean:message key="message.del"/></button>
+                                <button class="i_cross icon small red" onclick="return delSaleOilDetail();" tabindex="-1"><bean:message key="message.del"/></button>
                                 <button class="i_plus icon small green" onclick="return addSaleOilOil();" tabindex="-1"><bean:message key="message.add"/></button>
                             </td>
                             <td>

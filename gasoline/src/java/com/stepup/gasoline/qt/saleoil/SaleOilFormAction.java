@@ -22,6 +22,7 @@ import javax.servlet.http.HttpServletResponse;
 import org.apache.commons.validator.GenericValidator;
 import org.apache.struts.action.ActionForm;
 import org.apache.struts.action.ActionMapping;
+import org.apache.struts.util.LabelValueBean;
 
 /**
  *
@@ -112,6 +113,18 @@ public class SaleOilFormAction extends SpineAction {
             arrCustomer = new ArrayList();
         }
         request.setAttribute(Constants.CUSTOMER_LIST, arrCustomer);
+        
+        ArrayList arrKind = new ArrayList();
+        LabelValueBean value;
+        value = new LabelValueBean();
+        value.setLabel(QTUtil.getBundleString("saleOil.detail.commission.kind.invoice"));
+        value.setValue(SaleOilBean.COMMISSION_KIND_INVOICE + "");
+        arrKind.add(value);
+        value = new LabelValueBean();
+        value.setLabel(QTUtil.getBundleString("saleOil.detail.commission.kind.direct"));
+        value.setValue(SaleOilBean.COMMISSION_KIND_DIRECT + "");
+        arrKind.add(value);
+        request.setAttribute(Constants.COMMISSION_KIND_LIST, arrKind);
 
         return true;
     }

@@ -1069,6 +1069,29 @@ public class GenerateMenu {
                         buffTemp.append("<item id=\"reportcomparegood\" text=\"").append(QTUtil.getBundleString("report.compareGood.title")).append("\"/>");
                     }
                     buffTemp.append("</item>");
+                    buffTemp.append("<item id=\"reportoil\" complex=\"true\" text=\"").append(QTUtil.getBundleString("report.oil.title")).append("\">");
+                    if (isHasPermission(PermissionUtil.OPERATION_PRINT, PermissionUtil.PER_REPORT_OIL_IMPORT)) {
+                        buffTemp.append("<item id=\"reportoilimport\" text=\"").append(QTUtil.getBundleString("report.oilImport.title")).append("\"/>");
+                    }
+                    if (isHasPermission(PermissionUtil.OPERATION_PRINT, PermissionUtil.PER_REPORT_OIL_STOCK)) {
+                        buffTemp.append("<item id=\"reportoilstock\" text=\"").append(QTUtil.getBundleString("report.oilStock.title")).append("\"/>");
+                    }
+                    if (isHasPermission(PermissionUtil.OPERATION_PRINT, PermissionUtil.PER_REPORT_OIL_STOCK_SUM)) {
+                        buffTemp.append("<item id=\"reportoilstocksum\" text=\"").append(QTUtil.getBundleString("report.oilStockSum.title")).append("\"/>");
+                    }
+                    if (isHasPermission(PermissionUtil.OPERATION_PRINT, PermissionUtil.PER_REPORT_OIL_SALE)) {
+                        buffTemp.append("<item id=\"reportoilsale\" text=\"").append(QTUtil.getBundleString("report.oilSale.title")).append("\"/>");
+                    }
+                    if (isHasPermission(PermissionUtil.OPERATION_PRINT, PermissionUtil.PER_REPORT_OIL_BANGKE)) {
+                        buffTemp.append("<item id=\"reportoilbangke\" text=\"").append(QTUtil.getBundleString("report.oilBangKe.title")).append("\"/>");
+                    }
+                    if (isHasPermission(PermissionUtil.OPERATION_PRINT, PermissionUtil.PER_REPORT_OIL_COMPARE)) {
+                        buffTemp.append("<item id=\"reportoilcompare\" text=\"").append(QTUtil.getBundleString("report.oilCompare.title")).append("\"/>");
+                    }
+                    if (isHasPermission(PermissionUtil.OPERATION_PRINT, PermissionUtil.PER_REPORT_OIL_COMMISSION_AGENCY)) {
+                        buffTemp.append("<item id=\"reportoilcommissionagency\" text=\"").append(QTUtil.getBundleString("report.oilCommissionAgency.title")).append("\"/>");
+                    }
+                    buffTemp.append("</item>");
                     buffTemp.append("<item id=\"reporttransport\" complex=\"true\" text=\"").append(QTUtil.getBundleString("report.transport.title")).append("\">");
                     if (isHasPermission(PermissionUtil.OPERATION_PRINT, PermissionUtil.PER_REPORT_TRANSPORT_FEE)) {
                         buffTemp.append("<item id=\"reporttransportfee\" text=\"").append(QTUtil.getBundleString("report.transportFee.title")).append("\"/>");

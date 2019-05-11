@@ -11,6 +11,7 @@ import com.stepup.gasoline.qt.accessorykind.AccessoryKindFormBean;
 import com.stepup.gasoline.qt.bean.DayoffBean;
 import com.stepup.gasoline.qt.core.ExcelExport;
 import com.stepup.gasoline.qt.employee.EmployeeFormBean;
+import com.stepup.gasoline.qt.oil.OilFormBean;
 import com.stepup.gasoline.qt.petro.PetroFormBean;
 import java.io.File;
 import java.io.FileInputStream;
@@ -278,4 +279,68 @@ public class DynamicColumnExcelReporter {
         fileOut.close();
     }
 
+    public static void createOilStockReportColumns(String templateFileName, ArrayList arrOil, File f) throws Exception {
+        POIFSFileSystem fs = new POIFSFileSystem(new FileInputStream(templateFileName));
+        HSSFWorkbook wb = new HSSFWorkbook(fs);
+        HSSFSheet sheet = wb.getSheetAt(0);
+        HSSFCell newCell = null;
+        OilFormBean oil = null;
+        short col = 5, row = 3;
+        short border = sheet.getRow(4).getCell(1).getCellStyle().getBorderLeft();
+        short color = sheet.getRow(4).getCell(1).getCellStyle().getLeftBorderColor();
+        for (int i = 0; i < arrOil.size(); i++) {
+            oil = (OilFormBean) arrOil.get(i);
+            //copy header
+            newCell = copyCell(wb, sheet, row + 1, 2, col, "", "");
+            newCell.setCellValue(new HSSFRichTextString(oil.getName()));
+            ExcelExport.setBorder(wb, sheet, row + 1, col + 1, border, color);
+            ExcelExport.setBorder(wb, sheet, row + 1, col + 2, border, color);
+
+            //copy header nhap
+            newCell = copyCell(wb, sheet, row + 2, 2, col, "", "");
+            newCell.setCellValue(new HSSFRichTextString(newCell.getRichStringCellValue().getString()));
+            //copy header xuat
+            newCell = copyCell(wb, sheet, row + 2, 3, col + 1, "", "");
+            newCell.setCellValue(new HSSFRichTextString(newCell.getRichStringCellValue().getString()));
+            //copy header ton
+            newCell = copyCell(wb, sheet, row + 2, 4, col + 2, "", "");
+            newCell.setCellValue(new HSSFRichTextString(newCell.getRichStringCellValue().getString()));
+
+            //copy header2 nhap
+            copyCell(wb, sheet, row + 3, 2, col, "", "");
+            //copy header2 xuat
+            copyCell(wb, sheet, row + 3, 3, col + 1, "", "");
+            //copy header2 ton
+            newCell = copyCell(wb, sheet, row + 3, 4, col + 2, "", "");
+            newCell.setCellValue(new HSSFRichTextString("${" + newCell.getRichStringCellValue().getString() + oil.getId() + "}"));
+
+            //copy content nhap
+            copyCell(wb, sheet, row + 4, 2, col, "", oil.getId() + "");
+            //copy content xuat
+            copyCell(wb, sheet, row + 4, 3, col + 1, "", oil.getId() + "");
+            //copy content ton
+            copyCell(wb, sheet, row + 4, 4, col + 2, "", oil.getId() + "");
+
+            //copy footer nhap
+            newCell = copyCell(wb, sheet, row + 5, 2, col, "", oil.getId() + "");
+            newCell.setCellValue(new HSSFRichTextString("$[SUM(" + ExcelExport.getColumnName(col) + "8)]"));
+            //copy footer xuat
+            newCell = copyCell(wb, sheet, row + 5, 3, col + 1, "", oil.getId() + "");
+            newCell.setCellValue(new HSSFRichTextString("$[SUM(" + ExcelExport.getColumnName(col + 1) + "8)]"));
+            //copy footer ton
+            newCell = copyCell(wb, sheet, row + 5, 4, col + 2, "", oil.getId() + "");
+            newCell.setCellValue(new HSSFRichTextString("$[SUM(" + ExcelExport.getColumnName(col + 2) + "8)]"));
+
+            sheet.setColumnWidth(col, sheet.getColumnWidth(2));
+            sheet.setColumnWidth((col + 1), sheet.getColumnWidth(3));
+            sheet.setColumnWidth((col + 2), sheet.getColumnWidth(4));
+            sheet.addMergedRegion(new CellRangeAddress(row + 1, row + 1, col, col + 2));
+            col += 3;
+        }
+        sheet.addMergedRegion(new CellRangeAddress(0, 0, 0, 2 + 3 - 1 + arrOil.size() * 3));
+        sheet.addMergedRegion(new CellRangeAddress(2, 2, 0, 2 + 3 - 1 + arrOil.size() * 3));
+        FileOutputStream fileOut = new FileOutputStream(f);
+        wb.write(fileOut);
+        fileOut.close();
+    }
 }

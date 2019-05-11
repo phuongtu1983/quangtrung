@@ -1291,6 +1291,11 @@
         </action>
         <action path="/reportEmployeeVehicleSalaryPrint" type="com.stepup.gasoline.qt.report.employeevehiclesalary.PrintEmployeeVehicleSalaryReportAction" scope="request" validate="false" >
         </action>
+        <action path="/getOilStockStoreReportPanel" type="com.stepup.gasoline.qt.report.oilstockstore.OilStockStoreReportPanelFormAction" scope="request" validate="false">
+            <forward name="success" path="/report/oilstockstore/panel.jsp" />
+        </action>
+        <action path="/reportOilStockStorePrint" type="com.stepup.gasoline.qt.report.oilstockstore.PrintOilStockStoreReportAction" scope="request" validate="false" >
+        </action>
         <!-- end report -->
         <!-- start good -->
         <action path="/getGoodPanel" type="com.stepup.gasoline.qt.common.BaseStatusFormAction" scope="request" validate="false">
@@ -1547,6 +1552,8 @@
             <forward name="success" path="/saleoil/oils.jsp" />
         </action>
         <action path="/delSaleOil" type="com.stepup.gasoline.qt.saleoil.DeleteSaleOilAction" scope="request" validate="false" >
+        </action>
+        <action path="/getSaleOilCustomerCommission" scope="request" type="com.stepup.gasoline.qt.saleoil.GetSaleOilCustomerCommissionAction">
         </action>
         <!-- end sale oil -->
     </action-mappings>

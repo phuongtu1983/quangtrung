@@ -49,8 +49,8 @@
                                     <html:options collection="<%=Constants.EQUAL_ORGANIZATION_LIST%>" property="id" labelProperty="name"/>
                                 </html:select>
                             </td>
-                            <td style="padding-left: 10px; padding-right: 20px"><bean:message key="vendor.detail.hasStock"/></td>
-                            <td><html:checkbox property="hasStock" name="<%=Constants.VENDOR%>"></html:checkbox></td>
+                            <td style="padding-left: 10px; padding-right: 20px"><bean:message key="vendor.detail.add.commissionOnImport.title"/></td>
+                            <td><html:text property="commissionOnImport" size="40" name="<%=Constants.VENDOR%>" onblur="tryNumberFormatCurrentcy(this);" onkeypress="return readonlyFloat(event);"/></td>
                             </tr>
                             <tr>
                                 <td height="30" style="padding-right: 20px"><bean:message key="vendor.detail.isGas"/></td>
@@ -59,14 +59,16 @@
                             <td><html:checkbox property="isPetro" name="<%=Constants.VENDOR%>"></html:checkbox></td>
                             </tr>
                             <tr>
-                                <td height="30" style="padding-right: 20px"><bean:message key="vendor.detail.isGood"/></td>
-                            <td><html:checkbox property="isGood" name="<%=Constants.VENDOR%>"></html:checkbox></td>
+                                <td height="30" style="padding-right: 20px"><bean:message key="vendor.detail.isOil"/></td>
+                            <td><html:checkbox property="isOil" name="<%=Constants.VENDOR%>"></html:checkbox></td>
                             <td style="padding-left: 10px; padding-right: 20px"><bean:message key="vendor.detail.isTransport"/></td>
                             <td><html:checkbox property="isTransport" name="<%=Constants.VENDOR%>"></html:checkbox></td>
                             </tr>
                             <tr>
-                                <td height="30" style="padding-right: 20px"><bean:message key="vendor.detail.isOil"/></td>
-                            <td colspan="3"><html:checkbox property="isOil" name="<%=Constants.VENDOR%>"></html:checkbox></td>
+                                <td height="30" style="padding-right: 20px"><bean:message key="vendor.detail.isGood"/></td>
+                            <td><html:checkbox property="isGood" name="<%=Constants.VENDOR%>"></html:checkbox></td>
+                            <td style="padding-left: 10px; padding-right: 20px"><bean:message key="vendor.detail.hasStock"/></td>
+                            <td><html:checkbox property="hasStock" name="<%=Constants.VENDOR%>"></html:checkbox></td>
                             </tr>
                             <tr>
                                 <td height="30" style="padding-right: 20px" colspan="4">

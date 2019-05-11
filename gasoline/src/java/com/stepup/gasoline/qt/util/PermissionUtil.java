@@ -205,4 +205,11 @@ public class PermissionUtil {
     public static int PER_EMPLOYEE_OIL_COMMISSION = 116;
     public static int PER_OIL_IMPORT = 117;
     public static int PER_SALE_OIL = 118;
+    public static int PER_REPORT_OIL_IMPORT = 119;
+    public static int PER_REPORT_OIL_STOCK = 120;
+    public static int PER_REPORT_OIL_STOCK_SUM = 121;
+    public static int PER_REPORT_OIL_SALE = 122;
+    public static int PER_REPORT_OIL_BANGKE = 123;
+    public static int PER_REPORT_OIL_COMPARE = 124;
+    public static int PER_REPORT_OIL_COMMISSION_AGENCY = 125;
 }

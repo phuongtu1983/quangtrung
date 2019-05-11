@@ -199,4 +199,5 @@ public class Constants {
     public static final String SALE_OIL = "saleOil";
     public static final String SALE_OIL_OIL = "saleOilOil";
     public static final String OIL_LIST = "oilList";
+    public static final String COMMISSION_KIND_LIST = "commissionKindList";
 }

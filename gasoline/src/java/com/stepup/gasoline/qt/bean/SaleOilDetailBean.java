@@ -19,7 +19,13 @@ public class SaleOilDetailBean {
     private int customerId;
     private String customerName;
     private int quantity;
+    private double priceBeforeCommission;
+    private float commissionPrice;
     private double price;
+    private double firstAmount;
+    private float commission;
+    private double gapAgencyAmount;
+    private double gapCustomerAmount;
     private double amount;
 
     public int getId() {
@@ -108,6 +114,54 @@ public class SaleOilDetailBean {
 
     public void setOilName(String oilName) {
         this.oilName = oilName;
+    }
+
+    public double getPriceBeforeCommission() {
+        return priceBeforeCommission;
+    }
+
+    public void setPriceBeforeCommission(double priceBeforeCommission) {
+        this.priceBeforeCommission = priceBeforeCommission;
+    }
+
+    public float getCommissionPrice() {
+        return commissionPrice;
+    }
+
+    public void setCommissionPrice(float commissionPrice) {
+        this.commissionPrice = commissionPrice;
+    }
+
+    public double getFirstAmount() {
+        return firstAmount;
+    }
+
+    public void setFirstAmount(double firstAmount) {
+        this.firstAmount = firstAmount;
+    }
+
+    public float getCommission() {
+        return commission;
+    }
+
+    public void setCommission(float commission) {
+        this.commission = commission;
+    }
+
+    public double getGapAgencyAmount() {
+        return gapAgencyAmount;
+    }
+
+    public void setGapAgencyAmount(double gapAgencyAmount) {
+        this.gapAgencyAmount = gapAgencyAmount;
+    }
+
+    public double getGapCustomerAmount() {
+        return gapCustomerAmount;
+    }
+
+    public void setGapCustomerAmount(double gapCustomerAmount) {
+        this.gapCustomerAmount = gapCustomerAmount;
     }
 
 }

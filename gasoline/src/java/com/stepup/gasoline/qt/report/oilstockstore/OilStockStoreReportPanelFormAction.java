@@ -2,13 +2,13 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
-package com.stepup.gasoline.qt.saleoil;
+package com.stepup.gasoline.qt.report.oilstockstore;
 
-import com.stepup.core.util.NumberUtil;
-import com.stepup.gasoline.qt.bean.SaleOilDetailBean;
+import com.stepup.gasoline.qt.bean.EmployeeBean;
 import com.stepup.gasoline.qt.core.SpineAction;
-import com.stepup.gasoline.qt.dao.GoodDAO;
+import com.stepup.gasoline.qt.dao.OrganizationDAO;
 import com.stepup.gasoline.qt.util.Constants;
+import com.stepup.gasoline.qt.util.QTUtil;
 import java.util.ArrayList;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -19,7 +19,7 @@ import org.apache.struts.action.ActionMapping;
  *
  * @author phuongtu
  */
-public class GetSaleOilOilAction extends SpineAction {
+public class OilStockStoreReportPanelFormAction extends SpineAction {
 
     /**
      * This is the action called from the Struts framework.
@@ -34,23 +34,17 @@ public class GetSaleOilOilAction extends SpineAction {
     @Override
     public boolean doAction(ActionMapping mapping, ActionForm form,
             HttpServletRequest request, HttpServletResponse response) {
-        int oilId = NumberUtil.parseInt(request.getParameter("oilId"), 0);
-        int customerId = NumberUtil.parseInt(request.getParameter("customerId"), 0);
-        ArrayList arrDetail = new ArrayList();
-        ArrayList arrUnit = new ArrayList();
-        SaleOilDetailBean bean = null;
+        String organizationIds = QTUtil.getOrganizationManageds(request.getSession());
+        ArrayList arrStore = null;
         try {
-            GoodDAO goodDAO = new GoodDAO();
-            bean = goodDAO.getLastSaleOilDetail(oilId, customerId);
-            arrUnit = goodDAO.getOilUnits(oilId);
+            OrganizationDAO organizationDAO = new OrganizationDAO();
+            arrStore = organizationDAO.getStores(EmployeeBean.STATUS_ACTIVE, organizationIds);
         } catch (Exception ex) {
         }
-        if (bean == null) {
-            bean = new SaleOilDetailBean();
+        if (arrStore == null) {
+            arrStore = new ArrayList();
         }
-        arrDetail.add(bean);
-        request.setAttribute(Constants.SALE_OIL_OIL, arrDetail);
-        request.setAttribute(Constants.UNIT_LIST, arrUnit);
+        request.setAttribute(Constants.STORE_LIST, arrStore);
         return true;
     }
 }
