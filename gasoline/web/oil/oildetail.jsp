@@ -55,6 +55,16 @@
                             <td><html:text property="weight" size="40" name="<%=Constants.OIL%>" onblur="tryNumberFormatCurrentcy(this);" onkeypress="return readonlyFloat(event);"/></td>
                         </tr>
                         <tr>
+                            <td height="30" style="padding-right: 20px"><bean:message key="vendor.title"/></td>
+                            <td>
+                                <html:select property="vendorId" name="<%=Constants.OIL%>" style="width:260px">
+                                    <html:options collection="<%=Constants.VENDOR_LIST%>" property="id" labelProperty="name"/>
+                                </html:select>
+                            </td>
+                            <td style="padding-right: 20px;padding-left: 10px"><bean:message key="price.title"/></td>
+                            <td><html:text property="price" size="40" name="<%=Constants.OIL%>" onblur="tryNumberFormatCurrentcy(this);" onkeypress="return readonlyFloat(event);"/></td>
+                        </tr>
+                        <tr>
                             <td height="30" style="padding-right: 20px"><bean:message key="employee.detail.status"/></td>
                             <td>
                                 <html:select property="status" name="<%=Constants.OIL%>" style="width:260px">

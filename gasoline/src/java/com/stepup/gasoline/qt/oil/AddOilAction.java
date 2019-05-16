@@ -100,6 +100,12 @@ public class AddOilAction extends SpineAction {
                 if (formBean.getOrganizationId() != bean.getOrganizationId()) {
                     isUpdate = true;
                 }
+                if (formBean.getPrice()!= bean.getPrice()) {
+                    isUpdate = true;
+                }
+                if (formBean.getVendorId()!= bean.getVendorId()) {
+                    isUpdate = true;
+                }
             }
         } catch (Exception ex) {
         }
@@ -107,6 +113,7 @@ public class AddOilAction extends SpineAction {
         bean.setId(formBean.getId());
         bean.setCode(formBean.getCode());
         bean.setName(formBean.getName());
+        bean.setVendorId(formBean.getVendorId());
         bean.setGroupId(formBean.getGroupId());
         bean.setWeight(formBean.getWeight());
         bean.setWeightUnitId(formBean.getWeightUnitId());
@@ -115,6 +122,7 @@ public class AddOilAction extends SpineAction {
         bean.setEmployeeCommissionId(formBean.getEmployeeCommissionId());
         bean.setOrganizationId(formBean.getOrganizationId());
         bean.setStatus(formBean.getStatus());
+        bean.setPrice(formBean.getPrice());
         try {
             if (bNew) {
                 goodDAO.insertOil(bean);

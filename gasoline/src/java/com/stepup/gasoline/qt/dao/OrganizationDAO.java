@@ -440,8 +440,11 @@ public class OrganizationDAO extends BasicDAO {
             case VendorBean.IS_GOOD:
                 sql += " and s.is_good=1";
                 break;
+            case VendorBean.IS_OIL:
+                sql += " and s.is_oil=1";
+                break;
             default:
-                sql += " and (s.is_petro=1 or s.is_good=1)";
+                sql += " and (s.is_petro=1 or s.is_good=1 or s.is_oil=1)";
                 break;
         }
         sql += " order by s.name";
@@ -494,6 +497,7 @@ public class OrganizationDAO extends BasicDAO {
                 bean.setOrganizationId(rs.getInt("organization_id"));
                 bean.setIsPetro(rs.getInt("is_petro") == 1 ? true : false);
                 bean.setIsGood(rs.getInt("is_good") == 1 ? true : false);
+                bean.setIsOil(rs.getInt("is_oil") == 1 ? true : false);
                 return bean;
             }
         } catch (SQLException sqle) {
@@ -527,6 +531,7 @@ public class OrganizationDAO extends BasicDAO {
                 bean.setOrganizationId(rs.getInt("organization_id"));
                 bean.setIsPetro(rs.getInt("is_petro") == 1 ? true : false);
                 bean.setIsGood(rs.getInt("is_good") == 1 ? true : false);
+                bean.setIsOil(rs.getInt("is_oil") == 1 ? true : false);
                 return bean;
             }
         } catch (SQLException sqle) {
@@ -547,8 +552,9 @@ public class OrganizationDAO extends BasicDAO {
         }
         try {
             String sql = "";
-            sql = "Insert Into store (name, code, organization_id, status, is_petro, is_good)"
-                    + " Values ('" + bean.getName() + "','" + bean.getCode() + "'," + bean.getOrganizationId() + "," + bean.getStatus() + "," + bean.getIsPetro() + "," + bean.getIsGood() + ")";
+            sql = "Insert Into store (name, code, organization_id, status, is_petro, is_good, is_oil)"
+                    + " Values ('" + bean.getName() + "','" + bean.getCode() + "'," + bean.getOrganizationId() + "," + bean.getStatus() + "," + bean.getIsPetro()
+                    + "," + bean.getIsGood() + "," + bean.getIsOil() + ")";
             DBUtil.executeInsert(sql);
         } catch (SQLException sqle) {
             throw new Exception(sqle.getMessage());
@@ -575,6 +581,7 @@ public class OrganizationDAO extends BasicDAO {
                     + ", status=" + bean.getStatus()
                     + ", is_petro=" + bean.getIsPetro()
                     + ", is_good=" + bean.getIsGood()
+                    + ", is_oil=" + bean.getIsOil()
                     + " Where id=" + bean.getId();
             DBUtil.executeUpdate(sql);
         } catch (SQLException sqle) {

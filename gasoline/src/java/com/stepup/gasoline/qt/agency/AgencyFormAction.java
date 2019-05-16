@@ -41,13 +41,15 @@ public class AgencyFormAction extends SpineAction {
             HttpServletRequest request, HttpServletResponse response) {
         AgencyBean bean = null;
         String agencyid = request.getParameter("agencyId");
+        ArrayList arrCustomerDetail = null;
         ArrayList arrFeeDetail = null;
         if (!GenericValidator.isBlankOrNull(agencyid)) {
             CustomerDAO customerDAO = new CustomerDAO();
             try {
                 int agencyId = NumberUtil.parseInt(agencyid, 0);
                 bean = customerDAO.getAgency(agencyId);
-                arrFeeDetail = customerDAO.getAgencyCustomerDetail(agencyId);
+                arrCustomerDetail = customerDAO.getAgencyCustomerDetail(agencyId);
+                arrFeeDetail = customerDAO.getAgencyCommissionDetail(agencyId);
             } catch (Exception ex) {
             }
         }
@@ -62,7 +64,12 @@ public class AgencyFormAction extends SpineAction {
         if (arrFeeDetail == null) {
             arrFeeDetail = new ArrayList();
         }
-        request.setAttribute(Constants.AGENCY_CUSTOMER, arrFeeDetail);
+        request.setAttribute(Constants.AGENCY_COMMISSION, arrFeeDetail);
+        
+        if (arrCustomerDetail == null) {
+            arrCustomerDetail = new ArrayList();
+        }
+        request.setAttribute(Constants.AGENCY_CUSTOMER, arrCustomerDetail);
 
         ArrayList arrCustomer = null;
         try {

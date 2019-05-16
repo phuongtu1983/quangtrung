@@ -16,6 +16,8 @@ public class OilFormBean extends org.apache.struts.action.ActionForm {
     private String code;
     private String name;
     private float weight;
+    private double price;
+    private int vendorId;
     private int groupId;
     private int weightUnitId;
     private int baseUnitId;
@@ -34,6 +36,7 @@ public class OilFormBean extends org.apache.struts.action.ActionForm {
         this.code = bean.getCode();
         this.name = bean.getName();
         this.weight = bean.getWeight();
+        this.vendorId = bean.getVendorId();
         this.groupId = bean.getGroupId();
         this.weightUnitId = bean.getWeightUnitId();
         this.baseUnitId = bean.getBaseUnitId();
@@ -41,6 +44,7 @@ public class OilFormBean extends org.apache.struts.action.ActionForm {
         this.organizationId = bean.getOrganizationId();
         this.employeeCommissionId = bean.getEmployeeCommissionId();
         this.status = bean.getStatus();
+        this.price = bean.getPrice();
     }
 
     public int getId() {
@@ -145,6 +149,22 @@ public class OilFormBean extends org.apache.struts.action.ActionForm {
 
     public void setSaleUnitName(String saleUnitName) {
         this.saleUnitName = saleUnitName;
+    }
+
+    public double getPrice() {
+        return price;
+    }
+
+    public void setPrice(double price) {
+        this.price = price;
+    }
+
+    public int getVendorId() {
+        return vendorId;
+    }
+
+    public void setVendorId(int vendorId) {
+        this.vendorId = vendorId;
     }
 
 }

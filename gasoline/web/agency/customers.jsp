@@ -11,9 +11,6 @@
                 <input type="hidden" name="customerId" value='<bean:write name="customer" property="customerId"/>'/>
             </td>
             <td><span><bean:write name="customer" property="customerName"/></span></td>
-            <td><input type="text" size="20" name="agencyCustomerCommissionFrom" value="${customer.commissionFrom}" onblur="tryNumberFormatCurrentcy(this);" onkeypress="return readonlyFloat(event);"/></td>
-                <td><input type="text" size="20" name="agencyCustomerCommissionTo" value="${customer.commissionTo}" onblur="tryNumberFormatCurrentcy(this);" onkeypress="return readonlyFloat(event);"/></td>
-                <td><input type="text" size="20" name="agencyCustomerCommission" value="${customer.commission}" onblur="tryNumberFormatCurrentcy(this);" onkeypress="return readonlyFloat(event);"/></td>
         </tr>
     </logic:iterate>
 </table>

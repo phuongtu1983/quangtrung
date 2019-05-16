@@ -33,7 +33,25 @@
         <tr>
             <td colspan="4">
                 <fieldset>
-                    <legend><bean:message key="agency.customer.list.title"/></legend>
+                    <legend><bean:message key="agency.commission.list.title"/></legend>
+                    <table>
+                        <tr>
+                            <td>
+                                <button class="i_cross icon small red" onclick="return delTableRow('agencyForm', 'agencyCommissionChk', 'agencyCommissionDetailTbl');" tabindex="-1"><bean:message key="message.del"/></button>
+                                <button class="i_plus icon small green" onclick="return addAgencyCommission();" tabindex="-1"><bean:message key="message.add"/></button>
+                            </td>
+                        </tr>
+                    </table>
+                </fieldset>
+            </td>
+        </tr>
+        <tr>
+            <td colspan="4"><div><%@include  file="/agency/commissiondetails.jsp" %></div></td>
+        </tr>
+        <tr>
+            <td colspan="4">
+                <fieldset>
+                    <legend><bean:message key="customer.list.title"/></legend>
                     <table>
                         <tr>
                             <td>
@@ -84,3 +102,4 @@
 <div id="shiftSFunctionHideDiv" style="display:none">saveAgency()</div>
 <div id="shiftEscFunctionHideDiv" style="display:none">prepareHidePopup('agencyFormshowHelpHideDiv')</div>
 <div id="agencyCustomerHideDiv" style="display:none"></div>
+<div id="agencyCommissionHideDiv" style="display:none"></div>

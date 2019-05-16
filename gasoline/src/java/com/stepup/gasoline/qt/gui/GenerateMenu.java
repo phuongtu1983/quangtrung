@@ -245,7 +245,7 @@ public class GenerateMenu {
                         buffTemp.append("<item id=\"agencylist\" text=\"").append(QTUtil.getBundleString("agency.list.title")).append("\"/>");//list agency
                     }
                     if (isHasPermission(PermissionUtil.OPERATION_ADD, PermissionUtil.PER_AGENCY)) {
-                        buffTemp.append("<item id=\"agencydadd\" text=\"").append(QTUtil.getBundleString("agency.detail.add.title")).append("\"/>");//add agency
+                        buffTemp.append("<item id=\"agencyadd\" text=\"").append(QTUtil.getBundleString("agency.detail.add.title")).append("\"/>");//add agency
                     }
                     buffTemp.append("</item>");//end agencys
                 }
@@ -1081,9 +1081,6 @@ public class GenerateMenu {
                     }
                     if (isHasPermission(PermissionUtil.OPERATION_PRINT, PermissionUtil.PER_REPORT_OIL_SALE)) {
                         buffTemp.append("<item id=\"reportoilsale\" text=\"").append(QTUtil.getBundleString("report.oilSale.title")).append("\"/>");
-                    }
-                    if (isHasPermission(PermissionUtil.OPERATION_PRINT, PermissionUtil.PER_REPORT_OIL_BANGKE)) {
-                        buffTemp.append("<item id=\"reportoilbangke\" text=\"").append(QTUtil.getBundleString("report.oilBangKe.title")).append("\"/>");
                     }
                     if (isHasPermission(PermissionUtil.OPERATION_PRINT, PermissionUtil.PER_REPORT_OIL_COMPARE)) {
                         buffTemp.append("<item id=\"reportoilcompare\" text=\"").append(QTUtil.getBundleString("report.oilCompare.title")).append("\"/>");

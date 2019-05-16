@@ -87,6 +87,9 @@ public class AddStoreAction extends SpineAction {
                 if (formBean.getIsGood() != oldBean.getIsGood()) {
                     isUpdate = true;
                 }
+                if (formBean.getIsOil()!= oldBean.getIsOil()) {
+                    isUpdate = true;
+                }
             }
         } catch (Exception ex) {
         }
@@ -98,6 +101,7 @@ public class AddStoreAction extends SpineAction {
         bean.setOrganizationId(formBean.getOrganizationId());
         bean.setIsPetro(formBean.getIsPetro() == true ? 1 : 0);
         bean.setIsGood(formBean.getIsGood() == true ? 1 : 0);
+        bean.setIsOil(formBean.getIsOil() == true ? 1 : 0);
         try {
             if (bNew) {
                 organizationDAO.insertStore(bean);

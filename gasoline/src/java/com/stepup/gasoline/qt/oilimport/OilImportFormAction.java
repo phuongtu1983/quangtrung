@@ -16,6 +16,7 @@ import com.stepup.gasoline.qt.dao.VendorDAO;
 import com.stepup.gasoline.qt.util.Constants;
 import com.stepup.gasoline.qt.util.PermissionUtil;
 import com.stepup.gasoline.qt.util.QTUtil;
+import com.stepup.gasoline.qt.vendor.VendorFormBean;
 import java.util.ArrayList;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -73,13 +74,13 @@ public class OilImportFormAction extends SpineAction {
             } catch (Exception ex) {
             }
         }
-
+        
         request.setAttribute(Constants.OIL_IMPORT, formBean);
         if (arrDetail == null) {
             arrDetail = new ArrayList();
         }
         request.setAttribute(Constants.OIL_IMPORT_OIL, arrDetail);
-
+        
         ArrayList arrOil = null;
         try {
             arrOil = goodDAO.getOils(EmployeeBean.STATUS_ACTIVE, QTUtil.getOrganizationManageds(request.getSession()));
@@ -89,7 +90,7 @@ public class OilImportFormAction extends SpineAction {
             arrOil = new ArrayList();
         }
         request.setAttribute(Constants.OIL_LIST, arrOil);
-
+        
         String organizationIds = QTUtil.getOrganizationManageds(request.getSession());
         ArrayList arrAccount = null;
         try {
@@ -101,7 +102,7 @@ public class OilImportFormAction extends SpineAction {
             arrAccount = new ArrayList();
         }
         request.setAttribute(Constants.ACCOUNT_LIST, arrAccount);
-
+        
         ArrayList arrVendor = null;
         try {
             VendorDAO vendorDAO = new VendorDAO();
@@ -112,7 +113,12 @@ public class OilImportFormAction extends SpineAction {
             arrVendor = new ArrayList();
         }
         request.setAttribute(Constants.VENDOR_LIST, arrVendor);
-
+        
+        if (formBean.getId() == 0 && arrVendor.size() > 0) {
+            VendorFormBean vendorBean = (VendorFormBean) arrVendor.get(0);
+            formBean.setCommission(vendorBean.getCommissionOnImport());
+        }
+        
         return true;
     }
 }

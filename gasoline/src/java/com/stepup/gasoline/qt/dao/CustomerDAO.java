@@ -11,6 +11,7 @@ import com.stepup.core.util.DateUtil;
 import com.stepup.core.util.StringUtil;
 import com.stepup.gasoline.qt.agency.AgencyFormBean;
 import com.stepup.gasoline.qt.bean.AgencyBean;
+import com.stepup.gasoline.qt.bean.AgencyCommissionDetailBean;
 import com.stepup.gasoline.qt.bean.AgencyCustomerDetailBean;
 import com.stepup.gasoline.qt.bean.EmployeeBean;
 import com.stepup.gasoline.qt.bean.CustomerBean;
@@ -804,7 +805,7 @@ public class CustomerDAO extends BasicDAO {
     public ArrayList getAgencyCustomerDetail(int agencyId) throws Exception {
         ResultSet rs = null;
         String sql = "select det.*, c.name as customer_name"
-                + " from agency_customer_commission as det, customer as c"
+                + " from agency_customer as det, customer as c"
                 + " where det.customer_id=c.id and det.agency_id=" + agencyId
                 + " order by det.id";
         ArrayList detailList = new ArrayList();
@@ -817,10 +818,34 @@ public class CustomerDAO extends BasicDAO {
                 bean.setCustomerId(rs.getInt("customer_id"));
                 bean.setCustomerName(rs.getString("customer_name"));
                 bean.setAgencyId(rs.getInt("agency_id"));
+                detailList.add(bean);
+            }
+        } catch (SQLException sqle) {
+            throw new Exception(sqle.getMessage());
+        } catch (Exception ex) {
+            throw new Exception(ex.getMessage());
+        } finally {
+            if (rs != null) {
+                DBUtil.closeConnection(rs);
+            }
+        }
+        return detailList;
+    }
+
+    public ArrayList getAgencyCommissionDetail(int agencyId) throws Exception {
+        ResultSet rs = null;
+        String sql = "select det.* from agency_commission as det where det.agency_id=" + agencyId + " order by det.id";
+        ArrayList detailList = new ArrayList();
+        try {
+            rs = DBUtil.executeQuery(sql);
+            AgencyCommissionDetailBean bean = null;
+            while (rs.next()) {
+                bean = new AgencyCommissionDetailBean();
+                bean.setId(rs.getInt("id"));
+                bean.setAgencyId(rs.getInt("agency_id"));
                 bean.setCommissionFrom(rs.getFloat("commission_from"));
                 bean.setCommissionTo(rs.getFloat("commission_to"));
                 bean.setCommission(rs.getFloat("commission"));
-                bean.setCustomerId(rs.getInt("customer_id"));
                 detailList.add(bean);
             }
         } catch (SQLException sqle) {
@@ -842,11 +867,53 @@ public class CustomerDAO extends BasicDAO {
         int result = 0;
         SPUtil spUtil = null;
         try {
-            String sql = "{call insertAgencyCustomerDetail(?,?,?,?,?)}";
+            String sql = "{call insertAgencyCustomerDetail(?,?)}";
             spUtil = new SPUtil(sql);
             if (spUtil != null) {
                 spUtil.getCallableStatement().setInt("_agency_id", bean.getAgencyId());
                 spUtil.getCallableStatement().setInt("_customer_id", bean.getCustomerId());
+                spUtil.execute();
+            }
+        } catch (SQLException sqle) {
+            throw new Exception(sqle.getMessage());
+        } catch (Exception ex) {
+            throw new Exception(ex.getMessage());
+        } finally {
+            try {
+                if (spUtil != null) {
+                    spUtil.closeConnection();
+                }
+            } catch (Exception e) {
+                throw new Exception(e.getMessage());
+            }
+        }
+        return result;
+    }
+
+    public int deleteAgencyCustomerDetails(String ids) throws Exception {
+        int result = 0;
+        try {
+            String sql = "Delete From agency_customer Where id in (" + ids + ")";
+            DBUtil.executeUpdate(sql);
+        } catch (SQLException sqle) {
+            throw new Exception(sqle.getMessage());
+        } catch (Exception ex) {
+            throw new Exception(ex.getMessage());
+        }
+        return result;
+    }
+
+    public int insertAgencyCommissionDetail(AgencyCommissionDetailBean bean) throws Exception {
+        if (bean == null) {
+            return 0;
+        }
+        int result = 0;
+        SPUtil spUtil = null;
+        try {
+            String sql = "{call insertAgencyCommissionDetail(?,?,?,?)}";
+            spUtil = new SPUtil(sql);
+            if (spUtil != null) {
+                spUtil.getCallableStatement().setInt("_agency_id", bean.getAgencyId());
                 spUtil.getCallableStatement().setFloat("_commission_from", bean.getCommissionFrom());
                 spUtil.getCallableStatement().setFloat("_commission_to", bean.getCommissionTo());
                 spUtil.getCallableStatement().setFloat("_commission", bean.getCommission());
@@ -868,13 +935,13 @@ public class CustomerDAO extends BasicDAO {
         return result;
     }
 
-    public void updateAgencyCustomerDetail(AgencyCustomerDetailBean bean) throws Exception {
+    public void updateAgencyCommissionDetail(AgencyCommissionDetailBean bean) throws Exception {
         if (bean == null) {
             return;
         }
         SPUtil spUtil = null;
         try {
-            String sql = "{call updateAgencyCustomerDetail(?,?,?,?)}";
+            String sql = "{call updateAgencyCommissionDetail(?,?,?,?)}";
             spUtil = new SPUtil(sql);
             if (spUtil != null) {
                 spUtil.getCallableStatement().setInt("_id", bean.getId());
@@ -898,10 +965,10 @@ public class CustomerDAO extends BasicDAO {
         }
     }
 
-    public int deleteAgencyCustomerDetails(String ids) throws Exception {
+    public int deleteAgencyCommissionDetails(String ids) throws Exception {
         int result = 0;
         try {
-            String sql = "Delete From agency_customer_commission Where id in (" + ids + ")";
+            String sql = "Delete From agency_commission Where id in (" + ids + ")";
             DBUtil.executeUpdate(sql);
         } catch (SQLException sqle) {
             throw new Exception(sqle.getMessage());

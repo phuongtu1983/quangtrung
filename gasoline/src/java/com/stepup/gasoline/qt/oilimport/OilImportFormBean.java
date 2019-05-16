@@ -17,7 +17,9 @@ public class OilImportFormBean extends org.apache.struts.action.ActionForm {
     private String createdDate;
     private int vendorId;
     private String vendorName;
+    private float commission;
     private double rate;
+    private double totalBeforeCommission;
     private double total;
     private double paid;
     private double debt;
@@ -40,8 +42,10 @@ public class OilImportFormBean extends org.apache.struts.action.ActionForm {
         this.code = bean.getCode();
         this.createdDate = bean.getCreatedDate();
         this.vendorId = bean.getVendorId();
+        this.commission = bean.getCommission();
         this.rate = bean.getRate();
         this.total = bean.getTotal();
+        this.totalBeforeCommission = bean.getTotalBeforeCommission();
         this.paid = bean.getPaid();
         this.debt = bean.getDebt();
         this.accountId = bean.getAccountId();
@@ -191,6 +195,22 @@ public class OilImportFormBean extends org.apache.struts.action.ActionForm {
 
     public void setUnitId(String[] unitId) {
         this.unitId = unitId;
+    }
+
+    public float getCommission() {
+        return commission;
+    }
+
+    public void setCommission(float commission) {
+        this.commission = commission;
+    }
+
+    public double getTotalBeforeCommission() {
+        return totalBeforeCommission;
+    }
+
+    public void setTotalBeforeCommission(double totalBeforeCommission) {
+        this.totalBeforeCommission = totalBeforeCommission;
     }
 
 }

@@ -5,10 +5,13 @@
 package com.stepup.gasoline.qt.saleoil;
 
 import com.stepup.core.util.NumberUtil;
+import com.stepup.gasoline.qt.bean.OilBean;
 import com.stepup.gasoline.qt.bean.SaleOilDetailBean;
 import com.stepup.gasoline.qt.core.SpineAction;
 import com.stepup.gasoline.qt.dao.GoodDAO;
+import com.stepup.gasoline.qt.dao.VendorDAO;
 import com.stepup.gasoline.qt.util.Constants;
+import com.stepup.gasoline.qt.vendor.VendorFormBean;
 import java.util.ArrayList;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -42,6 +45,18 @@ public class GetSaleOilOilAction extends SpineAction {
         try {
             GoodDAO goodDAO = new GoodDAO();
             bean = goodDAO.getLastSaleOilDetail(oilId, customerId);
+            if (bean != null && bean.getPrice() == 0) {
+                OilBean oilBean = goodDAO.getOil(oilId);
+                if (oilBean != null) {
+                    VendorDAO vendorDAO = new VendorDAO();
+                    VendorFormBean vendorFormBean = vendorDAO.getVendor(oilBean.getVendorId());
+                    if (vendorFormBean != null) {
+                        if (vendorFormBean.getCommissionOnImport() != 0) {
+                            bean.setPriceBeforeCommission(oilBean.getPrice());
+                        }
+                    }
+                }
+            }
             arrUnit = goodDAO.getOilUnits(oilId);
         } catch (Exception ex) {
         }

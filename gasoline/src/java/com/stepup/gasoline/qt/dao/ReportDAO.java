@@ -47,6 +47,7 @@ import com.stepup.gasoline.qt.report.LpgStockReportBean;
 import com.stepup.gasoline.qt.report.LpgStockReportOutBean;
 import com.stepup.gasoline.qt.report.LpgStockSumReportOutBean;
 import com.stepup.gasoline.qt.report.OilImportReportBean;
+import com.stepup.gasoline.qt.report.OilSaleReportBean;
 import com.stepup.gasoline.qt.report.OilStockReportBean;
 import com.stepup.gasoline.qt.report.OilStockReportOutBean;
 import com.stepup.gasoline.qt.report.PetroImportReportBean;
@@ -60,6 +61,7 @@ import com.stepup.gasoline.qt.report.SumReportBean;
 import com.stepup.gasoline.qt.report.TransportFeeReportBean;
 import com.stepup.gasoline.qt.report.TransportSaleReportBean;
 import com.stepup.gasoline.qt.report.VendorDebtReportBean;
+import com.stepup.gasoline.qt.report.compareagencycommission.CompareAgencyCommissionReportBean;
 import com.stepup.gasoline.qt.report.comparegas.CompareGasReportBean;
 import com.stepup.gasoline.qt.report.comparegas.CompareGasReportOutBean;
 import com.stepup.gasoline.qt.report.comparegood.CompareGoodReportBean;
@@ -72,6 +74,8 @@ import com.stepup.gasoline.qt.report.comparevendor.CompareVendorReportBean;
 import com.stepup.gasoline.qt.report.comparevendor.CompareVendorReportOutBean;
 import com.stepup.gasoline.qt.report.lpgstocksumorganization.LpgStockSumOrganizationReportBean;
 import com.stepup.gasoline.qt.report.lpgstocksumorganization.LpgStockSumOrganizationReportOutBean;
+import com.stepup.gasoline.qt.report.oilcompare.OilCompareReportBean;
+import com.stepup.gasoline.qt.report.oilcompare.OilCompareReportOutBean;
 import com.stepup.gasoline.qt.report.transportservice.TransportServiceReportBean;
 import com.stepup.gasoline.qt.report.transportservice.TransportServiceReportOutBean;
 import com.stepup.gasoline.qt.report.vehiclefee.VehicleFeeReportBean;
@@ -3183,4 +3187,190 @@ public class ReportDAO extends BasicDAO {
         return list;
     }
 
+    public ArrayList getOilSaleReport(String fromDate, String endDate, String organizationIds) throws Exception {
+        SPUtil spUtil = null;
+        ArrayList list = new ArrayList();
+        ResultSet rs = null;
+        try {
+            String sql = "{call report_oil_sale(?,?,?)}";
+            if (GenericValidator.isBlankOrNull(fromDate)) {
+                fromDate = DateUtil.today("dd/MM/yyyy");
+            }
+            if (GenericValidator.isBlankOrNull(endDate)) {
+                endDate = BasicDAO.START_DATE;
+            }
+            spUtil = new SPUtil(sql);
+            if (spUtil != null) {
+                spUtil.getCallableStatement().setString("_start_date", fromDate);
+                spUtil.getCallableStatement().setString("_end_date", endDate);
+                spUtil.getCallableStatement().setString("_organization_ids", organizationIds);
+
+                rs = spUtil.executeQuery();
+
+                if (rs != null) {
+                    OilSaleReportBean bean = null;
+                    int count = 1;
+                    while (rs.next()) {
+                        bean = new OilSaleReportBean();
+                        bean.setCount(count++ + "");
+                        bean.setDate(DateUtil.formatDate(rs.getDate("created_date"), "dd/MM/yyyy"));
+                        bean.setCustomerCode(rs.getString("customerCode"));
+                        bean.setCustomerName(rs.getString("customerName"));
+                        bean.setOilCode(rs.getString("oilCode"));
+                        bean.setQuantity(rs.getInt("quantity"));
+                        bean.setPrice(rs.getDouble("price"));
+                        bean.setCommission(rs.getDouble("commission"));
+                        bean.setAmount(rs.getDouble("amount"));
+                        bean.setPaid(rs.getDouble("paid"));
+                        bean.setPaymentMethod(rs.getString("account"));
+                        list.add(bean);
+                    }
+                }
+            }
+        } catch (SQLException sqle) {
+            throw new Exception(sqle.getMessage());
+        } catch (Exception ex) {
+            throw new Exception(ex.getMessage());
+        } finally {
+            try {
+                if (spUtil != null) {
+                    spUtil.closeConnection();
+                }
+                if (rs != null) {
+                    rs.close();
+                    rs = null;
+                }
+            } catch (Exception e) {
+                throw new Exception(e.getMessage());
+            }
+        }
+        return list;
+    }
+
+    public ArrayList getCompareAgencyCommissionReport(String fromDate, String endDate, String organizationIds, int agencyId) throws Exception {
+        SPUtil spUtil = null;
+        ArrayList list = new ArrayList();
+        ResultSet rs = null;
+        try {
+            String sql = "{call report_compare_agency_commission(?,?,?,?)}";
+            if (GenericValidator.isBlankOrNull(fromDate)) {
+                fromDate = DateUtil.today("dd/MM/yyyy");
+            }
+            if (GenericValidator.isBlankOrNull(endDate)) {
+                endDate = BasicDAO.START_DATE;
+            }
+            spUtil = new SPUtil(sql);
+            if (spUtil != null) {
+                spUtil.getCallableStatement().setString("_start_date", fromDate);
+                spUtil.getCallableStatement().setString("_end_date", endDate);
+                spUtil.getCallableStatement().setString("_organization_ids", organizationIds);
+                spUtil.getCallableStatement().setInt("_agency_id", agencyId);
+
+                rs = spUtil.executeQuery();
+
+                if (rs != null) {
+                    CompareAgencyCommissionReportBean bean = null;
+                    int count = 1;
+                    while (rs.next()) {
+                        bean = new CompareAgencyCommissionReportBean();
+                        bean.setCount(count++);
+                        bean.setCustomerCode(rs.getString("customer_code"));
+                        bean.setCustomerName(rs.getString("customer_name"));
+                        bean.setOilCode(rs.getString("oil_code"));
+                        bean.setOilName(rs.getString("oil_name"));
+                        bean.setUnitName(rs.getString("unit_name"));
+                        bean.setQuantity(rs.getInt("quantity"));
+                        bean.setPrice(rs.getDouble("price"));
+                        bean.setCommission(rs.getDouble("commission"));
+                        bean.setAmount(rs.getDouble("amount"));
+                        bean.setPaid(rs.getDouble("paid"));
+                        bean.setDebt(bean.getAmount() - bean.getPaid());
+                        list.add(bean);
+                    }
+                }
+            }
+        } catch (SQLException sqle) {
+            throw new Exception(sqle.getMessage());
+        } catch (Exception ex) {
+            throw new Exception(ex.getMessage());
+        } finally {
+            try {
+                if (spUtil != null) {
+                    spUtil.closeConnection();
+                }
+                if (rs != null) {
+                    rs.close();
+                    rs = null;
+                }
+            } catch (Exception e) {
+                throw new Exception(e.getMessage());
+            }
+        }
+        return list;
+    }
+
+    public ArrayList getOilCompareReport(String fromDate, String endDate, String organizationIds, int customerId, OilCompareReportOutBean outBean) throws Exception {
+        SPUtil spUtil = null;
+        ArrayList list = new ArrayList();
+        ResultSet rs = null;
+        try {
+            String sql = "{call report_oil_compare(?,?,?,?,?,?)}";
+            if (GenericValidator.isBlankOrNull(fromDate)) {
+                fromDate = DateUtil.today("dd/MM/yyyy");
+            }
+            if (GenericValidator.isBlankOrNull(endDate)) {
+                endDate = BasicDAO.START_DATE;
+            }
+            spUtil = new SPUtil(sql);
+            if (spUtil != null) {
+                spUtil.getCallableStatement().setString("_start_date", fromDate);
+                spUtil.getCallableStatement().setString("_end_date", endDate);
+                spUtil.getCallableStatement().setString("_organization_ids", organizationIds);
+                spUtil.getCallableStatement().setInt("_customer_id", customerId);
+                spUtil.getCallableStatement().registerOutParameter("_amount_debt", Types.DOUBLE);
+                spUtil.getCallableStatement().registerOutParameter("_customer_commission", Types.FLOAT);
+
+                rs = spUtil.executeQuery();
+
+                outBean.setOpeningAmountStock(spUtil.getCallableStatement().getDouble("_amount_debt"));
+                outBean.setCustomerCommission(spUtil.getCallableStatement().getFloat("_customer_commission"));
+                if (rs != null) {
+                    OilCompareReportBean bean = null;
+                    int count = 1;
+                    double commission = 0;
+                    while (rs.next()) {
+                        bean = new OilCompareReportBean();
+                        bean.setDate(DateUtil.formatDate(rs.getDate("created_date"), "dd/MM"));
+                        bean.setCount(count++);
+                        bean.setOilCode(rs.getString("oil_code"));
+                        bean.setOilName(rs.getString("oil_name"));
+                        bean.setQuantity(rs.getInt("quantity"));
+                        bean.setPrice(rs.getDouble("price"));
+                        bean.setAmount(rs.getDouble("amount"));
+                        bean.setPaid(rs.getDouble("paid"));
+                        commission += rs.getDouble("commission");
+                        list.add(bean);
+                    }
+                    outBean.setCustomerCommissionAmount(commission);
+                }
+            }
+        } catch (SQLException sqle) {
+            throw new Exception(sqle.getMessage());
+        } catch (Exception ex) {
+            throw new Exception(ex.getMessage());
+        } finally {
+            try {
+                if (spUtil != null) {
+                    spUtil.closeConnection();
+                }
+                if (rs != null) {
+                    rs.close();
+                    rs = null;
+                }
+            } catch (Exception e) {
+                throw new Exception(e.getMessage());
+            }
+        }
+        return list;
+    }
 }

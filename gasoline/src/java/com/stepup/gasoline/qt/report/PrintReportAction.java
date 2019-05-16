@@ -158,6 +158,9 @@ public class PrintReportAction extends BaseAction {
                     templateFileName = "so_theo_doi_nxt_tong_hop_oil";
                     String session = QTUtil.getEmployeeId(request.getSession()) + "_" + Calendar.getInstance().getTimeInMillis();
                     printOilStockReport(fromDate, toDate, organizationIds, request, response, templateFileName, session, beans, exporter);
+                }else if (reportName.equals("reportoilsale")) {
+                    templateFileName = "hang_xuat_oil";
+                    list = printOilSaleReport(fromDate, toDate, organizationIds);
                 }
 
                 if (!reportName.equals("reportpetrostock") && !reportName.equals("reportgascommission") && !reportName.equals("reportshell")
@@ -848,6 +851,16 @@ public class PrintReportAction extends BaseAction {
         } catch (Exception ex) {
             System.out.println(ex);
         }
+    }
+    
+    private ArrayList printOilSaleReport(String fromDate, String toDate, String organizationIds) {
+        ArrayList list = null;
+        try {
+            ReportDAO reportDAO = new ReportDAO();
+            list = reportDAO.getOilSaleReport(fromDate, toDate, organizationIds);
+        } catch (Exception ex) {
+        }
+        return list;
     }
 
 }

@@ -14,6 +14,8 @@ public class OilBean {
     private String code;
     private String name;
     private float weight;
+    private double price;
+    private int vendorId;
     private int groupId;
     private int weightUnitId;
     private int baseUnitId;
@@ -108,6 +110,22 @@ public class OilBean {
 
     public void setEmployeeCommissionId(int employeeCommissionId) {
         this.employeeCommissionId = employeeCommissionId;
+    }
+
+    public double getPrice() {
+        return price;
+    }
+
+    public void setPrice(double price) {
+        this.price = price;
+    }
+
+    public int getVendorId() {
+        return vendorId;
+    }
+
+    public void setVendorId(int vendorId) {
+        this.vendorId = vendorId;
     }
 
 }

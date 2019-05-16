@@ -21,10 +21,11 @@ public class AgencyFormBean extends org.apache.struts.action.ActionForm {
     private String statusName;
 
     private String[] agencyCustomerDetailId;
+    private String[] agencyCommissionDetailId;
     private String[] customerId;
-    private String[] agencyCustomerCommissionFrom;
-    private String[] agencyCustomerCommissionTo;
-    private String[] agencyCustomerCommission;
+    private String[] agencyCommissionCommissionFrom;
+    private String[] agencyCommissionCommissionTo;
+    private String[] agencyCommissionCommission;
 
     public AgencyFormBean() {
     }
@@ -110,28 +111,36 @@ public class AgencyFormBean extends org.apache.struts.action.ActionForm {
         this.customerId = customerId;
     }
 
-    public String[] getAgencyCustomerCommissionFrom() {
-        return agencyCustomerCommissionFrom;
+    public String[] getAgencyCommissionCommissionFrom() {
+        return agencyCommissionCommissionFrom;
     }
 
-    public void setAgencyCustomerCommissionFrom(String[] agencyCustomerCommissionFrom) {
-        this.agencyCustomerCommissionFrom = agencyCustomerCommissionFrom;
+    public void setAgencyCommissionCommissionFrom(String[] agencyCommissionCommissionFrom) {
+        this.agencyCommissionCommissionFrom = agencyCommissionCommissionFrom;
     }
 
-    public String[] getAgencyCustomerCommissionTo() {
-        return agencyCustomerCommissionTo;
+    public String[] getAgencyCommissionCommissionTo() {
+        return agencyCommissionCommissionTo;
     }
 
-    public void setAgencyCustomerCommissionTo(String[] agencyCustomerCommissionTo) {
-        this.agencyCustomerCommissionTo = agencyCustomerCommissionTo;
+    public void setAgencyCommissionCommissionTo(String[] agencyCommissionCommissionTo) {
+        this.agencyCommissionCommissionTo = agencyCommissionCommissionTo;
     }
 
-    public String[] getAgencyCustomerCommission() {
-        return agencyCustomerCommission;
+    public String[] getAgencyCommissionCommission() {
+        return agencyCommissionCommission;
     }
 
-    public void setAgencyCustomerCommission(String[] agencyCustomerCommission) {
-        this.agencyCustomerCommission = agencyCustomerCommission;
+    public void setAgencyCommissionCommission(String[] agencyCommissionCommission) {
+        this.agencyCommissionCommission = agencyCommissionCommission;
+    }
+
+    public String[] getAgencyCommissionDetailId() {
+        return agencyCommissionDetailId;
+    }
+
+    public void setAgencyCommissionDetailId(String[] agencyCommissionDetailId) {
+        this.agencyCommissionDetailId = agencyCommissionDetailId;
     }
 
 }

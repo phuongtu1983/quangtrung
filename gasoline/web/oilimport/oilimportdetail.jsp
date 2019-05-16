@@ -16,27 +16,31 @@
         </tr>
         <tr>
             <td height="30" style="padding-right: 20px"><bean:message key="vendor.title"/></td>
-            <td colspan="3">
-                <html:select property="vendorId" name="<%=Constants.OIL_IMPORT%>" style="width:195px" tabindex="0">
+            <td>
+                <html:select property="vendorId" name="<%=Constants.OIL_IMPORT%>" style="width:195px" tabindex="0" onchange="return oilImportVendorChanged(this);">
                     <html:options collection="<%=Constants.VENDOR_LIST%>" property="id" labelProperty="name"/>
                 </html:select>
             </td>
+            <td style="padding-left: 10px; padding-right: 20px"><bean:message key="customer.detail.percentage"/></td>
+            <td><html:text property="commission" size="30" name="<%=Constants.OIL_IMPORT%>" readonly="true" tabindex="-1"/></td>
         </tr>
         <tr>
             <td height="30" style="padding-right: 20px"><bean:message key="rate.title"/></td>
             <td><html:text property="rate" size="30" name="<%=Constants.OIL_IMPORT%>" onblur="tryNumberFormatCurrentcy(this);" onkeypress="return readonlyFloat(event);"/></td>
-            <td style="padding-right: 20px;padding-left: 10px"><bean:message key="total.title"/></td>
+            <td style="padding-right: 20px;padding-left: 10px"><bean:message key="oilImport.detail.add.totalBeforeCommission"/></td>
+            <td><html:text property="totalBeforeCommission" size="30" name="<%=Constants.OIL_IMPORT%>" readonly="true" tabindex="-1"/></td>
+        </tr>
+        <tr>
+            <td height="30" style="padding-right: 20px"><bean:message key="total.title"/></td>
             <td><html:text property="total" size="30" name="<%=Constants.OIL_IMPORT%>" readonly="true" tabindex="-1"/></td>
-        </tr>
-        <tr>
-            <td height="30" style="padding-right: 20px"><bean:message key="paid.title"/></td>
+            <td style="padding-right: 20px;padding-left: 10px"><bean:message key="paid.title"/></td>
             <td><html:text property="paid" size="30" name="<%=Constants.OIL_IMPORT%>" onblur="return formPaidChanged('oilImportForm');" onkeypress="return readonlyFloat(event);"/></td>
-            <td style="padding-right: 20px;padding-left: 10px"><bean:message key="debt.title"/></td>
-            <td><html:text property="debt" size="30" name="<%=Constants.OIL_IMPORT%>" readonly="true" tabindex="-1"/></td>
         </tr>
         <tr>
-            <td height="30" style="padding-right: 20px"><bean:message key="account.title"/></td>
-            <td colspan="3">
+            <td height="30" style="padding-right: 20px"><bean:message key="debt.title"/></td>
+            <td><html:text property="debt" size="30" name="<%=Constants.OIL_IMPORT%>" readonly="true" tabindex="-1"/></td>
+            <td style="padding-right: 20px;padding-left: 10px"><bean:message key="account.title"/></td>
+            <td>
                 <html:select property="accountId" name="<%=Constants.OIL_IMPORT%>" style="width:195px">
                     <html:options collection="<%=Constants.ACCOUNT_LIST%>" property="id" labelProperty="number"/>
                 </html:select>

@@ -14,7 +14,9 @@ public class OilImportBean {
     private String code;
     private String createdDate;
     private int vendorId;
+    private float commission;
     private double rate;
+    private double totalBeforeCommission;
     private double total;
     private double paid;
     private double debt;
@@ -117,6 +119,22 @@ public class OilImportBean {
 
     public void setCreatedEmployeeId(int createdEmployeeId) {
         this.createdEmployeeId = createdEmployeeId;
+    }
+
+    public float getCommission() {
+        return commission;
+    }
+
+    public void setCommission(float commission) {
+        this.commission = commission;
+    }
+
+    public double getTotalBeforeCommission() {
+        return totalBeforeCommission;
+    }
+
+    public void setTotalBeforeCommission(double totalBeforeCommission) {
+        this.totalBeforeCommission = totalBeforeCommission;
     }
 
 }

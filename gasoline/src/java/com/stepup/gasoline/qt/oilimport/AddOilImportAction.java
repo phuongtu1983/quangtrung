@@ -64,7 +64,9 @@ public class AddOilImportAction extends SpineAction {
         bean.setCreatedDate(formBean.getCreatedDate());
         bean.setNote(formBean.getNote());
         bean.setVendorId(formBean.getVendorId());
+        bean.setCommission(formBean.getCommission());
         bean.setRate(formBean.getRate());
+        bean.setTotalBeforeCommission(formBean.getTotalBeforeCommission());
         bean.setTotal(formBean.getTotal());
         bean.setPaid(formBean.getPaid());
         bean.setDebt(formBean.getDebt());

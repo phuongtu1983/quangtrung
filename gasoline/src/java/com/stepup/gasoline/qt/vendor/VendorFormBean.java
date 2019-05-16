@@ -32,6 +32,7 @@ public class VendorFormBean extends DynamicFieldValueParentFormBean {
     private boolean isTransport;
     private boolean isOil;
     private float commissionOnImport;
+    private double maxDebt;
 
     public VendorFormBean() {
     }
@@ -48,6 +49,7 @@ public class VendorFormBean extends DynamicFieldValueParentFormBean {
         this.organizationId = bean.getOrganizationId();
         this.equalOrganizationId = bean.getEqualOrganizationId();
         this.commissionOnImport = bean.getCommissionOnImport();
+        this.maxDebt = bean.getMaxDebt();
         this.hasStock = bean.getHasStock() == 1 ? true : false;
         this.isGas = bean.getIsGas() == 1 ? true : false;
         this.isPetro = bean.getIsPetro() == 1 ? true : false;
@@ -206,6 +208,14 @@ public class VendorFormBean extends DynamicFieldValueParentFormBean {
 
     public void setCommissionOnImport(float commissionOnImport) {
         this.commissionOnImport = commissionOnImport;
+    }
+
+    public double getMaxDebt() {
+        return maxDebt;
+    }
+
+    public void setMaxDebt(double maxDebt) {
+        this.maxDebt = maxDebt;
     }
 
 }

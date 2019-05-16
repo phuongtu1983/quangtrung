@@ -108,6 +108,7 @@ public class VendorDAO extends BasicDAO {
                 bean.setCode(rs.getString("code"));
                 bean.setOrganizationId(rs.getInt("organization_id"));
                 bean.setOrganizationName(rs.getString("organization_name"));
+                bean.setCommissionOnImport(rs.getFloat("commision_on_import"));
                 bean.setStatus(rs.getInt("status"));
                 if (bean.getStatus() == EmployeeBean.STATUS_ACTIVE) {
                     bean.setStatusName(QTUtil.getBundleString("employee.detail.status.active"));
@@ -205,6 +206,7 @@ public class VendorDAO extends BasicDAO {
                 vendor.setOrganizationId(rs.getInt("organization_id"));
                 vendor.setEqualOrganizationId(rs.getInt("equal_organization_id"));
                 vendor.setCommissionOnImport(rs.getFloat("commision_on_import"));
+                vendor.setMaxDebt(rs.getDouble("max_debt"));
                 vendor.setHasStock(rs.getInt("has_stock") == 1 ? true : false);
                 vendor.setIsGas(rs.getInt("is_gas") == 1 ? true : false);
                 vendor.setIsPetro(rs.getInt("is_petro") == 1 ? true : false);
@@ -244,6 +246,7 @@ public class VendorDAO extends BasicDAO {
                 vendor.setEqualOrganizationId(rs.getInt("equal_organization_id"));
                 vendor.setStatus(rs.getInt("status"));
                 vendor.setCommissionOnImport(rs.getFloat("commision_on_import"));
+                vendor.setMaxDebt(rs.getDouble("max_debt"));
                 vendor.setHasStock(rs.getInt("has_stock") == 1 ? true : false);
                 vendor.setIsGas(rs.getInt("is_gas") == 1 ? true : false);
                 vendor.setIsPetro(rs.getInt("is_petro") == 1 ? true : false);
@@ -271,7 +274,7 @@ public class VendorDAO extends BasicDAO {
         int result = 0;
         SPUtil spUtil = null;
         try {
-            String sql = "{call insertVendor(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)}";
+            String sql = "{call insertVendor(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)}";
             spUtil = new SPUtil(sql);
             if (spUtil != null) {
                 spUtil.getCallableStatement().setString("_name", bean.getName());
@@ -284,6 +287,7 @@ public class VendorDAO extends BasicDAO {
                 spUtil.getCallableStatement().setInt("_status", bean.getStatus());
                 spUtil.getCallableStatement().setInt("_equal_organization_id", bean.getEqualOrganizationId());
                 spUtil.getCallableStatement().setFloat("_commision_on_import", bean.getCommissionOnImport());
+                spUtil.getCallableStatement().setDouble("_max_debt", bean.getMaxDebt());
                 spUtil.getCallableStatement().setInt("_has_stock", bean.getHasStock());
                 spUtil.getCallableStatement().setInt("_is_gas", bean.getIsGas());
                 spUtil.getCallableStatement().setInt("_is_petro", bean.getIsPetro());
@@ -316,7 +320,7 @@ public class VendorDAO extends BasicDAO {
         }
         SPUtil spUtil = null;
         try {
-            String sql = "{call updateVendor(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)}";
+            String sql = "{call updateVendor(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)}";
             spUtil = new SPUtil(sql);
             if (spUtil != null) {
                 spUtil.getCallableStatement().setString("_name", bean.getName());
@@ -329,6 +333,7 @@ public class VendorDAO extends BasicDAO {
                 spUtil.getCallableStatement().setInt("_status", bean.getStatus());
                 spUtil.getCallableStatement().setInt("_equal_organization_id", bean.getEqualOrganizationId());
                 spUtil.getCallableStatement().setFloat("_commision_on_import", bean.getCommissionOnImport());
+                spUtil.getCallableStatement().setDouble("_max_debt", bean.getMaxDebt());
                 spUtil.getCallableStatement().setInt("_has_stock", bean.getHasStock());
                 spUtil.getCallableStatement().setInt("_is_gas", bean.getIsGas());
                 spUtil.getCallableStatement().setInt("_is_petro", bean.getIsPetro());

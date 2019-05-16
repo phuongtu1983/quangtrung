@@ -36,6 +36,10 @@
                             <td style="padding-left: 10px; padding-right: 20px"><bean:message key="customer.detail.isGood"/></td>
                             <td><html:checkbox property="isGood" name="<%=Constants.STORE%>"></html:checkbox></td>
                             </tr>
+                            <tr>
+                                <td height="30" style="padding-right: 20px"><bean:message key="customer.detail.isOil"/></td>
+                            <td colspan="3"><html:checkbox property="isOil" name="<%=Constants.STORE%>"></html:checkbox></td>
+                            </tr>
                         </table>
                     </td></tr>
                 <tr>

@@ -7,11 +7,13 @@ package com.stepup.gasoline.qt.oil;
 import com.stepup.core.util.NumberUtil;
 import com.stepup.gasoline.qt.bean.EmployeeBean;
 import com.stepup.gasoline.qt.bean.OilBean;
+import com.stepup.gasoline.qt.bean.VendorBean;
 import com.stepup.gasoline.qt.core.SpineAction;
 import com.stepup.gasoline.qt.dao.EmployeeDAO;
 import com.stepup.gasoline.qt.dao.GoodDAO;
 import com.stepup.gasoline.qt.dao.OrganizationDAO;
 import com.stepup.gasoline.qt.dao.UnitDAO;
+import com.stepup.gasoline.qt.dao.VendorDAO;
 import com.stepup.gasoline.qt.util.Constants;
 import com.stepup.gasoline.qt.util.QTUtil;
 import java.util.ArrayList;
@@ -110,6 +112,17 @@ public class OilFormAction extends SpineAction {
             arrOrg = new ArrayList();
         }
         request.setAttribute(Constants.ORGANIZATION_LIST, arrOrg);
+
+        ArrayList arrVendor = null;
+        try {
+            VendorDAO vendorDAO = new VendorDAO();
+            arrVendor = vendorDAO.getVendors(QTUtil.getOrganizationManageds(request.getSession()), VendorBean.IS_OIL + "");
+        } catch (Exception ex) {
+        }
+        if (arrVendor == null) {
+            arrVendor = new ArrayList();
+        }
+        request.setAttribute(Constants.VENDOR_LIST, arrVendor);
 
         return true;
     }

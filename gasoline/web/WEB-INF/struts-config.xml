@@ -293,6 +293,8 @@
         </action>
         <action path="/addGasReturnVendor" name ="gasReturnVendorForm" scope="request" type="com.stepup.gasoline.qt.vendor.AddGasReturnVendorAction" input="/gasReturnVendorForm.do">
         </action>
+        <action path="/getVendorCommission" scope="request" type="com.stepup.gasoline.qt.vendor.GetVendorCommissionAction">
+        </action>
         <!-- end vendor -->
         <!-- start account -->
         <action path="/getAccountPanel" type="com.stepup.gasoline.qt.common.BaseStatusFormAction" scope="request" validate="false">
@@ -1296,6 +1298,16 @@
         </action>
         <action path="/reportOilStockStorePrint" type="com.stepup.gasoline.qt.report.oilstockstore.PrintOilStockStoreReportAction" scope="request" validate="false" >
         </action>
+        <action path="/getCompareAgencyCommissionReportPanel" type="com.stepup.gasoline.qt.report.compareagencycommission.CompareAgencyCommissionReportPanelFormAction" scope="request" validate="false">
+            <forward name="success" path="/report/compareagencycommission/panel.jsp" />
+        </action>
+        <action path="/reportCompareAgencyCommissionPrint" type="com.stepup.gasoline.qt.report.compareagencycommission.PrintCompareAgencyCommissionReportAction" scope="request" validate="false" >
+        </action>
+        <action path="/getOilCompareReportPanel" type="com.stepup.gasoline.qt.report.oilcompare.OilCompareReportPanelFormAction" scope="request" validate="false">
+            <forward name="success" path="/report/oilcompare/panel.jsp" />
+        </action>
+        <action path="/reportOilComparePrint" type="com.stepup.gasoline.qt.report.oilcompare.PrintOilCompareReportAction" scope="request" validate="false" >
+        </action>
         <!-- end report -->
         <!-- start good -->
         <action path="/getGoodPanel" type="com.stepup.gasoline.qt.common.BaseStatusFormAction" scope="request" validate="false">
@@ -1480,6 +1492,9 @@
         </action>
         <action path="/getAgencyCustomer" type="com.stepup.gasoline.qt.agency.GetAgencyCustomerAction" scope="request" validate="false">
             <forward name="success" path="/agency/customers.jsp" />
+        </action>
+        <action path="/getAgencyCommission" type="com.stepup.gasoline.qt.agency.GetAgencyCommissionAction" scope="request" validate="false">
+            <forward name="success" path="/agency/commissions.jsp" />
         </action>
         <!-- end agency -->
         <!-- start oilgroup -->

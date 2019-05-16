@@ -27,6 +27,7 @@ public class VendorBean {
     private int isTransport;
     private int isOil;
     private float commissionOnImport;
+    private double maxDebt;
 
     public int getId() {
         return id;
@@ -162,6 +163,14 @@ public class VendorBean {
 
     public void setCommissionOnImport(float commissionOnImport) {
         this.commissionOnImport = commissionOnImport;
+    }
+
+    public double getMaxDebt() {
+        return maxDebt;
+    }
+
+    public void setMaxDebt(double maxDebt) {
+        this.maxDebt = maxDebt;
     }
 
     public static final int IS_GAS = 1;

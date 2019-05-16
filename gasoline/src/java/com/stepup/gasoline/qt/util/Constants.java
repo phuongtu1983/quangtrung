@@ -188,7 +188,9 @@ public class Constants {
     public static final String BORROW_PAY_DATE = "borrowPayDate";
     public static final String UNIT_RATE = "unitRate";
     public static final String AGENCY = "agency";
+    public static final String AGENCY_LIST = "agencyList";
     public static final String AGENCY_CUSTOMER = "agencyCustomer";
+    public static final String AGENCY_COMMISSION = "agencyCommission";
     public static final String OIL_GROUP = "oilGroup";
     public static final String OIL_GROUP_LIST = "oilGroupList";
     public static final String OIL = "oil";
