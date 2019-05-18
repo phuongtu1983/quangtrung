@@ -103,6 +103,7 @@ public class AddSaleOilAction extends SpineAction {
                     SaleOilDetailBean bean = new SaleOilDetailBean();
                     bean.setOilId(NumberUtil.parseInt(formBean.getOilId()[i], 0));
                     bean.setUnitId(NumberUtil.parseInt(formBean.getUnitId()[i], 0));
+                    bean.setStoreId(NumberUtil.parseInt(formBean.getStoreId()[i], 0));
                     bean.setQuantity(NumberUtil.parseInt(formBean.getQuantity()[i], 0));
                     bean.setPrice(NumberUtil.parseDouble(formBean.getPrice()[i], 0));
                     bean.setAmount(NumberUtil.parseDouble(formBean.getAmount()[i], 0));

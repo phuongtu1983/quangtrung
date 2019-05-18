@@ -63,6 +63,7 @@ public class AddOilImportAction extends SpineAction {
         bean.setCode(formBean.getCode());
         bean.setCreatedDate(formBean.getCreatedDate());
         bean.setNote(formBean.getNote());
+        bean.setStoreId(formBean.getStoreId());
         bean.setVendorId(formBean.getVendorId());
         bean.setCommission(formBean.getCommission());
         bean.setRate(formBean.getRate());
@@ -133,7 +134,7 @@ public class AddOilImportAction extends SpineAction {
                             isUpdate = true;
                         }
                         if (isUpdate) {
-                            goodDAO.updateOilImportDetail(oldBean, formBean.getCreatedDate());
+                            goodDAO.updateOilImportDetail(oldBean, formBean.getCreatedDate(), formBean.getStoreId());
                         }
                     }
                 }

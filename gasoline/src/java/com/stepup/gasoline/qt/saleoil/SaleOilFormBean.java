@@ -33,6 +33,7 @@ public class SaleOilFormBean extends org.apache.struts.action.ActionForm {
     private String[] saleOilDetailId;
     private String[] oilId;
     private String[] unitId;
+    private String[] storeId;
     private String[] quantity;
     private String[] priceBeforeCommission;
     private String[] commissionPrice;
@@ -306,6 +307,14 @@ public class SaleOilFormBean extends org.apache.struts.action.ActionForm {
 
     public void setTotalBeforeCommisison(double totalBeforeCommisison) {
         this.totalBeforeCommisison = totalBeforeCommisison;
+    }
+
+    public String[] getStoreId() {
+        return storeId;
+    }
+
+    public void setStoreId(String[] storeId) {
+        this.storeId = storeId;
     }
 
 }

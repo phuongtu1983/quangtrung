@@ -13,6 +13,7 @@ public class OilImportBean {
     private int id;
     private String code;
     private String createdDate;
+    private int storeId;
     private int vendorId;
     private float commission;
     private double rate;
@@ -135,6 +136,14 @@ public class OilImportBean {
 
     public void setTotalBeforeCommission(double totalBeforeCommission) {
         this.totalBeforeCommission = totalBeforeCommission;
+    }
+
+    public int getStoreId() {
+        return storeId;
+    }
+
+    public void setStoreId(int storeId) {
+        this.storeId = storeId;
     }
 
 }

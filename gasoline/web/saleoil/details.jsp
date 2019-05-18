@@ -8,6 +8,7 @@
             <td width="30px"><bean:message key="message.del"/></td>
             <td><bean:message key="oil.title"/></td>
             <td width="80px"><bean:message key="unit.title"/></td>
+            <td width="80px"><bean:message key="store.title"/></td>
             <td width="60px"><bean:message key="quantity.title"/></td>
             <td width="100px"><bean:message key="price.title"/></td>
             <td width="80px"><bean:message key="saleOil.detail.list.commissionPrice"/></td>
@@ -29,6 +30,7 @@
                 </td>
                 <td><span><bean:write name="oil" property="oilName"/></span></td>
                 <td><span><bean:write name="oil" property="unitName"/></span></td>
+                <td><span><bean:write name="oil" property="storeName"/></span></td>
                 <td><input type="text" size="20" name="quantity" value="${oil.quantity}" id="detquantity${oil.oilId}" onblur="return caculateSaleOilListDetail('${oil.oilId}');" onkeypress="return readonlyFloat(event);"/></td>
                 <td><input type="text" size="20" name="priceBeforeCommission" id="detpricebeforecommission${oil.oilId}" value="${oil.priceBeforeCommission}" onblur="return caculateSaleOilListDetail('${oil.oilId}');" onkeypress="return readonlyFloat(event);"/></td>
                 <td><input type="text" size="20" name="commissionPrice" id="detcommissionprice${oil.oilId}" value="${oil.commissionPrice}" onblur="return caculateSaleOilListDetail('${oil.oilId}');" onkeypress="return readonlyFloat(event);"/></td>

@@ -13510,26 +13510,26 @@ function saveOilImport() {
 }
 function addOilImportOil() {
     var oil = document.forms['oilImportForm'].oilSelectedHidden.value;
-    if (oil == -1 || oil == 0)
-        return false;
-    var oilId = document.forms['oilImportForm'].oilId;
-    var existed = false;
-    if (oilId != null) {
-        if (oilId.length != null) {
-            for (i = 0; i < oilId.length; i++) {
-                if (oilId[i].value == oil) {
-                    existed = true;
-                    break;
-                }
-            }
-        } else if (oilId.value == oil)
-            existed = true;
-    }
-    oilId = null;
-    if (existed == true) {
-        alert("H\u00E0ng ho\u00E1 \u0111\u00E3 t\u1ED3n t\u1EA1i");
-        return false;
-    }
+//    if (oil == -1 || oil == 0)
+//        return false;
+//    var oilId = document.forms['oilImportForm'].oilId;
+//    var existed = false;
+//    if (oilId != null) {
+//        if (oilId.length != null) {
+//            for (i = 0; i < oilId.length; i++) {
+//                if (oilId[i].value == oil) {
+//                    existed = true;
+//                    break;
+//                }
+//            }
+//        } else if (oilId.value == oil)
+//            existed = true;
+//    }
+//    oilId = null;
+//    if (existed == true) {
+//        alert("H\u00E0ng ho\u00E1 \u0111\u00E3 t\u1ED3n t\u1EA1i");
+//        return false;
+//    }
     callAjax("getOilImportOil.do?oilId=" + oil, null, null, function(data) {
         setAjaxData(data, 'oilImportOilHideDiv');
         var matTable = document.getElementById('oilImportOilTbl');
@@ -13784,26 +13784,26 @@ function saveSaleOil() {
 function addSaleOilOil() {
     var oil = document.forms['saleOilForm'].oilSelectedHidden.value;
     var customer = document.forms['saleOilForm'].customerSelectedHidden.value;
-    if (oil == -1 || oil == 0)
-        return false;
-    var oilId = document.forms['saleOilForm'].oilId;
-    var existed = false;
-    if (oilId != null) {
-        if (oilId.length != null) {
-            for (i = 0; i < oilId.length; i++) {
-                if (oilId[i].value == oil) {
-                    existed = true;
-                    break;
-                }
-            }
-        } else if (oilId.value == oil)
-            existed = true;
-    }
-    oilId = null;
-    if (existed == true) {
-        alert("H\u00E0ng ho\u00E1 \u0111\u00E3 t\u1ED3n t\u1EA1i");
-        return false;
-    }
+//    if (oil == -1 || oil == 0)
+//        return false;
+//    var oilId = document.forms['saleOilForm'].oilId;
+//    var existed = false;
+//    if (oilId != null) {
+//        if (oilId.length != null) {
+//            for (i = 0; i < oilId.length; i++) {
+//                if (oilId[i].value == oil) {
+//                    existed = true;
+//                    break;
+//                }
+//            }
+//        } else if (oilId.value == oil)
+//            existed = true;
+//    }
+//    oilId = null;
+//    if (existed == true) {
+//        alert("H\u00E0ng ho\u00E1 \u0111\u00E3 t\u1ED3n t\u1EA1i");
+//        return false;
+//    }
     callAjax("getSaleOilOil.do?oilId=" + oil + "&customerId=" + customer, null, null, function(data) {
         setAjaxData(data, 'saleOilOilHideDiv');
         var matTable = document.getElementById('saleOilOilTbl');
@@ -13840,10 +13840,10 @@ function caculateSaleOilListDetail(goodId) {
     if (quantity == null || priceBeforeCommission == null || commissionPrice == null || price == null || firstAmount == null || commissionDetail == null
             || gapAgencyAmountDetail == null || gapCustomerAmountDetail == null || detTotal == null)
         return false;
-    price.value = reformatNumberMoneyString(priceBeforeCommission.value) * (100 - reformatNumberMoneyString(commissionPrice.value) * 1) / 100;
+    price.value = reformatNumberMoneyString(priceBeforeCommission.value) * (100 - reformatNumberMoneyString(commissionPrice.value) * 1) / 100
+            + reformatNumberMoneyString(gapAgencyAmountDetail.value) * 1 + reformatNumberMoneyString(gapCustomerAmountDetail.value) * 1;
     firstAmount.value = reformatNumberMoneyString(quantity.value) * price.value;
-    detTotal.value = firstAmount.value * (100 - reformatNumberMoneyString(commissionDetail.value)) / 100 + reformatNumberMoneyString(gapAgencyAmountDetail.value) * 1
-            + reformatNumberMoneyString(gapCustomerAmountDetail.value) * 1;
+    detTotal.value = firstAmount.value * (100 - reformatNumberMoneyString(commissionDetail.value)) / 100;
     tryNumberFormatCurrentcy(quantity, "VND");
     tryNumberFormatCurrentcy(priceBeforeCommission, "VND");
     tryNumberFormatCurrentcy(commissionPrice, "USD");

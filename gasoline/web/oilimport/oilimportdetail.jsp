@@ -25,6 +25,14 @@
             <td><html:text property="commission" size="30" name="<%=Constants.OIL_IMPORT%>" readonly="true" tabindex="-1"/></td>
         </tr>
         <tr>
+            <td height="30" style="padding-right: 20px"><bean:message key="store.title"/></td>
+            <td colspan="3">
+                <html:select property="storeId" name="<%=Constants.OIL_IMPORT%>" style="width:195px" tabindex="0">
+                    <html:options collection="<%=Constants.STORE_LIST%>" property="id" labelProperty="name"/>
+                </html:select>
+            </td>
+        </tr>
+        <tr>
             <td height="30" style="padding-right: 20px"><bean:message key="rate.title"/></td>
             <td><html:text property="rate" size="30" name="<%=Constants.OIL_IMPORT%>" onblur="tryNumberFormatCurrentcy(this);" onkeypress="return readonlyFloat(event);"/></td>
             <td style="padding-right: 20px;padding-left: 10px"><bean:message key="oilImport.detail.add.totalBeforeCommission"/></td>

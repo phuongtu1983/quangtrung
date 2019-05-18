@@ -16,6 +16,8 @@ public class SaleOilDetailBean {
     private String oilName;
     private int unitId;
     private String unitName;
+    private int storeId;
+    private String storeName;
     private int customerId;
     private String customerName;
     private int quantity;
@@ -162,6 +164,22 @@ public class SaleOilDetailBean {
 
     public void setGapCustomerAmount(double gapCustomerAmount) {
         this.gapCustomerAmount = gapCustomerAmount;
+    }
+
+    public int getStoreId() {
+        return storeId;
+    }
+
+    public void setStoreId(int storeId) {
+        this.storeId = storeId;
+    }
+
+    public String getStoreName() {
+        return storeName;
+    }
+
+    public void setStoreName(String storeName) {
+        this.storeName = storeName;
     }
 
 }

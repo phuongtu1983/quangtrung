@@ -7,10 +7,13 @@ package com.stepup.gasoline.qt.saleoil;
 import com.stepup.core.util.NumberUtil;
 import com.stepup.gasoline.qt.bean.OilBean;
 import com.stepup.gasoline.qt.bean.SaleOilDetailBean;
+import com.stepup.gasoline.qt.bean.VendorBean;
 import com.stepup.gasoline.qt.core.SpineAction;
 import com.stepup.gasoline.qt.dao.GoodDAO;
+import com.stepup.gasoline.qt.dao.OrganizationDAO;
 import com.stepup.gasoline.qt.dao.VendorDAO;
 import com.stepup.gasoline.qt.util.Constants;
+import com.stepup.gasoline.qt.util.QTUtil;
 import com.stepup.gasoline.qt.vendor.VendorFormBean;
 import java.util.ArrayList;
 import javax.servlet.http.HttpServletRequest;
@@ -41,6 +44,7 @@ public class GetSaleOilOilAction extends SpineAction {
         int customerId = NumberUtil.parseInt(request.getParameter("customerId"), 0);
         ArrayList arrDetail = new ArrayList();
         ArrayList arrUnit = new ArrayList();
+        ArrayList arrStore = null;
         SaleOilDetailBean bean = null;
         try {
             GoodDAO goodDAO = new GoodDAO();
@@ -58,14 +62,25 @@ public class GetSaleOilOilAction extends SpineAction {
                 }
             }
             arrUnit = goodDAO.getOilUnits(oilId);
+            
+            OrganizationDAO orgDAO = new OrganizationDAO();
+            String organizationIds = QTUtil.getOrganizationManageds(request.getSession());
+            arrStore = orgDAO.getStores(organizationIds, VendorBean.IS_OIL);
         } catch (Exception ex) {
         }
         if (bean == null) {
             bean = new SaleOilDetailBean();
         }
+        if (arrUnit == null) {
+            arrUnit = new ArrayList();
+        }
+        if (arrStore == null) {
+            arrStore = new ArrayList();
+        }
         arrDetail.add(bean);
         request.setAttribute(Constants.SALE_OIL_OIL, arrDetail);
         request.setAttribute(Constants.UNIT_LIST, arrUnit);
+        request.setAttribute(Constants.STORE_LIST, arrStore);
         return true;
     }
 }

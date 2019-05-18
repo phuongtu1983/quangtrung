@@ -4014,7 +4014,7 @@ public class GoodDAO extends BasicDAO {
             sql = "Insert Into oil (code,name,group_id,weight_unit_id,weight,base_unit_id,sale_unit_id,employee_commission_id,status,organization_id,price,vendor_id)"
                     + " Values ('" + bean.getCode() + "','" + bean.getName() + "'," + bean.getGroupId() + "," + bean.getWeightUnitId() + "," + bean.getWeight()
                     + "," + bean.getBaseUnitId() + "," + bean.getSaleUnitId() + "," + bean.getEmployeeCommissionId() + "," + bean.getStatus()
-                    + "," + bean.getOrganizationId() + "," + bean.getPrice() + "," + bean.getVendorId()+ ")";
+                    + "," + bean.getOrganizationId() + "," + bean.getPrice() + "," + bean.getVendorId() + ")";
             DBUtil.executeInsert(sql);
         } catch (SQLException sqle) {
             throw new Exception(sqle.getMessage());
@@ -4127,6 +4127,7 @@ public class GoodDAO extends BasicDAO {
                 bean.setId(rs.getInt("id"));
                 bean.setCode(rs.getString("code"));
                 bean.setCreatedDate(DateUtil.formatDate(rs.getDate("created_date"), "dd/MM/yyyy"));
+                bean.setStoreId(rs.getInt("store_id"));
                 bean.setVendorId(rs.getInt("vendor_id"));
                 bean.setCommission(rs.getFloat("commission"));
                 bean.setRate(rs.getDouble("rate"));
@@ -4197,11 +4198,12 @@ public class GoodDAO extends BasicDAO {
             } else {
                 createdDate = bean.getCreatedDate();
             }
-            String sql = "{call insertOilImport(?,?,?,?,?,?,?,?,?,?,?,?,?)}";
+            String sql = "{call insertOilImport(?,?,?,?,?,?,?,?,?,?,?,?,?,?)}";
             spUtil = new SPUtil(sql);
             if (spUtil != null) {
                 spUtil.getCallableStatement().setString("_code", bean.getCode());
                 spUtil.getCallableStatement().setString("_created_date", createdDate);
+                spUtil.getCallableStatement().setInt("_store_id", bean.getStoreId());
                 spUtil.getCallableStatement().setInt("_vendor_id", bean.getVendorId());
                 spUtil.getCallableStatement().setFloat("_commission", bean.getCommission());
                 spUtil.getCallableStatement().setDouble("_rate", bean.getRate());
@@ -4244,7 +4246,7 @@ public class GoodDAO extends BasicDAO {
             } else {
                 createdDate = bean.getCreatedDate();
             }
-            String sql = "{call updateOilImport(?,?,?,?,?,?,?,?,?,?,?)}";
+            String sql = "{call updateOilImport(?,?,?,?,?,?,?,?,?,?,?,?)}";
             spUtil = new SPUtil(sql);
             if (spUtil != null) {
                 spUtil.getCallableStatement().setInt("_id", bean.getId());
@@ -4257,6 +4259,7 @@ public class GoodDAO extends BasicDAO {
                 spUtil.getCallableStatement().setDouble("_debt", bean.getDebt());
                 spUtil.getCallableStatement().setInt("_account_id", bean.getAccountId());
                 spUtil.getCallableStatement().setString("_note", bean.getNote());
+                spUtil.getCallableStatement().setInt("_store_id", bean.getStoreId());
                 spUtil.getCallableStatement().setInt("_vendor_id", bean.getVendorId());
                 spUtil.execute();
             }
@@ -4342,13 +4345,13 @@ public class GoodDAO extends BasicDAO {
         return result;
     }
 
-    public void updateOilImportDetail(OilImportDetailBean bean, String createdDate) throws Exception {
+    public void updateOilImportDetail(OilImportDetailBean bean, String createdDate, int storeId) throws Exception {
         if (bean == null) {
             return;
         }
         SPUtil spUtil = null;
         try {
-            String sql = "{call updateOilImportDetail(?,?,?,?,?)}";
+            String sql = "{call updateOilImportDetail(?,?,?,?,?,?)}";
             spUtil = new SPUtil(sql);
             if (spUtil != null) {
                 spUtil.getCallableStatement().setInt("_id", bean.getId());
@@ -4356,6 +4359,7 @@ public class GoodDAO extends BasicDAO {
                 spUtil.getCallableStatement().setDouble("_price", bean.getPrice());
                 spUtil.getCallableStatement().setDouble("_amount", bean.getAmount());
                 spUtil.getCallableStatement().setString("_created_date", createdDate);
+                spUtil.getCallableStatement().setInt("_store_id", storeId);
                 spUtil.execute();
             }
         } catch (SQLException sqle) {
@@ -4515,9 +4519,9 @@ public class GoodDAO extends BasicDAO {
 
     public ArrayList getSaleOilDetail(int saleOilId) throws Exception {
         ResultSet rs = null;
-        String sql = "select det.*, s.name as oil_name, u.name as unit_name"
-                + " from oil_sale_detail as det, oil as s, unit as u"
-                + " where det.oil_id=s.id and det.unit_id=u.id and det.oil_sale_id=" + saleOilId
+        String sql = "select det.*, o.name as oil_name, u.name as unit_name, s.name as store_name"
+                + " from oil_sale_detail as det, oil as o, unit as u, store as s"
+                + " where det.oil_id=o.id and det.unit_id=u.id and det.store_id=s.id and det.oil_sale_id=" + saleOilId
                 + " order by det.id";
         ArrayList detailList = new ArrayList();
         try {
@@ -4540,6 +4544,8 @@ public class GoodDAO extends BasicDAO {
                 bean.setOilName(rs.getString("oil_name"));
                 bean.setUnitId(rs.getInt("unit_id"));
                 bean.setUnitName(rs.getString("unit_name"));
+                bean.setStoreId(rs.getInt("store_id"));
+                bean.setStoreName(rs.getString("store_name"));
                 detailList.add(bean);
             }
         } catch (SQLException sqle) {
@@ -4694,12 +4700,13 @@ public class GoodDAO extends BasicDAO {
         int result = 0;
         SPUtil spUtil = null;
         try {
-            String sql = "{call insertSaleOilDetail(?,?,?,?,?,?,?,?,?,?,?,?,?)}";
+            String sql = "{call insertSaleOilDetail(?,?,?,?,?,?,?,?,?,?,?,?,?,?)}";
             spUtil = new SPUtil(sql);
             if (spUtil != null) {
                 spUtil.getCallableStatement().setInt("_oil_sale_id", bean.getSaleOilId());
                 spUtil.getCallableStatement().setInt("_oil_id", bean.getOilId());
                 spUtil.getCallableStatement().setInt("_unit_id", bean.getUnitId());
+                spUtil.getCallableStatement().setInt("_store_id", bean.getStoreId());
                 spUtil.getCallableStatement().setInt("_quantity", bean.getQuantity());
                 spUtil.getCallableStatement().setDouble("_price", bean.getPrice());
                 spUtil.getCallableStatement().setDouble("_amount", bean.getAmount());

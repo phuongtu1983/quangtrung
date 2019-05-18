@@ -12,6 +12,7 @@ import com.stepup.gasoline.qt.bean.VendorBean;
 import com.stepup.gasoline.qt.core.SpineAction;
 import com.stepup.gasoline.qt.dao.AccountDAO;
 import com.stepup.gasoline.qt.dao.GoodDAO;
+import com.stepup.gasoline.qt.dao.OrganizationDAO;
 import com.stepup.gasoline.qt.dao.VendorDAO;
 import com.stepup.gasoline.qt.util.Constants;
 import com.stepup.gasoline.qt.util.PermissionUtil;
@@ -74,13 +75,13 @@ public class OilImportFormAction extends SpineAction {
             } catch (Exception ex) {
             }
         }
-        
+
         request.setAttribute(Constants.OIL_IMPORT, formBean);
         if (arrDetail == null) {
             arrDetail = new ArrayList();
         }
         request.setAttribute(Constants.OIL_IMPORT_OIL, arrDetail);
-        
+
         ArrayList arrOil = null;
         try {
             arrOil = goodDAO.getOils(EmployeeBean.STATUS_ACTIVE, QTUtil.getOrganizationManageds(request.getSession()));
@@ -90,7 +91,7 @@ public class OilImportFormAction extends SpineAction {
             arrOil = new ArrayList();
         }
         request.setAttribute(Constants.OIL_LIST, arrOil);
-        
+
         String organizationIds = QTUtil.getOrganizationManageds(request.getSession());
         ArrayList arrAccount = null;
         try {
@@ -102,7 +103,7 @@ public class OilImportFormAction extends SpineAction {
             arrAccount = new ArrayList();
         }
         request.setAttribute(Constants.ACCOUNT_LIST, arrAccount);
-        
+
         ArrayList arrVendor = null;
         try {
             VendorDAO vendorDAO = new VendorDAO();
@@ -113,12 +114,23 @@ public class OilImportFormAction extends SpineAction {
             arrVendor = new ArrayList();
         }
         request.setAttribute(Constants.VENDOR_LIST, arrVendor);
-        
+
         if (formBean.getId() == 0 && arrVendor.size() > 0) {
             VendorFormBean vendorBean = (VendorFormBean) arrVendor.get(0);
             formBean.setCommission(vendorBean.getCommissionOnImport());
         }
-        
+
+        ArrayList arrStore = null;
+        try {
+            OrganizationDAO orgDAO = new OrganizationDAO();
+            arrStore = orgDAO.getStores(organizationIds, VendorBean.IS_OIL);
+        } catch (Exception ex) {
+        }
+        if (arrStore == null) {
+            arrStore = new ArrayList();
+        }
+        request.setAttribute(Constants.STORE_LIST, arrStore);
+
         return true;
     }
 }
