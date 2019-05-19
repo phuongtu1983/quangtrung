@@ -797,7 +797,7 @@ public class PrintReportAction extends BaseAction {
         ArrayList list = null;
         try {
             ReportDAO reportDAO = new ReportDAO();
-            list = reportDAO.getPetroOilReport(fromDate, toDate, organizationIds);
+            list = reportDAO.getOilImportReport(fromDate, toDate, organizationIds);
         } catch (Exception ex) {
         }
         return list;

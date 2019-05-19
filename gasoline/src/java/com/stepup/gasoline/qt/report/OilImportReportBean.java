@@ -15,6 +15,7 @@ public class OilImportReportBean {
     private String date;
     private String vendorName;
     private String oilName;
+    private String storeName;
     private int quantity;
     private double price;
     private double amount;
@@ -91,6 +92,14 @@ public class OilImportReportBean {
 
     public void setQuantity(int quantity) {
         this.quantity = quantity;
+    }
+
+    public String getStoreName() {
+        return storeName;
+    }
+
+    public void setStoreName(String storeName) {
+        this.storeName = storeName;
     }
 
 }

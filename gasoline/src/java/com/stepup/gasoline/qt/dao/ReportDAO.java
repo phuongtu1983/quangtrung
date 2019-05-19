@@ -79,6 +79,8 @@ import com.stepup.gasoline.qt.report.oilcompare.OilCompareReportOutBean;
 import com.stepup.gasoline.qt.report.transportservice.TransportServiceReportBean;
 import com.stepup.gasoline.qt.report.transportservice.TransportServiceReportOutBean;
 import com.stepup.gasoline.qt.report.vehiclefee.VehicleFeeReportBean;
+import com.stepup.gasoline.qt.saleoil.SaleOilReportBean;
+import com.stepup.gasoline.qt.saleoil.SaleOilReportOutBean;
 import com.stepup.gasoline.qt.util.QTUtil;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -2966,7 +2968,7 @@ public class ReportDAO extends BasicDAO {
         return list;
     }
 
-    public ArrayList getPetroOilReport(String fromDate, String endDate, String organizationIds) throws Exception {
+    public ArrayList getOilImportReport(String fromDate, String endDate, String organizationIds) throws Exception {
         SPUtil spUtil = null;
         ArrayList list = new ArrayList();
         ResultSet rs = null;
@@ -2995,6 +2997,7 @@ public class ReportDAO extends BasicDAO {
                         bean.setDate(DateUtil.formatDate(rs.getDate("created_date"), "dd/MM/yyyy"));
                         bean.setVendorName(rs.getString("vendor_name"));
                         bean.setOilName(rs.getString("oilName"));
+                        bean.setStoreName(rs.getString("storeName"));
                         bean.setQuantity(rs.getInt("quantity"));
                         bean.setPrice(rs.getDouble("price"));
                         bean.setAmount(rs.getDouble("amount"));
@@ -3217,6 +3220,7 @@ public class ReportDAO extends BasicDAO {
                         bean.setCustomerCode(rs.getString("customerCode"));
                         bean.setCustomerName(rs.getString("customerName"));
                         bean.setOilCode(rs.getString("oilCode"));
+                        bean.setStoreName(rs.getString("storeName"));
                         bean.setQuantity(rs.getInt("quantity"));
                         bean.setPrice(rs.getDouble("price"));
                         bean.setCommission(rs.getDouble("commission"));
@@ -3352,6 +3356,52 @@ public class ReportDAO extends BasicDAO {
                         list.add(bean);
                     }
                     outBean.setCustomerCommissionAmount(commission);
+                }
+            }
+        } catch (SQLException sqle) {
+            throw new Exception(sqle.getMessage());
+        } catch (Exception ex) {
+            throw new Exception(ex.getMessage());
+        } finally {
+            try {
+                if (spUtil != null) {
+                    spUtil.closeConnection();
+                }
+                if (rs != null) {
+                    rs.close();
+                    rs = null;
+                }
+            } catch (Exception e) {
+                throw new Exception(e.getMessage());
+            }
+        }
+        return list;
+    }
+
+    public ArrayList getSaleOilReport(int saleOilId, SaleOilReportOutBean outBean) throws Exception {
+        SPUtil spUtil = null;
+        ArrayList list = new ArrayList();
+        ResultSet rs = null;
+        try {
+            String sql = "{call report_sale_oil(?)}";
+            spUtil = new SPUtil(sql);
+            if (spUtil != null) {
+                spUtil.getCallableStatement().setInt("_sale_oil_id", saleOilId);
+
+                rs = spUtil.executeQuery();
+
+                if (rs != null) {
+                    SaleOilReportBean bean = null;
+                    while (rs.next()) {
+                        bean = new SaleOilReportBean();
+                        bean.setOilCode(rs.getString("oil_code"));
+                        bean.setOilName(rs.getString("oil_name"));
+                        bean.setUnitName(rs.getString("unit_name"));
+                        bean.setQuantity(rs.getInt("quantity"));
+                        bean.setPrice(rs.getDouble("price"));
+                        bean.setAmount(rs.getDouble("amount"));
+                        list.add(bean);
+                    }
                 }
             }
         } catch (SQLException sqle) {

@@ -4,7 +4,7 @@
  */
 package com.stepup.gasoline.qt.report.oilstockstore;
 
-import com.stepup.gasoline.qt.bean.EmployeeBean;
+import com.stepup.gasoline.qt.bean.VendorBean;
 import com.stepup.gasoline.qt.core.SpineAction;
 import com.stepup.gasoline.qt.dao.OrganizationDAO;
 import com.stepup.gasoline.qt.util.Constants;
@@ -38,7 +38,7 @@ public class OilStockStoreReportPanelFormAction extends SpineAction {
         ArrayList arrStore = null;
         try {
             OrganizationDAO organizationDAO = new OrganizationDAO();
-            arrStore = organizationDAO.getStores(EmployeeBean.STATUS_ACTIVE, organizationIds);
+            arrStore = organizationDAO.getStores(organizationIds, VendorBean.IS_OIL);
         } catch (Exception ex) {
         }
         if (arrStore == null) {

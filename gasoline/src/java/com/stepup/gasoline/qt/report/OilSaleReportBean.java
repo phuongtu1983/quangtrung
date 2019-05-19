@@ -15,6 +15,7 @@ public class OilSaleReportBean {
     private String date;
     private String customerCode;
     private String customerName;
+    private String storeName;
     private String oilCode;
     private int quantity;
     private double price;
@@ -109,6 +110,14 @@ public class OilSaleReportBean {
 
     public void setCommission(double commission) {
         this.commission = commission;
+    }
+
+    public String getStoreName() {
+        return storeName;
+    }
+
+    public void setStoreName(String storeName) {
+        this.storeName = storeName;
     }
 
 }

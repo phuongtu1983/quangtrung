@@ -611,17 +611,18 @@ function caculateListTotal(formName) {
     price = null;
     shellWeight = null;
     amount = null;
-    var commission = document.forms[formName].commission;
-    if (commission != null) {
-        commission = commission.value * sum / 100;
-        var totalBeforeCommission = document.forms[formName].totalBeforeCommission;
-        if (totalBeforeCommission != null) {
-            totalBeforeCommission.value = sum;
-            tryNumberFormatCurrentcy(totalBeforeCommission, "VND");
-            totalBeforeCommission = null;
+    var totalBeforeCommission = document.forms[formName].totalBeforeCommission;
+    if (totalBeforeCommission != null) {
+        totalBeforeCommission.value = sum;
+        tryNumberFormatCurrentcy(totalBeforeCommission, "VND");
+        totalBeforeCommission = null;
+        var commission = document.forms[formName].commission;
+        if (commission != null) {
+            commission = commission.value * sum / 100;
+            sum = sum - commission;
         }
-        sum = sum - commission;
     }
+
     document.forms[formName].total.value = sum;
     if (hasGasReturn) {
         var gasReturnPrice = document.forms[formName].gasReturnPrice;
@@ -14165,6 +14166,12 @@ function printOilComapreReport(fromDate, toDate) {
     callServer(url);
     return false;
 }
+function printSaleOil(saleOilId) {
+    callServer("reportSaleOil.do?saleOilId=" + saleOilId);
+    return false;
+}
+
+
 
 
 

@@ -103,6 +103,7 @@
                         <%if (PermissionUtil.hasPermission(request, PermissionUtil.OPERATION_EDIT, PermissionUtil.PER_SALE_OIL)) {%> 
                         <button class="i_create_write icon small green" onclick="return saveSaleOil();"><bean:message key="message.save"/></button>
                         <%}%>
+                        <button class="i_printer icon small" onclick="return printSaleOil(<bean:write name="<%=Constants.SALE_OIL%>" property="id"/>);">In</button>
                         <%if (PermissionUtil.hasPermission(request, PermissionUtil.OPERATION_DELETE, PermissionUtil.PER_SALE_OIL)) {%> 
                         <button class="i_trashcan icon small red" onclick="return delSaleOil();"><bean:message key="message.del"/></button>
                         <%}%>

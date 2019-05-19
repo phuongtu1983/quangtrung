@@ -250,11 +250,11 @@ CREATE TABLE `auto` (
   `auto_date` date DEFAULT NULL,
   `auto_name` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=173 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=174 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 /*Data for the table `auto` */
 
-insert  into `auto`(`id`,`auto_date`,`auto_name`) values (172,'2019-05-17','in_stock');
+insert  into `auto`(`id`,`auto_date`,`auto_name`) values (173,'2019-05-17','in_stock');
 
 /*Table structure for table `borrow` */
 
@@ -385,11 +385,11 @@ CREATE TABLE `customer_in_stock` (
   `amount` double DEFAULT '0',
   `transport_amount` double DEFAULT '0',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=57064 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=57264 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 /*Data for the table `customer_in_stock` */
 
-insert  into `customer_in_stock`(`id`,`day`,`customer_id`,`shell_12`,`shell_45`,`amount`,`transport_amount`) values (56809,'2019-05-17',1,0,0,0,0),(56810,'2019-05-17',2,0,0,0,0),(56811,'2019-05-17',9,0,0,0,0),(56812,'2019-05-17',11,0,0,0,0),(56813,'2019-05-17',12,0,0,0,0),(56814,'2019-05-17',13,0,0,0,0),(56815,'2019-05-17',14,0,0,0,0),(56816,'2019-05-17',15,0,0,0,0),(56817,'2019-05-17',16,0,0,0,0),(56818,'2019-05-17',17,0,0,0,0),(56819,'2019-05-17',18,0,0,0,0),(56820,'2019-05-17',19,0,0,0,0),(56821,'2019-05-17',20,0,0,0,0),(56822,'2019-05-17',21,0,0,0,0),(56823,'2019-05-17',22,0,0,0,0),(56824,'2019-05-17',23,0,0,0,0),(56825,'2019-05-17',24,0,0,0,0),(56826,'2019-05-17',25,0,0,0,0),(56827,'2019-05-17',26,0,0,0,0),(56828,'2019-05-17',27,0,0,0,0),(56829,'2019-05-17',28,0,0,0,0),(56830,'2019-05-17',29,0,0,0,0),(56831,'2019-05-17',30,0,0,0,0),(56832,'2019-05-17',31,0,0,0,0),(56833,'2019-05-17',32,0,0,0,0),(56834,'2019-05-17',33,0,0,0,0),(56835,'2019-05-17',34,0,0,0,0),(56836,'2019-05-17',35,0,0,0,0),(56837,'2019-05-17',36,0,0,0,0),(56838,'2019-05-17',37,0,0,0,0),(56839,'2019-05-17',38,0,0,0,0),(56840,'2019-05-17',39,0,0,0,0),(56841,'2019-05-17',40,0,0,0,0),(56842,'2019-05-17',41,0,0,0,0),(56843,'2019-05-17',42,0,0,0,0),(56844,'2019-05-17',43,0,0,0,0),(56845,'2019-05-17',44,0,0,0,0),(56846,'2019-05-17',45,0,0,0,0),(56847,'2019-05-17',46,0,0,0,0),(56848,'2019-05-17',47,0,0,0,0),(56849,'2019-05-17',48,0,0,0,0),(56850,'2019-05-17',49,0,0,0,0),(56851,'2019-05-17',50,0,0,0,0),(56852,'2019-05-17',51,0,0,0,0),(56853,'2019-05-17',52,0,0,0,0),(56854,'2019-05-17',53,0,0,0,0),(56855,'2019-05-17',54,0,0,0,0),(56856,'2019-05-17',55,0,0,0,0),(56857,'2019-05-17',56,0,0,0,0),(56858,'2019-05-17',57,0,0,0,0),(56859,'2019-05-17',58,0,0,0,0),(56860,'2019-05-17',59,0,0,0,0),(56861,'2019-05-17',60,0,0,0,0),(56862,'2019-05-17',61,0,0,0,0),(56863,'2019-05-17',62,0,0,0,0),(56864,'2019-05-17',63,0,0,0,0),(56865,'2019-05-17',64,0,0,0,0),(56866,'2019-05-17',65,0,0,0,0),(56867,'2019-05-17',66,0,0,0,0),(56868,'2019-05-17',67,0,0,0,0),(56869,'2019-05-17',68,0,0,0,0),(56870,'2019-05-17',69,0,0,0,0),(56871,'2019-05-17',70,0,0,0,0),(56872,'2019-05-17',71,0,0,0,0),(56873,'2019-05-17',72,0,0,0,0),(56874,'2019-05-17',73,0,0,0,0),(56875,'2019-05-17',74,0,0,0,0),(56876,'2019-05-17',75,0,0,0,0),(56877,'2019-05-17',76,0,0,0,0),(56878,'2019-05-17',77,0,0,0,0),(56879,'2019-05-17',78,0,0,0,0),(56880,'2019-05-17',79,0,0,0,0),(56881,'2019-05-17',80,0,0,0,0),(56882,'2019-05-17',81,0,0,0,0),(56883,'2019-05-17',82,0,0,0,0),(56884,'2019-05-17',83,0,0,0,0),(56885,'2019-05-17',84,0,0,0,0),(56886,'2019-05-17',85,0,0,0,0),(56887,'2019-05-17',86,0,0,0,0),(56888,'2019-05-17',87,0,0,0,0),(56889,'2019-05-17',88,0,0,0,0),(56890,'2019-05-17',89,0,0,0,0),(56891,'2019-05-17',90,0,0,0,0),(56892,'2019-05-17',91,0,0,0,0),(56893,'2019-05-17',92,0,0,0,0),(56894,'2019-05-17',93,0,0,0,0),(56895,'2019-05-17',94,0,0,0,0),(56896,'2019-05-17',95,0,0,0,0),(56897,'2019-05-17',96,0,0,0,0),(56898,'2019-05-17',97,0,0,0,0),(56899,'2019-05-17',98,0,0,0,0),(56900,'2019-05-17',99,0,0,0,0),(56901,'2019-05-17',100,0,0,0,0),(56902,'2019-05-17',101,0,0,0,0),(56903,'2019-05-17',102,0,0,0,0),(56904,'2019-05-17',103,0,0,0,0),(56905,'2019-05-17',104,0,0,0,0),(56906,'2019-05-17',105,0,0,0,0),(56907,'2019-05-17',106,0,0,0,0),(56908,'2019-05-17',107,0,0,0,0),(56909,'2019-05-17',108,0,0,-10000,0),(56910,'2019-05-17',109,0,0,0,0),(56911,'2019-05-17',110,0,0,0,0),(56912,'2019-05-17',111,0,0,0,0),(56913,'2019-05-17',112,0,0,0,0),(56914,'2019-05-17',113,0,0,0,0),(56915,'2019-05-17',114,0,0,0,0),(56916,'2019-05-17',115,0,0,0,0),(56917,'2019-05-17',116,0,0,0,0),(56918,'2019-05-17',117,0,0,0,0),(56919,'2019-05-17',118,0,0,0,0),(56920,'2019-05-17',119,0,0,0,0),(56921,'2019-05-17',120,0,0,0,0),(56922,'2019-05-17',121,0,0,0,0),(56923,'2019-05-17',122,0,0,0,0),(56924,'2019-05-17',123,0,0,0,0),(56925,'2019-05-17',124,0,0,0,0),(56926,'2019-05-17',125,0,0,0,0),(56927,'2019-05-17',126,0,0,0,0),(56928,'2019-05-17',127,0,0,0,0),(56929,'2019-05-17',128,0,0,0,0),(56930,'2019-05-17',129,0,0,0,0),(56931,'2019-05-17',130,0,0,-6000,0),(56932,'2019-05-17',131,0,0,0,0),(56933,'2019-05-17',132,0,0,0,0),(56934,'2019-05-17',133,0,0,0,0),(56935,'2019-05-17',134,0,0,0,0),(56936,'2019-05-17',135,0,0,0,0),(56937,'2019-05-17',136,0,0,0,0),(56938,'2019-05-17',137,0,0,0,0),(56939,'2019-05-17',138,0,0,0,0),(56940,'2019-05-17',139,0,0,0,0),(56941,'2019-05-17',140,0,0,0,0),(56942,'2019-05-17',141,0,0,0,0),(56943,'2019-05-17',142,0,0,0,0),(56944,'2019-05-17',143,0,0,0,0),(56945,'2019-05-17',144,0,0,0,0),(56946,'2019-05-17',145,0,0,0,0),(56947,'2019-05-17',146,0,0,0,0),(56948,'2019-05-17',147,0,0,0,0),(56949,'2019-05-17',148,0,0,0,0),(56950,'2019-05-17',149,0,0,0,0),(56951,'2019-05-17',150,0,0,0,0),(56952,'2019-05-17',151,0,0,0,0),(56953,'2019-05-17',152,0,0,0,0),(56954,'2019-05-17',153,0,0,0,0),(56955,'2019-05-17',154,0,0,0,0),(56956,'2019-05-17',155,0,0,0,0),(56957,'2019-05-17',156,0,0,0,0),(56958,'2019-05-17',157,0,0,0,0),(56959,'2019-05-17',158,0,0,0,0),(56960,'2019-05-17',159,0,0,0,0),(56961,'2019-05-17',160,0,0,0,0),(56962,'2019-05-17',161,0,0,0,0),(56963,'2019-05-17',162,0,0,0,0),(56964,'2019-05-17',163,0,0,0,0),(56965,'2019-05-17',164,0,0,0,0),(56966,'2019-05-17',165,0,0,0,0),(56967,'2019-05-17',166,0,0,0,0),(56968,'2019-05-17',167,0,0,0,0),(56969,'2019-05-17',168,0,0,0,0),(56970,'2019-05-17',169,0,0,0,0),(56971,'2019-05-17',170,0,0,0,0),(56972,'2019-05-17',171,0,0,0,0),(56973,'2019-05-17',172,0,0,0,0),(56974,'2019-05-17',173,0,0,0,0),(56975,'2019-05-17',174,0,0,0,0),(56976,'2019-05-17',175,0,0,0,0),(56977,'2019-05-17',176,0,0,0,0),(56978,'2019-05-17',177,0,0,0,0),(56979,'2019-05-17',178,0,0,0,0),(56980,'2019-05-17',179,0,0,0,0),(56981,'2019-05-17',180,0,0,0,0),(56982,'2019-05-17',181,0,0,0,0),(56983,'2019-05-17',182,0,0,0,0),(56984,'2019-05-17',183,0,0,0,0),(56985,'2019-05-17',184,0,0,0,0),(56986,'2019-05-17',185,0,0,0,0),(56987,'2019-05-17',186,0,0,0,0),(56988,'2019-05-17',187,0,0,0,0),(56989,'2019-05-17',188,0,0,0,0),(56990,'2019-05-17',189,0,0,0,0),(56991,'2019-05-17',190,0,0,0,0),(56992,'2019-05-17',191,0,0,0,0),(56993,'2019-05-17',192,0,0,0,0),(56994,'2019-05-17',193,0,0,0,0),(56995,'2019-05-17',194,0,0,0,0),(56996,'2019-05-17',195,0,0,0,0),(56997,'2019-05-17',196,0,0,0,0),(56998,'2019-05-17',197,0,0,0,0),(56999,'2019-05-17',198,0,0,0,0),(57000,'2019-05-17',199,0,0,0,0),(57001,'2019-05-17',200,0,0,0,0),(57002,'2019-05-17',201,0,0,0,0),(57003,'2019-05-17',202,0,0,0,0),(57004,'2019-05-17',203,0,0,0,0),(57005,'2019-05-17',204,0,0,0,0),(57006,'2019-05-17',205,0,0,0,0),(57007,'2019-05-17',206,0,0,0,0),(57008,'2019-05-17',207,0,0,55423500,0);
+insert  into `customer_in_stock`(`id`,`day`,`customer_id`,`shell_12`,`shell_45`,`amount`,`transport_amount`) values (57009,'2019-05-17',1,0,0,0,0),(57010,'2019-05-17',2,0,0,0,0),(57011,'2019-05-17',9,0,0,0,0),(57012,'2019-05-17',11,0,0,0,0),(57013,'2019-05-17',12,0,0,0,0),(57014,'2019-05-17',13,0,0,0,0),(57015,'2019-05-17',14,0,0,0,0),(57016,'2019-05-17',15,0,0,0,0),(57017,'2019-05-17',16,0,0,0,0),(57018,'2019-05-17',17,0,0,0,0),(57019,'2019-05-17',18,0,0,0,0),(57020,'2019-05-17',19,0,0,0,0),(57021,'2019-05-17',20,0,0,0,0),(57022,'2019-05-17',21,0,0,0,0),(57023,'2019-05-17',22,0,0,0,0),(57024,'2019-05-17',23,0,0,0,0),(57025,'2019-05-17',24,0,0,0,0),(57026,'2019-05-17',25,0,0,0,0),(57027,'2019-05-17',26,0,0,0,0),(57028,'2019-05-17',27,0,0,0,0),(57029,'2019-05-17',28,0,0,0,0),(57030,'2019-05-17',29,0,0,0,0),(57031,'2019-05-17',30,0,0,0,0),(57032,'2019-05-17',31,0,0,0,0),(57033,'2019-05-17',32,0,0,0,0),(57034,'2019-05-17',33,0,0,0,0),(57035,'2019-05-17',34,0,0,0,0),(57036,'2019-05-17',35,0,0,0,0),(57037,'2019-05-17',36,0,0,0,0),(57038,'2019-05-17',37,0,0,0,0),(57039,'2019-05-17',38,0,0,0,0),(57040,'2019-05-17',39,0,0,0,0),(57041,'2019-05-17',40,0,0,0,0),(57042,'2019-05-17',41,0,0,0,0),(57043,'2019-05-17',42,0,0,0,0),(57044,'2019-05-17',43,0,0,0,0),(57045,'2019-05-17',44,0,0,0,0),(57046,'2019-05-17',45,0,0,0,0),(57047,'2019-05-17',46,0,0,0,0),(57048,'2019-05-17',47,0,0,0,0),(57049,'2019-05-17',48,0,0,0,0),(57050,'2019-05-17',49,0,0,0,0),(57051,'2019-05-17',50,0,0,0,0),(57052,'2019-05-17',51,0,0,0,0),(57053,'2019-05-17',52,0,0,0,0),(57054,'2019-05-17',53,0,0,0,0),(57055,'2019-05-17',54,0,0,0,0),(57056,'2019-05-17',55,0,0,0,0),(57057,'2019-05-17',56,0,0,0,0),(57058,'2019-05-17',57,0,0,0,0),(57059,'2019-05-17',58,0,0,0,0),(57060,'2019-05-17',59,0,0,0,0),(57061,'2019-05-17',60,0,0,0,0),(57062,'2019-05-17',61,0,0,0,0),(57063,'2019-05-17',62,0,0,0,0),(57064,'2019-05-17',63,0,0,0,0),(57065,'2019-05-17',64,0,0,0,0),(57066,'2019-05-17',65,0,0,0,0),(57067,'2019-05-17',66,0,0,0,0),(57068,'2019-05-17',67,0,0,0,0),(57069,'2019-05-17',68,0,0,0,0),(57070,'2019-05-17',69,0,0,0,0),(57071,'2019-05-17',70,0,0,0,0),(57072,'2019-05-17',71,0,0,0,0),(57073,'2019-05-17',72,0,0,0,0),(57074,'2019-05-17',73,0,0,0,0),(57075,'2019-05-17',74,0,0,0,0),(57076,'2019-05-17',75,0,0,0,0),(57077,'2019-05-17',76,0,0,0,0),(57078,'2019-05-17',77,0,0,0,0),(57079,'2019-05-17',78,0,0,0,0),(57080,'2019-05-17',79,0,0,0,0),(57081,'2019-05-17',80,0,0,0,0),(57082,'2019-05-17',81,0,0,0,0),(57083,'2019-05-17',82,0,0,0,0),(57084,'2019-05-17',83,0,0,0,0),(57085,'2019-05-17',84,0,0,0,0),(57086,'2019-05-17',85,0,0,0,0),(57087,'2019-05-17',86,0,0,0,0),(57088,'2019-05-17',87,0,0,0,0),(57089,'2019-05-17',88,0,0,0,0),(57090,'2019-05-17',89,0,0,0,0),(57091,'2019-05-17',90,0,0,0,0),(57092,'2019-05-17',91,0,0,0,0),(57093,'2019-05-17',92,0,0,0,0),(57094,'2019-05-17',93,0,0,0,0),(57095,'2019-05-17',94,0,0,0,0),(57096,'2019-05-17',95,0,0,0,0),(57097,'2019-05-17',96,0,0,0,0),(57098,'2019-05-17',97,0,0,0,0),(57099,'2019-05-17',98,0,0,0,0),(57100,'2019-05-17',99,0,0,0,0),(57101,'2019-05-17',100,0,0,0,0),(57102,'2019-05-17',101,0,0,0,0),(57103,'2019-05-17',102,0,0,0,0),(57104,'2019-05-17',103,0,0,0,0),(57105,'2019-05-17',104,0,0,0,0),(57106,'2019-05-17',105,0,0,0,0),(57107,'2019-05-17',106,0,0,0,0),(57108,'2019-05-17',107,0,0,0,0),(57109,'2019-05-17',108,0,0,-10000,0),(57110,'2019-05-17',109,0,0,0,0),(57111,'2019-05-17',110,0,0,0,0),(57112,'2019-05-17',111,0,0,0,0),(57113,'2019-05-17',112,0,0,0,0),(57114,'2019-05-17',113,0,0,0,0),(57115,'2019-05-17',114,0,0,0,0),(57116,'2019-05-17',115,0,0,0,0),(57117,'2019-05-17',116,0,0,0,0),(57118,'2019-05-17',117,0,0,0,0),(57119,'2019-05-17',118,0,0,0,0),(57120,'2019-05-17',119,0,0,0,0),(57121,'2019-05-17',120,0,0,0,0),(57122,'2019-05-17',121,0,0,0,0),(57123,'2019-05-17',122,0,0,0,0),(57124,'2019-05-17',123,0,0,0,0),(57125,'2019-05-17',124,0,0,0,0),(57126,'2019-05-17',125,0,0,0,0),(57127,'2019-05-17',126,0,0,0,0),(57128,'2019-05-17',127,0,0,0,0),(57129,'2019-05-17',128,0,0,0,0),(57130,'2019-05-17',129,0,0,0,0),(57131,'2019-05-17',130,0,0,-6000,0),(57132,'2019-05-17',131,0,0,0,0),(57133,'2019-05-17',132,0,0,0,0),(57134,'2019-05-17',133,0,0,0,0),(57135,'2019-05-17',134,0,0,0,0),(57136,'2019-05-17',135,0,0,0,0),(57137,'2019-05-17',136,0,0,0,0),(57138,'2019-05-17',137,0,0,0,0),(57139,'2019-05-17',138,0,0,0,0),(57140,'2019-05-17',139,0,0,0,0),(57141,'2019-05-17',140,0,0,0,0),(57142,'2019-05-17',141,0,0,0,0),(57143,'2019-05-17',142,0,0,0,0),(57144,'2019-05-17',143,0,0,0,0),(57145,'2019-05-17',144,0,0,0,0),(57146,'2019-05-17',145,0,0,0,0),(57147,'2019-05-17',146,0,0,0,0),(57148,'2019-05-17',147,0,0,0,0),(57149,'2019-05-17',148,0,0,0,0),(57150,'2019-05-17',149,0,0,0,0),(57151,'2019-05-17',150,0,0,0,0),(57152,'2019-05-17',151,0,0,0,0),(57153,'2019-05-17',152,0,0,0,0),(57154,'2019-05-17',153,0,0,0,0),(57155,'2019-05-17',154,0,0,0,0),(57156,'2019-05-17',155,0,0,0,0),(57157,'2019-05-17',156,0,0,0,0),(57158,'2019-05-17',157,0,0,0,0),(57159,'2019-05-17',158,0,0,0,0),(57160,'2019-05-17',159,0,0,0,0),(57161,'2019-05-17',160,0,0,0,0),(57162,'2019-05-17',161,0,0,0,0),(57163,'2019-05-17',162,0,0,0,0),(57164,'2019-05-17',163,0,0,0,0),(57165,'2019-05-17',164,0,0,0,0),(57166,'2019-05-17',165,0,0,0,0),(57167,'2019-05-17',166,0,0,0,0),(57168,'2019-05-17',167,0,0,0,0),(57169,'2019-05-17',168,0,0,0,0),(57170,'2019-05-17',169,0,0,0,0),(57171,'2019-05-17',170,0,0,0,0),(57172,'2019-05-17',171,0,0,0,0),(57173,'2019-05-17',172,0,0,0,0),(57174,'2019-05-17',173,0,0,0,0),(57175,'2019-05-17',174,0,0,0,0),(57176,'2019-05-17',175,0,0,0,0),(57177,'2019-05-17',176,0,0,0,0),(57178,'2019-05-17',177,0,0,0,0),(57179,'2019-05-17',178,0,0,0,0),(57180,'2019-05-17',179,0,0,0,0),(57181,'2019-05-17',180,0,0,0,0),(57182,'2019-05-17',181,0,0,0,0),(57183,'2019-05-17',182,0,0,0,0),(57184,'2019-05-17',183,0,0,0,0),(57185,'2019-05-17',184,0,0,0,0),(57186,'2019-05-17',185,0,0,0,0),(57187,'2019-05-17',186,0,0,0,0),(57188,'2019-05-17',187,0,0,0,0),(57189,'2019-05-17',188,0,0,0,0),(57190,'2019-05-17',189,0,0,0,0),(57191,'2019-05-17',190,0,0,0,0),(57192,'2019-05-17',191,0,0,0,0),(57193,'2019-05-17',192,0,0,0,0),(57194,'2019-05-17',193,0,0,0,0),(57195,'2019-05-17',194,0,0,0,0),(57196,'2019-05-17',195,0,0,0,0),(57197,'2019-05-17',196,0,0,0,0),(57198,'2019-05-17',197,0,0,0,0),(57199,'2019-05-17',198,0,0,0,0),(57200,'2019-05-17',199,0,0,0,0),(57201,'2019-05-17',200,0,0,0,0),(57202,'2019-05-17',201,0,0,0,0),(57203,'2019-05-17',202,0,0,0,0),(57204,'2019-05-17',203,0,0,0,0),(57205,'2019-05-17',204,0,0,0,0),(57206,'2019-05-17',205,0,0,0,0),(57207,'2019-05-17',206,0,0,0,0),(57208,'2019-05-17',207,0,0,8580880,0);
 
 /*Table structure for table `dayoff` */
 
@@ -435,6 +435,8 @@ CREATE TABLE `debug` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 /*Data for the table `debug` */
+
+insert  into `debug`(`note`) values ('1'),('1'),('9'),('44'),('60'),('1'),('2'),('8'),('42'),('20'),('1'),('3'),('10'),('45'),('30');
 
 /*Table structure for table `discount_oil` */
 
@@ -1347,11 +1349,11 @@ CREATE TABLE `good_in_stock` (
   `store_id` int(11) DEFAULT NULL,
   `in_stock` int(11) DEFAULT '0',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=751 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=754 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 /*Data for the table `good_in_stock` */
 
-insert  into `good_in_stock`(`id`,`day`,`good_id`,`organization_id`,`store_id`,`in_stock`) values (748,'2019-05-17',1,1,7,0),(749,'2019-05-17',2,1,7,0),(750,'2019-05-17',3,1,7,0);
+insert  into `good_in_stock`(`id`,`day`,`good_id`,`organization_id`,`store_id`,`in_stock`) values (751,'2019-05-17',1,1,7,0),(752,'2019-05-17',2,1,7,0),(753,'2019-05-17',3,1,7,0);
 
 /*Table structure for table `good_sale` */
 
@@ -1524,11 +1526,11 @@ CREATE TABLE `lpg_in_stock` (
   `day` date DEFAULT NULL,
   `in_stock` int(11) DEFAULT '0',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=1235 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=1242 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 /*Data for the table `lpg_in_stock` */
 
-insert  into `lpg_in_stock`(`id`,`organization_id`,`vendor_id`,`day`,`in_stock`) values (1228,1,15,'2019-05-17',0),(1229,1,16,'2019-05-17',0),(1230,1,22,'2019-05-17',0),(1231,14,15,'2019-05-17',0),(1232,14,23,'2019-05-17',0),(1233,1,23,'2019-05-17',0),(1234,14,22,'2019-05-17',0);
+insert  into `lpg_in_stock`(`id`,`organization_id`,`vendor_id`,`day`,`in_stock`) values (1235,1,15,'2019-05-17',0),(1236,1,16,'2019-05-17',0),(1237,1,22,'2019-05-17',0),(1238,14,15,'2019-05-17',0),(1239,14,23,'2019-05-17',0),(1240,1,23,'2019-05-17',0),(1241,14,22,'2019-05-17',0);
 
 /*Table structure for table `lpg_sale` */
 
@@ -1568,11 +1570,11 @@ CREATE TABLE `money_in_stock` (
   `organization_id` int(11) DEFAULT NULL COMMENT 'neu account_id=0 thi la id cua organization',
   `in_stock` double DEFAULT '0',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=1186 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=1192 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 /*Data for the table `money_in_stock` */
 
-insert  into `money_in_stock`(`id`,`day`,`account_id`,`organization_id`,`in_stock`) values (1179,'2019-05-17',4,1,0),(1180,'2019-05-17',5,1,-1633100),(1181,'2019-05-17',7,14,0),(1182,'2019-05-17',8,14,0),(1183,'2019-05-17',9,1,0),(1184,'2019-05-17',10,1,0);
+insert  into `money_in_stock`(`id`,`day`,`account_id`,`organization_id`,`in_stock`) values (1185,'2019-05-17',4,1,0),(1186,'2019-05-17',5,1,-1633100),(1187,'2019-05-17',7,14,0),(1188,'2019-05-17',8,14,0),(1189,'2019-05-17',9,1,0),(1190,'2019-05-17',10,1,0);
 
 /*Table structure for table `oil` */
 
@@ -1635,9 +1637,11 @@ CREATE TABLE `oil_import` (
   `note` text COLLATE utf8_unicode_ci,
   `created_employee_id` int(11) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=14 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 /*Data for the table `oil_import` */
+
+insert  into `oil_import`(`id`,`code`,`created_date`,`vendor_id`,`store_id`,`commission`,`rate`,`total_before_commission`,`total`,`paid`,`debt`,`account_id`,`note`,`created_employee_id`) values (1,'20190518-OI-0001','2019-05-17',20,8,43,0,140000000,79800000,0,79800000,5,'',17);
 
 /*Table structure for table `oil_import_detail` */
 
@@ -1653,9 +1657,11 @@ CREATE TABLE `oil_import_detail` (
   `amount` double DEFAULT NULL,
   `note` text COLLATE utf8_unicode_ci,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=36 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 /*Data for the table `oil_import_detail` */
+
+insert  into `oil_import_detail`(`id`,`oil_import_id`,`oil_id`,`unit_id`,`quantity`,`price`,`amount`,`note`) values (1,1,1,6,100,100000,10000000,NULL),(2,1,2,10,200,200000,40000000,NULL),(3,1,3,9,300,300000,90000000,NULL);
 
 /*Table structure for table `oil_in_stock` */
 
@@ -1669,11 +1675,11 @@ CREATE TABLE `oil_in_stock` (
   `store_id` int(11) DEFAULT NULL,
   `in_stock` int(11) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=41 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=46 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 /*Data for the table `oil_in_stock` */
 
-insert  into `oil_in_stock`(`id`,`day`,`oil_id`,`organization_id`,`store_id`,`in_stock`) values (34,'2019-05-17',1,1,8,0),(35,'2019-05-17',2,1,8,-20),(36,'2019-05-17',3,1,8,0),(37,'2019-05-17',1,1,10,0),(38,'2019-05-17',2,1,10,0),(39,'2019-05-17',3,1,10,-30),(40,'2019-05-17',1,1,9,-600);
+insert  into `oil_in_stock`(`id`,`day`,`oil_id`,`organization_id`,`store_id`,`in_stock`) values (41,'2019-05-17',1,1,8,600),(42,'2019-05-17',2,1,8,178),(43,'2019-05-17',3,1,8,300),(44,'2019-05-17',1,1,9,-66),(45,'2019-05-17',3,1,10,-33);
 
 /*Table structure for table `oil_sale` */
 
@@ -1699,11 +1705,11 @@ CREATE TABLE `oil_sale` (
   `note` text COLLATE utf8_unicode_ci,
   `created_employee_id` int(11) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=10 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 /*Data for the table `oil_sale` */
 
-insert  into `oil_sale`(`id`,`code`,`created_date`,`customer_id`,`commission`,`commission_kind`,`commission_amount`,`gap_agency_amount`,`gap_customer_amount`,`total_before_commission`,`total`,`discount`,`total_pay`,`paid`,`debt`,`account_id`,`note`,`created_employee_id`) values (6,'20190518-SO-0001','2019-05-17',207,25,1,30382000,600,600,0,55423500,0,55423500,0,55423500,5,'',17);
+insert  into `oil_sale`(`id`,`code`,`created_date`,`customer_id`,`commission`,`commission_kind`,`commission_amount`,`gap_agency_amount`,`gap_customer_amount`,`total_before_commission`,`total`,`discount`,`total_pay`,`paid`,`debt`,`account_id`,`note`,`created_employee_id`) values (8,'20190518-SO-0001','2019-05-17',207,25,1,262720,600,600,0,780080,0,780080,0,780080,5,'',17),(9,'20190518-SO-0002','2019-05-17',207,25,1,2627200,600,600,0,7800800,0,7800800,0,7800800,5,'',17);
 
 /*Table structure for table `oil_sale_detail` */
 
@@ -1725,11 +1731,11 @@ CREATE TABLE `oil_sale_detail` (
   `gap_customer_amount` double DEFAULT '0' COMMENT 'tien chenh lech cua khach hang',
   `amount` double DEFAULT '0',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=17 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=26 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 /*Data for the table `oil_sale_detail` */
 
-insert  into `oil_sale_detail`(`id`,`oil_sale_id`,`oil_id`,`unit_id`,`store_id`,`quantity`,`price_before_commission`,`commission_price`,`price`,`first_amount`,`commission`,`gap_agency_amount`,`gap_customer_amount`,`amount`) values (14,6,1,6,9,100,100,100,1,100,100,100,100,100),(15,6,2,10,8,20,200000,20,160400,3208000,30,200,200,2245600),(16,6,3,9,10,30,300000,30,210600,6318000,30,300,300,4422600);
+insert  into `oil_sale_detail`(`id`,`oil_sale_id`,`oil_id`,`unit_id`,`store_id`,`quantity`,`price_before_commission`,`commission_price`,`price`,`first_amount`,`commission`,`gap_agency_amount`,`gap_customer_amount`,`amount`) values (20,8,1,6,9,1,100000,10,90200,90200,10,100,100,81180),(21,8,2,10,8,2,200000,20,160400,320800,20,200,200,256640),(22,8,3,9,10,3,300000,30,210600,631800,30,300,300,442260),(23,9,1,6,9,10,100000,10,90200,902000,10,100,100,811800),(24,9,2,10,8,20,200000,20,160400,3208000,20,200,200,2566400),(25,9,3,9,10,30,300000,30,210600,6318000,30,300,300,4422600);
 
 /*Table structure for table `old_shell` */
 
@@ -1939,11 +1945,11 @@ CREATE TABLE `petro_in_stock` (
   `store_id` int(11) DEFAULT NULL,
   `in_stock` int(11) DEFAULT '0',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=659 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=661 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 /*Data for the table `petro_in_stock` */
 
-insert  into `petro_in_stock`(`id`,`day`,`petro_id`,`organization_id`,`store_id`,`in_stock`) values (656,'2019-05-17',6,1,4,0),(657,'2019-05-17',6,1,6,0);
+insert  into `petro_in_stock`(`id`,`day`,`petro_id`,`organization_id`,`store_id`,`in_stock`) values (658,'2019-05-17',6,1,4,0),(659,'2019-05-17',6,1,6,0);
 
 /*Table structure for table `petro_sale` */
 
@@ -2047,11 +2053,11 @@ CREATE TABLE `promotion_material_in_stock` (
   `organization_id` int(11) DEFAULT NULL,
   `in_stock` int(11) DEFAULT '0',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=1475 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=1479 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 /*Data for the table `promotion_material_in_stock` */
 
-insert  into `promotion_material_in_stock`(`id`,`day`,`promotion_material_id`,`organization_id`,`in_stock`) values (1468,'2019-05-17',3,1,0),(1469,'2019-05-17',4,1,0),(1470,'2019-05-17',3,14,0),(1471,'2019-05-17',4,14,0);
+insert  into `promotion_material_in_stock`(`id`,`day`,`promotion_material_id`,`organization_id`,`in_stock`) values (1472,'2019-05-17',3,1,0),(1473,'2019-05-17',4,1,0),(1474,'2019-05-17',3,14,0),(1475,'2019-05-17',4,14,0);
 
 /*Table structure for table `promotion_material_sale` */
 
@@ -2167,11 +2173,11 @@ CREATE TABLE `shell_gas_in_stock` (
   `shell_vendor_id` int(11) DEFAULT NULL,
   `in_stock` int(11) DEFAULT '0',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=3151 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=3188 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 /*Data for the table `shell_gas_in_stock` */
 
-insert  into `shell_gas_in_stock`(`id`,`day`,`shell_vendor_id`,`in_stock`) values (3088,'2019-05-17',6,-524),(3089,'2019-05-17',8,0),(3090,'2019-05-17',9,0),(3091,'2019-05-17',10,0),(3092,'2019-05-17',5,-210),(3093,'2019-05-17',7,-6),(3094,'2019-05-17',11,0),(3095,'2019-05-17',12,0),(3096,'2019-05-17',13,0),(3097,'2019-05-17',14,0),(3098,'2019-05-17',15,0),(3099,'2019-05-17',16,0),(3100,'2019-05-17',17,0),(3101,'2019-05-17',18,0),(3102,'2019-05-17',19,0),(3103,'2019-05-17',20,0),(3104,'2019-05-17',21,0),(3105,'2019-05-17',22,0),(3106,'2019-05-17',23,0),(3107,'2019-05-17',24,0),(3108,'2019-05-17',25,0),(3109,'2019-05-17',26,0),(3110,'2019-05-17',27,0),(3111,'2019-05-17',28,0),(3112,'2019-05-17',29,0),(3113,'2019-05-17',30,0),(3114,'2019-05-17',31,0),(3115,'2019-05-17',32,0),(3116,'2019-05-17',33,0),(3117,'2019-05-17',34,0),(3118,'2019-05-17',35,0),(3119,'2019-05-17',36,0),(3120,'2019-05-17',37,0),(3121,'2019-05-17',38,0),(3122,'2019-05-17',39,0),(3123,'2019-05-17',40,0),(3124,'2019-05-17',41,0);
+insert  into `shell_gas_in_stock`(`id`,`day`,`shell_vendor_id`,`in_stock`) values (3125,'2019-05-17',6,-524),(3126,'2019-05-17',8,0),(3127,'2019-05-17',9,0),(3128,'2019-05-17',10,0),(3129,'2019-05-17',5,-210),(3130,'2019-05-17',7,-6),(3131,'2019-05-17',11,0),(3132,'2019-05-17',12,0),(3133,'2019-05-17',13,0),(3134,'2019-05-17',14,0),(3135,'2019-05-17',15,0),(3136,'2019-05-17',16,0),(3137,'2019-05-17',17,0),(3138,'2019-05-17',18,0),(3139,'2019-05-17',19,0),(3140,'2019-05-17',20,0),(3141,'2019-05-17',21,0),(3142,'2019-05-17',22,0),(3143,'2019-05-17',23,0),(3144,'2019-05-17',24,0),(3145,'2019-05-17',25,0),(3146,'2019-05-17',26,0),(3147,'2019-05-17',27,0),(3148,'2019-05-17',28,0),(3149,'2019-05-17',29,0),(3150,'2019-05-17',30,0),(3151,'2019-05-17',31,0),(3152,'2019-05-17',32,0),(3153,'2019-05-17',33,0),(3154,'2019-05-17',34,0),(3155,'2019-05-17',35,0),(3156,'2019-05-17',36,0),(3157,'2019-05-17',37,0),(3158,'2019-05-17',38,0),(3159,'2019-05-17',39,0),(3160,'2019-05-17',40,0),(3161,'2019-05-17',41,0);
 
 /*Table structure for table `shell_import` */
 
@@ -2206,11 +2212,11 @@ CREATE TABLE `shell_in_stock` (
   `in_stock` int(11) DEFAULT '0' COMMENT 'vo binh rong',
   PRIMARY KEY (`id`),
   KEY `shell_id` (`shell_id`)
-) ENGINE=MyISAM AUTO_INCREMENT=2287 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=MyISAM AUTO_INCREMENT=2324 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 /*Data for the table `shell_in_stock` */
 
-insert  into `shell_in_stock`(`id`,`day`,`organization_id`,`shell_id`,`in_stock`) values (2250,'2019-05-17',1,1,0),(2251,'2019-05-17',1,2,0),(2252,'2019-05-17',1,3,0),(2253,'2019-05-17',1,8,0),(2254,'2019-05-17',1,9,0),(2255,'2019-05-17',1,10,0),(2256,'2019-05-17',1,11,0),(2257,'2019-05-17',1,12,0),(2258,'2019-05-17',1,13,0),(2259,'2019-05-17',1,14,0),(2260,'2019-05-17',1,15,0),(2261,'2019-05-17',1,16,0),(2262,'2019-05-17',1,17,0),(2263,'2019-05-17',1,18,0),(2264,'2019-05-17',1,19,0),(2265,'2019-05-17',1,20,0),(2266,'2019-05-17',1,21,0),(2267,'2019-05-17',1,22,0),(2268,'2019-05-17',1,23,0),(2269,'2019-05-17',1,24,0),(2270,'2019-05-17',1,25,0),(2271,'2019-05-17',1,26,0),(2272,'2019-05-17',1,27,0),(2273,'2019-05-17',1,28,0),(2274,'2019-05-17',1,29,0),(2275,'2019-05-17',1,30,0),(2276,'2019-05-17',1,31,0),(2277,'2019-05-17',1,32,0),(2278,'2019-05-17',1,33,0),(2279,'2019-05-17',1,34,0),(2280,'2019-05-17',1,35,0),(2281,'2019-05-17',1,36,0),(2282,'2019-05-17',1,37,0),(2283,'2019-05-17',1,38,0),(2284,'2019-05-17',1,39,0),(2285,'2019-05-17',1,40,0),(2286,'2019-05-17',1,41,0);
+insert  into `shell_in_stock`(`id`,`day`,`organization_id`,`shell_id`,`in_stock`) values (2287,'2019-05-17',1,1,0),(2288,'2019-05-17',1,2,0),(2289,'2019-05-17',1,3,0),(2290,'2019-05-17',1,8,0),(2291,'2019-05-17',1,9,0),(2292,'2019-05-17',1,10,0),(2293,'2019-05-17',1,11,0),(2294,'2019-05-17',1,12,0),(2295,'2019-05-17',1,13,0),(2296,'2019-05-17',1,14,0),(2297,'2019-05-17',1,15,0),(2298,'2019-05-17',1,16,0),(2299,'2019-05-17',1,17,0),(2300,'2019-05-17',1,18,0),(2301,'2019-05-17',1,19,0),(2302,'2019-05-17',1,20,0),(2303,'2019-05-17',1,21,0),(2304,'2019-05-17',1,22,0),(2305,'2019-05-17',1,23,0),(2306,'2019-05-17',1,24,0),(2307,'2019-05-17',1,25,0),(2308,'2019-05-17',1,26,0),(2309,'2019-05-17',1,27,0),(2310,'2019-05-17',1,28,0),(2311,'2019-05-17',1,29,0),(2312,'2019-05-17',1,30,0),(2313,'2019-05-17',1,31,0),(2314,'2019-05-17',1,32,0),(2315,'2019-05-17',1,33,0),(2316,'2019-05-17',1,34,0),(2317,'2019-05-17',1,35,0),(2318,'2019-05-17',1,36,0),(2319,'2019-05-17',1,37,0),(2320,'2019-05-17',1,38,0),(2321,'2019-05-17',1,39,0),(2322,'2019-05-17',1,40,0),(2323,'2019-05-17',1,41,0);
 
 /*Table structure for table `shell_kind` */
 
@@ -2406,11 +2412,11 @@ CREATE TABLE `shield_in_stock` (
   `organization_id` int(11) DEFAULT NULL,
   `in_stock` int(11) DEFAULT '0',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=1686 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=1693 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 /*Data for the table `shield_in_stock` */
 
-insert  into `shield_in_stock`(`id`,`day`,`vendor_id`,`organization_id`,`in_stock`) values (1679,'2019-05-17',15,1,0),(1680,'2019-05-17',16,1,0),(1681,'2019-05-17',22,1,0),(1682,'2019-05-17',23,1,0),(1683,'2019-05-17',15,14,0),(1684,'2019-05-17',22,14,0),(1685,'2019-05-17',23,14,0);
+insert  into `shield_in_stock`(`id`,`day`,`vendor_id`,`organization_id`,`in_stock`) values (1686,'2019-05-17',15,1,0),(1687,'2019-05-17',16,1,0),(1688,'2019-05-17',22,1,0),(1689,'2019-05-17',23,1,0),(1690,'2019-05-17',15,14,0),(1691,'2019-05-17',22,14,0),(1692,'2019-05-17',23,14,0);
 
 /*Table structure for table `store` */
 
@@ -2845,11 +2851,11 @@ CREATE TABLE `vendor_in_stock` (
   `shell_45` int(11) DEFAULT '0',
   `transport_amount` double DEFAULT '0',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=2174 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=2187 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 /*Data for the table `vendor_in_stock` */
 
-insert  into `vendor_in_stock`(`id`,`day`,`vendor_id`,`organization_id`,`amount`,`shell_12`,`shell_45`,`transport_amount`) values (2159,'2019-05-17',15,1,0,0,0,0),(2160,'2019-05-17',15,14,0,0,0,0),(2161,'2019-05-17',16,1,0,0,0,0),(2162,'2019-05-17',18,1,0,0,0,0),(2163,'2019-05-17',19,1,0,0,0,0),(2164,'2019-05-17',20,1,0,0,0,0),(2165,'2019-05-17',21,1,0,0,0,0),(2166,'2019-05-17',22,1,0,0,0,0),(2167,'2019-05-17',22,14,0,0,0,0),(2168,'2019-05-17',23,1,0,0,0,0),(2169,'2019-05-17',23,14,0,0,0,0),(2170,'2019-05-17',25,1,0,0,0,-14985000),(2171,'2019-05-17',26,1,0,0,0,0);
+insert  into `vendor_in_stock`(`id`,`day`,`vendor_id`,`organization_id`,`amount`,`shell_12`,`shell_45`,`transport_amount`) values (2172,'2019-05-17',15,1,0,0,0,0),(2173,'2019-05-17',15,14,0,0,0,0),(2174,'2019-05-17',16,1,0,0,0,0),(2175,'2019-05-17',18,1,0,0,0,0),(2176,'2019-05-17',19,1,0,0,0,0),(2177,'2019-05-17',20,1,79800000,0,0,0),(2178,'2019-05-17',21,1,0,0,0,0),(2179,'2019-05-17',22,1,0,0,0,0),(2180,'2019-05-17',22,14,0,0,0,0),(2181,'2019-05-17',23,1,0,0,0,0),(2182,'2019-05-17',23,14,0,0,0,0),(2183,'2019-05-17',25,1,0,0,0,-14985000),(2184,'2019-05-17',26,1,0,0,0,0);
 
 /*Table structure for table `vendor_organization` */
 
@@ -10928,12 +10934,11 @@ BEGIN
 	select commission_percentage into _customer_commission from customer where id=_customer_id;
 	
 	SELECT os.created_date, o.code as oil_code, o.name as oil_name, osdet.quantity, osdet.price, osdet.amount, os.paid
-		, (osdet.first_amount * osdet.commission / 100 + osdet.gap_customer_amount) as commission
+		, (osdet.first_amount * osdet.commission / 100) as commission
 	FROM oil_sale as os, oil_sale_detail as osdet, employee AS eo, oil as o
 	WHERE DATE(os.created_date) >= STR_TO_DATE(_start_date,'%d/%m/%Y') AND DATE(os.created_date) <= STR_TO_DATE(_end_date,'%d/%m/%Y')
 		AND os.customer_id=_customer_id AND os.created_employee_id=eo.id AND _organization_ids LIKE CONCAT('%,',eo.organization_id,',%')
 		AND os.id=osdet.oil_sale_id and osdet.oil_id=o.id
-	GROUP BY os.id
 	;
     END */$$
 DELIMITER ;
@@ -10946,11 +10951,11 @@ DELIMITER $$
 
 /*!50003 CREATE DEFINER=`root`@`localhost` PROCEDURE `report_oil_import`(IN _start_date VARCHAR(20), IN _end_date VARCHAR(20), IN _organization_ids TEXT)
 BEGIN
-	SELECT i.created_date, v.NAME AS vendor_name, p.NAME AS oilName, idet.quantity, idet.price, idet.amount, i.paid, i.note
-	FROM oil_import AS i, oil_import_detail AS idet, oil AS p, vendor AS v, employee AS e
+	SELECT i.created_date, v.NAME AS vendor_name, p.NAME AS oilName, idet.quantity, idet.price, idet.amount, i.paid, i.note, s.name as storeName
+	FROM oil_import AS i, oil_import_detail AS idet, oil AS p, vendor AS v, employee AS e, store as s
 	WHERE DATE(i.created_date) >= STR_TO_DATE(_start_date,'%d/%m/%Y') AND DATE(i.created_date) <= STR_TO_DATE(_end_date,'%d/%m/%Y')
 		AND i.vendor_id=v.id AND i.created_employee_id=e.id AND _organization_ids LIKE CONCAT('%,',e.organization_id,',%') AND v.STATUS=1
-		AND i.id=idet.oil_import_id AND idet.oil_id=p.id
+		AND i.id=idet.oil_import_id AND idet.oil_id=p.id and i.store_id=s.id
 	;
     END */$$
 DELIMITER ;
@@ -10964,12 +10969,12 @@ DELIMITER $$
 /*!50003 CREATE DEFINER=`root`@`localhost` PROCEDURE `report_oil_sale`(IN _start_date VARCHAR(20), IN _end_date VARCHAR(20), IN _organization_ids TEXT)
 BEGIN
 	SELECT p.created_date, c.CODE AS customerCode, c.NAME AS customerName, pe.CODE AS oilCode, pdet.quantity, pdet.price
-		, pdet.first_amount * pdet.commission / 100 as commission, pdet.amount, p.paid, a.number AS account
-	FROM oil_sale AS p, oil_sale_detail AS pdet, customer AS c, oil AS pe, account AS a, employee AS eo
+		, pdet.first_amount * pdet.commission / 100 as commission, pdet.amount, p.paid, a.number AS account, s.name as storeName
+	FROM oil_sale AS p, oil_sale_detail AS pdet, customer AS c, oil AS pe, account AS a, employee AS eo, store as s
 	WHERE DATE(p.created_date) >= STR_TO_DATE(_start_date,'%d/%m/%Y') AND DATE(p.created_date) <= STR_TO_DATE(_end_date,'%d/%m/%Y')
 		AND p.id=pdet.oil_sale_id AND p.customer_id=c.id AND pdet.oil_id=pe.id AND p.account_id=a.id
 		AND c.STATUS=1 AND pe.STATUS=1 AND p.created_employee_id=eo.id
-		AND _organization_ids LIKE CONCAT('%,',eo.organization_id,',%')
+		AND _organization_ids LIKE CONCAT('%,',eo.organization_id,',%') and pdet.store_id=s.id
 	;
     END */$$
 DELIMITER ;
@@ -11054,21 +11059,21 @@ BEGIN
 			FROM oil_import AS i, oil_import_detail AS idet, employee AS eo, oil AS p
 			WHERE DATE(i.created_date) >= STR_TO_DATE(_start_date,'%d/%m/%Y') AND DATE(i.created_date) <= STR_TO_DATE(_end_date,'%d/%m/%Y')
 				AND i.id=idet.oil_import_id AND i.created_employee_id=eo.id AND idet.oil_id=p.id AND p.STATUS=1
-				AND _organization_ids LIKE CONCAT('%,',eo.organization_id,',%')
+				AND _organization_ids LIKE CONCAT('%,',eo.organization_id,',%') and i.store_id=_store_id
 			GROUP BY i.created_date, idet.oil_id
 			UNION ALL
 			SELECT i.created_date, idet.oil_id, 0 AS import_quantity, SUM(idet.quantity) AS export_quantity
 			FROM oil_sale AS i, oil_sale_detail AS idet, employee AS eo, oil AS p
 			WHERE DATE(i.created_date) >= STR_TO_DATE(_start_date,'%d/%m/%Y') AND DATE(i.created_date) <= STR_TO_DATE(_end_date,'%d/%m/%Y')
 				AND i.id=idet.oil_sale_id AND i.created_employee_id=eo.id AND idet.oil_id=p.id AND p.STATUS=1
-				AND _organization_ids LIKE CONCAT('%,',eo.organization_id,',%')
+				AND _organization_ids LIKE CONCAT('%,',eo.organization_id,',%') and idet.store_id=_store_id
 			GROUP BY i.created_date, idet.oil_id
 		) AS tbl
 		LEFT JOIN
 		(
 			SELECT ps.`day` AS created_date, ps.oil_id, COALESCE(SUM(ps.in_stock),0) AS opening_stock
 			FROM oil_in_stock AS ps
-			WHERE DATEDIFF(_from_date,ps.`day`)=1 AND _organization_ids LIKE CONCAT('%,',ps.organization_id,',%')
+			WHERE DATEDIFF(_from_date,ps.`day`)=1 AND _organization_ids LIKE CONCAT('%,',ps.organization_id,',%') and ps.store_id=_store_id
 			GROUP BY ps.`day`, ps.oil_id
 		) AS opening_tbl ON tbl.oil_id=opening_tbl.oil_id
 		GROUP BY tbl.created_date, tbl.oil_id;
@@ -11341,6 +11346,21 @@ BEGIN
 	WHERE  _organization_ids LIKE CONCAT('%,',c.organization_id,',%') AND c.STATUS=1
 	GROUP BY c.id
 	ORDER BY c.NAME;
+    END */$$
+DELIMITER ;
+
+/* Procedure structure for procedure `report_sale_oil` */
+
+/*!50003 DROP PROCEDURE IF EXISTS  `report_sale_oil` */;
+
+DELIMITER $$
+
+/*!50003 CREATE DEFINER=`root`@`localhost` PROCEDURE `report_sale_oil`(in _sale_oil_id int)
+BEGIN
+	select o.code as oil_code, o.name as oil_name, u.name as unit_name, det.quantity, det.price, det.amount
+	from oil_sale_detail as det, oil as o, unit as u
+	where det.oil_sale_id=_sale_oil_id AND det.oil_id=o.id and det.unit_id=u.id
+	;
     END */$$
 DELIMITER ;
 
@@ -14871,7 +14891,7 @@ BEGIN
 		WHILE _date_diff>0 DO
 			SET _in_stock_id=0;
 			-- oil_in_stock
-			SELECT id, in_stock INTO _in_stock_id, @a FROM oil_in_stock WHERE DATEDIFF(`day`,_old_date)=0 AND organization_id=_organization_id AND oil_id=_oil_id and store_id=_old_store_id;
+			SELECT id INTO _in_stock_id FROM oil_in_stock WHERE DATEDIFF(`day`,_old_date)=0 AND organization_id=_organization_id AND oil_id=_oil_id and store_id=_old_store_id;
 			UPDATE oil_in_stock SET in_stock=in_stock - _old_rate_quantity WHERE id=_in_stock_id;
 	
 			SET _date_diff=_date_diff-1;
@@ -15718,7 +15738,7 @@ BEGIN
 			-- oil_in_stock
 			SELECT id INTO _in_stock_id FROM oil_in_stock WHERE DATEDIFF(`day`,_old_date)=0 AND organization_id=_organization_id AND oil_id=_oil_id and store_id=_store_id;
 			UPDATE oil_in_stock SET in_stock=in_stock + _old_rate_quantity WHERE id=_in_stock_id;
-			
+	
 			SET _date_diff=_date_diff-1;
 			SELECT DATE_ADD(_old_date, INTERVAL 1 DAY) INTO _old_date;
 		END WHILE;

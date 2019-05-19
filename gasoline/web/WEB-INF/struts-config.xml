@@ -1570,6 +1570,8 @@
         </action>
         <action path="/getSaleOilCustomerCommission" scope="request" type="com.stepup.gasoline.qt.saleoil.GetSaleOilCustomerCommissionAction">
         </action>
+        <action path="/reportSaleOil" type="com.stepup.gasoline.qt.saleoil.PrintSaleOilAction" scope="request" validate="false" >
+        </action>
         <!-- end sale oil -->
     </action-mappings>
     
