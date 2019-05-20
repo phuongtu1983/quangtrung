@@ -1308,6 +1308,11 @@
         </action>
         <action path="/reportOilComparePrint" type="com.stepup.gasoline.qt.report.oilcompare.PrintOilCompareReportAction" scope="request" validate="false" >
         </action>
+        <action path="/getOilVendorStockReportPanel" type="com.stepup.gasoline.qt.report.oilvendorstock.OilVendorStockReportPanelFormAction" scope="request" validate="false">
+            <forward name="success" path="/report/oilvendorstock/panel.jsp" />
+        </action>
+        <action path="/reportOilVendorStockPrint" type="com.stepup.gasoline.qt.report.oilvendorstock.PrintOilVendorStockReportAction" scope="request" validate="false" >
+        </action>
         <!-- end report -->
         <!-- start good -->
         <action path="/getGoodPanel" type="com.stepup.gasoline.qt.common.BaseStatusFormAction" scope="request" validate="false">

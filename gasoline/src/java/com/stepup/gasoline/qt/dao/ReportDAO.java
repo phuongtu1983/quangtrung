@@ -76,6 +76,7 @@ import com.stepup.gasoline.qt.report.lpgstocksumorganization.LpgStockSumOrganiza
 import com.stepup.gasoline.qt.report.lpgstocksumorganization.LpgStockSumOrganizationReportOutBean;
 import com.stepup.gasoline.qt.report.oilcompare.OilCompareReportBean;
 import com.stepup.gasoline.qt.report.oilcompare.OilCompareReportOutBean;
+import com.stepup.gasoline.qt.report.oilvendorstock.OilVendorStockReportBean;
 import com.stepup.gasoline.qt.report.transportservice.TransportServiceReportBean;
 import com.stepup.gasoline.qt.report.transportservice.TransportServiceReportOutBean;
 import com.stepup.gasoline.qt.report.vehiclefee.VehicleFeeReportBean;
@@ -3400,6 +3401,63 @@ public class ReportDAO extends BasicDAO {
                         bean.setQuantity(rs.getInt("quantity"));
                         bean.setPrice(rs.getDouble("price"));
                         bean.setAmount(rs.getDouble("amount"));
+                        list.add(bean);
+                    }
+                }
+            }
+        } catch (SQLException sqle) {
+            throw new Exception(sqle.getMessage());
+        } catch (Exception ex) {
+            throw new Exception(ex.getMessage());
+        } finally {
+            try {
+                if (spUtil != null) {
+                    spUtil.closeConnection();
+                }
+                if (rs != null) {
+                    rs.close();
+                    rs = null;
+                }
+            } catch (Exception e) {
+                throw new Exception(e.getMessage());
+            }
+        }
+        return list;
+    }
+
+    public ArrayList getOilVendorStockReport(String fromDate, String endDate, String organizationIds, int vendorId) throws Exception {
+        SPUtil spUtil = null;
+        ArrayList list = new ArrayList();
+        ResultSet rs = null;
+        try {
+            String sql = "{call report_oil_vendor_stock(?,?,?,?)}";
+            if (GenericValidator.isBlankOrNull(fromDate)) {
+                fromDate = DateUtil.today("dd/MM/yyyy");
+            }
+            if (GenericValidator.isBlankOrNull(endDate)) {
+                endDate = BasicDAO.START_DATE;
+            }
+            spUtil = new SPUtil(sql);
+            if (spUtil != null) {
+                spUtil.getCallableStatement().setString("_start_date", fromDate);
+                spUtil.getCallableStatement().setString("_end_date", endDate);
+                spUtil.getCallableStatement().setString("_organization_ids", organizationIds);
+                spUtil.getCallableStatement().setInt("_vendor_id", vendorId);
+
+                rs = spUtil.executeQuery();
+
+                if (rs != null) {
+                    OilVendorStockReportBean bean = null;
+                    int count = 1;
+                    while (rs.next()) {
+                        bean = new OilVendorStockReportBean();
+                        bean.setCount(count++);
+                        bean.setOilCode(rs.getString("oil_code"));
+                        bean.setOilName(rs.getString("oil_name"));
+                        bean.setOpeningStock(rs.getInt("opening_stock"));
+                        bean.setImportQuantity(rs.getInt("import_quantity"));
+                        bean.setExportQuantity(rs.getInt("export_quantity"));
+                        bean.setClosingStock(bean.getOpeningStock() + bean.getImportQuantity() - bean.getExportQuantity());
                         list.add(bean);
                     }
                 }

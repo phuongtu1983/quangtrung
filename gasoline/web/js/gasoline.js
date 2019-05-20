@@ -416,6 +416,8 @@ function menuClick(id) {
         showCompareAgencyCommissionReportPanel();
     else if (id == 'reportoilcompare')
         showOilCompareReportPanel();
+    else if (id == 'reportoilvendorstock')
+        showOilVendorStockReportPanel();
 }
 function clearContent() {
     var contentDiv = document.getElementById("contentDiv");
@@ -14170,7 +14172,50 @@ function printSaleOil(saleOilId) {
     callServer("reportSaleOil.do?saleOilId=" + saleOilId);
     return false;
 }
-
+function showOilVendorStockReportPanel() {
+    popupName = 'B\u1EA3ng theo d\u00F5i nh\u1EADp xu\u1EA5t t\u1ED3n t\u1ED5ng kho';
+    var url = 'getOilVendorStockReportPanel.do';
+    callAjax(url, null, null, function(data) {
+        showPopupForm(data);
+        var myCalendar = new dhtmlXCalendarObject(["fromDate", "toDate"]);
+        myCalendar.setSkin('dhx_web');
+        var currentTime = getCurrentDate();
+        document.forms['reportOilVendorStockSearchForm'].fromDate.value = currentTime;
+        document.forms['reportOilVendorStockSearchForm'].toDate.value = currentTime;
+        myCalendar.setDateFormat("%d/%m/%Y");
+    });
+}
+function printOilVendorStockReport(fromDate, toDate) {
+    var list = document.getElementById("reportOilVendorStockSearchFormTime");
+    if (list == null || list.selectedIndex == -1)
+        return false;
+    if (list.selectedIndex == 1) {
+        fromDate = "01/" + fromDate;
+        var ind = toDate.indexOf("/");
+        var month = toDate.substring(0, ind);
+        var year = toDate.substring(ind + 1);
+        toDate = month + "/01/" + year;
+        var d = new Date(toDate);
+        var lastDay = new Date(d.getFullYear(), d.getMonth() + 1, 0).getDate();
+        toDate = lastDay + "/" + month + "/" + year;
+    } else if (list.selectedIndex == 2) {
+        fromDate = "01/01/" + fromDate;
+        toDate = "31/12/" + toDate;
+    }
+    var url = "reportOilVendorStockPrint.do?temp=1";
+    if (fromDate !== null)
+        url += "&fromDate=" + fromDate;
+    if (toDate !== null)
+        url += "&toDate=" + toDate;
+    list = document.forms['reportOilVendorStockSearchForm'].vendorId;
+    if (list != null && list.selectedIndex > -1)
+        list = list.options[list.selectedIndex].value;
+    else
+        list = 0;
+    url += "&vendorId=" + list;
+    callServer(url);
+    return false;
+}
 
 
 
