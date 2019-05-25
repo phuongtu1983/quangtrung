@@ -3457,7 +3457,10 @@ public class ReportDAO extends BasicDAO {
                         bean.setOpeningStock(rs.getInt("opening_stock"));
                         bean.setImportQuantity(rs.getInt("import_quantity"));
                         bean.setExportQuantity(rs.getInt("export_quantity"));
+                        bean.setPrice(rs.getDouble("import_price"));
+                        bean.setAmount(rs.getDouble("import_amount"));
                         bean.setClosingStock(bean.getOpeningStock() + bean.getImportQuantity() - bean.getExportQuantity());
+                        bean.setNote(rs.getString("note"));
                         list.add(bean);
                     }
                 }

@@ -212,4 +212,6 @@ public class PermissionUtil {
     public static int PER_REPORT_OIL_COMPARE = 123;
     public static int PER_REPORT_OIL_COMMISSION_AGENCY = 124;
     public static int PER_REPORT_OIL_VENDOR_STOCK = 125;
+    public static int PER_SALE_OIL_RETURN = 126;
+    public static int PER_SALE_OIL_RETURN_STORE = 127;
 }

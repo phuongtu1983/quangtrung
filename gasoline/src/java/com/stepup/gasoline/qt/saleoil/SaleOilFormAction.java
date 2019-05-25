@@ -46,12 +46,14 @@ public class SaleOilFormAction extends SpineAction {
         SaleOilBean bean = null;
         String id = request.getParameter("saleOilId");
         ArrayList arrDetail = null;
+        ArrayList arrPromotionMaterialDetail = null;
         GoodDAO goodDAO = new GoodDAO();
         if (!GenericValidator.isBlankOrNull(id)) {
             try {
-                int gasImportId = NumberUtil.parseInt(id, 0);
-                bean = goodDAO.getSaleOil(gasImportId);
-                arrDetail = goodDAO.getSaleOilDetail(gasImportId);
+                int saleOilId = NumberUtil.parseInt(id, 0);
+                bean = goodDAO.getSaleOil(saleOilId);
+                arrDetail = goodDAO.getSaleOilDetail(saleOilId);
+                arrPromotionMaterialDetail = goodDAO.getSaleOilPromotionMaterialDetail(saleOilId);
             } catch (Exception ex) {
             }
         }
@@ -63,6 +65,7 @@ public class SaleOilFormAction extends SpineAction {
             }
         } else {
             formBean = new SaleOilFormBean();
+            formBean.setIsCalculateAgencyCommission(true);
             try {
                 String prefix = "";
                 if (formBean.getId() == 0) {
@@ -81,15 +84,20 @@ public class SaleOilFormAction extends SpineAction {
         }
         request.setAttribute(Constants.SALE_OIL_OIL, arrDetail);
 
-        ArrayList arrAccessories = null;
+        if (arrPromotionMaterialDetail == null) {
+            arrPromotionMaterialDetail = new ArrayList();
+        }
+        request.setAttribute(Constants.SALE_OIL_PROMOTION_MATERIAL, arrPromotionMaterialDetail);
+
+        ArrayList arrOils = null;
         try {
-            arrAccessories = goodDAO.getOils(EmployeeBean.STATUS_ACTIVE, QTUtil.getOrganizationManageds(request.getSession()));
+            arrOils = goodDAO.getOils(EmployeeBean.STATUS_ACTIVE, QTUtil.getOrganizationManageds(request.getSession()));
         } catch (Exception ex) {
         }
-        if (arrAccessories == null) {
-            arrAccessories = new ArrayList();
+        if (arrOils == null) {
+            arrOils = new ArrayList();
         }
-        request.setAttribute(Constants.OIL_LIST, arrAccessories);
+        request.setAttribute(Constants.OIL_LIST, arrOils);
 
         String organizationIds = QTUtil.getOrganizationManageds(request.getSession());
         ArrayList arrAccount = null;
@@ -113,7 +121,7 @@ public class SaleOilFormAction extends SpineAction {
             arrCustomer = new ArrayList();
         }
         request.setAttribute(Constants.CUSTOMER_LIST, arrCustomer);
-        
+
         ArrayList arrKind = new ArrayList();
         LabelValueBean value;
         value = new LabelValueBean();

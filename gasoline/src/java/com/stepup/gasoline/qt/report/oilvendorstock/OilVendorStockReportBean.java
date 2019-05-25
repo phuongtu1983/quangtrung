@@ -20,6 +20,7 @@ public class OilVendorStockReportBean {
     private int closingStock;
     private double price;
     private double amount;
+    private String note;
 
     public int getCount() {
         return count;
@@ -91,6 +92,14 @@ public class OilVendorStockReportBean {
 
     public void setAmount(double amount) {
         this.amount = amount;
+    }
+
+    public String getNote() {
+        return note;
+    }
+
+    public void setNote(String note) {
+        this.note = note;
     }
 
 }

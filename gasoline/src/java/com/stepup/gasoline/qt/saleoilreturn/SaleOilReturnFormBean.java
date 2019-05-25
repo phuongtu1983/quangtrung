@@ -2,15 +2,16 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
-package com.stepup.gasoline.qt.saleoil;
+package com.stepup.gasoline.qt.saleoilreturn;
 
 import com.stepup.gasoline.qt.bean.SaleOilBean;
+import com.stepup.gasoline.qt.bean.SaleOilReturnBean;
 
 /**
  *
  * @author phuongtu
  */
-public class SaleOilFormBean extends org.apache.struts.action.ActionForm {
+public class SaleOilReturnFormBean extends org.apache.struts.action.ActionForm {
 
     private int id;
     private String code;
@@ -19,7 +20,6 @@ public class SaleOilFormBean extends org.apache.struts.action.ActionForm {
     private double total;
     private double paid;
     private double debt;
-    private double discount;
     private double totalPay;
     private int accountId;
     private String note;
@@ -27,16 +27,13 @@ public class SaleOilFormBean extends org.apache.struts.action.ActionForm {
     private int customerId;
     private float commission;
     private int commissionKind;
-    private float commissionAmount;
-    private float gapCustomerAmount;
-    private float gapAgencyAmount;
-    private String exportNumber;
-    private String exportDate;
-    private boolean isCalculateAgencyCommission;
+    private double commissionAmount;
+    private double gapCustomerAmount;
+    private double gapAgencyAmount;
+
+    private String[] saleOilReturnDetailId;
     private String[] saleOilDetailId;
     private String[] oilId;
-    private String[] unitId;
-    private String[] storeId;
     private String[] quantity;
     private String[] priceBeforeCommission;
     private String[] commissionPrice;
@@ -47,17 +44,11 @@ public class SaleOilFormBean extends org.apache.struts.action.ActionForm {
     private String[] gapAgencyAmountDetail;
     private String[] gapCustomerAmountDetail;
 
-    private String[] saleOilPromotionMaterialDetailId;
-    private String[] promotionMaterialId;
-    private String[] promotionMaterialQuantity;
-    private String[] promotionMaterialUnitId;
-    private String[] promotionMaterialStoreId;
-
-    public SaleOilFormBean() {
+    public SaleOilReturnFormBean() {
         this.canEdit = 1;
     }
 
-    public SaleOilFormBean(SaleOilBean bean) {
+    public SaleOilReturnFormBean(SaleOilReturnBean bean) {
         this.id = bean.getId();
         this.code = bean.getCode();
         this.createdDate = bean.getCreatedDate();
@@ -65,7 +56,6 @@ public class SaleOilFormBean extends org.apache.struts.action.ActionForm {
         this.total = bean.getTotal();
         this.paid = bean.getPaid();
         this.debt = bean.getDebt();
-        this.discount = bean.getDiscount();
         this.totalPay = bean.getTotalPay();
         this.accountId = bean.getAccountId();
         this.note = bean.getNote();
@@ -76,9 +66,14 @@ public class SaleOilFormBean extends org.apache.struts.action.ActionForm {
         this.commissionAmount = bean.getCommissionAmount();
         this.gapCustomerAmount = bean.getGapCustomerAmount();
         this.gapAgencyAmount = bean.getGapAgencyAmount();
-        this.exportDate = bean.getExportDate();
-        this.exportNumber = bean.getExportNumber();
-        this.isCalculateAgencyCommission = bean.getIsCalculateAgencyCommission() == 1 ? true : false;
+    }
+
+    public SaleOilReturnFormBean(SaleOilBean bean) {
+        this.accountId = bean.getAccountId();
+        this.note = bean.getNote();
+        this.canEdit = bean.getCanEdit();
+        this.customerId = bean.getCustomerId();
+        this.commission = bean.getCommission();
     }
 
     public String getCreatedDate() {
@@ -161,30 +156,6 @@ public class SaleOilFormBean extends org.apache.struts.action.ActionForm {
         this.accountId = accountId;
     }
 
-    public String[] getPrice() {
-        return price;
-    }
-
-    public void setPrice(String[] price) {
-        this.price = price;
-    }
-
-    public String[] getAmount() {
-        return amount;
-    }
-
-    public void setAmount(String[] amount) {
-        this.amount = amount;
-    }
-
-    public double getDiscount() {
-        return discount;
-    }
-
-    public void setDiscount(double discount) {
-        this.discount = discount;
-    }
-
     public double getTotalPay() {
         return totalPay;
     }
@@ -201,28 +172,12 @@ public class SaleOilFormBean extends org.apache.struts.action.ActionForm {
         this.customerId = customerId;
     }
 
-    public String[] getSaleOilDetailId() {
-        return saleOilDetailId;
-    }
-
-    public void setSaleOilDetailId(String[] saleOilDetailId) {
-        this.saleOilDetailId = saleOilDetailId;
-    }
-
     public String[] getOilId() {
         return oilId;
     }
 
     public void setOilId(String[] oilId) {
         this.oilId = oilId;
-    }
-
-    public String[] getUnitId() {
-        return unitId;
-    }
-
-    public void setUnitId(String[] unitId) {
-        this.unitId = unitId;
     }
 
     public float getCommission() {
@@ -241,28 +196,44 @@ public class SaleOilFormBean extends org.apache.struts.action.ActionForm {
         this.commissionKind = commissionKind;
     }
 
-    public float getCommissionAmount() {
+    public double getCommissionAmount() {
         return commissionAmount;
     }
 
-    public void setCommissionAmount(float commissionAmount) {
+    public void setCommissionAmount(double commissionAmount) {
         this.commissionAmount = commissionAmount;
     }
 
-    public float getGapCustomerAmount() {
+    public double getGapCustomerAmount() {
         return gapCustomerAmount;
     }
 
-    public void setGapCustomerAmount(float gapCustomerAmount) {
+    public void setGapCustomerAmount(double gapCustomerAmount) {
         this.gapCustomerAmount = gapCustomerAmount;
     }
 
-    public float getGapAgencyAmount() {
+    public double getGapAgencyAmount() {
         return gapAgencyAmount;
     }
 
-    public void setGapAgencyAmount(float gapAgencyAmount) {
+    public void setGapAgencyAmount(double gapAgencyAmount) {
         this.gapAgencyAmount = gapAgencyAmount;
+    }
+
+    public double getTotalBeforeCommisison() {
+        return totalBeforeCommisison;
+    }
+
+    public void setTotalBeforeCommisison(double totalBeforeCommisison) {
+        this.totalBeforeCommisison = totalBeforeCommisison;
+    }
+
+    public String[] getSaleOilReturnDetailId() {
+        return saleOilReturnDetailId;
+    }
+
+    public void setSaleOilReturnDetailId(String[] saleOilReturnDetailId) {
+        this.saleOilReturnDetailId = saleOilReturnDetailId;
     }
 
     public String[] getPriceBeforeCommission() {
@@ -281,12 +252,28 @@ public class SaleOilFormBean extends org.apache.struts.action.ActionForm {
         this.commissionPrice = commissionPrice;
     }
 
+    public String[] getPrice() {
+        return price;
+    }
+
+    public void setPrice(String[] price) {
+        this.price = price;
+    }
+
     public String[] getFirstAmount() {
         return firstAmount;
     }
 
     public void setFirstAmount(String[] firstAmount) {
         this.firstAmount = firstAmount;
+    }
+
+    public String[] getAmount() {
+        return amount;
+    }
+
+    public void setAmount(String[] amount) {
+        this.amount = amount;
     }
 
     public String[] getCommissionDetail() {
@@ -313,84 +300,12 @@ public class SaleOilFormBean extends org.apache.struts.action.ActionForm {
         this.gapCustomerAmountDetail = gapCustomerAmountDetail;
     }
 
-    public double getTotalBeforeCommisison() {
-        return totalBeforeCommisison;
+    public String[] getSaleOilDetailId() {
+        return saleOilDetailId;
     }
 
-    public void setTotalBeforeCommisison(double totalBeforeCommisison) {
-        this.totalBeforeCommisison = totalBeforeCommisison;
-    }
-
-    public String[] getStoreId() {
-        return storeId;
-    }
-
-    public void setStoreId(String[] storeId) {
-        this.storeId = storeId;
-    }
-
-    public String getExportNumber() {
-        return exportNumber;
-    }
-
-    public void setExportNumber(String exportNumber) {
-        this.exportNumber = exportNumber;
-    }
-
-    public String getExportDate() {
-        return exportDate;
-    }
-
-    public void setExportDate(String exportDate) {
-        this.exportDate = exportDate;
-    }
-
-    public boolean getIsCalculateAgencyCommission() {
-        return isCalculateAgencyCommission;
-    }
-
-    public void setIsCalculateAgencyCommission(boolean isCalculateAgencyCommission) {
-        this.isCalculateAgencyCommission = isCalculateAgencyCommission;
-    }
-
-    public String[] getSaleOilPromotionMaterialDetailId() {
-        return saleOilPromotionMaterialDetailId;
-    }
-
-    public void setSaleOilPromotionMaterialDetailId(String[] saleOilPromotionMaterialDetailId) {
-        this.saleOilPromotionMaterialDetailId = saleOilPromotionMaterialDetailId;
-    }
-
-    public String[] getPromotionMaterialId() {
-        return promotionMaterialId;
-    }
-
-    public void setPromotionMaterialId(String[] promotionMaterialId) {
-        this.promotionMaterialId = promotionMaterialId;
-    }
-
-    public String[] getPromotionMaterialQuantity() {
-        return promotionMaterialQuantity;
-    }
-
-    public void setPromotionMaterialQuantity(String[] promotionMaterialQuantity) {
-        this.promotionMaterialQuantity = promotionMaterialQuantity;
-    }
-
-    public String[] getPromotionMaterialUnitId() {
-        return promotionMaterialUnitId;
-    }
-
-    public void setPromotionMaterialUnitId(String[] promotionMaterialUnitId) {
-        this.promotionMaterialUnitId = promotionMaterialUnitId;
-    }
-
-    public String[] getPromotionMaterialStoreId() {
-        return promotionMaterialStoreId;
-    }
-
-    public void setPromotionMaterialStoreId(String[] promotionMaterialStoreId) {
-        this.promotionMaterialStoreId = promotionMaterialStoreId;
+    public void setSaleOilDetailId(String[] saleOilDetailId) {
+        this.saleOilDetailId = saleOilDetailId;
     }
 
 }

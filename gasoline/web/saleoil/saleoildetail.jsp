@@ -65,7 +65,17 @@
             <td><html:text property="debt" size="30" name="<%=Constants.SALE_OIL%>" readonly="true" tabindex="-1"/></td>
         </tr>
         <tr>
-            <td height="30" style="padding-right: 20px"><bean:message key="note.title"/></td>
+            <td width="250" height="30"><bean:message key="saleOil.detail.exportNumber"/></td>
+            <td width="160"><html:text property="exportNumber" size="30" name="<%=Constants.SALE_OIL%>"/></td>
+            <td width="200"  style="padding-right: 20px;padding-left: 10px"><bean:message key="saleOil.detail.exportDate"/></td>
+            <td><html:text property="exportDate" size="30" name="<%=Constants.SALE_OIL%>" styleId="saleOilExportDate"/></td>
+        </tr>
+        <tr>
+            <td height="30" style="padding-right: 20px"><bean:message key="saleOil.detail.calculateAgencyCommission"/></td>
+            <td><html:checkbox property="isCalculateAgencyCommission" name="<%=Constants.SALE_OIL%>"></html:checkbox></td>
+            </tr>
+            <tr>
+                <td height="30" style="padding-right: 20px"><bean:message key="note.title"/></td>
             <td colspan="3"><html:text property="note" size="105" name="<%=Constants.SALE_OIL%>"/></td>
         </tr>
         <tr>
@@ -92,6 +102,31 @@
         </tr>
         <tr><td colspan="4"><div><%@include  file="/saleoil/details.jsp" %></div></td></tr>
         <tr>
+            <td colspan="4">
+                <fieldset>
+                    <legend><bean:message key="promotionMaterial.title"/></legend>
+                    <table>
+                        <tr>
+                            <td>
+                                <button class="i_cross icon small red" onclick="return delTableRow('saleOilForm', 'saleOilPromotionMaterialChk', 'saleOilPromotionMaterialDetailTbl');" tabindex="-1"><bean:message key="message.del"/></button>
+                                <button class="i_plus icon small green" onclick="return addSaleOilPromotionMaterial();" tabindex="-1"><bean:message key="message.add"/></button>
+                            </td>
+                            <td>
+                                <select style="width: 260px;" name="promotionMaterialIdCombobox" id="promotionMaterialIdCombobox">
+                                    <logic:iterate id="promotion_material_iter" name="<%=Constants.OIL_LIST%>">
+                                        <option  value="${promotion_material_iter.id}">${promotion_material_iter.name}</option>
+                                    </logic:iterate>
+                                </select>
+                            </td>
+                        </tr>
+                    </table>
+                </fieldset>
+            </td>
+        </tr>
+        <tr>
+            <td colspan="4"><div><%@include  file="/saleoil/promotionmaterialdetails.jsp" %></div></td>
+        </tr>
+        <tr>
             <td colspan="4" align="center" height="50">
                 <logic:equal name="<%=Constants.SALE_OIL%>" property="id" value="0">
                     <%if (PermissionUtil.hasPermission(request, PermissionUtil.OPERATION_ADD, PermissionUtil.PER_SALE_OIL)) {%> 
@@ -102,6 +137,7 @@
                     <logic:equal name="<%=Constants.SALE_OIL%>" property="canEdit" value="1">
                         <%if (PermissionUtil.hasPermission(request, PermissionUtil.OPERATION_EDIT, PermissionUtil.PER_SALE_OIL)) {%> 
                         <button class="i_create_write icon small green" onclick="return saveSaleOil();"><bean:message key="message.save"/></button>
+                        <button class="i_create_write icon small green" onclick="return getSaleOilReturn(0, <bean:write name="<%=Constants.SALE_OIL%>" property="id"/>);"><bean:message key="saleOilReturn.title"/></button>
                         <%}%>
                         <button class="i_printer icon small" onclick="return printSaleOil(<bean:write name="<%=Constants.SALE_OIL%>" property="id"/>);">In</button>
                         <%if (PermissionUtil.hasPermission(request, PermissionUtil.OPERATION_DELETE, PermissionUtil.PER_SALE_OIL)) {%> 
@@ -118,6 +154,7 @@
     <input type="hidden" name="oilSelectedHidden" value="0"/>
     <html:hidden property="customerId" name="<%=Constants.SALE_OIL%>" />
     <input type="hidden" name="customerSelectedHidden" value="0"/>
+    <input type="hidden" name="promotionMaterialSelectedHidden" value="0"/>
 </form>
 <div name="saleOilFormshowHelpHideDiv" id="showHelpHideDiv" style="display:none">
     Ctrl+C : Đóng
@@ -127,3 +164,4 @@
 <div id="shiftSFunctionHideDiv" style="display:none">saveSaleOil()</div>
 <div id="saleOilOilHideDiv" style="display:none"></div>
 <div id="saleOilChangeOilHideDiv" style="display:none"></div>
+<div id="saleOilPromotionMaterialHideDiv" style="display:none"></div>

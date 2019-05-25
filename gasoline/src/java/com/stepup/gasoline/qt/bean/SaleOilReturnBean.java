@@ -8,7 +8,7 @@ package com.stepup.gasoline.qt.bean;
  *
  * @author phuongtu
  */
-public class SaleOilBean {
+public class SaleOilReturnBean {
 
     private int id;
     private String code;
@@ -17,7 +17,6 @@ public class SaleOilBean {
     private double total;
     private double paid;
     private double debt;
-    private double discount;
     private double totalPay;
     private int accountId;
     private String note;
@@ -26,12 +25,9 @@ public class SaleOilBean {
     private int createdEmployeeId;
     private float commission;
     private int commissionKind;
-    private float commissionAmount;
-    private float gapCustomerAmount;
-    private float gapAgencyAmount;
-    private String exportNumber;
-    private String exportDate;
-    private int isCalculateAgencyCommission;
+    private double commissionAmount;
+    private double gapCustomerAmount;
+    private double gapAgencyAmount;
 
     public void setId(int id) {
         this.id = id;
@@ -105,14 +101,6 @@ public class SaleOilBean {
         this.accountId = accountId;
     }
 
-    public double getDiscount() {
-        return discount;
-    }
-
-    public void setDiscount(double discount) {
-        this.discount = discount;
-    }
-
     public double getTotalPay() {
         return totalPay;
     }
@@ -153,27 +141,27 @@ public class SaleOilBean {
         this.commissionKind = commissionKind;
     }
 
-    public float getCommissionAmount() {
+    public double getCommissionAmount() {
         return commissionAmount;
     }
 
-    public void setCommissionAmount(float commissionAmount) {
+    public void setCommissionAmount(double commissionAmount) {
         this.commissionAmount = commissionAmount;
     }
 
-    public float getGapCustomerAmount() {
+    public double getGapCustomerAmount() {
         return gapCustomerAmount;
     }
 
-    public void setGapCustomerAmount(float gapCustomerAmount) {
+    public void setGapCustomerAmount(double gapCustomerAmount) {
         this.gapCustomerAmount = gapCustomerAmount;
     }
 
-    public float getGapAgencyAmount() {
+    public double getGapAgencyAmount() {
         return gapAgencyAmount;
     }
 
-    public void setGapAgencyAmount(float gapAgencyAmount) {
+    public void setGapAgencyAmount(double gapAgencyAmount) {
         this.gapAgencyAmount = gapAgencyAmount;
     }
 
@@ -185,30 +173,4 @@ public class SaleOilBean {
         this.totalBeforeCommisison = totalBeforeCommisison;
     }
 
-    public String getExportNumber() {
-        return exportNumber;
-    }
-
-    public void setExportNumber(String exportNumber) {
-        this.exportNumber = exportNumber;
-    }
-
-    public String getExportDate() {
-        return exportDate;
-    }
-
-    public void setExportDate(String exportDate) {
-        this.exportDate = exportDate;
-    }
-
-    public int getIsCalculateAgencyCommission() {
-        return isCalculateAgencyCommission;
-    }
-
-    public void setIsCalculateAgencyCommission(int isCalculateAgencyCommission) {
-        this.isCalculateAgencyCommission = isCalculateAgencyCommission;
-    }
-
-    public static int COMMISSION_KIND_INVOICE = 1;
-    public static int COMMISSION_KIND_DIRECT = 2;
 }

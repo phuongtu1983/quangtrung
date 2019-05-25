@@ -15,6 +15,7 @@ import com.stepup.gasoline.qt.dao.CustomerDAO;
 import com.stepup.gasoline.qt.dao.GoodDAO;
 import com.stepup.gasoline.qt.dao.ReportDAO;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 import javax.servlet.http.HttpServletRequest;
@@ -39,7 +40,7 @@ public class PrintSaleOilAction extends BaseAction {
             ArrayList list = null;
             SaleOilReportOutBean outBean = new SaleOilReportOutBean();
             list = printSaleOilReport(saleOilId, outBean);
-            beans.put("qtrp_code", outBean.getCode());
+            beans.put("qtrp_code", outBean.getExportNumber());
             beans.put("qtrp_customerName", outBean.getCustomerName());
             beans.put("qtrp_customerAddress", outBean.getCustomerAddress());
             beans.put("qtrp_customerPhone", outBean.getCustomerPhone());
@@ -49,9 +50,10 @@ public class PrintSaleOilAction extends BaseAction {
             beans.put("qtrp_paid", outBean.getPaid());
             beans.put("qtrp_debt", outBean.getDebt());
             String templateFileName = request.getSession().getServletContext().getRealPath("/templates/phieu_xuat_kho_oil.xls");
-            beans.put("qtrp_day", DateUtil.today("dd"));
-            beans.put("qtrp_month", DateUtil.today("MM"));
-            beans.put("qtrp_year", DateUtil.today("yyyy"));
+            Date exportDate = DateUtil.convertStringToDate(outBean.getExportDate(), "dd/MM/yyyy");
+            beans.put("qtrp_day", DateUtil.formatDate(exportDate, "dd"));
+            beans.put("qtrp_month", DateUtil.formatDate(exportDate, "MM"));
+            beans.put("qtrp_year", DateUtil.formatDate(exportDate, "yyyy"));
             if (list == null) {
                 list = new ArrayList();
             }
@@ -83,6 +85,8 @@ public class PrintSaleOilAction extends BaseAction {
                 outBean.setTotal(saleOilBean.getTotal());
                 outBean.setPaid(saleOilBean.getPaid());
                 outBean.setDebt(saleOilBean.getDebt());
+                outBean.setExportDate(saleOilBean.getExportDate());
+                outBean.setExportNumber(saleOilBean.getExportNumber());
                 CustomerFormBean customerBean = customerDAO.getCustomer(saleOilBean.getCustomerId());
                 if (customerBean != null) {
                     outBean.setCustomerAddress(customerBean.getAddress());

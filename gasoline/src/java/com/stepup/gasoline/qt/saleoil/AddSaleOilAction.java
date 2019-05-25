@@ -8,6 +8,7 @@ import com.stepup.core.util.NumberUtil;
 import com.stepup.core.util.StringUtil;
 import com.stepup.gasoline.qt.bean.SaleOilBean;
 import com.stepup.gasoline.qt.bean.SaleOilDetailBean;
+import com.stepup.gasoline.qt.bean.SaleOilPromotionMaterialDetailBean;
 import com.stepup.gasoline.qt.core.SpineAction;
 import com.stepup.gasoline.qt.dao.GoodDAO;
 import com.stepup.gasoline.qt.util.QTUtil;
@@ -76,13 +77,18 @@ public class AddSaleOilAction extends SpineAction {
         bean.setGapCustomerAmount(formBean.getGapCustomerAmount());
         bean.setTotalBeforeCommisison(formBean.getTotalBeforeCommisison());
         bean.setCreatedEmployeeId(QTUtil.getEmployeeId(request.getSession()));
+        bean.setExportDate(formBean.getExportDate());
+        bean.setExportNumber(formBean.getExportNumber());
+        bean.setIsCalculateAgencyCommission(formBean.getIsCalculateAgencyCommission() == true ? 1 : 0);
         try {
             if (bNew) {
                 int id = goodDAO.insertSaleOil(bean);
                 formBean.setId(id);
                 addSaleOilDetail(formBean, needUpdate);
+                addSaleOilPromotionMaterial(formBean, needUpdate);
             } else {
                 addSaleOilDetail(formBean, needUpdate);
+                addSaleOilPromotionMaterial(formBean, needUpdate);
                 goodDAO.updateSaleOil(bean);
             }
         } catch (Exception ex) {
@@ -180,6 +186,62 @@ public class AddSaleOilAction extends SpineAction {
             }
             ids += "0";
             goodDAO.deleteSaleOilDetails(ids);
+        } catch (Exception ex) {
+        }
+    }
+
+    private void addSaleOilPromotionMaterial(SaleOilFormBean formBean, boolean needUpdate) {
+        try {
+            GoodDAO goodDAO = new GoodDAO();
+            ArrayList arrDetail = goodDAO.getSaleOilPromotionMaterialDetail(formBean.getId());
+            if (formBean.getPromotionMaterialId() != null) {
+                int length = formBean.getPromotionMaterialId().length;
+                int id = 0;
+                boolean isUpdate = false;
+                for (int i = 0; i < length; i++) {
+                    id = NumberUtil.parseInt(formBean.getSaleOilPromotionMaterialDetailId()[i], 0);
+                    if (id == 0) {
+                        SaleOilPromotionMaterialDetailBean bean = new SaleOilPromotionMaterialDetailBean();
+                        bean.setPromotionMaterialId(NumberUtil.parseInt(formBean.getPromotionMaterialId()[i], 0));
+                        bean.setQuantity(NumberUtil.parseInt(formBean.getPromotionMaterialQuantity()[i], 0));
+                        bean.setPromotionMaterialStoreId(NumberUtil.parseInt(formBean.getPromotionMaterialStoreId()[i], 0));
+                        bean.setPromotionMaterialUnitId(NumberUtil.parseInt(formBean.getPromotionMaterialUnitId()[i], 0));
+                        bean.setSaleOilId(formBean.getId());
+                        goodDAO.insertSaleOilPromotionMaterialDetail(bean, formBean.getCreatedDate());
+                    } else {
+                        isUpdate = false;
+                        int j = 0;
+                        SaleOilPromotionMaterialDetailBean oldBean = null;
+                        for (; j < arrDetail.size(); j++) {
+                            oldBean = (SaleOilPromotionMaterialDetailBean) arrDetail.get(j);
+                            if (oldBean.getId() == id) {
+                                break;
+                            }
+                        }
+                        if (j < arrDetail.size()) {
+                            arrDetail.remove(j);
+                            if (oldBean.getQuantity() != NumberUtil.parseInt(formBean.getPromotionMaterialQuantity()[i], 0)) {
+                                isUpdate = true;
+                                oldBean.setQuantity(NumberUtil.parseInt(formBean.getPromotionMaterialQuantity()[i], 0));
+                            }
+                            if (needUpdate) {
+                                isUpdate = true;
+                            }
+                            if (isUpdate) {
+                                goodDAO.updateSaleOilPromotionMaterialDetail(oldBean, formBean.getCreatedDate());
+                            }
+                        }
+                    }
+                }
+            }
+            String ids = "0,";
+            SaleOilPromotionMaterialDetailBean oldBean = null;
+            for (int i = 0; i < arrDetail.size(); i++) {
+                oldBean = (SaleOilPromotionMaterialDetailBean) arrDetail.get(i);
+                ids += oldBean.getId() + ",";
+            }
+            ids += "0";
+            goodDAO.deleteSaleOilPromotionMaterialDetails(ids);
         } catch (Exception ex) {
         }
     }

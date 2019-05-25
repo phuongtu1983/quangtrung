@@ -83,6 +83,7 @@
         <form-bean name="employeeOilCommissionForm" type="com.stepup.gasoline.qt.employeeoilcommission.EmployeeOilCommissionFormBean"/>
         <form-bean name="agencyForm" type="com.stepup.gasoline.qt.agency.AgencyFormBean"/>
         <form-bean name="unitRateForm" type="com.stepup.gasoline.qt.unitrate.UnitRateFormBean"/>
+        <form-bean name="saleOilReturnStoreForm" type="com.stepup.gasoline.qt.saleoilreturnstore.SaleOilReturnStoreFormBean"/>
         <form-bean name="gasWholeSaleFeeForm" type="com.stepup.gasoline.qt.gaswholesalefee.GasWholeSaleFeeFormBean"/>
         <form-bean name="fractionForm" type="com.stepup.gasoline.qt.fraction.FractionFormBean"/>
         <form-bean name="gasImportForm" type="com.stepup.gasoline.qt.gasimport.GasImportFormBean"/>
@@ -115,6 +116,7 @@
         <form-bean name="debtAdjustmentForm" type="com.stepup.gasoline.qt.debtadjustment.DebtAdjustmentFormBean"/>
         <form-bean name="oilImportForm" type="com.stepup.gasoline.qt.oilimport.OilImportFormBean"/>
         <form-bean name="saleOilForm" type="com.stepup.gasoline.qt.saleoil.SaleOilFormBean"/>
+        <form-bean name="saleOilReturnForm" type="com.stepup.gasoline.qt.saleoilreturn.SaleOilReturnFormBean"/>
     </form-beans>
     
     <global-exceptions>
@@ -1577,7 +1579,31 @@
         </action>
         <action path="/reportSaleOil" type="com.stepup.gasoline.qt.saleoil.PrintSaleOilAction" scope="request" validate="false" >
         </action>
+        <action path="/getSaleOilPromotionMaterial" type="com.stepup.gasoline.qt.saleoil.GetSaleOilPromotionMaterialAction" scope="request" validate="false">
+            <forward name="success" path="/saleoil/promotionmaterials.jsp" />
+        </action>
         <!-- end sale oil -->
+        <!-- start sale oil return -->
+        <action path="/getSaleOilReturnPanel" type="com.stepup.gasoline.qt.common.BaseFormAction" scope="request" validate="false">
+            <forward name="success" path="/saleoilreturn/saleoilreturnpanel.jsp" />
+        </action>
+        <action path="/getSaleOilReturnList" type="com.stepup.gasoline.qt.saleoilreturn.GetSaleOilReturnListAction" scope="request" validate="false" >
+        </action>
+        <action path="/saleOilReturnForm" type="com.stepup.gasoline.qt.saleoilreturn.SaleOilReturnFormAction" scope="request" validate="false">
+            <forward name="success" path="/saleoilreturn/saleoilreturndetail.jsp" />
+        </action>
+        <action path="/addSaleOilReturn" name ="saleOilReturnForm" scope="request" type="com.stepup.gasoline.qt.saleoilreturn.AddSaleOilReturnAction" input="/saleOilReturnForm.do">
+        </action>
+        <action path="/delSaleOilReturn" type="com.stepup.gasoline.qt.saleoilreturn.DeleteSaleOilReturnAction" scope="request" validate="false" >
+        </action>
+        <!-- end sale oil return -->
+        <!-- start sale oil return store -->
+        <action path="/saleOilReturnStoreForm" type="com.stepup.gasoline.qt.saleoilreturnstore.SaleOilReturnStoreFormAction" scope="request" validate="false">
+            <forward name="success" path="/saleoilreturnstore/saleoilreturnstoredetail.jsp" />
+        </action>
+        <action path="/addSaleOilReturnStore" name ="saleOilReturnStoreForm" scope="request" type="com.stepup.gasoline.qt.saleoilreturnstore.AddSaleOilReturnStoreAction" input="/saleOilReturnStoreForm.do">
+        </action>
+        <!-- end sale oil return store -->
     </action-mappings>
     
     <controller processorClass="org.apache.struts.tiles.TilesRequestProcessor"/>

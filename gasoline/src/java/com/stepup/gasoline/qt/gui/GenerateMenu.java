@@ -279,6 +279,13 @@ public class GenerateMenu {
                     }
                     buffTemp.append("</item>");
                 }
+                if (isHasPermission(PermissionUtil.OPERATION_ADD + "," + PermissionUtil.OPERATION_ADD, PermissionUtil.PER_SALE_OIL_RETURN_STORE)) {
+                    buffTemp.append("<item id=\"saleoilreturnstores\" complex=\"true\" text=\"").append(QTUtil.getBundleString("saleOilReturnStore.title")).append("\">");//start saleOilReturnStore
+                    if (isHasPermission(PermissionUtil.OPERATION_ADD, PermissionUtil.PER_UNIT_RATE)) {
+                        buffTemp.append("<item id=\"saleoilreturnstoreadd\" text=\"").append(QTUtil.getBundleString("saleOilReturnStore.detail.add.title")).append("\"/>");//add saleOilReturnStore
+                    }
+                    buffTemp.append("</item>");//end saleOilReturnStore
+                }
                 buffTemp.append("</item>");//end oil
             }
 
@@ -800,6 +807,13 @@ public class GenerateMenu {
                     }
                     if (isHasPermission(PermissionUtil.OPERATION_ADD, PermissionUtil.PER_SALE_OIL)) {
                         buffTemp.append("<item id=\"saleoiladd\" text=\"").append(QTUtil.getBundleString("saleOil.detail.add.title")).append("\"/>");
+                    }
+                    buffTemp.append("</item>");
+                }
+                if (isHasPermission(PermissionUtil.OPERATION_LIST + "," + PermissionUtil.OPERATION_ADD, PermissionUtil.PER_SALE_OIL_RETURN)) {
+                    buffTemp.append("<item id=\"saleoilreturns\" complex=\"true\" text=\"").append(QTUtil.getBundleString("saleOilReturn.title")).append("\">");
+                    if (isHasPermission(PermissionUtil.OPERATION_LIST, PermissionUtil.PER_SALE_OIL_RETURN)) {
+                        buffTemp.append("<item id=\"saleoilreturnlist\" text=\"").append(QTUtil.getBundleString("saleOilReturn.list.title")).append("\"/>");
                     }
                     buffTemp.append("</item>");
                 }

@@ -200,6 +200,10 @@ public class Constants {
     public static final String OIL_IMPORT_OIL = "oilImportOil";
     public static final String SALE_OIL = "saleOil";
     public static final String SALE_OIL_OIL = "saleOilOil";
+    public static final String SALE_OIL_PROMOTION_MATERIAL = "saleOilPromotionMaterial";
     public static final String OIL_LIST = "oilList";
     public static final String COMMISSION_KIND_LIST = "commissionKindList";
+    public static final String SALE_OIL_RETURN_OIL = "saleOilReturnOil";
+    public static final String SALE_OIL_RETURN = "saleOilReturn";
+    public static final String SALE_OIL_RETURN_STORE = "saleOilReturnStore";
 }

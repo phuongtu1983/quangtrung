@@ -15,6 +15,8 @@ public class SaleOilReportOutBean {
     private String customerName;
     private String customerAddress;
     private String customerPhone;
+    private String exportNumber;
+    private String exportDate;
     private float customerCommission;
     private double customerCommissionAmount;
     private double total;
@@ -91,6 +93,22 @@ public class SaleOilReportOutBean {
 
     public void setDebt(double debt) {
         this.debt = debt;
+    }
+
+    public String getExportNumber() {
+        return exportNumber;
+    }
+
+    public void setExportNumber(String exportNumber) {
+        this.exportNumber = exportNumber;
+    }
+
+    public String getExportDate() {
+        return exportDate;
+    }
+
+    public void setExportDate(String exportDate) {
+        this.exportDate = exportDate;
     }
 
 }

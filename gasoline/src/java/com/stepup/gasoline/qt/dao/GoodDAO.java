@@ -34,6 +34,10 @@ import com.stepup.gasoline.qt.bean.SaleGoodBean;
 import com.stepup.gasoline.qt.bean.SaleGoodDetailBean;
 import com.stepup.gasoline.qt.bean.SaleOilBean;
 import com.stepup.gasoline.qt.bean.SaleOilDetailBean;
+import com.stepup.gasoline.qt.bean.SaleOilPromotionMaterialDetailBean;
+import com.stepup.gasoline.qt.bean.SaleOilReturnBean;
+import com.stepup.gasoline.qt.bean.SaleOilReturnDetailBean;
+import com.stepup.gasoline.qt.bean.SaleOilReturnStoreBean;
 import com.stepup.gasoline.qt.bean.SalePetroBean;
 import com.stepup.gasoline.qt.bean.SalePetroDetailBean;
 import com.stepup.gasoline.qt.bean.ShellBean;
@@ -4503,6 +4507,9 @@ public class GoodDAO extends BasicDAO {
                 bean.setGapAgencyAmount(rs.getInt("gap_agency_amount"));
                 bean.setGapCustomerAmount(rs.getInt("gap_customer_amount"));
                 bean.setTotalBeforeCommisison(rs.getDouble("total_before_commission"));
+                bean.setExportNumber(rs.getString("export_number"));
+                bean.setExportDate(DateUtil.formatDate(rs.getDate("export_date"), "dd/MM/yyyy"));
+                bean.setIsCalculateAgencyCommission(rs.getInt("is_calculate_agency_commission"));
                 return bean;
             }
         } catch (SQLException sqle) {
@@ -4568,12 +4575,18 @@ public class GoodDAO extends BasicDAO {
         SPUtil spUtil = null;
         try {
             String createdDate = "";
+            String exportDate = "";
             if (GenericValidator.isBlankOrNull(bean.getCreatedDate())) {
                 createdDate = "null";
             } else {
                 createdDate = bean.getCreatedDate();
             }
-            String sql = "{call insertSaleOil(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)}";
+            if (GenericValidator.isBlankOrNull(bean.getExportDate())) {
+                exportDate = "null";
+            } else {
+                exportDate = bean.getExportDate();
+            }
+            String sql = "{call insertSaleOil(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)}";
             spUtil = new SPUtil(sql);
             if (spUtil != null) {
                 spUtil.getCallableStatement().setString("_code", bean.getCode());
@@ -4593,6 +4606,9 @@ public class GoodDAO extends BasicDAO {
                 spUtil.getCallableStatement().setDouble("_total_before_commission", bean.getTotalBeforeCommisison());
                 spUtil.getCallableStatement().setString("_note", bean.getNote());
                 spUtil.getCallableStatement().setInt("_created_employee_id", bean.getCreatedEmployeeId());
+                spUtil.getCallableStatement().setString("_export_number", bean.getExportNumber());
+                spUtil.getCallableStatement().setString("_export_date", exportDate);
+                spUtil.getCallableStatement().setInt("_is_calculate_agency_commission", bean.getIsCalculateAgencyCommission());
                 spUtil.getCallableStatement().registerOutParameter("_id", Types.INTEGER);
                 spUtil.execute();
                 result = spUtil.getCallableStatement().getInt("_id");
@@ -4620,12 +4636,18 @@ public class GoodDAO extends BasicDAO {
         SPUtil spUtil = null;
         try {
             String createdDate = "";
+            String exportDate = "";
             if (GenericValidator.isBlankOrNull(bean.getCreatedDate())) {
                 createdDate = "null";
             } else {
                 createdDate = bean.getCreatedDate();
             }
-            String sql = "{call updateSaleOil(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)}";
+            if (GenericValidator.isBlankOrNull(bean.getExportDate())) {
+                exportDate = "null";
+            } else {
+                exportDate = bean.getExportDate();
+            }
+            String sql = "{call updateSaleOil(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)}";
             spUtil = new SPUtil(sql);
             if (spUtil != null) {
                 spUtil.getCallableStatement().setInt("_id", bean.getId());
@@ -4644,6 +4666,9 @@ public class GoodDAO extends BasicDAO {
                 spUtil.getCallableStatement().setDouble("_gap_customer_amount", bean.getGapCustomerAmount());
                 spUtil.getCallableStatement().setDouble("_total_before_commission", bean.getTotalBeforeCommisison());
                 spUtil.getCallableStatement().setString("_note", bean.getNote());
+                spUtil.getCallableStatement().setString("_export_number", bean.getExportNumber());
+                spUtil.getCallableStatement().setString("_export_date", exportDate);
+                spUtil.getCallableStatement().setInt("_is_calculate_agency_commission", bean.getIsCalculateAgencyCommission());
                 spUtil.execute();
             }
         } catch (SQLException sqle) {
@@ -4854,4 +4879,604 @@ public class GoodDAO extends BasicDAO {
         return list;
 
     }
+
+    public ArrayList getSaleOilPromotionMaterialDetail(int saleOilId) throws Exception {
+        ResultSet rs = null;
+        String sql = "select det.*, s.name as oil_name, u.name as unit_name, st.name as store_name"
+                + " from oil_sale_promotion as det, oil as s, unit as u, store as st"
+                + " where det.oil_id=s.id and det.unit_id=u.id and det.store_id=st.id and det.sale_oil_id=" + saleOilId
+                + " order by det.id";
+        ArrayList detailList = new ArrayList();
+        try {
+            rs = DBUtil.executeQuery(sql);
+            SaleOilPromotionMaterialDetailBean bean = null;
+            while (rs.next()) {
+                bean = new SaleOilPromotionMaterialDetailBean();
+                bean.setId(rs.getInt("id"));
+                bean.setSaleOilId(rs.getInt("sale_oil_id"));
+                bean.setQuantity(rs.getInt("quantity"));
+                bean.setPromotionMaterialId(rs.getInt("oil_id"));
+                bean.setPromotionMaterialName(rs.getString("oil_name"));
+                bean.setPromotionMaterialUnitId(rs.getInt("unit_id"));
+                bean.setPromotionMaterialUnitId(rs.getInt("store_id"));
+                bean.setPromotionMaterialUnitName(rs.getString("unit_name"));
+                bean.setPromotionMaterialStoreName(rs.getString("store_name"));
+                detailList.add(bean);
+            }
+        } catch (SQLException sqle) {
+            throw new Exception(sqle.getMessage());
+        } catch (Exception ex) {
+            throw new Exception(ex.getMessage());
+        } finally {
+            if (rs != null) {
+                DBUtil.closeConnection(rs);
+            }
+        }
+        return detailList;
+    }
+
+    public int insertSaleOilPromotionMaterialDetail(SaleOilPromotionMaterialDetailBean bean, String createdDate) throws Exception {
+        if (bean == null) {
+            return 0;
+        }
+        int result = 0;
+        SPUtil spUtil = null;
+        try {
+            String sql = "{call insertSaleOilPromotionMaterialDetail(?,?,?,?,?,?)}";
+            spUtil = new SPUtil(sql);
+            if (spUtil != null) {
+                spUtil.getCallableStatement().setInt("_sale_oil_id", bean.getSaleOilId());
+                spUtil.getCallableStatement().setInt("_oil_id", bean.getPromotionMaterialId());
+                spUtil.getCallableStatement().setInt("_unit_id", bean.getPromotionMaterialUnitId());
+                spUtil.getCallableStatement().setInt("_store_id", bean.getPromotionMaterialStoreId());
+                spUtil.getCallableStatement().setInt("_quantity", bean.getQuantity());
+                spUtil.getCallableStatement().setString("_created_date", createdDate);
+                spUtil.execute();
+            }
+        } catch (SQLException sqle) {
+            throw new Exception(sqle.getMessage());
+        } catch (Exception ex) {
+            throw new Exception(ex.getMessage());
+        } finally {
+            try {
+                if (spUtil != null) {
+                    spUtil.closeConnection();
+                }
+            } catch (Exception e) {
+                throw new Exception(e.getMessage());
+            }
+        }
+        return result;
+    }
+
+    public void updateSaleOilPromotionMaterialDetail(SaleOilPromotionMaterialDetailBean bean, String createdDate) throws Exception {
+        if (bean == null) {
+            return;
+        }
+        SPUtil spUtil = null;
+        try {
+            String sql = "{call updateSaleOilPromotionMaterialDetail(?,?,?)}";
+            spUtil = new SPUtil(sql);
+            if (spUtil != null) {
+                spUtil.getCallableStatement().setInt("_id", bean.getId());
+                spUtil.getCallableStatement().setInt("_quantity", bean.getQuantity());
+                spUtil.getCallableStatement().setString("_created_date", createdDate);
+                spUtil.execute();
+            }
+        } catch (SQLException sqle) {
+            throw new Exception(sqle.getMessage());
+        } catch (Exception ex) {
+            throw new Exception(ex.getMessage());
+        } finally {
+            try {
+                if (spUtil != null) {
+                    spUtil.closeConnection();
+                }
+            } catch (Exception e) {
+                throw new Exception(e.getMessage());
+            }
+        }
+    }
+
+    public int deleteSaleOilPromotionMaterialDetails(String ids) throws Exception {
+        int result = 0;
+        try {
+            String sql = "Delete From oil_sale_promotion Where id in (" + ids + ")";
+            DBUtil.executeUpdate(sql);
+        } catch (SQLException sqle) {
+            throw new Exception(sqle.getMessage());
+        } catch (Exception ex) {
+            throw new Exception(ex.getMessage());
+        }
+        return result;
+    }
+
+    public ArrayList searchSaleOilReturn(String fromDate, String endDate, String organizationIds) throws Exception {
+        SPUtil spUtil = null;
+        ArrayList list = new ArrayList();
+        ResultSet rs = null;
+        try {
+            String sql = "{call searchSaleOilReturn(?,?,?)}";
+            if (GenericValidator.isBlankOrNull(fromDate)) {
+                fromDate = DateUtil.today("dd/MM/yyyy");
+            }
+            if (GenericValidator.isBlankOrNull(endDate)) {
+                endDate = this.START_DATE;
+            }
+            spUtil = new SPUtil(sql);
+            if (spUtil != null) {
+                spUtil.getCallableStatement().setString("_start_date", fromDate);
+                spUtil.getCallableStatement().setString("_end_date", endDate);
+                spUtil.getCallableStatement().setString("_organization_ids", organizationIds);
+                rs = spUtil.executeQuery();
+                if (rs != null) {
+                    SaleOilFormBean bean = null;
+                    while (rs.next()) {
+                        bean = new SaleOilFormBean();
+                        bean.setId(rs.getInt("id"));
+                        bean.setCode(rs.getString("code"));
+                        bean.setCreatedDate(DateUtil.formatDate(rs.getDate("created_date"), "dd/MM/yyyy"));
+                        bean.setTotal(rs.getDouble("total"));
+                        bean.setPaid(rs.getDouble("paid"));
+                        bean.setDebt(rs.getDouble("debt"));
+                        bean.setAccountId(rs.getInt("account_id"));
+                        bean.setNote(rs.getString("note"));
+                        list.add(bean);
+                    }
+                }
+            }
+        } catch (SQLException sqle) {
+            throw new Exception(sqle.getMessage());
+        } catch (Exception ex) {
+            throw new Exception(ex.getMessage());
+        } finally {
+            try {
+                if (spUtil != null) {
+                    spUtil.closeConnection();
+                }
+                if (rs != null) {
+                    rs.close();
+                    rs = null;
+                }
+            } catch (Exception e) {
+                throw new Exception(e.getMessage());
+            }
+        }
+        return list;
+    }
+
+    public SaleOilReturnBean getSaleOilReturn(int id) throws Exception {
+        ResultSet rs = null;
+        String sql = "select *, IF(DATEDIFF(created_date,SYSDATE())=0,1,0) as can_edit from oil_sale_return where id=" + id;
+        try {
+            rs = DBUtil.executeQuery(sql);
+            while (rs.next()) {
+                SaleOilReturnBean bean = new SaleOilReturnBean();
+                bean.setId(rs.getInt("id"));
+                bean.setCode(rs.getString("code"));
+                bean.setCreatedDate(DateUtil.formatDate(rs.getDate("created_date"), "dd/MM/yyyy"));
+                bean.setTotal(rs.getDouble("total"));
+                bean.setPaid(rs.getDouble("paid"));
+                bean.setDebt(rs.getDouble("debt"));
+                bean.setTotalPay(rs.getDouble("total_pay"));
+                bean.setAccountId(rs.getInt("account_id"));
+                bean.setNote(rs.getString("note"));
+                bean.setCanEdit(rs.getInt("can_edit"));
+                bean.setCustomerId(rs.getInt("customer_id"));
+                bean.setCommission(rs.getFloat("commission"));
+                bean.setCommissionKind(rs.getInt("commission_kind"));
+                bean.setCommissionAmount(rs.getFloat("commission_amount"));
+                bean.setGapAgencyAmount(rs.getInt("gap_agency_amount"));
+                bean.setGapCustomerAmount(rs.getInt("gap_customer_amount"));
+                bean.setTotalBeforeCommisison(rs.getDouble("total_before_commission"));
+                return bean;
+            }
+        } catch (SQLException sqle) {
+            throw new Exception(sqle.getMessage());
+        } catch (Exception ex) {
+            throw new Exception(ex.getMessage());
+        } finally {
+            if (rs != null) {
+                DBUtil.closeConnection(rs);
+            }
+        }
+        return null;
+    }
+
+    public ArrayList getSaleOilReturnDetail(int saleOilReturnId) throws Exception {
+        ResultSet rs = null;
+        String sql = "select det.*, o.name as oil_name, u.name as unit_name, s.name as store_name"
+                + " from oil_sale_return_detail as det, oil as o, unit as u, store as s"
+                + " where det.oil_id=o.id and det.unit_id=u.id and det.store_id=s.id and det.oil_sale_return_id=" + saleOilReturnId
+                + " order by det.id";
+        ArrayList detailList = new ArrayList();
+        try {
+            rs = DBUtil.executeQuery(sql);
+            SaleOilReturnDetailBean bean = null;
+            while (rs.next()) {
+                bean = new SaleOilReturnDetailBean();
+                bean.setId(rs.getInt("id"));
+                bean.setSaleOilReturnId(rs.getInt("oil_sale_return_id"));
+                bean.setSaleOilDetailId(rs.getInt("oil_sale_detail_id"));
+                bean.setQuantity(rs.getInt("quantity"));
+                bean.setPriceBeforeCommission(rs.getDouble("price_before_commission"));
+                bean.setCommissionPrice(rs.getFloat("commission_price"));
+                bean.setPrice(rs.getDouble("price"));
+                bean.setFirstAmount(rs.getDouble("first_amount"));
+                bean.setCommission(rs.getFloat("commission"));
+                bean.setGapAgencyAmount(rs.getDouble("gap_agency_amount"));
+                bean.setGapCustomerAmount(rs.getDouble("gap_customer_amount"));
+                bean.setAmount(rs.getDouble("amount"));
+                bean.setOilId(rs.getInt("oil_id"));
+                bean.setOilName(rs.getString("oil_name"));
+                bean.setUnitId(rs.getInt("unit_id"));
+                bean.setUnitName(rs.getString("unit_name"));
+                bean.setStoreId(rs.getInt("store_id"));
+                bean.setStoreName(rs.getString("store_name"));
+                detailList.add(bean);
+            }
+        } catch (SQLException sqle) {
+            throw new Exception(sqle.getMessage());
+        } catch (Exception ex) {
+            throw new Exception(ex.getMessage());
+        } finally {
+            if (rs != null) {
+                DBUtil.closeConnection(rs);
+            }
+        }
+        return detailList;
+    }
+
+    public ArrayList getSaleOilReturnDetailBySaleOilId(String saleOilDetailIds, String organizationIds) throws Exception {
+        ResultSet rs = null;
+        String sql = "select det.*, o.name as oil_name, u.name as unit_name, s.name as return_store_name, s.id AS return_store_id"
+                + " from oil_sale_detail as det, oil as o, unit as u, store as s, oil_return_store AS rs"
+                + " where det.oil_id=o.id and det.unit_id=u.id and det.id in(" + saleOilDetailIds + ")"
+                + " and '" + organizationIds + "' LIKE CONCAT('%,',rs.organization_id,',%') AND rs.store_id=s.id"
+                + " order by det.id";
+        ArrayList detailList = new ArrayList();
+        try {
+            rs = DBUtil.executeQuery(sql);
+            SaleOilReturnDetailBean bean = null;
+            while (rs.next()) {
+                bean = new SaleOilReturnDetailBean();
+                bean.setSaleOilDetailId(rs.getInt("id"));
+                bean.setQuantity(rs.getInt("quantity"));
+                bean.setPriceBeforeCommission(rs.getDouble("price_before_commission"));
+                bean.setCommissionPrice(rs.getFloat("commission_price"));
+                bean.setPrice(rs.getDouble("price"));
+                bean.setFirstAmount(rs.getDouble("first_amount"));
+                bean.setCommission(rs.getFloat("commission"));
+                bean.setGapAgencyAmount(rs.getDouble("gap_agency_amount"));
+                bean.setGapCustomerAmount(rs.getDouble("gap_customer_amount"));
+                bean.setAmount(rs.getDouble("amount"));
+                bean.setOilId(rs.getInt("oil_id"));
+                bean.setOilName(rs.getString("oil_name"));
+                bean.setUnitId(rs.getInt("unit_id"));
+                bean.setUnitName(rs.getString("unit_name"));
+                bean.setStoreId(rs.getInt("return_store_id"));
+                bean.setStoreName(rs.getString("return_store_name"));
+                detailList.add(bean);
+            }
+        } catch (SQLException sqle) {
+            throw new Exception(sqle.getMessage());
+        } catch (Exception ex) {
+            throw new Exception(ex.getMessage());
+        } finally {
+            if (rs != null) {
+                DBUtil.closeConnection(rs);
+            }
+        }
+        return detailList;
+    }
+
+    public String getNextSaleOilReturnNumber(String prefix, int length) throws Exception {
+        String result = "";
+        try {
+            result = this.getNextNumber(prefix, length, "code", "oil_sale_return");
+        } catch (Exception ex) {
+            throw new Exception(ex.getMessage());
+        }
+        return result;
+    }
+
+    public int insertSaleOilReturn(SaleOilReturnBean bean) throws Exception {
+        if (bean == null) {
+            return 0;
+        }
+        int result = 0;
+        SPUtil spUtil = null;
+        try {
+            String createdDate = "";
+            if (GenericValidator.isBlankOrNull(bean.getCreatedDate())) {
+                createdDate = "null";
+            } else {
+                createdDate = bean.getCreatedDate();
+            }
+            String sql = "{call insertSaleOilReturn(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)}";
+            spUtil = new SPUtil(sql);
+            if (spUtil != null) {
+                spUtil.getCallableStatement().setString("_code", bean.getCode());
+                spUtil.getCallableStatement().setString("_created_date", createdDate);
+                spUtil.getCallableStatement().setInt("_customer_id", bean.getCustomerId());
+                spUtil.getCallableStatement().setDouble("_total", bean.getTotal());
+                spUtil.getCallableStatement().setDouble("_paid", bean.getPaid());
+                spUtil.getCallableStatement().setDouble("_debt", bean.getDebt());
+                spUtil.getCallableStatement().setDouble("_total_pay", bean.getTotalPay());
+                spUtil.getCallableStatement().setInt("_account_id", bean.getAccountId());
+                spUtil.getCallableStatement().setFloat("_commission", bean.getCommission());
+                spUtil.getCallableStatement().setInt("_commission_kind", bean.getCommissionKind());
+                spUtil.getCallableStatement().setDouble("_commission_amount", bean.getCommissionAmount());
+                spUtil.getCallableStatement().setDouble("_gap_agency_amount", bean.getGapAgencyAmount());
+                spUtil.getCallableStatement().setDouble("_gap_customer_amount", bean.getGapCustomerAmount());
+                spUtil.getCallableStatement().setDouble("_total_before_commission", bean.getTotalBeforeCommisison());
+                spUtil.getCallableStatement().setString("_note", bean.getNote());
+                spUtil.getCallableStatement().setInt("_created_employee_id", bean.getCreatedEmployeeId());
+                spUtil.getCallableStatement().registerOutParameter("_id", Types.INTEGER);
+                spUtil.execute();
+                result = spUtil.getCallableStatement().getInt("_id");
+            }
+        } catch (SQLException sqle) {
+            throw new Exception(sqle.getMessage());
+        } catch (Exception ex) {
+            throw new Exception(ex.getMessage());
+        } finally {
+            try {
+                if (spUtil != null) {
+                    spUtil.closeConnection();
+                }
+            } catch (Exception e) {
+                throw new Exception(e.getMessage());
+            }
+        }
+        return result;
+    }
+
+    public void updateSaleOilReturn(SaleOilReturnBean bean) throws Exception {
+        if (bean == null) {
+            return;
+        }
+        SPUtil spUtil = null;
+        try {
+            String createdDate = "";
+            if (GenericValidator.isBlankOrNull(bean.getCreatedDate())) {
+                createdDate = "null";
+            } else {
+                createdDate = bean.getCreatedDate();
+            }
+            String sql = "{call updateSaleOilReturn(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)}";
+            spUtil = new SPUtil(sql);
+            if (spUtil != null) {
+                spUtil.getCallableStatement().setInt("_id", bean.getId());
+                spUtil.getCallableStatement().setString("_created_date", createdDate);
+                spUtil.getCallableStatement().setInt("_customer_id", bean.getCustomerId());
+                spUtil.getCallableStatement().setDouble("_total", bean.getTotal());
+                spUtil.getCallableStatement().setDouble("_paid", bean.getPaid());
+                spUtil.getCallableStatement().setDouble("_debt", bean.getDebt());
+                spUtil.getCallableStatement().setDouble("_total_pay", bean.getTotalPay());
+                spUtil.getCallableStatement().setInt("_account_id", bean.getAccountId());
+                spUtil.getCallableStatement().setFloat("_commission", bean.getCommission());
+                spUtil.getCallableStatement().setInt("_commission_kind", bean.getCommissionKind());
+                spUtil.getCallableStatement().setDouble("_commission_amount", bean.getCommissionAmount());
+                spUtil.getCallableStatement().setDouble("_gap_agency_amount", bean.getGapAgencyAmount());
+                spUtil.getCallableStatement().setDouble("_gap_customer_amount", bean.getGapCustomerAmount());
+                spUtil.getCallableStatement().setDouble("_total_before_commission", bean.getTotalBeforeCommisison());
+                spUtil.getCallableStatement().setString("_note", bean.getNote());
+                spUtil.execute();
+            }
+        } catch (SQLException sqle) {
+            throw new Exception(sqle.getMessage());
+        } catch (Exception ex) {
+            throw new Exception(ex.getMessage());
+        } finally {
+            try {
+                if (spUtil != null) {
+                    spUtil.closeConnection();
+                }
+            } catch (Exception e) {
+                throw new Exception(e.getMessage());
+            }
+        }
+    }
+
+    public void deleteSaleOilReturn(int id) throws Exception {
+        SPUtil spUtil = null;
+        try {
+            String sql = "{call deleteSaleOilReturn(?)}";
+            spUtil = new SPUtil(sql);
+            if (spUtil != null) {
+                spUtil.getCallableStatement().setInt("_id", id);
+                spUtil.execute();
+            }
+        } catch (Exception ex) {
+            throw new Exception(ex.getMessage());
+        } finally {
+            try {
+                if (spUtil != null) {
+                    spUtil.closeConnection();
+                }
+            } catch (Exception e) {
+                throw new Exception(e.getMessage());
+            }
+        }
+    }
+
+    public int insertSaleOilReturnDetail(SaleOilReturnDetailBean bean, String createdDate) throws Exception {
+        if (bean == null) {
+            return 0;
+        }
+        int result = 0;
+        SPUtil spUtil = null;
+        try {
+            String sql = "{call insertSaleOilReturnDetail(?,?,?,?,?,?,?,?,?,?,?,?,?)}";
+            spUtil = new SPUtil(sql);
+            if (spUtil != null) {
+                spUtil.getCallableStatement().setInt("_oil_sale_return_id", bean.getSaleOilReturnId());
+                spUtil.getCallableStatement().setInt("_oil_sale_detail_id", bean.getSaleOilDetailId());
+                spUtil.getCallableStatement().setInt("_oil_id", bean.getOilId());
+                spUtil.getCallableStatement().setInt("_quantity", bean.getQuantity());
+                spUtil.getCallableStatement().setDouble("_price", bean.getPrice());
+                spUtil.getCallableStatement().setDouble("_amount", bean.getAmount());
+                spUtil.getCallableStatement().setDouble("_price_before_commission", bean.getPriceBeforeCommission());
+                spUtil.getCallableStatement().setFloat("_commssion_price", bean.getCommissionPrice());
+                spUtil.getCallableStatement().setDouble("_first_amount", bean.getFirstAmount());
+                spUtil.getCallableStatement().setFloat("_commission", bean.getCommission());
+                spUtil.getCallableStatement().setDouble("_gap_agency_amount", bean.getGapAgencyAmount());
+                spUtil.getCallableStatement().setDouble("_gap_customer_amount", bean.getGapCustomerAmount());
+                spUtil.getCallableStatement().setString("_created_date", createdDate);
+                spUtil.execute();
+            }
+        } catch (SQLException sqle) {
+            throw new Exception(sqle.getMessage());
+        } catch (Exception ex) {
+            throw new Exception(ex.getMessage());
+        } finally {
+            try {
+                if (spUtil != null) {
+                    spUtil.closeConnection();
+                }
+            } catch (Exception e) {
+                throw new Exception(e.getMessage());
+            }
+        }
+        return result;
+    }
+
+    public void updateSaleOilReturnDetail(SaleOilReturnDetailBean bean, String createdDate) throws Exception {
+        if (bean == null) {
+            return;
+        }
+        SPUtil spUtil = null;
+        try {
+            String sql = "{call updateSaleOilReturnDetail(?,?,?,?,?,?,?,?,?,?,?)}";
+            spUtil = new SPUtil(sql);
+            if (spUtil != null) {
+                spUtil.getCallableStatement().setInt("_id", bean.getId());
+                spUtil.getCallableStatement().setInt("_quantity", bean.getQuantity());
+                spUtil.getCallableStatement().setDouble("_price", bean.getPrice());
+                spUtil.getCallableStatement().setDouble("_amount", bean.getAmount());
+                spUtil.getCallableStatement().setDouble("_price_before_commission", bean.getPriceBeforeCommission());
+                spUtil.getCallableStatement().setFloat("_commssion_price", bean.getCommissionPrice());
+                spUtil.getCallableStatement().setDouble("_first_amount", bean.getFirstAmount());
+                spUtil.getCallableStatement().setFloat("_commission", bean.getCommission());
+                spUtil.getCallableStatement().setDouble("_gap_agency_amount", bean.getGapAgencyAmount());
+                spUtil.getCallableStatement().setDouble("_gap_customer_amount", bean.getGapCustomerAmount());
+                spUtil.getCallableStatement().setString("_created_date", createdDate);
+                spUtil.execute();
+            }
+        } catch (SQLException sqle) {
+            throw new Exception(sqle.getMessage());
+        } catch (Exception ex) {
+            throw new Exception(ex.getMessage());
+        } finally {
+            try {
+                if (spUtil != null) {
+                    spUtil.closeConnection();
+                }
+            } catch (Exception e) {
+                throw new Exception(e.getMessage());
+            }
+        }
+    }
+
+    public int deleteSaleOilReturnDetails(String ids) throws Exception {
+        int result = 0;
+        try {
+            String sql = "Delete From oil_sale_return_detail Where id in (" + ids + ")";
+            DBUtil.executeUpdate(sql);
+        } catch (SQLException sqle) {
+            throw new Exception(sqle.getMessage());
+        } catch (Exception ex) {
+            throw new Exception(ex.getMessage());
+        }
+        return result;
+    }
+
+    public SaleOilReturnStoreBean getSaleOilReturnStoreByOrganizationId(int organizationId) throws Exception {
+        ResultSet rs = null;
+        String sql = "select * from oil_return_store where organization_id=" + organizationId + " order by store_id limit 1";
+        try {
+            rs = DBUtil.executeQuery(sql);
+            while (rs.next()) {
+                SaleOilReturnStoreBean bean = new SaleOilReturnStoreBean();
+                bean.setId(rs.getInt("id"));
+                bean.setStoreId(rs.getInt("store_id"));
+                bean.setOrganizationId(rs.getInt("organization_id"));
+                return bean;
+            }
+        } catch (SQLException sqle) {
+            throw new Exception(sqle.getMessage());
+        } catch (Exception ex) {
+            throw new Exception(ex.getMessage());
+        } finally {
+            if (rs != null) {
+                DBUtil.closeConnection(rs);
+            }
+        }
+        return null;
+    }
+
+    public SaleOilReturnStoreBean getSaleOilReturnStoreByOrganizationId(int storeId, int organizationId) throws Exception {
+        ResultSet rs = null;
+        String sql = "select * from oil_return_store where store_id=" + storeId + " and  organization_id=" + organizationId + " order by organization_id, store_id limit 1";
+        try {
+            rs = DBUtil.executeQuery(sql);
+            while (rs.next()) {
+                SaleOilReturnStoreBean bean = new SaleOilReturnStoreBean();
+                bean.setId(rs.getInt("id"));
+                bean.setStoreId(rs.getInt("store_id"));
+                bean.setOrganizationId(rs.getInt("organization_id"));
+                return bean;
+            }
+        } catch (SQLException sqle) {
+            throw new Exception(sqle.getMessage());
+        } catch (Exception ex) {
+            throw new Exception(ex.getMessage());
+        } finally {
+            if (rs != null) {
+                DBUtil.closeConnection(rs);
+            }
+        }
+        return null;
+    }
+
+    public void insertSaleOilReturnStore(SaleOilReturnStoreBean bean) throws Exception {
+        if (bean == null) {
+            return;
+        }
+        try {
+            String sql = "Insert Into oil_return_store(store_id, organization_id) Values (" + bean.getStoreId() + "," + bean.getOrganizationId() + ")";
+            DBUtil.executeUpdate(sql);
+        } catch (SQLException sqle) {
+            throw new Exception(sqle.getMessage());
+        } catch (Exception ex) {
+            throw new Exception(ex.getMessage());
+        } finally {
+            try {
+            } catch (Exception e) {
+                throw new Exception(e.getMessage());
+            }
+
+        }
+    }
+
+    public void updateSaleOilReturnStore(SaleOilReturnStoreBean bean) throws Exception {
+        if (bean == null) {
+            return;
+        }
+        try {
+            String sql = "Update oil_return_store Set store_id=" + bean.getStoreId() + " Where id=" + bean.getId();
+            DBUtil.executeUpdate(sql);
+        } catch (SQLException sqle) {
+            throw new Exception(sqle.getMessage());
+        } catch (Exception ex) {
+            throw new Exception(ex.getMessage());
+        } finally {
+            try {
+            } catch (Exception e) {
+                throw new Exception(e.getMessage());
+            }
+        }
+    }
+
 }
