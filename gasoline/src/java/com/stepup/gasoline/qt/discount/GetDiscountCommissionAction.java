@@ -4,8 +4,10 @@
  */
 package com.stepup.gasoline.qt.discount;
 
+import com.stepup.gasoline.qt.bean.DiscountCommissionDetailBean;
 import com.stepup.gasoline.qt.core.SpineAction;
-import com.stepup.gasoline.qt.dao.CustomerDAO;
+import com.stepup.gasoline.qt.util.Constants;
+import java.util.ArrayList;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import org.apache.struts.action.ActionForm;
@@ -15,7 +17,7 @@ import org.apache.struts.action.ActionMapping;
  *
  * @author phuongtu
  */
-public class DeleteDiscountAction extends SpineAction {
+public class GetDiscountCommissionAction extends SpineAction {
 
     /**
      * This is the action called from the Struts framework.
@@ -30,11 +32,11 @@ public class DeleteDiscountAction extends SpineAction {
     @Override
     public boolean doAction(ActionMapping mapping, ActionForm form,
             HttpServletRequest request, HttpServletResponse response) {
-        try {
-            CustomerDAO customerDAO = new CustomerDAO();
-            customerDAO.deleteDiscount(request.getParameter("discountId"));
-        } catch (Exception ex) {
-        }
+        ArrayList arrDetail = new ArrayList();
+        DiscountCommissionDetailBean commissionDetailBean = new DiscountCommissionDetailBean();
+        arrDetail.add(commissionDetailBean);
+        request.setAttribute(Constants.DISCOUNT_COMMISSION, arrDetail);
+
         return true;
     }
 }

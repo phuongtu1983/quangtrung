@@ -169,6 +169,7 @@ public class Constants {
     public static final String SHIELD_IMPORT = "shieldImport";
     public static final String SHIELD_DECREASE = "shieldDecrease";
     public static final String DISCOUNT = "discount";
+    public static final String DISCOUNT_COMMISSION = "discountCommission";
     public static final String GOOD_IMPORT = "goodImport";
     public static final String GOOD_IMPORT_GOOD = "goodImportGood";
     public static final String SALE_GOOD = "saleGood";

@@ -33,7 +33,8 @@ public class GetDiscountListAction extends BaseAction {
                 for (int i = 0; i < length; i++) {
                     DiscountFormBean bean = (DiscountFormBean) list.get(i);
                     buff.append("<row id=\"").append(bean.getId()).append("\">");
-                    buff.append("<cell>").append(bean.getName()).append("^javascript:getDiscount(").append(bean.getId()).append(",\"loadDiscountList\")^_self</cell>");
+                    buff.append("<cell>").append(bean.getCode()).append("^javascript:getDiscount(").append(bean.getId()).append(",\"loadDiscountList\")^_self</cell>");
+                    buff.append("<cell>").append(bean.getName()).append("</cell>");
                     buff.append("<cell>").append(bean.getNote()).append("</cell>");
                     buff.append("</row>");
                 }

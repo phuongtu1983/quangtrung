@@ -98,8 +98,8 @@
 <div name="agencyFormshowHelpHideDiv" id="showHelpHideDiv" style="display:none">
     Ctrl+S : Lưu
 </div>
-<div id="shiftCFunctionHideDiv" style="display:none">prepareHidePopup('agencyFormshowHelpHideDiv')</div>
+<div id="shiftCFunctionHideDiv" style="display:none">loadAgencyPanel()</div>
 <div id="shiftSFunctionHideDiv" style="display:none">saveAgency()</div>
-<div id="shiftEscFunctionHideDiv" style="display:none">prepareHidePopup('agencyFormshowHelpHideDiv')</div>
+<div id="shiftEscFunctionHideDiv" style="display:none">loadAgencyPanel()</div>
 <div id="agencyCustomerHideDiv" style="display:none"></div>
 <div id="agencyCommissionHideDiv" style="display:none"></div>

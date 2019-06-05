@@ -9958,15 +9958,16 @@ function loadDiscountPanel() {
         setAjaxData(data, "contentDiv");
         loadDiscountList();
     });
+    return false;
 }
 function loadDiscountList() {
     var mygrid = new dhtmlXGridObject('discountList');
     mygrid.setImagePath("js/dhtmlx/grid/imgs/");
-    mygrid.setHeader("T\u00EAn chi\u1EBFt kh\u1EA5u,Ghi ch\u00FA");
-    mygrid.attachHeader("#text_filter,#text_filter");
-    mygrid.setInitWidths("150,*");
-    mygrid.setColTypes("link,ro");
-    mygrid.setColSorting("str,str");
+    mygrid.setHeader("M\u00E3 chi\u1EBFt kh\u1EA5u,T\u00EAn chi\u1EBFt kh\u1EA5u,Ghi ch\u00FA");
+    mygrid.attachHeader("#text_filter,#text_filter,#text_filter");
+    mygrid.setInitWidths("150,150,*");
+    mygrid.setColTypes("link,ro,ro");
+    mygrid.setColSorting("str,str,str");
     mygrid.setSkin("light");
     var height = contentHeight - 210;
     mygrid.al(true, height); //enableAutoHeight
@@ -9979,15 +9980,15 @@ function loadDiscountList() {
     });
     return false;
 }
-function getDiscount(id, handle) {
-    popupName = 'TH\u00D4NG TIN CHI\u1EBET KH\u1EA4U';
+function getDiscount(id) {
     var url = 'discountForm.do';
     if (id != 0)
         url += '?discountId=' + id
     callAjax(url, null, null, function(data) {
-        showPopupForm(data);
-        document.getElementById('callbackFunc').value = handle;
+        clearContent();
+        setAjaxData(data, 'contentDiv');
         document.forms['discountForm'].name.focus();
+        formatDiscountCommissionDetail();
     });
 }
 function saveDiscount() {
@@ -10001,17 +10002,77 @@ function saveDiscount() {
         return false;
     }
     field = null;
+    reformatDiscountCommissionDetail();
     scriptFunction = "saveDiscount";
     callAjaxCheckError("addDiscount.do", null, document.forms['discountForm'], function(data) {
         scriptFunction = "";
         var handle = document.getElementById('callbackFunc').value;
         if (confirm('B\u1EA1n c\u00F3 mu\u1ED1n nh\u1EADp ti\u1EBFp th\u00F4ng tin kh\u00E1c ?'))
             getDiscount(0, handle);
-        else if (handle != '')
-            eval(handle + "()");
-        prepareHidePopup('discountFormshowHelpHideDiv');
+        else
+            loadDiscountPanel();
     });
     return false;
+}
+function addDiscountCommission() {
+    callAjax("getDiscountCommission.do", null, null, function(data) {
+        setAjaxData(data, 'discountCommissionHideDiv');
+        var matTable = document.getElementById('discountCommissionTbl');
+        var detTable = document.getElementById('discountCommissionDetailTbl');
+        if (matTable.tBodies[0] == null || detTable.tBodies[0] == null) {
+            matTable = null;
+            detTable = null;
+            return;
+        }
+        for (var i = matTable.tBodies[0].rows.length - 1; i >= 0; i--)
+            detTable.tBodies[0].appendChild(matTable.tBodies[0].rows[i]);
+        matTable = null;
+        detTable = null;
+        formatDiscountCommissionDetail();
+    });
+    return false;
+}
+function formatDiscountCommissionDetail() {
+    var discountCommissionFrom = document.forms['discountForm'].discountCommissionFrom;
+    var discountCommissionTo = document.forms['discountForm'].discountCommissionTo;
+    var discountCommissionCommission = document.forms['discountForm'].discountCommissionCommission;
+    if (discountCommissionCommission != null) {
+        if (discountCommissionCommission.length != null) {
+            for (var i = 0; i < discountCommissionCommission.length; i++) {
+                tryNumberFormatCurrentcy(discountCommissionFrom[i], "VND");
+                tryNumberFormatCurrentcy(discountCommissionTo[i], "VND");
+                tryNumberFormatCurrentcy(discountCommissionCommission[i], "VND");
+            }
+        } else {
+            tryNumberFormatCurrentcy(discountCommissionFrom, "VND");
+            tryNumberFormatCurrentcy(discountCommissionTo, "VND");
+            tryNumberFormatCurrentcy(discountCommissionCommission, "VND");
+        }
+    }
+    discountCommissionFrom = null;
+    discountCommissionTo = null;
+    discountCommissionCommission = null;
+}
+function reformatDiscountCommissionDetail() {
+    var discountCommissionFrom = document.forms['discountForm'].discountCommissionFrom;
+    var discountCommissionTo = document.forms['discountForm'].discountCommissionTo;
+    var discountCommissionCommission = document.forms['discountForm'].discountCommissionCommission;
+    if (discountCommissionCommission != null) {
+        if (discountCommissionCommission.length != null) {
+            for (var i = 0; i < discountCommissionCommission.length; i++) {
+                reformatNumberMoney(discountCommissionFrom[i]);
+                reformatNumberMoney(discountCommissionTo[i]);
+                reformatNumberMoney(discountCommissionCommission[i]);
+            }
+        } else {
+            reformatNumberMoney(discountCommissionFrom);
+            reformatNumberMoney(discountCommissionTo);
+            reformatNumberMoney(discountCommissionCommission);
+        }
+    }
+    discountCommissionFrom = null;
+    discountCommissionTo = null;
+    discountCommissionCommission = null;
 }
 function delDiscount() {
     callAjaxCheckError('delDiscount.do?discountId=' + document.forms['discountForm'].id.value, null, null, function() {

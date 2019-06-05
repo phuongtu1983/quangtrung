@@ -17,6 +17,7 @@ import com.stepup.gasoline.qt.bean.EmployeeBean;
 import com.stepup.gasoline.qt.bean.CustomerBean;
 import com.stepup.gasoline.qt.bean.CustomerDocumentBean;
 import com.stepup.gasoline.qt.bean.DiscountBean;
+import com.stepup.gasoline.qt.bean.DiscountCommissionDetailBean;
 import com.stepup.gasoline.qt.bean.DocumentBean;
 import com.stepup.gasoline.qt.bean.VendorBean;
 import com.stepup.gasoline.qt.util.QTUtil;
@@ -535,7 +536,7 @@ public class CustomerDAO extends BasicDAO {
 
     public ArrayList getDiscounts() throws Exception {
         ResultSet rs = null;
-        String sql = "select * from discount where 1";
+        String sql = "select * from discount_oil where 1";
         sql += " order by name";
         ArrayList list = new ArrayList();
         try {
@@ -545,6 +546,7 @@ public class CustomerDAO extends BasicDAO {
                 bean = new DiscountFormBean();
                 bean.setId(rs.getInt("id"));
                 bean.setName(rs.getString("name"));
+                bean.setCode(rs.getString("code"));
                 bean.setNote(rs.getString("note"));
                 list.add(bean);
             }
@@ -562,13 +564,14 @@ public class CustomerDAO extends BasicDAO {
 
     public DiscountBean getDiscount(int discountId) throws Exception {
         ResultSet rs = null;
-        String sql = "select * from discount where id=" + discountId;
+        String sql = "select * from discount_oil where id=" + discountId;
         try {
             rs = DBUtil.executeQuery(sql);
             while (rs.next()) {
                 DiscountBean bean = new DiscountBean();
                 bean.setId(rs.getInt("id"));
                 bean.setName(rs.getString("name"));
+                bean.setCode(rs.getString("code"));
                 bean.setNote(rs.getString("note"));
                 return bean;
             }
@@ -593,6 +596,7 @@ public class CustomerDAO extends BasicDAO {
                 DiscountBean bean = new DiscountBean();
                 bean.setId(rs.getInt("id"));
                 bean.setName(rs.getString("name"));
+                bean.setCode(rs.getString("code"));
                 bean.setNote(rs.getString("note"));
                 return bean;
             }
@@ -608,15 +612,14 @@ public class CustomerDAO extends BasicDAO {
         return null;
     }
 
-    public void insertDiscount(DiscountBean bean) throws Exception {
+    public int insertDiscount(DiscountBean bean) throws Exception {
         if (bean == null) {
-            return;
+            return 0;
         }
         try {
             String sql = "";
-            sql = "Insert Into discount (name, note)"
-                    + " Values ('" + bean.getName() + "','" + bean.getNote() + "')";
-            DBUtil.executeInsert(sql);
+            sql = "Insert Into discount_oil (name, code, note) Values ('" + bean.getName() + "','" + bean.getCode() + "','" + bean.getNote() + "')";
+            return DBUtil.executeInsert(sql);
         } catch (SQLException sqle) {
             throw new Exception(sqle.getMessage());
         } catch (Exception ex) {
@@ -626,7 +629,6 @@ public class CustomerDAO extends BasicDAO {
             } catch (Exception e) {
                 throw new Exception(e.getMessage());
             }
-
         }
     }
 
@@ -635,8 +637,9 @@ public class CustomerDAO extends BasicDAO {
             return;
         }
         try {
-            String sql = "Update discount Set "
+            String sql = "Update discount_oil Set "
                     + " name='" + bean.getName() + "'"
+                    + ", code='" + bean.getCode() + "'"
                     + ", note='" + bean.getNote() + "'"
                     + " Where id=" + bean.getId();
             DBUtil.executeUpdate(sql);
@@ -652,17 +655,28 @@ public class CustomerDAO extends BasicDAO {
         }
     }
 
-    public int deleteDiscount(String ids) throws Exception {
-        int result = 0;
+    public void deleteDiscount(String ids) throws Exception {
+        SPUtil spUtil = null;
         try {
-            String sql = "Delete From discount Where id in (" + ids + ")";
-            DBUtil.executeUpdate(sql);
+            String sql = "{call deleteDiscount(?)}";
+            spUtil = new SPUtil(sql);
+            if (spUtil != null) {
+                spUtil.getCallableStatement().setString("_ids", ids);
+                spUtil.execute();
+            }
         } catch (SQLException sqle) {
             throw new Exception(sqle.getMessage());
         } catch (Exception ex) {
             throw new Exception(ex.getMessage());
+        } finally {
+            try {
+                if (spUtil != null) {
+                    spUtil.closeConnection();
+                }
+            } catch (Exception e) {
+                throw new Exception(e.getMessage());
+            }
         }
-        return result;
     }
 
     public ArrayList getAgencys(int status) throws Exception {
@@ -977,4 +991,108 @@ public class CustomerDAO extends BasicDAO {
         }
         return result;
     }
+
+    public ArrayList getDiscountCommissionDetail(int discountId) throws Exception {
+        ResultSet rs = null;
+        String sql = "select det.* from discount_oil_detail as det where det.discount_id=" + discountId + " order by det.id";
+        ArrayList detailList = new ArrayList();
+        try {
+            rs = DBUtil.executeQuery(sql);
+            DiscountCommissionDetailBean bean = null;
+            while (rs.next()) {
+                bean = new DiscountCommissionDetailBean();
+                bean.setId(rs.getInt("id"));
+                bean.setDiscountId(rs.getInt("discount_id"));
+                bean.setFrom(rs.getFloat("commission_from"));
+                bean.setTo(rs.getFloat("commission_to"));
+                bean.setCommission(rs.getFloat("commission"));
+                detailList.add(bean);
+            }
+        } catch (SQLException sqle) {
+            throw new Exception(sqle.getMessage());
+        } catch (Exception ex) {
+            throw new Exception(ex.getMessage());
+        } finally {
+            if (rs != null) {
+                DBUtil.closeConnection(rs);
+            }
+        }
+        return detailList;
+    }
+
+    public int insertDiscountCommissionDetail(DiscountCommissionDetailBean bean) throws Exception {
+        if (bean == null) {
+            return 0;
+        }
+        int result = 0;
+        SPUtil spUtil = null;
+        try {
+            String sql = "{call insertDiscountCommissionDetail(?,?,?,?)}";
+            spUtil = new SPUtil(sql);
+            if (spUtil != null) {
+                spUtil.getCallableStatement().setInt("_discount_id", bean.getDiscountId());
+                spUtil.getCallableStatement().setDouble("_commission_from", bean.getFrom());
+                spUtil.getCallableStatement().setDouble("_commission_to", bean.getTo());
+                spUtil.getCallableStatement().setDouble("_commission", bean.getCommission());
+                spUtil.execute();
+            }
+        } catch (SQLException sqle) {
+            throw new Exception(sqle.getMessage());
+        } catch (Exception ex) {
+            throw new Exception(ex.getMessage());
+        } finally {
+            try {
+                if (spUtil != null) {
+                    spUtil.closeConnection();
+                }
+            } catch (Exception e) {
+                throw new Exception(e.getMessage());
+            }
+        }
+        return result;
+    }
+
+    public void updateDiscountCommissionDetail(DiscountCommissionDetailBean bean) throws Exception {
+        if (bean == null) {
+            return;
+        }
+        SPUtil spUtil = null;
+        try {
+            String sql = "{call updateDiscountCommissionDetail(?,?,?,?)}";
+            spUtil = new SPUtil(sql);
+            if (spUtil != null) {
+                spUtil.getCallableStatement().setInt("_id", bean.getId());
+                spUtil.getCallableStatement().setDouble("_commission_from", bean.getFrom());
+                spUtil.getCallableStatement().setDouble("_commission_to", bean.getTo());
+                spUtil.getCallableStatement().setDouble("_commission", bean.getCommission());
+                spUtil.execute();
+            }
+        } catch (SQLException sqle) {
+            throw new Exception(sqle.getMessage());
+        } catch (Exception ex) {
+            throw new Exception(ex.getMessage());
+        } finally {
+            try {
+                if (spUtil != null) {
+                    spUtil.closeConnection();
+                }
+            } catch (Exception e) {
+                throw new Exception(e.getMessage());
+            }
+        }
+    }
+
+    public int deleteDiscountCommissionDetails(String ids) throws Exception {
+        int result = 0;
+        try {
+            String sql = "Delete From discount_oil_detail Where id in (" + ids + ")";
+            DBUtil.executeUpdate(sql);
+        } catch (SQLException sqle) {
+            throw new Exception(sqle.getMessage());
+        } catch (Exception ex) {
+            throw new Exception(ex.getMessage());
+        }
+        return result;
+    }
+
 }

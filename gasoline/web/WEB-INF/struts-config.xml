@@ -399,6 +399,9 @@
         </action>
         <action path="/delDiscount" type="com.stepup.gasoline.qt.discount.DeleteDiscountAction" scope="request" validate="false" >
         </action>
+        <action path="/getDiscountCommission" type="com.stepup.gasoline.qt.discount.GetDiscountCommissionAction" scope="request" validate="false">
+            <forward name="success" path="/discount/commissions.jsp" />
+        </action>
         <!-- end discount -->
         <!-- start employeeadvance -->
         <action path="/getEmployeeAdvancePanel" type="com.stepup.gasoline.qt.common.BaseStatusFormAction" scope="request" validate="false">

@@ -9,9 +9,9 @@ import com.stepup.gasoline.qt.bean.DiscountBean;
 import com.stepup.gasoline.qt.core.SpineAction;
 import com.stepup.gasoline.qt.dao.CustomerDAO;
 import com.stepup.gasoline.qt.util.Constants;
+import java.util.ArrayList;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import org.apache.commons.validator.GenericValidator;
 import org.apache.struts.action.ActionForm;
 import org.apache.struts.action.ActionMapping;
 
@@ -35,11 +35,13 @@ public class DiscountFormAction extends SpineAction {
     public boolean doAction(ActionMapping mapping, ActionForm form,
             HttpServletRequest request, HttpServletResponse response) {
         DiscountBean bean = null;
-        String discountId = request.getParameter("discountId");
-        if (!GenericValidator.isBlankOrNull(discountId)) {
+        int discountId = NumberUtil.parseInt(request.getParameter("discountId"), 0);
+        ArrayList arrFeeDetail = null;
+        if (discountId != 0) {
             CustomerDAO customerDAO = new CustomerDAO();
             try {
-                bean = customerDAO.getDiscount(NumberUtil.parseInt(discountId, 0));
+                bean = customerDAO.getDiscount(discountId);
+                arrFeeDetail = customerDAO.getDiscountCommissionDetail(discountId);
             } catch (Exception ex) {
             }
         }
@@ -47,6 +49,11 @@ public class DiscountFormAction extends SpineAction {
             bean = new DiscountBean();
         }
         request.setAttribute(Constants.DISCOUNT, bean);
+
+        if (arrFeeDetail == null) {
+            arrFeeDetail = new ArrayList();
+        }
+        request.setAttribute(Constants.DISCOUNT_COMMISSION, arrFeeDetail);
 
         return true;
     }
