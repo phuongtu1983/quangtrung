@@ -49,20 +49,24 @@ public class GetSaleOilOilAction extends SpineAction {
         try {
             GoodDAO goodDAO = new GoodDAO();
             bean = goodDAO.getLastSaleOilDetail(oilId, customerId);
-            if (bean != null && bean.getPrice() == 0) {
-                OilBean oilBean = goodDAO.getOil(oilId);
-                if (oilBean != null) {
-                    VendorDAO vendorDAO = new VendorDAO();
-                    VendorFormBean vendorFormBean = vendorDAO.getVendor(oilBean.getVendorId());
-                    if (vendorFormBean != null) {
-                        if (vendorFormBean.getCommissionOnImport() != 0) {
-                            bean.setPriceBeforeCommission(oilBean.getPrice());
+            if (bean != null) {
+                bean.setNo(NumberUtil.parseInt(request.getParameter("length"), 0));
+                if (bean.getPrice() == 0) {
+                    OilBean oilBean = goodDAO.getOil(oilId);
+                    if (oilBean != null) {
+                        VendorDAO vendorDAO = new VendorDAO();
+                        VendorFormBean vendorFormBean = vendorDAO.getVendor(oilBean.getVendorId());
+                        if (vendorFormBean != null) {
+                            if (vendorFormBean.getCommissionOnImport() != 0) {
+                                bean.setPriceBeforeCommission(oilBean.getPrice());
+                            }
                         }
                     }
                 }
             }
+
             arrUnit = goodDAO.getOilUnits(oilId);
-            
+
             OrganizationDAO orgDAO = new OrganizationDAO();
             String organizationIds = QTUtil.getOrganizationManageds(request.getSession());
             arrStore = orgDAO.getStores(organizationIds, VendorBean.IS_OIL);

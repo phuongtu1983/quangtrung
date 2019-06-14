@@ -25,9 +25,9 @@
                 </td>
                 <td><span><bean:write name="oil" property="oilName"/></span></td>
                 <td><span><bean:write name="oil" property="unitName"/></span></td>
-                <td><input type="text" size="20" name="quantity" value="${oil.quantity}" id="detquantity${oil.oilId}" onblur="return caculateFormListDetail('${oil.oilId}', 'oilImportForm');" onkeypress="return readonlyFloat(event);"/></td>
-                <td><input type="text" size="20" name="price" value="${oil.price}" id="detprice${oil.oilId}" onblur="return caculateFormListDetail('${oil.oilId}', 'oilImportForm');" onkeypress="return readonlyFloat(event);"/></td>
-                <td><input type="text" size="20" name="amount" value="${oil.amount}" id="detamount${oil.oilId}" readonly="readonly" tabindex="-1"/></td>
+                <td><input type="text" size="20" name="quantity" value="${oil.quantity}" id="detquantity${oil.no}_${oil.oilId}" onblur="return caculateFormListDetail('${oil.no}_${oil.oilId}', 'oilImportForm');" onkeypress="return readonlyFloat(event);"/></td>
+                <td><input type="text" size="20" name="price" value="${oil.price}" id="detprice${oil.no}_${oil.oilId}" onblur="return caculateFormListDetail('${oil.no}_${oil.oilId}', 'oilImportForm');" onkeypress="return readonlyFloat(event);"/></td>
+                <td><input type="text" size="20" name="amount" value="${oil.amount}" id="detamount${oil.no}_${oil.oilId}" readonly="readonly" tabindex="-1"/></td>
             </tr>
         </logic:iterate>
     </tbody>

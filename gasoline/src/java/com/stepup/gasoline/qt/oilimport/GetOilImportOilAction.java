@@ -46,6 +46,7 @@ public class GetOilImportOilAction extends SpineAction {
                 bean.setOilName(goodBean.getName());
                 bean.setOilId(goodBean.getId());
                 bean.setPrice(goodBean.getPrice());
+                bean.setNo(NumberUtil.parseInt(request.getParameter("length"), 0));
             }
             arrUnit = goodDAO.getOilUnits(oilId);
         } catch (Exception ex) {

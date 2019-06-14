@@ -651,8 +651,10 @@ function caculateListTotal(formName) {
     if (document.forms[formName].discount != null) {
         document.forms[formName].discount.value = 0;
     }
-    document.forms[formName].totalPay.value = sum;
-    tryNumberFormatCurrentcy(document.forms[formName].totalPay, "VND");
+    if (document.forms[formName].totalPay != null) {
+        document.forms[formName].totalPay.value = sum;
+        tryNumberFormatCurrentcy(document.forms[formName].totalPay, "VND");
+    }
     document.forms[formName].paid.value = 0;
     document.forms[formName].debt.value = sum;
     tryNumberFormatCurrentcy(document.forms[formName].total, "VND");
@@ -13177,14 +13179,14 @@ function formatAgencyCommissionDetail() {
     if (agencyCommissionCommission != null) {
         if (agencyCommissionCommission.length != null) {
             for (var i = 0; i < agencyCommissionCommission.length; i++) {
-                tryNumberFormatCurrentcy(agencyCommissionCommissionFrom[i], "VND");
-                tryNumberFormatCurrentcy(agencyCommissionCommissionTo[i], "VND");
-                tryNumberFormatCurrentcy(agencyCommissionCommission[i], "VND");
+                tryNumberFormatCurrentcy(agencyCommissionCommissionFrom[i], "USD");
+                tryNumberFormatCurrentcy(agencyCommissionCommissionTo[i], "USD");
+                tryNumberFormatCurrentcy(agencyCommissionCommission[i], "USD");
             }
         } else {
-            tryNumberFormatCurrentcy(agencyCommissionCommissionFrom, "VND");
-            tryNumberFormatCurrentcy(agencyCommissionCommissionTo, "VND");
-            tryNumberFormatCurrentcy(agencyCommissionCommission, "VND");
+            tryNumberFormatCurrentcy(agencyCommissionCommissionFrom, "USD");
+            tryNumberFormatCurrentcy(agencyCommissionCommissionTo, "USD");
+            tryNumberFormatCurrentcy(agencyCommissionCommission, "USD");
         }
     }
     agencyCommissionCommissionFrom = null;
@@ -13579,7 +13581,7 @@ function addOilImportOil() {
     var oil = document.forms['oilImportForm'].oilSelectedHidden.value;
 //    if (oil == -1 || oil == 0)
 //        return false;
-//    var oilId = document.forms['oilImportForm'].oilId;
+    var oilId = document.forms['oilImportForm'].oilId;
 //    var existed = false;
 //    if (oilId != null) {
 //        if (oilId.length != null) {
@@ -13597,7 +13599,15 @@ function addOilImportOil() {
 //        alert("H\u00E0ng ho\u00E1 \u0111\u00E3 t\u1ED3n t\u1EA1i");
 //        return false;
 //    }
-    callAjax("getOilImportOil.do?oilId=" + oil, null, null, function(data) {
+    var length = 0;
+    if (oilId != null) {
+        if (oilId.length != null)
+            length = oilId.length;
+        else
+            length = 1;
+    }
+    oilId = null;
+    callAjax("getOilImportOil.do?oilId=" + oil + "&length=" + length, null, null, function(data) {
         setAjaxData(data, 'oilImportOilHideDiv');
         var matTable = document.getElementById('oilImportOilTbl');
         var detTable = document.getElementById('oilImportDetailTbl');
@@ -13652,11 +13662,11 @@ function loadSaleOilPanel() {
 function loadSaleOilList(fromDate, toDate) {
     var mygrid = new dhtmlXGridObject('saleOilList');
     mygrid.setImagePath("js/dhtmlx/grid/imgs/");
-    mygrid.setHeader("M\u00E3 phi\u1EBFu,Ng\u00E0y,T\u1ED5ng ti\u1EC1n,Thanh to\u00E1n,C\u00F2n n\u1EE3,Ghi ch\u00FA");
-    mygrid.attachHeader("#text_filter,#text_filter,#text_filter,#text_filter,#text_filter,#text_filter");
-    mygrid.setInitWidths("150,100,150,150,*");
-    mygrid.setColTypes("link,ro,ro,ro,ro");
-    mygrid.setColSorting("str,str,str,str,str");
+    mygrid.setHeader("M\u00E3 phi\u1EBFu,Ng\u00E0y,Kh\u00E1ch h\u00E0ng,T\u1ED5ng ti\u1EC1n,Thanh to\u00E1n,C\u00F2n n\u1EE3,Ghi ch\u00FA");
+    mygrid.attachHeader("#text_filter,#text_filter,#text_filter,#text_filter,#text_filter,#text_filter,#text_filter");
+    mygrid.setInitWidths("150,100,150,150,150,*");
+    mygrid.setColTypes("link,ro,ro,ro,ro,ro");
+    mygrid.setColSorting("str,str,str,str,str,str");
     mygrid.setSkin("light");
     var height = contentHeight - 210;
     mygrid.al(true, height); //enableAutoHeight
@@ -13878,9 +13888,19 @@ function saveSaleOil() {
     return false;
 }
 function addSaleOilOil() {
+    var oilId = document.forms['saleOilForm'].oilId;
+    var length = 0;
+    if (oilId != null) {
+        if (oilId.length != null)
+            length = oilId.length;
+        else
+            length = 1;
+    }
+    oilId = null;
+
     var oil = document.forms['saleOilForm'].oilSelectedHidden.value;
     var customer = document.forms['saleOilForm'].customerSelectedHidden.value;
-    callAjax("getSaleOilOil.do?oilId=" + oil + "&customerId=" + customer, null, null, function(data) {
+    callAjax("getSaleOilOil.do?oilId=" + oil + "&customerId=" + customer + "&length=" + length, null, null, function(data) {
         setAjaxData(data, 'saleOilOilHideDiv');
         var matTable = document.getElementById('saleOilOilTbl');
         var detTable = document.getElementById('saleOilDetailTbl');

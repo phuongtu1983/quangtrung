@@ -25,6 +25,7 @@ public class SaleOilFormBean extends org.apache.struts.action.ActionForm {
     private String note;
     private int canEdit;
     private int customerId;
+    private String customerName;
     private float commission;
     private int commissionKind;
     private float commissionAmount;
@@ -391,6 +392,14 @@ public class SaleOilFormBean extends org.apache.struts.action.ActionForm {
 
     public void setPromotionMaterialStoreId(String[] promotionMaterialStoreId) {
         this.promotionMaterialStoreId = promotionMaterialStoreId;
+    }
+
+    public String getCustomerName() {
+        return customerName;
+    }
+
+    public void setCustomerName(String customerName) {
+        this.customerName = customerName;
     }
 
 }

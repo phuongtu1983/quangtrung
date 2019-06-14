@@ -170,9 +170,9 @@ public class AddAgencyAction extends SpineAction {
                     id = NumberUtil.parseInt(formBean.getAgencyCommissionDetailId()[i], 0);
                     if (id == 0) {
                         AgencyCommissionDetailBean bean = new AgencyCommissionDetailBean();
-                        bean.setCommissionFrom(NumberUtil.parseInt(formBean.getAgencyCommissionCommissionFrom()[i], 0));
-                        bean.setCommissionTo(NumberUtil.parseInt(formBean.getAgencyCommissionCommissionTo()[i], 0));
-                        bean.setCommission(NumberUtil.parseInt(formBean.getAgencyCommissionCommission()[i], 0));
+                        bean.setCommissionFrom(NumberUtil.parseFloat(formBean.getAgencyCommissionCommissionFrom()[i], 0));
+                        bean.setCommissionTo(NumberUtil.parseFloat(formBean.getAgencyCommissionCommissionTo()[i], 0));
+                        bean.setCommission(NumberUtil.parseFloat(formBean.getAgencyCommissionCommission()[i], 0));
                         bean.setAgencyId(formBean.getId());
                         customerDAO.insertAgencyCommissionDetail(bean);
                     } else {
@@ -187,17 +187,17 @@ public class AddAgencyAction extends SpineAction {
                         }
                         if (j < arrDetail.size()) {
                             arrDetail.remove(j);
-                            if (oldBean.getCommissionFrom() != NumberUtil.parseInt(formBean.getAgencyCommissionCommissionFrom()[i], 0)) {
+                            if (oldBean.getCommissionFrom() != NumberUtil.parseFloat(formBean.getAgencyCommissionCommissionFrom()[i], 0)) {
                                 isUpdate = true;
-                                oldBean.setCommissionFrom(NumberUtil.parseInt(formBean.getAgencyCommissionCommissionFrom()[i], 0));
+                                oldBean.setCommissionFrom(NumberUtil.parseFloat(formBean.getAgencyCommissionCommissionFrom()[i], 0));
                             }
-                            if (oldBean.getCommissionTo() != NumberUtil.parseInt(formBean.getAgencyCommissionCommissionTo()[i], 0)) {
+                            if (oldBean.getCommissionTo() != NumberUtil.parseFloat(formBean.getAgencyCommissionCommissionTo()[i], 0)) {
                                 isUpdate = true;
-                                oldBean.setCommissionTo(NumberUtil.parseInt(formBean.getAgencyCommissionCommissionTo()[i], 0));
+                                oldBean.setCommissionTo(NumberUtil.parseFloat(formBean.getAgencyCommissionCommissionTo()[i], 0));
                             }
-                            if (oldBean.getCommission() != NumberUtil.parseInt(formBean.getAgencyCommissionCommission()[i], 0)) {
+                            if (oldBean.getCommission() != NumberUtil.parseFloat(formBean.getAgencyCommissionCommission()[i], 0)) {
                                 isUpdate = true;
-                                oldBean.setCommission(NumberUtil.parseInt(formBean.getAgencyCommissionCommission()[i], 0));
+                                oldBean.setCommission(NumberUtil.parseFloat(formBean.getAgencyCommissionCommission()[i], 0));
                             }
                             if (isUpdate) {
                                 customerDAO.updateAgencyCommissionDetail(oldBean);

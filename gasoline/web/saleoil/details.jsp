@@ -31,15 +31,15 @@
                 <td><span><bean:write name="oil" property="oilName"/></span></td>
                 <td><span><bean:write name="oil" property="unitName"/></span></td>
                 <td><span><bean:write name="oil" property="storeName"/></span></td>
-                <td><input type="text" size="20" name="quantity" value="${oil.quantity}" id="detquantity${oil.oilId}" onblur="return caculateSaleOilListDetail('${oil.oilId}', 'saleOilForm');" onkeypress="return readonlyFloat(event);"/></td>
-                <td><input type="text" size="20" name="priceBeforeCommission" id="detpricebeforecommission${oil.oilId}" value="${oil.priceBeforeCommission}" onblur="return caculateSaleOilListDetail('${oil.oilId}', 'saleOilForm');" onkeypress="return readonlyFloat(event);"/></td>
-                <td><input type="text" size="20" name="commissionPrice" id="detcommissionprice${oil.oilId}" value="${oil.commissionPrice}" onblur="return caculateSaleOilListDetail('${oil.oilId}', 'saleOilForm');" onkeypress="return readonlyFloat(event);"/></td>
-                <td><input type="text" size="20" name="gapAgencyAmountDetail" id="detgapagencyamount${oil.oilId}" value="${oil.gapAgencyAmount}" onblur="return caculateSaleOilListDetail('${oil.oilId}', 'saleOilForm');" onkeypress="return readonlyFloat(event);"/></td>
-                <td><input type="text" size="20" name="gapCustomerAmountDetail" id="detgapcustomeramount${oil.oilId}" value="${oil.gapCustomerAmount}" onblur="return caculateSaleOilListDetail('${oil.oilId}', 'saleOilForm');" onkeypress="return readonlyFloat(event);"/></td>
-                <td><input type="text" size="20" name="price" id="detprice${oil.oilId}" value="${oil.price}" readonly="readonly" tabindex="-1"/></td>
-                <td><input type="text" size="20" name="firstAmount" id="detfirstamount${oil.oilId}" value="${oil.firstAmount}" readonly="readonly" tabindex="-1"/></td>
-                <td><input type="text" size="20" name="commissionDetail" id="detcommission${oil.oilId}" value="${oil.commission}" onblur="return caculateSaleOilListDetail('${oil.oilId}', 'saleOilForm');" onkeypress="return readonlyFloat(event);"/></td>
-                <td><input type="text" size="20" name="amount" value="${oil.amount}" id="detamount${oil.oilId}" readonly="readonly" tabindex="-1"/></td>
+                <td><input type="text" size="20" name="quantity" value="${oil.quantity}" id="detquantity${oil.no}_${oil.oilId}" onblur="return caculateSaleOilListDetail('${oil.no}_${oil.oilId}', 'saleOilForm');" onkeypress="return readonlyFloat(event);"/></td>
+                <td><input type="text" size="20" name="priceBeforeCommission" id="detpricebeforecommission${oil.no}_${oil.oilId}" value="${oil.priceBeforeCommission}" onblur="return caculateSaleOilListDetail('${oil.no}_${oil.oilId}', 'saleOilForm');" onkeypress="return readonlyFloat(event);"/></td>
+                <td><input type="text" size="20" name="commissionPrice" id="detcommissionprice${oil.no}_${oil.oilId}" value="${oil.commissionPrice}" onblur="return caculateSaleOilListDetail('${oil.no}_${oil.oilId}', 'saleOilForm');" onkeypress="return readonlyFloat(event);"/></td>
+                <td><input type="text" size="20" name="gapAgencyAmountDetail" id="detgapagencyamount${oil.no}_${oil.oilId}" value="${oil.gapAgencyAmount}" onblur="return caculateSaleOilListDetail('${oil.no}_${oil.oilId}', 'saleOilForm');" onkeypress="return readonlyFloat(event);"/></td>
+                <td><input type="text" size="20" name="gapCustomerAmountDetail" id="detgapcustomeramount${oil.no}_${oil.oilId}" value="${oil.gapCustomerAmount}" onblur="return caculateSaleOilListDetail('${oil.no}_${oil.oilId}', 'saleOilForm');" onkeypress="return readonlyFloat(event);"/></td>
+                <td><input type="text" size="20" name="price" id="detprice${oil.no}_${oil.oilId}" value="${oil.price}" readonly="readonly" tabindex="-1"/></td>
+                <td><input type="text" size="20" name="firstAmount" id="detfirstamount${oil.no}_${oil.oilId}" value="${oil.firstAmount}" readonly="readonly" tabindex="-1"/></td>
+                <td><input type="text" size="20" name="commissionDetail" id="detcommission${oil.no}_${oil.oilId}" value="${oil.commission}" onblur="return caculateSaleOilListDetail('${oil.no}_${oil.oilId}', 'saleOilForm');" onkeypress="return readonlyFloat(event);"/></td>
+                <td><input type="text" size="20" name="amount" value="${oil.amount}" id="detamount${oil.no}_${oil.oilId}" readonly="readonly" tabindex="-1"/></td>
             </tr>
         </logic:iterate>
     </tbody>

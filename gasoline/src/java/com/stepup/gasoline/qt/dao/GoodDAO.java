@@ -4165,8 +4165,10 @@ public class GoodDAO extends BasicDAO {
         try {
             rs = DBUtil.executeQuery(sql);
             OilImportDetailBean bean = null;
+            int length = 0;
             while (rs.next()) {
                 bean = new OilImportDetailBean();
+                bean.setNo(length++);
                 bean.setId(rs.getInt("id"));
                 bean.setOilImportId(rs.getInt("oil_import_id"));
                 bean.setQuantity(rs.getInt("quantity"));
@@ -4452,6 +4454,7 @@ public class GoodDAO extends BasicDAO {
                         bean = new SaleOilFormBean();
                         bean.setId(rs.getInt("id"));
                         bean.setCode(rs.getString("code"));
+                        bean.setCustomerName(rs.getString("customer_name"));
                         bean.setCreatedDate(DateUtil.formatDate(rs.getDate("created_date"), "dd/MM/yyyy"));
                         bean.setTotal(rs.getDouble("total"));
                         bean.setPaid(rs.getDouble("paid"));
@@ -4534,8 +4537,10 @@ public class GoodDAO extends BasicDAO {
         try {
             rs = DBUtil.executeQuery(sql);
             SaleOilDetailBean bean = null;
+            int lenght = 0;
             while (rs.next()) {
                 bean = new SaleOilDetailBean();
+                bean.setNo(lenght++);
                 bean.setId(rs.getInt("id"));
                 bean.setSaleOilId(rs.getInt("oil_sale_id"));
                 bean.setQuantity(rs.getInt("quantity"));

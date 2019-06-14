@@ -10,6 +10,7 @@ package com.stepup.gasoline.qt.bean;
  */
 public class OilImportDetailBean {
 
+    private int no;
     private int id;
     private int oilImportId;
     private int oilId;
@@ -90,6 +91,14 @@ public class OilImportDetailBean {
 
     public void setUnitName(String unitName) {
         this.unitName = unitName;
+    }
+
+    public int getNo() {
+        return no;
+    }
+
+    public void setNo(int no) {
+        this.no = no;
     }
 
 }

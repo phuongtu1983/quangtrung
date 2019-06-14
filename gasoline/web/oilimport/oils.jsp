@@ -16,9 +16,9 @@
                     <html:options collection="<%=Constants.UNIT_LIST%>" property="id" labelProperty="name"/>
                 </html:select>
             </td>
-            <td><input type="text" size="20" name="quantity" id="detquantity${oil.oilId}" value="0" onblur="return caculateFormListDetail('${oil.oilId}', 'oilImportForm');" onkeypress="return readonlyFloat(event);"/></td>
-            <td><input type="text" size="20" name="price" id="detprice${oil.oilId}" value="${oil.price}" onblur="return caculateFormListDetail('${oil.oilId}', 'oilImportForm');" onkeypress="return readonlyFloat(event);"/></td>
-            <td><input type="text" size="20" name="amount" id="detamount${oil.oilId}" value="0" readonly="readonly" tabindex="-1"/></td>
+            <td><input type="text" size="20" name="quantity" id="detquantity${oil.no}_${oil.oilId}" value="0" onblur="return caculateFormListDetail('${oil.no}_${oil.oilId}', 'oilImportForm');" onkeypress="return readonlyFloat(event);"/></td>
+            <td><input type="text" size="20" name="price" id="detprice${oil.no}_${oil.oilId}" value="${oil.price}" onblur="return caculateFormListDetail('${oil.no}_${oil.oilId}', 'oilImportForm');" onkeypress="return readonlyFloat(event);"/></td>
+            <td><input type="text" size="20" name="amount" id="detamount${oil.no}_${oil.oilId}" value="0" readonly="readonly" tabindex="-1"/></td>
         </tr>
     </logic:iterate>
 </table>

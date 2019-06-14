@@ -10,6 +10,7 @@ package com.stepup.gasoline.qt.bean;
  */
 public class SaleOilDetailBean {
 
+    private int no;
     private int id;
     private int saleOilId;
     private int oilId;
@@ -180,6 +181,14 @@ public class SaleOilDetailBean {
 
     public void setStoreName(String storeName) {
         this.storeName = storeName;
+    }
+
+    public int getNo() {
+        return no;
+    }
+
+    public void setNo(int no) {
+        this.no = no;
     }
 
 }
