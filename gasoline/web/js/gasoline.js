@@ -406,6 +406,8 @@ function menuClick(id) {
         loadOilImportPanel();
     else if (id == 'oilimportadd')
         getOilImport(0);
+    else if (id == 'oilexportlist')
+        loadOilExportPanel();
     else if (id == 'saleoillist')
         loadSaleOilPanel();
     else if (id == 'saleoiladd')
@@ -655,10 +657,14 @@ function caculateListTotal(formName) {
         document.forms[formName].totalPay.value = sum;
         tryNumberFormatCurrentcy(document.forms[formName].totalPay, "VND");
     }
-    document.forms[formName].paid.value = 0;
-    document.forms[formName].debt.value = sum;
+    if (document.forms[formName].paid != null) {
+        document.forms[formName].paid.value = 0;
+    }
+    if (document.forms[formName].debt != null) {
+        document.forms[formName].debt.value = sum;
+        tryNumberFormatCurrentcy(document.forms[formName].debt, "VND");
+    }
     tryNumberFormatCurrentcy(document.forms[formName].total, "VND");
-    tryNumberFormatCurrentcy(document.forms[formName].debt, "VND");
     return false;
 }
 function logout() {
@@ -13695,7 +13701,7 @@ function getSaleOil(id) {
             document.forms['saleOilForm'].saleOilCreatedDate.value = currentDate;
         }
 
-        var myCalendar = new dhtmlXCalendarObject(["saleOilCreatedDate", "saleOilExportDate"]);
+        var myCalendar = new dhtmlXCalendarObject(["saleOilCreatedDate"]);
         myCalendar.setSkin('dhx_web');
         myCalendar.setDateFormat("%d/%m/%Y");
 
@@ -14327,10 +14333,6 @@ function printOilComapreReport(fromDate, toDate) {
     callServer(url);
     return false;
 }
-function printSaleOil(saleOilId) {
-    callServer("reportSaleOil.do?saleOilId=" + saleOilId);
-    return false;
-}
 function showOilVendorStockReportPanel() {
     popupName = 'B\u1EA3ng theo d\u00F5i nh\u1EADp xu\u1EA5t t\u1ED3n t\u1ED5ng kho';
     var url = 'getOilVendorStockReportPanel.do';
@@ -14564,7 +14566,125 @@ function saveSaleOilReturnStore() {
     });
     return false;
 }
+function loadOilExportPanel() {
+    callAjax("getOilExportPanel.do", null, null, function(data) {
+        clearContent();
+        setAjaxData(data, "contentDiv");
+        var myCalendar = new dhtmlXCalendarObject(["fromDate", "toDate"]);
+        myCalendar.setSkin('dhx_web');
+        var currentTime = getCurrentDate();
+        document.forms['oilExportSearchForm'].fromDate.value = currentTime;
+        document.forms['oilExportSearchForm'].toDate.value = currentTime;
+        myCalendar.setDateFormat("%d/%m/%Y");
+        loadOilExportList(currentTime, currentTime);
+    });
+    return false;
+}
+function loadOilExportList(fromDate, toDate) {
+    var mygrid = new dhtmlXGridObject('oilExportList');
+    mygrid.setImagePath("js/dhtmlx/grid/imgs/");
+    mygrid.setHeader("M\u00E3 phi\u1EBFu,Ng\u00E0y,Kh\u00E1ch h\u00E0ng,T\u1ED5ng ti\u1EC1n,Ghi ch\u00FA");
+    mygrid.attachHeader("#text_filter,#text_filter,#select_filter,#text_filter,#text_filter");
+    mygrid.setInitWidths("150,100,150,*");
+    mygrid.setColTypes("link,ro,ro,ro");
+    mygrid.setColSorting("str,str,str,str");
+    mygrid.setSkin("light");
+    var height = contentHeight - 210;
+    mygrid.al(true, height); //enableAutoHeight
+    mygrid.enablePaging(true, 15, 3, "recinfoArea");
+    mygrid.setPagingSkin("toolbar", "dhx_skyblue");
+    mygrid.init();
+    var url = "getOilExportList.do?t=1";
+    if (fromDate != null)
+        url += "&fromDate=" + fromDate;
+    if (toDate != null)
+        url += "&toDate=" + toDate;
+    callAjax(url, null, null, function(data) {
+        mygrid.parse(data);
+    });
+    return false;
+}
+function getOilExport(id, oilSaleId) {
+    var url = 'oilExportForm.do?oilExportId=' + id + '&oilSaleId=' + oilSaleId;
+    if (id == 0) {
+        url += "&saleOilDetailIds=" + getCheckedTableRow('saleOilForm', 'saleOilOilChk');
+    }
+    callAjax(url, null, null, function(data) {
+        clearContent();
+        setAjaxData(data, 'contentDiv');
+        if (id == 0) {
+            var currentDate = getCurrentDate();
+            document.forms['oilExportForm'].oilExportCreatedDate.value = currentDate;
+        }
+        var myCalendar = new dhtmlXCalendarObject(["oilExportCreatedDate"]);
+        myCalendar.setSkin('dhx_web');
+        myCalendar.setDateFormat("%d/%m/%Y");
 
-
+        tryNumberFormatCurrentcy(document.forms['oilExportForm'].total, "VND");
+        formatFormDetail('oilExportForm');
+    });
+    if (id == 0)
+        return false;
+}
+function saveOilExport() {
+    if (scriptFunction == "saveOilExport")
+        return false;
+    var quantity = document.forms['oilExportForm'].quantity;
+    if (quantity == null) {
+        alert('Vui l\u00F2ng ch\u1ECDn h\u00E0ng h\u00F3a');
+        return false;
+    }
+    var price = document.forms['oilExportForm'].price;
+    var amount = document.forms['oilExportForm'].amount;
+    if (quantity.length != null) {
+        for (var i = 0; i < quantity.length; i++) {
+            var number = Number(quantity[i].value);
+            if (number == 0) {
+                alert('Vui l\u00F2ng nh\u1EADp s\u1ED1 l\u01B0\u1EE3ng');
+                quantity[i].focus();
+                quantity = null;
+                return false;
+            }
+            reformatNumberMoney(quantity[i]);
+            reformatNumberMoney(price[i]);
+            reformatNumberMoney(amount[i]);
+        }
+    } else {
+        if (quantity.value == "0") {
+            alert('Vui l\u00F2ng nh\u1EADp s\u1ED1 l\u01B0\u1EE3ng');
+            quantity.focus();
+            quantity = null;
+            return false;
+        }
+        reformatNumberMoney(quantity);
+        reformatNumberMoney(price);
+        reformatNumberMoney(amount);
+    }
+    quantity = null;
+    price = null;
+    amount = null;
+    reformatNumberMoney(document.forms['oilExportForm'].total);
+    scriptFunction = "saveOilExport";
+    callAjaxCheckError("addOilExport.do", null, document.forms['oilExportForm'], function(data) {
+        scriptFunction = "";
+        loadOilExportPanel();
+    });
+    return false;
+}
+function delOilExport() {
+    callAjaxCheckError('delOilExport.do?oilExportId=' + document.forms['oilExportForm'].id.value, null, null, function() {
+        loadOilExportPanel();
+    });
+    return false;
+}
+function delOilExportDetail() {
+    delTableRow('oilExportForm', 'oilExportOilChk', 'oilExportDetailTbl');
+    caculateListTotal('oilExportForm');
+    return false;
+}
+function printOilExport(oilExportId) {
+    callServer("reportOilExport.do?oilExportId=" + oilExportId);
+    return false;
+}
 
 

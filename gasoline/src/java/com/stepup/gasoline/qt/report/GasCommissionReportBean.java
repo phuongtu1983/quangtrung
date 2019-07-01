@@ -19,6 +19,9 @@ public class GasCommissionReportBean {
     private int accessoryKindId;
     private int quantityAccessory;
     private double commissionAccessory;
+    private int employeeOilCommissionId;
+    private int quantityEmployeeOilCommission;
+    private double commissionEmployeeOilCommission;
     private double amount;
     private String vehiclePlate;
 
@@ -100,6 +103,30 @@ public class GasCommissionReportBean {
 
     public void setVehiclePlate(String vehiclePlate) {
         this.vehiclePlate = vehiclePlate;
+    }
+
+    public int getEmployeeOilCommissionId() {
+        return employeeOilCommissionId;
+    }
+
+    public void setEmployeeOilCommissionId(int employeeOilCommissionId) {
+        this.employeeOilCommissionId = employeeOilCommissionId;
+    }
+
+    public int getQuantityEmployeeOilCommission() {
+        return quantityEmployeeOilCommission;
+    }
+
+    public void setQuantityEmployeeOilCommission(int quantityEmployeeOilCommission) {
+        this.quantityEmployeeOilCommission = quantityEmployeeOilCommission;
+    }
+
+    public double getCommissionEmployeeOilCommission() {
+        return commissionEmployeeOilCommission;
+    }
+
+    public void setCommissionEmployeeOilCommission(double commissionEmployeeOilCommission) {
+        this.commissionEmployeeOilCommission = commissionEmployeeOilCommission;
     }
 
 }

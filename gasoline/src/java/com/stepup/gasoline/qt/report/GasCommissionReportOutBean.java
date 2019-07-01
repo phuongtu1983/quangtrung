@@ -13,6 +13,7 @@ public class GasCommissionReportOutBean {
 
     private String employeeIds;
     private String accessoryKindIds;
+    private String employeeOilCommissionIds;
     private double commission12;
     private double commission45;
     private double commissionLoVo;
@@ -55,6 +56,14 @@ public class GasCommissionReportOutBean {
 
     public void setAccessoryKindIds(String accessoryKindIds) {
         this.accessoryKindIds = accessoryKindIds;
+    }
+
+    public String getEmployeeOilCommissionIds() {
+        return employeeOilCommissionIds;
+    }
+
+    public void setEmployeeOilCommissionIds(String employeeOilCommissionIds) {
+        this.employeeOilCommissionIds = employeeOilCommissionIds;
     }
 
 }

@@ -19,6 +19,7 @@ import com.stepup.gasoline.qt.dao.GoodDAO;
 import com.stepup.gasoline.qt.dao.ReportDAO;
 import com.stepup.gasoline.qt.dao.VendorDAO;
 import com.stepup.gasoline.qt.employee.EmployeeFormBean;
+import com.stepup.gasoline.qt.employeeoilcommission.EmployeeOilCommissionFormBean;
 import com.stepup.gasoline.qt.oil.OilFormBean;
 import com.stepup.gasoline.qt.petro.PetroFormBean;
 import com.stepup.gasoline.qt.util.QTUtil;
@@ -158,7 +159,7 @@ public class PrintReportAction extends BaseAction {
                     templateFileName = "so_theo_doi_nxt_tong_hop_oil";
                     String session = QTUtil.getEmployeeId(request.getSession()) + "_" + Calendar.getInstance().getTimeInMillis();
                     printOilStockReport(fromDate, toDate, organizationIds, request, response, templateFileName, session, beans, exporter);
-                }else if (reportName.equals("reportoilsale")) {
+                } else if (reportName.equals("reportoilsale")) {
                     templateFileName = "hang_xuat_oil";
                     list = printOilSaleReport(fromDate, toDate, organizationIds);
                 }
@@ -360,9 +361,10 @@ public class PrintReportAction extends BaseAction {
             ArrayList arrHideCol = new ArrayList();
             arrHideCol.add(5);
             arrHideCol.add(6);
+            arrHideCol.add(7);
 
             GasCommissionReportOutBean outBean = new GasCommissionReportOutBean();
-            list = reportDAO.getGasCommissionReport(fromDate, toDate, organizationIds, 0, 0, sessionId, outBean);
+            list = reportDAO.getGasCommissionReport(fromDate, toDate, organizationIds, 0, 0, 0, sessionId, outBean);
 
             EmployeeDAO employeeDAO = new EmployeeDAO();
             ArrayList employees = employeeDAO.getEmployees(outBean.getEmployeeIds());
@@ -370,28 +372,40 @@ public class PrintReportAction extends BaseAction {
             GoodDAO goodDAO = new GoodDAO();
             ArrayList accessoryKinds = goodDAO.getAccessoryKinds(outBean.getAccessoryKindIds());
 
+            ArrayList employeeOilComissionKinds = employeeDAO.getEmployeeOilCommissions(outBean.getEmployeeOilCommissionIds());
+
             beans.put("datedata", list);
             beans.put("qtrp_commission12", outBean.getCommission12());
             beans.put("qtrp_commission45", outBean.getCommission45());
             beans.put("qtrp_commission_lovo", outBean.getCommissionLoVo());
 
-            DynamicColumnExcelReporter.createGasCommissionReportColumns(tempFileName, employees, accessoryKinds, f);
+            DynamicColumnExcelReporter.createGasCommissionReportColumns(tempFileName, employees, accessoryKinds, employeeOilComissionKinds, f);
 
             AccessoryKindFormBean accessoryKind = null;
             for (int i = 0; i < accessoryKinds.size(); i++) {
                 accessoryKind = (AccessoryKindFormBean) accessoryKinds.get(i);
                 try {
-                    list = reportDAO.getGasCommissionReport(fromDate, toDate, organizationIds, 1, accessoryKind.getId(), sessionId, null);
+                    list = reportDAO.getGasCommissionReport(fromDate, toDate, organizationIds, 1, accessoryKind.getId(), 0, sessionId, null);
                 } catch (Exception ex) {
                 }
                 beans.put("accessorydata" + accessoryKind.getId(), list);
+            }
+
+            EmployeeOilCommissionFormBean employeeOilCommission = null;
+            for (int i = 0; i < employeeOilComissionKinds.size(); i++) {
+                employeeOilCommission = (EmployeeOilCommissionFormBean) employeeOilComissionKinds.get(i);
+                try {
+                    list = reportDAO.getGasCommissionReport(fromDate, toDate, organizationIds, 1, 0, employeeOilCommission.getId(), sessionId, null);
+                } catch (Exception ex) {
+                }
+                beans.put("employeeoilcommissiondata" + employeeOilCommission.getId(), list);
             }
 
             EmployeeFormBean employee = null;
             for (int i = 0; i < employees.size(); i++) {
                 employee = (EmployeeFormBean) employees.get(i);
                 try {
-                    list = reportDAO.getGasCommissionReport(fromDate, toDate, organizationIds, employee.getId(), 0, sessionId, null);
+                    list = reportDAO.getGasCommissionReport(fromDate, toDate, organizationIds, employee.getId(), 0, 0, sessionId, null);
                 } catch (Exception ex) {
                 }
                 beans.put("dynamicdata" + employee.getId(), list);
@@ -852,7 +866,7 @@ public class PrintReportAction extends BaseAction {
             System.out.println(ex);
         }
     }
-    
+
     private ArrayList printOilSaleReport(String fromDate, String toDate, String organizationIds) {
         ArrayList list = null;
         try {

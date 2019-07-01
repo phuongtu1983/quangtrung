@@ -4,7 +4,6 @@
  */
 package com.stepup.gasoline.qt.saleoilreturnstore;
 
-import com.stepup.core.util.NumberUtil;
 import com.stepup.gasoline.qt.bean.SaleOilReturnStoreBean;
 import com.stepup.gasoline.qt.bean.VendorBean;
 import com.stepup.gasoline.qt.core.SpineAction;
@@ -15,7 +14,6 @@ import com.stepup.gasoline.qt.util.QTUtil;
 import java.util.ArrayList;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import org.apache.commons.validator.GenericValidator;
 import org.apache.struts.action.ActionForm;
 import org.apache.struts.action.ActionMapping;
 

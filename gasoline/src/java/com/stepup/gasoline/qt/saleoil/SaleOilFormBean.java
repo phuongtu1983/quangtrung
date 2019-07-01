@@ -31,8 +31,6 @@ public class SaleOilFormBean extends org.apache.struts.action.ActionForm {
     private float commissionAmount;
     private float gapCustomerAmount;
     private float gapAgencyAmount;
-    private String exportNumber;
-    private String exportDate;
     private boolean isCalculateAgencyCommission;
     private String[] saleOilDetailId;
     private String[] oilId;
@@ -77,8 +75,6 @@ public class SaleOilFormBean extends org.apache.struts.action.ActionForm {
         this.commissionAmount = bean.getCommissionAmount();
         this.gapCustomerAmount = bean.getGapCustomerAmount();
         this.gapAgencyAmount = bean.getGapAgencyAmount();
-        this.exportDate = bean.getExportDate();
-        this.exportNumber = bean.getExportNumber();
         this.isCalculateAgencyCommission = bean.getIsCalculateAgencyCommission() == 1 ? true : false;
     }
 
@@ -328,22 +324,6 @@ public class SaleOilFormBean extends org.apache.struts.action.ActionForm {
 
     public void setStoreId(String[] storeId) {
         this.storeId = storeId;
-    }
-
-    public String getExportNumber() {
-        return exportNumber;
-    }
-
-    public void setExportNumber(String exportNumber) {
-        this.exportNumber = exportNumber;
-    }
-
-    public String getExportDate() {
-        return exportDate;
-    }
-
-    public void setExportDate(String exportDate) {
-        this.exportDate = exportDate;
     }
 
     public boolean getIsCalculateAgencyCommission() {

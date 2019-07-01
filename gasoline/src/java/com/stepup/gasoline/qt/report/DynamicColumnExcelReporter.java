@@ -11,6 +11,7 @@ import com.stepup.gasoline.qt.accessorykind.AccessoryKindFormBean;
 import com.stepup.gasoline.qt.bean.DayoffBean;
 import com.stepup.gasoline.qt.core.ExcelExport;
 import com.stepup.gasoline.qt.employee.EmployeeFormBean;
+import com.stepup.gasoline.qt.employeeoilcommission.EmployeeOilCommissionFormBean;
 import com.stepup.gasoline.qt.oil.OilFormBean;
 import com.stepup.gasoline.qt.petro.PetroFormBean;
 import java.io.File;
@@ -154,7 +155,7 @@ public class DynamicColumnExcelReporter {
         fileOut.close();
     }
 
-    public static void createGasCommissionReportColumns(String templateFileName, ArrayList arrEmployee, ArrayList arrAccessory, File f) throws Exception {
+    public static void createGasCommissionReportColumns(String templateFileName, ArrayList arrEmployee, ArrayList arrAccessory, ArrayList arrEmployeeOilCommission, File f) throws Exception {
         POIFSFileSystem fs = new POIFSFileSystem(new FileInputStream(templateFileName));
         HSSFWorkbook wb = new HSSFWorkbook(fs);
         HSSFSheet sheet = wb.getSheetAt(0);
@@ -162,7 +163,7 @@ public class DynamicColumnExcelReporter {
 
         // accessory
         AccessoryKindFormBean accessoryKind = null;
-        short col = 7, row = 4;
+        short col = 8, row = 4;
         for (int i = 0; i < arrAccessory.size(); i++) {
             accessoryKind = (AccessoryKindFormBean) arrAccessory.get(i);
             //copy header
@@ -179,22 +180,41 @@ public class DynamicColumnExcelReporter {
             sheet.setColumnWidth(col, sheet.getColumnWidth(5));
             col += 1;
         }
+        
+        // oil
+        EmployeeOilCommissionFormBean employeeOilCommission = null;
+        for (int i = 0; i < arrEmployeeOilCommission.size(); i++) {
+            employeeOilCommission = (EmployeeOilCommissionFormBean) arrEmployeeOilCommission.get(i);
+            //copy header
+            newCell = copyCell(wb, sheet, row, 6, col, "", "");
+            newCell.setCellValue(new HSSFRichTextString(employeeOilCommission.getName()));
+
+            //copy sub header
+            newCell = copyCell(wb, sheet, row + 1, 6, col, "", "");
+            newCell.setCellValue(new HSSFRichTextString(NumberUtil.formatMoneyDefault(employeeOilCommission.getAmount(), "VND")));
+
+            //copy content
+            copyCell(wb, sheet, row + 2, 6, col, "employeeoilcommissiondata", employeeOilCommission.getId() + "");
+
+            sheet.setColumnWidth(col, sheet.getColumnWidth(6));
+            col += 1;
+        }
 
         EmployeeFormBean employee = null;
         for (int i = 0; i < arrEmployee.size(); i++) {
             employee = (EmployeeFormBean) arrEmployee.get(i);
             //copy header
-            newCell = copyCell(wb, sheet, row, 6, col, "", "");
+            newCell = copyCell(wb, sheet, row, 7, col, "", "");
             newCell.setCellValue(new HSSFRichTextString(employee.getFullname()));
 
             //copy header
-            newCell = copyCell(wb, sheet, row + 1, 6, col, "", employee.getId() + "");
+            newCell = copyCell(wb, sheet, row + 1, 7, col, "", employee.getId() + "");
             newCell.setCellValue(new HSSFRichTextString("$[SUM(" + ExcelExport.getColumnName(col) + "7)]"));
 
             //copy content nhap
-            copyCell(wb, sheet, row + 2, 6, col, "", employee.getId() + "");
+            copyCell(wb, sheet, row + 2, 7, col, "", employee.getId() + "");
 
-            sheet.setColumnWidth(col, sheet.getColumnWidth(6));
+            sheet.setColumnWidth(col, sheet.getColumnWidth(7));
             col += 1;
         }
         FileOutputStream fileOut = new FileOutputStream(f);

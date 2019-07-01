@@ -769,7 +769,8 @@ public class GenerateMenu {
             if (isHasPermission(PermissionUtil.OPERATION_LIST + "," + PermissionUtil.OPERATION_ADD,
                     PermissionUtil.PER_PETRO_IMPORT + "," + PermissionUtil.PER_SALE_PETRO + "," + PermissionUtil.PER_GOOD_IMPORT + "," + PermissionUtil.PER_SALE_GOOD
                     + "," + PermissionUtil.PER_SHIELD_IMPORT + "," + PermissionUtil.PER_SHIELD_DECREASE + "," + PermissionUtil.PER_ACCESSORY_IMPORT
-                    + "," + PermissionUtil.PER_SALE_ACCESSORY + "," + PermissionUtil.PER_PROMOTION_MATERIAL_IMPORT + "," + PermissionUtil.PER_FIXED_ASSET_DEPRECIATION)) {
+                    + "," + PermissionUtil.PER_SALE_ACCESSORY + "," + PermissionUtil.PER_PROMOTION_MATERIAL_IMPORT + "," + PermissionUtil.PER_FIXED_ASSET_DEPRECIATION
+                    + "," + PermissionUtil.PER_OIL_IMPORT + "," + PermissionUtil.PER_OIL_EXPORT)) {
                 if (isHasPermission(PermissionUtil.OPERATION_LIST + "," + PermissionUtil.OPERATION_ADD, PermissionUtil.PER_PETRO_IMPORT)) {
                     buffTemp.append("<item id=\"petroimports\" complex=\"true\" text=\"").append(QTUtil.getBundleString("petroImport.title")).append("\">");
                     if (isHasPermission(PermissionUtil.OPERATION_LIST, PermissionUtil.PER_PETRO_IMPORT)) {
@@ -807,6 +808,13 @@ public class GenerateMenu {
                     }
                     if (isHasPermission(PermissionUtil.OPERATION_ADD, PermissionUtil.PER_SALE_OIL)) {
                         buffTemp.append("<item id=\"saleoiladd\" text=\"").append(QTUtil.getBundleString("saleOil.detail.add.title")).append("\"/>");
+                    }
+                    buffTemp.append("</item>");
+                }
+                if (isHasPermission(PermissionUtil.OPERATION_LIST + "," + PermissionUtil.OPERATION_ADD, PermissionUtil.PER_OIL_EXPORT)) {
+                    buffTemp.append("<item id=\"oilexports\" complex=\"true\" text=\"").append(QTUtil.getBundleString("oilExport.title")).append("\">");
+                    if (isHasPermission(PermissionUtil.OPERATION_LIST, PermissionUtil.PER_OIL_EXPORT)) {
+                        buffTemp.append("<item id=\"oilexportlist\" text=\"").append(QTUtil.getBundleString("oilExport.list.title")).append("\"/>");
                     }
                     buffTemp.append("</item>");
                 }

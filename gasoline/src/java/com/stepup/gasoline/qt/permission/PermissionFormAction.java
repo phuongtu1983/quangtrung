@@ -650,9 +650,18 @@ public class PermissionFormAction extends SpineAction {
         perBean.setValue(PermissionUtil.PER_OIL_IMPORT);
         perBean.setOperations("," + PermissionUtil.OPERATION_LIST + "," + PermissionUtil.OPERATION_ADD + "," + PermissionUtil.OPERATION_EDIT + "," + PermissionUtil.OPERATION_DELETE + "," + PermissionUtil.OPERATION_EDIT_PAST + ",");
         arrFun.add(perBean);
-
+        
         perBean = new PermissionViewBean();
         perBean.setCounter("2.56");
+        perBean.setLevel(2);
+        perBean.setSharedId(2);
+        perBean.setName(QTUtil.getBundleString("oilExport.title"));
+        perBean.setValue(PermissionUtil.PER_OIL_EXPORT);
+        perBean.setOperations("," + PermissionUtil.OPERATION_LIST + "," + PermissionUtil.OPERATION_ADD + "," + PermissionUtil.OPERATION_EDIT + "," + PermissionUtil.OPERATION_DELETE + "," + PermissionUtil.OPERATION_EDIT_PAST + ",");
+        arrFun.add(perBean);
+
+        perBean = new PermissionViewBean();
+        perBean.setCounter("2.57");
         perBean.setLevel(2);
         perBean.setSharedId(2);
         perBean.setName(QTUtil.getBundleString("saleOil.title"));
@@ -661,7 +670,7 @@ public class PermissionFormAction extends SpineAction {
         arrFun.add(perBean);
 
         perBean = new PermissionViewBean();
-        perBean.setCounter("2.57");
+        perBean.setCounter("2.58");
         perBean.setLevel(2);
         perBean.setSharedId(2);
         perBean.setName(QTUtil.getBundleString("saleOilReturn.title"));
@@ -670,7 +679,7 @@ public class PermissionFormAction extends SpineAction {
         arrFun.add(perBean);
 
         perBean = new PermissionViewBean();
-        perBean.setCounter("2.58");
+        perBean.setCounter("2.59");
         perBean.setLevel(2);
         perBean.setSharedId(2);
         perBean.setName(QTUtil.getBundleString("saleOilReturnStore.title"));
@@ -679,7 +688,7 @@ public class PermissionFormAction extends SpineAction {
         arrFun.add(perBean);
 
         perBean = new PermissionViewBean();
-        perBean.setCounter("2.59");
+        perBean.setCounter("2.60");
         perBean.setLevel(2);
         perBean.setSharedId(2);
         perBean.setName(QTUtil.getBundleString("goodImport.title"));
@@ -688,7 +697,7 @@ public class PermissionFormAction extends SpineAction {
         arrFun.add(perBean);
 
         perBean = new PermissionViewBean();
-        perBean.setCounter("2.60");
+        perBean.setCounter("2.61");
         perBean.setLevel(2);
         perBean.setSharedId(2);
         perBean.setName(QTUtil.getBundleString("saleGood.title"));
@@ -697,7 +706,7 @@ public class PermissionFormAction extends SpineAction {
         arrFun.add(perBean);
 
         perBean = new PermissionViewBean();
-        perBean.setCounter("2.61");
+        perBean.setCounter("2.62");
         perBean.setLevel(2);
         perBean.setSharedId(2);
         perBean.setName(QTUtil.getBundleString("gasWholesale.title"));
@@ -706,7 +715,7 @@ public class PermissionFormAction extends SpineAction {
         arrFun.add(perBean);
 
         perBean = new PermissionViewBean();
-        perBean.setCounter("2.62");
+        perBean.setCounter("2.63");
         perBean.setLevel(2);
         perBean.setSharedId(2);
         perBean.setName(QTUtil.getBundleString("gasWholeSale.fee.list.title"));
@@ -723,7 +732,7 @@ public class PermissionFormAction extends SpineAction {
 //        perBean.setOperations("," + PermissionUtil.OPERATION_LIST + "," + PermissionUtil.OPERATION_ADD + "," + PermissionUtil.OPERATION_EDIT + "," + PermissionUtil.OPERATION_DELETE + ",");
 //        arrFun.add(perBean);
         perBean = new PermissionViewBean();
-        perBean.setCounter("2.63");
+        perBean.setCounter("2.64");
         perBean.setLevel(2);
         perBean.setSharedId(2);
         perBean.setName(QTUtil.getBundleString("saleAccessory.title"));
@@ -732,7 +741,7 @@ public class PermissionFormAction extends SpineAction {
         arrFun.add(perBean);
 
         perBean = new PermissionViewBean();
-        perBean.setCounter("2.64");
+        perBean.setCounter("2.65");
         perBean.setLevel(2);
         perBean.setSharedId(2);
         perBean.setName(QTUtil.getBundleString("fixedAssetDepreciation.title"));
@@ -741,7 +750,7 @@ public class PermissionFormAction extends SpineAction {
         arrFun.add(perBean);
 
         perBean = new PermissionViewBean();
-        perBean.setCounter("2.65");
+        perBean.setCounter("2.66");
         perBean.setLevel(2);
         perBean.setSharedId(2);
         perBean.setName(QTUtil.getBundleString("saleInner.title"));
@@ -750,7 +759,7 @@ public class PermissionFormAction extends SpineAction {
         arrFun.add(perBean);
 
         perBean = new PermissionViewBean();
-        perBean.setCounter("2.66");
+        perBean.setCounter("2.67");
         perBean.setLevel(2);
         perBean.setSharedId(2);
         perBean.setName(QTUtil.getBundleString("saleShell.title"));
@@ -759,7 +768,7 @@ public class PermissionFormAction extends SpineAction {
         arrFun.add(perBean);
 
         perBean = new PermissionViewBean();
-        perBean.setCounter("2.67");
+        perBean.setCounter("2.68");
         perBean.setLevel(2);
         perBean.setSharedId(2);
         perBean.setName(QTUtil.getBundleString("oldShell.title"));
@@ -768,7 +777,7 @@ public class PermissionFormAction extends SpineAction {
         arrFun.add(perBean);
 
         perBean = new PermissionViewBean();
-        perBean.setCounter("2.68");
+        perBean.setCounter("2.69");
         perBean.setLevel(2);
         perBean.setSharedId(2);
         perBean.setName(QTUtil.getBundleString("shellReturn.title"));
@@ -785,7 +794,7 @@ public class PermissionFormAction extends SpineAction {
 //        perBean.setOperations("," + PermissionUtil.OPERATION_LIST + "," + PermissionUtil.OPERATION_ADD + "," + PermissionUtil.OPERATION_EDIT + "," + PermissionUtil.OPERATION_DELETE + ",");
 //        arrFun.add(perBean);
         perBean = new PermissionViewBean();
-        perBean.setCounter("2.69");
+        perBean.setCounter("2.70");
         perBean.setLevel(2);
         perBean.setSharedId(2);
         perBean.setName(QTUtil.getBundleString("shellReturnSupplier.title"));
@@ -794,7 +803,7 @@ public class PermissionFormAction extends SpineAction {
         arrFun.add(perBean);
 
         perBean = new PermissionViewBean();
-        perBean.setCounter("2.70");
+        perBean.setCounter("2.71");
         perBean.setLevel(2);
         perBean.setSharedId(2);
         perBean.setName(QTUtil.getBundleString("loVo.title"));
@@ -803,7 +812,7 @@ public class PermissionFormAction extends SpineAction {
         arrFun.add(perBean);
 
         perBean = new PermissionViewBean();
-        perBean.setCounter("2.71");
+        perBean.setCounter("2.72");
         perBean.setLevel(2);
         perBean.setSharedId(2);
         perBean.setName(QTUtil.getBundleString("vehicleOut.title"));
@@ -812,7 +821,7 @@ public class PermissionFormAction extends SpineAction {
         arrFun.add(perBean);
 
         perBean = new PermissionViewBean();
-        perBean.setCounter("2.72");
+        perBean.setCounter("2.73");
         perBean.setLevel(2);
         perBean.setSharedId(2);
         perBean.setName(QTUtil.getBundleString("vehicleIn.title"));
@@ -821,7 +830,7 @@ public class PermissionFormAction extends SpineAction {
         arrFun.add(perBean);
 
         perBean = new PermissionViewBean();
-        perBean.setCounter("2.73");
+        perBean.setCounter("2.74");
         perBean.setLevel(2);
         perBean.setSharedId(2);
         perBean.setName(QTUtil.getBundleString("exportWholesale.title"));
@@ -830,7 +839,7 @@ public class PermissionFormAction extends SpineAction {
         arrFun.add(perBean);
 
         perBean = new PermissionViewBean();
-        perBean.setCounter("2.74");
+        perBean.setCounter("2.75");
         perBean.setLevel(2);
         perBean.setSharedId(2);
         perBean.setName(QTUtil.getBundleString("transportService.title"));
@@ -839,7 +848,7 @@ public class PermissionFormAction extends SpineAction {
         arrFun.add(perBean);
 
         perBean = new PermissionViewBean();
-        perBean.setCounter("2.75");
+        perBean.setCounter("2.76");
         perBean.setLevel(2);
         perBean.setSharedId(2);
         perBean.setName(QTUtil.getBundleString("contract.title"));
@@ -848,7 +857,7 @@ public class PermissionFormAction extends SpineAction {
         arrFun.add(perBean);
 
         perBean = new PermissionViewBean();
-        perBean.setCounter("2.76");
+        perBean.setCounter("2.77");
         perBean.setLevel(2);
         perBean.setSharedId(2);
         perBean.setName(QTUtil.getBundleString("debtVendor.title"));
@@ -865,7 +874,7 @@ public class PermissionFormAction extends SpineAction {
 //        perBean.setOperations("," + PermissionUtil.OPERATION_LIST + "," + PermissionUtil.OPERATION_ADD + "," + PermissionUtil.OPERATION_EDIT + "," + PermissionUtil.OPERATION_DELETE + ",");
 //        arrFun.add(perBean);
         perBean = new PermissionViewBean();
-        perBean.setCounter("2.77");
+        perBean.setCounter("2.78");
         perBean.setLevel(2);
         perBean.setSharedId(2);
         perBean.setName(QTUtil.getBundleString("debtWholesale.title"));
@@ -874,7 +883,7 @@ public class PermissionFormAction extends SpineAction {
         arrFun.add(perBean);
 
         perBean = new PermissionViewBean();
-        perBean.setCounter("2.78");
+        perBean.setCounter("2.79");
         perBean.setLevel(2);
         perBean.setSharedId(2);
         perBean.setName(QTUtil.getBundleString("income.title"));
@@ -883,7 +892,7 @@ public class PermissionFormAction extends SpineAction {
         arrFun.add(perBean);
 
         perBean = new PermissionViewBean();
-        perBean.setCounter("2.79");
+        perBean.setCounter("2.80");
         perBean.setLevel(2);
         perBean.setSharedId(2);
         perBean.setName(QTUtil.getBundleString("expense.title"));
@@ -892,7 +901,7 @@ public class PermissionFormAction extends SpineAction {
         arrFun.add(perBean);
 
         perBean = new PermissionViewBean();
-        perBean.setCounter("2.80");
+        perBean.setCounter("2.81");
         perBean.setLevel(2);
         perBean.setSharedId(2);
         perBean.setName(QTUtil.getBundleString("shieldImport.title"));
@@ -901,7 +910,7 @@ public class PermissionFormAction extends SpineAction {
         arrFun.add(perBean);
 
         perBean = new PermissionViewBean();
-        perBean.setCounter("2.81");
+        perBean.setCounter("2.82");
         perBean.setLevel(2);
         perBean.setSharedId(2);
         perBean.setName(QTUtil.getBundleString("shieldDecrease.title"));
@@ -910,7 +919,7 @@ public class PermissionFormAction extends SpineAction {
         arrFun.add(perBean);
 
         perBean = new PermissionViewBean();
-        perBean.setCounter("2.82");
+        perBean.setCounter("2.83");
         perBean.setLevel(2);
         perBean.setSharedId(2);
         perBean.setName(QTUtil.getBundleString("debtAdjustment.title"));

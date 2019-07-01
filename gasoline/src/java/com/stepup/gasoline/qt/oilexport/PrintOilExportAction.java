@@ -2,11 +2,12 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
-package com.stepup.gasoline.qt.saleoil;
+package com.stepup.gasoline.qt.oilexport;
 
 import com.stepup.core.util.DateUtil;
 import com.stepup.core.util.LogUtil;
 import com.stepup.core.util.NumberUtil;
+import com.stepup.gasoline.qt.bean.OilExportBean;
 import com.stepup.gasoline.qt.bean.SaleOilBean;
 import com.stepup.gasoline.qt.core.BaseAction;
 import com.stepup.gasoline.qt.core.ExcelExport;
@@ -27,7 +28,7 @@ import org.apache.struts.action.ActionMapping;
  *
  * @author phuongtu
  */
-public class PrintSaleOilAction extends BaseAction {
+public class PrintOilExportAction extends BaseAction {
 
     @Override
     public boolean doAction(ActionMapping mapping, ActionForm form,
@@ -36,10 +37,10 @@ public class PrintSaleOilAction extends BaseAction {
         try {
             Map beans = new HashMap();
             ExcelExport exporter = new ExcelExport();
-            int saleOilId = NumberUtil.parseInt(request.getParameter("saleOilId"), 0);
+            int oilExportId = NumberUtil.parseInt(request.getParameter("oilExportId"), 0);
             ArrayList list = null;
             SaleOilReportOutBean outBean = new SaleOilReportOutBean();
-            list = printSaleOilReport(saleOilId, outBean);
+            list = printOilExportReport(oilExportId, outBean);
             beans.put("qtrp_code", outBean.getExportNumber());
             beans.put("qtrp_customerName", outBean.getCustomerName());
             beans.put("qtrp_customerAddress", outBean.getCustomerAddress());
@@ -72,29 +73,33 @@ public class PrintSaleOilAction extends BaseAction {
         return true;
     }
 
-    private ArrayList printSaleOilReport(int saleOilId, SaleOilReportOutBean outBean) {
+    private ArrayList printOilExportReport(int oilExportId, SaleOilReportOutBean outBean) {
         ArrayList list = null;
         try {
             GoodDAO goodDAO = new GoodDAO();
             CustomerDAO customerDAO = new CustomerDAO();
-            SaleOilBean saleOilBean = goodDAO.getSaleOil(saleOilId);
-            if (saleOilBean != null) {
-                outBean.setCode(saleOilBean.getCode());
+            OilExportBean oilExportBean = goodDAO.getOilExport(oilExportId);
+            if (oilExportBean != null) {
+                SaleOilBean saleOilBean = goodDAO.getSaleOil(oilExportBean.getOilSaleId());
+                if (saleOilBean == null) {
+                    saleOilBean = new SaleOilBean();
+                }
+                outBean.setCode(oilExportBean.getCode());
                 outBean.setCustomerCommission(saleOilBean.getCommission());
                 outBean.setCustomerCommissionAmount(saleOilBean.getCommissionAmount());
-                outBean.setTotal(saleOilBean.getTotal());
-                outBean.setPaid(saleOilBean.getPaid());
-                outBean.setDebt(saleOilBean.getDebt());
-                outBean.setExportDate(saleOilBean.getExportDate());
-                outBean.setExportNumber(saleOilBean.getExportNumber());
-                CustomerFormBean customerBean = customerDAO.getCustomer(saleOilBean.getCustomerId());
+                outBean.setTotal(oilExportBean.getTotal());
+                outBean.setPaid(0);
+                outBean.setDebt(oilExportBean.getTotal());
+                outBean.setExportDate(oilExportBean.getCreatedDate());
+                outBean.setExportNumber(oilExportBean.getCode());
+                CustomerFormBean customerBean = customerDAO.getCustomer(oilExportBean.getCustomerId());
                 if (customerBean != null) {
                     outBean.setCustomerAddress(customerBean.getAddress());
                     outBean.setCustomerName(customerBean.getName());
                     outBean.setCustomerPhone(customerBean.getPhone());
                 }
                 ReportDAO reportDAO = new ReportDAO();
-                list = reportDAO.getSaleOilReport(saleOilId, outBean);
+                list = reportDAO.getOilExportReport(oilExportId);
             }
 
         } catch (Exception ex) {

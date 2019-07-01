@@ -2579,6 +2579,38 @@ public class EmployeeDAO extends BasicDAO {
         return employeeOilCommissionList;
     }
 
+    public ArrayList getEmployeeOilCommissions(String ids) throws Exception {
+        ResultSet rs = null;
+        String sql = "select * from employee_oil_commission";
+        if (!org.apache.commons.validator.GenericValidator.isBlankOrNull(ids)) {
+            sql += " and id in (" + ids + ")";
+        }
+        sql += " order by name";
+        ArrayList employeeOilCommissionList = new ArrayList();
+
+        try {
+            rs = DBUtil.executeQuery(sql);
+            EmployeeOilCommissionFormBean bean = null;
+            while (rs.next()) {
+                bean = new EmployeeOilCommissionFormBean();
+                bean.setId(rs.getInt("id"));
+                bean.setName(rs.getString("name"));
+                bean.setNote(rs.getString("note"));
+                bean.setAmount(rs.getDouble("amount"));
+                employeeOilCommissionList.add(bean);
+            }
+        } catch (SQLException sqle) {
+            throw new Exception(sqle.getMessage());
+        } catch (Exception ex) {
+            throw new Exception(ex.getMessage());
+        } finally {
+            if (rs != null) {
+                DBUtil.closeConnection(rs);
+            }
+        }
+        return employeeOilCommissionList;
+    }
+    
     public EmployeeOilCommissionBean getEmployeeOilCommission(int employeeOilCommissionId) throws Exception {
         ResultSet rs = null;
         String sql = "select * from employee_oil_commission where id=" + employeeOilCommissionId;

@@ -207,4 +207,6 @@ public class Constants {
     public static final String SALE_OIL_RETURN_OIL = "saleOilReturnOil";
     public static final String SALE_OIL_RETURN = "saleOilReturn";
     public static final String SALE_OIL_RETURN_STORE = "saleOilReturnStore";
+    public static final String OIL_EXPORT = "oilExport";
+    public static final String OIL_EXPORT_OIL = "oilExportOil";
 }

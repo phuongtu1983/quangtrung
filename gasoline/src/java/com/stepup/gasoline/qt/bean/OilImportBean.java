@@ -66,12 +66,44 @@ public class OilImportBean {
         this.canEdit = canEdit;
     }
 
+    public double getTotal() {
+        return total;
+    }
+
+    public void setTotal(double total) {
+        this.total = total;
+    }
+
+    public int getCreatedEmployeeId() {
+        return createdEmployeeId;
+    }
+
+    public void setCreatedEmployeeId(int createdEmployeeId) {
+        this.createdEmployeeId = createdEmployeeId;
+    }
+
+    public int getStoreId() {
+        return storeId;
+    }
+
+    public void setStoreId(int storeId) {
+        this.storeId = storeId;
+    }
+
     public int getVendorId() {
         return vendorId;
     }
 
     public void setVendorId(int vendorId) {
         this.vendorId = vendorId;
+    }
+
+    public float getCommission() {
+        return commission;
+    }
+
+    public void setCommission(float commission) {
+        this.commission = commission;
     }
 
     public double getRate() {
@@ -82,12 +114,12 @@ public class OilImportBean {
         this.rate = rate;
     }
 
-    public double getTotal() {
-        return total;
+    public double getTotalBeforeCommission() {
+        return totalBeforeCommission;
     }
 
-    public void setTotal(double total) {
-        this.total = total;
+    public void setTotalBeforeCommission(double totalBeforeCommission) {
+        this.totalBeforeCommission = totalBeforeCommission;
     }
 
     public double getPaid() {
@@ -112,38 +144,6 @@ public class OilImportBean {
 
     public void setAccountId(int accountId) {
         this.accountId = accountId;
-    }
-
-    public int getCreatedEmployeeId() {
-        return createdEmployeeId;
-    }
-
-    public void setCreatedEmployeeId(int createdEmployeeId) {
-        this.createdEmployeeId = createdEmployeeId;
-    }
-
-    public float getCommission() {
-        return commission;
-    }
-
-    public void setCommission(float commission) {
-        this.commission = commission;
-    }
-
-    public double getTotalBeforeCommission() {
-        return totalBeforeCommission;
-    }
-
-    public void setTotalBeforeCommission(double totalBeforeCommission) {
-        this.totalBeforeCommission = totalBeforeCommission;
-    }
-
-    public int getStoreId() {
-        return storeId;
-    }
-
-    public void setStoreId(int storeId) {
-        this.storeId = storeId;
     }
 
 }

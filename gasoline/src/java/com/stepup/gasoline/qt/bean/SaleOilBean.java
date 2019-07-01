@@ -29,8 +29,6 @@ public class SaleOilBean {
     private float commissionAmount;
     private float gapCustomerAmount;
     private float gapAgencyAmount;
-    private String exportNumber;
-    private String exportDate;
     private int isCalculateAgencyCommission;
 
     public void setId(int id) {
@@ -183,22 +181,6 @@ public class SaleOilBean {
 
     public void setTotalBeforeCommisison(double totalBeforeCommisison) {
         this.totalBeforeCommisison = totalBeforeCommisison;
-    }
-
-    public String getExportNumber() {
-        return exportNumber;
-    }
-
-    public void setExportNumber(String exportNumber) {
-        this.exportNumber = exportNumber;
-    }
-
-    public String getExportDate() {
-        return exportDate;
-    }
-
-    public void setExportDate(String exportDate) {
-        this.exportDate = exportDate;
     }
 
     public int getIsCalculateAgencyCommission() {

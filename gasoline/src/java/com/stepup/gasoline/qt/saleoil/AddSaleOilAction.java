@@ -77,8 +77,6 @@ public class AddSaleOilAction extends SpineAction {
         bean.setGapCustomerAmount(formBean.getGapCustomerAmount());
         bean.setTotalBeforeCommisison(formBean.getTotalBeforeCommisison());
         bean.setCreatedEmployeeId(QTUtil.getEmployeeId(request.getSession()));
-        bean.setExportDate(formBean.getExportDate());
-        bean.setExportNumber(formBean.getExportNumber());
         bean.setIsCalculateAgencyCommission(formBean.getIsCalculateAgencyCommission() == true ? 1 : 0);
         try {
             if (bNew) {

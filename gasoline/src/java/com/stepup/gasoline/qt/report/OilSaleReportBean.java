@@ -20,8 +20,10 @@ public class OilSaleReportBean {
     private int quantity;
     private double price;
     private double commission;
+    private double agencyCommission;
     private double amount;
     private double paid;
+    private double actualTotal;
     private String paymentMethod;
 
     public String getCount() {
@@ -118,6 +120,22 @@ public class OilSaleReportBean {
 
     public void setStoreName(String storeName) {
         this.storeName = storeName;
+    }
+
+    public double getAgencyCommission() {
+        return agencyCommission;
+    }
+
+    public void setAgencyCommission(double agencyCommission) {
+        this.agencyCommission = agencyCommission;
+    }
+
+    public double getActualTotal() {
+        return actualTotal;
+    }
+
+    public void setActualTotal(double actualTotal) {
+        this.actualTotal = actualTotal;
     }
 
 }
