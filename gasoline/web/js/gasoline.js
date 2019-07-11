@@ -7417,6 +7417,33 @@ function getVehicleIn(id) {
         }
         accessoryIdCombobox.setComboValue("");
         // ============================
+        var oilExportIdCombobox = dhtmlXComboFromSelect("oilExportIdCombobox");
+        oilExportIdCombobox.enableFilteringMode(true);
+        oilExportIdCombobox.attachEvent("onSelectionChange", function() {
+            setVehicleInOilExportSelectedForm(oilExportIdCombobox.getComboText(), oilExportIdCombobox.getSelectedValue());
+        });
+        oilExportIdCombobox.attachEvent("onBlur", function() {
+            setVehicleInOilExportSelectedForm(oilExportIdCombobox.getComboText(), oilExportIdCombobox.getSelectedValue());
+        });
+        oilExportIdCombobox.DOMelem_input.onkeypress = function(event) {
+            var key;
+            if (window.event)
+                key = window.event.keyCode;//IE
+            else
+                key = event.which;//firefox
+            if (key == 13) {
+                addVehicleInOilExport();
+                oilExportIdCombobox.setComboValue("");
+            }
+        }
+        oilExportIdCombobox.DOMelem_input.onfocus = function(event) {
+            if (isManuallySeleted == 1) {
+                oilExportIdCombobox.openSelect();
+                isManuallySeleted = 0;
+            }
+        }
+        oilExportIdCombobox.setComboValue("");
+        // ============================
         var selectedCombo = dhtmlXComboFromSelect("vehicleOutIdCombobox");
         selectedCombo.enableFilteringMode(true);
         selectedCombo.attachEvent("onSelectionChange", function() {
@@ -7732,6 +7759,53 @@ function setVehicleInAccessorySelectedForm(text, value) {
             value = "0";
     }
     document.forms['vehicleInForm'].accessorySelectedHidden.value = value;
+}
+function setVehicleInOilExportSelectedForm(text, value) {
+    if (value == null) {
+        if (text != "")
+            value = "-1";
+        else
+            value = "0";
+    }
+    document.forms['vehicleInForm'].oilExportSelectedHidden.value = value;
+}
+function addVehicleInOilExport() {
+    var good = document.forms['vehicleInForm'].oilExportSelectedHidden.value;
+    if (good == -1 || good == 0)
+        return false;
+    var goodId = document.forms['vehicleInForm'].oilExportId;
+    var existed = false;
+    if (goodId != null) {
+        if (goodId.length != null) {
+            for (i = 0; i < goodId.length; i++) {
+                if (goodId[i].value == good) {
+                    existed = true;
+                    break;
+                }
+            }
+        } else if (goodId.value == good)
+            existed = true;
+    }
+    goodId = null;
+    if (existed == true) {
+        alert("H\u00E0ng ho\u00E1 \u0111\u00E3 t\u1ED3n t\u1EA1i");
+        return false;
+    }
+    callAjax("getVehicleInOilExport.do?oilExportId=" + good, null, null, function(data) {
+        setAjaxData(data, 'vehicleInOilExportHideDiv');
+        var matTable = document.getElementById('vehicleInOilExportTbl');
+        var detTable = document.getElementById('vehicleInOilExportDetailTbl');
+        if (matTable.tBodies[0] == null || detTable.tBodies[0] == null) {
+            matTable = null;
+            detTable = null;
+            return;
+        }
+        for (var i = matTable.tBodies[0].rows.length - 1; i >= 0; i--)
+            detTable.tBodies[0].appendChild(matTable.tBodies[0].rows[i]);
+        matTable = null;
+        detTable = null;
+    });
+    return false;
 }
 function loadExportWholesalePanel() {
     callAjax("getExportWholesalePanel.do", null, null, function(data) {

@@ -17,6 +17,7 @@ public class OilExportBean {
     private int customerId;
     private String customerName;
     private double total;
+    private String totalText;
     private String note;
     private int canEdit;
     private int createdEmployeeId;
@@ -99,6 +100,14 @@ public class OilExportBean {
 
     public void setCustomerName(String customerName) {
         this.customerName = customerName;
+    }
+
+    public String getTotalText() {
+        return totalText;
+    }
+
+    public void setTotalText(String totalText) {
+        this.totalText = totalText;
     }
 
 }

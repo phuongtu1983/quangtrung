@@ -47,6 +47,7 @@ public class VehicleInFormAction extends SpineAction {
         String id = request.getParameter("vehicleInId");
         ArrayList arrDetail = null;
         ArrayList arrAccessoryDetail = null;
+        ArrayList arrOilExportDetail = null;
         ArrayList arrReturnShelDetail = null;
         GasDAO gasDAO = new GasDAO();
         if (!GenericValidator.isBlankOrNull(id)) {
@@ -55,6 +56,7 @@ public class VehicleInFormAction extends SpineAction {
                 bean = gasDAO.getVehicleIn(gasImportId);
                 arrDetail = gasDAO.getVehicleInDetail(gasImportId);
                 arrAccessoryDetail = gasDAO.getVehicleInAccessoryDetail(gasImportId);
+                arrOilExportDetail = gasDAO.getVehicleInOilExportDetail(gasImportId);
                 arrReturnShelDetail = gasDAO.getVehicleInReturnShellDetail(gasImportId);
             } catch (Exception ex) {
             }
@@ -84,12 +86,17 @@ public class VehicleInFormAction extends SpineAction {
             arrDetail = new ArrayList();
         }
         request.setAttribute(Constants.VEHICLE_IN_SHELL, arrDetail);
-
+        
         if (arrAccessoryDetail == null) {
             arrAccessoryDetail = new ArrayList();
         }
         request.setAttribute(Constants.VEHICLE_IN_ACCESSORY, arrAccessoryDetail);
 
+        if (arrOilExportDetail == null) {
+            arrOilExportDetail = new ArrayList();
+        }
+        request.setAttribute(Constants.VEHICLE_IN_OIL_EXPORT, arrOilExportDetail);
+        
         if (arrReturnShelDetail == null) {
             arrReturnShelDetail = new ArrayList();
         }
@@ -119,6 +126,17 @@ public class VehicleInFormAction extends SpineAction {
             arrAccessory = new ArrayList();
         }
         request.setAttribute(Constants.ACCESSORY_LIST, arrAccessory);
+        
+        ArrayList arrOilExport = null;
+        try {
+            GoodDAO goodDAO = new GoodDAO();
+            arrOilExport = goodDAO.getOilExports(QTUtil.getOrganizationManageds(request.getSession()));
+        } catch (Exception ex) {
+        }
+        if (arrOilExport == null) {
+            arrOilExport = new ArrayList();
+        }
+        request.setAttribute(Constants.OIL_EXPORT_LIST, arrOilExport);
 
         ArrayList arrShellReturn = null;
         try {

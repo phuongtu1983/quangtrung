@@ -36,6 +36,9 @@ public class VehicleInFormBean extends org.apache.struts.action.ActionForm {
     private String[] accessoryPrice;
     private String[] accessoryAmount;
 
+    private String[] vehicleInOilExportDetailId;
+    private String[] oilExportId;
+
     public VehicleInFormBean() {
         this.canEdit = 1;
     }
@@ -207,6 +210,22 @@ public class VehicleInFormBean extends org.apache.struts.action.ActionForm {
 
     public void setAccessoryAmount(String[] accessoryAmount) {
         this.accessoryAmount = accessoryAmount;
+    }
+
+    public String[] getVehicleInOilExportDetailId() {
+        return vehicleInOilExportDetailId;
+    }
+
+    public void setVehicleInOilExportDetailId(String[] vehicleInOilExportDetailId) {
+        this.vehicleInOilExportDetailId = vehicleInOilExportDetailId;
+    }
+
+    public String[] getOilExportId() {
+        return oilExportId;
+    }
+
+    public void setOilExportId(String[] oilExportId) {
+        this.oilExportId = oilExportId;
     }
 
 }

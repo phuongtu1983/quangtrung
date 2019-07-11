@@ -9,6 +9,7 @@ import com.stepup.core.util.StringUtil;
 import com.stepup.gasoline.qt.bean.VehicleInAccessoryDetailBean;
 import com.stepup.gasoline.qt.bean.VehicleInBean;
 import com.stepup.gasoline.qt.bean.VehicleInDetailBean;
+import com.stepup.gasoline.qt.bean.VehicleInOilExportDetailBean;
 import com.stepup.gasoline.qt.bean.VehicleInReturnShellDetailBean;
 import com.stepup.gasoline.qt.core.SpineAction;
 import com.stepup.gasoline.qt.dao.GasDAO;
@@ -60,7 +61,7 @@ public class AddVehicleInAction extends SpineAction {
         if (StringUtil.isEqual(bean.getCreatedDate(), formBean.getCreatedDate())) {
             needUpdate = true;
         }
-        
+
         bean.setId(formBean.getId());
         bean.setCode(formBean.getCode());
         bean.setNote(formBean.getNote());
@@ -73,10 +74,12 @@ public class AddVehicleInAction extends SpineAction {
                 formBean.setId(id);
                 addVehicleInDetail(formBean, needUpdate);
                 addVehicleInAccessoryDetail(formBean, needUpdate);
+                addVehicleInOilExportDetail(formBean);
                 addVehicleInReturnShell(formBean, needUpdate);
             } else {
                 addVehicleInDetail(formBean, needUpdate);
                 addVehicleInAccessoryDetail(formBean, needUpdate);
+                addVehicleInOilExportDetail(formBean);
                 addVehicleInReturnShell(formBean, needUpdate);
                 gasDAO.updateVehicleIn(bean);
             }
@@ -99,8 +102,6 @@ public class AddVehicleInAction extends SpineAction {
                         VehicleInDetailBean bean = new VehicleInDetailBean();
                         bean.setShellId(NumberUtil.parseInt(formBean.getShellId()[i], 0));
                         bean.setQuantity(NumberUtil.parseInt(formBean.getQuantity()[i], 0));
-//                        bean.setPrice(NumberUtil.parseDouble(formBean.getPrice()[i], 0));
-//                        bean.setAmount(NumberUtil.parseDouble(formBean.getAmount()[i], 0));
                         bean.setVehicleInId(formBean.getId());
                         gasDAO.insertVehicleInDetail(formBean.getCreatedDate(), bean);
                     } else {
@@ -119,14 +120,6 @@ public class AddVehicleInAction extends SpineAction {
                                 isUpdate = true;
                                 oldBean.setQuantity(NumberUtil.parseInt(formBean.getQuantity()[i], 0));
                             }
-//                            if (oldBean.getPrice() != NumberUtil.parseDouble(formBean.getPrice()[i], 0)) {
-//                                isUpdate = true;
-//                                oldBean.setPrice(NumberUtil.parseDouble(formBean.getPrice()[i], 0));
-//                            }
-//                            if (oldBean.getAmount() != NumberUtil.parseDouble(formBean.getAmount()[i], 0)) {
-//                                isUpdate = true;
-//                                oldBean.setAmount(NumberUtil.parseDouble(formBean.getAmount()[i], 0));
-//                            }
                             if (needUpdate) {
                                 isUpdate = true;
                             }
@@ -209,6 +202,35 @@ public class AddVehicleInAction extends SpineAction {
             }
             ids += "0";
             gasDAO.deleteVehicleInAccessoryDetails(ids);
+        } catch (Exception ex) {
+        }
+    }
+
+    private void addVehicleInOilExportDetail(VehicleInFormBean formBean) {
+        try {
+            GasDAO gasDAO = new GasDAO();
+            ArrayList arrDetail = gasDAO.getVehicleInOilExportDetail(formBean.getId());
+            if (formBean.getOilExportId() != null) {
+                int length = formBean.getOilExportId().length;
+                int id = 0;
+                for (int i = 0; i < length; i++) {
+                    id = NumberUtil.parseInt(formBean.getVehicleInOilExportDetailId()[i], 0);
+                    if (id == 0) {
+                        VehicleInOilExportDetailBean bean = new VehicleInOilExportDetailBean();
+                        bean.setOilExportId(NumberUtil.parseInt(formBean.getOilExportId()[i], 0));
+                        bean.setVehicleInId(formBean.getId());
+                        gasDAO.insertVehicleInOilExportDetail(bean);
+                    }
+                }
+            }
+            String ids = "0,";
+            VehicleInOilExportDetailBean oldBean = null;
+            for (int i = 0; i < arrDetail.size(); i++) {
+                oldBean = (VehicleInOilExportDetailBean) arrDetail.get(i);
+                ids += oldBean.getId() + ",";
+            }
+            ids += "0";
+            gasDAO.deleteVehicleInOilExportDetails(ids);
         } catch (Exception ex) {
         }
     }

@@ -9,6 +9,7 @@ import com.stepup.core.database.DBUtil;
 import com.stepup.core.database.SPUtil;
 import com.stepup.core.util.DateUtil;
 import com.stepup.core.util.GenericValidator;
+import com.stepup.core.util.NumberUtil;
 import com.stepup.gasoline.qt.bean.EmployeeBean;
 import com.stepup.gasoline.qt.bean.ExportWholesaleBean;
 import com.stepup.gasoline.qt.bean.ExportWholesaleDetailBean;
@@ -48,6 +49,7 @@ import com.stepup.gasoline.qt.bean.ShellReturnSupplierDetailBean;
 import com.stepup.gasoline.qt.bean.VehicleInAccessoryDetailBean;
 import com.stepup.gasoline.qt.bean.VehicleInBean;
 import com.stepup.gasoline.qt.bean.VehicleInDetailBean;
+import com.stepup.gasoline.qt.bean.VehicleInOilExportDetailBean;
 import com.stepup.gasoline.qt.bean.VehicleInReturnShellDetailBean;
 import com.stepup.gasoline.qt.bean.VehicleOutBean;
 import com.stepup.gasoline.qt.bean.VehicleOutDetailBean;
@@ -1804,7 +1806,7 @@ public class GasDAO extends BasicDAO {
         }
         return detailList;
     }
-    
+
     public ArrayList getGasWholesaleFeeDetail(int gasWholesaleId) throws Exception {
         ResultSet rs = null;
         String sql = "select det.*, f.name as fee_name"
@@ -2092,7 +2094,7 @@ public class GasDAO extends BasicDAO {
         }
         return result;
     }
-    
+
     public ArrayList searchGasRetail(String fromDate, String endDate) throws Exception {
         SPUtil spUtil = null;
         ArrayList list = new ArrayList();
@@ -6303,4 +6305,83 @@ public class GasDAO extends BasicDAO {
             }
         }
     }
+
+    public ArrayList getVehicleInOilExportDetail(int vehicleInId) throws Exception {
+        ResultSet rs = null;
+        String sql = "select det.*, s.code as oil_export_code, c.name as customer_name, s.created_date as oil_export_created_date, s.total as oil_export_total"
+                + " from vehicle_in_oil_export_detail as det, oil_export as s, customer as c"
+                + " where det.oil_export_id=s.id and s.customer_id=c.id and det.vehicle_in_id=" + vehicleInId
+                + " order by det.id";
+        ArrayList detailList = new ArrayList();
+        try {
+            rs = DBUtil.executeQuery(sql);
+            VehicleInOilExportDetailBean bean = null;
+            while (rs.next()) {
+                bean = new VehicleInOilExportDetailBean();
+                bean.setId(rs.getInt("id"));
+                bean.setVehicleInId(rs.getInt("vehicle_in_id"));
+                bean.setOilExportId(rs.getInt("oil_export_id"));
+                bean.setCode(rs.getString("oil_export_code"));
+                bean.setCustomerName(rs.getString("customer_name"));
+                bean.setCreatedDate(rs.getString("oil_export_created_date"));
+                bean.setTotal(rs.getDouble("oil_export_total"));
+                bean.setTotalText(NumberUtil.formatMoneyDefault(bean.getTotal(), "VND"));
+                detailList.add(bean);
+            }
+        } catch (SQLException sqle) {
+            throw new Exception(sqle.getMessage());
+        } catch (Exception ex) {
+            throw new Exception(ex.getMessage());
+        } finally {
+            if (rs != null) {
+                DBUtil.closeConnection(rs);
+            }
+        }
+        return detailList;
+    }
+
+    
+    public int insertVehicleInOilExportDetail(VehicleInOilExportDetailBean bean) throws Exception {
+        if (bean == null) {
+            return 0;
+        }
+        int result = 0;
+        SPUtil spUtil = null;
+        try {
+            String sql = "{call insertVehicleInOilExportDetail(?,?)}";
+            spUtil = new SPUtil(sql);
+            if (spUtil != null) {
+                spUtil.getCallableStatement().setInt("_vehicle_in_id", bean.getVehicleInId());
+                spUtil.getCallableStatement().setInt("_oil_export_id", bean.getOilExportId());
+                spUtil.execute();
+            }
+        } catch (SQLException sqle) {
+            throw new Exception(sqle.getMessage());
+        } catch (Exception ex) {
+            throw new Exception(ex.getMessage());
+        } finally {
+            try {
+                if (spUtil != null) {
+                    spUtil.closeConnection();
+                }
+            } catch (Exception e) {
+                throw new Exception(e.getMessage());
+            }
+        }
+        return result;
+    }
+    
+    public int deleteVehicleInOilExportDetails(String ids) throws Exception {
+        int result = 0;
+        try {
+            String sql = "Delete From vehicle_in_oil_export_detail Where id in (" + ids + ")";
+            DBUtil.executeUpdate(sql);
+        } catch (SQLException sqle) {
+            throw new Exception(sqle.getMessage());
+        } catch (Exception ex) {
+            throw new Exception(ex.getMessage());
+        }
+        return result;
+    }
+
 }

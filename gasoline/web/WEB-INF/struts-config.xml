@@ -990,6 +990,9 @@
         <action path="/getVehicleInAccessory" type="com.stepup.gasoline.qt.vehiclein.GetVehicleInAccessoryAction" scope="request" validate="false">
             <forward name="success" path="/vehiclein/accessorys.jsp" />
         </action>
+        <action path="/getVehicleInOilExport" type="com.stepup.gasoline.qt.vehiclein.GetVehicleInOilExportAction" scope="request" validate="false">
+            <forward name="success" path="/vehiclein/oilexports.jsp" />
+        </action>
         <action path="/delVehicleIn" type="com.stepup.gasoline.qt.vehiclein.DeleteVehicleInAction" scope="request" validate="false" >
         </action>
         <action path="/getVehicleInReturnShell" type="com.stepup.gasoline.qt.vehiclein.GetVehicleInReturnShellAction" scope="request" validate="false">

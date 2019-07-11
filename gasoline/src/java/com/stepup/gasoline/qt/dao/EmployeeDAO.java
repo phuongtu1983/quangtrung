@@ -2581,7 +2581,7 @@ public class EmployeeDAO extends BasicDAO {
 
     public ArrayList getEmployeeOilCommissions(String ids) throws Exception {
         ResultSet rs = null;
-        String sql = "select * from employee_oil_commission";
+        String sql = "select * from employee_oil_commission where 1";
         if (!org.apache.commons.validator.GenericValidator.isBlankOrNull(ids)) {
             sql += " and id in (" + ids + ")";
         }

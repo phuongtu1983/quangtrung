@@ -144,6 +144,7 @@ public class Constants {
     public static final String VEHICLE_IN_SHELL = "vehicleInShell";
     public static final String VEHICLE_IN_RETURN = "vehicleInReturn";
     public static final String VEHICLE_IN_ACCESSORY = "vehicleInAccessory";
+    public static final String VEHICLE_IN_OIL_EXPORT = "vehicleInOilExport";
     public static final String EXPORT_WHOLESALE = "exportWholesale";
     public static final String EXPORT_WHOLESALE_SHELL = "exportWholesaleShell";
     public static final String EXPORT_WHOLESALE_RETURN = "exportWholesaleReturn";
@@ -209,4 +210,5 @@ public class Constants {
     public static final String SALE_OIL_RETURN_STORE = "saleOilReturnStore";
     public static final String OIL_EXPORT = "oilExport";
     public static final String OIL_EXPORT_OIL = "oilExportOil";
+    public static final String OIL_EXPORT_LIST = "oilExportList";
 }
