@@ -26,6 +26,7 @@ import com.stepup.gasoline.qt.customerdocument.CustomerDocumentFormBean;
 import com.stepup.gasoline.qt.discount.DiscountFormBean;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Types;
 import java.util.ArrayList;
 import org.apache.commons.validator.GenericValidator;
 
@@ -107,9 +108,6 @@ public class CustomerDAO extends BasicDAO {
             case VendorBean.IS_OIL:
                 sql += " and c.is_oil=1";
                 break;
-            default:
-                sql += " and c.is_gas=1 and c.is_petro=1 and c.is_good=1 or c.is_oil=1";
-                break;
         }
         sql += " order by c.name desc";
         ArrayList customerList = new ArrayList();
@@ -158,7 +156,7 @@ public class CustomerDAO extends BasicDAO {
         ResultSet rs = null;
         String sql = "select id, status, organization_id, coalesce(code,'') as code, coalesce(name,'') as name, coalesce(address,'') as address"
                 + ", coalesce(phone,'') as phone, coalesce(bank_account,'') as bank_account, coalesce(tax,'') as tax, coalesce(presenter,'') as presenter"
-                + ", coalesce(presenter_position,'') as presenter_position, is_gas, is_petro, is_good, is_oil, commission_percentage, commission_kind"
+                + ", coalesce(presenter_position,'') as presenter_position, is_gas, is_petro, is_good, is_oil, commission_percentage, commission_kind, note"
                 + " from customer where id=" + customerId;
         try {
             rs = DBUtil.executeQuery(sql);
@@ -175,6 +173,7 @@ public class CustomerDAO extends BasicDAO {
                 customer.setTax(rs.getString("tax"));
                 customer.setPresenter(rs.getString("presenter"));
                 customer.setPresenterPosition(rs.getString("presenter_position"));
+                customer.setNote(rs.getString("note"));
 //                customer.setDiscount(rs.getString("discount"));
                 customer.setCommissionPercentage(rs.getFloat("commission_percentage"));
                 if (customer.getStatus() == EmployeeBean.STATUS_ACTIVE) {
@@ -192,7 +191,7 @@ public class CustomerDAO extends BasicDAO {
                 if (customer.getCommissionKind() == CustomerBean.COMMISSION_KIND_BILL) {
                     customer.setCommissionKindName(QTUtil.getBundleString("customer.detail.commission.bill"));
                 } else if (customer.getCommissionKind() == CustomerBean.COMMISSION_KIND_DIRECTLY) {
-                    customer.setCommissionKindName(QTUtil.getBundleString("customer.detail.kind.directly"));
+                    customer.setCommissionKindName(QTUtil.getBundleString("customer.detail.commission.directly"));
                 }
                 customer.setIsGas(rs.getInt("is_gas") == 1 ? true : false);
                 customer.setIsPetro(rs.getInt("is_petro") == 1 ? true : false);
@@ -232,6 +231,7 @@ public class CustomerDAO extends BasicDAO {
                 customer.setTax(rs.getString("tax"));
                 customer.setPresenter(rs.getString("presenter"));
                 customer.setPresenterPosition(rs.getString("presenter_position"));
+                customer.setNote(rs.getString("note"));
 //                customer.setDiscount(rs.getString("discount"));
                 customer.setCommissionPercentage(rs.getFloat("commission_percentage"));
                 customer.setIsGas(rs.getInt("is_gas") == 1 ? true : false);
@@ -256,59 +256,87 @@ public class CustomerDAO extends BasicDAO {
         if (bean == null) {
             return 0;
         }
+        int result = 0;
+        SPUtil spUtil = null;
         try {
-            String sql = "";
-            sql = "Insert Into customer (name, code, organization_id, status, phone, bank_account, tax, presenter, presenter_position, address, is_gas, is_petro, is_good, is_oil, commission_kind, commission_percentage)"
-                    + " Values ('" + bean.getName() + "','" + bean.getCode() + "'," + bean.getOrganizationId() + "," + bean.getStatus()
-                    + ",'" + bean.getPhone() + "','" + bean.getBankAccount() + "','" + bean.getTax() + "','" + bean.getPresenter()
-                    + "','" + bean.getPresenterPosition() + "','" + bean.getAddress() + "'," + bean.getIsGas() + "," + bean.getIsPetro() + "," + bean.getIsGood() + "," + bean.getIsOil()
-                    + "," + bean.getCommissionKind() + "," + bean.getCommissionPercentage() + ")";
-            return DBUtil.executeInsert(sql);
+            String sql = "{call insertCustomer(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)}";
+            spUtil = new SPUtil(sql);
+            if (spUtil != null) {
+                spUtil.getCallableStatement().setString("_name", bean.getName());
+                spUtil.getCallableStatement().setString("_code", bean.getCode());
+                spUtil.getCallableStatement().setInt("_organization_id", bean.getOrganizationId());
+                spUtil.getCallableStatement().setInt("_status", bean.getStatus());
+                spUtil.getCallableStatement().setString("_phone", bean.getPhone());
+                spUtil.getCallableStatement().setString("_bank_account", bean.getBankAccount());
+                spUtil.getCallableStatement().setString("_tax", bean.getTax());
+                spUtil.getCallableStatement().setString("_presenter", bean.getPresenter());
+                spUtil.getCallableStatement().setString("_presenter_position", bean.getPresenterPosition());
+                spUtil.getCallableStatement().setString("_address", bean.getAddress());
+                spUtil.getCallableStatement().setInt("_is_gas", bean.getIsGas());
+                spUtil.getCallableStatement().setInt("_is_petro", bean.getIsPetro());
+                spUtil.getCallableStatement().setInt("_is_good", bean.getIsGood());
+                spUtil.getCallableStatement().setInt("_is_oil", bean.getIsOil());
+                spUtil.getCallableStatement().setInt("_commission_kind", bean.getCommissionKind());
+                spUtil.getCallableStatement().setFloat("_commission_percentage", bean.getCommissionPercentage());
+                spUtil.getCallableStatement().setString("_note", bean.getNote());
+                spUtil.getCallableStatement().registerOutParameter("_id", Types.INTEGER);
+                spUtil.execute();
+                result = spUtil.getCallableStatement().getInt("_id");
+            }
         } catch (SQLException sqle) {
             throw new Exception(sqle.getMessage());
         } catch (Exception ex) {
             throw new Exception(ex.getMessage());
         } finally {
             try {
+                if (spUtil != null) {
+                    spUtil.closeConnection();
+                }
             } catch (Exception e) {
                 throw new Exception(e.getMessage());
             }
-
         }
+        return result;
     }
 
     public void updateCustomer(CustomerBean bean) throws Exception {
         if (bean == null) {
             return;
         }
+        SPUtil spUtil = null;
         try {
-            String sql = "Update customer Set "
-                    + " name='" + bean.getName() + "'"
-                    + ", code='" + bean.getCode() + "'"
-                    + ", organization_id=" + bean.getOrganizationId()
-                    + ", status=" + bean.getStatus()
-                    //                    + ", kind=" + bean.getKind()
-                    + ", address='" + bean.getAddress() + "'"
-                    + ", phone='" + bean.getPhone() + "'"
-                    + ", bank_account='" + bean.getBankAccount() + "'"
-                    + ", tax='" + bean.getTax() + "'"
-                    + ", presenter='" + bean.getPresenter() + "'"
-                    + ", presenter_position='" + bean.getPresenterPosition() + "'"
-                    //                    + ", discount='" + bean.getDiscount() + "'"
-                    + ", is_gas=" + bean.getIsGas()
-                    + ", is_petro=" + bean.getIsPetro()
-                    + ", is_good=" + bean.getIsGood()
-                    + ", is_oil=" + bean.getIsOil()
-                    + ", commission_kind=" + bean.getCommissionKind()
-                    + ", commission_percentage=" + bean.getCommissionPercentage()
-                    + " Where id=" + bean.getId();
-            DBUtil.executeUpdate(sql);
+            String sql = "{call updateCustomer(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)}";
+            spUtil = new SPUtil(sql);
+            if (spUtil != null) {
+                spUtil.getCallableStatement().setInt("_id", bean.getId());
+                spUtil.getCallableStatement().setString("_name", bean.getName());
+                spUtil.getCallableStatement().setString("_code", bean.getCode());
+                spUtil.getCallableStatement().setInt("_organization_id", bean.getOrganizationId());
+                spUtil.getCallableStatement().setInt("_status", bean.getStatus());
+                spUtil.getCallableStatement().setString("_phone", bean.getPhone());
+                spUtil.getCallableStatement().setString("_bank_account", bean.getBankAccount());
+                spUtil.getCallableStatement().setString("_tax", bean.getTax());
+                spUtil.getCallableStatement().setString("_presenter", bean.getPresenter());
+                spUtil.getCallableStatement().setString("_presenter_position", bean.getPresenterPosition());
+                spUtil.getCallableStatement().setString("_address", bean.getAddress());
+                spUtil.getCallableStatement().setInt("_is_gas", bean.getIsGas());
+                spUtil.getCallableStatement().setInt("_is_petro", bean.getIsPetro());
+                spUtil.getCallableStatement().setInt("_is_good", bean.getIsGood());
+                spUtil.getCallableStatement().setInt("_is_oil", bean.getIsOil());
+                spUtil.getCallableStatement().setInt("_commission_kind", bean.getCommissionKind());
+                spUtil.getCallableStatement().setFloat("_commission_percentage", bean.getCommissionPercentage());
+                spUtil.getCallableStatement().setString("_note", bean.getNote());
+                spUtil.execute();
+            }
         } catch (SQLException sqle) {
             throw new Exception(sqle.getMessage());
         } catch (Exception ex) {
             throw new Exception(ex.getMessage());
         } finally {
             try {
+                if (spUtil != null) {
+                    spUtil.closeConnection();
+                }
             } catch (Exception e) {
                 throw new Exception(e.getMessage());
             }

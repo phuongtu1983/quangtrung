@@ -229,6 +229,16 @@ public class GenerateMenu {
                     PermissionUtil.PER_UNIT_RATE + "," + PermissionUtil.PER_AGENCY + "," + PermissionUtil.PER_OIL_GROUP + "," + PermissionUtil.PER_OIL
                     + "," + PermissionUtil.PER_EMPLOYEE_OIL_COMMISSION)) {
                 buffTemp.append("<item id=\"oil\" complex=\"true\" text=\"").append(QTUtil.getBundleString("menu.admin.oil.title")).append("\">");//start oil
+                if (isHasPermission(PermissionUtil.OPERATION_LIST + "," + PermissionUtil.OPERATION_EDIT, PermissionUtil.PER_VENDOR)) {
+                    buffTemp.append("<item id=\"vendoroils\" complex=\"true\" text=\"").append(QTUtil.getBundleString("vendor.title")).append("\">");//start vendoroil
+                    if (isHasPermission(PermissionUtil.OPERATION_LIST, PermissionUtil.PER_VENDOR)) {
+                        buffTemp.append("<item id=\"vendoroillist\" text=\"").append(QTUtil.getBundleString("vendor.list.title")).append("\"/>");//list vendoroil
+                    }
+                    if (isHasPermission(PermissionUtil.OPERATION_EDIT, PermissionUtil.PER_VENDOR)) {
+                        buffTemp.append("<item id=\"vendoroiladd\" text=\"").append(QTUtil.getBundleString("vendor.detail.add.title")).append("\"/>");//add vendoroil
+                    }
+                    buffTemp.append("</item>");//end vendoroil
+                }
                 if (isHasPermission(PermissionUtil.OPERATION_LIST + "," + PermissionUtil.OPERATION_ADD, PermissionUtil.PER_UNIT_RATE)) {
                     buffTemp.append("<item id=\"unitrates\" complex=\"true\" text=\"").append(QTUtil.getBundleString("unitRate.title")).append("\">");//start rates
                     if (isHasPermission(PermissionUtil.OPERATION_LIST, PermissionUtil.PER_UNIT_RATE)) {
@@ -914,8 +924,8 @@ public class GenerateMenu {
 
             buffTemp = new StringBuilder();
             if (isHasPermission(PermissionUtil.OPERATION_LIST + "," + PermissionUtil.OPERATION_ADD,
-                    PermissionUtil.PER_CONTRACT + "," + PermissionUtil.PER_DEBT_VENDOR + "," + PermissionUtil.PER_DEBT_WHOLESALE + "," + PermissionUtil.PER_INCOME
-                    + "," + PermissionUtil.PER_EXPENSE + "," + PermissionUtil.PER_DEBT_ADJUSTMENT)) {
+                    PermissionUtil.PER_CONTRACT + "," + PermissionUtil.PER_INVOICE + "," + PermissionUtil.PER_DEBT_VENDOR + "," + PermissionUtil.PER_DEBT_WHOLESALE
+                    + "," + PermissionUtil.PER_INCOME + "," + PermissionUtil.PER_EXPENSE + "," + PermissionUtil.PER_DEBT_ADJUSTMENT)) {
                 if (isHasPermission(PermissionUtil.OPERATION_LIST + "," + PermissionUtil.OPERATION_ADD, PermissionUtil.PER_CONTRACT)) {
                     buffTemp.append("<item id=\"contracts\" complex=\"true\" text=\"").append(QTUtil.getBundleString("contract.title")).append("\">");
                     if (isHasPermission(PermissionUtil.OPERATION_LIST, PermissionUtil.PER_CONTRACT)) {
@@ -923,6 +933,16 @@ public class GenerateMenu {
                     }
                     if (isHasPermission(PermissionUtil.OPERATION_ADD, PermissionUtil.PER_CONTRACT)) {
                         buffTemp.append("<item id=\"contractadd\" text=\"").append(QTUtil.getBundleString("contract.detail.add.title")).append("\"/>");
+                    }
+                    buffTemp.append("</item>");
+                }
+                if (isHasPermission(PermissionUtil.OPERATION_LIST + "," + PermissionUtil.OPERATION_ADD, PermissionUtil.PER_INVOICE)) {
+                    buffTemp.append("<item id=\"invoices\" complex=\"true\" text=\"").append(QTUtil.getBundleString("invoice.title")).append("\">");
+                    if (isHasPermission(PermissionUtil.OPERATION_LIST, PermissionUtil.PER_INVOICE)) {
+                        buffTemp.append("<item id=\"invoicelist\" text=\"").append(QTUtil.getBundleString("invoice.list.title")).append("\"/>");
+                    }
+                    if (isHasPermission(PermissionUtil.OPERATION_ADD, PermissionUtil.PER_INVOICE)) {
+                        buffTemp.append("<item id=\"invoiceadd\" text=\"").append(QTUtil.getBundleString("invoice.detail.add.title")).append("\"/>");
                     }
                     buffTemp.append("</item>");
                 }
@@ -1112,6 +1132,9 @@ public class GenerateMenu {
                     }
                     if (isHasPermission(PermissionUtil.OPERATION_PRINT, PermissionUtil.PER_REPORT_OIL_VENDOR_STOCK)) {
                         buffTemp.append("<item id=\"reportoilvendorstock\" text=\"").append(QTUtil.getBundleString("report.oilVendorStock.title")).append("\"/>");
+                    }
+                    if (isHasPermission(PermissionUtil.OPERATION_PRINT, PermissionUtil.PER_REPORT_OIL_VENDOR_DEBT)) {
+                        buffTemp.append("<item id=\"reportoilvendordebt\" text=\"").append(QTUtil.getBundleString("report.oilVendorDebt.title")).append("\"/>");
                     }
                     buffTemp.append("</item>");
                     buffTemp.append("<item id=\"reporttransport\" complex=\"true\" text=\"").append(QTUtil.getBundleString("report.transport.title")).append("\">");

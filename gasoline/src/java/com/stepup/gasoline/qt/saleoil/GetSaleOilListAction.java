@@ -54,6 +54,7 @@ public class GetSaleOilListAction extends Action {
                     buff.append("<cell>").append(NumberUtil.formatMoneyDefault(bean.getTotal(), "VND")).append("</cell>");
                     buff.append("<cell>").append(NumberUtil.formatMoneyDefault(bean.getPaid(), "VND")).append("</cell>");
                     buff.append("<cell>").append(NumberUtil.formatMoneyDefault(bean.getDebt(), "VND")).append("</cell>");
+                    buff.append("<cell>").append(bean.getNote()).append("</cell>");
                     buff.append("<cell>").append(StringUtil.encodeString(bean.getNote())).append("</cell>");
                     buff.append("</row>");
                 }

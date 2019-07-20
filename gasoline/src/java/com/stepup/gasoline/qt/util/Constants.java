@@ -22,6 +22,8 @@ public class Constants {
     public static final String SHELL_RETURN_LIST = "shellReturnList";
     public static final String SHELL_IMPORT = "shellImport";
     public static final String VENDOR = "vendor";
+    public static final String VENDOR_OIL = "vendorOil";
+    public static final String VENDOR_OIL_STORE = "vendorOilStore";
     public static final String GAS_RETURN_VENDOR = "gasreturnvendor";
     public static final String VENDOR_CUSTOMER = "vendorCustomer";
     public static final String VENDOR_ORGANIZATION = "vendorOrganization";
@@ -161,6 +163,10 @@ public class Constants {
     public static final String FIXED_ASSET_DEPRECIATION = "fixedAssetDepreciation";
     public static final String FIXED_ASSET_DEPRECIATION_GOOD = "fixedAssetDepreciationGood";
     public static final String CONTRACT = "contract";
+    public static final String INVOICE = "invoice";
+    public static final String INVOICE_DETAIL = "invoicedetail";
+    public static final String INVOICE_PAID_DETAIL = "invoicepaiddetail";
+    public static final String INVOICE_SEARCHED_DETAIL = "invoicesearcheddetail";
     public static final String ATTACH_FILE_LIST = "attachFileList";
     public static final String UPLOAD_TEMP_PATH = "/fileuploadedtemp";
     public static final String UPLOADED_PATH = "/uploadedFiles";

@@ -162,6 +162,9 @@ public class PrintReportAction extends BaseAction {
                 } else if (reportName.equals("reportoilsale")) {
                     templateFileName = "hang_xuat_oil";
                     list = printOilSaleReport(fromDate, toDate, organizationIds);
+                } else if (reportName.equals("reportoilvendordebt")) {
+                    templateFileName = "bang_theo_doi_cong_no_ncc_oil";
+                    list = printOilVendorDebtReport(fromDate, toDate, organizationIds);
                 }
 
                 if (!reportName.equals("reportpetrostock") && !reportName.equals("reportgascommission") && !reportName.equals("reportshell")
@@ -877,4 +880,13 @@ public class PrintReportAction extends BaseAction {
         return list;
     }
 
+    private ArrayList printOilVendorDebtReport(String fromDate, String toDate, String organizationIds) {
+        ArrayList list = null;
+        try {
+            ReportDAO reportDAO = new ReportDAO();
+            list = reportDAO.getVendorDebtReport(fromDate, toDate, organizationIds);
+        } catch (Exception ex) {
+        }
+        return list;
+    }
 }

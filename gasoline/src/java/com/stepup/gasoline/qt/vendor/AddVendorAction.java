@@ -101,12 +101,6 @@ public class AddVendorAction extends AddDynamicFieldValueAction {
                 if (formBean.getHasStock() != oldBean.getHasStock()) {
                     isUpdate = true;
                 }
-                if (formBean.getCommissionOnImport()!= oldBean.getCommissionOnImport()) {
-                    isUpdate = true;
-                }
-                if (formBean.getMaxDebt()!= oldBean.getMaxDebt()) {
-                    isUpdate = true;
-                }
                 if (formBean.getIsGas() != oldBean.getIsGas()) {
                     isUpdate = true;
                 }
@@ -136,8 +130,8 @@ public class AddVendorAction extends AddDynamicFieldValueAction {
         bean.setStatus(formBean.getStatus());
         bean.setOrganizationId(formBean.getOrganizationId());
         bean.setEqualOrganizationId(formBean.getEqualOrganizationId());
-        bean.setCommissionOnImport(formBean.getCommissionOnImport());
-        bean.setMaxDebt(formBean.getMaxDebt());
+        bean.setCommissionOnImport(0);
+        bean.setMaxDebt(0);
         bean.setHasStock(formBean.getHasStock() == true ? 1 : 0);
         bean.setIsGas(formBean.getIsGas() == true ? 1 : 0);
         bean.setIsPetro(formBean.getIsPetro() == true ? 1 : 0);

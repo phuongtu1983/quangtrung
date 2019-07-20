@@ -12,6 +12,7 @@ import com.stepup.gasoline.qt.bean.EmployeeBean;
 import com.stepup.gasoline.qt.bean.GasReturnVendorBean;
 import com.stepup.gasoline.qt.bean.VendorBean;
 import com.stepup.gasoline.qt.bean.VendorCustomerBean;
+import com.stepup.gasoline.qt.bean.VendorOilStoreDetailBean;
 import com.stepup.gasoline.qt.bean.VendorOrganizationBean;
 import com.stepup.gasoline.qt.util.QTUtil;
 import com.stepup.gasoline.qt.vendor.GasReturnVendorFormBean;
@@ -320,7 +321,7 @@ public class VendorDAO extends BasicDAO {
         }
         SPUtil spUtil = null;
         try {
-            String sql = "{call updateVendor(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)}";
+            String sql = "{call updateVendor(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)}";
             spUtil = new SPUtil(sql);
             if (spUtil != null) {
                 spUtil.getCallableStatement().setString("_name", bean.getName());
@@ -332,8 +333,6 @@ public class VendorDAO extends BasicDAO {
                 spUtil.getCallableStatement().setInt("_organization_id", bean.getOrganizationId());
                 spUtil.getCallableStatement().setInt("_status", bean.getStatus());
                 spUtil.getCallableStatement().setInt("_equal_organization_id", bean.getEqualOrganizationId());
-                spUtil.getCallableStatement().setFloat("_commision_on_import", bean.getCommissionOnImport());
-                spUtil.getCallableStatement().setDouble("_max_debt", bean.getMaxDebt());
                 spUtil.getCallableStatement().setInt("_has_stock", bean.getHasStock());
                 spUtil.getCallableStatement().setInt("_is_gas", bean.getIsGas());
                 spUtil.getCallableStatement().setInt("_is_petro", bean.getIsPetro());
@@ -356,7 +355,109 @@ public class VendorDAO extends BasicDAO {
                 throw new Exception(e.getMessage());
             }
         }
+    }
 
+    public void updateVendorOil(VendorBean bean) throws Exception {
+        if (bean == null) {
+            return;
+        }
+        SPUtil spUtil = null;
+        try {
+            String sql = "{call updateVendorOil(?,?,?)}";
+            spUtil = new SPUtil(sql);
+            if (spUtil != null) {
+                spUtil.getCallableStatement().setFloat("_commision_on_import", bean.getCommissionOnImport());
+                spUtil.getCallableStatement().setDouble("_max_debt", bean.getMaxDebt());
+                spUtil.getCallableStatement().setInt("_id", bean.getId());
+                spUtil.execute();
+            }
+        } catch (SQLException sqle) {
+            throw new Exception(sqle.getMessage());
+        } catch (Exception ex) {
+            throw new Exception(ex.getMessage());
+        } finally {
+            try {
+                if (spUtil != null) {
+                    spUtil.closeConnection();
+                }
+            } catch (Exception e) {
+                throw new Exception(e.getMessage());
+            }
+        }
+
+    }
+
+    public ArrayList getVendorOilStoreDetail(int vendorId) throws Exception {
+        ResultSet rs = null;
+        String sql = "select det.*, s.name as store_name"
+                + " from vendor_oil_store as det, store as s"
+                + " where det.store_id=s.id and det.vendor_id=" + vendorId
+                + " order by det.id";
+        ArrayList detailList = new ArrayList();
+        try {
+            rs = DBUtil.executeQuery(sql);
+            VendorOilStoreDetailBean bean = null;
+            while (rs.next()) {
+                bean = new VendorOilStoreDetailBean();
+                bean.setId(rs.getInt("id"));
+                bean.setVendorId(rs.getInt("vendor_id"));
+                bean.setStoreId(rs.getInt("store_id"));
+                bean.setStoreName(rs.getString("store_name"));
+                detailList.add(bean);
+            }
+        } catch (SQLException sqle) {
+            throw new Exception(sqle.getMessage());
+        } catch (Exception ex) {
+            throw new Exception(ex.getMessage());
+        } finally {
+            if (rs != null) {
+                DBUtil.closeConnection(rs);
+            }
+        }
+        return detailList;
+    }
+
+    public int insertVendorOiStoreDetail(VendorOilStoreDetailBean bean) throws Exception {
+        if (bean == null) {
+            return 0;
+        }
+        int result = 0;
+        SPUtil spUtil = null;
+        try {
+            String sql = "{call insertVendorOiStoreDetail(?,?)}";
+            spUtil = new SPUtil(sql);
+            if (spUtil != null) {
+                spUtil.getCallableStatement().setInt("_vendor_id", bean.getVendorId());
+                spUtil.getCallableStatement().setInt("_store_id", bean.getStoreId());
+                spUtil.execute();
+            }
+        } catch (SQLException sqle) {
+            throw new Exception(sqle.getMessage());
+        } catch (Exception ex) {
+            throw new Exception(ex.getMessage());
+        } finally {
+            try {
+                if (spUtil != null) {
+                    spUtil.closeConnection();
+                }
+            } catch (Exception e) {
+                throw new Exception(e.getMessage());
+            }
+        }
+        return result;
+    }
+
+    public int deleteVendorOilStoreDetails(String ids) throws Exception {
+        int result = 0;
+        try {
+            String sql = "Delete From vendor_oil_store Where id in (" + ids + ")";
+            DBUtil.executeUpdate(sql);
+        } catch (SQLException sqle) {
+            throw new Exception(sqle.getMessage());
+        } catch (Exception ex) {
+            throw new Exception(ex.getMessage());
+        }
+        return result;
     }
 
     public GasReturnVendorFormBean getGasReturnVendor(String organizationIds) throws Exception {

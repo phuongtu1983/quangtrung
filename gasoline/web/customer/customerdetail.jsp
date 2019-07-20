@@ -51,6 +51,10 @@
                             <td colspan="3"><html:text property="address" size="107" name="<%=Constants.CUSTOMER%>"/></td>
                         </tr>
                         <tr>
+                            <td height="30" style="padding-right: 20px"><bean:message key="note.title"/></td>
+                            <td colspan="3"><html:text property="note" size="107" name="<%=Constants.CUSTOMER%>"/></td>
+                        </tr>
+                        <tr>
                             <td height="30" style="padding-right: 20px"><bean:message key="customer.detail.commission"/></td>
                             <td>
                                 <html:select property="commissionKind" name="<%=Constants.CUSTOMER%>" style="width:255px">

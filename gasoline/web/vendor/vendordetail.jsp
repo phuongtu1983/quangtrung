@@ -51,12 +51,6 @@
                             </td>
                         </tr>
                         <tr>
-                            <td height="30" style="padding-right: 20px"><bean:message key="vendor.detail.add.commissionOnImport.title"/></td>
-                            <td><html:text property="commissionOnImport" size="40" name="<%=Constants.VENDOR%>" onblur="tryNumberFormatCurrentcy(this);" onkeypress="return readonlyFloat(event);"/></td>
-                            <td style="padding-left: 10px; padding-right: 20px"><bean:message key="vendor.detail.add.maxDebt.title"/></td>
-                            <td><html:text property="maxDebt" size="40" name="<%=Constants.VENDOR%>" onblur="tryNumberFormatCurrentcy(this);" onkeypress="return readonlyFloat(event);"/></td>
-                        </tr>
-                        <tr>
                             <td height="30" style="padding-right: 20px"><bean:message key="vendor.detail.isGas"/></td>
                             <td><html:checkbox property="isGas" name="<%=Constants.VENDOR%>"></html:checkbox></td>
                             <td style="padding-left: 10px; padding-right: 20px"><bean:message key="vendor.detail.isPetro"/></td>

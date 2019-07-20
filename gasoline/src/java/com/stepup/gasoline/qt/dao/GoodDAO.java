@@ -52,6 +52,7 @@ import com.stepup.gasoline.qt.bean.ShieldImportBean;
 import com.stepup.gasoline.qt.bean.UnitBean;
 import com.stepup.gasoline.qt.good.GoodFormBean;
 import com.stepup.gasoline.qt.goodimport.GoodImportFormBean;
+import com.stepup.gasoline.qt.invoice.SearchedSaleOilBean;
 import com.stepup.gasoline.qt.oil.OilFormBean;
 import com.stepup.gasoline.qt.oilexport.OilExportFormBean;
 import com.stepup.gasoline.qt.oilgroup.OilGroupFormBean;
@@ -4464,6 +4465,7 @@ public class GoodDAO extends BasicDAO {
                         bean.setPaid(rs.getDouble("paid"));
                         bean.setDebt(rs.getDouble("debt"));
                         bean.setAccountId(rs.getInt("account_id"));
+                        bean.setOilExportCode(rs.getString("oil_export_code"));
                         bean.setNote(rs.getString("note"));
                         list.add(bean);
                     }
@@ -4832,6 +4834,89 @@ public class GoodDAO extends BasicDAO {
             }
         }
         return null;
+    }
+    
+    public ArrayList getSaleOilDetail(String code, String fromDate, String toDate, String oilName, int customerId) throws Exception {
+        SPUtil spUtil = null;
+        ArrayList list = new ArrayList();
+        ResultSet rs = null;
+        try {
+            String sql = "{call searchSaleOilDetail(?,?,?,?,?)}";
+            if (GenericValidator.isBlankOrNull(fromDate)) {
+                fromDate = this.START_DATE;
+            }
+            if (GenericValidator.isBlankOrNull(toDate)) {
+                toDate = DateUtil.today("dd/MM/yyyy");
+            }
+            spUtil = new SPUtil(sql);
+            if (spUtil != null) {
+                spUtil.getCallableStatement().setString("_start_date", fromDate);
+                spUtil.getCallableStatement().setString("_end_date", toDate);
+                spUtil.getCallableStatement().setString("_code", code);
+                spUtil.getCallableStatement().setString("_oil_name", oilName);
+                spUtil.getCallableStatement().setInt("_customer_id", customerId);
+                rs = spUtil.executeQuery();
+                if (rs != null) {
+                    SearchedSaleOilBean bean = null;
+                    while (rs.next()) {
+                        bean = new SearchedSaleOilBean();
+                        bean.setId(rs.getInt("id"));
+                        bean.setOilName(rs.getString("oil_name"));
+                        bean.setOilSaleCode(rs.getString("oil_sale_code"));
+                        bean.setOilSaleDate(DateUtil.formatDate(rs.getDate("oil_sale_date"), "dd/MM/yyyy"));
+                        list.add(bean);
+                    }
+                }
+            }
+        } catch (SQLException sqle) {
+            throw new Exception(sqle.getMessage());
+        } catch (Exception ex) {
+            throw new Exception(ex.getMessage());
+        } finally {
+            try {
+                if (spUtil != null) {
+                    spUtil.closeConnection();
+                }
+                if (rs != null) {
+                    rs.close();
+                    rs = null;
+                }
+            } catch (Exception e) {
+                throw new Exception(e.getMessage());
+            }
+        }
+        return list;
+    }
+    
+    public ArrayList getSaleOilDetails(String ids) throws Exception {
+        ResultSet rs = null;
+        String sql = "SELECT sdet.id, s.CODE AS oil_sale_code, s.created_date AS oil_sale_date, o.NAME AS oil_name, sdet.amount"
+                + " FROM oil_sale_detail AS sdet, oil_sale AS s, oil AS o"
+                + " WHERE sdet.oil_sale_id=s.id AND sdet.oil_id=o.id and sdet.id in (" + ids + ")"
+                + " order by sdet.id";
+        ArrayList detailList = new ArrayList();
+        try {
+            rs = DBUtil.executeQuery(sql);
+            SearchedSaleOilBean bean = null;
+            while (rs.next()) {
+                bean = new SearchedSaleOilBean();
+                bean.setId(rs.getInt("id"));
+                bean.setOilName(rs.getString("oil_name"));
+                bean.setOilSaleCode(rs.getString("oil_sale_code"));
+                bean.setOilSaleDate(DateUtil.formatDate(rs.getDate("oil_sale_date"), "dd/MM/yyyy"));
+                bean.setAmount(rs.getDouble("amount"));
+                detailList.add(bean);
+            }
+        } catch (SQLException sqle) {
+            throw new Exception(sqle.getMessage());
+        } catch (Exception ex) {
+            throw new Exception(ex.getMessage());
+        } finally {
+            if (rs != null) {
+                DBUtil.closeConnection(rs);
+            }
+        }
+        return detailList;
     }
     
     public ArrayList getOils(String oilIds) throws Exception {

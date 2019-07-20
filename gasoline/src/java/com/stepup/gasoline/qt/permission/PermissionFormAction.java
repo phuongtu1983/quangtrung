@@ -855,9 +855,18 @@ public class PermissionFormAction extends SpineAction {
         perBean.setValue(PermissionUtil.PER_CONTRACT);
         perBean.setOperations("," + PermissionUtil.OPERATION_LIST + "," + PermissionUtil.OPERATION_ADD + "," + PermissionUtil.OPERATION_EDIT + "," + PermissionUtil.OPERATION_DELETE + "," + PermissionUtil.OPERATION_PRINT + ",");
         arrFun.add(perBean);
-
+        
         perBean = new PermissionViewBean();
         perBean.setCounter("2.77");
+        perBean.setLevel(2);
+        perBean.setSharedId(2);
+        perBean.setName(QTUtil.getBundleString("invoice.title"));
+        perBean.setValue(PermissionUtil.PER_INVOICE);
+        perBean.setOperations("," + PermissionUtil.OPERATION_LIST + "," + PermissionUtil.OPERATION_ADD + "," + PermissionUtil.OPERATION_EDIT + "," + PermissionUtil.OPERATION_DELETE + "," + PermissionUtil.OPERATION_PRINT + ",");
+        arrFun.add(perBean);
+
+        perBean = new PermissionViewBean();
+        perBean.setCounter("2.78");
         perBean.setLevel(2);
         perBean.setSharedId(2);
         perBean.setName(QTUtil.getBundleString("debtVendor.title"));
@@ -874,7 +883,7 @@ public class PermissionFormAction extends SpineAction {
 //        perBean.setOperations("," + PermissionUtil.OPERATION_LIST + "," + PermissionUtil.OPERATION_ADD + "," + PermissionUtil.OPERATION_EDIT + "," + PermissionUtil.OPERATION_DELETE + ",");
 //        arrFun.add(perBean);
         perBean = new PermissionViewBean();
-        perBean.setCounter("2.78");
+        perBean.setCounter("2.79");
         perBean.setLevel(2);
         perBean.setSharedId(2);
         perBean.setName(QTUtil.getBundleString("debtWholesale.title"));
@@ -883,7 +892,7 @@ public class PermissionFormAction extends SpineAction {
         arrFun.add(perBean);
 
         perBean = new PermissionViewBean();
-        perBean.setCounter("2.79");
+        perBean.setCounter("2.80");
         perBean.setLevel(2);
         perBean.setSharedId(2);
         perBean.setName(QTUtil.getBundleString("income.title"));
@@ -892,7 +901,7 @@ public class PermissionFormAction extends SpineAction {
         arrFun.add(perBean);
 
         perBean = new PermissionViewBean();
-        perBean.setCounter("2.80");
+        perBean.setCounter("2.81");
         perBean.setLevel(2);
         perBean.setSharedId(2);
         perBean.setName(QTUtil.getBundleString("expense.title"));
@@ -901,7 +910,7 @@ public class PermissionFormAction extends SpineAction {
         arrFun.add(perBean);
 
         perBean = new PermissionViewBean();
-        perBean.setCounter("2.81");
+        perBean.setCounter("2.82");
         perBean.setLevel(2);
         perBean.setSharedId(2);
         perBean.setName(QTUtil.getBundleString("shieldImport.title"));
@@ -910,7 +919,7 @@ public class PermissionFormAction extends SpineAction {
         arrFun.add(perBean);
 
         perBean = new PermissionViewBean();
-        perBean.setCounter("2.82");
+        perBean.setCounter("2.83");
         perBean.setLevel(2);
         perBean.setSharedId(2);
         perBean.setName(QTUtil.getBundleString("shieldDecrease.title"));
@@ -919,7 +928,7 @@ public class PermissionFormAction extends SpineAction {
         arrFun.add(perBean);
 
         perBean = new PermissionViewBean();
-        perBean.setCounter("2.83");
+        perBean.setCounter("2.84");
         perBean.setLevel(2);
         perBean.setSharedId(2);
         perBean.setName(QTUtil.getBundleString("debtAdjustment.title"));
@@ -1275,6 +1284,15 @@ public class PermissionFormAction extends SpineAction {
         perBean.setSharedId(3);
         perBean.setName(QTUtil.getBundleString("report.oilVendorStock.title"));
         perBean.setValue(PermissionUtil.PER_REPORT_OIL_VENDOR_STOCK);
+        perBean.setOperations("," + PermissionUtil.OPERATION_PRINT + ",");
+        arrFun.add(perBean);
+        
+        perBean = new PermissionViewBean();
+        perBean.setCounter("3.39");
+        perBean.setLevel(2);
+        perBean.setSharedId(3);
+        perBean.setName(QTUtil.getBundleString("report.oilVendorDebt.title"));
+        perBean.setValue(PermissionUtil.PER_REPORT_OIL_VENDOR_DEBT);
         perBean.setOperations("," + PermissionUtil.OPERATION_PRINT + ",");
         arrFun.add(perBean);
 

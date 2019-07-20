@@ -29,6 +29,7 @@ public class CustomerFormBean extends DynamicFieldValueParentFormBean {
     private String tax;
     private String presenter;
     private String presenterPosition;
+    private String note;
 //    private String discount;
     private int commissionKind;
     private String commissionKindName;
@@ -56,6 +57,7 @@ public class CustomerFormBean extends DynamicFieldValueParentFormBean {
         this.tax = bean.getTax();
         this.presenter = bean.getPresenter();
         this.presenterPosition = bean.getPresenterPosition();
+        this.note = bean.getNote();
 //        this.discount = bean.getDiscount();
         this.isGas = bean.getIsGas() == 1 ? true : false;
         this.isPetro = bean.getIsPetro() == 1 ? true : false;
@@ -267,6 +269,14 @@ public class CustomerFormBean extends DynamicFieldValueParentFormBean {
 
     public void setIsOil(boolean isOil) {
         this.isOil = isOil;
+    }
+
+    public String getNote() {
+        return note;
+    }
+
+    public void setNote(String note) {
+        this.note = note;
     }
 
 }

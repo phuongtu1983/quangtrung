@@ -2,13 +2,11 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
-package com.stepup.gasoline.qt.saleoil;
+package com.stepup.gasoline.qt.invoice;
 
 import com.stepup.core.util.NumberUtil;
-import com.stepup.core.util.OutputUtil;
 import com.stepup.gasoline.qt.core.SpineAction;
-import com.stepup.gasoline.qt.customer.CustomerFormBean;
-import com.stepup.gasoline.qt.dao.CustomerDAO;
+import com.stepup.gasoline.qt.dao.ContractDAO;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import org.apache.struts.action.ActionForm;
@@ -18,7 +16,7 @@ import org.apache.struts.action.ActionMapping;
  *
  * @author phuongtu
  */
-public class GetSaleOilCustomerCommissionAction extends SpineAction {
+public class DeleteInvoiceAction extends SpineAction {
 
     /**
      * This is the action called from the Struts framework.
@@ -34,21 +32,10 @@ public class GetSaleOilCustomerCommissionAction extends SpineAction {
     public boolean doAction(ActionMapping mapping, ActionForm form,
             HttpServletRequest request, HttpServletResponse response) {
         try {
-            CustomerDAO customerDAO = new CustomerDAO();
-            int customerId = NumberUtil.parseInt(request.getParameter("customerId"), 0);
-            CustomerFormBean customerBean = customerDAO.getCustomer(customerId);
-            if (customerBean == null) {
-                customerBean = new CustomerFormBean();
-            }
-            String json = "{\"commission\":\"" + customerBean.getCommissionPercentage() + "\"}";
-            OutputUtil.sendStringToOutput(response, json);
+            ContractDAO contractDAO = new ContractDAO();
+            contractDAO.deleteInvoice(NumberUtil.parseInt(request.getParameter("invoiceId"), 0));
         } catch (Exception ex) {
         }
-        return true;
-    }
-
-    @Override
-    protected boolean isReturnStream() {
         return true;
     }
 }

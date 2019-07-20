@@ -2,13 +2,14 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
-package com.stepup.gasoline.qt.saleoil;
+package com.stepup.gasoline.qt.vendor.oil;
 
 import com.stepup.core.util.NumberUtil;
-import com.stepup.core.util.OutputUtil;
 import com.stepup.gasoline.qt.core.SpineAction;
-import com.stepup.gasoline.qt.customer.CustomerFormBean;
-import com.stepup.gasoline.qt.dao.CustomerDAO;
+import com.stepup.gasoline.qt.dao.OrganizationDAO;
+import com.stepup.gasoline.qt.store.StoreFormBean;
+import com.stepup.gasoline.qt.util.Constants;
+import java.util.ArrayList;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import org.apache.struts.action.ActionForm;
@@ -18,7 +19,7 @@ import org.apache.struts.action.ActionMapping;
  *
  * @author phuongtu
  */
-public class GetSaleOilCustomerCommissionAction extends SpineAction {
+public class GetVendorOilStoreAction extends SpineAction {
 
     /**
      * This is the action called from the Struts framework.
@@ -33,22 +34,17 @@ public class GetSaleOilCustomerCommissionAction extends SpineAction {
     @Override
     public boolean doAction(ActionMapping mapping, ActionForm form,
             HttpServletRequest request, HttpServletResponse response) {
+        int storeId = NumberUtil.parseInt(request.getParameter("storeId"), 0);
+        ArrayList arrDetail = new ArrayList();
         try {
-            CustomerDAO customerDAO = new CustomerDAO();
-            int customerId = NumberUtil.parseInt(request.getParameter("customerId"), 0);
-            CustomerFormBean customerBean = customerDAO.getCustomer(customerId);
-            if (customerBean == null) {
-                customerBean = new CustomerFormBean();
-            }
-            String json = "{\"commission\":\"" + customerBean.getCommissionPercentage() + "\"}";
-            OutputUtil.sendStringToOutput(response, json);
+            OrganizationDAO organizationDAO = new OrganizationDAO();
+            StoreFormBean bean = organizationDAO.getStore(storeId);
+            arrDetail.add(bean);
         } catch (Exception ex) {
         }
-        return true;
-    }
 
-    @Override
-    protected boolean isReturnStream() {
+        request.setAttribute(Constants.VENDOR_OIL_STORE, arrDetail);
+
         return true;
     }
 }

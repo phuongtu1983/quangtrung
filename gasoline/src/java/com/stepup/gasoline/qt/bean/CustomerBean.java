@@ -23,6 +23,7 @@ public class CustomerBean {
     private String tax;
     private String presenter;
     private String presenterPosition;
+    private String note;
 //    private String discount;
     private int commissionKind;
     private int isGas;
@@ -178,6 +179,14 @@ public class CustomerBean {
 
     public void setIsOil(int isOil) {
         this.isOil = isOil;
+    }
+
+    public String getNote() {
+        return note;
+    }
+
+    public void setNote(String note) {
+        this.note = note;
     }
 
     public static int COMMISSION_KIND_BILL = 1;

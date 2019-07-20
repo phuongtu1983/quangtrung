@@ -32,6 +32,7 @@ public class SaleOilFormBean extends org.apache.struts.action.ActionForm {
     private float gapCustomerAmount;
     private float gapAgencyAmount;
     private boolean isCalculateAgencyCommission;
+    private String oilExportCode;
     private String[] saleOilDetailId;
     private String[] oilId;
     private String[] unitId;
@@ -380,6 +381,14 @@ public class SaleOilFormBean extends org.apache.struts.action.ActionForm {
 
     public void setCustomerName(String customerName) {
         this.customerName = customerName;
+    }
+
+    public String getOilExportCode() {
+        return oilExportCode;
+    }
+
+    public void setOilExportCode(String oilExportCode) {
+        this.oilExportCode = oilExportCode;
     }
 
 }

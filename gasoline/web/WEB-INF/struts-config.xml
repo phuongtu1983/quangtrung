@@ -69,6 +69,7 @@
         <form-bean name="organizationTimesheetForm" type="com.stepup.gasoline.qt.organization.OrganizationTimesheetFormBean"/>
         <form-bean name="accessoryKindForm" type="com.stepup.gasoline.qt.accessorykind.AccessoryKindFormBean"/>
         <form-bean name="vendorForm" type="com.stepup.gasoline.qt.vendor.VendorFormBean"/>
+        <form-bean name="vendorOilForm" type="com.stepup.gasoline.qt.vendor.oil.VendorOilFormBean"/>
         <form-bean name="gasReturnVendorForm" type="com.stepup.gasoline.qt.vendor.GasReturnVendorFormBean"/>
         <form-bean name="vendorOrganizationForm" type="com.stepup.gasoline.qt.vendororganization.VendorOrganizationFormBean"/>
         <form-bean name="vendorCustomerForm" type="com.stepup.gasoline.qt.vendorcustomer.VendorCustomerFormBean"/>
@@ -109,6 +110,7 @@
         <form-bean name="saleShellForm" type="com.stepup.gasoline.qt.saleshell.SaleShellFormBean"/>
         <form-bean name="debtVendorForm" type="com.stepup.gasoline.qt.debtvendor.DebtVendorFormBean"/>
         <form-bean name="contractForm" type="com.stepup.gasoline.qt.contract.ContractFormBean"/>
+        <form-bean name="invoiceForm" type="com.stepup.gasoline.qt.invoice.InvoiceFormBean"/>
         <form-bean name="debtRetailForm" type="com.stepup.gasoline.qt.debtretail.DebtRetailFormBean"/>
         <form-bean name="debtWholesaleForm" type="com.stepup.gasoline.qt.debtwholesale.DebtWholesaleFormBean"/>
         <form-bean name="incomeForm" type="com.stepup.gasoline.qt.income.IncomeFormBean"/>
@@ -299,6 +301,21 @@
         <action path="/getVendorCommission" scope="request" type="com.stepup.gasoline.qt.vendor.GetVendorCommissionAction">
         </action>
         <!-- end vendor -->
+        <!-- start vendor oil-->
+        <action path="/getVendorOilPanel" type="com.stepup.gasoline.qt.common.BaseStatusFormAction" scope="request" validate="false">
+            <forward name="success" path="/vendor/oil/vendorpanel.jsp" />
+        </action>
+        <action path="/getVendorOilList" type="com.stepup.gasoline.qt.vendor.oil.GetVendorListAction" scope="request" validate="false" >
+        </action>
+        <action path="/vendorOilForm" type="com.stepup.gasoline.qt.vendor.oil.VendorFormAction" scope="request" validate="false">
+            <forward name="success" path="/vendor/oil/vendordetail.jsp" />
+        </action>
+        <action path="/addVendorOil" name ="vendorOilForm" scope="request" type="com.stepup.gasoline.qt.vendor.oil.AddVendorAction" input="/vendorOilForm.do">
+        </action>
+        <action path="/getVendorOilStore" type="com.stepup.gasoline.qt.vendor.oil.GetVendorOilStoreAction" scope="request" validate="false">
+            <forward name="success" path="/vendor/oil/stores.jsp" />
+        </action>
+        <!-- end vendor oil-->
         <!-- start account -->
         <action path="/getAccountPanel" type="com.stepup.gasoline.qt.common.BaseStatusFormAction" scope="request" validate="false">
             <forward name="success" path="/account/accountpanel.jsp" />
@@ -1625,6 +1642,34 @@
         <action path="/reportOilExport" type="com.stepup.gasoline.qt.oilexport.PrintOilExportAction" scope="request" validate="false" >
         </action>
         <!-- end oilexport -->
+        <!-- start invoice -->
+        <action path="/getInvoicePanel" type="com.stepup.gasoline.qt.common.BaseStatusFormAction" scope="request" validate="false">
+            <forward name="success" path="/invoice/invoicepanel.jsp" />
+        </action>
+        <action path="/getInvoiceList" type="com.stepup.gasoline.qt.invoice.GetInvoiceListAction" scope="request" validate="false" >
+        </action>
+        <action path="/invoiceForm" type="com.stepup.gasoline.qt.invoice.InvoiceFormAction" scope="request" validate="false">
+            <forward name="success" path="/invoice/invoicedetail.jsp" />
+        </action>
+        <action path="/addInvoice" name ="invoiceForm" scope="request" type="com.stepup.gasoline.qt.invoice.AddInvoiceAction" input="/invoiceForm.do">
+        </action>
+        <action path="/delInvoice" type="com.stepup.gasoline.qt.invoice.DeleteInvoiceAction" scope="request" validate="false" >
+        </action>
+        <action path="/printInvoice" type="com.stepup.gasoline.qt.invoice.PrintInvoiceAction" scope="request" validate="false" >
+        </action>
+        <action path="/getInvoicePaid" type="com.stepup.gasoline.qt.invoice.GetInvoicePaidAction" scope="request" validate="false">
+            <forward name="success" path="/invoice/paids.jsp" />
+        </action>
+        <action path="/getSearchOilSaleForm" type="com.stepup.gasoline.qt.invoice.SearchOilSaleFormAction" scope="request" validate="false">
+            <forward name="success" path="/invoice/searchoilsale.jsp" />
+        </action>
+        <action path="/searchOilSale" type="com.stepup.gasoline.qt.invoice.SearchOilSaleAction" scope="request" validate="false">
+            <forward name="success" path="/invoice/searcheddetails.jsp" />
+        </action>
+        <action path="/getInvoiceOilSaleDetail" type="com.stepup.gasoline.qt.invoice.GetInvoiceOilSaleDetailAction" scope="request" validate="false">
+            <forward name="success" path="/invoice/oilsaledetails.jsp" />
+        </action>
+        <!-- end invoice -->
     </action-mappings>
     
     <controller processorClass="org.apache.struts.tiles.TilesRequestProcessor"/>

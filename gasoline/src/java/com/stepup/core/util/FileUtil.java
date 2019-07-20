@@ -124,9 +124,23 @@ public class FileUtil {
     }
 
     static public void zipFile(ArrayList arrFileNames, String zipFileName, boolean excludeContainingFolder) throws IOException {
+        ZipOutputStream zipOut = new ZipOutputStream(new FileOutputStream(zipFileName));
         for (int i = 0; i < arrFileNames.size(); i++) {
             String fileName = arrFileNames.get(i) + "";
-            zipFile(fileName, zipFileName, excludeContainingFolder);
+            zipFile(fileName, zipOut, excludeContainingFolder);
+        }
+        zipOut.flush();
+        zipOut.close();
+    }
+
+    static public void zipFile(String fileToZip, ZipOutputStream zipOut, boolean excludeContainingFolder) throws IOException {
+        File srcFile = new File(fileToZip);
+        if (excludeContainingFolder && srcFile.isDirectory()) {
+            for (String fileName : srcFile.list()) {
+                addToZip("", fileToZip + "/" + fileName, zipOut);
+            }
+        } else {
+            addToZip("", fileToZip, zipOut);
         }
     }
 
