@@ -81,8 +81,8 @@ import com.stepup.gasoline.qt.report.transportservice.TransportServiceReportBean
 import com.stepup.gasoline.qt.report.transportservice.TransportServiceReportOutBean;
 import com.stepup.gasoline.qt.report.vehiclefee.VehicleFeeReportBean;
 import com.stepup.gasoline.qt.saleoil.SaleOilReportBean;
-import com.stepup.gasoline.qt.oilexport.SaleOilReportOutBean;
 import com.stepup.gasoline.qt.report.OilVendorDebtReportBean;
+import com.stepup.gasoline.qt.report.comparecustomercommission.CompareCustomerCommissionReportBean;
 import com.stepup.gasoline.qt.util.QTUtil;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -3293,12 +3293,15 @@ public class ReportDAO extends BasicDAO {
                         bean.setOilCode(rs.getString("oil_code"));
                         bean.setOilName(rs.getString("oil_name"));
                         bean.setUnitName(rs.getString("unit_name"));
+                        bean.setOilExportCode(rs.getString("oil_export_code"));
                         bean.setQuantity(rs.getInt("quantity"));
                         bean.setPrice(rs.getDouble("price"));
                         bean.setCommission(rs.getDouble("commission"));
                         bean.setAmount(rs.getDouble("amount"));
-                        bean.setPaid(rs.getDouble("paid"));
-                        bean.setDebt(bean.getAmount() - bean.getPaid());
+                        if (rs.getInt("is_paid") == 1) {
+                            bean.setPaid(bean.getCommission());
+                        }
+                        bean.setDebt(bean.getCommission() - bean.getPaid());
                         list.add(bean);
                     }
                 }
@@ -3524,6 +3527,69 @@ public class ReportDAO extends BasicDAO {
                         bean.setAmount(rs.getInt("amount"));
                         bean.setPaid(rs.getDouble("paid"));
                         bean.setEndingStock(bean.getOpeningStock() + bean.getAmount() - bean.getPaid());
+                        list.add(bean);
+                    }
+                }
+            }
+        } catch (SQLException sqle) {
+            throw new Exception(sqle.getMessage());
+        } catch (Exception ex) {
+            throw new Exception(ex.getMessage());
+        } finally {
+            try {
+                if (spUtil != null) {
+                    spUtil.closeConnection();
+                }
+                if (rs != null) {
+                    rs.close();
+                    rs = null;
+                }
+            } catch (Exception e) {
+                throw new Exception(e.getMessage());
+            }
+        }
+        return list;
+    }
+
+    public ArrayList getCompareCustomerCommissionReport(String fromDate, String endDate, String organizationIds, int customerId) throws Exception {
+        SPUtil spUtil = null;
+        ArrayList list = new ArrayList();
+        ResultSet rs = null;
+        try {
+            String sql = "{call report_compare_customer_commission(?,?,?,?)}";
+            if (GenericValidator.isBlankOrNull(fromDate)) {
+                fromDate = DateUtil.today("dd/MM/yyyy");
+            }
+            if (GenericValidator.isBlankOrNull(endDate)) {
+                endDate = BasicDAO.START_DATE;
+            }
+            spUtil = new SPUtil(sql);
+            if (spUtil != null) {
+                spUtil.getCallableStatement().setString("_start_date", fromDate);
+                spUtil.getCallableStatement().setString("_end_date", endDate);
+                spUtil.getCallableStatement().setString("_organization_ids", organizationIds);
+                spUtil.getCallableStatement().setInt("_customer_id", customerId);
+
+                rs = spUtil.executeQuery();
+
+                if (rs != null) {
+                    CompareCustomerCommissionReportBean bean = null;
+                    int count = 1;
+                    while (rs.next()) {
+                        bean = new CompareCustomerCommissionReportBean();
+                        bean.setCount(count++);
+                        bean.setOilCode(rs.getString("oil_code"));
+                        bean.setOilName(rs.getString("oil_name"));
+                        bean.setUnitName(rs.getString("unit_name"));
+                        bean.setOilExportCode(rs.getString("oil_export_code"));
+                        bean.setQuantity(rs.getInt("quantity"));
+                        bean.setPrice(rs.getDouble("price"));
+                        bean.setCommission(rs.getDouble("commission"));
+                        bean.setAmount(rs.getDouble("amount"));
+                        if (rs.getInt("is_paid") == 1) {
+                            bean.setPaid(bean.getCommission());
+                        }
+                        bean.setDebt(bean.getCommission() - bean.getPaid());
                         list.add(bean);
                     }
                 }

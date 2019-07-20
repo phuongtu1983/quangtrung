@@ -2,13 +2,13 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
-package com.stepup.gasoline.qt.report.compareagencycommission;
+package com.stepup.gasoline.qt.report.comparecustomercommission;
 
 import com.stepup.core.util.LogUtil;
 import com.stepup.core.util.NumberUtil;
-import com.stepup.gasoline.qt.bean.AgencyBean;
 import com.stepup.gasoline.qt.core.BaseAction;
 import com.stepup.gasoline.qt.core.ExcelExport;
+import com.stepup.gasoline.qt.customer.CustomerFormBean;
 import com.stepup.gasoline.qt.dao.CustomerDAO;
 import com.stepup.gasoline.qt.dao.ReportDAO;
 import com.stepup.gasoline.qt.util.QTUtil;
@@ -24,7 +24,7 @@ import org.apache.struts.action.ActionMapping;
  *
  * @author phuongtu
  */
-public class PrintCompareAgencyCommissionReportAction extends BaseAction {
+public class PrintCompareCustomerCommissionReportAction extends BaseAction {
 
     @Override
     public boolean doAction(ActionMapping mapping, ActionForm form,
@@ -35,13 +35,13 @@ public class PrintCompareAgencyCommissionReportAction extends BaseAction {
             ExcelExport exporter = new ExcelExport();
             String fromDate = request.getParameter("fromDate");
             String toDate = request.getParameter("toDate");
-            int agencyId = NumberUtil.parseInt(request.getParameter("agencyId"), 0);
+            int customerId = NumberUtil.parseInt(request.getParameter("customerId"), 0);
             String organizationIds = QTUtil.getOrganizationManageds(request.getSession());
             ArrayList list = null;
-            CompareAgencyCommissionReportOutBean outBean = new CompareAgencyCommissionReportOutBean();
-            list = printCompareAgencyCommissionReport(fromDate, toDate, agencyId, organizationIds, outBean);
-            beans.put("qtrp_agencyName", outBean.getAgencyName());
-            String templateFileName = request.getSession().getServletContext().getRealPath("/templates/doi_chieu_cong_no_oil.xls");
+            CompareCustomerCommissionReportOutBean outBean = new CompareCustomerCommissionReportOutBean();
+            list = printCompareCustomerCommissionReport(fromDate, toDate, customerId, organizationIds, outBean);
+            beans.put("qtrp_customerName", outBean.getCustomerName());
+            String templateFileName = request.getSession().getServletContext().getRealPath("/templates/doi_chieu_cong_no_oil_khach_hang.xls");
             beans.put("qtrp_fromDate", fromDate);
             beans.put("qtrp_toDate", toDate);
             if (list == null) {
@@ -62,16 +62,16 @@ public class PrintCompareAgencyCommissionReportAction extends BaseAction {
         return true;
     }
 
-    private ArrayList printCompareAgencyCommissionReport(String fromDate, String toDate, int agencyId, String organizationIds, CompareAgencyCommissionReportOutBean outBean) {
+    private ArrayList printCompareCustomerCommissionReport(String fromDate, String toDate, int customerId, String organizationIds, CompareCustomerCommissionReportOutBean outBean) {
         ArrayList list = null;
         try {
             CustomerDAO customerDAO = new CustomerDAO();
-            AgencyBean agencyBean = customerDAO.getAgency(agencyId);
-            if (agencyBean != null) {
-                outBean.setAgencyName(agencyBean.getName());
+            CustomerFormBean customerBean = customerDAO.getCustomer(customerId);
+            if (customerBean != null) {
+                outBean.setCustomerName(customerBean.getName());
             }
             ReportDAO reportDAO = new ReportDAO();
-            list = reportDAO.getCompareAgencyCommissionReport(fromDate, toDate, organizationIds, agencyId);
+            list = reportDAO.getCompareCustomerCommissionReport(fromDate, toDate, organizationIds, customerId);
         } catch (Exception ex) {
         }
         return list;

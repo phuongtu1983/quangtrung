@@ -3,17 +3,15 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package com.stepup.gasoline.qt.report.compareagencycommission;
+package com.stepup.gasoline.qt.report.comparecustomercommission;
 
 /**
  *
  * @author Administrator
  */
-public class CompareAgencyCommissionReportBean {
+public class CompareCustomerCommissionReportBean {
 
     private int count;
-    private String customerCode;
-    private String customerName;
     private String oilCode;
     private String oilName;
     private String unitName;
@@ -24,22 +22,6 @@ public class CompareAgencyCommissionReportBean {
     private double amount;
     private double paid;
     private double debt;
-
-    public String getCustomerCode() {
-        return customerCode;
-    }
-
-    public void setCustomerCode(String customerCode) {
-        this.customerCode = customerCode;
-    }
-
-    public String getCustomerName() {
-        return customerName;
-    }
-
-    public void setCustomerName(String customerName) {
-        this.customerName = customerName;
-    }
 
     public String getOilCode() {
         return oilCode;

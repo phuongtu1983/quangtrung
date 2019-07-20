@@ -1130,6 +1130,9 @@ public class GenerateMenu {
                     if (isHasPermission(PermissionUtil.OPERATION_PRINT, PermissionUtil.PER_REPORT_OIL_COMMISSION_AGENCY)) {
                         buffTemp.append("<item id=\"reportoilcommissionagency\" text=\"").append(QTUtil.getBundleString("report.oilCommissionAgency.title")).append("\"/>");
                     }
+                    if (isHasPermission(PermissionUtil.OPERATION_PRINT, PermissionUtil.PER_REPORT_OIL_COMMISSION_CUSTOMER)) {
+                        buffTemp.append("<item id=\"reportoilcommissioncustomer\" text=\"").append(QTUtil.getBundleString("report.oilCommissionCustomer.title")).append("\"/>");
+                    }
                     if (isHasPermission(PermissionUtil.OPERATION_PRINT, PermissionUtil.PER_REPORT_OIL_VENDOR_STOCK)) {
                         buffTemp.append("<item id=\"reportoilvendorstock\" text=\"").append(QTUtil.getBundleString("report.oilVendorStock.title")).append("\"/>");
                     }

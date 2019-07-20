@@ -424,6 +424,8 @@ function menuClick(id) {
         showOilStockStoreReportPanel();
     else if (id == 'reportoilcommissionagency')
         showCompareAgencyCommissionReportPanel();
+    else if (id == 'reportoilcommissioncustomer')
+        showCompareCustomerCommissionReportPanel();
     else if (id == 'reportoilcompare')
         showOilCompareReportPanel();
     else if (id == 'reportoilvendorstock')
@@ -14307,7 +14309,7 @@ function printOilStockStoreReport(fromDate, toDate) {
     return false;
 }
 function showCompareAgencyCommissionReportPanel() {
-    popupName = 'B\u00E1o c\u00E1o theo d\u00F5i chi\u1EBFt kh\u1EA5u d\u1EA7u nh\u1EDBt';
+    popupName = 'B\u00E1o c\u00E1o theo d\u00F5i chi\u1EBFt kh\u1EA5u d\u1EA7u nh\u1EDBt \u0111\u1EA1i l\u00FD';
     var url = 'getCompareAgencyCommissionReportPanel.do';
     callAjax(url, null, null, function(data) {
         showPopupForm(data);
@@ -14347,6 +14349,64 @@ function printCompareAgencyCommissionReport(fromDate, toDate) {
     else
         list = 0;
     url += "&agencyId=" + list;
+    callServer(url);
+    return false;
+}
+function showCompareCustomerCommissionReportPanel() {
+    popupName = 'B\u00E1o c\u00E1o theo d\u00F5i chi\u1EBFt kh\u1EA5u d\u1EA7u nh\u1EDBt kh\u00E1ch h\u00E0ng';
+    var url = 'getCompareCustomerCommissionReportPanel.do';
+    callAjax(url, null, null, function(data) {
+        showPopupForm(data);
+        var myCalendar = new dhtmlXCalendarObject(["fromDate", "toDate"]);
+        myCalendar.setSkin('dhx_web');
+        var currentTime = getCurrentDate();
+        document.forms['reportCompareCustomerCommissionSearchForm'].fromDate.value = currentTime;
+        document.forms['reportCompareCustomerCommissionSearchForm'].toDate.value = currentTime;
+        myCalendar.setDateFormat("%d/%m/%Y");
+        // ============================
+        window.dhx_globalImgPath = "js/dhtmlx/combo/imgs/";
+        var customerIdCombobox = dhtmlXComboFromSelect("customerIdCombobox");
+        customerIdCombobox.enableFilteringMode(true);
+        customerIdCombobox.attachEvent("onSelectionChange", function() {
+            setCustomerSelectedForm('reportCompareCustomerCommissionSearchForm', customerIdCombobox.getComboText(), customerIdCombobox.getSelectedValue());
+        });
+        customerIdCombobox.attachEvent("onBlur", function() {
+            setCustomerSelectedForm('reportCompareCustomerCommissionSearchForm', customerIdCombobox.getComboText(), customerIdCombobox.getSelectedValue());
+            customerIdCombobox.setComboText(customerIdCombobox.getSelectedText());
+        });
+        customerIdCombobox.DOMelem_input.onfocus = function(event) {
+            if (isManuallySeleted == 1) {
+                customerIdCombobox.openSelect();
+                isManuallySeleted = 0;
+            }
+        }
+        customerIdCombobox.setComboValue("");
+    });
+}
+function printCompareCustomerCommissionReport(fromDate, toDate) {
+    var list = document.getElementById("reportCompareCustomerCommissionSearchFormTime");
+    if (list == null || list.selectedIndex == -1)
+        return false;
+    if (list.selectedIndex == 1) {
+        fromDate = "01/" + fromDate;
+        var ind = toDate.indexOf("/");
+        var month = toDate.substring(0, ind);
+        var year = toDate.substring(ind + 1);
+        toDate = month + "/01/" + year;
+        var d = new Date(toDate);
+        var lastDay = new Date(d.getFullYear(), d.getMonth() + 1, 0).getDate();
+        toDate = lastDay + "/" + month + "/" + year;
+    } else if (list.selectedIndex == 2) {
+        fromDate = "01/01/" + fromDate;
+        toDate = "31/12/" + toDate;
+    }
+    list=null;
+    var url = "reportCompareCustomerCommissionPrint.do?temp=1";
+    if (fromDate !== null)
+        url += "&fromDate=" + fromDate;
+    if (toDate !== null)
+        url += "&toDate=" + toDate;
+    url += "&customerId=" + document.forms['reportCompareCustomerCommissionSearchForm'].customerSelectedHidden.value;
     callServer(url);
     return false;
 }

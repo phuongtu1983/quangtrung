@@ -1277,9 +1277,18 @@ public class PermissionFormAction extends SpineAction {
         perBean.setValue(PermissionUtil.PER_REPORT_OIL_COMMISSION_AGENCY);
         perBean.setOperations("," + PermissionUtil.OPERATION_PRINT + ",");
         arrFun.add(perBean);
-
+        
         perBean = new PermissionViewBean();
         perBean.setCounter("3.38");
+        perBean.setLevel(2);
+        perBean.setSharedId(3);
+        perBean.setName(QTUtil.getBundleString("report.oilCommissionCustomer.title"));
+        perBean.setValue(PermissionUtil.PER_REPORT_OIL_COMMISSION_CUSTOMER);
+        perBean.setOperations("," + PermissionUtil.OPERATION_PRINT + ",");
+        arrFun.add(perBean);
+
+        perBean = new PermissionViewBean();
+        perBean.setCounter("3.39");
         perBean.setLevel(2);
         perBean.setSharedId(3);
         perBean.setName(QTUtil.getBundleString("report.oilVendorStock.title"));
@@ -1288,7 +1297,7 @@ public class PermissionFormAction extends SpineAction {
         arrFun.add(perBean);
         
         perBean = new PermissionViewBean();
-        perBean.setCounter("3.39");
+        perBean.setCounter("3.40");
         perBean.setLevel(2);
         perBean.setSharedId(3);
         perBean.setName(QTUtil.getBundleString("report.oilVendorDebt.title"));
