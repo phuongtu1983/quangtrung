@@ -102,4 +102,5 @@ public class DebtVendorBean {
     }
     public static int KIND_GOOD = 1;
     public static int KIND_TRANSPORT = 2;
+    public static int KIND_OIL = 3;
 }
