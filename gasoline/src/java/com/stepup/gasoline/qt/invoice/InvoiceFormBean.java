@@ -25,6 +25,7 @@ public class InvoiceFormBean extends org.apache.struts.action.ActionForm {
     private String[] oilSaleDetailId;
     private String[] invoiceDetailId;
     private String[] oilSaleDetailPaid;
+    private String[] oilSaleDetailCommissioned;
 
     private String[] invoicePaidDetailId;
     private String[] paidAmount;
@@ -162,6 +163,14 @@ public class InvoiceFormBean extends org.apache.struts.action.ActionForm {
 
     public void setPaidDate(String[] paidDate) {
         this.paidDate = paidDate;
+    }
+
+    public String[] getOilSaleDetailCommissioned() {
+        return oilSaleDetailCommissioned;
+    }
+
+    public void setOilSaleDetailCommissioned(String[] oilSaleDetailCommissioned) {
+        this.oilSaleDetailCommissioned = oilSaleDetailCommissioned;
     }
 
 }

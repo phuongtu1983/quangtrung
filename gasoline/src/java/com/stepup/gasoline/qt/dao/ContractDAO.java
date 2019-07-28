@@ -489,6 +489,7 @@ public class ContractDAO extends BasicDAO {
                 bean.setOilSaleDate(DateUtil.formatDate(rs.getDate("oil_sale_date"), "dd/MM/yyyy"));
                 bean.setOilSaleDetailId(rs.getInt("oil_sale_detail_id"));
                 bean.setOilSaleDetailPaid(rs.getInt("paid"));
+                bean.setOilSaleDetailCommissioned(rs.getInt("commissioned"));
                 bean.setOilSaleDetailAmount(rs.getDouble("amount"));
                 detailList.add(bean);
             }
@@ -511,12 +512,13 @@ public class ContractDAO extends BasicDAO {
         int result = 0;
         SPUtil spUtil = null;
         try {
-            String sql = "{call insertInvoiceDetail(?,?,?)}";
+            String sql = "{call insertInvoiceDetail(?,?,?,?)}";
             spUtil = new SPUtil(sql);
             if (spUtil != null) {
                 spUtil.getCallableStatement().setInt("_invoice_id", bean.getInvoiceId());
                 spUtil.getCallableStatement().setInt("_oil_sale_detail_id", bean.getOilSaleDetailId());
                 spUtil.getCallableStatement().setInt("_paid", bean.getOilSaleDetailPaid());
+                spUtil.getCallableStatement().setInt("_commissioned", bean.getOilSaleDetailCommissioned());
                 spUtil.execute();
             }
         } catch (SQLException sqle) {
@@ -541,11 +543,12 @@ public class ContractDAO extends BasicDAO {
         }
         SPUtil spUtil = null;
         try {
-            String sql = "{call updateInvoiceDetail(?,?)}";
+            String sql = "{call updateInvoiceDetail(?,?,?)}";
             spUtil = new SPUtil(sql);
             if (spUtil != null) {
                 spUtil.getCallableStatement().setInt("_id", bean.getId());
                 spUtil.getCallableStatement().setInt("_paid", bean.getOilSaleDetailPaid());
+                spUtil.getCallableStatement().setInt("_commissioned", bean.getOilSaleDetailCommissioned());
                 spUtil.execute();
             }
         } catch (SQLException sqle) {

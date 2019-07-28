@@ -101,11 +101,6 @@ public class DebtVendorFormAction extends SpineAction {
         value.setValue(DebtVendorBean.KIND_TRANSPORT + "");
         arrKind.add(value);
         request.setAttribute(Constants.KIND_LIST, arrKind);
-        value = new LabelValueBean();
-        value.setLabel(QTUtil.getBundleString("debtVendor.detail.kind.oil.title"));
-        value.setValue(DebtVendorBean.KIND_OIL + "");
-        arrKind.add(value);
-        request.setAttribute(Constants.KIND_LIST, arrKind);
         
         return true;
     }

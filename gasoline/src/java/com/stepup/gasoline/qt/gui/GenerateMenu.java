@@ -1139,6 +1139,9 @@ public class GenerateMenu {
                     if (isHasPermission(PermissionUtil.OPERATION_PRINT, PermissionUtil.PER_REPORT_OIL_VENDOR_DEBT)) {
                         buffTemp.append("<item id=\"reportoilvendordebt\" text=\"").append(QTUtil.getBundleString("report.oilVendorDebt.title")).append("\"/>");
                     }
+                    if (isHasPermission(PermissionUtil.OPERATION_PRINT, PermissionUtil.PER_REPORT_OIL_CUSTOMER_DEBT)) {
+                        buffTemp.append("<item id=\"reportoilcustomerdebt\" text=\"").append(QTUtil.getBundleString("report.oilCustomerDebt.title")).append("\"/>");
+                    }
                     buffTemp.append("</item>");
                     buffTemp.append("<item id=\"reporttransport\" complex=\"true\" text=\"").append(QTUtil.getBundleString("report.transport.title")).append("\">");
                     if (isHasPermission(PermissionUtil.OPERATION_PRINT, PermissionUtil.PER_REPORT_TRANSPORT_FEE)) {

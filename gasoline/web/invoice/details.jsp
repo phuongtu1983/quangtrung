@@ -12,6 +12,7 @@
             <td width="150px"><bean:message key="date.title"/></td>
             <td width="150px"><bean:message key="amount.title"/></td>
             <td width="150px"><bean:message key="invoice.detail.paid"/></td>
+            <td width="150px"><bean:message key="invoice.detail.commissioned"/></td>
             <td></td>
         </tr>
     </thead>
@@ -33,6 +34,14 @@
                     </logic:equal>
                     <logic:notEqual name="detail" property="oilSaleDetailPaid" value="0">
                         <input type="checkbox" name="oilSaleDetailPaid" value="<bean:write name="detail" property="oilSaleDetailId"/>" checked="checked">
+                    </logic:notEqual>
+                </td>
+                <td>
+                    <logic:equal name="detail" property="oilSaleDetailCommissioned" value="0">
+                        <input type="checkbox" name="oilSaleDetailCommissioned" value="<bean:write name="detail" property="oilSaleDetailId"/>">
+                    </logic:equal>
+                    <logic:notEqual name="detail" property="oilSaleDetailCommissioned" value="0">
+                        <input type="checkbox" name="oilSaleDetailCommissioned" value="<bean:write name="detail" property="oilSaleDetailId"/>" checked="checked">
                     </logic:notEqual>
                 </td>
             </tr>

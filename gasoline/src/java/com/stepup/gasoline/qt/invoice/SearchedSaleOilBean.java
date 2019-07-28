@@ -15,6 +15,7 @@ public class SearchedSaleOilBean {
     private String oilSaleCode;
     private String oilSaleDate;
     private double amount;
+    private String amountText;
 
     public int getId() {
         return id;
@@ -54,6 +55,14 @@ public class SearchedSaleOilBean {
 
     public void setAmount(double amount) {
         this.amount = amount;
+    }
+
+    public String getAmountText() {
+        return amountText;
+    }
+
+    public void setAmountText(String amountText) {
+        this.amountText = amountText;
     }
 
 }

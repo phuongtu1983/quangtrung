@@ -81,7 +81,7 @@ import org.apache.commons.validator.GenericValidator;
  * @author Administrator
  */
 public class GoodDAO extends BasicDAO {
-    
+
     public ArrayList getShellKinds(int status) throws Exception {
         ResultSet rs = null;
         String sql = "select * from shell_kind where 1";
@@ -119,7 +119,7 @@ public class GoodDAO extends BasicDAO {
         }
         return list;
     }
-    
+
     public ShellKindBean getShellKind(int kindId) throws Exception {
         ResultSet rs = null;
         String sql = "select * from shell_kind where id=" + kindId;
@@ -146,7 +146,7 @@ public class GoodDAO extends BasicDAO {
         }
         return null;
     }
-    
+
     public ShellKindBean getShellKindByName(String name) throws Exception {
         ResultSet rs = null;
         String sql = "select * from shell_kind where name='" + name + "'"
@@ -174,7 +174,7 @@ public class GoodDAO extends BasicDAO {
         }
         return null;
     }
-    
+
     public void insertShellKind(ShellKindBean bean) throws Exception {
         if (bean == null) {
             return;
@@ -193,10 +193,10 @@ public class GoodDAO extends BasicDAO {
             } catch (Exception e) {
                 throw new Exception(e.getMessage());
             }
-            
+
         }
     }
-    
+
     public void updateShellKind(ShellKindBean bean) throws Exception {
         if (bean == null) {
             return;
@@ -221,7 +221,7 @@ public class GoodDAO extends BasicDAO {
             }
         }
     }
-    
+
     public ArrayList getShells(int status) throws Exception {
         ResultSet rs = null;
         String sql = "select * from shell where 1";
@@ -260,7 +260,7 @@ public class GoodDAO extends BasicDAO {
         }
         return list;
     }
-    
+
     public ShellBean getShell(int shellId) throws Exception {
         ResultSet rs = null;
         String sql = "select s.*, u.name as unit_name, sk.weight from shell as s, unit as u, shell_kind AS sk where s.unit_id=u.id and s.kind_id=sk.id and s.id=" + shellId;
@@ -290,7 +290,7 @@ public class GoodDAO extends BasicDAO {
         }
         return null;
     }
-    
+
     public ArrayList getShellVendor(String organizationIds, String vendorIds) throws Exception {
         ResultSet rs = null;
         String sql = "select sv.*, v.name as vendor_name, v.code as vendor_code, s.name as shell_name"
@@ -322,7 +322,7 @@ public class GoodDAO extends BasicDAO {
         }
         return detailList;
     }
-    
+
     public ShellVendorDetailBean getShellVendor(int shellVendorId) throws Exception {
         ResultSet rs = null;
         String sql = "select sv.*, v.name as vendor_name, v.code as vendor_code, s.name as shell_name"
@@ -351,7 +351,7 @@ public class GoodDAO extends BasicDAO {
         }
         return null;
     }
-    
+
     public ShellBean getShellByName(String name) throws Exception {
         ResultSet rs = null;
         String sql = "select * from shell where name='" + name + "'"
@@ -380,7 +380,7 @@ public class GoodDAO extends BasicDAO {
         }
         return null;
     }
-    
+
     public int insertShell(ShellBean bean) throws Exception {
         if (bean == null) {
             return 0;
@@ -404,7 +404,7 @@ public class GoodDAO extends BasicDAO {
         }
         return result;
     }
-    
+
     public void updateShell(ShellBean bean) throws Exception {
         if (bean == null) {
             return;
@@ -430,7 +430,7 @@ public class GoodDAO extends BasicDAO {
             }
         }
     }
-    
+
     public ArrayList getAccessoryKinds(int status) throws Exception {
         ResultSet rs = null;
         String sql = "select * from accessory_kind where 1";
@@ -467,7 +467,7 @@ public class GoodDAO extends BasicDAO {
         }
         return list;
     }
-    
+
     public ArrayList getAccessoryKinds(String accessoryKindIds) throws Exception {
         ResultSet rs = null;
         String sql = "select * from accessory_kind where status=" + EmployeeBean.STATUS_ACTIVE;
@@ -504,7 +504,7 @@ public class GoodDAO extends BasicDAO {
         }
         return list;
     }
-    
+
     public AccessoryKindFormBean getAccessoryKind(int kindId) throws Exception {
         ResultSet rs = null;
         String sql = "select * from accessory_kind where id=" + kindId;
@@ -530,7 +530,7 @@ public class GoodDAO extends BasicDAO {
         }
         return null;
     }
-    
+
     public AccessoryKindFormBean getAccessoryKindByName(String name) throws Exception {
         ResultSet rs = null;
         String sql = "select * from accessory_kind where name='" + name + "'"
@@ -557,7 +557,7 @@ public class GoodDAO extends BasicDAO {
         }
         return null;
     }
-    
+
     public void insertAccessoryKind(AccessoryKindBean bean) throws Exception {
         if (bean == null) {
             return;
@@ -576,10 +576,10 @@ public class GoodDAO extends BasicDAO {
             } catch (Exception e) {
                 throw new Exception(e.getMessage());
             }
-            
+
         }
     }
-    
+
     public void updateAccessoryKind(AccessoryKindBean bean) throws Exception {
         if (bean == null) {
             return;
@@ -603,7 +603,7 @@ public class GoodDAO extends BasicDAO {
             }
         }
     }
-    
+
     public ArrayList getAccessorys(int status) throws Exception {
         ResultSet rs = null;
         String sql = "select * from accessory where 1";
@@ -641,7 +641,7 @@ public class GoodDAO extends BasicDAO {
         }
         return list;
     }
-    
+
     public AccessoryBean getAccessory(int accessoryId) throws Exception {
         ResultSet rs = null;
         String sql = "select a.*, u.name as unit_name from accessory as a, unit as u where a.unit_id=u.id and a.id=" + accessoryId;
@@ -669,7 +669,7 @@ public class GoodDAO extends BasicDAO {
         }
         return null;
     }
-    
+
     public AccessoryBean getAccessoryByName(String name) throws Exception {
         ResultSet rs = null;
         String sql = "select * from accessory where name='" + name + "'"
@@ -697,7 +697,7 @@ public class GoodDAO extends BasicDAO {
         }
         return null;
     }
-    
+
     public void insertAccessory(AccessoryBean bean) throws Exception {
         if (bean == null) {
             return;
@@ -716,10 +716,10 @@ public class GoodDAO extends BasicDAO {
             } catch (Exception e) {
                 throw new Exception(e.getMessage());
             }
-            
+
         }
     }
-    
+
     public void updateAccessory(AccessoryBean bean) throws Exception {
         if (bean == null) {
             return;
@@ -744,7 +744,7 @@ public class GoodDAO extends BasicDAO {
             }
         }
     }
-    
+
     public ArrayList getPromotionMaterials(int status) throws Exception {
         ResultSet rs = null;
         String sql = "select * from promotion_material where 1";
@@ -780,7 +780,7 @@ public class GoodDAO extends BasicDAO {
         }
         return list;
     }
-    
+
     public PromotionMaterialFormBean getPromotionMaterial(int promotionMaterialId) throws Exception {
         ResultSet rs = null;
         String sql = "select p.*, u.name as unit_name from promotion_material as p, unit as u where p.unit_id=u.id and p.id=" + promotionMaterialId;
@@ -806,7 +806,7 @@ public class GoodDAO extends BasicDAO {
         }
         return null;
     }
-    
+
     public PromotionMaterialFormBean getPromotionMaterialByName(String name) throws Exception {
         ResultSet rs = null;
         String sql = "select * from promotion_material where name='" + name + "'"
@@ -832,7 +832,7 @@ public class GoodDAO extends BasicDAO {
         }
         return null;
     }
-    
+
     public void insertPromotionMaterial(PromotionMaterialBean bean) throws Exception {
         if (bean == null) {
             return;
@@ -851,10 +851,10 @@ public class GoodDAO extends BasicDAO {
             } catch (Exception e) {
                 throw new Exception(e.getMessage());
             }
-            
+
         }
     }
-    
+
     public void updatePromotionMaterial(PromotionMaterialBean bean) throws Exception {
         if (bean == null) {
             return;
@@ -877,7 +877,7 @@ public class GoodDAO extends BasicDAO {
             }
         }
     }
-    
+
     public ArrayList getPetros(int status, String organizationIds) throws Exception {
         ResultSet rs = null;
         String sql = "select p.*, o.name as organization_name, u.name as unit_name from petro as p, organization as o, unit as u"
@@ -922,12 +922,12 @@ public class GoodDAO extends BasicDAO {
         }
         return list;
     }
-    
+
     public ArrayList getPetros(String petroIds) throws Exception {
         ResultSet rs = null;
         String sql = "select p.*, o.name as organization_name, u.name as unit_name from petro as p, organization as o, unit as u"
                 + " where p.organization_id=o.id and p.unit_id=u.id and o.status=" + EmployeeBean.STATUS_ACTIVE + " and u.status=" + EmployeeBean.STATUS_ACTIVE;
-        
+
         if (petroIds.isEmpty()) {
             petroIds = "0";
         }
@@ -966,7 +966,7 @@ public class GoodDAO extends BasicDAO {
         }
         return list;
     }
-    
+
     public PetroBean getPetro(int petroId) throws Exception {
         ResultSet rs = null;
         String sql = "select p.*, u.name as unit_name from petro as p, unit as u where p.unit_id=u.id and p.id=" + petroId;
@@ -995,7 +995,7 @@ public class GoodDAO extends BasicDAO {
         }
         return null;
     }
-    
+
     public PetroBean getPetroByName(String name) throws Exception {
         ResultSet rs = null;
         String sql = "select * from petro where name='" + name + "'"
@@ -1024,7 +1024,7 @@ public class GoodDAO extends BasicDAO {
         }
         return null;
     }
-    
+
     public void insertPetro(PetroBean bean) throws Exception {
         if (bean == null) {
             return;
@@ -1043,10 +1043,10 @@ public class GoodDAO extends BasicDAO {
             } catch (Exception e) {
                 throw new Exception(e.getMessage());
             }
-            
+
         }
     }
-    
+
     public void updatePetro(PetroBean bean) throws Exception {
         if (bean == null) {
             return;
@@ -1072,7 +1072,7 @@ public class GoodDAO extends BasicDAO {
             }
         }
     }
-    
+
     public ArrayList searchShellImport(String fromDate, String endDate, String organizationIds) throws Exception {
         SPUtil spUtil = null;
         ArrayList list = new ArrayList();
@@ -1125,7 +1125,7 @@ public class GoodDAO extends BasicDAO {
         }
         return list;
     }
-    
+
     public ShellImportBean getShellImport(int id) throws Exception {
         ResultSet rs = null;
         String sql = "select *, IF(DATEDIFF(SYSDATE(),created_date)=0,1,0) as can_edit from shell_import where id=" + id;
@@ -1157,7 +1157,7 @@ public class GoodDAO extends BasicDAO {
         }
         return null;
     }
-    
+
     public int insertShellImport(ShellImportBean bean) throws Exception {
         if (bean == null) {
             return 0;
@@ -1203,7 +1203,7 @@ public class GoodDAO extends BasicDAO {
         }
         return result;
     }
-    
+
     public void updateShellImport(ShellImportBean bean) throws Exception {
         if (bean == null) {
             return;
@@ -1244,7 +1244,7 @@ public class GoodDAO extends BasicDAO {
             }
         }
     }
-    
+
     public String getNextShellImportNumber(String prefix, int length) throws Exception {
         String result = "";
         try {
@@ -1254,7 +1254,7 @@ public class GoodDAO extends BasicDAO {
         }
         return result;
     }
-    
+
     public void deleteShellImport(int id) throws Exception {
         SPUtil spUtil = null;
         try {
@@ -1276,7 +1276,7 @@ public class GoodDAO extends BasicDAO {
             }
         }
     }
-    
+
     public ArrayList searchAccessoryImport(String fromDate, String endDate, String organizationIds) throws Exception {
         SPUtil spUtil = null;
         ArrayList list = new ArrayList();
@@ -1332,7 +1332,7 @@ public class GoodDAO extends BasicDAO {
         }
         return list;
     }
-    
+
     public AccessoryImportBean getAccessoryImport(int id) throws Exception {
         ResultSet rs = null;
         String sql = "select *, IF(DATEDIFF(created_date,SYSDATE())=0,1,0) as can_edit from accessory_import where id=" + id;
@@ -1363,7 +1363,7 @@ public class GoodDAO extends BasicDAO {
         }
         return null;
     }
-    
+
     public ArrayList getAccessoryImportDetail(int accessoryImportId) throws Exception {
         ResultSet rs = null;
         String sql = "select det.*, s.name as accessory_name"
@@ -1395,7 +1395,7 @@ public class GoodDAO extends BasicDAO {
         }
         return detailList;
     }
-    
+
     public int insertAccessoryImport(AccessoryImportBean bean) throws Exception {
         if (bean == null) {
             return 0;
@@ -1440,7 +1440,7 @@ public class GoodDAO extends BasicDAO {
         }
         return result;
     }
-    
+
     public void updateAccessoryImport(AccessoryImportBean bean) throws Exception {
         if (bean == null) {
             return;
@@ -1480,7 +1480,7 @@ public class GoodDAO extends BasicDAO {
             }
         }
     }
-    
+
     public String getNextAccessoryImportNumber(String prefix, int length) throws Exception {
         String result = "";
         try {
@@ -1490,7 +1490,7 @@ public class GoodDAO extends BasicDAO {
         }
         return result;
     }
-    
+
     public void deleteAccessoryImport(int id) throws Exception {
         SPUtil spUtil = null;
         try {
@@ -1512,7 +1512,7 @@ public class GoodDAO extends BasicDAO {
             }
         }
     }
-    
+
     public int insertAccessoryImportDetail(AccessoryImportDetailBean bean, String createdDate) throws Exception {
         if (bean == null) {
             return 0;
@@ -1546,7 +1546,7 @@ public class GoodDAO extends BasicDAO {
         }
         return result;
     }
-    
+
     public void updateAccessoryImportDetail(AccessoryImportDetailBean bean, String createdDate) throws Exception {
         if (bean == null) {
             return;
@@ -1577,7 +1577,7 @@ public class GoodDAO extends BasicDAO {
             }
         }
     }
-    
+
     public ArrayList searchPromotionMaterialImport(String fromDate, String endDate, String organizationIds) throws Exception {
         SPUtil spUtil = null;
         ArrayList list = new ArrayList();
@@ -1633,7 +1633,7 @@ public class GoodDAO extends BasicDAO {
         }
         return list;
     }
-    
+
     public PromotionMaterialImportBean getPromotionMaterialImport(int id) throws Exception {
         ResultSet rs = null;
         String sql = "select *, IF(DATEDIFF(created_date,SYSDATE())=0,1,0) as can_edit from promotion_material_import where id=" + id;
@@ -1664,7 +1664,7 @@ public class GoodDAO extends BasicDAO {
         }
         return null;
     }
-    
+
     public ArrayList getPromotionMaterialImportDetail(int promotionMaterialImportId) throws Exception {
         ResultSet rs = null;
         String sql = "select det.*, s.name as promotion_material_name"
@@ -1696,7 +1696,7 @@ public class GoodDAO extends BasicDAO {
         }
         return detailList;
     }
-    
+
     public int insertPromotionMaterialImport(PromotionMaterialImportBean bean) throws Exception {
         if (bean == null) {
             return 0;
@@ -1741,7 +1741,7 @@ public class GoodDAO extends BasicDAO {
         }
         return result;
     }
-    
+
     public void updatePromotionMaterialImport(PromotionMaterialImportBean bean) throws Exception {
         if (bean == null) {
             return;
@@ -1781,7 +1781,7 @@ public class GoodDAO extends BasicDAO {
             }
         }
     }
-    
+
     public String getNextPromotionMaterialImportNumber(String prefix, int length) throws Exception {
         String result = "";
         try {
@@ -1791,7 +1791,7 @@ public class GoodDAO extends BasicDAO {
         }
         return result;
     }
-    
+
     public void deletePromotionMaterialImport(int id) throws Exception {
         SPUtil spUtil = null;
         try {
@@ -1813,7 +1813,7 @@ public class GoodDAO extends BasicDAO {
             }
         }
     }
-    
+
     public int insertPromotionMaterialImportDetail(PromotionMaterialImportDetailBean bean, String createdDate) throws Exception {
         if (bean == null) {
             return 0;
@@ -1847,7 +1847,7 @@ public class GoodDAO extends BasicDAO {
         }
         return result;
     }
-    
+
     public void updatePromotionMaterialImportDetail(PromotionMaterialImportDetailBean bean, String createdDate) throws Exception {
         if (bean == null) {
             return;
@@ -1878,7 +1878,7 @@ public class GoodDAO extends BasicDAO {
             }
         }
     }
-    
+
     public ArrayList searchSaleAccessory(String fromDate, String endDate) throws Exception {
         SPUtil spUtil = null;
         ArrayList list = new ArrayList();
@@ -1931,7 +1931,7 @@ public class GoodDAO extends BasicDAO {
         }
         return list;
     }
-    
+
     public SaleAccessoryBean getSaleAccessory(int id) throws Exception {
         ResultSet rs = null;
         String sql = "select *, IF(DATEDIFF(created_date,SYSDATE())=0,1,0) as can_edit from accessory_sale where id=" + id;
@@ -1963,7 +1963,7 @@ public class GoodDAO extends BasicDAO {
         }
         return null;
     }
-    
+
     public ArrayList getSaleAccessoryDetail(int saleAccessoryId) throws Exception {
         ResultSet rs = null;
         String sql = "select det.*, s.name as accessory_name, s.unit_id, u.name as unit_name"
@@ -1998,7 +1998,7 @@ public class GoodDAO extends BasicDAO {
         }
         return detailList;
     }
-    
+
     public int insertSaleAccessory(SaleAccessoryBean bean) throws Exception {
         if (bean == null) {
             return 0;
@@ -2044,7 +2044,7 @@ public class GoodDAO extends BasicDAO {
         }
         return result;
     }
-    
+
     public void updateSaleAccessory(SaleAccessoryBean bean) throws Exception {
         if (bean == null) {
             return;
@@ -2085,7 +2085,7 @@ public class GoodDAO extends BasicDAO {
             }
         }
     }
-    
+
     public String getNextSaleAccessoryNumber(String prefix, int length) throws Exception {
         String result = "";
         try {
@@ -2095,7 +2095,7 @@ public class GoodDAO extends BasicDAO {
         }
         return result;
     }
-    
+
     public void deleteSaleAccessory(int id) throws Exception {
         SPUtil spUtil = null;
         try {
@@ -2117,7 +2117,7 @@ public class GoodDAO extends BasicDAO {
             }
         }
     }
-    
+
     public int insertSaleAccessoryDetail(SaleAccessoryDetailBean bean, String createdDate) throws Exception {
         if (bean == null) {
             return 0;
@@ -2151,7 +2151,7 @@ public class GoodDAO extends BasicDAO {
         }
         return result;
     }
-    
+
     public void updateSaleAccessoryDetail(SaleAccessoryDetailBean bean, String createdDate) throws Exception {
         if (bean == null) {
             return;
@@ -2182,7 +2182,7 @@ public class GoodDAO extends BasicDAO {
             }
         }
     }
-    
+
     public ArrayList getSaleAccessoryChangeDetail(int saleAccessoryId) throws Exception {
         ResultSet rs = null;
         String sql = "select det.*, s.name as accessory_name, s.unit_id, u.name as unit_name"
@@ -2218,7 +2218,7 @@ public class GoodDAO extends BasicDAO {
         }
         return detailList;
     }
-    
+
     public int insertSaleAccessoryChangeDetail(SaleAccessoryChangeDetailBean bean) throws Exception {
         if (bean == null) {
             return 0;
@@ -2251,7 +2251,7 @@ public class GoodDAO extends BasicDAO {
         }
         return result;
     }
-    
+
     public void updateSaleAccessoryChangeDetail(SaleAccessoryChangeDetailBean bean) throws Exception {
         if (bean == null) {
             return;
@@ -2281,7 +2281,7 @@ public class GoodDAO extends BasicDAO {
             }
         }
     }
-    
+
     public ArrayList searchSalePetro(String fromDate, String endDate, String organizationIds) throws Exception {
         SPUtil spUtil = null;
         ArrayList list = new ArrayList();
@@ -2335,7 +2335,7 @@ public class GoodDAO extends BasicDAO {
         }
         return list;
     }
-    
+
     public SalePetroBean getSalePetro(int id) throws Exception {
         ResultSet rs = null;
         String sql = "select *, IF(DATEDIFF(created_date,SYSDATE())=0,1,0) as can_edit from petro_sale where id=" + id;
@@ -2369,7 +2369,7 @@ public class GoodDAO extends BasicDAO {
         }
         return null;
     }
-    
+
     public ArrayList getSalePetroDetail(int salePetroId) throws Exception {
         ResultSet rs = null;
         String sql = "select det.*, s.name as petro_name, s.unit_id, u.name as unit_name"
@@ -2404,7 +2404,7 @@ public class GoodDAO extends BasicDAO {
         }
         return detailList;
     }
-    
+
     public int insertSalePetro(SalePetroBean bean) throws Exception {
         if (bean == null) {
             return 0;
@@ -2452,7 +2452,7 @@ public class GoodDAO extends BasicDAO {
         }
         return result;
     }
-    
+
     public void updateSalePetro(SalePetroBean bean) throws Exception {
         if (bean == null) {
             return;
@@ -2495,7 +2495,7 @@ public class GoodDAO extends BasicDAO {
             }
         }
     }
-    
+
     public String getNextSalePetroNumber(String prefix, int length) throws Exception {
         String result = "";
         try {
@@ -2505,7 +2505,7 @@ public class GoodDAO extends BasicDAO {
         }
         return result;
     }
-    
+
     public void deleteSalePetro(int id) throws Exception {
         SPUtil spUtil = null;
         try {
@@ -2527,7 +2527,7 @@ public class GoodDAO extends BasicDAO {
             }
         }
     }
-    
+
     public int insertSalePetroDetail(SalePetroDetailBean bean, String createdDate, int storeId) throws Exception {
         if (bean == null) {
             return 0;
@@ -2562,7 +2562,7 @@ public class GoodDAO extends BasicDAO {
         }
         return result;
     }
-    
+
     public void updateSalePetroDetail(SalePetroDetailBean bean, String createdDate, int storeId) throws Exception {
         if (bean == null) {
             return;
@@ -2594,7 +2594,7 @@ public class GoodDAO extends BasicDAO {
             }
         }
     }
-    
+
     public int deleteSalePetroDetails(String ids) throws Exception {
         int result = 0;
         try {
@@ -2607,7 +2607,7 @@ public class GoodDAO extends BasicDAO {
         }
         return result;
     }
-    
+
     public ArrayList searchShieldImport(String fromDate, String endDate, String organizationIds) throws Exception {
         SPUtil spUtil = null;
         ArrayList list = new ArrayList();
@@ -2659,7 +2659,7 @@ public class GoodDAO extends BasicDAO {
         }
         return list;
     }
-    
+
     public ShieldImportBean getShieldImport(int id) throws Exception {
         ResultSet rs = null;
         String sql = "select *, IF(DATEDIFF(SYSDATE(),created_date)=0,1,0) as can_edit from shield_import where id=" + id;
@@ -2687,7 +2687,7 @@ public class GoodDAO extends BasicDAO {
         }
         return null;
     }
-    
+
     public int insertShieldImport(ShieldImportBean bean) throws Exception {
         if (bean == null) {
             return 0;
@@ -2729,7 +2729,7 @@ public class GoodDAO extends BasicDAO {
         }
         return result;
     }
-    
+
     public void updateShieldImport(ShieldImportBean bean) throws Exception {
         if (bean == null) {
             return;
@@ -2759,7 +2759,7 @@ public class GoodDAO extends BasicDAO {
             }
         }
     }
-    
+
     public String getNextShieldImportNumber(String prefix, int length) throws Exception {
         String result = "";
         try {
@@ -2769,7 +2769,7 @@ public class GoodDAO extends BasicDAO {
         }
         return result;
     }
-    
+
     public void deleteShieldImport(int id) throws Exception {
         SPUtil spUtil = null;
         try {
@@ -2791,7 +2791,7 @@ public class GoodDAO extends BasicDAO {
             }
         }
     }
-    
+
     public ArrayList searchShieldDecrease(String fromDate, String endDate, String organizationIds) throws Exception {
         SPUtil spUtil = null;
         ArrayList list = new ArrayList();
@@ -2843,7 +2843,7 @@ public class GoodDAO extends BasicDAO {
         }
         return list;
     }
-    
+
     public ShieldDecreaseBean getShieldDecrease(int id) throws Exception {
         ResultSet rs = null;
         String sql = "select *, IF(DATEDIFF(SYSDATE(),created_date)=0,1,0) as can_edit from shield_decrease where id=" + id;
@@ -2871,7 +2871,7 @@ public class GoodDAO extends BasicDAO {
         }
         return null;
     }
-    
+
     public int insertShieldDecrease(ShieldDecreaseBean bean) throws Exception {
         if (bean == null) {
             return 0;
@@ -2913,7 +2913,7 @@ public class GoodDAO extends BasicDAO {
         }
         return result;
     }
-    
+
     public void updateShieldDecrease(ShieldDecreaseBean bean) throws Exception {
         if (bean == null) {
             return;
@@ -2943,7 +2943,7 @@ public class GoodDAO extends BasicDAO {
             }
         }
     }
-    
+
     public String getNextShieldDecreaseNumber(String prefix, int length) throws Exception {
         String result = "";
         try {
@@ -2953,7 +2953,7 @@ public class GoodDAO extends BasicDAO {
         }
         return result;
     }
-    
+
     public void deleteShieldDecrease(int id) throws Exception {
         SPUtil spUtil = null;
         try {
@@ -2975,7 +2975,7 @@ public class GoodDAO extends BasicDAO {
             }
         }
     }
-    
+
     public GoodBean getGood(int goodId) throws Exception {
         ResultSet rs = null;
         String sql = "select p.*, u.name as unit_name from good as p, unit as u where p.unit_id=u.id and p.id=" + goodId;
@@ -3004,7 +3004,7 @@ public class GoodDAO extends BasicDAO {
         }
         return null;
     }
-    
+
     public ArrayList getGoods(int status, String organizationIds) throws Exception {
         ResultSet rs = null;
         String sql = "select p.*, o.name as organization_name, u.name as unit_name from good as p, organization as o, unit as u"
@@ -3048,9 +3048,9 @@ public class GoodDAO extends BasicDAO {
             }
         }
         return list;
-        
+
     }
-    
+
     public GoodBean getGoodByName(String name) throws Exception {
         ResultSet rs = null;
         String sql = "select * from good where name='" + name + "'"
@@ -3079,7 +3079,7 @@ public class GoodDAO extends BasicDAO {
         }
         return null;
     }
-    
+
     public void insertGood(GoodBean bean) throws Exception {
         if (bean == null) {
             return;
@@ -3098,10 +3098,10 @@ public class GoodDAO extends BasicDAO {
             } catch (Exception e) {
                 throw new Exception(e.getMessage());
             }
-            
+
         }
     }
-    
+
     public void updateGood(GoodBean bean) throws Exception {
         if (bean == null) {
             return;
@@ -3127,7 +3127,7 @@ public class GoodDAO extends BasicDAO {
             }
         }
     }
-    
+
     public ArrayList searchGoodImport(String fromDate, String endDate) throws Exception {
         SPUtil spUtil = null;
         ArrayList list = new ArrayList();
@@ -3185,7 +3185,7 @@ public class GoodDAO extends BasicDAO {
         }
         return list;
     }
-    
+
     public GoodImportBean getGoodImport(int id) throws Exception {
         ResultSet rs = null;
         String sql = "select *, IF(DATEDIFF(created_date,SYSDATE())=0,1,0) as can_edit from good_import where id=" + id;
@@ -3218,7 +3218,7 @@ public class GoodDAO extends BasicDAO {
         }
         return null;
     }
-    
+
     public ArrayList getGoodImportDetail(int goodImportId) throws Exception {
         ResultSet rs = null;
         String sql = "select det.*, s.name as good_name"
@@ -3250,7 +3250,7 @@ public class GoodDAO extends BasicDAO {
         }
         return detailList;
     }
-    
+
     public int insertGoodImport(GoodImportBean bean) throws Exception {
         if (bean == null) {
             return 0;
@@ -3297,7 +3297,7 @@ public class GoodDAO extends BasicDAO {
         }
         return result;
     }
-    
+
     public void updateGoodImport(GoodImportBean bean) throws Exception {
         if (bean == null) {
             return;
@@ -3339,7 +3339,7 @@ public class GoodDAO extends BasicDAO {
             }
         }
     }
-    
+
     public String getNextGoodImportNumber(String prefix, int length) throws Exception {
         String result = "";
         try {
@@ -3349,7 +3349,7 @@ public class GoodDAO extends BasicDAO {
         }
         return result;
     }
-    
+
     public void deleteGoodImport(int id) throws Exception {
         SPUtil spUtil = null;
         try {
@@ -3371,7 +3371,7 @@ public class GoodDAO extends BasicDAO {
             }
         }
     }
-    
+
     public int insertGoodImportDetail(GoodImportDetailBean bean, String createdDate, int storeId) throws Exception {
         if (bean == null) {
             return 0;
@@ -3406,7 +3406,7 @@ public class GoodDAO extends BasicDAO {
         }
         return result;
     }
-    
+
     public void updateGoodImportDetail(GoodImportDetailBean bean, String createdDate, int storeId) throws Exception {
         if (bean == null) {
             return;
@@ -3438,7 +3438,7 @@ public class GoodDAO extends BasicDAO {
             }
         }
     }
-    
+
     public int deleteGoodImportDetails(String ids) throws Exception {
         int result = 0;
         try {
@@ -3451,7 +3451,7 @@ public class GoodDAO extends BasicDAO {
         }
         return result;
     }
-    
+
     public ArrayList searchSaleGood(String fromDate, String endDate, String organizationIds) throws Exception {
         SPUtil spUtil = null;
         ArrayList list = new ArrayList();
@@ -3505,7 +3505,7 @@ public class GoodDAO extends BasicDAO {
         }
         return list;
     }
-    
+
     public SaleGoodBean getSaleGood(int id) throws Exception {
         ResultSet rs = null;
         String sql = "select *, IF(DATEDIFF(created_date,SYSDATE())=0,1,0) as can_edit from good_sale where id=" + id;
@@ -3539,7 +3539,7 @@ public class GoodDAO extends BasicDAO {
         }
         return null;
     }
-    
+
     public ArrayList getSaleGoodDetail(int saleGoodId) throws Exception {
         ResultSet rs = null;
         String sql = "select det.*, s.name as good_name, s.unit_id, u.name as unit_name"
@@ -3574,7 +3574,7 @@ public class GoodDAO extends BasicDAO {
         }
         return detailList;
     }
-    
+
     public int insertSaleGood(SaleGoodBean bean) throws Exception {
         if (bean == null) {
             return 0;
@@ -3622,7 +3622,7 @@ public class GoodDAO extends BasicDAO {
         }
         return result;
     }
-    
+
     public void updateSaleGood(SaleGoodBean bean) throws Exception {
         if (bean == null) {
             return;
@@ -3665,7 +3665,7 @@ public class GoodDAO extends BasicDAO {
             }
         }
     }
-    
+
     public String getNextSaleGoodNumber(String prefix, int length) throws Exception {
         String result = "";
         try {
@@ -3675,7 +3675,7 @@ public class GoodDAO extends BasicDAO {
         }
         return result;
     }
-    
+
     public void deleteSaleGood(int id) throws Exception {
         SPUtil spUtil = null;
         try {
@@ -3697,7 +3697,7 @@ public class GoodDAO extends BasicDAO {
             }
         }
     }
-    
+
     public int insertSaleGoodDetail(SaleGoodDetailBean bean, String createdDate, int storeId) throws Exception {
         if (bean == null) {
             return 0;
@@ -3732,7 +3732,7 @@ public class GoodDAO extends BasicDAO {
         }
         return result;
     }
-    
+
     public void updateSaleGoodDetail(SaleGoodDetailBean bean, String createdDate, int storeId) throws Exception {
         if (bean == null) {
             return;
@@ -3764,7 +3764,7 @@ public class GoodDAO extends BasicDAO {
             }
         }
     }
-    
+
     public int deleteSaleGoodDetails(String ids) throws Exception {
         int result = 0;
         try {
@@ -3777,7 +3777,7 @@ public class GoodDAO extends BasicDAO {
         }
         return result;
     }
-    
+
     public ArrayList getOilGroups(int status) throws Exception {
         ResultSet rs = null;
         String sql = "select * from oil_group where 1";
@@ -3813,7 +3813,7 @@ public class GoodDAO extends BasicDAO {
         }
         return agencyList;
     }
-    
+
     public OilGroupBean getOilGroup(int oilGroupId) throws Exception {
         ResultSet rs = null;
         String sql = "select * from oil_group where id=" + oilGroupId;
@@ -3838,7 +3838,7 @@ public class GoodDAO extends BasicDAO {
         }
         return null;
     }
-    
+
     public OilGroupBean getOilGroupByName(String name) throws Exception {
         ResultSet rs = null;
         String sql = "select * from oil_group where name='" + name + "' and status=" + EmployeeBean.STATUS_ACTIVE;
@@ -3863,7 +3863,7 @@ public class GoodDAO extends BasicDAO {
         }
         return null;
     }
-    
+
     public void insertOilGroup(OilGroupBean bean) throws Exception {
         if (bean == null) {
             return;
@@ -3880,10 +3880,10 @@ public class GoodDAO extends BasicDAO {
             } catch (Exception e) {
                 throw new Exception(e.getMessage());
             }
-            
+
         }
     }
-    
+
     public void updateOilGroup(OilGroupBean bean) throws Exception {
         if (bean == null) {
             return;
@@ -3906,7 +3906,7 @@ public class GoodDAO extends BasicDAO {
             }
         }
     }
-    
+
     public OilBean getOil(int oilId) throws Exception {
         ResultSet rs = null;
         String sql = "select p.* from oil as p where p.id=" + oilId;
@@ -3940,7 +3940,7 @@ public class GoodDAO extends BasicDAO {
         }
         return null;
     }
-    
+
     public ArrayList getOils(int status, String organizationIds) throws Exception {
         ResultSet rs = null;
         String sql = "select p.id, p.code, p.name, b.name as base_unit_name, s.name as sale_unit_name"
@@ -3976,9 +3976,9 @@ public class GoodDAO extends BasicDAO {
             }
         }
         return list;
-        
+
     }
-    
+
     public OilBean getOilByName(String name) throws Exception {
         ResultSet rs = null;
         String sql = "select * from oil where name='" + name + "'"
@@ -4013,7 +4013,7 @@ public class GoodDAO extends BasicDAO {
         }
         return null;
     }
-    
+
     public void insertOil(OilBean bean) throws Exception {
         if (bean == null) {
             return;
@@ -4034,10 +4034,10 @@ public class GoodDAO extends BasicDAO {
             } catch (Exception e) {
                 throw new Exception(e.getMessage());
             }
-            
+
         }
     }
-    
+
     public void updateOil(OilBean bean) throws Exception {
         if (bean == null) {
             return;
@@ -4069,7 +4069,7 @@ public class GoodDAO extends BasicDAO {
             }
         }
     }
-    
+
     public ArrayList searchOilImport(String fromDate, String endDate) throws Exception {
         SPUtil spUtil = null;
         ArrayList list = new ArrayList();
@@ -4125,7 +4125,7 @@ public class GoodDAO extends BasicDAO {
         }
         return list;
     }
-    
+
     public OilImportBean getOilImport(int id) throws Exception {
         ResultSet rs = null;
         String sql = "select *, IF(DATEDIFF(created_date,SYSDATE())=0,1,0) as can_edit from oil_import where id=" + id;
@@ -4160,7 +4160,7 @@ public class GoodDAO extends BasicDAO {
         }
         return null;
     }
-    
+
     public ArrayList getOilImportDetail(int oilImportId) throws Exception {
         ResultSet rs = null;
         String sql = "select det.*, s.name as oil_name, u.name as unit_name"
@@ -4195,7 +4195,7 @@ public class GoodDAO extends BasicDAO {
         }
         return detailList;
     }
-    
+
     public int insertOilImport(OilImportBean bean) throws Exception {
         if (bean == null) {
             return 0;
@@ -4244,7 +4244,7 @@ public class GoodDAO extends BasicDAO {
         }
         return result;
     }
-    
+
     public void updateOilImport(OilImportBean bean) throws Exception {
         if (bean == null) {
             return;
@@ -4288,7 +4288,7 @@ public class GoodDAO extends BasicDAO {
             }
         }
     }
-    
+
     public String getNextOilImportNumber(String prefix, int length) throws Exception {
         String result = "";
         try {
@@ -4298,7 +4298,7 @@ public class GoodDAO extends BasicDAO {
         }
         return result;
     }
-    
+
     public void deleteOilImport(int id) throws Exception {
         SPUtil spUtil = null;
         try {
@@ -4320,7 +4320,7 @@ public class GoodDAO extends BasicDAO {
             }
         }
     }
-    
+
     public int insertOilImportDetail(OilImportDetailBean bean, String createdDate) throws Exception {
         if (bean == null) {
             return 0;
@@ -4355,7 +4355,7 @@ public class GoodDAO extends BasicDAO {
         }
         return result;
     }
-    
+
     public void updateOilImportDetail(OilImportDetailBean bean, String createdDate, int storeId) throws Exception {
         if (bean == null) {
             return;
@@ -4387,7 +4387,7 @@ public class GoodDAO extends BasicDAO {
             }
         }
     }
-    
+
     public int deleteOilImportDetails(String ids) throws Exception {
         int result = 0;
         try {
@@ -4400,7 +4400,7 @@ public class GoodDAO extends BasicDAO {
         }
         return result;
     }
-    
+
     public ArrayList getOilUnits(int oilId) throws Exception {
         ResultSet rs = null;
         String sql = "select b.id as base_unit_id, b.name as base_unit_name, s.id as sale_unit_id, s.name as sale_unit_name"
@@ -4432,9 +4432,9 @@ public class GoodDAO extends BasicDAO {
             }
         }
         return list;
-        
+
     }
-    
+
     public ArrayList searchSaleOil(String fromDate, String endDate, String organizationIds) throws Exception {
         SPUtil spUtil = null;
         ArrayList list = new ArrayList();
@@ -4490,7 +4490,7 @@ public class GoodDAO extends BasicDAO {
         }
         return list;
     }
-    
+
     public SaleOilBean getSaleOil(int id) throws Exception {
         ResultSet rs = null;
         String sql = "select *, IF(DATEDIFF(created_date,SYSDATE())=0,1,0) as can_edit from oil_sale where id=" + id;
@@ -4530,7 +4530,7 @@ public class GoodDAO extends BasicDAO {
         }
         return null;
     }
-    
+
     public ArrayList getSaleOilDetail(int saleOilId) throws Exception {
         ResultSet rs = null;
         String sql = "select det.*, o.name as oil_name, u.name as unit_name, s.name as store_name"
@@ -4575,7 +4575,7 @@ public class GoodDAO extends BasicDAO {
         }
         return detailList;
     }
-    
+
     public int insertSaleOil(SaleOilBean bean) throws Exception {
         if (bean == null) {
             return 0;
@@ -4629,7 +4629,7 @@ public class GoodDAO extends BasicDAO {
         }
         return result;
     }
-    
+
     public void updateSaleOil(SaleOilBean bean) throws Exception {
         if (bean == null) {
             return;
@@ -4678,7 +4678,7 @@ public class GoodDAO extends BasicDAO {
             }
         }
     }
-    
+
     public String getNextSaleOilNumber(String prefix, int length) throws Exception {
         String result = "";
         try {
@@ -4688,7 +4688,7 @@ public class GoodDAO extends BasicDAO {
         }
         return result;
     }
-    
+
     public void deleteSaleOil(int id) throws Exception {
         SPUtil spUtil = null;
         try {
@@ -4710,7 +4710,7 @@ public class GoodDAO extends BasicDAO {
             }
         }
     }
-    
+
     public int insertSaleOilDetail(SaleOilDetailBean bean, String createdDate) throws Exception {
         if (bean == null) {
             return 0;
@@ -4752,7 +4752,7 @@ public class GoodDAO extends BasicDAO {
         }
         return result;
     }
-    
+
     public void updateSaleOilDetail(SaleOilDetailBean bean, String createdDate) throws Exception {
         if (bean == null) {
             return;
@@ -4789,7 +4789,7 @@ public class GoodDAO extends BasicDAO {
             }
         }
     }
-    
+
     public int deleteSaleOilDetails(String ids) throws Exception {
         int result = 0;
         try {
@@ -4802,7 +4802,7 @@ public class GoodDAO extends BasicDAO {
         }
         return result;
     }
-    
+
     public SaleOilDetailBean getLastSaleOilDetail(int oilId, int customerId) throws Exception {
         ResultSet rs = null;
         String sql = "SELECT oil_sale_tbl.price_before_commission, oil_sale_tbl.commission_price, oil_sale_tbl.price, oil_sale_tbl.commission"
@@ -4835,7 +4835,7 @@ public class GoodDAO extends BasicDAO {
         }
         return null;
     }
-    
+
     public ArrayList getSaleOilDetail(String code, String fromDate, String toDate, String oilName, int customerId) throws Exception {
         SPUtil spUtil = null;
         ArrayList list = new ArrayList();
@@ -4864,6 +4864,7 @@ public class GoodDAO extends BasicDAO {
                         bean.setOilName(rs.getString("oil_name"));
                         bean.setOilSaleCode(rs.getString("oil_sale_code"));
                         bean.setOilSaleDate(DateUtil.formatDate(rs.getDate("oil_sale_date"), "dd/MM/yyyy"));
+                        bean.setAmountText(NumberUtil.formatMoneyDefault(rs.getDouble("amount"), "VND"));
                         list.add(bean);
                     }
                 }
@@ -4887,7 +4888,7 @@ public class GoodDAO extends BasicDAO {
         }
         return list;
     }
-    
+
     public ArrayList getSaleOilDetails(String ids) throws Exception {
         ResultSet rs = null;
         String sql = "SELECT sdet.id, s.CODE AS oil_sale_code, s.created_date AS oil_sale_date, o.NAME AS oil_name, sdet.amount"
@@ -4918,7 +4919,7 @@ public class GoodDAO extends BasicDAO {
         }
         return detailList;
     }
-    
+
     public ArrayList getOils(String oilIds) throws Exception {
         ResultSet rs = null;
         String sql = "select p.id, p.code, p.name, b.name as base_unit_name, s.name as sale_unit_name"
@@ -4953,9 +4954,9 @@ public class GoodDAO extends BasicDAO {
             }
         }
         return list;
-        
+
     }
-    
+
     public ArrayList getSaleOilPromotionMaterialDetail(int saleOilId) throws Exception {
         ResultSet rs = null;
         String sql = "select det.*, s.name as oil_name, u.name as unit_name, st.name as store_name"
@@ -4990,7 +4991,7 @@ public class GoodDAO extends BasicDAO {
         }
         return detailList;
     }
-    
+
     public int insertSaleOilPromotionMaterialDetail(SaleOilPromotionMaterialDetailBean bean, String createdDate) throws Exception {
         if (bean == null) {
             return 0;
@@ -5024,7 +5025,7 @@ public class GoodDAO extends BasicDAO {
         }
         return result;
     }
-    
+
     public void updateSaleOilPromotionMaterialDetail(SaleOilPromotionMaterialDetailBean bean, String createdDate) throws Exception {
         if (bean == null) {
             return;
@@ -5053,7 +5054,7 @@ public class GoodDAO extends BasicDAO {
             }
         }
     }
-    
+
     public int deleteSaleOilPromotionMaterialDetails(String ids) throws Exception {
         int result = 0;
         try {
@@ -5066,7 +5067,7 @@ public class GoodDAO extends BasicDAO {
         }
         return result;
     }
-    
+
     public ArrayList searchSaleOilReturn(String fromDate, String endDate, String organizationIds) throws Exception {
         SPUtil spUtil = null;
         ArrayList list = new ArrayList();
@@ -5120,7 +5121,7 @@ public class GoodDAO extends BasicDAO {
         }
         return list;
     }
-    
+
     public SaleOilReturnBean getSaleOilReturn(int id) throws Exception {
         ResultSet rs = null;
         String sql = "select *, IF(DATEDIFF(created_date,SYSDATE())=0,1,0) as can_edit from oil_sale_return where id=" + id;
@@ -5158,7 +5159,7 @@ public class GoodDAO extends BasicDAO {
         }
         return null;
     }
-    
+
     public ArrayList getSaleOilReturnDetail(int saleOilReturnId) throws Exception {
         ResultSet rs = null;
         String sql = "select det.*, o.name as oil_name, u.name as unit_name, s.name as store_name"
@@ -5202,7 +5203,7 @@ public class GoodDAO extends BasicDAO {
         }
         return detailList;
     }
-    
+
     public ArrayList getSaleOilReturnDetailBySaleOilId(String saleOilDetailIds, String organizationIds) throws Exception {
         ResultSet rs = null;
         String sql = "select det.*, o.name as oil_name, u.name as unit_name, s.name as return_store_name, s.id AS return_store_id"
@@ -5245,7 +5246,7 @@ public class GoodDAO extends BasicDAO {
         }
         return detailList;
     }
-    
+
     public String getNextSaleOilReturnNumber(String prefix, int length) throws Exception {
         String result = "";
         try {
@@ -5255,7 +5256,7 @@ public class GoodDAO extends BasicDAO {
         }
         return result;
     }
-    
+
     public int insertSaleOilReturn(SaleOilReturnBean bean) throws Exception {
         if (bean == null) {
             return 0;
@@ -5307,7 +5308,7 @@ public class GoodDAO extends BasicDAO {
         }
         return result;
     }
-    
+
     public void updateSaleOilReturn(SaleOilReturnBean bean) throws Exception {
         if (bean == null) {
             return;
@@ -5354,7 +5355,7 @@ public class GoodDAO extends BasicDAO {
             }
         }
     }
-    
+
     public void deleteSaleOilReturn(int id) throws Exception {
         SPUtil spUtil = null;
         try {
@@ -5376,7 +5377,7 @@ public class GoodDAO extends BasicDAO {
             }
         }
     }
-    
+
     public int insertSaleOilReturnDetail(SaleOilReturnDetailBean bean, String createdDate) throws Exception {
         if (bean == null) {
             return 0;
@@ -5417,7 +5418,7 @@ public class GoodDAO extends BasicDAO {
         }
         return result;
     }
-    
+
     public void updateSaleOilReturnDetail(SaleOilReturnDetailBean bean, String createdDate) throws Exception {
         if (bean == null) {
             return;
@@ -5454,7 +5455,7 @@ public class GoodDAO extends BasicDAO {
             }
         }
     }
-    
+
     public int deleteSaleOilReturnDetails(String ids) throws Exception {
         int result = 0;
         try {
@@ -5467,7 +5468,7 @@ public class GoodDAO extends BasicDAO {
         }
         return result;
     }
-    
+
     public SaleOilReturnStoreBean getSaleOilReturnStoreByOrganizationId(int organizationId) throws Exception {
         ResultSet rs = null;
         String sql = "select * from oil_return_store where organization_id=" + organizationId + " order by store_id limit 1";
@@ -5491,7 +5492,7 @@ public class GoodDAO extends BasicDAO {
         }
         return null;
     }
-    
+
     public SaleOilReturnStoreBean getSaleOilReturnStoreByOrganizationId(int storeId, int organizationId) throws Exception {
         ResultSet rs = null;
         String sql = "select * from oil_return_store where store_id=" + storeId + " and  organization_id=" + organizationId + " order by organization_id, store_id limit 1";
@@ -5515,7 +5516,7 @@ public class GoodDAO extends BasicDAO {
         }
         return null;
     }
-    
+
     public void insertSaleOilReturnStore(SaleOilReturnStoreBean bean) throws Exception {
         if (bean == null) {
             return;
@@ -5532,10 +5533,10 @@ public class GoodDAO extends BasicDAO {
             } catch (Exception e) {
                 throw new Exception(e.getMessage());
             }
-            
+
         }
     }
-    
+
     public void updateSaleOilReturnStore(SaleOilReturnStoreBean bean) throws Exception {
         if (bean == null) {
             return;
@@ -5554,7 +5555,7 @@ public class GoodDAO extends BasicDAO {
             }
         }
     }
-    
+
     public ArrayList searchOilExport(String fromDate, String endDate, String organizationIds) throws Exception {
         SPUtil spUtil = null;
         ArrayList list = new ArrayList();
@@ -5606,7 +5607,7 @@ public class GoodDAO extends BasicDAO {
         }
         return list;
     }
-    
+
     public OilExportBean getOilExport(int id) throws Exception {
         ResultSet rs = null;
         String sql = "select e.*, c.name as customer_name, IF(DATEDIFF(e.created_date,SYSDATE())=0,1,0) as can_edit from oil_export as e, customer as c"
@@ -5638,7 +5639,7 @@ public class GoodDAO extends BasicDAO {
         }
         return null;
     }
-    
+
     public ArrayList getOilExportDetail(int oilExportId) throws Exception {
         ResultSet rs = null;
         String sql = "select det.*, s.name as oil_name, u.name as unit_name, sdet.price"
@@ -5671,7 +5672,7 @@ public class GoodDAO extends BasicDAO {
         }
         return detailList;
     }
-    
+
     public ArrayList getOilExportDetailBySaleOilId(String saleOilDetailIds) throws Exception {
         ResultSet rs = null;
         String sql = "select det.id, det.quantity, det.price, det.amount, det.oil_id, o.name as oil_name, u.name as unit_name"
@@ -5704,7 +5705,7 @@ public class GoodDAO extends BasicDAO {
         }
         return detailList;
     }
-    
+
     public int insertOilExport(OilExportBean bean) throws Exception {
         if (bean == null) {
             return 0;
@@ -5747,7 +5748,7 @@ public class GoodDAO extends BasicDAO {
         }
         return result;
     }
-    
+
     public void updateOilExport(OilExportBean bean) throws Exception {
         if (bean == null) {
             return;
@@ -5783,7 +5784,7 @@ public class GoodDAO extends BasicDAO {
             }
         }
     }
-    
+
     public String getNextOilExportNumber(String prefix, int length) throws Exception {
         String result = "";
         try {
@@ -5793,7 +5794,7 @@ public class GoodDAO extends BasicDAO {
         }
         return result;
     }
-    
+
     public void deleteOilExport(int id) throws Exception {
         SPUtil spUtil = null;
         try {
@@ -5815,7 +5816,7 @@ public class GoodDAO extends BasicDAO {
             }
         }
     }
-    
+
     public int insertOilExportDetail(OilExportDetailBean bean, String createdDate) throws Exception {
         if (bean == null) {
             return 0;
@@ -5847,7 +5848,7 @@ public class GoodDAO extends BasicDAO {
         }
         return result;
     }
-    
+
     public void updateOilExportDetail(OilExportDetailBean bean) throws Exception {
         if (bean == null) {
             return;
@@ -5875,7 +5876,7 @@ public class GoodDAO extends BasicDAO {
             }
         }
     }
-    
+
     public int deleteOilExportDetails(String ids) throws Exception {
         int result = 0;
         try {
@@ -5888,7 +5889,7 @@ public class GoodDAO extends BasicDAO {
         }
         return result;
     }
-    
+
     public ArrayList getOilExports(String organizationIds) throws Exception {
         SPUtil spUtil = null;
         ArrayList list = new ArrayList();

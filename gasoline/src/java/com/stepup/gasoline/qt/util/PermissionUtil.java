@@ -218,4 +218,5 @@ public class PermissionUtil {
     public static int PER_REPORT_OIL_VENDOR_DEBT = 129;
     public static int PER_INVOICE = 130;
     public static int PER_REPORT_OIL_COMMISSION_CUSTOMER = 131;
+    public static int PER_REPORT_OIL_CUSTOMER_DEBT = 132;
 }

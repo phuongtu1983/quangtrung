@@ -99,22 +99,34 @@ public class AddInvoiceAction extends SpineAction {
             int length = formBean.getOilSaleDetailId().length;
             int id = 0;
             boolean isUpdate = false;
-            String checkedOilSaleDetailIds = "0";
+            String checkedOilSaleDetailPaidIds = "0";
+            String checkedOilSaleDetailCommissionedIds = "0";
             if (formBean.getOilSaleDetailPaid() != null) {
                 for (int i = 0; i < formBean.getOilSaleDetailPaid().length; i++) {
-                    checkedOilSaleDetailIds += "," + formBean.getOilSaleDetailPaid()[i];
+                    checkedOilSaleDetailPaidIds += "," + formBean.getOilSaleDetailPaid()[i];
                 }
             }
-            checkedOilSaleDetailIds += ",0";
+            if (formBean.getOilSaleDetailCommissioned()!= null) {
+                for (int i = 0; i < formBean.getOilSaleDetailCommissioned().length; i++) {
+                    checkedOilSaleDetailCommissionedIds += "," + formBean.getOilSaleDetailCommissioned()[i];
+                }
+            }
+            checkedOilSaleDetailPaidIds += ",0";
+            checkedOilSaleDetailCommissionedIds += ",0";
             for (int i = 0; i < length; i++) {
                 id = NumberUtil.parseInt(formBean.getInvoiceDetailId()[i], 0);
                 if (id == 0) {
                     InvoiceDetailBean bean = new InvoiceDetailBean();
                     bean.setOilSaleDetailId(NumberUtil.parseInt(formBean.getOilSaleDetailId()[i], 0));
-                    if (checkedOilSaleDetailIds.indexOf("," + bean.getOilSaleDetailId() + ",") > -1) {
+                    if (checkedOilSaleDetailPaidIds.indexOf("," + bean.getOilSaleDetailId() + ",") > -1) {
                         bean.setOilSaleDetailPaid(1);
                     } else {
                         bean.setOilSaleDetailPaid(0);
+                    }
+                    if (checkedOilSaleDetailCommissionedIds.indexOf("," + bean.getOilSaleDetailId() + ",") > -1) {
+                        bean.setOilSaleDetailCommissioned(1);
+                    } else {
+                        bean.setOilSaleDetailCommissioned(0);
                     }
                     bean.setInvoiceId(formBean.getId());
                     contractDAO.insertInvoiceDetail(bean);
@@ -130,13 +142,21 @@ public class AddInvoiceAction extends SpineAction {
                     }
                     if (j < arrDetail.size()) {
                         arrDetail.remove(j);
-                        int checked = 0;
-                        if (checkedOilSaleDetailIds.indexOf("," + oldBean.getOilSaleDetailId() + ",") > -1) {
-                            checked = 1;
+                        int paidChecked = 0;
+                        int commissionChecked = 0;
+                        if (checkedOilSaleDetailPaidIds.indexOf("," + oldBean.getOilSaleDetailId() + ",") > -1) {
+                            paidChecked = 1;
                         }
-                        if (oldBean.getOilSaleDetailPaid() != checked) {
+                        if (checkedOilSaleDetailCommissionedIds.indexOf("," + oldBean.getOilSaleDetailId() + ",") > -1) {
+                            commissionChecked = 1;
+                        }
+                        if (oldBean.getOilSaleDetailPaid() != paidChecked) {
                             isUpdate = true;
-                            oldBean.setOilSaleDetailPaid(checked);
+                            oldBean.setOilSaleDetailPaid(paidChecked);
+                        }
+                        if (oldBean.getOilSaleDetailCommissioned()!= commissionChecked) {
+                            isUpdate = true;
+                            oldBean.setOilSaleDetailCommissioned(commissionChecked);
                         }
                         if (isUpdate) {
                             contractDAO.updateInvoiceDetail(oldBean);

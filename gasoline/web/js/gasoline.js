@@ -434,6 +434,8 @@ function menuClick(id) {
         loadSaleOilReturnPanel();
     else if (id == 'saleoilreturnstoreadd')
         getSaleOilReturnStore(0);
+    else if (id == 'reportoilcustomerdebt')
+        showOilCustomerDebtReportPanel();
 }
 function clearContent() {
     var contentDiv = document.getElementById("contentDiv");
@@ -4966,39 +4968,41 @@ function saveGasWholesale() {
     if (scriptFunction == "saveGasWholesale")
         return false;
     var quantity = document.forms['gasWholesaleForm'].quantity;
-    if (quantity == null) {
-        alert('Vui l\u00F2ng ch\u1ECDn h\u00E0ng h\u00F3a');
-        return false;
-    }
-    var price = document.forms['gasWholesaleForm'].price;
-    var amount = document.forms['gasWholesaleForm'].amount;
-    if (quantity.length != null) {
-        for (var i = 0; i < quantity.length; i++) {
-            var number = Number(quantity[i].value);
-            if (number == 0) {
+//    if (quantity == null) {
+//        alert('Vui l\u00F2ng ch\u1ECDn h\u00E0ng h\u00F3a');
+//        return false;
+//    }
+    if (quantity != null) {
+        var price = document.forms['gasWholesaleForm'].price;
+        var amount = document.forms['gasWholesaleForm'].amount;
+        if (quantity.length != null) {
+            for (var i = 0; i < quantity.length; i++) {
+                var number = Number(quantity[i].value);
+                if (number == 0) {
+                    alert('Vui l\u00F2ng nh\u1EADp s\u1ED1 l\u01B0\u1EE3ng');
+                    quantity[i].focus();
+                    quantity = null;
+                    return false;
+                }
+                reformatNumberMoney(quantity[i]);
+                reformatNumberMoney(price[i]);
+                reformatNumberMoney(amount[i]);
+            }
+        } else {
+            if (quantity.value == "0") {
                 alert('Vui l\u00F2ng nh\u1EADp s\u1ED1 l\u01B0\u1EE3ng');
-                quantity[i].focus();
+                quantity.focus();
                 quantity = null;
                 return false;
             }
-            reformatNumberMoney(quantity[i]);
-            reformatNumberMoney(price[i]);
-            reformatNumberMoney(amount[i]);
+            reformatNumberMoney(quantity);
+            reformatNumberMoney(price);
+            reformatNumberMoney(amount);
         }
-    } else {
-        if (quantity.value == "0") {
-            alert('Vui l\u00F2ng nh\u1EADp s\u1ED1 l\u01B0\u1EE3ng');
-            quantity.focus();
-            quantity = null;
-            return false;
-        }
-        reformatNumberMoney(quantity);
-        reformatNumberMoney(price);
-        reformatNumberMoney(amount);
+        quantity = null;
+        price = null;
+        amount = null;
     }
-    quantity = null;
-    price = null;
-    amount = null;
     reformatNumberMoney(document.forms['gasWholesaleForm'].total);
     reformatNumberMoney(document.forms['gasWholesaleForm'].paid);
     reformatNumberMoney(document.forms['gasWholesaleForm'].debt);
@@ -14400,7 +14404,7 @@ function printCompareCustomerCommissionReport(fromDate, toDate) {
         fromDate = "01/01/" + fromDate;
         toDate = "31/12/" + toDate;
     }
-    list=null;
+    list = null;
     var url = "reportCompareCustomerCommissionPrint.do?temp=1";
     if (fromDate !== null)
         url += "&fromDate=" + fromDate;
@@ -15045,17 +15049,13 @@ function saveInvoice() {
         return false;
     }
     field = null;
-    var customerId = document.forms['invoiceForm'].customerSelectedHidden.value;
-    if (customerId == 0 || customerId == "") {
-        alert("Vui l\u00F2ng ch\u1ECDn kh\u00E1ch h\u00E0ng");
-        return false;
-    }
+
     document.forms['invoiceForm'].customerId.value = document.forms['invoiceForm'].customerSelectedHidden.value;
-    
+
     var amount = reformatNumberMoney(document.forms['invoiceForm'].amount);
     var amountPaid = reformatNumberMoney(document.forms['invoiceForm'].amountPaid);
-    
-    if(amountPaid * 1 > amount * 1){
+
+    if (amountPaid * 1 > amount * 1) {
         alert("T\u1ED5ng ti\u1EC1n \u0111\u00E3 thanh to\u00E1n kh\u00F4ng \u0111\u01B0\u1EE3c l\u1EDBn h\u01A1n t\u1ED5ng ti\u1EC1n h\u00F3a \u0111\u01A1n");
         tryNumberFormatCurrentcy(document.forms['invoiceForm'].amount, "VND");
         tryNumberFormatCurrentcy(document.forms['invoiceForm'].amountPaid, "VND");
@@ -15157,10 +15157,6 @@ function calculateDetailAmountChanged() {
 }
 function showSearchOilSale() {
     var customerId = document.forms['invoiceForm'].customerSelectedHidden.value;
-    if (customerId == 0 || customerId == "") {
-        alert("Vui l\u00F2ng ch\u1ECDn kh\u00E1ch h\u00E0ng");
-        return false;
-    }
     popupName = 'T\u00CCM CHI TI\u1EBET B\u00C1N H\u00C0NG';
     callAjax('getSearchOilSaleForm.do?customerId=' + customerId, null, null, function(data) {
         showPopupForm(data);
@@ -15262,9 +15258,9 @@ function addInvoiceDetail() {
             detTable.tBodies[0].appendChild(matTable.tBodies[0].rows[i]);
         matTable = null;
         detTable = null;
-        
+
         calculateDetailAmountChanged();
-        
+
         var amount = document.forms['invoiceForm'].oilSaleDetailAmount;
         if (amount != null) {
             if (amount.length != null) {
@@ -15275,7 +15271,65 @@ function addInvoiceDetail() {
                 tryNumberFormatCurrentcy(amount);
             }
         }
-        amount=null;
+        amount = null;
     });
+    return false;
+}
+function showOilCustomerDebtReportPanel() {
+    popupName = 'B\u1EA3ng \u0111\u1ED1i chi\u1EBFu c\u00F4ng n\u1EE3 kh\u00E1ch h\u00E0ng d\u1EA7u nh\u1EDBt';
+    var url = 'getOilCustomerDebtReportPanel.do';
+    callAjax(url, null, null, function(data) {
+        showPopupForm(data);
+        var myCalendar = new dhtmlXCalendarObject(["fromDate", "toDate"]);
+        myCalendar.setSkin('dhx_web');
+        var currentTime = getCurrentDate();
+        document.forms['reportOilCustomerDebtSearchForm'].fromDate.value = currentTime;
+        document.forms['reportOilCustomerDebtSearchForm'].toDate.value = currentTime;
+        myCalendar.setDateFormat("%d/%m/%Y");
+        // ============================
+        window.dhx_globalImgPath = "js/dhtmlx/combo/imgs/";
+        var customerIdCombobox = dhtmlXComboFromSelect("customerIdComboboxPopup");
+        customerIdCombobox.enableFilteringMode(true);
+        customerIdCombobox.attachEvent("onSelectionChange", function() {
+            setCustomerSelectedForm('reportOilCustomerDebtSearchForm', customerIdCombobox.getComboText(), customerIdCombobox.getSelectedValue());
+        });
+        customerIdCombobox.attachEvent("onBlur", function() {
+            setCustomerSelectedForm('reportOilCustomerDebtSearchForm', customerIdCombobox.getComboText(), customerIdCombobox.getSelectedValue());
+            customerIdCombobox.setComboText(customerIdCombobox.getSelectedText());
+        });
+        customerIdCombobox.DOMelem_input.onfocus = function(event) {
+            if (isManuallySeleted == 1) {
+                customerIdCombobox.openSelect();
+                isManuallySeleted = 0;
+            }
+        }
+        customerIdCombobox.setComboValue("");
+    });
+}
+function printComapreLPGReport(fromDate, toDate) {
+    var list = document.getElementById("reportOilCustomerDebtSearchFormTime");
+    if (list == null || list.selectedIndex == -1)
+        return false;
+    if (list.selectedIndex == 1) {
+        fromDate = "01/" + fromDate;
+        var ind = toDate.indexOf("/");
+        var month = toDate.substring(0, ind);
+        var year = toDate.substring(ind + 1);
+        toDate = month + "/01/" + year;
+        var d = new Date(toDate);
+        var lastDay = new Date(d.getFullYear(), d.getMonth() + 1, 0).getDate();
+        toDate = lastDay + "/" + month + "/" + year;
+    } else if (list.selectedIndex == 2) {
+        fromDate = "01/01/" + fromDate;
+        toDate = "31/12/" + toDate;
+    }
+    var url = "reportOilCustomerDebtPrint.do?temp=1";
+    if (fromDate !== null)
+        url += "&fromDate=" + fromDate;
+    if (toDate !== null)
+        url += "&toDate=" + toDate;
+    list = null;
+    url += "&customerId=" + document.forms['reportOilCustomerDebtSearchForm'].customerSelectedHidden.value;
+    callServer(url);
     return false;
 }

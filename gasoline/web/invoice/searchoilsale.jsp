@@ -22,7 +22,7 @@
             </tr>
             <tr>
                 <td height="30" style="padding-right: 20px"><bean:message key="customer.detail.name"/></td>
-                <td><html:text property="name" size="40" name="<%=Constants.CUSTOMER%>" readonly="true"/></td>
+                <td><html:text property="name" size="30" name="<%=Constants.CUSTOMER%>" readonly="true"/></td>
                 <td colspan="3">
                     <button class="i_magnifying_glass icon small blue" onclick="return searchOilSale();"><bean:message key="message.search"/></button>
                     <button class="i_plus icon small green" onclick="return addInvoiceDetail();"><bean:message key="message.add"/></button>
@@ -30,17 +30,17 @@
             </tr>
             <tr>
                 <td colspan="6">
-                    <table id="searchOilSaleDetailTbl" class="its"  style="width:100%">
+                    <table id="searchOilSaleDetailTbl" class="table-scroll small-first-col" style="width:1000px">
                         <thead>
                             <tr>
                                 <td width="30px"><bean:message key="message.select"/></td>
                                 <td width="200px"><bean:message key="code.title"/></td>
-                                <td width="150px"><bean:message key="date.title"/></td>
-                                <td width="300px"><bean:message key="oil.detail.name"/></td>
-                                <td></td>
+                                <td width="100px"><bean:message key="date.title"/></td>
+                                <td width="500px"><bean:message key="oil.detail.name"/></td>
+                                <td width="170px"><bean:message key="amount.title"/></td>
                             </tr>
                         </thead>
-                        <tbody></tbody>
+                        <tbody class="body-half-screen"></tbody>
                     </table>
                 </td>
             </tr>

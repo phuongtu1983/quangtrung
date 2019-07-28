@@ -83,6 +83,8 @@ import com.stepup.gasoline.qt.report.vehiclefee.VehicleFeeReportBean;
 import com.stepup.gasoline.qt.saleoil.SaleOilReportBean;
 import com.stepup.gasoline.qt.report.OilVendorDebtReportBean;
 import com.stepup.gasoline.qt.report.comparecustomercommission.CompareCustomerCommissionReportBean;
+import com.stepup.gasoline.qt.report.oilcustomerdebt.OilCustomerDebtReportBean;
+import com.stepup.gasoline.qt.report.oilcustomerdebt.OilCustomerDebtReportOutBean;
 import com.stepup.gasoline.qt.util.QTUtil;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -3593,6 +3595,72 @@ public class ReportDAO extends BasicDAO {
                         list.add(bean);
                     }
                 }
+            }
+        } catch (SQLException sqle) {
+            throw new Exception(sqle.getMessage());
+        } catch (Exception ex) {
+            throw new Exception(ex.getMessage());
+        } finally {
+            try {
+                if (spUtil != null) {
+                    spUtil.closeConnection();
+                }
+                if (rs != null) {
+                    rs.close();
+                    rs = null;
+                }
+            } catch (Exception e) {
+                throw new Exception(e.getMessage());
+            }
+        }
+        return list;
+    }
+
+    public ArrayList getOilCustomerDebtReport(String fromDate, String endDate, String organizationIds, int customerId, OilCustomerDebtReportOutBean outBean) throws Exception {
+        SPUtil spUtil = null;
+        ArrayList list = new ArrayList();
+        ResultSet rs = null;
+        try {
+            String sql = "{call report_oil_customer_debt(?,?,?,?,?)}";
+            if (GenericValidator.isBlankOrNull(fromDate)) {
+                fromDate = DateUtil.today("dd/MM/yyyy");
+            }
+            if (GenericValidator.isBlankOrNull(endDate)) {
+                endDate = BasicDAO.START_DATE;
+            }
+            spUtil = new SPUtil(sql);
+            if (spUtil != null) {
+                spUtil.getCallableStatement().setString("_start_date", fromDate);
+                spUtil.getCallableStatement().setString("_end_date", endDate);
+                spUtil.getCallableStatement().setString("_organization_ids", organizationIds);
+                spUtil.getCallableStatement().setInt("_customer_id", customerId);
+                spUtil.getCallableStatement().registerOutParameter("_opening_debt", Types.DOUBLE);
+
+                rs = spUtil.executeQuery();
+
+                double openingDebt = spUtil.getCallableStatement().getDouble("_opening_debt");
+                if (rs != null) {
+                    OilCustomerDebtReportBean bean = null;
+                    int count = 1;
+                    while (rs.next()) {
+                        bean = new OilCustomerDebtReportBean();
+                        bean.setCount(count++);
+                        bean.setOilExportCode(rs.getString("oil_export_code"));
+                        bean.setOilCode(rs.getString("oil_code"));
+                        bean.setOilName(rs.getString("oil_name"));
+                        bean.setUnitName(rs.getString("unit_name"));
+                        bean.setQuantity(rs.getInt("quantity"));
+                        bean.setPrice(rs.getDouble("price"));
+                        bean.setOpeningDebt(openingDebt);
+                        bean.setAmount(rs.getDouble("amount"));
+                        bean.setPaid(rs.getDouble("paid"));
+                        bean.setDebt(bean.getAmount() - bean.getDebt());
+                        bean.setClosingDebt(openingDebt + bean.getDebt());
+                        openingDebt = bean.getClosingDebt();
+                        list.add(bean);
+                    }
+                }
+                outBean.setClosingDebt(openingDebt);
             }
         } catch (SQLException sqle) {
             throw new Exception(sqle.getMessage());

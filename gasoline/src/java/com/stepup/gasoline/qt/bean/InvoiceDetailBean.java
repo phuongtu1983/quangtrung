@@ -14,6 +14,7 @@ public class InvoiceDetailBean {
     private int invoiceId;
     private int oilSaleDetailId;
     private int oilSaleDetailPaid;
+    private int oilSaleDetailCommissioned;
     private String oilName;
     private String oilSaleCode;
     private String oilSaleDate;
@@ -81,6 +82,14 @@ public class InvoiceDetailBean {
 
     public void setOilSaleDetailAmount(double oilSaleDetailAmount) {
         this.oilSaleDetailAmount = oilSaleDetailAmount;
+    }
+
+    public int getOilSaleDetailCommissioned() {
+        return oilSaleDetailCommissioned;
+    }
+
+    public void setOilSaleDetailCommissioned(int oilSaleDetailCommissioned) {
+        this.oilSaleDetailCommissioned = oilSaleDetailCommissioned;
     }
 
 }
