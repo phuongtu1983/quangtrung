@@ -14969,15 +14969,19 @@ function getInvoice(id) {
         clearContent();
         setAjaxData(data, 'contentDiv');
         var amount = document.forms['invoiceForm'].oilSaleDetailAmount;
+        var paidAmount = document.forms['invoiceForm'].oilSalePaidDetailAmount;
         if (amount != null) {
             if (amount.length != null) {
                 for (var i = 0; i < amount.length; i++) {
                     tryNumberFormatCurrentcy(amount[i]);
+                    tryNumberFormatCurrentcy(paidAmount[i]);
                 }
             } else {
                 tryNumberFormatCurrentcy(amount);
+                tryNumberFormatCurrentcy(paidAmount);
             }
         }
+        paidAmount = null;
         amount = document.forms['invoiceForm'].paidAmount;
         if (amount != null) {
             if (amount.length != null) {
@@ -15063,15 +15067,19 @@ function saveInvoice() {
     }
 
     var amount = document.forms['invoiceForm'].oilSaleDetailAmount;
+    var paidAmount = document.forms['invoiceForm'].oilSalePaidDetailAmount;
     if (amount != null) {
         if (amount.length != null) {
             for (var i = 0; i < amount.length; i++) {
                 reformatNumberMoney(amount[i]);
+                reformatNumberMoney(paidAmount[i]);
             }
         } else {
             reformatNumberMoney(amount);
+            reformatNumberMoney(paidAmount);
         }
     }
+    paidAmount = null;
     amount = document.forms['invoiceForm'].paidAmount;
     if (amount != null) {
         if (amount.length != null) {
@@ -15139,21 +15147,23 @@ function invoicePaidAmountChanged(obj) {
     paidAmount = null;
     tryNumberFormatCurrentcy(obj);
 }
-function calculateDetailAmountChanged() {
+function invoiceDetailPaidAmountChanged(obj) {
     var total = 0;
-    var oilSaleDetailAmount = document.forms["invoiceForm"].oilSaleDetailAmount;
-    if (oilSaleDetailAmount != null) {
-        if (oilSaleDetailAmount.length != null) {
-            for (var i = 0; i < oilSaleDetailAmount.length; i++) {
-                total += reformatNumberMoneyString(oilSaleDetailAmount[i].value) * 1;
+    var oilSalePaidDetailAmount = document.forms["invoiceForm"].oilSalePaidDetailAmount;
+    if (oilSalePaidDetailAmount != null) {
+        if (oilSalePaidDetailAmount.length != null) {
+            for (var i = 0; i < oilSalePaidDetailAmount.length; i++) {
+                total += reformatNumberMoneyString(oilSalePaidDetailAmount[i].value) * 1;
             }
         } else {
-            total += reformatNumberMoneyString(oilSaleDetailAmount.value) * 1;
+            total += reformatNumberMoneyString(oilSalePaidDetailAmount.value) * 1;
         }
     }
     document.forms["invoiceForm"].amount.value = total;
     tryNumberFormatCurrentcy(document.forms["invoiceForm"].amount, "VND");
-    oilSaleDetailAmount = null;
+    oilSalePaidDetailAmount = null;
+    if (obj != null)
+        tryNumberFormatCurrentcy(obj);
 }
 function showSearchOilSale() {
     var customerId = document.forms['invoiceForm'].customerSelectedHidden.value;
@@ -15259,19 +15269,23 @@ function addInvoiceDetail() {
         matTable = null;
         detTable = null;
 
-        calculateDetailAmountChanged();
+        invoiceDetailPaidAmountChanged(null);
 
         var amount = document.forms['invoiceForm'].oilSaleDetailAmount;
+        var paidAmount = document.forms['invoiceForm'].oilSalePaidDetailAmount;
         if (amount != null) {
             if (amount.length != null) {
                 for (var i = 0; i < amount.length; i++) {
                     tryNumberFormatCurrentcy(amount[i]);
+                    tryNumberFormatCurrentcy(paidAmount[i]);
                 }
             } else {
                 tryNumberFormatCurrentcy(amount);
+                tryNumberFormatCurrentcy(paidAmount);
             }
         }
         amount = null;
+        paidAmount = null;
     });
     return false;
 }
@@ -15306,7 +15320,7 @@ function showOilCustomerDebtReportPanel() {
         customerIdCombobox.setComboValue("");
     });
 }
-function printComapreLPGReport(fromDate, toDate) {
+function printOilCustomerDebtReport(fromDate, toDate) {
     var list = document.getElementById("reportOilCustomerDebtSearchFormTime");
     if (list == null || list.selectedIndex == -1)
         return false;

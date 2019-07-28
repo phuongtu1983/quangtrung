@@ -12,6 +12,7 @@ package com.stepup.gasoline.qt.report.oilcustomerdebt;
 public class OilCustomerDebtReportOutBean {
 
     private double closingDebt;
+    private double openingDebt;
     private String customerName;
 
     public double getClosingDebt() {
@@ -28,6 +29,14 @@ public class OilCustomerDebtReportOutBean {
 
     public void setCustomerName(String customerName) {
         this.customerName = customerName;
+    }
+
+    public double getOpeningDebt() {
+        return openingDebt;
+    }
+
+    public void setOpeningDebt(double openingDebt) {
+        this.openingDebt = openingDebt;
     }
 
 }

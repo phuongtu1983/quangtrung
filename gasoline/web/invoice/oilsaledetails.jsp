@@ -14,6 +14,7 @@
             <td><span><bean:write name="detail" property="oilSaleCode"/></span></td>
             <td><span><bean:write name="detail" property="oilSaleDate"/></span></td>
             <td><input type="text" size="20" name="oilSaleDetailAmount" value="${detail.oilSaleDetailAmount}" readonly="readonly" tabindex="-1"/></td>
+            <td><input type="text" size="20" name="oilSalePaidDetailAmount" value="${detail.oilSalePaidDetailAmount}" onblur="invoiceDetailPaidAmountChanged(this);" onkeypress="return readonlyFloat(event);"/></td>
             <td><input type="checkbox" name="oilSaleDetailPaid" value="<bean:write name="detail" property="oilSaleDetailId"/>"></td>
             <td><input type="checkbox" name="oilSaleDetailCommissioned" value="<bean:write name="detail" property="oilSaleDetailId"/>"></td>
         </tr>

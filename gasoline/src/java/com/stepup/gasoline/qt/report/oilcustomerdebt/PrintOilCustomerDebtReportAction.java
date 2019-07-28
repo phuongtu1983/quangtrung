@@ -42,6 +42,7 @@ public class PrintOilCustomerDebtReportAction extends BaseAction {
             list = printOilCustomerDebtReport(fromDate, toDate, customerId, organizationIds, outBean);
             beans.put("qtrp_customerName", outBean.getCustomerName());
             beans.put("qtrp_closingDebt", outBean.getClosingDebt());
+            beans.put("qtrp_openingDebt", outBean.getOpeningDebt());
             String templateFileName = request.getSession().getServletContext().getRealPath("/templates/bang_theo_doi_cong_no_khach_hang_oil.xls");
             beans.put("qtrp_fromDate", fromDate);
             beans.put("qtrp_toDate", toDate);

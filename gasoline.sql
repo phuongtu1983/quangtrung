@@ -388,7 +388,7 @@ CREATE TABLE `customer_in_stock` (
   `amount` double DEFAULT '0',
   `transport_amount` double DEFAULT '0',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=74209 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=74154 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 /*Data for the table `customer_in_stock` */
 
@@ -1475,11 +1475,11 @@ CREATE TABLE `invoice` (
   `amount_paid` double DEFAULT NULL,
   `customer_id` int(11) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=9 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 /*Data for the table `invoice` */
 
-insert  into `invoice`(`id`,`created_date`,`code`,`number`,`created_employee_id`,`note`,`amount`,`amount_paid`,`customer_id`) values (7,'2019-07-26','20190727-IN-0001','123',17,'',13200000,10000000,207);
+insert  into `invoice`(`id`,`created_date`,`code`,`number`,`created_employee_id`,`note`,`amount`,`amount_paid`,`customer_id`) values (8,'2019-07-28','20190728-IN-0001','123',17,'',8200000,1000000,0);
 
 /*Table structure for table `invoice_detail` */
 
@@ -1489,14 +1489,15 @@ CREATE TABLE `invoice_detail` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `invoice_id` int(11) DEFAULT NULL,
   `oil_sale_detail_id` int(11) DEFAULT NULL,
+  `paid_amount` double DEFAULT NULL,
   `paid` int(1) DEFAULT '0' COMMENT '0:chua thanh toan, 1:da thanh toan',
   `commissioned` int(1) DEFAULT '0' COMMENT '0: chua chiet khau, 1: da chiet khau',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 /*Data for the table `invoice_detail` */
 
-insert  into `invoice_detail`(`id`,`invoice_id`,`oil_sale_detail_id`,`paid`,`commissioned`) values (3,7,82,1,1);
+insert  into `invoice_detail`(`id`,`invoice_id`,`oil_sale_detail_id`,`paid_amount`,`paid`,`commissioned`) values (4,8,83,8000000,1,0),(5,8,82,200000,0,1);
 
 /*Table structure for table `invoice_paid_detail` */
 
@@ -1508,11 +1509,11 @@ CREATE TABLE `invoice_paid_detail` (
   `paid_date` date DEFAULT NULL,
   `amount` double DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=9 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 /*Data for the table `invoice_paid_detail` */
 
-insert  into `invoice_paid_detail`(`id`,`invoice_id`,`paid_date`,`amount`) values (4,6,'2019-07-25',1000000),(6,6,'2019-07-01',30000),(7,7,'2019-07-27',10000000);
+insert  into `invoice_paid_detail`(`id`,`invoice_id`,`paid_date`,`amount`) values (4,6,'2019-07-25',1000000),(6,6,'2019-07-01',30000),(7,7,'2019-07-27',10000000),(8,8,'2019-07-11',1000000);
 
 /*Table structure for table `lo_vo` */
 
@@ -1629,7 +1630,7 @@ CREATE TABLE `money_in_stock` (
   `organization_id` int(11) DEFAULT NULL COMMENT 'neu account_id=0 thi la id cua organization',
   `in_stock` double DEFAULT '0',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=1678 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=1677 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 /*Data for the table `money_in_stock` */
 
@@ -2132,7 +2133,7 @@ CREATE TABLE `petro_in_stock` (
   `store_id` int(11) DEFAULT NULL,
   `in_stock` int(11) DEFAULT '0',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=848 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=847 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 /*Data for the table `petro_in_stock` */
 
@@ -2240,7 +2241,7 @@ CREATE TABLE `promotion_material_in_stock` (
   `organization_id` int(11) DEFAULT NULL,
   `in_stock` int(11) DEFAULT '0',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=1892 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=1889 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 /*Data for the table `promotion_material_in_stock` */
 
@@ -2360,7 +2361,7 @@ CREATE TABLE `shell_gas_in_stock` (
   `shell_vendor_id` int(11) DEFAULT NULL,
   `in_stock` int(11) DEFAULT '0',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=6940 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=6914 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 /*Data for the table `shell_gas_in_stock` */
 
@@ -3066,7 +3067,7 @@ CREATE TABLE `vendor_in_stock` (
   `shell_45` int(11) DEFAULT '0',
   `transport_amount` double DEFAULT '0',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=149 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=147 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 /*Data for the table `vendor_in_stock` */
 
@@ -4792,6 +4793,7 @@ DELIMITER $$
 /*!50003 CREATE DEFINER=`root`@`localhost` PROCEDURE `deleteInvoice`(in _id int)
 BEGIN
 	DELETE FROM invoice_detail WHERE invoice_id=_id;
+	DELETE FROM invoice_paid_detail WHERE invoice_id=_id;
 	DELETE FROM invoice WHERE id=_id;
     END */$$
 DELIMITER ;
@@ -8459,9 +8461,9 @@ DELIMITER ;
 
 DELIMITER $$
 
-/*!50003 CREATE DEFINER=`root`@`localhost` PROCEDURE `insertInvoiceDetail`(in _invoice_id int, in _oil_sale_detail_id int, in _paid int, in _commissioned int)
+/*!50003 CREATE DEFINER=`root`@`localhost` PROCEDURE `insertInvoiceDetail`(in _invoice_id int, in _oil_sale_detail_id int, in _paid int, in _commissioned int, in _paid_amount double)
 BEGIN
-	insert into invoice_detail(invoice_id, oil_sale_detail_id, paid, commissioned) values(_invoice_id, _oil_sale_detail_id, _paid, _commissioned);
+	insert into invoice_detail(invoice_id, oil_sale_detail_id, paid, commissioned, paid_amount) values(_invoice_id, _oil_sale_detail_id, _paid, _commissioned, _paid_amount);
     END */$$
 DELIMITER ;
 
@@ -11788,19 +11790,15 @@ BEGIN
 	SELECT cis.amount INTO _opening_debt
 	FROM customer_in_stock AS cis WHERE DATE(cis.`day`)=_pre_date AND cis.customer_id=_customer_id LIMIT 1;
 	
-	SELECT c.CODE AS customer_code, c.NAME AS customer_name, o.CODE AS oil_code, o.NAME AS oil_name, u.NAME AS unit_name, COALESCE(oe.CODE,'') AS oil_export_code
-		, osdet.quantity, osdet.price_before_commission AS price, osdet.quantity * osdet.price_before_commission AS amount
-		, IF(idet.id IS NULL OR idet.commissioned=0,0,(osdet.gap_agency_amount + IF(os.is_calculate_agency_commission=1,osdet.price_before_commission * osdet.quantity * IF(aco.commission IS NULL,100,aco.commission) / 100,0))) AS commission
-		, IF(idet.id IS NOT NULL AND idet.commissioned=1,1,0) AS is_paid
-	FROM oil_sale AS os, oil AS o, unit AS u, customer AS c, employee AS eo, agency_customer AS ac, oil_sale_detail AS osdet
-	LEFT JOIN agency_commission AS aco ON aco.agency_id=_agency_id AND osdet.commission >= commission_from AND osdet.commission < commission_to
+	SELECT COALESCE(oe.CODE,'') AS oil_export_code, o.CODE AS oil_code, o.NAME AS oil_name, u.NAME AS unit_name
+		, osdet.quantity, osdet.price, osdet.amount, coalesce(idet.paid_amount,0) as paid
+	FROM oil_sale AS os, oil AS o, unit AS u, employee AS eo, oil_sale_detail AS osdet
 	LEFT JOIN invoice_detail AS idet ON idet.oil_sale_detail_id=osdet.id
 	LEFT JOIN oil_export_detail AS edet ON edet.oil_sale_detail_id=osdet.id
 	LEFT JOIN oil_export AS oe ON edet.oil_export_id=oe.id
 	WHERE DATE(os.created_date) >= STR_TO_DATE(_start_date,'%d/%m/%Y') AND DATE(os.created_date) <= STR_TO_DATE(_end_date,'%d/%m/%Y')
 		AND os.created_employee_id=eo.id AND _organization_ids LIKE CONCAT('%,',eo.organization_id,',%')
-		AND os.customer_id=c.id AND os.customer_id=ac.customer_id AND ac.agency_id=_agency_id
-		AND os.id=osdet.oil_sale_id AND osdet.oil_id=o.id AND osdet.unit_id=u.id
+		AND os.customer_id=_customer_id AND os.id=osdet.oil_sale_id AND osdet.oil_id=o.id AND osdet.unit_id=u.id
 	;
     END */$$
 DELIMITER ;
@@ -13259,11 +13257,10 @@ DELIMITER $$
 
 /*!50003 CREATE DEFINER=`root`@`localhost` PROCEDURE `searchInvoice`(IN _start_date VARCHAR(20), IN _end_date VARCHAR(20), IN _organization_ids TEXT)
 BEGIN
-	SELECT a.*, c.name as customer_name
-	FROM invoice AS a, employee AS eo, customer as c
+	SELECT a.*, coalesce(c.name,'') as customer_name
+	FROM employee AS eo, invoice AS a left join customer as c on a.customer_id=c.id
 	WHERE DATE(a.created_date) >= STR_TO_DATE(_start_date,'%d/%m/%Y') AND DATE(a.created_date) <= STR_TO_DATE(_end_date,'%d/%m/%Y')
 		AND a.created_employee_id=eo.id AND _organization_ids LIKE CONCAT('%,',eo.organization_id,',%')
-		and a.customer_id=c.id
 	;
     END */$$
 DELIMITER ;
@@ -15646,9 +15643,9 @@ DELIMITER ;
 
 DELIMITER $$
 
-/*!50003 CREATE DEFINER=`root`@`localhost` PROCEDURE `updateInvoiceDetail`(in _id int, IN _paid INT, in _commissioned int)
+/*!50003 CREATE DEFINER=`root`@`localhost` PROCEDURE `updateInvoiceDetail`(in _id int, IN _paid INT, in _commissioned int, IN _paid_amount DOUBLE)
 BEGIN
-	update invoice_detail set paid=_paid, commissioned=_commissioned where id=_id;
+	update invoice_detail set paid=_paid, commissioned=_commissioned, paid_amount=_paid_amount where id=_id;
     END */$$
 DELIMITER ;
 

@@ -46,6 +46,7 @@ public class GetInvoiceOilSaleDetailAction extends SpineAction {
                 invoiceDetailBean.setOilSaleDate(bean.getOilSaleDate());
                 invoiceDetailBean.setOilSaleDetailId(bean.getId());
                 invoiceDetailBean.setOilSaleDetailAmount(bean.getAmount());
+                invoiceDetailBean.setOilSalePaidDetailAmount(bean.getAmount());
                 arrDetail.add(invoiceDetailBean);
             }
         } catch (Exception ex) {

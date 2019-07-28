@@ -3639,6 +3639,7 @@ public class ReportDAO extends BasicDAO {
                 rs = spUtil.executeQuery();
 
                 double openingDebt = spUtil.getCallableStatement().getDouble("_opening_debt");
+                outBean.setOpeningDebt(openingDebt);
                 if (rs != null) {
                     OilCustomerDebtReportBean bean = null;
                     int count = 1;
@@ -3654,7 +3655,7 @@ public class ReportDAO extends BasicDAO {
                         bean.setOpeningDebt(openingDebt);
                         bean.setAmount(rs.getDouble("amount"));
                         bean.setPaid(rs.getDouble("paid"));
-                        bean.setDebt(bean.getAmount() - bean.getDebt());
+                        bean.setDebt(bean.getAmount() - bean.getPaid());
                         bean.setClosingDebt(openingDebt + bean.getDebt());
                         openingDebt = bean.getClosingDebt();
                         list.add(bean);

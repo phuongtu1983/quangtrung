@@ -106,7 +106,7 @@ public class AddInvoiceAction extends SpineAction {
                     checkedOilSaleDetailPaidIds += "," + formBean.getOilSaleDetailPaid()[i];
                 }
             }
-            if (formBean.getOilSaleDetailCommissioned()!= null) {
+            if (formBean.getOilSaleDetailCommissioned() != null) {
                 for (int i = 0; i < formBean.getOilSaleDetailCommissioned().length; i++) {
                     checkedOilSaleDetailCommissionedIds += "," + formBean.getOilSaleDetailCommissioned()[i];
                 }
@@ -118,6 +118,7 @@ public class AddInvoiceAction extends SpineAction {
                 if (id == 0) {
                     InvoiceDetailBean bean = new InvoiceDetailBean();
                     bean.setOilSaleDetailId(NumberUtil.parseInt(formBean.getOilSaleDetailId()[i], 0));
+                    bean.setOilSalePaidDetailAmount(NumberUtil.parseDouble(formBean.getOilSalePaidDetailAmount()[i], 0));
                     if (checkedOilSaleDetailPaidIds.indexOf("," + bean.getOilSaleDetailId() + ",") > -1) {
                         bean.setOilSaleDetailPaid(1);
                     } else {
@@ -150,11 +151,15 @@ public class AddInvoiceAction extends SpineAction {
                         if (checkedOilSaleDetailCommissionedIds.indexOf("," + oldBean.getOilSaleDetailId() + ",") > -1) {
                             commissionChecked = 1;
                         }
+                        if (oldBean.getOilSalePaidDetailAmount() != NumberUtil.parseDouble(formBean.getOilSalePaidDetailAmount()[i], 0)) {
+                            isUpdate = true;
+                            oldBean.setOilSalePaidDetailAmount(NumberUtil.parseDouble(formBean.getOilSalePaidDetailAmount()[i], 0));
+                        }
                         if (oldBean.getOilSaleDetailPaid() != paidChecked) {
                             isUpdate = true;
                             oldBean.setOilSaleDetailPaid(paidChecked);
                         }
-                        if (oldBean.getOilSaleDetailCommissioned()!= commissionChecked) {
+                        if (oldBean.getOilSaleDetailCommissioned() != commissionChecked) {
                             isUpdate = true;
                             oldBean.setOilSaleDetailCommissioned(commissionChecked);
                         }
