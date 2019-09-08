@@ -102,6 +102,7 @@ public class PrintPetroStockStoreReportAction extends BaseAction {
                 }
                 beans.put("dynamicdata" + petro.getId(), list);
                 beans.put("openingStock" + petro.getId(), outBean.getOpeningStock());
+                beans.put("closingStock" + petro.getId(), outBean.getClosingStock());
             }
             reportDAO.clearPetroStockReport(sessionId);
 

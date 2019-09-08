@@ -140,7 +140,8 @@ public class DynamicColumnExcelReporter {
             newCell.setCellValue(new HSSFRichTextString("$[SUM(" + ExcelExport.getColumnName(col + 1) + "8)]"));
             //copy footer ton
             newCell = copyCell(wb, sheet, row + 5, 4, col + 2, "", petro.getId() + "");
-            newCell.setCellValue(new HSSFRichTextString("$[SUM(" + ExcelExport.getColumnName(col + 2) + "8)]"));
+//            newCell.setCellValue(new HSSFRichTextString("$[SUM(" + ExcelExport.getColumnName(col + 2) + "8)]"));
+            newCell.setCellValue(new HSSFRichTextString("${closingStock" + petro.getId() + "}"));
 
             sheet.setColumnWidth(col, sheet.getColumnWidth(2));
             sheet.setColumnWidth((col + 1), sheet.getColumnWidth(3));

@@ -380,11 +380,9 @@ CREATE TABLE `customer_in_stock` (
   `amount` double DEFAULT '0',
   `transport_amount` double DEFAULT '0',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=8090 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 /*Data for the table `customer_in_stock` */
-
-insert  into `customer_in_stock`(`id`,`day`,`customer_id`,`shell_12`,`shell_45`,`amount`,`transport_amount`) values (7869,'2019-08-24',1,0,0,0,0),(7870,'2019-08-24',2,0,0,0,0),(7871,'2019-08-24',9,0,0,0,0),(7872,'2019-08-24',11,0,0,0,0),(7873,'2019-08-24',12,0,0,0,0),(7874,'2019-08-24',13,0,0,0,0),(7875,'2019-08-24',14,0,0,0,0),(7876,'2019-08-24',15,0,0,0,0),(7877,'2019-08-24',16,0,0,0,0),(7878,'2019-08-24',17,0,0,0,0),(7879,'2019-08-24',18,0,0,0,0),(7880,'2019-08-24',19,0,0,0,0),(7881,'2019-08-24',20,0,0,0,0),(7882,'2019-08-24',21,0,0,0,0),(7883,'2019-08-24',22,0,0,0,0),(7884,'2019-08-24',23,0,0,0,0),(7885,'2019-08-24',24,0,0,0,0),(7886,'2019-08-24',25,0,0,0,0),(7887,'2019-08-24',26,0,0,0,0),(7888,'2019-08-24',27,0,0,0,0),(7889,'2019-08-24',28,0,0,0,0),(7890,'2019-08-24',29,0,0,0,0),(7891,'2019-08-24',30,0,0,0,0),(7892,'2019-08-24',31,0,0,0,0),(7893,'2019-08-24',32,0,0,0,0),(7894,'2019-08-24',33,0,0,0,0),(7895,'2019-08-24',34,0,0,0,0),(7896,'2019-08-24',35,0,0,0,0),(7897,'2019-08-24',37,0,0,0,0),(7898,'2019-08-24',38,0,0,0,0),(7899,'2019-08-24',39,0,0,0,0),(7900,'2019-08-24',40,0,0,0,0),(7901,'2019-08-24',41,0,0,0,0),(7902,'2019-08-24',42,0,0,0,0),(7903,'2019-08-24',43,0,0,0,0),(7904,'2019-08-24',44,0,0,0,0),(7905,'2019-08-24',45,0,0,0,0),(7906,'2019-08-24',46,0,0,0,0),(7907,'2019-08-24',47,0,0,0,0),(7908,'2019-08-24',48,0,0,0,0),(7909,'2019-08-24',49,0,0,0,0),(7910,'2019-08-24',50,0,0,0,0),(7911,'2019-08-24',51,0,0,0,0),(7912,'2019-08-24',52,0,0,0,0),(7913,'2019-08-24',53,0,0,0,0),(7914,'2019-08-24',54,0,0,0,0),(7915,'2019-08-24',55,0,0,0,0),(7916,'2019-08-24',56,0,0,0,0),(7917,'2019-08-24',57,0,0,0,0),(7918,'2019-08-24',58,0,0,0,0),(7919,'2019-08-24',59,0,0,0,0),(7920,'2019-08-24',60,0,0,0,0),(7921,'2019-08-24',61,0,0,0,0),(7922,'2019-08-24',62,0,0,0,0),(7923,'2019-08-24',63,0,0,0,0),(7924,'2019-08-24',64,0,0,0,0),(7925,'2019-08-24',65,0,0,0,0),(7926,'2019-08-24',66,0,0,0,0),(7927,'2019-08-24',67,0,0,0,0),(7928,'2019-08-24',68,0,0,0,0),(7929,'2019-08-24',69,0,0,0,0),(7930,'2019-08-24',70,0,0,0,0),(7931,'2019-08-24',71,0,0,0,0),(7932,'2019-08-24',72,0,0,0,0),(7933,'2019-08-24',73,0,0,0,0),(7934,'2019-08-24',74,0,0,0,0),(7935,'2019-08-24',75,0,0,0,0),(7936,'2019-08-24',76,0,0,0,0),(7937,'2019-08-24',77,0,0,0,0),(7938,'2019-08-24',79,0,0,0,0),(7939,'2019-08-24',80,0,0,0,0),(7940,'2019-08-24',82,0,0,0,0),(7941,'2019-08-24',83,0,0,0,0),(7942,'2019-08-24',84,0,0,0,0),(7943,'2019-08-24',85,0,0,0,0),(7944,'2019-08-24',86,0,0,0,0),(7945,'2019-08-24',87,0,0,0,0),(7946,'2019-08-24',88,0,0,0,0),(7947,'2019-08-24',89,0,0,0,0),(7948,'2019-08-24',90,0,0,0,0),(7949,'2019-08-24',91,0,0,0,0),(7950,'2019-08-24',92,0,0,0,0),(7951,'2019-08-24',93,0,0,0,0),(7952,'2019-08-24',94,0,0,0,0),(7953,'2019-08-24',95,0,0,0,0),(7954,'2019-08-24',96,0,0,0,0),(7955,'2019-08-24',97,0,0,0,0),(7956,'2019-08-24',98,0,0,0,0),(7957,'2019-08-24',99,0,0,0,0),(7958,'2019-08-24',100,0,0,0,0),(7959,'2019-08-24',101,0,0,0,0),(7960,'2019-08-24',102,0,0,0,0),(7961,'2019-08-24',103,0,0,0,0),(7962,'2019-08-24',104,0,0,0,0),(7963,'2019-08-24',105,0,0,0,0),(7964,'2019-08-24',106,0,0,0,0),(7965,'2019-08-24',107,0,0,0,0),(7966,'2019-08-24',108,0,0,0,0),(7967,'2019-08-24',109,0,0,0,0),(7968,'2019-08-24',110,0,0,0,0),(7969,'2019-08-24',111,0,0,0,0),(7970,'2019-08-24',112,0,0,0,0),(7971,'2019-08-24',113,0,0,0,0),(7972,'2019-08-24',114,0,0,0,0),(7973,'2019-08-24',115,0,0,0,0),(7974,'2019-08-24',116,0,0,0,0),(7975,'2019-08-24',117,0,0,0,0),(7976,'2019-08-24',118,0,0,0,0),(7977,'2019-08-24',119,0,0,0,0),(7978,'2019-08-24',120,0,0,0,0),(7979,'2019-08-24',121,0,0,0,0),(7980,'2019-08-24',122,0,0,0,0),(7981,'2019-08-24',123,0,0,0,0),(7982,'2019-08-24',124,0,0,0,0),(7983,'2019-08-24',125,0,0,0,0),(7984,'2019-08-24',126,0,0,0,0),(7985,'2019-08-24',127,0,0,0,0),(7986,'2019-08-24',128,0,0,0,0),(7987,'2019-08-24',129,0,0,0,0),(7988,'2019-08-24',130,0,0,0,0),(7989,'2019-08-24',131,0,0,0,0),(7990,'2019-08-24',132,0,0,0,0),(7991,'2019-08-24',133,0,0,0,0),(7992,'2019-08-24',134,0,0,0,0),(7993,'2019-08-24',135,0,0,0,0),(7994,'2019-08-24',136,0,0,0,0),(7995,'2019-08-24',137,0,0,0,0),(7996,'2019-08-24',138,0,0,0,0),(7997,'2019-08-24',139,0,0,0,0),(7998,'2019-08-24',140,0,0,0,0),(7999,'2019-08-24',141,0,0,0,0),(8000,'2019-08-24',142,0,0,0,0),(8001,'2019-08-24',143,0,0,0,0),(8002,'2019-08-24',144,0,0,0,0),(8003,'2019-08-24',145,0,0,0,0),(8004,'2019-08-24',146,0,0,0,0),(8005,'2019-08-24',147,0,0,0,0),(8006,'2019-08-24',148,0,0,0,0),(8007,'2019-08-24',149,0,0,0,0),(8008,'2019-08-24',150,0,0,0,0),(8009,'2019-08-24',151,0,0,0,0),(8010,'2019-08-24',152,0,0,0,0),(8011,'2019-08-24',153,0,0,0,0),(8012,'2019-08-24',154,0,0,0,0),(8013,'2019-08-24',155,0,0,0,0),(8014,'2019-08-24',156,0,0,0,0),(8015,'2019-08-24',157,0,0,0,0),(8016,'2019-08-24',158,0,0,0,0),(8017,'2019-08-24',159,0,0,0,0),(8018,'2019-08-24',160,0,0,0,0),(8019,'2019-08-24',161,0,0,0,0),(8020,'2019-08-24',162,0,0,0,0),(8021,'2019-08-24',163,0,0,0,0),(8022,'2019-08-24',164,0,0,0,0),(8023,'2019-08-24',165,0,0,0,0),(8024,'2019-08-24',166,0,0,0,0),(8025,'2019-08-24',167,0,0,0,0),(8026,'2019-08-24',168,0,0,0,0),(8027,'2019-08-24',169,0,0,0,0),(8028,'2019-08-24',170,0,0,0,0),(8029,'2019-08-24',171,0,0,0,0),(8030,'2019-08-24',172,0,0,0,0),(8031,'2019-08-24',173,0,0,0,0),(8032,'2019-08-24',174,0,0,0,0),(8033,'2019-08-24',175,0,0,0,0),(8034,'2019-08-24',176,0,0,0,0),(8035,'2019-08-24',177,0,0,0,0),(8036,'2019-08-24',178,0,0,0,0),(8037,'2019-08-24',179,0,0,0,0),(8038,'2019-08-24',180,0,0,0,0),(8039,'2019-08-24',181,0,0,0,0),(8040,'2019-08-24',182,0,0,0,0),(8041,'2019-08-24',183,0,0,0,0),(8042,'2019-08-24',184,0,0,0,0),(8043,'2019-08-24',185,0,0,0,0),(8044,'2019-08-24',186,0,0,0,0),(8045,'2019-08-24',187,0,0,0,0),(8046,'2019-08-24',188,0,0,0,0),(8047,'2019-08-24',189,0,0,0,0),(8048,'2019-08-24',190,0,0,0,0),(8049,'2019-08-24',191,0,0,0,0),(8050,'2019-08-24',192,0,0,0,0),(8051,'2019-08-24',193,0,0,0,0),(8052,'2019-08-24',194,0,0,0,0),(8053,'2019-08-24',195,0,0,0,0),(8054,'2019-08-24',196,0,0,0,0),(8055,'2019-08-24',197,0,0,0,0),(8056,'2019-08-24',198,0,0,0,0),(8057,'2019-08-24',199,0,0,0,0),(8058,'2019-08-24',200,0,0,0,0),(8059,'2019-08-24',201,0,0,0,0),(8060,'2019-08-24',202,0,0,0,0),(8061,'2019-08-24',203,0,0,0,0),(8062,'2019-08-24',204,0,0,0,0),(8063,'2019-08-24',205,0,0,0,0),(8064,'2019-08-24',206,0,0,0,0),(8065,'2019-08-24',207,0,0,0,0),(8066,'2019-08-24',208,0,0,0,0),(8067,'2019-08-24',209,0,0,0,0),(8068,'2019-08-24',210,0,0,0,0),(8069,'2019-08-24',211,0,0,0,0),(8070,'2019-08-24',212,0,0,0,0),(8071,'2019-08-24',213,0,0,0,0),(8072,'2019-08-24',214,0,0,0,0),(8073,'2019-08-24',215,0,0,0,0),(8074,'2019-08-24',216,0,0,0,0),(8075,'2019-08-24',217,0,0,0,0),(8076,'2019-08-24',218,0,0,0,0),(8077,'2019-08-24',219,0,0,0,0),(8078,'2019-08-24',220,0,0,0,0),(8079,'2019-08-24',221,0,0,0,0),(8080,'2019-08-24',222,0,0,0,0),(8081,'2019-08-24',223,0,0,0,0),(8082,'2019-08-24',224,0,0,0,0),(8083,'2019-08-24',225,0,0,0,0),(8084,'2019-08-24',226,0,0,0,0),(8085,'2019-08-24',227,0,0,0,0),(8086,'2019-08-24',228,0,0,0,0),(8087,'2019-08-24',229,0,0,0,0),(8088,'2019-08-24',230,0,0,0,0),(8089,'2019-08-24',232,0,0,0,0);
 
 /*Table structure for table `dayoff` */
 
@@ -428,6 +426,8 @@ CREATE TABLE `debug` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 /*Data for the table `debug` */
+
+insert  into `debug`(`note`) values ('2019-09-01'),('2019-09-07');
 
 /*Table structure for table `discount_oil` */
 
@@ -1319,11 +1319,9 @@ CREATE TABLE `good_in_stock` (
   `store_id` int(11) DEFAULT NULL,
   `in_stock` int(11) DEFAULT '0',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=207 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 /*Data for the table `good_in_stock` */
-
-insert  into `good_in_stock`(`id`,`day`,`good_id`,`organization_id`,`store_id`,`in_stock`) values (203,'2019-08-24',1,1,7,0),(204,'2019-08-24',2,1,7,0),(205,'2019-08-24',3,1,7,0),(206,'2019-08-24',4,1,7,0);
 
 /*Table structure for table `good_sale` */
 
@@ -1541,11 +1539,9 @@ CREATE TABLE `lpg_in_stock` (
   `day` date DEFAULT NULL,
   `in_stock` int(11) DEFAULT '0',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=132977 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 /*Data for the table `lpg_in_stock` */
-
-insert  into `lpg_in_stock`(`id`,`organization_id`,`vendor_id`,`day`,`in_stock`) values (132969,1,15,'2019-08-24',0),(132970,1,16,'2019-08-24',0),(132971,1,21,'2019-08-24',0),(132972,1,22,'2019-08-24',0),(132973,14,23,'2019-08-24',0),(132974,1,23,'2019-08-24',0),(132975,14,22,'2019-08-24',0),(132976,14,15,'2019-08-24',0);
 
 /*Table structure for table `lpg_sale` */
 
@@ -1585,11 +1581,9 @@ CREATE TABLE `money_in_stock` (
   `organization_id` int(11) DEFAULT NULL COMMENT 'neu account_id=0 thi la id cua organization',
   `in_stock` double DEFAULT '0',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=300 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 /*Data for the table `money_in_stock` */
-
-insert  into `money_in_stock`(`id`,`day`,`account_id`,`organization_id`,`in_stock`) values (294,'2019-08-24',4,1,0),(295,'2019-08-24',5,1,0),(296,'2019-08-24',7,14,0),(297,'2019-08-24',8,14,0),(298,'2019-08-24',9,1,0),(299,'2019-08-24',10,1,0);
 
 /*Table structure for table `oil` */
 
@@ -1720,11 +1714,9 @@ CREATE TABLE `oil_in_stock` (
   `store_id` int(11) DEFAULT NULL,
   `in_stock` int(11) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=225 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 /*Data for the table `oil_in_stock` */
-
-insert  into `oil_in_stock`(`id`,`day`,`oil_id`,`organization_id`,`store_id`,`in_stock`) values (218,'2019-08-24',1,1,8,0),(219,'2019-08-24',2,1,8,0),(220,'2019-08-24',3,1,8,0),(221,'2019-08-24',4,1,8,0),(222,'2019-08-24',5,1,8,0),(223,'2019-08-24',6,1,8,0),(224,'2019-08-24',7,1,8,0);
 
 /*Table structure for table `oil_return_store` */
 
@@ -2014,11 +2006,11 @@ CREATE TABLE `petro` (
   `organization_id` int(11) DEFAULT NULL,
   `status` int(1) DEFAULT '1' COMMENT '0:bi khoa,1:dang hoat dong',
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM AUTO_INCREMENT=12 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=MyISAM AUTO_INCREMENT=13 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 /*Data for the table `petro` */
 
-insert  into `petro`(`id`,`code`,`name`,`price`,`unit_id`,`organization_id`,`status`) values (6,'DO','DẦU DO 0,05S',20000,5,1,1),(5,'A92-E5','XĂNG A92-E5',300000,5,1,2),(4,'A95','XĂNG A95',100000,5,1,0),(7,'HD40(T18)','HD40(T18)',0,5,1,0),(8,'HD40(4L)','NHỚT HD 40 (can 4 L)',0,5,1,0),(9,'SHELL(T18)','NHỚT SHELL (thùng 18 L)',0,5,1,0),(10,'N68 (T18)','NHỚT THỦY LỰC 68 (thùng 18 L)',0,5,1,0),(11,'N140 (L)','NHỚT ĐẶC 140',0,5,1,0);
+insert  into `petro`(`id`,`code`,`name`,`price`,`unit_id`,`organization_id`,`status`) values (6,'DO','DẦU DO 0,05S',20000,5,1,1),(5,'A92-E5','XĂNG A92-E5',300000,5,1,2),(12,'X92','Xăng 92',20000,5,1,1);
 
 /*Table structure for table `petro_import` */
 
@@ -2038,9 +2030,11 @@ CREATE TABLE `petro_import` (
   `note` text COLLATE utf8_unicode_ci,
   `created_employee_id` int(11) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM AUTO_INCREMENT=4 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=MyISAM AUTO_INCREMENT=8 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 /*Data for the table `petro_import` */
+
+insert  into `petro_import`(`id`,`code`,`created_date`,`store_id`,`vendor_id`,`rate`,`total`,`paid`,`debt`,`account_id`,`note`,`created_employee_id`) values (6,'20190909-GI-0001','2019-09-07',6,19,0,50000,0,50000,5,'',17),(7,'20190909-GI-0002','2019-09-07',4,18,0,250000,50000,200000,5,'',17);
 
 /*Table structure for table `petro_import_detail` */
 
@@ -2055,9 +2049,11 @@ CREATE TABLE `petro_import_detail` (
   `amount` double DEFAULT NULL,
   `note` text COLLATE utf8_unicode_ci,
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM AUTO_INCREMENT=5 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=MyISAM AUTO_INCREMENT=13 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 /*Data for the table `petro_import_detail` */
+
+insert  into `petro_import_detail`(`id`,`petro_import_id`,`petro_id`,`quantity`,`price`,`amount`,`note`) values (9,6,6,10,1000,10000,NULL),(10,6,12,20,2000,40000,NULL),(11,7,6,30,3000,90000,NULL),(12,7,12,40,4000,160000,NULL);
 
 /*Table structure for table `petro_in_stock` */
 
@@ -2071,11 +2067,11 @@ CREATE TABLE `petro_in_stock` (
   `store_id` int(11) DEFAULT NULL,
   `in_stock` int(11) DEFAULT '0',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=91 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=9 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 /*Data for the table `petro_in_stock` */
 
-insert  into `petro_in_stock`(`id`,`day`,`petro_id`,`organization_id`,`store_id`,`in_stock`) values (89,'2019-08-24',6,1,4,0),(90,'2019-08-24',6,1,6,0);
+insert  into `petro_in_stock`(`id`,`day`,`petro_id`,`organization_id`,`store_id`,`in_stock`) values (1,'2019-09-01',6,14,6,1),(2,'2019-09-01',12,14,6,2),(3,'2019-09-01',6,14,4,3),(4,'2019-09-01',12,14,4,4),(5,'2019-09-01',6,1,6,5),(6,'2019-09-01',12,1,6,6),(7,'2019-09-01',6,1,4,7),(8,'2019-09-01',12,1,4,8);
 
 /*Table structure for table `petro_sale` */
 
@@ -2096,9 +2092,11 @@ CREATE TABLE `petro_sale` (
   `note` text COLLATE utf8_unicode_ci,
   `created_employee_id` int(11) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM AUTO_INCREMENT=6 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=MyISAM AUTO_INCREMENT=12 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 /*Data for the table `petro_sale` */
+
+insert  into `petro_sale`(`id`,`code`,`created_date`,`customer_id`,`store_id`,`total`,`discount`,`total_pay`,`paid`,`debt`,`account_id`,`note`,`created_employee_id`) values (9,'20190909-SP-0001','2019-09-07',226,6,60000,0,60000,0,60000,5,'',17),(10,'20190909-SP-0002','2019-09-07',0,4,140000,0,140000,0,140000,5,'',17),(11,'20190909-SP-0003','2019-09-08',0,4,100000,0,100000,0,100000,5,'',17);
 
 /*Table structure for table `petro_sale_detail` */
 
@@ -2112,9 +2110,11 @@ CREATE TABLE `petro_sale_detail` (
   `price` double DEFAULT NULL,
   `amount` double DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM AUTO_INCREMENT=10 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=MyISAM AUTO_INCREMENT=19 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 /*Data for the table `petro_sale_detail` */
+
+insert  into `petro_sale_detail`(`id`,`petro_sale_id`,`petro_id`,`quantity`,`price`,`amount`) values (14,9,6,1,20000,20000),(15,9,12,2,20000,40000),(16,10,6,3,20000,60000),(17,10,12,4,20000,80000),(18,11,6,5,20000,100000);
 
 /*Table structure for table `promotion_material` */
 
@@ -2179,11 +2179,9 @@ CREATE TABLE `promotion_material_in_stock` (
   `organization_id` int(11) DEFAULT NULL,
   `in_stock` int(11) DEFAULT '0',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=207 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 /*Data for the table `promotion_material_in_stock` */
-
-insert  into `promotion_material_in_stock`(`id`,`day`,`promotion_material_id`,`organization_id`,`in_stock`) values (203,'2019-08-24',3,1,0),(204,'2019-08-24',4,1,0),(205,'2019-08-24',3,14,0),(206,'2019-08-24',4,14,0);
 
 /*Table structure for table `promotion_material_sale` */
 
@@ -2299,11 +2297,9 @@ CREATE TABLE `shell_gas_in_stock` (
   `shell_vendor_id` int(11) DEFAULT NULL,
   `in_stock` int(11) DEFAULT '0',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=1927 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 /*Data for the table `shell_gas_in_stock` */
-
-insert  into `shell_gas_in_stock`(`id`,`day`,`shell_vendor_id`,`in_stock`) values (1888,'2019-08-24',1,0),(1889,'2019-08-24',4,0),(1890,'2019-08-24',7,0),(1891,'2019-08-24',8,0),(1892,'2019-08-24',5,0),(1893,'2019-08-24',2,0),(1894,'2019-08-24',3,0),(1895,'2019-08-24',9,0),(1896,'2019-08-24',10,0),(1897,'2019-08-24',11,0),(1898,'2019-08-24',12,0),(1899,'2019-08-24',13,0),(1900,'2019-08-24',14,0),(1901,'2019-08-24',15,0),(1902,'2019-08-24',16,0),(1903,'2019-08-24',17,0),(1904,'2019-08-24',18,0),(1905,'2019-08-24',19,0),(1906,'2019-08-24',21,0),(1907,'2019-08-24',22,0),(1908,'2019-08-24',23,0),(1909,'2019-08-24',24,0),(1910,'2019-08-24',25,0),(1911,'2019-08-24',6,0),(1912,'2019-08-24',26,0),(1913,'2019-08-24',27,0),(1914,'2019-08-24',28,0),(1915,'2019-08-24',29,0),(1916,'2019-08-24',30,0),(1917,'2019-08-24',31,0),(1918,'2019-08-24',32,0),(1919,'2019-08-24',33,0),(1920,'2019-08-24',34,0),(1921,'2019-08-24',35,0),(1922,'2019-08-24',36,0),(1923,'2019-08-24',37,0),(1924,'2019-08-24',38,0),(1925,'2019-08-24',39,0),(1926,'2019-08-24',40,0);
 
 /*Table structure for table `shell_import` */
 
@@ -2341,8 +2337,6 @@ CREATE TABLE `shell_in_stock` (
 ) ENGINE=MyISAM AUTO_INCREMENT=1357 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 /*Data for the table `shell_in_stock` */
-
-insert  into `shell_in_stock`(`id`,`day`,`organization_id`,`shell_id`,`in_stock`) values (1318,'2019-08-24',1,1,0),(1319,'2019-08-24',1,2,0),(1320,'2019-08-24',1,3,0),(1321,'2019-08-24',1,8,0),(1322,'2019-08-24',1,9,0),(1323,'2019-08-24',1,10,0),(1324,'2019-08-24',1,11,0),(1325,'2019-08-24',1,12,0),(1326,'2019-08-24',1,13,0),(1327,'2019-08-24',1,14,0),(1328,'2019-08-24',1,15,0),(1329,'2019-08-24',1,16,0),(1330,'2019-08-24',1,17,0),(1331,'2019-08-24',1,18,0),(1332,'2019-08-24',1,19,0),(1333,'2019-08-24',1,20,0),(1334,'2019-08-24',1,21,0),(1335,'2019-08-24',1,22,0),(1336,'2019-08-24',1,24,0),(1337,'2019-08-24',1,25,0),(1338,'2019-08-24',1,26,0),(1339,'2019-08-24',1,27,0),(1340,'2019-08-24',1,28,0),(1341,'2019-08-24',1,29,0),(1342,'2019-08-24',1,30,0),(1343,'2019-08-24',1,31,0),(1344,'2019-08-24',1,32,0),(1345,'2019-08-24',1,33,0),(1346,'2019-08-24',1,34,0),(1347,'2019-08-24',1,35,0),(1348,'2019-08-24',1,36,0),(1349,'2019-08-24',1,37,0),(1350,'2019-08-24',1,38,0),(1351,'2019-08-24',1,39,0),(1352,'2019-08-24',1,40,0),(1353,'2019-08-24',1,41,0),(1354,'2019-08-24',1,42,0),(1355,'2019-08-24',1,43,0),(1356,'2019-08-24',1,44,0);
 
 /*Table structure for table `shell_kind` */
 
@@ -2538,11 +2532,9 @@ CREATE TABLE `shield_in_stock` (
   `organization_id` int(11) DEFAULT NULL,
   `in_stock` int(11) DEFAULT '0',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=466 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 /*Data for the table `shield_in_stock` */
-
-insert  into `shield_in_stock`(`id`,`day`,`vendor_id`,`organization_id`,`in_stock`) values (458,'2019-08-24',15,1,0),(459,'2019-08-24',16,1,0),(460,'2019-08-24',21,1,0),(461,'2019-08-24',22,1,0),(462,'2019-08-24',23,1,0),(463,'2019-08-24',15,14,0),(464,'2019-08-24',22,14,0),(465,'2019-08-24',23,14,0);
 
 /*Table structure for table `store` */
 
@@ -2618,6 +2610,8 @@ CREATE TABLE `temp_petro_stock` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 /*Data for the table `temp_petro_stock` */
+
+insert  into `temp_petro_stock`(`session_id`,`created_date`,`petro_id`,`opening_stock`,`import_quantity`,`export_quantity`) values ('17_1568019146565','2019-09-01',6,12,0,0),('17_1568019146565','2019-09-01',12,14,0,0),('17_1568019146565','2019-09-07',6,0,40,4),('17_1568019146565','2019-09-07',12,0,60,6),('17_1568019146565','2019-09-08',6,0,0,5);
 
 /*Table structure for table `timesheet` */
 
@@ -4794,13 +4788,15 @@ BEGIN
 	END IF;
 	
 	SELECT `day` INTO _from_date FROM petro_in_stock WHERE DATEDIFF(`day`, _to_date) <= 0 LIMIT 1;
-	IF _from_date=NULL THEN
+	IF _from_date is NULL THEN
 		SELECT STR_TO_DATE(`value`,'%d/%m/%Y') INTO _from_date FROM parameter WHERE `code`="startdate";
 	END IF;
 	
 	IF _is_list=1 THEN
 		SELECT o.id AS organization_id, o.NAME AS organization_name, so.id AS store_id, so.NAME AS store_name, a.id AS petro_id, a.NAME AS petro_name, COALESCE(tbl_old_stock.in_stock,0) + COALESCE(stock.quantity,0) AS opening_stock
-		FROM organization AS o, store AS so, petro AS a
+		FROM organization AS o 
+		left join store AS so on 1
+		left join petro AS a on 1
 		LEFT JOIN (
 			SELECT organization_id, petro_id, store_id, in_stock
 			FROM petro_in_stock
@@ -4814,11 +4810,11 @@ BEGIN
 				WHERE i_det.petro_import_id=i.id AND DATE(i.created_date) > _from_date AND DATE(i.created_date) <= _to_date and i.store_id=s.id
 				UNION ALL
 				SELECT i_det.petro_id, i.store_id, s.organization_id, -COALESCE(i_det.quantity,0) AS in_stock
-				FROM petro_sale_detail AS i_det, petro_sale AS i
+				FROM petro_sale_detail AS i_det, petro_sale AS i, store as s
 				WHERE i_det.petro_sale_id=i.id AND DATE(i.created_date) > _from_date AND DATE(i.created_date) <= _to_date and i.store_id=s.id
 			) AS tbl GROUP BY tbl.organization_id, tbl.store_id, tbl.petro_id
 		) AS stock ON stock.organization_id=o.id AND stock.petro_id=a.id and stock.store_id=so.id
-		WHERE a.STATUS=1 AND o.STATUS=1 and so.status=1
+		WHERE a.STATUS=1 AND o.STATUS=1 and so.status=1 and so.is_petro=1
 		ORDER BY o.NAME, so.name, a.NAME
 		;
 	END IF;
@@ -5609,7 +5605,7 @@ BEGIN
 	
 	IF _id IS NULL THEN
 		INSERT INTO petro_in_stock(`day`, organization_id, store_id, petro_id, in_stock)
-		VALUES (_date, _organization_id, _store_id, _petro_id, _in_stock);
+		VALUES (STR_TO_DATE(_date,'%d/%m/%Y'), _organization_id, _store_id, _petro_id, _in_stock);
 	ELSE
 		SET _diff = _in_stock - _old_stock;
 		UPDATE petro_in_stock SET in_stock=_in_stock WHERE id=_id;
@@ -10154,65 +10150,52 @@ DELIMITER $$
 BEGIN
 	DECLARE _from_date, _to_date DATE;
 	
-	IF _date<>'' THEN
-		SET _to_date = STR_TO_DATE(_date,'%d/%m/%Y');
+	IF _start_date<>'' THEN
+		select STR_TO_DATE(_start_date,'%d/%m/%Y') into _to_date;
 	ELSE
 		SELECT SYSDATE() INTO _to_date;
 	END IF;
 	
 	SELECT `day` INTO _from_date FROM petro_in_stock WHERE DATEDIFF(`day`, _to_date) <= 0 LIMIT 1;
-	IF _from_date=NULL THEN
-		SELECT STR_TO_DATE(`value`,'%d/%m/%Y') INTO _from_date FROM parameter WHERE `code`="startdate";
+	IF _from_date is NULL THEN
+		SELECT DATE_ADD(_to_date, INTERVAL -1 DAY) INTO _from_date;
 	END IF;
-	
 	if _petro_id=0 then
 		delete from temp_petro_stock where session_id=_session_id;
-	
 		insert into temp_petro_stock(session_id, created_date, petro_id, opening_stock, import_quantity, export_quantity)
-		select _session_id, tbl.created_date, tbl.petro_id, coalesce(sum(opening_stock),0), sum(import_quantity), sum(export_quantity) from
+		select _session_id, tbl.created_date, tbl.petro_id, coalesce(sum(opening_stock),0) as opening_stock
+			, coalesce(sum(import_quantity),0) as import_quantity, coalesce(sum(export_quantity),0) as export_quantity
+		from petro as p left join
 		(
-			select i.created_date, idet.petro_id, sum(idet.quantity) as import_quantity, 0 as export_quantity
-			from petro_import as i, petro_import_detail as idet, employee as eo, petro as p
+			select i.created_date, idet.petro_id, 0 as opening_stock, coalesce(idet.quantity,0) as import_quantity, 0 as export_quantity
+			from petro_import as i, petro_import_detail as idet, employee as eo
 			where DATE(i.created_date) >= STR_TO_DATE(_start_date,'%d/%m/%Y') AND DATE(i.created_date) <= STR_TO_DATE(_end_date,'%d/%m/%Y')
-				and i.id=idet.petro_import_id and i.created_employee_id=eo.id and idet.petro_id=p.id AND p.STATUS=1
+				and i.id=idet.petro_import_id and i.created_employee_id=eo.id
 				AND _organization_ids LIKE CONCAT('%,',eo.organization_id,',%')
-			group by i.created_date, idet.petro_id
-			union all
-			SELECT i.created_date, idet.petro_id, 0 AS import_quantity, SUM(idet.quantity) AS export_quantity
-			FROM petro_sale AS i, petro_sale_detail AS idet, employee AS eo, petro AS p
+			UNION ALL
+			SELECT i.created_date, idet.petro_id, 0 as opening_stock, 0 AS import_quantity, coalesce(idet.quantity,0) AS export_quantity
+			FROM petro_sale AS i, petro_sale_detail AS idet, employee AS eo
 			WHERE DATE(i.created_date) >= STR_TO_DATE(_start_date,'%d/%m/%Y') AND DATE(i.created_date) <= STR_TO_DATE(_end_date,'%d/%m/%Y')
-				AND i.id=idet.petro_sale_id AND i.created_employee_id=eo.id AND idet.petro_id=p.id AND p.STATUS=1
+				AND i.id=idet.petro_sale_id AND i.created_employee_id=eo.id 
 				AND _organization_ids LIKE CONCAT('%,',eo.organization_id,',%')
-			GROUP BY i.created_date, idet.petro_id
-		) as tbl
-		left join
-		(
-			SELECT _from_date as created_date, a.id as petro_id, sum(COALESCE(tbl_old_stock.in_stock,0) + COALESCE(stock.quantity,0)) AS opening_stock
-			FROM petro AS a
-			LEFT JOIN (
-				SELECT petro_id, in_stock
-				FROM petro_in_stock
-				WHERE DATEDIFF(`day`, _from_date) >= 0 AND DATEDIFF(`day`, _to_date) <= 0 AND _organization_ids LIKE CONCAT('%,',organization_id,',%')
-			) AS tbl_old_stock ON tbl_old_stock.petro_id=a.id
-			LEFT JOIN (
-				SELECT tbl.petro_id, SUM(tbl.in_stock) AS quantity
-				FROM (
-					SELECT i_det.petro_id, i.store_id, s.organization_id, COALESCE(i_det.quantity,0) AS in_stock
-					FROM petro_import_detail AS i_det, petro_import AS i, store AS s
-					WHERE i_det.petro_import_id=i.id AND DATE(i.created_date) > _from_date AND DATE(i.created_date) <= _to_date 
-						AND i.store_id=s.id AND _organization_ids LIKE CONCAT('%,',s.organization_id,',%')
-					UNION ALL
-					SELECT i_det.petro_id, i.store_id, s.organization_id, -COALESCE(i_det.quantity,0) AS in_stock
-					FROM petro_sale_detail AS i_det, petro_sale AS i
-					WHERE i_det.petro_sale_id=i.id AND DATE(i.created_date) > _from_date AND DATE(i.created_date) <= _to_date 
-						AND i.store_id=s.id AND _organization_ids LIKE CONCAT('%,',s.organization_id,',%')
-				) AS tbl GROUP BY tbl.petro_id
-			) AS stock ON stock.petro_id=a.id
-			WHERE a.STATUS=1
-			group by a.id
-			ORDER BY a.NAME
-		) as opening_tbl on tbl.petro_id=opening_tbl.petro_id
-		group by tbl.created_date, tbl.petro_id;
+			union all
+			SELECT _from_date as created_date, petro_id, coalesce(in_stock,0) as opening_stock, 0 as import_quantity, 0 as export_quantity
+			FROM petro_in_stock
+			WHERE DATEDIFF(`day`, _from_date) >= 0 AND DATEDIFF(`day`, _to_date) <= 0 AND _organization_ids LIKE CONCAT('%,',organization_id,',%')
+			union all
+			SELECT _from_date as created_date, i_det.petro_id, COALESCE(i_det.quantity,0) AS opening_stock, 0 as import_quantity, 0 as export_quantity
+			FROM petro_import_detail AS i_det, petro_import AS i, store AS s
+			WHERE i_det.petro_import_id=i.id AND DATE(i.created_date) > _from_date AND DATE(i.created_date) < _to_date 
+				AND i.store_id=s.id AND _organization_ids LIKE CONCAT('%,',s.organization_id,',%')
+			UNION ALL
+			SELECT _from_date as created_date, i_det.petro_id, -COALESCE(i_det.quantity,0) AS opening_stock, 0 as import_quantity, 0 as export_quantity
+			FROM petro_sale_detail AS i_det, petro_sale AS i, store as s
+			WHERE i_det.petro_sale_id=i.id AND DATE(i.created_date) > _from_date AND DATE(i.created_date) < _to_date 
+				AND i.store_id=s.id AND _organization_ids LIKE CONCAT('%,',s.organization_id,',%')
+		) as tbl on tbl.petro_id=p.id
+		where p.status=1
+		group by tbl.created_date, p.id
+		having opening_stock>0 or import_quantity>0 or export_quantity>0;
 	
 		select COALESCE(GROUP_CONCAT(petro_id),'') into _petro_ids from temp_petro_stock where session_id=_session_id;
 	
@@ -10238,59 +10221,57 @@ DELIMITER $$
 /*!50003 CREATE DEFINER=`root`@`localhost` PROCEDURE `report_petro_stock_store`(IN _start_date VARCHAR(20), IN _end_date VARCHAR(20), IN _organization_ids TEXT, in _store_id int
 	, IN _petro_id INT, IN _session_id VARCHAR(255), OUT _petro_ids TEXT)
 BEGIN
-	DECLARE _from_date DATE;
+	DECLARE _from_date, _to_date DATE;
 	
-	SELECT STR_TO_DATE(_start_date,'%d/%m/%Y') INTO _from_date;
+	IF _start_date<>'' THEN
+		SELECT STR_TO_DATE(_start_date,'%d/%m/%Y') INTO _to_date;
+	ELSE
+		SELECT SYSDATE() INTO _to_date;
+	END IF;
+	
+	SELECT `day` INTO _from_date FROM petro_in_stock WHERE DATEDIFF(`day`, _to_date) <= 0 LIMIT 1;
+	IF _from_date IS NULL THEN
+		SELECT DATE_ADD(_to_date, INTERVAL -1 DAY) INTO _from_date;
+	END IF;
 	
 	IF _petro_id=0 THEN
 		DELETE FROM temp_petro_stock WHERE session_id=_session_id;
 	
 		INSERT INTO temp_petro_stock(session_id, created_date, petro_id, opening_stock, import_quantity, export_quantity)
-		SELECT _session_id, tbl.created_date, tbl.petro_id, COALESCE(SUM(opening_stock),0), SUM(import_quantity), SUM(export_quantity) FROM
+		SELECT _session_id, tbl.created_date, tbl.petro_id, COALESCE(SUM(opening_stock),0) as opening_stock
+			, COALESCE(SUM(import_quantity),0) as import_quantity, coalesce(SUM(export_quantity),0) as export_quantity 
+		FROM petro as p left join
 		(
-			SELECT i.created_date, idet.petro_id, SUM(idet.quantity) AS import_quantity, 0 AS export_quantity
-			FROM petro_import AS i, petro_import_detail AS idet, employee AS eo, petro AS p
+			SELECT i.created_date, idet.petro_id, 0 as opening_stock, COALESCE(idet.quantity,0) AS import_quantity, 0 AS export_quantity
+			FROM petro_import AS i, petro_import_detail AS idet, employee AS eo
 			WHERE DATE(i.created_date) >= STR_TO_DATE(_start_date,'%d/%m/%Y') AND DATE(i.created_date) <= STR_TO_DATE(_end_date,'%d/%m/%Y')
-				AND i.id=idet.petro_import_id AND i.created_employee_id=eo.id AND idet.petro_id=p.id AND p.STATUS=1
-				AND _organization_ids LIKE CONCAT('%,',eo.organization_id,',%') and i.store_id=_store_id
-			GROUP BY i.created_date, idet.petro_id
+				AND i.id=idet.petro_import_id AND i.created_employee_id=eo.id 
+				AND _organization_ids LIKE CONCAT('%,',eo.organization_id,',%') AND i.store_id=_store_id
 			UNION ALL
-			SELECT i.created_date, idet.petro_id, 0 AS import_quantity, SUM(idet.quantity) AS export_quantity
-			FROM petro_sale AS i, petro_sale_detail AS idet, employee AS eo, petro AS p
+			SELECT i.created_date, idet.petro_id, 0 as opening_stock, 0 AS import_quantity, COALESCE(idet.quantity,0) AS export_quantity
+			FROM petro_sale AS i, petro_sale_detail AS idet, employee AS eo
 			WHERE DATE(i.created_date) >= STR_TO_DATE(_start_date,'%d/%m/%Y') AND DATE(i.created_date) <= STR_TO_DATE(_end_date,'%d/%m/%Y')
-				AND i.id=idet.petro_sale_id AND i.created_employee_id=eo.id AND i.store_id=_store_id AND idet.petro_id=p.id AND p.STATUS=1
-				AND _organization_ids LIKE CONCAT('%,',eo.organization_id,',%')
-			GROUP BY i.created_date, idet.petro_id
-		) AS tbl
-		LEFT JOIN
-		(
-			SELECT _from_date AS created_date, a.id AS petro_id, SUM(COALESCE(tbl_old_stock.in_stock,0) + COALESCE(stock.quantity,0)) AS opening_stock
-			FROM petro AS a
-			LEFT JOIN (
-				SELECT petro_id, in_stock
-				FROM petro_in_stock
-				WHERE DATEDIFF(`day`, _from_date) >= 0 AND DATEDIFF(`day`, _to_date) <= 0 
-					AND _organization_ids LIKE CONCAT('%,',organization_id,',%') AND store_id=_store_id
-			) AS tbl_old_stock ON tbl_old_stock.petro_id=a.id
-			LEFT JOIN (
-				SELECT tbl.petro_id, SUM(tbl.in_stock) AS quantity
-				FROM (
-					SELECT i_det.petro_id, i.store_id, s.organization_id, COALESCE(i_det.quantity,0) AS in_stock
-					FROM petro_import_detail AS i_det, petro_import AS i, store AS s
-					WHERE i_det.petro_import_id=i.id AND DATE(i.created_date) > _from_date AND DATE(i.created_date) <= _to_date 
-						AND i.store_id=s.id AND _organization_ids LIKE CONCAT('%,',s.organization_id,',%') AND s.id=_store_id
-					UNION ALL
-					SELECT i_det.petro_id, i.store_id, s.organization_id, -COALESCE(i_det.quantity,0) AS in_stock
-					FROM petro_sale_detail AS i_det, petro_sale AS i
-					WHERE i_det.petro_sale_id=i.id AND DATE(i.created_date) > _from_date AND DATE(i.created_date) <= _to_date 
-						AND i.store_id=s.id AND _organization_ids LIKE CONCAT('%,',s.organization_id,',%') AND s.id=_store_id
-				) AS tbl GROUP BY tbl.petro_id
-			) AS stock ON stock.petro_id=a.id
-			WHERE a.STATUS=1
-			GROUP BY a.id
-			ORDER BY a.NAME
-		) AS opening_tbl ON tbl.petro_id=opening_tbl.petro_id
-		GROUP BY tbl.created_date, tbl.petro_id;
+				AND i.id=idet.petro_sale_id AND i.created_employee_id=eo.id
+				AND _organization_ids LIKE CONCAT('%,',eo.organization_id,',%') AND i.store_id=_store_id
+			union all
+			SELECT _from_date AS created_date, petro_id, coalesce(in_stock,0) as opening_stock, 0 as import_quantity, 0 as export_quantity
+			FROM petro_in_stock
+			WHERE DATEDIFF(`day`, _from_date) >= 0 AND DATEDIFF(`day`, _to_date) <= 0 
+				AND _organization_ids LIKE CONCAT('%,',organization_id,',%') AND store_id=_store_id
+			union all
+			SELECT _from_date AS created_date, i_det.petro_id, COALESCE(i_det.quantity,0) as opening_stock, 0 as import_quantity, 0 as export_quantity
+			FROM petro_import_detail AS i_det, petro_import AS i, store AS s
+			WHERE i_det.petro_import_id=i.id AND DATE(i.created_date) > _from_date AND DATE(i.created_date) < _to_date 
+				AND i.store_id=s.id AND _organization_ids LIKE CONCAT('%,',s.organization_id,',%') AND s.id=_store_id
+			UNION ALL
+			SELECT _from_date AS created_date, i_det.petro_id, -COALESCE(i_det.quantity,0) as opening_stock, 0 as import_quantity, 0 as export_quantity
+			FROM petro_sale_detail AS i_det, petro_sale AS i, store AS s
+			WHERE i_det.petro_sale_id=i.id AND DATE(i.created_date) > _from_date AND DATE(i.created_date) < _to_date 
+				AND i.store_id=s.id AND _organization_ids LIKE CONCAT('%,',s.organization_id,',%') AND s.id=_store_id
+		) AS tbl ON tbl.petro_id=p.id
+		WHERE p.STATUS=1
+		GROUP BY tbl.created_date, p.id
+		HAVING opening_stock>0 OR import_quantity>0 OR export_quantity>0;
 	
 		SELECT COALESCE(GROUP_CONCAT(petro_id),'') INTO _petro_ids FROM temp_petro_stock WHERE session_id=_session_id;
 	

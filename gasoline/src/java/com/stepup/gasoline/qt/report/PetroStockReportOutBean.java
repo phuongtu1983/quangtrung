@@ -13,6 +13,7 @@ public class PetroStockReportOutBean {
 
     private String petroIds;
     private int openingStock;
+    private int closingStock;
 
     public String getPetroIds() {
         return petroIds;
@@ -28,6 +29,14 @@ public class PetroStockReportOutBean {
 
     public void setOpeningStock(int openingStock) {
         this.openingStock = openingStock;
+    }
+
+    public int getClosingStock() {
+        return closingStock;
+    }
+
+    public void setClosingStock(int closingStock) {
+        this.closingStock = closingStock;
     }
 
 }

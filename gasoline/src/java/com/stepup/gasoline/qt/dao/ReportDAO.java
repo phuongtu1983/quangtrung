@@ -864,20 +864,22 @@ public class ReportDAO extends BasicDAO {
                     int stock = 0;
                     boolean firstTime = true;
                     while (rs.next()) {
+                        if (firstTime) {
+                            stock = rs.getInt("opening_stock");
+                            outBean.setOpeningStock(stock);
+                            firstTime = false;
+                            continue;
+                        }
                         bean = new PetroStockReportBean();
                         bean.setDate(DateUtil.formatDate(rs.getDate("created_date"), "dd/MM/yyyy"));
                         bean.setPetroId(rs.getInt("petro_id"));
                         bean.setImportQuantity(rs.getInt("import_quantity"));
                         bean.setSaleQuantity(rs.getInt("export_quantity"));
-                        if (firstTime) {
-                            stock = rs.getInt("opening_stock");
-                            outBean.setOpeningStock(stock);
-                            firstTime = false;
-                        }
                         bean.setStock(stock + bean.getImportQuantity() - bean.getSaleQuantity());
                         stock = bean.getStock();
                         list.add(bean);
                     }
+                    outBean.setClosingStock(stock);
                 }
             }
         } catch (SQLException sqle) {
@@ -932,20 +934,22 @@ public class ReportDAO extends BasicDAO {
                     int stock = 0;
                     boolean firstTime = true;
                     while (rs.next()) {
+                        if (firstTime) {
+                            stock = rs.getInt("opening_stock");
+                            outBean.setOpeningStock(stock);
+                            firstTime = false;
+                            continue;
+                        }
                         bean = new PetroStockReportBean();
                         bean.setDate(DateUtil.formatDate(rs.getDate("created_date"), "dd/MM/yyyy"));
                         bean.setPetroId(rs.getInt("petro_id"));
                         bean.setImportQuantity(rs.getInt("import_quantity"));
                         bean.setSaleQuantity(rs.getInt("export_quantity"));
-                        if (firstTime) {
-                            stock = rs.getInt("opening_stock");
-                            outBean.setOpeningStock(stock);
-                            firstTime = false;
-                        }
                         bean.setStock(stock + bean.getImportQuantity() - bean.getSaleQuantity());
                         stock = bean.getStock();
                         list.add(bean);
                     }
+                    outBean.setClosingStock(stock);
                 }
             }
         } catch (SQLException sqle) {
