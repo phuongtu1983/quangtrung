@@ -427,8 +427,6 @@ CREATE TABLE `debug` (
 
 /*Data for the table `debug` */
 
-insert  into `debug`(`note`) values ('2019-09-01'),('2019-09-07');
-
 /*Table structure for table `discount_oil` */
 
 DROP TABLE IF EXISTS `discount_oil`;
@@ -2611,8 +2609,6 @@ CREATE TABLE `temp_petro_stock` (
 
 /*Data for the table `temp_petro_stock` */
 
-insert  into `temp_petro_stock`(`session_id`,`created_date`,`petro_id`,`opening_stock`,`import_quantity`,`export_quantity`) values ('17_1568019146565','2019-09-01',6,12,0,0),('17_1568019146565','2019-09-01',12,14,0,0),('17_1568019146565','2019-09-07',6,0,40,4),('17_1568019146565','2019-09-07',12,0,60,6),('17_1568019146565','2019-09-08',6,0,0,5);
-
 /*Table structure for table `timesheet` */
 
 DROP TABLE IF EXISTS `timesheet`;
@@ -4782,39 +4778,39 @@ BEGIN
 	DECLARE _from_date, _to_date DATE;
 	
 	IF _date<>'' THEN
-		SET _to_date = STR_TO_DATE(_date,'%d/%m/%Y');
+		SELECT STR_TO_DATE(_date,'%d/%m/%Y') INTO _to_date;
 	ELSE
 		SELECT SYSDATE() INTO _to_date;
 	END IF;
 	
 	SELECT `day` INTO _from_date FROM petro_in_stock WHERE DATEDIFF(`day`, _to_date) <= 0 LIMIT 1;
-	IF _from_date is NULL THEN
-		SELECT STR_TO_DATE(`value`,'%d/%m/%Y') INTO _from_date FROM parameter WHERE `code`="startdate";
+	IF _from_date IS NULL THEN
+		SELECT DATE_ADD(_to_date, INTERVAL -1 DAY) INTO _from_date;
 	END IF;
 	
 	IF _is_list=1 THEN
-		SELECT o.id AS organization_id, o.NAME AS organization_name, so.id AS store_id, so.NAME AS store_name, a.id AS petro_id, a.NAME AS petro_name, COALESCE(tbl_old_stock.in_stock,0) + COALESCE(stock.quantity,0) AS opening_stock
+		SELECT o.id AS organization_id, o.NAME AS organization_name, so.id AS store_id, so.NAME AS store_name, a.id AS petro_id, a.NAME AS petro_name, COALESCE(sum(tbl.quantity),0) AS opening_stock
 		FROM organization AS o 
 		left join store AS so on 1
 		left join petro AS a on 1
-		LEFT JOIN (
-			SELECT organization_id, petro_id, store_id, in_stock
+		left join
+		(
+			SELECT petro_id, store_id, organization_id, coalesce(in_stock,0) as quantity
 			FROM petro_in_stock
 			WHERE DATEDIFF(`day`, _from_date) >= 0 AND DATEDIFF(`day`, _to_date) <= 0
-		) AS tbl_old_stock ON tbl_old_stock.organization_id=o.id AND tbl_old_stock.petro_id=a.id AND tbl_old_stock.store_id=so.id
-		LEFT JOIN (
-			SELECT tbl.organization_id, tbl.petro_id, tbl.store_id, SUM(tbl.in_stock) AS quantity
-			FROM (
-				SELECT i_det.petro_id, i.store_id, s.organization_id, coalesce(i_det.quantity,0) AS in_stock
-				FROM petro_import_detail AS i_det, petro_import AS i, store as s
-				WHERE i_det.petro_import_id=i.id AND DATE(i.created_date) > _from_date AND DATE(i.created_date) <= _to_date and i.store_id=s.id
-				UNION ALL
-				SELECT i_det.petro_id, i.store_id, s.organization_id, -COALESCE(i_det.quantity,0) AS in_stock
-				FROM petro_sale_detail AS i_det, petro_sale AS i, store as s
-				WHERE i_det.petro_sale_id=i.id AND DATE(i.created_date) > _from_date AND DATE(i.created_date) <= _to_date and i.store_id=s.id
-			) AS tbl GROUP BY tbl.organization_id, tbl.store_id, tbl.petro_id
-		) AS stock ON stock.organization_id=o.id AND stock.petro_id=a.id and stock.store_id=so.id
+			union all
+			SELECT i_det.petro_id, s.id as store_id, s.organization_id, COALESCE(i_det.quantity,0) AS quantity
+			FROM petro_import_detail AS i_det, petro_import AS i, store AS s
+			WHERE i_det.petro_import_id=i.id AND DATE(i.created_date) > _from_date AND DATE(i.created_date) < _to_date 
+				AND i.store_id=s.id
+			UNION ALL
+			SELECT i_det.petro_id, s.id as store_id, s.organization_id, -COALESCE(i_det.quantity,0) AS quantity
+			FROM petro_sale_detail AS i_det, petro_sale AS i, store as s
+			WHERE i_det.petro_sale_id=i.id AND DATE(i.created_date) > _from_date AND DATE(i.created_date) < _to_date 
+				AND i.store_id=s.id
+		) as tbl on tbl.organization_id=o.id AND tbl.petro_id=a.id and tbl.store_id=so.id
 		WHERE a.STATUS=1 AND o.STATUS=1 and so.status=1 and so.is_petro=1
+		group by o.id, so.id, a.id
 		ORDER BY o.NAME, so.name, a.NAME
 		;
 	END IF;
@@ -5106,15 +5102,15 @@ DELIMITER $$
 BEGIN
 	DECLARE _from_date, _to_date DATE;
 	
-	IF _date<>'' THEN
-		SET _to_date = STR_TO_DATE(_date,'%d/%m/%Y');
+	IF _start_date<>'' THEN
+		SELECT STR_TO_DATE(_start_date,'%d/%m/%Y') INTO _to_date;
 	ELSE
 		SELECT SYSDATE() INTO _to_date;
 	END IF;
 	
 	SELECT `day` INTO _from_date FROM shield_in_stock WHERE DATEDIFF(`day`, _to_date) <= 0 LIMIT 1;
-	IF _from_date=NULL THEN
-		SELECT STR_TO_DATE(`value`,'%d/%m/%Y') INTO _from_date FROM parameter WHERE `code`="startdate";
+	IF _from_date IS NULL THEN
+		SELECT DATE_ADD(_to_date, INTERVAL -1 DAY) INTO _from_date;
 	END IF;
 	
 	IF _is_list=1 THEN
