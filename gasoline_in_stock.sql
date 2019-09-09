@@ -901,9 +901,11 @@ CREATE TABLE `fraction_gas` (
   `created_employee_id` int(11) DEFAULT NULL,
   `note` text COLLATE utf8_unicode_ci,
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM AUTO_INCREMENT=6 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=MyISAM AUTO_INCREMENT=8 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 /*Data for the table `fraction_gas` */
+
+insert  into `fraction_gas`(`id`,`code`,`created_date`,`created_employee_id`,`note`) values (6,'20190908-FG-0001','2019-09-07',17,''),(7,'20190908-FG-0002','2019-09-08',17,'');
 
 /*Table structure for table `fraction_gas_detail` */
 
@@ -915,9 +917,11 @@ CREATE TABLE `fraction_gas_detail` (
   `shell_id` int(11) DEFAULT NULL COMMENT 'shell_id in shell_vendor',
   `quantity` text COLLATE utf8_unicode_ci,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 /*Data for the table `fraction_gas_detail` */
+
+insert  into `fraction_gas_detail`(`id`,`fraction_id`,`shell_id`,`quantity`) values (1,6,5,'1'),(2,6,1,'2'),(3,6,2,'3'),(4,6,4,'4'),(5,7,5,'5'),(6,7,1,'6'),(7,7,2,'7');
 
 /*Table structure for table `gas_export_wholesale` */
 
@@ -2498,9 +2502,11 @@ CREATE TABLE `shield_decrease` (
   `vendor_id` int(11) DEFAULT NULL,
   `created_employee_id` int(11) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 /*Data for the table `shield_decrease` */
+
+insert  into `shield_decrease`(`id`,`code`,`created_date`,`quantity`,`note`,`vendor_id`,`created_employee_id`) values (1,'20190908-SD-0001','2019-09-07',1,'',22,17),(2,'20190908-SD-0002','2019-09-08',2,'',22,17),(3,'20190908-SD-0003','2019-09-07',3,'',23,17),(4,'20190908-SD-0004','2019-09-08',4,'',23,17);
 
 /*Table structure for table `shield_import` */
 
@@ -2515,9 +2521,11 @@ CREATE TABLE `shield_import` (
   `vendor_id` int(11) DEFAULT NULL,
   `created_employee_id` int(11) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 /*Data for the table `shield_import` */
+
+insert  into `shield_import`(`id`,`code`,`created_date`,`quantity`,`note`,`vendor_id`,`created_employee_id`) values (1,'20190908-SI-0001','2019-09-07',100,'',22,17),(2,'20190908-SI-0002','2019-09-08',200,'',22,17),(3,'20190908-SI-0003','2019-09-07',300,'',23,17),(4,'20190908-SI-0004','2019-09-08',400,'',23,17);
 
 /*Table structure for table `shield_in_stock` */
 
@@ -2530,9 +2538,11 @@ CREATE TABLE `shield_in_stock` (
   `organization_id` int(11) DEFAULT NULL,
   `in_stock` int(11) DEFAULT '0',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=10 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 /*Data for the table `shield_in_stock` */
+
+insert  into `shield_in_stock`(`id`,`day`,`vendor_id`,`organization_id`,`in_stock`) values (1,'2019-09-01',15,14,1),(2,'2019-09-01',23,14,2),(3,'2019-09-01',22,14,3),(4,'2019-09-01',24,1,4),(5,'2019-09-01',16,1,5),(6,'2019-09-01',15,1,6),(7,'2019-09-01',21,1,7),(8,'2019-09-01',23,1,8),(9,'2019-09-01',22,1,9);
 
 /*Table structure for table `store` */
 
@@ -5019,7 +5029,7 @@ BEGIN
 			FROM inner_sale_detail AS i_det, inner_sale AS i, shell_vendor AS sv
 			WHERE i_det.inner_sale_id=i.id AND DATE(i.created_date) > _from_date AND DATE(i.created_date) <= _to_date
 				AND i_det.shell_id=sv.id
-		) AS tbl ON tbl.id=sv.id
+		) AS stock ON stock.id=sv.id
 		WHERE sv.shell_id=so.id AND sv.organization_id=o.id AND sv.vendor_id=a.id AND a.STATUS=1 AND o.STATUS=1 AND so.STATUS=1 AND a.is_gas=1
 		ORDER BY o.NAME, so.NAME, a.NAME;
 	ELSEIF _is_value=1 THEN
@@ -5028,9 +5038,10 @@ BEGIN
 			INTO _gas_12_stock, _gas_45_stock 
 		FROM organization AS o, shell AS so, vendor AS a, shell_vendor AS sv
 		LEFT JOIN (
-			SELECT shell_vendor_id, in_stock
-			FROM shell_gas_in_stock
-			WHERE DATEDIFF(`day`, _from_date) >= 0 AND DATEDIFF(`day`, _to_date) <= 0
+			SELECT sg.shell_vendor_id, sg.in_stock
+			FROM shell_gas_in_stock sg, shell_vendor as sv
+			WHERE DATEDIFF(sg.`day`, _from_date) >= 0 AND DATEDIFF(sg.`day`, _to_date) <= 0
+				and sg.shell_vendor_id=sv.id
 				AND _organization_ids LIKE CONCAT('%,',sv.organization_id,',%')
 				AND ((_vendor_ids='' AND 1) OR (_vendor_ids<>'' AND _vendor_ids LIKE CONCAT('%,',sv.vendor_id,',%')))
 		) AS tbl_old_stock ON tbl_old_stock.shell_vendor_id=sv.id
@@ -5083,7 +5094,7 @@ BEGIN
 				AND i_det.shell_id=sv.id
 				AND _organization_ids LIKE CONCAT('%,',sv.organization_id,',%')
 				AND ((_vendor_ids='' AND 1) OR (_vendor_ids<>'' AND _vendor_ids LIKE CONCAT('%,',sv.vendor_id,',%')))
-		) AS tbl ON tbl.id=sv.id
+		) AS stock ON stock.id=sv.id
 		LEFT JOIN (SELECT s.id FROM shell AS s, shell_kind AS sk WHERE s.kind_id=sk.id AND sk.weight=12) AS shell_12 ON sv.shell_id=shell_12.id
 		LEFT JOIN (SELECT s.id FROM shell AS s, shell_kind AS sk WHERE s.kind_id=sk.id AND sk.weight=45) AS shell_45 ON sv.shell_id=shell_45.id
 		WHERE sv.shell_id=so.id AND sv.organization_id=o.id AND sv.vendor_id=a.id AND a.STATUS=1 AND o.STATUS=1 AND so.STATUS=1 AND a.is_gas=1;
@@ -5102,8 +5113,8 @@ DELIMITER $$
 BEGIN
 	DECLARE _from_date, _to_date DATE;
 	
-	IF _start_date<>'' THEN
-		SELECT STR_TO_DATE(_start_date,'%d/%m/%Y') INTO _to_date;
+	IF _date<>'' THEN
+		SELECT STR_TO_DATE(_date,'%d/%m/%Y') INTO _to_date;
 	ELSE
 		SELECT SYSDATE() INTO _to_date;
 	END IF;
@@ -5114,77 +5125,66 @@ BEGIN
 	END IF;
 	
 	IF _is_list=1 THEN
-		SELECT o.id AS organization_id, o.NAME AS organization_name, v.id AS vendor_id, v.NAME AS vendor_name, COALESCE(tbl_old_stock.in_stock,0) + COALESCE(stock.quantity,0) AS opening_stock
+		SELECT o.id AS organization_id, o.NAME AS organization_name, v.id AS vendor_id, v.NAME AS vendor_name, COALESCE(SUM(tbl.quantity),0) AS opening_stock
 		FROM organization AS o, vendor AS v, vendor_organization AS vo
-		LEFT JOIN (
-			SELECT organization_id, vendor_id, in_stock
+		LEFT JOIN
+		(
+			SELECT coalesce(in_stock,0) as quantity, vendor_id, organization_id
 			FROM shield_in_stock
 			WHERE DATEDIFF(`day`, _from_date) >= 0 AND DATEDIFF(`day`, _to_date) <= 0
-		) AS tbl_old_stock ON tbl_old_stock.organization_id=vo.organization_id AND tbl_old_stock.vendor_id=vo.vendor_id
-		LEFT JOIN (
-			SELECT tbl.organization_id, tbl.vendor_id, SUM(tbl.in_stock) AS quantity
-			FROM (
-				SELECT SUM(i.quantity) AS in_stock, i.vendor_id, eo.organization_id
-				FROM shield_import as i, employee as eo
-				WHERE DATE(i.created_date) > _from_date AND DATE(i.created_date) <= _to_date
-					and i.created_employee_id=eo.id
-				group by eo.organization_id, i.vendor_id 
-				UNION ALL
-				SELECT -SUM(i.quantity) AS in_stock, i.vendor_id, eo.organization_id
-				FROM shield_decrease AS i, employee as eo
-				WHERE DATE(i.created_date) > _from_date AND DATE(i.created_date) <= _to_date
-					AND i.created_employee_id=eo.id
-				group by eo.organization_id, i.vendor_id
-				UNION ALL
-				SELECT -SUM(f_det.quantity) AS in_stock, sv.vendor_id, sv.organization_id
-				FROM fraction_gas_detail AS f_det, fraction_gas AS f, shell_vendor as sv
-				WHERE f_det.fraction_id=f.id and DATE(f.created_date) > _from_date AND DATE(f.created_date) <= _to_date
-					and f_det.shell_id=sv.id
-				group by sv.organization_id, sv.vendor_id
-			) AS tbl GROUP BY tbl.organization_id, tbl.vendor_id
-		) AS stock ON stock.organization_id=vo.organization_id AND stock.vendor_id=vo.vendor_id
-		WHERE vo.organization_id=o.id AND vo.vendor_id=v.id AND v.STATUS=1 AND o.STATUS=1
+			union all
+			SELECT COALESCE(i.quantity,0) AS quantity, i.vendor_id, eo.organization_id
+			FROM shield_import as i, employee as eo
+			WHERE DATE(i.created_date) > _from_date AND DATE(i.created_date) < _to_date
+				and i.created_employee_id=eo.id
+			UNION ALL
+			SELECT -COALESCE(i.quantity,0) AS quantity, i.vendor_id, eo.organization_id
+			FROM shield_decrease AS i, employee as eo
+			WHERE DATE(i.created_date) > _from_date AND DATE(i.created_date) < _to_date
+				AND i.created_employee_id=eo.id
+			UNION ALL
+			SELECT -COALESCE(f_det.quantity,0) AS quantity, sv.vendor_id, sv.organization_id
+			FROM fraction_gas_detail AS f_det, fraction_gas AS f, shell_vendor as sv
+			WHERE f_det.fraction_id=f.id and DATE(f.created_date) > _from_date AND DATE(f.created_date) < _to_date
+				and f_det.shell_id=sv.id
+		) AS tbl ON tbl.organization_id=vo.organization_id AND tbl.vendor_id=vo.vendor_id
+		WHERE vo.organization_id=o.id AND vo.vendor_id=v.id AND v.STATUS=1 AND o.STATUS=1 and v.is_gas=1
+		group by vo.organization_id, vo.vendor_id
 		ORDER BY o.NAME, v.NAME
 		;
 	ELSEIF _is_value=1 THEN
-		SELECT SUM(COALESCE(tbl_old_stock.in_stock,0) + COALESCE(stock.quantity,0)) INTO _out_stock
+		SELECT COALESCE(SUM(tbl.quantity),0) INTO _out_stock
 		FROM organization AS o, vendor AS v, vendor_organization AS vo
-		LEFT JOIN (
-			SELECT organization_id, vendor_id, in_stock
+		LEFT JOIN
+		(
+			SELECT COALESCE(in_stock,0) AS quantity, vendor_id, organization_id
 			FROM shield_in_stock
 			WHERE DATEDIFF(`day`, _from_date) >= 0 AND DATEDIFF(`day`, _to_date) <= 0
 				AND _organization_ids LIKE CONCAT('%,',organization_id,',%')
 				AND ((_vendor_ids='' AND 1) OR (_vendor_ids<>'' AND _vendor_ids LIKE CONCAT('%,',vendor_id,',%')))
-		) AS tbl_old_stock ON tbl_old_stock.organization_id=vo.organization_id AND tbl_old_stock.vendor_id=vo.vendor_id
-		LEFT JOIN (
-			SELECT tbl.organization_id, tbl.vendor_id, SUM(tbl.in_stock) AS quantity
-			FROM (
-				SELECT SUM(i.quantity) AS in_stock, i.vendor_id, eo.organization_id
-				FROM shield_import AS i, employee AS eo
-				WHERE DATE(i.created_date) > _from_date AND DATE(i.created_date) <= _to_date
-					AND i.created_employee_id=eo.id
-					AND _organization_ids LIKE CONCAT('%,',eo.organization_id,',%')
-					AND ((_vendor_ids='' AND 1) OR (_vendor_ids<>'' AND _vendor_ids LIKE CONCAT('%,',i.vendor_id,',%')))
-				GROUP BY eo.organization_id, i.vendor_id 
-				UNION ALL
-				SELECT -SUM(i.quantity) AS in_stock, i.vendor_id, eo.organization_id
-				FROM shield_decrease AS i, employee AS eo
-				WHERE DATE(i.created_date) > _from_date AND DATE(i.created_date) <= _to_date
-					AND i.created_employee_id=eo.id
-					AND _organization_ids LIKE CONCAT('%,',eo.organization_id,',%')
-					AND ((_vendor_ids='' AND 1) OR (_vendor_ids<>'' AND _vendor_ids LIKE CONCAT('%,',i.vendor_id,',%')))
-				GROUP BY eo.organization_id, i.vendor_id
-				UNION ALL
-				SELECT -SUM(f_det.quantity) AS in_stock, sv.vendor_id, sv.organization_id
-				FROM fraction_gas_detail AS f_det, fraction_gas AS f, shell_vendor AS sv
-				WHERE f_det.fraction_id=f.id AND DATE(f.created_date) > _from_date AND DATE(f.created_date) <= _to_date
-					AND f_det.shell_id=sv.id
-					AND _organization_ids LIKE CONCAT('%,',sv.organization_id,',%')
-					AND ((_vendor_ids='' AND 1) OR (_vendor_ids<>'' AND _vendor_ids LIKE CONCAT('%,',sv.vendor_id,',%')))
-				GROUP BY sv.organization_id, sv.vendor_id
-			) AS tbl GROUP BY tbl.organization_id, tbl.vendor_id
-		) AS stock ON stock.organization_id=vo.organization_id AND stock.vendor_id=vo.vendor_id
-		WHERE vo.organization_id=o.id AND vo.vendor_id=v.id AND v.STATUS=1 AND o.STATUS=1
+			UNION ALL
+			SELECT COALESCE(i.quantity,0) AS quantity, i.vendor_id, eo.organization_id
+			FROM shield_import AS i, employee AS eo
+			WHERE DATE(i.created_date) > _from_date AND DATE(i.created_date) < _to_date
+				AND i.created_employee_id=eo.id
+				AND _organization_ids LIKE CONCAT('%,',eo.organization_id,',%')
+				AND ((_vendor_ids='' AND 1) OR (_vendor_ids<>'' AND _vendor_ids LIKE CONCAT('%,',i.vendor_id,',%')))
+			UNION ALL
+			SELECT -COALESCE(i.quantity,0) AS quantity, i.vendor_id, eo.organization_id
+			FROM shield_decrease AS i, employee AS eo
+			WHERE DATE(i.created_date) > _from_date AND DATE(i.created_date) < _to_date
+				AND i.created_employee_id=eo.id
+				AND _organization_ids LIKE CONCAT('%,',eo.organization_id,',%')
+				AND ((_vendor_ids='' AND 1) OR (_vendor_ids<>'' AND _vendor_ids LIKE CONCAT('%,',i.vendor_id,',%')))
+			UNION ALL
+			SELECT -COALESCE(f_det.quantity,0) AS quantity, sv.vendor_id, sv.organization_id
+			FROM fraction_gas_detail AS f_det, fraction_gas AS f, shell_vendor AS sv
+			WHERE f_det.fraction_id=f.id AND DATE(f.created_date) > _from_date AND DATE(f.created_date) < _to_date
+				AND f_det.shell_id=sv.id
+				AND _organization_ids LIKE CONCAT('%,',sv.organization_id,',%')
+				AND ((_vendor_ids='' AND 1) OR (_vendor_ids<>'' AND _vendor_ids LIKE CONCAT('%,',sv.vendor_id,',%')))
+		) AS tbl ON tbl.organization_id=vo.organization_id AND tbl.vendor_id=vo.vendor_id
+		WHERE vo.organization_id=o.id AND vo.vendor_id=v.id AND v.STATUS=1 AND o.STATUS=1 AND v.is_gas=1
 		;
 	end if;
     END */$$
@@ -5719,7 +5719,7 @@ BEGIN
 	
 	IF _id IS NULL THEN
 		INSERT INTO shield_in_stock(`day`, organization_id, vendor_id, in_stock)
-		VALUES (_date, _organization_id, _vendor_id, _in_stock);
+		VALUES (STR_TO_DATE(_date,'%d/%m/%Y'), _organization_id, _vendor_id, _in_stock);
 	ELSE
 		SET _diff = _in_stock - _old_stock;
 		UPDATE shield_in_stock SET in_stock=_in_stock WHERE id=_id;
@@ -9411,6 +9411,7 @@ BEGIN
 	CALL get_in_stock_lpg(_start_date, 0, 1, _organization_ids, _vendor_ids, _gas_stock);
 	
 	CALL get_in_stock_shield(_start_date, 0, 1, _organization_ids, _vendor_ids, _final_stock);
+	
 	SELECT created_date AS content, created_date, SUM(fraction_12) AS fraction_12, SUM(fraction_45) AS fraction_45
 		, SUM(vehicle_out_12) AS vehicle_out_12, SUM(vehicle_out_45) AS vehicle_out_45
 		, SUM(vehicle_in_12) AS vehicle_in_12, SUM(vehicle_in_45) AS vehicle_in_45
@@ -9418,91 +9419,91 @@ BEGIN
 		, SUM(shield_import) AS shield_import, SUM(shield_decrease) AS shield_decrease, sum(import_quantity) as import_quantity
 	FROM
 	(
-	SELECT pdet.created_date, SUM(IF(shell_12.id IS NOT NULL, det.quantity,0)) AS fraction_12, SUM(IF(shell_45.id IS NOT NULL, det.quantity,0)) AS fraction_45
-		, 0 AS vehicle_out_12, 0 AS vehicle_out_45
-		, 0 AS vehicle_in_12, 0 AS vehicle_in_45
-		, 0 AS sale_12, 0 AS sale_45
-		, 0 AS shield_import, 0 AS shield_decrease, 0 AS import_quantity
-	FROM fraction_gas AS pdet, fraction_gas_detail AS det, shell_vendor as sv
-	LEFT JOIN (SELECT s.id FROM shell AS s, shell_kind AS sk WHERE s.kind_id=sk.id AND sk.weight=12) AS shell_12 ON sv.shell_id=shell_12.id
-	LEFT JOIN (SELECT s.id FROM shell AS s, shell_kind AS sk WHERE s.kind_id=sk.id AND sk.weight=45) AS shell_45 ON sv.shell_id=shell_45.id
-	WHERE DATE(pdet.created_date) >= STR_TO_DATE(_start_date,'%d/%m/%Y') AND DATE(pdet.created_date) <= STR_TO_DATE(_end_date,'%d/%m/%Y')
-		and pdet.id=det.fraction_id and det.shell_id=sv.id AND _vendor_ids LIKE CONCAT('%,',sv.vendor_id,',%')
-		AND _organization_ids LIKE CONCAT('%,',sv.organization_id,',%')
-	GROUP BY pdet.created_date, sv.shell_id
-	UNION ALL
-	SELECT pdet.created_date, 0 AS fraction_12, 0 AS fraction_45
-		, SUM(IF(shell_12.id IS NOT NULL, det.quantity,0)) AS vehicle_out_12, SUM(IF(shell_45.id IS NOT NULL, det.quantity,0)) AS vehicle_out_45
-		, 0 AS vehicle_in_12, 0 AS vehicle_in_45
-		, 0 AS sale_12, 0 AS sale_45
-		, 0 AS shield_import, 0 AS shield_decrease, 0 AS import_quantity
-	FROM vehicle_out AS pdet, vehicle_out_detail AS det, shell_vendor AS sv
-	LEFT JOIN (SELECT s.id FROM shell AS s, shell_kind AS sk WHERE s.kind_id=sk.id AND sk.weight=12) AS shell_12 ON sv.shell_id=shell_12.id
-	LEFT JOIN (SELECT s.id FROM shell AS s, shell_kind AS sk WHERE s.kind_id=sk.id AND sk.weight=45) AS shell_45 ON sv.shell_id=shell_45.id
-	WHERE DATE(pdet.created_date) >= STR_TO_DATE(_start_date,'%d/%m/%Y') AND DATE(pdet.created_date) <= STR_TO_DATE(_end_date,'%d/%m/%Y')
-		and det.vehicle_out_id=pdet.id AND det.shell_id=sv.id AND _vendor_ids LIKE CONCAT('%,',sv.vendor_id,',%')
-		AND _organization_ids LIKE CONCAT('%,',sv.organization_id,',%')
-	GROUP BY pdet.created_date, sv.shell_id
-	UNION ALL
-	SELECT pdet.created_date, 0 AS fraction_12, 0 AS fraction_45
-		, 0 AS vehicle_out_12, 0 AS vehicle_out_45
-		, SUM(IF(shell_12.id IS NOT NULL, det.quantity,0)) AS vehicle_in_12, SUM(IF(shell_45.id IS NOT NULL, det.quantity,0)) AS vehicle_in_45
-		, 0 AS sale_12, 0 AS sale_45
-		, 0 AS shield_import, 0 AS shield_decrease, 0 AS import_quantity
-	FROM vehicle_in AS pdet, vehicle_in_detail AS det, shell_vendor AS sv
-	LEFT JOIN (SELECT s.id FROM shell AS s, shell_kind AS sk WHERE s.kind_id=sk.id AND sk.weight=12) AS shell_12 ON sv.shell_id=shell_12.id
-	LEFT JOIN (SELECT s.id FROM shell AS s, shell_kind AS sk WHERE s.kind_id=sk.id AND sk.weight=45) AS shell_45 ON sv.shell_id=shell_45.id
-	WHERE DATE(pdet.created_date) >= STR_TO_DATE(_start_date,'%d/%m/%Y') AND DATE(pdet.created_date) <= STR_TO_DATE(_end_date,'%d/%m/%Y')
-		AND det.vehicle_in_id=pdet.id AND det.shell_id=sv.id AND _vendor_ids LIKE CONCAT('%,',sv.vendor_id,',%')
-		AND _organization_ids LIKE CONCAT('%,',sv.organization_id,',%')
-	GROUP BY pdet.created_date, sv.shell_id
-	-- #########
-	UNION ALL
-	SELECT s.created_date, 0 AS fraction_12, 0 AS fraction_45
-		, 0 AS vehicle_out_12, 0 AS vehicle_out_45
-		, 0 AS vehicle_in_12, 0 AS vehicle_in_45
-		, 0 AS sale_12, 0 AS sale_45
-		, SUM(s.quantity) AS shield_import, 0 AS shield_decrease, 0 AS import_quantity
-	FROM shield_import AS s, employee as eo
-	WHERE DATE(s.created_date) >= STR_TO_DATE(_start_date,'%d/%m/%Y') AND DATE(s.created_date) <= STR_TO_DATE(_end_date,'%d/%m/%Y')
-		AND _vendor_ids LIKE CONCAT('%,',s.vendor_id,',%')
-		and s.created_employee_id=eo.id and _organization_ids LIKE CONCAT('%,',eo.organization_id,',%')
-	GROUP BY s.created_date, s.vendor_id
-	UNION ALL
-	SELECT s.created_date, 0 AS fraction_12, 0 AS fraction_45
-		, 0 AS vehicle_out_12, 0 AS vehicle_out_45
-		, 0 AS vehicle_in_12, 0 AS vehicle_in_45
-		, 0 AS sale_12, 0 AS sale_45
-		, 0 AS shield_import, SUM(s.quantity) AS shield_decrease, 0 AS import_quantity
-	FROM shield_decrease AS s, employee AS eo
-	WHERE DATE(s.created_date) >= STR_TO_DATE(_start_date,'%d/%m/%Y') AND DATE(s.created_date) <= STR_TO_DATE(_end_date,'%d/%m/%Y')
-		AND _vendor_ids LIKE CONCAT('%,',s.vendor_id,',%')
-		and s.created_employee_id=eo.id and _organization_ids LIKE CONCAT('%,',eo.organization_id,',%')
-	GROUP BY s.created_date, s.vendor_id
-	UNION ALL
-	SELECT s.import_date as created_date, 0 AS fraction_12, 0 AS fraction_45
-		, 0 AS vehicle_out_12, 0 AS vehicle_out_45
-		, 0 AS vehicle_in_12, 0 AS vehicle_in_45
-		, 0 AS sale_12, 0 AS sale_45
-		, 0 AS shield_import, 0 AS shield_decrease, sum(s.actual_quantity) AS import_quantity
-	FROM lpg_import AS s, employee AS eo
-	WHERE DATE(s.import_date) >= STR_TO_DATE(_start_date,'%d/%m/%Y') AND DATE(s.import_date) <= STR_TO_DATE(_end_date,'%d/%m/%Y')
-		AND _vendor_ids LIKE CONCAT('%,',s.vendor_id,',%')
-		AND s.created_employee_id=eo.id AND _organization_ids LIKE CONCAT('%,',eo.organization_id,',%')
-	GROUP BY s.import_date
-	UNION ALL
-	SELECT pdet.created_date, 0 AS fraction_12, 0 AS fraction_45
-		, 0 AS vehicle_out_12, 0 AS vehicle_out_45
-		, 0 AS vehicle_in_12, 0 AS vehicle_in_45
-		, SUM(IF(shell_12.id IS NOT NULL, det.quantity,0)) AS sale_12, SUM(IF(shell_45.id IS NOT NULL, det.quantity,0)) AS sale_45
-		, 0 AS shield_import, 0 AS shield_decrease, 0 AS import_quantity
-	FROM inner_sale AS pdet, inner_sale_detail AS det, shell_vendor AS sv
-	LEFT JOIN (SELECT s.id FROM shell AS s, shell_kind AS sk WHERE s.kind_id=sk.id AND sk.weight=12) AS shell_12 ON sv.shell_id=shell_12.id
-	LEFT JOIN (SELECT s.id FROM shell AS s, shell_kind AS sk WHERE s.kind_id=sk.id AND sk.weight=45) AS shell_45 ON sv.shell_id=shell_45.id
-	WHERE DATE(pdet.created_date) >= STR_TO_DATE(_start_date,'%d/%m/%Y') AND DATE(pdet.created_date) <= STR_TO_DATE(_end_date,'%d/%m/%Y')
-		AND det.inner_sale_id=pdet.id AND det.shell_id=sv.id AND _vendor_ids LIKE CONCAT('%,',sv.vendor_id,',%')
-		AND _organization_ids LIKE CONCAT('%,',sv.organization_id,',%')
-	GROUP BY pdet.created_date, sv.shell_id
+		SELECT pdet.created_date, SUM(IF(shell_12.id IS NOT NULL, det.quantity,0)) AS fraction_12, SUM(IF(shell_45.id IS NOT NULL, det.quantity,0)) AS fraction_45
+			, 0 AS vehicle_out_12, 0 AS vehicle_out_45
+			, 0 AS vehicle_in_12, 0 AS vehicle_in_45
+			, 0 AS sale_12, 0 AS sale_45
+			, 0 AS shield_import, 0 AS shield_decrease, 0 AS import_quantity
+		FROM fraction_gas AS pdet, fraction_gas_detail AS det, shell_vendor as sv
+		LEFT JOIN (SELECT s.id FROM shell AS s, shell_kind AS sk WHERE s.kind_id=sk.id AND sk.weight=12) AS shell_12 ON sv.shell_id=shell_12.id
+		LEFT JOIN (SELECT s.id FROM shell AS s, shell_kind AS sk WHERE s.kind_id=sk.id AND sk.weight=45) AS shell_45 ON sv.shell_id=shell_45.id
+		WHERE DATE(pdet.created_date) >= STR_TO_DATE(_start_date,'%d/%m/%Y') AND DATE(pdet.created_date) <= STR_TO_DATE(_end_date,'%d/%m/%Y')
+			and pdet.id=det.fraction_id and det.shell_id=sv.id AND _vendor_ids LIKE CONCAT('%,',sv.vendor_id,',%')
+			AND _organization_ids LIKE CONCAT('%,',sv.organization_id,',%')
+		GROUP BY pdet.created_date, sv.shell_id
+		UNION ALL
+		SELECT pdet.created_date, 0 AS fraction_12, 0 AS fraction_45
+			, SUM(IF(shell_12.id IS NOT NULL, det.quantity,0)) AS vehicle_out_12, SUM(IF(shell_45.id IS NOT NULL, det.quantity,0)) AS vehicle_out_45
+			, 0 AS vehicle_in_12, 0 AS vehicle_in_45
+			, 0 AS sale_12, 0 AS sale_45
+			, 0 AS shield_import, 0 AS shield_decrease, 0 AS import_quantity
+		FROM vehicle_out AS pdet, vehicle_out_detail AS det, shell_vendor AS sv
+		LEFT JOIN (SELECT s.id FROM shell AS s, shell_kind AS sk WHERE s.kind_id=sk.id AND sk.weight=12) AS shell_12 ON sv.shell_id=shell_12.id
+		LEFT JOIN (SELECT s.id FROM shell AS s, shell_kind AS sk WHERE s.kind_id=sk.id AND sk.weight=45) AS shell_45 ON sv.shell_id=shell_45.id
+		WHERE DATE(pdet.created_date) >= STR_TO_DATE(_start_date,'%d/%m/%Y') AND DATE(pdet.created_date) <= STR_TO_DATE(_end_date,'%d/%m/%Y')
+			and det.vehicle_out_id=pdet.id AND det.shell_id=sv.id AND _vendor_ids LIKE CONCAT('%,',sv.vendor_id,',%')
+			AND _organization_ids LIKE CONCAT('%,',sv.organization_id,',%')
+		GROUP BY pdet.created_date, sv.shell_id
+		UNION ALL
+		SELECT pdet.created_date, 0 AS fraction_12, 0 AS fraction_45
+			, 0 AS vehicle_out_12, 0 AS vehicle_out_45
+			, SUM(IF(shell_12.id IS NOT NULL, det.quantity,0)) AS vehicle_in_12, SUM(IF(shell_45.id IS NOT NULL, det.quantity,0)) AS vehicle_in_45
+			, 0 AS sale_12, 0 AS sale_45
+			, 0 AS shield_import, 0 AS shield_decrease, 0 AS import_quantity
+		FROM vehicle_in AS pdet, vehicle_in_detail AS det, shell_vendor AS sv
+		LEFT JOIN (SELECT s.id FROM shell AS s, shell_kind AS sk WHERE s.kind_id=sk.id AND sk.weight=12) AS shell_12 ON sv.shell_id=shell_12.id
+		LEFT JOIN (SELECT s.id FROM shell AS s, shell_kind AS sk WHERE s.kind_id=sk.id AND sk.weight=45) AS shell_45 ON sv.shell_id=shell_45.id
+		WHERE DATE(pdet.created_date) >= STR_TO_DATE(_start_date,'%d/%m/%Y') AND DATE(pdet.created_date) <= STR_TO_DATE(_end_date,'%d/%m/%Y')
+			AND det.vehicle_in_id=pdet.id AND det.shell_id=sv.id AND _vendor_ids LIKE CONCAT('%,',sv.vendor_id,',%')
+			AND _organization_ids LIKE CONCAT('%,',sv.organization_id,',%')
+		GROUP BY pdet.created_date, sv.shell_id
+		-- #########
+		UNION ALL
+		SELECT s.created_date, 0 AS fraction_12, 0 AS fraction_45
+			, 0 AS vehicle_out_12, 0 AS vehicle_out_45
+			, 0 AS vehicle_in_12, 0 AS vehicle_in_45
+			, 0 AS sale_12, 0 AS sale_45
+			, SUM(s.quantity) AS shield_import, 0 AS shield_decrease, 0 AS import_quantity
+		FROM shield_import AS s, employee as eo
+		WHERE DATE(s.created_date) >= STR_TO_DATE(_start_date,'%d/%m/%Y') AND DATE(s.created_date) <= STR_TO_DATE(_end_date,'%d/%m/%Y')
+			AND _vendor_ids LIKE CONCAT('%,',s.vendor_id,',%')
+			and s.created_employee_id=eo.id and _organization_ids LIKE CONCAT('%,',eo.organization_id,',%')
+		GROUP BY s.created_date, s.vendor_id
+		UNION ALL
+		SELECT s.created_date, 0 AS fraction_12, 0 AS fraction_45
+			, 0 AS vehicle_out_12, 0 AS vehicle_out_45
+			, 0 AS vehicle_in_12, 0 AS vehicle_in_45
+			, 0 AS sale_12, 0 AS sale_45
+			, 0 AS shield_import, SUM(s.quantity) AS shield_decrease, 0 AS import_quantity
+		FROM shield_decrease AS s, employee AS eo
+		WHERE DATE(s.created_date) >= STR_TO_DATE(_start_date,'%d/%m/%Y') AND DATE(s.created_date) <= STR_TO_DATE(_end_date,'%d/%m/%Y')
+			AND _vendor_ids LIKE CONCAT('%,',s.vendor_id,',%')
+			and s.created_employee_id=eo.id and _organization_ids LIKE CONCAT('%,',eo.organization_id,',%')
+		GROUP BY s.created_date, s.vendor_id
+		UNION ALL
+		SELECT s.import_date as created_date, 0 AS fraction_12, 0 AS fraction_45
+			, 0 AS vehicle_out_12, 0 AS vehicle_out_45
+			, 0 AS vehicle_in_12, 0 AS vehicle_in_45
+			, 0 AS sale_12, 0 AS sale_45
+			, 0 AS shield_import, 0 AS shield_decrease, sum(s.actual_quantity) AS import_quantity
+		FROM lpg_import AS s, employee AS eo
+		WHERE DATE(s.import_date) >= STR_TO_DATE(_start_date,'%d/%m/%Y') AND DATE(s.import_date) <= STR_TO_DATE(_end_date,'%d/%m/%Y')
+			AND _vendor_ids LIKE CONCAT('%,',s.vendor_id,',%')
+			AND s.created_employee_id=eo.id AND _organization_ids LIKE CONCAT('%,',eo.organization_id,',%')
+		GROUP BY s.import_date
+		UNION ALL
+		SELECT pdet.created_date, 0 AS fraction_12, 0 AS fraction_45
+			, 0 AS vehicle_out_12, 0 AS vehicle_out_45
+			, 0 AS vehicle_in_12, 0 AS vehicle_in_45
+			, SUM(IF(shell_12.id IS NOT NULL, det.quantity,0)) AS sale_12, SUM(IF(shell_45.id IS NOT NULL, det.quantity,0)) AS sale_45
+			, 0 AS shield_import, 0 AS shield_decrease, 0 AS import_quantity
+		FROM inner_sale AS pdet, inner_sale_detail AS det, shell_vendor AS sv
+		LEFT JOIN (SELECT s.id FROM shell AS s, shell_kind AS sk WHERE s.kind_id=sk.id AND sk.weight=12) AS shell_12 ON sv.shell_id=shell_12.id
+		LEFT JOIN (SELECT s.id FROM shell AS s, shell_kind AS sk WHERE s.kind_id=sk.id AND sk.weight=45) AS shell_45 ON sv.shell_id=shell_45.id
+		WHERE DATE(pdet.created_date) >= STR_TO_DATE(_start_date,'%d/%m/%Y') AND DATE(pdet.created_date) <= STR_TO_DATE(_end_date,'%d/%m/%Y')
+			AND det.inner_sale_id=pdet.id AND det.shell_id=sv.id AND _vendor_ids LIKE CONCAT('%,',sv.vendor_id,',%')
+			AND _organization_ids LIKE CONCAT('%,',sv.organization_id,',%')
+		GROUP BY pdet.created_date, sv.shell_id
 	)
 	AS tbl
 	WHERE created_date IS NOT NULL

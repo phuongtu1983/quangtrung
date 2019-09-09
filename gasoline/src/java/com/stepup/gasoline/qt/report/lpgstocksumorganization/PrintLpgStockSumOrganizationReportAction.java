@@ -44,6 +44,7 @@ public class PrintLpgStockSumOrganizationReportAction extends BaseAction {
             beans.put("qtrp_vendorName", outBean.getVendorName());
             beans.put("qtrp_fromDate", fromDate);
             beans.put("qtrp_toDate", toDate);
+            beans.put("qtrp_shieldStock", outBean.getShieldStock());
             if (list == null) {
                 list = new ArrayList();
             }
