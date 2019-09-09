@@ -28,9 +28,11 @@ CREATE TABLE `accessory` (
   `unit_id` int(11) DEFAULT NULL,
   `status` int(1) DEFAULT '1' COMMENT '0:bi khoa,1:dang hoat dong',
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM AUTO_INCREMENT=7 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=MyISAM AUTO_INCREMENT=9 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 /*Data for the table `accessory` */
+
+insert  into `accessory`(`id`,`kind_id`,`name`,`price`,`unit_id`,`status`) values (7,1,'Van',1000,7,1),(8,2,'Dây',20000,8,1);
 
 /*Table structure for table `accessory_import` */
 
@@ -79,9 +81,11 @@ CREATE TABLE `accessory_in_stock` (
   `in_stock` int(11) DEFAULT '0',
   `organization_id` int(11) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=9 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 /*Data for the table `accessory_in_stock` */
+
+insert  into `accessory_in_stock`(`id`,`day`,`accessory_id`,`in_stock`,`organization_id`) values (5,'2019-09-01',8,1,14),(6,'2019-09-01',7,2,14),(7,'2019-09-01',8,3,1),(8,'2019-09-01',7,4,1);
 
 /*Table structure for table `accessory_kind` */
 
@@ -1321,9 +1325,11 @@ CREATE TABLE `good_in_stock` (
   `store_id` int(11) DEFAULT NULL,
   `in_stock` int(11) DEFAULT '0',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=9 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 /*Data for the table `good_in_stock` */
+
+insert  into `good_in_stock`(`id`,`day`,`good_id`,`organization_id`,`store_id`,`in_stock`) values (1,'2019-09-01',1,14,7,1),(2,'2019-09-01',2,14,7,2),(3,'2019-09-01',3,14,7,3),(4,'2019-09-01',4,14,7,4),(5,'2019-09-01',1,1,7,5),(6,'2019-09-01',2,1,7,6),(7,'2019-09-01',3,1,7,7),(8,'2019-09-01',4,1,7,8);
 
 /*Table structure for table `good_sale` */
 
@@ -2181,9 +2187,11 @@ CREATE TABLE `promotion_material_in_stock` (
   `organization_id` int(11) DEFAULT NULL,
   `in_stock` int(11) DEFAULT '0',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 /*Data for the table `promotion_material_in_stock` */
+
+insert  into `promotion_material_in_stock`(`id`,`day`,`promotion_material_id`,`organization_id`,`in_stock`) values (1,'2019-09-01',3,14,1),(2,'2019-09-01',4,14,2),(3,'2019-09-01',3,1,3),(4,'2019-09-01',4,1,4);
 
 /*Table structure for table `promotion_material_sale` */
 
@@ -3813,7 +3821,7 @@ DELIMITER $$
 
 /*!50003 CREATE DEFINER=`root`@`localhost` PROCEDURE `export_promotion_material_opening_stock`(IN _date VARCHAR(20))
 BEGIN
-	CALL get_in_stock_lpg(_date, 1, 0, '','', @a);
+	CALL get_in_stock_promotion_material(_date, 1);
     END */$$
 DELIMITER ;
 
@@ -4035,44 +4043,43 @@ BEGIN
 	DECLARE _from_date, _to_date DATE;
 	
 	IF _date<>'' THEN
-		SET _to_date = STR_TO_DATE(_date,'%d/%m/%Y');
+		SELECT STR_TO_DATE(_date,'%d/%m/%Y') INTO _to_date;
 	ELSE
 		SELECT SYSDATE() INTO _to_date;
 	END IF;
 	
 	SELECT `day` INTO _from_date FROM accessory_in_stock WHERE DATEDIFF(`day`, _to_date) <= 0 LIMIT 1;
-	IF _from_date=NULL THEN
-		SELECT STR_TO_DATE(`value`,'%d/%m/%Y') INTO _from_date FROM parameter WHERE `code`="startdate";
+	IF _from_date IS NULL THEN
+		SELECT DATE_ADD(_to_date, INTERVAL -1 DAY) INTO _from_date;
 	END IF;
 	
 	IF _is_list=1 THEN
-		SELECT o.id AS organization_id, o.NAME AS organization_name, a.id AS accessory_id, a.NAME AS accessory_name, COALESCE(tbl_old_stock.in_stock,0) + COALESCE(stock.quantity,0) AS opening_stock
-		FROM organization AS o, accessory AS a
-		LEFT JOIN (
-			SELECT organization_id, accessory_id, in_stock
+		SELECT o.id AS organization_id, o.NAME AS organization_name, a.id AS accessory_id, a.NAME AS accessory_name, sum(COALESCE(tbl.quantity,0)) AS opening_stock
+		FROM organization AS o
+		left join accessory AS a on 1
+		left join
+		(
+			SELECT accessory_id, organization_id, coalesce(in_stock,0) as quantity
 			FROM accessory_in_stock
 			WHERE DATEDIFF(`day`, _from_date) >= 0 AND DATEDIFF(`day`, _to_date) <= 0
-		) AS tbl_old_stock ON tbl_old_stock.organization_id=o.id AND tbl_old_stock.accessory_id=a.id
-		LEFT JOIN (
-			SELECT tbl.organization_id, tbl.accessory_id, SUM(tbl.quantity) AS quantity
-			FROM (
-				SELECT i_det.accessory_id, eo.organization_id, coalesce(i_det.quantity,0) AS in_stock
-				FROM accessory_import_detail AS i_det, accessory_import AS i, employee as eo
-				WHERE i_det.accessory_import_id=i.id AND DATE(i.created_date) > _from_date AND DATE(i.created_date) <= _to_date	
-					and i.created_employee_id=eo.id
-				UNION ALL
-				SELECT i_det.accessory_id, eo.organization_id, -COALESCE(i_det.quantity,0) AS in_stock
-				FROM accessory_sale_detail AS i_det, accessory_sale AS i, employee AS eo
-				WHERE i_det.accessory_sale_id=i.id AND DATE(i.created_date) > _from_date AND DATE(i.created_date) <= _to_date	
-					AND i.created_employee_id=eo.id
-				UNION ALL
-				SELECT i_det.accessory_id, eo.organization_id, -COALESCE(i_det.quantity,0) AS in_stock
-				FROM vehicle_in_accessory_detail AS i_det, vehicle_in AS i, employee AS eo
-				WHERE i_det.vehicle_in_id=i.id AND DATE(i.created_date) > _from_date AND DATE(i.created_date) <= _to_date	
-					AND i.created_employee_id=eo.id
-			) AS tbl GROUP BY tbl.organization_id, tbl.accessory_id
-		) AS stock ON stock.organization_id=o.id AND stock.accessory_id=a.id
+			union all
+			SELECT i_det.accessory_id, eo.organization_id, COALESCE(i_det.quantity,0) AS quantity
+			FROM accessory_import_detail AS i_det, accessory_import AS i, employee AS eo
+			WHERE i_det.accessory_import_id=i.id AND DATE(i.created_date) > _from_date AND DATE(i.created_date) < _to_date	
+				AND i.created_employee_id=eo.id
+			UNION ALL
+			SELECT i_det.accessory_id, eo.organization_id, -COALESCE(i_det.quantity,0) AS quantity
+			FROM accessory_sale_detail AS i_det, accessory_sale AS i, employee AS eo
+			WHERE i_det.accessory_sale_id=i.id AND DATE(i.created_date) > _from_date AND DATE(i.created_date) < _to_date	
+				AND i.created_employee_id=eo.id
+			UNION ALL
+			SELECT i_det.accessory_id, eo.organization_id, -COALESCE(i_det.quantity,0) AS quantity
+			FROM vehicle_in_accessory_detail AS i_det, vehicle_in AS i, employee AS eo
+			WHERE i_det.vehicle_in_id=i.id AND DATE(i.created_date) > _from_date AND DATE(i.created_date) < _to_date	
+				AND i.created_employee_id=eo.id
+		) AS tbl ON tbl.organization_id=o.id AND tbl.accessory_id=a.id
 		WHERE a.STATUS=1 AND o.STATUS=1
+		group by o.id, a.id
 		ORDER BY o.NAME, a.NAME
 		;
 	END IF;
@@ -4294,38 +4301,38 @@ BEGIN
 	DECLARE _from_date, _to_date DATE;
 	
 	IF _date<>'' THEN
-		SET _to_date = STR_TO_DATE(_date,'%d/%m/%Y');
+		SELECT STR_TO_DATE(_date,'%d/%m/%Y') INTO _to_date;
 	ELSE
 		SELECT SYSDATE() INTO _to_date;
 	END IF;
 	
 	SELECT `day` INTO _from_date FROM good_in_stock WHERE DATEDIFF(`day`, _to_date) <= 0 LIMIT 1;
-	IF _from_date=NULL THEN
-		SELECT STR_TO_DATE(`value`,'%d/%m/%Y') INTO _from_date FROM parameter WHERE `code`="startdate";
+	IF _from_date IS NULL THEN
+		SELECT DATE_ADD(_to_date, INTERVAL -1 DAY) INTO _from_date;
 	END IF;
 	
 	IF _is_list=1 THEN
-		SELECT o.id AS organization_id, o.NAME AS organization_name, so.id AS store_id, so.NAME AS store_name, a.id AS good_id, a.NAME AS good_name, COALESCE(tbl_old_stock.in_stock,0) + COALESCE(stock.quantity,0) AS opening_stock
-		FROM organization AS o, store AS so, good AS a
-		LEFT JOIN (
-			SELECT organization_id, good_id, store_id, in_stock
+		SELECT o.id AS organization_id, o.NAME AS organization_name, so.id AS store_id, so.NAME AS store_name, a.id AS good_id, a.NAME AS good_name, sum(COALESCE(tbl.quantity,0)) AS opening_stock
+		FROM organization AS o
+		left join store AS so on 1
+		left join good AS a on 1
+		left join
+		(
+			SELECT good_id, organization_id, store_id, coalesce(in_stock,0) as quantity
 			FROM good_in_stock
 			WHERE DATEDIFF(`day`, _from_date) >= 0 AND DATEDIFF(`day`, _to_date) <= 0
-		) AS tbl_old_stock ON tbl_old_stock.organization_id=o.id AND tbl_old_stock.good_id=a.id AND tbl_old_stock.store_id=so.id
-		LEFT JOIN (
-			SELECT tbl.organization_id, tbl.good_id, tbl.store_id, SUM(tbl.in_stock) AS quantity
-			FROM (
-				SELECT i_det.good_id, i.store_id, s.organization_id, coalesce(i_det.quantity,0) AS in_stock
-				FROM good_import_detail AS i_det, good_import AS i, store as s
-				WHERE i_det.good_import_id=i.id and DATE(i.created_date) > _from_date AND DATE(i.created_date) <= _to_date and i.store_id=s.id
-				UNION ALL
-				SELECT i_det.good_id, i.store_id, s.organization_id, -COALESCE(i_det.quantity,0) AS in_stock
-				FROM good_sale_detail AS i_det, good_sale AS i, store as s
-				WHERE i_det.good_sale_id=i.id AND DATE(i.created_date) > _from_date AND DATE(i.created_date) <= _to_date AND i.store_id=s.id
-			) AS tbl GROUP BY tbl.organization_id, tbl.good_id, tbl.store_id
-		) AS stock ON stock.organization_id=o.id AND stock.good_id=a.id and stock.store_id=so.id
-		WHERE a.STATUS=1 AND o.STATUS=1 and so.status=1
-		ORDER BY o.NAME, so.name, a.NAME
+			union all
+			SELECT i_det.good_id, i.store_id, s.organization_id, COALESCE(i_det.quantity,0) AS quantity
+			FROM good_import_detail AS i_det, good_import AS i, store AS s
+			WHERE i_det.good_import_id=i.id AND DATE(i.created_date) > _from_date AND DATE(i.created_date) < _to_date AND i.store_id=s.id
+			UNION ALL
+			SELECT i_det.good_id, i.store_id, s.organization_id, -COALESCE(i_det.quantity,0) AS quantity
+			FROM good_sale_detail AS i_det, good_sale AS i, store AS s
+			WHERE i_det.good_sale_id=i.id AND DATE(i.created_date) > _from_date AND DATE(i.created_date) < _to_date AND i.store_id=s.id
+		) as tbl ON tbl.organization_id=o.id AND tbl.good_id=a.id AND tbl.store_id=so.id
+		WHERE a.STATUS=1 AND o.STATUS=1 AND so.STATUS=1 and so.is_good=1
+		group by o.id, so.id, a.id
+		ORDER BY o.NAME, so.NAME, a.NAME
 		;
 	END IF;
     END */$$
@@ -4833,47 +4840,43 @@ DELIMITER ;
 
 DELIMITER $$
 
-/*!50003 CREATE DEFINER=`root`@`localhost` PROCEDURE `get_in_stock_promotion_material`(IN _date VARCHAR(20), IN _is_list INT, IN _is_value INT
-	, IN _organization_ids TEXT, IN _vendor_ids TEXT, OUT _out_stock INT)
+/*!50003 CREATE DEFINER=`root`@`localhost` PROCEDURE `get_in_stock_promotion_material`(IN _date VARCHAR(20), IN _is_list INT)
 BEGIN
 	DECLARE _from_date, _to_date DATE;
 	
 	IF _date<>'' THEN
-		SET _to_date = STR_TO_DATE(_date,'%d/%m/%Y');
+		SELECT STR_TO_DATE(_date,'%d/%m/%Y') INTO _to_date;
 	ELSE
 		SELECT SYSDATE() INTO _to_date;
 	END IF;
 	
 	SELECT `day` INTO _from_date FROM promotion_material_in_stock WHERE DATEDIFF(`day`, _to_date) <= 0 LIMIT 1;
-	IF _from_date=NULL THEN
-		SELECT STR_TO_DATE(`value`,'%d/%m/%Y') INTO _from_date FROM parameter WHERE `code`="startdate";
+	IF _from_date IS NULL THEN
+		SELECT DATE_ADD(_to_date, INTERVAL -1 DAY) INTO _from_date;
 	END IF;
 	
 	IF _is_list=1 THEN
-		SELECT o.id AS organization_id, o.NAME AS organization_name, a.id AS promotion_material_id, a.NAME AS promotion_material_name, COALESCE(tbl_old_stock.in_stock,0) + COALESCE(stock.quantity,0) AS opening_stock
-		FROM organization AS o, promotion_material AS a
-		LEFT JOIN (
-			SELECT organization_id, promotion_material_id, in_stock
+		SELECT o.id AS organization_id, o.NAME AS organization_name, a.id AS promotion_material_id, a.NAME AS promotion_material_name, sum(COALESCE(tbl.quantity,0)) AS opening_stock
+		FROM organization AS o
+		left join promotion_material AS a on 1
+		left join
+		(
+			SELECT promotion_material_id, organization_id, coalesce(in_stock,0) as quantity
 			FROM promotion_material_in_stock
 			WHERE DATEDIFF(`day`, _from_date) >= 0 AND DATEDIFF(`day`, _to_date) <= 0
-		) AS tbl_old_stock ON tbl_old_stock.organization_id=o.id AND tbl_old_stock.promotion_material_id=a.id
-		LEFT JOIN (
-			SELECT tbl.organization_id, tbl.promotion_material_id, SUM(tbl.quantity) AS quantity
-			FROM (
-				SELECT i_det.promotion_material_id, eo.organization_id, i_det.quantity AS in_stock
-				FROM promotion_material_import_detail AS i_det, promotion_material_import AS i, employee as eo
-				WHERE i_det.promotion_material_id=i.id AND DATE(i.created_date) > _from_date AND DATE(i.created_date) <= _to_date
-					and i.created_employee_id=eo.id
-				GROUP BY i_det.promotion_material_id, eo.organization_id
-				UNION ALL
-				SELECT i_det.promotion_material_id, eo.organization_id, -i_det.quantity AS in_stock
-				FROM gas_wholesale_promotion AS i_det, gas_wholesale AS i, employee as eo
-				WHERE i_det.gas_wholesale_id=i.id AND DATE(i.created_date) > _from_date AND DATE(i.created_date) <= _to_date
-					and i.created_employee_id=eo.id
-				GROUP BY i_det.promotion_material_id, eo.organization_id
-			) AS tbl GROUP BY tbl.organization_id, tbl.vendor_id
-		) AS stock ON stock.organization_id=o.id AND stock.promotion_material_id=a.id
+			union all
+			SELECT i_det.promotion_material_id, eo.organization_id, coalesce(i_det.quantity,0) AS quantity
+			FROM promotion_material_import_detail AS i_det, promotion_material_import AS i, employee AS eo
+			WHERE i_det.promotion_material_id=i.id AND DATE(i.created_date) > _from_date AND DATE(i.created_date) < _to_date
+				AND i.created_employee_id=eo.id
+			UNION ALL
+			SELECT i_det.promotion_material_id, eo.organization_id, -coalesce(i_det.quantity,0) AS quantity
+			FROM gas_wholesale_promotion AS i_det, gas_wholesale AS i, employee AS eo
+			WHERE i_det.gas_wholesale_id=i.id AND DATE(i.created_date) > _from_date AND DATE(i.created_date) < _to_date
+				AND i.created_employee_id=eo.id
+		) as tbl on tbl.organization_id=o.id AND tbl.promotion_material_id=a.id
 		WHERE a.STATUS=1 AND o.STATUS=1
+		group by o.id, a.id
 		ORDER BY o.NAME, a.NAME
 		;
 	end if;
@@ -5458,7 +5461,7 @@ BEGIN
 	
 	if _id is null then
 		insert into accessory_in_stock(`day`, organization_id, accessory_id, in_stock)
-		values (_date, _organization_id, _accessory_id, _in_stock);
+		values (STR_TO_DATE(_date,'%d/%m/%Y'), _organization_id, _accessory_id, _in_stock);
 	else
 		set _diff = _in_stock - _old_stock;
 		update accessory_in_stock set in_stock=_in_stock where id=_id;
@@ -5486,7 +5489,7 @@ BEGIN
 	
 	IF _id IS NULL THEN
 		INSERT INTO customer_in_stock(`day`, customer_id, amount, shell_12, shell_45)
-		VALUES (_date, _customer_id, _in_stock, _in_stock_12, _in_stock_45);
+		VALUES (STR_TO_DATE(_date,'%d/%m/%Y'), _customer_id, _in_stock, _in_stock_12, _in_stock_45);
 	ELSE
 		SET _diff = _in_stock - _old_stock;
 		SET _diff_12 = _in_stock_12 - _old_stock_12;
@@ -5517,7 +5520,7 @@ BEGIN
 	
 	IF _id IS NULL THEN
 		INSERT INTO good_in_stock(`day`, organization_id, store_id, good_id, in_stock)
-		VALUES (_date, _organization_id, _store_id, _good_id, _in_stock);
+		VALUES (STR_TO_DATE(_date,'%d/%m/%Y'), _organization_id, _store_id, _good_id, _in_stock);
 	ELSE
 		SET _diff = _in_stock - _old_stock;
 		UPDATE good_in_stock SET in_stock=_in_stock WHERE id=_id;
@@ -5545,7 +5548,7 @@ BEGIN
 	
 	IF _id IS NULL THEN
 		INSERT INTO lpg_in_stock(`day`, organization_id, vendor_id, in_stock)
-		VALUES (_date, _organization_id, _vendor_id, _in_stock);
+		VALUES (STR_TO_DATE(_date,'%d/%m/%Y'), _organization_id, _vendor_id, _in_stock);
 	ELSE
 		SET _diff = _in_stock - _old_stock;
 		UPDATE lpg_in_stock SET in_stock=_in_stock WHERE id=_id;
@@ -5573,7 +5576,7 @@ BEGIN
 	
 	IF _id IS NULL THEN
 		INSERT INTO money_in_stock(`day`, organization_id, account_id, in_stock)
-		VALUES (_date, _organization_id, _account_id, _in_stock);
+		VALUES (STR_TO_DATE(_date,'%d/%m/%Y'), _organization_id, _account_id, _in_stock);
 	ELSE
 		SET _diff = _in_stock - _old_stock;
 		UPDATE money_in_stock SET in_stock=_in_stock WHERE id=_id;
@@ -5629,7 +5632,7 @@ BEGIN
 	
 	IF _id IS NULL THEN
 		INSERT INTO promotion_material_in_stock(`day`, organization_id, promotion_material_id, in_stock)
-		VALUES (_date, _organization_id, _promotion_material_id, _in_stock);
+		VALUES (STR_TO_DATE(_date,'%d/%m/%Y'), _organization_id, _promotion_material_id, _in_stock);
 	ELSE
 		SET _diff = _in_stock - _old_stock;
 		UPDATE promotion_material_in_stock SET in_stock=_in_stock WHERE id=_id;
@@ -5658,7 +5661,7 @@ BEGIN
 	
 	IF _id IS NULL THEN
 		INSERT INTO shell_gas_in_stock(`day`, shell_vendor_id, in_stock)
-		select _date, sv.id, _in_stock
+		select STR_TO_DATE(_date,'%d/%m/%Y'), sv.id, _in_stock
 		from shell_vendor AS sv
 		where sv.organization_id=_organization_id AND sv.shell_id=_shell_id AND sv.vendor_id=_vendor_id;
 	ELSE
@@ -5691,7 +5694,7 @@ BEGIN
 	
 	IF _id IS NULL THEN
 		INSERT INTO shell_in_stock(`day`, organization_id, shell_id, in_stock)
-		VALUES (_date, _organization_id, _shell_id, _in_stock);
+		VALUES (STR_TO_DATE(_date,'%d/%m/%Y'), _organization_id, _shell_id, _in_stock);
 	ELSE
 		SET _diff = _in_stock - _old_stock;
 		UPDATE shell_in_stock SET in_stock=_in_stock WHERE id=_id;
@@ -5747,7 +5750,7 @@ BEGIN
 	
 	IF _id IS NULL THEN
 		INSERT INTO vendor_in_stock(`day`, organization_id, vendor_id, amount, transport_amount)
-		VALUES (_date, _organization_id, _vendor_id, _in_stock, _in_stock_transport);
+		VALUES (STR_TO_DATE(_date,'%d/%m/%Y'), _organization_id, _vendor_id, _in_stock, _in_stock_transport);
 	ELSE
 		SET _diff = _in_stock - _old_stock;
 		SET _diff_transport = _in_stock_transport - _old_stock_transport;
