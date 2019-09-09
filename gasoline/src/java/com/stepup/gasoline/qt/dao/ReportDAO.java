@@ -194,11 +194,12 @@ public class ReportDAO extends BasicDAO {
                         bean.setExport45Quantity(rs.getInt("export_45_quantity"));
                         bean.setConvertQuantity(bean.getExport12Quantity() * 12 + bean.getExport45Quantity() * 45);
                         bean.setReturnQuantity(rs.getInt("return_quantity"));
-                        bean.setClosingStock(bean.getOpeningStock() + bean.getImportQuantity() - bean.getConvertQuantity() + bean.getReturnQuantity());
+                        bean.setClosingStock(bean.getOpeningStock() + bean.getStockQuantity() - bean.getConvertQuantity() + bean.getReturnQuantity());
                         gasStock = bean.getClosingStock();
                         bean.setNote(rs.getString("note"));
                         list.add(bean);
                     }
+                    outBean.setClosingGasStock(gasStock);
                 }
             }
         } catch (SQLException sqle) {
@@ -278,6 +279,7 @@ public class ReportDAO extends BasicDAO {
                         finalStock = bean.getFinalStock();
                         list.add(bean);
                     }
+                    outBean.setClosingGasStock(gasStock);
                 }
             }
         } catch (SQLException sqle) {

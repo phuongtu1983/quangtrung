@@ -75,12 +75,14 @@ public class PrintReportAction extends BaseAction {
                     LpgStockReportOutBean outBean = new LpgStockReportOutBean();
                     list = printLpgStockReport(fromDate, toDate, organizationIds, outBean);
                     beans.put("qtrp_gasStock", outBean.getGasStock());
+                    beans.put("qtrp_closingGasStock", outBean.getClosingGasStock());
                 } else if (reportName.equals("reportlpgstocksum")) {
                     templateFileName = "so_theo_doi_nhap_xuat_khi_hoa_long_lpg";
                     LpgStockSumReportOutBean outBean = new LpgStockSumReportOutBean();
                     list = printLpgStockSumReport(fromDate, toDate, organizationIds, outBean);
                     beans.put("qtrp_gasStock", outBean.getGasStock());
                     beans.put("qtrp_shieldStock", outBean.getShieldStock());
+                    beans.put("qtrp_closingGasStock", outBean.getClosingGasStock());
                 } else if (reportName.equals("reportsum")) {
                     templateFileName = "tong_hop";
                     list = printSumReport(fromDate, toDate, organizationIds);
@@ -214,7 +216,13 @@ public class PrintReportAction extends BaseAction {
         ArrayList list = null;
         try {
             VendorDAO vendorDAO = new VendorDAO();
-            String vendorIds = vendorDAO.getVendorOfOrganizations(organizationIds);
+//            String vendorIds = vendorDAO.getVendorOfOrganizations(organizationIds);
+            String vendorIds = "0";
+            VendorFormBean vendor = vendorDAO.getVendorEqualOrganization(organizationIds);
+            if (vendor != null) {
+                vendorIds += "," + vendor.getId();
+            }
+            vendorIds += ",0";
             ReportDAO reportDAO = new ReportDAO();
             list = reportDAO.getLpgStockReport(fromDate, toDate, organizationIds, vendorIds, outBean);
         } catch (Exception ex) {
@@ -226,7 +234,13 @@ public class PrintReportAction extends BaseAction {
         ArrayList list = null;
         try {
             VendorDAO vendorDAO = new VendorDAO();
-            String vendorIds = vendorDAO.getVendorOfOrganizations(organizationIds);
+//            String vendorIds = vendorDAO.getVendorOfOrganizations(organizationIds);
+            String vendorIds = "0";
+            VendorFormBean vendor = vendorDAO.getVendorEqualOrganization(organizationIds);
+            if (vendor != null) {
+                vendorIds += "," + vendor.getId();
+            }
+            vendorIds += ",0";
             ReportDAO reportDAO = new ReportDAO();
             list = reportDAO.getLpgStockSumReport(fromDate, toDate, organizationIds, vendorIds, outBean);
         } catch (Exception ex) {

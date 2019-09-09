@@ -12,6 +12,7 @@ package com.stepup.gasoline.qt.report;
 public class LpgStockSumReportOutBean {
 
     private int gasStock;
+    private int closingGasStock;
     private int shieldStock;
 
     public int getGasStock() {
@@ -28,6 +29,14 @@ public class LpgStockSumReportOutBean {
 
     public void setShieldStock(int shieldStock) {
         this.shieldStock = shieldStock;
+    }
+
+    public int getClosingGasStock() {
+        return closingGasStock;
+    }
+
+    public void setClosingGasStock(int closingGasStock) {
+        this.closingGasStock = closingGasStock;
     }
 
 }

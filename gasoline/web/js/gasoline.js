@@ -466,14 +466,15 @@ function formPaidDiscountChanged(formName) {
     var debt = document.forms[formName].debt;
     var discount = document.forms[formName].discount;
     var totalPay = document.forms[formName].totalPay;
-    if (total == null || paid == null || debt == null || discount == null || totalPay == null)
+    if (total == null || paid == null || debt == null || totalPay == null)
         return false;
-    totalPay.value = reformatNumberMoneyString(total.value) * 1 - reformatNumberMoneyString(discount.value) * 1;
+    totalPay.value = reformatNumberMoneyString(total.value) * 1;
+    if(discount!=null) totalPay.value = totalPay.value - reformatNumberMoneyString(discount.value) * 1;
     debt.value = reformatNumberMoneyString(totalPay.value) * 1 - reformatNumberMoneyString(paid.value) * 1;
     tryNumberFormatCurrentcy(total, "VND");
     tryNumberFormatCurrentcy(paid, "VND");
     tryNumberFormatCurrentcy(debt, "VND");
-    tryNumberFormatCurrentcy(discount, "VND");
+    if(discount!=null) tryNumberFormatCurrentcy(discount, "VND");
     tryNumberFormatCurrentcy(totalPay, "VND");
     total = null;
     paid = null;
