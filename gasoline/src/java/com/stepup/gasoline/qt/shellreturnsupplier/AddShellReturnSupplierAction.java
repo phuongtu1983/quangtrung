@@ -95,7 +95,7 @@ public class AddShellReturnSupplierAction extends SpineAction {
                         bean.setShellId(NumberUtil.parseInt(formBean.getShellId()[i], 0));
                         bean.setQuantity(NumberUtil.parseInt(formBean.getQuantity()[i], 0));
                         bean.setShellReturnSupplierId(formBean.getId());
-                        gasDAO.insertShellReturnSupplierDetail(bean, formBean.getCreatedDate(), formBean.getVendorId());
+                        gasDAO.insertShellReturnSupplierDetail(bean);
                     } else {
                         isUpdate = false;
                         int j = 0;
@@ -116,7 +116,7 @@ public class AddShellReturnSupplierAction extends SpineAction {
                                 isUpdate = true;
                             }
                             if (isUpdate) {
-                                gasDAO.updateShellReturnSupplierDetail(oldBean, formBean.getCreatedDate(), formBean.getVendorId());
+                                gasDAO.updateShellReturnSupplierDetail(oldBean);
                             }
                         }
                     }

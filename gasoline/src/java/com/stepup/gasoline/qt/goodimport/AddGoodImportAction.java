@@ -105,7 +105,7 @@ public class AddGoodImportAction extends SpineAction {
                     bean.setPrice(NumberUtil.parseInt(formBean.getPrice()[i], 0));
                     bean.setAmount(NumberUtil.parseInt(formBean.getAmount()[i], 0));
                     bean.setGoodImportId(formBean.getId());
-                    goodDAO.insertGoodImportDetail(bean, formBean.getCreatedDate(), formBean.getStoreId());
+                    goodDAO.insertGoodImportDetail(bean);
                 } else {
                     isUpdate = false;
                     int j = 0;
@@ -134,7 +134,7 @@ public class AddGoodImportAction extends SpineAction {
                             isUpdate = true;
                         }
                         if (isUpdate) {
-                            goodDAO.updateGoodImportDetail(oldBean, formBean.getCreatedDate(), formBean.getStoreId());
+                            goodDAO.updateGoodImportDetail(oldBean);
                         }
                     }
                 }

@@ -102,7 +102,7 @@ public class AddSaleShellAction extends SpineAction {
                         bean.setPrice(NumberUtil.parseDouble(formBean.getPrice()[i], 0));
                         bean.setAmount(NumberUtil.parseDouble(formBean.getAmount()[i], 0));
                         bean.setSaleShellId(formBean.getId());
-                        gasDAO.insertSaleShellDetail(bean, formBean.getCreatedDate());
+                        gasDAO.insertSaleShellDetail(bean);
                     } else {
                         isUpdate = false;
                         int j = 0;
@@ -131,7 +131,7 @@ public class AddSaleShellAction extends SpineAction {
                                 isUpdate = true;
                             }
                             if (isUpdate) {
-                                gasDAO.updateSaleShellDetail(oldBean, formBean.getCreatedDate());
+                                gasDAO.updateSaleShellDetail(oldBean);
                             }
                         }
                     }

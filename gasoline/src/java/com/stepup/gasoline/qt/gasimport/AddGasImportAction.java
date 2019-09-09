@@ -101,7 +101,7 @@ public class AddGasImportAction extends SpineAction {
                     bean.setPrice(NumberUtil.parseInt(formBean.getPrice()[i], 0));
                     bean.setAmount(NumberUtil.parseInt(formBean.getAmount()[i], 0));
                     bean.setGasImportId(formBean.getId());
-                    gasDAO.insertGasImportDetail(bean, formBean.getCreatedDate(), formBean.getVendorId());
+                    gasDAO.insertGasImportDetail(bean, formBean.getVendorId());
                 } else {
                     isUpdate = false;
                     int j = 0;
@@ -130,7 +130,7 @@ public class AddGasImportAction extends SpineAction {
                             isUpdate = true;
                         }
                         if (isUpdate) {
-                            gasDAO.updateGasImportDetail(oldBean, formBean.getCreatedDate(), formBean.getVendorId());
+                            gasDAO.updateGasImportDetail(oldBean, formBean.getVendorId());
                         }
                     }
                 }

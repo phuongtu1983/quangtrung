@@ -103,7 +103,7 @@ public class AddVehicleInAction extends SpineAction {
                         bean.setShellId(NumberUtil.parseInt(formBean.getShellId()[i], 0));
                         bean.setQuantity(NumberUtil.parseInt(formBean.getQuantity()[i], 0));
                         bean.setVehicleInId(formBean.getId());
-                        gasDAO.insertVehicleInDetail(formBean.getCreatedDate(), bean);
+                        gasDAO.insertVehicleInDetail(bean);
                     } else {
                         isUpdate = false;
                         int j = 0;
@@ -124,7 +124,7 @@ public class AddVehicleInAction extends SpineAction {
                                 isUpdate = true;
                             }
                             if (isUpdate) {
-                                gasDAO.updateVehicleInDetail(oldBean, formBean.getCreatedDate());
+                                gasDAO.updateVehicleInDetail(oldBean);
                             }
                         }
                     }
@@ -159,7 +159,7 @@ public class AddVehicleInAction extends SpineAction {
                         bean.setPrice(NumberUtil.parseDouble(formBean.getAccessoryPrice()[i], 0));
                         bean.setAmount(NumberUtil.parseDouble(formBean.getAccessoryAmount()[i], 0));
                         bean.setVehicleInId(formBean.getId());
-                        gasDAO.insertVehicleInAccessoryDetail(formBean.getCreatedDate(), bean);
+                        gasDAO.insertVehicleInAccessoryDetail(bean);
                     } else {
                         isUpdate = false;
                         int j = 0;
@@ -188,7 +188,7 @@ public class AddVehicleInAction extends SpineAction {
                                 isUpdate = true;
                             }
                             if (isUpdate) {
-                                gasDAO.updateVehicleInAccessoryDetail(oldBean, formBean.getCreatedDate());
+                                gasDAO.updateVehicleInAccessoryDetail(oldBean);
                             }
                         }
                     }
@@ -250,7 +250,7 @@ public class AddVehicleInAction extends SpineAction {
                         bean.setShellId(NumberUtil.parseInt(formBean.getReturnShellId()[i], 0));
                         bean.setQuantity(NumberUtil.parseInt(formBean.getReturnShellQuantity()[i], 0));
                         bean.setVehicleInId(formBean.getId());
-                        gasDAO.insertVehicleInReturnShellDetail(formBean.getCreatedDate(), bean);
+                        gasDAO.insertVehicleInReturnShellDetail(bean);
                     } else {
                         isUpdate = false;
                         int j = 0;
@@ -271,7 +271,7 @@ public class AddVehicleInAction extends SpineAction {
                                 isUpdate = true;
                             }
                             if (isUpdate) {
-                                gasDAO.updateVehicleInReturnShellDetail(oldBean, formBean.getCreatedDate());
+                                gasDAO.updateVehicleInReturnShellDetail(oldBean);
                             }
                         }
                     }

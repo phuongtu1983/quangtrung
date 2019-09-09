@@ -103,7 +103,7 @@ public class AddSaleAccessoryAction extends SpineAction {
                     bean.setPrice(NumberUtil.parseDouble(formBean.getPrice()[i], 0));
                     bean.setAmount(NumberUtil.parseDouble(formBean.getAmount()[i], 0));
                     bean.setSaleAccessoryId(formBean.getId());
-                    goodDAO.insertSaleAccessoryDetail(bean, formBean.getCreatedDate());
+                    goodDAO.insertSaleAccessoryDetail(bean);
                 } else {
                     isUpdate = false;
                     int j = 0;
@@ -132,7 +132,7 @@ public class AddSaleAccessoryAction extends SpineAction {
                             isUpdate = true;
                         }
                         if (isUpdate) {
-                            goodDAO.updateSaleAccessoryDetail(oldBean, formBean.getCreatedDate());
+                            goodDAO.updateSaleAccessoryDetail(oldBean);
                         }
                     }
                 }

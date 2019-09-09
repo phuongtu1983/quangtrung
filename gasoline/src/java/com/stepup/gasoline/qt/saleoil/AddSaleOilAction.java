@@ -205,7 +205,7 @@ public class AddSaleOilAction extends SpineAction {
                         bean.setPromotionMaterialStoreId(NumberUtil.parseInt(formBean.getPromotionMaterialStoreId()[i], 0));
                         bean.setPromotionMaterialUnitId(NumberUtil.parseInt(formBean.getPromotionMaterialUnitId()[i], 0));
                         bean.setSaleOilId(formBean.getId());
-                        goodDAO.insertSaleOilPromotionMaterialDetail(bean, formBean.getCreatedDate());
+                        goodDAO.insertSaleOilPromotionMaterialDetail(bean);
                     } else {
                         isUpdate = false;
                         int j = 0;
@@ -226,7 +226,7 @@ public class AddSaleOilAction extends SpineAction {
                                 isUpdate = true;
                             }
                             if (isUpdate) {
-                                goodDAO.updateSaleOilPromotionMaterialDetail(oldBean, formBean.getCreatedDate());
+                                goodDAO.updateSaleOilPromotionMaterialDetail(oldBean);
                             }
                         }
                     }

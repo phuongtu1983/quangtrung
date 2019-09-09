@@ -105,7 +105,7 @@ public class AddExportWholesaleAction extends SpineAction {
                         bean.setPrice(NumberUtil.parseDouble(formBean.getPrice()[i], 0));
                         bean.setAmount(NumberUtil.parseDouble(formBean.getAmount()[i], 0));
                         bean.setExportWholesaleId(formBean.getId());
-                        gasDAO.insertExportWholesaleDetail(bean, formBean.getCreatedDate());
+                        gasDAO.insertExportWholesaleDetail(bean);
                     } else {
                         isUpdate = false;
                         int j = 0;
@@ -134,7 +134,7 @@ public class AddExportWholesaleAction extends SpineAction {
                                 isUpdate = true;
                             }
                             if (isUpdate) {
-                                gasDAO.updateExportWholesaleDetail(oldBean, formBean.getCreatedDate());
+                                gasDAO.updateExportWholesaleDetail(oldBean);
                             }
                         }
                     }
@@ -167,7 +167,7 @@ public class AddExportWholesaleAction extends SpineAction {
                         bean.setShellId(NumberUtil.parseInt(formBean.getReturnShellId()[i], 0));
                         bean.setQuantity(NumberUtil.parseInt(formBean.getReturnShellQuantity()[i], 0));
                         bean.setExportWholesaleId(formBean.getId());
-                        gasDAO.insertExportWholesaleReturnShellDetail(bean, formBean.getCreatedDate());
+                        gasDAO.insertExportWholesaleReturnShellDetail(bean);
                     } else {
                         isUpdate = false;
                         int j = 0;
@@ -188,7 +188,7 @@ public class AddExportWholesaleAction extends SpineAction {
                                 isUpdate = true;
                             }
                             if (isUpdate) {
-                                gasDAO.updateExportWholesaleReturnShellDetail(oldBean, formBean.getCreatedDate());
+                                gasDAO.updateExportWholesaleReturnShellDetail(oldBean);
                             }
                         }
                     }

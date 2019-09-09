@@ -104,7 +104,7 @@ public class AddPetroImportAction extends SpineAction {
                     bean.setPrice(NumberUtil.parseInt(formBean.getPrice()[i], 0));
                     bean.setAmount(NumberUtil.parseInt(formBean.getAmount()[i], 0));
                     bean.setPetroImportId(formBean.getId());
-                    gasDAO.insertPetroImportDetail(bean, formBean.getCreatedDate(), formBean.getStoreId());
+                    gasDAO.insertPetroImportDetail(bean);
                 } else {
                     isUpdate = false;
                     int j = 0;
@@ -133,7 +133,7 @@ public class AddPetroImportAction extends SpineAction {
                             isUpdate = true;
                         }
                         if (isUpdate) {
-                            gasDAO.updatePetroImportDetail(oldBean, formBean.getCreatedDate(), formBean.getStoreId());
+                            gasDAO.updatePetroImportDetail(oldBean);
                         }
                     }
                 }

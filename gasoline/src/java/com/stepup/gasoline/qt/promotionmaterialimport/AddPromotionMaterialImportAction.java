@@ -99,7 +99,7 @@ public class AddPromotionMaterialImportAction extends SpineAction {
                     bean.setPrice(NumberUtil.parseInt(formBean.getPrice()[i], 0));
                     bean.setAmount(NumberUtil.parseInt(formBean.getAmount()[i], 0));
                     bean.setPromotionMaterialImportId(formBean.getId());
-                    goodDAO.insertPromotionMaterialImportDetail(bean, formBean.getCreatedDate());
+                    goodDAO.insertPromotionMaterialImportDetail(bean);
                 } else {
                     isUpdate = false;
                     int j = 0;
@@ -128,7 +128,7 @@ public class AddPromotionMaterialImportAction extends SpineAction {
                             isUpdate = true;
                         }
                         if (isUpdate) {
-                            goodDAO.updatePromotionMaterialImportDetail(oldBean, formBean.getCreatedDate());
+                            goodDAO.updatePromotionMaterialImportDetail(oldBean);
                         }
                     }
                 }

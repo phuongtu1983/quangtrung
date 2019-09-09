@@ -112,7 +112,7 @@ public class AddSaleOilReturnAction extends SpineAction {
                     bean.setGapAgencyAmount(NumberUtil.parseDouble(formBean.getGapAgencyAmountDetail()[i], 0));
                     bean.setGapCustomerAmount(NumberUtil.parseDouble(formBean.getGapCustomerAmountDetail()[i], 0));
                     bean.setSaleOilReturnId(formBean.getId());
-                    goodDAO.insertSaleOilReturnDetail(bean, formBean.getCreatedDate());
+                    goodDAO.insertSaleOilReturnDetail(bean);
                 } else {
                     isUpdate = false;
                     int j = 0;
@@ -133,7 +133,7 @@ public class AddSaleOilReturnAction extends SpineAction {
                             isUpdate = true;
                         }
                         if (isUpdate) {
-                            goodDAO.updateSaleOilReturnDetail(oldBean, formBean.getCreatedDate());
+                            goodDAO.updateSaleOilReturnDetail(oldBean);
                         }
                     }
                 }

@@ -3299,7 +3299,7 @@ public class ReportDAO extends BasicDAO {
                         bean.setQuantity(rs.getInt("quantity"));
                         bean.setPrice(rs.getDouble("price"));
                         bean.setCommission(rs.getDouble("commission"));
-                        bean.setAmount(rs.getDouble("amount"));
+                        bean.setAmount(rs.getDouble("amount") - bean.getCommission());
                         if (rs.getInt("is_paid") == 1) {
                             bean.setPaid(bean.getCommission());
                         }

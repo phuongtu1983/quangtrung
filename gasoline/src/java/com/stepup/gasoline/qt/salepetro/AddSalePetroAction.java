@@ -105,7 +105,7 @@ public class AddSalePetroAction extends SpineAction {
                     bean.setPrice(NumberUtil.parseDouble(formBean.getPrice()[i], 0));
                     bean.setAmount(NumberUtil.parseDouble(formBean.getAmount()[i], 0));
                     bean.setSalePetroId(formBean.getId());
-                    goodDAO.insertSalePetroDetail(bean, formBean.getCreatedDate(), formBean.getStoreId());
+                    goodDAO.insertSalePetroDetail(bean);
                 } else {
                     isUpdate = false;
                     int j = 0;
@@ -134,7 +134,7 @@ public class AddSalePetroAction extends SpineAction {
                             isUpdate = true;
                         }
                         if (isUpdate) {
-                            goodDAO.updateSalePetroDetail(oldBean, formBean.getCreatedDate(), formBean.getStoreId());
+                            goodDAO.updateSalePetroDetail(oldBean);
                         }
                     }
                 }
