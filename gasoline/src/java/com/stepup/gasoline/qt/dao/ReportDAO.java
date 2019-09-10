@@ -2101,6 +2101,7 @@ public class ReportDAO extends BasicDAO {
                         bean.setVendorName(rs.getString("vendor_name"));
                         bean.setVendorId(rs.getInt("vendor_id"));
                         bean.setOpeningStock(rs.getInt("opening_stock"));
+                        bean.setOpeningStockTransport(rs.getInt("opening_transport_stock"));
                         list.add(bean);
                     }
                 }
