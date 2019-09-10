@@ -18,6 +18,8 @@ import com.stepup.gasoline.qt.openingstock.lpg.LpgOpeningStockBean;
 import com.stepup.gasoline.qt.openingstock.lpg.LpgOpeningStockUploadBean;
 import com.stepup.gasoline.qt.openingstock.money.MoneyOpeningStockBean;
 import com.stepup.gasoline.qt.openingstock.money.MoneyOpeningStockUploadBean;
+import com.stepup.gasoline.qt.openingstock.oil.OilOpeningStockBean;
+import com.stepup.gasoline.qt.openingstock.oil.OilOpeningStockUploadBean;
 import com.stepup.gasoline.qt.openingstock.petro.PetroOpeningStockBean;
 import com.stepup.gasoline.qt.openingstock.petro.PetroOpeningStockUploadBean;
 import com.stepup.gasoline.qt.openingstock.promotionmaterial.PromotionMaterialOpeningStockBean;
@@ -2738,6 +2740,7 @@ public class ReportDAO extends BasicDAO {
                         openingStock = bean.getDebt();
                         list.add(bean);
                     }
+                    outBean.setEndingStock(openingStock);
                 }
             }
         } catch (SQLException sqle) {
@@ -3048,7 +3051,7 @@ public class ReportDAO extends BasicDAO {
         ArrayList list = new ArrayList();
         ResultSet rs = null;
         try {
-            String sql = "{call report_oil_stock_store(?,?,?,?,?,?,?)}";
+            String sql = "{call report_oil_stock_store(?,?,?,?,?,?,?,?)}";
             if (GenericValidator.isBlankOrNull(fromDate)) {
                 fromDate = DateUtil.today("dd/MM/yyyy");
             }
@@ -3064,31 +3067,28 @@ public class ReportDAO extends BasicDAO {
                 spUtil.getCallableStatement().setInt("_oil_id", oilId);
                 spUtil.getCallableStatement().setString("_session_id", session_id);
                 spUtil.getCallableStatement().registerOutParameter("_oil_ids", Types.VARCHAR);
+                spUtil.getCallableStatement().registerOutParameter("_opening_stock", Types.INTEGER);
 
                 rs = spUtil.executeQuery();
 
                 if (outBean != null) {
                     outBean.setOilIds(spUtil.getCallableStatement().getString("_oil_ids"));
+                    outBean.setOpeningStock(spUtil.getCallableStatement().getInt("_opening_stock"));
                 }
                 if (rs != null) {
                     OilStockReportBean bean = null;
-                    int stock = 0;
-                    boolean firstTime = true;
+                    int stock = outBean.getOpeningStock();
                     while (rs.next()) {
                         bean = new OilStockReportBean();
                         bean.setDate(DateUtil.formatDate(rs.getDate("created_date"), "dd/MM/yyyy"));
                         bean.setOilId(rs.getInt("oil_id"));
                         bean.setImportQuantity(rs.getInt("import_quantity"));
                         bean.setSaleQuantity(rs.getInt("export_quantity"));
-                        if (firstTime) {
-                            stock = rs.getInt("opening_stock");
-                            outBean.setOpeningStock(stock);
-                            firstTime = false;
-                        }
-                        bean.setStock(stock + bean.getImportQuantity() - bean.getSaleQuantity());
-                        stock = bean.getStock();
+                        stock += bean.getImportQuantity() - bean.getSaleQuantity();
+                        bean.setStock(stock);
                         list.add(bean);
                     }
+                    outBean.setClosingStock(stock);
                 }
             }
         } catch (SQLException sqle) {
@@ -3146,7 +3146,7 @@ public class ReportDAO extends BasicDAO {
         ArrayList list = new ArrayList();
         ResultSet rs = null;
         try {
-            String sql = "{call report_oil_stock(?,?,?,?,?,?)}";
+            String sql = "{call report_oil_stock(?,?,?,?,?,?,?)}";
             if (GenericValidator.isBlankOrNull(fromDate)) {
                 fromDate = DateUtil.today("dd/MM/yyyy");
             }
@@ -3161,29 +3161,28 @@ public class ReportDAO extends BasicDAO {
                 spUtil.getCallableStatement().setInt("_oil_id", oilId);
                 spUtil.getCallableStatement().setString("_session_id", session_id);
                 spUtil.getCallableStatement().registerOutParameter("_oil_ids", Types.VARCHAR);
+                spUtil.getCallableStatement().registerOutParameter("_opening_stock", Types.INTEGER);
 
                 rs = spUtil.executeQuery();
 
-                outBean.setOilIds(spUtil.getCallableStatement().getString("_oil_ids"));
+                if (outBean != null) {
+                    outBean.setOilIds(spUtil.getCallableStatement().getString("_oil_ids"));
+                    outBean.setOpeningStock(spUtil.getCallableStatement().getInt("_opening_stock"));
+                }
                 if (rs != null) {
                     OilStockReportBean bean = null;
-                    int stock = 0;
-                    boolean firstTime = true;
+                    int stock = outBean.getOpeningStock();
                     while (rs.next()) {
                         bean = new OilStockReportBean();
                         bean.setDate(DateUtil.formatDate(rs.getDate("created_date"), "dd/MM/yyyy"));
                         bean.setOilId(rs.getInt("oil_id"));
                         bean.setImportQuantity(rs.getInt("import_quantity"));
                         bean.setSaleQuantity(rs.getInt("export_quantity"));
-                        if (firstTime) {
-                            stock = rs.getInt("opening_stock");
-                            outBean.setOpeningStock(stock);
-                            firstTime = false;
-                        }
-                        bean.setStock(stock + bean.getImportQuantity() - bean.getSaleQuantity());
-                        stock = bean.getStock();
+                        stock += bean.getImportQuantity() - bean.getSaleQuantity();
+                        bean.setStock(stock);
                         list.add(bean);
                     }
+                    outBean.setClosingStock(stock);
                 }
             }
         } catch (SQLException sqle) {
@@ -3687,5 +3686,86 @@ public class ReportDAO extends BasicDAO {
             }
         }
         return list;
+    }
+
+    public ArrayList exportOilOpeningStock(String date) throws Exception {
+        SPUtil spUtil = null;
+        ArrayList list = new ArrayList();
+        ResultSet rs = null;
+        try {
+            String sql = "{call export_oil_opening_stock(?)}";
+            if (GenericValidator.isBlankOrNull(date)) {
+                date = DateUtil.today("dd/MM/yyyy");
+            }
+            spUtil = new SPUtil(sql);
+            if (spUtil != null) {
+                spUtil.getCallableStatement().setString("_date", date);
+
+                rs = spUtil.executeQuery();
+
+                if (rs != null) {
+                    OilOpeningStockBean bean = null;
+                    while (rs.next()) {
+                        bean = new OilOpeningStockBean();
+                        bean.setOrganizationName(rs.getString("organization_name"));
+                        bean.setOrganizationId(rs.getInt("organization_id"));
+                        bean.setStoreName(rs.getString("store_name"));
+                        bean.setStoreId(rs.getInt("store_id"));
+                        bean.setOilName(rs.getString("oil_name"));
+                        bean.setOilId(rs.getInt("oil_id"));
+                        bean.setOpeningStock(rs.getInt("opening_stock"));
+                        list.add(bean);
+                    }
+                }
+            }
+        } catch (SQLException sqle) {
+            throw new Exception(sqle.getMessage());
+        } catch (Exception ex) {
+            throw new Exception(ex.getMessage());
+        } finally {
+            try {
+                if (spUtil != null) {
+                    spUtil.closeConnection();
+                }
+                if (rs != null) {
+                    rs.close();
+                    rs = null;
+                }
+            } catch (Exception e) {
+                throw new Exception(e.getMessage());
+            }
+        }
+        return list;
+    }
+
+    public void importOilOpeningStock(String date, OilOpeningStockUploadBean bean) throws Exception {
+        if (bean == null) {
+            return;
+        }
+        SPUtil spUtil = null;
+        try {
+            String sql = "{call importOilOpeningStock(?,?,?,?,?)}";
+            spUtil = new SPUtil(sql);
+            if (spUtil != null) {
+                spUtil.getCallableStatement().setString("_date", date);
+                spUtil.getCallableStatement().setInt("_organization_id", bean.getOrganizationId());
+                spUtil.getCallableStatement().setInt("_store_id", bean.getStoreId());
+                spUtil.getCallableStatement().setInt("_oil_id", bean.getOilId());
+                spUtil.getCallableStatement().setDouble("_in_stock", bean.getOpeningStock());
+                spUtil.execute();
+            }
+        } catch (SQLException sqle) {
+            throw new Exception(sqle.getMessage());
+        } catch (Exception ex) {
+            throw new Exception(ex.getMessage());
+        } finally {
+            try {
+                if (spUtil != null) {
+                    spUtil.closeConnection();
+                }
+            } catch (Exception e) {
+                throw new Exception(e.getMessage());
+            }
+        }
     }
 }

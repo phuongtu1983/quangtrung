@@ -869,6 +869,7 @@ public class PrintReportAction extends BaseAction {
                 }
                 beans.put("dynamicdata" + oil.getId(), list);
                 beans.put("openingStock" + oil.getId(), outBean.getOpeningStock());
+                beans.put("closingStock" + oil.getId(), outBean.getClosingStock());
             }
             reportDAO.clearOilStockReport(sessionId);
 

@@ -69,6 +69,9 @@ public class ExportOpeningStockAction extends BaseAction {
                 } else if (reportName.equals("vendor")) {
                     templateFileName = "ton_dau_ky_nha_cung_cap";
                     list = printVendorOpeningStockReport(date);
+                } else if (reportName.equals("oil")) {
+                    templateFileName = "ton_dau_ky_dau_nhot";
+                    list = printOilOpeningStockReport(date);
                 }
 
                 String sourceFile = request.getSession().getServletContext().getRealPath("/templates/" + templateFileName + ".xls");
@@ -201,4 +204,13 @@ public class ExportOpeningStockAction extends BaseAction {
         return list;
     }
 
+    private ArrayList printOilOpeningStockReport(String date) {
+        ArrayList list = null;
+        try {
+            ReportDAO reportDAO = new ReportDAO();
+            list = reportDAO.exportOilOpeningStock(date);
+        } catch (Exception ex) {
+        }
+        return list;
+    }
 }
