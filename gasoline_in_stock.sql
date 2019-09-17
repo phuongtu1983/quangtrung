@@ -5426,7 +5426,7 @@ BEGIN
 		ORDER BY o.NAME, v.NAME
 		;
 	ELSEIF _kind=3 THEN -- set value
-		SELECT SUM(COALESCE(tbl.amount,0)), SUM(COALESCE(tbl.transport_amount,0)), SUM(COALESCE(tbl.shell_12,0)), SUM(COALESCE(tbl.shell_45,0))
+		SELECT SUM(COALESCE(tbl.amount,0)), SUM(COALESCE(tbl.transport_debt,0)), SUM(COALESCE(tbl.shell_12,0)), SUM(COALESCE(tbl.shell_45,0))
 			INTO _out_amount, _out_transport_amount, _out_shell_12, _out_shell_45
 		FROM organization AS o, vendor AS v, vendor_organization AS vo
 		left join
@@ -8940,28 +8940,28 @@ BEGIN
 		, SUM(tbl.shell_return_12) AS shell_return_12, SUM(tbl.shell_return_45) AS shell_return_45
 	FROM 
 	(
-	SELECT w.created_date, w.paid
-		, SUM(IF(shell_12.id IS NOT NULL, wdet.amount,0)) AS amount_12, SUM(IF(shell_45.id IS NOT NULL, wdet.amount,0)) AS amount_45
-		, SUM(IF(shell_12.id IS NOT NULL, wdet.quantity,0)) AS quantity_12, SUM(IF(shell_45.id IS NOT NULL, wdet.quantity,0)) AS quantity_45
-		, 0 AS shell_return_12, 0 AS shell_return_45
-	FROM gas_import AS w, employee AS eo, gas_import_detail AS wdet, shell_vendor AS sv
-	LEFT JOIN (SELECT s.id FROM shell AS s, shell_kind AS sk WHERE s.kind_id=sk.id AND sk.weight=12) AS shell_12 ON sv.shell_id=shell_12.id
-	LEFT JOIN (SELECT s.id FROM shell AS s, shell_kind AS sk WHERE s.kind_id=sk.id AND sk.weight=45) AS shell_45 ON sv.shell_id=shell_45.id
-	WHERE DATE(w.created_date) >= STR_TO_DATE(_start_date,'%d/%m/%Y') AND DATE(w.created_date) <= STR_TO_DATE(_end_date,'%d/%m/%Y')
-		AND w.id=wdet.gas_import_id AND idet.shell_id=sv.id AND w.vendor_id=_vendor_id 
-		AND w.created_employee_id=eo.id AND _organization_ids LIKE CONCAT('%,',eo.organization_id,',%')	
-	GROUP BY w.id
-	UNION ALL
-	SELECT w.created_date, 0 AS paid, 0 AS amount_12, 0 AS amount_45, 0 AS quantity_12, 0 AS quantity_45
-		, SUM(IF(shell_12.id IS NOT NULL, wdet.quantity,0)) AS shell_return_12
-		, SUM(IF(shell_45.id IS NOT NULL, wdet.quantity,0)) AS shell_return_45
-	FROM shell_return_supplier AS w, employee AS eo, shell_return_supplier_detail AS wdet
-	LEFT JOIN (SELECT s.id FROM shell AS s, shell_kind AS sk WHERE s.kind_id=sk.id AND sk.weight=12) AS shell_12 ON wdet.shell_id=shell_12.id
-	LEFT JOIN (SELECT s.id FROM shell AS s, shell_kind AS sk WHERE s.kind_id=sk.id AND sk.weight=45) AS shell_45 ON wdet.shell_id=shell_45.id
-	WHERE DATE(w.created_date) >= STR_TO_DATE(_start_date,'%d/%m/%Y') AND DATE(w.created_date) <= STR_TO_DATE(_end_date,'%d/%m/%Y')
-		AND w.id=wdet.shell_return_supplier_id AND w.vendor_id=_vendor_id
-		AND w.created_employee_id=eo.id AND _organization_ids LIKE CONCAT('%,',eo.organization_id,',%')	
-	GROUP BY w.id
+		SELECT w.created_date, w.paid
+			, SUM(IF(shell_12.id IS NOT NULL, wdet.amount,0)) AS amount_12, SUM(IF(shell_45.id IS NOT NULL, wdet.amount,0)) AS amount_45
+			, SUM(IF(shell_12.id IS NOT NULL, wdet.quantity,0)) AS quantity_12, SUM(IF(shell_45.id IS NOT NULL, wdet.quantity,0)) AS quantity_45
+			, 0 AS shell_return_12, 0 AS shell_return_45
+		FROM gas_import AS w, employee AS eo, gas_import_detail AS wdet, shell_vendor AS sv
+		LEFT JOIN (SELECT s.id FROM shell AS s, shell_kind AS sk WHERE s.kind_id=sk.id AND sk.weight=12) AS shell_12 ON sv.shell_id=shell_12.id
+		LEFT JOIN (SELECT s.id FROM shell AS s, shell_kind AS sk WHERE s.kind_id=sk.id AND sk.weight=45) AS shell_45 ON sv.shell_id=shell_45.id
+		WHERE DATE(w.created_date) >= STR_TO_DATE(_start_date,'%d/%m/%Y') AND DATE(w.created_date) <= STR_TO_DATE(_end_date,'%d/%m/%Y')
+			AND w.id=wdet.gas_import_id AND wdet.shell_id=sv.id AND w.vendor_id=_vendor_id 
+			AND w.created_employee_id=eo.id AND _organization_ids LIKE CONCAT('%,',eo.organization_id,',%')	
+		GROUP BY w.id
+		UNION ALL
+		SELECT w.created_date, 0 AS paid, 0 AS amount_12, 0 AS amount_45, 0 AS quantity_12, 0 AS quantity_45
+			, SUM(IF(shell_12.id IS NOT NULL, wdet.quantity,0)) AS shell_return_12
+			, SUM(IF(shell_45.id IS NOT NULL, wdet.quantity,0)) AS shell_return_45
+		FROM shell_return_supplier AS w, employee AS eo, shell_return_supplier_detail AS wdet
+		LEFT JOIN (SELECT s.id FROM shell AS s, shell_kind AS sk WHERE s.kind_id=sk.id AND sk.weight=12) AS shell_12 ON wdet.shell_id=shell_12.id
+		LEFT JOIN (SELECT s.id FROM shell AS s, shell_kind AS sk WHERE s.kind_id=sk.id AND sk.weight=45) AS shell_45 ON wdet.shell_id=shell_45.id
+		WHERE DATE(w.created_date) >= STR_TO_DATE(_start_date,'%d/%m/%Y') AND DATE(w.created_date) <= STR_TO_DATE(_end_date,'%d/%m/%Y')
+			AND w.id=wdet.shell_return_supplier_id AND w.vendor_id=_vendor_id
+			AND w.created_employee_id=eo.id AND _organization_ids LIKE CONCAT('%,',eo.organization_id,',%')	
+		GROUP BY w.id
 	) AS tbl
 	GROUP BY tbl.created_date
 	ORDER BY tbl.created_date;
@@ -10213,80 +10213,86 @@ DELIMITER $$
 
 /*!50003 CREATE DEFINER=`root`@`localhost` PROCEDURE `report_oil_vendor_debt`(IN _start_date VARCHAR(20), IN _end_date VARCHAR(20), IN _organization_ids TEXT)
 BEGIN
-	DECLARE _from_date DATE;
+	DECLARE _from_date, _to_date DATE;
 	
-	SELECT STR_TO_DATE(_start_date,'%d/%m/%Y') INTO _from_date;
+	IF _start_date<>'' THEN
+		SELECT STR_TO_DATE(_start_date,'%d/%m/%Y') INTO _to_date;
+	ELSE
+		SELECT SYSDATE() INTO _to_date;
+	END IF;
+	
+	SELECT `day` INTO _from_date FROM vendor_in_stock WHERE DATEDIFF(`day`, _to_date) <= 0 LIMIT 1;
+	IF _from_date IS NULL THEN
+		SELECT DATE_ADD(_to_date, INTERVAL -1 DAY) INTO _from_date;
+	END IF;
 	
 	SELECT v.CODE AS vendor_code, v.NAME AS vendor_name, tbl_vendor_stock.amount AS opening_stock
 		, SUM(COALESCE(tbl_oil_import.amount,0)) AS amount
 		, SUM(COALESCE(tbl_vendor_debt.amount,0) + COALESCE(tbl_oil_import.paid,0)) AS paid
 	FROM vendor AS v, organization AS o, vendor_organization AS vo
 	LEFT JOIN (
-		SELECT vo.organization_id, vo.vendor_id, sum(COALESCE(tbl_old_stock.amount,0) + COALESCE(stock.amount,0)) AS amount
-		FROM vendor_organization_id AS vo, organization AS o, vendor AS v
-		LEFT JOIN (
-			SELECT vendor_id, organization_id, amount
+		SELECT vo.organization_id, vo.vendor_id, sum(COALESCE(stock.debt,0)) AS amount
+		FROM organization AS o, vendor AS v, vendor_organization AS vo
+		left join
+		(
+			SELECT vendor_id, organization_id, amount as debt
 			FROM vendor_in_stock
 			WHERE DATEDIFF(`day`, _from_date) >= 0 AND DATEDIFF(`day`, _to_date) <= 0  AND _organization_ids LIKE CONCAT('%,',organization_id,',%')
-		) AS tbl_old_stock ON tbl_old_stock.vendor_id=vo.vendor_id AND tbl_old_stock.organization_id=vo.organization_id
-		LEFT JOIN (
-			SELECT tbl.vendor_id, tbl.organization_id, SUM(tbl.debt) AS amount
-			FROM (
-				SELECT i.vendor_id, eo.organization_id, COALESCE(i.debt,0) AS debt
-				FROM lpg_import AS i, employee AS eo
-				WHERE DATE(i.import_date) > _from_date AND DATE(i.import_date) <= _to_date
-					AND i.created_employee_id=eo.id AND _organization_ids LIKE CONCAT('%,',eo.organization_id,',%')
-				UNION ALL
-				SELECT i.vendor_id, eo.organization_id, COALESCE(i.debt,0) AS debt
-				FROM gas_import AS i, employee AS eo
-				WHERE DATE(i.created_date) > _from_date AND DATE(i.created_date) <= _to_date
-					AND i.created_employee_id=eo.id AND _organization_ids LIKE CONCAT('%,',eo.organization_id,',%')
-				UNION ALL
-				SELECT i.vendor_id, eo.organization_id, COALESCE(i.debt,0) AS debt
-				FROM oil_import AS i, employee AS eo
-				WHERE DATE(i.created_date) > _from_date AND DATE(i.created_date) <= _to_date
-					AND i.created_employee_id=eo.id AND _organization_ids LIKE CONCAT('%,',eo.organization_id,',%')
-				UNION ALL
-				SELECT i.vendor_id, eo.organization_id, - COALESCE(IF(i.kind=1,i.paid,0),0) AS debt
-				FROM vendor_debt AS i, employee AS eo
-				WHERE DATE(i.created_date) > _from_date AND DATE(i.created_date) <= _to_date
-					AND i.created_employee_id=eo.id AND _organization_ids LIKE CONCAT('%,',eo.organization_id,',%')
-				UNION ALL
-				SELECT i.vendor_id, eo.organization_id, COALESCE(i.debt,0) AS debt
-				FROM promotion_material_import AS i, employee AS eo
-				WHERE DATE(i.created_date) > _from_date AND DATE(i.created_date) <= _to_date
-					AND i.created_employee_id=eo.id AND _organization_ids LIKE CONCAT('%,',eo.organization_id,',%')
-				UNION ALL
-				SELECT i.vendor_id, eo.organization_id, COALESCE(i.debt,0) AS debt
-				FROM accessory_import AS i, employee AS eo
-				WHERE DATE(i.created_date) > _from_date AND DATE(i.created_date) <= _to_date
-					AND i.created_employee_id=eo.id AND _organization_ids LIKE CONCAT('%,',eo.organization_id,',%')
-				UNION ALL
-				SELECT i.vendor_id, eo.organization_id, COALESCE(i.debt,0) AS debt
-				FROM debt_adjustment AS i, employee AS eo
-				WHERE DATE(i.created_date) > _from_date AND DATE(i.created_date) <= _to_date
-					AND i.created_employee_id=eo.id AND i.vendor_id<>0 AND i.kind=1
+			union all
+			SELECT i.vendor_id, eo.organization_id, COALESCE(i.debt,0) AS debt
+			FROM lpg_import AS i, employee AS eo
+			WHERE DATE(i.import_date) > _from_date AND DATE(i.import_date) < _to_date
+				AND i.created_employee_id=eo.id AND _organization_ids LIKE CONCAT('%,',eo.organization_id,',%')
+			UNION ALL
+			SELECT i.vendor_id, eo.organization_id, COALESCE(i.debt,0) AS debt
+			FROM gas_import AS i, employee AS eo
+			WHERE DATE(i.created_date) > _from_date AND DATE(i.created_date) < _to_date
+				AND i.created_employee_id=eo.id AND _organization_ids LIKE CONCAT('%,',eo.organization_id,',%')
+			UNION ALL
+			SELECT i.vendor_id, eo.organization_id, COALESCE(i.debt,0) AS debt
+			FROM oil_import AS i, employee AS eo
+			WHERE DATE(i.created_date) > _from_date AND DATE(i.created_date) < _to_date
+				AND i.created_employee_id=eo.id AND _organization_ids LIKE CONCAT('%,',eo.organization_id,',%')
+			UNION ALL
+			SELECT i.vendor_id, eo.organization_id, - COALESCE(IF(i.kind=1,i.paid,0),0) AS debt
+			FROM vendor_debt AS i, employee AS eo
+			WHERE DATE(i.created_date) > _from_date AND DATE(i.created_date) < _to_date
+				AND i.created_employee_id=eo.id AND _organization_ids LIKE CONCAT('%,',eo.organization_id,',%')
+			UNION ALL
+			SELECT i.vendor_id, eo.organization_id, COALESCE(i.debt,0) AS debt
+			FROM promotion_material_import AS i, employee AS eo
+			WHERE DATE(i.created_date) > _from_date AND DATE(i.created_date) < _to_date
+				AND i.created_employee_id=eo.id AND _organization_ids LIKE CONCAT('%,',eo.organization_id,',%')
+			UNION ALL
+			SELECT i.vendor_id, eo.organization_id, COALESCE(i.debt,0) AS debt
+			FROM accessory_import AS i, employee AS eo
+			WHERE DATE(i.created_date) > _from_date AND DATE(i.created_date) < _to_date
+				AND i.created_employee_id=eo.id AND _organization_ids LIKE CONCAT('%,',eo.organization_id,',%')
+			UNION ALL
+			SELECT i.vendor_id, eo.organization_id, COALESCE(i.amount,0) AS debt
+			FROM debt_adjustment AS i, employee AS eo
+			WHERE DATE(i.created_date) > _from_date AND DATE(i.created_date) < _to_date
+				AND i.created_employee_id=eo.id AND i.vendor_id<>0 AND i.kind=1
+				 AND _organization_ids LIKE CONCAT('%,',eo.organization_id,',%')
+			UNION ALL
+			SELECT i.vendor_id, eo.organization_id, COALESCE(i.debt,0) AS debt
+			FROM good_import AS i, employee AS eo
+			WHERE DATE(i.created_date) > _from_date AND DATE(i.created_date) < _to_date
+				AND i.created_employee_id=eo.id AND _organization_ids LIKE CONCAT('%,',eo.organization_id,',%')
+			UNION ALL
+			SELECT i.vendor_id, eo.organization_id, COALESCE(i.debt,0) AS debt
+			FROM petro_import AS i, employee AS eo
+			WHERE DATE(i.created_date) > _from_date AND DATE(i.created_date) < _to_date
+				AND i.created_employee_id=eo.id AND _organization_ids LIKE CONCAT('%,',eo.organization_id,',%')
+			UNION ALL
+			SELECT idet.vendor_id, eo.organization_id, -COALESCE(idet.quantity*idet.price_before_commission,0) AS debt
+			FROM oil_sale_detail AS idet, oil_sale AS i, employee AS eo
+			WHERE DATE(i.created_date) > _from_date AND DATE(i.created_date) < _to_date
+				AND i.created_employee_id=eo.id AND i.id=idet.oil_sale_id
 					 AND _organization_ids LIKE CONCAT('%,',eo.organization_id,',%')
-				UNION ALL
-				SELECT i.vendor_id, eo.organization_id, COALESCE(i.debt,0) AS debt
-				FROM good_import AS i, employee AS eo
-				WHERE DATE(i.created_date) > _from_date AND DATE(i.created_date) <= _to_date
-					AND i.created_employee_id=eo.id AND _organization_ids LIKE CONCAT('%,',eo.organization_id,',%')
-				UNION ALL
-				SELECT i.vendor_id, eo.organization_id, COALESCE(i.debt,0) AS debt
-				FROM petro_import AS i, employee AS eo
-				WHERE DATE(i.created_date) > _from_date AND DATE(i.created_date) <= _to_date
-					AND i.created_employee_id=eo.id AND _organization_ids LIKE CONCAT('%,',eo.organization_id,',%')
-				UNION ALL
-				SELECT idet.vendor_id, eo.organization_id, -COALESCE(idet.quantity*idet.price_before_commission,0) AS debt
-				FROM oil_sale_detail AS idet, oil_sale AS i, employee AS eo
-				WHERE DATE(i.created_date) > _from_date AND DATE(i.created_date) <= _to_date
-					AND i.created_employee_id=eo.id AND i.id=idet.oil_sale_id
-					 AND _organization_ids LIKE CONCAT('%,',eo.organization_id,',%')
-			) AS tbl GROUP BY tbl.vendor_id, tbl.organization_id
 		) AS stock ON stock.organization_id=vo.organization_id AND stock.vendor_id=vo.vendor_id
 		WHERE vo.organization_id=o.id AND vo.vendor_id=v.id AND v.STATUS=1 AND o.STATUS=1 AND _organization_ids LIKE CONCAT('%,',vo.organization_id,',%')
-		GROUP BY vo.vendor_id, vo.organization_id
+		GROUP BY vo.organization_id, vo.vendor_id
 		ORDER BY o.NAME, v.NAME
 	) AS tbl_vendor_stock ON vo.vendor_id=tbl_vendor_stock.vendor_id AND vo.organization_id=tbl_vendor_stock.organization_id
 	LEFT JOIN (
@@ -11320,75 +11326,81 @@ DELIMITER $$
 
 /*!50003 CREATE DEFINER=`root`@`localhost` PROCEDURE `report_vendor_debt`(IN _start_date VARCHAR(20), IN _end_date VARCHAR(20), IN _organization_ids TEXT)
 BEGIN
-	DECLARE _from_date DATE;
+	DECLARE _from_date, _to_date DATE;
 	
-	SELECT STR_TO_DATE(_start_date,'%d/%m/%Y') INTO _from_date;
+	IF _start_date<>'' THEN
+		SELECT STR_TO_DATE(_start_date,'%d/%m/%Y') INTO _to_date;
+	ELSE
+		SELECT SYSDATE() INTO _to_date;
+	END IF;
+	
+	SELECT `day` INTO _from_date FROM vendor_in_stock WHERE DATEDIFF(`day`, _to_date) <= 0 LIMIT 1;
+	IF _from_date IS NULL THEN
+		SELECT DATE_ADD(_to_date, INTERVAL -1 DAY) INTO _from_date;
+	END IF;
 	
 	SELECT v.CODE AS vendor_code, v.NAME AS vendor_name, tbl_vendor_stock.amount AS opening_stock, SUM(i.amount) AS amount, SUM(i.paid) AS paid
 	FROM vendor AS v, organization AS o, vendor_organization AS vo
 	LEFT JOIN (
-		SELECT vo.organization_id, vo.vendor_id, SUM(COALESCE(tbl_old_stock.amount,0) + COALESCE(stock.amount,0)) AS amount
-		FROM vendor_organization_id AS vo, organization AS o, vendor AS v
-		LEFT JOIN (
-			SELECT vendor_id, organization_id, amount
+		SELECT vo.organization_id, vo.vendor_id, SUM(COALESCE(stock.debt,0)) AS amount
+		FROM organization AS o, vendor AS v, vendor_organization AS vo
+		left join
+		(
+			SELECT vendor_id, organization_id, amount as debt
 			FROM vendor_in_stock
 			WHERE DATEDIFF(`day`, _from_date) >= 0 AND DATEDIFF(`day`, _to_date) <= 0  AND _organization_ids LIKE CONCAT('%,',organization_id,',%')
-		) AS tbl_old_stock ON tbl_old_stock.vendor_id=vo.vendor_id AND tbl_old_stock.organization_id=vo.organization_id
-		LEFT JOIN (
-			SELECT tbl.vendor_id, tbl.organization_id, SUM(tbl.debt) AS amount
-			FROM (
-				SELECT i.vendor_id, eo.organization_id, COALESCE(i.debt,0) AS debt
-				FROM lpg_import AS i, employee AS eo
-				WHERE DATE(i.import_date) > _from_date AND DATE(i.import_date) <= _to_date
-					AND i.created_employee_id=eo.id AND _organization_ids LIKE CONCAT('%,',eo.organization_id,',%')
-				UNION ALL
-				SELECT i.vendor_id, eo.organization_id, COALESCE(i.debt,0) AS debt
-				FROM gas_import AS i, employee AS eo
-				WHERE DATE(i.created_date) > _from_date AND DATE(i.created_date) <= _to_date
-					AND i.created_employee_id=eo.id AND _organization_ids LIKE CONCAT('%,',eo.organization_id,',%')
-				UNION ALL
-				SELECT i.vendor_id, eo.organization_id, COALESCE(i.debt,0) AS debt
-				FROM oil_import AS i, employee AS eo
-				WHERE DATE(i.created_date) > _from_date AND DATE(i.created_date) <= _to_date
-					AND i.created_employee_id=eo.id AND _organization_ids LIKE CONCAT('%,',eo.organization_id,',%')
-				UNION ALL
-				SELECT i.vendor_id, eo.organization_id, - COALESCE(IF(i.kind=1,i.paid,0),0) AS debt
-				FROM vendor_debt AS i, employee AS eo
-				WHERE DATE(i.created_date) > _from_date AND DATE(i.created_date) <= _to_date
-					AND i.created_employee_id=eo.id AND _organization_ids LIKE CONCAT('%,',eo.organization_id,',%')
-				UNION ALL
-				SELECT i.vendor_id, eo.organization_id, COALESCE(i.debt,0) AS debt
-				FROM promotion_material_import AS i, employee AS eo
-				WHERE DATE(i.created_date) > _from_date AND DATE(i.created_date) <= _to_date
-					AND i.created_employee_id=eo.id AND _organization_ids LIKE CONCAT('%,',eo.organization_id,',%')
-				UNION ALL
-				SELECT i.vendor_id, eo.organization_id, COALESCE(i.debt,0) AS debt
-				FROM accessory_import AS i, employee AS eo
-				WHERE DATE(i.created_date) > _from_date AND DATE(i.created_date) <= _to_date
-					AND i.created_employee_id=eo.id AND _organization_ids LIKE CONCAT('%,',eo.organization_id,',%')
-				UNION ALL
-				SELECT i.vendor_id, eo.organization_id, COALESCE(i.debt,0) AS debt
-				FROM debt_adjustment AS i, employee AS eo
-				WHERE DATE(i.created_date) > _from_date AND DATE(i.created_date) <= _to_date
-					AND i.created_employee_id=eo.id AND i.vendor_id<>0 AND i.kind=1
-					 AND _organization_ids LIKE CONCAT('%,',eo.organization_id,',%')
-				UNION ALL
-				SELECT i.vendor_id, eo.organization_id, COALESCE(i.debt,0) AS debt
-				FROM good_import AS i, employee AS eo
-				WHERE DATE(i.created_date) > _from_date AND DATE(i.created_date) <= _to_date
-					AND i.created_employee_id=eo.id AND _organization_ids LIKE CONCAT('%,',eo.organization_id,',%')
-				UNION ALL
-				SELECT i.vendor_id, eo.organization_id, COALESCE(i.debt,0) AS debt
-				FROM petro_import AS i, employee AS eo
-				WHERE DATE(i.created_date) > _from_date AND DATE(i.created_date) <= _to_date
-					AND i.created_employee_id=eo.id AND _organization_ids LIKE CONCAT('%,',eo.organization_id,',%')
-				UNION ALL
-				SELECT idet.vendor_id, eo.organization_id, -COALESCE(idet.quantity*idet.price_before_commission,0) AS debt
-				FROM oil_sale_detail AS idet, oil_sale AS i, employee AS eo
-				WHERE DATE(i.created_date) > _from_date AND DATE(i.created_date) <= _to_date
-					AND i.created_employee_id=eo.id AND i.id=idet.oil_sale_id
-					 AND _organization_ids LIKE CONCAT('%,',eo.organization_id,',%')
-			) AS tbl GROUP BY tbl.vendor_id, tbl.organization_id
+			union all
+			SELECT i.vendor_id, eo.organization_id, COALESCE(i.debt,0) AS debt
+			FROM lpg_import AS i, employee AS eo
+			WHERE DATE(i.import_date) > _from_date AND DATE(i.import_date) < _to_date
+				AND i.created_employee_id=eo.id AND _organization_ids LIKE CONCAT('%,',eo.organization_id,',%')
+			UNION ALL
+			SELECT i.vendor_id, eo.organization_id, COALESCE(i.debt,0) AS debt
+			FROM gas_import AS i, employee AS eo
+			WHERE DATE(i.created_date) > _from_date AND DATE(i.created_date) < _to_date
+				AND i.created_employee_id=eo.id AND _organization_ids LIKE CONCAT('%,',eo.organization_id,',%')
+			UNION ALL
+			SELECT i.vendor_id, eo.organization_id, COALESCE(i.debt,0) AS debt
+			FROM oil_import AS i, employee AS eo
+			WHERE DATE(i.created_date) > _from_date AND DATE(i.created_date) < _to_date
+				AND i.created_employee_id=eo.id AND _organization_ids LIKE CONCAT('%,',eo.organization_id,',%')
+			UNION ALL
+			SELECT i.vendor_id, eo.organization_id, - COALESCE(IF(i.kind=1,i.paid,0),0) AS debt
+			FROM vendor_debt AS i, employee AS eo
+			WHERE DATE(i.created_date) > _from_date AND DATE(i.created_date) < _to_date
+				AND i.created_employee_id=eo.id AND _organization_ids LIKE CONCAT('%,',eo.organization_id,',%')
+			UNION ALL
+			SELECT i.vendor_id, eo.organization_id, COALESCE(i.debt,0) AS debt
+			FROM promotion_material_import AS i, employee AS eo
+			WHERE DATE(i.created_date) > _from_date AND DATE(i.created_date) < _to_date
+				AND i.created_employee_id=eo.id AND _organization_ids LIKE CONCAT('%,',eo.organization_id,',%')
+			UNION ALL
+			SELECT i.vendor_id, eo.organization_id, COALESCE(i.debt,0) AS debt
+			FROM accessory_import AS i, employee AS eo
+			WHERE DATE(i.created_date) > _from_date AND DATE(i.created_date) < _to_date
+				AND i.created_employee_id=eo.id AND _organization_ids LIKE CONCAT('%,',eo.organization_id,',%')
+			UNION ALL
+			SELECT i.vendor_id, eo.organization_id, COALESCE(i.amount,0) AS debt
+			FROM debt_adjustment AS i, employee AS eo
+			WHERE DATE(i.created_date) > _from_date AND DATE(i.created_date) < _to_date
+				AND i.created_employee_id=eo.id AND i.vendor_id<>0 AND i.kind=1
+				 AND _organization_ids LIKE CONCAT('%,',eo.organization_id,',%')
+			UNION ALL
+			SELECT i.vendor_id, eo.organization_id, COALESCE(i.debt,0) AS debt
+			FROM good_import AS i, employee AS eo
+			WHERE DATE(i.created_date) > _from_date AND DATE(i.created_date) < _to_date
+				AND i.created_employee_id=eo.id AND _organization_ids LIKE CONCAT('%,',eo.organization_id,',%')
+			UNION ALL
+			SELECT i.vendor_id, eo.organization_id, COALESCE(i.debt,0) AS debt
+			FROM petro_import AS i, employee AS eo
+			WHERE DATE(i.created_date) > _from_date AND DATE(i.created_date) < _to_date
+				AND i.created_employee_id=eo.id AND _organization_ids LIKE CONCAT('%,',eo.organization_id,',%')
+			UNION ALL
+			SELECT idet.vendor_id, eo.organization_id, -COALESCE(idet.quantity*idet.price_before_commission,0) AS debt
+			FROM oil_sale_detail AS idet, oil_sale AS i, employee AS eo
+			WHERE DATE(i.created_date) > _from_date AND DATE(i.created_date) < _to_date
+				AND i.created_employee_id=eo.id AND i.id=idet.oil_sale_id
+				 AND _organization_ids LIKE CONCAT('%,',eo.organization_id,',%')
 		) AS stock ON stock.organization_id=vo.organization_id AND stock.vendor_id=vo.vendor_id
 		WHERE vo.organization_id=o.id AND vo.vendor_id=v.id AND v.STATUS=1 AND o.STATUS=1 AND _organization_ids LIKE CONCAT('%,',vo.organization_id,',%')
 		GROUP BY vo.vendor_id, vo.organization_id
