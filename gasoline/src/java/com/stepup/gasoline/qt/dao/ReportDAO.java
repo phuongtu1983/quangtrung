@@ -50,6 +50,7 @@ import com.stepup.gasoline.qt.report.LpgStockReportOutBean;
 import com.stepup.gasoline.qt.report.LpgStockSumReportOutBean;
 import com.stepup.gasoline.qt.report.OilImportReportBean;
 import com.stepup.gasoline.qt.report.OilSaleReportBean;
+import com.stepup.gasoline.qt.report.OilStockHReportBean;
 import com.stepup.gasoline.qt.report.OilStockReportBean;
 import com.stepup.gasoline.qt.report.OilStockReportOutBean;
 import com.stepup.gasoline.qt.report.PetroImportReportBean;
@@ -488,7 +489,7 @@ public class ReportDAO extends BasicDAO {
                         bean.setPrice12(rs.getDouble("price_12"));
                         bean.setPrice45(rs.getDouble("price_45"));
                         bean.setPaid(rs.getDouble("paid"));
-                        bean.setAmount(bean.getQuantity12() * bean.getPrice12() + bean.getQuantity45() * bean.getPrice45());
+                        bean.setAmount(rs.getDouble("total"));
                         list.add(bean);
                     }
                 }
@@ -3712,6 +3713,7 @@ public class ReportDAO extends BasicDAO {
                         bean.setOrganizationId(rs.getInt("organization_id"));
                         bean.setStoreName(rs.getString("store_name"));
                         bean.setStoreId(rs.getInt("store_id"));
+                        bean.setOilCode(rs.getString("oil_code"));
                         bean.setOilName(rs.getString("oil_name"));
                         bean.setOilId(rs.getInt("oil_id"));
                         bean.setOpeningStock(rs.getInt("opening_stock"));
@@ -3768,5 +3770,118 @@ public class ReportDAO extends BasicDAO {
                 throw new Exception(e.getMessage());
             }
         }
+    }
+
+    public ArrayList getOilStockStoreHReport(String fromDate, String endDate, String organizationIds, int storeId) throws Exception {
+        SPUtil spUtil = null;
+        ArrayList list = new ArrayList();
+        ResultSet rs = null;
+        try {
+            String sql = "{call report_oil_stock_store_h(?,?,?,?)}";
+            if (GenericValidator.isBlankOrNull(fromDate)) {
+                fromDate = DateUtil.today("dd/MM/yyyy");
+            }
+            if (GenericValidator.isBlankOrNull(endDate)) {
+                endDate = BasicDAO.START_DATE;
+            }
+            spUtil = new SPUtil(sql);
+            if (spUtil != null) {
+                spUtil.getCallableStatement().setString("_start_date", fromDate);
+                spUtil.getCallableStatement().setString("_end_date", endDate);
+                spUtil.getCallableStatement().setString("_organization_ids", organizationIds);
+                spUtil.getCallableStatement().setInt("_store_id", storeId);
+
+                rs = spUtil.executeQuery();
+
+                if (rs != null) {
+                    OilStockHReportBean bean = null;
+                    int count = 1;
+                    while (rs.next()) {
+                        bean = new OilStockHReportBean();
+                        bean.setCount(count++);
+                        bean.setOilCode(rs.getString("code"));
+                        bean.setOilName(rs.getString("name"));
+                        bean.setOpeningStock(rs.getInt("opening_stock"));
+                        bean.setImportQuantity(rs.getInt("import_quantity"));
+                        bean.setExportQuantity(rs.getInt("export_quantity"));
+                        bean.setClosingStock(bean.getOpeningStock() + bean.getImportQuantity() - bean.getExportQuantity());
+                        list.add(bean);
+                    }
+                }
+            }
+        } catch (SQLException sqle) {
+            throw new Exception(sqle.getMessage());
+        } catch (Exception ex) {
+            throw new Exception(ex.getMessage());
+        } finally {
+            try {
+                if (spUtil != null) {
+                    spUtil.closeConnection();
+                }
+                if (rs != null) {
+                    rs.close();
+                    rs = null;
+                }
+            } catch (Exception e) {
+                throw new Exception(e.getMessage());
+            }
+        }
+        return list;
+    }
+    
+    public ArrayList getOilStockHReport(String fromDate, String endDate, String organizationIds) throws Exception {
+        SPUtil spUtil = null;
+        ArrayList list = new ArrayList();
+        ResultSet rs = null;
+        try {
+            String sql = "{call report_oil_stock_h(?,?,?)}";
+            if (GenericValidator.isBlankOrNull(fromDate)) {
+                fromDate = DateUtil.today("dd/MM/yyyy");
+            }
+            if (GenericValidator.isBlankOrNull(endDate)) {
+                endDate = BasicDAO.START_DATE;
+            }
+            spUtil = new SPUtil(sql);
+            if (spUtil != null) {
+                spUtil.getCallableStatement().setString("_start_date", fromDate);
+                spUtil.getCallableStatement().setString("_end_date", endDate);
+                spUtil.getCallableStatement().setString("_organization_ids", organizationIds);
+
+                rs = spUtil.executeQuery();
+
+                if (rs != null) {
+                    OilStockHReportBean bean = null;
+                    int count = 1;
+                    while (rs.next()) {
+                        bean = new OilStockHReportBean();
+                        bean.setCount(count++);
+                        bean.setOilCode(rs.getString("code"));
+                        bean.setOilName(rs.getString("name"));
+                        bean.setOpeningStock(rs.getInt("opening_stock"));
+                        bean.setImportQuantity(rs.getInt("import_quantity"));
+                        bean.setExportQuantity(rs.getInt("export_quantity"));
+                        bean.setClosingStock(bean.getOpeningStock() + bean.getImportQuantity() - bean.getExportQuantity());
+                        list.add(bean);
+                    }
+                }
+            }
+        } catch (SQLException sqle) {
+            throw new Exception(sqle.getMessage());
+        } catch (Exception ex) {
+            throw new Exception(ex.getMessage());
+        } finally {
+            try {
+                if (spUtil != null) {
+                    spUtil.closeConnection();
+                }
+                if (rs != null) {
+                    rs.close();
+                    rs = null;
+                }
+            } catch (Exception e) {
+                throw new Exception(e.getMessage());
+            }
+        }
+        return list;
     }
 }

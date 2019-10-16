@@ -69,7 +69,14 @@
                                 <button class="i_plus icon small green" onclick="return addOilImportOil();" tabindex="-1"><bean:message key="message.add"/></button>
                             </td>
                             <td>
-                                <select style="width: 260px;" name="oilIdCombobox" id="oilIdCombobox">
+                                <select style="width: 100px;" name="oilCodeCombobox" id="oilCodeCombobox">
+                                    <logic:iterate id="oil_iter" name="<%=Constants.OIL_LIST%>">
+                                        <option  value="${oil_iter.id}">${oil_iter.code}</option>
+                                    </logic:iterate>
+                                </select>
+                            </td>
+                            <td>
+                                <select style="width: 300px;" name="oilNameCombobox" id="oilNameCombobox">
                                     <logic:iterate id="oil_iter" name="<%=Constants.OIL_LIST%>">
                                         <option  value="${oil_iter.id}">${oil_iter.name}</option>
                                     </logic:iterate>

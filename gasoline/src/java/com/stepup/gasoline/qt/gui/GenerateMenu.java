@@ -1118,8 +1118,14 @@ public class GenerateMenu {
                     if (isHasPermission(PermissionUtil.OPERATION_PRINT, PermissionUtil.PER_REPORT_OIL_STOCK)) {
                         buffTemp.append("<item id=\"reportoilstock\" text=\"").append(QTUtil.getBundleString("report.oilStock.title")).append("\"/>");
                     }
+                    if (isHasPermission(PermissionUtil.OPERATION_PRINT, PermissionUtil.PER_REPORT_OIL_STOCK)) {
+                        buffTemp.append("<item id=\"reportoilstockh\" text=\"").append(QTUtil.getBundleString("report.oilStockH.title")).append("\"/>");
+                    }
                     if (isHasPermission(PermissionUtil.OPERATION_PRINT, PermissionUtil.PER_REPORT_OIL_STOCK_SUM)) {
                         buffTemp.append("<item id=\"reportoilstocksum\" text=\"").append(QTUtil.getBundleString("report.oilStockSum.title")).append("\"/>");
+                    }
+                    if (isHasPermission(PermissionUtil.OPERATION_PRINT, PermissionUtil.PER_REPORT_OIL_STOCK_SUM)) {
+                        buffTemp.append("<item id=\"reportoilstocksumh\" text=\"").append(QTUtil.getBundleString("report.oilStockSumH.title")).append("\"/>");
                     }
                     if (isHasPermission(PermissionUtil.OPERATION_PRINT, PermissionUtil.PER_REPORT_OIL_SALE)) {
                         buffTemp.append("<item id=\"reportoilsale\" text=\"").append(QTUtil.getBundleString("report.oilSale.title")).append("\"/>");

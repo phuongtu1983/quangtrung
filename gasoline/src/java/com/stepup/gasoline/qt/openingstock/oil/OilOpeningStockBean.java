@@ -14,6 +14,7 @@ public class OilOpeningStockBean {
     private int organizationId;
     private String organizationName;
     private int oilId;
+    private String oilCode;
     private String oilName;
     private int storeId;
     private String storeName;
@@ -73,6 +74,14 @@ public class OilOpeningStockBean {
 
     public void setOpeningStock(int openingStock) {
         this.openingStock = openingStock;
+    }
+
+    public String getOilCode() {
+        return oilCode;
+    }
+
+    public void setOilCode(String oilCode) {
+        this.oilCode = oilCode;
     }
 
 }

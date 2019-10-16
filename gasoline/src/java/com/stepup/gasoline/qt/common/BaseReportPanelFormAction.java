@@ -103,6 +103,8 @@ public class BaseReportPanelFormAction extends SpineAction {
             header = QTUtil.getBundleString("report.oilCommissionCustomer.title");
         } else if (name.equals("reportoilcustomerdebt")) {
             header = QTUtil.getBundleString("report.oilCustomerDebt.title");
+        }else if (name.equals("reportoilstocksumh")) {
+            header = QTUtil.getBundleString("report.oilStockSumH.title");
         }
         reportBean.setName(name);
         reportBean.setHeader(header);

@@ -11,6 +11,7 @@ var savedFromDate = '';
 var savedToDate = '';
 var savedDayoff = 0;
 var savedQuantityDayoff = 0;
+var selectedCombo='';
 function createLayout() {
     dhxLayout = new dhtmlXLayoutObject(document.body, "2E", "dhx_web");
     dhxLayout.setEffect("resize", false);
@@ -300,7 +301,8 @@ function menuClick(id) {
     else if (id == 'reportlpgimport' || id == 'reportlpgstock' || id == 'reportlpgstocksum' || id == 'reportsum' || id == 'reportsalecustomer' || id == 'reportsale'
             || id == 'reportcashbook' || id == 'reportpetroimport' || id == 'reportpetrosale' || id == 'reportpetrostock' || id == 'reportgascommission'
             || id == 'reportgasemployeecommission' || id == 'reportvendordebt' || id == 'reporttransportfee' || id == 'reportvehiclesale' || id == 'reportlpgsale'
-            || id == 'reportshell' || id == 'reportoilimport' || id == 'reportoilstocksum' || id == 'reportoilsale' || id == 'reportoilvendordebt')
+            || id == 'reportshell' || id == 'reportoilimport' || id == 'reportoilstocksum' || id == 'reportoilsale' || id == 'reportoilvendordebt'
+            || id == 'reportoilstocksumh')
         showReportPanel(id);
     else if (id == 'reportemployeesalary')
         showMonthlyReportPanel(id);
@@ -422,6 +424,8 @@ function menuClick(id) {
         getSaleOil(0);
     else if (id == 'reportoilstock')
         showOilStockStoreReportPanel();
+    else if (id == 'reportoilstockh')
+        showOilStockStoreHReportPanel();
     else if (id == 'reportoilcommissionagency')
         showCompareAgencyCommissionReportPanel();
     else if (id == 'reportoilcommissioncustomer')
@@ -469,12 +473,14 @@ function formPaidDiscountChanged(formName) {
     if (total == null || paid == null || debt == null || totalPay == null)
         return false;
     totalPay.value = reformatNumberMoneyString(total.value) * 1;
-    if(discount!=null) totalPay.value = totalPay.value - reformatNumberMoneyString(discount.value) * 1;
+    if (discount != null)
+        totalPay.value = totalPay.value - reformatNumberMoneyString(discount.value) * 1;
     debt.value = reformatNumberMoneyString(totalPay.value) * 1 - reformatNumberMoneyString(paid.value) * 1;
     tryNumberFormatCurrentcy(total, "VND");
     tryNumberFormatCurrentcy(paid, "VND");
     tryNumberFormatCurrentcy(debt, "VND");
-    if(discount!=null) tryNumberFormatCurrentcy(discount, "VND");
+    if (discount != null)
+        tryNumberFormatCurrentcy(discount, "VND");
     tryNumberFormatCurrentcy(totalPay, "VND");
     total = null;
     paid = null;
@@ -13577,15 +13583,23 @@ function getOilImport(id) {
 
         window.dhx_globalImgPath = "js/dhtmlx/combo/imgs/";
         // ============================
-        var oilIdCombobox = dhtmlXComboFromSelect("oilIdCombobox");
-        oilIdCombobox.enableFilteringMode(true);
-        oilIdCombobox.attachEvent("onSelectionChange", function() {
-            setOilSelectedForm('oilImportForm', oilIdCombobox.getComboText(), oilIdCombobox.getSelectedValue());
+        var oilCodeCombobox = dhtmlXComboFromSelect("oilCodeCombobox");
+        var oilNameCombobox = dhtmlXComboFromSelect("oilNameCombobox");
+        
+        oilCodeCombobox.enableFilteringMode(true);
+        oilNameCombobox.enableFilteringMode(true);
+        
+        oilNameCombobox.attachEvent("onSelectionChange", function() {
+            setOilSelectedForm('oilImportForm', oilNameCombobox.getComboText(), oilNameCombobox.getSelectedValue());
+            if(oilNameCombobox.getSelectedValue()==null || selectedCombo!='') return;
+            selectedCombo='oilNameCombobox';
+            oilCodeCombobox.selectOption(oilCodeCombobox.getIndexByValue(oilNameCombobox.getSelectedValue()));
+            selectedCombo='';
         });
-        oilIdCombobox.attachEvent("onBlur", function() {
-            setOilSelectedForm('oilImportForm', oilIdCombobox.getComboText(), oilIdCombobox.getSelectedValue());
+        oilNameCombobox.attachEvent("onBlur", function() {
+            setOilSelectedForm('oilImportForm', oilNameCombobox.getComboText(), oilNameCombobox.getSelectedValue());
         });
-        oilIdCombobox.DOMelem_input.onkeypress = function(event) {
+        oilNameCombobox.DOMelem_input.onkeypress = function(event) {
             var key;
             if (window.event)
                 key = window.event.keyCode;//IE
@@ -13593,16 +13607,48 @@ function getOilImport(id) {
                 key = event.which;//firefox
             if (key == 13) {
                 addOilImportOil();
-                oilIdCombobox.setComboValue("");
+                oilNameCombobox.setComboValue("");
+                oilCodeCombobox.setComboValue("");
             }
         }
-        oilIdCombobox.DOMelem_input.onfocus = function(event) {
+        oilNameCombobox.DOMelem_input.onfocus = function(event) {
             if (isManuallySeleted == 1) {
-                oilIdCombobox.openSelect();
+                oilNameCombobox.openSelect();
                 isManuallySeleted = 0;
             }
         }
-        oilIdCombobox.setComboValue("");
+        
+        oilCodeCombobox.attachEvent("onSelectionChange", function() {
+            setOilSelectedForm('oilImportForm', oilCodeCombobox.getComboText(), oilCodeCombobox.getSelectedValue());
+            if(oilNameCombobox.getSelectedValue()==null || selectedCombo!='') return;
+            selectedCombo='oilNameCombobox';
+            oilNameCombobox.selectOption(oilNameCombobox.getIndexByValue(oilCodeCombobox.getSelectedValue()));
+            selectedCombo='';
+        });
+        oilCodeCombobox.attachEvent("onBlur", function() {
+            setOilSelectedForm('oilImportForm', oilCodeCombobox.getComboText(), oilCodeCombobox.getSelectedValue());
+        });
+        oilCodeCombobox.DOMelem_input.onkeypress = function(event) {
+            var key;
+            if (window.event)
+                key = window.event.keyCode;//IE
+            else
+                key = event.which;//firefox
+            if (key == 13) {
+                addOilImportOil();
+                oilCodeCombobox.setComboValue("");
+                oilNameCombobox.setComboValue("");
+            }
+        }
+        oilCodeCombobox.DOMelem_input.onfocus = function(event) {
+            if (isManuallySeleted == 1) {
+                oilCodeCombobox.openSelect();
+                isManuallySeleted = 0;
+            }
+        }
+        
+        oilCodeCombobox.setComboValue("");
+        oilNameCombobox.setComboValue("");
     });
 }
 function saveOilImport() {
@@ -13801,15 +13847,23 @@ function getSaleOil(id) {
 
         window.dhx_globalImgPath = "js/dhtmlx/combo/imgs/";
         // ============================
-        var oilIdCombobox = dhtmlXComboFromSelect("oilIdCombobox");
-        oilIdCombobox.enableFilteringMode(true);
-        oilIdCombobox.attachEvent("onSelectionChange", function() {
-            setOilSelectedForm('saleOilForm', oilIdCombobox.getComboText(), oilIdCombobox.getSelectedValue());
+        var oilCodeCombobox = dhtmlXComboFromSelect("oilCodeCombobox");
+        var oilNameCombobox = dhtmlXComboFromSelect("oilNameCombobox");
+        
+        oilCodeCombobox.enableFilteringMode(true);
+        oilNameCombobox.enableFilteringMode(true);
+        
+        oilNameCombobox.attachEvent("onSelectionChange", function() {
+            setOilSelectedForm('saleOilForm', oilNameCombobox.getComboText(), oilNameCombobox.getSelectedValue());
+            if(oilNameCombobox.getSelectedValue()==null || selectedCombo!='') return;
+            selectedCombo='oilNameCombobox';
+            oilCodeCombobox.selectOption(oilCodeCombobox.getIndexByValue(oilNameCombobox.getSelectedValue()));
+            selectedCombo='';
         });
-        oilIdCombobox.attachEvent("onBlur", function() {
-            setOilSelectedForm('saleOilForm', oilIdCombobox.getComboText(), oilIdCombobox.getSelectedValue());
+        oilNameCombobox.attachEvent("onBlur", function() {
+            setOilSelectedForm('saleOilForm', oilNameCombobox.getComboText(), oilNameCombobox.getSelectedValue());
         });
-        oilIdCombobox.DOMelem_input.onkeypress = function(event) {
+        oilNameCombobox.DOMelem_input.onkeypress = function(event) {
             var key;
             if (window.event)
                 key = window.event.keyCode;//IE
@@ -13817,16 +13871,48 @@ function getSaleOil(id) {
                 key = event.which;//firefox
             if (key == 13) {
                 addSaleOilOil();
-                oilIdCombobox.setComboValue("");
+                oilNameCombobox.setComboValue("");
+                oilCodeCombobox.setComboValue("");
             }
         }
-        oilIdCombobox.DOMelem_input.onfocus = function(event) {
+        oilNameCombobox.DOMelem_input.onfocus = function(event) {
             if (isManuallySeleted == 1) {
-                oilIdCombobox.openSelect();
+                oilNameCombobox.openSelect();
                 isManuallySeleted = 0;
             }
         }
-        oilIdCombobox.setComboValue("");
+        
+        oilCodeCombobox.attachEvent("onSelectionChange", function() {
+            setOilSelectedForm('saleOilForm', oilCodeCombobox.getComboText(), oilCodeCombobox.getSelectedValue());
+            if(oilCodeCombobox.getSelectedValue()==null || selectedCombo!='') return;
+            selectedCombo='oilCodeCombobox';
+            oilNameCombobox.selectOption(oilNameCombobox.getIndexByValue(oilCodeCombobox.getSelectedValue()));
+            selectedCombo='';
+        });
+        oilCodeCombobox.attachEvent("onBlur", function() {
+            setOilSelectedForm('saleOilForm', oilCodeCombobox.getComboText(), oilCodeCombobox.getSelectedValue());
+        });
+        oilCodeCombobox.DOMelem_input.onkeypress = function(event) {
+            var key;
+            if (window.event)
+                key = window.event.keyCode;//IE
+            else
+                key = event.which;//firefox
+            if (key == 13) {
+                addSaleOilOil();
+                oilCodeCombobox.setComboValue("");
+                oilNameCombobox.setComboValue("");
+            }
+        }
+        oilCodeCombobox.DOMelem_input.onfocus = function(event) {
+            if (isManuallySeleted == 1) {
+                oilCodeCombobox.openSelect();
+                isManuallySeleted = 0;
+            }
+        }
+        
+        oilNameCombobox.setComboValue("");
+        oilCodeCombobox.setComboValue("");
         // ============================
         var customerIdCombobox = dhtmlXComboFromSelect("customerIdCombobox");
         customerIdCombobox.enableFilteringMode(true);
@@ -15345,6 +15431,50 @@ function printOilCustomerDebtReport(fromDate, toDate) {
         url += "&toDate=" + toDate;
     list = null;
     url += "&customerId=" + document.forms['reportOilCustomerDebtSearchForm'].customerSelectedHidden.value;
+    callServer(url);
+    return false;
+}
+function showOilStockStoreHReportPanel() {
+    popupName = 'S\u1ED5 theo d\u00F5i NXT d\u1EA7u nh\u1EDBt theo c\u1EEDa h\u00E0ng';
+    var url = 'getOilStockStoreHReportPanel.do';
+    callAjax(url, null, null, function(data) {
+        showPopupForm(data);
+        var myCalendar = new dhtmlXCalendarObject(["fromDate", "toDate"]);
+        myCalendar.setSkin('dhx_web');
+        var currentTime = getCurrentDate();
+        document.forms['reportOilStockStoreHSearchForm'].fromDate.value = currentTime;
+        document.forms['reportOilStockStoreHSearchForm'].toDate.value = currentTime;
+        myCalendar.setDateFormat("%d/%m/%Y");
+    });
+}
+function printOilStockStoreHReport(fromDate, toDate) {
+    var list = document.getElementById("reportOilStockStoreHSearchFormTime");
+    if (list == null || list.selectedIndex == -1)
+        return false;
+    if (list.selectedIndex == 1) {
+        fromDate = "01/" + fromDate;
+        var ind = toDate.indexOf("/");
+        var month = toDate.substring(0, ind);
+        var year = toDate.substring(ind + 1);
+        toDate = month + "/01/" + year;
+        var d = new Date(toDate);
+        var lastDay = new Date(d.getFullYear(), d.getMonth() + 1, 0).getDate();
+        toDate = lastDay + "/" + month + "/" + year;
+    } else if (list.selectedIndex == 2) {
+        fromDate = "01/01/" + fromDate;
+        toDate = "31/12/" + toDate;
+    }
+    var url = "reportOilStockStoreHPrint.do?temp=1";
+    if (fromDate !== null)
+        url += "&fromDate=" + fromDate;
+    if (toDate !== null)
+        url += "&toDate=" + toDate;
+    list = document.forms['reportOilStockStoreHSearchForm'].storeId;
+    if (list != null && list.selectedIndex > -1)
+        list = list.options[list.selectedIndex].value;
+    else
+        list = 0;
+    url += "&storeId=" + list;
     callServer(url);
     return false;
 }

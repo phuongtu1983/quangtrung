@@ -1349,6 +1349,11 @@
         </action>
         <action path="/reportOilCustomerDebtPrint" type="com.stepup.gasoline.qt.report.oilcustomerdebt.PrintOilCustomerDebtReportAction" scope="request" validate="false" >
         </action>
+        <action path="/getOilStockStoreHReportPanel" type="com.stepup.gasoline.qt.report.oilstockstoreh.OilStockStoreHReportPanelFormAction" scope="request" validate="false">
+            <forward name="success" path="/report/oilstockstoreh/panel.jsp" />
+        </action>
+        <action path="/reportOilStockStoreHPrint" type="com.stepup.gasoline.qt.report.oilstockstoreh.PrintOilStockStoreHReportAction" scope="request" validate="false" >
+        </action>
         <!-- end report -->
         <!-- start good -->
         <action path="/getGoodPanel" type="com.stepup.gasoline.qt.common.BaseStatusFormAction" scope="request" validate="false">
