@@ -17,6 +17,7 @@ import com.stepup.gasoline.qt.bean.EmployeeBean;
 import com.stepup.gasoline.qt.bean.CustomerBean;
 import com.stepup.gasoline.qt.bean.CustomerDocumentBean;
 import com.stepup.gasoline.qt.bean.DiscountBean;
+import com.stepup.gasoline.qt.bean.DiscountCommissionCustomerBean;
 import com.stepup.gasoline.qt.bean.DiscountCommissionDetailBean;
 import com.stepup.gasoline.qt.bean.DocumentBean;
 import com.stepup.gasoline.qt.bean.VendorBean;
@@ -601,6 +602,7 @@ public class CustomerDAO extends BasicDAO {
                 bean.setName(rs.getString("name"));
                 bean.setCode(rs.getString("code"));
                 bean.setNote(rs.getString("note"));
+                bean.setShellGasComission(rs.getDouble("shell_gas_commission"));
                 return bean;
             }
         } catch (SQLException sqle) {
@@ -1048,6 +1050,33 @@ public class CustomerDAO extends BasicDAO {
         return detailList;
     }
 
+    public ArrayList getDiscountCommissionCustomer(int discountId) throws Exception {
+        ResultSet rs = null;
+        String sql = "select det.*, c.name as customer_name from discount_oil_customer as det, customer as c where det.customer_id=c.id and det.discount_id=" + discountId + " order by c.name";
+        ArrayList detailList = new ArrayList();
+        try {
+            rs = DBUtil.executeQuery(sql);
+            DiscountCommissionCustomerBean bean = null;
+            while (rs.next()) {
+                bean = new DiscountCommissionCustomerBean();
+                bean.setId(rs.getInt("id"));
+                bean.setDiscountId(rs.getInt("discount_id"));
+                bean.setCustomerId(rs.getInt("customer_id"));
+                bean.setCustomerName(rs.getString("customer_name"));
+                detailList.add(bean);
+            }
+        } catch (SQLException sqle) {
+            throw new Exception(sqle.getMessage());
+        } catch (Exception ex) {
+            throw new Exception(ex.getMessage());
+        } finally {
+            if (rs != null) {
+                DBUtil.closeConnection(rs);
+            }
+        }
+        return detailList;
+    }
+    
     public int insertDiscountCommissionDetail(DiscountCommissionDetailBean bean) throws Exception {
         if (bean == null) {
             return 0;

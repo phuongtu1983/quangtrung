@@ -30,6 +30,8 @@ CREATE TABLE `accessory` (
   PRIMARY KEY (`id`)
 ) ENGINE=MyISAM AUTO_INCREMENT=7 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
+/*Data for the table `accessory` */
+
 /*Table structure for table `accessory_import` */
 
 DROP TABLE IF EXISTS `accessory_import`;
@@ -48,6 +50,8 @@ CREATE TABLE `accessory_import` (
   PRIMARY KEY (`id`)
 ) ENGINE=MyISAM AUTO_INCREMENT=3 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
+/*Data for the table `accessory_import` */
+
 /*Table structure for table `accessory_import_detail` */
 
 DROP TABLE IF EXISTS `accessory_import_detail`;
@@ -62,6 +66,8 @@ CREATE TABLE `accessory_import_detail` (
   PRIMARY KEY (`id`)
 ) ENGINE=MyISAM AUTO_INCREMENT=3 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
+/*Data for the table `accessory_import_detail` */
+
 /*Table structure for table `accessory_in_stock` */
 
 DROP TABLE IF EXISTS `accessory_in_stock`;
@@ -75,6 +81,8 @@ CREATE TABLE `accessory_in_stock` (
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
+/*Data for the table `accessory_in_stock` */
+
 /*Table structure for table `accessory_kind` */
 
 DROP TABLE IF EXISTS `accessory_kind`;
@@ -87,6 +95,10 @@ CREATE TABLE `accessory_kind` (
   `status` int(1) DEFAULT '1' COMMENT '0:bi khoa,1:dang hoat dong',
   PRIMARY KEY (`id`)
 ) ENGINE=MyISAM AUTO_INCREMENT=3 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+/*Data for the table `accessory_kind` */
+
+insert  into `accessory_kind`(`id`,`name`,`commission`,`note`,`status`) values (1,'Bếp',1000,'Bếp',1),(2,'Phụ kiện',2000,'Phụ kiện',1);
 
 /*Table structure for table `accessory_sale` */
 
@@ -107,6 +119,8 @@ CREATE TABLE `accessory_sale` (
   PRIMARY KEY (`id`)
 ) ENGINE=MyISAM AUTO_INCREMENT=2 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
+/*Data for the table `accessory_sale` */
+
 /*Table structure for table `accessory_sale_change_detail` */
 
 DROP TABLE IF EXISTS `accessory_sale_change_detail`;
@@ -121,6 +135,8 @@ CREATE TABLE `accessory_sale_change_detail` (
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
+/*Data for the table `accessory_sale_change_detail` */
+
 /*Table structure for table `accessory_sale_detail` */
 
 DROP TABLE IF EXISTS `accessory_sale_detail`;
@@ -134,6 +150,8 @@ CREATE TABLE `accessory_sale_detail` (
   `amount` double DEFAULT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+/*Data for the table `accessory_sale_detail` */
 
 /*Table structure for table `account` */
 
@@ -151,6 +169,10 @@ CREATE TABLE `account` (
   PRIMARY KEY (`id`)
 ) ENGINE=MyISAM AUTO_INCREMENT=12 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
+/*Data for the table `account` */
+
+insert  into `account`(`id`,`number`,`holder`,`bank`,`branch`,`organization_id`,`note`,`is_cash`) values (5,'Tiền mặt','Cao Huy Hoàng','Quang Trung','Quang Trung',1,'',1),(4,'6002201001366','Công ty TNHH Quang Trung','Agribank','Huyện Xuyên Mộc, Tỉnh Bà Rịa Vũng Tàu',1,'',0),(7,'Tiền mặt','Hiệp Hương','Hiệp Hương','Hiệp Hương',14,'',1),(8,'34567890','Hiệp Hương','Sacombank','Gò Vấp, TP.HCM',14,'',0),(9,'050014822604','Công ty TNHH Quang Trung','Ngân hàng TMCP Sài Gòn Thương Tín (Sacombank)','Huyện Xuyên Mộc, Tỉnh Bà Rịa Vũng Tàu',1,'',0),(10,'112002659273','Công ty TNHH Quang Trung','Ngân hàng TMCP Công Thương Việt Nam (Viettin)','Huyện Xuyên Mộc, Tỉnh Bà Rịa Vũng Tàu',1,'',0),(11,'050034401079','Cao Huy Hoàng','NH TMCP SG Thương Tín SacomBank (Thái Bảo)','Xuyên Mộc',1,'',0);
+
 /*Table structure for table `agency` */
 
 DROP TABLE IF EXISTS `agency`;
@@ -165,6 +187,10 @@ CREATE TABLE `agency` (
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
+/*Data for the table `agency` */
+
+insert  into `agency`(`id`,`name`,`address`,`phone`,`note`,`status`) values (1,'Anh Thái','','','',1),(2,'THAI','','','',1);
+
 /*Table structure for table `agency_commission` */
 
 DROP TABLE IF EXISTS `agency_commission`;
@@ -178,6 +204,10 @@ CREATE TABLE `agency_commission` (
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
+/*Data for the table `agency_commission` */
+
+insert  into `agency_commission`(`id`,`agency_id`,`commission_from`,`commission_to`,`commission`) values (1,1,0,20,25),(2,1,20,100,27.5);
+
 /*Table structure for table `agency_customer` */
 
 DROP TABLE IF EXISTS `agency_customer`;
@@ -187,7 +217,11 @@ CREATE TABLE `agency_customer` (
   `agency_id` int(11) DEFAULT NULL,
   `customer_id` int(11) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=22 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=21 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+/*Data for the table `agency_customer` */
+
+insert  into `agency_customer`(`id`,`agency_id`,`customer_id`) values (9,1,228),(10,1,230),(11,1,229),(12,1,234),(13,1,322),(14,1,271),(15,1,282),(16,1,285),(17,1,286),(18,1,291),(19,1,302),(20,1,318);
 
 /*Table structure for table `attachment_file` */
 
@@ -205,6 +239,8 @@ CREATE TABLE `attachment_file` (
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
+/*Data for the table `attachment_file` */
+
 /*Table structure for table `auto` */
 
 DROP TABLE IF EXISTS `auto`;
@@ -215,6 +251,8 @@ CREATE TABLE `auto` (
   `auto_name` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+/*Data for the table `auto` */
 
 /*Table structure for table `borrow` */
 
@@ -232,6 +270,8 @@ CREATE TABLE `borrow` (
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
+/*Data for the table `borrow` */
+
 /*Table structure for table `borrow_detail` */
 
 DROP TABLE IF EXISTS `borrow_detail`;
@@ -243,6 +283,8 @@ CREATE TABLE `borrow_detail` (
   `amount` double DEFAULT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+/*Data for the table `borrow_detail` */
 
 /*Table structure for table `contract` */
 
@@ -262,6 +304,8 @@ CREATE TABLE `contract` (
   `created_employee_id` int(11) DEFAULT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+/*Data for the table `contract` */
 
 /*Table structure for table `customer` */
 
@@ -287,7 +331,11 @@ CREATE TABLE `customer` (
   `commission_kind` int(1) DEFAULT '1' COMMENT '1:chiet khau tren bill, 2:chiet khau truc tiep tren gia ban',
   `note` text COLLATE utf8_unicode_ci,
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM AUTO_INCREMENT=332 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=MyISAM AUTO_INCREMENT=328 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+/*Data for the table `customer` */
+
+insert  into `customer`(`id`,`code`,`name`,`organization_id`,`status`,`address`,`phone`,`bank_account`,`tax`,`presenter`,`presenter_position`,`is_gas`,`is_petro`,`is_good`,`is_oil`,`commission_percentage`,`commission_kind`,`note`) values (1,'TP','Công ty TNHH Gốm Tân Phát',1,1,'Lô số 164, Đường N1, Cụm công nghiệp Gốm sứ, Ấp 4, xã Tân Hạnh, Tp. Biên Hòa, Tỉnh Đồng Nai','0915. 87.36.37','','3603454432','Nguyễn Thị Thanh Thúy','Giám đốc',1,0,0,0,NULL,1,NULL),(2,'LPGHH','Cửa hàng LPG Huy Hoàng',1,1,'Số 125/5 ấp Phú Tâm, xã Hòa Hiệp, huyện Xuyên Mộc, tỉnh Bà Rịa Vũng Tàu','0988789713','','123456789','Nguyễn Tiến Công','Giám đốc',1,0,0,0,NULL,1,NULL),(9,'STXM','Cửa hàng Gas Sơn Trang',1,1,'Quốc lộ 55','2543777888','','','','',1,0,0,0,NULL,1,NULL),(11,'TMPB','Cửa hàng LPG Tài Mai',1,1,'','','','','','',1,0,0,0,NULL,1,NULL),(12,'ahtl','Ánh Hồng',1,1,'Xã Tân Lâm, Huyện Xuyên Mộc, Tỉnh Bà Rịa Vũng Tàu','','','','','',1,0,0,0,NULL,1,NULL),(13,'bbpt','Ba Bế',1,1,'Xã Phước Thuận, Huyện Xuyên Mộc, Tỉnh Bà Rịa Vũng Tàu','','','','','',1,0,0,0,NULL,1,NULL),(14,'bbl','Bảy Bàu Lâm',1,1,'Xã Bàu Lâm, Huyện Xuyên Mộc, Tỉnh Bà Rịa Vũng Tàu','','','','','',1,0,0,0,NULL,1,NULL),(15,'bpb','Bắc Phước Bửu',1,1,'Thị trấn Phước Bửu, Huyện Xuyên Mộc, Tỉnh Bà Rịa Vũng Tàu','','','','','',1,0,0,0,NULL,1,NULL),(16,'hsbc','Hiền Soi Bình Châu',1,1,'Xã Bình Châu, Huyện Xuyên Mộc, Tỉnh Bà Rịa Vũng Tàu','','','','','',1,0,0,0,NULL,1,NULL),(17,'mtlg','Mười Thúy',1,1,'Thị Xã Lagi, Huyện Hàm Tân, Tỉnh Bình Thuận','','','','','',1,0,0,0,0,1,''),(18,'thxm','Tấn Hùng',1,1,'Xã Xuyên Mộc, Huyện Xuyên Mộc, Tỉnh Bà Rịa Vũng Tàu','','','','','',1,0,0,0,NULL,1,NULL),(19,'tlpt','Thanh Liêm',1,1,'Xã Phước Tân, Huyện Xuyên Mộc, Tỉnh Bà Rịa Vũng Tàu','','','','','',1,0,0,0,NULL,1,NULL),(20,'bcpb','Bé Cầu',1,1,'Thị trấn Phước Bửu, Huyện Xuyên Mộc, Tỉnh Bà Rịa Vũng Tàu','','','','','',1,0,0,0,NULL,1,NULL),(21,'chpb','Chí Hiếu',1,1,'Thị trấn Phước Bửu, Huyện Xuyên Mộc, Tỉnh Bà Rịa Vũng Tàu','','','','','',1,0,0,0,NULL,1,NULL),(22,'btpb','Bảy Thành',1,1,'Thị trấn Phước Bửu, Huyện Xuyên Mộc, Tỉnh Bà Rịa Vũng Tàu','','','','','',1,0,0,0,NULL,1,NULL),(23,'bupb','Bưởi Bà Tô',1,1,'Thị trấn Phước Bửu, Huyện Xuyên Mộc, Tỉnh Bà Rịa Vũng Tàu','','','','','',1,0,0,0,NULL,1,NULL),(24,'calg','Chị An',1,1,'Thị Xã Lagi, Huyện Hàm Tân, Tỉnh Bình Thuận','','','','','',1,0,0,0,NULL,1,NULL),(25,'capt','Carmelia Hồ Tràm',1,1,'Xã Phước Thuận, Huyện Xuyên Mộc, Tỉnh Bà Rịa Vũng Tàu','','','','','',1,0,0,0,NULL,1,NULL),(26,'qkxm','Quyền Kim',1,1,'Xã Xuyên Mộc, Huyện Xuyên Mộc, Tỉnh Bà Rịa Vũng Tàu','','','','','',1,0,0,0,NULL,1,NULL),(27,'ctsr','Chính Thức',1,1,'Xã Sông Ray, Huyện Cẩm Mỹ, Tỉnh Đồng Nai','','','','','',1,0,0,0,NULL,1,NULL),(28,'dhhb','Diệu Hiền',1,1,'Xã Hoà Bình, Huyện Xuyên Mộc, Tỉnh Bà Rịa Vũng Tàu','','','','','',1,0,0,0,NULL,1,NULL),(29,'dtbk','Duy Tuyên',1,1,'Bưng Kè, Xã Hoà Hiệp Huyện Xuyên Mộc, Tỉnh Bà Rịa Vũng Tàu','','','','','',1,0,0,0,NULL,1,NULL),(30,'ddnth','Được Duy Nhất',1,1,'Xã Thắng Hải, Huyện Hàm Tân, Tỉnh Bình Thuận','','','','','',1,0,0,0,NULL,1,NULL),(31,'dpbc','Đại Phát',1,1,'Xã Bình Châu, Huyện Xuyên Mộc, Tỉnh Bà Rịa Vũng Tàu','','','','','',1,0,0,0,NULL,1,NULL),(32,'gcbc','Gái Cường',1,1,'Xã Bình Châu, Huyện Xuyên Mộc, Tỉnh Bà Rịa Vũng Tàu','','','','','',1,0,0,0,NULL,1,NULL),(33,'hbc','Hai Bình Châu',1,1,'Xã Bình Châu, Huyện Xuyên Mộc, Tỉnh Bà Rịa Vũng Tàu','','','','','',1,0,0,0,NULL,1,NULL),(34,'hctl','Huyền Chương',1,1,'Xã Tân Lâm, Huyện Xuyên Mộc, Tỉnh Bà Rịa Vũng Tàu','','','','','',1,0,0,0,NULL,1,NULL),(35,'hdbk','Hoa Đào',1,1,'Bưng Kè, Xã Hoà Hiệp, Huyện Xuyên Mộc, Tỉnh Bà Rịa Vũng Tàu','','','','','',1,0,0,0,NULL,1,NULL),(36,'hhxm','Huy Hoàng Xuyên Mộc',1,2,'Xã Xuyên Mộc, Huyện Xuyên Mộc, Tỉnh Bà Rịa Vũng Tàu','','','','','',1,0,0,0,NULL,1,NULL),(37,'hhbk','Hà Hương Bưng Kè',1,1,'Bưng Kè, Xã Hoà Hiệp, Huyện Xuyên Mộc, Tỉnh Bà Rịa Vũng Tàu','','','','','',1,0,0,0,NULL,1,NULL),(38,'hlbk','Hoàng Lịch Bưng Kè',1,1,'Bưng Kè, Xã Hoà Hiệp, Huyện Xuyên Mộc, Tỉnh Bà Rịa Vũng Tàu','','','','','',1,0,0,0,NULL,1,NULL),(39,'hmsm','Hán Minh',1,1,'Xã Sơn Mỹ, Huyện Hàm Tân, Tỉnh Bình Thuận','','','','','',1,0,0,0,NULL,1,NULL),(40,'hphh','Hùng Phát',1,1,'Xã Hoà Hội, Huyện Xuyên Mộc, Tỉnh Bà Rịa Vũng Tàu','','','','','',1,0,0,0,NULL,1,NULL),(41,'hqpt','Hoàng Quân',1,1,'Xã Phước Thuận, Huyện Xuyên Mộc, Tỉnh Bà Rịa Vũng Tàu','','','','','',1,0,0,0,NULL,1,NULL),(42,'hvhb','Hoàn Vân',1,1,'Xã Hoà Bình, Huyện Xuyên Mộc, Tỉnh Bà Rịa Vũng Tàu','','','','','',1,0,0,0,NULL,1,NULL),(43,'kbcm','Khánh Bằng',1,1,'Xã Sông Ray, Huyện Cẩm Mỹ, Tỉnh Đồng Nai','','','','','',1,0,0,0,NULL,1,NULL),(44,'kclg','Kim Chi',1,1,'Thị Xã Lagi, Huyện Hàm Tân, Tỉnh Bình Thuận','','','','','',1,0,0,0,NULL,1,NULL),(45,'ksbc','Kim Sương',1,1,'Xã Bình Châu, Huyện Xuyên Mộc, Tỉnh Bà Rịa Vũng Tàu','','','','','',1,0,0,0,NULL,1,NULL),(46,'ktbr','Kim Trọng Bưng Riềng',1,1,'Xã Bưng Riềng, Huyện Xuyên Mộc, Tỉnh Bà Rịa Vũng Tàu','','','','','',1,0,0,0,NULL,1,NULL),(47,'kthtl','Kim Thúy Hậu',1,1,'Xã Tân Lâm, Huyện Xuyên Mộc, Tỉnh Bà Rịa Vũng Tàu','','','','','',1,0,0,0,0,1,''),(48,'khhh','Kim Hoa',1,1,'Xã Hoà Hội, Huyện Xuyên Mộc, Tỉnh Bà Rịa Vũng Tàu','','','','','',1,0,0,0,NULL,1,NULL),(49,'lpb','Loan Bà Tô',1,1,'Thị trấn Phước Bửu, Huyện Xuyên Mộc, Tỉnh Bà Rịa Vũng Tàu','','','','','',1,0,0,0,NULL,1,NULL),(50,'lbc','Linh Bình Châu',1,1,'Xã Bình Châu, Huyện Xuyên Mộc, Tỉnh Bà Rịa Vũng Tàu','','','','','',1,0,0,0,NULL,1,NULL),(51,'lhbk','Lý Hải',1,1,'Bưng Kè, Xã Hoà Hiệp, Huyện Xuyên Mộc, Tỉnh Bà Rịa Vũng Tàu','','','','','',1,0,0,0,NULL,1,NULL),(52,'lpt','Liên Đội 3',1,1,'Xã Phước Tân, Huyện Xuyên Mộc, Tỉnh Bà Rịa Vũng Tàu','','','','','',1,0,0,0,NULL,1,NULL),(53,'lspb','Lịch Sử',1,1,'Thị trấn Phước Bửu, Huyện Xuyên Mộc, Tỉnh Bà Rịa Vũng Tàu','','','','','',1,0,0,0,NULL,1,NULL),(54,'lthh','Lài Thi',1,1,'Xã Hoà Hội, Huyện Xuyên Mộc, Tỉnh Bà Rịa Vũng Tàu','','','','','',1,0,0,0,NULL,1,NULL),(55,'ltsr','Long Tứ',1,1,'Xã Sông Ray, Huyện Cẩm Mỹ, Tỉnh Đồng Nai','','','','','',1,0,0,0,NULL,1,NULL),(56,'mcpb','Minh Châu Phước Bửu',1,1,'Thị trấn Phước Bửu, Huyện Xuyên Mộc, Tỉnh Bà Rịa Vũng Tàu','','','','','',1,0,0,0,NULL,1,NULL),(57,'mdbc','Mỹ Dung',1,1,'Xã Bình Châu, Huyện Xuyên Mộc, Tỉnh Bà Rịa Vũng Tàu','','','','','',1,0,0,0,NULL,1,NULL),(58,'mdsr','Minh Điệp',1,1,'Xã Sông Ray, Huyện Cẩm Mỹ, Tỉnh Đồng Nai','','','','','',1,0,0,0,NULL,1,NULL),(59,'mdubc','Minh Đức',1,1,'Xã Bình Châu, Huyện Xuyên Mộc, Tỉnh Bà Rịa Vũng Tàu','','','','','',1,0,0,0,NULL,1,NULL),(60,'mnbc','Mầm Non Bình Châu',1,1,'Xã Bình Châu, Huyện Xuyên Mộc, Tỉnh Bà Rịa Vũng Tàu','','','','','',1,0,0,0,NULL,1,NULL),(61,'mtbl','Minh Tuấn',1,1,'Xã Bàu Lâm, Huyện Xuyên Mộc, Tỉnh Bà Rịa Vũng Tàu','','','','','',1,0,0,0,NULL,1,NULL),(62,'mtlg','Minh Tú',1,1,'Thị Xã Lagi, Huyện Hàm Tân, Tỉnh Bình Thuận','','','','','',1,0,0,0,NULL,1,NULL),(63,'ndpb','Nguyễn Du',1,1,'Thị trấn Phước Bửu, Huyện Xuyên Mộc, Tỉnh Bà Rịa Vũng Tàu','','','','','',1,0,0,0,NULL,1,NULL),(64,'ntbl','Nguyên Thảo',1,1,'Xã Bàu Lâm, Huyện Xuyên Mộc, Tỉnh Bà Rịa Vũng Tàu','','','','','',1,0,0,0,NULL,1,NULL),(65,'nttt','Ngọc Tâm',1,1,'Xã Tân Thắng, Huyện Hàm Tân, Tỉnh Bình Thuận','','','','','',1,0,0,0,NULL,1,NULL),(66,'pd46','Phạm Đăng',1,1,'Ngã Tư 46, Huyện Hàm Tân, Tỉnh Bình Thuận','','','','','',1,0,0,0,NULL,1,NULL),(67,'plbc','Phú Lộc',1,1,'Xã Bình Châu, Huyện Xuyên Mộc, Tỉnh Bà Rịa Vũng Tàu','','','','','',1,0,0,0,NULL,1,NULL),(68,'pm46','Phúc Mai',1,1,'Ngã Tư 46, Huyện Hàm Tân, Tỉnh Bình Thuận','','','','','',1,0,0,0,NULL,1,NULL),(69,'pt46','Phụng Tập',1,1,'Ngã Tư 46, Huyện Hàm Tân, Tỉnh Bình Thuận','','','','','',1,0,0,0,NULL,1,NULL),(70,'ptsr','Phương Thảo Sông Ray',1,1,'Xã Sông Ray, Huyện Cẩm Mỹ, Tỉnh Đồng Nai','','','','','',1,0,0,0,NULL,1,NULL),(71,'phsm','Phú Hoàng',1,1,'Xã Sơn Mỹ, Huyện Hàm Tân, Tỉnh Bình Thuận','','','','','',1,0,0,0,NULL,1,NULL),(72,'pthsr','Pháp Thanh',1,1,'Xã Sông Ray, Huyện Cẩm Mỹ, Tỉnh Đồng Nai','','','','','',1,0,0,0,NULL,1,NULL),(73,'qhh','Quang Hòa Hội',1,1,'Xã Hoà Hội, Huyện Xuyên Mộc, Tỉnh Bà Rịa Vũng Tàu','','','','','',1,0,0,0,0,1,''),(74,'qvpb','Quang Vinh',1,1,'Thị trấn Phước Bửu, Huyện Xuyên Mộc, Tỉnh Bà Rịa Vũng Tàu','','','','','',1,0,0,0,NULL,1,NULL),(75,'shbl','Sỹ Hường',1,1,'Xã Bàu Lâm, Huyện Xuyên Mộc, Tỉnh Bà Rịa Vũng Tàu','','','','','',1,0,0,0,NULL,1,NULL),(76,'sqbc','Sáu Quế',1,1,'Xã Bình Châu, Huyện Xuyên Mộc, Tỉnh Bà Rịa Vũng Tàu','','','','','',1,0,0,0,0,1,''),(77,'sbtr','Sanh Trại Gà',1,1,'Xã Bông Trang, Huyện Xuyên Mộc, Tỉnh Bà Rịa Vũng Tàu','','','','','',1,0,0,0,NULL,1,NULL),(78,'stxm','Sơn Trang',1,2,'Xã Xuyên Mộc, Huyện Xuyên Mộc, Tỉnh Bà Rịa Vũng Tàu','','','','','',1,0,0,0,NULL,1,NULL),(79,'txm','Tùng Gas',1,1,'Xã Xuyên Mộc, Huyện Xuyên Mộc, Tỉnh Bà Rịa Vũng Tàu','','','','','',1,0,0,0,NULL,1,NULL),(80,'thh','Tâm Hòa Hội',1,1,'Xã Hoà Hội, Huyện Xuyên Mộc, Tỉnh Bà Rịa Vũng Tàu','','','','','',1,0,0,0,0,1,''),(81,'tmpb','Tài Mai',1,2,'Thị trấn Phước Bửu, Huyện Xuyên Mộc, Tỉnh Bà Rịa Vũng Tàu','','','','','',1,0,0,0,NULL,1,NULL),(82,'tbtr','Thanh Trại Gà',1,1,'Xã Bông Trang, Huyện Xuyên Mộc, Tỉnh Bà Rịa Vũng Tàu','','','','','',1,0,0,0,NULL,1,NULL),(83,'tdbc','Thành Dung',1,1,'Xã Bình Châu, Huyện Xuyên Mộc, Tỉnh Bà Rịa Vũng Tàu','','','','','',1,0,0,0,NULL,1,NULL),(84,'tdpt','Thảo Đại',1,1,'Xã Phước Tân, Huyện Xuyên Mộc, Tỉnh Bà Rịa Vũng Tàu','','','','','',1,0,0,0,NULL,1,NULL),(85,'hpt','Huyền Trại Gà',1,1,'Xã Phước Thuận, Huyện Xuyên Mộc, Tỉnh Bà Rịa Vũng Tàu','','','','','',1,0,0,0,NULL,1,NULL),(86,'tghb','Trường Giang',1,1,'Xã Hoà Bình, Huyện Xuyên Mộc, Tỉnh Bà Rịa Vũng Tàu','','','','','',1,0,0,0,NULL,1,NULL),(87,'tbk','Tiên Bưng Kè',1,1,'Bưng Kè, Xã Hoà Hiệp, Huyện Xuyên Mộc, Tỉnh Bà Rịa Vũng Tàu','','','','','',1,0,0,0,NULL,1,NULL),(88,'t46','Truyền',1,1,'Ngã Tư 46, Huyện Hàm Tân, Tỉnh Bình Thuận','','','','','',1,0,0,0,NULL,1,NULL),(89,'tmbc','Thiên Mướp',1,1,'Xã Bình Châu, Huyện Xuyên Mộc, Tỉnh Bà Rịa Vũng Tàu','','','','','',1,0,0,0,NULL,1,NULL),(90,'ttpb','Thanh Túy',1,1,'Thị trấn Phước Bửu, Huyện Xuyên Mộc, Tỉnh Bà Rịa Vũng Tàu','','','','','',1,0,0,0,0,1,''),(91,'tslg','Tiến Sơn',1,1,'Thị Xã Lagi, Huyện Hàm Tân, Tỉnh Bình Thuận','','','','','',1,0,0,0,NULL,1,NULL),(92,'ttpt','Trung Thuận',1,1,'Xã Phước Tân, Huyện Xuyên Mộc, Tỉnh Bà Rịa Vũng Tàu','','','','','',1,0,0,0,NULL,1,NULL),(93,'ttbc','Trung Thu',1,1,'Xã Bình Châu, Huyện Xuyên Mộc, Tỉnh Bà Rịa Vũng Tàu','','','','','',1,0,0,0,NULL,1,NULL),(94,'ttlg','Trung Thành',1,1,'Thị Xã Lagi, Huyện Hàm Tân, Tỉnh Bình Thuận','','','','','',1,0,0,0,NULL,1,NULL),(95,'tth','Thanh Tân Thắng',1,1,'Xã Thắng Hải, Huyện Hàm Tân, Tỉnh Bình Thuận','','','','','',1,0,0,0,NULL,1,NULL),(96,'tttt','Thành Tâm',1,1,'Xã Tân Thắng, Huyện Hàm Tân, Tỉnh Bình Thuận','','','','','',1,0,0,0,NULL,1,NULL),(97,'athh','Ái Thu',1,1,'Xã Hoà Hội, Huyện Xuyên Mộc, Tỉnh Bà Rịa Vũng Tàu','','','','','',1,0,0,0,NULL,1,NULL),(98,'ttbc','Tuấn Thanh',1,1,'Xã Bình Châu, Huyện Xuyên Mộc, Tỉnh Bà Rịa Vũng Tàu','','','','','',1,0,0,0,NULL,1,NULL),(99,'tpt','Thanh Gò Cà Phước Thuận',1,1,'Xã Phước Thuận, Huyện Xuyên Mộc, Tỉnh Bà Rịa Vũng Tàu','','','','','',1,0,0,0,NULL,1,NULL),(100,'tktl','Thùy Khuyên',1,1,'Xã Tân Lâm, Huyện Xuyên Mộc, Tỉnh Bà Rịa Vũng Tàu','','','','','',1,0,0,0,0,1,''),(101,'tbk','Thơ Bưng Kè',1,1,'Bưng Kè, Xã Hoà Hiệp, Huyện Xuyên Mộc, Tỉnh Bà Rịa Vũng Tàu','','','','','',1,0,0,0,NULL,1,NULL),(102,'thpt','Thúy Hoàng Phước Tân',1,1,'Xã Phước Tân, Huyện Xuyên Mộc, Tỉnh Bà Rịa Vũng Tàu','','','','','',1,0,0,0,0,1,''),(103,'thpt','Toan Hoa',1,1,'Xã Phước Tân, Huyện Xuyên Mộc, Tỉnh Bà Rịa Vũng Tàu','','','','','',1,0,0,0,NULL,1,NULL),(104,'tptl','Thúy Phương',1,1,'Xã Tân Lâm, Huyện Xuyên Mộc, Tỉnh Bà Rịa Vũng Tàu','','','','','',1,0,0,0,0,1,''),(105,'ttl','Thị Tân Lâm',1,1,'Xã Tân Lâm, Huyện Xuyên Mộc, Tỉnh Bà Rịa Vũng Tàu','','','','','',1,0,0,0,NULL,1,NULL),(106,'unpb','Út Nuôi',1,1,'Thị trấn Phước Bửu, Huyện Xuyên Mộc, Tỉnh Bà Rịa Vũng Tàu','','','','','',1,0,0,0,NULL,1,NULL),(107,'vb46','Văn Bé',1,1,'Ngã Tư 46, Huyện Hàm Tân, Tỉnh Bình Thuận','','','','','',1,0,0,0,NULL,1,NULL),(108,'vqhh','Vũ Quang',1,1,'Xã Hoà Hội, Huyện Xuyên Mộc, Tỉnh Bà Rịa Vũng Tàu','','','','','',1,0,0,0,NULL,1,NULL),(109,'xdbc','Xuân Đông',1,1,'Xã Bình Châu, Huyện Xuyên Mộc, Tỉnh Bà Rịa Vũng Tàu','','','','','',1,0,0,0,NULL,1,NULL),(110,'xhh','Xuân Hòa Hội',1,1,'Xã Hoà Hội, Huyện Xuyên Mộc, Tỉnh Bà Rịa Vũng Tàu','','','','','',1,0,0,0,0,1,''),(111,'xttl','Xuân Tú',1,1,'Xã Tân Lâm, Huyện Xuyên Mộc, Tỉnh Bà Rịa Vũng Tàu','','','','','',1,0,0,0,NULL,1,NULL),(112,'mhbc','Minh Hùng',1,1,'Xã Bình Châu, Huyện Xuyên Mộc, Tỉnh Bà Rịa Vũng Tàu','','','','','',1,0,0,0,NULL,1,NULL),(113,'ta46','Tuấn Anh 46',1,1,'Ngã Tư 46, Huyện Hàm Tân, Tỉnh Bình Thuận','','','','','',1,0,0,0,NULL,1,NULL),(114,'tth','Thúy Cầu Kiều',1,1,'Xã Thắng Hải, Huyện Hàm Tân, Tỉnh Bình Thuận','','','','','',1,0,0,0,0,1,''),(115,'dpt','Hùng Hồ Tràm',1,1,'Xã Phước Thuận, Huyện Xuyên Mộc, Tỉnh Bà Rịa Vũng Tàu','','','','','',1,0,0,0,NULL,1,NULL),(116,'htbk','Hương Thơm',1,1,'Bưng Kè, Xã Hoà Hiệp, Huyện Xuyên Mộc, Tỉnh Bà Rịa Vũng Tàu','','','','','',1,0,0,0,NULL,1,NULL),(117,'mpb','Mai Bà Tô',1,1,'Thị trấn Phước Bửu, Huyện Xuyên Mộc, Tỉnh Bà Rịa Vũng Tàu','','','','','',1,0,0,0,NULL,1,NULL),(118,'ttbg','Tình Thủy',1,1,'Xã Bình Giã, Huyện Châu Đức, Tỉnh Bà Rịa Vũng Tàu','','','','','',1,0,0,0,0,1,''),(119,'hhhtn','Hồng Huyên',1,1,'Xã Hàm Thuận Nam, Huyện Hàm Tân, Tỉnh Bình Thuận','','','','','',1,0,0,0,NULL,1,NULL),(120,'ptpt','Phương Thảo Phan Thiết',1,1,'Thành phố Phan Thiết, Tỉnh Bình Thuận','','','','','',1,0,0,0,NULL,1,NULL),(121,'hhh','Huệ Hoà Hội',1,1,'Xã Hoà Hội, Huyện Xuyên Mộc, Tỉnh Bà Rịa Vũng Tàu','','','','','',1,0,0,0,NULL,1,NULL),(122,'dhh','Dũng Hòa Hội',1,1,'Xã Hoà Hội, Huyện Xuyên Mộc, Tỉnh Bà Rịa Vũng Tàu','','','','','',1,0,0,0,0,1,''),(123,'mhhb','Mỹ Hạnh',1,1,'Xã Hoà Bình, Huyện Xuyên Mộc, Tỉnh Bà Rịa Vũng Tàu','','','','','',1,0,0,0,NULL,1,NULL),(124,'htdn','Công ty TNHH Khí Hoá Lỏng Hưng Thịnh',1,1,'39/1 Khu phố 3, Phường Tam Hiệp, Tp. Biên Hoà, Tỉnh Đồng Nai','','','3600874037','','',1,0,0,1,43,1,''),(125,'cnpt','Chi nhánh Phan Thiết',1,1,'Thành phố Phan Thiết, Tỉnh Bình Thuận','','','','','',1,0,0,0,NULL,1,NULL),(126,'dhh','Đoàn Hòa Hội',1,1,'Xã Hoà Hội, Huyện Xuyên Mộc, Tỉnh Bà Rịa Vũng Tàu','','','','','',1,0,0,0,0,1,''),(127,'mcbc','Minh Châu Bình Châu',1,1,'Xã Bình Châu, Huyện Xuyên Mộc, Tỉnh Bà Rịa Vũng Tàu','','','','','',1,0,0,0,NULL,1,NULL),(128,'bdqt','Bò Đốt Quang Trung',1,1,'Xã Bông Trang, Huyện Xuyên Mộc, Tỉnh Bà Rịa Vũng Tàu','','','','','',1,0,0,0,NULL,1,NULL),(129,'gxbc','Giang Xuân Bình Châu',1,1,'Xã Bình Châu, Huyện Xuyên Mộc, Tỉnh Bà Rịa Vũng Tàu','','','','','',1,0,0,0,NULL,1,NULL),(130,'vht','Vàng Hồ Tràm',1,1,'Xã Phước Thuận, Huyện Xuyên Mộc, Tỉnh Bà Rịa Vũng Tàu','','','','','',1,0,0,0,NULL,1,NULL),(131,'tbk','Thắng Bàu Ma Bưng Kè',1,1,'Bưng Kè, Xã Hoà Hiệp, Huyện Xuyên Mộc, Tỉnh Bà Rịa Vũng Tàu','','','','','',1,0,0,0,NULL,1,NULL),(132,'qth','Quang Tân Thắng',1,1,'Xã Thắng Hải, Huyện Hàm Tân, Tỉnh Bình Thuận','','','','','',1,0,0,0,0,1,''),(133,'vpb','Vân Bà Tô',1,1,'Thị trấn Phước Bửu, Huyện Xuyên Mộc, Tỉnh Bà Rịa Vũng Tàu','','','','','',1,0,0,0,NULL,1,NULL),(134,'blqt','Bán lẻ',1,1,'Xã Bông Trang, Huyện Xuyên Mộc, Tỉnh Bà Rịa Vũng Tàu','','','','','',1,0,0,0,NULL,1,NULL),(135,'tbxt','Tình Bắc',1,1,'Xã Xuân Tây, Huyện Cẩm Mỹ, Tỉnh Đồng Nai','','','','','',1,0,0,0,NULL,1,NULL),(136,'hpbk','Hiếu Phượng',1,1,'Bưng Kè, Xã Hoà Hiệp, Huyện Xuyên Mộc, Tỉnh Bà Rịa Vũng Tàu','','','','','',1,0,0,0,NULL,1,NULL),(137,'hhcm','Huy Hoàng Cẩm Mỹ',1,1,'Xã Xuân Đông, Huyện Cẩm Mỹ, Tỉnh Đồng Nai','','','','','',1,0,0,0,NULL,1,NULL),(138,'ktbc','Kiều Trang',1,1,'Xã Bình Châu, Huyện Xuyên Mộc, Tỉnh Bà Rịa Vũng Tàu','','','','','',1,0,0,0,NULL,1,NULL),(139,'tbk','Trọng Cầu 5',1,1,'Bưng Kè, Xã Hoà Hiệp, Huyện Xuyên Mộc, Tỉnh Bà Rịa Vũng Tàu','','','','','',1,0,0,0,NULL,1,NULL),(140,'th10','Tạp Hóa 10',1,1,'Bưng Kè, Xã Hoà Hiệp, Huyện Xuyên Mộc, Tỉnh Bà Rịa Vũng Tàu','','','','','',1,0,0,0,0,1,''),(141,'hcbc','Huy Châu',1,1,'Xã Bình Châu, Huyện Xuyên Mộc, Tỉnh Bà Rịa Vũng Tàu','','','','','',1,0,0,0,NULL,1,NULL),(142,'qpbtr','Quốc Phong',1,1,'Xã Bông Trang, Huyện Xuyên Mộc, Tỉnh Bà Rịa Vũng Tàu','','','','','',1,0,0,0,NULL,1,NULL),(143,'hcplg','Hùng Cường Phát',1,1,'Xã Long Giao, Huyện Cẩm Mỹ, Tỉnh Đồng Nai','','','','','',1,0,0,0,NULL,1,NULL),(144,'tnbk','Tuyết Nhi',1,1,'Bưng Kè, Xã Hoà Hiệp, Huyện Xuyên Mộc, Tỉnh Bà Rịa Vũng Tàu','','','','','',1,0,0,0,NULL,1,NULL),(145,'mhxm','Minh Hiền',1,1,'Xã Xuân Mỹ, Huyện Cẩm Mỹ, Tỉnh Đồng Nai','','','','','',1,0,0,0,NULL,1,NULL),(146,'dpxd','Dũng Phượng',1,1,'Xã Xuân Đông, Huyện Cẩm Mỹ, Tỉnh Đồng Nai','','','','','',1,0,0,0,NULL,1,NULL),(147,'c46','Cường 46',1,1,'Ngã Tư 46, Huyện Hàm Tân, Tỉnh Bình Thuận','','','','','',1,0,0,0,NULL,1,NULL),(148,'athtn','Gas An Toàn',1,1,'Thôn Lập Đức, Xã Tân Lập, Huyện Hàm Thuận Nam, Tỉnh Bình Thuận','','','','','',1,0,0,0,0,1,''),(149,'dhh','Diễm Đội 2 Hòa Hội',1,1,'Xã Hoà Hội, Huyện Xuyên Mộc, Tỉnh Bà Rịa Vũng Tàu','','','','','',1,0,0,0,0,1,''),(150,'pnbk','Phúc Nguyên',1,1,'Bưng Kè, Xã Hoà Hiệp, Huyện Xuyên Mộc, Tỉnh Bà Rịa Vũng Tàu','','','','','',1,0,0,0,NULL,1,NULL),(151,'hhh','Hoa Đội 2',1,1,'Xã Hoà Hội, Huyện Xuyên Mộc, Tỉnh Bà Rịa Vũng Tàu','','','','','',1,0,0,0,NULL,1,NULL),(152,'spo','Công ty TNHH Supor Việt Nam',1,1,'Lô A-1-CN, KCN Mỹ Phước, phường Mỹ Phước, Thị Xã Bến Cát, Tỉnh Bình Dương','','','','','',1,0,0,0,NULL,1,NULL),(153,'thsr','Thanh Hà',1,1,'Xã Sông Ray, Huyện Cẩm Mỹ, Tỉnh Đồng Nai','','','','','',1,0,0,0,NULL,1,NULL),(154,'sbk','Sơn Bưng Kè',1,1,'Bưng Kè, Xã Hoà Hiệp, Huyện Xuyên Mộc, Tỉnh Bà Rịa Vũng Tàu','','','','','',1,0,0,0,NULL,1,NULL),(155,'hhb','Hòa Hòa Bình',1,1,'Xã Hoà Bình, Huyện Xuyên Mộc, Tỉnh Bà Rịa Vũng Tàu','0946721173','','','','',1,0,0,0,0,1,''),(156,'nhbtr','Ngọc Huyền',1,1,'Xã Bông Trang, Huyện Xuyên Mộc, Tỉnh Bà Rịa Vũng Tàu','','','','','',1,0,0,0,NULL,1,NULL),(157,'htbc','Huyền Trang',1,1,'Xã Bình Châu, Huyện Xuyên Mộc, Tỉnh Bà Rịa Vũng Tàu','','','','','',1,0,0,0,NULL,1,NULL),(158,'ttlg','Thanh Tuấn Lagi',1,1,'Thị Xã Lagi, Huyện Hàm Tân, Tỉnh Bình Thuận','','','','','',1,0,0,0,NULL,1,NULL),(159,'hpbr','Hương Phong Hồ Cốc',1,1,'Xã Bưng Riềng, Huyện Xuyên Mộc, Tỉnh Bà Rịa Vũng Tàu','','','','','',1,0,0,0,NULL,1,NULL),(160,'anbk','Ánh Nhi',1,1,'Bưng Kè, Xã Hoà Hiệp, Huyện Xuyên Mộc, Tỉnh Bà Rịa Vũng Tàu','','','','','',1,0,0,0,NULL,1,NULL),(161,'nhcm','Nỡ Hoài',1,1,'Xã Hoàn Quân, Huyện Cẩm Mỹ, Tỉnh Đồng Nai','','','','','',1,0,0,0,0,1,''),(162,'thxm','Triệu Huy',1,1,'Xã Xuân Mỹ, Huyện Cẩm Mỹ, Tỉnh Đồng Nai','','','','','',1,0,0,0,NULL,1,NULL),(163,'ybtr','Tạp hóa Yến',1,1,'Xã Bông Trang, Huyện Xuyên Mộc, Tỉnh Bà Rịa Vũng Tàu','','','','','',1,0,0,0,0,1,''),(164,'hbr','Hà Bưng Riềng',1,1,'Xã Bưng Riềng, Huyện Xuyên Mộc, Tỉnh Bà Rịa Vũng Tàu','','','','','',1,0,0,0,NULL,1,NULL),(165,'tha','Công ty TNHH Dầu Khí Thiên Hà',1,1,'95 Trịnh Đình Thảo, phường Phú Trung, quận Tân Phú, Tp. HCM','','','','','',1,0,0,0,NULL,1,NULL),(166,'ltl','Loan Tân Lâm',1,1,'Xã Tân Lâm, Huyện Xuyên Mộc, Tỉnh Bà Rịa Vũng Tàu','','','','','',1,0,0,0,NULL,1,NULL),(167,'nvqt','Nhân Viên Quang Trung',1,1,'Xã Bông Trang, Huyện Xuyên Mộc, Tỉnh Bà Rịa Vũng Tàu','','','','','',1,0,0,0,NULL,1,NULL),(168,'dpt','Dung Cây Điệp',1,1,'Xã Phước Tân, Huyện Xuyên Mộc, Tỉnh Bà Rịa Vũng Tàu','','','','','',1,0,0,0,NULL,1,NULL),(169,'pppt','Phương Phát',1,1,'Thành phố Phan Thiết, Tỉnh Bình Thuận','','','','','',1,0,0,0,NULL,1,NULL),(170,'udpt','Uyên Đan',1,1,'Thành phố Phan Thiết, Tỉnh Bình Thuận','','','','','',1,0,0,0,NULL,1,NULL),(171,'htcm','Hà Tuấn Cẩm Mỹ',1,1,'Xã Xuân Bảo, Huyện Cẩm Mỹ, Tỉnh Đồng Nai','','','','','',1,0,0,0,NULL,1,NULL),(172,'ntlg','Ngọc Tân Lagi',1,1,'Thị Xã Lagi, Huyện Hàm Tân, Tỉnh Bình Thuận','','','','','',1,0,0,0,NULL,1,NULL),(173,'h46','Hòe Trại Gà 46',1,1,'Ngã Tư 46, Huyện Hàm Tân, Tỉnh Bình Thuận','','','','','',1,0,0,0,0,1,''),(174,'vuc','Công ty TNHH Khí Hoá Lỏng Việt Úc',1,1,'Xã Sông Ray, Huyện Cẩm Mỹ, Tỉnh Đồng Nai','','','','','',1,0,0,0,NULL,1,NULL),(175,'alcm','Ánh Linh',1,1,'Xã Xuân Đông, Huyện Cẩm Mỹ, Tỉnh Đồng Nai','','','','','',1,0,0,0,NULL,1,NULL),(176,'hbchau','Hải Bình Châu Xuyên Mộc',1,1,'Xã Bình Châu, Huyện Xuyên Mộc, Tỉnh Bà Rịa Vũng Tàu','','','','','',1,0,0,0,NULL,1,NULL),(177,'thcm','Trí Hải',1,1,'Xã Xuân Đông, Huyện Cẩm Mỹ, Tỉnh Đồng Nai','','','','','',1,0,0,0,NULL,1,NULL),(178,'mphh','Minh Phương',1,1,'Xã Hoà Hội, Huyện Xuyên Mộc, Tỉnh Bà Rịa Vũng Tàu','','','','','',1,0,0,0,NULL,1,NULL),(179,'qclg','Quang Châu',1,1,'Thị Xã Lagi, Huyện Hàm Tân, Tỉnh Bình Thuận','','','','','',1,0,0,0,NULL,1,NULL),(180,'hhh','Hồng Đội 5',1,1,'Xã Hoà Hội, Huyện Xuyên Mộc, Tỉnh Bà Rịa Vũng Tàu','','','','','',1,0,0,0,NULL,1,NULL),(181,'thh','Tuyết Đội 2',1,1,'Xã Hoà Hội, Huyện Xuyên Mộc, Tỉnh Bà Rịa Vũng Tàu','','','','','',1,0,0,0,NULL,1,NULL),(182,'athtb','An Toàn Phan Thiết',1,1,'Lô 58/B1- KDC Hàm Thuận Bắc, Tỉnh Bình Thuận','','','','','',1,0,0,0,0,1,''),(183,'ttbl','Thảo Toàn',1,1,'Xã Bàu Lâm, Huyện Xuyên Mộc, Tỉnh Bà Rịa Vũng Tàu','','','','','',1,0,0,0,NULL,1,NULL),(184,'kacm','Kim Anh',1,1,'Xã Xuân Mỹ, Huyện Cẩm Mỹ, Tỉnh Đồng Nai','','','','','',1,0,0,0,NULL,1,NULL),(185,'bpcm','Bảy Phước',1,1,'Xã Xuân Mỹ, Huyện Cẩm Mỹ, Tỉnh Đồng Nai','','','','','',1,0,0,0,NULL,1,NULL),(186,'hhh','Hiền Đội 5',1,1,'Xã Hoà Hội, Huyện Xuyên Mộc, Tỉnh Bà Rịa Vũng Tàu','','','','','',1,0,0,0,NULL,1,NULL),(187,'bapb','Bình An',1,1,'Thị trấn Phước Bửu, Huyện Xuyên Mộc, Tỉnh Bà Rịa Vũng Tàu','','','','','',1,0,0,0,NULL,1,NULL),(188,'bmpb','Bình Minh Phước Bửu',1,1,'Thị trấn Phước Bửu, Huyện Xuyên Mộc, Tỉnh Bà Rịa Vũng Tàu','','','','','',1,0,0,0,NULL,1,NULL),(189,'xhtb','Gas Xuân Hàm Thuận Bắc',1,1,'211/2 Thị trấn Phú Long, Huyện Hàm Thuận Bắc, Tỉnh Bình Thuận','','','','','',1,0,0,0,0,1,''),(190,'vcm','Gas Vui',1,1,'Xã Xuân Đông, Huyện Cẩm Mỹ, Tỉnh Đồng Nai','','','','','',1,0,0,0,NULL,1,NULL),(191,'hbc','Ngọc Hà Bình Châu',1,1,'Xã Bình Châu, Huyện Xuyên Mộc, Tỉnh Bà Rịa Vũng Tàu','','','','','',1,0,0,0,NULL,1,NULL),(192,'klhtn','Kim Liên',1,1,'Huyện Hàm Thuận Nam, Tỉnh Bình Thuận','','','','','',1,0,0,0,NULL,1,NULL),(193,'hlcm','Hải Linh',1,1,'Xã Lâm San, Huyện Cẩm Mỹ, Tỉnh Đồng Nai','','','','','',1,0,0,0,NULL,1,NULL),(194,'mtbc','Minh Trọng',1,1,'Xã Bình Châu, Huyện Xuyên Mộc, Tỉnh Bà Rịa Vũng Tàu','','','','','',1,0,0,0,NULL,1,NULL),(195,'tlg','Tuấn Lagi',1,1,'Thị Xã Lagi, Huyện Hàm Tân, Tỉnh Bình Thuận','','','','','',1,0,0,0,NULL,1,NULL),(196,'hpt','Cô Hương Phước Tân',1,1,'Xã Phước Tân, Huyện Xuyên Mộc, Tỉnh Bà Rịa Vũng Tàu','','','','','',1,0,0,0,NULL,1,NULL),(197,'kthi','Kế Thi',1,1,'Thị Xã Lagi, Huyện Hàm Tân, Tỉnh Bình Thuận','','','','','',1,0,0,0,NULL,1,NULL),(198,'dbc','Đoàn Bình Châu',1,1,'Xã Bình Châu, Huyện Xuyên Mộc, Tỉnh Bà Rịa Vũng Tàu','','','','','',1,0,0,0,NULL,1,NULL),(199,'adung','Anh Dũng',1,1,'Bưng Kè, Xã Hoà Hiệp, Huyện Xuyên Mộc, Tỉnh Bà Rịa Vũng Tàu','','','','','',1,0,0,0,NULL,1,NULL),(200,'hdung','Hoa Dũng',1,1,'Bưng Kè, Xã Hoà Hiệp, Huyện Xuyên Mộc, Tỉnh Bà Rịa Vũng Tàu','','','','','',1,0,0,0,NULL,1,NULL),(201,'chue','Chị Huế Châu Đức',1,1,'','','','','','',1,0,0,0,NULL,1,NULL),(202,'ttung','Thanh Tùng Châu Đức',1,1,'Châu Đức, Bà Rịa Vũng Tàu','','','','','',1,0,0,0,NULL,1,NULL),(203,'bhoan','Bảo Hoan Châu Đức',1,1,'','','','','','',1,0,0,0,NULL,1,NULL),(204,'hnghia','Hiếu Nghĩa',1,1,'','','','','','',1,0,0,0,NULL,1,NULL),(205,'QT','Quang Trung',14,1,'','','','','','',1,0,0,0,NULL,1,NULL),(206,'gman1','Quán Gia Mẫn Xuyên Mộc',1,1,'Xã Xuyên Mộc, Huyện Xuyên Mộc, Tỉnh BRVT','','','','','',1,0,0,0,NULL,1,NULL),(207,'ploi','Phúc Lợi',1,1,'Ngã ba 46, Huyện Hàm Tân, Tỉnh Bình Thuận','','','','','',1,0,0,0,NULL,1,NULL),(208,'luc','Lực Gas Xà Bang Châu Đức',1,1,'Xã Xà Bang, Huyện Châu Đức, Tỉnh BRVT','','','','','',1,0,0,0,NULL,1,NULL),(209,'dloc','Đại Lộc Châu Đức',1,1,'Huyện Châu Đức, Tỉnh BRVT','','','','','',1,0,0,0,NULL,1,NULL),(210,'bdanh','Bảo Danh',1,1,'Chợ Tân Nghĩa, Tỉnh Bình Thuận','','','','','',1,0,0,0,NULL,1,NULL),(211,'mtam','Minh Tâm',1,1,'Bình Giã, Châu Đức, BRVT','','','','','',1,0,0,0,NULL,1,NULL),(212,'kdung','Kim Dung',1,1,'Kim Long, Châu Đức, BRVT','','','','','',1,0,0,0,NULL,1,NULL),(213,'hthanh','Hai Thành',1,1,'Xã Xà Bang, Huyện Châu Đức, Tỉnh BRVT','','','','','',1,0,0,0,NULL,1,NULL),(214,'snga','Sơn Nga',1,1,'Cù Bị, Châu Đức, BRVT','','','','','',1,0,0,0,NULL,1,NULL),(215,'cbich','Cô Bích',1,1,'','','','','','',1,0,0,0,NULL,1,NULL),(216,'quhh','Quốc Hoà Hội',1,1,'Hoà Hội, Xuyên Mộc, BRVT','','','','','',1,0,0,0,NULL,1,NULL),(217,'ctrinh','Cô Trinh Châu Đức',1,1,'Giáo Xứ Xuân Trường, Huyện Châu Đức, Tỉnh BRVT','0937765767','','','','',1,0,0,0,NULL,1,NULL),(218,'VIMEXCO','Công ty CP Thương Mại va Dịch Vụ Dầu Khí Vũng Tàu',1,1,'','','','','','',1,0,1,0,NULL,1,NULL),(219,'NVP','Nam Việt Phát',1,1,'','','','','','',1,0,0,0,NULL,1,NULL),(220,'dy','Dũng Yến',1,1,'xã Lâm San, Huyện Cẩm Mỹ , Tỉnh Đồng Nai','0984400778','','','','',1,0,0,0,NULL,1,NULL),(221,'vxuyen','Văn Xuyến',1,1,'lagi , bình thuận','0985266743','','','','',1,0,0,0,0,1,''),(222,'xthi','Xuân Thi Châu Đức',1,1,'Tổ 4 Sơn Thuận, Xã Xuân Sơn, H Châu Đức, Tỉnh BRVT','0334555408','','','','',1,0,0,0,NULL,1,NULL),(223,'tphat','Thành Phát Châu Đức',1,1,'ngãi giao,châu đức','0988665377','','','','',1,0,0,0,NULL,1,NULL),(224,'mquoc','Minh Quốc Châu Đức',1,1,'','0643917418','','','','',1,0,0,0,NULL,1,NULL),(225,'gtri','Gas Trí',1,1,'HTN,bình thuận','0387744380','','','','',1,0,0,0,NULL,1,NULL),(226,'ATh','Công Ty An Thuận',1,1,'','','','','','',1,1,1,0,NULL,1,NULL),(227,'H thanh','công ty gốm Hoàn Thành',1,1,'','','','','','',1,0,1,0,NULL,1,NULL),(228,'PN','Vật liệu xây dựng Phương Nam',1,1,'','','','','','',0,0,0,1,20,1,NULL),(229,'thai-dongtam','Công ty Xây lắp Đồng Tâm',1,1,'08, Nguyễn Văn Trỗi,Tân An, Lagi, BT','0987 114 745','','','','',0,0,1,1,20,1,NULL),(230,'thai-ctcongcong','Công ty Công trình công cộng Tx. Lagi',1,1,'585 Thống Nhất, Tân An, Lagi, BT','0396 770 690','','','','',0,0,1,1,20,1,NULL),(232,'CMINH','Chung Minh',1,1,'','','','','','',1,0,0,0,0,1,''),(233,'nb','Xuất nội bộ',1,1,'','','','','','',1,0,0,1,0,1,''),(234,'thai-chai','Đại Lý Chị Hai',1,1,'Võ Thị Sáu, Bình Tân, lagi, Bình Thuận (đối diện số 28 Võ thị Sáu)','0979 758 678','','','','',0,0,0,1,15,1,''),(235,'cxbungke','Cây Xăng Bưng Kè',1,1,'Bưng kè, XM, BRVT','0382509332','','','Bác Hạnh','',0,0,0,1,28,1,''),(236,'niwahotro','Niwa hỗ trợ lấy hàng',1,1,'Lô H6, Đường sỗ, KCN Hải Sơn (GD3+4), X. Đức Hòa Hạ, H. Đức Hòa, Long An','0963 344 123 Thư','','','','',0,0,0,1,0,1,''),(237,'hoangdung','Xe máy Hoàng Dũng',1,1,'Rửa xe bờ hồ, Bato','0933346085','','','','',0,0,0,1,0,1,'1 thùng tặng 3 bình'),(238,'baohieu','Gara xe Lê Bảo Hiếu',1,1,'Bato (Sau bưu điện)','0888429489','','','','',0,0,0,1,10,1,''),(239,'a.khuong','Gara xe Anh Khương',1,1,'Bờ hồ, Bato','0989623825','','','','',0,0,0,1,10,1,''),(240,'thanhdanh','Đại lý Thành Danh',1,1,'Bình Châu','0917752119','','','c Bắc','',0,0,0,1,10,1,''),(241,'trunghieu','Gara Trung Hiếu',1,1,'Bình Châu','0398833398','','','','',0,0,0,1,10,1,''),(242,'thienphat','Đại lý Thiện Phát',1,1,'Hàm Tân, Bình Châu','0979543434','','','','',0,0,0,1,20,1,''),(243,'nhanvien','Xuất bán Nhân viên',1,1,'Quang Trung','','','','','',0,0,0,1,10,1,''),(244,'chxdqt','Cửa hàng xăng dầu Quang Trung',1,1,'Bình Châu','025433871166','','','','',1,0,0,1,0,1,''),(245,'quangthach','Sửa xe Quang Thạch',1,1,'Ấp Bình Minh, Bình Châu(gần nhà hàng Hoa Ngọc)','0367420202','','','','',0,0,0,1,0,1,'xe máy 3 tặng 1'),(246,'na','Sửa xe Na',1,1,'241, đường 27/4, Phước Bửu','0976005177','','','','',0,0,0,1,10,1,''),(247,'oto1','Gara ô tô số 1',1,1,'QL55,Phước Bửu, XM, BRVT','0395732113','','','a. Phương','',0,0,0,1,10,1,''),(248,'haicau','Cứu hộ ô tô Hai Cầu',1,1,'46/4 Ấp 1, Xã Bưng Riềng, Xm, BRVT','0933696363','','','','',0,0,0,1,10,1,''),(249,'bacthinh','Bác Thịnh',1,1,'115/1 Ấp Láng Găng, Bình Châu (Nhà máy nước đá đối diện Biên Phòng)','0918543619','','','','',0,0,0,1,20,1,'hổ trợ giảm 100k/ xô'),(250,'anhchien','Anh Chiến',1,1,'Trạm điều hành xe bus - bến xe bình châu','0975344399','','','','',0,0,0,1,10,1,''),(251,'thaithuy','Đại Lý Thái Thúy',1,1,'Bình Hòa, Bình Châu','0385370549','','','','',0,0,0,1,20,1,'hổ trợ giảm 100k/ xô'),(252,'ahong','Gara máy nông nghiệp A Hồng',1,1,'Bato, XM','0987003406','','','','',0,0,0,1,10,1,''),(253,'adung','Tiệm rữa xe thay nhớt Dũng',1,1,'Bông Trang (Đối diện trường mầm non Bông Trang)','0908397810','','','','',0,0,0,1,10,1,''),(254,'hoadiep','Gara Hoa Điệp',1,1,'78 Trương Công Định,Tp. Vũng Tàu','0937614704','','','','',0,0,0,1,20,1,''),(255,'hoanghai','Sửa xe Hoàng Hải',1,1,'Bùng binh BV XM','0948384627','','','','',0,0,0,1,0,1,'xe máy 3 tặng 1'),(256,'bienphongBC','Đồn Biên Phòng Bình Châu',1,1,'Bình Châu','0974999488','','','','',0,0,0,1,28,1,''),(257,'lac','Gara xe Lạc',1,1,'Ấp Thèo Lèo, Bình Châu','02543707269','','','','',0,0,0,1,20,1,''),(258,'hoanganh','Rửa xe Hoàng Anh',1,1,'Hòa Hiệp, XM','0962064139','','','Anh Nam','',0,0,0,1,28,1,''),(259,'tienvu','Gara Tiến Vũ',1,1,'Ấp Nhân Trung, XM','0972833557','','','','',0,0,0,1,20,1,''),(260,'chinhtam','Cửa hàng Chính Tâm',1,1,'Bình Châu, XM','972018067','','','','',0,0,0,1,20,1,''),(261,'hieu','Anh Hiếu',1,1,'70 Phan Đình Phùng, Phước Lộc, lagi, BT','0903318812','','','','',0,0,0,1,25,1,''),(262,'anhnhi','Gara Anh Nhi',1,1,'Cầu 3 Hòa Hội, XM','0387005677','','','','',0,0,0,1,15,1,''),(263,'adong','Gara anh Đông',1,1,'Bato, XM','0906628528','','','','',0,0,0,1,15,1,''),(264,'anga','Tiệm sửa xe Ngà',1,1,'Bông Trang(gần Hotel Hoàng Thanh Thủy)','0933850299','','','','',0,0,0,1,0,1,'xe máy 3 tặng 1'),(265,'thachbl','Rử xe Thạch',1,1,'Ấp 4, Suối Lê, Tân Lâm','0367484748','','','','',0,0,0,1,10,1,'10 tặng 1'),(266,'dungbl','Rữa xe Anh Dũng',1,1,'Ấp 1 Bàu Lâm','0386833739','','','','',0,0,0,1,0,1,'xe máy 3 tặng 1'),(267,'dai','Điện cơ Đại',1,1,'08, Bến Chương Dương, Kp1, Phước Lộc,Lagi, BT','01227172544','','','','',0,0,0,1,25,1,''),(268,'quangvinh','Gara Quang Vinh',1,1,'Đường Trần Phú, KP. Láng sim, Phước Bửu','0886067639','','','','',0,0,0,1,15,1,''),(269,'thai-minhtam','VLXD Minh Tâm',1,1,'Sơn Mỹ,Hàm Tân, BT','0966870937','','','','',0,0,0,1,15,1,''),(270,'thai-linhquan','Đoàn xe Linh Quân',1,1,'166 QL55, Lagi, BT','0379970248','','','','',0,0,0,1,15,1,''),(271,'thai-atuan','Gara Anh Tuấn',1,1,'Lê Thánh Tôn, Tân Tiến,Lagi (Qua đường vào dinh thầy Thím 200m bên trái)','','','','','',0,0,0,1,15,1,''),(272,'hungthinh','công ty TNHH KHL Hưng Thịnh',1,2,'','','','','','',0,0,0,0,38,1,''),(273,'thai-phucloctho','VLXD Phúc Lộc Thọ',1,1,'100,Nguyễn Chí Thanh,Tân Bình,Lagi','097748818','','','','',0,0,0,1,15,1,''),(274,'thai-atien','VLXD Trí Vân',1,1,'95 Nguyễn Trãi,Bình Tân,Lagi','0918591272','','','','',0,0,0,1,0,1,''),(275,'thai-nhonngoc','Nhà xe Nhơn Ngọc',1,1,'Chợ Thanh Lịch,LaGi','0903131410','','','','',0,0,0,1,10,1,''),(276,'thai-thanhxuan','VLXD Thanh Xuân',1,1,'75,CMT8,Tân Bình,LaGi','0918790101','','','','',0,0,0,1,0,1,''),(277,'thai-atiet','Anh Tiết',1,1,'Đường Nguyễn Du,LaGI,BT','0908502843','','','','',0,0,0,1,0,1,''),(278,'thai-anhthai','Anh Thái',1,1,'51,QL55,LaGi,BT','0978104106','','','','',0,0,0,1,0,1,''),(279,'thai-akhiet','Nhà xe Anh Khiết',1,1,'283 Thống Nhất,Lagi,BT','0919742229','','','','',0,0,0,1,0,1,''),(280,'thai-tuyethuong','Cây xăng dầu Tuyết Phương',1,1,'Cảng cá Lagi  BT','0654606089','','','','',0,0,0,1,0,1,''),(281,'thai-ahao','Nhà xe A Hảo',1,1,'LaGi BT','0907348392','','','','',0,0,0,1,0,1,''),(282,'thai-huyhoang','Gara Huy Hoàng',1,1,'274 Ngô Quyền, Tân An ,LaGi','0908658864','','','','',0,0,0,1,0,1,''),(283,'thai-alua','Anh Lua',1,1,'96 Thống Nhất,LaGi','0902522140','','','','',0,0,0,1,0,1,''),(284,'thai-phuongnam','VLXD Phương Nam',1,1,'QL55,Thôn 1,Sơn Mỹ,LaGi','0938644167','','','','',0,0,0,1,0,1,''),(285,'thai-hungloan','DNTN Tiệm vàng Kim Hùng Loan',1,1,'155 Lê Thánh Tôn,Tân Hải,Lagi','0984285050','','','','',0,0,0,0,0,1,''),(286,'thai-thanhtoan','Công ty xây dựng Thanh Toàn',1,1,'NGô Quyền ,Lagi,BT','0902914066','','','','',0,0,0,1,0,1,''),(287,'hoanghai ptan','Hoàng Hải',1,1,'Thạnh Sơn 2B,Phước Tân','0973781751','','','','',0,0,0,1,0,1,''),(288,'thai-nghiabinh','VLXD Nghĩa Bình',1,1,'Nguyễn Minh Châu,Hiệp Phú,Tân Tiến,LaGi,BT','0984168628','','','','',0,0,0,1,0,1,''),(289,'antoan','Đại lý Gas An Toàn',1,2,'','0937523492','','','','',0,0,0,0,0,1,'Lo6/b1,kDC bến lội,Lại An,Hàm Thắng,Hàm Thuận Bắc,Bình Thuận'),(290,'hainam','Rửa xe Hải Nam',1,1,'Số 11,Phạm Văn Đồng,XM','0933413241','','','','',0,0,0,1,0,1,''),(291,'thai-caothanh','VLXD Cao Thanh',1,1,'04 Nguyễn Trãi,KP5,Bình Tân,TX.Lagi,BT','','','','','',0,0,0,1,0,1,''),(292,'thai-cuutruong','Cửa hàng VLXD Cửu Trường',1,1,'','0908123648','','','','',0,0,0,0,0,1,''),(293,'acuong','A Cường',1,1,'Hẻm Lotte ,đại lộ Hùng Vương,Tp.Phan Thiết','0961152501','','','','',0,0,0,1,0,1,''),(294,'songkinh','Rửa xe thay nhớt Sông Kinh',1,1,'Phước Bửu,XM,BRVT','0969541342','','','','',0,0,0,1,0,1,''),(295,'thai-vuatramcuonganh','Công ty TNHH Hửu Tiến',1,1,'Đường số 9,Sơn Mỹ,Hàm Tân','0901 292 828','','','','',0,0,0,1,0,1,''),(296,'anhsinh','Anh Sinh',1,1,'58 Lý Thái Tổ,Tân Tiến,Lagi','0976 686 445','','','','',0,0,0,1,0,1,''),(297,'cxduchanh','Cây xăng Đức Hạnh',1,1,'Đường D9T,xã Đức Hạnh,H.Đức Linh,T Bình Thuận','090 161 8648','','','','',0,0,0,1,0,1,''),(298,'tuanhien','Cửa hàng Tuấn Hiền',1,1,'Ấp 3 ,Bưng Riềng','0937 137 623','','','','',0,0,0,1,0,1,''),(299,'anhvu','Sửa xe Anh Vũ',1,1,'Sông Kinh','0901262 867','','','','',0,0,0,1,0,1,''),(300,'anhhai','Anh Hải',1,1,'Số 149 ,đường 27/4 Phước Bửu,XM','0907 445 044','','','','',0,0,0,1,0,1,''),(301,'anhlam','Anh Lâm',1,1,'Ấp 3,Bưng Riềng','093370227','','','','',0,0,0,1,0,1,''),(302,'thai-binhan','VLXD Bình An',1,1,'156 Nguyễn Chí Thanh,LaGi,BT','0987 919 884','','','','',0,0,0,1,0,1,''),(303,'nypt','Như Ý',1,1,'Xã Phước Tân, Xuyên Mộc, BRVT','0987512267','','','','',1,0,0,0,0,1,''),(304,'dvan','Duy Vân',1,1,'','','','','','',1,0,0,0,0,1,''),(305,'aqcd','Anh Quyền',1,1,'Xuân Sơn, Châu Đức, BRVT','0355554080','','','','',1,0,0,0,0,1,''),(306,'opt','Oanh Phước Tân (Gái Trung)',1,1,'Tân Lâm, Xuyên Mộc, BRVT','0976037799','','','','',1,0,0,0,0,1,''),(307,'ctdp','Công ty TNHH Dầu Khí Đại Phát',1,1,'Biên Hòa, Đồng Nai','','','','','',1,0,0,0,0,1,''),(308,'ktbt','Cơm chay Khai Tâm',1,1,'Bà tô, Xuyên Mộc, BRVT','','','','','',1,0,0,0,0,1,''),(309,'ctxm','Cơm Tâm Xuyên Mộc',1,1,'Xuyên Mộc, BRVT','0913027737','','','','',1,0,0,0,0,1,''),(310,'gllg','Gas Liêm',1,1,'Lagi, Bình Thuận','0977163071','','','','',1,0,0,0,0,1,''),(311,'nhkl','Nam Hùng',1,1,'Kim Long, Châu Đức','0774924698','','','','',1,0,0,0,0,1,''),(312,'dnhh','Dung Ngọc',1,1,'Hòa Hiệp, Xuyên Mộc','0398768121','','','','',1,0,0,0,0,1,''),(313,'gixm','Giang Trại gà',1,1,'Láng Dài, XM, BRVT','','','','','',1,0,0,0,0,1,''),(314,'hhh','Cô Hằng Hòa Hội',1,1,'Hòa Hội,Xm, BRVT','','','','','',1,0,0,0,0,1,''),(315,'hlxm','Nhà hàng Hoài Lan',1,1,'Xuyên Mộc, BRVT','06235650190','','','','',1,0,0,0,0,1,''),(316,'Thachbl','Rửa xe Thạch',1,1,'Ấp 4, Suối Lê, Tân Lâm','0166 7484748','','','','',0,0,0,1,0,1,''),(317,'antoan','Đại lý Gas An Toàn',1,1,'Lô 58/B1,KDC Bến Lội,Lại An,,Hàm Thắng,Hàm Thuận Bắc,Bình Thuận','0937523492','','','','',0,0,0,1,0,1,''),(318,'thai-aty','Gara Anh Tý',1,1,'','0987919884','','','','',0,0,0,0,0,1,''),(319,'phuoc','Phước',1,1,'','','','','','',1,0,0,0,0,1,''),(320,'qđpt','Quang Đô',1,1,'Suối Rao, Phước tân','0983083378','','','','',1,0,0,0,0,1,''),(321,'manh','Mai Anh',1,1,'Bình Châu, Xuyên Mộc, BRVT','0907337288','','','Song','',1,0,0,0,0,1,''),(322,'thai-anhphu','Nhà xe Kim Châu',1,1,'Chợ Tân thắng, xã Tân Thắng,Lagi,BT','0935348377','','','Anh Phú','',0,0,0,1,20,1,''),(323,'qs','Quốc Sáng',1,1,'Hàm Thuận Nam, Bình Thuận','','','','','',1,0,0,0,0,1,''),(324,'kimphat','Cty TNHH MTV GỐM SỨ MỸ NGHỆ KIM PHÁT',1,1,'','','','','','',1,0,0,0,0,1,''),(325,'anhtrung','Trạm chiết nạp LPG Anh Trung',1,1,'','','','','','',1,0,0,0,0,1,''),(326,'thanhtai','CTY CP KD & PP GAS THÀNH TÀI',1,1,'Long Định, Cần Đước, Long An','0723636364','','','','',1,0,0,0,0,1,''),(327,'vbr','Việt Bưng Riềng',1,1,'Bưng Riềng','','','','','',1,0,0,0,0,1,'');
 
 /*Table structure for table `customer_discount_detail` */
 
@@ -303,6 +351,8 @@ CREATE TABLE `customer_discount_detail` (
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
+/*Data for the table `customer_discount_detail` */
+
 /*Table structure for table `customer_document` */
 
 DROP TABLE IF EXISTS `customer_document`;
@@ -314,6 +364,8 @@ CREATE TABLE `customer_document` (
   `expired_date` date DEFAULT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+/*Data for the table `customer_document` */
 
 /*Table structure for table `customer_in_stock` */
 
@@ -328,7 +380,11 @@ CREATE TABLE `customer_in_stock` (
   `amount` double DEFAULT '0',
   `transport_amount` double DEFAULT '0',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=941 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=932 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+/*Data for the table `customer_in_stock` */
+
+insert  into `customer_in_stock`(`id`,`day`,`customer_id`,`shell_12`,`shell_45`,`amount`,`transport_amount`) values (1,'2020-01-01',205,0,0,0,0),(2,'2020-01-01',293,0,0,0,0),(3,'2020-01-01',97,5,0,1059000,0),(4,'2020-01-01',182,29,18,0,0),(5,'2020-01-01',250,0,0,0,0),(6,'2020-01-01',199,3,0,841000,0),(7,'2020-01-01',300,0,0,0,0),(8,'2020-01-01',261,0,0,0,0),(9,'2020-01-01',12,0,0,0,0),(10,'2020-01-01',301,0,0,0,0),(11,'2020-01-01',175,10,0,1000000,0),(12,'2020-01-01',283,0,0,0,0),(13,'2020-01-01',160,0,0,0,0),(14,'2020-01-01',305,10,0,0,0),(15,'2020-01-01',296,0,0,0,0),(16,'2020-01-01',278,0,0,0,0),(17,'2020-01-01',277,0,0,0,0),(18,'2020-01-01',13,0,0,0,0),(19,'2020-01-01',15,22,4,580000,0),(20,'2020-01-01',249,0,0,0,0),(21,'2020-01-01',134,0,0,0,0),(22,'2020-01-01',210,5,0,0,0),(23,'2020-01-01',203,10,5,0,0),(24,'2020-01-01',14,0,0,0,0),(25,'2020-01-01',185,0,0,0,0),(26,'2020-01-01',22,5,0,10760000,0),(27,'2020-01-01',20,0,0,0,0),(28,'2020-01-01',187,3,0,0,0),(29,'2020-01-01',188,5,0,0,0),(30,'2020-01-01',128,0,0,0,0),(31,'2020-01-01',23,10,0,0,0),(32,'2020-01-01',25,0,0,0,0),(33,'2020-01-01',235,0,0,0,0),(34,'2020-01-01',280,0,0,0,0),(35,'2020-01-01',297,0,0,0,0),(36,'2020-01-01',24,0,0,0,0),(37,'2020-01-01',21,0,0,0,0),(38,'2020-01-01',201,0,4,0,0),(39,'2020-01-01',125,235,330,0,0),(40,'2020-01-01',27,5,0,0,0),(41,'2020-01-01',232,10,20,5726000,0),(42,'2020-01-01',215,0,0,0,0),(43,'2020-01-01',314,5,0,0,0),(44,'2020-01-01',196,5,0,0,0),(45,'2020-01-01',217,10,0,0,0),(46,'2020-01-01',308,0,5,0,0),(47,'2020-01-01',309,0,1,0,0),(48,'2020-01-01',226,0,0,0,0),(49,'2020-01-01',230,0,0,0,0),(50,'2020-01-01',218,0,0,0,0),(51,'2020-01-01',227,0,0,0,0),(52,'2020-01-01',307,0,0,0,0),(53,'2020-01-01',165,0,0,0,0),(54,'2020-01-01',1,0,0,0,0),(55,'2020-01-01',295,0,0,0,0),(56,'2020-01-01',124,0,0,-1412842532,0),(57,'2020-01-01',174,0,0,0,0),(58,'2020-01-01',152,0,0,911756257,0),(59,'2020-01-01',286,0,0,0,0),(60,'2020-01-01',229,0,0,0,0),(61,'2020-01-01',260,0,0,0,0),(62,'2020-01-01',9,0,4,4900000,0),(63,'2020-01-01',2,0,0,0,0),(64,'2020-01-01',11,29,20,12727000,0),(65,'2020-01-01',298,0,0,0,0),(66,'2020-01-01',292,0,0,0,0),(67,'2020-01-01',244,0,0,0,0),(68,'2020-01-01',147,10,0,3234000,0),(69,'2020-01-01',248,0,0,0,0),(70,'2020-01-01',149,8,0,0,0),(71,'2020-01-01',28,39,14,18324000,0),(72,'2020-01-01',285,0,0,0,0),(73,'2020-01-01',168,0,0,0,0),(74,'2020-01-01',122,0,0,0,0),(75,'2020-01-01',312,0,2,0,0),(76,'2020-01-01',146,48,0,4020000,0),(77,'2020-01-01',220,0,0,0,0),(78,'2020-01-01',29,71,11,3000000,0),(79,'2020-01-01',304,10,0,0,0),(80,'2020-01-01',209,0,0,0,0),(81,'2020-01-01',234,0,0,0,0),(82,'2020-01-01',317,0,0,0,0),(83,'2020-01-01',251,0,0,0,0),(84,'2020-01-01',240,0,0,0,0),(85,'2020-01-01',242,0,1,0,0),(86,'2020-01-01',31,0,0,0,0),(87,'2020-01-01',267,0,0,0,0),(88,'2020-01-01',198,15,0,0,0),(89,'2020-01-01',126,0,0,0,0),(90,'2020-01-01',270,0,0,0,0),(91,'2020-01-01',256,0,0,0,0),(92,'2020-01-01',30,0,0,0,0),(93,'2020-01-01',32,0,0,0,0),(94,'2020-01-01',263,0,0,0,0),(95,'2020-01-01',262,0,0,0,0),(96,'2020-01-01',271,0,0,0,0),(97,'2020-01-01',318,0,0,0,0),(98,'2020-01-01',254,0,0,0,0),(99,'2020-01-01',282,0,0,0,0),(100,'2020-01-01',252,0,0,0,0),(101,'2020-01-01',247,0,0,0,0),(102,'2020-01-01',268,0,0,0,0),(103,'2020-01-01',259,0,0,0,0),(104,'2020-01-01',241,0,0,0,0),(105,'2020-01-01',239,0,0,0,0),(106,'2020-01-01',257,0,0,0,0),(107,'2020-01-01',238,0,0,0,0),(108,'2020-01-01',148,0,0,0,0),(109,'2020-01-01',310,50,11,5670000,0),(110,'2020-01-01',225,5,0,0,0),(111,'2020-01-01',190,0,0,0,0),(112,'2020-01-01',189,5,0,0,0),(113,'2020-01-01',313,5,16,3820000,0),(114,'2020-01-01',129,10,0,232000,0),(115,'2020-01-01',164,0,0,0,0),(116,'2020-01-01',37,0,0,0,0),(117,'2020-01-01',171,68,4,21000000,0),(118,'2020-01-01',33,0,0,0,0),(119,'2020-01-01',176,0,0,0,0),(120,'2020-01-01',193,0,0,0,0),(121,'2020-01-01',213,100,2,7080000,0),(122,'2020-01-01',39,0,0,0,0),(123,'2020-01-01',186,4,0,0,0),(124,'2020-01-01',16,5,0,0,0),(125,'2020-01-01',204,20,4,0,0),(126,'2020-01-01',136,5,0,0,0),(127,'2020-01-01',200,10,0,0,0),(128,'2020-01-01',35,34,0,0,0),(129,'2020-01-01',151,0,0,0,0),(130,'2020-01-01',155,0,0,0,0),(131,'2020-01-01',42,30,0,2149000,0),(132,'2020-01-01',287,0,0,0,0),(133,'2020-01-01',38,0,0,0,0),(134,'2020-01-01',41,40,7,0,0),(135,'2020-01-01',173,0,0,0,0),(136,'2020-01-01',180,4,0,0,0),(137,'2020-01-01',119,26,18,5000000,0),(138,'2020-01-01',121,0,0,940000,0),(139,'2020-01-01',143,0,0,0,0),(140,'2020-01-01',115,10,4,0,0),(141,'2020-01-01',40,3,0,0,0),(142,'2020-01-01',159,0,0,0,0),(143,'2020-01-01',116,0,0,0,0),(144,'2020-01-01',141,0,4,1762000,0),(145,'2020-01-01',137,0,0,0,0),(146,'2020-01-01',34,10,0,0,0),(147,'2020-01-01',85,0,11,0,0),(148,'2020-01-01',157,0,0,0,0),(149,'2020-01-01',197,0,0,0,0),(150,'2020-01-01',43,-5,0,0,0),(151,'2020-01-01',138,0,0,0,0),(152,'2020-01-01',184,0,0,0,0),(153,'2020-01-01',44,60,15,4791000,0),(154,'2020-01-01',212,20,7,0,0),(155,'2020-01-01',48,0,0,0,0),(156,'2020-01-01',192,0,0,0,0),(157,'2020-01-01',45,0,0,0,0),(158,'2020-01-01',47,20,2,8000000,0),(159,'2020-01-01',46,40,7,0,0),(160,'2020-01-01',54,8,0,0,0),(161,'2020-01-01',53,10,0,0,0),(162,'2020-01-01',52,13,1,0,0),(163,'2020-01-01',50,44,27,11780000,0),(164,'2020-01-01',49,10,4,0,0),(165,'2020-01-01',166,0,0,0,0),(166,'2020-01-01',55,25,0,0,0),(167,'2020-01-01',208,0,0,0,0),(168,'2020-01-01',51,0,0,0,0),(169,'2020-01-01',321,10,0,0,0),(170,'2020-01-01',117,1,0,0,0),(171,'2020-01-01',60,0,3,10458000,0),(172,'2020-01-01',127,0,5,100000,0),(173,'2020-01-01',56,0,0,0,0),(174,'2020-01-01',58,16,5,715000,0),(175,'2020-01-01',59,10,0,3367000,0),(176,'2020-01-01',145,15,0,0,0),(177,'2020-01-01',112,13,0,0,0),(178,'2020-01-01',178,15,0,0,0),(179,'2020-01-01',224,10,0,0,0),(180,'2020-01-01',211,40,7,24116000,0),(181,'2020-01-01',194,20,0,5720000,0),(182,'2020-01-01',62,0,0,0,0),(183,'2020-01-01',61,18,1,3344000,0),(184,'2020-01-01',17,8,0,1774000,0),(185,'2020-01-01',57,4,1,-3524000,0),(186,'2020-01-01',123,0,0,1496000,0),(187,'2020-01-01',311,20,0,0,0),(188,'2020-01-01',219,0,0,0,0),(189,'2020-01-01',191,0,0,0,0),(190,'2020-01-01',156,0,0,0,0),(191,'2020-01-01',65,10,2,3823000,0),(192,'2020-01-01',172,5,0,0,0),(193,'2020-01-01',63,0,0,0,0),(194,'2020-01-01',64,0,0,0,0),(195,'2020-01-01',315,0,4,2643000,0),(196,'2020-01-01',281,0,0,0,0),(197,'2020-01-01',279,0,0,0,0),(198,'2020-01-01',322,0,0,0,0),(199,'2020-01-01',275,0,0,0,0),(200,'2020-01-01',167,0,0,0,0),(201,'2020-01-01',303,10,0,0,0),(202,'2020-01-01',236,0,0,0,0),(203,'2020-01-01',161,20,8,0,0),(204,'2020-01-01',306,7,0,0,0),(205,'2020-01-01',66,20,0,2079000,0),(206,'2020-01-01',72,0,0,0,0),(207,'2020-01-01',71,25,0,0,0),(208,'2020-01-01',67,0,0,0,0),(209,'2020-01-01',207,0,0,0,0),(210,'2020-01-01',68,0,0,0,0),(211,'2020-01-01',150,0,0,0,0),(212,'2020-01-01',69,0,0,0,0),(213,'2020-01-01',319,0,0,0,0),(214,'2020-01-01',169,0,7,0,0),(215,'2020-01-01',120,100,8,0,0),(216,'2020-01-01',70,10,0,0,0),(217,'2020-01-01',206,14,4,4160000,0),(218,'2020-01-01',179,17,2,0,0),(219,'2020-01-01',320,20,0,0,0),(220,'2020-01-01',73,3,0,0,0),(221,'2020-01-01',132,20,0,0,0),(222,'2020-01-01',74,10,0,0,0),(223,'2020-01-01',216,0,0,0,0),(224,'2020-01-01',142,38,23,2000000,0),(225,'2020-01-01',26,0,5,9029000,0),(226,'2020-01-01',265,0,0,0,0),(227,'2020-01-01',266,0,0,0,0),(228,'2020-01-01',290,0,0,0,0),(229,'2020-01-01',258,0,0,0,0),(230,'2020-01-01',316,0,0,0,0),(231,'2020-01-01',294,0,0,0,0),(232,'2020-01-01',77,0,7,6646000,0),(233,'2020-01-01',76,0,0,0,0),(234,'2020-01-01',154,3,1,0,0),(235,'2020-01-01',214,0,0,0,0),(236,'2020-01-01',299,0,0,0,0),(237,'2020-01-01',255,0,0,0,0),(238,'2020-01-01',246,0,0,0,0),(239,'2020-01-01',245,0,0,0,0),(240,'2020-01-01',75,10,3,0,0),(241,'2020-01-01',80,0,0,0,0),(242,'2020-01-01',18,19,0,0,0),(243,'2020-01-01',140,0,0,0,0),(244,'2020-01-01',163,0,0,0,0),(245,'2020-01-01',131,5,0,0,0),(246,'2020-01-01',83,10,3,0,0),(247,'2020-01-01',99,0,0,0,0),(248,'2020-01-01',153,0,0,0,0),(249,'2020-01-01',19,15,0,512000,0),(250,'2020-01-01',223,20,11,0,0),(251,'2020-01-01',96,30,2,810000,0),(252,'2020-01-01',95,45,2,0,0),(253,'2020-01-01',82,0,19,0,0),(254,'2020-01-01',158,40,82,18691000,0),(255,'2020-01-01',202,30,2,3945000,0),(256,'2020-01-01',90,44,0,9477000,0),(257,'2020-01-01',84,5,7,0,0),(258,'2020-01-01',183,10,0,0,0),(259,'2020-01-01',105,1,0,0,0),(260,'2020-01-01',89,6,0,6085000,0),(261,'2020-01-01',101,5,0,0,0),(262,'2020-01-01',114,5,0,2308000,0),(263,'2020-01-01',102,4,0,0,0),(264,'2020-01-01',100,0,0,0,0),(265,'2020-01-01',104,0,0,0,0),(266,'2020-01-01',253,0,0,0,0),(267,'2020-01-01',264,0,0,0,0),(268,'2020-01-01',87,0,0,0,0),(269,'2020-01-01',91,7,13,4079000,0),(270,'2020-01-01',135,0,23,0,0),(271,'2020-01-01',118,0,3,0,0),(272,'2020-01-01',103,16,0,2188000,0),(273,'2020-01-01',177,0,0,0,0),(274,'2020-01-01',162,20,0,0,0),(275,'2020-01-01',139,20,0,1000000,0),(276,'2020-01-01',94,0,0,0,0),(277,'2020-01-01',93,16,0,8982000,0),(278,'2020-01-01',92,0,0,0,0),(279,'2020-01-01',86,0,0,660000,0),(280,'2020-01-01',88,40,19,0,0),(281,'2020-01-01',113,40,2,5000000,0),(282,'2020-01-01',195,0,0,0,0),(283,'2020-01-01',98,16,0,2000000,0),(284,'2020-01-01',79,30,0,9307000,0),(285,'2020-01-01',181,10,0,0,0),(286,'2020-01-01',144,7,0,0,0),(287,'2020-01-01',106,90,0,15000000,0),(288,'2020-01-01',170,0,0,0,0),(289,'2020-01-01',133,20,0,0,0),(290,'2020-01-01',107,0,4,0,0),(291,'2020-01-01',221,0,0,0,0),(292,'2020-01-01',130,5,0,0,0),(293,'2020-01-01',228,0,0,0,0),(294,'2020-01-01',302,0,0,0,0),(295,'2020-01-01',291,0,0,0,0),(296,'2020-01-01',269,0,0,0,0),(297,'2020-01-01',288,0,0,0,0),(298,'2020-01-01',273,0,0,0,0),(299,'2020-01-01',284,0,0,0,0),(300,'2020-01-01',276,0,0,0,0),(301,'2020-01-01',274,0,0,0,0),(302,'2020-01-01',108,1,0,0,0),(303,'2020-01-01',237,0,0,0,0),(304,'2020-01-01',109,27,0,1366000,0),(305,'2020-01-01',110,5,0,1645000,0),(306,'2020-01-01',222,30,4,0,0),(307,'2020-01-01',111,20,0,2000000,0),(308,'2020-01-01',243,0,0,0,0),(309,'2020-01-01',233,0,0,0,0),(310,'2020-01-06',205,0,0,0,0),(311,'2020-01-06',293,0,0,18054720,0),(312,'2020-01-06',97,5,0,1059000,0),(313,'2020-01-06',182,29,18,0,0),(314,'2020-01-06',250,0,0,2142000,0),(315,'2020-01-06',199,3,0,841000,0),(316,'2020-01-06',300,0,0,0,0),(317,'2020-01-06',261,0,0,0,0),(318,'2020-01-06',12,0,0,0,0),(319,'2020-01-06',301,0,0,0,0),(320,'2020-01-06',175,10,0,1000000,0),(321,'2020-01-06',283,0,0,0,0),(322,'2020-01-06',160,0,0,0,0),(323,'2020-01-06',305,10,0,0,0),(324,'2020-01-06',296,0,0,0,0),(325,'2020-01-06',278,0,0,29493000,0),(326,'2020-01-06',277,0,0,0,0),(327,'2020-01-06',13,0,0,0,0),(328,'2020-01-06',15,22,4,580000,0),(329,'2020-01-06',249,0,0,0,0),(330,'2020-01-06',134,0,0,0,0),(331,'2020-01-06',210,5,0,0,0),(332,'2020-01-06',203,10,5,0,0),(333,'2020-01-06',14,0,0,0,0),(334,'2020-01-06',185,0,0,0,0),(335,'2020-01-06',22,5,0,10760000,0),(336,'2020-01-06',20,0,0,0,0),(337,'2020-01-06',187,3,0,0,0),(338,'2020-01-06',188,5,0,0,0),(339,'2020-01-06',128,0,0,0,0),(340,'2020-01-06',23,10,0,0,0),(341,'2020-01-06',25,0,0,0,0),(342,'2020-01-06',235,0,0,10905696,0),(343,'2020-01-06',280,0,0,0,0),(344,'2020-01-06',297,0,0,0,0),(345,'2020-01-06',24,0,0,0,0),(346,'2020-01-06',21,0,0,0,0),(347,'2020-01-06',201,0,4,0,0),(348,'2020-01-06',125,235,330,0,0),(349,'2020-01-06',27,5,0,0,0),(350,'2020-01-06',232,10,20,5726000,0),(351,'2020-01-06',215,0,0,0,0),(352,'2020-01-06',314,5,0,0,0),(353,'2020-01-06',196,5,0,0,0),(354,'2020-01-06',217,10,0,0,0),(355,'2020-01-06',308,0,5,0,0),(356,'2020-01-06',309,0,1,0,0),(357,'2020-01-06',226,0,0,0,0),(358,'2020-01-06',230,0,0,0,0),(359,'2020-01-06',218,0,0,0,0),(360,'2020-01-06',227,0,0,0,0),(361,'2020-01-06',307,0,0,0,0),(362,'2020-01-06',165,0,0,0,0),(363,'2020-01-06',1,0,0,0,0),(364,'2020-01-06',295,0,0,0,0),(365,'2020-01-06',124,0,0,-1412842532,0),(366,'2020-01-06',174,0,0,0,0),(367,'2020-01-06',152,0,0,911756257,0),(368,'2020-01-06',286,0,0,19270500,0),(369,'2020-01-06',229,0,0,161993000,0),(370,'2020-01-06',260,0,0,2811000,0),(371,'2020-01-06',9,0,4,4900000,0),(372,'2020-01-06',2,0,0,0,0),(373,'2020-01-06',11,29,20,12727000,0),(374,'2020-01-06',298,0,0,0,0),(375,'2020-01-06',292,0,0,0,0),(376,'2020-01-06',244,0,0,0,0),(377,'2020-01-06',147,10,0,3234000,0),(378,'2020-01-06',248,0,0,1105200,0),(379,'2020-01-06',149,8,0,0,0),(380,'2020-01-06',28,39,14,18324000,0),(381,'2020-01-06',285,0,0,11550600,0),(382,'2020-01-06',168,0,0,0,0),(383,'2020-01-06',122,0,0,0,0),(384,'2020-01-06',312,0,2,0,0),(385,'2020-01-06',146,48,0,4020000,0),(386,'2020-01-06',220,0,0,0,0),(387,'2020-01-06',29,71,11,3000000,0),(388,'2020-01-06',304,10,0,0,0),(389,'2020-01-06',209,0,0,0,0),(390,'2020-01-06',234,0,0,31725000,0),(391,'2020-01-06',317,0,0,1441425,0),(392,'2020-01-06',251,0,0,8664000,0),(393,'2020-01-06',240,0,0,993600,0),(394,'2020-01-06',242,0,1,0,0),(395,'2020-01-06',31,0,0,0,0),(396,'2020-01-06',267,0,0,0,0),(397,'2020-01-06',198,15,0,0,0),(398,'2020-01-06',126,0,0,0,0),(399,'2020-01-06',270,0,0,0,0),(400,'2020-01-06',256,0,0,0,0),(401,'2020-01-06',30,0,0,0,0),(402,'2020-01-06',32,0,0,0,0),(403,'2020-01-06',263,0,0,0,0),(404,'2020-01-06',262,0,0,26104600,0),(405,'2020-01-06',271,0,0,18421500,0),(406,'2020-01-06',318,0,0,9903500,0),(407,'2020-01-06',254,0,0,0,0),(408,'2020-01-06',282,0,0,2827500,0),(409,'2020-01-06',252,0,0,0,0),(410,'2020-01-06',247,0,0,7149600,0),(411,'2020-01-06',268,0,0,10355380,0),(412,'2020-01-06',259,0,0,2490000,0),(413,'2020-01-06',241,0,0,2574000,0),(414,'2020-01-06',239,0,0,22556700,0),(415,'2020-01-06',257,0,0,9254790,0),(416,'2020-01-06',238,0,0,4865400,0),(417,'2020-01-06',148,0,0,0,0),(418,'2020-01-06',310,50,11,5670000,0),(419,'2020-01-06',225,5,0,0,0),(420,'2020-01-06',190,0,0,0,0),(421,'2020-01-06',189,5,0,0,0),(422,'2020-01-06',313,5,16,3820000,0),(423,'2020-01-06',129,10,0,232000,0),(424,'2020-01-06',164,0,0,0,0),(425,'2020-01-06',37,0,0,0,0),(426,'2020-01-06',171,68,4,21000000,0),(427,'2020-01-06',33,0,0,0,0),(428,'2020-01-06',176,0,0,0,0),(429,'2020-01-06',193,0,0,0,0),(430,'2020-01-06',213,100,2,7080000,0),(431,'2020-01-06',39,0,0,0,0),(432,'2020-01-06',186,4,0,0,0),(433,'2020-01-06',16,5,0,0,0),(434,'2020-01-06',204,20,4,0,0),(435,'2020-01-06',136,5,0,0,0),(436,'2020-01-06',200,10,0,0,0),(437,'2020-01-06',35,34,0,0,0),(438,'2020-01-06',151,0,0,0,0),(439,'2020-01-06',155,0,0,0,0),(440,'2020-01-06',42,30,0,2149000,0),(441,'2020-01-06',287,0,0,0,0),(442,'2020-01-06',38,0,0,0,0),(443,'2020-01-06',41,40,7,0,0),(444,'2020-01-06',173,0,0,0,0),(445,'2020-01-06',180,4,0,0,0),(446,'2020-01-06',119,26,18,5000000,0),(447,'2020-01-06',121,0,0,940000,0),(448,'2020-01-06',143,0,0,0,0),(449,'2020-01-06',115,10,4,0,0),(450,'2020-01-06',40,3,0,0,0),(451,'2020-01-06',159,0,0,0,0),(452,'2020-01-06',116,0,0,0,0),(453,'2020-01-06',141,0,4,1762000,0),(454,'2020-01-06',137,0,0,0,0),(455,'2020-01-06',34,10,0,0,0),(456,'2020-01-06',85,0,11,0,0),(457,'2020-01-06',157,0,0,0,0),(458,'2020-01-06',197,0,0,0,0),(459,'2020-01-06',43,-5,0,0,0),(460,'2020-01-06',138,0,0,0,0),(461,'2020-01-06',184,0,0,0,0),(462,'2020-01-06',44,60,15,4791000,0),(463,'2020-01-06',212,20,7,0,0),(464,'2020-01-06',48,0,0,0,0),(465,'2020-01-06',192,0,0,0,0),(466,'2020-01-06',45,0,0,0,0),(467,'2020-01-06',47,20,2,8000000,0),(468,'2020-01-06',46,40,7,0,0),(469,'2020-01-06',54,8,0,0,0),(470,'2020-01-06',53,10,0,0,0),(471,'2020-01-06',52,13,1,0,0),(472,'2020-01-06',50,44,27,11780000,0),(473,'2020-01-06',49,10,4,0,0),(474,'2020-01-06',166,0,0,0,0),(475,'2020-01-06',55,25,0,0,0),(476,'2020-01-06',208,0,0,0,0),(477,'2020-01-06',51,0,0,0,0),(478,'2020-01-06',321,10,0,0,0),(479,'2020-01-06',117,1,0,0,0),(480,'2020-01-06',60,0,3,10458000,0),(481,'2020-01-06',127,0,5,100000,0),(482,'2020-01-06',56,0,0,0,0),(483,'2020-01-06',58,16,5,715000,0),(484,'2020-01-06',59,10,0,3367000,0),(485,'2020-01-06',145,15,0,0,0),(486,'2020-01-06',112,13,0,0,0),(487,'2020-01-06',178,15,0,0,0),(488,'2020-01-06',224,10,0,0,0),(489,'2020-01-06',211,40,7,24116000,0),(490,'2020-01-06',194,20,0,5720000,0),(491,'2020-01-06',62,0,0,0,0),(492,'2020-01-06',61,18,1,3344000,0),(493,'2020-01-06',17,8,0,1774000,0),(494,'2020-01-06',57,4,1,-3524000,0),(495,'2020-01-06',123,0,0,1496000,0),(496,'2020-01-06',311,20,0,0,0),(497,'2020-01-06',219,0,0,0,0),(498,'2020-01-06',191,0,0,0,0),(499,'2020-01-06',156,0,0,0,0),(500,'2020-01-06',65,10,2,3823000,0),(501,'2020-01-06',172,5,0,0,0),(502,'2020-01-06',63,0,0,0,0),(503,'2020-01-06',64,0,0,0,0),(504,'2020-01-06',315,0,4,2643000,0),(505,'2020-01-06',281,0,0,0,0),(506,'2020-01-06',279,0,0,0,0),(507,'2020-01-06',322,0,0,10331250,0),(508,'2020-01-06',275,0,0,0,0),(509,'2020-01-06',167,0,0,0,0),(510,'2020-01-06',303,10,0,0,0),(511,'2020-01-06',236,0,0,0,0),(512,'2020-01-06',161,20,8,0,0),(513,'2020-01-06',306,7,0,0,0),(514,'2020-01-06',66,20,0,2079000,0),(515,'2020-01-06',72,0,0,0,0),(516,'2020-01-06',71,25,0,0,0),(517,'2020-01-06',67,0,0,0,0),(518,'2020-01-06',207,0,0,0,0),(519,'2020-01-06',68,0,0,0,0),(520,'2020-01-06',150,0,0,0,0),(521,'2020-01-06',69,0,0,0,0),(522,'2020-01-06',319,0,0,0,0),(523,'2020-01-06',169,0,7,0,0),(524,'2020-01-06',120,100,8,0,0),(525,'2020-01-06',70,10,0,0,0),(526,'2020-01-06',206,14,4,4160000,0),(527,'2020-01-06',179,17,2,0,0),(528,'2020-01-06',320,20,0,0,0),(529,'2020-01-06',73,3,0,0,0),(530,'2020-01-06',132,20,0,0,0),(531,'2020-01-06',74,10,0,0,0),(532,'2020-01-06',216,0,0,0,0),(533,'2020-01-06',142,38,23,2000000,0),(534,'2020-01-06',323,0,0,0,0),(535,'2020-01-06',26,0,5,9029000,0),(536,'2020-01-06',265,0,0,0,0),(537,'2020-01-06',266,0,0,1757320,0),(538,'2020-01-06',290,0,0,4615500,0),(539,'2020-01-06',258,0,0,49096750,0),(540,'2020-01-06',316,0,0,1068660,0),(541,'2020-01-06',294,0,0,7267500,0),(542,'2020-01-06',77,0,7,6646000,0),(543,'2020-01-06',76,0,0,0,0),(544,'2020-01-06',154,3,1,0,0),(545,'2020-01-06',214,0,0,0,0),(546,'2020-01-06',299,0,0,0,0),(547,'2020-01-06',255,0,0,3021500,0),(548,'2020-01-06',246,0,0,1281600,0),(549,'2020-01-06',245,0,0,0,0),(550,'2020-01-06',75,10,3,0,0),(551,'2020-01-06',80,0,0,0,0),(552,'2020-01-06',18,19,0,0,0),(553,'2020-01-06',140,0,0,0,0),(554,'2020-01-06',163,0,0,0,0),(555,'2020-01-06',131,5,0,0,0),(556,'2020-01-06',83,10,3,0,0),(557,'2020-01-06',99,0,0,0,0),(558,'2020-01-06',153,0,0,0,0),(559,'2020-01-06',19,15,0,512000,0),(560,'2020-01-06',223,20,11,0,0),(561,'2020-01-06',96,30,2,810000,0),(562,'2020-01-06',95,45,2,0,0),(563,'2020-01-06',82,0,19,0,0),(564,'2020-01-06',158,40,82,18691000,0),(565,'2020-01-06',202,30,2,3945000,0),(566,'2020-01-06',90,44,0,9477000,0),(567,'2020-01-06',84,5,7,0,0),(568,'2020-01-06',183,10,0,0,0),(569,'2020-01-06',105,1,0,0,0),(570,'2020-01-06',89,6,0,6085000,0),(571,'2020-01-06',101,5,0,0,0),(572,'2020-01-06',114,5,0,2308000,0),(573,'2020-01-06',102,4,0,0,0),(574,'2020-01-06',100,0,0,0,0),(575,'2020-01-06',104,0,0,0,0),(576,'2020-01-06',253,0,0,5566800,0),(577,'2020-01-06',264,0,0,0,0),(578,'2020-01-06',87,0,0,0,0),(579,'2020-01-06',91,7,13,4079000,0),(580,'2020-01-06',135,0,23,0,0),(581,'2020-01-06',118,0,3,0,0),(582,'2020-01-06',103,16,0,2188000,0),(583,'2020-01-06',177,0,0,0,0),(584,'2020-01-06',162,20,0,0,0),(585,'2020-01-06',139,20,0,1000000,0),(586,'2020-01-06',94,0,0,0,0),(587,'2020-01-06',93,16,0,8982000,0),(588,'2020-01-06',92,0,0,0,0),(589,'2020-01-06',86,0,0,660000,0),(590,'2020-01-06',88,40,19,0,0),(591,'2020-01-06',113,40,2,5000000,0),(592,'2020-01-06',195,0,0,0,0),(593,'2020-01-06',98,16,0,2000000,0),(594,'2020-01-06',79,30,0,9307000,0),(595,'2020-01-06',181,10,0,0,0),(596,'2020-01-06',144,7,0,0,0),(597,'2020-01-06',106,90,0,15000000,0),(598,'2020-01-06',170,0,0,0,0),(599,'2020-01-06',133,20,0,0,0),(600,'2020-01-06',107,0,4,0,0),(601,'2020-01-06',221,0,0,0,0),(602,'2020-01-06',130,5,0,0,0),(603,'2020-01-06',228,0,0,0,0),(604,'2020-01-06',302,0,0,1120500,0),(605,'2020-01-06',291,0,0,2040000,0),(606,'2020-01-06',269,0,0,0,0),(607,'2020-01-06',288,0,0,0,0),(608,'2020-01-06',273,0,0,0,0),(609,'2020-01-06',284,0,0,25835000,0),(610,'2020-01-06',276,0,0,0,0),(611,'2020-01-06',274,0,0,0,0),(612,'2020-01-06',108,1,0,0,0),(613,'2020-01-06',237,0,0,0,0),(614,'2020-01-06',109,27,0,1366000,0),(615,'2020-01-06',110,5,0,1645000,0),(616,'2020-01-06',222,30,4,0,0),(617,'2020-01-06',111,20,0,2000000,0),(618,'2020-01-06',243,0,0,0,0),(619,'2020-01-06',233,0,0,0,0),(620,'2020-02-01',205,0,0,0,0),(621,'2020-02-01',293,0,0,18054720,0),(622,'2020-02-01',97,10,0,1059000,0),(623,'2020-02-01',182,29,18,-3259000,0),(624,'2020-02-01',250,0,0,2142000,0),(625,'2020-02-01',199,3,0,841000,0),(626,'2020-02-01',300,0,0,0,0),(627,'2020-02-01',261,0,0,0,0),(628,'2020-02-01',12,0,0,0,0),(629,'2020-02-01',301,0,0,0,0),(630,'2020-02-01',175,10,0,0,0),(631,'2020-02-01',283,0,0,0,0),(632,'2020-02-01',160,0,0,0,0),(633,'2020-02-01',305,10,0,0,0),(634,'2020-02-01',296,0,0,0,0),(635,'2020-02-01',278,0,0,34604250,0),(636,'2020-02-01',277,0,0,0,0),(637,'2020-02-01',13,0,0,0,0),(638,'2020-02-01',15,32,6,580000,0),(639,'2020-02-01',249,0,0,0,0),(640,'2020-02-01',134,0,0,0,0),(641,'2020-02-01',210,1,0,0,0),(642,'2020-02-01',203,0,5,0,0),(643,'2020-02-01',14,0,0,0,0),(644,'2020-02-01',185,0,0,0,0),(645,'2020-02-01',22,5,0,10760000,0),(646,'2020-02-01',20,0,0,0,0),(647,'2020-02-01',187,3,0,0,0),(648,'2020-02-01',188,5,0,0,0),(649,'2020-02-01',128,0,0,0,0),(650,'2020-02-01',23,16,0,0,0),(651,'2020-02-01',25,0,0,0,0),(652,'2020-02-01',235,0,0,10905696,0),(653,'2020-02-01',280,0,0,0,0),(654,'2020-02-01',297,0,0,0,0),(655,'2020-02-01',24,0,0,0,0),(656,'2020-02-01',21,0,0,0,0),(657,'2020-02-01',201,0,4,0,0),(658,'2020-02-01',125,252,285,0,0),(659,'2020-02-01',27,5,0,0,0),(660,'2020-02-01',232,10,20,5726000,0),(661,'2020-02-01',215,0,0,0,0),(662,'2020-02-01',314,5,0,0,0),(663,'2020-02-01',196,5,0,0,0),(664,'2020-02-01',217,10,0,0,0),(665,'2020-02-01',308,0,5,0,0),(666,'2020-02-01',309,0,2,0,0),(667,'2020-02-01',226,0,0,0,0),(668,'2020-02-01',230,0,0,11375250,0),(669,'2020-02-01',218,0,0,0,0),(670,'2020-02-01',227,0,0,0,0),(671,'2020-02-01',307,0,0,0,0),(672,'2020-02-01',165,0,0,0,0),(673,'2020-02-01',1,0,0,0,0),(674,'2020-02-01',295,0,0,0,0),(675,'2020-02-01',124,0,0,-1412842532,0),(676,'2020-02-01',174,0,0,0,0),(677,'2020-02-01',152,0,0,1364560411,0),(678,'2020-02-01',286,0,0,43094500,0),(679,'2020-02-01',229,0,0,91515750,0),(680,'2020-02-01',324,0,0,0,0),(681,'2020-02-01',260,0,0,2811000,0),(682,'2020-02-01',9,20,4,4900000,0),(683,'2020-02-01',2,0,0,0,0),(684,'2020-02-01',11,29,20,12727000,0),(685,'2020-02-01',298,0,0,0,0),(686,'2020-02-01',292,0,0,0,0),(687,'2020-02-01',244,0,0,0,0),(688,'2020-02-01',147,10,0,2234000,0),(689,'2020-02-01',248,0,0,1105200,0),(690,'2020-02-01',149,8,0,0,0),(691,'2020-02-01',28,99,14,13824000,0),(692,'2020-02-01',285,0,0,11550600,0),(693,'2020-02-01',168,10,0,0,0),(694,'2020-02-01',122,0,0,0,0),(695,'2020-02-01',312,0,2,0,0),(696,'2020-02-01',146,48,0,4020000,0),(697,'2020-02-01',220,0,0,0,0),(698,'2020-02-01',29,51,10,3000000,0),(699,'2020-02-01',304,10,0,0,0),(700,'2020-02-01',209,0,0,0,0),(701,'2020-02-01',234,0,0,31725000,0),(702,'2020-02-01',317,0,0,1441425,0),(703,'2020-02-01',251,0,0,8664000,0),(704,'2020-02-01',240,0,0,993600,0),(705,'2020-02-01',242,0,1,0,0),(706,'2020-02-01',31,0,0,0,0),(707,'2020-02-01',267,0,0,0,0),(708,'2020-02-01',198,25,2,0,0),(709,'2020-02-01',126,0,0,0,0),(710,'2020-02-01',270,0,0,0,0),(711,'2020-02-01',256,0,0,0,0),(712,'2020-02-01',30,0,0,0,0),(713,'2020-02-01',32,0,0,0,0),(714,'2020-02-01',263,0,0,0,0),(715,'2020-02-01',262,0,0,26104600,0),(716,'2020-02-01',271,0,0,21590500,0),(717,'2020-02-01',318,0,0,9903500,0),(718,'2020-02-01',254,0,0,0,0),(719,'2020-02-01',282,0,0,2827500,0),(720,'2020-02-01',252,0,0,0,0),(721,'2020-02-01',247,0,0,7149600,0),(722,'2020-02-01',268,0,0,10355380,0),(723,'2020-02-01',259,0,0,2490000,0),(724,'2020-02-01',241,0,0,2574000,0),(725,'2020-02-01',239,0,0,22556700,0),(726,'2020-02-01',257,0,0,9254790,0),(727,'2020-02-01',238,0,0,3245400,0),(728,'2020-02-01',148,0,0,0,0),(729,'2020-02-01',310,50,14,11670000,0),(730,'2020-02-01',225,10,0,0,0),(731,'2020-02-01',190,0,0,0,0),(732,'2020-02-01',189,5,0,0,0),(733,'2020-02-01',313,5,16,3820000,0),(734,'2020-02-01',129,10,0,232000,0),(735,'2020-02-01',164,1,0,-1981000,0),(736,'2020-02-01',37,0,0,0,0),(737,'2020-02-01',171,98,-1,16000000,0),(738,'2020-02-01',33,0,0,0,0),(739,'2020-02-01',176,0,0,0,0),(740,'2020-02-01',193,0,0,0,0),(741,'2020-02-01',213,100,2,7080000,0),(742,'2020-02-01',39,0,0,0,0),(743,'2020-02-01',186,4,0,0,0),(744,'2020-02-01',16,15,0,0,0),(745,'2020-02-01',204,20,4,0,0),(746,'2020-02-01',136,10,0,0,0),(747,'2020-02-01',200,10,0,0,0),(748,'2020-02-01',35,52,2,0,0),(749,'2020-02-01',151,0,0,0,0),(750,'2020-02-01',155,0,0,0,0),(751,'2020-02-01',42,45,0,2149000,0),(752,'2020-02-01',287,0,0,0,0),(753,'2020-02-01',38,0,0,0,0),(754,'2020-02-01',41,50,7,0,0),(755,'2020-02-01',173,0,0,0,0),(756,'2020-02-01',180,4,0,0,0),(757,'2020-02-01',119,26,18,5000000,0),(758,'2020-02-01',121,0,0,0,0),(759,'2020-02-01',143,0,0,0,0),(760,'2020-02-01',115,30,4,0,0),(761,'2020-02-01',40,3,0,0,0),(762,'2020-02-01',159,0,0,0,0),(763,'2020-02-01',116,0,0,0,0),(764,'2020-02-01',141,0,4,0,0),(765,'2020-02-01',137,0,0,0,0),(766,'2020-02-01',34,10,0,0,0),(767,'2020-02-01',85,0,11,0,0),(768,'2020-02-01',157,0,0,0,0),(769,'2020-02-01',197,0,0,0,0),(770,'2020-02-01',43,116,0,0,0),(771,'2020-02-01',138,0,0,0,0),(772,'2020-02-01',184,0,0,0,0),(773,'2020-02-01',44,60,15,4791000,0),(774,'2020-02-01',212,20,7,0,0),(775,'2020-02-01',48,0,0,0,0),(776,'2020-02-01',192,0,0,0,0),(777,'2020-02-01',45,0,0,0,0),(778,'2020-02-01',47,20,2,8000000,0),(779,'2020-02-01',46,60,9,0,0),(780,'2020-02-01',54,18,0,0,0),(781,'2020-02-01',53,20,0,0,0),(782,'2020-02-01',52,18,1,0,0),(783,'2020-02-01',50,64,26,11780000,0),(784,'2020-02-01',49,10,4,0,0),(785,'2020-02-01',166,0,0,0,0),(786,'2020-02-01',55,25,0,0,0),(787,'2020-02-01',208,0,0,0,0),(788,'2020-02-01',51,10,0,0,0),(789,'2020-02-01',321,10,0,0,0),(790,'2020-02-01',117,6,0,0,0),(791,'2020-02-01',60,0,3,10458000,0),(792,'2020-02-01',127,0,6,100000,0),(793,'2020-02-01',56,10,0,0,0),(794,'2020-02-01',58,36,5,715000,0),(795,'2020-02-01',59,16,0,3367000,0),(796,'2020-02-01',145,15,0,0,0),(797,'2020-02-01',112,13,0,0,0),(798,'2020-02-01',178,15,0,0,0),(799,'2020-02-01',224,10,0,0,0),(800,'2020-02-01',211,43,3,24116000,0),(801,'2020-02-01',194,20,0,5720000,0),(802,'2020-02-01',62,0,0,0,0),(803,'2020-02-01',61,18,1,3344000,0),(804,'2020-02-01',17,8,0,1774000,0),(805,'2020-02-01',57,4,0,-3524000,0),(806,'2020-02-01',123,5,0,1496000,0),(807,'2020-02-01',311,30,0,0,0),(808,'2020-02-01',219,0,0,0,0),(809,'2020-02-01',191,0,0,0,0),(810,'2020-02-01',156,0,0,0,0),(811,'2020-02-01',65,10,2,3823000,0),(812,'2020-02-01',172,5,0,0,0),(813,'2020-02-01',63,0,0,0,0),(814,'2020-02-01',64,0,0,0,0),(815,'2020-02-01',315,0,4,0,0),(816,'2020-02-01',281,0,0,0,0),(817,'2020-02-01',279,0,0,0,0),(818,'2020-02-01',322,0,0,10331250,0),(819,'2020-02-01',275,0,0,0,0),(820,'2020-02-01',167,0,0,0,0),(821,'2020-02-01',303,10,0,0,0),(822,'2020-02-01',236,0,0,0,0),(823,'2020-02-01',161,45,5,0,0),(824,'2020-02-01',306,11,0,0,0),(825,'2020-02-01',66,20,0,3753000,0),(826,'2020-02-01',72,15,0,0,0),(827,'2020-02-01',71,28,0,0,0),(828,'2020-02-01',67,0,0,0,0),(829,'2020-02-01',207,0,0,0,0),(830,'2020-02-01',68,0,0,0,0),(831,'2020-02-01',150,0,0,0,0),(832,'2020-02-01',69,0,0,0,0),(833,'2020-02-01',319,10,0,0,0),(834,'2020-02-01',169,0,7,0,0),(835,'2020-02-01',120,100,8,0,0),(836,'2020-02-01',70,10,0,0,0),(837,'2020-02-01',206,14,4,2038000,0),(838,'2020-02-01',179,17,2,0,0),(839,'2020-02-01',320,20,0,0,0),(840,'2020-02-01',73,7,0,0,0),(841,'2020-02-01',132,20,0,0,0),(842,'2020-02-01',74,10,0,0,0),(843,'2020-02-01',216,0,0,0,0),(844,'2020-02-01',142,38,20,4500000,0),(845,'2020-02-01',323,20,1,0,0),(846,'2020-02-01',26,0,3,9029000,0),(847,'2020-02-01',265,0,0,0,0),(848,'2020-02-01',266,0,0,1757320,0),(849,'2020-02-01',290,0,0,2947500,0),(850,'2020-02-01',258,0,0,49096750,0),(851,'2020-02-01',316,0,0,1068660,0),(852,'2020-02-01',294,0,0,7267500,0),(853,'2020-02-01',77,0,7,6646000,0),(854,'2020-02-01',76,0,0,0,0),(855,'2020-02-01',154,3,1,0,0),(856,'2020-02-01',214,0,0,0,0),(857,'2020-02-01',299,0,0,0,0),(858,'2020-02-01',255,0,0,1021500,0),(859,'2020-02-01',246,0,0,0,0),(860,'2020-02-01',245,0,0,0,0),(861,'2020-02-01',75,10,3,0,0),(862,'2020-02-01',80,0,0,0,0),(863,'2020-02-01',18,29,0,0,0),(864,'2020-02-01',140,0,0,0,0),(865,'2020-02-01',163,0,0,0,0),(866,'2020-02-01',131,10,0,0,0),(867,'2020-02-01',83,10,3,0,0),(868,'2020-02-01',99,0,0,0,0),(869,'2020-02-01',153,0,0,0,0),(870,'2020-02-01',19,15,0,512000,0),(871,'2020-02-01',223,20,11,0,0),(872,'2020-02-01',96,35,2,810000,0),(873,'2020-02-01',95,60,2,0,0),(874,'2020-02-01',82,0,19,0,0),(875,'2020-02-01',158,40,95,19656000,0),(876,'2020-02-01',202,30,2,3945000,0),(877,'2020-02-01',90,44,0,9477000,0),(878,'2020-02-01',84,15,7,0,0),(879,'2020-02-01',183,10,0,0,0),(880,'2020-02-01',105,1,0,0,0),(881,'2020-02-01',89,6,0,6085000,0),(882,'2020-02-01',101,5,0,0,0),(883,'2020-02-01',114,5,0,1380000,0),(884,'2020-02-01',102,4,0,0,0),(885,'2020-02-01',100,0,0,0,0),(886,'2020-02-01',104,10,0,0,0),(887,'2020-02-01',253,0,0,5566800,0),(888,'2020-02-01',264,0,0,0,0),(889,'2020-02-01',87,0,0,0,0),(890,'2020-02-01',91,7,15,4079000,0),(891,'2020-02-01',135,-10,23,-420000,0),(892,'2020-02-01',118,0,0,420000,0),(893,'2020-02-01',103,26,0,1688000,0),(894,'2020-02-01',325,0,0,0,0),(895,'2020-02-01',177,0,0,0,0),(896,'2020-02-01',162,20,0,0,0),(897,'2020-02-01',139,20,0,1000000,0),(898,'2020-02-01',94,0,0,0,0),(899,'2020-02-01',93,16,0,8982000,0),(900,'2020-02-01',92,0,0,0,0),(901,'2020-02-01',86,0,0,660000,0),(902,'2020-02-01',88,40,19,0,0),(903,'2020-02-01',113,40,2,5000000,0),(904,'2020-02-01',195,0,0,0,0),(905,'2020-02-01',98,16,0,2000000,0),(906,'2020-02-01',79,30,0,9307000,0),(907,'2020-02-01',181,10,0,0,0),(908,'2020-02-01',144,12,0,0,0),(909,'2020-02-01',106,90,0,15000000,0),(910,'2020-02-01',170,0,0,0,0),(911,'2020-02-01',133,20,0,0,0),(912,'2020-02-01',107,20,5,0,0),(913,'2020-02-01',221,0,0,0,0),(914,'2020-02-01',130,5,0,0,0),(915,'2020-02-01',228,0,0,0,0),(916,'2020-02-01',302,0,0,1120500,0),(917,'2020-02-01',291,0,0,2040000,0),(918,'2020-02-01',269,0,0,0,0),(919,'2020-02-01',288,0,0,0,0),(920,'2020-02-01',273,0,0,0,0),(921,'2020-02-01',284,0,0,30000,0),(922,'2020-02-01',276,0,0,0,0),(923,'2020-02-01',274,0,0,0,0),(924,'2020-02-01',108,1,0,0,0),(925,'2020-02-01',237,0,0,1080000,0),(926,'2020-02-01',109,27,0,1366000,0),(927,'2020-02-01',110,5,0,1645000,0),(928,'2020-02-01',222,40,4,0,0),(929,'2020-02-01',111,20,0,2000000,0),(930,'2020-02-01',243,0,0,0,0),(931,'2020-02-01',233,0,0,0,0);
 
 /*Table structure for table `dayoff` */
 
@@ -341,6 +397,8 @@ CREATE TABLE `dayoff` (
   `note` text COLLATE utf8_unicode_ci,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+/*Data for the table `dayoff` */
 
 /*Table structure for table `debt_adjustment` */
 
@@ -357,7 +415,9 @@ CREATE TABLE `debt_adjustment` (
   `note` text COLLATE utf8_unicode_ci,
   `created_employee_id` int(11) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+/*Data for the table `debt_adjustment` */
 
 /*Table structure for table `debug` */
 
@@ -367,6 +427,10 @@ CREATE TABLE `debug` (
   `note` text COLLATE utf8_unicode_ci
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
+/*Data for the table `debug` */
+
+insert  into `debug`(`note`) values ('01/02/2020'),('2'),('0,1,0'),('0,22,0'),('2020-01-31'),('2020-02-01'),('01/02/2020'),('2'),('0,1,0'),('0,22,0'),('2018-01-01'),('2020-02-01');
+
 /*Table structure for table `discount_oil` */
 
 DROP TABLE IF EXISTS `discount_oil`;
@@ -375,9 +439,27 @@ CREATE TABLE `discount_oil` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `code` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
   `name` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `shell_gas_commission` int(11) DEFAULT NULL COMMENT 'chiet khau khi doi gas bang vo cty khi dat san luong',
   `note` text COLLATE utf8_unicode_ci,
   PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+/*Data for the table `discount_oil` */
+
+insert  into `discount_oil`(`id`,`code`,`name`,`shell_gas_commission`,`note`) values (1,'ck1','ck1',NULL,'');
+
+/*Table structure for table `discount_oil_customer` */
+
+DROP TABLE IF EXISTS `discount_oil_customer`;
+
+CREATE TABLE `discount_oil_customer` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `discount_id` int(11) DEFAULT NULL,
+  `customer_id` int(11) DEFAULT NULL,
+  PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+/*Data for the table `discount_oil_customer` */
 
 /*Table structure for table `discount_oil_detail` */
 
@@ -391,7 +473,11 @@ CREATE TABLE `discount_oil_detail` (
   `commission_to` double DEFAULT NULL,
   `commission` double DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+/*Data for the table `discount_oil_detail` */
+
+insert  into `discount_oil_detail`(`id`,`discount_id`,`oil_id`,`commission_from`,`commission_to`,`commission`) values (1,1,NULL,720,1800,160),(2,1,NULL,1800,3600,240),(3,1,NULL,3600,7200,320),(4,1,NULL,7200,9600,400),(5,1,NULL,9600,12000,525),(6,1,NULL,12000,120000,650);
 
 /*Table structure for table `document` */
 
@@ -403,6 +489,10 @@ CREATE TABLE `document` (
   `note` text COLLATE utf8_unicode_ci,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=9 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+/*Data for the table `document` */
+
+insert  into `document`(`id`,`name`,`note`) values (8,'Giấy phép đăng ký kinh doanh','');
 
 /*Table structure for table `dynamic_field` */
 
@@ -419,6 +509,10 @@ CREATE TABLE `dynamic_field` (
   PRIMARY KEY (`id`)
 ) ENGINE=MyISAM AUTO_INCREMENT=12 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
+/*Data for the table `dynamic_field` */
+
+insert  into `dynamic_field`(`id`,`code`,`name`,`organization_id`,`table_name`,`can_edit`,`free_value_id`) values (1,'DAYOFFINYEAR','Số ngày phép trong năm',1,'employee',0,1),(2,'SATURDAY','Làm ngày thứ 7',1,'employee',0,2),(3,'SENIALLOW','Thưởng thâm niên (%)',1,'employee',0,3),(4,'DAYOFFINYEAR','Số ngày phép trong năm',14,'employee',0,4),(5,'SATURDAY','Làm ngày thứ 7',14,'employee',0,5),(6,'SENIALLOW','Thưởng thâm niên (%)',14,'employee',0,6),(7,'TDHV','Trình độ học vấn',1,'employee',1,0);
+
 /*Table structure for table `dynamic_field_free` */
 
 DROP TABLE IF EXISTS `dynamic_field_free`;
@@ -432,6 +526,10 @@ CREATE TABLE `dynamic_field_free` (
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
+/*Data for the table `dynamic_field_free` */
+
+insert  into `dynamic_field_free`(`id`,`code`,`name`,`table_name`,`parent_table_name`) values (2,'DAYOFFINYEAR','Số ngày phép trong năm','employee','organization'),(3,'SATURDAY','Làm ngày thứ 7','employee','organization'),(6,'SENIALLOW','Thưởng thâm niên (%)','employee','organization');
+
 /*Table structure for table `dynamic_field_free_value` */
 
 DROP TABLE IF EXISTS `dynamic_field_free_value`;
@@ -444,6 +542,10 @@ CREATE TABLE `dynamic_field_free_value` (
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
+/*Data for the table `dynamic_field_free_value` */
+
+insert  into `dynamic_field_free_value`(`id`,`field_id`,`parent_id`,`value`) values (1,2,1,'12'),(2,3,1,'1'),(3,6,1,'2'),(4,2,14,'13'),(5,3,14,'0.5'),(6,6,14,'1');
+
 /*Table structure for table `dynamic_field_value` */
 
 DROP TABLE IF EXISTS `dynamic_field_value`;
@@ -455,6 +557,10 @@ CREATE TABLE `dynamic_field_value` (
   `value` text COLLATE utf8_unicode_ci,
   PRIMARY KEY (`id`)
 ) ENGINE=MyISAM AUTO_INCREMENT=67 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+/*Data for the table `dynamic_field_value` */
+
+insert  into `dynamic_field_value`(`id`,`field_id`,`parent_id`,`value`) values (1,1,17,'12'),(2,2,17,'1'),(3,3,17,'2'),(4,7,17,'Cao Đẳng'),(5,4,18,'13'),(6,5,18,'0.5'),(7,6,18,'1'),(8,1,19,'12'),(9,2,19,'1'),(10,3,19,'2'),(11,7,19,''),(12,1,20,'12'),(13,2,20,'1'),(14,3,20,'2'),(15,7,20,''),(16,1,20,'12'),(17,2,20,'1'),(18,3,20,'2'),(19,7,20,''),(20,1,21,'12'),(21,2,21,'1'),(22,3,21,'2'),(23,7,21,''),(24,1,21,'12'),(25,2,21,'1'),(26,3,21,'2'),(27,7,21,''),(28,1,21,'12'),(29,2,21,'1'),(30,3,21,'2'),(31,7,21,''),(32,1,18,'12'),(33,2,18,'1'),(34,3,18,'2'),(35,7,18,''),(36,1,0,'12'),(37,2,0,'1'),(38,3,0,'2'),(39,7,0,''),(40,1,23,'12'),(41,2,23,'1'),(42,3,23,'2'),(43,7,23,''),(44,1,23,'12'),(45,2,23,'1'),(46,3,23,'2'),(47,7,23,''),(48,1,24,'12'),(49,2,24,'1'),(50,3,24,'2'),(51,7,24,''),(52,1,25,'12'),(53,2,25,'1'),(54,3,25,'2'),(55,7,25,''),(56,1,26,'12'),(57,2,26,'1'),(58,3,26,'2'),(59,7,26,''),(60,1,32,'12'),(61,2,32,'1'),(62,3,32,'2'),(63,7,32,''),(64,4,42,'13'),(65,5,42,'0.5'),(66,6,42,'1');
 
 /*Table structure for table `employee` */
 
@@ -474,6 +580,10 @@ CREATE TABLE `employee` (
   PRIMARY KEY (`id`)
 ) ENGINE=MyISAM AUTO_INCREMENT=53 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
+/*Data for the table `employee` */
+
+insert  into `employee`(`id`,`idcard`,`fullname`,`email`,`salary`,`organization_id`,`birthday`,`status`,`start_date`,`salary_bhxh`) values (1,NULL,'Admin','admin@gmail.com',0,-1,'2018-08-23',1,NULL,NULL),(19,'171192314','Cao Thị Minh','c@gmail.com',5300000,1,NULL,1,NULL,NULL),(18,NULL,'Lê Ngọc Phước','ntb@gmail.com',2000000,14,'1980-01-15',1,'2000-01-01',NULL),(17,'045082000026','Phan Khắc Hùng','hungpk.quangtrung@gmail.com',10500000,1,'1982-11-17',1,'2014-01-01',NULL),(20,'273075081','Cao Phi Hùng','hungtat@gmail.com',5500000,1,'1982-01-23',1,'2014-01-01',NULL),(21,'171347560','Cao Thị Sáng','',5300000,1,'1968-01-13',1,NULL,NULL),(23,'172430427','Phạm Văn Sơn','a@a.com',5800000,1,'1981-09-17',1,NULL,NULL),(24,'273399388','Đoàn Xuân Vũ','',5800000,1,'1990-03-10',1,NULL,NULL),(25,'273463776','Lê Ngọc Phước','',5800000,1,'1984-03-16',1,NULL,NULL),(26,'273571217','Nguyễn Minh Trung','',5300000,1,'1994-10-09',1,NULL,NULL),(27,'273577993','Mai Văn Thừa','',5300000,1,'1994-01-16',1,NULL,NULL),(28,'273140291','Nguyễn Hữu Quốc Hưng','',5800000,1,'1984-07-08',1,NULL,NULL),(29,'171075650','Cao Văn Kính','',6500000,1,'1963-10-26',1,NULL,NULL),(30,'273437479','Lê Hoàng Phước','',5300000,1,'1990-03-20',1,NULL,NULL),(31,'07708400063','Cao Huy Hoàng','',7500000,1,'1984-10-28',1,NULL,NULL),(32,'04008200037','Đặng Quang Thắng Bảy','',6300000,1,'1982-02-23',2,NULL,NULL),(33,'273508376','Trần Thanh Nam','',5300000,1,'1992-10-19',1,NULL,NULL),(34,'273651458','Nguyễn Thanh Hiền','',5300000,1,'1993-12-16',1,NULL,NULL),(35,'273288034','Lê Thị Khánh Linh','',5800000,1,'1988-07-04',1,NULL,NULL),(36,'273211619','Nguyễn Đức Tuấn','',5800000,1,'1988-02-15',1,NULL,NULL),(37,'02418400067','Hoàng Thị Lan Thuý','',3307000,1,'1984-09-22',1,NULL,NULL),(38,'162712864','Nguyễn Tiến Lãng','',6800000,1,'1985-11-06',1,NULL,NULL),(39,'273048894','Nguyễn Thanh Dũng','',5800000,1,'1969-03-15',1,NULL,NULL),(40,'273148634','Tạ Thị Kim Lộc','',5800000,1,'1985-01-02',1,NULL,NULL),(41,'273651568','Phạm Ngọc Phước Phi','',5300000,1,'1994-07-20',1,NULL,NULL),(42,'1122334455','Nguyễn Phương Tú','',0,14,NULL,1,NULL,NULL),(43,'171192370','Lưu Trần Hải','',5800000,1,NULL,1,NULL,NULL),(44,'273172536','Đặng Thanh Huân','',6800000,1,NULL,1,NULL,NULL),(45,'271941356','Ngô Bá Tài','',6800000,1,NULL,1,NULL,NULL),(46,'123456','Trần Minh Kha','',0,1,NULL,1,NULL,NULL),(47,'564','Anh Vũ','',0,1,NULL,1,NULL,0),(48,'789','Anh Hiền','',0,1,NULL,1,NULL,0),(49,'247897541','Nguyễn Đình Huy','',0,1,NULL,1,NULL,0),(50,'578942165','Lê Văn Châu','',0,1,NULL,1,NULL,0),(51,'1245791','Đặng Văn Quý','',0,1,NULL,1,NULL,0),(52,'2478945762','Nguyễn Ngọc Ánh','',0,1,NULL,1,NULL,0);
+
 /*Table structure for table `employee_advance` */
 
 DROP TABLE IF EXISTS `employee_advance`;
@@ -490,6 +600,8 @@ CREATE TABLE `employee_advance` (
   `inner_sale_id` int(11) DEFAULT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=MyISAM AUTO_INCREMENT=7 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+/*Data for the table `employee_advance` */
 
 /*Table structure for table `employee_off` */
 
@@ -508,6 +620,8 @@ CREATE TABLE `employee_off` (
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
+/*Data for the table `employee_off` */
+
 /*Table structure for table `employee_off_increase` */
 
 DROP TABLE IF EXISTS `employee_off_increase`;
@@ -523,6 +637,8 @@ CREATE TABLE `employee_off_increase` (
   `created_employee_id` int(11) DEFAULT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+/*Data for the table `employee_off_increase` */
 
 /*Table structure for table `employee_off_money` */
 
@@ -542,6 +658,8 @@ CREATE TABLE `employee_off_money` (
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
+/*Data for the table `employee_off_money` */
+
 /*Table structure for table `employee_oil_commission` */
 
 DROP TABLE IF EXISTS `employee_oil_commission`;
@@ -553,6 +671,10 @@ CREATE TABLE `employee_oil_commission` (
   `note` text COLLATE utf8_unicode_ci,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+/*Data for the table `employee_oil_commission` */
+
+insert  into `employee_oil_commission`(`id`,`name`,`amount`,`note`) values (1,'CK3000',3000,''),(2,'CK1500',1500,'');
 
 /*Table structure for table `employee_other_bonus` */
 
@@ -570,6 +692,8 @@ CREATE TABLE `employee_other_bonus` (
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
+/*Data for the table `employee_other_bonus` */
+
 /*Table structure for table `employee_panelty` */
 
 DROP TABLE IF EXISTS `employee_panelty`;
@@ -585,6 +709,8 @@ CREATE TABLE `employee_panelty` (
   `created_employee_id` int(11) DEFAULT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+/*Data for the table `employee_panelty` */
 
 /*Table structure for table `employee_route_fee` */
 
@@ -609,6 +735,8 @@ CREATE TABLE `employee_route_fee` (
   `note` text COLLATE utf8_unicode_ci,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+/*Data for the table `employee_route_fee` */
 
 /*Table structure for table `employee_salary` */
 
@@ -644,6 +772,8 @@ CREATE TABLE `employee_salary` (
   PRIMARY KEY (`id`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
+/*Data for the table `employee_salary` */
+
 /*Table structure for table `employee_salary_field` */
 
 DROP TABLE IF EXISTS `employee_salary_field`;
@@ -655,6 +785,8 @@ CREATE TABLE `employee_salary_field` (
   `amount` double DEFAULT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+/*Data for the table `employee_salary_field` */
 
 /*Table structure for table `employee_salary_field_detail` */
 
@@ -669,6 +801,8 @@ CREATE TABLE `employee_salary_field_detail` (
   `note` text COLLATE utf8_unicode_ci,
   PRIMARY KEY (`id`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+/*Data for the table `employee_salary_field_detail` */
 
 /*Table structure for table `employee_salary_timesheet_detail` */
 
@@ -685,6 +819,8 @@ CREATE TABLE `employee_salary_timesheet_detail` (
   `note` text COLLATE utf8_unicode_ci,
   PRIMARY KEY (`id`)
 ) ENGINE=MyISAM AUTO_INCREMENT=36 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+/*Data for the table `employee_salary_timesheet_detail` */
 
 /*Table structure for table `expense` */
 
@@ -705,7 +841,11 @@ CREATE TABLE `expense` (
   `note` text COLLATE utf8_unicode_ci,
   `created_employee_id` int(11) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM AUTO_INCREMENT=186 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=MyISAM AUTO_INCREMENT=166 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+/*Data for the table `expense` */
+
+insert  into `expense`(`id`,`code`,`created_date`,`amount`,`content`,`account_id`,`from_date`,`to_date`,`month_count`,`is_usually`,`type`,`note`,`created_employee_id`) values (1,'20200118-EX-0001','2020-01-01',858000,'DO',5,'2020-01-01','2020-01-01',0,0,1,'',20),(2,'20200118-EX-0002','2020-01-01',2489000,'DO xe bồn',5,'2020-01-18','2020-01-18',0,0,1,'',20),(3,'20200118-EX-0003','2020-01-02',962000,'DO',5,'2020-01-18','2020-01-18',0,0,1,'',20),(4,'20200118-EX-0004','2020-01-02',75000,'phí cầu đường',5,'2020-01-18','2020-01-18',0,0,1,'',20),(5,'20200118-EX-0005','2020-01-02',4000000,'thuế môn bài 2 cty',5,'2020-01-18','2020-01-18',0,0,1,'',20),(6,'20200118-EX-0006','2020-01-02',1032500000,'nộp tm',5,'2020-01-18','2020-01-18',0,0,1,'',20),(7,'20200118-EX-0007','2020-01-03',43000000,'tết quan',5,'2020-01-18','2020-01-18',0,0,1,'',20),(8,'20200118-EX-0008','2020-01-03',1394000,'DO',5,'2020-01-18','2020-01-18',0,0,1,'',20),(9,'20200118-EX-0009','2020-01-03',17078000,'chiết khấu',5,'2020-01-18','2020-01-18',0,0,1,'',20),(10,'20200118-EX-0010','2020-01-03',8308000,'chiết khấu',5,'2020-01-18','2020-01-18',0,0,1,'',20),(11,'20200118-EX-0011','2020-01-03',2080000,'thuê xe đi pin',5,'2020-01-18','2020-01-18',0,0,1,'',20),(12,'20200118-EX-0012','2020-01-06',5989000,'chiết khấu ctcc',5,'2020-01-18','2020-01-18',0,0,1,'',20),(13,'20200118-EX-0013','2020-01-06',3500000,'huân tiếp khách,đi sg',5,'2020-01-18','2020-01-18',0,0,1,'',20),(14,'20200118-EX-0014','2020-01-06',390000000,'nộp thái bảo',5,'2020-01-18','2020-01-18',0,0,1,'',20),(15,'20200118-EX-0015','2020-01-06',261150000,'nộp tm',5,'2020-01-18','2020-01-18',0,0,1,'',20),(16,'20200118-EX-0016','2020-01-06',1665000,'đk xe 06784',5,'2020-01-18','2020-01-18',0,0,1,'',20),(17,'20200118-EX-0017','2020-01-06',18124000,'chiết khấu',5,'2020-01-18','2020-01-18',0,0,1,'',20),(18,'20200118-EX-0018','2020-01-06',1018000,'DO',5,'2020-01-18','2020-01-18',0,0,1,'',20),(19,'20200118-EX-0019','2020-01-06',750000,'silicon',5,'2020-01-18','2020-01-18',0,0,1,'',20),(20,'20200118-EX-0020','2020-01-07',475000,'sửa camera,nv',5,'2020-01-18','2020-01-18',0,0,1,'',20),(21,'20200118-EX-0021','2020-01-07',962000,'DO,phí cầu đường',5,'2020-01-18','2020-01-18',0,0,1,'',20),(22,'20200118-EX-0022','2020-01-08',1260000,'salon(bình chi)',5,'2020-01-18','2020-01-18',0,0,1,'',20),(23,'20200118-EX-0023','2020-01-08',4540000,'đk xe 06534',5,'2020-01-18','2020-01-18',0,0,1,'',20),(24,'20200118-EX-0024','2020-01-08',6667000,'chiết khấu',5,'2020-01-18','2020-01-18',0,0,1,'',20),(25,'20200118-EX-0025','2020-01-08',1000000,'phước txe ứng',5,'2020-01-18','2020-01-18',0,0,1,'',20),(26,'20200118-EX-0026','2020-01-09',110000000,'nộp tm',5,'2020-01-18','2020-01-18',0,0,1,'',20),(27,'20200118-EX-0027','2020-01-09',4953000,'chiết khấu',5,'2020-01-18','2020-01-18',0,0,1,'',20),(28,'20200118-EX-0028','2020-01-09',2489000,'DO xe bồn',5,'2020-01-18','2020-01-18',0,0,1,'',20),(29,'20200118-EX-0029','2020-01-09',946000,'DO',5,'2020-01-18','2020-01-18',0,0,1,'',20),(35,'20200118-EX-0035','2020-01-11',100000,'CA',5,'2020-01-18','2020-01-18',0,0,1,'',20),(36,'20200118-EX-0036','2020-01-11',14690000,'mua gas',5,'2020-01-11','2020-01-11',0,0,1,'',20),(37,'20200118-EX-0037','2020-01-11',29000000,'nộp tm',5,'2020-01-18','2020-01-18',0,0,1,'',20),(38,'20200118-EX-0038','2020-01-11',2489000,'DO xe bồn',5,'2020-01-18','2020-01-18',0,0,1,'',20),(39,'20200118-EX-0039','2020-01-11',929000,'DO',5,'2020-01-18','2020-01-18',0,0,1,'',20),(40,'20200118-EX-0040','2020-01-11',75000,'phí cầu đường',5,'2020-01-18','2020-01-18',0,0,1,'',20),(41,'20200118-EX-0041','2020-01-11',2383000,'xe đi pin bình phước',5,'2020-01-18','2020-01-18',0,0,1,'',20),(158,'20200207-EX-0003','2020-01-30',75000,'phí cầu đường',5,'2020-02-07','2020-02-07',0,0,1,'',35),(43,'20200118-EX-0043','2020-01-13',100000000,'nộp tm',5,'2020-01-18','2020-01-18',0,0,1,'',20),(44,'20200118-EX-0044','2020-01-13',825000,'nv(châu)',5,'2020-01-18','2020-01-18',0,0,1,'',20),(157,'20200207-EX-0002','2020-01-30',1300000,'Thu tiền dầu Do',5,'2020-02-07','2020-02-07',0,0,1,'',35),(46,'20200121-EX-0001','2020-01-02',366600000,'Thanh Toán PV oil',9,'2020-01-01','2020-01-01',0,0,1,'',35),(47,'20200121-EX-0002','2020-01-03',5000000,'Chi tiền thuế môn bài 2020',9,'2020-01-03','2020-01-03',0,0,3,'',35),(163,'20200210-EX-0003','2020-02-10',2529769723,'Bán USD',9,'2020-02-10','2020-02-10',0,0,1,'',35),(49,'20200121-EX-0004','2020-01-06',285610000,'Chi tiền Bê Tông Lực Tấn (Oto)',9,'2020-01-06','2020-01-06',0,0,1,'',35),(162,'20200210-EX-0002','2020-02-04',1000000,'Thuế',9,'2020-02-10','2020-02-10',0,0,1,'',35),(51,'20200121-EX-0006','2020-01-13',10871577,'Chi HĐ số 35655; 35656',9,'2020-01-13','2020-01-13',0,0,1,'',35),(52,'20200121-EX-0007','2020-01-13',29999614,'Chi NSNN',9,'2020-01-13','2020-01-13',0,0,1,'',35),(53,'20200121-EX-0008','2020-01-15',3353314,'Tiền điện T12/2019',9,'2020-01-15','2020-01-15',0,0,1,'',35),(54,'20200121-EX-0009','2020-01-15',50400000,'Phí phát hành thư BL',9,'2020-01-15','2020-01-15',0,0,1,'',35),(55,'20200121-EX-0010','2020-01-17',132000000,'TT đợt 1 trạm hạ thế Phúc Bình An',9,'2020-01-17','2020-01-17',0,0,1,'',35),(56,'20200121-EX-0011','2020-01-17',697086522,'TT Thiết bị Tân Minh Giang (ô tô)',9,'2020-01-17','2020-01-17',0,0,1,'',35),(57,'20200121-EX-0012','2020-01-19',300000000,'Hđ Chuyên gia',9,'2020-01-19','2020-01-19',0,0,1,'',35),(58,'20200121-EX-0013','2020-01-20',3698630,'Lãi vay',9,'2020-01-20','2020-01-20',0,0,1,'',35),(59,'20200122-EX-0001','2020-01-21',165777100,'Thiết bị PCCC Anh Huy Ôto',9,'2020-01-21','2020-01-21',0,0,1,'',35),(60,'20200122-EX-0002','2020-01-21',7080911,'Phí CNTT + Điện  Phí LC',9,'2020-01-21','2020-01-21',0,0,1,'',35),(61,'20200123-EX-0001','2020-01-23',122400000,'chi nộp thuế',9,'2020-01-23','2020-01-23',0,0,4,'',35),(62,'20200123-EX-0002','2020-01-23',170000000,'chi nộp thuế',9,'2020-01-23','2020-01-23',0,0,4,'',35),(70,'20200203-EX-0008','2020-01-10',1800000,'',5,'2020-02-03','2020-02-03',0,1,1,'mua CB cho khách',20),(71,'20200203-EX-0009','2020-01-10',26300000,'',5,'2020-02-03','2020-02-03',0,0,1,'mua 160 vỏ văn bồng',20),(72,'20200203-EX-0010','2020-01-10',1295000,'',5,'2020-02-03','2020-02-03',0,0,1,'DO',20),(73,'20200203-EX-0011','2020-01-10',1460000,'',5,'2020-01-10','2020-01-10',0,0,1,'DO',20),(74,'20200203-EX-0012','2020-01-10',500000,'',5,'2020-02-03','2020-02-03',0,0,1,'TTGT',20),(75,'20200203-EX-0013','2020-01-10',5000000,'',5,'2020-02-03','2020-02-03',0,0,1,'a sơn ứng',20),(165,'20200210-EX-0005','2020-02-10',6795612,'Phí Thanh toán, Điện Phí USD',9,'2020-02-10','2020-02-10',0,0,1,'',35),(164,'20200210-EX-0004','2020-02-10',17110000,'chi mua thiết bị dự án Ninh Thuận Com 100D',9,'2020-02-10','2020-02-10',0,0,1,'',35),(160,'20200207-EX-0004','2020-01-31',1504068493,'vốn vay 1.5ty; lãi vay 4.068.493',9,'2020-01-31','2020-01-31',0,0,1,'',35),(82,'20200203-EX-0020','2020-01-13',31258000,'',5,'2020-02-03','2020-02-03',0,0,1,'phí vận tải,nâng hạ cont',20),(83,'20200203-EX-0021','2020-00-13',100000000,'',5,'2020-02-03','2020-02-03',0,0,1,'nộp tm',20),(86,'20200203-EX-0024','2020-01-14',14620000,'',5,'2020-02-03','2020-02-03',0,0,1,'mua 86 vỏ',20),(87,'20200203-EX-0025','2020-01-14',972000,'',5,'2020-02-03','2020-02-03',0,0,1,'DO+',20),(88,'20200203-EX-0026','2020-01-15',1250000,'',5,'2020-02-03','2020-02-03',0,0,1,'đi pin long an',20),(89,'20200203-EX-0027','2020-01-15',16200000,'',5,'2020-02-03','2020-02-03',0,0,1,'ck kdk t12',20),(90,'20200203-EX-0028','2020-01-15',20000000,'',5,'2020-02-03','2020-02-03',0,0,1,'thiên phú ninh thuận',20),(91,'20200203-EX-0029','2020-01-15',970000,'',5,'2020-02-03','2020-02-03',0,0,1,'DO',20),(92,'20200203-EX-0030','2020-01-15',5000000,'',5,'2020-02-03','2020-02-03',0,0,1,'ck thái(niwa)',20),(93,'20200203-EX-0031','2020-01-15',123000000,'',5,'2020-02-03','2020-02-03',0,0,1,'nv ứng',20),(94,'20200203-EX-0032','2020-01-15',300000000,'',5,'2020-02-03','2020-02-03',0,0,1,'nộp tm',20),(95,'20200203-EX-0033','2020-01-16',2112000,'',5,'2020-02-03','2020-02-03',0,0,1,'lắp camera salon',20),(96,'20200203-EX-0034','2020-01-16',7980000,'',5,'2020-02-03','2020-02-03',0,0,1,'khuôn lụa,đề can dán bình',20),(97,'20200203-EX-0035','2020-01-16',2000000,'',5,'2020-02-03','2020-02-03',0,0,1,'tất niên pccc số4',20),(98,'20200203-EX-0036','2020-01-16',2272000,'',5,'2020-02-03','2020-02-03',0,0,1,'DO+phí cầu đường 150k',20),(99,'20200203-EX-0037','2020-01-17',52340000,'',5,'2020-02-03','2020-02-03',0,0,1,'BH T1/2020',20),(100,'20200203-EX-0038','2020-01-17',267337000,'',5,'2020-02-03','2020-02-03',0,0,1,'nộp tm',20),(156,'20200207-EX-0001','2020-01-17',711000,'Nv (hổ) , internet, phí vc mỡ bò',5,'2020-01-17','2020-01-17',0,0,1,'',35),(102,'20200203-EX-0040','2020-01-17',2481000,'',5,'2020-02-03','2020-02-03',0,0,1,'DO xe bồn',20),(103,'20200203-EX-0041','2020-01-17',1175000,'',5,'2020-02-03','2020-02-03',0,0,1,'DO+CA 100k',20),(104,'20200203-EX-0042','2020-01-17',1500000,'',5,'2020-02-03','2020-02-03',0,0,1,'giấy pc xe 06534',20),(105,'20200203-EX-0043','2020-01-18',300000000,'',5,'2020-02-03','2020-02-03',0,0,1,'nộp tm',20),(106,'20200203-EX-0044','2020-01-18',1126000,'',5,'2020-02-03','2020-02-03',0,0,1,'DO+phí cầu đường 150k',20),(107,'20200203-EX-0045','2020-01-18',5990000,'',5,'2020-02-03','2020-02-03',0,0,1,'cont ivt',20),(108,'20200203-EX-0046','2020-01-18',2500000,'',5,'2020-02-03','2020-02-03',0,0,1,'mỡ bò',20),(109,'20200203-EX-0047','2020-01-18',8600000,'',5,'2020-02-03','2020-02-03',0,0,1,'cúng tất niên',20),(110,'20200203-EX-0048','2020-01-20',248164000,'',5,'2020-02-03','2020-02-03',0,0,1,'nộp tm',20),(111,'20200203-EX-0049','2020-01-20',1283000,'',5,'2020-02-03','2020-02-03',0,0,1,'DO',20),(112,'20200203-EX-0050','2020-01-20',9794000,'',5,'2020-02-03','2020-02-03',0,0,1,'DO+ a sơn ứng 9tr',20),(113,'20200203-EX-0051','2020-01-21',10000000,'',5,'2020-02-03','2020-02-03',0,0,1,'chi trên đồng nai',20),(114,'20200203-EX-0052','2020-01-21',930000,'',5,'2020-02-03','2020-02-03',0,0,1,'CA',20),(115,'20200203-EX-0053','2020-01-21',338780000,'',5,'2020-02-03','2020-02-03',0,0,1,'nộp tm',20),(116,'20200203-EX-0054','2020-01-21',60000,'',5,'2020-02-03','2020-02-03',0,0,1,'cước gửi hàng',20),(117,'20200203-EX-0055','2020-01-21',291000000,'',5,'2020-02-03','2020-02-03',0,0,1,'nộp tm',20),(118,'20200203-EX-0056','2020-01-21',1472000,'',5,'2020-02-03','2020-02-03',0,0,1,'DO xe bồn',20),(119,'20200203-EX-0057','2020-01-21',1210000,'',5,'2020-02-03','2020-02-03',0,0,1,'DO+phí cầu đường 75k',20),(120,'20200203-EX-0058','2020-01-21',50000,'',5,'2020-02-03','2020-02-03',0,0,1,'vá vỏ',20),(121,'20200203-EX-0059','2020-01-22',2000000,'',5,'2020-02-03','2020-02-03',0,0,1,'xui',20),(122,'20200203-EX-0060','2020-01-22',1489000,'',5,'2020-02-03','2020-02-03',0,0,1,'DO xe bồn',20),(123,'20200203-EX-0061','2020-01-22',728000,'',5,'2020-02-03','2020-02-03',0,0,1,'DO',20),(124,'20200203-EX-0062','2020-01-22',777000,'',5,'2020-02-03','2020-02-03',0,0,1,'DO',20),(125,'20200203-EX-0063','2020-01-23',16100000,'',5,'2020-02-03','2020-02-03',0,0,1,'thanh toán tiền vỏ nước-gas tình thủy',20),(126,'20200203-EX-0064','2020-01-23',1150000,'',5,'2020-02-03','2020-02-03',0,0,1,'DO+ ruột xe 380k',20),(127,'20200203-EX-0065','2020-01-23',1490000,'',5,'2020-02-03','2020-02-03',0,0,1,'DO+phí cầu đường 150k',20),(128,'20200203-EX-0066','2020-01-24',550000,'',5,'2020-02-03','2020-02-03',0,0,1,'nv(kha,cây xăng)',20),(129,'20200203-EX-0067','2020-01-24',4300000,'',5,'2020-02-03','2020-02-03',0,0,1,'nv(phước txe)',20),(130,'20200203-EX-0068','2020-01-24',1243000,'',5,'2020-02-03','2020-02-03',0,0,1,'DO',20),(131,'20200203-EX-0069','2020-01-29',1075000,'',5,'2020-02-03','2020-02-03',0,0,1,'DO',20),(132,'20200203-EX-0070','2020-01-30',2714000,'',5,'2020-02-03','2020-02-03',0,0,1,'gas dư',20),(133,'20200203-EX-0071','2020-01-31',2000000000,'',5,'2020-02-03','2020-02-03',0,0,1,'nộp tm',20),(134,'20200203-EX-0072','2020-01-31',776000,'',5,'2020-02-03','2020-02-03',0,0,1,'DO+CA 50k',20),(135,'20200206-EX-0001','2020-01-01',2000000,'showroom',5,'2020-01-01','2020-01-01',0,0,1,'',20),(136,'20200206-EX-0002','2020-01-02',448576000,'lương nv+ thư quán 24tr',5,'2020-02-06','2020-02-06',0,0,1,'',20),(137,'20200206-EX-0003','2020-01-03',6500000,'hùng',5,'2020-02-06','2020-02-06',0,0,1,'',20),(138,'20200206-EX-0004','2020-01-04',7224000,'tài làm bạt cho showroom',5,'2020-02-06','2020-02-06',0,0,1,'',20),(139,'20200206-EX-0005','2020-01-06',5000000,'quỹ cty',5,'2020-02-06','2020-02-06',0,0,1,'',20),(140,'20200206-EX-0006','2020-01-07',142464000,'quà tết',5,'2020-01-07','2020-01-07',0,0,1,'',20),(141,'20200206-EX-0007','2020-01-08',6000000,'bản thiết kế showroom',5,'2020-02-06','2020-02-06',0,0,1,'',20),(142,'20200206-EX-0008','2020-01-08',44000000,'máy hơi showroom',5,'2020-02-06','2020-02-06',0,0,1,'',20),(143,'20200206-EX-0009','2020-01-09',157552000,'điện nước trung sơn(showroom)',5,'2020-02-06','2020-02-06',0,0,1,'',20),(144,'20200206-EX-0010','2020-01-10',587600000,'nhập 40.000 DO',5,'2020-02-06','2020-02-06',0,0,1,'',20),(145,'20200206-EX-0011','2020-01-11',180066000,'thạch cao,gạch men',5,'2020-02-06','2020-02-06',0,0,1,'',20),(146,'20200206-EX-0012','2020-01-12',121312000,'trung sơn',5,'2020-02-06','2020-02-06',0,0,1,'',20),(147,'20200206-EX-0013','2020-01-14',379800000,'nhập 20.000 A95',5,'2020-02-06','2020-02-06',0,0,1,'',20),(148,'20200206-EX-0014','2020-01-15',20250000,'khung săt làm pin nhà',5,'2020-02-06','2020-02-06',0,0,1,'',20),(149,'20200206-EX-0015','2020-01-16',65950000,'showroom',5,'2020-02-06','2020-02-06',0,0,1,'',20),(150,'20200206-EX-0016','2020-01-20',10000000,'hoàng ctac',5,'2020-02-06','2020-02-06',0,0,1,'',20),(151,'20200206-EX-0017','2020-01-21',357120000,'nhập xăng dầu',5,'2020-02-06','2020-02-06',0,0,1,'',20),(152,'20200206-EX-0018','2020-01-22',353219000,'lương nv+ thư quán 10tr',5,'2020-02-06','2020-02-06',0,0,1,'',20),(153,'20200206-EX-0019','2020-01-23',48785000,'showroom(sơn bảo hoan)',5,'2020-02-06','2020-02-06',0,0,1,'',20),(154,'20200206-EX-0020','2020-01-24',200000000,'showroom(bình xd ứng đợt 5)',5,'2020-02-06','2020-02-06',0,0,1,'',20),(161,'20200210-EX-0001','2020-02-03',297600000,'Thanh Toán PV oil',9,'2020-02-10','2020-02-10',0,0,1,'',35);
 
 /*Table structure for table `fixed_asset` */
 
@@ -727,6 +867,8 @@ CREATE TABLE `fixed_asset` (
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
+/*Data for the table `fixed_asset` */
+
 /*Table structure for table `fixed_asset_depreciation` */
 
 DROP TABLE IF EXISTS `fixed_asset_depreciation`;
@@ -738,6 +880,8 @@ CREATE TABLE `fixed_asset_depreciation` (
   `note` text COLLATE utf8_unicode_ci,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+/*Data for the table `fixed_asset_depreciation` */
 
 /*Table structure for table `fixed_asset_depreciation_detail` */
 
@@ -753,6 +897,8 @@ CREATE TABLE `fixed_asset_depreciation_detail` (
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
+/*Data for the table `fixed_asset_depreciation_detail` */
+
 /*Table structure for table `fixed_asset_group` */
 
 DROP TABLE IF EXISTS `fixed_asset_group`;
@@ -763,6 +909,10 @@ CREATE TABLE `fixed_asset_group` (
   `organization_id` int(11) DEFAULT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+/*Data for the table `fixed_asset_group` */
+
+insert  into `fixed_asset_group`(`id`,`name`,`organization_id`) values (1,'Tài sản cố định',1);
 
 /*Table structure for table `fraction_gas` */
 
@@ -775,7 +925,11 @@ CREATE TABLE `fraction_gas` (
   `created_employee_id` int(11) DEFAULT NULL,
   `note` text COLLATE utf8_unicode_ci,
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM AUTO_INCREMENT=49 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=MyISAM AUTO_INCREMENT=27 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+/*Data for the table `fraction_gas` */
+
+insert  into `fraction_gas`(`id`,`code`,`created_date`,`created_employee_id`,`note`) values (1,'20200108-FG-0001','2020-01-01',35,''),(2,'20200109-FG-0001','2020-01-02',35,''),(3,'20200109-FG-0002','2020-01-03',35,''),(4,'20200110-FG-0001','2020-01-06',35,''),(5,'20200110-FG-0002','2020-01-07',35,''),(6,'20200111-FG-0001','2020-01-08',35,''),(7,'20200113-FG-0001','2020-01-09',35,''),(8,'20200113-FG-0002','2020-01-10',35,''),(9,'20200114-FG-0001','2020-01-11',35,''),(10,'20200114-FG-0002','2020-01-13',35,''),(11,'20200115-FG-0001','2020-01-14',35,''),(12,'20200116-FG-0001','2020-01-15',35,''),(13,'20200117-FG-0001','2020-01-16',35,''),(14,'20200120-FG-0001','2020-01-17',35,''),(15,'20200120-FG-0002','2020-01-18',35,''),(16,'20200122-FG-0001','2020-01-20',35,''),(17,'20200122-FG-0002','2020-01-21',35,''),(18,'20200123-FG-0001','2020-01-22',35,''),(19,'20200124-FG-0001','2020-01-23',35,''),(20,'20200130-FG-0001','2020-01-24',35,''),(21,'20200203-FG-0001','2020-01-29',35,''),(22,'20200204-FG-0001','2020-01-30',35,''),(23,'20200204-FG-0002','2020-01-31',35,''),(24,'20200210-FG-0001','2020-02-01',35,''),(25,'20200210-FG-0002','2020-02-03',35,''),(26,'20200211-FG-0001','2020-02-04',35,'');
 
 /*Table structure for table `fraction_gas_detail` */
 
@@ -787,7 +941,11 @@ CREATE TABLE `fraction_gas_detail` (
   `shell_id` int(11) DEFAULT NULL COMMENT 'shell_id in shell_vendor',
   `quantity` text COLLATE utf8_unicode_ci,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=95 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=51 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+/*Data for the table `fraction_gas_detail` */
+
+insert  into `fraction_gas_detail`(`id`,`fraction_id`,`shell_id`,`quantity`) values (1,1,1,'336'),(2,1,4,'42'),(3,2,1,'560'),(4,2,4,'12'),(5,3,1,'578'),(6,3,4,'6'),(7,4,1,'508'),(8,4,4,'49'),(9,5,1,'683'),(10,5,4,'10'),(11,6,1,'560'),(12,6,4,'39'),(13,7,1,'530'),(14,7,4,'9'),(15,8,1,'379'),(16,8,4,'44'),(17,9,1,'638'),(18,9,4,'6'),(19,10,1,'721'),(20,10,4,'25'),(21,11,1,'775'),(22,11,4,'8'),(23,12,1,'560'),(24,12,4,'58'),(25,13,1,'687'),(26,13,4,'2'),(27,14,1,'525'),(28,14,4,'33'),(29,15,1,'861'),(30,16,1,'864'),(31,16,4,'62'),(32,17,1,'1228'),(33,17,4,'23'),(34,18,1,'808'),(35,18,4,'56'),(36,19,1,'1331'),(37,19,4,'12'),(38,20,1,'1139'),(39,20,4,'22'),(40,21,1,'1430'),(41,21,4,'50'),(42,22,4,'3'),(43,23,1,'462'),(44,23,4,'56'),(45,24,1,'832'),(46,24,4,'4'),(47,25,1,'686'),(48,25,4,'19'),(49,26,1,'664'),(50,26,4,'15');
 
 /*Table structure for table `gas_export_wholesale` */
 
@@ -809,6 +967,8 @@ CREATE TABLE `gas_export_wholesale` (
   PRIMARY KEY (`id`)
 ) ENGINE=MyISAM AUTO_INCREMENT=7 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
+/*Data for the table `gas_export_wholesale` */
+
 /*Table structure for table `gas_export_wholesale_detail` */
 
 DROP TABLE IF EXISTS `gas_export_wholesale_detail`;
@@ -824,6 +984,8 @@ CREATE TABLE `gas_export_wholesale_detail` (
   PRIMARY KEY (`id`)
 ) ENGINE=MyISAM AUTO_INCREMENT=13 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
+/*Data for the table `gas_export_wholesale_detail` */
+
 /*Table structure for table `gas_export_wholesale_shell_detail` */
 
 DROP TABLE IF EXISTS `gas_export_wholesale_shell_detail`;
@@ -835,6 +997,8 @@ CREATE TABLE `gas_export_wholesale_shell_detail` (
   `quantity` int(5) DEFAULT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=MyISAM AUTO_INCREMENT=6 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+/*Data for the table `gas_export_wholesale_shell_detail` */
 
 /*Table structure for table `gas_import` */
 
@@ -856,6 +1020,8 @@ CREATE TABLE `gas_import` (
   PRIMARY KEY (`id`)
 ) ENGINE=MyISAM AUTO_INCREMENT=4 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
+/*Data for the table `gas_import` */
+
 /*Table structure for table `gas_import_detail` */
 
 DROP TABLE IF EXISTS `gas_import_detail`;
@@ -869,6 +1035,8 @@ CREATE TABLE `gas_import_detail` (
   `amount` double DEFAULT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=MyISAM AUTO_INCREMENT=6 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+/*Data for the table `gas_import_detail` */
 
 /*Table structure for table `gas_price_list` */
 
@@ -884,6 +1052,8 @@ CREATE TABLE `gas_price_list` (
   `note` text COLLATE utf8_unicode_ci,
   PRIMARY KEY (`id`)
 ) ENGINE=MyISAM AUTO_INCREMENT=4 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+/*Data for the table `gas_price_list` */
 
 /*Table structure for table `gas_retail` */
 
@@ -905,6 +1075,8 @@ CREATE TABLE `gas_retail` (
   PRIMARY KEY (`id`)
 ) ENGINE=MyISAM AUTO_INCREMENT=6 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
+/*Data for the table `gas_retail` */
+
 /*Table structure for table `gas_retail_detail` */
 
 DROP TABLE IF EXISTS `gas_retail_detail`;
@@ -919,6 +1091,8 @@ CREATE TABLE `gas_retail_detail` (
   PRIMARY KEY (`id`)
 ) ENGINE=MyISAM AUTO_INCREMENT=6 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
+/*Data for the table `gas_retail_detail` */
+
 /*Table structure for table `gas_retail_promotion` */
 
 DROP TABLE IF EXISTS `gas_retail_promotion`;
@@ -931,6 +1105,8 @@ CREATE TABLE `gas_retail_promotion` (
   PRIMARY KEY (`id`)
 ) ENGINE=MyISAM AUTO_INCREMENT=2 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
+/*Data for the table `gas_retail_promotion` */
+
 /*Table structure for table `gas_retail_return_shell` */
 
 DROP TABLE IF EXISTS `gas_retail_return_shell`;
@@ -942,6 +1118,8 @@ CREATE TABLE `gas_retail_return_shell` (
   `quantity` int(3) DEFAULT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=MyISAM AUTO_INCREMENT=2 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+/*Data for the table `gas_retail_return_shell` */
 
 /*Table structure for table `gas_return` */
 
@@ -963,6 +1141,8 @@ CREATE TABLE `gas_return` (
   PRIMARY KEY (`id`)
 ) ENGINE=MyISAM AUTO_INCREMENT=2 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
+/*Data for the table `gas_return` */
+
 /*Table structure for table `gas_return_detail` */
 
 DROP TABLE IF EXISTS `gas_return_detail`;
@@ -977,6 +1157,8 @@ CREATE TABLE `gas_return_detail` (
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
+/*Data for the table `gas_return_detail` */
+
 /*Table structure for table `gas_return_vendor` */
 
 DROP TABLE IF EXISTS `gas_return_vendor`;
@@ -987,6 +1169,10 @@ CREATE TABLE `gas_return_vendor` (
   `organization_id` int(11) DEFAULT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+/*Data for the table `gas_return_vendor` */
+
+insert  into `gas_return_vendor`(`id`,`vendor_id`,`organization_id`) values (1,22,1);
 
 /*Table structure for table `gas_wholesale` */
 
@@ -1011,7 +1197,11 @@ CREATE TABLE `gas_wholesale` (
   `paid_old_debt_amount` double DEFAULT NULL,
   `created_employee_id` int(11) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM AUTO_INCREMENT=1800 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=MyISAM AUTO_INCREMENT=995 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+/*Data for the table `gas_wholesale` */
+
+insert  into `gas_wholesale`(`id`,`code`,`created_date`,`customer_id`,`total`,`discount`,`total_pay`,`paid`,`debt`,`account_id`,`vehicle_out_id`,`note`,`gas_return`,`gas_return_price`,`gas_return_amount`,`paid_old_debt_amount`,`created_employee_id`) values (1,'20200108-GS-0001','2020-01-01',65,3080000,0,3080000,3080000,0,5,2,'',0,23333,0,0,35),(2,'20200108-GS-0002','2020-01-01',96,2520000,0,2520000,2520000,0,5,2,'',0,23333,0,0,35),(3,'20200108-GS-0003','2020-01-01',113,9080000,0,9080000,9080000,0,5,2,'',0,18917,0,0,35),(4,'20200108-GS-0004','2020-01-01',147,4389000,0,4389000,4389000,0,5,2,'',0,19250,0,2234000,35),(5,'20200108-GS-0005','2020-01-01',107,2790000,0,2790000,2790000,0,5,2,'',0,23250,0,0,35),(6,'20200108-GS-0006','2020-01-01',158,3324000,0,2266000,266000,2000000,5,2,'',46,23000,1058000,0,35),(7,'20200108-GS-0007','2020-01-01',114,1160000,0,1160000,1160000,0,5,2,'',0,19333,0,0,35),(8,'20200108-GS-0008','2020-01-01',43,22100000,0,22100000,22100000,0,5,1,'',0,18417,0,0,35),(9,'20200108-GS-0009','2020-01-01',135,6370000,0,6370000,6370000,0,5,1,'',0,20417,0,0,35),(10,'20200108-GS-0010','2020-01-01',171,10725000,0,10725000,10725000,0,5,1,'',0,20083,0,0,35),(11,'20200108-GS-0011','2020-01-01',161,6048000,0,6048000,6048000,0,5,1,'',0,18000,0,0,35),(12,'20200108-GS-0012','2020-01-01',16,566000,0,566000,566000,0,5,3,'',0,23583,0,0,35),(13,'20200108-GS-0013','2020-01-01',321,4700000,0,4700000,4700000,0,5,3,'',0,19583,0,0,35),(14,'20200108-GS-0014','2020-01-01',144,1698000,0,1698000,1698000,0,5,3,'',0,23583,0,0,35),(15,'20200108-GS-0015','2020-01-01',97,1132000,0,1132000,1132000,0,5,3,'',0,23583,0,0,35),(16,'20200108-GS-0016','2020-01-01',35,12360000,0,12360000,12360000,0,5,3,'',0,23000,0,0,35),(17,'20200108-GS-0017','2020-01-01',29,6840000,0,6840000,6840000,0,5,3,'',0,19000,0,0,35),(18,'20200108-GS-0018','2020-01-01',73,1132000,0,1132000,1132000,0,5,3,'',0,23583,0,0,35),(19,'20200108-GS-0019','2020-01-01',26,2750000,0,2750000,2750000,0,5,3,'',0,22917,0,0,35),(20,'20200109-GS-0001','2020-01-02',79,0,0,0,0,0,5,6,'',0,0,0,9307000,35),(21,'20200109-GS-0002','2020-01-02',206,2122000,0,2122000,0,2122000,5,6,'',0,23578,0,0,35),(22,'20200109-GS-0003','2020-01-02',211,6216000,0,6027000,6027000,0,5,6,'',9,21000,189000,0,35),(23,'20200109-GS-0004','2020-01-02',9,2780000,0,2780000,2780000,0,5,4,'',0,23167,0,0,35),(24,'20200109-GS-0005','2020-01-02',15,3396000,0,3396000,3396000,0,5,4,'',0,23583,0,0,35),(25,'20200109-GS-0006','2020-01-02',41,5377000,0,5377000,5377000,0,5,4,'',0,23583,0,0,35),(26,'20200109-GS-0007','2020-01-02',115,8065000,0,8065000,8065000,0,5,4,'',0,23583,0,0,35),(27,'20200109-GS-0008','2020-01-02',103,2830000,0,2830000,2830000,0,5,4,'',0,23583,0,0,35),(28,'20200109-GS-0009','2020-01-02',52,1385000,0,1385000,1385000,0,5,4,'',0,23083,0,0,35),(29,'20200109-GS-0010','2020-01-02',42,4245000,0,4245000,4245000,0,5,4,'',0,23583,0,0,35),(30,'20200109-GS-0011','2020-01-02',34,849000,0,849000,849000,0,5,4,'',0,23583,0,0,35),(31,'20200109-GS-0012','2020-01-02',84,2122000,0,2122000,2122000,0,5,4,'',0,23578,0,0,35),(32,'20200109-GS-0013','2020-01-02',28,4760000,0,4760000,4760000,0,5,4,'',0,23333,0,0,35),(33,'20200109-GS-0014','2020-01-02',106,15240000,0,15240000,15240000,0,5,4,'',0,21167,0,0,35),(34,'20200109-GS-0015','2020-01-02',23,2412000,0,2412000,2412000,0,5,4,'',0,22333,0,0,35),(35,'20200109-GS-0016','2020-01-02',22,1980000,0,1980000,1980000,0,5,4,'',0,18333,0,3740000,35),(36,'20200109-GS-0017','2020-01-02',53,1415000,0,1415000,1415000,0,5,4,'',0,23583,0,0,35),(37,'20200109-GS-0018','2020-01-02',18,2264000,0,2264000,2264000,0,5,4,'',0,23583,0,0,35),(38,'20200109-GS-0019','2020-01-02',142,2032000,0,2032000,2032000,0,5,4,'',0,22578,0,0,35),(39,'20200109-GS-0020','2020-01-02',119,13624000,0,13624000,13624000,0,5,5,'',0,21833,0,0,35),(40,'20200109-GS-0021','2020-01-02',182,3259000,0,3259000,0,3259000,5,5,'',0,18417,0,0,35),(41,'20200109-GS-0022','2020-01-02',125,0,0,0,0,0,5,5,'',80,0,0,0,35),(42,'20200109-GS-0023','2020-01-02',158,5190000,0,4845000,4845000,0,5,5,'',15,23000,345000,0,35),(43,'20200109-GS-0024','2020-01-03',16,566000,0,566000,566000,0,5,9,'',0,23583,0,0,35),(44,'20200109-GS-0025','2020-01-03',109,272000,0,272000,272000,0,5,9,'',0,23583,0,0,35),(45,'20200109-GS-0026','2020-01-03',83,1454000,0,1454000,1454000,0,5,9,'',0,23583,0,0,35),(46,'20200109-GS-0027','2020-01-03',59,465000,0,465000,465000,0,5,9,'',0,23583,0,0,35),(47,'20200109-GS-0028','2020-01-03',198,2050000,0,2050000,2050000,0,5,9,'',0,23583,0,0,35),(48,'20200109-GS-0029','2020-01-03',176,1717000,0,1717000,1717000,0,5,9,'',0,23583,0,0,35),(49,'20200109-GS-0030','2020-01-03',93,328000,0,328000,328000,0,5,9,'',0,23583,0,940000,35),(50,'20200109-GS-0031','2020-01-03',98,3131000,0,3131000,3131000,0,5,9,'',0,23583,0,0,35),(51,'20200109-GS-0032','2020-01-03',60,0,0,0,0,0,5,9,'',0,0,0,5810000,35),(52,'20200109-GS-0033','2020-01-03',35,8004000,0,8004000,8004000,0,5,9,'',0,23000,0,0,35),(53,'20200109-GS-0034','2020-01-03',131,1415000,0,1415000,1415000,0,5,9,'',0,23583,0,0,35),(54,'20200109-GS-0035','2020-01-03',136,1981000,0,1981000,1981000,0,5,9,'',0,23583,0,0,35),(55,'20200109-GS-0036','2020-01-03',154,1811000,0,1811000,1811000,0,5,9,'',0,23583,0,0,35),(56,'20200110-GS-0001','2020-01-03',139,1426000,0,1426000,1426000,0,5,9,'',0,23000,0,0,35),(57,'20200110-GS-0002','2020-01-03',54,1981000,0,1981000,1981000,0,5,9,'',0,23583,0,0,35),(58,'20200110-GS-0003','2020-01-03',97,1045000,0,1045000,1045000,0,5,9,'',0,23583,0,0,35),(59,'20200110-GS-0004','2020-01-03',110,0,0,0,0,0,5,9,'',0,0,0,1645000,35),(60,'20200110-GS-0005','2020-01-03',164,1981000,0,1981000,0,1981000,5,9,'',0,23583,0,0,35),(61,'20200110-GS-0006','2020-01-03',150,1698000,0,1698000,1698000,0,5,9,'',0,23583,0,0,35),(62,'20200110-GS-0007','2020-01-03',55,560000,0,560000,560000,0,5,7,'',0,23333,0,0,35),(63,'20200110-GS-0008','2020-01-03',135,11029000,0,11029000,11029000,0,5,7,'',0,22417,0,0,35),(64,'20200110-GS-0009','2020-01-03',43,16140000,0,16140000,16140000,0,5,7,'',0,22417,0,0,35),(65,'20200110-GS-0010','2020-01-03',162,2112000,0,2112000,2112000,0,5,7,'',0,22000,0,0,35),(66,'20200110-GS-0011','2020-01-03',161,3960000,0,3960000,3960000,0,5,7,'',0,22000,0,0,35),(67,'20200110-GS-0012','2020-01-03',28,4760000,0,4760000,4760000,0,5,7,'',0,23333,0,0,35),(68,'20200110-GS-0013','2020-01-03',84,2264000,0,2264000,2264000,0,5,7,'',0,23583,0,0,35),(69,'20200110-GS-0014','2020-01-03',103,2547000,0,2547000,2047000,500000,5,7,'',0,23583,0,0,35),(70,'20200110-GS-0015','2020-01-03',23,2680000,0,2680000,2680000,0,5,7,'',0,22333,0,0,35),(71,'20200110-GS-0016','2020-01-03',15,1415000,0,1415000,1415000,0,5,7,'',0,23583,0,0,35),(72,'20200110-GS-0017','2020-01-03',41,2830000,0,2830000,2830000,0,5,7,'',0,23583,0,0,35),(73,'20200110-GS-0018','2020-01-03',115,1132000,0,1132000,1132000,0,5,7,'',0,23583,0,0,35),(74,'20200110-GS-0019','2020-01-03',106,6950000,0,6950000,6950000,0,5,7,'',0,23167,0,0,35),(75,'20200110-GS-0020','2020-01-03',65,2562000,0,2562000,2562000,0,5,8,'',0,23333,0,0,35),(76,'20200110-GS-0021','2020-01-03',96,1557000,0,1557000,1557000,0,5,8,'',0,23333,0,0,35),(77,'20200110-GS-0022','2020-01-03',95,6392000,0,6392000,6392000,0,5,8,'',0,23333,0,0,35),(78,'20200110-GS-0023','2020-01-03',113,1460000,0,1460000,1460000,0,5,8,'',0,22917,0,0,35),(79,'20200110-GS-0024','2020-01-03',66,4550000,0,4550000,4550000,0,5,8,'',0,23250,0,2079000,35),(80,'20200110-GS-0025','2020-01-03',69,1811000,0,1811000,1811000,0,5,8,'',0,23250,0,0,35),(81,'20200110-GS-0026','2020-01-03',107,2809000,0,2809000,2809000,0,5,8,'',0,23250,0,0,35),(82,'20200110-GS-0027','2020-01-03',310,1536000,0,1536000,1536000,0,5,8,'',0,22000,0,0,35),(83,'20200110-GS-0028','2020-01-03',91,-423000,0,-423000,0,-423000,5,8,'',0,1,0,0,35),(84,'20200110-GS-0029','2020-01-03',158,718000,0,718000,718000,0,5,8,'',0,23083,0,9184000,35),(85,'20200110-GS-0030','2020-01-03',77,0,0,0,0,0,5,8,'',0,0,0,6646000,35),(86,'20200110-GS-0031','2020-01-03',82,0,0,0,0,0,5,8,'',0,0,0,0,35),(87,'20200110-GS-0032','2020-01-06',175,2408000,0,2408000,2408000,0,5,11,'',0,22500,0,0,35),(88,'20200110-GS-0033','2020-01-06',118,11298000,0,11298000,10878000,420000,5,11,'',0,22417,0,0,35),(89,'20200110-GS-0034','2020-01-06',171,3438000,0,3438000,3438000,0,5,11,'',0,22083,0,10000000,35),(90,'20200110-GS-0035','2020-01-06',43,16140000,0,16140000,16140000,0,5,11,'',0,22417,0,0,35),(91,'20200110-GS-0036','2020-01-06',58,3036000,0,3036000,3036000,0,5,11,'',0,23000,0,0,35),(92,'20200110-GS-0037','2020-01-06',161,7128000,0,7128000,7128000,0,5,11,'',0,22000,0,0,35),(93,'20200110-GS-0038','2020-01-06',28,5600000,0,5600000,5600000,0,5,11,'',0,23333,0,0,35),(94,'20200110-GS-0039','2020-01-06',42,2830000,0,2830000,2830000,0,5,11,'',0,23583,0,0,35),(95,'20200110-GS-0040','2020-01-06',135,-420000,0,-420000,0,-420000,5,11,'',0,1,0,0,35),(96,'20200110-GS-0041','2020-01-06',164,566000,0,566000,566000,0,5,13,'',0,23583,0,1981000,35),(97,'20200110-GS-0042','2020-01-06',16,2264000,0,2264000,2264000,0,5,13,'',0,23583,0,0,35),(98,'20200110-GS-0043','2020-01-06',109,4528000,0,4528000,4528000,0,5,13,'',0,23583,0,0,35),(99,'20200110-GS-0044','2020-01-06',59,849000,0,849000,849000,0,5,13,'',0,23583,0,0,35),(100,'20200110-GS-0045','2020-01-06',198,1698000,0,1698000,1698000,0,5,13,'',0,23583,0,0,35),(101,'20200110-GS-0046','2020-01-06',98,1981000,0,1981000,1981000,0,5,13,'',0,23583,0,0,35),(102,'20200110-GS-0047','2020-01-06',46,3169000,0,2939000,2939000,0,5,13,'',10,23000,230000,0,35),(103,'20200110-GS-0048','2020-01-06',97,1415000,0,1415000,0,1415000,5,13,'',0,23583,0,0,35),(104,'20200110-GS-0049','2020-01-06',35,20838000,0,20332000,0,20332000,5,13,'',22,23000,506000,0,35),(105,'20200110-GS-0050','2020-01-06',51,2547000,0,2547000,0,2547000,5,13,'',0,23583,0,0,35),(106,'20200110-GS-0051','2020-01-06',37,1981000,0,1981000,1981000,0,5,13,'',0,23583,0,0,35),(107,'20200110-GS-0052','2020-01-06',116,1698000,0,1698000,1698000,0,5,13,'',0,23583,0,0,35),(108,'20200110-GS-0053','2020-01-06',101,1132000,0,1132000,1132000,0,5,13,'',0,23583,0,0,35),(109,'20200110-GS-0054','2020-01-06',136,1698000,0,1698000,1698000,0,5,13,'',0,23583,0,0,35),(110,'20200110-GS-0055','2020-01-06',54,2264000,0,2264000,2264000,0,5,13,'',0,23583,0,0,35),(111,'20200110-GS-0056','2020-01-06',73,1132000,0,1132000,0,1132000,5,13,'',0,23583,0,0,35),(112,'20200110-GS-0057','2020-01-06',26,4264000,0,4264000,4264000,0,5,13,'',0,22917,0,0,35),(113,'20200110-GS-0058','2020-01-06',50,4184000,0,3540000,3540000,0,5,13,'',28,23000,644000,0,35),(114,'20200110-GS-0059','2020-01-06',139,1932000,0,1932000,1932000,0,5,13,'',0,23000,0,0,35),(115,'20200110-GS-0060','2020-01-06',315,0,0,0,0,0,5,13,'',0,0,0,2643000,35),(116,'20200110-GS-0061','2020-01-06',65,5250000,0,5250000,5250000,0,5,12,'',0,23333,0,0,35),(117,'20200110-GS-0062','2020-01-06',96,3080000,0,3080000,3080000,0,5,12,'',0,23333,0,0,35),(118,'20200110-GS-0063','2020-01-06',132,2800000,0,2800000,2800000,0,5,12,'',0,23333,0,0,35),(119,'20200110-GS-0064','2020-01-06',95,6160000,0,6160000,6160000,0,5,12,'',0,23333,0,0,35),(120,'20200110-GS-0065','2020-01-06',113,8250000,0,8250000,8250000,0,5,12,'',0,22917,0,0,35),(121,'20200110-GS-0066','2020-01-06',66,1953000,0,1953000,1953000,0,5,12,'',0,23250,0,0,35),(122,'20200110-GS-0067','2020-01-06',147,3527000,0,3527000,3527000,0,5,12,'',0,23250,0,1000000,35),(123,'20200110-GS-0068','2020-01-06',69,4464000,0,4464000,4464000,0,5,12,'',0,23250,0,0,35),(124,'20200110-GS-0069','2020-01-06',107,5580000,0,5580000,5580000,0,5,12,'',0,23250,0,0,35),(125,'20200110-GS-0070','2020-01-06',310,10032000,0,10032000,10032000,0,5,12,'',0,22000,0,0,35),(126,'20200110-GS-0071','2020-01-06',91,4185000,0,4185000,4185000,0,5,12,'',0,23250,0,0,35),(127,'20200110-GS-0072','2020-01-06',44,5709000,0,5709000,5709000,0,5,12,'',0,23250,0,0,35),(128,'20200110-GS-0073','2020-01-06',158,11074000,0,10660000,10160000,500000,5,12,'',18,23000,414000,0,35),(129,'20200110-GS-0074','2020-01-06',319,550000,0,550000,550000,0,5,10,'',0,22917,0,0,35),(130,'20200111-GS-0001','2020-01-07',309,1344000,0,1344000,1344000,0,5,15,'',0,23583,0,0,35),(131,'20200111-GS-0002','2020-01-07',201,1040000,0,1040000,1040000,0,5,15,'',0,22500,0,0,35),(132,'20200111-GS-0003','2020-01-07',222,14560000,0,14560000,14560000,0,5,15,'',0,22500,0,0,35),(133,'20200111-GS-0004','2020-01-07',223,5804000,0,5804000,5804000,0,5,15,'',0,22500,0,0,35),(134,'20200111-GS-0005','2020-01-07',311,4160000,0,4160000,4160000,0,5,15,'',0,21667,0,0,35),(135,'20200111-GS-0006','2020-01-07',213,12950000,0,12950000,12950000,0,5,15,'',0,21583,0,0,35),(136,'20200111-GS-0007','2020-01-07',211,12950000,0,12950000,12950000,0,5,15,'',0,21583,0,0,35),(137,'20200111-GS-0008','2020-01-07',203,520000,0,520000,520000,0,5,15,'',0,22500,0,0,35),(138,'20200111-GS-0009','2020-01-07',202,0,0,0,0,0,5,15,'',0,0,0,0,35),(139,'20200111-GS-0010','2020-01-07',212,1950000,0,1950000,1950000,0,5,15,'',0,21667,0,0,35),(140,'20200111-GS-0011','2020-01-07',134,275000,0,275000,275000,0,5,14,'',0,22917,0,0,35),(141,'20200111-GS-0012','2020-01-07',9,6272000,0,6272000,6272000,0,5,16,'',0,23167,0,0,35),(142,'20200111-GS-0013','2020-01-07',15,2467000,0,2467000,2467000,0,5,16,'',0,23583,0,0,35),(143,'20200111-GS-0014','2020-01-07',21,1340000,0,1340000,1340000,0,5,16,'',0,22333,0,0,35),(144,'20200111-GS-0015','2020-01-07',41,2126000,0,1586000,1586000,0,5,16,'',23,23478,540000,0,35),(145,'20200111-GS-0016','2020-01-07',115,4755000,0,4755000,4755000,0,5,16,'',0,23583,0,0,35),(146,'20200111-GS-0017','2020-01-07',127,4425000,0,4425000,4425000,0,5,16,'',0,23583,0,0,35),(147,'20200111-GS-0018','2020-01-07',103,4520000,0,4520000,4520000,0,5,16,'',0,23583,0,500000,35),(148,'20200111-GS-0019','2020-01-07',84,3243000,0,3243000,3243000,0,5,16,'',0,23583,0,0,35),(149,'20200111-GS-0020','2020-01-07',52,2216000,0,2216000,2216000,0,5,16,'',0,23083,0,0,35),(150,'20200111-GS-0021','2020-01-07',42,1690000,0,1690000,1690000,0,5,16,'',0,23583,0,0,35),(151,'20200111-GS-0022','2020-01-07',34,638000,0,638000,638000,0,5,16,'',0,23583,0,0,35),(152,'20200111-GS-0023','2020-01-07',104,995000,0,995000,995000,0,5,16,'',0,23583,0,0,35),(153,'20200111-GS-0024','2020-01-07',47,4726000,0,4726000,4726000,0,5,16,'',0,23167,0,0,35),(154,'20200111-GS-0025','2020-01-07',28,237000,0,237000,237000,0,5,16,'',0,23333,0,4500000,35),(155,'20200111-GS-0026','2020-01-07',168,2317000,0,2317000,2317000,0,5,16,'',0,23583,0,0,35),(156,'20200111-GS-0027','2020-01-07',53,4563000,0,4563000,4563000,0,5,16,'',0,23583,0,0,35),(157,'20200111-GS-0028','2020-01-07',23,2680000,0,2680000,2680000,0,5,16,'',0,22333,0,0,35),(158,'20200111-GS-0029','2020-01-07',215,2547000,0,2547000,0,2547000,5,16,'',0,23583,0,0,35),(159,'20200111-GS-0030','2020-01-07',130,1400000,0,1400000,1400000,0,5,16,'',0,23333,0,0,35),(160,'20200111-GS-0031','2020-01-07',319,550000,0,550000,550000,0,5,16,'',0,22917,0,0,35),(161,'20200111-GS-0032','2020-01-07',106,257000,0,138000,138000,0,5,16,'',5,23800,119000,0,35),(162,'20200111-GS-0033','2020-01-07',142,308000,0,308000,308000,0,5,16,'',0,22917,0,0,35),(163,'20200111-GS-0034','2020-01-07',120,14082000,0,14082000,14082000,0,5,17,'',0,21833,0,0,35),(164,'20200111-GS-0035','2020-01-07',323,10452000,0,10452000,10452000,0,5,17,'',0,22333,0,0,35),(165,'20200111-GS-0036','2020-01-07',169,2915000,0,2915000,0,2915000,5,17,'',0,22083,0,0,35),(166,'20200111-GS-0037','2020-01-07',125,0,0,0,0,0,5,17,'',190,0,0,0,35),(167,'20200111-GS-0038','2020-01-07',179,1918000,0,1918000,0,1918000,5,17,'',0,22833,0,0,35),(168,'20200111-GS-0039','2020-01-08',232,14470000,0,14470000,14470000,0,5,18,'',0,21250,0,0,35),(169,'20200111-GS-0040','2020-01-08',135,13451000,0,13451000,13451000,0,5,18,'',0,22417,0,0,35),(170,'20200111-GS-0041','2020-01-08',171,15900000,0,15900000,10900000,5000000,5,18,'',0,22083,0,0,35),(171,'20200111-GS-0042','2020-01-08',43,16140000,0,16140000,16140000,0,5,18,'',0,22417,0,0,35),(172,'20200111-GS-0043','2020-01-08',72,2760000,0,2760000,2760000,0,5,18,'',0,23000,0,0,35),(173,'20200111-GS-0044','2020-01-08',16,566000,0,566000,566000,0,5,20,'',0,23583,0,0,35),(174,'20200111-GS-0045','2020-01-08',109,3962000,0,3962000,3962000,0,5,20,'',0,23583,0,0,35),(175,'20200111-GS-0046','2020-01-08',83,2264000,0,2264000,2264000,0,5,20,'',0,23583,0,0,35),(176,'20200111-GS-0047','2020-01-08',93,2264000,0,2264000,0,2264000,5,20,'',0,23583,0,0,35),(177,'20200111-GS-0048','2020-01-08',144,1415000,0,1415000,1415000,0,5,20,'',0,23583,0,0,35),(178,'20200111-GS-0049','2020-01-08',141,0,0,0,0,0,5,20,'',0,0,0,1762000,35),(179,'20200111-GS-0050','2020-01-08',97,1132000,0,1132000,1132000,0,5,20,'',0,23583,0,1415000,35),(180,'20200111-GS-0051','2020-01-08',35,10488000,0,10488000,10488000,0,5,20,'',0,23000,0,0,35),(181,'20200111-GS-0052','2020-01-08',29,5796000,0,5796000,5796000,0,5,20,'',0,23000,0,0,35),(182,'20200111-GS-0053','2020-01-08',139,2208000,0,2208000,2208000,0,5,20,'',0,23000,0,0,35),(183,'20200111-GS-0054','2020-01-08',26,2750000,0,2750000,2750000,0,5,20,'',0,22917,0,0,35),(184,'20200111-GS-0055','2020-01-08',96,2240000,0,2240000,2240000,0,5,19,'',0,23333,0,0,35),(185,'20200113-GS-0001','2020-01-08',95,5600000,0,5600000,5600000,0,5,19,'',0,23333,0,0,35),(186,'20200113-GS-0002','2020-01-08',71,1674000,0,1674000,1674000,0,5,19,'',0,23250,0,0,35),(187,'20200113-GS-0003','2020-01-08',113,16500000,0,16500000,16500000,0,5,19,'',0,22917,0,0,35),(188,'20200113-GS-0004','2020-01-08',107,2092000,0,2092000,0,2092000,5,19,'',0,23244,0,0,35),(189,'20200113-GS-0005','2020-01-08',310,10758000,0,10758000,10758000,0,5,19,'',0,22000,0,0,35),(190,'20200113-GS-0006','2020-01-08',17,1395000,0,1395000,1395000,0,5,19,'',0,23250,0,0,35),(191,'20200113-GS-0007','2020-01-08',91,3208000,0,3208000,3208000,0,5,19,'',0,23250,0,0,35),(192,'20200113-GS-0008','2020-01-08',158,7546000,0,7224000,7224000,0,5,19,'',14,23000,322000,500000,35),(193,'20200113-GS-0009','2020-01-09',202,940000,0,940000,940000,0,5,22,'',0,22500,0,0,35),(194,'20200113-GS-0010','2020-01-09',211,4288000,0,4288000,4288000,0,5,22,'',0,21583,0,0,35),(195,'20200113-GS-0011','2020-01-09',9,2224000,0,2224000,2224000,0,5,21,'',0,23167,0,0,35),(196,'20200113-GS-0012','2020-01-09',11,1705000,0,1705000,1705000,0,5,21,'',0,22917,0,0,35),(197,'20200113-GS-0013','2020-01-09',106,22240000,0,22240000,22240000,0,5,21,'',0,23167,0,0,35),(198,'20200113-GS-0014','2020-01-09',23,2200000,0,2200000,2200000,0,5,21,'',0,22917,0,0,35),(199,'20200113-GS-0015','2020-01-09',15,3325000,0,3325000,3325000,0,5,21,'',0,23583,0,0,35),(200,'20200113-GS-0016','2020-01-09',41,1415000,0,1415000,1415000,0,5,21,'',0,23583,0,0,35),(201,'20200113-GS-0017','2020-01-09',115,4103000,0,4103000,4103000,0,5,21,'',0,23583,0,0,35),(202,'20200113-GS-0018','2020-01-09',84,2830000,0,2830000,2830000,0,5,21,'',0,23583,0,0,35),(203,'20200113-GS-0019','2020-01-09',28,6650000,0,6650000,6650000,0,5,21,'',0,23333,0,0,35),(204,'20200113-GS-0020','2020-01-09',75,4595000,0,4595000,4595000,0,5,21,'',0,23333,0,0,35),(205,'20200113-GS-0021','2020-01-09',111,1618000,0,1618000,1618000,0,5,21,'',0,23583,0,0,35),(206,'20200113-GS-0022','2020-01-09',104,849000,0,849000,849000,0,5,21,'',0,23583,0,0,35),(207,'20200113-GS-0023','2020-01-09',47,1390000,0,1390000,1390000,0,5,21,'',0,23167,0,0,35),(208,'20200113-GS-0024','2020-01-09',183,1132000,0,1132000,1132000,0,5,21,'',0,23583,0,0,35),(209,'20200113-GS-0025','2020-01-09',42,4245000,0,4245000,4245000,0,5,21,'',0,23583,0,0,35),(210,'20200113-GS-0026','2020-01-09',103,2547000,0,2547000,2547000,0,5,21,'',0,23583,0,0,35),(211,'20200113-GS-0027','2020-01-09',117,834000,0,834000,834000,0,5,21,'',0,23167,0,0,35),(212,'20200113-GS-0028','2020-01-09',22,2680000,0,2680000,2680000,0,5,21,'',0,22333,0,0,35),(213,'20200113-GS-0029','2020-01-09',53,1981000,0,1981000,1981000,0,5,21,'',0,23583,0,0,35),(214,'20200113-GS-0030','2020-01-09',18,2290000,0,2290000,2290000,0,5,21,'',0,23583,0,0,35),(215,'20200113-GS-0031','2020-01-09',142,4782000,0,4577000,4577000,0,5,21,'',9,22777,205000,0,35),(216,'20200113-GS-0032','2020-01-09',169,2650000,0,2650000,2650000,0,5,23,'',0,22083,0,2915000,35),(217,'20200113-GS-0033','2020-01-09',189,1883000,0,1883000,1883000,0,5,23,'',0,22417,0,0,35),(218,'20200113-GS-0034','2020-01-09',182,6320000,0,6144000,6144000,0,5,23,'',8,22000,176000,3259000,35),(219,'20200113-GS-0035','2020-01-09',125,0,0,0,0,0,5,23,'',39,0,0,0,35),(220,'20200114-GS-0001','2020-01-10',43,29590000,0,29590000,29590000,0,5,25,'',0,22417,0,0,35),(221,'20200114-GS-0002','2020-01-10',175,2700000,0,2700000,2700000,0,5,25,'',0,22500,0,0,35),(222,'20200114-GS-0003','2020-01-10',135,17237000,0,17237000,17237000,0,5,25,'',0,22417,0,0,35),(223,'20200114-GS-0004','2020-01-10',171,7950000,0,7950000,7950000,0,5,25,'',0,22083,0,0,35),(224,'20200114-GS-0005','2020-01-10',161,6600000,0,6600000,6600000,0,5,25,'',0,22000,0,0,35),(225,'20200114-GS-0006','2020-01-10',162,2112000,0,2112000,2112000,0,5,25,'',0,22000,0,0,35),(226,'20200114-GS-0007','2020-01-10',145,1345000,0,1345000,1345000,0,5,25,'',0,22417,0,0,35),(227,'20200114-GS-0008','2020-01-10',58,1778000,0,1778000,1778000,0,5,25,'',0,23167,0,0,35),(228,'20200114-GS-0009','2020-01-10',65,3640000,0,3640000,3640000,0,5,26,'',0,23333,0,0,35),(229,'20200114-GS-0010','2020-01-10',96,1400000,0,1400000,1400000,0,5,26,'',0,23333,0,0,35),(230,'20200114-GS-0011','2020-01-10',132,2800000,0,2800000,2800000,0,5,26,'',0,23333,0,0,35),(231,'20200114-GS-0012','2020-01-10',113,11000000,0,11000000,11000000,0,5,26,'',0,22917,0,0,35),(232,'20200114-GS-0013','2020-01-10',147,2790000,0,2790000,2790000,0,5,26,'',0,23250,0,0,35),(233,'20200114-GS-0014','2020-01-10',69,5022000,0,5022000,5022000,0,5,26,'',0,23250,0,0,35),(234,'20200114-GS-0015','2020-01-10',66,2511000,0,2511000,2511000,0,5,26,'',0,23250,0,0,35),(235,'20200114-GS-0016','2020-01-10',107,5580000,0,5580000,5580000,0,5,26,'',0,23250,0,2092000,35),(236,'20200114-GS-0017','2020-01-10',310,7920000,0,7920000,7920000,0,5,26,'',0,22000,0,0,35),(237,'20200114-GS-0018','2020-01-10',44,7254000,0,7254000,7254000,0,5,26,'',0,23250,0,0,35),(238,'20200114-GS-0019','2020-01-10',158,9692000,0,9070000,9070000,0,5,26,'',27,23037,622000,0,35),(239,'20200114-GS-0020','2020-01-10',95,3640000,0,3640000,3640000,0,5,26,'',0,23333,0,0,35),(240,'20200114-GS-0021','2020-01-10',128,0,0,0,0,0,5,24,'',0,0,0,0,35),(241,'20200114-GS-0022','2020-01-10',16,1981000,0,1981000,1981000,0,5,27,'',0,23583,0,0,35),(242,'20200114-GS-0023','2020-01-10',109,3113000,0,3113000,3113000,0,5,27,'',0,23583,0,0,35),(243,'20200114-GS-0024','2020-01-10',83,3254000,0,3254000,3254000,0,5,27,'',0,23583,0,0,35),(244,'20200114-GS-0025','2020-01-10',198,2830000,0,2830000,2830000,0,5,27,'',0,23583,0,0,35),(245,'20200114-GS-0026','2020-01-10',98,2830000,0,2830000,2830000,0,5,27,'',0,23583,0,0,35),(246,'20200114-GS-0027','2020-01-10',93,1981000,0,1981000,1981000,0,5,27,'',0,23583,0,2264000,35),(247,'20200114-GS-0028','2020-01-10',144,1415000,0,1415000,1415000,0,5,27,'',0,23583,0,0,35),(248,'20200114-GS-0029','2020-01-10',46,2800000,0,2800000,2800000,0,5,27,'',0,23333,0,0,35),(249,'20200114-GS-0030','2020-01-10',97,1132000,0,1132000,0,1132000,5,27,'',0,23583,0,0,35),(250,'20200114-GS-0031','2020-01-10',178,1698000,0,1698000,1698000,0,5,27,'',0,23583,0,0,35),(251,'20200114-GS-0032','2020-01-10',35,14076000,0,14076000,14076000,0,5,27,'',0,23000,0,0,35),(252,'20200114-GS-0033','2020-01-10',29,6348000,0,6348000,6348000,0,5,27,'',0,23000,0,0,35),(253,'20200114-GS-0034','2020-01-10',116,1415000,0,1415000,1415000,0,5,27,'',0,23583,0,0,35),(254,'20200114-GS-0035','2020-01-10',37,1415000,0,1415000,1415000,0,5,27,'',0,23583,0,0,35),(255,'20200114-GS-0036','2020-01-10',136,1698000,0,1698000,1698000,0,5,27,'',0,23583,0,0,35),(256,'20200114-GS-0037','2020-01-10',51,1415000,0,1415000,1415000,0,5,27,'',0,23583,0,2547000,35),(257,'20200114-GS-0038','2020-01-10',154,1981000,0,1981000,1981000,0,5,27,'',0,23583,0,0,35),(258,'20200114-GS-0039','2020-01-10',54,1415000,0,1415000,1415000,0,5,27,'',0,23583,0,0,35),(259,'20200114-GS-0040','2020-01-10',122,2830000,0,2830000,2830000,0,5,27,'',0,23583,0,0,35),(260,'20200114-GS-0041','2020-01-10',149,1132000,0,1132000,1132000,0,5,27,'',0,23583,0,0,35),(261,'20200114-GS-0042','2020-01-10',151,1981000,0,1981000,1981000,0,5,27,'',0,23583,0,0,35),(262,'20200114-GS-0043','2020-01-10',48,1415000,0,1415000,1415000,0,5,27,'',0,23583,0,0,35),(263,'20200114-GS-0044','2020-01-10',73,849000,0,849000,849000,0,5,27,'',0,23583,0,1132000,35),(264,'20200114-GS-0045','2020-01-10',26,2750000,0,2750000,2750000,0,5,27,'',0,22917,0,0,35),(265,'20200114-GS-0046','2020-01-10',50,5660000,0,5660000,5660000,0,5,27,'',0,23583,0,0,35),(266,'20200114-GS-0047','2020-01-10',150,1415000,0,1415000,1415000,0,5,27,'',0,23583,0,0,35),(267,'20200114-GS-0048','2020-01-11',201,2275000,0,2275000,2275000,0,5,30,'',0,21667,0,0,35),(268,'20200114-GS-0049','2020-01-11',222,8912000,0,8912000,8912000,0,5,30,'',0,22500,0,0,35),(269,'20200114-GS-0050','2020-01-11',213,5698000,0,5698000,5698000,0,5,30,'',0,21583,0,0,35),(270,'20200114-GS-0051','2020-01-11',204,5200000,0,5200000,5200000,0,5,30,'',0,21667,0,0,35),(271,'20200114-GS-0052','2020-01-11',203,1300000,0,1300000,1300000,0,5,30,'',0,21667,0,0,35),(272,'20200114-GS-0053','2020-01-11',202,1040000,0,1040000,0,1040000,5,30,'',0,21667,0,0,35),(273,'20200114-GS-0054','2020-01-11',304,810000,0,810000,810000,0,5,30,'',0,22500,0,0,35),(274,'20200114-GS-0055','2020-01-11',9,2780000,0,2780000,2780000,0,5,28,'',0,23167,0,0,35),(275,'20200114-GS-0056','2020-01-11',11,7424000,0,6897000,6897000,0,5,28,'',23,22913,527000,0,35),(276,'20200114-GS-0057','2020-01-11',15,3679000,0,3679000,3679000,0,5,28,'',0,23583,0,0,35),(277,'20200114-GS-0058','2020-01-11',41,2547000,0,2547000,2547000,0,5,28,'',0,23583,0,0,35),(278,'20200114-GS-0059','2020-01-11',115,3113000,0,3113000,3113000,0,5,28,'',0,23583,0,0,35),(279,'20200114-GS-0060','2020-01-11',56,2830000,0,2830000,2830000,0,5,28,'',0,23583,0,0,35),(280,'20200114-GS-0061','2020-01-11',84,4386000,0,4386000,4386000,0,5,28,'',0,23583,0,0,35),(281,'20200114-GS-0062','2020-01-11',52,1385000,0,1385000,1385000,0,5,28,'',0,23083,0,0,35),(282,'20200114-GS-0063','2020-01-11',42,1415000,0,1415000,1415000,0,5,28,'',0,23583,0,0,35),(283,'20200114-GS-0064','2020-01-11',319,2750000,0,2750000,2750000,0,5,28,'',0,22917,0,0,35),(284,'20200114-GS-0065','2020-01-11',34,2547000,0,2547000,2547000,0,5,28,'',0,23583,0,0,35),(285,'20200114-GS-0066','2020-01-11',28,5600000,0,5600000,5600000,0,5,28,'',0,23333,0,0,35),(286,'20200114-GS-0067','2020-01-11',103,3113000,0,3113000,3113000,0,5,28,'',0,23583,0,0,35),(287,'20200114-GS-0068','2020-01-11',168,1698000,0,1698000,1698000,0,5,28,'',0,23583,0,0,35),(288,'20200114-GS-0069','2020-01-11',23,1876000,0,1876000,1876000,0,5,28,'',0,22333,0,0,35),(289,'20200114-GS-0070','2020-01-11',21,536000,0,536000,536000,0,5,28,'',0,22333,0,0,35),(290,'20200114-GS-0071','2020-01-11',53,1415000,0,1415000,1415000,0,5,28,'',0,23583,0,0,35),(291,'20200114-GS-0072','2020-01-11',18,2264000,0,2264000,2264000,0,5,28,'',0,23583,0,0,35),(292,'20200114-GS-0073','2020-01-11',106,15846000,0,15846000,15846000,0,5,28,'',0,23167,0,0,35),(293,'20200114-GS-0074','2020-01-11',134,536000,0,536000,536000,0,5,28,'',0,22333,0,0,35),(294,'20200114-GS-0075','2020-01-11',142,6050000,0,6050000,6050000,0,5,28,'',0,22917,0,0,35),(295,'20200114-GS-0076','2020-01-11',119,1964000,0,1964000,1964000,0,5,29,'',0,21822,0,0,35),(296,'20200114-GS-0077','2020-01-11',323,7504000,0,7504000,7504000,0,5,29,'',0,22333,0,0,35),(297,'20200114-GS-0078','2020-01-11',169,4584000,0,4584000,0,4584000,5,29,'',0,21833,0,0,35),(298,'20200114-GS-0079','2020-01-11',125,0,0,0,0,0,5,29,'',136,0,0,0,35),(299,'20200114-GS-0080','2020-01-11',158,12319000,0,11629000,11629000,0,5,29,'',30,23000,690000,0,35),(300,'20200114-GS-0081','2020-01-13',55,840000,0,840000,840000,0,5,31,'',0,23333,0,0,35),(301,'20200114-GS-0082','2020-01-13',135,16140000,0,16140000,16140000,0,5,31,'',0,22417,0,0,35),(302,'20200114-GS-0083','2020-01-13',171,13515000,0,13515000,13515000,0,5,31,'',0,22083,0,0,35),(303,'20200114-GS-0084','2020-01-13',162,2112000,0,2112000,2112000,0,5,31,'',0,22000,0,0,35),(304,'20200114-GS-0085','2020-01-13',161,5016000,0,5016000,5016000,0,5,31,'',0,22000,0,0,35),(305,'20200114-GS-0086','2020-01-13',145,1345000,0,1345000,0,1345000,5,31,'',0,22417,0,0,35),(306,'20200114-GS-0087','2020-01-13',43,21520000,0,21520000,21520000,0,5,31,'',0,22417,0,0,35),(307,'20200114-GS-0088','2020-01-13',58,4278000,0,3749000,3749000,0,5,31,'',23,23000,529000,0,35),(308,'20200114-GS-0089','2020-01-13',28,4200000,0,4200000,4200000,0,5,31,'',0,23333,0,0,35),(309,'20200114-GS-0090','2020-01-13',42,1698000,0,1698000,1698000,0,5,31,'',0,23583,0,0,35),(310,'20200114-GS-0091','2020-01-13',65,2800000,0,2800000,2800000,0,5,32,'',0,23333,0,0,35),(311,'20200114-GS-0092','2020-01-13',96,2800000,0,2800000,2800000,0,5,32,'',0,23333,0,0,35),(312,'20200114-GS-0093','2020-01-13',132,2800000,0,2800000,2800000,0,5,32,'',0,23333,0,0,35),(313,'20200114-GS-0094','2020-01-13',95,5600000,0,5600000,5600000,0,5,32,'',0,23333,0,0,35),(314,'20200114-GS-0095','2020-01-13',113,8250000,0,8250000,8250000,0,5,32,'',0,22917,0,0,35),(315,'20200114-GS-0096','2020-01-13',88,5580000,0,5580000,5580000,0,5,32,'',0,23250,0,0,35),(316,'20200114-GS-0097','2020-01-13',66,3348000,0,3348000,3348000,0,5,32,'',0,23250,0,0,35),(317,'20200114-GS-0098','2020-01-13',69,5580000,0,5580000,5580000,0,5,32,'',0,23250,0,0,35),(318,'20200114-GS-0099','2020-01-13',107,6696000,0,6696000,6696000,0,5,32,'',0,23250,0,0,35),(319,'20200114-GS-0100','2020-01-13',310,16368000,0,15848000,15848000,0,5,32,'',26,20000,520000,0,35),(320,'20200114-GS-0101','2020-01-13',91,6626000,0,6626000,6626000,0,5,32,'',0,23250,0,0,35),(321,'20200114-GS-0102','2020-01-13',158,11768000,0,10296000,10296000,0,5,32,'',64,23000,1472000,0,35),(322,'20200114-GS-0103','2020-01-13',114,280000,0,280000,280000,0,5,32,'',0,23333,0,0,35),(323,'20200115-GS-0001','2020-01-13',164,849000,0,849000,849000,0,5,33,'',0,23583,0,0,35),(324,'20200115-GS-0002','2020-01-13',16,1415000,0,1415000,1415000,0,5,33,'',0,23583,0,0,35),(325,'20200115-GS-0003','2020-01-13',109,3113000,0,3113000,3113000,0,5,33,'',0,23583,0,0,35),(326,'20200115-GS-0004','2020-01-13',59,2830000,0,2830000,2830000,0,5,33,'',0,23583,0,0,35),(327,'20200115-GS-0005','2020-01-13',83,0,0,0,0,0,5,33,'',0,0,0,0,35),(328,'20200115-GS-0006','2020-01-13',176,1981000,0,1981000,1981000,0,5,33,'',0,23583,0,0,35),(329,'20200115-GS-0007','2020-01-13',89,3396000,0,3396000,3396000,0,5,33,'',0,23583,0,0,35),(330,'20200115-GS-0008','2020-01-13',33,3396000,0,3396000,3396000,0,5,33,'',0,23583,0,0,35),(331,'20200115-GS-0009','2020-01-13',198,1698000,0,1698000,1698000,0,5,33,'',0,23583,0,0,35),(332,'20200115-GS-0010','2020-01-13',50,4811000,0,4811000,4811000,0,5,33,'',0,23583,0,0,35),(333,'20200115-GS-0011','2020-01-13',46,5600000,0,5600000,5600000,0,5,33,'',0,23333,0,0,35),(334,'20200115-GS-0012','2020-01-13',206,2122000,0,2122000,2122000,0,5,34,'',0,23578,0,2122000,35),(335,'20200115-GS-0013','2020-01-13',35,24840000,0,23897000,23897000,0,5,34,'',41,23000,943000,0,35),(336,'20200115-GS-0014','2020-01-13',29,16560000,0,16560000,16560000,0,5,34,'',0,23000,0,0,35),(337,'20200115-GS-0015','2020-01-13',51,1698000,0,1698000,1698000,0,5,34,'',0,23583,0,0,35),(338,'20200115-GS-0016','2020-01-13',131,566000,0,566000,0,566000,5,34,'',0,23583,0,0,35),(339,'20200115-GS-0017','2020-01-13',37,1415000,0,1415000,1415000,0,5,34,'',0,23583,0,0,35),(340,'20200115-GS-0018','2020-01-13',101,1415000,0,1415000,1415000,0,5,34,'',0,23583,0,0,35),(341,'20200115-GS-0019','2020-01-13',136,2264000,0,2264000,2264000,0,5,34,'',0,23583,0,0,35),(342,'20200115-GS-0020','2020-01-13',139,4140000,0,4140000,4140000,0,5,34,'',0,23000,0,0,35),(343,'20200115-GS-0021','2020-01-13',121,1415000,0,1415000,1415000,0,5,34,'',0,23583,0,940000,35),(344,'20200115-GS-0022','2020-01-13',97,1981000,0,1981000,1613000,368000,5,34,'',0,23583,0,0,35),(345,'20200115-GS-0023','2020-01-13',26,2750000,0,2750000,2750000,0,5,34,'',0,22917,0,0,35),(346,'20200115-GS-0024','2020-01-13',73,1132000,0,1132000,1132000,0,5,34,'',0,23583,0,0,35),(347,'20200115-GS-0025','2020-01-13',134,825000,0,825000,825000,0,5,34,'',0,22917,0,0,35),(348,'20200115-GS-0026','2020-01-14',202,7020000,0,7020000,7020000,0,5,38,'',0,22500,0,1040000,35),(349,'20200115-GS-0027','2020-01-14',203,7475000,0,7475000,7475000,0,5,38,'',0,22500,0,0,35),(350,'20200115-GS-0028','2020-01-14',222,6240000,0,6240000,0,6240000,5,38,'',0,22500,0,0,35),(351,'20200115-GS-0029','2020-01-14',213,7252000,0,7252000,7252000,0,5,38,'',0,21583,0,0,35),(352,'20200115-GS-0030','2020-01-14',311,6240000,0,6240000,6240000,0,5,38,'',0,21667,0,0,35),(353,'20200115-GS-0031','2020-01-14',212,1295000,0,1295000,0,1295000,5,38,'',0,21583,0,0,35),(354,'20200115-GS-0032','2020-01-14',211,9712000,0,9481000,9481000,0,5,38,'',11,21000,231000,0,35),(355,'20200115-GS-0033','2020-01-14',217,1080000,0,1080000,1080000,0,5,38,'',0,22500,0,0,35),(356,'20200115-GS-0034','2020-01-14',129,2800000,0,2800000,2800000,0,5,37,'',0,23333,0,0,35),(357,'20200115-GS-0035','2020-01-14',114,1680000,0,1680000,1680000,0,5,37,'',0,23333,0,0,35),(358,'20200115-GS-0036','2020-01-14',225,5540000,0,5540000,5540000,0,5,37,'',0,23083,0,0,35),(359,'20200115-GS-0037','2020-01-14',119,2946000,0,2946000,2946000,0,5,37,'',0,21822,0,0,35),(360,'20200115-GS-0038','2020-01-14',169,6288000,0,6288000,6288000,0,5,37,'',0,21833,0,4584000,35),(361,'20200115-GS-0039','2020-01-14',182,5043000,0,4933000,4933000,0,5,37,'',5,22000,110000,0,35),(362,'20200115-GS-0040','2020-01-14',125,0,0,0,0,0,5,37,'',125,0,0,0,35),(363,'20200115-GS-0041','2020-01-14',179,3288000,0,3288000,3288000,0,5,37,'',0,22833,0,1918000,35),(364,'20200115-GS-0042','2020-01-14',310,3960000,0,3960000,3960000,0,5,37,'',0,22000,0,0,35),(365,'20200116-GS-0001','2020-01-15',16,1981000,0,1981000,1981000,0,5,41,'',0,23583,0,0,35),(366,'20200116-GS-0002','2020-01-15',109,1415000,0,1415000,1415000,0,5,41,'',0,23583,0,0,35),(367,'20200116-GS-0003','2020-01-15',93,1698000,0,1698000,1698000,0,5,41,'',0,23583,0,0,35),(368,'20200116-GS-0004','2020-01-15',83,3396000,0,3396000,3396000,0,5,41,'',0,23583,0,0,35),(369,'20200116-GS-0005','2020-01-15',198,1910000,0,1910000,1910000,0,5,41,'',0,23583,0,0,35),(370,'20200116-GS-0006','2020-01-15',98,2264000,0,2264000,2264000,0,5,41,'',0,23583,0,0,35),(371,'20200116-GS-0007','2020-01-15',50,4528000,0,4229000,3979000,250000,5,41,'',13,23000,299000,0,35),(372,'20200116-GS-0008','2020-01-15',97,1981000,0,1981000,1981000,0,5,41,'',0,23583,0,0,35),(373,'20200116-GS-0009','2020-01-15',178,1132000,0,1132000,1132000,0,5,41,'',0,23583,0,0,35),(374,'20200116-GS-0010','2020-01-15',35,7728000,0,7728000,7728000,0,5,41,'',0,23000,0,0,35),(375,'20200116-GS-0011','2020-01-15',312,13800000,0,13800000,13800000,0,5,41,'',0,23000,0,0,35),(405,'20200117-GS-0023','2020-01-16',201,780000,0,780000,780000,0,5,45,'',0,21667,0,0,35),(377,'20200116-GS-0012','2020-01-15',29,9108000,0,9108000,9108000,0,5,41,'',0,23000,0,0,35),(378,'20200116-GS-0013','2020-01-15',139,4140000,0,4140000,4140000,0,5,41,'',0,23000,0,0,35),(379,'20200116-GS-0014','2020-01-15',73,1132000,0,1132000,1132000,0,5,41,'',0,23583,0,0,35),(380,'20200116-GS-0015','2020-01-15',108,849000,0,849000,849000,0,5,41,'',0,23583,0,0,35),(381,'20200116-GS-0016','2020-01-15',26,2288000,0,2288000,2288000,0,5,41,'',0,22917,0,0,35),(382,'20200116-GS-0017','2020-01-15',57,4244000,0,4244000,0,4244000,5,41,'',0,23578,0,0,35),(383,'20200117-GS-0001','2020-01-15',65,2800000,0,2800000,2800000,0,5,40,'',0,23333,0,0,35),(384,'20200117-GS-0002','2020-01-15',96,2800000,0,2800000,2800000,0,5,40,'',0,23333,0,0,35),(385,'20200117-GS-0003','2020-01-15',95,7280000,0,7280000,7280000,0,5,40,'',0,23333,0,0,35),(386,'20200117-GS-0004','2020-01-15',71,1953000,0,1953000,1953000,0,5,40,'',0,23250,0,0,35),(387,'20200117-GS-0005','2020-01-15',113,11000000,0,11000000,0,11000000,5,40,'',0,22917,0,0,35),(388,'20200117-GS-0006','2020-01-15',88,11160000,0,11160000,11160000,0,5,40,'',0,23250,0,0,35),(389,'20200117-GS-0007','2020-01-15',66,1674000,0,1674000,1674000,0,5,40,'',0,23250,0,0,35),(390,'20200117-GS-0008','2020-01-15',147,2410000,0,2410000,2410000,0,5,40,'',0,23250,0,0,35),(391,'20200117-GS-0009','2020-01-15',107,7812000,0,7812000,7812000,0,5,40,'',0,23250,0,0,35),(392,'20200117-GS-0010','2020-01-15',44,6138000,0,6138000,6138000,0,5,40,'',0,23250,0,0,35),(393,'20200117-GS-0011','2020-01-15',310,3960000,0,3960000,3960000,0,5,40,'',0,22000,0,0,35),(394,'20200117-GS-0012','2020-01-15',17,1395000,0,1395000,1395000,0,5,40,'',0,23250,0,0,35),(395,'20200117-GS-0013','2020-01-15',158,10730000,0,10592000,0,10592000,5,40,'',6,23000,138000,0,35),(396,'20200117-GS-0014','2020-01-15',210,0,0,0,0,0,5,40,'',0,0,0,0,35),(397,'20200117-GS-0015','2020-01-15',175,2160000,0,2160000,2160000,0,5,39,'',0,22500,0,0,35),(398,'20200117-GS-0016','2020-01-15',232,13259000,0,13259000,13259000,0,5,39,'',0,21250,0,0,35),(399,'20200117-GS-0017','2020-01-15',135,9146000,0,9146000,9146000,0,5,39,'',0,22417,0,0,35),(400,'20200117-GS-0018','2020-01-15',145,807000,0,807000,807000,0,5,39,'',0,22417,0,1345000,35),(401,'20200117-GS-0019','2020-01-15',162,792000,0,792000,792000,0,5,39,'',0,22000,0,0,35),(402,'20200117-GS-0020','2020-01-15',171,11925000,0,11925000,11925000,0,5,39,'',0,22083,0,0,35),(403,'20200117-GS-0021','2020-01-15',161,2904000,0,2904000,2904000,0,5,39,'',0,22000,0,0,35),(404,'20200117-GS-0022','2020-01-15',43,59180000,0,59180000,59180000,0,5,42,'',0,22417,0,0,35),(406,'20200117-GS-0024','2020-01-16',202,4160000,0,4160000,4160000,0,5,45,'',0,22500,0,0,35),(407,'20200117-GS-0025','2020-01-16',213,3885000,0,3885000,3885000,0,5,45,'',0,21583,0,0,35),(408,'20200117-GS-0026','2020-01-16',204,10400000,0,10400000,10400000,0,5,45,'',0,22500,0,0,35),(409,'20200117-GS-0027','2020-01-16',211,7252000,0,7252000,7252000,0,5,45,'',0,21583,0,0,35),(410,'20200117-GS-0028','2020-01-16',212,2590000,0,2590000,2590000,0,5,45,'',0,21583,0,1295000,35),(411,'20200117-GS-0029','2020-01-16',9,8340000,0,8340000,8340000,0,5,43,'',0,23167,0,0,35),(412,'20200117-GS-0030','2020-01-16',11,5500000,0,5500000,5500000,0,5,43,'',0,22917,0,0,35),(413,'20200117-GS-0031','2020-01-16',15,3537000,0,3537000,3537000,0,5,43,'',0,23583,0,0,35),(414,'20200117-GS-0032','2020-01-16',21,804000,0,804000,804000,0,5,43,'',0,22333,0,0,35),(415,'20200117-GS-0033','2020-01-16',41,5094000,0,5094000,5094000,0,5,43,'',0,23583,0,0,35),(416,'20200117-GS-0034','2020-01-16',115,2547000,0,2547000,2547000,0,5,43,'',0,23583,0,0,35),(417,'20200117-GS-0035','2020-01-16',56,2830000,0,2830000,2830000,0,5,43,'',0,23583,0,0,35),(418,'20200117-GS-0036','2020-01-16',84,3962000,0,3962000,3962000,0,5,43,'',0,23583,0,0,35),(419,'20200117-GS-0037','2020-01-16',42,2264000,0,2264000,2264000,0,5,43,'',0,23583,0,0,35),(420,'20200117-GS-0038','2020-01-16',75,4760000,0,4760000,4760000,0,5,43,'',0,23333,0,0,35),(421,'20200117-GS-0039','2020-01-16',28,7280000,0,7280000,7280000,0,5,43,'',0,23333,0,0,35),(422,'20200117-GS-0040','2020-01-16',103,4811000,0,4811000,4011000,800000,5,43,'',0,23583,0,0,35),(423,'20200117-GS-0041','2020-01-16',23,1608000,0,1608000,1608000,0,5,43,'',0,22333,0,0,35),(424,'20200117-GS-0042','2020-01-16',106,13900000,0,13900000,13900000,0,5,43,'',0,23167,0,0,35),(425,'20200117-GS-0043','2020-01-16',90,2830000,0,2830000,2830000,0,5,43,'',0,23583,0,0,35),(426,'20200117-GS-0044','2020-01-16',53,2547000,0,2547000,2547000,0,5,43,'',0,23583,0,0,35),(427,'20200117-GS-0045','2020-01-16',133,4726000,0,4726000,4726000,0,5,43,'',0,23167,0,0,35),(428,'20200117-GS-0046','2020-01-16',142,5500000,0,5500000,5500000,0,5,43,'',0,22917,0,0,35),(429,'20200117-GS-0047','2020-01-16',120,13794000,0,13794000,13794000,0,5,44,'',0,21833,0,0,35),(430,'20200117-GS-0048','2020-01-16',310,6864000,0,6864000,6864000,0,5,44,'',0,22000,0,0,35),(431,'20200117-GS-0049','2020-01-16',323,6164000,0,6164000,6164000,0,5,44,'',0,22333,0,0,35),(432,'20200118-GS-0001','2020-01-16',169,3078000,0,3078000,3078000,0,5,44,'',0,21833,0,0,35),(433,'20200118-GS-0002','2020-01-16',125,0,0,0,0,0,5,44,'',135,0,0,0,35),(434,'20200120-GS-0001','2020-01-17',134,275000,0,275000,275000,0,5,46,'',0,22917,0,0,35),(435,'20200120-GS-0002','2020-01-17',27,1656000,0,1656000,1656000,0,5,47,'',0,23000,0,0,35),(436,'20200120-GS-0003','2020-01-17',135,4035000,0,4035000,4035000,0,5,47,'',0,22417,0,0,35),(437,'20200120-GS-0004','2020-01-17',171,9540000,0,9540000,9540000,0,5,47,'',0,22083,0,0,35),(438,'20200120-GS-0005','2020-01-17',162,1056000,0,1056000,1056000,0,5,47,'',0,22000,0,0,35),(439,'20200120-GS-0006','2020-01-17',161,12936000,0,12936000,12936000,0,5,47,'',0,22000,0,0,35),(440,'20200120-GS-0007','2020-01-17',43,18830000,0,18830000,18830000,0,5,47,'',0,22417,0,0,35),(441,'20200120-GS-0008','2020-01-17',58,8280000,0,8280000,8280000,0,5,47,'',0,23000,0,0,35),(442,'20200120-GS-0009','2020-01-17',72,4968000,0,4968000,4968000,0,5,47,'',0,23000,0,0,35),(443,'20200120-GS-0010','2020-01-17',164,1981000,0,1981000,1981000,0,5,49,'',0,23583,0,0,35),(444,'20200120-GS-0011','2020-01-17',16,1132000,0,1132000,1132000,0,5,49,'',0,23583,0,0,35),(445,'20200120-GS-0012','2020-01-17',109,2547000,0,2547000,2547000,0,5,49,'',0,23583,0,0,35),(446,'20200120-GS-0013','2020-01-17',59,1132000,0,1132000,1132000,0,5,49,'',0,23583,0,0,35),(447,'20200120-GS-0014','2020-01-17',198,1415000,0,1415000,1415000,0,5,49,'',0,23583,0,0,35),(448,'20200120-GS-0015','2020-01-17',144,1981000,0,1981000,1981000,0,5,49,'',0,23583,0,0,35),(449,'20200120-GS-0016','2020-01-17',191,1698000,0,1698000,1698000,0,5,49,'',0,23583,0,0,35),(450,'20200120-GS-0017','2020-01-17',97,2264000,0,2264000,2264000,0,5,49,'',0,23583,0,0,35),(451,'20200120-GS-0018','2020-01-17',35,11868000,0,11868000,11868000,0,5,49,'',0,23000,0,20102000,35),(452,'20200120-GS-0019','2020-01-17',29,9384000,0,9384000,9384000,0,5,49,'',0,23000,0,0,35),(453,'20200120-GS-0020','2020-01-17',116,1132000,0,1132000,1132000,0,5,49,'',0,23583,0,0,35),(454,'20200120-GS-0021','2020-01-17',131,566000,0,566000,566000,0,5,49,'',0,23583,0,566000,35),(455,'20200120-GS-0022','2020-01-17',37,1415000,0,1415000,1415000,0,5,49,'',0,23583,0,0,35),(456,'20200120-GS-0023','2020-01-17',154,2264000,0,2264000,2264000,0,5,49,'',0,23583,0,0,35),(457,'20200120-GS-0024','2020-01-17',160,2830000,0,2830000,2830000,0,5,49,'',0,23583,0,0,35),(458,'20200120-GS-0025','2020-01-17',54,1981000,0,1981000,1981000,0,5,49,'',0,23583,0,0,35),(459,'20200120-GS-0026','2020-01-17',48,566000,0,566000,566000,0,5,49,'',0,23583,0,0,35),(460,'20200120-GS-0027','2020-01-17',26,2750000,0,2750000,2750000,0,5,49,'',0,22917,0,0,35),(461,'20200120-GS-0028','2020-01-17',50,5377000,0,5377000,5377000,0,5,49,'',0,23583,0,250000,35),(462,'20200120-GS-0029','2020-01-17',35,0,0,-230000,0,-230000,5,49,'',10,23000,230000,0,35),(463,'20200120-GS-0030','2020-01-17',129,5600000,0,5600000,5600000,0,5,48,'',0,23333,0,0,35),(464,'20200120-GS-0031','2020-01-17',65,1680000,0,1680000,1680000,0,5,48,'',0,23333,0,0,35),(465,'20200120-GS-0032','2020-01-17',96,840000,0,840000,840000,0,5,48,'',0,23333,0,0,35),(466,'20200120-GS-0033','2020-01-17',132,2800000,0,2800000,2800000,0,5,48,'',0,23333,0,0,35),(467,'20200120-GS-0034','2020-01-17',113,27500000,0,27500000,27500000,0,5,48,'',0,22917,0,11000000,35),(468,'20200120-GS-0035','2020-01-17',66,2790000,0,2790000,2790000,0,5,48,'',0,23250,0,0,35),(469,'20200120-GS-0036','2020-01-17',147,2790000,0,2790000,0,2790000,5,48,'',0,23250,0,0,35),(470,'20200120-GS-0037','2020-01-17',69,6138000,0,6138000,6138000,0,5,48,'',0,23250,0,0,35),(471,'20200120-GS-0038','2020-01-17',107,2790000,0,2790000,2790000,0,5,48,'',0,23250,0,0,35),(472,'20200120-GS-0039','2020-01-17',310,11088000,0,11088000,0,11088000,5,48,'',0,22000,0,0,35),(473,'20200120-GS-0040','2020-01-17',158,8791000,0,8354000,3500000,4854000,5,48,'',19,23000,437000,0,35),(474,'20200120-GS-0041','2020-01-17',95,7254000,0,7254000,7254000,0,5,48,'',0,23250,0,0,35),(475,'20200120-GS-0042','2020-01-17',136,1132000,0,1132000,1132000,0,5,49,'',0,23583,0,0,35),(476,'20200121-GS-0001','2020-01-18',202,11180000,0,11180000,3380000,7800000,5,51,'',0,21667,0,0,35),(477,'20200121-GS-0002','2020-01-18',222,10660000,0,10660000,10660000,0,5,51,'',0,22500,0,6240000,35),(478,'20200121-GS-0003','2020-01-18',212,2590000,0,2590000,2590000,0,5,51,'',0,21583,0,0,35),(479,'20200121-GS-0004','2020-01-18',311,4160000,0,4160000,4160000,0,5,51,'',0,21667,0,0,35),(480,'20200121-GS-0005','2020-01-18',213,5439000,0,5439000,5439000,0,5,51,'',0,21583,0,0,35),(481,'20200121-GS-0006','2020-01-18',211,5180000,0,5180000,5180000,0,5,51,'',0,21583,0,0,35),(482,'20200121-GS-0007','2020-01-18',320,4420000,0,4420000,4420000,0,5,51,'',0,21667,0,0,35),(483,'20200121-GS-0008','2020-01-18',192,13392000,0,13392000,13392000,0,5,50,'',0,23250,0,0,35),(484,'20200121-GS-0009','2020-01-18',323,9313000,0,9313000,9313000,0,5,50,'',0,22333,0,0,35),(485,'20200121-GS-0010','2020-01-18',169,3602000,0,3602000,3602000,0,5,50,'',0,21833,0,0,35),(486,'20200121-GS-0011','2020-01-18',125,0,0,0,0,0,5,50,'',193,0,0,0,35),(487,'20200121-GS-0012','2020-01-18',17,2790000,0,2790000,2790000,0,5,50,'',0,23250,0,0,35),(488,'20200121-GS-0013','2020-01-18',158,0,0,0,0,0,5,50,'',0,0,0,15445000,35),(489,'20200121-GS-0014','2020-01-18',9,3336000,0,3336000,3336000,0,5,52,'',0,23167,0,0,35),(490,'20200121-GS-0015','2020-01-18',11,5500000,0,5500000,5500000,0,5,52,'',0,22917,0,0,35),(491,'20200121-GS-0016','2020-01-18',15,5094000,0,5094000,5094000,0,5,52,'',0,23583,0,0,35),(492,'20200121-GS-0017','2020-01-18',41,11627000,0,11627000,11627000,0,5,52,'',0,23583,0,0,35),(493,'20200121-GS-0018','2020-01-18',115,9339000,0,9339000,9339000,0,5,52,'',0,23583,0,0,35),(494,'20200121-GS-0019','2020-01-18',56,8490000,0,8490000,8490000,0,5,52,'',0,23583,0,0,35),(495,'20200121-GS-0020','2020-01-18',103,1415000,0,1415000,1415000,0,5,52,'',0,23583,0,800000,35),(496,'20200121-GS-0021','2020-01-18',84,4245000,0,4245000,4245000,0,5,52,'',0,23583,0,0,35),(497,'20200121-GS-0022','2020-01-18',52,1385000,0,1385000,1385000,0,5,52,'',0,23083,0,0,35),(498,'20200121-GS-0023','2020-01-18',42,8490000,0,8490000,8490000,0,5,52,'',0,23583,0,0,35),(499,'20200121-GS-0024','2020-01-18',104,1981000,0,1981000,1981000,0,5,52,'',0,23583,0,0,35),(500,'20200121-GS-0025','2020-01-18',47,1390000,0,1390000,1390000,0,5,52,'',0,23167,0,0,35),(501,'20200121-GS-0026','2020-01-18',28,8400000,0,8400000,8400000,0,5,52,'',0,23333,0,0,35),(502,'20200121-GS-0027','2020-01-18',168,1981000,0,1981000,1981000,0,5,53,'',0,23583,0,0,35),(503,'20200121-GS-0028','2020-01-18',215,1698000,0,1698000,1698000,0,5,53,'',0,23583,0,2547000,35),(504,'20200121-GS-0029','2020-01-18',23,2144000,0,2144000,2144000,0,5,53,'',0,22333,0,0,35),(505,'20200121-GS-0030','2020-01-18',106,16680000,0,16680000,16680000,0,5,53,'',0,23167,0,0,35),(506,'20200121-GS-0031','2020-01-18',22,1608000,0,1608000,1608000,0,5,53,'',0,22333,0,0,35),(507,'20200121-GS-0032','2020-01-18',53,4245000,0,4245000,4245000,0,5,53,'',0,23583,0,0,35),(508,'20200121-GS-0033','2020-01-18',57,0,0,0,0,0,5,53,'',0,0,0,4244000,35),(509,'20200121-GS-0034','2020-01-18',18,1981000,0,1981000,1981000,0,5,53,'',0,23583,0,0,35),(510,'20200121-GS-0035','2020-01-18',142,5500000,0,5500000,3000000,2500000,5,53,'',0,22917,0,0,35),(511,'20200122-GS-0001','2020-01-20',11,2750000,0,2750000,0,2750000,5,54,'',0,22917,0,0,35),(512,'20200122-GS-0002','2020-01-20',16,1981000,0,1981000,1981000,0,5,57,'',0,23583,0,0,35),(513,'20200122-GS-0003','2020-01-20',109,5660000,0,5660000,5660000,0,5,57,'',0,23583,0,0,35),(514,'20200122-GS-0004','2020-01-20',93,3113000,0,3113000,3113000,0,5,57,'',0,23583,0,0,35),(515,'20200122-GS-0005','2020-01-20',83,4245000,0,4245000,4245000,0,5,57,'',0,23583,0,0,35),(516,'20200122-GS-0006','2020-01-20',176,2264000,0,2264000,2264000,0,5,57,'',0,23583,0,0,35),(517,'20200122-GS-0007','2020-01-20',198,3325000,0,3325000,3325000,0,5,57,'',0,23583,0,0,35),(518,'20200122-GS-0008','2020-01-20',98,4457000,0,4457000,4457000,0,5,57,'',0,23583,0,0,35),(519,'20200122-GS-0009','2020-01-20',50,13745000,0,13354000,13354000,0,5,57,'',17,23000,391000,0,35),(520,'20200122-GS-0010','2020-01-20',46,5600000,0,5600000,5600000,0,5,57,'',0,23333,0,0,35),(521,'20200122-GS-0011','2020-01-20',97,1981000,0,1981000,1981000,0,5,60,'',0,23583,0,0,35),(522,'20200122-GS-0012','2020-01-20',35,22908000,0,22908000,22908000,0,5,60,'',0,23000,0,0,35),(523,'20200122-GS-0013','2020-01-20',29,12144000,0,12144000,12144000,0,5,60,'',0,23000,0,0,35),(524,'20200122-GS-0014','2020-01-20',51,5660000,0,5660000,5660000,0,5,60,'',0,23583,0,0,35),(525,'20200122-GS-0015','2020-01-20',131,1698000,0,1698000,1698000,0,5,60,'',0,23583,0,0,35),(526,'20200122-GS-0016','2020-01-20',136,849000,0,849000,849000,0,5,60,'',0,23583,0,0,35),(527,'20200122-GS-0017','2020-01-20',154,1132000,0,1132000,1132000,0,5,60,'',0,23583,0,0,35),(528,'20200122-GS-0018','2020-01-20',139,3036000,0,3036000,3036000,0,5,60,'',0,23000,0,0,35),(529,'20200122-GS-0019','2020-01-20',54,5094000,0,5094000,5094000,0,5,60,'',0,23583,0,0,35),(530,'20200122-GS-0020','2020-01-20',73,1698000,0,1698000,1698000,0,5,60,'',0,23583,0,0,35),(531,'20200122-GS-0021','2020-01-20',59,1981000,0,1981000,1981000,0,5,60,'',0,23583,0,0,35),(532,'20200122-GS-0022','2020-01-20',144,1132000,0,1132000,1132000,0,5,60,'',0,23583,0,0,35),(533,'20200122-GS-0023','2020-01-20',108,566000,0,566000,566000,0,5,60,'',0,23583,0,0,35),(534,'20200122-GS-0024','2020-01-20',40,283000,0,283000,283000,0,5,60,'',0,23583,0,0,35),(535,'20200122-GS-0025','2020-01-20',26,2750000,0,2750000,2750000,0,5,60,'',0,22917,0,0,35),(536,'20200122-GS-0026','2020-01-20',55,1120000,0,1120000,1120000,0,5,55,'',0,23333,0,0,35),(537,'20200122-GS-0027','2020-01-20',58,3036000,0,3036000,3036000,0,5,55,'',0,23000,0,0,35),(538,'20200122-GS-0028','2020-01-20',135,25488000,0,25488000,25488000,0,5,55,'',0,22417,0,0,35),(539,'20200122-GS-0029','2020-01-20',171,29945000,0,29945000,29945000,0,5,55,'',0,22083,0,0,35),(540,'20200122-GS-0030','2020-01-20',-1,1883000,0,1883000,1883000,0,5,55,'',0,22417,0,0,35),(541,'20200122-GS-0031','2020-01-20',161,6072000,0,6072000,6072000,0,5,55,'',0,22000,0,0,35),(542,'20200122-GS-0032','2020-01-20',28,7560000,0,7560000,7560000,0,5,55,'',0,23333,0,0,35),(543,'20200122-GS-0033','2020-01-20',42,3396000,0,3396000,3396000,0,5,55,'',0,23583,0,0,35),(544,'20200122-GS-0034','2020-01-20',43,26900000,0,26900000,26900000,0,5,58,'',0,22417,0,0,35),(545,'20200122-GS-0035','2020-01-20',96,3640000,0,3640000,3640000,0,5,56,'',0,23333,0,0,35),(546,'20200122-GS-0036','2020-01-20',113,17325000,0,17325000,0,17325000,5,56,'',0,22917,0,0,35),(547,'20200122-GS-0037','2020-01-20',88,19180000,0,19020000,19020000,0,5,56,'',7,22857,160000,0,35),(548,'20200122-GS-0038','2020-01-20',66,2790000,0,2790000,2790000,0,5,56,'',0,23250,0,0,35),(549,'20200122-GS-0039','2020-01-20',69,4464000,0,4464000,4464000,0,5,56,'',0,23250,0,0,35),(550,'20200122-GS-0040','2020-01-20',107,4464000,0,4464000,4464000,0,5,56,'',0,23250,0,0,35),(551,'20200122-GS-0041','2020-01-20',310,12144000,0,12144000,12144000,0,5,56,'',0,22000,0,11088000,35),(552,'20200122-GS-0042','2020-01-20',91,5301000,0,5301000,5301000,0,5,56,'',0,23250,0,0,35),(553,'20200122-GS-0043','2020-01-20',44,5580000,0,5580000,5580000,0,5,56,'',0,23250,0,0,35),(554,'20200122-GS-0044','2020-01-20',158,11838000,0,11516000,3100000,8416000,5,56,'',14,23000,322000,0,35),(555,'20200122-GS-0045','2020-01-20',17,2232000,0,2232000,2232000,0,5,59,'',0,23250,0,0,35),(556,'20200122-GS-0046','2020-01-20',147,1395000,0,1395000,0,1395000,5,59,'',0,23250,0,0,35),(557,'20200122-GS-0047','2020-01-20',95,15680000,0,15680000,15680000,0,5,59,'',0,23333,0,0,35),(558,'20200122-GS-0048','2020-01-20',114,1400000,0,1400000,1400000,0,5,59,'',0,23333,0,928000,35),(559,'20200122-GS-0049','2020-01-20',132,2800000,0,2800000,2800000,0,5,59,'',0,23333,0,0,35),(560,'20200122-GS-0050','2020-01-20',65,2240000,0,2240000,2240000,0,5,59,'',0,23333,0,0,35),(561,'20200122-GS-0051','2020-01-21',306,2970000,0,2970000,2970000,0,5,63,'',0,22500,0,0,35),(562,'20200122-GS-0052','2020-01-21',201,1040000,0,1040000,1040000,0,5,63,'',0,21667,0,0,35),(563,'20200122-GS-0053','2020-01-21',202,6500000,0,6500000,6500000,0,5,63,'',0,22500,0,0,35),(564,'20200122-GS-0054','2020-01-21',204,7800000,0,7800000,7800000,0,5,63,'',0,22500,0,0,35),(565,'20200122-GS-0055','2020-01-21',222,11375000,0,11375000,11375000,0,5,63,'',0,22500,0,0,35),(566,'20200122-GS-0056','2020-01-21',213,7252000,0,7252000,7252000,0,5,63,'',0,21583,0,0,35),(567,'20200122-GS-0057','2020-01-21',311,6760000,0,6760000,6760000,0,5,63,'',0,21667,0,0,35),(568,'20200122-GS-0058','2020-01-21',203,12832000,0,12832000,12832000,0,5,63,'',0,22500,0,0,35),(569,'20200122-GS-0059','2020-01-21',320,3640000,0,3640000,3640000,0,5,63,'',0,21667,0,0,35),(570,'20200122-GS-0060','2020-01-21',212,5957000,0,5957000,5957000,0,5,63,'',0,21583,0,0,35),(571,'20200122-GS-0061','2020-01-21',119,16046000,0,16046000,16046000,0,5,62,'',0,21833,0,0,35),(572,'20200122-GS-0062','2020-01-21',323,9782000,0,9782000,9782000,0,5,62,'',0,22333,0,0,35),(573,'20200122-GS-0063','2020-01-21',169,4650000,0,4650000,4650000,0,5,62,'',0,21833,0,0,35),(574,'20200122-GS-0064','2020-01-21',189,2152000,0,2152000,2152000,0,5,62,'',0,22417,0,0,35),(575,'20200122-GS-0065','2020-01-21',182,13784000,0,13388000,13388000,0,5,62,'',18,22000,396000,0,35),(576,'20200122-GS-0066','2020-01-21',125,0,0,0,0,0,5,62,'',177,0,0,0,35),(577,'20200123-GS-0001','2020-01-21',9,10286000,0,10286000,10286000,0,5,61,'',0,23167,0,0,35),(578,'20200123-GS-0002','2020-01-21',11,4400000,0,4400000,4400000,0,5,61,'',0,22917,0,2750000,35),(579,'20200123-GS-0003','2020-01-21',53,566000,0,566000,566000,0,5,61,'',0,23583,0,0,35),(580,'20200123-GS-0004','2020-01-21',41,4811000,0,4811000,4811000,0,5,61,'',0,23583,0,0,35),(581,'20200123-GS-0005','2020-01-21',115,10895000,0,10895000,10895000,0,5,61,'',0,23583,0,0,35),(582,'20200123-GS-0006','2020-01-21',56,3679000,0,3679000,3679000,0,5,61,'',0,23583,0,0,35),(583,'20200123-GS-0007','2020-01-21',15,4245000,0,4245000,4245000,0,5,61,'',0,23583,0,0,35),(584,'20200123-GS-0008','2020-01-21',21,1876000,0,1876000,1876000,0,5,61,'',0,22333,0,0,35),(585,'20200123-GS-0009','2020-01-21',117,2502000,0,2502000,2502000,0,5,61,'',0,23167,0,0,35),(586,'20200123-GS-0010','2020-01-21',103,7924000,0,7924000,7924000,0,5,61,'',0,23583,0,0,35),(587,'20200123-GS-0011','2020-01-21',84,4669000,0,4669000,4669000,0,5,61,'',0,23583,0,0,35),(588,'20200123-GS-0012','2020-01-21',18,5943000,0,5943000,5943000,0,5,61,'',0,23583,0,0,35),(589,'20200123-GS-0013','2020-01-21',52,4709000,0,4709000,4709000,0,5,61,'',0,23083,0,0,35),(590,'20200123-GS-0014','2020-01-21',42,3396000,0,3396000,3396000,0,5,61,'',0,23583,0,0,35),(591,'20200123-GS-0015','2020-01-21',28,12040000,0,12040000,12040000,0,5,61,'',0,23333,0,0,35),(592,'20200123-GS-0016','2020-01-21',111,1415000,0,1415000,1415000,0,5,61,'',0,23583,0,0,35),(593,'20200123-GS-0017','2020-01-21',34,2547000,0,2547000,2547000,0,5,64,'',0,23583,0,0,35),(594,'20200123-GS-0018','2020-01-21',104,3962000,0,3962000,3962000,0,5,64,'',0,23583,0,0,35),(595,'20200123-GS-0019','2020-01-21',47,4378000,0,4378000,4378000,0,5,64,'',0,23167,0,0,35),(596,'20200123-GS-0020','2020-01-21',183,1132000,0,1132000,1132000,0,5,64,'',0,23583,0,0,35),(597,'20200123-GS-0021','2020-01-21',168,5943000,0,5943000,5943000,0,5,64,'',0,23583,0,0,35),(598,'20200123-GS-0022','2020-01-21',23,3484000,0,3484000,3484000,0,5,64,'',0,22333,0,0,35),(599,'20200123-GS-0023','2020-01-21',106,22240000,0,22240000,22240000,0,5,64,'',0,23167,0,0,35),(600,'20200123-GS-0024','2020-01-21',133,2780000,0,2780000,2780000,0,5,64,'',0,23167,0,0,35),(601,'20200123-GS-0025','2020-01-21',142,8250000,0,8250000,8250000,0,5,64,'',0,22917,0,0,35),(602,'20200123-GS-0026','2020-01-22',232,21036000,0,21036000,21036000,0,5,65,'',0,21250,0,0,35),(603,'20200123-GS-0027','2020-01-22',175,2700000,0,2700000,2700000,0,5,65,'',0,22500,0,1000000,35),(604,'20200123-GS-0028','2020-01-22',135,11836000,0,11836000,11836000,0,5,65,'',0,22417,0,0,35),(605,'20200123-GS-0029','2020-01-22',171,21200000,0,21200000,21200000,0,5,65,'',0,22083,0,0,35),(606,'20200123-GS-0030','2020-01-22',161,5280000,0,5280000,5280000,0,5,68,'',0,22000,0,0,35),(607,'20200123-GS-0031','2020-01-22',145,2421000,0,2421000,2421000,0,5,68,'',0,22417,0,0,35),(608,'20200123-GS-0032','2020-01-22',58,828000,0,828000,828000,0,5,68,'',0,23000,0,0,35),(609,'20200123-GS-0033','2020-01-22',43,26900000,0,26900000,26900000,0,5,68,'',0,22417,0,0,35),(610,'20200123-GS-0034','2020-01-22',16,4245000,0,4245000,4245000,0,5,67,'',0,23583,0,0,35),(611,'20200123-GS-0035','2020-01-22',109,1981000,0,1981000,1981000,0,5,67,'',0,23583,0,0,35),(612,'20200123-GS-0036','2020-01-22',83,3962000,0,3962000,3962000,0,5,67,'',0,23583,0,0,35),(613,'20200123-GS-0037','2020-01-22',59,5377000,0,5377000,5377000,0,5,67,'',0,23583,0,0,35),(614,'20200123-GS-0038','2020-01-22',98,2547000,0,2547000,2547000,0,5,67,'',0,23583,0,0,35),(615,'20200123-GS-0039','2020-01-22',144,1415000,0,1415000,1415000,0,5,67,'',0,23583,0,0,35),(616,'20200123-GS-0040','2020-01-22',46,10190000,0,10190000,10190000,0,5,67,'',0,23333,0,0,35),(617,'20200123-GS-0041','2020-01-22',97,3113000,0,3113000,3113000,0,5,67,'',0,23583,0,0,35),(618,'20200123-GS-0042','2020-01-22',178,2830000,0,2830000,2830000,0,5,67,'',0,23583,0,0,35),(619,'20200123-GS-0043','2020-01-22',35,14904000,0,14904000,14904000,0,5,69,'',0,23000,0,0,35),(620,'20200123-GS-0044','2020-01-22',89,2830000,0,2830000,2830000,0,5,69,'',0,23583,0,0,35),(621,'20200123-GS-0045','2020-01-22',150,1415000,0,1415000,1415000,0,5,69,'',0,23583,0,0,35),(622,'20200123-GS-0046','2020-01-22',312,5520000,0,5520000,5520000,0,5,69,'',0,23000,0,0,35),(623,'20200123-GS-0047','2020-01-22',29,27324000,0,27094000,27094000,0,5,69,'',10,23000,230000,0,35),(624,'20200123-GS-0048','2020-01-22',51,1415000,0,1415000,1415000,0,5,69,'',0,23583,0,0,35),(625,'20200123-GS-0049','2020-01-22',116,1698000,0,1698000,1698000,0,5,69,'',0,23583,0,0,35),(626,'20200123-GS-0050','2020-01-22',37,849000,0,849000,849000,0,5,69,'',0,23583,0,0,35),(627,'20200123-GS-0051','2020-01-22',136,3113000,0,3113000,3113000,0,5,69,'',0,23583,0,0,35),(628,'20200123-GS-0052','2020-01-22',48,1132000,0,1132000,1132000,0,5,69,'',0,23583,0,0,35),(629,'20200123-GS-0053','2020-01-22',160,5094000,0,5094000,5094000,0,5,69,'',0,23583,0,0,35),(630,'20200123-GS-0054','2020-01-22',139,4416000,0,4416000,4416000,0,5,69,'',0,23000,0,0,35),(631,'20200123-GS-0055','2020-01-22',54,1132000,0,1132000,1132000,0,5,69,'',0,23583,0,0,35),(632,'20200123-GS-0056','2020-01-22',122,1698000,0,1698000,1698000,0,5,69,'',0,23583,0,0,35),(633,'20200123-GS-0057','2020-01-22',151,3396000,0,3396000,3396000,0,5,69,'',0,23583,0,0,35),(634,'20200123-GS-0058','2020-01-22',149,1698000,0,1698000,1698000,0,5,69,'',0,23583,0,0,35),(635,'20200123-GS-0059','2020-01-22',108,566000,0,566000,566000,0,5,69,'',0,23583,0,0,35),(636,'20200123-GS-0060','2020-01-22',50,11320000,0,11320000,11320000,0,5,69,'',0,23583,0,0,35),(637,'20200123-GS-0061','2020-01-22',134,825000,0,825000,825000,0,5,69,'',0,22917,0,0,35),(638,'20200123-GS-0062','2020-01-22',113,14575000,0,14575000,14575000,0,5,66,'',0,22917,0,17325000,35),(639,'20200123-GS-0063','2020-01-22',88,11439000,0,11439000,11439000,0,5,66,'',0,23250,0,0,35),(640,'20200123-GS-0064','2020-01-22',66,1674000,0,1674000,0,1674000,5,66,'',0,23250,0,0,35),(641,'20200123-GS-0065','2020-01-22',147,2790000,0,2790000,2790000,0,5,66,'',0,23250,0,4185000,35),(642,'20200123-GS-0066','2020-01-22',69,5580000,0,5580000,5580000,0,5,66,'',0,23250,0,0,35),(643,'20200123-GS-0067','2020-01-22',107,15205000,0,15205000,15205000,0,5,66,'',0,23250,0,0,35),(644,'20200123-GS-0068','2020-01-22',310,13002000,0,13002000,7002000,6000000,5,66,'',0,22000,0,0,35),(645,'20200123-GS-0069','2020-01-22',91,5510000,0,5510000,5510000,0,5,66,'',0,23250,0,0,35),(646,'20200123-GS-0070','2020-01-22',158,4085000,0,3142000,3142000,0,5,66,'',43,21930,943000,7500000,35),(647,'20200123-GS-0071','2020-01-22',71,2790000,0,2790000,2790000,0,5,66,'',0,23250,0,0,35),(648,'20200123-GS-0072','2020-01-22',95,10080000,0,10080000,10080000,0,5,66,'',0,23333,0,0,35),(649,'20200123-GS-0073','2020-01-22',65,2730000,0,2730000,2730000,0,5,66,'',0,23333,0,0,35),(650,'20200124-GS-0001','2020-01-23',118,0,0,0,0,0,5,73,'',0,0,0,0,35),(651,'20200124-GS-0002','2020-01-23',65,2800000,0,2800000,2800000,0,5,73,'',0,23333,0,0,35),(652,'20200124-GS-0003','2020-01-23',119,30456000,0,30456000,30456000,0,5,73,'',0,21833,0,0,35),(653,'20200124-GS-0004','2020-01-23',158,10380000,0,10380000,10380000,0,5,73,'',0,23067,0,0,35),(654,'20200124-GS-0005','2020-01-23',96,7000000,0,7000000,7000000,0,5,73,'',0,23333,0,0,35),(655,'20200124-GS-0006','2020-01-23',201,1040000,0,1040000,1040000,0,5,72,'',0,21667,0,0,35),(656,'20200124-GS-0007','2020-01-23',204,1560000,0,1560000,1560000,0,5,72,'',0,22500,0,0,35),(657,'20200124-GS-0008','2020-01-23',222,10075000,0,10075000,10075000,0,5,72,'',0,22500,0,0,35),(658,'20200124-GS-0009','2020-01-23',211,14957000,0,14957000,14957000,0,5,72,'',0,21583,0,0,35),(659,'20200124-GS-0010','2020-01-23',223,3066000,0,3066000,3066000,0,5,72,'',0,22500,0,0,35),(660,'20200124-GS-0011','2020-01-23',213,5180000,0,5180000,5180000,0,5,72,'',0,21583,0,0,35),(661,'20200124-GS-0012','2020-01-23',311,5980000,0,5980000,5980000,0,5,72,'',0,21667,0,0,35),(662,'20200124-GS-0013','2020-01-23',212,1295000,0,1295000,1295000,0,5,72,'',0,21583,0,0,35),(663,'20200124-GS-0014','2020-01-23',203,13000000,0,13000000,13000000,0,5,72,'',0,22500,0,0,35),(664,'20200124-GS-0015','2020-01-23',202,6240000,0,6240000,6240000,0,5,72,'',0,22500,0,7800000,35),(665,'20200124-GS-0016','2020-01-23',303,1620000,0,1620000,1620000,0,5,72,'',0,22500,0,0,35),(666,'20200124-GS-0017','2020-01-23',120,14082000,0,14082000,14082000,0,5,71,'',0,21833,0,0,35),(667,'20200124-GS-0018','2020-01-23',323,4020000,0,4020000,4020000,0,5,71,'',0,22333,0,0,35),(668,'20200124-GS-0019','2020-01-23',169,3930000,0,3930000,3930000,0,5,71,'',0,21833,0,0,35),(669,'20200124-GS-0020','2020-01-23',125,0,0,0,0,0,5,71,'',194,0,0,0,35),(670,'20200124-GS-0021','2020-01-23',9,7506000,0,7506000,7506000,0,5,70,'',0,23167,0,0,35),(671,'20200124-GS-0022','2020-01-23',11,16362000,0,15973000,15973000,0,5,70,'',17,22882,389000,0,35),(672,'20200124-GS-0023','2020-01-23',23,4288000,0,4288000,4288000,0,5,70,'',0,22333,0,0,35),(673,'20200124-GS-0024','2020-01-23',41,6226000,0,6226000,6226000,0,5,70,'',0,23583,0,0,35),(674,'20200124-GS-0025','2020-01-23',115,4528000,0,4528000,4528000,0,5,70,'',0,23583,0,0,35),(675,'20200124-GS-0026','2020-01-23',56,3679000,0,3679000,3679000,0,5,70,'',0,23583,0,0,35),(676,'20200124-GS-0027','2020-01-23',117,834000,0,834000,834000,0,5,70,'',0,23167,0,0,35),(677,'20200124-GS-0028','2020-01-23',15,4528000,0,4528000,4528000,0,5,70,'',0,23583,0,0,35),(678,'20200124-GS-0029','2020-01-23',21,3484000,0,3484000,3484000,0,5,70,'',0,22333,0,0,35),(679,'20200124-GS-0030','2020-01-23',49,5338000,0,5338000,5338000,0,5,70,'',0,22333,0,0,35),(680,'20200124-GS-0031','2020-01-23',133,5004000,0,5004000,5004000,0,5,70,'',0,23167,0,0,35),(681,'20200124-GS-0032','2020-01-23',53,2547000,0,2547000,2547000,0,5,70,'',0,23583,0,0,35),(682,'20200124-GS-0033','2020-01-23',188,1132000,0,1132000,1132000,0,5,70,'',0,23583,0,0,35),(683,'20200124-GS-0034','2020-01-23',52,2770000,0,2770000,2770000,0,5,70,'',0,23083,0,0,35),(684,'20200124-GS-0035','2020-01-23',42,8773000,0,8773000,8773000,0,5,70,'',0,23583,0,0,35),(685,'20200124-GS-0036','2020-01-23',123,2264000,0,2264000,2264000,0,5,70,'',0,23583,0,0,35),(686,'20200124-GS-0037','2020-01-23',75,6090000,0,5905000,5905000,0,5,70,'',8,23125,185000,0,35),(687,'20200130-GS-0001','2020-01-23',111,849000,0,849000,849000,0,5,74,'',0,23583,0,0,35),(688,'20200130-GS-0002','2020-01-23',34,2547000,0,2547000,2547000,0,5,74,'',0,23583,0,0,35),(689,'20200130-GS-0003','2020-01-23',104,849000,0,849000,849000,0,5,74,'',0,23583,0,0,35),(690,'20200130-GS-0004','2020-01-23',47,1112000,0,1112000,1112000,0,5,74,'',0,23167,0,0,35),(691,'20200130-GS-0005','2020-01-23',28,19320000,0,19320000,19320000,0,5,74,'',0,23333,0,0,35),(692,'20200130-GS-0006','2020-01-23',215,1698000,0,1698000,1698000,0,5,74,'',0,23583,0,0,35),(693,'20200130-GS-0007','2020-01-23',168,1415000,0,1415000,1415000,0,5,74,'',0,23583,0,0,35),(694,'20200130-GS-0008','2020-01-23',84,2547000,0,2547000,2547000,0,5,74,'',0,23583,0,0,35),(695,'20200130-GS-0009','2020-01-23',103,6792000,0,6792000,6792000,0,5,74,'',0,23583,0,0,35),(696,'20200130-GS-0010','2020-01-23',63,2547000,0,2547000,2547000,0,5,74,'',0,23583,0,0,35),(697,'20200130-GS-0011','2020-01-23',22,2144000,0,2144000,2144000,0,5,74,'',0,22333,0,0,35),(698,'20200130-GS-0012','2020-01-23',106,22240000,0,22010000,22010000,0,5,74,'',10,23000,230000,0,35),(699,'20200130-GS-0013','2020-01-23',18,5094000,0,5094000,5094000,0,5,74,'',0,23583,0,0,35),(700,'20200130-GS-0014','2020-01-23',142,9899000,0,9670000,9670000,0,5,74,'',10,22900,229000,0,35),(701,'20200130-GS-0015','2020-01-24',134,550000,0,550000,550000,0,5,75,'',0,22917,0,0,35),(702,'20200130-GS-0016','2020-01-24',164,1981000,0,1981000,1981000,0,5,78,'',0,23583,0,0,35),(703,'20200130-GS-0017','2020-01-24',16,1981000,0,1981000,1981000,0,5,78,'',0,23583,0,0,35),(704,'20200130-GS-0018','2020-01-24',109,2830000,0,2830000,2830000,0,5,78,'',0,23583,0,0,35),(705,'20200130-GS-0019','2020-01-24',83,2547000,0,2547000,2547000,0,5,78,'',0,23583,0,0,35),(706,'20200130-GS-0020','2020-01-24',198,4811000,0,4811000,4811000,0,5,78,'',0,23583,0,0,35),(707,'20200130-GS-0021','2020-01-24',89,2264000,0,2264000,2264000,0,5,78,'',0,23583,0,0,35),(708,'20200130-GS-0022','2020-01-24',98,2830000,0,2830000,2830000,0,5,78,'',0,23583,0,0,35),(709,'20200130-GS-0023','2020-01-24',144,1415000,0,1415000,1415000,0,5,78,'',0,23583,0,0,35),(710,'20200130-GS-0024','2020-01-24',50,6620000,0,6620000,6620000,0,5,82,'',0,23583,0,0,35),(711,'20200130-GS-0025','2020-01-24',46,5600000,0,5600000,5600000,0,5,82,'',0,23333,0,0,35),(712,'20200130-GS-0026','2020-01-24',97,2547000,0,2547000,2547000,0,5,82,'',0,23583,0,1500000,35),(713,'20200130-GS-0027','2020-01-24',178,1415000,0,1415000,1415000,0,5,82,'',0,23583,0,0,35),(714,'20200130-GS-0028','2020-01-24',35,27600000,0,27600000,27600000,0,5,82,'',0,23000,0,0,35),(715,'20200130-GS-0029','2020-01-24',29,19320000,0,19320000,19320000,0,5,82,'',0,23000,0,0,35),(716,'20200130-GS-0030','2020-01-24',154,1698000,0,1698000,1698000,0,5,82,'',0,23583,0,0,35),(717,'20200130-GS-0031','2020-01-24',139,5796000,0,5796000,5796000,0,5,82,'',0,23000,0,0,35),(718,'20200130-GS-0032','2020-01-24',73,1415000,0,1415000,1415000,0,5,82,'',0,23583,0,0,35),(719,'20200130-GS-0033','2020-01-24',121,1415000,0,1415000,1415000,0,5,82,'',0,23583,0,0,35),(720,'20200130-GS-0034','2020-01-24',108,849000,0,849000,849000,0,5,82,'',0,23583,0,0,35),(721,'20200130-GS-0035','2020-01-24',59,849000,0,849000,849000,0,5,82,'',0,23583,0,0,35),(722,'20200130-GS-0036','2020-01-24',26,5500000,0,5500000,5500000,0,5,82,'',0,22917,0,0,35),(723,'20200130-GS-0037','2020-01-24',18,2830000,0,2830000,2830000,0,5,82,'',0,23583,0,0,35),(724,'20200130-GS-0038','2020-01-24',167,550000,0,550000,550000,0,5,82,'',0,22917,0,0,35),(725,'20200203-GS-0001','2020-01-24',15,4528000,0,4528000,4528000,0,5,79,'',0,23583,0,0,35),(726,'20200203-GS-0002','2020-01-24',41,1415000,0,1415000,1415000,0,5,79,'',0,23583,0,0,35),(727,'20200203-GS-0003','2020-01-24',115,566000,0,566000,566000,0,5,79,'',0,23583,0,0,35),(728,'20200203-GS-0004','2020-01-24',56,1698000,0,1698000,1698000,0,5,79,'',0,23583,0,0,35),(729,'20200203-GS-0005','2020-01-24',103,4245000,0,4245000,4245000,0,5,79,'',0,23583,0,0,35),(730,'20200203-GS-0006','2020-01-24',84,849000,0,849000,849000,0,5,79,'',0,23583,0,0,35),(731,'20200203-GS-0007','2020-01-24',42,1415000,0,1415000,1415000,0,5,79,'',0,23583,0,0,35),(732,'20200203-GS-0008','2020-01-24',28,5040000,0,5040000,5040000,0,5,79,'',0,23333,0,0,35),(733,'20200203-GS-0009','2020-01-24',106,46704000,0,46704000,46426000,278000,5,83,'',0,23167,0,0,35),(734,'20200203-GS-0010','2020-01-24',9,4726000,0,4726000,4726000,0,5,83,'',0,23167,0,0,35),(735,'20200203-GS-0011','2020-01-24',142,11657000,0,11657000,11657000,0,5,79,'',0,22917,0,0,35),(736,'20200203-GS-0012','2020-01-24',319,3300000,0,3300000,3300000,0,5,79,'',0,22917,0,0,35),(737,'20200203-GS-0013','2020-01-24',43,33087000,0,33087000,33087000,0,5,76,'',0,22417,0,0,35),(738,'20200203-GS-0014','2020-01-24',58,2208000,0,2208000,2208000,0,5,76,'',0,23000,0,0,35),(739,'20200203-GS-0015','2020-01-24',47,1668000,0,1668000,1668000,0,5,76,'',0,23167,0,0,35),(740,'20200203-GS-0016','2020-01-24',146,2760000,0,2760000,2760000,0,5,76,'',0,23000,0,0,35),(741,'20200203-GS-0017','2020-01-24',135,12374000,0,12374000,12374000,0,5,76,'',0,22417,0,0,35),(742,'20200203-GS-0018','2020-01-24',162,4224000,0,4224000,4224000,0,5,80,'',0,22000,0,0,35),(743,'20200203-GS-0019','2020-01-24',145,1345000,0,1345000,1345000,0,5,80,'',0,22417,0,0,35),(744,'20200203-GS-0020','2020-01-24',161,5808000,0,5808000,5808000,0,5,80,'',0,22000,0,0,35),(745,'20200203-GS-0021','2020-01-24',171,27030000,0,27030000,27030000,0,5,80,'',0,22083,0,0,35),(746,'20200203-GS-0022','2020-01-24',55,560000,0,560000,560000,0,5,80,'',0,23333,0,0,35),(747,'20200203-GS-0023','2020-01-24',113,22000000,0,22000000,0,22000000,5,77,'',0,22917,0,0,35),(748,'20200203-GS-0024','2020-01-24',88,2092000,0,2092000,2092000,0,5,77,'',0,23244,0,0,35),(749,'20200203-GS-0025','2020-01-24',66,6975000,0,6975000,6975000,0,5,77,'',0,23250,0,674000,35),(750,'20200203-GS-0026','2020-01-24',69,3627000,0,3627000,3627000,0,5,77,'',0,23250,0,0,35),(751,'20200203-GS-0027','2020-01-24',107,4464000,0,4464000,4464000,0,5,77,'',0,23250,0,0,35),(752,'20200203-GS-0028','2020-01-24',44,10323000,0,10323000,10323000,0,5,77,'',0,23250,0,0,35),(753,'20200203-GS-0029','2020-01-24',310,14520000,0,14520000,14520000,0,5,77,'',0,22000,0,0,35),(754,'20200203-GS-0030','2020-01-24',158,33572000,0,32698000,32698000,0,5,77,'',38,23000,874000,0,35),(755,'20200203-GS-0031','2020-01-24',65,3080000,0,3080000,3080000,0,5,81,'',0,23333,0,0,35),(756,'20200203-GS-0032','2020-01-24',96,3360000,0,3360000,3360000,0,5,81,'',0,23333,0,0,35),(757,'20200203-GS-0033','2020-01-24',95,5600000,0,5600000,5600000,0,5,81,'',0,23333,0,0,35),(758,'20200203-GS-0034','2020-01-24',132,5600000,0,5600000,5600000,0,5,81,'',0,23333,0,0,35),(759,'20200203-GS-0035','2020-01-28',95,8400000,0,8400000,8400000,0,5,84,'',0,23333,0,0,35),(760,'20200203-GS-0036','2020-01-29',15,2264000,0,2264000,2264000,0,5,88,'',0,23583,0,0,35),(761,'20200203-GS-0037','2020-01-29',41,9480000,0,9480000,9480000,0,5,88,'',0,23583,0,0,35),(762,'20200203-GS-0038','2020-01-29',115,9126000,0,9126000,9126000,0,5,88,'',0,23583,0,0,35),(763,'20200203-GS-0039','2020-01-29',106,13900000,0,13900000,13900000,0,5,88,'',0,23167,0,278000,35),(764,'20200203-GS-0040','2020-01-29',53,4245000,0,4245000,4245000,0,5,88,'',0,23583,0,0,35),(765,'20200203-GS-0041','2020-01-29',16,2264000,0,2264000,2264000,0,5,87,'',0,23583,0,0,35),(766,'20200203-GS-0042','2020-01-29',109,5660000,0,5660000,5660000,0,5,87,'',0,23583,0,0,35),(767,'20200203-GS-0043','2020-01-29',198,2476000,0,2476000,2476000,0,5,87,'',0,23583,0,0,35),(768,'20200203-GS-0044','2020-01-29',176,1415000,0,1415000,1415000,0,5,87,'',0,23583,0,0,35),(769,'20200203-GS-0045','2020-01-29',98,1698000,0,1698000,1698000,0,5,87,'',0,23583,0,0,35),(770,'20200203-GS-0046','2020-01-29',83,1415000,0,1415000,1415000,0,5,87,'',0,23583,0,0,35),(771,'20200203-GS-0047','2020-01-29',59,0,0,0,0,0,5,87,'',0,0,0,0,35),(772,'20200203-GS-0048','2020-01-29',97,566000,0,566000,566000,0,5,87,'',0,23583,0,0,35),(773,'20200203-GS-0049','2020-01-29',35,11040000,0,11040000,11040000,0,5,87,'',0,23000,0,0,35),(774,'20200203-GS-0050','2020-01-29',29,6624000,0,6624000,6624000,0,5,87,'',0,23000,0,0,35),(775,'20200203-GS-0051','2020-01-29',51,2264000,0,2264000,2264000,0,5,87,'',0,23583,0,0,35),(776,'20200203-GS-0052','2020-01-29',37,2830000,0,2830000,2830000,0,5,87,'',0,23583,0,0,35),(777,'20200203-GS-0053','2020-01-29',101,2547000,0,2547000,2547000,0,5,87,'',0,23583,0,0,35),(778,'20200203-GS-0054','2020-01-29',154,1698000,0,1698000,1698000,0,5,87,'',0,23583,0,0,35),(779,'20200203-GS-0055','2020-01-29',139,3036000,0,3036000,3036000,0,5,87,'',0,23000,0,0,35),(780,'20200203-GS-0056','2020-01-29',54,2830000,0,2830000,2830000,0,5,87,'',0,23583,0,0,35),(781,'20200203-GS-0057','2020-01-29',110,1132000,0,1132000,1132000,0,5,87,'',0,23583,0,0,35),(782,'20200203-GS-0058','2020-01-29',50,5943000,0,5943000,5943000,0,5,87,'',0,23583,0,0,35),(783,'20200203-GS-0059','2020-01-29',131,1132000,0,1132000,1132000,0,5,87,'',0,23583,0,0,35),(784,'20200203-GS-0060','2020-01-29',73,849000,0,849000,849000,0,5,87,'',0,23583,0,0,35),(785,'20200203-GS-0061','2020-01-29',65,3360000,0,3360000,3360000,0,5,86,'',0,23333,0,0,35),(786,'20200203-GS-0062','2020-01-29',310,6600000,0,6600000,6600000,0,5,86,'',0,22000,0,0,35),(787,'20200203-GS-0063','2020-01-29',17,1953000,0,1953000,1953000,0,5,86,'',0,23250,0,0,35),(788,'20200203-GS-0064','2020-01-29',91,2790000,0,2790000,2790000,0,5,86,'',0,23250,0,0,35),(789,'20200203-GS-0065','2020-01-29',113,11000000,0,11000000,8000000,3000000,5,86,'',0,22917,0,0,35),(790,'20200203-GS-0066','2020-01-29',147,3348000,0,3348000,3348000,0,5,86,'',0,23250,0,0,35),(791,'20200203-GS-0067','2020-01-29',69,6138000,0,6138000,6138000,0,5,86,'',0,23250,0,0,35),(792,'20200203-GS-0068','2020-01-29',158,6228000,0,4227000,4227000,0,5,86,'',87,23000,2001000,0,35),(793,'20200203-GS-0069','2020-01-29',114,1120000,0,1120000,1120000,0,5,86,'',0,23333,0,0,35),(794,'20200203-GS-0070','2020-01-29',95,2800000,0,2800000,2800000,0,5,86,'',0,23333,0,0,35),(795,'20200203-GS-0071','2020-01-29',132,2800000,0,2800000,2800000,0,5,86,'',0,23333,0,0,35),(796,'20200203-GS-0072','2020-01-29',96,3360000,0,3360000,3360000,0,5,86,'',0,23333,0,0,35),(797,'20200203-GS-0073','2020-01-29',175,2700000,0,2700000,2700000,0,5,85,'',0,22500,0,0,35),(798,'20200203-GS-0074','2020-01-29',232,4462000,0,4462000,4462000,0,5,85,'',0,21250,0,0,35),(799,'20200203-GS-0075','2020-01-29',135,5380000,0,5380000,5380000,0,5,85,'',0,22417,0,0,35),(800,'20200203-GS-0076','2020-01-29',162,2904000,0,2904000,2904000,0,5,85,'',0,22000,0,0,35),(801,'20200203-GS-0077','2020-01-29',171,18815000,0,18815000,18815000,0,5,85,'',0,22083,0,0,35),(802,'20200203-GS-0078','2020-01-29',43,16140000,0,16140000,16140000,0,5,85,'',0,22417,0,0,35),(803,'20200203-GS-0079','2020-01-29',58,3588000,0,3588000,3588000,0,5,85,'',0,23000,0,0,35),(804,'20200203-GS-0080','2020-01-29',28,2800000,0,2800000,2800000,0,5,85,'',0,23333,0,0,35),(805,'20200203-GS-0081','2020-01-29',161,5280000,0,5280000,5280000,0,5,85,'',0,22000,0,0,35),(806,'20200204-GS-0001','2020-01-30',206,2122000,0,2122000,2122000,0,5,91,'',0,23578,0,0,35),(807,'20200204-GS-0002','2020-01-30',202,5200000,0,5200000,5200000,0,5,91,'',0,22500,0,0,35),(808,'20200204-GS-0003','2020-01-30',213,19425000,0,19425000,19425000,0,5,91,'',0,21583,0,0,35),(809,'20200204-GS-0004','2020-01-30',212,2590000,0,2590000,2590000,0,5,91,'',0,21583,0,0,35),(810,'20200204-GS-0005','2020-01-30',311,2600000,0,2600000,2600000,0,5,91,'',0,21667,0,0,35),(811,'20200204-GS-0006','2020-01-30',222,10400000,0,10400000,10400000,0,5,91,'',0,22500,0,0,35),(812,'20200204-GS-0007','2020-01-30',204,5200000,0,5200000,5200000,0,5,91,'',0,22500,0,0,35),(813,'20200204-GS-0008','2020-01-30',203,13000000,0,13000000,13000000,0,5,91,'',0,22500,0,0,35),(814,'20200204-GS-0009','2020-01-30',211,12950000,0,11900000,11900000,0,5,91,'',50,21000,1050000,0,35),(815,'20200204-GS-0010','2020-01-30',9,5004000,0,5004000,5004000,0,5,89,'',0,23167,0,0,35),(816,'20200204-GS-0011','2020-01-30',23,3752000,0,3752000,3752000,0,5,89,'',0,22333,0,0,35),(817,'20200204-GS-0012','2020-01-30',56,2122000,0,2122000,2122000,0,5,89,'',0,23578,0,0,35),(818,'20200204-GS-0013','2020-01-30',21,2412000,0,2412000,2412000,0,5,89,'',0,22333,0,0,35),(819,'20200204-GS-0014','2020-01-30',106,11120000,0,11120000,11120000,0,5,89,'',0,23167,0,0,35),(820,'20200204-GS-0015','2020-01-30',22,1340000,0,1340000,1340000,0,5,89,'',0,22333,0,0,35),(821,'20200204-GS-0016','2020-01-30',103,4245000,0,4245000,4245000,0,5,89,'',0,23583,0,0,35),(822,'20200204-GS-0017','2020-01-30',84,3396000,0,3396000,3396000,0,5,89,'',0,23583,0,0,35),(823,'20200204-GS-0018','2020-01-30',168,2830000,0,2830000,2830000,0,5,89,'',0,23583,0,0,35),(824,'20200204-GS-0019','2020-01-30',52,2701000,0,2701000,2701000,0,5,89,'',0,23083,0,0,35),(825,'20200204-GS-0020','2020-01-30',42,5094000,0,5094000,5094000,0,5,89,'',0,23583,0,0,35),(826,'20200204-GS-0021','2020-01-30',123,2547000,0,2547000,2547000,0,5,89,'',0,23583,0,0,35),(827,'20200204-GS-0022','2020-01-30',104,2264000,0,2264000,2264000,0,5,89,'',0,23583,0,0,35),(828,'20200204-GS-0023','2020-01-30',47,1390000,0,1390000,1390000,0,5,89,'',0,23167,0,0,35),(829,'20200204-GS-0024','2020-01-30',28,5600000,0,5600000,5600000,0,5,89,'',0,23333,0,0,35),(830,'20200204-GS-0025','2020-01-30',-1,2830000,0,2830000,2830000,0,5,89,'',0,23583,0,0,35),(831,'20200204-GS-0026','2020-01-30',310,5280000,0,5280000,5280000,0,5,90,'',0,22000,0,0,35),(832,'20200204-GS-0027','2020-01-30',119,20304000,0,20304000,20304000,0,5,90,'',0,21833,0,0,35),(833,'20200204-GS-0028','2020-01-30',323,5360000,0,5360000,5360000,0,5,90,'',0,22333,0,0,35),(834,'20200204-GS-0029','2020-01-30',169,6746000,0,6746000,6746000,0,5,90,'',0,21833,0,0,35),(835,'20200204-GS-0030','2020-01-30',125,0,0,0,0,0,5,90,'',40,0,0,0,35),(836,'20200204-GS-0031','2020-01-30',179,1644000,0,1644000,1644000,0,5,90,'',0,22833,0,0,35),(837,'20200204-GS-0032','2020-01-30',44,5230000,0,4690000,0,4690000,5,90,'',27,20000,540000,0,35),(838,'20200204-GS-0033','2020-01-30',158,2076000,0,2076000,2076000,0,5,90,'',0,23067,0,0,35),(839,'20200204-GS-0034','2020-01-31',164,566000,0,566000,566000,0,5,92,'',0,23583,0,0,35),(840,'20200204-GS-0035','2020-01-31',146,2760000,0,2760000,2760000,0,5,93,'',0,23000,0,0,35),(841,'20200204-GS-0036','2020-01-31',135,13450000,0,13450000,13450000,0,5,93,'',0,22417,0,0,35),(842,'20200204-GS-0037','2020-01-31',145,1614000,0,1614000,1614000,0,5,93,'',0,22417,0,0,35),(843,'20200204-GS-0038','2020-01-31',43,26900000,0,26900000,26900000,0,5,93,'',0,22417,0,0,35),(844,'20200204-GS-0039','2020-01-31',58,0,0,0,0,0,5,93,'',0,0,0,0,35),(845,'20200204-GS-0040','2020-01-31',161,8448000,0,8448000,8448000,0,5,93,'',0,22000,0,0,35),(846,'20200204-GS-0041','2020-01-31',46,4200000,0,4200000,4200000,0,5,95,'',0,23333,0,0,35),(847,'20200204-GS-0042','2020-01-31',16,1415000,0,1415000,1415000,0,5,95,'',0,23583,0,0,35),(848,'20200204-GS-0043','2020-01-31',109,1415000,0,1415000,1415000,0,5,95,'',0,23583,0,0,35),(849,'20200204-GS-0044','2020-01-31',198,1415000,0,1415000,1415000,0,5,95,'',0,23583,0,0,35),(850,'20200204-GS-0045','2020-01-31',23,566000,0,566000,566000,0,5,95,'',0,23583,0,0,35),(851,'20200204-GS-0046','2020-01-31',50,12167000,0,12167000,12167000,0,5,95,'',0,23583,0,0,35),(852,'20200204-GS-0047','2020-01-31',35,24564000,0,24564000,24564000,0,5,95,'',0,23000,0,0,35),(853,'20200204-GS-0048','2020-01-31',29,5244000,0,5244000,5244000,0,5,95,'',0,23000,0,0,35),(854,'20200204-GS-0049','2020-01-31',144,1698000,0,1698000,1698000,0,5,95,'',0,23583,0,0,35),(855,'20200204-GS-0050','2020-01-31',73,566000,0,566000,566000,0,5,95,'',0,23583,0,0,35),(856,'20200204-GS-0051','2020-01-31',79,5500000,0,5500000,5500000,0,5,95,'',0,22917,0,0,35),(857,'20200204-GS-0052','2020-01-31',327,840000,0,840000,840000,0,5,95,'',0,23333,0,0,35),(858,'20200204-GS-0053','2020-01-31',65,2800000,0,2800000,2800000,0,5,94,'',0,23333,0,0,35),(859,'20200204-GS-0054','2020-01-31',132,2800000,0,2800000,2800000,0,5,94,'',0,23333,0,0,35),(860,'20200204-GS-0055','2020-01-31',95,8400000,0,8400000,8400000,0,5,94,'',0,23333,0,0,35),(861,'20200204-GS-0056','2020-01-31',113,19250000,0,19250000,19250000,0,5,94,'',0,22917,0,0,35),(862,'20200204-GS-0057','2020-01-31',66,3069000,0,3069000,3069000,0,5,94,'',0,23250,0,0,35),(863,'20200204-GS-0058','2020-01-31',69,4185000,0,4185000,4185000,0,5,94,'',0,23250,0,0,35),(864,'20200204-GS-0059','2020-01-31',107,3906000,0,3906000,3906000,0,5,94,'',0,23250,0,0,35),(865,'20200204-GS-0060','2020-01-31',310,5280000,0,5280000,5280000,0,5,94,'',0,22000,0,0,35),(866,'20200204-GS-0061','2020-01-31',91,3138000,0,3138000,3138000,0,5,94,'',0,23244,0,0,35),(867,'20200204-GS-0062','2020-01-31',44,10602000,0,10602000,10602000,0,5,94,'',0,23250,0,4791000,35),(868,'20200204-GS-0063','2020-01-31',158,21460000,0,20333000,20333000,0,5,94,'',49,23000,1127000,0,35),(869,'20200204-GS-0064','2020-01-29',233,0,0,0,0,0,5,85,'',676,0,0,0,35),(870,'20200204-GS-0065','2020-01-14',9,6116000,0,6116000,6116000,0,5,96,'',0,23167,0,0,35),(871,'20200204-GS-0066','2020-01-14',11,5500000,0,5500000,5500000,0,5,96,'',0,22917,0,0,35),(872,'20200204-GS-0067','2020-01-14',15,4740000,0,4740000,4740000,0,5,96,'',0,23583,0,0,35),(873,'20200204-GS-0068','2020-01-14',21,1608000,0,1608000,1608000,0,5,96,'',0,22333,0,0,35),(874,'20200204-GS-0069','2020-01-14',23,3216000,0,3216000,3216000,0,5,96,'',0,22333,0,0,35),(875,'20200204-GS-0070','2020-01-14',130,1415000,0,1415000,1415000,0,5,96,'',0,23583,0,0,35),(876,'20200204-GS-0071','2020-01-14',41,5943000,0,5943000,5943000,0,5,96,'',0,23583,0,0,35),(877,'20200204-GS-0072','2020-01-14',115,3679000,0,3679000,3679000,0,5,96,'',0,23583,0,0,35),(878,'20200204-GS-0073','2020-01-14',56,4952000,0,4952000,4952000,0,5,96,'',0,23583,0,0,35),(879,'20200204-GS-0074','2020-01-14',103,5660000,0,5660000,5660000,0,5,96,'',0,23583,0,0,35),(880,'20200204-GS-0075','2020-01-14',84,2830000,0,2830000,2830000,0,5,96,'',0,23583,0,0,35),(881,'20200204-GS-0076','2020-01-14',52,1662000,0,1662000,1662000,0,5,96,'',0,23083,0,0,35),(882,'20200204-GS-0077','2020-01-14',42,3962000,0,3962000,3962000,0,5,96,'',0,23583,0,0,35),(883,'20200204-GS-0078','2020-01-14',123,1415000,0,1415000,1415000,0,5,97,'',0,23583,0,0,35),(884,'20200204-GS-0079','2020-01-14',34,2264000,0,2264000,2264000,0,5,97,'',0,23583,0,0,35),(885,'20200204-GS-0080','2020-01-14',47,2780000,0,2780000,2780000,0,5,97,'',0,23167,0,0,35),(886,'20200204-GS-0081','2020-01-14',104,849000,0,849000,849000,0,5,97,'',0,23583,0,0,35),(887,'20200204-GS-0082','2020-01-14',183,849000,0,849000,849000,0,5,97,'',0,23583,0,0,35),(888,'20200204-GS-0083','2020-01-14',28,7840000,0,7840000,2840000,5000000,5,97,'',0,23333,0,0,35),(889,'20200204-GS-0084','2020-01-14',106,22240000,0,22240000,22240000,0,5,97,'',0,23167,0,0,35),(890,'20200204-GS-0085','2020-01-14',168,1415000,0,1415000,1415000,0,5,97,'',0,23583,0,0,35),(891,'20200204-GS-0086','2020-01-14',53,2547000,0,2547000,2547000,0,5,97,'',0,23583,0,0,35),(892,'20200204-GS-0087','2020-01-14',63,3396000,0,3396000,3396000,0,5,97,'',0,23583,0,0,35),(893,'20200204-GS-0088','2020-01-14',22,1340000,0,1340000,1340000,0,5,97,'',0,22333,0,0,35),(894,'20200204-GS-0089','2020-01-14',18,3396000,0,3396000,3396000,0,5,97,'',0,23583,0,0,35),(895,'20200204-GS-0090','2020-01-14',142,5500000,0,5500000,5500000,0,5,97,'',0,22917,0,0,35),(896,'20200207-GS-0001','2020-01-30',158,0,0,0,0,0,5,0,'',118,0,0,0,35),(897,'20200210-GS-0001','2020-02-01',201,1944000,0,1944000,1944000,0,5,99,'',0,20250,0,0,35),(898,'20200210-GS-0002','2020-02-01',202,2430000,0,2430000,2430000,0,5,99,'',0,20250,0,0,35),(899,'20200210-GS-0003','2020-02-01',204,4860000,0,4860000,4860000,0,5,99,'',0,20250,0,0,35),(900,'20200210-GS-0004','2020-02-01',211,9680000,0,9680000,9680000,0,5,99,'',0,20167,0,0,35),(901,'20200210-GS-0005','2020-02-01',213,2662000,0,2662000,2662000,0,5,99,'',0,20167,0,0,35),(902,'20200210-GS-0006','2020-02-01',311,5832000,0,5832000,4860000,972000,5,99,'',0,20250,0,0,35),(903,'20200210-GS-0007','2020-02-01',222,6318000,0,6318000,6318000,0,5,99,'',0,20250,0,0,35),(904,'20200210-GS-0008','2020-02-01',9,2610000,0,2610000,2610000,0,5,98,'',0,21750,0,0,35),(905,'20200210-GS-0009','2020-02-01',41,3192000,0,3192000,3192000,0,5,98,'',0,22167,0,0,35),(906,'20200210-GS-0010','2020-02-01',115,9842000,0,9842000,9842000,0,5,98,'',0,22167,0,0,35),(907,'20200210-GS-0011','2020-02-01',56,2660000,0,2660000,2660000,0,5,98,'',0,22167,0,0,35),(908,'20200210-GS-0012','2020-02-01',23,3514000,0,3514000,3514000,0,5,98,'',0,20917,0,0,35),(909,'20200210-GS-0013','2020-02-01',84,4654000,0,4654000,4654000,0,5,98,'',0,22167,0,0,35),(910,'20200210-GS-0014','2020-02-01',52,3120000,0,3120000,3120000,0,5,98,'',0,21667,0,0,35),(911,'20200210-GS-0015','2020-02-01',42,3458000,0,3458000,3458000,0,5,98,'',0,22167,0,0,35),(912,'20200210-GS-0016','2020-02-01',75,8416000,0,8416000,8416000,0,5,98,'',0,21917,0,0,35),(913,'20200210-GS-0017','2020-02-01',34,4256000,0,4256000,4256000,0,5,98,'',0,22167,0,0,35),(914,'20200210-GS-0018','2020-02-01',47,5155000,0,5155000,5155000,0,5,98,'',0,21750,0,0,35),(915,'20200210-GS-0019','2020-02-01',183,1064000,0,1064000,1064000,0,5,98,'',0,22167,0,0,35),(916,'20200210-GS-0020','2020-02-01',28,8218000,0,8218000,8218000,0,5,98,'',0,21917,0,0,35),(917,'20200210-GS-0021','2020-02-01',168,2660000,0,2660000,2660000,0,5,98,'',0,22167,0,0,35),(918,'20200210-GS-0022','2020-02-01',21,2008000,0,2008000,2008000,0,5,98,'',0,20917,0,0,35),(919,'20200210-GS-0023','2020-02-01',103,5852000,0,5852000,5852000,0,5,98,'',0,22167,0,0,35),(920,'20200210-GS-0024','2020-02-01',53,6916000,0,6916000,6916000,0,5,98,'',0,22167,0,0,35),(921,'20200210-GS-0025','2020-02-01',133,6786000,0,6786000,6786000,0,5,98,'',0,21750,0,0,35),(922,'20200210-GS-0026','2020-02-01',15,5186000,0,4966000,4966000,0,5,101,'',10,22000,220000,0,35),(923,'20200210-GS-0027','2020-02-01',106,14980000,0,14980000,14980000,0,5,101,'',0,21750,0,0,35),(924,'20200210-GS-0028','2020-02-01',18,2660000,0,2660000,2660000,0,5,101,'',0,22167,0,0,35),(925,'20200210-GS-0029','2020-02-01',142,9646000,0,9646000,9646000,0,5,101,'',0,21500,0,0,35),(926,'20200210-GS-0030','2020-02-01',310,11516000,0,11516000,11516000,0,5,100,'',0,20583,0,0,35),(927,'20200210-GS-0031','2020-02-01',225,3930000,0,3930000,3930000,0,5,100,'',0,21833,0,0,35),(928,'20200210-GS-0032','2020-02-01',119,10932000,0,10932000,10932000,0,5,100,'',0,20417,0,0,35),(929,'20200210-GS-0033','2020-02-01',323,4680000,0,4680000,4680000,0,5,100,'',0,20917,0,0,35),(930,'20200210-GS-0034','2020-02-01',169,1950000,0,1950000,1950000,0,5,100,'',0,20417,0,0,35),(931,'20200210-GS-0035','2020-02-01',125,0,0,0,0,0,5,100,'',25,0,0,0,35),(932,'20200210-GS-0036','2020-02-01',88,2882000,0,2882000,2882000,0,5,100,'',0,21833,0,0,35),(933,'20200210-GS-0037','2020-02-01',158,6490000,0,4768000,4768000,0,5,100,'',82,21000,1722000,0,35),(934,'20200210-GS-0038','2020-02-02',88,9170000,0,9170000,9170000,0,5,102,'',0,21833,0,0,35),(935,'20200210-GS-0039','2020-02-03',28,986000,0,986000,986000,0,5,103,'',0,21911,0,0,35),(936,'20200210-GS-0040','2020-02-03',135,16139000,0,16139000,16139000,0,5,103,'',0,21000,0,0,35),(937,'20200210-GS-0041','2020-02-03',171,20584000,0,20584000,12151000,8433000,5,103,'',0,20667,0,0,35),(938,'20200210-GS-0042','2020-02-03',161,6372000,0,6372000,0,6372000,5,103,'',0,20583,0,0,35),(939,'20200210-GS-0043','2020-02-03',162,777000,0,777000,777000,0,5,103,'',0,20583,0,0,35),(940,'20200210-GS-0044','2020-02-03',145,1410000,0,1410000,1410000,0,5,103,'',0,21000,0,0,35),(941,'20200210-GS-0045','2020-02-03',43,800000,0,800000,800000,0,5,103,'',0,21000,0,0,35),(942,'20200210-GS-0046','2020-02-03',58,1139000,0,1139000,1139000,0,5,103,'',0,21583,0,0,35),(943,'20200210-GS-0047','2020-02-03',42,3192000,0,3192000,3192000,0,5,103,'',0,22167,0,0,35),(944,'20200210-GS-0048','2020-02-03',171,-8433000,0,-8433000,0,-8433000,5,103,'',0,1,0,0,35),(945,'20200210-GS-0049','2020-02-03',164,1596000,0,1596000,1596000,0,5,105,'',0,22167,0,0,35),(946,'20200210-GS-0050','2020-02-03',16,798000,0,798000,798000,0,5,105,'',0,22167,0,0,35),(947,'20200210-GS-0051','2020-02-03',109,5320000,0,5320000,5320000,0,5,105,'',0,22167,0,0,35),(948,'20200210-GS-0052','2020-02-03',93,2660000,0,2660000,2660000,0,5,105,'',0,22167,0,0,35),(949,'20200210-GS-0053','2020-02-03',327,263000,0,263000,263000,0,5,105,'',0,21917,0,0,35),(950,'20200210-GS-0054','2020-02-03',83,8778000,0,8778000,8778000,0,5,105,'',0,22167,0,0,35),(951,'20200210-GS-0055','2020-02-03',321,2660000,0,2660000,2660000,0,5,105,'',0,22167,0,0,35),(952,'20200210-GS-0056','2020-02-03',98,3192000,0,3192000,3192000,0,5,105,'',0,22167,0,0,35),(953,'20200210-GS-0057','2020-02-03',89,5320000,0,5320000,5320000,0,5,105,'',0,22167,0,0,35),(954,'20200210-GS-0058','2020-02-03',50,3990000,0,3990000,3990000,0,5,105,'',0,22167,0,0,35),(955,'20200210-GS-0059','2020-02-03',46,2104000,0,2104000,2104000,0,5,105,'',0,21917,0,0,35),(956,'20200210-GS-0060','2020-02-03',144,1064000,0,1064000,1064000,0,5,105,'',0,22167,0,0,35),(957,'20200210-GS-0061','2020-02-03',59,2660000,0,2660000,2660000,0,5,105,'',0,22167,0,0,35),(958,'20200210-GS-0062','2020-02-03',97,2660000,0,2660000,2660000,0,5,106,'',0,22167,0,0,35),(959,'20200210-GS-0063','2020-02-03',178,2660000,0,2660000,2660000,0,5,106,'',0,22167,0,0,35),(960,'20200210-GS-0064','2020-02-03',35,14027000,0,14027000,14027000,0,5,106,'',0,21583,0,0,35),(961,'20200210-GS-0065','2020-02-03',312,10360000,0,10360000,10360000,0,5,106,'',0,21583,0,0,35),(962,'20200210-GS-0066','2020-02-03',29,12493000,0,12325000,12325000,0,5,106,'',8,21000,168000,0,35),(963,'20200210-GS-0067','2020-02-03',51,1862000,0,1862000,1862000,0,5,106,'',0,22167,0,0,35),(964,'20200210-GS-0068','2020-02-03',131,1064000,0,1064000,0,1064000,5,106,'',0,22167,0,0,35),(965,'20200210-GS-0069','2020-02-03',116,1596000,0,1596000,1596000,0,5,106,'',0,22167,0,0,35),(966,'20200210-GS-0070','2020-02-03',136,2394000,0,2394000,2394000,0,5,106,'',0,22167,0,0,35),(967,'20200210-GS-0071','2020-02-03',154,2926000,0,2926000,2926000,0,5,106,'',0,22167,0,0,35),(968,'20200210-GS-0072','2020-02-03',54,1862000,0,1862000,1862000,0,5,106,'',0,22167,0,0,35),(969,'20200210-GS-0073','2020-02-03',149,2660000,0,2660000,2660000,0,5,106,'',0,22167,0,0,35),(970,'20200210-GS-0074','2020-02-03',73,1330000,0,1330000,1330000,0,5,106,'',0,22167,0,0,35),(971,'20200210-GS-0075','2020-02-03',26,6450000,0,6450000,6450000,0,5,106,'',0,21500,0,0,35),(972,'20200210-GS-0076','2020-02-03',65,1565000,0,1565000,1565000,0,5,104,'',0,21917,0,0,35),(973,'20200210-GS-0077','2020-02-03',96,4124000,0,4124000,4124000,0,5,104,'',0,21917,0,0,35),(974,'20200210-GS-0078','2020-02-03',132,2018000,0,2018000,2018000,0,5,104,'',0,21917,0,0,35),(975,'20200210-GS-0079','2020-02-03',95,2507000,0,2507000,2507000,0,5,104,'',0,21917,0,0,35),(976,'20200210-GS-0080','2020-02-03',71,2620000,0,2620000,2620000,0,5,104,'',0,21833,0,0,35),(977,'20200210-GS-0081','2020-02-03',113,3970000,0,3970000,3970000,0,5,104,'',0,21500,0,3000000,35),(978,'20200210-GS-0082','2020-02-03',88,6027000,0,6027000,6027000,0,5,104,'',0,21833,0,0,35),(979,'20200210-GS-0083','2020-02-03',66,1484000,0,1484000,0,1484000,5,104,'',0,21833,0,0,35),(980,'20200210-GS-0084','2020-02-03',147,3497000,0,3497000,3497000,0,5,104,'',0,21833,0,0,35),(981,'20200210-GS-0085','2020-02-03',69,2034000,0,2034000,2034000,0,5,104,'',0,21833,0,0,35),(982,'20200210-GS-0086','2020-02-03',107,0,0,0,0,0,5,104,'',0,0,0,0,35),(983,'20200210-GS-0087','2020-02-03',17,1834000,0,1834000,1834000,0,5,104,'',0,21833,0,0,35),(984,'20200210-GS-0088','2020-02-03',310,4183000,0,4183000,4183000,0,5,104,'',0,20583,0,6000000,35),(985,'20200210-GS-0089','2020-02-03',91,1091000,0,1091000,1091000,0,5,104,'',0,21833,0,0,35),(986,'20200210-GS-0090','2020-02-03',44,2080000,0,2080000,2080000,0,5,104,'',0,21833,0,0,35),(987,'20200210-GS-0091','2020-02-03',158,-1870000,0,-2206000,0,-2206000,5,104,'',16,21000,336000,0,35),(988,'20200210-GS-0092','2020-02-03',129,2270000,0,2270000,2270000,0,5,104,'',0,21917,0,0,35),(989,'20200210-GS-0093','2020-02-03',233,0,0,0,0,0,5,104,'',147,0,0,0,35),(990,'20200211-GS-0001','2020-02-04',128,0,0,0,0,0,5,107,'',0,0,0,0,35),(991,'20200211-GS-0002','2020-02-04',202,3542000,0,3542000,3542000,0,5,109,'',0,21083,0,0,35),(992,'20200211-GS-0003','2020-02-04',203,10262000,0,10262000,10262000,0,5,109,'',0,21083,0,0,35),(993,'20200211-GS-0004','2020-02-04',211,15549000,0,15549000,15549000,0,5,109,'',0,20167,0,0,35),(994,'20200211-GS-0005','2020-02-04',311,2989000,0,2989000,2989000,0,5,109,'',0,20250,0,972000,35);
 
 /*Table structure for table `gas_wholesale_detail` */
 
@@ -1025,7 +1215,11 @@ CREATE TABLE `gas_wholesale_detail` (
   `price` double DEFAULT NULL,
   `amount` double DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM AUTO_INCREMENT=1973 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=MyISAM AUTO_INCREMENT=1081 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+/*Data for the table `gas_wholesale_detail` */
+
+insert  into `gas_wholesale_detail`(`id`,`gas_wholesale_id`,`shell_id`,`quantity`,`price`,`amount`) values (1,1,1,11,280000,3080000),(2,2,1,9,280000,2520000),(3,3,1,40,227000,9080000),(4,4,1,19,231000,4389000),(5,5,1,10,279000,2790000),(6,6,1,12,277000,3324000),(7,7,1,5,232000,1160000),(8,8,1,100,221000,22100000),(9,9,1,26,245000,6370000),(10,10,1,45,241000,10845000),(11,11,1,28,216000,6048000),(12,12,1,2,283000,566000),(13,13,1,20,235000,4700000),(14,14,1,6,283000,1698000),(15,15,1,4,283000,1132000),(16,16,1,50,276000,13800000),(17,17,1,30,228000,6840000),(18,18,1,4,283000,1132000),(19,19,1,10,275000,2750000),(20,21,4,2,1061000,2122000),(21,22,1,24,259000,6216000),(22,23,1,10,278000,2780000),(23,24,1,12,283000,3396000),(24,25,1,19,283000,5377000),(25,26,1,21,283000,5943000),(26,26,4,2,1061000,2122000),(27,27,1,10,283000,2830000),(28,28,1,5,277000,1385000),(29,29,1,15,283000,4245000),(30,30,1,3,283000,849000),(31,31,4,2,1061000,2122000),(32,32,1,17,280000,4760000),(33,33,1,60,254000,15240000),(34,34,1,9,268000,2412000),(35,35,1,9,220000,1980000),(36,36,1,5,283000,1415000),(37,37,1,8,283000,2264000),(38,38,4,2,1016000,2032000),(39,39,1,50,262000,13100000),(40,39,4,2,982000,1964000),(41,40,1,11,221000,2431000),(42,40,4,1,828000,828000),(43,41,1,23,0,0),(44,41,4,37,0,0),(45,42,4,5,1038000,5190000),(46,43,1,2,283000,566000),(47,44,1,8,283000,2264000),(48,45,1,10,283000,2830000),(49,46,1,3,283000,849000),(50,47,1,10,283000,2830000),(51,48,1,7,283000,1981000),(52,49,1,4,283000,1132000),(53,50,1,14,283000,3962000),(54,52,1,29,276000,8004000),(55,53,1,5,283000,1415000),(56,54,1,7,283000,1981000),(57,55,1,7,283000,1981000),(58,56,1,7,276000,1932000),(59,57,1,7,283000,1981000),(60,58,1,5,283000,1415000),(61,60,1,7,283000,1981000),(62,61,1,6,283000,1698000),(63,62,1,2,280000,560000),(64,63,1,41,269000,11029000),(65,64,1,60,269000,16140000),(66,65,1,8,264000,2112000),(67,66,1,15,264000,3960000),(68,67,1,17,280000,4760000),(69,68,1,8,283000,2264000),(70,69,1,9,283000,2547000),(71,70,1,10,268000,2680000),(72,71,1,5,283000,1415000),(73,72,1,10,283000,2830000),(74,73,1,4,283000,1132000),(75,74,1,25,278000,6950000),(76,75,1,11,280000,3080000),(77,76,1,8,280000,2240000),(78,77,1,30,280000,8400000),(79,78,1,40,275000,11000000),(80,79,1,21,279000,5859000),(81,80,1,9,279000,2511000),(82,81,1,13,279000,3627000),(83,82,1,34,264000,8976000),(84,84,1,15,277000,4155000),(85,84,4,6,1038000,6228000),(86,87,1,10,270000,2700000),(87,88,1,42,269000,11298000),(88,89,1,46,265000,12190000),(89,90,1,60,269000,16140000),(90,91,1,11,276000,3036000),(91,92,1,27,264000,7128000),(92,93,1,20,280000,5600000),(93,94,1,10,283000,2830000),(94,96,1,2,283000,566000),(95,97,1,8,283000,2264000),(96,98,1,16,283000,4528000),(97,99,1,3,283000,849000),(98,100,1,6,283000,1698000),(99,101,1,7,283000,1981000),(100,102,1,10,280000,2800000),(101,102,4,2,1020000,2040000),(102,103,1,5,283000,1415000),(103,104,1,68,276000,18768000),(104,104,4,2,1035000,2070000),(105,105,1,9,283000,2547000),(106,106,1,7,283000,1981000),(107,107,1,6,283000,1698000),(108,108,1,4,283000,1132000),(109,109,1,6,283000,1698000),(110,110,1,8,283000,2264000),(111,111,1,4,283000,1132000),(112,112,1,20,275000,5500000),(113,113,4,4,1046000,4184000),(114,114,1,7,276000,1932000),(115,116,1,15,280000,4200000),(116,116,4,1,1050000,1050000),(117,117,1,11,280000,3080000),(118,118,1,10,280000,2800000),(119,119,1,22,280000,6160000),(120,120,1,30,275000,8250000),(121,121,1,7,279000,1953000),(122,122,1,14,279000,3906000),(123,123,1,16,279000,4464000),(124,124,1,20,279000,5580000),(125,125,1,38,264000,10032000),(126,126,1,15,279000,4185000),(127,127,1,28,279000,7812000),(128,128,1,10,277000,2770000),(129,128,4,8,1038000,8304000),(130,129,1,2,275000,550000),(131,130,1,1,283000,283000),(132,130,4,1,1061000,1061000),(133,131,1,4,270000,1080000),(134,132,1,56,270000,15120000),(135,133,1,14,270000,3780000),(136,133,4,2,1012000,2024000),(137,134,1,16,260000,4160000),(138,135,1,50,259000,12950000),(139,136,1,50,259000,12950000),(140,137,1,2,270000,540000),(176,168,1,38,255000,9690000),(142,140,1,1,275000,275000),(143,141,1,29,278000,8062000),(144,142,1,15,283000,4245000),(145,143,1,5,268000,1340000),(146,144,1,7,283000,1981000),(147,144,4,2,1061000,2122000),(148,145,1,24,283000,6792000),(149,146,1,10,283000,2830000),(150,146,4,2,1061000,2122000),(151,147,1,22,283000,6226000),(152,148,1,12,283000,3396000),(153,148,4,1,1061000,1061000),(154,149,1,8,277000,2216000),(155,150,1,10,283000,2830000),(156,151,1,6,283000,1698000),(157,152,1,5,283000,1415000),(158,153,1,17,278000,4726000),(159,154,1,27,280000,7560000),(160,155,1,9,283000,2547000),(161,156,1,18,283000,5094000),(162,157,1,10,268000,2680000),(163,158,1,9,283000,2547000),(164,159,1,5,280000,1400000),(165,160,1,2,275000,550000),(166,161,1,44,278000,12232000),(167,162,1,15,275000,4125000),(168,163,1,50,262000,13100000),(169,163,4,1,982000,982000),(170,164,1,39,268000,10452000),(171,165,1,11,265000,2915000),(172,166,1,10,0,0),(173,166,4,24,0,0),(174,167,1,7,274000,1918000),(175,139,4,2,975000,1950000),(177,168,4,5,956000,4780000),(178,169,1,35,269000,9415000),(179,169,4,4,1009000,4036000),(180,170,1,60,265000,15900000),(181,171,1,60,269000,16140000),(182,172,1,10,276000,2760000),(183,173,1,2,283000,566000),(184,174,1,14,283000,3962000),(185,175,1,8,283000,2264000),(186,176,1,8,283000,2264000),(187,177,1,5,283000,1415000),(188,179,1,4,283000,1132000),(189,180,1,38,276000,10488000),(190,181,1,21,276000,5796000),(191,182,1,8,276000,2208000),(192,183,1,10,275000,2750000),(193,184,1,8,280000,2240000),(194,185,1,20,280000,5600000),(195,186,1,6,279000,1674000),(196,187,1,60,275000,16500000),(197,188,4,2,1046000,2092000),(198,189,1,37,264000,9768000),(199,189,4,1,990000,990000),(200,190,1,5,279000,1395000),(201,191,1,4,279000,1116000),(202,191,4,2,1046000,2092000),(203,192,1,16,277000,4432000),(204,192,4,3,1038000,3114000),(205,193,1,9,270000,2430000),(206,194,1,30,259000,7770000),(207,195,1,8,278000,2224000),(208,196,1,12,275000,3300000),(209,197,1,80,278000,22240000),(210,198,1,8,275000,2200000),(211,199,1,8,283000,2264000),(212,199,4,1,1061000,1061000),(213,200,1,5,283000,1415000),(214,201,1,7,283000,1981000),(215,201,4,2,1061000,2122000),(216,202,1,10,283000,2830000),(217,203,1,20,280000,5600000),(218,203,4,1,1050000,1050000),(219,204,1,19,280000,5320000),(220,205,1,6,283000,1698000),(221,206,1,3,283000,849000),(222,207,1,5,278000,1390000),(223,208,1,4,283000,1132000),(224,209,1,15,283000,4245000),(225,210,1,9,283000,2547000),(226,211,1,3,278000,834000),(227,212,1,10,268000,2680000),(228,213,1,7,283000,1981000),(229,214,1,12,283000,3396000),(230,215,1,10,275000,2750000),(231,215,4,2,1016000,2032000),(232,216,1,10,265000,2650000),(233,217,1,7,269000,1883000),(234,218,1,16,269000,4304000),(235,218,4,2,1008000,2016000),(236,219,4,32,0,0),(237,220,1,110,269000,29590000),(238,221,1,10,270000,2700000),(239,222,1,73,269000,19637000),(240,223,1,30,265000,7950000),(241,224,1,25,264000,6600000),(242,225,1,8,264000,2112000),(243,226,1,5,269000,1345000),(244,227,1,8,278000,2224000),(245,228,1,13,280000,3640000),(246,229,1,5,280000,1400000),(247,230,1,10,280000,2800000),(248,231,1,40,275000,11000000),(249,232,1,10,279000,2790000),(250,233,1,18,279000,5022000),(251,234,1,9,279000,2511000),(252,235,1,20,279000,5580000),(253,236,1,30,264000,7920000),(254,237,1,26,279000,7254000),(255,238,1,20,277000,5540000),(256,238,4,4,1038000,4152000),(257,239,1,13,280000,3640000),(258,240,4,4,0,0),(259,241,1,7,283000,1981000),(260,242,1,11,283000,3113000),(261,243,1,4,283000,1132000),(262,243,4,2,1061000,2122000),(263,244,1,10,283000,2830000),(264,245,1,10,283000,2830000),(265,246,1,7,283000,1981000),(266,247,1,5,283000,1415000),(267,248,1,10,280000,2800000),(268,249,1,4,283000,1132000),(269,250,1,6,283000,1698000),(270,251,1,51,276000,14076000),(271,252,1,23,276000,6348000),(272,253,1,5,283000,1415000),(273,254,1,5,283000,1415000),(274,255,1,6,283000,1698000),(275,256,1,5,283000,1415000),(276,257,1,7,283000,1981000),(277,258,1,5,283000,1415000),(278,259,1,10,283000,2830000),(279,260,1,4,283000,1132000),(280,261,1,7,283000,1981000),(281,262,1,5,283000,1415000),(282,263,1,3,283000,849000),(283,264,1,10,275000,2750000),(284,265,1,20,283000,5660000),(285,266,1,5,283000,1415000),(286,267,1,5,260000,1300000),(287,267,4,1,975000,975000),(288,268,1,40,270000,10800000),(289,269,1,22,259000,5698000),(290,270,1,20,260000,5200000),(291,271,1,5,260000,1300000),(292,272,1,4,260000,1040000),(293,273,1,3,270000,810000),(294,274,1,10,278000,2780000),(295,275,1,12,275000,3300000),(296,275,4,4,1031000,4124000),(297,276,1,13,283000,3679000),(298,277,1,9,283000,2547000),(299,278,1,11,283000,3113000),(300,279,1,10,283000,2830000),(301,280,1,8,283000,2264000),(302,280,4,2,1061000,2122000),(303,281,1,5,277000,1385000),(304,282,1,5,283000,1415000),(305,283,1,10,275000,2750000),(306,284,1,9,283000,2547000),(307,285,1,20,280000,5600000),(308,286,1,11,283000,3113000),(309,287,1,6,283000,1698000),(310,288,1,7,268000,1876000),(311,289,1,2,268000,536000),(312,290,1,5,283000,1415000),(313,291,1,8,283000,2264000),(314,292,1,57,278000,15846000),(315,293,1,2,268000,536000),(316,294,1,22,275000,6050000),(317,295,4,2,982000,1964000),(318,296,1,28,268000,7504000),(319,297,1,10,262000,2620000),(320,297,4,2,982000,1964000),(321,298,1,10,0,0),(322,298,4,18,0,0),(323,299,1,7,277000,1939000),(324,299,4,10,1038000,10380000),(325,300,1,3,280000,840000),(326,301,1,60,269000,16140000),(327,302,1,51,265000,13515000),(328,303,1,8,264000,2112000),(329,304,1,19,264000,5016000),(330,305,1,5,269000,1345000),(331,306,1,80,269000,21520000),(332,307,1,8,276000,2208000),(333,307,4,2,1035000,2070000),(334,308,1,15,280000,4200000),(335,309,1,6,283000,1698000),(336,310,1,10,280000,2800000),(337,311,1,10,280000,2800000),(338,312,1,10,280000,2800000),(339,313,1,20,280000,5600000),(340,314,1,30,275000,8250000),(341,315,1,20,279000,5580000),(342,316,1,12,279000,3348000),(343,317,1,20,279000,5580000),(344,318,1,24,279000,6696000),(345,319,1,62,264000,16368000),(346,320,1,20,279000,5580000),(347,320,4,1,1046000,1046000),(348,321,1,20,277000,5540000),(349,321,4,6,1038000,6228000),(350,322,1,1,280000,280000),(351,323,1,3,283000,849000),(352,324,1,5,283000,1415000),(353,325,1,11,283000,3113000),(354,326,1,10,283000,2830000),(355,328,1,7,283000,1981000),(356,329,1,12,283000,3396000),(357,330,1,12,283000,3396000),(358,331,1,6,283000,1698000),(359,332,1,17,283000,4811000),(360,333,1,20,280000,5600000),(361,334,4,2,1061000,2122000),(362,335,1,90,276000,24840000),(363,336,1,60,276000,16560000),(364,337,1,6,283000,1698000),(365,338,1,2,283000,566000),(366,339,1,5,283000,1415000),(367,340,1,5,283000,1415000),(368,341,1,8,283000,2264000),(369,342,1,15,276000,4140000),(370,343,1,5,283000,1415000),(371,344,1,7,283000,1981000),(372,345,1,10,275000,2750000),(373,346,1,4,283000,1132000),(374,347,1,3,275000,825000),(375,348,1,27,270000,7290000),(376,349,1,25,270000,6750000),(377,349,4,1,975000,975000),(378,350,1,24,270000,6480000),(379,351,1,28,259000,7252000),(380,352,1,24,260000,6240000),(381,353,1,5,259000,1295000),(382,354,1,30,259000,7770000),(383,354,4,2,971000,1942000),(384,355,1,4,270000,1080000),(385,356,1,10,280000,2800000),(386,357,1,6,280000,1680000),(387,358,1,20,277000,5540000),(388,359,4,3,982000,2946000),(389,360,1,24,262000,6288000),(390,361,1,15,269000,4035000),(391,361,4,1,1008000,1008000),(392,362,4,8,0,0),(393,363,1,12,274000,3288000),(394,364,4,4,990000,3960000),(395,365,1,7,283000,1981000),(396,366,1,5,283000,1415000),(397,367,1,6,283000,1698000),(398,368,1,12,283000,3396000),(399,369,1,3,283000,849000),(400,369,4,1,1061000,1061000),(401,370,1,8,283000,2264000),(402,371,1,16,283000,4528000),(403,372,1,7,283000,1981000),(404,373,1,4,283000,1132000),(405,374,1,28,276000,7728000),(406,375,1,50,276000,13800000),(437,405,1,3,260000,780000),(408,377,1,33,276000,9108000),(409,378,1,15,276000,4140000),(410,379,1,4,283000,1132000),(411,380,1,3,283000,849000),(412,381,1,10,275000,2750000),(413,382,4,4,1061000,4244000),(414,383,1,10,280000,2800000),(415,384,1,10,280000,2800000),(416,385,1,26,280000,7280000),(417,386,1,7,279000,1953000),(418,387,1,40,275000,11000000),(419,388,1,40,279000,11160000),(420,389,1,6,279000,1674000),(421,390,1,10,279000,2790000),(422,391,1,28,279000,7812000),(423,392,1,22,279000,6138000),(424,393,1,15,264000,3960000),(425,394,1,5,279000,1395000),(426,395,1,20,277000,5540000),(427,395,4,5,1038000,5190000),(428,397,1,8,270000,2160000),(429,398,1,37,255000,9435000),(430,398,4,4,956000,3824000),(431,399,1,34,269000,9146000),(432,400,1,3,269000,807000),(433,401,1,3,264000,792000),(434,402,1,45,265000,11925000),(435,403,1,11,264000,2904000),(436,404,1,220,269000,59180000),(438,406,1,16,270000,4320000),(439,407,1,15,259000,3885000),(440,408,1,40,270000,10800000),(441,409,1,28,259000,7252000),(442,410,1,10,259000,2590000),(443,411,1,30,278000,8340000),(444,412,1,20,275000,5500000),(445,413,1,5,283000,1415000),(446,413,4,2,1061000,2122000),(447,414,1,3,268000,804000),(448,415,1,18,283000,5094000),(449,416,1,9,283000,2547000),(450,417,1,10,283000,2830000),(451,418,1,14,283000,3962000),(452,419,1,8,283000,2264000),(453,420,1,17,280000,4760000),(454,421,1,26,280000,7280000),(455,422,1,17,283000,4811000),(456,423,1,6,268000,1608000),(457,424,1,50,278000,13900000),(458,425,1,10,283000,2830000),(459,426,1,9,283000,2547000),(460,427,1,17,278000,4726000),(461,428,1,20,275000,5500000),(462,429,1,50,262000,13100000),(463,429,4,2,982000,1964000),(464,430,1,26,264000,6864000),(465,431,1,23,268000,6164000),(466,432,1,8,262000,2096000),(467,432,4,1,982000,982000),(468,433,1,14,0,0),(469,433,4,35,0,0),(470,434,1,1,275000,275000),(471,435,1,6,276000,1656000),(472,436,1,15,269000,4035000),(473,437,1,36,265000,9540000),(474,438,1,4,264000,1056000),(475,439,1,49,264000,12936000),(476,440,1,70,269000,18830000),(477,441,1,30,276000,8280000),(478,442,1,18,276000,4968000),(479,443,1,7,283000,1981000),(480,444,1,4,283000,1132000),(481,445,1,9,283000,2547000),(482,446,1,4,283000,1132000),(483,447,1,5,283000,1415000),(484,448,1,7,283000,1981000),(485,449,1,6,283000,1698000),(486,450,1,8,283000,2264000),(487,451,1,43,276000,11868000),(488,452,1,34,276000,9384000),(489,453,1,4,283000,1132000),(490,454,1,2,283000,566000),(491,455,1,5,283000,1415000),(492,456,1,8,283000,2264000),(493,457,1,10,283000,2830000),(494,458,1,7,283000,1981000),(495,459,1,2,283000,566000),(496,460,1,10,275000,2750000),(497,461,1,19,283000,5377000),(498,463,1,20,280000,5600000),(499,464,1,6,280000,1680000),(500,465,1,3,280000,840000),(501,466,1,10,280000,2800000),(502,467,1,100,275000,27500000),(503,468,1,10,279000,2790000),(504,469,1,10,279000,2790000),(505,470,1,22,279000,6138000),(506,471,1,10,279000,2790000),(507,472,1,42,264000,11088000),(508,473,1,13,277000,3601000),(509,473,4,5,1038000,5190000),(510,474,1,26,279000,7254000),(511,475,1,4,283000,1132000),(512,476,1,43,260000,11180000),(513,477,1,41,270000,11070000),(514,478,1,10,259000,2590000),(515,479,1,16,260000,4160000),(516,480,1,21,259000,5439000),(517,481,1,20,259000,5180000),(518,482,1,17,260000,4420000),(519,483,1,48,279000,13392000),(520,484,1,31,268000,8308000),(521,484,4,1,1005000,1005000),(522,485,1,10,262000,2620000),(523,485,4,1,982000,982000),(524,486,1,32,0,0),(525,486,4,29,0,0),(526,487,1,10,279000,2790000),(527,489,1,12,278000,3336000),(528,490,1,20,275000,5500000),(529,491,1,18,283000,5094000),(530,492,1,35,283000,9905000),(531,492,4,2,1061000,2122000),(532,493,1,33,283000,9339000),(533,494,1,30,283000,8490000),(534,495,1,5,283000,1415000),(535,496,1,15,283000,4245000),(536,497,1,5,277000,1385000),(537,498,1,30,283000,8490000),(538,499,1,7,283000,1981000),(539,500,1,5,278000,1390000),(540,501,1,30,280000,8400000),(541,502,1,7,283000,1981000),(542,503,1,6,283000,1698000),(543,504,1,8,268000,2144000),(544,505,1,60,278000,16680000),(545,506,1,6,268000,1608000),(546,507,1,15,283000,4245000),(547,509,1,7,283000,1981000),(548,510,1,20,275000,5500000),(549,511,1,10,275000,2750000),(550,512,1,7,283000,1981000),(551,513,1,20,283000,5660000),(552,514,1,11,283000,3113000),(553,515,1,15,283000,4245000),(554,516,1,8,283000,2264000),(555,517,1,8,283000,2264000),(556,517,4,1,1061000,1061000),(557,518,1,12,283000,3396000),(558,518,4,1,1061000,1061000),(559,519,1,19,283000,5377000),(560,519,4,8,1046000,8368000),(561,520,1,20,280000,5600000),(562,521,1,7,283000,1981000),(563,522,1,83,276000,22908000),(564,523,1,44,276000,12144000),(565,524,1,20,283000,5660000),(566,525,1,6,283000,1698000),(567,526,1,3,283000,849000),(568,527,1,4,283000,1132000),(569,528,1,11,276000,3036000),(570,529,1,18,283000,5094000),(571,530,1,6,283000,1698000),(572,531,1,7,283000,1981000),(573,532,1,4,283000,1132000),(574,533,1,2,283000,566000),(575,534,1,1,283000,283000),(576,535,1,10,275000,2750000),(577,536,1,4,280000,1120000),(578,537,1,11,276000,3036000),(579,538,1,91,269000,24479000),(580,538,4,1,1009000,1009000),(581,539,1,113,265000,29945000),(582,540,1,7,269000,1883000),(583,541,1,23,264000,6072000),(584,542,1,27,280000,7560000),(585,543,1,12,283000,3396000),(586,544,1,100,269000,26900000),(587,545,1,13,280000,3640000),(588,546,1,63,275000,17325000),(589,547,1,50,279000,13950000),(590,547,4,5,1046000,5230000),(591,548,1,10,279000,2790000),(592,549,1,16,279000,4464000),(593,550,1,16,279000,4464000),(594,551,1,46,264000,12144000),(595,552,1,19,279000,5301000),(596,553,1,20,279000,5580000),(597,554,1,24,277000,6648000),(598,554,4,5,1038000,5190000),(599,555,1,8,279000,2232000),(600,556,1,5,279000,1395000),(601,557,1,56,280000,15680000),(602,558,1,5,280000,1400000),(603,559,1,10,280000,2800000),(604,560,1,8,280000,2240000),(605,561,1,11,270000,2970000),(606,562,1,4,260000,1040000),(607,563,1,25,270000,6750000),(608,564,1,30,270000,8100000),(609,565,1,40,270000,10800000),(610,565,4,1,975000,975000),(611,566,1,28,259000,7252000),(612,567,1,26,260000,6760000),(613,568,1,50,270000,13500000),(614,569,1,14,260000,3640000),(615,570,1,23,259000,5957000),(616,571,1,50,262000,13100000),(617,571,4,3,982000,2946000),(618,572,1,29,268000,7772000),(619,572,4,2,1005000,2010000),(620,573,1,14,262000,3668000),(621,573,4,1,982000,982000),(622,574,1,8,269000,2152000),(623,575,1,40,269000,10760000),(624,575,4,3,1008000,3024000),(625,576,1,14,0,0),(626,576,4,27,0,0),(627,577,1,37,278000,10286000),(628,578,1,16,275000,4400000),(629,579,1,2,283000,566000),(630,580,1,17,283000,4811000),(631,581,1,31,283000,8773000),(632,581,4,2,1061000,2122000),(633,582,1,13,283000,3679000),(634,583,1,15,283000,4245000),(635,584,1,7,268000,1876000),(636,585,1,9,278000,2502000),(637,586,1,28,283000,7924000),(638,587,1,9,283000,2547000),(639,587,4,2,1061000,2122000),(640,588,1,21,283000,5943000),(641,589,1,17,277000,4709000),(642,590,1,12,283000,3396000),(643,591,1,43,280000,12040000),(644,592,1,5,283000,1415000),(645,593,1,9,283000,2547000),(646,594,1,14,283000,3962000),(647,595,1,12,278000,3336000),(648,595,4,1,1042000,1042000),(649,596,1,4,283000,1132000),(650,597,1,21,283000,5943000),(651,598,1,13,268000,3484000),(652,599,1,80,278000,22240000),(653,600,1,10,278000,2780000),(654,601,1,30,275000,8250000),(655,602,1,60,255000,15300000),(656,602,4,6,956000,5736000),(657,603,1,10,270000,2700000),(658,604,1,44,269000,11836000),(659,605,1,80,265000,21200000),(660,606,1,20,264000,5280000),(661,607,1,9,269000,2421000),(662,608,1,3,276000,828000),(663,609,1,100,269000,26900000),(664,610,1,15,283000,4245000),(665,611,1,7,283000,1981000),(666,612,1,14,283000,3962000),(667,613,1,19,283000,5377000),(668,614,1,9,283000,2547000),(669,615,1,5,283000,1415000),(670,616,1,29,280000,8120000),(671,616,4,2,1035000,2070000),(672,617,1,11,283000,3113000),(673,618,1,10,283000,2830000),(674,619,1,54,276000,14904000),(675,620,1,10,283000,2830000),(676,621,1,5,283000,1415000),(677,622,1,20,276000,5520000),(678,623,1,99,276000,27324000),(679,624,1,5,283000,1415000),(680,625,1,6,283000,1698000),(681,626,1,3,283000,849000),(682,627,1,11,283000,3113000),(683,628,1,4,283000,1132000),(684,629,1,18,283000,5094000),(685,630,1,16,276000,4416000),(686,631,1,4,283000,1132000),(687,632,1,6,283000,1698000),(688,633,1,12,283000,3396000),(689,634,1,6,283000,1698000),(690,635,1,2,283000,566000),(691,636,1,40,283000,11320000),(692,637,1,3,275000,825000),(693,638,1,53,275000,14575000),(694,639,1,41,279000,11439000),(695,640,1,6,279000,1674000),(696,641,1,10,279000,2790000),(697,642,1,20,279000,5580000),(698,643,1,47,279000,13113000),(699,643,4,2,1046000,2092000),(700,644,1,38,264000,10032000),(701,644,4,3,990000,2970000),(702,645,1,16,279000,4464000),(703,645,4,1,1046000,1046000),(704,646,1,11,277000,3047000),(705,646,4,1,1038000,1038000),(706,647,1,10,279000,2790000),(707,648,1,36,280000,10080000),(708,649,1,6,280000,1680000),(709,649,4,1,1050000,1050000),(710,651,1,10,280000,2800000),(711,652,1,105,262000,27510000),(712,652,4,3,982000,2946000),(713,653,4,10,1038000,10380000),(714,654,1,25,280000,7000000),(715,655,1,4,260000,1040000),(716,656,1,6,270000,1620000),(717,657,1,35,270000,9450000),(718,657,4,1,975000,975000),(719,658,1,54,259000,13986000),(720,658,4,1,971000,971000),(721,659,1,5,270000,1350000),(722,659,4,2,1012000,2024000),(723,660,1,20,259000,5180000),(724,661,1,23,260000,5980000),(725,662,1,5,259000,1295000),(726,663,1,50,270000,13500000),(727,664,1,24,270000,6480000),(728,665,1,6,270000,1620000),(729,666,1,50,262000,13100000),(730,666,4,1,982000,982000),(731,667,1,15,268000,4020000),(732,668,1,15,262000,3930000),(733,669,1,30,0,0),(734,669,4,47,0,0),(735,670,1,27,278000,7506000),(736,671,1,52,275000,14300000),(737,671,4,2,1031000,2062000),(738,672,1,16,268000,4288000),(739,673,1,22,283000,6226000),(740,674,1,16,283000,4528000),(741,675,1,13,283000,3679000),(742,676,1,3,278000,834000),(743,677,1,16,283000,4528000),(744,678,1,13,268000,3484000),(745,679,1,16,268000,4288000),(746,679,4,1,1050000,1050000),(747,680,1,18,278000,5004000),(748,681,1,9,283000,2547000),(749,682,1,4,283000,1132000),(750,683,1,10,277000,2770000),(751,684,1,31,283000,8773000),(752,685,1,8,283000,2264000),(753,686,1,18,280000,5040000),(754,686,4,1,1050000,1050000),(755,687,1,3,283000,849000),(756,688,1,9,283000,2547000),(757,689,1,3,283000,849000),(758,690,1,4,278000,1112000),(759,691,1,69,280000,19320000),(760,692,1,6,283000,1698000),(761,693,1,5,283000,1415000),(762,694,1,9,283000,2547000),(763,695,1,24,283000,6792000),(764,696,1,9,283000,2547000),(765,697,1,8,268000,2144000),(766,698,1,80,278000,22240000),(767,699,1,18,283000,5094000),(768,700,1,21,275000,5775000),(769,700,4,4,1031000,4124000),(770,701,1,2,275000,550000),(771,702,1,7,283000,1981000),(772,703,1,7,283000,1981000),(773,704,1,10,283000,2830000),(774,705,1,9,283000,2547000),(775,706,1,17,283000,4811000),(776,707,1,8,283000,2264000),(777,708,1,10,283000,2830000),(778,709,1,5,283000,1415000),(779,710,1,16,283000,4528000),(780,710,4,2,1046000,2092000),(781,711,1,20,280000,5600000),(782,712,1,9,283000,2547000),(783,713,1,5,283000,1415000),(784,714,1,100,276000,27600000),(785,715,1,70,276000,19320000),(786,716,1,6,283000,1698000),(787,717,1,21,276000,5796000),(788,718,1,5,283000,1415000),(789,719,1,5,283000,1415000),(790,720,1,3,283000,849000),(791,721,1,3,283000,849000),(792,722,1,20,275000,5500000),(793,723,1,10,283000,2830000),(794,724,1,2,275000,550000),(795,725,1,16,283000,4528000),(796,726,1,5,283000,1415000),(797,727,1,2,283000,566000),(798,728,1,6,283000,1698000),(799,729,1,15,283000,4245000),(800,730,1,3,283000,849000),(801,731,1,5,283000,1415000),(802,732,1,18,280000,5040000),(803,733,1,168,278000,46704000),(804,734,1,17,278000,4726000),(805,735,1,35,275000,9625000),(806,735,4,2,1016000,2032000),(807,736,1,12,275000,3300000),(808,737,1,123,269000,33087000),(809,738,1,8,276000,2208000),(810,739,1,6,278000,1668000),(811,740,1,10,276000,2760000),(812,741,1,46,269000,12374000),(813,742,1,16,264000,4224000),(814,743,1,5,269000,1345000),(815,744,1,22,264000,5808000),(816,745,1,102,265000,27030000),(817,746,1,2,280000,560000),(818,747,1,80,275000,22000000),(819,748,4,2,1046000,2092000),(820,749,1,25,279000,6975000),(821,750,1,13,279000,3627000),(822,751,1,16,279000,4464000),(823,752,1,37,279000,10323000),(824,753,1,55,264000,14520000),(825,754,1,50,277000,13850000),(826,754,4,19,1038000,19722000),(827,755,1,11,280000,3080000),(828,756,1,12,280000,3360000),(829,757,1,20,280000,5600000),(830,758,1,20,280000,5600000),(831,759,1,30,280000,8400000),(832,760,1,8,283000,2264000),(833,761,1,26,283000,7358000),(834,761,4,2,1061000,2122000),(835,762,1,21,283000,5943000),(836,762,4,3,1061000,3183000),(837,763,1,50,278000,13900000),(838,764,1,15,283000,4245000),(839,765,1,8,283000,2264000),(840,766,1,20,283000,5660000),(841,767,1,5,283000,1415000),(842,767,4,1,1061000,1061000),(843,768,1,5,283000,1415000),(844,769,1,6,283000,1698000),(845,770,1,5,283000,1415000),(846,772,1,2,283000,566000),(847,773,1,40,276000,11040000),(848,774,1,24,276000,6624000),(849,775,1,8,283000,2264000),(850,776,1,10,283000,2830000),(851,777,1,9,283000,2547000),(852,778,1,6,283000,1698000),(853,779,1,11,276000,3036000),(854,780,1,10,283000,2830000),(855,781,1,4,283000,1132000),(856,782,1,21,283000,5943000),(857,783,1,4,283000,1132000),(858,784,1,3,283000,849000),(859,785,1,12,280000,3360000),(860,786,1,25,264000,6600000),(861,787,1,7,279000,1953000),(862,788,1,10,279000,2790000),(863,789,1,40,275000,11000000),(864,790,1,12,279000,3348000),(865,791,1,22,279000,6138000),(866,792,4,6,1038000,6228000),(867,793,1,4,280000,1120000),(868,794,1,10,280000,2800000),(869,795,1,10,280000,2800000),(870,796,1,12,280000,3360000),(871,797,1,10,270000,2700000),(872,798,1,10,255000,2550000),(873,798,4,2,956000,1912000),(874,799,1,20,269000,5380000),(875,800,1,11,264000,2904000),(876,801,1,71,265000,18815000),(877,802,1,60,269000,16140000),(878,803,1,13,276000,3588000),(879,804,1,10,280000,2800000),(880,805,1,20,264000,5280000),(881,806,4,2,1061000,2122000),(882,807,1,20,270000,5400000),(883,808,1,75,259000,19425000),(884,809,1,10,259000,2590000),(885,810,1,10,260000,2600000),(886,811,1,40,270000,10800000),(887,812,1,20,270000,5400000),(888,813,1,50,270000,13500000),(889,814,1,50,259000,12950000),(890,815,1,18,278000,5004000),(891,816,1,14,268000,3752000),(892,817,4,2,1061000,2122000),(893,818,1,9,268000,2412000),(894,819,1,40,278000,11120000),(895,820,1,5,268000,1340000),(896,821,1,15,283000,4245000),(897,822,1,12,283000,3396000),(898,823,1,10,283000,2830000),(899,824,1,6,277000,1662000),(900,824,4,1,1039000,1039000),(901,825,1,18,283000,5094000),(902,826,1,9,283000,2547000),(903,827,1,8,283000,2264000),(904,828,1,5,278000,1390000),(905,829,1,20,280000,5600000),(906,830,1,10,283000,2830000),(907,831,1,20,264000,5280000),(908,832,1,70,262000,18340000),(909,832,4,2,982000,1964000),(910,833,1,20,268000,5360000),(911,834,1,22,262000,5764000),(912,834,4,1,982000,982000),(913,835,4,24,0,0),(914,836,1,6,274000,1644000),(915,837,4,5,1046000,5230000),(916,838,4,2,1038000,2076000),(917,839,1,2,283000,566000),(918,840,1,10,276000,2760000),(919,841,1,50,269000,13450000),(920,842,1,6,269000,1614000),(921,843,1,100,269000,26900000),(922,845,1,32,264000,8448000),(923,846,1,15,280000,4200000),(924,847,1,5,283000,1415000),(925,848,1,5,283000,1415000),(926,849,1,5,283000,1415000),(927,850,1,2,283000,566000),(928,851,1,13,283000,3679000),(929,851,4,8,1061000,8488000),(930,852,1,89,276000,24564000),(931,853,1,19,276000,5244000),(932,854,1,6,283000,1698000),(933,855,1,2,283000,566000),(934,856,1,20,275000,5500000),(935,857,1,3,280000,840000),(936,858,1,10,280000,2800000),(937,859,1,10,280000,2800000),(938,860,1,30,280000,8400000),(939,861,1,70,275000,19250000),(940,862,1,11,279000,3069000),(941,863,1,15,279000,4185000),(942,864,1,14,279000,3906000),(943,865,1,20,264000,5280000),(944,866,4,3,1046000,3138000),(945,867,1,38,279000,10602000),(946,868,1,40,277000,11080000),(947,868,4,10,1038000,10380000),(948,870,1,22,278000,6116000),(949,871,1,20,275000,5500000),(950,872,1,13,283000,3679000),(951,872,4,1,1061000,1061000),(952,873,1,6,268000,1608000),(953,874,1,12,268000,3216000),(954,875,1,5,283000,1415000),(955,876,1,21,283000,5943000),(956,877,1,13,283000,3679000),(957,878,1,10,283000,2830000),(958,878,4,2,1061000,2122000),(959,879,1,20,283000,5660000),(960,880,1,10,283000,2830000),(961,881,1,6,277000,1662000),(962,882,1,14,283000,3962000),(963,883,1,5,283000,1415000),(964,884,1,8,283000,2264000),(965,885,1,10,278000,2780000),(966,886,1,3,283000,849000),(967,887,1,3,283000,849000),(968,888,1,28,280000,7840000),(969,889,1,80,278000,22240000),(970,890,1,5,283000,1415000),(971,891,1,9,283000,2547000),(972,892,1,12,283000,3396000),(973,893,1,5,268000,1340000),(974,894,1,12,283000,3396000),(975,895,1,20,275000,5500000),(976,897,1,8,243000,1944000),(977,898,1,10,243000,2430000),(978,899,1,20,243000,4860000),(979,900,1,40,242000,9680000),(980,901,1,11,242000,2662000),(981,902,1,24,243000,5832000),(982,903,1,26,243000,6318000),(983,904,1,10,261000,2610000),(984,905,1,12,266000,3192000),(985,906,1,37,266000,9842000),(986,907,1,10,266000,2660000),(987,908,1,14,251000,3514000),(988,909,1,10,266000,2660000),(989,909,4,2,997000,1994000),(990,910,1,12,260000,3120000),(991,911,1,13,266000,3458000),(992,912,1,32,263000,8416000),(993,913,1,16,266000,4256000),(994,914,1,16,261000,4176000),(995,914,4,1,979000,979000),(996,915,1,4,266000,1064000),(997,916,1,20,263000,5260000),(998,916,4,3,986000,2958000),(999,917,1,10,266000,2660000),(1000,918,1,8,251000,2008000),(1001,919,1,22,266000,5852000),(1002,920,1,26,266000,6916000),(1003,921,1,26,261000,6786000),(1004,922,1,12,266000,3192000),(1005,922,4,2,997000,1994000),(1006,923,1,60,261000,15660000),(1007,924,1,10,266000,2660000),(1008,925,1,30,258000,7740000),(1009,925,4,2,953000,1906000),(1010,926,1,48,247000,11856000),(1011,927,1,15,262000,3930000),(1012,928,1,50,245000,12250000),(1013,929,1,20,251000,5020000),(1014,930,1,6,245000,1470000),(1015,930,4,1,918000,918000),(1016,931,4,11,0,0),(1017,932,1,11,262000,2882000),(1018,933,4,8,975000,7800000),(1019,934,1,35,262000,9170000),(1020,935,4,1,986000,986000),(1021,936,1,50,252000,12600000),(1022,936,4,5,945000,4725000),(1023,937,1,83,248000,20584000),(1024,938,1,28,247000,6916000),(1025,939,1,5,247000,1235000),(1026,940,1,6,252000,1512000),(1027,941,1,80,252000,20160000),(1028,942,1,6,259000,1554000),(1029,943,1,12,266000,3192000),(1030,945,1,6,266000,1596000),(1031,946,1,3,266000,798000),(1032,947,1,20,266000,5320000),(1033,948,1,10,266000,2660000),(1034,949,1,1,263000,263000),(1035,950,1,33,266000,8778000),(1036,951,1,10,266000,2660000),(1037,952,1,12,266000,3192000),(1038,953,1,20,266000,5320000),(1039,954,1,15,266000,3990000),(1040,955,1,8,263000,2104000),(1041,956,1,4,266000,1064000),(1042,957,1,10,266000,2660000),(1043,958,1,10,266000,2660000),(1044,959,1,10,266000,2660000),(1045,960,1,60,259000,15540000),(1046,961,1,40,259000,10360000),(1047,962,1,42,259000,10878000),(1048,962,4,2,971000,1942000),(1049,963,1,7,266000,1862000),(1050,964,1,4,266000,1064000),(1051,965,1,6,266000,1596000),(1052,966,1,9,266000,2394000),(1053,967,1,11,266000,2926000),(1054,968,1,7,266000,1862000),(1055,969,1,10,266000,2660000),(1056,970,1,5,266000,1330000),(1057,971,1,25,258000,6450000),(1058,972,1,9,263000,2367000),(1059,973,1,18,263000,4734000),(1060,974,1,10,263000,2630000),(1061,975,1,20,263000,5260000),(1062,976,1,10,262000,2620000),(1063,977,1,20,258000,5160000),(1064,978,1,30,262000,7860000),(1065,979,1,10,262000,2620000),(1066,980,1,15,262000,3930000),(1067,981,1,12,262000,3144000),(1068,983,1,7,262000,1834000),(1069,984,1,33,247000,8151000),(1070,984,4,2,926000,1852000),(1071,985,1,7,262000,1834000),(1072,986,1,18,262000,4716000),(1073,987,4,8,975000,7800000),(1074,988,1,10,263000,2630000),(1075,990,4,8,0,0),(1076,991,1,20,253000,5060000),(1077,992,1,50,253000,12650000),(1078,993,1,70,242000,16940000),(1079,993,4,2,907000,1814000),(1080,994,1,13,243000,3159000);
 
 /*Table structure for table `gas_wholesale_fee` */
 
@@ -1039,6 +1233,10 @@ CREATE TABLE `gas_wholesale_fee` (
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
+/*Data for the table `gas_wholesale_fee` */
+
+insert  into `gas_wholesale_fee`(`id`,`name`,`kind`,`status`) values (1,'Hỗ trợ',-1,1),(2,'Chiết Khấu',-1,1),(3,'Bao giá',-1,1);
+
 /*Table structure for table `gas_wholesale_fee_detail` */
 
 DROP TABLE IF EXISTS `gas_wholesale_fee_detail`;
@@ -1051,7 +1249,11 @@ CREATE TABLE `gas_wholesale_fee_detail` (
   `amount` double DEFAULT NULL,
   `note` text COLLATE utf8_unicode_ci,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=207 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=125 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+/*Data for the table `gas_wholesale_fee_detail` */
+
+insert  into `gas_wholesale_fee_detail`(`id`,`gas_wholesale_id`,`fee_id`,`kind`,`amount`,`note`) values (1,10,1,-1,120000,''),(2,16,1,-1,1440000,''),(3,39,1,-1,1440000,''),(4,44,2,-1,1992000,''),(5,45,2,-1,1376000,''),(6,46,2,-1,384000,''),(7,47,2,-1,780000,''),(8,48,2,-1,264000,''),(9,49,2,-1,804000,''),(10,50,2,-1,831000,''),(11,55,2,-1,170000,''),(12,56,2,-1,506000,''),(13,58,2,-1,370000,''),(14,75,2,-1,518000,''),(15,76,2,-1,683000,''),(16,77,2,-1,2008000,''),(17,78,2,-1,9540000,''),(18,79,2,-1,1309000,''),(19,80,2,-1,700000,''),(20,81,2,-1,818000,''),(21,82,2,-1,7440000,''),(22,83,2,-1,423000,''),(23,84,2,-1,9665000,''),(24,87,2,-1,292000,''),(25,89,2,-1,8752000,''),(26,95,1,-1,420000,''),(27,102,2,-1,1671000,''),(28,112,2,-1,1236000,''),(29,122,2,-1,379000,''),(30,127,2,-1,2103000,''),(31,131,1,-1,40000,''),(32,132,1,-1,560000,''),(33,137,1,-1,20000,''),(34,141,2,-1,1790000,''),(35,142,2,-1,1778000,''),(36,144,2,-1,1977000,''),(37,145,2,-1,2037000,''),(38,146,2,-1,527000,''),(39,147,2,-1,1706000,''),(40,148,2,-1,1214000,''),(41,150,2,-1,1140000,''),(42,151,2,-1,1060000,''),(43,152,2,-1,420000,''),(44,154,2,-1,7323000,''),(45,155,2,-1,230000,''),(46,156,2,-1,531000,''),(47,161,2,-1,11975000,''),(48,162,2,-1,3817000,''),(49,193,2,-1,1490000,''),(50,194,2,-1,3482000,''),(51,196,2,-1,1595000,''),(52,204,2,-1,725000,''),(53,205,2,-1,80000,''),(54,214,2,-1,1106000,''),(55,222,1,-1,2400000,''),(56,227,2,-1,446000,''),(57,268,2,-1,1488000,''),(58,268,1,-1,400000,''),(59,348,1,-1,270000,''),(60,349,1,-1,250000,''),(61,350,1,-1,240000,''),(62,381,2,-1,462000,''),(63,390,2,-1,380000,''),(64,406,1,-1,160000,''),(65,408,1,-1,400000,''),(66,429,2,-1,1270000,''),(67,477,1,-1,410000,''),(68,492,2,-1,400000,''),(69,563,1,-1,250000,''),(70,564,1,-1,300000,''),(71,565,1,-1,400000,''),(72,568,1,-1,668000,''),(73,656,1,-1,60000,''),(74,657,1,-1,350000,''),(75,659,1,-1,308000,''),(76,663,1,-1,500000,''),(77,664,1,-1,240000,''),(78,807,1,-1,200000,''),(79,811,1,-1,400000,''),(80,812,1,-1,200000,''),(81,813,1,-1,500000,''),(82,923,3,-1,680000,''),(83,926,3,-1,340000,''),(84,928,3,-1,1318000,''),(85,929,3,-1,340000,''),(86,930,3,-1,438000,''),(87,933,3,-1,1310000,''),(88,936,3,-1,850000,''),(89,936,1,-1,336000,''),(90,938,3,-1,544000,''),(91,939,2,-1,458000,''),(92,940,3,-1,102000,''),(93,941,2,-1,19360000,''),(94,942,2,-1,415000,''),(95,944,2,-1,8433000,''),(96,960,3,-1,1513000,''),(97,962,3,-1,327000,''),(98,972,2,-1,632000,''),(99,972,3,-1,170000,''),(100,973,2,-1,610000,''),(101,974,2,-1,442000,''),(102,974,3,-1,170000,''),(103,975,2,-1,2243000,''),(104,975,3,-1,510000,''),(105,977,3,-1,1190000,''),(106,978,2,-1,1833000,''),(107,979,2,-1,1136000,''),(108,980,2,-1,433000,''),(109,981,3,-1,255000,''),(110,981,2,-1,855000,''),(111,984,2,-1,5820000,''),(112,985,2,-1,551000,''),(113,985,3,-1,192000,''),(114,986,2,-1,1990000,''),(115,986,3,-1,646000,''),(116,987,2,-1,9670000,''),(117,988,2,-1,360000,''),(118,991,2,-1,978000,''),(119,991,1,-1,540000,''),(120,992,2,-1,1038000,''),(121,992,1,-1,1350000,''),(122,993,2,-1,1535000,''),(123,993,3,-1,1670000,''),(124,994,3,-1,170000,'');
 
 /*Table structure for table `gas_wholesale_promotion` */
 
@@ -1065,6 +1267,8 @@ CREATE TABLE `gas_wholesale_promotion` (
   PRIMARY KEY (`id`)
 ) ENGINE=MyISAM AUTO_INCREMENT=8 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
+/*Data for the table `gas_wholesale_promotion` */
+
 /*Table structure for table `gas_wholesale_return_shell` */
 
 DROP TABLE IF EXISTS `gas_wholesale_return_shell`;
@@ -1075,7 +1279,11 @@ CREATE TABLE `gas_wholesale_return_shell` (
   `shell_id` int(11) DEFAULT NULL,
   `quantity` int(3) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM AUTO_INCREMENT=2713 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=MyISAM AUTO_INCREMENT=1500 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+/*Data for the table `gas_wholesale_return_shell` */
+
+insert  into `gas_wholesale_return_shell`(`id`,`gas_wholesale_id`,`shell_id`,`quantity`) values (1,1,1,10),(2,1,42,1),(3,2,1,9),(4,3,1,40),(5,4,1,18),(6,4,20,1),(7,5,1,9),(8,5,31,1),(9,6,1,12),(10,6,2,5),(11,7,1,5),(12,8,1,54),(13,9,1,24),(14,9,34,2),(15,10,1,39),(16,10,36,2),(17,10,38,3),(18,10,40,1),(19,11,1,23),(20,11,28,5),(21,12,1,2),(22,13,1,17),(23,13,12,3),(24,14,1,8),(25,15,1,4),(26,16,1,48),(27,16,34,2),(28,17,1,29),(29,17,19,1),(30,18,1,4),(31,19,1,10),(32,20,1,10),(33,21,2,2),(34,22,1,22),(35,22,15,1),(36,22,14,1),(37,23,1,10),(38,24,1,11),(39,24,12,1),(40,25,1,9),(41,26,1,21),(42,26,2,2),(1344,39,1,43),(44,28,1,5),(45,29,1,15),(46,30,1,3),(47,31,2,2),(48,32,1,15),(49,32,15,2),(50,33,1,58),(51,33,28,1),(52,33,31,1),(53,34,1,9),(54,35,1,9),(55,36,1,5),(56,37,1,6),(57,37,38,1),(58,37,39,1),(59,38,2,2),(1345,897,1,8),(61,39,11,5),(62,39,36,2),(63,40,1,9),(64,40,36,2),(65,40,2,1),(66,41,1,5),(67,41,2,20),(68,42,2,4),(69,39,2,2),(70,43,1,2),(71,44,1,8),(72,45,1,10),(73,46,1,3),(74,47,1,10),(75,48,1,7),(76,49,1,4),(77,50,1,14),(78,52,1,27),(79,52,42,2),(80,53,1,5),(81,54,1,7),(82,55,1,6),(83,55,11,1),(84,56,1,7),(85,57,1,7),(86,58,1,5),(87,60,1,7),(88,61,1,6),(89,62,1,2),(90,63,1,30),(91,63,14,1),(92,64,1,62),(93,64,34,4),(94,64,38,3),(95,64,39,1),(96,65,1,8),(97,66,1,14),(98,66,24,1),(99,67,1,17),(100,68,1,7),(101,68,28,1),(102,69,1,9),(103,70,1,6),(104,71,1,5),(105,72,1,10),(106,73,1,4),(107,74,1,22),(108,74,18,3),(109,75,1,10),(110,75,31,1),(111,76,1,8),(112,77,1,30),(113,78,1,40),(114,79,1,21),(115,80,1,8),(116,80,19,1),(117,81,1,12),(118,81,36,1),(119,82,1,34),(120,84,1,14),(121,84,39,1),(122,84,2,3),(123,85,2,6),(124,86,2,13),(125,87,1,10),(126,88,1,41),(127,88,12,1),(128,89,1,44),(129,89,36,2),(130,90,1,104),(131,91,1,10),(132,91,15,1),(133,92,1,25),(134,92,38,2),(135,93,1,20),(136,94,1,10),(137,96,1,2),(138,97,1,8),(139,98,1,16),(140,99,1,3),(141,100,1,6),(142,101,1,7),(143,102,1,10),(144,102,2,2),(145,103,1,5),(146,104,1,66),(147,104,19,2),(148,105,1,8),(149,105,42,1),(150,106,1,7),(151,107,1,6),(152,108,1,3),(153,108,31,1),(154,109,1,6),(155,110,1,7),(156,110,34,1),(157,111,1,4),(158,112,1,20),(159,113,2,4),(160,114,1,7),(161,116,1,15),(162,116,2,1),(163,117,1,11),(164,118,1,10),(165,119,1,26),(166,119,40,1),(167,120,1,30),(168,121,1,7),(169,122,1,14),(170,123,1,15),(171,123,38,1),(172,124,1,20),(173,125,1,38),(174,126,1,15),(175,127,1,28),(176,128,1,10),(177,128,2,5),(178,129,1,2),(179,92,2,3),(180,130,1,1),(181,131,1,4),(182,132,1,55),(183,132,12,1),(184,133,1,14),(185,133,2,2),(186,134,1,16),(187,135,1,45),(188,135,12,5),(189,136,1,60),(190,136,45,4),(191,137,1,11),(192,137,14,1),(193,138,1,30),(240,168,1,22),(195,140,1,1),(196,141,1,29),(197,142,1,15),(198,143,1,5),(199,144,1,16),(200,144,15,1),(201,144,2,2),(202,145,1,23),(203,145,18,1),(204,146,1,10),(205,146,2,1),(206,147,1,22),(207,148,1,12),(208,148,2,1),(209,149,1,8),(210,150,1,10),(211,151,1,6),(212,152,1,5),(213,153,1,17),(214,154,1,27),(215,155,1,9),(216,156,1,18),(217,157,1,14),(218,158,1,9),(219,159,1,5),(220,161,1,44),(221,162,1,15),(222,163,1,50),(223,163,2,1),(224,164,1,7),(225,164,42,3),(226,164,24,1),(227,164,26,2),(228,164,31,1),(229,164,19,2),(230,164,33,1),(231,164,36,1),(232,164,37,2),(233,164,39,19),(234,165,1,21),(235,165,2,2),(236,166,1,14),(237,166,2,37),(238,167,1,7),(239,139,2,2),(241,168,19,5),(242,168,28,2),(243,168,34,2),(244,168,36,3),(245,168,37,2),(246,168,39,2),(247,169,1,43),(248,169,15,2),(249,169,2,4),(250,170,1,57),(251,170,15,3),(252,171,1,69),(253,172,1,9),(254,172,12,1),(255,173,1,2),(256,174,1,14),(257,175,1,8),(258,176,1,8),(259,177,1,4),(260,177,3,1),(261,179,1,4),(262,180,1,38),(263,181,1,67),(264,181,38,4),(265,182,1,7),(266,182,19,1),(267,183,1,10),(268,184,1,8),(269,185,1,19),(270,185,39,1),(271,186,1,6),(272,187,1,60),(273,188,2,2),(274,189,1,37),(275,189,2,1),(276,190,1,5),(277,191,1,4),(278,191,2,1),(279,192,1,16),(280,192,2,4),(281,168,2,5),(282,193,1,9),(283,194,1,14),(284,194,28,2),(285,195,1,8),(286,196,1,12),(287,197,1,80),(288,198,1,8),(289,199,1,8),(290,199,2,1),(291,200,1,5),(292,201,1,7),(293,201,2,2),(294,202,1,10),(295,203,1,20),(296,203,2,1),(297,204,1,17),(298,204,36,2),(299,205,1,6),(300,206,1,2),(301,206,12,1),(302,207,1,5),(303,208,1,3),(304,208,36,1),(305,209,1,15),(306,210,1,9),(307,211,1,3),(308,212,1,10),(309,213,1,7),(310,214,1,11),(311,214,38,1),(312,215,1,10),(313,215,2,3),(314,216,1,7),(315,216,15,3),(316,217,1,7),(317,218,1,15),(318,218,38,1),(319,218,2,2),(320,219,1,5),(321,219,2,17),(322,220,1,66),(323,221,1,10),(324,222,1,73),(325,223,1,27),(326,223,38,3),(327,224,1,23),(328,224,12,2),(329,225,1,8),(330,226,1,3),(331,226,42,2),(332,227,1,8),(333,228,1,12),(334,228,18,1),(335,229,1,5),(336,230,1,10),(337,231,1,40),(338,232,1,10),(339,233,1,16),(340,233,28,2),(341,234,1,9),(342,235,1,19),(343,235,38,1),(344,236,1,29),(345,236,38,1),(346,237,1,26),(347,238,1,20),(348,238,2,4),(349,239,1,13),(350,240,2,4),(351,241,1,7),(352,242,1,11),(353,243,1,4),(354,244,1,6),(355,245,1,10),(356,246,1,7),(357,247,1,5),(358,248,1,10),(359,249,1,4),(360,250,1,4),(361,250,19,2),(362,251,1,48),(363,251,34,3),(364,252,1,47),(365,252,36,6),(366,253,1,5),(367,254,1,5),(368,255,1,4),(369,255,36,2),(370,256,1,4),(371,256,37,1),(372,257,1,7),(373,258,1,5),(374,259,1,10),(375,260,1,4),(376,261,1,6),(377,261,38,1),(378,262,1,5),(379,263,1,2),(380,263,38,1),(381,264,1,10),(382,265,1,19),(383,265,38,1),(384,266,1,5),(385,267,1,5),(386,267,2,1),(387,268,1,33),(388,268,31,7),(389,269,1,22),(390,270,1,20),(391,271,1,5),(392,272,1,4),(393,273,1,3),(394,274,1,10),(395,275,1,12),(396,275,2,4),(397,276,1,13),(398,277,1,9),(399,278,1,11),(400,279,1,10),(401,280,1,8),(402,280,2,2),(403,281,1,5),(404,282,1,5),(405,283,1,2),(406,284,1,8),(407,284,22,1),(408,285,1,18),(409,285,45,2),(410,286,1,11),(411,287,1,6),(412,288,1,7),(413,289,1,2),(414,290,1,4),(415,290,24,1),(416,291,1,8),(417,292,1,56),(418,292,24,1),(419,293,1,2),(420,294,1,22),(421,295,2,2),(422,296,1,6),(423,296,12,9),(424,296,37,2),(425,296,38,1),(426,296,39,10),(427,298,1,5),(428,298,26,1),(429,298,2,24),(430,299,1,7),(431,299,2,3),(432,300,1,3),(433,301,1,58),(434,301,24,2),(435,302,1,47),(436,302,28,4),(437,303,1,8),(438,304,1,17),(439,304,28,2),(440,305,1,4),(441,305,28,1),(442,306,1,93),(443,307,1,8),(444,307,2,2),(445,308,1,15),(446,309,1,6),(447,310,1,10),(448,311,1,10),(449,312,1,10),(450,313,1,19),(451,313,12,1),(452,314,1,29),(453,314,14,1),(454,315,1,20),(455,316,1,8),(456,316,42,4),(457,317,1,19),(458,317,20,1),(459,318,1,23),(460,318,31,1),(461,319,1,60),(462,319,31,2),(463,320,1,18),(464,320,40,2),(465,321,1,20),(466,321,2,14),(467,322,1,1),(468,323,1,3),(469,324,1,5),(470,325,1,11),(471,326,1,10),(472,327,2,2),(473,328,1,7),(474,329,1,12),(475,330,1,12),(476,331,1,6),(477,331,38,4),(478,332,1,16),(479,332,19,1),(480,333,1,20),(481,334,2,2),(482,335,1,90),(483,336,1,50),(484,336,36,9),(485,336,38,1),(486,336,2,1),(487,337,1,6),(488,338,1,2),(489,339,1,5),(490,340,1,5),(491,341,1,8),(492,342,1,13),(493,342,38,2),(494,343,1,4),(495,343,39,1),(496,344,1,7),(497,345,1,10),(498,346,1,4),(499,347,1,3),(500,348,1,27),(501,349,1,22),(502,349,27,3),(503,349,2,1),(504,350,1,20),(505,350,42,4),(506,351,1,28),(507,352,1,23),(508,352,18,1),(509,353,1,5),(510,354,1,14),(511,354,36,9),(512,354,38,7),(513,354,2,1),(514,355,1,4),(515,356,1,10),(516,357,1,6),(517,358,1,12),(518,358,31,3),(519,359,2,4),(520,360,1,24),(521,361,1,15),(522,361,2,1),(523,362,1,16),(524,362,2,41),(525,363,1,10),(526,363,37,2),(527,364,2,4),(528,365,1,7),(529,366,1,5),(530,367,1,6),(531,368,1,12),(532,369,1,3),(533,370,1,8),(534,371,1,15),(535,371,11,1),(536,371,2,1),(537,372,1,7),(538,373,1,3),(539,373,28,1),(540,374,1,28),(541,375,1,43),(542,375,36,7),(596,406,1,15),(595,405,1,3),(545,377,1,30),(546,377,12,3),(547,378,1,15),(548,379,1,3),(549,379,34,1),(550,380,1,3),(551,381,1,7),(552,381,28,3),(553,381,2,2),(554,382,2,5),(555,383,1,9),(556,383,34,1),(557,384,1,10),(558,385,1,26),(559,386,1,7),(560,387,1,40),(561,388,1,40),(562,389,1,4),(563,389,42,2),(564,390,1,10),(565,391,1,28),(566,392,1,22),(567,393,1,41),(568,394,1,4),(569,394,19,1),(570,395,1,18),(571,395,31,2),(572,395,2,3),(573,396,1,4),(574,397,1,8),(575,398,1,21),(576,398,15,7),(577,398,18,8),(578,398,22,1),(579,398,2,4),(580,399,1,32),(581,399,24,2),(582,400,1,2),(583,400,19,1),(584,401,1,2),(585,401,19,1),(586,402,1,40),(587,402,36,1),(588,402,38,4),(589,403,1,10),(590,403,34,1),(591,404,1,68),(592,404,38,2),(593,404,39,1),(594,404,40,2),(597,406,14,1),(598,407,1,15),(599,408,1,35),(600,408,31,3),(601,408,39,2),(602,409,1,24),(603,409,26,1),(604,410,1,10),(605,411,1,30),(606,412,1,20),(607,413,1,5),(608,414,1,3),(609,415,1,17),(610,415,39,1),(611,416,1,9),(612,417,1,10),(613,418,1,14),(614,419,1,8),(615,420,1,17),(616,421,1,24),(617,421,15,2),(618,422,1,16),(619,422,38,1),(620,423,1,6),(621,424,1,48),(622,424,22,2),(623,425,1,10),(624,426,1,9),(625,427,1,17),(626,428,1,20),(627,429,1,50),(628,429,2,2),(629,431,1,7),(630,431,12,7),(631,431,42,5),(632,431,36,3),(633,431,37,1),(634,432,1,6),(635,432,28,2),(636,432,2,1),(637,433,1,10),(638,433,2,28),(639,409,2,4),(640,434,1,1),(641,435,1,6),(642,436,1,12),(643,436,28,3),(644,437,1,33),(645,437,28,3),(646,438,1,3),(647,438,11,1),(648,439,1,20),(649,439,12,4),(650,440,1,45),(651,441,1,8),(652,441,31,2),(653,442,1,3),(654,443,1,7),(655,444,1,4),(656,445,1,9),(657,446,1,4),(658,447,1,4),(659,447,20,1),(660,448,1,7),(661,449,1,6),(662,450,1,8),(663,451,1,39),(664,451,15,4),(665,452,1,31),(666,452,38,2),(667,452,37,1),(668,453,1,4),(669,454,1,2),(670,455,1,2),(671,455,42,3),(672,456,1,6),(673,456,36,2),(674,457,1,9),(675,457,24,1),(676,458,1,7),(677,459,1,2),(678,460,1,10),(679,461,1,17),(680,461,36,2),(681,463,1,20),(682,464,1,4),(683,464,36,2),(684,465,1,2),(685,465,19,1),(686,466,1,10),(687,467,1,97),(688,467,36,3),(689,468,1,10),(690,469,1,4),(691,470,1,18),(692,470,36,4),(693,471,1,10),(694,472,1,41),(695,472,34,1),(696,473,1,13),(697,473,2,3),(698,474,1,26),(699,475,1,2),(700,475,38,2),(701,476,1,13),(702,477,1,32),(703,477,36,3),(704,477,37,3),(705,477,38,3),(706,478,1,10),(707,479,1,14),(708,479,27,2),(709,480,1,19),(710,480,31,2),(711,481,1,17),(712,481,12,3),(713,482,1,17),(714,483,1,48),(715,484,1,6),(716,484,42,15),(717,484,2,1),(718,485,1,10),(719,485,2,1),(720,486,1,13),(721,486,2,37),(722,487,1,10),(723,489,1,12),(724,490,1,19),(725,490,14,1),(726,491,1,8),(727,492,1,15),(728,492,2,2),(729,493,1,13),(730,494,1,29),(731,494,18,1),(732,495,1,4),(733,495,20,1),(734,496,1,5),(735,497,1,5),(736,498,1,14),(737,498,24,1),(738,499,1,7),(739,500,1,4),(740,500,34,1),(741,501,1,30),(742,502,1,7),(743,503,1,4),(744,503,26,2),(745,504,1,8),(746,505,1,57),(747,505,31,3),(748,506,1,6),(749,507,1,5),(750,509,1,7),(751,510,1,20),(752,512,1,7),(753,513,1,20),(754,514,1,11),(755,515,1,15),(756,516,1,8),(757,517,1,8),(758,518,1,12),(759,518,2,1),(760,519,1,17),(761,519,12,2),(762,519,2,10),(763,520,1,20),(764,521,1,7),(765,522,1,81),(766,522,36,2),(767,523,1,41),(768,523,31,3),(769,524,1,10),(770,525,1,1),(771,526,1,3),(772,527,1,4),(773,528,1,10),(774,528,14,1),(775,529,1,7),(776,529,18,1),(777,530,1,2),(778,531,1,7),(779,532,1,4),(780,533,1,1),(781,533,42,1),(782,534,1,1),(783,535,1,10),(784,536,1,4),(785,537,1,10),(786,537,37,1),(787,538,1,91),(788,538,2,1),(789,539,1,78),(790,539,34,5),(791,540,1,6),(792,540,37,1),(793,541,1,22),(794,541,36,1),(795,542,36,2),(796,542,1,25),(797,543,1,12),(798,544,1,113),(799,544,28,7),(800,545,1,13),(801,546,1,63),(802,547,1,49),(803,547,40,1),(804,547,2,5),(805,548,1,10),(806,549,1,12),(807,549,28,4),(808,550,1,15),(809,550,40,1),(810,551,1,45),(811,551,40,1),(812,552,1,19),(813,553,1,20),(814,554,1,23),(815,554,39,1),(816,554,2,6),(817,555,1,7),(818,555,38,1),(819,556,1,5),(820,557,1,35),(821,557,38,1),(822,558,1,4),(823,558,38,1),(824,559,1,10),(825,560,1,6),(826,560,38,2),(827,561,1,6),(828,561,3,1),(829,562,1,4),(830,563,1,25),(831,564,1,29),(832,564,22,1),(833,565,1,32),(834,565,31,8),(835,565,2,1),(836,566,1,28),(837,567,1,26),(838,568,1,45),(839,568,12,5),(840,569,1,10),(841,569,19,4),(842,570,1,19),(843,570,38,4),(844,571,1,50),(845,571,2,3),(846,572,1,8),(847,572,39,11),(848,572,2,1),(849,573,1,14),(850,573,2,1),(851,574,1,7),(852,574,37,1),(853,575,1,40),(854,575,2,3),(855,576,1,21),(856,576,2,27),(857,577,1,17),(858,578,1,26),(859,579,1,2),(860,580,1,17),(861,581,1,30),(862,581,42,1),(863,581,2,2),(864,582,1,3),(865,583,1,14),(866,583,24,1),(867,584,1,7),(868,585,1,4),(869,586,1,17),(870,586,28,1),(871,587,1,8),(872,587,19,1),(873,587,2,2),(874,588,1,10),(875,588,38,1),(876,589,1,10),(877,589,38,2),(878,590,1,12),(879,591,1,11),(880,591,38,2),(881,592,1,5),(882,593,1,9),(883,594,1,4),(884,595,1,12),(885,595,2,1),(886,596,1,4),(887,597,1,10),(888,597,34,1),(889,598,1,13),(890,599,1,73),(891,599,36,7),(892,600,1,9),(893,600,37,1),(894,601,1,30),(895,602,1,34),(896,602,18,8),(897,602,28,10),(898,602,19,6),(899,602,36,2),(900,602,2,6),(901,603,1,10),(902,604,1,44),(903,605,1,78),(904,605,36,2),(905,605,2,5),(906,606,1,18),(907,606,37,2),(908,607,1,8),(909,607,37,1),(910,608,1,3),(911,609,1,107),(912,609,38,2),(913,610,1,5),(914,611,1,7),(915,612,1,14),(916,613,1,12),(917,613,11,1),(918,614,1,9),(919,616,1,9),(920,617,1,6),(921,618,1,10),(922,619,1,54),(923,620,1,10),(924,621,1,5),(925,622,1,16),(926,622,15,4),(927,623,1,63),(928,623,12,6),(929,624,1,4),(930,624,3,1),(931,625,1,5),(932,625,38,1),(933,626,1,2),(934,626,40,1),(935,627,1,6),(936,628,1,4),(937,629,1,18),(938,630,1,16),(939,631,1,4),(940,632,1,4),(941,632,36,2),(942,633,1,12),(943,634,1,5),(944,634,24,1),(945,635,1,2),(946,636,1,15),(947,636,15,5),(948,637,1,3),(949,638,1,53),(950,639,1,38),(951,639,42,3),(952,640,1,6),(953,641,1,15),(954,641,38,1),(955,642,1,19),(956,642,38,1),(957,643,1,25),(958,643,36,2),(959,643,2,1),(960,644,1,38),(961,645,1,16),(962,645,2,1),(963,646,1,10),(964,646,38,1),(965,646,2,2),(966,647,1,7),(967,648,1,35),(968,648,38,1),(969,649,1,6),(970,649,2,1),(971,650,2,3),(972,651,1,8),(973,651,36,2),(974,652,1,92),(975,652,36,13),(976,652,2,2),(977,654,1,20),(978,655,1,4),(979,656,1,5),(980,656,18,1),(981,657,1,23),(982,657,19,2),(983,657,2,1),(984,658,1,43),(985,658,12,11),(986,658,2,2),(987,659,1,5),(988,659,2,2),(989,660,1,20),(990,661,1,12),(991,661,19,1),(992,662,1,4),(993,662,39,1),(994,663,1,41),(995,663,31,9),(996,664,1,22),(997,664,39,2),(998,665,1,6),(999,666,1,50),(1000,666,2,1),(1001,667,1,3),(1002,667,37,12),(1003,668,1,12),(1004,668,12,3),(1005,669,1,8),(1006,669,2,54),(1007,670,1,27),(1008,671,1,49),(1009,671,14,3),(1010,671,2,2),(1011,672,1,6),(1012,673,1,21),(1013,673,39,1),(1014,674,1,14),(1015,674,39,2),(1016,675,1,12),(1017,675,40,1),(1018,676,1,3),(1019,677,1,15),(1020,677,38,1),(1021,678,1,13),(1022,679,1,16),(1023,679,2,1),(1024,680,1,18),(1025,681,1,9),(1026,682,1,2),(1027,682,38,2),(1028,683,1,9),(1029,683,38,1),(1030,684,1,30),(1031,684,38,1),(1032,685,1,3),(1033,686,1,16),(1034,686,24,2),(1035,686,2,1),(1036,687,1,3),(1037,688,1,9),(1038,689,1,3),(1039,690,1,4),(1040,691,1,39),(1041,692,1,4),(1042,692,38,2),(1043,693,1,5),(1044,694,1,8),(1045,694,38,1),(1046,695,1,24),(1047,696,1,7),(1048,696,28,2),(1049,697,1,8),(1050,698,1,74),(1051,698,42,6),(1052,699,1,17),(1053,699,28,1),(1054,700,1,21),(1055,700,2,6),(1056,701,1,2),(1057,702,1,6),(1058,703,1,7),(1059,704,1,10),(1060,705,1,9),(1061,706,1,6),(1062,706,18,1),(1063,707,1,8),(1064,708,1,10),(1065,709,1,5),(1066,710,1,13),(1067,710,31,3),(1068,711,1,20),(1069,712,1,8),(1070,712,3,1),(1071,713,1,3),(1072,713,12,2),(1073,714,1,74),(1074,714,42,8),(1075,715,1,33),(1076,715,38,7),(1077,716,1,6),(1078,717,1,19),(1079,717,34,2),(1080,718,1,4),(1081,718,38,1),(1082,719,1,4),(1083,719,39,1),(1084,720,1,3),(1085,721,1,3),(1086,722,1,19),(1087,722,19,1),(1088,723,1,9),(1089,723,34,1),(1090,724,1,2),(1091,725,1,16),(1092,726,1,5),(1093,727,1,2),(1094,728,1,6),(1095,729,1,10),(1096,730,1,3),(1097,731,1,5),(1098,732,1,18),(1099,733,1,65),(1100,733,42,3),(1101,734,1,17),(1102,735,1,34),(1103,735,28,1),(1104,735,2,1),(1105,736,1,12),(1106,737,1,136),(1107,737,28,5),(1108,738,1,8),(1109,739,1,6),(1110,740,1,10),(1111,741,1,46),(1112,742,1,16),(1113,743,1,4),(1114,743,37,1),(1115,744,1,20),(1116,744,14,2),(1117,745,1,90),(1118,745,36,12),(1119,746,1,2),(1120,747,1,79),(1121,747,37,1),(1122,748,2,2),(1123,749,1,13),(1124,749,20,2),(1125,750,1,12),(1126,750,36,1),(1127,751,1,16),(1128,752,1,37),(1129,753,1,55),(1130,754,1,38),(1131,754,36,2),(1132,754,2,11),(1133,755,1,11),(1134,756,1,11),(1135,756,24,1),(1136,757,1,17),(1137,757,36,3),(1138,758,1,20),(1139,702,15,1),(1140,759,1,30),(1141,760,1,18),(1142,761,1,26),(1143,761,2,2),(1144,762,1,21),(1145,762,2,2),(1146,763,1,110),(1147,764,1,15),(1148,765,1,13),(1149,766,1,19),(1150,766,12,1),(1151,767,1,9),(1152,767,19,1),(1153,768,1,5),(1154,769,1,6),(1155,770,1,5),(1156,771,1,6),(1157,772,1,7),(1158,773,1,58),(1159,774,1,16),(1160,774,42,8),(1161,775,1,11),(1162,775,12,2),(1163,776,1,9),(1164,776,42,1),(1165,777,1,9),(1166,778,1,6),(1167,779,1,10),(1168,779,19,1),(1169,780,1,18),(1170,780,15,2),(1171,781,1,2),(1172,781,15,2),(1173,782,1,21),(1174,783,1,9),(1175,784,1,5),(1176,784,15,2),(1177,785,1,11),(1178,785,20,1),(1179,786,1,25),(1180,787,1,5),(1181,787,20,2),(1182,788,1,10),(1183,789,1,40),(1184,790,1,11),(1185,790,39,1),(1186,791,1,19),(1187,791,38,2),(1188,791,39,1),(1189,792,1,10),(1190,792,2,12),(1191,793,1,3),(1192,793,31,1),(1193,794,1,9),(1194,794,31,1),(1195,795,1,10),(1196,796,1,16),(1197,796,3,1),(1198,797,1,10),(1199,798,38,10),(1200,798,2,2),(1201,799,1,20),(1202,800,1,11),(1203,801,1,60),(1204,801,37,11),(1205,802,1,100),(1206,803,1,13),(1207,804,1,10),(1208,805,1,18),(1209,805,3,2),(1265,839,1,2),(1211,807,1,20),(1212,808,1,75),(1213,809,1,10),(1214,810,1,15),(1215,810,12,5),(1216,811,1,40),(1217,812,1,20),(1218,813,1,44),(1219,813,28,6),(1220,814,1,38),(1221,814,19,6),(1222,814,38,6),(1223,814,2,2),(1224,815,1,18),(1225,816,1,14),(1226,817,1,9),(1227,817,18,1),(1228,817,2,2),(1229,818,1,9),(1230,819,1,38),(1231,819,18,2),(1232,820,1,5),(1233,821,1,30),(1234,822,1,20),(1235,822,37,2),(1236,823,1,19),(1237,823,31,1),(1238,824,1,11),(1239,824,2,1),(1240,825,1,36),(1241,825,37,2),(1242,826,1,9),(1243,827,1,7),(1244,827,34,1),(1245,828,1,5),(1246,829,1,48),(1247,829,36,2),(1248,830,1,19),(1249,830,36,1),(1250,831,1,20),(1251,832,1,70),(1252,832,2,2),(1253,833,1,4),(1254,833,42,5),(1255,833,27,1),(1256,833,39,10),(1257,834,1,22),(1258,834,2,1),(1259,835,1,9),(1260,835,2,12),(1261,836,1,6),(1262,837,2,5),(1263,838,2,12),(1264,806,2,3),(1266,840,1,8),(1267,840,15,2),(1268,841,1,48),(1269,841,31,1),(1270,841,36,1),(1271,842,1,5),(1272,842,12,1),(1273,843,1,133),(1274,844,1,8),(1275,845,1,27),(1276,845,28,5),(1277,846,1,15),(1278,847,1,5),(1279,848,1,5),(1280,849,1,5),(1281,850,1,2),(1282,851,1,13),(1283,851,2,6),(1284,852,1,82),(1285,852,38,7),(1286,853,1,15),(1287,853,34,4),(1288,854,1,6),(1289,855,1,2),(1290,856,1,2),(1291,856,36,18),(1292,857,42,3),(1293,858,1,9),(1294,858,18,1),(1295,859,1,10),(1296,860,1,29),(1297,860,24,1),(1298,861,1,69),(1299,861,24,1),(1300,862,1,21),(1301,863,1,8),(1302,863,38,6),(1303,863,39,1),(1304,864,1,14),(1305,865,1,20),(1306,866,2,3),(1307,867,1,38),(1308,868,1,39),(1309,868,2,10),(1310,870,1,22),(1311,871,1,19),(1312,871,38,1),(1313,872,1,13),(1314,872,2,1),(1315,873,1,6),(1316,874,1,12),(1317,875,1,5),(1318,876,1,20),(1319,876,37,1),(1320,877,1,13),(1321,878,1,10),(1322,878,2,2),(1323,879,1,20),(1324,880,1,10),(1325,881,1,6),(1326,882,1,13),(1327,882,37,1),(1328,883,1,5),(1329,884,1,8),(1330,885,1,10),(1331,886,1,3),(1332,887,1,3),(1333,888,1,25),(1334,888,28,3),(1335,889,1,80),(1336,890,1,5),(1337,891,1,9),(1338,892,1,11),(1339,892,28,1),(1340,893,1,5),(1341,894,1,12),(1342,895,1,20),(1343,27,1,10),(1346,898,1,10),(1347,899,1,18),(1348,899,28,1),(1349,899,27,1),(1350,900,1,36),(1351,900,36,4),(1352,901,1,11),(1353,902,1,21),(1354,902,36,3),(1355,903,1,19),(1356,903,31,5),(1357,903,19,2),(1358,904,1,10),(1359,905,1,11),(1360,905,12,1),(1361,906,1,47),(1362,907,1,10),(1363,908,1,14),(1364,909,1,4),(1365,909,36,6),(1366,909,2,2),(1367,910,1,12),(1368,911,1,13),(1369,912,1,31),(1370,912,14,1),(1371,913,1,15),(1372,913,15,1),(1373,914,1,16),(1374,914,2,1),(1375,915,1,4),(1376,916,1,48),(1377,916,37,2),(1378,916,2,3),(1379,917,1,8),(1380,917,38,2),(1381,918,1,8),(1382,919,1,22),(1383,920,1,26),(1384,921,1,25),(1385,921,18,1),(1386,922,1,12),(1387,922,2,2),(1388,923,1,54),(1389,923,38,6),(1390,924,1,9),(1391,924,37,1),(1392,925,1,30),(1393,925,2,2),(1394,926,1,47),(1395,926,39,1),(1396,927,1,18),(1397,927,42,2),(1398,928,1,50),(1399,929,1,6),(1400,929,39,14),(1401,930,1,6),(1402,930,2,1),(1403,931,1,4),(1404,931,2,7),(1405,932,1,11),(1406,933,2,8),(1407,934,1,35),(1408,935,2,1),(1409,936,1,45),(1410,936,11,5),(1411,936,2,5),(1412,937,1,100),(1413,937,28,8),(1414,938,1,24),(1415,938,31,4),(1416,939,1,5),(1417,940,1,4),(1418,940,19,2),(1419,941,1,96),(1420,942,1,5),(1421,942,11,1),(1422,943,1,12),(1423,945,1,5),(1424,946,1,8),(1425,947,1,20),(1426,948,1,10),(1427,949,1,1),(1428,950,1,33),(1429,950,2,2),(1430,951,1,10),(1431,952,1,10),(1432,952,38,2),(1433,953,1,20),(1434,954,1,14),(1435,954,14,1),(1436,954,2,1),(1437,955,1,18),(1438,956,1,9),(1439,957,1,10),(1440,958,1,10),(1441,959,1,9),(1442,959,24,1),(1443,960,1,57),(1444,960,12,3),(1445,961,1,40),(1446,962,1,39),(1447,962,36,3),(1448,962,2,1),(1449,963,1,6),(1450,963,27,1),(1451,964,1,3),(1452,964,34,1),(1453,965,1,5),(1454,965,37,1),(1455,966,1,9),(1456,967,1,11),(1457,968,1,7),(1458,969,1,10),(1459,970,1,5),(1460,971,1,21),(1461,971,36,4),(1462,972,1,9),(1463,973,1,18),(1464,974,1,10),(1465,975,1,39),(1466,975,38,1),(1467,976,1,13),(1468,977,1,20),(1469,978,1,25),(1470,978,15,5),(1471,979,1,9),(1472,979,18,1),(1473,980,1,13),(1474,980,42,2),(1475,981,1,11),(1476,981,20,1),(1477,982,1,19),(1478,982,38,1),(1479,983,1,7),(1480,984,1,32),(1481,984,37,1),(1482,984,2,3),(1483,985,1,7),(1484,986,1,18),(1485,987,1,1),(1486,987,2,4),(1487,988,1,10),(1488,990,2,8),(1489,991,1,18),(1490,991,12,2),(1491,992,1,48),(1492,992,12,2),(1493,992,2,1),(1494,993,1,62),(1495,993,18,4),(1496,993,31,4),(1497,993,2,1),(1498,994,1,11),(1499,994,26,2);
 
 /*Table structure for table `good` */
 
@@ -1091,6 +1299,8 @@ CREATE TABLE `good` (
   `status` int(1) DEFAULT '1' COMMENT '0:bi khoa,1:dang hoat dong',
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+/*Data for the table `good` */
 
 /*Table structure for table `good_import` */
 
@@ -1112,6 +1322,8 @@ CREATE TABLE `good_import` (
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
+/*Data for the table `good_import` */
+
 /*Table structure for table `good_import_detail` */
 
 DROP TABLE IF EXISTS `good_import_detail`;
@@ -1127,6 +1339,8 @@ CREATE TABLE `good_import_detail` (
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
+/*Data for the table `good_import_detail` */
+
 /*Table structure for table `good_in_stock` */
 
 DROP TABLE IF EXISTS `good_in_stock`;
@@ -1140,6 +1354,8 @@ CREATE TABLE `good_in_stock` (
   `in_stock` int(11) DEFAULT '0',
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+/*Data for the table `good_in_stock` */
 
 /*Table structure for table `good_sale` */
 
@@ -1162,6 +1378,8 @@ CREATE TABLE `good_sale` (
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
+/*Data for the table `good_sale` */
+
 /*Table structure for table `good_sale_detail` */
 
 DROP TABLE IF EXISTS `good_sale_detail`;
@@ -1175,6 +1393,8 @@ CREATE TABLE `good_sale_detail` (
   `amount` double DEFAULT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+/*Data for the table `good_sale_detail` */
 
 /*Table structure for table `income` */
 
@@ -1191,7 +1411,11 @@ CREATE TABLE `income` (
   `note` text COLLATE utf8_unicode_ci,
   `created_employee_id` int(11) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM AUTO_INCREMENT=86 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=MyISAM AUTO_INCREMENT=78 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+/*Data for the table `income` */
+
+insert  into `income`(`id`,`code`,`created_date`,`content`,`amount`,`account_id`,`type`,`note`,`created_employee_id`) values (5,'20200204-IC-0001','2020-01-02','NộpTM',1032500000,9,1,'',35),(6,'20200206-IC-0001','2020-01-31','Xăng dầu',5088740,10,1,'',35),(7,'20200206-IC-0002','2020-01-31','Xăng dầu',46132532,10,1,'',35),(8,'20200206-IC-0003','2020-01-31','Xăng dầu',2504373000,5,1,'',35),(9,'20200206-IC-0004','2020-01-31','Phan Thiết',37607179,10,1,'',35),(10,'20200206-IC-0005','2020-01-31','Phan Thiết',18032500,10,1,'',35),(11,'20200206-IC-0006','2020-01-31','Phan Thiết',7740000,10,1,'',35),(12,'20200206-IC-0007','2020-01-31','Phan Thiết',30203000,10,1,'',35),(13,'20200206-IC-0008','2020-01-31','Phan Thiết',7740000,10,1,'',35),(14,'20200206-IC-0009','2020-01-31','Phan Thiết',7740000,10,1,'',35),(15,'20200206-IC-0010','2020-01-31','Phan Thiết',4288000,10,1,'',35),(16,'20200206-IC-0011','2020-01-31','Phan Thiết',22810000,10,1,'',35),(17,'20200206-IC-0012','2020-01-31','Phan Thiết',16631000,10,1,'',35),(18,'20200206-IC-0013','2020-01-31','Phan Thiết',13415000,10,1,'',35),(19,'20200206-IC-0014','2020-01-31','Phan Thiết',12082000,10,1,'',35),(20,'20200206-IC-0015','2020-01-31','Phan Thiết',55000000,5,1,'',35),(21,'20200206-IC-0016','2020-01-31','Thu tiền nhớt',209683000,5,1,'',35),(22,'20200206-IC-0017','2020-01-31','Thu tiền dầu Do',105420000,5,1,'',35),(23,'20200206-IC-0018','2020-01-01','a Hoàng',20000000,5,1,'',35),(24,'20200206-IC-0019','2020-01-01','bán 10 vỏ',1900000,5,1,'',35),(25,'20200206-IC-0020','2020-01-02','Thu Phát Nguyên Phát',27800000,10,1,'',35),(26,'20200206-IC-0021','2020-01-02','Thu MTC',5200000,10,1,'',35),(27,'20200206-IC-0022','2020-01-03','bán 5 vỏ',1000000,5,1,'',35),(28,'20200206-IC-0023','2020-01-06','Thu tiền Pin',80900000,5,1,'',35),(29,'20200206-IC-0024','2020-01-06','Thu tiền Pin',36178000,5,1,'',35),(30,'20200206-IC-0025','2020-01-06','Nộp tiền vào TK',261150000,9,1,'',35),(31,'20200206-IC-0026','2020-01-08','Thu tiền Pin',44000000,5,1,'',35),(32,'20200206-IC-0027','2020-01-08','Rút TK sacom',100000000,5,1,'',35),(33,'20200206-IC-0028','2020-01-08','Thu Phát Nguyên Phát',133303000,5,1,'',35),(34,'20200206-IC-0029','2020-01-09','Nộp tiền vào TK',110000000,10,1,'',35),(35,'20200206-IC-0030','2020-01-09','Thiên Phú Ninh Thuận',180285872,10,1,'',35),(36,'20200206-IC-0031','2020-01-10','Solar BP',10000000,10,1,'',35),(37,'20200206-IC-0032','2020-01-10','mặt trời việt',11015000,10,1,'',35),(38,'20200206-IC-0033','2020-01-10','bán 54 vỏ',10800000,5,1,'',35),(39,'20200206-IC-0034','2020-01-10','bán 3 vỏ',600000,5,1,'',35),(40,'20200206-IC-0035','2020-01-10','CTH',86000000,10,1,'',35),(41,'20200206-IC-0036','2020-01-11','CHI NHÁNH PT',12174000,5,1,'',35),(42,'20200206-IC-0037','2020-01-11','Ht chuyển về',16098000,5,1,'',35),(43,'20200206-IC-0038','2020-01-11','Nộp tiền vào TK',29000000,9,1,'',35),(44,'20200206-IC-0039','2020-01-11','Solar BP',33400000,10,1,'',35),(45,'20200206-IC-0040','2020-01-11','Solar BP',23000000,5,1,'',35),(46,'20200206-IC-0041','2020-01-13','mặt trời việt',11015000,10,1,'',35),(47,'20200206-IC-0042','2020-01-13','Nộp tiền vào TK',100000000,9,1,'',35),(48,'20200206-IC-0043','2020-02-14','PM tech',12485000,10,1,'',35),(49,'20200206-IC-0044','2020-01-14','bán 5 vỏ',1000000,5,1,'',35),(50,'20200206-IC-0045','2020-01-15','Thu tiền Pin',33400000,5,1,'',35),(51,'20200206-IC-0046','2020-01-15','Thu tiền Pin',36200000,5,1,'',35),(52,'20200206-IC-0047','2020-01-15','bán 11 vỏ',2200000,5,1,'',35),(53,'20200206-IC-0048','2020-01-15','Nộp tiền vào TK',300000000,9,1,'',35),(54,'20200206-IC-0049','2020-01-16','bán 3 vỏ',570000,5,1,'',35),(55,'20200206-IC-0050','2020-01-17','Nộp tiền vào TK',267337000,9,1,'',35),(56,'20200206-IC-0051','2020-01-17','Inverter',9890000,5,1,'',35),(57,'20200206-IC-0052','2020-01-17','bán 3 vỏ',600000,5,1,'',35),(58,'20200206-IC-0053','2020-01-17','bán 3 vỏ',600000,5,1,'',35),(59,'20200206-IC-0054','2020-01-18','Nộp tiền vào TK',300000000,9,1,'',35),(60,'20200206-IC-0055','2020-01-18','bán 5 vỏ',1000000,5,1,'',35),(61,'20200206-IC-0056','2020-01-20','Nộp tiền vào TK',248164000,9,1,'',35),(62,'20200206-IC-0057','2020-01-20','Thu tiền Thanh Toàn Nhớt',45088000,10,1,'',35),(63,'20200206-IC-0058','2020-01-21','Hưng Thịnh',325000000,5,1,'',35),(64,'20200206-IC-0059','2020-01-21','Thu tiền Pin',23780000,5,1,'',35),(65,'20200206-IC-0060','2020-01-21','Nộp tiền vào TK',338780000,9,1,'',35),(66,'20200206-IC-0061','2020-01-21','Mốc',291000000,5,1,'',35),(67,'20200206-IC-0062','2020-01-21','Nộp tiền vào TK',291000000,9,1,'',35),(68,'20200206-IC-0063','2020-02-21','Tú',324000000,5,1,'',35),(69,'20200206-IC-0064','2020-01-21','bán 14 vỏ',2800000,5,1,'',35),(70,'20200206-IC-0065','2020-01-22','bán 12 vỏ',2400000,5,1,'',35),(72,'20200206-IC-0067','2020-01-23','bán 10 vỏ',2000000,5,1,'',35),(73,'20200206-IC-0068','2020-01-24','bán 3 vỏ',600000,5,1,'',35),(74,'20200206-IC-0069','2020-01-30','bán 2 vỏ PT',400000,5,1,'',35),(75,'20200206-IC-0070','2020-01-31','Nộp tiền vào TK',2000000000,9,1,'',35),(77,'20200207-IC-0002','2020-01-14','PM tech',12485000,10,1,'',35),(76,'20200207-IC-0001','2020-01-21','Tú',324000000,5,1,'',35);
 
 /*Table structure for table `inner_sale` */
 
@@ -1213,6 +1437,8 @@ CREATE TABLE `inner_sale` (
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
+/*Data for the table `inner_sale` */
+
 /*Table structure for table `inner_sale_detail` */
 
 DROP TABLE IF EXISTS `inner_sale_detail`;
@@ -1226,6 +1452,8 @@ CREATE TABLE `inner_sale_detail` (
   `amount` double DEFAULT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+/*Data for the table `inner_sale_detail` */
 
 /*Table structure for table `invoice` */
 
@@ -1242,7 +1470,11 @@ CREATE TABLE `invoice` (
   `amount_paid` double DEFAULT NULL,
   `customer_id` int(11) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=12 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+/*Data for the table `invoice` */
+
+insert  into `invoice`(`id`,`created_date`,`code`,`number`,`created_employee_id`,`note`,`amount`,`amount_paid`,`customer_id`) values (1,'2020-01-09','20200109-IN-0001','001',20,'',26471000,0,229),(3,'2020-01-21','20200121-IN-0001','20200121',17,'',2856000,0,266),(4,'2020-01-17','20200121-IN-0002','20200117',17,'',23824000,0,286),(5,'2020-01-21','20200121-IN-0003','20200121-0003',17,'',1080000,0,290);
 
 /*Table structure for table `invoice_detail` */
 
@@ -1256,7 +1488,11 @@ CREATE TABLE `invoice_detail` (
   `paid` int(1) DEFAULT '0' COMMENT '0:chua thanh toan, 1:da thanh toan',
   `commissioned` int(1) DEFAULT '0' COMMENT '0: chua chiet khau, 1: da chiet khau',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=17 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=9 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+/*Data for the table `invoice_detail` */
+
+insert  into `invoice_detail`(`id`,`invoice_id`,`oil_sale_detail_id`,`paid_amount`,`paid`,`commissioned`) values (1,1,9,9352000,0,0),(2,1,8,11929000,0,0),(3,1,7,5190000,0,0),(5,3,19,1056000,1,0),(6,3,18,1800000,1,0),(7,4,10,23824000,1,0),(8,5,21,1080000,1,0);
 
 /*Table structure for table `invoice_paid_detail` */
 
@@ -1270,6 +1506,8 @@ CREATE TABLE `invoice_paid_detail` (
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
+/*Data for the table `invoice_paid_detail` */
+
 /*Table structure for table `lo_vo` */
 
 DROP TABLE IF EXISTS `lo_vo`;
@@ -1282,7 +1520,11 @@ CREATE TABLE `lo_vo` (
   `note` text COLLATE utf8_unicode_ci,
   `created_employee_id` int(11) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=24 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=13 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+/*Data for the table `lo_vo` */
+
+insert  into `lo_vo`(`id`,`code`,`created_date`,`quantity`,`note`,`created_employee_id`) values (1,'20200109-LV-0001','2020-01-02',2,'',35),(2,'20200110-LV-0001','2020-01-07',2,'',35),(3,'20200113-LV-0001','2020-01-09',2,'',35),(4,'20200114-LV-0001','2020-01-11',2,'',35),(5,'20200115-LV-0001','2020-01-14',2,'',35),(6,'20200117-LV-0001','2020-01-16',2,'',35),(7,'20200120-LV-0001','2020-01-18',2,'',35),(8,'20200122-LV-0001','2020-01-20',2,'',35),(9,'20200123-LV-0001','2020-01-22',2,'',35),(10,'20200130-LV-0001','2020-01-24',4,'',35),(11,'20200204-LV-0001','2020-01-31',2,'',35),(12,'20200210-LV-0001','2020-02-03',2,'',35);
 
 /*Table structure for table `lo_vo_employee_detail` */
 
@@ -1294,7 +1536,11 @@ CREATE TABLE `lo_vo_employee_detail` (
   `employee_id` int(11) DEFAULT NULL,
   `note` text COLLATE utf8_unicode_ci,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=158 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=85 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+/*Data for the table `lo_vo_employee_detail` */
+
+insert  into `lo_vo_employee_detail`(`id`,`lo_vo_id`,`employee_id`,`note`) values (1,1,52,''),(2,1,33,''),(3,1,51,''),(4,1,19,''),(5,1,43,''),(6,1,21,''),(7,1,30,''),(8,2,52,''),(9,2,33,''),(10,2,34,''),(11,2,46,''),(12,2,19,''),(13,2,43,''),(14,2,21,''),(15,2,30,''),(16,3,52,''),(17,3,33,''),(18,3,34,''),(19,3,46,''),(20,3,19,''),(21,3,43,''),(22,3,21,''),(23,3,30,''),(24,4,52,''),(25,4,33,''),(26,4,34,''),(27,4,46,''),(28,4,19,''),(29,4,43,''),(30,4,21,''),(31,4,30,''),(32,5,52,''),(33,5,33,''),(34,5,46,''),(35,5,19,''),(36,5,43,''),(37,5,21,''),(38,5,30,''),(39,5,34,''),(40,6,52,''),(41,6,33,''),(42,6,34,''),(43,6,19,''),(44,6,43,''),(45,6,21,''),(46,6,30,''),(47,7,52,''),(48,7,33,''),(49,7,46,''),(50,7,19,''),(51,7,43,''),(52,7,21,''),(53,7,30,''),(54,7,34,''),(55,8,52,''),(56,8,33,''),(57,8,34,''),(58,8,19,''),(59,8,43,''),(60,8,21,''),(61,9,52,''),(62,9,33,''),(63,9,34,''),(64,9,19,''),(65,9,43,''),(66,9,21,''),(67,10,52,''),(68,10,33,''),(69,10,34,''),(70,10,19,''),(71,10,43,''),(72,10,21,''),(73,11,52,''),(74,11,33,''),(75,11,34,''),(76,11,19,''),(77,11,43,''),(78,11,21,''),(79,12,52,''),(80,12,33,''),(81,12,34,''),(82,12,19,''),(83,12,43,''),(84,12,21,'');
 
 /*Table structure for table `lpg_import` */
 
@@ -1322,7 +1568,11 @@ CREATE TABLE `lpg_import` (
   `link_lpg_ids` text COLLATE utf8_unicode_ci,
   `link_lpg_codes` text COLLATE utf8_unicode_ci,
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM AUTO_INCREMENT=54 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=MyISAM AUTO_INCREMENT=34 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+/*Data for the table `lpg_import` */
+
+insert  into `lpg_import`(`id`,`code`,`import_date`,`vendor_id`,`kind`,`paper_quantity`,`actual_quantity`,`price`,`vat`,`invoice_amount`,`amount`,`paid`,`debt`,`rate`,`note`,`account_id`,`route_id`,`created_employee_id`,`link_lpg_ids`,`link_lpg_codes`) values (1,'20200108-LI-0001','2020-01-03',15,1,11980,11980,765.1875,0,212856492,212856492,0,212856492,23220,'TH - QT',5,0,35,NULL,''),(2,'20200108-LI-0002','2020-01-06',16,1,11030,11090,765.765,0,196209592,196209592,0,196209592,23230,'KDK- SPO 33344',5,0,35,NULL,''),(3,'20200108-LI-0003','2020-01-07',16,1,11030,11070,765.765,0,196209592,196209592,0,196209592,23230,'KDK - QT 33399',5,18,35,NULL,''),(4,'20200108-LI-0004','2020-01-01',15,1,0,11570,0,0,0,0,0,0,0,'TH - QT cong no Thang 12',5,0,35,NULL,''),(5,'20200108-LI-0005','2020-01-02',15,1,0,11440,0,0,0,0,0,0,0,'TH - QT cong no Thang 12',5,0,35,NULL,''),(6,'20200108-LI-0006','2020-01-08',16,1,11030,10950,765.765,0,196251824,196251824,0,196251824,23235,'KDK - QT 33447',5,0,35,NULL,''),(7,'20200109-LI-0001','2020-01-09',16,1,11020,11070,765.765,0,196073899,196073899,0,196073899,23235,'KDK - QT 33499',5,0,35,NULL,''),(8,'20200110-LI-0001','2020-01-10',16,1,11020,11100,765.765,0,196031705,196031705,0,196031705,23230,'kdk QT 33542',5,18,35,NULL,''),(9,'20200111-LI-0001','2020-01-10',16,1,11010,11010,765.765,0,195853818,195853818,0,195853818,23230,'kdk - QT 33569',5,0,35,NULL,''),(10,'20200113-LI-0001','2020-01-11',16,1,11010,11050,765.765,0,195853818,195853818,0,195853818,23230,'KDK - QT 33655',5,0,35,NULL,''),(11,'20200114-LI-0001','2020-01-13',16,1,11030,10980,765.765,0,196209592,196209592,0,196209592,23230,'KDK - QT 33771',5,0,35,NULL,''),(12,'20200115-LI-0001','2020-01-14',16,1,11020,11120,765.765,0,196031705,196031705,0,196031705,23230,'KDK -  spo',5,0,35,NULL,''),(13,'20200115-LI-0002','2020-01-14',16,1,11040,11110,765.765,0,196387479,196387479,0,196387479,23230,'kdk - QT 33872',5,18,35,NULL,''),(14,'20200116-LI-0001','2020-01-16',16,1,11030,10990,765.765,0,196294056,196294056,0,196294056,23240,'kdk - QT 33961',5,0,35,NULL,''),(15,'20200118-LI-0001','2020-01-17',16,1,11020,10990,765.765,0,196158286,196158286,0,196158286,23245,'kdk - QT 34048',5,18,35,NULL,''),(16,'20200121-LI-0001','2020-01-20',16,1,11030,10970,765.765,0,196336288,196336288,0,196336288,23245,'KDk - QT 34249',5,0,35,NULL,''),(17,'20200122-LI-0001','2020-01-21',16,1,11020,11010,765.765,0,196116092,196116092,0,196116092,23240,'kdk - QT 34299',5,0,35,NULL,''),(18,'20200123-LI-0001','2020-01-22',16,1,11030,11090,765.765,0,196294056,196294056,0,196294056,23240,'kdk QT 34365',5,0,35,NULL,''),(19,'20200123-LI-0002','2020-01-22',16,1,11020,11000,765.765,0,196116092,196116092,0,196116092,23240,'kdk - QT 34352',5,18,35,NULL,''),(20,'20200123-LI-0003','2020-01-10',28,1,1130,1130,13000,0,14690000,14690000,0,14690000,1000,'',5,18,35,NULL,''),(21,'20200123-LI-0004','2020-01-23',16,1,11030,11010,765.765,0,196294056,196294056,0,196294056,23240,'kdk- QT 34398',5,0,35,NULL,''),(22,'20200130-LI-0001','2020-01-29',16,1,11020,11010,765.765,0,196116092,196116092,0,196116092,23240,'KDK - QT 34570',5,0,35,NULL,''),(23,'20200130-LI-0002','2020-01-30',16,1,11020,11040,765.765,0,196158286,196158286,0,196158286,23245,'KDK -QT 34602',5,0,35,NULL,''),(24,'20200203-LI-0001','2020-01-31',16,1,11030,11020,765.765,0,196547448,196547448,0,196547448,23270,'KDK - QT 34650',5,0,35,NULL,''),(25,'20200204-LI-0001','2020-02-03',16,1,11020,11020,705.1275,0,181363588,181363588,0,181363588,23340,'KDK- QT 34790',5,0,35,NULL,''),(26,'20200205-LI-0001','2020-02-03',28,1,1130,1130,12000,0,13560000,13560000,0,13560000,1000,'',5,0,35,NULL,''),(27,'20200205-LI-0002','2020-02-04',16,1,11030,11080,705.1275,0,181294838,181294838,0,181294838,23310,'kdk - qT 34843',5,0,35,NULL,''),(28,'20200205-LI-0003','2020-02-04',16,1,11030,11100,705.1275,0,181528165,181528165,0,181528165,23340,'KDK -  spo',5,0,35,NULL,''),(29,'20200205-LI-0004','2020-02-05',16,1,11010,10960,705.1275,0,180888473,180888473,0,180888473,23300,'kdk QT 34884',5,0,35,NULL,''),(30,'20200206-LI-0001','2020-02-06',16,1,11030,11050,705.1275,0,181372613,181372613,0,181372613,23320,'KDK- QT 34944',5,0,35,NULL,''),(31,'20200208-LI-0001','2020-02-07',16,1,11020,11110,705.1275,0,181130473,181130473,0,181130473,23310,'kdk - qt 35032',5,18,35,NULL,''),(32,'20200208-LI-0002','2020-02-08',16,1,11030,10970,705.1275,0,181294838,181294838,0,181294838,23310,'kdk - qt 35055',5,0,35,NULL,''),(33,'20200210-LI-0001','2020-02-10',16,1,11020,11010,705.1275,0,181247030,181247030,0,181247030,23325,'kdk QT 35156',5,0,35,NULL,'');
 
 /*Table structure for table `lpg_in_stock` */
 
@@ -1335,7 +1585,9 @@ CREATE TABLE `lpg_in_stock` (
   `day` date DEFAULT NULL,
   `in_stock` int(11) DEFAULT '0',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=11 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+/*Data for the table `lpg_in_stock` */
 
 /*Table structure for table `lpg_sale` */
 
@@ -1360,7 +1612,11 @@ CREATE TABLE `lpg_sale` (
   `route_id` int(11) DEFAULT NULL,
   `created_employee_id` int(11) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+/*Data for the table `lpg_sale` */
+
+insert  into `lpg_sale`(`id`,`code`,`sale_date`,`kind`,`customer_id`,`quantity`,`price`,`price_transport`,`vat`,`rate`,`amount`,`paid`,`debt`,`note`,`account_id`,`route_id`,`created_employee_id`) values (1,'20200108-LS-0001','2020-01-06',1,152,11090,18534,0,10,1000,226096266,0,226096266,'',5,0,35),(2,'20200123-LS-0001','2020-01-14',1,152,11120,18534,0,10,1000,226707888,0,226707888,'',5,0,35),(3,'20200205-LS-0001','2020-02-04',1,152,11100,17248,0,10,1000,210598080,0,210598080,'',5,0,35);
 
 /*Table structure for table `money_in_stock` */
 
@@ -1374,6 +1630,10 @@ CREATE TABLE `money_in_stock` (
   `in_stock` double DEFAULT '0',
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+/*Data for the table `money_in_stock` */
+
+insert  into `money_in_stock`(`id`,`day`,`account_id`,`organization_id`,`in_stock`) values (1,'2020-01-01',8,14,0),(2,'2020-01-01',7,14,0),(3,'2020-01-01',9,1,571466938),(4,'2020-01-01',10,1,245102409),(5,'2020-01-01',4,1,300914),(6,'2020-01-01',5,1,1312249890),(7,'2020-01-01',11,1,5690673);
 
 /*Table structure for table `oil` */
 
@@ -1394,7 +1654,11 @@ CREATE TABLE `oil` (
   `organization_id` int(11) DEFAULT NULL,
   `price` double DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=78 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=71 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+/*Data for the table `oil` */
+
+insert  into `oil`(`id`,`code`,`name`,`vendor_id`,`group_id`,`weight_unit_id`,`weight`,`base_unit_id`,`sale_unit_id`,`employee_commission_id`,`status`,`organization_id`,`price`) values (1,'NW01','NIWA  AUTO 15W-40 4L SJ/CH4',20,1,5,4,4,6,2,1,1,325000),(2,'NW02','NIWA  AUTO 20W-50 4L SJ/CH4',20,1,5,4,4,6,2,1,1,330000),(3,'NW14','NIWA AUTO TURBO DIESEL 20W-50 CF4/SJ - 18L',20,2,5,18,12,12,2,1,1,1430000),(4,'MK LITEL3','LITEL3',26,1,9,1,13,13,2,1,1,43400),(5,'MK VG68','Mê Kông otto VG68',26,1,5,200,14,14,1,1,1,4550000),(6,'NW49','NIWA VG68 - 209L',20,3,5,209,14,14,1,1,1,11690000),(7,'NASCA','Mỡ bò Nasca',27,1,9,1,13,13,2,1,1,0),(8,'NW03','NIWA  OIL 10W-40 4L SL/CI4',20,1,5,4,4,6,2,1,1,350000),(9,'NW04','NIWA  OIL 20W-50 4L SL/CI4',20,1,5,4,4,6,2,1,1,365000),(10,'NW05','NIWA TURBO 10W-40 4L SM/CJ4',20,1,5,4,4,6,2,1,1,385000),(11,'NW06','NIWA TURBO 20W-50 4L SM/CJ4',20,1,5,4,4,6,2,1,1,400000),(12,'NW07','NIWA  AUTO 10W-40 5L SJ/CH4',20,1,5,5,4,6,2,1,1,396000),(13,'NW08','NIWA  AUTO 20W-50 5L SJ/CH4',20,1,5,5,4,6,2,1,1,406000),(14,'NW09','NIWA  OIL 10W-40 5L SL/CI4',20,2,5,5,4,6,2,1,1,427000),(15,'NW10','NIWA  OIL 20W-50 5L SL/CI4',20,1,5,5,4,6,2,1,1,438000),(16,'NW11','NIWA TURBO 10W-40 5L SM/CJ4',20,1,5,5,4,6,2,1,1,469000),(17,'NW12','NIWA TURBO 20W-50 5L SM/CJ4',20,1,5,5,4,6,2,1,1,480000),(18,'NW13','NIWA AUTO TURBO DIESEL 15W-40 - 18L CF4/SJ',20,2,5,18,12,12,2,1,1,1410000),(19,'NW15','NIWA AUTO TURBO DIESEL 15W-40 - 25L CF4/SJ',20,2,5,25,15,15,2,1,1,1936000),(20,'NW16','NIWA AUTO TURBO DIESEL 20W-50 - 25L CF4/SJ',20,2,5,25,15,15,2,1,1,1965000),(21,'NW17','NIWA AUTO TURBO DIESEL 15W-40 - 209L CF4/SJ',20,2,5,209,14,14,1,1,1,14890000),(22,'NW18','NIWA AUTO TURBO DIESEL 20W-50 - 209L CF4/SJ',20,2,5,209,14,14,1,1,1,15100000),(23,'NW19','NIWA AUTO TURBO DIESEL 15W-40 - 18L CH4/SL',20,2,5,18,12,12,2,1,1,1450000),(24,'NW20','NIWA AUTO TURBO DIESEL 20W-50 - 18L CH4/SL',20,2,5,18,12,12,2,1,1,1470000),(25,'NW21','NIWA AUTO TURBO DIESEL 15W-40 - 25L CH4/SL',20,2,5,25,15,15,2,1,1,1990000),(26,'NW22','NIWA AUTO TURBO DIESEL 20W-50 - 25L CH4/SL',20,2,5,25,15,15,2,1,1,2015000),(27,'NW23','NIWA AUTO TURBO DIESEL 15W-40 - 209L CH4/SL',20,2,5,209,14,14,1,1,1,15320000),(28,'NW24','NIWA AUTO TURBO DIESEL 20W-50 - 209L CH4/SL',20,2,5,209,14,14,1,1,1,15550000),(29,'NW25','NIWA AUTO TURBO DIESEL 15W-40 - 18L CI4/SM',20,2,5,18,12,12,2,1,1,1565000),(30,'NW26','NIWA AUTO TURBO DIESEL 20W-50 - 18L CI4/SM',20,2,5,18,12,12,2,1,1,1585000),(31,'NW27','NIWA AUTO TURBO DIESEL 15W-40 - 25L CI4/SM',20,2,5,25,15,15,2,1,1,2145000),(32,'NW28','NIWA AUTO TURBO DIESEL 20W-50 - 25L CI4/SM',20,2,5,25,15,15,2,1,1,2175000),(33,'NW29','NIWA AUTO TURBO DIESEL 15W-40 - 209L CI4/SM',20,2,5,209,14,14,1,1,1,16600000),(34,'NW30','NIWA AUTO TURBO DIESEL 20W-50 - 209L CI4/SM',20,2,5,209,14,14,1,1,1,16810000),(35,'NW31','NIWA TURBO DIESEL 15W-40 - 18L CJ4/SN',20,2,5,18,12,12,2,1,1,1675000),(36,'NW32','NIWA TURBO DIESEL 20W-50 - 18L CJ4/SN',20,2,5,18,12,12,2,1,1,1697000),(37,'NW33','NIWA TURBO DIESEL 15W-40 - 25L CJ4/SN',20,2,5,25,15,15,2,1,1,2305000),(38,'NW34','NIWA TURBO DIESEL 20W-50 - 25L CJ4/SN',20,2,5,25,15,15,2,1,1,2330000),(39,'NW35','NIWA TURBO DIESEL 15W-40 - 209L CJ4/SN',20,2,5,209,14,14,1,1,1,17870000),(40,'NW36','NIWA TURBO DIESEL 20W-50 - 209L CJ4/SN',20,2,5,209,14,14,1,1,1,18070000),(41,'NW48','NIWA VG68 - 18L VG',20,3,5,18,12,12,2,1,1,1130000),(42,'NW54','NIWA AW68 - 18L AW',20,3,5,18,12,12,2,1,1,1360000),(43,'NW55','NIWA AW68 - 209L AW',20,3,5,209,14,14,1,1,1,14250000),(44,'NW59','NIWA GEAR 90 - 4L GL4',20,4,5,4,4,6,2,1,1,335000),(45,'NW60','NIWA GEAR 90 - 18L GL4',20,4,5,18,12,12,2,1,1,1360000),(46,'NW61','NIWA GEAR 90 - 209L GL4',20,4,5,209,14,14,1,1,1,14590000),(47,'NW71','NIWA GEAR 140 - 4L GL5',20,4,5,4,4,6,2,1,1,384000),(48,'NW72','NIWA GEAR 140 - 18L GL5',20,4,5,18,12,12,2,1,1,1580000),(49,'NW73','NIWA GEAR 140 - 209L GL5',20,4,5,209,14,14,1,1,1,17200000),(50,'NW56','NIWA GEAR 90 - 4L GL1',20,5,5,4,4,6,2,1,1,300000),(51,'NW65','NIWA GEAR 140 - 4L GL1',20,5,5,4,4,6,2,1,1,309000),(52,'NW66','NIWA GEAR 140 - 18L GL1',20,5,5,18,12,12,2,1,1,1243000),(53,'NW82','NIWA OIL DIESEL 15W-40 - 18L PT',20,6,5,18,12,12,2,1,1,1208000),(54,'NW83','NIWA OIL DIESEL 15W-40 - 200L PT',20,6,5,200,14,14,1,1,1,12320000),(55,'NW84','NIWA OIL DIESEL 20W-50 - 18L PT CF/SF',20,6,5,18,12,12,2,1,1,1246000),(56,'NW85','NIWA OIL DIESEL 20W-50 - 200L PT',20,6,5,200,14,14,1,1,1,12740000),(57,'NW90','NIWA HG68 - 18L PT HG',20,3,5,18,12,12,2,1,1,1020000),(58,'NW37','NIWA NANO  SJ 0,8L ',20,7,5,0.8,4,11,2,1,1,62000),(59,'NW38','NIWA NANO  SJ 1L ',20,7,5,1,4,11,2,1,1,75000),(60,'NW39','NIWA NANO SL 0,8L ',20,8,5,0.8,4,10,2,1,1,88000),(61,'NW40','NIWA NANO SL 1L ',20,8,5,1,4,10,2,1,1,98000),(62,'NW41','NIWA NANO scooter 0.8L ',20,8,5,0.8,4,10,2,1,1,90000),(63,'NW42','NIWA NANO scooter 1L ',20,8,5,1,4,10,2,1,1,99900),(64,'NWM05','NIWA NANO LIPEX 3 ',20,9,5,18,12,12,2,1,1,1815000),(65,'NWM11','NIWA NANO CALPEX (XĐ)',20,9,5,18,12,12,2,1,1,1494000),(66,'NWM17','NIWA NANO STAR ',20,9,5,18,12,12,2,1,1,1317000),(67,'NW57','NIWA GEAR 90GL1-18L',20,2,12,0,12,12,1,1,1,0),(68,'NW79','NIWA 20W-50 PT CC/SC - 18L',20,2,12,0,12,12,1,1,1,0),(69,'NW92','NIWA NANO Mỡ bôi trơn màu xanh bi trong X',20,2,12,0,12,12,1,1,1,0),(70,'MK CALTOIX','Mỡ bôi trơn MK',26,9,13,0,13,13,1,1,1,0);
 
 /*Table structure for table `oil_export` */
 
@@ -1410,7 +1674,11 @@ CREATE TABLE `oil_export` (
   `note` text COLLATE utf8_unicode_ci,
   `created_employee_id` int(11) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=49 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=19 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+/*Data for the table `oil_export` */
+
+insert  into `oil_export`(`id`,`created_date`,`code`,`oil_sale_id`,`customer_id`,`total`,`note`,`created_employee_id`) values (5,'2020-01-09','20200109-OE-0001',3,229,26471000,'',20),(6,'2020-01-17','20200117-OE-0001',4,286,23824000,'',20),(7,'2020-01-17','20200117-OE-0002',5,278,5111250,'',20),(8,'2020-01-17','20200117-OE-0003',6,271,23824000,'',20),(9,'2020-01-17','20200117-OE-0004',7,230,9352000,'',20),(10,'2020-01-18','20200118-OE-0001',8,230,4500000,'',17),(11,'2020-01-21','20200121-OE-0001',12,266,2856000,'',17),(12,'2020-01-21','20200121-OE-0002',13,237,1080000,'',17),(13,'2020-01-21','20200121-OE-0003',14,290,1080000,'',17),(14,'2020-02-05','20200205-OE-0001',15,278,10295000,'',17),(17,'2020-01-02','20200207-OE-0002',17,253,5566800,'',17),(18,'2020-01-01','20200207-OE-0003',16,233,0,'',17);
 
 /*Table structure for table `oil_export_detail` */
 
@@ -1423,7 +1691,11 @@ CREATE TABLE `oil_export_detail` (
   `oil_sale_detail_id` int(11) DEFAULT NULL,
   `quantity` int(3) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=74 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=29 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+/*Data for the table `oil_export_detail` */
+
+insert  into `oil_export_detail`(`id`,`oil_export_id`,`oil_id`,`oil_sale_detail_id`,`quantity`) values (5,5,5,7,1),(6,5,22,8,1),(7,5,6,9,1),(8,6,21,10,2),(9,7,18,11,5),(10,8,21,12,2),(11,9,6,13,1),(12,10,7,14,50),(13,11,59,18,32),(14,11,60,19,16),(15,12,62,20,16),(16,13,62,21,16),(17,14,18,22,5),(18,14,3,23,5),(24,17,58,25,32),(25,17,59,26,32),(26,17,62,27,16),(27,17,63,28,16),(28,18,16,24,1);
 
 /*Table structure for table `oil_group` */
 
@@ -1435,7 +1707,11 @@ CREATE TABLE `oil_group` (
   `note` text COLLATE utf8_unicode_ci,
   `status` int(1) DEFAULT '1' COMMENT '0: da bi khoa, 1: dang su dung',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=15 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=10 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+/*Data for the table `oil_group` */
+
+insert  into `oil_group`(`id`,`name`,`note`,`status`) values (1,'NIWA NANO ĐỘNG CƠ CAO CẤP','',1),(2,'AUTO TURBO CAO CẤP','',1),(3,'DẦU THỦY LỰC','',1),(4,'DẦU BÁNH RĂNG','',1),(5,'DẦU BÁNH RĂNG PT','',1),(6,'NIWA OIL','',1),(7,'XE MÁY CHAI NHỰA','',1),(8,'XE MÁY LON THIẾC','',1),(9,'MỠ BÔI TRƠN','',1);
 
 /*Table structure for table `oil_import` */
 
@@ -1457,7 +1733,11 @@ CREATE TABLE `oil_import` (
   `note` text COLLATE utf8_unicode_ci,
   `created_employee_id` int(11) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=14 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+/*Data for the table `oil_import` */
+
+insert  into `oil_import`(`id`,`code`,`created_date`,`vendor_id`,`store_id`,`commission`,`rate`,`total_before_commission`,`total`,`paid`,`debt`,`account_id`,`note`,`created_employee_id`) values (1,'20200115-OI-0001','2020-01-15',20,8,43,0,188020000,107171400,0,107171400,5,'',20),(2,'20200120-OI-0001','2020-01-20',20,8,43,0,2706000,1542420,0,1542420,5,'',17);
 
 /*Table structure for table `oil_import_detail` */
 
@@ -1474,7 +1754,11 @@ CREATE TABLE `oil_import_detail` (
   `amount` double DEFAULT NULL,
   `note` text COLLATE utf8_unicode_ci,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=34 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+/*Data for the table `oil_import_detail` */
+
+insert  into `oil_import_detail`(`id`,`oil_import_id`,`oil_id`,`unit_id`,`quantity`,`base_quantity`,`price`,`amount`,`note`) values (1,1,3,12,25,25,1430000,35750000,NULL),(2,1,21,14,5,5,14890000,74450000,NULL),(3,1,6,14,3,3,11690000,35070000,NULL),(4,1,43,14,3,3,14250000,42750000,NULL),(5,2,7,13,100,100,27060,2706000,NULL);
 
 /*Table structure for table `oil_in_stock` */
 
@@ -1488,7 +1772,11 @@ CREATE TABLE `oil_in_stock` (
   `store_id` int(11) DEFAULT NULL,
   `in_stock` int(11) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=901 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=631 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+/*Data for the table `oil_in_stock` */
+
+insert  into `oil_in_stock`(`id`,`day`,`oil_id`,`organization_id`,`store_id`,`in_stock`) values (1,'2020-01-06',4,1,9,0),(2,'2020-01-06',5,1,9,0),(3,'2020-01-06',7,1,9,0),(4,'2020-01-06',70,1,9,0),(5,'2020-01-06',1,1,9,0),(6,'2020-01-06',12,1,9,0),(7,'2020-01-06',2,1,9,0),(8,'2020-01-06',13,1,9,0),(9,'2020-01-06',8,1,9,0),(10,'2020-01-06',14,1,9,0),(11,'2020-01-06',9,1,9,0),(12,'2020-01-06',15,1,9,0),(13,'2020-01-06',68,1,9,0),(14,'2020-01-06',18,1,9,0),(15,'2020-01-06',23,1,9,0),(16,'2020-01-06',29,1,9,0),(17,'2020-01-06',21,1,9,0),(18,'2020-01-06',27,1,9,0),(19,'2020-01-06',33,1,9,0),(20,'2020-01-06',19,1,9,0),(21,'2020-01-06',25,1,9,0),(22,'2020-01-06',31,1,9,0),(23,'2020-01-06',24,1,9,0),(24,'2020-01-06',30,1,9,0),(25,'2020-01-06',22,1,9,0),(26,'2020-01-06',28,1,9,0),(27,'2020-01-06',34,1,9,0),(28,'2020-01-06',20,1,9,0),(29,'2020-01-06',26,1,9,0),(30,'2020-01-06',32,1,9,0),(31,'2020-01-06',3,1,9,0),(32,'2020-01-06',42,1,9,0),(33,'2020-01-06',43,1,9,0),(34,'2020-01-06',52,1,9,0),(35,'2020-01-06',48,1,9,0),(36,'2020-01-06',49,1,9,0),(37,'2020-01-06',51,1,9,0),(38,'2020-01-06',47,1,9,0),(39,'2020-01-06',45,1,9,0),(40,'2020-01-06',46,1,9,0),(41,'2020-01-06',50,1,9,0),(42,'2020-01-06',44,1,9,0),(43,'2020-01-06',67,1,9,0),(44,'2020-01-06',57,1,9,0),(45,'2020-01-06',58,1,9,0),(46,'2020-01-06',59,1,9,0),(47,'2020-01-06',65,1,9,0),(48,'2020-01-06',64,1,9,0),(49,'2020-01-06',69,1,9,0),(50,'2020-01-06',62,1,9,0),(51,'2020-01-06',63,1,9,0),(52,'2020-01-06',60,1,9,0),(53,'2020-01-06',61,1,9,0),(54,'2020-01-06',66,1,9,0),(55,'2020-01-06',53,1,9,0),(56,'2020-01-06',54,1,9,0),(57,'2020-01-06',55,1,9,0),(58,'2020-01-06',56,1,9,0),(59,'2020-01-06',10,1,9,0),(60,'2020-01-06',16,1,9,0),(61,'2020-01-06',11,1,9,0),(62,'2020-01-06',17,1,9,0),(63,'2020-01-06',35,1,9,0),(64,'2020-01-06',39,1,9,0),(65,'2020-01-06',37,1,9,0),(66,'2020-01-06',36,1,9,0),(67,'2020-01-06',40,1,9,0),(68,'2020-01-06',38,1,9,0),(69,'2020-01-06',41,1,9,0),(70,'2020-01-06',6,1,9,0),(71,'2020-01-06',4,1,8,0),(72,'2020-01-06',5,1,8,4),(73,'2020-01-06',7,1,8,0),(74,'2020-01-06',70,1,8,1),(75,'2020-01-06',1,1,8,97),(76,'2020-01-06',12,1,8,0),(77,'2020-01-06',2,1,8,44),(78,'2020-01-06',13,1,8,0),(79,'2020-01-06',8,1,8,93),(80,'2020-01-06',14,1,8,0),(81,'2020-01-06',9,1,8,72),(82,'2020-01-06',15,1,8,0),(83,'2020-01-06',68,1,8,30),(84,'2020-01-06',18,1,8,122),(85,'2020-01-06',23,1,8,0),(86,'2020-01-06',29,1,8,1),(87,'2020-01-06',21,1,8,1),(88,'2020-01-06',27,1,8,0),(89,'2020-01-06',33,1,8,0),(90,'2020-01-06',19,1,8,3),(91,'2020-01-06',25,1,8,0),(92,'2020-01-06',31,1,8,0),(93,'2020-01-06',24,1,8,0),(94,'2020-01-06',30,1,8,0),(95,'2020-01-06',22,1,8,1),(96,'2020-01-06',28,1,8,0),(97,'2020-01-06',34,1,8,0),(98,'2020-01-06',20,1,8,0),(99,'2020-01-06',26,1,8,0),(100,'2020-01-06',32,1,8,0),(101,'2020-01-06',3,1,8,148),(102,'2020-01-06',42,1,8,16),(103,'2020-01-06',43,1,8,3),(104,'2020-01-06',52,1,8,0),(105,'2020-01-06',48,1,8,5),(106,'2020-01-06',49,1,8,0),(107,'2020-01-06',51,1,8,2),(108,'2020-01-06',47,1,8,0),(109,'2020-01-06',45,1,8,7),(110,'2020-01-06',46,1,8,0),(111,'2020-01-06',50,1,8,24),(112,'2020-01-06',44,1,8,0),(113,'2020-01-06',67,1,8,13),(114,'2020-01-06',57,1,8,1),(115,'2020-01-06',58,1,8,247),(116,'2020-01-06',59,1,8,472),(117,'2020-01-06',65,1,8,11),(118,'2020-01-06',64,1,8,0),(119,'2020-01-06',69,1,8,0),(120,'2020-01-06',62,1,8,44),(121,'2020-01-06',63,1,8,139),(122,'2020-01-06',60,1,8,234),(123,'2020-01-06',61,1,8,118),(124,'2020-01-06',66,1,8,0),(125,'2020-01-06',53,1,8,60),(126,'2020-01-06',54,1,8,0),(127,'2020-01-06',55,1,8,86),(128,'2020-01-06',56,1,8,0),(129,'2020-01-06',10,1,8,53),(130,'2020-01-06',16,1,8,41),(131,'2020-01-06',11,1,8,71),(132,'2020-01-06',17,1,8,24),(133,'2020-01-06',35,1,8,0),(134,'2020-01-06',39,1,8,0),(135,'2020-01-06',37,1,8,0),(136,'2020-01-06',36,1,8,0),(137,'2020-01-06',40,1,8,0),(138,'2020-01-06',38,1,8,0),(139,'2020-01-06',41,1,8,24),(140,'2020-01-06',6,1,8,2),(141,'2020-01-06',4,1,10,0),(142,'2020-01-06',5,1,10,0),(143,'2020-01-06',7,1,10,0),(144,'2020-01-06',70,1,10,0),(145,'2020-01-06',1,1,10,2),(146,'2020-01-06',12,1,10,0),(147,'2020-01-06',2,1,10,20),(148,'2020-01-06',13,1,10,0),(149,'2020-01-06',8,1,10,0),(150,'2020-01-06',14,1,10,0),(151,'2020-01-06',9,1,10,0),(152,'2020-01-06',15,1,10,0),(153,'2020-01-06',68,1,10,0),(154,'2020-01-06',18,1,10,1),(155,'2020-01-06',23,1,10,0),(156,'2020-01-06',29,1,10,0),(157,'2020-01-06',21,1,10,0),(158,'2020-01-06',27,1,10,0),(159,'2020-01-06',33,1,10,0),(160,'2020-01-06',19,1,10,0),(161,'2020-01-06',25,1,10,0),(162,'2020-01-06',31,1,10,0),(163,'2020-01-06',24,1,10,0),(164,'2020-01-06',30,1,10,0),(165,'2020-01-06',22,1,10,0),(166,'2020-01-06',28,1,10,0),(167,'2020-01-06',34,1,10,0),(168,'2020-01-06',20,1,10,0),(169,'2020-01-06',26,1,10,0),(170,'2020-01-06',32,1,10,0),(171,'2020-01-06',3,1,10,1),(172,'2020-01-06',42,1,10,0),(173,'2020-01-06',43,1,10,0),(174,'2020-01-06',52,1,10,0),(175,'2020-01-06',48,1,10,0),(176,'2020-01-06',49,1,10,0),(177,'2020-01-06',51,1,10,10),(178,'2020-01-06',47,1,10,0),(179,'2020-01-06',45,1,10,0),(180,'2020-01-06',46,1,10,0),(181,'2020-01-06',50,1,10,3),(182,'2020-01-06',44,1,10,0),(183,'2020-01-06',67,1,10,0),(184,'2020-01-06',57,1,10,0),(185,'2020-01-06',58,1,10,0),(186,'2020-01-06',59,1,10,0),(187,'2020-01-06',65,1,10,0),(188,'2020-01-06',64,1,10,0),(189,'2020-01-06',69,1,10,1),(190,'2020-01-06',62,1,10,0),(191,'2020-01-06',63,1,10,0),(192,'2020-01-06',60,1,10,60),(193,'2020-01-06',61,1,10,10),(194,'2020-01-06',66,1,10,0),(195,'2020-01-06',53,1,10,0),(196,'2020-01-06',54,1,10,0),(197,'2020-01-06',55,1,10,1),(198,'2020-01-06',56,1,10,0),(199,'2020-01-06',10,1,10,0),(200,'2020-01-06',16,1,10,0),(201,'2020-01-06',11,1,10,0),(202,'2020-01-06',17,1,10,0),(203,'2020-01-06',35,1,10,0),(204,'2020-01-06',39,1,10,0),(205,'2020-01-06',37,1,10,0),(206,'2020-01-06',36,1,10,0),(207,'2020-01-06',40,1,10,0),(208,'2020-01-06',38,1,10,0),(209,'2020-01-06',41,1,10,0),(210,'2020-01-06',6,1,10,1),(211,'2020-02-01',4,1,9,0),(212,'2020-02-01',5,1,9,0),(213,'2020-02-01',7,1,9,0),(214,'2020-02-01',70,1,9,0),(215,'2020-02-01',12,1,9,0),(216,'2020-02-01',1,1,9,0),(217,'2020-02-01',2,1,9,0),(218,'2020-02-01',13,1,9,0),(219,'2020-02-01',8,1,9,0),(220,'2020-02-01',14,1,9,0),(221,'2020-02-01',9,1,9,0),(222,'2020-02-01',15,1,9,0),(223,'2020-02-01',68,1,9,0),(224,'2020-02-01',18,1,9,0),(225,'2020-02-01',23,1,9,0),(226,'2020-02-01',29,1,9,0),(227,'2020-02-01',21,1,9,0),(228,'2020-02-01',27,1,9,0),(229,'2020-02-01',33,1,9,0),(230,'2020-02-01',19,1,9,0),(231,'2020-02-01',25,1,9,0),(232,'2020-02-01',31,1,9,0),(233,'2020-02-01',24,1,9,0),(234,'2020-02-01',30,1,9,0),(235,'2020-02-01',22,1,9,0),(236,'2020-02-01',28,1,9,0),(237,'2020-02-01',34,1,9,0),(238,'2020-02-01',20,1,9,0),(239,'2020-02-01',26,1,9,0),(240,'2020-02-01',32,1,9,0),(241,'2020-02-01',3,1,9,0),(242,'2020-02-01',42,1,9,0),(243,'2020-02-01',43,1,9,0),(244,'2020-02-01',52,1,9,0),(245,'2020-02-01',48,1,9,0),(246,'2020-02-01',49,1,9,0),(247,'2020-02-01',51,1,9,0),(248,'2020-02-01',47,1,9,0),(249,'2020-02-01',45,1,9,0),(250,'2020-02-01',46,1,9,0),(251,'2020-02-01',50,1,9,0),(252,'2020-02-01',44,1,9,0),(253,'2020-02-01',67,1,9,0),(254,'2020-02-01',57,1,9,0),(255,'2020-02-01',58,1,9,0),(256,'2020-02-01',59,1,9,0),(257,'2020-02-01',65,1,9,0),(258,'2020-02-01',64,1,9,0),(259,'2020-02-01',69,1,9,0),(260,'2020-02-01',62,1,9,0),(261,'2020-02-01',63,1,9,0),(262,'2020-02-01',60,1,9,0),(263,'2020-02-01',61,1,9,0),(264,'2020-02-01',66,1,9,0),(265,'2020-02-01',53,1,9,0),(266,'2020-02-01',54,1,9,0),(267,'2020-02-01',55,1,9,0),(268,'2020-02-01',56,1,9,0),(269,'2020-02-01',10,1,9,0),(270,'2020-02-01',16,1,9,0),(271,'2020-02-01',11,1,9,0),(272,'2020-02-01',17,1,9,0),(273,'2020-02-01',35,1,9,0),(274,'2020-02-01',39,1,9,0),(275,'2020-02-01',37,1,9,0),(276,'2020-02-01',36,1,9,0),(277,'2020-02-01',40,1,9,0),(278,'2020-02-01',38,1,9,0),(279,'2020-02-01',41,1,9,0),(280,'2020-02-01',6,1,9,0),(281,'2020-02-01',4,1,8,0),(282,'2020-02-01',5,1,8,0),(283,'2020-02-01',7,1,8,0),(284,'2020-02-01',70,1,8,0),(285,'2020-02-01',12,1,8,0),(286,'2020-02-01',1,1,8,0),(287,'2020-02-01',2,1,8,0),(288,'2020-02-01',13,1,8,0),(289,'2020-02-01',8,1,8,0),(290,'2020-02-01',14,1,8,0),(291,'2020-02-01',9,1,8,0),(292,'2020-02-01',15,1,8,0),(293,'2020-02-01',68,1,8,0),(294,'2020-02-01',18,1,8,0),(295,'2020-02-01',23,1,8,0),(296,'2020-02-01',29,1,8,0),(297,'2020-02-01',21,1,8,0),(298,'2020-02-01',27,1,8,0),(299,'2020-02-01',33,1,8,0),(300,'2020-02-01',19,1,8,0),(301,'2020-02-01',25,1,8,0),(302,'2020-02-01',31,1,8,0),(303,'2020-02-01',24,1,8,0),(304,'2020-02-01',30,1,8,0),(305,'2020-02-01',22,1,8,0),(306,'2020-02-01',28,1,8,0),(307,'2020-02-01',34,1,8,0),(308,'2020-02-01',20,1,8,0),(309,'2020-02-01',26,1,8,0),(310,'2020-02-01',32,1,8,0),(311,'2020-02-01',3,1,8,0),(312,'2020-02-01',42,1,8,0),(313,'2020-02-01',43,1,8,0),(314,'2020-02-01',52,1,8,0),(315,'2020-02-01',48,1,8,0),(316,'2020-02-01',49,1,8,0),(317,'2020-02-01',51,1,8,0),(318,'2020-02-01',47,1,8,0),(319,'2020-02-01',45,1,8,0),(320,'2020-02-01',46,1,8,0),(321,'2020-02-01',50,1,8,0),(322,'2020-02-01',44,1,8,0),(323,'2020-02-01',67,1,8,0),(324,'2020-02-01',57,1,8,0),(325,'2020-02-01',58,1,8,0),(326,'2020-02-01',59,1,8,0),(327,'2020-02-01',65,1,8,0),(328,'2020-02-01',64,1,8,0),(329,'2020-02-01',69,1,8,0),(330,'2020-02-01',62,1,8,0),(331,'2020-02-01',63,1,8,0),(332,'2020-02-01',60,1,8,0),(333,'2020-02-01',61,1,8,0),(334,'2020-02-01',66,1,8,0),(335,'2020-02-01',53,1,8,0),(336,'2020-02-01',54,1,8,0),(337,'2020-02-01',55,1,8,0),(338,'2020-02-01',56,1,8,0),(339,'2020-02-01',10,1,8,0),(340,'2020-02-01',16,1,8,0),(341,'2020-02-01',11,1,8,0),(342,'2020-02-01',17,1,8,0),(343,'2020-02-01',35,1,8,0),(344,'2020-02-01',39,1,8,0),(345,'2020-02-01',37,1,8,0),(346,'2020-02-01',36,1,8,0),(347,'2020-02-01',40,1,8,0),(348,'2020-02-01',38,1,8,0),(349,'2020-02-01',41,1,8,0),(350,'2020-02-01',6,1,8,0),(351,'2020-02-01',4,1,10,0),(352,'2020-02-01',5,1,10,0),(353,'2020-02-01',7,1,10,0),(354,'2020-02-01',70,1,10,0),(355,'2020-02-01',12,1,10,0),(356,'2020-02-01',1,1,10,0),(357,'2020-02-01',2,1,10,0),(358,'2020-02-01',13,1,10,0),(359,'2020-02-01',8,1,10,0),(360,'2020-02-01',14,1,10,0),(361,'2020-02-01',9,1,10,0),(362,'2020-02-01',15,1,10,0),(363,'2020-02-01',68,1,10,0),(364,'2020-02-01',18,1,10,0),(365,'2020-02-01',23,1,10,0),(366,'2020-02-01',29,1,10,0),(367,'2020-02-01',21,1,10,0),(368,'2020-02-01',27,1,10,0),(369,'2020-02-01',33,1,10,0),(370,'2020-02-01',19,1,10,0),(371,'2020-02-01',25,1,10,0),(372,'2020-02-01',31,1,10,0),(373,'2020-02-01',24,1,10,0),(374,'2020-02-01',30,1,10,0),(375,'2020-02-01',22,1,10,0),(376,'2020-02-01',28,1,10,0),(377,'2020-02-01',34,1,10,0),(378,'2020-02-01',20,1,10,0),(379,'2020-02-01',26,1,10,0),(380,'2020-02-01',32,1,10,0),(381,'2020-02-01',3,1,10,0),(382,'2020-02-01',42,1,10,0),(383,'2020-02-01',43,1,10,0),(384,'2020-02-01',52,1,10,0),(385,'2020-02-01',48,1,10,0),(386,'2020-02-01',49,1,10,0),(387,'2020-02-01',51,1,10,0),(388,'2020-02-01',47,1,10,0),(389,'2020-02-01',45,1,10,0),(390,'2020-02-01',46,1,10,0),(391,'2020-02-01',50,1,10,0),(392,'2020-02-01',44,1,10,0),(393,'2020-02-01',67,1,10,0),(394,'2020-02-01',57,1,10,0),(395,'2020-02-01',58,1,10,0),(396,'2020-02-01',59,1,10,0),(397,'2020-02-01',65,1,10,0),(398,'2020-02-01',64,1,10,0),(399,'2020-02-01',69,1,10,0),(400,'2020-02-01',62,1,10,0),(401,'2020-02-01',63,1,10,0),(402,'2020-02-01',60,1,10,0),(403,'2020-02-01',61,1,10,0),(404,'2020-02-01',66,1,10,0),(405,'2020-02-01',53,1,10,0),(406,'2020-02-01',54,1,10,0),(407,'2020-02-01',55,1,10,0),(408,'2020-02-01',56,1,10,0),(409,'2020-02-01',10,1,10,0),(410,'2020-02-01',16,1,10,0),(411,'2020-02-01',11,1,10,0),(412,'2020-02-01',17,1,10,0),(413,'2020-02-01',35,1,10,0),(414,'2020-02-01',39,1,10,0),(415,'2020-02-01',37,1,10,0),(416,'2020-02-01',36,1,10,0),(417,'2020-02-01',40,1,10,0),(418,'2020-02-01',38,1,10,0),(419,'2020-02-01',41,1,10,0),(420,'2020-02-01',6,1,10,0),(421,'2020-01-01',4,1,9,0),(422,'2020-01-01',5,1,9,0),(423,'2020-01-01',7,1,9,0),(424,'2020-01-01',70,1,9,0),(425,'2020-01-01',12,1,9,0),(426,'2020-01-01',1,1,9,0),(427,'2020-01-01',2,1,9,0),(428,'2020-01-01',13,1,9,0),(429,'2020-01-01',8,1,9,0),(430,'2020-01-01',14,1,9,0),(431,'2020-01-01',9,1,9,0),(432,'2020-01-01',15,1,9,0),(433,'2020-01-01',68,1,9,0),(434,'2020-01-01',18,1,9,0),(435,'2020-01-01',23,1,9,0),(436,'2020-01-01',29,1,9,0),(437,'2020-01-01',21,1,9,0),(438,'2020-01-01',27,1,9,0),(439,'2020-01-01',33,1,9,0),(440,'2020-01-01',19,1,9,0),(441,'2020-01-01',25,1,9,0),(442,'2020-01-01',31,1,9,0),(443,'2020-01-01',24,1,9,0),(444,'2020-01-01',30,1,9,0),(445,'2020-01-01',22,1,9,0),(446,'2020-01-01',28,1,9,0),(447,'2020-01-01',34,1,9,0),(448,'2020-01-01',20,1,9,0),(449,'2020-01-01',26,1,9,0),(450,'2020-01-01',32,1,9,0),(451,'2020-01-01',3,1,9,0),(452,'2020-01-01',42,1,9,0),(453,'2020-01-01',43,1,9,0),(454,'2020-01-01',52,1,9,0),(455,'2020-01-01',48,1,9,0),(456,'2020-01-01',49,1,9,0),(457,'2020-01-01',51,1,9,0),(458,'2020-01-01',47,1,9,0),(459,'2020-01-01',45,1,9,0),(460,'2020-01-01',46,1,9,0),(461,'2020-01-01',50,1,9,0),(462,'2020-01-01',44,1,9,0),(463,'2020-01-01',67,1,9,0),(464,'2020-01-01',57,1,9,0),(465,'2020-01-01',58,1,9,0),(466,'2020-01-01',59,1,9,0),(467,'2020-01-01',65,1,9,0),(468,'2020-01-01',64,1,9,0),(469,'2020-01-01',69,1,9,0),(470,'2020-01-01',62,1,9,0),(471,'2020-01-01',63,1,9,0),(472,'2020-01-01',60,1,9,0),(473,'2020-01-01',61,1,9,0),(474,'2020-01-01',66,1,9,0),(475,'2020-01-01',53,1,9,0),(476,'2020-01-01',54,1,9,0),(477,'2020-01-01',55,1,9,0),(478,'2020-01-01',56,1,9,0),(479,'2020-01-01',10,1,9,0),(480,'2020-01-01',16,1,9,0),(481,'2020-01-01',11,1,9,0),(482,'2020-01-01',17,1,9,0),(483,'2020-01-01',35,1,9,0),(484,'2020-01-01',39,1,9,0),(485,'2020-01-01',37,1,9,0),(486,'2020-01-01',36,1,9,0),(487,'2020-01-01',40,1,9,0),(488,'2020-01-01',38,1,9,0),(489,'2020-01-01',41,1,9,0),(490,'2020-01-01',6,1,9,0),(491,'2020-01-01',4,1,8,0),(492,'2020-01-01',5,1,8,4),(493,'2020-01-01',7,1,8,0),(494,'2020-01-01',70,1,8,1),(495,'2020-01-01',12,1,8,0),(496,'2020-01-01',1,1,8,97),(497,'2020-01-01',2,1,8,44),(498,'2020-01-01',13,1,8,0),(499,'2020-01-01',8,1,8,93),(500,'2020-01-01',14,1,8,0),(501,'2020-01-01',9,1,8,72),(502,'2020-01-01',15,1,8,0),(503,'2020-01-01',68,1,8,30),(504,'2020-01-01',18,1,8,122),(505,'2020-01-01',23,1,8,0),(506,'2020-01-01',29,1,8,1),(507,'2020-01-01',21,1,8,1),(508,'2020-01-01',27,1,8,0),(509,'2020-01-01',33,1,8,0),(510,'2020-01-01',19,1,8,3),(511,'2020-01-01',25,1,8,0),(512,'2020-01-01',31,1,8,0),(513,'2020-01-01',24,1,8,0),(514,'2020-01-01',30,1,8,0),(515,'2020-01-01',22,1,8,1),(516,'2020-01-01',28,1,8,0),(517,'2020-01-01',34,1,8,0),(518,'2020-01-01',20,1,8,0),(519,'2020-01-01',26,1,8,0),(520,'2020-01-01',32,1,8,0),(521,'2020-01-01',3,1,8,148),(522,'2020-01-01',42,1,8,16),(523,'2020-01-01',43,1,8,3),(524,'2020-01-01',52,1,8,0),(525,'2020-01-01',48,1,8,5),(526,'2020-01-01',49,1,8,0),(527,'2020-01-01',51,1,8,2),(528,'2020-01-01',47,1,8,0),(529,'2020-01-01',45,1,8,7),(530,'2020-01-01',46,1,8,0),(531,'2020-01-01',50,1,8,24),(532,'2020-01-01',44,1,8,0),(533,'2020-01-01',67,1,8,13),(534,'2020-01-01',57,1,8,1),(535,'2020-01-01',58,1,8,279),(536,'2020-01-01',59,1,8,504),(537,'2020-01-01',65,1,8,11),(538,'2020-01-01',64,1,8,0),(539,'2020-01-01',69,1,8,0),(540,'2020-01-01',62,1,8,60),(541,'2020-01-01',63,1,8,155),(542,'2020-01-01',60,1,8,234),(543,'2020-01-01',61,1,8,118),(544,'2020-01-01',66,1,8,0),(545,'2020-01-01',53,1,8,60),(546,'2020-01-01',54,1,8,0),(547,'2020-01-01',55,1,8,86),(548,'2020-01-01',56,1,8,0),(549,'2020-01-01',10,1,8,53),(550,'2020-01-01',16,1,8,42),(551,'2020-01-01',11,1,8,71),(552,'2020-01-01',17,1,8,24),(553,'2020-01-01',35,1,8,0),(554,'2020-01-01',39,1,8,0),(555,'2020-01-01',37,1,8,0),(556,'2020-01-01',36,1,8,0),(557,'2020-01-01',40,1,8,0),(558,'2020-01-01',38,1,8,0),(559,'2020-01-01',41,1,8,24),(560,'2020-01-01',6,1,8,2),(561,'2020-01-01',4,1,10,0),(562,'2020-01-01',5,1,10,0),(563,'2020-01-01',7,1,10,0),(564,'2020-01-01',70,1,10,0),(565,'2020-01-01',12,1,10,0),(566,'2020-01-01',1,1,10,0),(567,'2020-01-01',2,1,10,20),(568,'2020-01-01',13,1,10,0),(569,'2020-01-01',8,1,10,0),(570,'2020-01-01',14,1,10,0),(571,'2020-01-01',9,1,10,0),(572,'2020-01-01',15,1,10,0),(573,'2020-01-01',68,1,10,0),(574,'2020-01-01',18,1,10,0),(575,'2020-01-01',23,1,10,0),(576,'2020-01-01',29,1,10,0),(577,'2020-01-01',21,1,10,0),(578,'2020-01-01',27,1,10,0),(579,'2020-01-01',33,1,10,0),(580,'2020-01-01',19,1,10,0),(581,'2020-01-01',25,1,10,0),(582,'2020-01-01',31,1,10,0),(583,'2020-01-01',24,1,10,0),(584,'2020-01-01',30,1,10,0),(585,'2020-01-01',22,1,10,0),(586,'2020-01-01',28,1,10,0),(587,'2020-01-01',34,1,10,0),(588,'2020-01-01',20,1,10,0),(589,'2020-01-01',26,1,10,0),(590,'2020-01-01',32,1,10,0),(591,'2020-01-01',3,1,10,0),(592,'2020-01-01',42,1,10,0),(593,'2020-01-01',43,1,10,0),(594,'2020-01-01',52,1,10,0),(595,'2020-01-01',48,1,10,0),(596,'2020-01-01',49,1,10,0),(597,'2020-01-01',51,1,10,2),(598,'2020-01-01',47,1,10,0),(599,'2020-01-01',45,1,10,0),(600,'2020-01-01',46,1,10,0),(601,'2020-01-01',50,1,10,3),(602,'2020-01-01',44,1,10,0),(603,'2020-01-01',67,1,10,0),(604,'2020-01-01',57,1,10,0),(605,'2020-01-01',58,1,10,0),(606,'2020-01-01',59,1,10,0),(607,'2020-01-01',65,1,10,0),(608,'2020-01-01',64,1,10,0),(609,'2020-01-01',69,1,10,1),(610,'2020-01-01',62,1,10,0),(611,'2020-01-01',63,1,10,0),(612,'2020-01-01',60,1,10,60),(613,'2020-01-01',61,1,10,10),(614,'2020-01-01',66,1,10,0),(615,'2020-01-01',53,1,10,0),(616,'2020-01-01',54,1,10,0),(617,'2020-01-01',55,1,10,1),(618,'2020-01-01',56,1,10,0),(619,'2020-01-01',10,1,10,0),(620,'2020-01-01',16,1,10,0),(621,'2020-01-01',11,1,10,0),(622,'2020-01-01',17,1,10,0),(623,'2020-01-01',35,1,10,0),(624,'2020-01-01',39,1,10,0),(625,'2020-01-01',37,1,10,0),(626,'2020-01-01',36,1,10,0),(627,'2020-01-01',40,1,10,0),(628,'2020-01-01',38,1,10,0),(629,'2020-01-01',41,1,10,0),(630,'2020-01-01',6,1,10,1);
 
 /*Table structure for table `oil_return_store` */
 
@@ -1500,6 +1788,10 @@ CREATE TABLE `oil_return_store` (
   `store_id` int(11) DEFAULT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+/*Data for the table `oil_return_store` */
+
+insert  into `oil_return_store`(`id`,`organization_id`,`store_id`) values (1,1,10);
 
 /*Table structure for table `oil_sale` */
 
@@ -1526,7 +1818,11 @@ CREATE TABLE `oil_sale` (
   `created_employee_id` int(11) DEFAULT NULL,
   `is_calculate_agency_commission` int(1) DEFAULT '1' COMMENT '0:khong tinh, 1:tinh CK cho dai ly',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=38 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=18 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+/*Data for the table `oil_sale` */
+
+insert  into `oil_sale`(`id`,`code`,`created_date`,`customer_id`,`commission`,`commission_kind`,`commission_amount`,`gap_agency_amount`,`gap_customer_amount`,`total_before_commission`,`total`,`discount`,`total_pay`,`paid`,`debt`,`account_id`,`note`,`created_employee_id`,`is_calculate_agency_commission`) values (3,'20200109-SO-0002','2020-01-09',229,20,1,0,90000,0,0,26471000,0,26471000,0,26471000,5,'',20,0),(4,'20200117-SO-0001','2020-01-17',286,0,1,0,0,0,0,23824000,0,23824000,0,23824000,5,'',20,1),(5,'20200117-SO-0002','2020-01-17',278,0,1,0,0,0,0,5111250,0,5111250,0,5111250,5,'',20,1),(6,'20200117-SO-0003','2020-01-17',271,15,1,0,0,0,0,23824000,0,23824000,0,23824000,5,'',20,1),(7,'20200117-SO-0004','2020-01-17',230,20,1,0,876750,53000,0,9405000,0,9405000,0,9405000,5,'',20,0),(8,'20200117-SO-0005','2020-01-17',230,20,1,0,1100000,500000,0,4500000,0,4500000,0,4500000,5,'',20,0),(12,'20200121-SO-0001','2020-01-21',266,0,1,0,0,0,0,2856000,0,2856000,0,2856000,5,'',17,1),(13,'20200121-SO-0002','2020-01-21',237,0,1,0,0,0,0,1080000,0,1080000,0,1080000,5,'',17,1),(14,'20200121-SO-0003','2020-01-21',290,0,1,0,0,0,0,1080000,0,1080000,0,1080000,5,'',17,1),(15,'20200205-SO-0001','2020-02-05',278,0,1,0,0,0,0,10295000,0,10295000,0,10295000,5,'',17,1),(16,'20200207-SO-0001','2020-01-01',233,0,1,0,0,0,0,0,0,0,0,0,5,'',17,1),(17,'20200207-SO-0002','2020-01-02',253,10,1,0,0,0,0,5566800,0,5566800,0,5566800,5,'',17,1);
 
 /*Table structure for table `oil_sale_detail` */
 
@@ -1550,7 +1846,11 @@ CREATE TABLE `oil_sale_detail` (
   `amount` double DEFAULT '0',
   `vendor_id` int(11) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=54 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=29 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+/*Data for the table `oil_sale_detail` */
+
+insert  into `oil_sale_detail`(`id`,`oil_sale_id`,`oil_id`,`unit_id`,`store_id`,`quantity`,`base_quantity`,`price_before_commission`,`commission_price`,`price`,`first_amount`,`commission`,`gap_agency_amount`,`gap_customer_amount`,`amount`,`vendor_id`) values (7,3,5,14,8,1,1,5100000,0,5190000,5190000,0,90000,0,5190000,26),(8,3,22,14,8,1,1,15100000,21,11929000,11929000,0,0,0,11929000,20),(9,3,6,14,8,1,1,11690000,20,9352000,9352000,0,0,0,9352000,20),(10,4,21,14,8,2,2,14890000,20,11912000,23824000,0,0,0,23824000,20),(11,5,18,12,8,5,5,1410000,27.5,1022250,5111250,0,0,0,5111250,20),(12,6,21,14,8,2,2,14890000,20,11912000,23824000,0,0,0,23824000,20),(13,7,6,14,10,1,1,8475250,0,9405000,9405000,0,876750,53000,9405000,20),(14,8,7,13,8,50,50,58000,0,90000,4500000,0,22000,10000,4500000,27),(18,12,59,11,8,32,768,75000,25,56250,1800000,0,0,0,1800000,20),(19,12,60,10,8,16,192,88000,25,66000,1056000,0,0,0,1056000,20),(20,13,62,10,8,16,192,90000,25,67500,1080000,0,0,0,1080000,20),(21,14,62,10,8,16,192,90000,25,67500,1080000,0,0,0,1080000,20),(22,15,18,12,8,5,5,1410000,27.5,1022250,5111250,0,0,0,5111250,20),(23,15,3,12,8,5,5,1430000,27.5,1036750,5183750,0,0,0,5183750,20),(24,16,16,6,8,1,6,0,0,0,0,0,0,0,0,20),(25,17,58,11,8,32,768,62000,25,46500,1488000,0,0,0,1488000,20),(26,17,59,11,8,32,768,75000,25,56250,1800000,0,0,0,1800000,20),(27,17,62,10,8,16,192,90000,25,67500,1080000,0,0,0,1080000,20),(28,17,63,10,8,16,192,99900,25,74925,1198800,0,0,0,1198800,20);
 
 /*Table structure for table `oil_sale_promotion` */
 
@@ -1566,6 +1866,8 @@ CREATE TABLE `oil_sale_promotion` (
   `base_quantity` int(3) DEFAULT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+/*Data for the table `oil_sale_promotion` */
 
 /*Table structure for table `oil_sale_return` */
 
@@ -1593,6 +1895,8 @@ CREATE TABLE `oil_sale_return` (
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
+/*Data for the table `oil_sale_return` */
+
 /*Table structure for table `oil_sale_return_detail` */
 
 DROP TABLE IF EXISTS `oil_sale_return_detail`;
@@ -1617,6 +1921,8 @@ CREATE TABLE `oil_sale_return_detail` (
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
+/*Data for the table `oil_sale_return_detail` */
+
 /*Table structure for table `old_shell` */
 
 DROP TABLE IF EXISTS `old_shell`;
@@ -1631,6 +1937,10 @@ CREATE TABLE `old_shell` (
   `created_employee_id` int(11) DEFAULT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=MyISAM AUTO_INCREMENT=4 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+/*Data for the table `old_shell` */
+
+insert  into `old_shell`(`id`,`code`,`created_date`,`shell_id`,`quantity`,`note`,`created_employee_id`) values (1,'20200206-OS-0001','2020-01-05',2,80,'điều chỉnh tăng giảm vỏ 45 xưởng và trạm',35),(2,'20200206-OS-0002','2020-01-05',47,-80,'điều chỉnh tăng giảm vỏ 45 xưởng và trạm',35),(3,'20200206-OS-0003','2020-01-05',28,11,'',35);
 
 /*Table structure for table `organization` */
 
@@ -1651,6 +1961,10 @@ CREATE TABLE `organization` (
   PRIMARY KEY (`id`)
 ) ENGINE=MyISAM AUTO_INCREMENT=15 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
+/*Data for the table `organization` */
+
+insert  into `organization`(`id`,`code`,`name`,`address`,`status`,`phone`,`fax`,`bank_account`,`tax`,`presenter`,`presenter_position`) values (1,'QT','Công ty TNHH Quang Trung','21 Bình Giã, khu phố Phước Lộc, thị trấn Phước Bửu, huyện Xuyên Mộc, tỉnh Bà Rịa Vũng Tàu',1,'0254.3771972','0254.3877075','050014822604, tại ngân hàng Sacombank - PGD Xuyên Mộc, huyện Xuyên Mộc, tỉnh Bà Rịa Vũng Tàu','3501475916','Cao Huy Hoàng','Giám đốc'),(14,'HT','Công ty TNHH Khí Hóa Lỏng Hưng Thịnh','39/1, KP3, P. Tam Hiệp, TP. Biên Hòa, Đồng Nai',1,'(0251)3.818.111','(0251)3.855.550','050046951171 Ngân hàng TMCP Sài Gòn Thương Tín- Sacombank Chi nhánh Đ.Nai','3600874037','Trần Quang Ngọc','Giám đốc');
+
 /*Table structure for table `organization_shell` */
 
 DROP TABLE IF EXISTS `organization_shell`;
@@ -1661,6 +1975,10 @@ CREATE TABLE `organization_shell` (
   `shell_id` int(11) DEFAULT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=10 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+/*Data for the table `organization_shell` */
+
+insert  into `organization_shell`(`id`,`organization_id`,`shell_id`) values (4,14,1),(5,14,2),(6,1,9),(7,1,10),(8,1,2),(9,1,1);
 
 /*Table structure for table `other_bonus` */
 
@@ -1674,6 +1992,8 @@ CREATE TABLE `other_bonus` (
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
+/*Data for the table `other_bonus` */
+
 /*Table structure for table `panelty` */
 
 DROP TABLE IF EXISTS `panelty`;
@@ -1685,6 +2005,10 @@ CREATE TABLE `panelty` (
   `note` text COLLATE utf8_unicode_ci,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+/*Data for the table `panelty` */
+
+insert  into `panelty`(`id`,`name`,`organization_id`,`note`) values (4,'Điện thoại',1,' '),(5,'Phạt',1,'');
 
 /*Table structure for table `parameter` */
 
@@ -1700,6 +2024,10 @@ CREATE TABLE `parameter` (
   PRIMARY KEY (`id`)
 ) ENGINE=MyISAM AUTO_INCREMENT=11 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
+/*Data for the table `parameter` */
+
+insert  into `parameter`(`id`,`code`,`name`,`value`,`note`,`is_show`) values (3,'startdate','Ngày bắt đầu sử dụng','01/01/2018',NULL,0),(2,'mailbeforeday','Số ngày nhắc mail trước sinh nhật','3',NULL,1),(4,'insurancepersonal','Bảo hiểm xã hội - Nhân viên đóng (%)','8',NULL,1),(5,'insurancecompany','Bảo hiểm xã hội - Công ty đóng (%)','17',NULL,1),(6,'seniallowday','Số ngày nhắc mail trước khi thay đổi thâm niên','2',NULL,1),(7,'lovo','Lò vỏ','220000',NULL,1),(8,'100km','Số lít dầu cho 100 km','28',NULL,1),(9,'1000kggas','Số lít dầu cho 1000 kg gas','1',NULL,1),(10,'dayoffperyear','Số ngày nghỉ phép trong năm','12',NULL,1);
+
 /*Table structure for table `permission` */
 
 DROP TABLE IF EXISTS `permission`;
@@ -1713,6 +2041,10 @@ CREATE TABLE `permission` (
   PRIMARY KEY (`id`)
 ) ENGINE=MyISAM AUTO_INCREMENT=13 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
+/*Data for the table `permission` */
+
+insert  into `permission`(`id`,`name`,`note`,`users`,`organizations`) values (8,'admin','Quyền quản trị hệ thống','1','1,14'),(12,'Admin Hưng Thịnh','','15','14'),(11,'Admin Quang Trung','','11,13,14','1');
+
 /*Table structure for table `permission_detail` */
 
 DROP TABLE IF EXISTS `permission_detail`;
@@ -1724,6 +2056,10 @@ CREATE TABLE `permission_detail` (
   `function` text COLLATE utf8_unicode_ci,
   PRIMARY KEY (`id`)
 ) ENGINE=MyISAM AUTO_INCREMENT=43 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+/*Data for the table `permission_detail` */
+
+insert  into `permission_detail`(`id`,`permission_id`,`operation`,`function`) values (17,8,2,'1,5,8,6,7,3,4,9,10,11,12,13,14,53,54,15,16,17,18,19,20,22,23,51,52,21,24,25,26,27,28,29,30,31,32,33,34,35,36,37,55,38,39,40,41,42,43,44,45,56,46,47,48,49,50'),(16,8,1,'1,5,8,6,7,3,4,9,10,11,12,13,14,53,54,15,16,17,18,19,20,22,23,51,52,21,24,25,26,27,28,29,30,31,32,33,34,35,36,37,55,38,39,40,41,42,43,44,45,56,46,47,48,49,50'),(18,8,3,'1,5,8,4,13,14,53,54,15,20,22,23,51,52,25,26,27,28,29,30,31,32,33,34,35,36,37,55,38,39,40,41,42,43,44,45,56,46,47,48,49,50'),(19,8,4,'1,5,8,6,7,3,4,9,10,11,12,13,14,53,54,15,16,17,18,19,20,22,23,51,52,21,24,25,26,27,28,29,30,31,32,33,34,35,36,37,55,38,39,40,41,42,43,44,45,56,46,47,48,49,50'),(20,8,6,'56'),(40,12,4,'1,5,8,6,7,3,4,9,10,11,12,13,14,53,54,15,16,17,18,19,58,70,20,22,23,51,52,21,24,75,25,26,27,59,28,29,30,31,32,33,37,76,77,34,36,55,38,39,40,42,82,43,44,45,90,56,46,48,49,50,60,61'),(37,12,1,'1,5,83,8,6,7,3,4,9,10,11,12,13,14,53,54,15,16,17,18,19,58,70,20,22,23,51,52,21,24,75,25,26,27,59,28,29,30,31,32,33,37,76,77,34,36,55,38,39,40,42,82,43,44,45,90,56,46,48,49,50,60,61'),(35,11,8,'20,109,52,101,102,26,27,59,28,30,31,32,33,37,117,128,118,126,76,77,34,36,95,38,39,40,42,43,44,45,46,48,49,50,60,61,93'),(36,11,6,'56,130,57,89,81,62,63,69,64,65,88,86,94,92,66,67,68,79,80,97,71,72,73,74,78,84,85,87,91,103,104,105,107,119,120,121,122,123,124,131,125,129,132'),(38,12,2,'1,5,8,6,7,3,4,9,10,11,12,13,14,53,54,15,16,17,18,19,58,70,20,22,23,51,52,21,24,75,25,26,27,59,28,29,30,31,32,33,37,76,77,34,36,55,38,39,40,42,82,43,44,45,90,56,46,48,49,50,60,61'),(39,12,3,'1,5,8,4,13,14,53,54,15,58,70,20,22,23,51,52,25,26,27,59,28,29,30,31,32,33,37,76,77,34,36,55,38,39,40,42,82,43,44,45,90,56,46,48,49,50,60,61'),(34,11,4,'1,5,8,6,7,3,4,9,10,11,12,13,98,99,100,14,53,54,15,16,17,18,19,58,70,20,109,22,23,51,52,101,102,21,24,75,110,111,112,116,113,25,108,106,26,27,59,28,29,30,31,32,33,37,117,128,118,126,127,76,77,34,96,36,55,95,38,39,40,42,82,43,44,45,90,56,130,46,48,49,50,60,61,93'),(33,11,3,'1,5,8,4,13,98,99,100,14,53,54,15,58,70,20,109,22,23,51,52,101,102,110,116,25,108,106,26,27,59,28,29,30,31,32,33,37,117,128,118,126,76,77,34,36,55,95,38,39,40,42,82,43,44,45,90,56,130,46,48,49,50,60,61,93'),(32,11,2,'1,5,8,6,7,3,4,9,10,11,12,13,98,99,100,14,53,54,15,16,17,18,19,58,70,20,109,22,23,51,52,101,102,21,24,75,110,111,112,116,113,25,108,106,26,27,59,28,29,30,31,32,33,37,117,128,118,126,127,76,77,34,96,36,55,95,38,39,40,42,82,43,44,45,90,56,130,46,48,49,50,60,61,93'),(31,11,1,'1,5,83,8,6,7,3,4,9,10,11,12,13,98,99,100,14,53,54,15,16,17,18,19,58,70,20,109,22,23,51,52,101,102,21,24,75,110,111,112,116,113,25,108,106,26,27,59,28,29,30,31,32,33,37,117,128,118,126,76,77,34,96,36,55,95,38,39,40,42,82,43,44,45,90,56,130,46,48,49,50,60,61,93'),(41,12,8,'20,52,26,27,59,28,30,31,32,33,37,76,77,34,36,38,39,40,42,43,44,45,46,48,49,50,60,61'),(42,12,6,'56,57,89,81,62,63,69,64,65,88,92,66,67,68,79,80,71,72,73,74,78,84,85,87,91');
 
 /*Table structure for table `petro` */
 
@@ -1739,6 +2075,10 @@ CREATE TABLE `petro` (
   `status` int(1) DEFAULT '1' COMMENT '0:bi khoa,1:dang hoat dong',
   PRIMARY KEY (`id`)
 ) ENGINE=MyISAM AUTO_INCREMENT=12 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+/*Data for the table `petro` */
+
+insert  into `petro`(`id`,`code`,`name`,`price`,`unit_id`,`organization_id`,`status`) values (6,'DO','DẦU DO 0,05S',20000,5,1,1),(5,'A92-E5','XĂNG A92-E5',300000,5,1,2),(4,'A95','XĂNG A95',100000,5,1,0),(7,'HD40(T18)','HD40(T18)',0,5,1,0),(8,'HD40(4L)','NHỚT HD 40 (can 4 L)',0,5,1,0),(9,'SHELL(T18)','NHỚT SHELL (thùng 18 L)',0,5,1,0),(10,'N68 (T18)','NHỚT THỦY LỰC 68 (thùng 18 L)',0,5,1,0),(11,'N140 (L)','NHỚT ĐẶC 140',0,5,1,0);
 
 /*Table structure for table `petro_import` */
 
@@ -1760,6 +2100,8 @@ CREATE TABLE `petro_import` (
   PRIMARY KEY (`id`)
 ) ENGINE=MyISAM AUTO_INCREMENT=4 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
+/*Data for the table `petro_import` */
+
 /*Table structure for table `petro_import_detail` */
 
 DROP TABLE IF EXISTS `petro_import_detail`;
@@ -1775,6 +2117,8 @@ CREATE TABLE `petro_import_detail` (
   PRIMARY KEY (`id`)
 ) ENGINE=MyISAM AUTO_INCREMENT=5 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
+/*Data for the table `petro_import_detail` */
+
 /*Table structure for table `petro_in_stock` */
 
 DROP TABLE IF EXISTS `petro_in_stock`;
@@ -1788,6 +2132,8 @@ CREATE TABLE `petro_in_stock` (
   `in_stock` int(11) DEFAULT '0',
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+/*Data for the table `petro_in_stock` */
 
 /*Table structure for table `petro_sale` */
 
@@ -1810,6 +2156,8 @@ CREATE TABLE `petro_sale` (
   PRIMARY KEY (`id`)
 ) ENGINE=MyISAM AUTO_INCREMENT=6 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
+/*Data for the table `petro_sale` */
+
 /*Table structure for table `petro_sale_detail` */
 
 DROP TABLE IF EXISTS `petro_sale_detail`;
@@ -1824,6 +2172,8 @@ CREATE TABLE `petro_sale_detail` (
   PRIMARY KEY (`id`)
 ) ENGINE=MyISAM AUTO_INCREMENT=10 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
+/*Data for the table `petro_sale_detail` */
+
 /*Table structure for table `promotion_material` */
 
 DROP TABLE IF EXISTS `promotion_material`;
@@ -1835,6 +2185,10 @@ CREATE TABLE `promotion_material` (
   `status` int(1) DEFAULT '1' COMMENT '0:bi khoa,1:dang hoat dong',
   PRIMARY KEY (`id`)
 ) ENGINE=MyISAM AUTO_INCREMENT=5 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+/*Data for the table `promotion_material` */
+
+insert  into `promotion_material`(`id`,`name`,`unit_id`,`status`) values (3,'Đĩa thủy tinh+ly',8,1),(4,'Thố tráng men',8,1);
 
 /*Table structure for table `promotion_material_import` */
 
@@ -1854,6 +2208,8 @@ CREATE TABLE `promotion_material_import` (
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
+/*Data for the table `promotion_material_import` */
+
 /*Table structure for table `promotion_material_import_detail` */
 
 DROP TABLE IF EXISTS `promotion_material_import_detail`;
@@ -1868,6 +2224,8 @@ CREATE TABLE `promotion_material_import_detail` (
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
+/*Data for the table `promotion_material_import_detail` */
+
 /*Table structure for table `promotion_material_in_stock` */
 
 DROP TABLE IF EXISTS `promotion_material_in_stock`;
@@ -1880,6 +2238,8 @@ CREATE TABLE `promotion_material_in_stock` (
   `in_stock` int(11) DEFAULT '0',
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+/*Data for the table `promotion_material_in_stock` */
 
 /*Table structure for table `promotion_material_sale` */
 
@@ -1900,6 +2260,8 @@ CREATE TABLE `promotion_material_sale` (
   PRIMARY KEY (`id`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
+/*Data for the table `promotion_material_sale` */
+
 /*Table structure for table `promotion_material_sale_detail` */
 
 DROP TABLE IF EXISTS `promotion_material_sale_detail`;
@@ -1913,6 +2275,8 @@ CREATE TABLE `promotion_material_sale_detail` (
   `amount` double DEFAULT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+/*Data for the table `promotion_material_sale_detail` */
 
 /*Table structure for table `retail_debt` */
 
@@ -1930,6 +2294,8 @@ CREATE TABLE `retail_debt` (
   PRIMARY KEY (`id`)
 ) ENGINE=MyISAM AUTO_INCREMENT=2 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
+/*Data for the table `retail_debt` */
+
 /*Table structure for table `route` */
 
 DROP TABLE IF EXISTS `route`;
@@ -1942,6 +2308,10 @@ CREATE TABLE `route` (
   PRIMARY KEY (`id`)
 ) ENGINE=MyISAM AUTO_INCREMENT=21 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
+/*Data for the table `route` */
+
+insert  into `route`(`id`,`name`,`distance`,`note`) values (2,'Thị Vải - Supor',197,''),(3,'Gò dầu - Hưng Thịnh',110,''),(4,'Gò dầu - Quang Trung',140,''),(5,'Thị Vải - Quang Trung',125,''),(6,'Gò dầu - Nhóm 1 - Nhóm 2',110,'16'),(7,'Gò dầu - Nhóm 2 - Nhóm 3',132,'16'),(8,'Gò dầu - Nhóm 3 - Nhóm 3',143,'16'),(9,'Gò dầu - Nhóm 2 - Nhóm 2',118,'16'),(10,'Thị Vải - Nhóm 1 - Nhóm 2',125,'17'),(11,'Thị Vải - Nhóm 2 - Nhóm 3',147,'17'),(12,'Thị Vải - Nhóm 3 - Nhóm 3',158,'17'),(13,'Thị Vải - Nhóm 1 - Nhóm 3 (Thị Vải - Nhóm3)',136,'17'),(14,'Thị Vải - Nhóm 2 - Nhóm 2',133,'17'),(15,'Thị Vải - Hưng Thịnh',125,'14'),(16,'Thị Vải - Gốm Minh Tiến',112,''),(17,'Gò dầu - Gốm Minh Tiến',97,'13'),(18,'Gò dầu - Beta',88,'10'),(19,'Gò dầu - Trạm Gia Bảo',200,'12'),(20,'Gò dầu - Supor',182,'15');
+
 /*Table structure for table `salary_timesheet_field` */
 
 DROP TABLE IF EXISTS `salary_timesheet_field`;
@@ -1953,6 +2323,8 @@ CREATE TABLE `salary_timesheet_field` (
   `amount` double DEFAULT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+/*Data for the table `salary_timesheet_field` */
 
 /*Table structure for table `shell` */
 
@@ -1969,6 +2341,10 @@ CREATE TABLE `shell` (
   PRIMARY KEY (`id`)
 ) ENGINE=MyISAM AUTO_INCREMENT=48 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
+/*Data for the table `shell` */
+
+insert  into `shell`(`id`,`kind_id`,`code`,`name`,`price`,`unit_id`,`status`) values (1,38,'ST12X','Star Gas 12kg sơn xám',0,4,1),(2,39,'ST45X','Start Gas 45kg sơn xám',200000,4,1),(3,38,'Pet','Petimex',150000,4,1),(8,38,'MAIKHE','MAI KHÊ GAS',0,4,1),(9,38,'ST12H','Star Gas 12kg sơn hồng',0,4,1),(10,39,'ST45H','Star Gas 45kg sơn hồng',0,4,1),(11,38,'AGAS','AGAS',0,4,1),(12,38,'NVP, VL','NVP; Vạn Lộc',0,4,1),(13,38,'VANLOC','VẠN LỘC GAS',0,4,2),(14,38,'GIADINH','GIA ĐÌNH GAS',0,4,1),(15,38,'HGAS','H GAS',0,4,1),(16,38,'HOANGAN','HOÀNG ÂN GAS',0,4,1),(17,38,'MT','MT GAS',0,4,1),(18,38,'ORIGIN','ORIGIN GAS',0,4,1),(19,38,'ONIC','ONIC GAS',0,4,1),(20,38,'PACIFIC','PACIFIC GAS',0,4,1),(21,38,'PETIMEX','PETIMEX GAS',0,4,2),(22,38,'PETROLIMEX','PETROLIMEX GAS',0,4,1),(23,38,'PETROVIETNAM','PETROVIETNAM GAS',0,4,2),(24,38,'SAIGONPETRO','SAIGON PETRO GAS',0,4,1),(25,38,'SAIGONGAS','SAIGON GAS',0,4,1),(26,38,'SHELLGAS','SHELL GAS',0,4,1),(27,38,'SOPET','SOPET GAS',0,4,1),(28,38,'THAILAN','THAILAN GAS',0,4,1),(29,38,'TOTAL','TOTAL GAS',0,4,2),(30,38,'VINA','VINA GAS',0,4,2),(31,38,'ELF;TT;VN','TOTAL,VINA, ELF',0,4,1),(32,38,'HIEPHUONG','HIỆP HƯƠNG GAS',0,4,1),(33,38,'THUDUC','THỦ ĐỨC GAS',0,4,1),(34,38,'UNIQUE','UNIQUE GAS',0,4,1),(35,38,'VGAS','V GAS',0,4,2),(36,38,'PM, VG','PM, V Gas',0,4,1),(37,38,'VIMEXCO','VIMEXCO GAS',0,4,1),(38,38,'VINASHIN','VINASHIN GAS',0,4,1),(39,38,'VT','VT GAS',0,4,1),(40,38,'VOTAP','VỎ TẠP CÁC LOẠI',0,4,1),(41,38,'VOVECHAI','VỎ VE CHAI',0,4,1),(42,38,'PETROL VN','PETROL VN',0,4,1),(43,38,'SP','SÀI GÒN PETROL',0,4,2),(44,38,'TTA','THÀNH TÀI GAS',0,4,1),(45,38,'PTNAS','Petrol Nas',0,4,1),(46,38,'ST12 XƯỞNG','STAR 12 XÁM XƯỞNG',0,4,1),(47,39,'ST45 XUONG','sTAR 45 XƯỞNG',0,4,1);
+
 /*Table structure for table `shell_gas_in_stock` */
 
 DROP TABLE IF EXISTS `shell_gas_in_stock`;
@@ -1979,7 +2355,11 @@ CREATE TABLE `shell_gas_in_stock` (
   `shell_vendor_id` int(11) DEFAULT NULL,
   `in_stock` int(11) DEFAULT '0',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=9 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+/*Data for the table `shell_gas_in_stock` */
+
+insert  into `shell_gas_in_stock`(`id`,`day`,`shell_vendor_id`,`in_stock`) values (1,'2020-01-01',5,0),(2,'2020-01-01',1,634),(3,'2020-01-01',2,0),(4,'2020-01-01',4,1);
 
 /*Table structure for table `shell_import` */
 
@@ -2000,6 +2380,10 @@ CREATE TABLE `shell_import` (
   PRIMARY KEY (`id`)
 ) ENGINE=MyISAM AUTO_INCREMENT=11 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
+/*Data for the table `shell_import` */
+
+insert  into `shell_import`(`id`,`code`,`created_date`,`shell_id`,`quantity`,`price`,`amount`,`account_id`,`note`,`created_employee_id`,`vendor_id`) values (4,'20200206-SI-0001','2020-01-02',1,207,0,0,5,'',35,22),(5,'20200206-SI-0002','2020-01-07',1,423,0,0,5,'',35,22),(6,'20200206-SI-0003','2020-01-10',1,103,0,0,5,'',35,22),(7,'20200206-SI-0004','2020-01-14',1,244,0,0,5,'',35,22),(8,'20200206-SI-0005','2020-01-17',1,41,0,0,5,'',35,22),(9,'20200206-SI-0006','2020-01-20',1,5,0,0,5,'',35,22),(10,'20200206-SI-0007','2020-01-31',1,194,0,0,5,'',35,22);
+
 /*Table structure for table `shell_in_stock` */
 
 DROP TABLE IF EXISTS `shell_in_stock`;
@@ -2014,6 +2398,10 @@ CREATE TABLE `shell_in_stock` (
   KEY `shell_id` (`shell_id`)
 ) ENGINE=MyISAM AUTO_INCREMENT=39 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
+/*Data for the table `shell_in_stock` */
+
+insert  into `shell_in_stock`(`id`,`day`,`organization_id`,`shell_id`,`in_stock`) values (1,'2020-01-01',1,11,21),(2,'2020-01-01',1,14,2),(3,'2020-01-01',1,15,22),(4,'2020-01-01',1,32,0),(5,'2020-01-01',1,16,0),(6,'2020-01-01',1,8,0),(7,'2020-01-01',1,17,0),(8,'2020-01-01',1,12,69),(9,'2020-01-01',1,19,34),(10,'2020-01-01',1,18,29),(11,'2020-01-01',1,20,1),(12,'2020-01-01',1,3,1),(13,'2020-01-01',1,21,0),(14,'2020-01-01',1,45,9),(15,'2020-01-01',1,42,21),(16,'2020-01-01',1,22,0),(17,'2020-01-01',1,36,48),(18,'2020-01-01',1,43,0),(19,'2020-01-01',1,25,0),(20,'2020-01-01',1,24,31),(21,'2020-01-01',1,26,5),(22,'2020-01-01',1,27,0),(23,'2020-01-01',1,46,2011),(24,'2020-01-01',1,47,93),(25,'2020-01-01',1,9,0),(26,'2020-01-01',1,1,698),(27,'2020-01-01',1,10,0),(28,'2020-01-01',1,2,-12),(29,'2020-01-01',1,28,4),(30,'2020-01-01',1,44,0),(31,'2020-01-01',1,33,0),(32,'2020-01-01',1,31,59),(33,'2020-01-01',1,34,17),(34,'2020-01-01',1,37,20),(35,'2020-01-01',1,38,23),(36,'2020-01-01',1,40,6),(37,'2020-01-01',1,41,0),(38,'2020-01-01',1,39,54);
+
 /*Table structure for table `shell_kind` */
 
 DROP TABLE IF EXISTS `shell_kind`;
@@ -2027,6 +2415,10 @@ CREATE TABLE `shell_kind` (
   `status` int(1) DEFAULT '1' COMMENT '0:bi khoa, 1:dang su dung',
   PRIMARY KEY (`id`)
 ) ENGINE=MyISAM AUTO_INCREMENT=41 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+/*Data for the table `shell_kind` */
+
+insert  into `shell_kind`(`id`,`code`,`name`,`weight`,`commission`,`status`) values (38,'12KG','Bình 12KG',12,750,1),(39,'45KG','Bình 45KG',45,1500,1);
 
 /*Table structure for table `shell_return` */
 
@@ -2043,6 +2435,8 @@ CREATE TABLE `shell_return` (
   PRIMARY KEY (`id`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
+/*Data for the table `shell_return` */
+
 /*Table structure for table `shell_return_detail` */
 
 DROP TABLE IF EXISTS `shell_return_detail`;
@@ -2054,6 +2448,8 @@ CREATE TABLE `shell_return_detail` (
   `quantity` int(5) DEFAULT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+/*Data for the table `shell_return_detail` */
 
 /*Table structure for table `shell_return_supplier` */
 
@@ -2070,6 +2466,8 @@ CREATE TABLE `shell_return_supplier` (
   PRIMARY KEY (`id`)
 ) ENGINE=MyISAM AUTO_INCREMENT=4 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
+/*Data for the table `shell_return_supplier` */
+
 /*Table structure for table `shell_return_supplier_detail` */
 
 DROP TABLE IF EXISTS `shell_return_supplier_detail`;
@@ -2081,6 +2479,8 @@ CREATE TABLE `shell_return_supplier_detail` (
   `quantity` int(5) DEFAULT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+/*Data for the table `shell_return_supplier_detail` */
 
 /*Table structure for table `shell_sale` */
 
@@ -2102,6 +2502,10 @@ CREATE TABLE `shell_sale` (
   PRIMARY KEY (`id`)
 ) ENGINE=MyISAM AUTO_INCREMENT=18 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
+/*Data for the table `shell_sale` */
+
+insert  into `shell_sale`(`id`,`code`,`created_date`,`customer_id`,`total`,`discount`,`paid`,`debt`,`total_pay`,`account_id`,`note`,`created_employee_id`) values (16,'20200206-SS-0016','2020-01-03',0,0,0,0,0,0,5,'',35),(2,'20200206-SS-0002','2020-01-02',0,0,0,0,0,0,5,'',35),(3,'20200206-SS-0003','2020-01-07',0,0,0,0,0,0,5,'',35),(4,'20200206-SS-0004','2020-01-14',0,0,0,0,0,0,5,'',35),(5,'20200206-SS-0005','2020-01-17',0,0,0,0,0,0,5,'',35),(6,'20200206-SS-0006','2020-01-18',0,0,0,0,0,0,5,'',35),(7,'20200206-SS-0007','2020-01-15',0,0,0,0,0,0,5,'',35),(8,'20200206-SS-0008','2020-01-16',0,0,0,0,0,0,5,'',35),(9,'20200206-SS-0009','2020-01-20',0,0,0,0,0,0,5,'',35),(10,'20200206-SS-0010','2020-01-21',0,0,0,0,0,0,5,'',35),(11,'20200206-SS-0011','2020-01-22',0,0,0,0,0,0,5,'',35),(12,'20200206-SS-0012','2020-01-23',0,0,0,0,0,0,5,'',35),(13,'20200206-SS-0013','2020-01-24',0,0,0,0,0,0,5,'',35),(14,'20200206-SS-0014','2020-01-30',0,0,0,0,0,0,5,'',35),(15,'20200206-SS-0015','2020-01-31',0,0,0,0,0,0,5,'',35),(17,'20200206-SS-0017','2020-01-01',0,0,0,0,0,0,5,'',35);
+
 /*Table structure for table `shell_sale_detail` */
 
 DROP TABLE IF EXISTS `shell_sale_detail`;
@@ -2116,6 +2520,10 @@ CREATE TABLE `shell_sale_detail` (
   PRIMARY KEY (`id`)
 ) ENGINE=MyISAM AUTO_INCREMENT=90 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
+/*Data for the table `shell_sale_detail` */
+
+insert  into `shell_sale_detail`(`id`,`shell_sale_id`,`shell_id`,`quantity`,`price`,`amount`) values (88,16,1,5,0,0),(2,2,12,73,0,0),(3,2,14,2,0,0),(4,2,18,29,0,0),(5,2,20,2,0,0),(6,2,3,1,0,0),(7,2,26,5,0,0),(8,2,31,61,0,0),(9,2,19,35,0,0),(10,2,34,9,0,0),(11,3,11,27,0,0),(12,3,12,2,0,0),(13,3,14,3,0,0),(14,3,15,27,0,0),(15,3,18,4,0,0),(16,3,45,10,0,0),(17,3,42,25,0,0),(18,3,24,32,0,0),(19,3,28,8,0,0),(20,3,31,3,0,0),(21,3,19,5,0,0),(22,3,33,1,0,0),(23,3,34,17,0,0),(24,3,36,57,0,0),(25,3,37,22,0,0),(26,3,38,29,0,0),(27,3,39,57,0,0),(28,3,40,8,0,0),(29,4,12,19,0,0),(30,4,14,1,0,0),(31,4,15,8,0,0),(32,4,18,7,0,0),(33,4,20,1,0,0),(34,4,3,1,0,0),(35,4,22,1,0,0),(36,4,42,9,0,0),(37,4,24,5,0,0),(38,4,26,3,0,0),(39,4,27,3,0,0),(40,4,28,20,0,0),(41,4,31,12,0,0),(42,4,19,4,0,0),(43,4,34,5,0,0),(44,4,36,30,0,0),(45,4,37,9,0,0),(46,4,38,9,0,0),(47,4,39,34,0,0),(48,4,40,2,0,0),(49,5,11,1,0,0),(50,5,12,13,0,0),(51,5,14,1,0,0),(52,5,15,12,0,0),(53,5,18,8,0,0),(54,5,20,1,0,0),(55,5,22,3,0,0),(56,5,45,8,0,0),(57,5,42,11,0,0),(58,5,24,3,0,0),(59,5,28,17,0,0),(60,5,31,8,0,0),(61,5,19,4,0,0),(62,5,34,4,0,0),(63,5,36,14,0,0),(64,5,37,2,0,0),(65,5,39,4,0,0),(66,5,40,1,0,0),(67,6,1,5,0,0),(68,7,1,11,0,0),(69,8,1,3,0,0),(70,9,36,2,0,0),(71,9,38,43,0,0),(72,10,1,14,0,0),(73,11,1,40,0,0),(74,12,1,10,0,0),(75,13,1,5,0,0),(76,14,1,2,0,0),(77,12,2,1,0,0),(78,15,12,42,0,0),(79,15,14,7,0,0),(80,15,15,18,0,0),(81,15,18,16,0,0),(82,15,26,3,0,0),(83,15,27,3,0,0),(84,15,31,31,0,0),(85,15,19,23,0,0),(86,15,34,15,0,0),(87,15,36,36,0,0),(89,17,1,10,0,0);
+
 /*Table structure for table `shell_statistic` */
 
 DROP TABLE IF EXISTS `shell_statistic`;
@@ -2127,6 +2535,8 @@ CREATE TABLE `shell_statistic` (
   `quantity_full` int(10) DEFAULT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+/*Data for the table `shell_statistic` */
 
 /*Table structure for table `shell_vendor` */
 
@@ -2140,6 +2550,10 @@ CREATE TABLE `shell_vendor` (
   `quantity` int(11) DEFAULT '0',
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=44 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+/*Data for the table `shell_vendor` */
+
+insert  into `shell_vendor`(`id`,`organization_id`,`shell_id`,`vendor_id`,`quantity`) values (1,1,1,22,1218),(2,1,10,22,1),(3,1,11,22,0),(4,1,2,22,1),(5,1,9,22,1),(6,1,29,22,0),(7,1,3,22,0),(8,1,8,22,0),(9,1,12,22,0),(10,1,13,22,0),(11,1,14,22,0),(12,1,15,22,0),(13,1,16,22,0),(14,1,17,22,0),(15,1,18,22,0),(16,1,19,22,0),(17,1,20,22,0),(18,1,21,22,0),(19,1,22,22,0),(20,1,23,22,0),(21,1,24,22,0),(22,1,25,22,0),(23,1,26,22,0),(24,1,27,22,0),(25,1,28,22,0),(26,1,30,22,0),(27,1,31,22,0),(28,1,32,22,0),(29,1,33,22,0),(30,1,34,22,0),(31,1,35,22,0),(32,1,36,22,0),(33,1,37,22,0),(34,1,38,22,0),(35,1,39,22,0),(36,1,40,22,0),(37,1,41,22,0),(38,1,42,22,0),(39,1,43,22,0),(40,1,44,22,0),(41,1,46,22,0),(42,1,47,22,0),(43,1,45,22,0);
 
 /*Table structure for table `shield_decrease` */
 
@@ -2156,6 +2570,8 @@ CREATE TABLE `shield_decrease` (
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
+/*Data for the table `shield_decrease` */
+
 /*Table structure for table `shield_import` */
 
 DROP TABLE IF EXISTS `shield_import`;
@@ -2171,6 +2587,8 @@ CREATE TABLE `shield_import` (
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
+/*Data for the table `shield_import` */
+
 /*Table structure for table `shield_in_stock` */
 
 DROP TABLE IF EXISTS `shield_in_stock`;
@@ -2183,6 +2601,8 @@ CREATE TABLE `shield_in_stock` (
   `in_stock` int(11) DEFAULT '0',
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+/*Data for the table `shield_in_stock` */
 
 /*Table structure for table `store` */
 
@@ -2199,6 +2619,10 @@ CREATE TABLE `store` (
   `is_oil` int(1) DEFAULT '0',
   PRIMARY KEY (`id`)
 ) ENGINE=MyISAM AUTO_INCREMENT=11 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+/*Data for the table `store` */
+
+insert  into `store`(`id`,`code`,`name`,`organization_id`,`status`,`is_petro`,`is_good`,`is_oil`) values (6,'QTK2','Kho cửa hàng Thái Bảo',1,1,1,0,0),(4,'QTK1','Trạm chiết nạp khí hoá lỏng LPG Quang Trung',1,1,1,0,0),(7,'KTG','Kho trạm gas',1,1,0,1,0),(8,'KDQT','Kho dầu Quang Trung',1,1,0,0,1),(9,'KDHT','Kho dầu Hưng Thịnh',1,1,0,0,1),(10,'KDT','Kho dầu trả hàng',1,1,0,0,1);
 
 /*Table structure for table `temp_gas_commission` */
 
@@ -2223,6 +2647,8 @@ CREATE TABLE `temp_gas_commission` (
   `commission_employee_oil_commission` double DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
+/*Data for the table `temp_gas_commission` */
+
 /*Table structure for table `temp_oil_stock` */
 
 DROP TABLE IF EXISTS `temp_oil_stock`;
@@ -2236,6 +2662,8 @@ CREATE TABLE `temp_oil_stock` (
   `export_quantity` int(11) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
+/*Data for the table `temp_oil_stock` */
+
 /*Table structure for table `temp_petro_stock` */
 
 DROP TABLE IF EXISTS `temp_petro_stock`;
@@ -2248,6 +2676,8 @@ CREATE TABLE `temp_petro_stock` (
   `import_quantity` int(11) DEFAULT NULL,
   `export_quantity` int(11) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+/*Data for the table `temp_petro_stock` */
 
 /*Table structure for table `timesheet` */
 
@@ -2265,6 +2695,8 @@ CREATE TABLE `timesheet` (
   `created_employee_id` int(11) DEFAULT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=MyISAM AUTO_INCREMENT=7 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+/*Data for the table `timesheet` */
 
 /*Table structure for table `transport_service` */
 
@@ -2298,7 +2730,11 @@ CREATE TABLE `transport_service` (
   `customer_customer_id` int(11) DEFAULT NULL,
   `customer_amount` double DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=14 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=10 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+/*Data for the table `transport_service` */
+
+insert  into `transport_service`(`id`,`code`,`created_date`,`vendor_id`,`customer_id`,`transporter_id`,`charge_for_vendor`,`charge_for_customer`,`in_quantity`,`out_quantity`,`price`,`price_diff`,`rate`,`rate_diff`,`amount`,`paid`,`debt`,`account_id`,`note`,`created_employee_id`,`money_organization_id`,`money_amount`,`vendor_vendor_id`,`vendor_amount`,`customer_customer_id`,`customer_amount`) values (1,'20200110-TS-0001','2020-01-10',15,219,22,1,0,10100,10040,13,757.1025,23220,23220,1993991,0,1993991,5,'',35,1,0,15,1993991,0,0),(2,'20200113-TS-0001','2020-01-11',15,124,22,1,0,11520,11520,11,757.1025,23230,23230,2943706,0,2943706,5,'',35,1,0,15,2943706,0,0),(3,'20200115-TS-0001','2020-01-14',15,124,22,1,0,11440,11380,14,757.1025,23230,23230,2665267,0,2665267,5,'Hoàn Thành 2.920; HT 8.460',35,1,0,15,2665267,0,0),(4,'20200120-TS-0001','2020-01-19',15,324,22,1,0,11030,11130,11,757.1025,23245,23245,4580201,0,4580201,5,'',35,1,0,15,4580201,0,0),(5,'20200122-TS-0001','2020-01-20',15,325,22,1,0,11020,11090,15,757.1025,23245,23245,5074318,0,5074318,5,'',35,1,0,15,5074318,0,0),(6,'20200203-TS-0001','2020-01-31',15,326,22,1,0,11030,11100,15,757.1025,23270,23270,5083266,0,5083266,5,'',35,1,0,15,5083266,0,0),(7,'20200204-TS-0001','2020-02-01',15,124,22,1,0,11100,11090,14,710.325,23340,23340,3461246,0,3461246,5,'TH - Hưng Thịnh, Minh Tiến',35,1,0,15,3461246,0,0),(8,'20200208-TS-0001','2020-02-07',15,124,22,1,0,11120,11130,14,696.465,23310,23310,3791247,0,3791247,5,'',35,1,0,15,3791247,0,0),(9,'20200208-TS-0002','2020-02-07',15,219,22,1,0,10070,9990,13,696.465,23310,23310,1752744,0,1752744,5,'',35,1,0,15,1752744,0,0);
 
 /*Table structure for table `trip_fee` */
 
@@ -2319,6 +2755,8 @@ CREATE TABLE `trip_fee` (
   PRIMARY KEY (`id`)
 ) ENGINE=MyISAM AUTO_INCREMENT=2 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
+/*Data for the table `trip_fee` */
+
 /*Table structure for table `trip_oil` */
 
 DROP TABLE IF EXISTS `trip_oil`;
@@ -2337,6 +2775,8 @@ CREATE TABLE `trip_oil` (
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
+/*Data for the table `trip_oil` */
+
 /*Table structure for table `unit` */
 
 DROP TABLE IF EXISTS `unit`;
@@ -2348,6 +2788,10 @@ CREATE TABLE `unit` (
   PRIMARY KEY (`id`)
 ) ENGINE=MyISAM AUTO_INCREMENT=16 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
+/*Data for the table `unit` */
+
+insert  into `unit`(`id`,`name`,`status`) values (6,'Thùng 6',1),(5,'Lít',1),(4,'Bình',1),(7,'Cái',1),(8,'Bộ',1),(9,'Kg',1),(10,'Thùng 12',1),(11,'Thùng 24',1),(12,'Xô',1),(13,'Bịch',1),(14,'Phuy',1),(15,'Can',1);
+
 /*Table structure for table `unit_rate` */
 
 DROP TABLE IF EXISTS `unit_rate`;
@@ -2358,7 +2802,11 @@ CREATE TABLE `unit_rate` (
   `parent_unit_id` int(11) DEFAULT NULL,
   `rate` float DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+/*Data for the table `unit_rate` */
+
+insert  into `unit_rate`(`id`,`base_unit_id`,`parent_unit_id`,`rate`) values (1,4,6,6),(2,4,10,12),(3,4,11,24);
 
 /*Table structure for table `user` */
 
@@ -2374,6 +2822,10 @@ CREATE TABLE `user` (
   PRIMARY KEY (`id`)
 ) ENGINE=MyISAM AUTO_INCREMENT=16 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
+/*Data for the table `user` */
+
+insert  into `user`(`id`,`employee_id`,`username`,`password`,`menu`,`status`) values (1,1,'tu','gdyb21LQTcIANtvYMT7QVQ==','<?xml version=\"1.0\"?><menu><item id=\"list\" complex=\"true\" text=\"Khai báo danh mục\"><item id=\"system\" complex=\"true\" text=\"Hệ thống\"><item id=\"users\" complex=\"true\" text=\"Tài khoản hệ thống\"><item id=\"userlist\" text=\"Danh sách tài khoản hệ thống\"/><item id=\"useradd\" text=\"Thêm tài khoản hệ thống\"/></item><item id=\"parameter\" text=\"Thông số hệ thống\"/><item id=\"permissionlist\" text=\"Phân quyền\"/></item><item id=\"organization\" complex=\"true\" text=\"Đơn vị\"><item id=\"organizations\" complex=\"true\" text=\"Đơn vị\"><item id=\"organizationlist\" text=\"Danh sách đơn vị\"/><item id=\"organizationadd\" text=\"Thêm đơn vị\"/></item><item id=\"stores\" complex=\"true\" text=\"Kho\"><item id=\"storelist\" text=\"Danh sách kho\"/><item id=\"storeadd\" text=\"Thêm kho\"/></item><item id=\"employees\" complex=\"true\" text=\"Nhân viên\"><item id=\"employeelist\" text=\"Danh sách nhân viên\"/><item id=\"employeeadd\" text=\"Thêm nhân viên\"/><item id=\"employeefiellist\" text=\"Thông tin động - Nhân viên\"/></item><item id=\"accounts\" complex=\"true\" text=\"Tài khoản ngân hàng\"><item id=\"accountlist\" text=\"Danh sách tài khoản ngân hàng\"/><item id=\"accountadd\" text=\"Thêm tài khoản ngân hàng\"/></item></item><item id=\"good\" complex=\"true\" text=\"Hàng hóa\"><item id=\"units\" complex=\"true\" text=\"Đơn vị tính\"><item id=\"unitlist\" text=\"Danh sách đơn vị tính\"/><item id=\"unitadd\" text=\"Thêm đơn vị tính\"/></item><item id=\"shellkinds\" complex=\"true\" text=\"Loại vỏ bình\"><item id=\"shellkindlist\" text=\"Danh sách loại vỏ bình\"/><item id=\"shellkindadd\" text=\"Thêm loại vỏ bình\"/></item><item id=\"shells\" complex=\"true\" text=\"Vỏ bình\"><item id=\"shelllist\" text=\"Danh sách vỏ bình\"/><item id=\"shelladd\" text=\"Thêm vỏ bình\"/></item><item id=\"accessorykinds\" complex=\"true\" text=\"Loại phụ kiện\"><item id=\"accessorykindlist\" text=\"Danh sách loại phụ kiện\"/><item id=\"accessorykindadd\" text=\"Thêm loại phụ kiện\"/></item><item id=\"accessorys\" complex=\"true\" text=\"Phụ kiện\"><item id=\"accessorylist\" text=\"Danh sách phụ kiện\"/><item id=\"accessoryadd\" text=\"Thêm phụ kiện\"/></item><item id=\"promotionmaterials\" complex=\"true\" text=\"Hàng khuyến mãi\"><item id=\"promotionmateriallist\" text=\"Danh sách hàng khuyến mãi\"/><item id=\"promotionmaterialadd\" text=\"Thêm hàng khuyến mãi\"/></item><item id=\"petros\" complex=\"true\" text=\"Xăng dầu\"><item id=\"petrolist\" text=\"Danh sách hàng xăng dầu\"/><item id=\"petroadd\" text=\"Thêm hàng xăng dầu\"/></item></item><item id=\"vendor\" complex=\"true\" text=\"Nhà cung cấp\"><item id=\"vendors\" complex=\"true\" text=\"Nhà cung cấp\"><item id=\"vendorlist\" text=\"Danh sách nhà cung cấp\"/><item id=\"vendoradd\" text=\"Thêm nhà cung cấp\"/><item id=\"vendorfiellist\" text=\"Thông tin động - Nhà cung cấp\"/></item></item><item id=\"customer\" complex=\"true\" text=\"Khách hàng\"><item id=\"customers\" complex=\"true\" text=\"Khách hàng\"><item id=\"customerlist\" text=\"Danh sách khách hàng\"/><item id=\"customeradd\" text=\"Thêm khách hàng\"/><item id=\"customerfiellist\" text=\"Thông tin động - Khách hàng\"/></item></item><item id=\"vehicle\" complex=\"true\" text=\"Xe\"><item id=\"vehicles\" complex=\"true\" text=\"Xe\"><item id=\"vehiclelist\" text=\"Danh sách xe\"/><item id=\"vehicleadd\" text=\"Thêm xe\"/></item><item id=\"routes\" complex=\"true\" text=\"Tuyến đường\"><item id=\"routelist\" text=\"Danh sách tuyến đường\"/><item id=\"routeadd\" text=\"Thêm tuyến đường\"/></item></item><item id=\"fixedassetgroup\" complex=\"true\" text=\"Tài sản cố định\"><item id=\"fixedassetgroups\" complex=\"true\" text=\"Nhóm tài sản cố định\"><item id=\"fixedassetgrouplist\" text=\"Danh sách nhóm tài sản cố định\"/><item id=\"fixedassetgroupadd\" text=\"Thêm nhóm tài sản cố định\"/></item><item id=\"fixedassets\" complex=\"true\" text=\"Tài sản cố định\"><item id=\"fixedassetlist\" text=\"Danh sách tài sản cố định\"/><item id=\"fixedassetadd\" text=\"Thêm tài sản cố định\"/></item></item></item><item id=\"employeefunction\" complex=\"true\" text=\"Nghiệp vụ Nhân viên\"><item id=\"employeeadvances\" complex=\"true\" text=\"Nhân viên tạm ứng\"><item id=\"employeeadvancelist\" text=\"Danh sách tạm ứng\"/><item id=\"employeeadvanceadd\" text=\"Thêm tạm ứng\"/></item><item id=\"employeetimesheets\" complex=\"true\" text=\"Chấm công nhân viên\"><item id=\"employeetimesheetlist\" text=\"Danh sách chấm công\"/><item id=\"employeetimesheetadd\" text=\"Thêm chấm công\"/></item><item id=\"employeeoffs\" complex=\"true\" text=\"Nghỉ phép\"><item id=\"employeeofflist\" text=\"Danh sách nghỉ phép\"/><item id=\"employeeoffadd\" text=\"Thêm nghỉ phép\"/></item><item id=\"employeeoffincreases\" complex=\"true\" text=\"Bù nghỉ phép\"><item id=\"employeeoffincreaselist\" text=\"Danh sách bù nghỉ phép\"/><item id=\"employeeoffincreaseadd\" text=\"Thêm bù nghỉ phép\"/></item><item id=\"employeeoffmoneys\" complex=\"true\" text=\"Thanh toán ngày phép\"><item id=\"employeeoffmoneylist\" text=\"Danh sách thanh toán ngày phép\"/><item id=\"employeeoffmoneyadd\" text=\"Thêm thanh toán ngày phép\"/></item><item id=\"salarys\" complex=\"true\" text=\"Bảng lương\"><item id=\"salarylist\" text=\"Danh sách bảng lương\"/><item id=\"salarysalaryfiels\" complex=\"true\" text=\"Thông tin động\"><item id=\"salaryfiellist\" text=\"Phụ cấp\"/><item id=\"timesheetfiellist\" text=\"Chấm công\"/></item><item id=\"dynamicfielvalues\" complex=\"true\" text=\"Giá trị thông tin động\"><item id=\"employeesalarylist\" text=\"Danh sách phụ cấp\"/><item id=\"organizationtimesheetlist\" text=\"Danh sách chi phí chấm công\"/></item></item></item><item id=\"vehiclefunction\" complex=\"true\" text=\"Nghiệp vụ Xe\"><item id=\"tripfees\" complex=\"true\" text=\"Chi phí xe\"><item id=\"tripfeelist\" text=\"Danh sách chi phí xe\"/><item id=\"tripfeeadd\" text=\"Thêm chi phí xe\"/></item><item id=\"vehicleouts\" complex=\"true\" text=\"Xuất xe đi\"><item id=\"vehicleoutlist\" text=\"Danh sách xuất xe đi\"/><item id=\"vehicleoutadd\" text=\"Thêm xuất xe đi\"/></item><item id=\"vehicleins\" complex=\"true\" text=\"Xuất xe về\"><item id=\"vehicleinlist\" text=\"Danh sách xuất xe về\"/><item id=\"vehicleinadd\" text=\"Thêm xuất xe về\"/></item><item id=\"exportwholesales\" complex=\"true\" text=\"Xuất sỉ\"><item id=\"exportwholesalelist\" text=\"Danh sách xuất sỉ\"/><item id=\"exportwholesaleadd\" text=\"Thêm xuất sỉ\"/></item></item><item id=\"gasfunction\" complex=\"true\" text=\"Nghiệp vụ gas\"><item id=\"shellimports\" complex=\"true\" text=\"Nhập vỏ bình\"><item id=\"shellimportlist\" text=\"Danh sách nhập vỏ bình\"/><item id=\"shellimportadd\" text=\"Thêm nhập vỏ bình\"/></item><item id=\"lpgimports\" complex=\"true\" text=\"Nhập LPG\"><item id=\"lpgimportlist\" text=\"Danh sách nhập LPG\"/><item id=\"lpgimportadd\" text=\"Thêm nhập LPG\"/></item><item id=\"fractions\" complex=\"true\" text=\"Chiết gas\"><item id=\"fractionlist\" text=\"Danh sách chiết gas\"/><item id=\"fractionadd\" text=\"Thêm chiết gas\"/></item><item id=\"gasprices\" complex=\"true\" text=\"Giá bán gas\"><item id=\"gaspricelist\" text=\"Danh sách giá bán gas\"/><item id=\"gaspriceadd\" text=\"Thêm giá bán gas\"/></item><item id=\"gasimports\" complex=\"true\" text=\"Nhập gas\"><item id=\"gasimportlist\" text=\"Danh sách phiếu nhập gas\"/><item id=\"gasimportadd\" text=\"Thêm phiếu nhập gas\"/></item><item id=\"gaswholesales\" complex=\"true\" text=\"Bán sỉ gas\"><item id=\"gaswholesalelist\" text=\"Danh sách phiếu bán sỉ gas\"/><item id=\"gaswholesaleadd\" text=\"Thêm phiếu bán sỉ gas\"/></item><item id=\"gasretails\" complex=\"true\" text=\"Bán lẻ gas\"><item id=\"gasretaillist\" text=\"Danh sách phiếu bán lẻ gas\"/><item id=\"gasretailadd\" text=\"Thêm phiếu bán lẻ gas\"/></item><item id=\"saleshells\" complex=\"true\" text=\"Bán vỏ bình\"><item id=\"saleshelllist\" text=\"Danh sách phiếu bán vỏ bình\"/><item id=\"saleshelladd\" text=\"Thêm phiếu bán vỏ bình\"/></item><item id=\"oldshells\" complex=\"true\" text=\"Điều chỉnh số lượng vỏ bình\"><item id=\"oldshelllist\" text=\"Danh sách điều chỉnh số lượng vỏ bình\"/><item id=\"oldshelladd\" text=\"Thêm điều chỉnh số lượng vỏ bình\"/></item><item id=\"shellreturns\" complex=\"true\" text=\"Trả vỏ bình\"><item id=\"shellreturnlist\" text=\"Danh sách trả vỏ bình\"/><item id=\"shellreturnadd\" text=\"Thêm trả vỏ bình\"/></item><item id=\"shellreturnsuppliers\" complex=\"true\" text=\"Trả vỏ bình NCC\"><item id=\"shellreturnsupplierlist\" text=\"Danh sách trả vỏ bình NCC\"/><item id=\"shellreturnsupplieradd\" text=\"Thêm trả vỏ bình NCC\"/></item><item id=\"gasreturns\" complex=\"true\" text=\"Trả gas\"><item id=\"gasreturnlist\" text=\"Danh sách trả gas\"/><item id=\"gasreturnadd\" text=\"Thêm trả gas\"/></item></item><item id=\"goodfunction\" complex=\"true\" text=\"Nghiệp vụ hàng hóa\"><item id=\"accessoryimports\" complex=\"true\" text=\"Nhập phụ kiện\"><item id=\"accessoryimportlist\" text=\"Danh sách phiếu nhập phụ kiện\"/><item id=\"accessoryimportadd\" text=\"Thêm phiếu nhập phụ kiện\"/></item><item id=\"promotionmaterialimports\" complex=\"true\" text=\"Nhập hàng khuyến mãi\"><item id=\"promotionmaterialimportlist\" text=\"Danh sách phiếu nhập hàng khuyến mãi\"/><item id=\"promotionmaterialimportadd\" text=\"Thêm phiếu nhập hàng khuyến mãi\"/></item><item id=\"petroimports\" complex=\"true\" text=\"Nhập hàng hóa\"><item id=\"petroimportlist\" text=\"Danh sách phiếu nhập hàng hóa\"/><item id=\"petroimportadd\" text=\"Thêm phiếu nhập hàng hóa\"/></item><item id=\"saleaccessorys\" complex=\"true\" text=\"Bán phụ kiện\"><item id=\"saleaccessorylist\" text=\"Danh sách phiếu bán phụ kiện\"/><item id=\"saleaccessoryadd\" text=\"Thêm phiếu bán phụ kiện\"/></item><item id=\"salepetros\" complex=\"true\" text=\"Bán hàng hóa\"><item id=\"salepetrolist\" text=\"Danh sách phiếu bán hàng hóa\"/><item id=\"salepetroadd\" text=\"Thêm phiếu bán hàng hóa\"/></item><item id=\"fixedassetdepreciations\" complex=\"true\" text=\"Khấu hao\"><item id=\"fixedassetdepreciationlist\" text=\"Danh sách phiếu khấu hao\"/><item id=\"fixedassetdepreciationadd\" text=\"Thêm phiếu khấu hao\"/></item></item><item id=\"paymentfunction\" complex=\"true\" text=\"Nghiệp vụ thanh toán\"><item id=\"contracts\" complex=\"true\" text=\"Hợp đồng\"><item id=\"contractlist\" text=\"Danh sách hợp đồng\"/><item id=\"contractadd\" text=\"Thêm hợp đồng\"/></item><item id=\"debtvendors\" complex=\"true\" text=\"Công nợ NCC\"><item id=\"debtvendorlist\" text=\"Danh sách công nợ NCC\"/><item id=\"debtvendoradd\" text=\"Thêm công nợ NCC\"/></item><item id=\"debtretails\" complex=\"true\" text=\"Công nợ bán lẻ\"><item id=\"debtretaillist\" text=\"Danh sách công nợ bán lẻ\"/><item id=\"debtretailadd\" text=\"Thêm công nợ bán lẻ\"/></item><item id=\"debtwholesales\" complex=\"true\" text=\"Công nợ bán sỉ\"><item id=\"debtwholesalelist\" text=\"Danh sách công nợ bán sỉ\"/><item id=\"debtwholesaleadd\" text=\"Thêm công nợ bán sỉ\"/></item><item id=\"incomes\" complex=\"true\" text=\"Thu\"><item id=\"incomelist\" text=\"Danh sách thu\"/><item id=\"incomeadd\" text=\"Thêm thu\"/></item><item id=\"expenses\" complex=\"true\" text=\"Chi\"><item id=\"expenselist\" text=\"Danh sách chi\"/><item id=\"expenseadd\" text=\"Thêm chi\"/></item></item><item id=\"setting\" complex=\"true\" text=\"Cấu hình\"><item id=\"resetpassword\" text=\"Đổi mật khẩu\"/></item><item id=\"logout\" text=\"Đăng xuất\"/></menu>',1),(11,17,'hungpk','gdyb21LQTcIANtvYMT7QVQ==','<?xml version=\"1.0\"?><menu><item id=\"list\" complex=\"true\" text=\"Khai báo danh mục\"><item id=\"system\" complex=\"true\" text=\"Hệ thống\"><item id=\"users\" complex=\"true\" text=\"Tài khoản hệ thống\"><item id=\"userlist\" text=\"Danh sách tài khoản hệ thống\"/><item id=\"useradd\" text=\"Thêm tài khoản hệ thống\"/></item><item id=\"parameter\" text=\"Thông số hệ thống\"/><item id=\"permissionlist\" text=\"Phân quyền\"/><item id=\"openingstock\" text=\"Số dư đầu kỳ\"/></item><item id=\"organization\" complex=\"true\" text=\"Đơn vị\"><item id=\"organizations\" complex=\"true\" text=\"Đơn vị\"><item id=\"organizationlist\" text=\"Danh sách đơn vị\"/><item id=\"organizationadd\" text=\"Thêm đơn vị\"/></item><item id=\"stores\" complex=\"true\" text=\"Kho\"><item id=\"storelist\" text=\"Danh sách kho\"/><item id=\"storeadd\" text=\"Thêm kho\"/></item><item id=\"employees\" complex=\"true\" text=\"Nhân viên\"><item id=\"employeelist\" text=\"Danh sách nhân viên\"/><item id=\"employeeadd\" text=\"Thêm nhân viên\"/><item id=\"employeefiellist\" text=\"Thông tin động - Nhân viên\"/></item><item id=\"accounts\" complex=\"true\" text=\"Tài khoản ngân hàng\"><item id=\"accountlist\" text=\"Danh sách tài khoản ngân hàng\"/><item id=\"accountadd\" text=\"Thêm tài khoản ngân hàng\"/></item><item id=\"dayoffs\" complex=\"true\" text=\"Ngày nghỉ bù\"><item id=\"dayofflist\" text=\"Danh sách ngày nghỉ bù\"/><item id=\"dayoffadd\" text=\"Thêm ngày nghỉ bù\"/></item><item id=\"otherbonuss\" complex=\"true\" text=\"Khoản thưởng khác\"><item id=\"otherbonuslist\" text=\"Danh sách khoản thưởng khác\"/><item id=\"otherbonusadd\" text=\"Thêm khoản thưởng khác\"/></item><item id=\"paneltys\" complex=\"true\" text=\"Khoản chi khác\"><item id=\"paneltylist\" text=\"Danh sách khoản chi khác\"/><item id=\"paneltyadd\" text=\"Thêm khoản chi khác\"/></item></item><item id=\"good\" complex=\"true\" text=\"Hàng hóa\"><item id=\"units\" complex=\"true\" text=\"Đơn vị tính\"><item id=\"unitlist\" text=\"Danh sách đơn vị tính\"/><item id=\"unitadd\" text=\"Thêm đơn vị tính\"/></item><item id=\"shellkinds\" complex=\"true\" text=\"Loại vỏ bình\"><item id=\"shellkindlist\" text=\"Danh sách loại vỏ bình\"/><item id=\"shellkindadd\" text=\"Thêm loại vỏ bình\"/></item><item id=\"shells\" complex=\"true\" text=\"Vỏ bình\"><item id=\"shelllist\" text=\"Danh sách vỏ bình\"/><item id=\"shelladd\" text=\"Thêm vỏ bình\"/></item><item id=\"accessorykinds\" complex=\"true\" text=\"Loại phụ kiện\"><item id=\"accessorykindlist\" text=\"Danh sách loại phụ kiện\"/><item id=\"accessorykindadd\" text=\"Thêm loại phụ kiện\"/></item><item id=\"accessorys\" complex=\"true\" text=\"Phụ kiện\"><item id=\"accessorylist\" text=\"Danh sách phụ kiện\"/><item id=\"accessoryadd\" text=\"Thêm phụ kiện\"/></item><item id=\"promotionmaterials\" complex=\"true\" text=\"Hàng khuyến mãi\"><item id=\"promotionmateriallist\" text=\"Danh sách hàng khuyến mãi\"/><item id=\"promotionmaterialadd\" text=\"Thêm hàng khuyến mãi\"/></item><item id=\"petros\" complex=\"true\" text=\"Xăng dầu\"><item id=\"petrolist\" text=\"Danh sách hàng xăng dầu\"/><item id=\"petroadd\" text=\"Thêm hàng xăng dầu\"/></item><item id=\"goods\" complex=\"true\" text=\"Hàng hóa\"><item id=\"goodlist\" text=\"Danh sách hàng hóa\"/><item id=\"goodadd\" text=\"Thêm hàng hóa\"/></item></item><item id=\"oil\" complex=\"true\" text=\"Dầu nhớt\"><item id=\"vendoroils\" complex=\"true\" text=\"Nhà cung cấp\"><item id=\"vendoroillist\" text=\"Danh sách nhà cung cấp\"/><item id=\"vendoroiladd\" text=\"Thêm nhà cung cấp\"/></item><item id=\"unitrates\" complex=\"true\" text=\"Qui đổi đơn vị tính\"><item id=\"unitratelist\" text=\"Danh sách qui đổi đơn vị tính\"/><item id=\"unitrateadd\" text=\"Thêm qui đổi đơn vị tính\"/></item><item id=\"agencys\" complex=\"true\" text=\"Đại lý\"><item id=\"agencylist\" text=\"Danh sách đại lý\"/><item id=\"agencyadd\" text=\"Thêm đại lý\"/></item><item id=\"oilgroups\" complex=\"true\" text=\"Nhóm dầu nhớt\"><item id=\"oilgrouplist\" text=\"Danh sách nhóm dầu nhớt\"/><item id=\"oilgroupadd\" text=\"Thêm nhóm dầu nhớt\"/></item><item id=\"oils\" complex=\"true\" text=\"Dầu nhớt\"><item id=\"oillist\" text=\"Danh sách dầu nhớt\"/><item id=\"oiladd\" text=\"Thêm dầu nhớt\"/></item><item id=\"employeeoilcommissions\" complex=\"true\" text=\"Loại chiết khấu bán dầu nhớt\"><item id=\"employeeoilcommissionlist\" text=\"Danh sách loại chiết khấu bán dầu nhớt\"/><item id=\"employeeoilcommissionadd\" text=\"Thêm loại chiết khấu bán dầu nhớt\"/></item><item id=\"saleoilreturnstores\" complex=\"true\" text=\"Kho trả hàng dầu nhớt\"><item id=\"saleoilreturnstoreadd\" text=\"Thêm kho trả hàng dầu nhớt\"/></item></item><item id=\"vendor\" complex=\"true\" text=\"Nhà cung cấp\"><item id=\"vendors\" complex=\"true\" text=\"Nhà cung cấp\"><item id=\"vendorlist\" text=\"Danh sách nhà cung cấp\"/><item id=\"vendoradd\" text=\"Thêm nhà cung cấp\"/><item id=\"addgasreturnvendor\" text=\"Nhà cung cấp nhận gas trả\"/><item id=\"vendorfiellist\" text=\"Thông tin động - Nhà cung cấp\"/></item><item id=\"vendororganizations\" complex=\"true\" text=\"Nhà cung cấp liên kết\"><item id=\"vendororganizationlist\" text=\"Danh sách nhà cung cấp liên kết\"/><item id=\"vendororganizationadd\" text=\"Thêm nhà cung cấp liên kết\"/></item><item id=\"vendorcustomers\" complex=\"true\" text=\"Nhà cung cấp - Khách hàng\"><item id=\"vendorcustomerlist\" text=\"Danh sách nhà cung cấp - Khách hàng\"/><item id=\"vendorcustomeradd\" text=\"Thêm nhà cung cấp - Khách hàng\"/></item></item><item id=\"customer\" complex=\"true\" text=\"Khách hàng\"><item id=\"customers\" complex=\"true\" text=\"Khách hàng\"><item id=\"customerlist\" text=\"Danh sách khách hàng\"/><item id=\"customeradd\" text=\"Thêm khách hàng\"/><item id=\"customerfiellist\" text=\"Thông tin động - Khách hàng\"/><item id=\"customerdocumentlist\" text=\"Danh sách văn bản\"/></item><item id=\"discounts\" complex=\"true\" text=\"Giảm giá\"><item id=\"discountlist\" text=\"Danh sách giảm giá\"/><item id=\"discountadd\" text=\"Thêm giảm giá\"/></item></item><item id=\"vehicle\" complex=\"true\" text=\"Xe\"><item id=\"vehicles\" complex=\"true\" text=\"Xe\"><item id=\"vehiclelist\" text=\"Danh sách xe\"/><item id=\"vehicleadd\" text=\"Thêm xe\"/></item><item id=\"routes\" complex=\"true\" text=\"Tuyến đường\"><item id=\"routelist\" text=\"Danh sách tuyến đường\"/><item id=\"routeadd\" text=\"Thêm tuyến đường\"/></item></item><item id=\"fixedassetgroup\" complex=\"true\" text=\"Tài sản cố định\"><item id=\"fixedassetgroups\" complex=\"true\" text=\"Nhóm tài sản cố định\"><item id=\"fixedassetgrouplist\" text=\"Danh sách nhóm tài sản cố định\"/><item id=\"fixedassetgroupadd\" text=\"Thêm nhóm tài sản cố định\"/></item><item id=\"fixedassets\" complex=\"true\" text=\"Tài sản cố định\"><item id=\"fixedassetlist\" text=\"Danh sách tài sản cố định\"/><item id=\"fixedassetadd\" text=\"Thêm tài sản cố định\"/></item></item></item><item id=\"employeefunction\" complex=\"true\" text=\"Nghiệp vụ Nhân viên\"><item id=\"employeeadvances\" complex=\"true\" text=\"Nhân viên tạm ứng\"><item id=\"employeeadvancelist\" text=\"Danh sách tạm ứng\"/><item id=\"employeeadvanceadd\" text=\"Thêm tạm ứng\"/></item><item id=\"borrows\" complex=\"true\" text=\"Mượn lương\"><item id=\"borrowlist\" text=\"Danh sách phiếu mượn lương\"/><item id=\"borrowadd\" text=\"Thêm phiếu mượn lương\"/></item><item id=\"employeetimesheets\" complex=\"true\" text=\"Chấm công nhân viên\"><item id=\"employeetimesheetlist\" text=\"Danh sách chấm công\"/><item id=\"employeetimesheetadd\" text=\"Thêm chấm công\"/></item><item id=\"employeeoffs\" complex=\"true\" text=\"Nghỉ phép\"><item id=\"employeeofflist\" text=\"Danh sách nghỉ phép\"/><item id=\"employeeoffadd\" text=\"Thêm nghỉ phép\"/></item><item id=\"employeeoffincreases\" complex=\"true\" text=\"Bù nghỉ phép\"><item id=\"employeeoffincreaselist\" text=\"Danh sách bù nghỉ phép\"/><item id=\"employeeoffincreaseadd\" text=\"Thêm bù nghỉ phép\"/></item><item id=\"employeeoffmoneys\" complex=\"true\" text=\"Thanh toán ngày phép\"><item id=\"employeeoffmoneylist\" text=\"Danh sách thanh toán ngày phép\"/><item id=\"employeeoffmoneyadd\" text=\"Thêm thanh toán ngày phép\"/></item><item id=\"employeeotherbonuss\" complex=\"true\" text=\"Khoản thưởng khác\"><item id=\"employeeotherbonuslist\" text=\"Danh sách khoản thưởng khác\"/><item id=\"employeeotherbonusadd\" text=\"Thêm khoản thưởng khác\"/></item><item id=\"employeepaneltys\" complex=\"true\" text=\"Khoản chi khác\"><item id=\"employeepaneltylist\" text=\"Danh sách khoản chi khác\"/><item id=\"employeepaneltyadd\" text=\"Thêm khoản chi khác\"/></item><item id=\"salarys\" complex=\"true\" text=\"Bảng lương\"><item id=\"salarylist\" text=\"Danh sách bảng lương\"/><item id=\"salarysalaryfiels\" complex=\"true\" text=\"Thông tin động\"><item id=\"salaryfiellist\" text=\"Phụ cấp\"/><item id=\"timesheetfiellist\" text=\"Chấm công\"/></item><item id=\"dynamicfielvalues\" complex=\"true\" text=\"Giá trị thông tin động\"><item id=\"employeesalarylist\" text=\"Danh sách phụ cấp\"/><item id=\"organizationtimesheetlist\" text=\"Danh sách chi phí chấm công\"/></item></item></item><item id=\"vehiclefunction\" complex=\"true\" text=\"Nghiệp vụ Xe\"><item id=\"tripfees\" complex=\"true\" text=\"Chi phí xe\"><item id=\"tripfeelist\" text=\"Danh sách chi phí xe\"/><item id=\"tripfeeadd\" text=\"Thêm chi phí xe\"/></item><item id=\"tripoils\" complex=\"true\" text=\"Ứng dầu\"><item id=\"tripoillist\" text=\"Danh sách ứng dầu\"/><item id=\"tripoiladd\" text=\"Thêm ứng dầu\"/></item><item id=\"employeeroutefees\" complex=\"true\" text=\"Chi phí nhân viên vận chuyển\"><item id=\"employeeroutefeelist\" text=\"Danh sách chi phí nhân viên vận chuyển\"/><item id=\"employeeroutefeeadd\" text=\"Thêm chi phí nhân viên vận chuyển\"/></item><item id=\"vehicleouts\" complex=\"true\" text=\"Xuất xe đi\"><item id=\"vehicleoutlist\" text=\"Danh sách xuất xe đi\"/><item id=\"vehicleoutadd\" text=\"Thêm xuất xe đi\"/></item><item id=\"vehicleins\" complex=\"true\" text=\"Nhập xe về\"><item id=\"vehicleinlist\" text=\"Danh sách nhập xe về\"/><item id=\"vehicleinadd\" text=\"Thêm nhập xe về\"/></item><item id=\"exportwholesales\" complex=\"true\" text=\"Xuất sỉ\"><item id=\"exportwholesalelist\" text=\"Danh sách xuất sỉ\"/><item id=\"exportwholesaleadd\" text=\"Thêm xuất sỉ\"/></item><item id=\"transportservices\" complex=\"true\" text=\"Vận chuyển thuê\"><item id=\"transportservicelist\" text=\"Danh sách vận chuyển thuê\"/><item id=\"transportserviceadd\" text=\"Thêm phiếu vận chuyển thuê\"/></item></item><item id=\"gasfunction\" complex=\"true\" text=\"Nghiệp vụ gas\"><item id=\"shellimports\" complex=\"true\" text=\"Nhập vỏ bình\"><item id=\"shellimportlist\" text=\"Danh sách nhập vỏ bình\"/><item id=\"shellimportadd\" text=\"Thêm nhập vỏ bình\"/></item><item id=\"lpgimports\" complex=\"true\" text=\"Nhập LPG\"><item id=\"lpgimportlist\" text=\"Danh sách nhập LPG\"/><item id=\"lpgimportadd\" text=\"Thêm nhập LPG\"/></item><item id=\"lpgsales\" complex=\"true\" text=\"Bán LPG\"><item id=\"lpgsalelist\" text=\"Danh sách bán LPG\"/><item id=\"lpgsaleadd\" text=\"Thêm bán LPG\"/></item><item id=\"fractions\" complex=\"true\" text=\"Chiết gas\"><item id=\"fractionlist\" text=\"Danh sách chiết gas\"/><item id=\"fractionadd\" text=\"Thêm chiết gas\"/></item><item id=\"gasprices\" complex=\"true\" text=\"Giá bán gas\"><item id=\"gaspricelist\" text=\"Danh sách giá bán gas\"/><item id=\"gaspriceadd\" text=\"Thêm giá bán gas\"/></item><item id=\"gasimports\" complex=\"true\" text=\"Nhập gas\"><item id=\"gasimportlist\" text=\"Danh sách phiếu nhập gas\"/><item id=\"gasimportadd\" text=\"Thêm phiếu nhập gas\"/></item><item id=\"gaswholesales\" complex=\"true\" text=\"Bán gas\"><item id=\"gaswholesalelist\" text=\"Danh sách phiếu bán gas\"/><item id=\"gaswholesaleadd\" text=\"Thêm phiếu bán gas\"/><item id=\"gaswholesalefeelist\" text=\"Danh sách các khoản phí khác\"/></item><item id=\"saleinners\" complex=\"true\" text=\"Bán Nội bộ\"><item id=\"saleinnerlist\" text=\"Danh sách phiếu bán nội bộ\"/><item id=\"saleinneradd\" text=\"Thêm phiếu bán nội bộ\"/></item><item id=\"saleshells\" complex=\"true\" text=\"Bán vỏ bình\"><item id=\"saleshelllist\" text=\"Danh sách phiếu bán vỏ bình\"/><item id=\"saleshelladd\" text=\"Thêm phiếu bán vỏ bình\"/></item><item id=\"oldshells\" complex=\"true\" text=\"Điều chỉnh số lượng vỏ bình\"><item id=\"oldshelllist\" text=\"Danh sách điều chỉnh số lượng vỏ bình\"/><item id=\"oldshelladd\" text=\"Thêm điều chỉnh số lượng vỏ bình\"/></item><item id=\"shellreturns\" complex=\"true\" text=\"Trả vỏ bình\"><item id=\"shellreturnlist\" text=\"Danh sách trả vỏ bình\"/><item id=\"shellreturnadd\" text=\"Thêm trả vỏ bình\"/></item><item id=\"shellreturnsuppliers\" complex=\"true\" text=\"Trả vỏ bình NCC\"><item id=\"shellreturnsupplierlist\" text=\"Danh sách trả vỏ bình NCC\"/><item id=\"shellreturnsupplieradd\" text=\"Thêm trả vỏ bình NCC\"/></item><item id=\"lovos\" complex=\"true\" text=\"Làm lò vỏ\"><item id=\"lovolist\" text=\"Danh sách làm lò vỏ\"/><item id=\"lovoadd\" text=\"Thêm làm lò vỏ\"/></item></item><item id=\"goodfunction\" complex=\"true\" text=\"Nghiệp vụ hàng hóa\"><item id=\"petroimports\" complex=\"true\" text=\"Nhập xăng\"><item id=\"petroimportlist\" text=\"Danh sách phiếu nhập xăng\"/><item id=\"petroimportadd\" text=\"Thêm phiếu nhập xăng\"/></item><item id=\"salepetros\" complex=\"true\" text=\"Bán xăng\"><item id=\"salepetrolist\" text=\"Danh sách phiếu bán xăng\"/><item id=\"salepetroadd\" text=\"Thêm phiếu bán xăng\"/></item><item id=\"oilimports\" complex=\"true\" text=\"Nhập dầu nhớt\"><item id=\"oilimportlist\" text=\"Danh sách phiếu nhập dầu nhớt\"/><item id=\"oilimportadd\" text=\"Thêm phiếu nhập dầu nhớt\"/></item><item id=\"saleoils\" complex=\"true\" text=\"Bán dầu nhớt\"><item id=\"saleoillist\" text=\"Danh sách phiếu bán dầu nhớt\"/><item id=\"saleoiladd\" text=\"Thêm phiếu bán dầu nhớt\"/></item><item id=\"oilexports\" complex=\"true\" text=\"Xuất kho dầu nhớt\"><item id=\"oilexportlist\" text=\"Danh sách phiếu xuất kho dầu nhớt\"/></item><item id=\"saleoilreturns\" complex=\"true\" text=\"Trả hàng dầu nhớt\"><item id=\"saleoilreturnlist\" text=\"Danh sách phiếu trả hàng dầu nhớt\"/></item><item id=\"goodimports\" complex=\"true\" text=\"Nhập hàng hóa\"><item id=\"goodimportlist\" text=\"Danh sách phiếu nhập hàng hóa\"/><item id=\"goodimportadd\" text=\"Thêm phiếu nhập hàng hóa\"/></item><item id=\"salegoods\" complex=\"true\" text=\"Bán hàng hóa\"><item id=\"salegoodlist\" text=\"Danh sách phiếu bán hàng hóa\"/><item id=\"salegoodadd\" text=\"Thêm phiếu bán hàng hóa\"/></item><item id=\"shieldimports\" complex=\"true\" text=\"Nhập shield\"><item id=\"shieldimportlist\" text=\"Danh sách phiếu nhập shield\"/><item id=\"shieldimportadd\" text=\"Thêm phiếu nhập shield\"/></item><item id=\"shielddecreases\" complex=\"true\" text=\"Giảm shield\"><item id=\"shielddecreaselist\" text=\"Danh sách phiếu giảm shield\"/><item id=\"shielddecreaseadd\" text=\"Thêm phiếu giảm shield\"/></item><item id=\"accessoryimports\" complex=\"true\" text=\"Nhập phụ kiện\"><item id=\"accessoryimportlist\" text=\"Danh sách phiếu nhập phụ kiện\"/><item id=\"accessoryimportadd\" text=\"Thêm phiếu nhập phụ kiện\"/></item><item id=\"saleaccessorys\" complex=\"true\" text=\"Bán phụ kiện\"><item id=\"saleaccessorylist\" text=\"Danh sách phiếu bán phụ kiện\"/><item id=\"saleaccessoryadd\" text=\"Thêm phiếu bán phụ kiện\"/></item><item id=\"promotionmaterialimports\" complex=\"true\" text=\"Nhập hàng khuyến mãi\"><item id=\"promotionmaterialimportlist\" text=\"Danh sách phiếu nhập hàng khuyến mãi\"/><item id=\"promotionmaterialimportadd\" text=\"Thêm phiếu nhập hàng khuyến mãi\"/></item><item id=\"fixedassetdepreciations\" complex=\"true\" text=\"Khấu hao\"><item id=\"fixedassetdepreciationlist\" text=\"Danh sách phiếu khấu hao\"/><item id=\"fixedassetdepreciationadd\" text=\"Thêm phiếu khấu hao\"/></item></item><item id=\"paymentfunction\" complex=\"true\" text=\"Nghiệp vụ thanh toán\"><item id=\"contracts\" complex=\"true\" text=\"Hợp đồng\"><item id=\"contractlist\" text=\"Danh sách hợp đồng\"/><item id=\"contractadd\" text=\"Thêm hợp đồng\"/></item><item id=\"invoices\" complex=\"true\" text=\"Hóa đơn\"><item id=\"invoicelist\" text=\"Danh sách hóa đơn\"/><item id=\"invoiceadd\" text=\"Thêm hóa đơn\"/></item><item id=\"debtvendors\" complex=\"true\" text=\"Công nợ NCC\"><item id=\"debtvendorlist\" text=\"Danh sách công nợ NCC\"/><item id=\"debtvendoradd\" text=\"Thêm công nợ NCC\"/></item><item id=\"debtwholesales\" complex=\"true\" text=\"Công nợ khách hàng\"><item id=\"debtwholesalelist\" text=\"Danh sách công nợ khách hàng\"/><item id=\"debtwholesaleadd\" text=\"Thêm công nợ khách hàng\"/></item><item id=\"incomes\" complex=\"true\" text=\"Thu\"><item id=\"incomelist\" text=\"Danh sách thu\"/><item id=\"incomeadd\" text=\"Thêm thu\"/></item><item id=\"expenses\" complex=\"true\" text=\"Chi\"><item id=\"expenselist\" text=\"Danh sách chi\"/><item id=\"expenseadd\" text=\"Thêm chi\"/></item><item id=\"debtadjustments\" complex=\"true\" text=\"Điều chỉnh công nợ\"><item id=\"debtadjustmentlist\" text=\"Danh sách điều chỉnh công nợ\"/><item id=\"debtadjustmentadd\" text=\"Thêm điều chỉnh công nợ\"/></item></item><item id=\"reportfunction\" complex=\"true\" text=\"Báo cáo\"><item id=\"reportgas\" complex=\"true\" text=\"Báo cáo gas\"><item id=\"reportlpgimport\" text=\"Bảng theo dõi nhập hàng LPG\"/><item id=\"reportlpgsale\" text=\"Bảng theo dõi bán hàng LPG\"/><item id=\"reportvendordebt\" text=\"Bảng theo dõi công nợ NCC\"/><item id=\"reportlpgstock\" text=\"Sổ theo dõi sản lượng khí hóa lỏng LPG\"/><item id=\"reportlpgstocksum\" text=\"Sổ theo dõi nhập xuất khí hóa lỏng LPG\"/><item id=\"reportlpgstocksumorganization\" text=\"Sổ theo dõi nhập xuất khí hóa lỏng LPG theo nhà cung cấp\"/><item id=\"reportsum\" text=\"Tổng hợp\"/><item id=\"reportcompare\" text=\"Đối chiếu\"/><item id=\"reportcomparelpg\" text=\"Bảng theo dõi công nợ khách hàng LPG\"/><item id=\"reportcomparelpgvendorcustomer\" text=\"Đối chiếu LPG NCC - KH\"/><item id=\"reportcomparegas\" text=\"Đối chiếu gas bình\"/><item id=\"reportcomparevendor\" text=\"Đối chiếu nhà cung cấp\"/><item id=\"reportsale\" text=\"Xuất bán hàng\"/><item id=\"reportsalecustomer\" text=\"Chi tiết bán hàng theo khách hàng\"/><item id=\"reportcashbook\" text=\"Báo cáo quỹ tiền\"/><item id=\"reportgascommission\" text=\"Chiết khấu bán hàng - Gas\"/><item id=\"reportgasemployeecommission\" text=\"Thanh toán tiền chiết khấu - Gas\"/><item id=\"reportshell\" text=\"Thống kê vỏ\"/></item><item id=\"reportpetro\" complex=\"true\" text=\"Báo cáo xăng\"><item id=\"reportpetroimport\" text=\"Bảng theo dõi nhập hàng xăng\"/><item id=\"reportpetrosale\" text=\"Xuất bán hàng xăng dầu\"/><item id=\"reportpetrostock\" text=\"Sổ theo dõi NXT xăng dầu tổng hợp\"/><item id=\"reportpetrostockstore\" text=\"Sổ theo dõi NXT xăng dầu theo cửa hàng\"/></item><item id=\"reportgood\" complex=\"true\" text=\"Báo cáo hàng hóa\"><item id=\"reportcomparegood\" text=\"Đối chiếu hàng hóa\"/></item><item id=\"reportoil\" complex=\"true\" text=\"Báo cáo dầu nhớt\"><item id=\"reportoilimport\" text=\"Báo cáo nhập dầu nhớt\"/><item id=\"reportoilstock\" text=\"Báo cáo nhập xuất tồn dầu nhớt\"/><item id=\"reportoilstockh\" text=\"Báo cáo nhập xuất tồn dầu nhớt - Ngang\"/><item id=\"reportoilstocksum\" text=\"Báo cáo nhập xuất tồn tổng hợp dầu nhớt\"/><item id=\"reportoilstocksumh\" text=\"Báo cáo nhập xuất tồn tổng hợp dầu nhớt - Ngang\"/><item id=\"reportoilsale\" text=\"Báo cáo bán hàng dầu nhớt\"/><item id=\"reportoilcompare\" text=\"Đối chiếu dầu nhớt\"/><item id=\"reportoilcommissionagency\" text=\"Báo cáo theo dõi chiết khấu dầu nhớt đại lý\"/><item id=\"reportoilcommissioncustomer\" text=\"Báo cáo theo dõi chiết khấu dầu nhớt khách hàng\"/><item id=\"reportoilvendorstock\" text=\"Bảng theo dõi nhập xuất tồn tổng kho\"/><item id=\"reportoilvendordebt\" text=\"Bảng theo dõi công nợ nhà cung cấp\"/><item id=\"reportoilcustomerdebt\" text=\"Bảng theo dõi công nợ khách hàng dầu nhớt\"/></item><item id=\"reporttransport\" complex=\"true\" text=\"Báo cáo xe\"><item id=\"reporttransportfee\" text=\"Bảng theo dõi chi phí vận chuyển\"/><item id=\"reportvehiclefee\" text=\"Bảng theo dõi chi phí xe\"/><item id=\"reportvehiclesale\" text=\"Bảng theo dõi bán hàng theo xe\"/><item id=\"reporttransportservice\" text=\"Bảng theo dõi chi phí vận chuyển thuê\"/></item><item id=\"reportaccountant\" complex=\"true\" text=\"Báo cáo kế toán\"><item id=\"reportemployeesalary\" text=\"Bảng thanh toán lương\"/><item id=\"reportemployeeoff\" text=\"Bảng theo dõi ngày nghỉ phép\"/><item id=\"reportemployeeworking\" text=\"Bảng theo dõi thời gian công tác\"/><item id=\"reportemployeevehiclesalary\" text=\"Bảng lương nhân viên vận chuyển\"/></item></item><item id=\"setting\" complex=\"true\" text=\"Cấu hình\"><item id=\"resetpassword\" text=\"Đổi mật khẩu\"/></item><item id=\"logout\" text=\"Đăng xuất\"/></menu>',1),(12,18,'ntb','gdyb21LQTcIANtvYMT7QVQ==','<?xml version=\"1.0\"?><menu><item id=\"setting\" complex=\"true\" text=\"Cấu hình\"><item id=\"resetpassword\" text=\"Đổi mật khẩu\"/></item><item id=\"logout\" text=\"Đăng xuất\"/></menu>',1),(14,35,'linhle','gdyb21LQTcIANtvYMT7QVQ==','<?xml version=\"1.0\"?><menu><item id=\"list\" complex=\"true\" text=\"Khai báo danh mục\"><item id=\"system\" complex=\"true\" text=\"Hệ thống\"><item id=\"users\" complex=\"true\" text=\"Tài khoản hệ thống\"><item id=\"userlist\" text=\"Danh sách tài khoản hệ thống\"/><item id=\"useradd\" text=\"Thêm tài khoản hệ thống\"/></item><item id=\"parameter\" text=\"Thông số hệ thống\"/><item id=\"permissionlist\" text=\"Phân quyền\"/><item id=\"openingstock\" text=\"Số dư đầu kỳ\"/></item><item id=\"organization\" complex=\"true\" text=\"Đơn vị\"><item id=\"organizations\" complex=\"true\" text=\"Đơn vị\"><item id=\"organizationlist\" text=\"Danh sách đơn vị\"/><item id=\"organizationadd\" text=\"Thêm đơn vị\"/></item><item id=\"stores\" complex=\"true\" text=\"Kho\"><item id=\"storelist\" text=\"Danh sách kho\"/><item id=\"storeadd\" text=\"Thêm kho\"/></item><item id=\"employees\" complex=\"true\" text=\"Nhân viên\"><item id=\"employeelist\" text=\"Danh sách nhân viên\"/><item id=\"employeeadd\" text=\"Thêm nhân viên\"/><item id=\"employeefiellist\" text=\"Thông tin động - Nhân viên\"/></item><item id=\"accounts\" complex=\"true\" text=\"Tài khoản ngân hàng\"><item id=\"accountlist\" text=\"Danh sách tài khoản ngân hàng\"/><item id=\"accountadd\" text=\"Thêm tài khoản ngân hàng\"/></item><item id=\"dayoffs\" complex=\"true\" text=\"Ngày nghỉ bù\"><item id=\"dayofflist\" text=\"Danh sách ngày nghỉ bù\"/><item id=\"dayoffadd\" text=\"Thêm ngày nghỉ bù\"/></item><item id=\"otherbonuss\" complex=\"true\" text=\"Khoản thưởng khác\"><item id=\"otherbonuslist\" text=\"Danh sách khoản thưởng khác\"/><item id=\"otherbonusadd\" text=\"Thêm khoản thưởng khác\"/></item><item id=\"paneltys\" complex=\"true\" text=\"Khoản chi khác\"><item id=\"paneltylist\" text=\"Danh sách khoản chi khác\"/><item id=\"paneltyadd\" text=\"Thêm khoản chi khác\"/></item></item><item id=\"good\" complex=\"true\" text=\"Hàng hóa\"><item id=\"units\" complex=\"true\" text=\"Đơn vị tính\"><item id=\"unitlist\" text=\"Danh sách đơn vị tính\"/><item id=\"unitadd\" text=\"Thêm đơn vị tính\"/></item><item id=\"shellkinds\" complex=\"true\" text=\"Loại vỏ bình\"><item id=\"shellkindlist\" text=\"Danh sách loại vỏ bình\"/><item id=\"shellkindadd\" text=\"Thêm loại vỏ bình\"/></item><item id=\"shells\" complex=\"true\" text=\"Vỏ bình\"><item id=\"shelllist\" text=\"Danh sách vỏ bình\"/><item id=\"shelladd\" text=\"Thêm vỏ bình\"/></item><item id=\"accessorykinds\" complex=\"true\" text=\"Loại phụ kiện\"><item id=\"accessorykindlist\" text=\"Danh sách loại phụ kiện\"/><item id=\"accessorykindadd\" text=\"Thêm loại phụ kiện\"/></item><item id=\"accessorys\" complex=\"true\" text=\"Phụ kiện\"><item id=\"accessorylist\" text=\"Danh sách phụ kiện\"/><item id=\"accessoryadd\" text=\"Thêm phụ kiện\"/></item><item id=\"promotionmaterials\" complex=\"true\" text=\"Hàng khuyến mãi\"><item id=\"promotionmateriallist\" text=\"Danh sách hàng khuyến mãi\"/><item id=\"promotionmaterialadd\" text=\"Thêm hàng khuyến mãi\"/></item><item id=\"petros\" complex=\"true\" text=\"Xăng dầu\"><item id=\"petrolist\" text=\"Danh sách hàng xăng dầu\"/><item id=\"petroadd\" text=\"Thêm hàng xăng dầu\"/></item><item id=\"goods\" complex=\"true\" text=\"Hàng hóa\"><item id=\"goodlist\" text=\"Danh sách hàng hóa\"/><item id=\"goodadd\" text=\"Thêm hàng hóa\"/></item></item><item id=\"oil\" complex=\"true\" text=\"Dầu nhớt\"><item id=\"vendoroils\" complex=\"true\" text=\"Nhà cung cấp\"><item id=\"vendoroillist\" text=\"Danh sách nhà cung cấp\"/><item id=\"vendoroiladd\" text=\"Thêm nhà cung cấp\"/></item><item id=\"unitrates\" complex=\"true\" text=\"Qui đổi đơn vị tính\"><item id=\"unitratelist\" text=\"Danh sách qui đổi đơn vị tính\"/><item id=\"unitrateadd\" text=\"Thêm qui đổi đơn vị tính\"/></item><item id=\"agencys\" complex=\"true\" text=\"Đại lý\"><item id=\"agencylist\" text=\"Danh sách đại lý\"/><item id=\"agencyadd\" text=\"Thêm đại lý\"/></item><item id=\"oilgroups\" complex=\"true\" text=\"Nhóm dầu nhớt\"><item id=\"oilgrouplist\" text=\"Danh sách nhóm dầu nhớt\"/><item id=\"oilgroupadd\" text=\"Thêm nhóm dầu nhớt\"/></item><item id=\"oils\" complex=\"true\" text=\"Dầu nhớt\"><item id=\"oillist\" text=\"Danh sách dầu nhớt\"/><item id=\"oiladd\" text=\"Thêm dầu nhớt\"/></item><item id=\"employeeoilcommissions\" complex=\"true\" text=\"Loại chiết khấu bán dầu nhớt\"><item id=\"employeeoilcommissionlist\" text=\"Danh sách loại chiết khấu bán dầu nhớt\"/><item id=\"employeeoilcommissionadd\" text=\"Thêm loại chiết khấu bán dầu nhớt\"/></item><item id=\"saleoilreturnstores\" complex=\"true\" text=\"Kho trả hàng dầu nhớt\"><item id=\"saleoilreturnstoreadd\" text=\"Thêm kho trả hàng dầu nhớt\"/></item></item><item id=\"vendor\" complex=\"true\" text=\"Nhà cung cấp\"><item id=\"vendors\" complex=\"true\" text=\"Nhà cung cấp\"><item id=\"vendorlist\" text=\"Danh sách nhà cung cấp\"/><item id=\"vendoradd\" text=\"Thêm nhà cung cấp\"/><item id=\"addgasreturnvendor\" text=\"Nhà cung cấp nhận gas trả\"/><item id=\"vendorfiellist\" text=\"Thông tin động - Nhà cung cấp\"/></item><item id=\"vendororganizations\" complex=\"true\" text=\"Nhà cung cấp liên kết\"><item id=\"vendororganizationlist\" text=\"Danh sách nhà cung cấp liên kết\"/><item id=\"vendororganizationadd\" text=\"Thêm nhà cung cấp liên kết\"/></item><item id=\"vendorcustomers\" complex=\"true\" text=\"Nhà cung cấp - Khách hàng\"><item id=\"vendorcustomerlist\" text=\"Danh sách nhà cung cấp - Khách hàng\"/><item id=\"vendorcustomeradd\" text=\"Thêm nhà cung cấp - Khách hàng\"/></item></item><item id=\"customer\" complex=\"true\" text=\"Khách hàng\"><item id=\"customers\" complex=\"true\" text=\"Khách hàng\"><item id=\"customerlist\" text=\"Danh sách khách hàng\"/><item id=\"customeradd\" text=\"Thêm khách hàng\"/><item id=\"customerfiellist\" text=\"Thông tin động - Khách hàng\"/><item id=\"customerdocumentlist\" text=\"Danh sách văn bản\"/></item><item id=\"discounts\" complex=\"true\" text=\"Giảm giá\"><item id=\"discountlist\" text=\"Danh sách giảm giá\"/><item id=\"discountadd\" text=\"Thêm giảm giá\"/></item></item><item id=\"vehicle\" complex=\"true\" text=\"Xe\"><item id=\"vehicles\" complex=\"true\" text=\"Xe\"><item id=\"vehiclelist\" text=\"Danh sách xe\"/><item id=\"vehicleadd\" text=\"Thêm xe\"/></item><item id=\"routes\" complex=\"true\" text=\"Tuyến đường\"><item id=\"routelist\" text=\"Danh sách tuyến đường\"/><item id=\"routeadd\" text=\"Thêm tuyến đường\"/></item></item><item id=\"fixedassetgroup\" complex=\"true\" text=\"Tài sản cố định\"><item id=\"fixedassetgroups\" complex=\"true\" text=\"Nhóm tài sản cố định\"><item id=\"fixedassetgrouplist\" text=\"Danh sách nhóm tài sản cố định\"/><item id=\"fixedassetgroupadd\" text=\"Thêm nhóm tài sản cố định\"/></item><item id=\"fixedassets\" complex=\"true\" text=\"Tài sản cố định\"><item id=\"fixedassetlist\" text=\"Danh sách tài sản cố định\"/><item id=\"fixedassetadd\" text=\"Thêm tài sản cố định\"/></item></item></item><item id=\"employeefunction\" complex=\"true\" text=\"Nghiệp vụ Nhân viên\"><item id=\"employeeadvances\" complex=\"true\" text=\"Nhân viên tạm ứng\"><item id=\"employeeadvancelist\" text=\"Danh sách tạm ứng\"/><item id=\"employeeadvanceadd\" text=\"Thêm tạm ứng\"/></item><item id=\"borrows\" complex=\"true\" text=\"Mượn lương\"><item id=\"borrowlist\" text=\"Danh sách phiếu mượn lương\"/><item id=\"borrowadd\" text=\"Thêm phiếu mượn lương\"/></item><item id=\"employeetimesheets\" complex=\"true\" text=\"Chấm công nhân viên\"><item id=\"employeetimesheetlist\" text=\"Danh sách chấm công\"/><item id=\"employeetimesheetadd\" text=\"Thêm chấm công\"/></item><item id=\"employeeoffs\" complex=\"true\" text=\"Nghỉ phép\"><item id=\"employeeofflist\" text=\"Danh sách nghỉ phép\"/><item id=\"employeeoffadd\" text=\"Thêm nghỉ phép\"/></item><item id=\"employeeoffincreases\" complex=\"true\" text=\"Bù nghỉ phép\"><item id=\"employeeoffincreaselist\" text=\"Danh sách bù nghỉ phép\"/><item id=\"employeeoffincreaseadd\" text=\"Thêm bù nghỉ phép\"/></item><item id=\"employeeoffmoneys\" complex=\"true\" text=\"Thanh toán ngày phép\"><item id=\"employeeoffmoneylist\" text=\"Danh sách thanh toán ngày phép\"/><item id=\"employeeoffmoneyadd\" text=\"Thêm thanh toán ngày phép\"/></item><item id=\"employeeotherbonuss\" complex=\"true\" text=\"Khoản thưởng khác\"><item id=\"employeeotherbonuslist\" text=\"Danh sách khoản thưởng khác\"/><item id=\"employeeotherbonusadd\" text=\"Thêm khoản thưởng khác\"/></item><item id=\"employeepaneltys\" complex=\"true\" text=\"Khoản chi khác\"><item id=\"employeepaneltylist\" text=\"Danh sách khoản chi khác\"/><item id=\"employeepaneltyadd\" text=\"Thêm khoản chi khác\"/></item><item id=\"salarys\" complex=\"true\" text=\"Bảng lương\"><item id=\"salarylist\" text=\"Danh sách bảng lương\"/><item id=\"salarysalaryfiels\" complex=\"true\" text=\"Thông tin động\"><item id=\"salaryfiellist\" text=\"Phụ cấp\"/><item id=\"timesheetfiellist\" text=\"Chấm công\"/></item><item id=\"dynamicfielvalues\" complex=\"true\" text=\"Giá trị thông tin động\"><item id=\"employeesalarylist\" text=\"Danh sách phụ cấp\"/><item id=\"organizationtimesheetlist\" text=\"Danh sách chi phí chấm công\"/></item></item></item><item id=\"vehiclefunction\" complex=\"true\" text=\"Nghiệp vụ Xe\"><item id=\"tripfees\" complex=\"true\" text=\"Chi phí xe\"><item id=\"tripfeelist\" text=\"Danh sách chi phí xe\"/><item id=\"tripfeeadd\" text=\"Thêm chi phí xe\"/></item><item id=\"tripoils\" complex=\"true\" text=\"Ứng dầu\"><item id=\"tripoillist\" text=\"Danh sách ứng dầu\"/><item id=\"tripoiladd\" text=\"Thêm ứng dầu\"/></item><item id=\"employeeroutefees\" complex=\"true\" text=\"Chi phí nhân viên vận chuyển\"><item id=\"employeeroutefeelist\" text=\"Danh sách chi phí nhân viên vận chuyển\"/><item id=\"employeeroutefeeadd\" text=\"Thêm chi phí nhân viên vận chuyển\"/></item><item id=\"vehicleouts\" complex=\"true\" text=\"Xuất xe đi\"><item id=\"vehicleoutlist\" text=\"Danh sách xuất xe đi\"/><item id=\"vehicleoutadd\" text=\"Thêm xuất xe đi\"/></item><item id=\"vehicleins\" complex=\"true\" text=\"Nhập xe về\"><item id=\"vehicleinlist\" text=\"Danh sách nhập xe về\"/><item id=\"vehicleinadd\" text=\"Thêm nhập xe về\"/></item><item id=\"exportwholesales\" complex=\"true\" text=\"Xuất sỉ\"><item id=\"exportwholesalelist\" text=\"Danh sách xuất sỉ\"/><item id=\"exportwholesaleadd\" text=\"Thêm xuất sỉ\"/></item><item id=\"transportservices\" complex=\"true\" text=\"Vận chuyển thuê\"><item id=\"transportservicelist\" text=\"Danh sách vận chuyển thuê\"/><item id=\"transportserviceadd\" text=\"Thêm phiếu vận chuyển thuê\"/></item></item><item id=\"gasfunction\" complex=\"true\" text=\"Nghiệp vụ gas\"><item id=\"shellimports\" complex=\"true\" text=\"Nhập vỏ bình\"><item id=\"shellimportlist\" text=\"Danh sách nhập vỏ bình\"/><item id=\"shellimportadd\" text=\"Thêm nhập vỏ bình\"/></item><item id=\"lpgimports\" complex=\"true\" text=\"Nhập LPG\"><item id=\"lpgimportlist\" text=\"Danh sách nhập LPG\"/><item id=\"lpgimportadd\" text=\"Thêm nhập LPG\"/></item><item id=\"lpgsales\" complex=\"true\" text=\"Bán LPG\"><item id=\"lpgsalelist\" text=\"Danh sách bán LPG\"/><item id=\"lpgsaleadd\" text=\"Thêm bán LPG\"/></item><item id=\"fractions\" complex=\"true\" text=\"Chiết gas\"><item id=\"fractionlist\" text=\"Danh sách chiết gas\"/><item id=\"fractionadd\" text=\"Thêm chiết gas\"/></item><item id=\"gasprices\" complex=\"true\" text=\"Giá bán gas\"><item id=\"gaspricelist\" text=\"Danh sách giá bán gas\"/><item id=\"gaspriceadd\" text=\"Thêm giá bán gas\"/></item><item id=\"gasimports\" complex=\"true\" text=\"Nhập gas\"><item id=\"gasimportlist\" text=\"Danh sách phiếu nhập gas\"/><item id=\"gasimportadd\" text=\"Thêm phiếu nhập gas\"/></item><item id=\"gaswholesales\" complex=\"true\" text=\"Bán gas\"><item id=\"gaswholesalelist\" text=\"Danh sách phiếu bán gas\"/><item id=\"gaswholesaleadd\" text=\"Thêm phiếu bán gas\"/><item id=\"gaswholesalefeelist\" text=\"Danh sách các khoản phí khác\"/></item><item id=\"saleinners\" complex=\"true\" text=\"Bán Nội bộ\"><item id=\"saleinnerlist\" text=\"Danh sách phiếu bán nội bộ\"/><item id=\"saleinneradd\" text=\"Thêm phiếu bán nội bộ\"/></item><item id=\"saleshells\" complex=\"true\" text=\"Bán vỏ bình\"><item id=\"saleshelllist\" text=\"Danh sách phiếu bán vỏ bình\"/><item id=\"saleshelladd\" text=\"Thêm phiếu bán vỏ bình\"/></item><item id=\"oldshells\" complex=\"true\" text=\"Điều chỉnh số lượng vỏ bình\"><item id=\"oldshelllist\" text=\"Danh sách điều chỉnh số lượng vỏ bình\"/><item id=\"oldshelladd\" text=\"Thêm điều chỉnh số lượng vỏ bình\"/></item><item id=\"shellreturns\" complex=\"true\" text=\"Trả vỏ bình\"><item id=\"shellreturnlist\" text=\"Danh sách trả vỏ bình\"/><item id=\"shellreturnadd\" text=\"Thêm trả vỏ bình\"/></item><item id=\"shellreturnsuppliers\" complex=\"true\" text=\"Trả vỏ bình NCC\"><item id=\"shellreturnsupplierlist\" text=\"Danh sách trả vỏ bình NCC\"/><item id=\"shellreturnsupplieradd\" text=\"Thêm trả vỏ bình NCC\"/></item><item id=\"lovos\" complex=\"true\" text=\"Làm lò vỏ\"><item id=\"lovolist\" text=\"Danh sách làm lò vỏ\"/><item id=\"lovoadd\" text=\"Thêm làm lò vỏ\"/></item></item><item id=\"goodfunction\" complex=\"true\" text=\"Nghiệp vụ hàng hóa\"><item id=\"petroimports\" complex=\"true\" text=\"Nhập xăng\"><item id=\"petroimportlist\" text=\"Danh sách phiếu nhập xăng\"/><item id=\"petroimportadd\" text=\"Thêm phiếu nhập xăng\"/></item><item id=\"salepetros\" complex=\"true\" text=\"Bán xăng\"><item id=\"salepetrolist\" text=\"Danh sách phiếu bán xăng\"/><item id=\"salepetroadd\" text=\"Thêm phiếu bán xăng\"/></item><item id=\"oilimports\" complex=\"true\" text=\"Nhập dầu nhớt\"><item id=\"oilimportlist\" text=\"Danh sách phiếu nhập dầu nhớt\"/><item id=\"oilimportadd\" text=\"Thêm phiếu nhập dầu nhớt\"/></item><item id=\"saleoils\" complex=\"true\" text=\"Bán dầu nhớt\"><item id=\"saleoillist\" text=\"Danh sách phiếu bán dầu nhớt\"/><item id=\"saleoiladd\" text=\"Thêm phiếu bán dầu nhớt\"/></item><item id=\"oilexports\" complex=\"true\" text=\"Xuất kho dầu nhớt\"><item id=\"oilexportlist\" text=\"Danh sách phiếu xuất kho dầu nhớt\"/></item><item id=\"saleoilreturns\" complex=\"true\" text=\"Trả hàng dầu nhớt\"><item id=\"saleoilreturnlist\" text=\"Danh sách phiếu trả hàng dầu nhớt\"/></item><item id=\"goodimports\" complex=\"true\" text=\"Nhập hàng hóa\"><item id=\"goodimportlist\" text=\"Danh sách phiếu nhập hàng hóa\"/><item id=\"goodimportadd\" text=\"Thêm phiếu nhập hàng hóa\"/></item><item id=\"salegoods\" complex=\"true\" text=\"Bán hàng hóa\"><item id=\"salegoodlist\" text=\"Danh sách phiếu bán hàng hóa\"/><item id=\"salegoodadd\" text=\"Thêm phiếu bán hàng hóa\"/></item><item id=\"shieldimports\" complex=\"true\" text=\"Nhập shield\"><item id=\"shieldimportlist\" text=\"Danh sách phiếu nhập shield\"/><item id=\"shieldimportadd\" text=\"Thêm phiếu nhập shield\"/></item><item id=\"shielddecreases\" complex=\"true\" text=\"Giảm shield\"><item id=\"shielddecreaselist\" text=\"Danh sách phiếu giảm shield\"/><item id=\"shielddecreaseadd\" text=\"Thêm phiếu giảm shield\"/></item><item id=\"accessoryimports\" complex=\"true\" text=\"Nhập phụ kiện\"><item id=\"accessoryimportlist\" text=\"Danh sách phiếu nhập phụ kiện\"/><item id=\"accessoryimportadd\" text=\"Thêm phiếu nhập phụ kiện\"/></item><item id=\"saleaccessorys\" complex=\"true\" text=\"Bán phụ kiện\"><item id=\"saleaccessorylist\" text=\"Danh sách phiếu bán phụ kiện\"/><item id=\"saleaccessoryadd\" text=\"Thêm phiếu bán phụ kiện\"/></item><item id=\"promotionmaterialimports\" complex=\"true\" text=\"Nhập hàng khuyến mãi\"><item id=\"promotionmaterialimportlist\" text=\"Danh sách phiếu nhập hàng khuyến mãi\"/><item id=\"promotionmaterialimportadd\" text=\"Thêm phiếu nhập hàng khuyến mãi\"/></item><item id=\"fixedassetdepreciations\" complex=\"true\" text=\"Khấu hao\"><item id=\"fixedassetdepreciationlist\" text=\"Danh sách phiếu khấu hao\"/><item id=\"fixedassetdepreciationadd\" text=\"Thêm phiếu khấu hao\"/></item></item><item id=\"paymentfunction\" complex=\"true\" text=\"Nghiệp vụ thanh toán\"><item id=\"contracts\" complex=\"true\" text=\"Hợp đồng\"><item id=\"contractlist\" text=\"Danh sách hợp đồng\"/><item id=\"contractadd\" text=\"Thêm hợp đồng\"/></item><item id=\"invoices\" complex=\"true\" text=\"Hóa đơn\"><item id=\"invoicelist\" text=\"Danh sách hóa đơn\"/><item id=\"invoiceadd\" text=\"Thêm hóa đơn\"/></item><item id=\"debtvendors\" complex=\"true\" text=\"Công nợ NCC\"><item id=\"debtvendorlist\" text=\"Danh sách công nợ NCC\"/><item id=\"debtvendoradd\" text=\"Thêm công nợ NCC\"/></item><item id=\"debtwholesales\" complex=\"true\" text=\"Công nợ khách hàng\"><item id=\"debtwholesalelist\" text=\"Danh sách công nợ khách hàng\"/><item id=\"debtwholesaleadd\" text=\"Thêm công nợ khách hàng\"/></item><item id=\"incomes\" complex=\"true\" text=\"Thu\"><item id=\"incomelist\" text=\"Danh sách thu\"/><item id=\"incomeadd\" text=\"Thêm thu\"/></item><item id=\"expenses\" complex=\"true\" text=\"Chi\"><item id=\"expenselist\" text=\"Danh sách chi\"/><item id=\"expenseadd\" text=\"Thêm chi\"/></item><item id=\"debtadjustments\" complex=\"true\" text=\"Điều chỉnh công nợ\"><item id=\"debtadjustmentlist\" text=\"Danh sách điều chỉnh công nợ\"/><item id=\"debtadjustmentadd\" text=\"Thêm điều chỉnh công nợ\"/></item></item><item id=\"reportfunction\" complex=\"true\" text=\"Báo cáo\"><item id=\"reportgas\" complex=\"true\" text=\"Báo cáo gas\"><item id=\"reportlpgimport\" text=\"Bảng theo dõi nhập hàng LPG\"/><item id=\"reportlpgsale\" text=\"Bảng theo dõi bán hàng LPG\"/><item id=\"reportvendordebt\" text=\"Bảng theo dõi công nợ NCC\"/><item id=\"reportlpgstock\" text=\"Sổ theo dõi sản lượng khí hóa lỏng LPG\"/><item id=\"reportlpgstocksum\" text=\"Sổ theo dõi nhập xuất khí hóa lỏng LPG\"/><item id=\"reportlpgstocksumorganization\" text=\"Sổ theo dõi nhập xuất khí hóa lỏng LPG theo nhà cung cấp\"/><item id=\"reportsum\" text=\"Tổng hợp\"/><item id=\"reportcompare\" text=\"Đối chiếu\"/><item id=\"reportcomparelpg\" text=\"Bảng theo dõi công nợ khách hàng LPG\"/><item id=\"reportcomparelpgvendorcustomer\" text=\"Đối chiếu LPG NCC - KH\"/><item id=\"reportcomparegas\" text=\"Đối chiếu gas bình\"/><item id=\"reportcomparevendor\" text=\"Đối chiếu nhà cung cấp\"/><item id=\"reportsale\" text=\"Xuất bán hàng\"/><item id=\"reportsalecustomer\" text=\"Chi tiết bán hàng theo khách hàng\"/><item id=\"reportcashbook\" text=\"Báo cáo quỹ tiền\"/><item id=\"reportgascommission\" text=\"Chiết khấu bán hàng - Gas\"/><item id=\"reportgasemployeecommission\" text=\"Thanh toán tiền chiết khấu - Gas\"/><item id=\"reportshell\" text=\"Thống kê vỏ\"/></item><item id=\"reportpetro\" complex=\"true\" text=\"Báo cáo xăng\"><item id=\"reportpetroimport\" text=\"Bảng theo dõi nhập hàng xăng\"/><item id=\"reportpetrosale\" text=\"Xuất bán hàng xăng dầu\"/><item id=\"reportpetrostock\" text=\"Sổ theo dõi NXT xăng dầu tổng hợp\"/><item id=\"reportpetrostockstore\" text=\"Sổ theo dõi NXT xăng dầu theo cửa hàng\"/></item><item id=\"reportgood\" complex=\"true\" text=\"Báo cáo hàng hóa\"><item id=\"reportcomparegood\" text=\"Đối chiếu hàng hóa\"/></item><item id=\"reportoil\" complex=\"true\" text=\"Báo cáo dầu nhớt\"><item id=\"reportoilimport\" text=\"Báo cáo nhập dầu nhớt\"/><item id=\"reportoilstock\" text=\"Báo cáo nhập xuất tồn dầu nhớt\"/><item id=\"reportoilstockh\" text=\"Báo cáo nhập xuất tồn dầu nhớt - Ngang\"/><item id=\"reportoilstocksum\" text=\"Báo cáo nhập xuất tồn tổng hợp dầu nhớt\"/><item id=\"reportoilstocksumh\" text=\"Báo cáo nhập xuất tồn tổng hợp dầu nhớt - Ngang\"/><item id=\"reportoilsale\" text=\"Báo cáo bán hàng dầu nhớt\"/><item id=\"reportoilcompare\" text=\"Đối chiếu dầu nhớt\"/><item id=\"reportoilcommissionagency\" text=\"Báo cáo theo dõi chiết khấu dầu nhớt đại lý\"/><item id=\"reportoilcommissioncustomer\" text=\"Báo cáo theo dõi chiết khấu dầu nhớt khách hàng\"/><item id=\"reportoilvendorstock\" text=\"Bảng theo dõi nhập xuất tồn tổng kho\"/><item id=\"reportoilvendordebt\" text=\"Bảng theo dõi công nợ nhà cung cấp\"/><item id=\"reportoilcustomerdebt\" text=\"Bảng theo dõi công nợ khách hàng dầu nhớt\"/></item><item id=\"reporttransport\" complex=\"true\" text=\"Báo cáo xe\"><item id=\"reporttransportfee\" text=\"Bảng theo dõi chi phí vận chuyển\"/><item id=\"reportvehiclefee\" text=\"Bảng theo dõi chi phí xe\"/><item id=\"reportvehiclesale\" text=\"Bảng theo dõi bán hàng theo xe\"/><item id=\"reporttransportservice\" text=\"Bảng theo dõi chi phí vận chuyển thuê\"/></item><item id=\"reportaccountant\" complex=\"true\" text=\"Báo cáo kế toán\"><item id=\"reportemployeesalary\" text=\"Bảng thanh toán lương\"/><item id=\"reportemployeeoff\" text=\"Bảng theo dõi ngày nghỉ phép\"/><item id=\"reportemployeeworking\" text=\"Bảng theo dõi thời gian công tác\"/><item id=\"reportemployeevehiclesalary\" text=\"Bảng lương nhân viên vận chuyển\"/></item></item><item id=\"setting\" complex=\"true\" text=\"Cấu hình\"><item id=\"resetpassword\" text=\"Đổi mật khẩu\"/></item><item id=\"logout\" text=\"Đăng xuất\"/></menu>',1),(13,20,'hungcp','gdyb21LQTcIANtvYMT7QVQ==','<?xml version=\"1.0\"?><menu><item id=\"list\" complex=\"true\" text=\"Khai báo danh mục\"><item id=\"system\" complex=\"true\" text=\"Hệ thống\"><item id=\"users\" complex=\"true\" text=\"Tài khoản hệ thống\"><item id=\"userlist\" text=\"Danh sách tài khoản hệ thống\"/><item id=\"useradd\" text=\"Thêm tài khoản hệ thống\"/></item><item id=\"parameter\" text=\"Thông số hệ thống\"/><item id=\"permissionlist\" text=\"Phân quyền\"/><item id=\"openingstock\" text=\"Số dư đầu kỳ\"/></item><item id=\"organization\" complex=\"true\" text=\"Đơn vị\"><item id=\"organizations\" complex=\"true\" text=\"Đơn vị\"><item id=\"organizationlist\" text=\"Danh sách đơn vị\"/><item id=\"organizationadd\" text=\"Thêm đơn vị\"/></item><item id=\"stores\" complex=\"true\" text=\"Kho\"><item id=\"storelist\" text=\"Danh sách kho\"/><item id=\"storeadd\" text=\"Thêm kho\"/></item><item id=\"employees\" complex=\"true\" text=\"Nhân viên\"><item id=\"employeelist\" text=\"Danh sách nhân viên\"/><item id=\"employeeadd\" text=\"Thêm nhân viên\"/><item id=\"employeefiellist\" text=\"Thông tin động - Nhân viên\"/></item><item id=\"accounts\" complex=\"true\" text=\"Tài khoản ngân hàng\"><item id=\"accountlist\" text=\"Danh sách tài khoản ngân hàng\"/><item id=\"accountadd\" text=\"Thêm tài khoản ngân hàng\"/></item><item id=\"dayoffs\" complex=\"true\" text=\"Ngày nghỉ bù\"><item id=\"dayofflist\" text=\"Danh sách ngày nghỉ bù\"/><item id=\"dayoffadd\" text=\"Thêm ngày nghỉ bù\"/></item><item id=\"otherbonuss\" complex=\"true\" text=\"Khoản thưởng khác\"><item id=\"otherbonuslist\" text=\"Danh sách khoản thưởng khác\"/><item id=\"otherbonusadd\" text=\"Thêm khoản thưởng khác\"/></item><item id=\"paneltys\" complex=\"true\" text=\"Khoản chi khác\"><item id=\"paneltylist\" text=\"Danh sách khoản chi khác\"/><item id=\"paneltyadd\" text=\"Thêm khoản chi khác\"/></item></item><item id=\"good\" complex=\"true\" text=\"Hàng hóa\"><item id=\"units\" complex=\"true\" text=\"Đơn vị tính\"><item id=\"unitlist\" text=\"Danh sách đơn vị tính\"/><item id=\"unitadd\" text=\"Thêm đơn vị tính\"/></item><item id=\"shellkinds\" complex=\"true\" text=\"Loại vỏ bình\"><item id=\"shellkindlist\" text=\"Danh sách loại vỏ bình\"/><item id=\"shellkindadd\" text=\"Thêm loại vỏ bình\"/></item><item id=\"shells\" complex=\"true\" text=\"Vỏ bình\"><item id=\"shelllist\" text=\"Danh sách vỏ bình\"/><item id=\"shelladd\" text=\"Thêm vỏ bình\"/></item><item id=\"accessorykinds\" complex=\"true\" text=\"Loại phụ kiện\"><item id=\"accessorykindlist\" text=\"Danh sách loại phụ kiện\"/><item id=\"accessorykindadd\" text=\"Thêm loại phụ kiện\"/></item><item id=\"accessorys\" complex=\"true\" text=\"Phụ kiện\"><item id=\"accessorylist\" text=\"Danh sách phụ kiện\"/><item id=\"accessoryadd\" text=\"Thêm phụ kiện\"/></item><item id=\"promotionmaterials\" complex=\"true\" text=\"Hàng khuyến mãi\"><item id=\"promotionmateriallist\" text=\"Danh sách hàng khuyến mãi\"/><item id=\"promotionmaterialadd\" text=\"Thêm hàng khuyến mãi\"/></item><item id=\"petros\" complex=\"true\" text=\"Xăng dầu\"><item id=\"petrolist\" text=\"Danh sách hàng xăng dầu\"/><item id=\"petroadd\" text=\"Thêm hàng xăng dầu\"/></item><item id=\"goods\" complex=\"true\" text=\"Hàng hóa\"><item id=\"goodlist\" text=\"Danh sách hàng hóa\"/><item id=\"goodadd\" text=\"Thêm hàng hóa\"/></item></item><item id=\"oil\" complex=\"true\" text=\"Dầu nhớt\"><item id=\"vendoroils\" complex=\"true\" text=\"Nhà cung cấp\"><item id=\"vendoroillist\" text=\"Danh sách nhà cung cấp\"/><item id=\"vendoroiladd\" text=\"Thêm nhà cung cấp\"/></item><item id=\"unitrates\" complex=\"true\" text=\"Qui đổi đơn vị tính\"><item id=\"unitratelist\" text=\"Danh sách qui đổi đơn vị tính\"/><item id=\"unitrateadd\" text=\"Thêm qui đổi đơn vị tính\"/></item><item id=\"agencys\" complex=\"true\" text=\"Đại lý\"><item id=\"agencylist\" text=\"Danh sách đại lý\"/><item id=\"agencyadd\" text=\"Thêm đại lý\"/></item><item id=\"oilgroups\" complex=\"true\" text=\"Nhóm dầu nhớt\"><item id=\"oilgrouplist\" text=\"Danh sách nhóm dầu nhớt\"/><item id=\"oilgroupadd\" text=\"Thêm nhóm dầu nhớt\"/></item><item id=\"oils\" complex=\"true\" text=\"Dầu nhớt\"><item id=\"oillist\" text=\"Danh sách dầu nhớt\"/><item id=\"oiladd\" text=\"Thêm dầu nhớt\"/></item><item id=\"employeeoilcommissions\" complex=\"true\" text=\"Loại chiết khấu bán dầu nhớt\"><item id=\"employeeoilcommissionlist\" text=\"Danh sách loại chiết khấu bán dầu nhớt\"/><item id=\"employeeoilcommissionadd\" text=\"Thêm loại chiết khấu bán dầu nhớt\"/></item><item id=\"saleoilreturnstores\" complex=\"true\" text=\"Kho trả hàng dầu nhớt\"><item id=\"saleoilreturnstoreadd\" text=\"Thêm kho trả hàng dầu nhớt\"/></item></item><item id=\"vendor\" complex=\"true\" text=\"Nhà cung cấp\"><item id=\"vendors\" complex=\"true\" text=\"Nhà cung cấp\"><item id=\"vendorlist\" text=\"Danh sách nhà cung cấp\"/><item id=\"vendoradd\" text=\"Thêm nhà cung cấp\"/><item id=\"addgasreturnvendor\" text=\"Nhà cung cấp nhận gas trả\"/><item id=\"vendorfiellist\" text=\"Thông tin động - Nhà cung cấp\"/></item><item id=\"vendororganizations\" complex=\"true\" text=\"Nhà cung cấp liên kết\"><item id=\"vendororganizationlist\" text=\"Danh sách nhà cung cấp liên kết\"/><item id=\"vendororganizationadd\" text=\"Thêm nhà cung cấp liên kết\"/></item><item id=\"vendorcustomers\" complex=\"true\" text=\"Nhà cung cấp - Khách hàng\"><item id=\"vendorcustomerlist\" text=\"Danh sách nhà cung cấp - Khách hàng\"/><item id=\"vendorcustomeradd\" text=\"Thêm nhà cung cấp - Khách hàng\"/></item></item><item id=\"customer\" complex=\"true\" text=\"Khách hàng\"><item id=\"customers\" complex=\"true\" text=\"Khách hàng\"><item id=\"customerlist\" text=\"Danh sách khách hàng\"/><item id=\"customeradd\" text=\"Thêm khách hàng\"/><item id=\"customerfiellist\" text=\"Thông tin động - Khách hàng\"/><item id=\"customerdocumentlist\" text=\"Danh sách văn bản\"/></item><item id=\"discounts\" complex=\"true\" text=\"Giảm giá\"><item id=\"discountlist\" text=\"Danh sách giảm giá\"/><item id=\"discountadd\" text=\"Thêm giảm giá\"/></item></item><item id=\"vehicle\" complex=\"true\" text=\"Xe\"><item id=\"vehicles\" complex=\"true\" text=\"Xe\"><item id=\"vehiclelist\" text=\"Danh sách xe\"/><item id=\"vehicleadd\" text=\"Thêm xe\"/></item><item id=\"routes\" complex=\"true\" text=\"Tuyến đường\"><item id=\"routelist\" text=\"Danh sách tuyến đường\"/><item id=\"routeadd\" text=\"Thêm tuyến đường\"/></item></item><item id=\"fixedassetgroup\" complex=\"true\" text=\"Tài sản cố định\"><item id=\"fixedassetgroups\" complex=\"true\" text=\"Nhóm tài sản cố định\"><item id=\"fixedassetgrouplist\" text=\"Danh sách nhóm tài sản cố định\"/><item id=\"fixedassetgroupadd\" text=\"Thêm nhóm tài sản cố định\"/></item><item id=\"fixedassets\" complex=\"true\" text=\"Tài sản cố định\"><item id=\"fixedassetlist\" text=\"Danh sách tài sản cố định\"/><item id=\"fixedassetadd\" text=\"Thêm tài sản cố định\"/></item></item></item><item id=\"employeefunction\" complex=\"true\" text=\"Nghiệp vụ Nhân viên\"><item id=\"employeeadvances\" complex=\"true\" text=\"Nhân viên tạm ứng\"><item id=\"employeeadvancelist\" text=\"Danh sách tạm ứng\"/><item id=\"employeeadvanceadd\" text=\"Thêm tạm ứng\"/></item><item id=\"borrows\" complex=\"true\" text=\"Mượn lương\"><item id=\"borrowlist\" text=\"Danh sách phiếu mượn lương\"/><item id=\"borrowadd\" text=\"Thêm phiếu mượn lương\"/></item><item id=\"employeetimesheets\" complex=\"true\" text=\"Chấm công nhân viên\"><item id=\"employeetimesheetlist\" text=\"Danh sách chấm công\"/><item id=\"employeetimesheetadd\" text=\"Thêm chấm công\"/></item><item id=\"employeeoffs\" complex=\"true\" text=\"Nghỉ phép\"><item id=\"employeeofflist\" text=\"Danh sách nghỉ phép\"/><item id=\"employeeoffadd\" text=\"Thêm nghỉ phép\"/></item><item id=\"employeeoffincreases\" complex=\"true\" text=\"Bù nghỉ phép\"><item id=\"employeeoffincreaselist\" text=\"Danh sách bù nghỉ phép\"/><item id=\"employeeoffincreaseadd\" text=\"Thêm bù nghỉ phép\"/></item><item id=\"employeeoffmoneys\" complex=\"true\" text=\"Thanh toán ngày phép\"><item id=\"employeeoffmoneylist\" text=\"Danh sách thanh toán ngày phép\"/><item id=\"employeeoffmoneyadd\" text=\"Thêm thanh toán ngày phép\"/></item><item id=\"employeeotherbonuss\" complex=\"true\" text=\"Khoản thưởng khác\"><item id=\"employeeotherbonuslist\" text=\"Danh sách khoản thưởng khác\"/><item id=\"employeeotherbonusadd\" text=\"Thêm khoản thưởng khác\"/></item><item id=\"employeepaneltys\" complex=\"true\" text=\"Khoản chi khác\"><item id=\"employeepaneltylist\" text=\"Danh sách khoản chi khác\"/><item id=\"employeepaneltyadd\" text=\"Thêm khoản chi khác\"/></item><item id=\"salarys\" complex=\"true\" text=\"Bảng lương\"><item id=\"salarylist\" text=\"Danh sách bảng lương\"/><item id=\"salarysalaryfiels\" complex=\"true\" text=\"Thông tin động\"><item id=\"salaryfiellist\" text=\"Phụ cấp\"/><item id=\"timesheetfiellist\" text=\"Chấm công\"/></item><item id=\"dynamicfielvalues\" complex=\"true\" text=\"Giá trị thông tin động\"><item id=\"employeesalarylist\" text=\"Danh sách phụ cấp\"/><item id=\"organizationtimesheetlist\" text=\"Danh sách chi phí chấm công\"/></item></item></item><item id=\"vehiclefunction\" complex=\"true\" text=\"Nghiệp vụ Xe\"><item id=\"tripfees\" complex=\"true\" text=\"Chi phí xe\"><item id=\"tripfeelist\" text=\"Danh sách chi phí xe\"/><item id=\"tripfeeadd\" text=\"Thêm chi phí xe\"/></item><item id=\"tripoils\" complex=\"true\" text=\"Ứng dầu\"><item id=\"tripoillist\" text=\"Danh sách ứng dầu\"/><item id=\"tripoiladd\" text=\"Thêm ứng dầu\"/></item><item id=\"employeeroutefees\" complex=\"true\" text=\"Chi phí nhân viên vận chuyển\"><item id=\"employeeroutefeelist\" text=\"Danh sách chi phí nhân viên vận chuyển\"/><item id=\"employeeroutefeeadd\" text=\"Thêm chi phí nhân viên vận chuyển\"/></item><item id=\"vehicleouts\" complex=\"true\" text=\"Xuất xe đi\"><item id=\"vehicleoutlist\" text=\"Danh sách xuất xe đi\"/><item id=\"vehicleoutadd\" text=\"Thêm xuất xe đi\"/></item><item id=\"vehicleins\" complex=\"true\" text=\"Nhập xe về\"><item id=\"vehicleinlist\" text=\"Danh sách nhập xe về\"/><item id=\"vehicleinadd\" text=\"Thêm nhập xe về\"/></item><item id=\"exportwholesales\" complex=\"true\" text=\"Xuất sỉ\"><item id=\"exportwholesalelist\" text=\"Danh sách xuất sỉ\"/><item id=\"exportwholesaleadd\" text=\"Thêm xuất sỉ\"/></item><item id=\"transportservices\" complex=\"true\" text=\"Vận chuyển thuê\"><item id=\"transportservicelist\" text=\"Danh sách vận chuyển thuê\"/><item id=\"transportserviceadd\" text=\"Thêm phiếu vận chuyển thuê\"/></item></item><item id=\"gasfunction\" complex=\"true\" text=\"Nghiệp vụ gas\"><item id=\"shellimports\" complex=\"true\" text=\"Nhập vỏ bình\"><item id=\"shellimportlist\" text=\"Danh sách nhập vỏ bình\"/><item id=\"shellimportadd\" text=\"Thêm nhập vỏ bình\"/></item><item id=\"lpgimports\" complex=\"true\" text=\"Nhập LPG\"><item id=\"lpgimportlist\" text=\"Danh sách nhập LPG\"/><item id=\"lpgimportadd\" text=\"Thêm nhập LPG\"/></item><item id=\"lpgsales\" complex=\"true\" text=\"Bán LPG\"><item id=\"lpgsalelist\" text=\"Danh sách bán LPG\"/><item id=\"lpgsaleadd\" text=\"Thêm bán LPG\"/></item><item id=\"fractions\" complex=\"true\" text=\"Chiết gas\"><item id=\"fractionlist\" text=\"Danh sách chiết gas\"/><item id=\"fractionadd\" text=\"Thêm chiết gas\"/></item><item id=\"gasprices\" complex=\"true\" text=\"Giá bán gas\"><item id=\"gaspricelist\" text=\"Danh sách giá bán gas\"/><item id=\"gaspriceadd\" text=\"Thêm giá bán gas\"/></item><item id=\"gasimports\" complex=\"true\" text=\"Nhập gas\"><item id=\"gasimportlist\" text=\"Danh sách phiếu nhập gas\"/><item id=\"gasimportadd\" text=\"Thêm phiếu nhập gas\"/></item><item id=\"gaswholesales\" complex=\"true\" text=\"Bán gas\"><item id=\"gaswholesalelist\" text=\"Danh sách phiếu bán gas\"/><item id=\"gaswholesaleadd\" text=\"Thêm phiếu bán gas\"/><item id=\"gaswholesalefeelist\" text=\"Danh sách các khoản phí khác\"/></item><item id=\"saleinners\" complex=\"true\" text=\"Bán Nội bộ\"><item id=\"saleinnerlist\" text=\"Danh sách phiếu bán nội bộ\"/><item id=\"saleinneradd\" text=\"Thêm phiếu bán nội bộ\"/></item><item id=\"saleshells\" complex=\"true\" text=\"Bán vỏ bình\"><item id=\"saleshelllist\" text=\"Danh sách phiếu bán vỏ bình\"/><item id=\"saleshelladd\" text=\"Thêm phiếu bán vỏ bình\"/></item><item id=\"oldshells\" complex=\"true\" text=\"Điều chỉnh số lượng vỏ bình\"><item id=\"oldshelllist\" text=\"Danh sách điều chỉnh số lượng vỏ bình\"/><item id=\"oldshelladd\" text=\"Thêm điều chỉnh số lượng vỏ bình\"/></item><item id=\"shellreturns\" complex=\"true\" text=\"Trả vỏ bình\"><item id=\"shellreturnlist\" text=\"Danh sách trả vỏ bình\"/><item id=\"shellreturnadd\" text=\"Thêm trả vỏ bình\"/></item><item id=\"shellreturnsuppliers\" complex=\"true\" text=\"Trả vỏ bình NCC\"><item id=\"shellreturnsupplierlist\" text=\"Danh sách trả vỏ bình NCC\"/><item id=\"shellreturnsupplieradd\" text=\"Thêm trả vỏ bình NCC\"/></item><item id=\"lovos\" complex=\"true\" text=\"Làm lò vỏ\"><item id=\"lovolist\" text=\"Danh sách làm lò vỏ\"/><item id=\"lovoadd\" text=\"Thêm làm lò vỏ\"/></item></item><item id=\"goodfunction\" complex=\"true\" text=\"Nghiệp vụ hàng hóa\"><item id=\"petroimports\" complex=\"true\" text=\"Nhập xăng\"><item id=\"petroimportlist\" text=\"Danh sách phiếu nhập xăng\"/><item id=\"petroimportadd\" text=\"Thêm phiếu nhập xăng\"/></item><item id=\"salepetros\" complex=\"true\" text=\"Bán xăng\"><item id=\"salepetrolist\" text=\"Danh sách phiếu bán xăng\"/><item id=\"salepetroadd\" text=\"Thêm phiếu bán xăng\"/></item><item id=\"oilimports\" complex=\"true\" text=\"Nhập dầu nhớt\"><item id=\"oilimportlist\" text=\"Danh sách phiếu nhập dầu nhớt\"/><item id=\"oilimportadd\" text=\"Thêm phiếu nhập dầu nhớt\"/></item><item id=\"saleoils\" complex=\"true\" text=\"Bán dầu nhớt\"><item id=\"saleoillist\" text=\"Danh sách phiếu bán dầu nhớt\"/><item id=\"saleoiladd\" text=\"Thêm phiếu bán dầu nhớt\"/></item><item id=\"oilexports\" complex=\"true\" text=\"Xuất kho dầu nhớt\"><item id=\"oilexportlist\" text=\"Danh sách phiếu xuất kho dầu nhớt\"/></item><item id=\"saleoilreturns\" complex=\"true\" text=\"Trả hàng dầu nhớt\"><item id=\"saleoilreturnlist\" text=\"Danh sách phiếu trả hàng dầu nhớt\"/></item><item id=\"goodimports\" complex=\"true\" text=\"Nhập hàng hóa\"><item id=\"goodimportlist\" text=\"Danh sách phiếu nhập hàng hóa\"/><item id=\"goodimportadd\" text=\"Thêm phiếu nhập hàng hóa\"/></item><item id=\"salegoods\" complex=\"true\" text=\"Bán hàng hóa\"><item id=\"salegoodlist\" text=\"Danh sách phiếu bán hàng hóa\"/><item id=\"salegoodadd\" text=\"Thêm phiếu bán hàng hóa\"/></item><item id=\"shieldimports\" complex=\"true\" text=\"Nhập shield\"><item id=\"shieldimportlist\" text=\"Danh sách phiếu nhập shield\"/><item id=\"shieldimportadd\" text=\"Thêm phiếu nhập shield\"/></item><item id=\"shielddecreases\" complex=\"true\" text=\"Giảm shield\"><item id=\"shielddecreaselist\" text=\"Danh sách phiếu giảm shield\"/><item id=\"shielddecreaseadd\" text=\"Thêm phiếu giảm shield\"/></item><item id=\"accessoryimports\" complex=\"true\" text=\"Nhập phụ kiện\"><item id=\"accessoryimportlist\" text=\"Danh sách phiếu nhập phụ kiện\"/><item id=\"accessoryimportadd\" text=\"Thêm phiếu nhập phụ kiện\"/></item><item id=\"saleaccessorys\" complex=\"true\" text=\"Bán phụ kiện\"><item id=\"saleaccessorylist\" text=\"Danh sách phiếu bán phụ kiện\"/><item id=\"saleaccessoryadd\" text=\"Thêm phiếu bán phụ kiện\"/></item><item id=\"promotionmaterialimports\" complex=\"true\" text=\"Nhập hàng khuyến mãi\"><item id=\"promotionmaterialimportlist\" text=\"Danh sách phiếu nhập hàng khuyến mãi\"/><item id=\"promotionmaterialimportadd\" text=\"Thêm phiếu nhập hàng khuyến mãi\"/></item><item id=\"fixedassetdepreciations\" complex=\"true\" text=\"Khấu hao\"><item id=\"fixedassetdepreciationlist\" text=\"Danh sách phiếu khấu hao\"/><item id=\"fixedassetdepreciationadd\" text=\"Thêm phiếu khấu hao\"/></item></item><item id=\"paymentfunction\" complex=\"true\" text=\"Nghiệp vụ thanh toán\"><item id=\"contracts\" complex=\"true\" text=\"Hợp đồng\"><item id=\"contractlist\" text=\"Danh sách hợp đồng\"/><item id=\"contractadd\" text=\"Thêm hợp đồng\"/></item><item id=\"invoices\" complex=\"true\" text=\"Hóa đơn\"><item id=\"invoicelist\" text=\"Danh sách hóa đơn\"/><item id=\"invoiceadd\" text=\"Thêm hóa đơn\"/></item><item id=\"debtvendors\" complex=\"true\" text=\"Công nợ NCC\"><item id=\"debtvendorlist\" text=\"Danh sách công nợ NCC\"/><item id=\"debtvendoradd\" text=\"Thêm công nợ NCC\"/></item><item id=\"debtwholesales\" complex=\"true\" text=\"Công nợ khách hàng\"><item id=\"debtwholesalelist\" text=\"Danh sách công nợ khách hàng\"/><item id=\"debtwholesaleadd\" text=\"Thêm công nợ khách hàng\"/></item><item id=\"incomes\" complex=\"true\" text=\"Thu\"><item id=\"incomelist\" text=\"Danh sách thu\"/><item id=\"incomeadd\" text=\"Thêm thu\"/></item><item id=\"expenses\" complex=\"true\" text=\"Chi\"><item id=\"expenselist\" text=\"Danh sách chi\"/><item id=\"expenseadd\" text=\"Thêm chi\"/></item><item id=\"debtadjustments\" complex=\"true\" text=\"Điều chỉnh công nợ\"><item id=\"debtadjustmentlist\" text=\"Danh sách điều chỉnh công nợ\"/><item id=\"debtadjustmentadd\" text=\"Thêm điều chỉnh công nợ\"/></item></item><item id=\"reportfunction\" complex=\"true\" text=\"Báo cáo\"><item id=\"reportgas\" complex=\"true\" text=\"Báo cáo gas\"><item id=\"reportlpgimport\" text=\"Bảng theo dõi nhập hàng LPG\"/><item id=\"reportlpgsale\" text=\"Bảng theo dõi bán hàng LPG\"/><item id=\"reportvendordebt\" text=\"Bảng theo dõi công nợ NCC\"/><item id=\"reportlpgstock\" text=\"Sổ theo dõi sản lượng khí hóa lỏng LPG\"/><item id=\"reportlpgstocksum\" text=\"Sổ theo dõi nhập xuất khí hóa lỏng LPG\"/><item id=\"reportlpgstocksumorganization\" text=\"Sổ theo dõi nhập xuất khí hóa lỏng LPG theo nhà cung cấp\"/><item id=\"reportsum\" text=\"Tổng hợp\"/><item id=\"reportcompare\" text=\"Đối chiếu\"/><item id=\"reportcomparelpg\" text=\"Bảng theo dõi công nợ khách hàng LPG\"/><item id=\"reportcomparelpgvendorcustomer\" text=\"Đối chiếu LPG NCC - KH\"/><item id=\"reportcomparegas\" text=\"Đối chiếu gas bình\"/><item id=\"reportcomparevendor\" text=\"Đối chiếu nhà cung cấp\"/><item id=\"reportsale\" text=\"Xuất bán hàng\"/><item id=\"reportsalecustomer\" text=\"Chi tiết bán hàng theo khách hàng\"/><item id=\"reportcashbook\" text=\"Báo cáo quỹ tiền\"/><item id=\"reportgascommission\" text=\"Chiết khấu bán hàng - Gas\"/><item id=\"reportgasemployeecommission\" text=\"Thanh toán tiền chiết khấu - Gas\"/><item id=\"reportshell\" text=\"Thống kê vỏ\"/></item><item id=\"reportpetro\" complex=\"true\" text=\"Báo cáo xăng\"><item id=\"reportpetroimport\" text=\"Bảng theo dõi nhập hàng xăng\"/><item id=\"reportpetrosale\" text=\"Xuất bán hàng xăng dầu\"/><item id=\"reportpetrostock\" text=\"Sổ theo dõi NXT xăng dầu tổng hợp\"/><item id=\"reportpetrostockstore\" text=\"Sổ theo dõi NXT xăng dầu theo cửa hàng\"/></item><item id=\"reportgood\" complex=\"true\" text=\"Báo cáo hàng hóa\"><item id=\"reportcomparegood\" text=\"Đối chiếu hàng hóa\"/></item><item id=\"reportoil\" complex=\"true\" text=\"Báo cáo dầu nhớt\"><item id=\"reportoilimport\" text=\"Báo cáo nhập dầu nhớt\"/><item id=\"reportoilstock\" text=\"Báo cáo nhập xuất tồn dầu nhớt\"/><item id=\"reportoilstockh\" text=\"Báo cáo nhập xuất tồn dầu nhớt - Ngang\"/><item id=\"reportoilstocksum\" text=\"Báo cáo nhập xuất tồn tổng hợp dầu nhớt\"/><item id=\"reportoilstocksumh\" text=\"Báo cáo nhập xuất tồn tổng hợp dầu nhớt - Ngang\"/><item id=\"reportoilsale\" text=\"Báo cáo bán hàng dầu nhớt\"/><item id=\"reportoilcompare\" text=\"Đối chiếu dầu nhớt\"/><item id=\"reportoilcommissionagency\" text=\"Báo cáo theo dõi chiết khấu dầu nhớt đại lý\"/><item id=\"reportoilcommissioncustomer\" text=\"Báo cáo theo dõi chiết khấu dầu nhớt khách hàng\"/><item id=\"reportoilvendorstock\" text=\"Bảng theo dõi nhập xuất tồn tổng kho\"/><item id=\"reportoilvendordebt\" text=\"Bảng theo dõi công nợ nhà cung cấp\"/><item id=\"reportoilcustomerdebt\" text=\"Bảng theo dõi công nợ khách hàng dầu nhớt\"/></item><item id=\"reporttransport\" complex=\"true\" text=\"Báo cáo xe\"><item id=\"reporttransportfee\" text=\"Bảng theo dõi chi phí vận chuyển\"/><item id=\"reportvehiclefee\" text=\"Bảng theo dõi chi phí xe\"/><item id=\"reportvehiclesale\" text=\"Bảng theo dõi bán hàng theo xe\"/><item id=\"reporttransportservice\" text=\"Bảng theo dõi chi phí vận chuyển thuê\"/></item><item id=\"reportaccountant\" complex=\"true\" text=\"Báo cáo kế toán\"><item id=\"reportemployeesalary\" text=\"Bảng thanh toán lương\"/><item id=\"reportemployeeoff\" text=\"Bảng theo dõi ngày nghỉ phép\"/><item id=\"reportemployeeworking\" text=\"Bảng theo dõi thời gian công tác\"/><item id=\"reportemployeevehiclesalary\" text=\"Bảng lương nhân viên vận chuyển\"/></item></item><item id=\"setting\" complex=\"true\" text=\"Cấu hình\"><item id=\"resetpassword\" text=\"Đổi mật khẩu\"/></item><item id=\"logout\" text=\"Đăng xuất\"/></menu>',1),(15,42,'tuht','gdyb21LQTcIANtvYMT7QVQ==','<?xml version=\"1.0\"?><menu><item id=\"list\" complex=\"true\" text=\"Khai báo danh mục\"><item id=\"system\" complex=\"true\" text=\"Hệ thống\"><item id=\"users\" complex=\"true\" text=\"Tài khoản hệ thống\"><item id=\"userlist\" text=\"Danh sách tài khoản hệ thống\"/><item id=\"useradd\" text=\"Thêm tài khoản hệ thống\"/></item><item id=\"parameter\" text=\"Thông số hệ thống\"/><item id=\"permissionlist\" text=\"Phân quyền\"/><item id=\"openingstock\" text=\"Số dư đầu kỳ\"/></item><item id=\"organization\" complex=\"true\" text=\"Đơn vị\"><item id=\"organizations\" complex=\"true\" text=\"Đơn vị\"><item id=\"organizationlist\" text=\"Danh sách đơn vị\"/><item id=\"organizationadd\" text=\"Thêm đơn vị\"/></item><item id=\"stores\" complex=\"true\" text=\"Kho\"><item id=\"storelist\" text=\"Danh sách kho\"/><item id=\"storeadd\" text=\"Thêm kho\"/></item><item id=\"employees\" complex=\"true\" text=\"Nhân viên\"><item id=\"employeelist\" text=\"Danh sách nhân viên\"/><item id=\"employeeadd\" text=\"Thêm nhân viên\"/><item id=\"employeefiellist\" text=\"Thông tin động - Nhân viên\"/></item><item id=\"accounts\" complex=\"true\" text=\"Tài khoản ngân hàng\"><item id=\"accountlist\" text=\"Danh sách tài khoản ngân hàng\"/><item id=\"accountadd\" text=\"Thêm tài khoản ngân hàng\"/></item></item><item id=\"good\" complex=\"true\" text=\"Hàng hóa\"><item id=\"units\" complex=\"true\" text=\"Đơn vị tính\"><item id=\"unitlist\" text=\"Danh sách đơn vị tính\"/><item id=\"unitadd\" text=\"Thêm đơn vị tính\"/></item><item id=\"shellkinds\" complex=\"true\" text=\"Loại vỏ bình\"><item id=\"shellkindlist\" text=\"Danh sách loại vỏ bình\"/><item id=\"shellkindadd\" text=\"Thêm loại vỏ bình\"/></item><item id=\"shells\" complex=\"true\" text=\"Vỏ bình\"><item id=\"shelllist\" text=\"Danh sách vỏ bình\"/><item id=\"shelladd\" text=\"Thêm vỏ bình\"/></item><item id=\"accessorykinds\" complex=\"true\" text=\"Loại phụ kiện\"><item id=\"accessorykindlist\" text=\"Danh sách loại phụ kiện\"/><item id=\"accessorykindadd\" text=\"Thêm loại phụ kiện\"/></item><item id=\"accessorys\" complex=\"true\" text=\"Phụ kiện\"><item id=\"accessorylist\" text=\"Danh sách phụ kiện\"/><item id=\"accessoryadd\" text=\"Thêm phụ kiện\"/></item><item id=\"promotionmaterials\" complex=\"true\" text=\"Hàng khuyến mãi\"><item id=\"promotionmateriallist\" text=\"Danh sách hàng khuyến mãi\"/><item id=\"promotionmaterialadd\" text=\"Thêm hàng khuyến mãi\"/></item><item id=\"petros\" complex=\"true\" text=\"Xăng dầu\"><item id=\"petrolist\" text=\"Danh sách hàng xăng dầu\"/><item id=\"petroadd\" text=\"Thêm hàng xăng dầu\"/></item><item id=\"goods\" complex=\"true\" text=\"Hàng hóa\"><item id=\"goodlist\" text=\"Danh sách hàng hóa\"/><item id=\"goodadd\" text=\"Thêm hàng hóa\"/></item></item><item id=\"vendor\" complex=\"true\" text=\"Nhà cung cấp\"><item id=\"vendors\" complex=\"true\" text=\"Nhà cung cấp\"><item id=\"vendorlist\" text=\"Danh sách nhà cung cấp\"/><item id=\"vendoradd\" text=\"Thêm nhà cung cấp\"/><item id=\"addgasreturnvendor\" text=\"Nhà cung cấp nhận gas trả\"/><item id=\"vendorfiellist\" text=\"Thông tin động - Nhà cung cấp\"/></item><item id=\"vendororganizations\" complex=\"true\" text=\"Nhà cung cấp liên kết\"><item id=\"vendororganizationlist\" text=\"Danh sách nhà cung cấp liên kết\"/><item id=\"vendororganizationadd\" text=\"Thêm nhà cung cấp liên kết\"/></item><item id=\"vendorcustomers\" complex=\"true\" text=\"Nhà cung cấp - Khách hàng\"><item id=\"vendorcustomerlist\" text=\"Danh sách nhà cung cấp - Khách hàng\"/><item id=\"vendorcustomeradd\" text=\"Thêm nhà cung cấp - Khách hàng\"/></item></item><item id=\"customer\" complex=\"true\" text=\"Khách hàng\"><item id=\"customers\" complex=\"true\" text=\"Khách hàng\"><item id=\"customerlist\" text=\"Danh sách khách hàng\"/><item id=\"customeradd\" text=\"Thêm khách hàng\"/><item id=\"customerfiellist\" text=\"Thông tin động - Khách hàng\"/><item id=\"customerdocumentlist\" text=\"Danh sách văn bản\"/></item><item id=\"discounts\" complex=\"true\" text=\"Chiết khấu\"><item id=\"discountlist\" text=\"Danh sách chiết khấu\"/><item id=\"discountadd\" text=\"Thêm chiết khấu\"/></item></item><item id=\"vehicle\" complex=\"true\" text=\"Xe\"><item id=\"vehicles\" complex=\"true\" text=\"Xe\"><item id=\"vehiclelist\" text=\"Danh sách xe\"/><item id=\"vehicleadd\" text=\"Thêm xe\"/></item><item id=\"routes\" complex=\"true\" text=\"Tuyến đường\"><item id=\"routelist\" text=\"Danh sách tuyến đường\"/><item id=\"routeadd\" text=\"Thêm tuyến đường\"/></item></item><item id=\"fixedassetgroup\" complex=\"true\" text=\"Tài sản cố định\"><item id=\"fixedassetgroups\" complex=\"true\" text=\"Nhóm tài sản cố định\"><item id=\"fixedassetgrouplist\" text=\"Danh sách nhóm tài sản cố định\"/><item id=\"fixedassetgroupadd\" text=\"Thêm nhóm tài sản cố định\"/></item><item id=\"fixedassets\" complex=\"true\" text=\"Tài sản cố định\"><item id=\"fixedassetlist\" text=\"Danh sách tài sản cố định\"/><item id=\"fixedassetadd\" text=\"Thêm tài sản cố định\"/></item></item></item><item id=\"employeefunction\" complex=\"true\" text=\"Nghiệp vụ Nhân viên\"><item id=\"employeeadvances\" complex=\"true\" text=\"Nhân viên tạm ứng\"><item id=\"employeeadvancelist\" text=\"Danh sách tạm ứng\"/><item id=\"employeeadvanceadd\" text=\"Thêm tạm ứng\"/></item><item id=\"employeetimesheets\" complex=\"true\" text=\"Chấm công nhân viên\"><item id=\"employeetimesheetlist\" text=\"Danh sách chấm công\"/><item id=\"employeetimesheetadd\" text=\"Thêm chấm công\"/></item><item id=\"employeeoffs\" complex=\"true\" text=\"Nghỉ phép\"><item id=\"employeeofflist\" text=\"Danh sách nghỉ phép\"/><item id=\"employeeoffadd\" text=\"Thêm nghỉ phép\"/></item><item id=\"employeeoffincreases\" complex=\"true\" text=\"Bù nghỉ phép\"><item id=\"employeeoffincreaselist\" text=\"Danh sách bù nghỉ phép\"/><item id=\"employeeoffincreaseadd\" text=\"Thêm bù nghỉ phép\"/></item><item id=\"employeeoffmoneys\" complex=\"true\" text=\"Thanh toán ngày phép\"><item id=\"employeeoffmoneylist\" text=\"Danh sách thanh toán ngày phép\"/><item id=\"employeeoffmoneyadd\" text=\"Thêm thanh toán ngày phép\"/></item><item id=\"salarys\" complex=\"true\" text=\"Bảng lương\"><item id=\"salarylist\" text=\"Danh sách bảng lương\"/><item id=\"salarysalaryfiels\" complex=\"true\" text=\"Thông tin động\"><item id=\"salaryfiellist\" text=\"Phụ cấp\"/><item id=\"timesheetfiellist\" text=\"Chấm công\"/></item><item id=\"dynamicfielvalues\" complex=\"true\" text=\"Giá trị thông tin động\"><item id=\"employeesalarylist\" text=\"Danh sách phụ cấp\"/><item id=\"organizationtimesheetlist\" text=\"Danh sách chi phí chấm công\"/></item></item></item><item id=\"vehiclefunction\" complex=\"true\" text=\"Nghiệp vụ Xe\"><item id=\"tripfees\" complex=\"true\" text=\"Chi phí xe\"><item id=\"tripfeelist\" text=\"Danh sách chi phí xe\"/><item id=\"tripfeeadd\" text=\"Thêm chi phí xe\"/></item><item id=\"vehicleouts\" complex=\"true\" text=\"Xuất xe đi\"><item id=\"vehicleoutlist\" text=\"Danh sách xuất xe đi\"/><item id=\"vehicleoutadd\" text=\"Thêm xuất xe đi\"/></item><item id=\"vehicleins\" complex=\"true\" text=\"Nhập xe về\"><item id=\"vehicleinlist\" text=\"Danh sách nhập xe về\"/><item id=\"vehicleinadd\" text=\"Thêm nhập xe về\"/></item><item id=\"exportwholesales\" complex=\"true\" text=\"Xuất sỉ\"><item id=\"exportwholesalelist\" text=\"Danh sách xuất sỉ\"/><item id=\"exportwholesaleadd\" text=\"Thêm xuất sỉ\"/></item><item id=\"transportservices\" complex=\"true\" text=\"Vận chuyển thuê\"><item id=\"transportservicelist\" text=\"Danh sách vận chuyển thuê\"/><item id=\"transportserviceadd\" text=\"Thêm phiếu vận chuyển thuê\"/></item></item><item id=\"gasfunction\" complex=\"true\" text=\"Nghiệp vụ gas\"><item id=\"shellimports\" complex=\"true\" text=\"Nhập vỏ bình\"><item id=\"shellimportlist\" text=\"Danh sách nhập vỏ bình\"/><item id=\"shellimportadd\" text=\"Thêm nhập vỏ bình\"/></item><item id=\"lpgimports\" complex=\"true\" text=\"Nhập LPG\"><item id=\"lpgimportlist\" text=\"Danh sách nhập LPG\"/><item id=\"lpgimportadd\" text=\"Thêm nhập LPG\"/></item><item id=\"lpgsales\" complex=\"true\" text=\"Bán LPG\"><item id=\"lpgsalelist\" text=\"Danh sách bán LPG\"/><item id=\"lpgsaleadd\" text=\"Thêm bán LPG\"/></item><item id=\"fractions\" complex=\"true\" text=\"Chiết gas\"><item id=\"fractionlist\" text=\"Danh sách chiết gas\"/><item id=\"fractionadd\" text=\"Thêm chiết gas\"/></item><item id=\"gasprices\" complex=\"true\" text=\"Giá bán gas\"><item id=\"gaspricelist\" text=\"Danh sách giá bán gas\"/><item id=\"gaspriceadd\" text=\"Thêm giá bán gas\"/></item><item id=\"gasimports\" complex=\"true\" text=\"Nhập gas\"><item id=\"gasimportlist\" text=\"Danh sách phiếu nhập gas\"/><item id=\"gasimportadd\" text=\"Thêm phiếu nhập gas\"/></item><item id=\"gaswholesales\" complex=\"true\" text=\"Bán gas\"><item id=\"gaswholesalelist\" text=\"Danh sách phiếu bán gas\"/><item id=\"gaswholesaleadd\" text=\"Thêm phiếu bán gas\"/></item><item id=\"saleshells\" complex=\"true\" text=\"Bán vỏ bình\"><item id=\"saleshelllist\" text=\"Danh sách phiếu bán vỏ bình\"/><item id=\"saleshelladd\" text=\"Thêm phiếu bán vỏ bình\"/></item><item id=\"oldshells\" complex=\"true\" text=\"Điều chỉnh số lượng vỏ bình\"><item id=\"oldshelllist\" text=\"Danh sách điều chỉnh số lượng vỏ bình\"/><item id=\"oldshelladd\" text=\"Thêm điều chỉnh số lượng vỏ bình\"/></item><item id=\"shellreturns\" complex=\"true\" text=\"Trả vỏ bình\"><item id=\"shellreturnlist\" text=\"Danh sách trả vỏ bình\"/><item id=\"shellreturnadd\" text=\"Thêm trả vỏ bình\"/></item><item id=\"shellreturnsuppliers\" complex=\"true\" text=\"Trả vỏ bình NCC\"><item id=\"shellreturnsupplierlist\" text=\"Danh sách trả vỏ bình NCC\"/><item id=\"shellreturnsupplieradd\" text=\"Thêm trả vỏ bình NCC\"/></item><item id=\"lovos\" complex=\"true\" text=\"Làm lò vỏ\"><item id=\"lovolist\" text=\"Danh sách làm lò vỏ\"/><item id=\"lovoadd\" text=\"Thêm làm lò vỏ\"/></item></item><item id=\"goodfunction\" complex=\"true\" text=\"Nghiệp vụ hàng hóa\"><item id=\"petroimports\" complex=\"true\" text=\"Nhập xăng\"><item id=\"petroimportlist\" text=\"Danh sách phiếu nhập xăng\"/><item id=\"petroimportadd\" text=\"Thêm phiếu nhập xăng\"/></item><item id=\"salepetros\" complex=\"true\" text=\"Bán xăng\"><item id=\"salepetrolist\" text=\"Danh sách phiếu bán xăng\"/><item id=\"salepetroadd\" text=\"Thêm phiếu bán xăng\"/></item><item id=\"goodimports\" complex=\"true\" text=\"Nhập hàng hóa\"><item id=\"goodimportlist\" text=\"Danh sách phiếu nhập hàng hóa\"/><item id=\"goodimportadd\" text=\"Thêm phiếu nhập hàng hóa\"/></item><item id=\"salegoods\" complex=\"true\" text=\"Bán hàng hóa\"><item id=\"salegoodlist\" text=\"Danh sách phiếu bán hàng hóa\"/><item id=\"salegoodadd\" text=\"Thêm phiếu bán hàng hóa\"/></item><item id=\"shieldimports\" complex=\"true\" text=\"Nhập shield\"><item id=\"shieldimportlist\" text=\"Danh sách phiếu nhập shield\"/><item id=\"shieldimportadd\" text=\"Thêm phiếu nhập shield\"/></item><item id=\"shielddecreases\" complex=\"true\" text=\"Giảm shield\"><item id=\"shielddecreaselist\" text=\"Danh sách phiếu giảm shield\"/><item id=\"shielddecreaseadd\" text=\"Thêm phiếu giảm shield\"/></item><item id=\"accessoryimports\" complex=\"true\" text=\"Nhập phụ kiện\"><item id=\"accessoryimportlist\" text=\"Danh sách phiếu nhập phụ kiện\"/><item id=\"accessoryimportadd\" text=\"Thêm phiếu nhập phụ kiện\"/></item><item id=\"saleaccessorys\" complex=\"true\" text=\"Bán phụ kiện\"><item id=\"saleaccessorylist\" text=\"Danh sách phiếu bán phụ kiện\"/><item id=\"saleaccessoryadd\" text=\"Thêm phiếu bán phụ kiện\"/></item><item id=\"promotionmaterialimports\" complex=\"true\" text=\"Nhập hàng khuyến mãi\"><item id=\"promotionmaterialimportlist\" text=\"Danh sách phiếu nhập hàng khuyến mãi\"/><item id=\"promotionmaterialimportadd\" text=\"Thêm phiếu nhập hàng khuyến mãi\"/></item><item id=\"fixedassetdepreciations\" complex=\"true\" text=\"Khấu hao\"><item id=\"fixedassetdepreciationlist\" text=\"Danh sách phiếu khấu hao\"/><item id=\"fixedassetdepreciationadd\" text=\"Thêm phiếu khấu hao\"/></item></item><item id=\"paymentfunction\" complex=\"true\" text=\"Nghiệp vụ thanh toán\"><item id=\"contracts\" complex=\"true\" text=\"Hợp đồng\"><item id=\"contractlist\" text=\"Danh sách hợp đồng\"/><item id=\"contractadd\" text=\"Thêm hợp đồng\"/></item><item id=\"debtvendors\" complex=\"true\" text=\"Công nợ NCC\"><item id=\"debtvendorlist\" text=\"Danh sách công nợ NCC\"/><item id=\"debtvendoradd\" text=\"Thêm công nợ NCC\"/></item><item id=\"debtwholesales\" complex=\"true\" text=\"Công nợ khách hàng\"><item id=\"debtwholesalelist\" text=\"Danh sách công nợ khách hàng\"/><item id=\"debtwholesaleadd\" text=\"Thêm công nợ khách hàng\"/></item><item id=\"incomes\" complex=\"true\" text=\"Thu\"><item id=\"incomelist\" text=\"Danh sách thu\"/><item id=\"incomeadd\" text=\"Thêm thu\"/></item><item id=\"expenses\" complex=\"true\" text=\"Chi\"><item id=\"expenselist\" text=\"Danh sách chi\"/><item id=\"expenseadd\" text=\"Thêm chi\"/></item></item><item id=\"reportfunction\" complex=\"true\" text=\"Báo cáo\"><item id=\"reportgas\" complex=\"true\" text=\"Báo cáo gas\"><item id=\"reportlpgimport\" text=\"Bảng theo dõi nhập hàng LPG\"/><item id=\"reportlpgsale\" text=\"Bảng theo dõi bán hàng LPG\"/><item id=\"reportvendordebt\" text=\"Bảng theo dõi công nợ NCC\"/><item id=\"reportlpgstock\" text=\"Sổ theo dõi sản lượng khí hóa lỏng LPG\"/><item id=\"reportlpgstocksum\" text=\"Sổ theo dõi nhập xuất khí hóa lỏng LPG\"/><item id=\"reportlpgstocksumorganization\" text=\"Sổ theo dõi nhập xuất khí hóa lỏng LPG theo nhà cung cấp\"/><item id=\"reportsum\" text=\"Tổng hợp\"/><item id=\"reportcompare\" text=\"Đối chiếu\"/><item id=\"reportcomparelpg\" text=\"Đối chiếu LPG\"/><item id=\"reportcomparegas\" text=\"Đối chiếu gas bình\"/><item id=\"reportsale\" text=\"Xuất bán hàng\"/><item id=\"reportsalecustomer\" text=\"Chi tiết bán hàng theo khách hàng\"/><item id=\"reportcashbook\" text=\"Báo cáo quỹ tiền\"/><item id=\"reportgascommission\" text=\"Chiết khấu bán hàng - Gas\"/><item id=\"reportgasemployeecommission\" text=\"Thanh toán tiền chiết khấu - Gas\"/></item><item id=\"reportpetro\" complex=\"true\" text=\"Báo cáo xăng\"><item id=\"reportpetroimport\" text=\"Bảng theo dõi nhập hàng xăng\"/><item id=\"reportpetrosale\" text=\"Xuất bán hàng xăng dầu\"/><item id=\"reportpetrostock\" text=\"Sổ theo dõi NXT xăng dầu tổng hợp\"/><item id=\"reportpetrostockstore\" text=\"Sổ theo dõi NXT xăng dầu theo cửa hàng\"/></item><item id=\"reportgood\" complex=\"true\" text=\"Báo cáo hàng hóa\"><item id=\"reportcomparegood\" text=\"Đối chiếu hàng hóa\"/></item><item id=\"reporttransport\" complex=\"true\" text=\"Báo cáo xe\"><item id=\"reporttransportfee\" text=\"Bảng theo dõi chi phí vận chuyển\"/><item id=\"reportvehiclefee\" text=\"Bảng theo dõi chi phí xe\"/><item id=\"reportvehiclesale\" text=\"Bảng theo dõi bán hàng theo xe\"/><item id=\"reporttransportservice\" text=\"Bảng theo dõi chi phí vận chuyển thuê\"/></item></item><item id=\"setting\" complex=\"true\" text=\"Cấu hình\"><item id=\"resetpassword\" text=\"Đổi mật khẩu\"/></item><item id=\"logout\" text=\"Đăng xuất\"/></menu>',1);
+
 /*Table structure for table `vehicle` */
 
 DROP TABLE IF EXISTS `vehicle`;
@@ -2385,6 +2837,10 @@ CREATE TABLE `vehicle` (
   `allowance` double DEFAULT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=MyISAM AUTO_INCREMENT=14 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+/*Data for the table `vehicle` */
+
+insert  into `vehicle`(`id`,`plate`,`note`,`allowance`) values (6,'72C-06534','Xe tải chở Gas 72C-06534',NULL),(5,'72C-07468','Xe bồn chở Gas 72C-07468',NULL),(7,'72C-09728','Xe tải chở Gas 72C-09728',NULL),(8,'72C-06784','Xe tải chở Gas 72C-06784',NULL),(9,'72C-13179','Xe xitec chở xăng dầu 20.000L 72C-13179',NULL),(10,'72C-06625','Xe xitec chở xăng dầu 16.000L 72C-06625',NULL),(11,'51C-98349','Xe bán tải 51C-98349',NULL),(13,'72c-13905','xe tải chở gas 72C - 13905',0);
 
 /*Table structure for table `vehicle_in` */
 
@@ -2399,7 +2855,11 @@ CREATE TABLE `vehicle_in` (
   `note` text COLLATE utf8_unicode_ci,
   `created_employee_id` int(11) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM AUTO_INCREMENT=139 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=MyISAM AUTO_INCREMENT=81 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+/*Data for the table `vehicle_in` */
+
+insert  into `vehicle_in`(`id`,`code`,`employee_id`,`created_date`,`vehicle_out_id`,`note`,`created_employee_id`) values (1,'20200108-VI-0001',NULL,'2020-01-01',1,'',35),(2,'20200108-VI-0002',NULL,'2020-01-01',2,'',35),(3,'20200108-VI-0003',NULL,'2020-01-01',3,'',35),(4,'20200109-VI-0001',NULL,'2020-01-02',4,'',35),(5,'20200109-VI-0002',NULL,'2020-01-02',5,'',35),(6,'20200109-VI-0003',NULL,'2020-01-02',6,'',35),(7,'20200109-VI-0004',NULL,'2020-01-03',7,'',35),(8,'20200109-VI-0005',NULL,'2020-01-03',8,'',35),(9,'20200109-VI-0006',NULL,'2020-01-03',9,'',35),(10,'20200110-VI-0001',NULL,'2020-01-06',11,'',35),(11,'20200110-VI-0002',NULL,'2020-01-06',12,'',35),(12,'20200110-VI-0003',NULL,'2020-01-06',13,'',35),(13,'20200111-VI-0001',NULL,'2020-01-07',17,'',35),(14,'20200111-VI-0002',NULL,'2020-01-07',16,'',35),(15,'20200111-VI-0003',NULL,'2020-01-07',15,'',35),(16,'20200111-VI-0004',NULL,'2020-01-08',18,'',35),(17,'20200111-VI-0005',NULL,'2020-01-08',19,'',35),(18,'20200111-VI-0006',NULL,'2020-01-08',20,'',35),(19,'20200113-VI-0001',NULL,'2020-01-09',21,'',35),(20,'20200113-VI-0002',NULL,'2020-01-09',23,'',35),(26,'20200114-VI-0005',NULL,'2020-01-13',31,'',35),(22,'20200114-VI-0001',NULL,'2020-01-10',25,'',35),(23,'20200114-VI-0002',NULL,'2020-01-10',27,'',35),(24,'20200114-VI-0003',NULL,'2020-01-11',29,'',35),(25,'20200114-VI-0004',NULL,'2020-01-11',30,'',35),(27,'20200114-VI-0006',NULL,'2020-01-13',32,'',35),(28,'20200114-VI-0007',NULL,'2020-01-13',33,'',35),(29,'20200114-VI-0008',NULL,'2020-01-13',34,'',35),(30,'20200115-VI-0001',NULL,'2020-01-09',22,'',35),(31,'20200115-VI-0002',NULL,'2020-01-14',96,'',35),(32,'20200115-VI-0003',NULL,'2020-01-14',37,'',35),(33,'20200115-VI-0004',NULL,'2020-01-14',97,'',35),(38,'20200117-VI-0001',NULL,'2020-01-16',44,'',35),(35,'20200116-VI-0002',NULL,'2020-01-15',39,'',35),(36,'20200116-VI-0003',NULL,'2020-01-15',40,'',35),(37,'20200116-VI-0004',NULL,'2020-01-15',41,'',35),(39,'20200117-VI-0002',NULL,'2020-01-16',45,'',35),(40,'20200120-VI-0001',NULL,'2020-01-17',47,'',35),(41,'20200120-VI-0002',NULL,'2020-01-17',48,'',35),(42,'20200120-VI-0003',NULL,'2020-01-17',49,'',35),(43,'20200121-VI-0001',NULL,'2020-01-18',50,'',35),(44,'20200121-VI-0002',NULL,'2020-01-18',52,'',35),(45,'20200121-VI-0003',NULL,'2020-01-18',53,'',35),(46,'20200122-VI-0001',NULL,'2020-01-20',57,'',35),(47,'20200122-VI-0002',NULL,'2020-01-20',60,'',35),(48,'20200122-VI-0003',NULL,'2020-01-20',59,'',35),(49,'20200122-VI-0004',NULL,'2020-01-21',61,'',35),(50,'20200122-VI-0005',NULL,'2020-01-21',62,'',35),(51,'20200122-VI-0006',NULL,'2020-01-21',63,'',35),(52,'20200123-VI-0001',NULL,'2020-01-22',65,'',35),(53,'20200123-VI-0002',NULL,'2020-01-22',67,'',35),(54,'20200123-VI-0003',NULL,'2020-01-22',68,'',35),(55,'20200123-VI-0004',NULL,'2020-01-22',69,'',35),(56,'20200124-VI-0001',NULL,'2020-01-23',70,'',35),(57,'20200124-VI-0002',NULL,'2020-01-23',72,'',35),(58,'20200124-VI-0003',NULL,'2020-01-23',74,'',35),(59,'20200130-VI-0001',NULL,'2020-01-24',76,'',35),(60,'20200130-VI-0002',NULL,'2020-01-24',78,'',35),(61,'20200130-VI-0003',NULL,'2020-01-24',79,'',35),(73,'20200210-VI-0001',NULL,'2020-02-01',98,'',35),(63,'20200130-VI-0004',NULL,'2020-01-24',80,'',35),(74,'20200210-VI-0002',NULL,'2020-02-01',99,'',35),(65,'20200130-VI-0006',NULL,'2020-01-24',82,'',35),(66,'20200130-VI-0007',NULL,'2020-01-24',83,'',35),(67,'20200203-VI-0001',NULL,'2020-01-29',85,'',35),(68,'20200203-VI-0002',NULL,'2020-01-29',86,'',35),(69,'20200203-VI-0003',NULL,'2020-01-29',87,'',35),(70,'20200204-VI-0001',NULL,'2020-01-30',89,'',35),(71,'20200204-VI-0002',NULL,'2020-01-31',93,'',35),(72,'20200204-VI-0003',NULL,'2020-01-31',95,'',35),(75,'20200210-VI-0003',NULL,'2020-02-01',100,'',35),(76,'20200210-VI-0004',NULL,'2020-02-03',104,'',35),(77,'20200210-VI-0005',NULL,'2020-02-03',105,'',35),(78,'20200210-VI-0006',NULL,'2020-02-03',106,'',35),(79,'20200211-VI-0001',NULL,'2020-02-04',108,'',35),(80,'20200211-VI-0002',NULL,'2020-02-04',109,'',35);
 
 /*Table structure for table `vehicle_in_accessory_detail` */
 
@@ -2415,6 +2875,8 @@ CREATE TABLE `vehicle_in_accessory_detail` (
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
+/*Data for the table `vehicle_in_accessory_detail` */
+
 /*Table structure for table `vehicle_in_detail` */
 
 DROP TABLE IF EXISTS `vehicle_in_detail`;
@@ -2427,7 +2889,11 @@ CREATE TABLE `vehicle_in_detail` (
   `price` double DEFAULT NULL,
   `amount` double DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM AUTO_INCREMENT=142 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=MyISAM AUTO_INCREMENT=83 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+/*Data for the table `vehicle_in_detail` */
+
+insert  into `vehicle_in_detail`(`id`,`vehicle_in_id`,`shell_id`,`quantity`,`price`,`amount`) values (1,1,1,23,0,0),(2,2,1,44,0,0),(3,3,1,84,0,0),(4,4,1,31,0,0),(5,5,1,1,0,0),(6,6,1,100,0,0),(7,7,1,56,0,0),(8,8,1,51,0,0),(9,9,1,92,0,0),(10,10,1,51,0,0),(11,11,1,39,0,0),(12,12,1,90,0,0),(13,13,1,4,0,0),(14,14,1,1,0,0),(15,15,1,3,0,0),(16,16,1,13,0,0),(17,17,1,54,0,0),(18,18,1,74,0,0),(19,19,1,24,0,0),(20,20,1,8,0,0),(26,26,1,25,0,0),(22,22,1,6,0,0),(23,23,1,55,0,0),(24,24,1,63,0,0),(25,25,1,34,0,0),(27,27,1,1,0,0),(28,28,1,104,0,0),(29,29,1,3,0,0),(30,16,4,1,0,0),(31,30,1,115,0,0),(32,31,1,37,0,0),(33,32,1,3,0,0),(34,33,1,51,0,0),(39,38,1,9,0,0),(36,35,1,53,0,0),(37,36,1,1,0,0),(38,37,1,15,0,0),(40,39,1,35,0,0),(41,40,1,2,0,0),(42,41,1,20,0,0),(43,42,1,119,0,0),(44,43,1,1,0,0),(45,44,1,39,0,0),(46,45,1,22,0,0),(47,46,1,77,0,0),(48,47,1,33,0,0),(49,48,1,21,0,0),(50,49,1,9,0,0),(51,50,1,1,0,0),(52,51,1,29,0,0),(53,52,1,11,0,0),(54,53,1,64,0,0),(55,54,1,48,0,0),(56,55,1,17,0,0),(57,56,1,1,0,0),(58,57,1,22,0,0),(59,58,1,1,0,0),(60,58,4,1,0,0),(61,59,1,63,0,0),(62,60,1,104,0,0),(63,61,1,1,0,0),(75,73,1,2,0,0),(65,63,1,17,0,0),(76,74,1,8,0,0),(67,65,1,24,0,0),(68,66,1,1,0,0),(69,67,1,33,0,0),(70,68,1,66,0,0),(71,69,1,19,0,0),(72,70,1,47,0,0),(73,71,1,64,0,0),(74,72,1,66,0,0),(77,75,1,2,0,0),(78,76,1,35,0,0),(79,77,1,78,0,0),(80,78,1,1,0,0),(81,79,1,8,0,0),(82,80,1,1,0,0);
 
 /*Table structure for table `vehicle_in_oil_export_detail` */
 
@@ -2438,7 +2904,11 @@ CREATE TABLE `vehicle_in_oil_export_detail` (
   `vehicle_in_id` int(11) DEFAULT NULL,
   `oil_export_id` int(11) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+/*Data for the table `vehicle_in_oil_export_detail` */
+
+insert  into `vehicle_in_oil_export_detail`(`id`,`vehicle_in_id`,`oil_export_id`) values (1,20,5);
 
 /*Table structure for table `vehicle_in_return_shell_detail` */
 
@@ -2452,6 +2922,8 @@ CREATE TABLE `vehicle_in_return_shell_detail` (
   PRIMARY KEY (`id`)
 ) ENGINE=MyISAM AUTO_INCREMENT=10 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
+/*Data for the table `vehicle_in_return_shell_detail` */
+
 /*Table structure for table `vehicle_out` */
 
 DROP TABLE IF EXISTS `vehicle_out`;
@@ -2464,7 +2936,11 @@ CREATE TABLE `vehicle_out` (
   `note` text COLLATE utf8_unicode_ci,
   `created_employee_id` int(11) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM AUTO_INCREMENT=190 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=MyISAM AUTO_INCREMENT=112 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+/*Data for the table `vehicle_out` */
+
+insert  into `vehicle_out`(`id`,`code`,`created_date`,`vehicle_id`,`note`,`created_employee_id`) values (1,'20200108-VO-0001','2020-01-01',7,'',35),(2,'20200108-VO-0002','2020-01-01',13,'',35),(3,'20200108-VO-0003','2020-01-01',6,'',35),(4,'20200109-VO-0001','2020-01-02',6,'',35),(5,'20200109-VO-0002','2020-01-02',7,'',35),(6,'20200109-VO-0003','2020-01-02',13,'',35),(7,'20200109-VO-0004','2020-01-03',7,'',35),(8,'20200109-VO-0005','2020-01-03',13,'',35),(9,'20200109-VO-0006','2020-01-03',6,'',35),(10,'20200110-VO-0001','2020-01-06',11,'',35),(11,'20200110-VO-0002','2020-01-06',7,'',35),(12,'20200110-VO-0003','2020-01-06',13,'',35),(13,'20200110-VO-0004','2020-01-06',6,'',35),(14,'20200110-VO-0005','2020-01-07',11,'',35),(15,'20200110-VO-0006','2020-01-07',13,'',35),(16,'20200110-VO-0007','2020-01-07',6,'',35),(17,'20200111-VO-0001','2020-01-07',7,'',35),(18,'20200111-VO-0002','2020-01-08',7,'',35),(19,'20200111-VO-0003','2020-01-08',13,'',35),(20,'20200111-VO-0004','2020-01-08',8,'',35),(21,'20200113-VO-0001','2020-01-09',6,'',35),(22,'20200113-VO-0002','2020-01-09',13,'',35),(23,'20200113-VO-0003','2020-01-09',7,'',35),(24,'20200113-VO-0004','2020-01-10',11,'',35),(25,'20200113-VO-0005','2020-01-10',7,'',35),(26,'20200114-VO-0001','2020-01-10',13,'',35),(27,'20200114-VO-0002','2020-01-10',6,'',35),(28,'20200114-VO-0003','2020-01-11',6,'',35),(29,'20200114-VO-0004','2020-01-11',7,'',35),(30,'20200114-VO-0005','2020-01-11',13,'',35),(31,'20200114-VO-0006','2020-01-13',7,'',35),(32,'20200114-VO-0007','2020-01-13',13,'',35),(33,'20200114-VO-0008','2020-01-13',6,'',35),(34,'20200114-VO-0009','2020-01-13',6,'',35),(96,'20200204-VO-0008','2020-01-14',6,'',35),(37,'20200115-VO-0003','2020-01-14',7,'',35),(38,'20200115-VO-0004','2020-01-14',13,'',35),(39,'20200116-VO-0001','2020-01-15',7,'',35),(40,'20200116-VO-0002','2020-01-15',13,'',35),(41,'20200116-VO-0003','2020-01-15',6,'',35),(42,'20200116-VO-0004','2020-01-15',7,'',35),(43,'20200117-VO-0001','2020-01-16',6,'',35),(44,'20200117-VO-0002','2020-01-16',7,'',35),(45,'20200117-VO-0003','2020-01-16',13,'',35),(46,'20200120-VO-0001','2020-01-17',11,'',35),(47,'20200120-VO-0002','2020-01-17',7,'',35),(48,'20200120-VO-0003','2020-01-17',13,'',35),(49,'20200120-VO-0004','2020-01-17',6,'',35),(50,'20200121-VO-0001','2020-01-18',7,'',35),(51,'20200121-VO-0002','2020-01-18',13,'',35),(52,'20200121-VO-0003','2020-01-18',6,'',35),(53,'20200121-VO-0004','2020-01-18',6,'',35),(54,'20200122-VO-0001','2020-01-20',11,'',35),(55,'20200122-VO-0002','2020-01-20',7,'',35),(56,'20200122-VO-0003','2020-01-20',13,'',35),(57,'20200122-VO-0004','2020-01-20',6,'',35),(58,'20200122-VO-0005','2020-01-20',7,'',35),(59,'20200122-VO-0006','2020-01-20',13,'',35),(60,'20200122-VO-0007','2020-01-20',6,'',35),(61,'20200122-VO-0008','2020-01-21',6,'',35),(62,'20200122-VO-0009','2020-01-21',7,'',35),(63,'20200122-VO-0010','2020-01-21',13,'',35),(64,'20200122-VO-0011','2020-01-21',6,'',35),(65,'20200123-VO-0001','2020-01-22',7,'',35),(66,'20200123-VO-0002','2020-01-22',13,'',35),(67,'20200123-VO-0003','2020-01-22',6,'',35),(68,'20200123-VO-0004','2020-01-22',7,'',35),(69,'20200123-VO-0005','2020-01-22',6,'',35),(70,'20200124-VO-0001','2020-01-23',6,'',35),(71,'20200124-VO-0002','2020-01-23',7,'',35),(72,'20200124-VO-0003','2020-01-23',13,'',35),(73,'20200124-VO-0004','2020-01-23',8,'',35),(74,'20200124-VO-0005','2020-01-23',6,'',35),(75,'20200130-VO-0001','2020-01-24',11,'',35),(76,'20200130-VO-0002','2020-01-24',7,'',35),(77,'20200130-VO-0003','2020-01-24',6,'',35),(78,'20200130-VO-0004','2020-01-24',13,'',35),(79,'20200130-VO-0005','2020-01-24',8,'',35),(80,'20200130-VO-0006','2020-01-24',7,'',35),(81,'20200130-VO-0007','2020-01-24',6,'',35),(82,'20200130-VO-0008','2020-01-24',13,'',35),(83,'20200130-VO-0009','2020-01-24',8,'',35),(84,'20200203-VO-0001','2020-01-28',11,'',35),(85,'20200203-VO-0002','2020-01-29',7,'',35),(86,'20200203-VO-0003','2020-01-29',13,'',35),(87,'20200203-VO-0004','2020-01-29',6,'',35),(88,'20200203-VO-0005','2020-01-29',8,'',35),(89,'20200204-VO-0001','2020-01-30',6,'',35),(90,'20200204-VO-0002','2020-01-30',7,'',35),(91,'20200204-VO-0003','2020-01-30',13,'',35),(92,'20200204-VO-0004','2020-01-31',11,'',35),(93,'20200204-VO-0005','2020-01-31',7,'',35),(94,'20200204-VO-0006','2020-01-31',13,'',35),(95,'20200204-VO-0007','2020-01-31',6,'',35),(97,'20200204-VO-0009','2020-01-14',6,'',35),(98,'20200210-VO-0001','2020-02-01',6,'',35),(99,'20200210-VO-0002','2020-02-01',13,'',35),(100,'20200210-VO-0003','2020-02-01',7,'',35),(101,'20200210-VO-0004','2020-02-01',6,'',35),(102,'20200210-VO-0005','2020-02-02',11,'',35),(103,'20200210-VO-0006','2020-02-03',7,'',35),(104,'20200210-VO-0007','2020-02-03',13,'',35),(105,'20200210-VO-0008','2020-02-03',6,'',35),(106,'20200210-VO-0009','2020-02-03',6,'',35),(107,'20200211-VO-0001','2020-02-04',11,'',35),(108,'20200211-VO-0002','2020-02-04',6,'',35),(109,'20200211-VO-0003','2020-02-04',13,'',35),(110,'20200211-VO-0004','2020-02-04',7,'',35),(111,'20200211-VO-0005','2020-02-04',6,'',35);
 
 /*Table structure for table `vehicle_out_detail` */
 
@@ -2479,7 +2955,11 @@ CREATE TABLE `vehicle_out_detail` (
   `amount` double DEFAULT NULL,
   `note` text COLLATE utf8_unicode_ci,
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM AUTO_INCREMENT=308 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=MyISAM AUTO_INCREMENT=179 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+/*Data for the table `vehicle_out_detail` */
+
+insert  into `vehicle_out_detail`(`id`,`vehicle_out_id`,`shell_id`,`quantity`,`price`,`amount`,`note`) values (1,1,1,222,0,0,NULL),(2,2,1,150,0,0,NULL),(3,3,1,210,0,0,NULL),(4,4,1,234,0,0,NULL),(5,4,4,6,0,0,NULL),(6,5,1,85,0,0,NULL),(7,5,4,45,0,0,NULL),(8,6,1,124,0,0,NULL),(9,6,4,2,0,0,NULL),(10,7,1,270,0,0,NULL),(11,8,1,232,0,0,NULL),(12,8,4,6,0,0,NULL),(13,9,1,230,0,0,NULL),(14,10,1,2,0,0,NULL),(15,11,1,277,0,0,NULL),(16,12,1,275,0,0,NULL),(17,12,4,9,0,0,NULL),(18,13,1,286,0,0,NULL),(19,13,4,8,0,0,NULL),(20,14,1,1,0,0,NULL),(21,15,1,196,0,0,NULL),(22,15,4,5,0,0,NULL),(23,16,1,310,0,0,NULL),(24,16,4,5,0,0,NULL),(25,17,1,121,0,0,NULL),(26,17,4,25,0,0,NULL),(27,18,1,216,0,0,NULL),(28,18,4,10,0,0,NULL),(29,19,1,210,0,0,NULL),(30,19,4,8,0,0,NULL),(31,20,1,192,0,0,NULL),(32,21,1,285,0,0,NULL),(33,21,4,6,0,0,NULL),(34,22,1,154,0,0,NULL),(35,23,1,41,0,0,NULL),(36,23,4,34,0,0,NULL),(37,24,4,4,0,0,NULL),(38,25,1,275,0,0,NULL),(39,26,1,214,0,0,NULL),(40,26,4,4,0,0,NULL),(41,27,1,300,0,0,NULL),(42,27,4,2,0,0,NULL),(43,28,1,305,0,0,NULL),(44,28,4,6,0,0,NULL),(45,29,1,55,0,0,NULL),(46,29,4,32,0,0,NULL),(47,30,1,133,0,0,NULL),(48,30,4,1,0,0,NULL),(49,31,1,280,0,0,NULL),(50,31,4,2,0,0,NULL),(51,32,1,260,0,0,NULL),(52,32,4,7,0,0,NULL),(53,33,1,210,0,0,NULL),(54,34,1,220,0,0,NULL),(55,34,4,2,0,0,NULL),(155,96,4,3,0,0,NULL),(154,96,1,260,0,0,NULL),(59,37,1,90,0,0,NULL),(60,37,4,16,0,0,NULL),(61,38,1,167,0,0,NULL),(62,38,4,3,0,0,NULL),(63,39,1,194,0,0,NULL),(64,39,4,4,0,0,NULL),(65,40,1,240,0,0,NULL),(66,40,4,5,0,0,NULL),(67,41,4,5,0,0,NULL),(68,41,1,226,0,0,NULL),(69,42,1,220,0,0,NULL),(70,43,1,289,0,0,NULL),(71,43,4,2,0,0,NULL),(72,44,1,130,0,0,NULL),(73,44,4,38,0,0,NULL),(74,45,1,147,0,0,NULL),(75,46,1,1,0,0,NULL),(76,47,1,230,0,0,NULL),(77,48,1,292,0,0,NULL),(78,48,4,5,0,0,NULL),(79,49,1,317,0,0,NULL),(80,50,1,132,0,0,NULL),(81,50,4,31,0,0,NULL),(82,51,1,168,0,0,NULL),(83,52,1,305,0,0,NULL),(84,52,4,2,0,0,NULL),(85,53,1,130,0,0,NULL),(86,54,1,10,0,0,NULL),(87,55,1,288,0,0,NULL),(88,55,4,1,0,0,NULL),(89,56,1,290,0,0,NULL),(90,56,4,10,0,0,NULL),(91,57,1,208,0,0,NULL),(92,57,4,10,0,0,NULL),(93,58,1,100,0,0,NULL),(94,59,1,100,0,0,NULL),(95,60,1,248,0,0,NULL),(96,61,1,275,0,0,NULL),(97,61,4,5,0,0,NULL),(98,62,1,156,0,0,NULL),(99,62,4,36,0,0,NULL),(100,63,1,280,0,0,NULL),(101,63,4,1,0,0,NULL),(102,64,1,209,0,0,NULL),(103,65,1,234,0,0,NULL),(104,65,4,6,0,0,NULL),(105,66,1,294,0,0,NULL),(106,66,4,8,0,0,NULL),(107,67,1,220,0,0,NULL),(108,67,4,2,0,0,NULL),(109,68,1,151,0,0,NULL),(110,69,1,304,0,0,NULL),(111,70,1,282,0,0,NULL),(112,70,4,7,0,0,NULL),(113,71,1,110,0,0,NULL),(114,71,4,48,0,0,NULL),(115,72,1,254,0,0,NULL),(116,72,4,4,0,0,NULL),(117,73,1,140,0,0,NULL),(118,73,4,13,0,0,NULL),(119,74,1,280,0,0,NULL),(120,74,4,2,0,0,NULL),(121,75,1,2,0,0,NULL),(122,76,1,270,0,0,NULL),(123,77,1,276,0,0,NULL),(124,77,4,21,0,0,NULL),(125,78,1,218,0,0,NULL),(126,78,4,2,0,0,NULL),(127,79,1,105,0,0,NULL),(128,80,1,150,0,0,NULL),(129,81,1,63,0,0,NULL),(130,82,1,295,0,0,NULL),(131,83,1,182,0,0,NULL),(132,83,4,2,0,0,NULL),(133,84,1,30,0,0,NULL),(134,85,1,258,0,0,NULL),(135,85,4,2,0,0,NULL),(136,86,1,230,0,0,NULL),(137,86,4,6,0,0,NULL),(138,87,1,220,0,0,NULL),(139,87,4,1,0,0,NULL),(140,88,1,120,0,0,NULL),(141,88,4,5,0,0,NULL),(142,89,1,246,0,0,NULL),(143,89,4,3,0,0,NULL),(144,90,1,138,0,0,NULL),(145,90,4,34,0,0,NULL),(146,91,1,275,0,0,NULL),(147,91,4,2,0,0,NULL),(148,92,1,2,0,0,NULL),(149,93,1,262,0,0,NULL),(150,94,1,258,0,0,NULL),(151,94,4,13,0,0,NULL),(152,95,1,250,0,0,NULL),(153,95,4,8,0,0,NULL),(156,97,1,200,0,0,NULL),(157,98,1,300,0,0,NULL),(158,98,4,10,0,0,NULL),(159,99,1,147,0,0,NULL),(160,100,1,152,0,0,NULL),(161,100,4,20,0,0,NULL),(162,101,1,112,0,0,NULL),(163,102,1,35,0,0,NULL),(164,103,1,270,0,0,NULL),(165,103,4,6,0,0,NULL),(166,104,1,264,0,0,NULL),(167,104,4,10,0,0,NULL),(168,105,1,231,0,0,NULL),(169,106,1,246,0,0,NULL),(170,106,4,2,0,0,NULL),(171,107,4,8,0,0,NULL),(172,108,1,308,0,0,NULL),(173,108,4,6,0,0,NULL),(174,109,1,218,0,0,NULL),(175,109,4,2,0,0,NULL),(176,110,1,223,0,0,NULL),(177,110,4,8,0,0,NULL),(178,111,1,30,0,0,NULL);
 
 /*Table structure for table `vehicle_out_employee_detail` */
 
@@ -2491,7 +2971,11 @@ CREATE TABLE `vehicle_out_employee_detail` (
   `employee_id` int(11) DEFAULT NULL,
   `note` text COLLATE utf8_unicode_ci,
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM AUTO_INCREMENT=477 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=MyISAM AUTO_INCREMENT=289 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+/*Data for the table `vehicle_out_employee_detail` */
+
+insert  into `vehicle_out_employee_detail`(`id`,`vehicle_out_id`,`employee_id`,`note`) values (1,1,28,''),(2,1,46,''),(3,2,24,''),(4,2,27,''),(5,2,51,''),(6,3,50,''),(7,3,26,''),(8,4,28,''),(9,4,27,''),(10,4,26,''),(11,5,24,''),(12,5,46,''),(13,6,50,''),(14,6,41,''),(15,7,28,''),(16,7,46,''),(17,7,41,''),(18,8,24,''),(19,8,51,''),(20,8,27,''),(21,9,50,''),(22,9,26,''),(23,9,30,''),(24,10,20,''),(25,11,28,''),(26,11,41,''),(27,11,52,''),(28,12,24,''),(29,12,51,''),(30,12,27,''),(31,13,50,''),(32,13,26,''),(33,13,30,''),(34,14,48,''),(35,15,41,''),(36,15,20,''),(37,16,28,''),(38,16,27,''),(39,16,26,''),(40,17,51,''),(41,17,24,''),(42,18,28,''),(43,18,30,''),(44,18,46,''),(45,19,24,''),(46,19,51,''),(47,19,27,''),(48,20,50,''),(49,20,26,''),(50,21,28,''),(51,21,27,''),(52,21,26,''),(53,22,50,''),(54,22,41,''),(55,23,24,''),(56,23,51,''),(57,24,20,''),(58,25,28,''),(59,25,41,''),(60,25,46,''),(61,26,24,''),(62,26,27,''),(63,26,51,''),(64,27,50,''),(65,27,26,''),(66,27,30,''),(67,28,28,''),(68,28,27,''),(69,28,26,''),(70,29,51,''),(71,29,24,''),(72,30,50,''),(73,30,41,''),(74,31,28,''),(248,32,46,''),(76,31,41,''),(77,32,24,''),(78,32,27,''),(254,97,27,''),(80,33,50,''),(81,33,26,''),(82,33,30,''),(83,34,50,''),(84,34,26,''),(85,34,30,''),(251,96,27,''),(250,96,26,''),(249,96,25,''),(253,97,26,''),(252,97,25,''),(92,37,24,''),(93,37,51,''),(94,38,50,''),(95,38,41,''),(96,39,28,''),(97,39,30,''),(98,39,46,''),(99,40,24,''),(100,40,51,''),(101,40,27,''),(102,41,50,''),(103,41,26,''),(104,42,28,''),(105,42,46,''),(106,42,30,''),(107,43,27,''),(108,43,28,''),(109,43,26,''),(110,44,24,''),(111,44,51,''),(112,45,50,''),(113,45,41,''),(114,46,20,''),(115,47,28,''),(116,47,46,''),(117,47,41,''),(118,48,24,''),(119,48,51,''),(120,48,27,''),(121,49,50,''),(122,49,26,''),(123,49,30,''),(124,50,24,''),(125,50,51,''),(126,51,50,''),(127,51,41,''),(128,52,28,''),(129,52,27,''),(130,52,26,''),(131,53,28,''),(132,53,27,''),(133,53,26,''),(134,54,20,''),(135,55,28,''),(136,55,41,''),(137,55,46,''),(138,56,24,''),(139,56,51,''),(140,56,27,''),(141,57,50,''),(142,57,26,''),(143,57,30,''),(144,58,28,''),(145,58,41,''),(146,58,46,''),(147,59,24,''),(148,59,51,''),(149,59,27,''),(150,60,50,''),(151,60,26,''),(152,60,30,''),(153,61,28,''),(154,61,27,''),(155,61,26,''),(156,62,24,''),(157,62,51,''),(158,62,46,''),(159,63,50,''),(160,63,41,''),(161,63,30,''),(162,64,28,''),(163,64,27,''),(164,64,26,''),(165,65,28,''),(166,65,41,''),(167,65,46,''),(168,66,24,''),(169,66,51,''),(170,66,27,''),(171,67,50,''),(172,67,26,''),(173,67,30,''),(174,68,28,''),(175,68,41,''),(176,68,46,''),(177,69,50,''),(178,69,26,''),(179,69,30,''),(180,70,28,''),(181,70,27,''),(182,70,26,''),(183,71,24,''),(184,71,51,''),(185,72,50,''),(186,72,41,''),(187,72,46,''),(188,73,25,''),(189,73,30,''),(190,74,28,''),(191,74,27,''),(192,74,26,''),(193,76,28,''),(194,76,41,''),(195,76,46,''),(196,77,24,''),(197,77,51,''),(198,77,27,''),(199,78,50,''),(200,78,26,''),(201,78,30,''),(202,79,25,''),(203,79,44,''),(204,80,28,''),(205,80,41,''),(206,80,46,''),(207,81,24,''),(208,81,51,''),(209,81,27,''),(210,82,50,''),(211,82,26,''),(212,82,30,''),(213,83,25,''),(214,83,44,''),(215,75,20,''),(216,84,20,''),(217,85,28,''),(218,85,41,''),(219,85,46,''),(220,86,24,''),(221,86,27,''),(222,86,51,''),(223,87,50,''),(224,87,26,''),(225,87,30,''),(226,88,25,''),(227,88,44,''),(228,89,28,''),(229,89,26,''),(230,89,27,''),(231,90,24,''),(232,90,51,''),(233,91,50,''),(234,91,41,''),(235,91,30,''),(236,92,20,''),(237,93,28,''),(238,93,46,''),(239,93,41,''),(240,94,24,''),(241,94,51,''),(242,94,27,''),(243,95,25,''),(244,95,26,''),(245,95,30,''),(246,1,30,''),(247,31,51,''),(255,98,28,''),(256,98,27,''),(257,98,26,''),(258,99,51,''),(259,99,41,''),(260,100,24,''),(261,100,30,''),(262,101,28,''),(263,101,27,''),(264,101,26,''),(265,102,20,''),(266,103,28,''),(267,103,41,''),(268,103,46,''),(269,104,24,''),(270,104,51,''),(271,104,27,''),(272,105,50,''),(273,105,26,''),(274,105,30,''),(275,106,50,''),(276,106,26,''),(277,106,30,''),(278,107,20,''),(279,108,28,''),(280,108,26,''),(281,108,27,''),(282,109,50,''),(283,109,41,''),(284,110,24,''),(285,110,51,''),(286,111,28,''),(287,111,26,''),(288,111,27,'');
 
 /*Table structure for table `vendor` */
 
@@ -2519,6 +3003,10 @@ CREATE TABLE `vendor` (
   PRIMARY KEY (`id`)
 ) ENGINE=MyISAM AUTO_INCREMENT=29 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
+/*Data for the table `vendor` */
+
+insert  into `vendor`(`id`,`code`,`name`,`address`,`tax`,`phone`,`fax`,`organization_id`,`status`,`equal_organization_id`,`has_stock`,`is_gas`,`is_petro`,`is_good`,`is_transport`,`is_oil`,`commision_on_import`,`max_debt`) values (24,'VIMEXCO','Công ty CP Thương Mại va Dịch Vụ Dầu Khí Vũng Tàu','KCN Gò dầu - Đồng Nai','','02513541977','',1,1,-1,0,1,0,0,0,0,0,0),(16,'KDK','Công ty kinh doanh sản phẩm khí',NULL,NULL,NULL,NULL,1,1,-1,1,1,0,0,0,0,0,0),(15,'THIENHA','Công ty TNHH Dầu Khí Thiên Hà','','','','',1,1,-1,1,1,0,0,1,0,0,0),(23,'HUNGTHINH','Công ty TNHH Khí Hoá Lỏng Hưng Thịnh','','','','',14,1,14,1,1,0,0,0,0,0,0),(18,'TCP','Công Ty TNHH Thanh Châu Phát',NULL,NULL,NULL,NULL,1,1,-1,0,0,1,0,0,0,0,0),(19,'PVO MD','Công ty cổ phần xăng dầu dầu khí Vũng Tàu',NULL,NULL,NULL,NULL,1,1,-1,0,0,1,0,0,0,0,0),(20,'NIWA','NIWA','','','','',1,1,-1,0,0,0,0,0,1,43,0),(21,'HGA','Công Ty TNHH Hưng Gia Anh',NULL,NULL,NULL,NULL,1,1,-1,1,1,0,0,0,0,0,0),(22,'QuangTrung','Công ty TNHH Quang Trung','','','','',1,1,1,1,1,0,0,1,0,0,0),(25,'PN','Phú Nguyên','','','','',1,1,-1,0,0,0,0,1,0,0,0),(26,'MK','Mekong','','','','',1,1,-1,0,0,0,0,0,1,0,0),(27,'NASCA','NASCA','','','','',1,1,-1,0,0,0,0,0,1,0,0),(28,'HN','Hàng Ngoài','','','','',1,1,-1,0,1,0,0,0,0,0,0);
+
 /*Table structure for table `vendor_customer` */
 
 DROP TABLE IF EXISTS `vendor_customer`;
@@ -2530,6 +3018,10 @@ CREATE TABLE `vendor_customer` (
   `customer_id` int(11) DEFAULT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+/*Data for the table `vendor_customer` */
+
+insert  into `vendor_customer`(`id`,`organization_id`,`vendor_id`,`customer_id`) values (1,1,23,124),(2,14,22,205),(3,1,15,165),(4,1,24,218);
 
 /*Table structure for table `vendor_debt` */
 
@@ -2547,7 +3039,11 @@ CREATE TABLE `vendor_debt` (
   `created_employee_id` int(11) DEFAULT NULL,
   `kind` int(1) DEFAULT NULL COMMENT '1:tien hang, 2:tien van chuyen',
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM AUTO_INCREMENT=10 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=MyISAM AUTO_INCREMENT=5 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+/*Data for the table `vendor_debt` */
+
+insert  into `vendor_debt`(`id`,`code`,`created_date`,`content`,`vendor_id`,`paid`,`account_id`,`note`,`created_employee_id`,`kind`) values (1,'20200108-DV-0001','2020-01-03',NULL,16,784000000,9,'',35,1),(2,'20200208-DV-0001','2020-01-09',NULL,16,383000000,9,'',35,1),(3,'20200208-DV-0002','2020-01-10',NULL,16,1568000000,9,'',35,1),(4,'20200210-DV-0001','2020-02-10',NULL,16,600000000,9,'',35,1);
 
 /*Table structure for table `vendor_in_stock` */
 
@@ -2563,7 +3059,11 @@ CREATE TABLE `vendor_in_stock` (
   `shell_45` int(11) DEFAULT '0',
   `transport_amount` double DEFAULT '0',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=33 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=17 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+/*Data for the table `vendor_in_stock` */
+
+insert  into `vendor_in_stock`(`id`,`day`,`vendor_id`,`organization_id`,`amount`,`shell_12`,`shell_45`,`transport_amount`) values (1,'2020-01-01',15,14,0,0,0,0),(2,'2020-01-01',23,14,0,0,0,0),(3,'2020-01-01',22,14,0,0,0,0),(4,'2020-01-01',19,1,0,0,0,0),(5,'2020-01-01',24,1,-19518089.577941775,0,0,0),(6,'2020-01-01',16,1,0,0,0,0),(7,'2020-01-01',15,1,194574263,0,0,0),(8,'2020-01-01',21,1,0,0,0,0),(9,'2020-01-01',23,1,0,0,0,0),(10,'2020-01-01',22,1,0,0,0,0),(11,'2020-01-01',18,1,0,0,0,0),(12,'2020-01-01',28,1,0,0,0,0),(13,'2020-01-01',26,1,0,0,0,0),(14,'2020-01-01',27,1,0,0,0,0),(15,'2020-01-01',20,1,0,0,0,0),(16,'2020-01-01',25,1,0,0,0,0);
 
 /*Table structure for table `vendor_oil_store` */
 
@@ -2576,6 +3076,10 @@ CREATE TABLE `vendor_oil_store` (
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
+/*Data for the table `vendor_oil_store` */
+
+insert  into `vendor_oil_store`(`id`,`vendor_id`,`store_id`) values (1,27,8);
+
 /*Table structure for table `vendor_organization` */
 
 DROP TABLE IF EXISTS `vendor_organization`;
@@ -2586,6 +3090,10 @@ CREATE TABLE `vendor_organization` (
   `organization_id` int(11) DEFAULT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=30 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+/*Data for the table `vendor_organization` */
+
+insert  into `vendor_organization`(`id`,`vendor_id`,`organization_id`) values (11,15,1),(12,16,1),(16,18,1),(17,19,1),(18,20,1),(19,21,1),(20,22,1),(21,23,14),(22,23,1),(23,22,14),(24,15,14),(25,24,1),(26,25,1),(27,26,1),(28,27,1),(29,28,1);
 
 /*Table structure for table `wholesale_debt` */
 
@@ -2604,7 +3112,11 @@ CREATE TABLE `wholesale_debt` (
   `kind` int(1) DEFAULT NULL COMMENT '1:tien hang, 2:tien van chuyen',
   `gas_wholesale_id` int(11) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM AUTO_INCREMENT=118 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=MyISAM AUTO_INCREMENT=57 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+/*Data for the table `wholesale_debt` */
+
+insert  into `wholesale_debt`(`id`,`code`,`created_date`,`content`,`customer_id`,`paid`,`account_id`,`note`,`created_employee_id`,`kind`,`gas_wholesale_id`) values (1,'20200108-GS-0004_aut','2020-01-01',NULL,147,2234000,5,'',35,1,4),(2,'20200109-GS-0001_aut','2020-01-02',NULL,79,9307000,5,'',35,1,20),(3,'20200109-GS-0016_aut','2020-01-02',NULL,22,3740000,5,'',35,1,35),(4,'20200109-GS-0030_aut','2020-01-03',NULL,93,940000,5,'',35,1,49),(5,'20200109-GS-0032_aut','2020-01-03',NULL,60,5810000,5,'',35,1,51),(6,'20200110-GS-0004_aut','2020-01-03',NULL,110,1645000,5,'',35,1,59),(7,'20200110-GS-0024_aut','2020-01-03',NULL,66,2079000,5,'',35,1,79),(8,'20200110-GS-0029_aut','2020-01-03',NULL,158,9184000,5,'',35,1,84),(9,'20200110-GS-0030_aut','2020-01-03',NULL,77,6646000,5,'',35,1,85),(10,'20200110-GS-0034_aut','2020-01-06',NULL,171,10000000,5,'',35,1,89),(11,'20200110-GS-0041_aut','2020-01-06',NULL,164,1981000,5,'',35,1,96),(12,'20200110-GS-0060_aut','2020-01-06',NULL,315,2643000,5,'',35,1,115),(13,'20200110-GS-0067_aut','2020-01-06',NULL,147,1000000,5,'',35,1,122),(14,'20200111-GS-0018_aut','2020-01-07',NULL,103,500000,5,'',35,1,147),(15,'20200111-GS-0025_aut','2020-01-07',NULL,28,4500000,5,'',35,1,154),(16,'20200111-GS-0049_aut','2020-01-08',NULL,141,1762000,5,'',35,1,178),(17,'20200111-GS-0050_aut','2020-01-08',NULL,97,1415000,5,'',35,1,179),(18,'20200113-GS-0008_aut','2020-01-08',NULL,158,500000,5,'',35,1,192),(19,'20200113-GS-0032_aut','2020-01-09',NULL,169,2915000,5,'',35,1,216),(20,'20200113-GS-0034_aut','2020-01-09',NULL,182,3259000,5,'',35,1,218),(21,'20200114-GS-0016_aut','2020-01-10',NULL,107,2092000,5,'',35,1,235),(22,'20200114-GS-0027_aut','2020-01-10',NULL,93,2264000,5,'',35,1,246),(23,'20200114-GS-0037_aut','2020-01-10',NULL,51,2547000,5,'',35,1,256),(24,'20200114-GS-0044_aut','2020-01-10',NULL,73,1132000,5,'',35,1,263),(25,'20200115-GS-0012_aut','2020-01-13',NULL,206,2122000,5,'',35,1,334),(26,'20200115-GS-0021_aut','2020-01-13',NULL,121,940000,5,'',35,1,343),(27,'20200115-GS-0026_aut','2020-01-14',NULL,202,1040000,5,'',35,1,348),(28,'20200115-GS-0038_aut','2020-01-14',NULL,169,4584000,5,'',35,1,360),(29,'20200115-GS-0041_aut','2020-01-14',NULL,179,1918000,5,'',35,1,363),(30,'20200117-GS-0018_aut','2020-01-15',NULL,145,1345000,5,'',35,1,400),(31,'20200117-GS-0028_aut','2020-01-16',NULL,212,1295000,5,'',35,1,410),(32,'20200120-GS-0018_aut','2020-01-17',NULL,35,20102000,5,'',35,1,451),(33,'20200120-GS-0021_aut','2020-01-17',NULL,131,566000,5,'',35,1,454),(34,'20200120-GS-0028_aut','2020-01-17',NULL,50,250000,5,'',35,1,461),(35,'20200120-GS-0034_aut','2020-01-17',NULL,113,11000000,5,'',35,1,467),(36,'20200121-GS-0002_aut','2020-01-18',NULL,222,6240000,5,'',35,1,477),(37,'20200121-GS-0013_aut','2020-01-18',NULL,158,15445000,5,'',35,1,488),(38,'20200121-GS-0020_aut','2020-01-18',NULL,103,800000,5,'',35,1,495),(39,'20200121-GS-0028_aut','2020-01-18',NULL,215,2547000,5,'',35,1,503),(40,'20200121-GS-0033_aut','2020-01-18',NULL,57,4244000,5,'',35,1,508),(41,'20200122-GS-0041_aut','2020-01-20',NULL,310,11088000,5,'',35,1,551),(42,'20200122-GS-0048_aut','2020-01-20',NULL,114,928000,5,'',35,1,558),(43,'20200123-GS-0002_aut','2020-01-21',NULL,11,2750000,5,'',35,1,578),(44,'20200123-GS-0027_aut','2020-01-22',NULL,175,1000000,5,'',35,1,603),(45,'20200123-GS-0062_aut','2020-01-22',NULL,113,17325000,5,'',35,1,638),(46,'20200123-GS-0065_aut','2020-01-22',NULL,147,4185000,5,'',35,1,641),(47,'20200123-GS-0070_aut','2020-01-22',NULL,158,7500000,5,'',35,1,646),(48,'20200124-GS-0015_aut','2020-01-23',NULL,202,7800000,5,'',35,1,664),(49,'20200130-GS-0026_aut','2020-01-24',NULL,97,1500000,5,'',35,1,712),(50,'20200203-GS-0025_aut','2020-01-24',NULL,66,674000,5,'',35,1,749),(51,'20200203-GS-0039_aut','2020-01-29',NULL,106,278000,5,'',35,1,763),(52,'20200204-GS-0062_aut','2020-01-31',NULL,44,4791000,5,'',35,1,867),(53,'20200210-GS-0081_aut','2020-02-03',NULL,113,3000000,5,'',35,1,977),(54,'20200210-GS-0088_aut','2020-02-03',NULL,310,6000000,5,'',35,1,984),(55,'20200210-DW-0001','2020-02-10',NULL,152,911671398,9,'',35,1,0),(56,'20200211-GS-0005_aut','2020-02-04',NULL,311,972000,5,'',35,1,994);
 
 /* Trigger structure for table `gas_import_detail` */
 
@@ -3620,7 +4132,7 @@ BEGIN
 		SELECT SYSDATE() INTO _to_date;
 	END IF;
 	
-	SELECT `day` INTO _from_date FROM accessory_in_stock WHERE DATEDIFF(`day`, _to_date) < 0 ORDER BY `day` DESC LIMIT 1;
+	SELECT `day` INTO _from_date FROM accessory_in_stock WHERE DATEDIFF(`day`, _to_date) <= 0 ORDER BY `day` DESC LIMIT 1;
 	IF _from_date IS NULL THEN
 		-- SELECT DATE_ADD(_to_date, INTERVAL -1 DAY) INTO _from_date;
 		SELECT STR_TO_DATE(`value`,'%d/%m/%Y')  INTO _from_date from parameter where `code`="startdate";
@@ -3634,7 +4146,7 @@ BEGIN
 		(
 			SELECT accessory_id, organization_id, COALESCE(in_stock,0) AS quantity
 			FROM accessory_in_stock
-			WHERE DATEDIFF(`day`, _from_date) > 0 AND DATEDIFF(`day`, _to_date) <= 0
+			WHERE DATEDIFF(`day`, _from_date) >= 0 AND DATEDIFF(`day`, _to_date) <= 0
 			UNION ALL
 			SELECT i_det.accessory_id, eo.organization_id, COALESCE(i_det.quantity,0) AS quantity
 			FROM accessory_import_detail AS i_det, accessory_import AS i, employee AS eo
@@ -3676,7 +4188,7 @@ BEGIN
 		SELECT SYSDATE() INTO _to_date;
 	END IF;
 	
-	SELECT `day` INTO _from_date FROM customer_in_stock WHERE DATEDIFF(`day`, _to_date) < 0 ORDER BY `day` DESC LIMIT 1;
+	SELECT `day` INTO _from_date FROM customer_in_stock WHERE DATEDIFF(`day`, _to_date) <= 0 ORDER BY `day` DESC LIMIT 1;
 	IF _from_date IS NULL THEN
 		-- SELECT DATE_ADD(_to_date, INTERVAL -1 DAY) INTO _from_date;
 		SELECT STR_TO_DATE(`value`,'%d/%m/%Y')  INTO _from_date from parameter where `code`="startdate";
@@ -3693,7 +4205,7 @@ BEGIN
 		(
 			SELECT customer_id, COALESCE(shell_12,0) AS shell_12, COALESCE(shell_45,0) AS shell_45, COALESCE(amount,0) AS amount
 			FROM customer_in_stock
-			WHERE DATEDIFF(`day`, _from_date) > 0 AND DATEDIFF(`day`, _to_date) <= 0
+			WHERE DATEDIFF(`day`, _from_date) >= 0 AND DATEDIFF(`day`, _to_date) <= 0
 			UNION ALL
 			SELECT i.customer_id, COALESCE(IF(shell_12.id IS NOT NULL, idet.quantity,0),0) AS quantity_12
 				, COALESCE(IF(shell_45.id IS NOT NULL, idet.quantity,0),0) AS quantity_45
@@ -3762,11 +4274,6 @@ BEGIN
 			FROM oil_sale AS i
 			WHERE DATE(i.created_date) >= _from_date AND DATE(i.created_date) < _to_date
 			UNION ALL
-			SELECT i.customer_id, 0 AS quantity_12, 0 AS quantity_45, -COALESCE(idet.paid_amount,0) AS amount
-			FROM oil_sale AS i, oil_sale_detail AS odet, invoice_detail AS idet
-			WHERE DATE(i.created_date) >= _from_date AND DATE(i.created_date) < _to_date
-			AND i.id=odet.oil_sale_id AND odet.id=idet.oil_sale_detail_id
-			UNION ALL
 			SELECT i.customer_id, 0 AS quantity_12, 0 AS quantity_45, -COALESCE(i.debt,0) AS amount
 			FROM oil_sale_return AS i
 			WHERE DATE(i.created_date) >= _from_date AND DATE(i.created_date) < _to_date
@@ -3783,7 +4290,7 @@ BEGIN
 		(
 			SELECT COALESCE(shell_12,0) AS quantity_12, COALESCE(shell_45,0) AS quantity_45, COALESCE(amount,0) AS amount, COALESCE(transport_amount,0) AS transport_amount
 			FROM customer_in_stock
-			WHERE DATEDIFF(`day`, _from_date) > 0 AND DATEDIFF(`day`, _to_date) <= 0 AND customer_id=_customer_id
+			WHERE DATEDIFF(`day`, _from_date) >= 0 AND DATEDIFF(`day`, _to_date) <= 0 AND customer_id=_customer_id
 			UNION ALL
 			SELECT COALESCE(IF(shell_12.id IS NOT NULL, idet.quantity,0),0) AS quantity_12
 				, COALESCE(IF(shell_45.id IS NOT NULL, idet.quantity,0),0) AS quantity_45
@@ -3852,11 +4359,6 @@ BEGIN
 			FROM oil_sale AS i
 			WHERE DATE(i.created_date) >= _from_date AND DATE(i.created_date) < _to_date AND i.customer_id=_customer_id
 			UNION ALL
-			SELECT 0 AS quantity_12, 0 AS quantity_45, -COALESCE(idet.paid_amount,0) AS amount, 0 AS transport_amount
-			FROM oil_sale AS i, oil_sale_detail AS odet, invoice_detail AS idet
-			WHERE DATE(i.created_date) >= _from_date AND DATE(i.created_date) < _to_date AND i.customer_id=_customer_id
-			AND i.id=odet.oil_sale_id AND odet.id=idet.oil_sale_detail_id
-			UNION ALL
 			SELECT 0 AS quantity_12, 0 AS quantity_45, -COALESCE(i.debt,0) AS amount, 0 AS transport_amount
 			FROM oil_sale_return AS i
 			WHERE DATE(i.created_date) >= _from_date AND DATE(i.created_date) < _to_date AND i.customer_id=_customer_id
@@ -3882,7 +4384,7 @@ BEGIN
 		SELECT SYSDATE() INTO _to_date;
 	END IF;
 	
-	SELECT `day` INTO _from_date FROM good_in_stock WHERE DATEDIFF(`day`, _to_date) < 0 ORDER BY `day` DESC LIMIT 1;
+	SELECT `day` INTO _from_date FROM good_in_stock WHERE DATEDIFF(`day`, _to_date) <= 0 ORDER BY `day` DESC LIMIT 1;
 	IF _from_date IS NULL THEN
 		-- SELECT DATE_ADD(_to_date, INTERVAL -1 DAY) INTO _from_date;
 		SELECT STR_TO_DATE(`value`,'%d/%m/%Y')  INTO _from_date from parameter where `code`="startdate";
@@ -3897,7 +4399,7 @@ BEGIN
 		(
 			SELECT good_id, organization_id, store_id, COALESCE(in_stock,0) AS quantity
 			FROM good_in_stock
-			WHERE DATEDIFF(`day`, _from_date) > 0 AND DATEDIFF(`day`, _to_date) <= 0
+			WHERE DATEDIFF(`day`, _from_date) >= 0 AND DATEDIFF(`day`, _to_date) <= 0
 			UNION ALL
 			SELECT i_det.good_id, i.store_id, s.organization_id, COALESCE(i_det.quantity,0) AS quantity
 			FROM good_import_detail AS i_det, good_import AS i, store AS s
@@ -3931,7 +4433,7 @@ BEGIN
 		SELECT SYSDATE() INTO _to_date;
 	END IF;
 	
-	SELECT `day` INTO _from_date FROM lpg_in_stock WHERE DATEDIFF(`day`, _to_date) < 0 ORDER BY `day` DESC LIMIT 1;
+	SELECT `day` INTO _from_date FROM lpg_in_stock WHERE DATEDIFF(`day`, _to_date) <= 0 ORDER BY `day` DESC LIMIT 1;
 	IF _from_date IS NULL THEN
 		-- SELECT DATE_ADD(_to_date, INTERVAL -1 DAY) INTO _from_date;
 		SELECT STR_TO_DATE(`value`,'%d/%m/%Y')  INTO _from_date from parameter where `code`="startdate";
@@ -3943,7 +4445,7 @@ BEGIN
 		(
 			SELECT organization_id, vendor_id, COALESCE(in_stock,0) AS quantity
 			FROM lpg_in_stock
-			WHERE DATEDIFF(`day`, _from_date) > 0 AND DATEDIFF(`day`, _to_date) <= 0
+			WHERE DATEDIFF(`day`, _from_date) >= 0 AND DATEDIFF(`day`, _to_date) <= 0
 			UNION ALL
 			SELECT eo.organization_id, v.id AS vendor_id, COALESCE(i.actual_quantity,0) AS quantity
 			FROM lpg_import AS i, employee AS eo, vendor AS v
@@ -3979,7 +4481,7 @@ BEGIN
 		(
 			SELECT organization_id, vendor_id, COALESCE(in_stock,0) AS quantity
 			FROM lpg_in_stock
-			WHERE DATEDIFF(`day`, _from_date) > 0 AND DATEDIFF(`day`, _to_date) <= 0
+			WHERE DATEDIFF(`day`, _from_date) >= 0 AND DATEDIFF(`day`, _to_date) <= 0
 				AND _organization_ids LIKE CONCAT('%,',organization_id,',%')
 				AND ((_vendor_ids='' AND 1) OR (_vendor_ids<>'' AND _vendor_ids LIKE CONCAT('%,',vendor_id,',%')))
 			UNION ALL
@@ -4040,10 +4542,10 @@ BEGIN
 		SELECT SYSDATE() INTO _to_date;
 	END IF;
 	
-	SELECT `day` INTO _from_date FROM money_in_stock WHERE DATEDIFF(`day`, _to_date) < 0 ORDER BY `day` DESC LIMIT 1;
+	SELECT `day` INTO _from_date FROM money_in_stock WHERE DATEDIFF(`day`, _to_date) <= 0 ORDER BY `day` DESC LIMIT 1;
 	IF _from_date IS NULL THEN
 		-- SELECT DATE_ADD(_to_date, INTERVAL -1 DAY) INTO _from_date;
-		SELECT STR_TO_DATE(`value`,'%d/%m/%Y')  INTO _from_date FROM parameter WHERE `code`="startdate";
+		SELECT STR_TO_DATE(`value`,'%d/%m/%Y')  INTO _from_date from parameter where `code`="startdate";
 	END IF;
 	
 	IF _is_list=1 THEN
@@ -4053,7 +4555,7 @@ BEGIN
 		(
 			SELECT account_id, in_stock
 			FROM money_in_stock
-			WHERE DATEDIFF(`day`, _from_date) > 0 AND DATEDIFF(`day`, _to_date) <= 0
+			WHERE DATEDIFF(`day`, _from_date) >= 0 AND DATEDIFF(`day`, _to_date) <= 0
 			UNION ALL
 			SELECT a.account_id, -COALESCE(a.amount,0) AS in_stock
 			FROM employee_advance AS a
@@ -4190,7 +4692,7 @@ BEGIN
 		(
 			SELECT account_id, in_stock
 			FROM money_in_stock AS s, account AS a
-			WHERE DATEDIFF(s.`day`, _from_date) > 0 AND DATEDIFF(s.`day`, _to_date) <= 0
+			WHERE DATEDIFF(s.`day`, _from_date) >= 0 AND DATEDIFF(s.`day`, _to_date) <= 0
 				AND s.account_id=a.id AND a.is_cash=_is_cash
 				AND _organization_ids LIKE CONCAT('%,',s.organization_id,',%')
 			UNION ALL
@@ -4365,7 +4867,7 @@ BEGIN
 		SELECT SYSDATE() INTO _to_date;
 	END IF;
 	
-	SELECT `day` INTO _from_date FROM oil_in_stock WHERE DATEDIFF(`day`, _to_date) < 0 ORDER BY `day` DESC LIMIT 1;
+	SELECT `day` INTO _from_date FROM oil_in_stock WHERE DATEDIFF(`day`, _to_date) <= 0 ORDER BY `day` DESC LIMIT 1;
 	IF _from_date IS NULL THEN
 		-- SELECT DATE_ADD(_to_date, INTERVAL -1 DAY) INTO _from_date;
 		SELECT STR_TO_DATE(`value`,'%d/%m/%Y')  INTO _from_date from parameter where `code`="startdate";
@@ -4380,7 +4882,7 @@ BEGIN
 		(
 			SELECT oil_id, store_id, COALESCE(in_stock,0) AS in_stock
 			FROM oil_in_stock
-			WHERE DATEDIFF(`day`, _from_date) > 0 AND DATEDIFF(`day`, _to_date) <= 0
+			WHERE DATEDIFF(`day`, _from_date) >= 0 AND DATEDIFF(`day`, _to_date) <= 0
 			UNION ALL
 			SELECT i_det.oil_id, i.store_id, COALESCE(i_det.base_quantity,0) AS in_stock
 			FROM oil_import_detail AS i_det, oil_import AS i
@@ -4422,7 +4924,7 @@ BEGIN
 		SELECT SYSDATE() INTO _to_date;
 	END IF;
 	
-	SELECT `day` INTO _from_date FROM petro_in_stock WHERE DATEDIFF(`day`, _to_date) < 0 ORDER BY `day` DESC LIMIT 1;
+	SELECT `day` INTO _from_date FROM petro_in_stock WHERE DATEDIFF(`day`, _to_date) <= 0 ORDER BY `day` DESC LIMIT 1;
 	IF _from_date IS NULL THEN
 		-- SELECT DATE_ADD(_to_date, INTERVAL -1 DAY) INTO _from_date;
 		SELECT STR_TO_DATE(`value`,'%d/%m/%Y')  INTO _from_date from parameter where `code`="startdate";
@@ -4437,7 +4939,7 @@ BEGIN
 		(
 			SELECT petro_id, store_id, organization_id, COALESCE(in_stock,0) AS quantity
 			FROM petro_in_stock
-			WHERE DATEDIFF(`day`, _from_date) > 0 AND DATEDIFF(`day`, _to_date) <= 0
+			WHERE DATEDIFF(`day`, _from_date) >= 0 AND DATEDIFF(`day`, _to_date) <= 0
 			UNION ALL
 			SELECT i_det.petro_id, s.id AS store_id, s.organization_id, COALESCE(i_det.quantity,0) AS quantity
 			FROM petro_import_detail AS i_det, petro_import AS i, store AS s
@@ -4473,7 +4975,7 @@ BEGIN
 		SELECT SYSDATE() INTO _to_date;
 	END IF;
 	
-	SELECT `day` INTO _from_date FROM promotion_material_in_stock WHERE DATEDIFF(`day`, _to_date) < 0 ORDER BY `day` DESC LIMIT 1;
+	SELECT `day` INTO _from_date FROM promotion_material_in_stock WHERE DATEDIFF(`day`, _to_date) <= 0 ORDER BY `day` DESC LIMIT 1;
 	IF _from_date IS NULL THEN
 		-- SELECT DATE_ADD(_to_date, INTERVAL -1 DAY) INTO _from_date;
 		SELECT STR_TO_DATE(`value`,'%d/%m/%Y')  INTO _from_date from parameter where `code`="startdate";
@@ -4487,7 +4989,7 @@ BEGIN
 		(
 			SELECT promotion_material_id, organization_id, COALESCE(in_stock,0) AS quantity
 			FROM promotion_material_in_stock
-			WHERE DATEDIFF(`day`, _from_date) > 0 AND DATEDIFF(`day`, _to_date) <= 0
+			WHERE DATEDIFF(`day`, _from_date) >= 0 AND DATEDIFF(`day`, _to_date) <= 0
 			UNION ALL
 			SELECT i_det.promotion_material_id, eo.organization_id, COALESCE(i_det.quantity,0) AS quantity
 			FROM promotion_material_import_detail AS i_det, promotion_material_import AS i, employee AS eo
@@ -4523,7 +5025,7 @@ BEGIN
 		SELECT SYSDATE() INTO _to_date;
 	END IF;
 	
-	SELECT `day` INTO _from_date FROM shell_in_stock WHERE DATEDIFF(`day`, _to_date) < 0 ORDER BY `day` DESC LIMIT 1;
+	SELECT `day` INTO _from_date FROM shell_in_stock WHERE DATEDIFF(`day`, _to_date) <= 0 ORDER BY `day` DESC LIMIT 1;
 	IF _from_date IS NULL THEN
 		-- SELECT DATE_ADD(_to_date, INTERVAL -1 DAY) INTO _from_date;
 		SELECT STR_TO_DATE(`value`,'%d/%m/%Y')  INTO _from_date from parameter where `code`="startdate";
@@ -4536,7 +5038,7 @@ BEGIN
 		(
 			SELECT organization_id, shell_id, in_stock
 			FROM shell_in_stock
-			WHERE DATEDIFF(`day`, _from_date) > 0 AND DATEDIFF(`day`, _to_date) <= 0
+			WHERE DATEDIFF(`day`, _from_date) >= 0 AND DATEDIFF(`day`, _to_date) <= 0
 			UNION ALL
 			SELECT i.shell_id, eo.organization_id, COALESCE(i.quantity,0) AS in_stock
 			FROM shell_import AS i, employee AS eo
@@ -4607,7 +5109,7 @@ BEGIN
 		SELECT SYSDATE() INTO _to_date;
 	END IF;
 	
-	SELECT `day` INTO _from_date FROM shell_gas_in_stock WHERE DATEDIFF(`day`, _to_date) < 0 ORDER BY `day` DESC LIMIT 1;
+	SELECT `day` INTO _from_date FROM shell_gas_in_stock WHERE DATEDIFF(`day`, _to_date) <= 0 ORDER BY `day` DESC LIMIT 1;
 	IF _from_date IS NULL THEN
 		-- SELECT DATE_ADD(_to_date, INTERVAL -1 DAY) INTO _from_date;
 		SELECT STR_TO_DATE(`value`,'%d/%m/%Y')  INTO _from_date from parameter where `code`="startdate";
@@ -4622,7 +5124,7 @@ BEGIN
 		(
 			SELECT shell_vendor_id AS id, in_stock AS quantity
 			FROM shell_gas_in_stock
-			WHERE DATEDIFF(`day`, _from_date) > 0 AND DATEDIFF(`day`, _to_date) <= 0
+			WHERE DATEDIFF(`day`, _from_date) >= 0 AND DATEDIFF(`day`, _to_date) <= 0
 			UNION ALL
 			SELECT sv.id, COALESCE(f_det.quantity,0) AS quantity
 			FROM fraction_gas_detail AS f_det, fraction_gas AS f, shell_vendor AS sv
@@ -4681,7 +5183,7 @@ BEGIN
 		(
 			SELECT sg.shell_vendor_id AS id, sg.in_stock AS quantity
 			FROM shell_gas_in_stock sg, shell_vendor AS sv
-			WHERE DATEDIFF(sg.`day`, _from_date) > 0 AND DATEDIFF(sg.`day`, _to_date) <= 0
+			WHERE DATEDIFF(sg.`day`, _from_date) >= 0 AND DATEDIFF(sg.`day`, _to_date) <= 0
 				AND sg.shell_vendor_id=sv.id
 				AND _organization_ids LIKE CONCAT('%,',sv.organization_id,',%')
 				AND ((_vendor_ids='' AND 1) OR (_vendor_ids<>'' AND _vendor_ids LIKE CONCAT('%,',sv.vendor_id,',%')))
@@ -4770,7 +5272,7 @@ BEGIN
 		SELECT SYSDATE() INTO _to_date;
 	END IF;
 	
-	SELECT `day` INTO _from_date FROM shield_in_stock WHERE DATEDIFF(`day`, _to_date) < 0 ORDER BY `day` DESC LIMIT 1;
+	SELECT `day` INTO _from_date FROM shield_in_stock WHERE DATEDIFF(`day`, _to_date) <= 0 ORDER BY `day` DESC LIMIT 1;
 	IF _from_date IS NULL THEN
 		-- SELECT DATE_ADD(_to_date, INTERVAL -1 DAY) INTO _from_date;
 		SELECT STR_TO_DATE(`value`,'%d/%m/%Y')  INTO _from_date from parameter where `code`="startdate";
@@ -4783,7 +5285,7 @@ BEGIN
 		(
 			SELECT COALESCE(in_stock,0) AS quantity, vendor_id, organization_id
 			FROM shield_in_stock
-			WHERE DATEDIFF(`day`, _from_date) > 0 AND DATEDIFF(`day`, _to_date) <= 0
+			WHERE DATEDIFF(`day`, _from_date) >= 0 AND DATEDIFF(`day`, _to_date) <= 0
 			UNION ALL
 			SELECT COALESCE(i.quantity,0) AS quantity, i.vendor_id, eo.organization_id
 			FROM shield_import AS i, employee AS eo
@@ -4811,27 +5313,27 @@ BEGIN
 		(
 			SELECT COALESCE(in_stock,0) AS quantity, vendor_id, organization_id
 			FROM shield_in_stock
-			WHERE DATEDIFF(`day`, _from_date) > 0 AND DATEDIFF(`day`, _to_date) <= 0
+			WHERE DATEDIFF(`day`, _from_date) >= 0 AND DATEDIFF(`day`, _to_date) <= 0
 				AND _organization_ids LIKE CONCAT('%,',organization_id,',%')
 				AND ((_vendor_ids='' AND 1) OR (_vendor_ids<>'' AND _vendor_ids LIKE CONCAT('%,',vendor_id,',%')))
 			UNION ALL
 			SELECT COALESCE(i.quantity,0) AS quantity, i.vendor_id, eo.organization_id
 			FROM shield_import AS i, employee AS eo
-			WHERE DATE(i.created_date) >= _from_date AND DATE(i.created_date) < _to_date
+			WHERE DATE(i.created_date) > _from_date AND DATE(i.created_date) < _to_date
 				AND i.created_employee_id=eo.id
 				AND _organization_ids LIKE CONCAT('%,',eo.organization_id,',%')
 				AND ((_vendor_ids='' AND 1) OR (_vendor_ids<>'' AND _vendor_ids LIKE CONCAT('%,',i.vendor_id,',%')))
 			UNION ALL
 			SELECT -COALESCE(i.quantity,0) AS quantity, i.vendor_id, eo.organization_id
 			FROM shield_decrease AS i, employee AS eo
-			WHERE DATE(i.created_date) >= _from_date AND DATE(i.created_date) < _to_date
+			WHERE DATE(i.created_date) > _from_date AND DATE(i.created_date) < _to_date
 				AND i.created_employee_id=eo.id
 				AND _organization_ids LIKE CONCAT('%,',eo.organization_id,',%')
 				AND ((_vendor_ids='' AND 1) OR (_vendor_ids<>'' AND _vendor_ids LIKE CONCAT('%,',i.vendor_id,',%')))
 			UNION ALL
 			SELECT -COALESCE(f_det.quantity,0) AS quantity, sv.vendor_id, sv.organization_id
 			FROM fraction_gas_detail AS f_det, fraction_gas AS f, shell_vendor AS sv
-			WHERE f_det.fraction_id=f.id AND DATE(f.created_date) >= _from_date AND DATE(f.created_date) < _to_date
+			WHERE f_det.fraction_id=f.id AND DATE(f.created_date) > _from_date AND DATE(f.created_date) < _to_date
 				AND f_det.shell_id=sv.id
 				AND _organization_ids LIKE CONCAT('%,',sv.organization_id,',%')
 				AND ((_vendor_ids='' AND 1) OR (_vendor_ids<>'' AND _vendor_ids LIKE CONCAT('%,',sv.vendor_id,',%')))
@@ -4859,7 +5361,7 @@ BEGIN
 		SELECT SYSDATE() INTO _to_date;
 	END IF;
 	
-	SELECT `day` INTO _from_date FROM vendor_in_stock WHERE DATEDIFF(`day`, _to_date) < 0 ORDER BY `day` DESC LIMIT 1;
+	SELECT `day` INTO _from_date FROM vendor_in_stock WHERE DATEDIFF(`day`, _to_date) <= 0 ORDER BY `day` DESC LIMIT 1;
 	IF _from_date IS NULL THEN
 		-- SELECT DATE_ADD(_to_date, INTERVAL -1 DAY) INTO _from_date;
 		SELECT STR_TO_DATE(`value`,'%d/%m/%Y')  INTO _from_date from parameter where `code`="startdate";
@@ -4876,7 +5378,7 @@ BEGIN
 		(
 			SELECT vendor_id, organization_id, amount, shell_12, shell_45, transport_amount AS transport_debt
 			FROM vendor_in_stock
-			WHERE DATEDIFF(`day`, _from_date) > 0 AND DATEDIFF(`day`, _to_date) <= 0
+			WHERE DATEDIFF(`day`, _from_date) >= 0 AND DATEDIFF(`day`, _to_date) <= 0
 			UNION ALL
 			SELECT i.vendor_id, eo.organization_id, COALESCE(i.debt,0) AS amount, 0 AS quantity_12, 0 AS quantity_45, 0 AS transport_debt
 			FROM lpg_import AS i, employee AS eo
@@ -4982,7 +5484,7 @@ BEGIN
 		(
 			SELECT vendor_id, organization_id, amount, shell_12, shell_45, transport_amount AS transport_debt
 			FROM vendor_in_stock
-			WHERE DATEDIFF(`day`, _from_date) > 0 AND DATEDIFF(`day`, _to_date) <= 0 AND vendor_id=_vendor_id
+			WHERE DATEDIFF(`day`, _from_date) >= 0 AND DATEDIFF(`day`, _to_date) <= 0 AND vendor_id=_vendor_id
 				AND _organization_ids LIKE CONCAT('%,',organization_id,',%')
 			UNION ALL
 			SELECT i.vendor_id, eo.organization_id, COALESCE(i.debt,0) AS amount, 0 AS quantity_12, 0 AS quantity_45, 0 AS transport_debt
@@ -9608,7 +10110,7 @@ BEGIN
 		SELECT SYSDATE() INTO _to_date;
 	END IF;
 	
-	SELECT `day` INTO _from_date FROM oil_in_stock WHERE DATEDIFF(`day`, _to_date) < 0 ORDER BY `day` DESC LIMIT 1;
+	SELECT `day` INTO _from_date FROM oil_in_stock WHERE DATEDIFF(`day`, _to_date) <= 0 LIMIT 1;
 	IF _from_date=NULL THEN
 		SELECT STR_TO_DATE(`value`,'%d/%m/%Y') INTO _from_date FROM parameter WHERE `code`="startdate";
 	END IF;
@@ -9641,26 +10143,26 @@ BEGIN
 			(
 				SELECT oil_id, in_stock
 				FROM oil_in_stock
-				WHERE DATEDIFF(`day`, _from_date) > 0 AND DATEDIFF(`day`, _to_date) <= 0 AND _organization_ids LIKE CONCAT('%,',organization_id,',%')
+				WHERE DATEDIFF(`day`, _from_date) >= 0 AND DATEDIFF(`day`, _to_date) <= 0 AND _organization_ids LIKE CONCAT('%,',organization_id,',%')
 				union all
 				SELECT i_det.oil_id, COALESCE(i_det.base_quantity,0) AS in_stock
 				FROM oil_import_detail AS i_det, oil_import AS i, store AS s
-				WHERE i_det.oil_import_id=i.id AND DATE(i.created_date) >= _from_date AND DATE(i.created_date) < _to_date
+				WHERE i_det.oil_import_id=i.id AND DATE(i.created_date) > _from_date AND DATE(i.created_date) < _to_date
 					AND i.store_id=s.id AND _organization_ids LIKE CONCAT('%,',s.organization_id,',%')
 				UNION ALL
 				SELECT i_det.oil_id, -COALESCE(i_det.base_quantity,0) AS in_stock
 				FROM oil_sale_detail AS i_det, oil_sale AS i, store AS s
-				WHERE i_det.oil_sale_id=i.id AND DATE(i.created_date) >= _from_date AND DATE(i.created_date) < _to_date
+				WHERE i_det.oil_sale_id=i.id AND DATE(i.created_date) > _from_date AND DATE(i.created_date) < _to_date
 					AND i_det.store_id=s.id AND _organization_ids LIKE CONCAT('%,',s.organization_id,',%')
 				UNION ALL
 				SELECT i_det.oil_id, -COALESCE(i_det.base_quantity,0) AS in_stock
 				FROM oil_sale_promotion AS i_det, oil_sale AS i, store AS s
-				WHERE i_det.sale_oil_id=i.id AND DATE(i.created_date) >= _from_date AND DATE(i.created_date) < _to_date
+				WHERE i_det.sale_oil_id=i.id AND DATE(i.created_date) > _from_date AND DATE(i.created_date) < _to_date
 					AND i_det.store_id=s.id AND _organization_ids LIKE CONCAT('%,',s.organization_id,',%')
 				UNION ALL
 				SELECT i_det.oil_id, COALESCE(i_det.base_quantity,0) AS in_stock
 				FROM oil_sale_return_detail AS i_det, oil_sale_return AS i, store AS s
-				WHERE i_det.oil_sale_return_id=i.id AND DATE(i.created_date) >= _from_date AND DATE(i.created_date) < _to_date
+				WHERE i_det.oil_sale_return_id=i.id AND DATE(i.created_date) > _from_date AND DATE(i.created_date) < _to_date
 					AND i_det.store_id=s.id AND _organization_ids LIKE CONCAT('%,',s.organization_id,',%')
 			) as tbl on tbl.oil_id=o.id
 			WHERE o.STATUS=1 AND _organization_ids LIKE CONCAT('%,',o.organization_id,',%')
@@ -9702,7 +10204,7 @@ BEGIN
 		SELECT SYSDATE() INTO _to_date;
 	END IF;
 	
-	SELECT `day` INTO _from_date FROM oil_in_stock WHERE DATEDIFF(`day`, _to_date) < 0 ORDER BY `day` DESC LIMIT 1;
+	SELECT `day` INTO _from_date FROM oil_in_stock WHERE DATEDIFF(`day`, _to_date) <= 0 LIMIT 1;
 	IF _from_date=NULL THEN
 		SELECT STR_TO_DATE(`value`,'%d/%m/%Y') INTO _from_date FROM parameter WHERE `code`="startdate";
 	END IF;
@@ -9732,27 +10234,27 @@ BEGIN
 		LEFT JOIN (
 			SELECT oil_id, in_stock
 			FROM oil_in_stock
-			WHERE DATEDIFF(`day`, _from_date) > 0 AND DATEDIFF(`day`, _to_date) <= 0 
+			WHERE DATEDIFF(`day`, _from_date) >= 0 AND DATEDIFF(`day`, _to_date) <= 0 
 				AND _organization_ids LIKE CONCAT('%,',organization_id,',%')
 			UNION ALL
 			SELECT i_det.oil_id, COALESCE(i_det.base_quantity,0) AS in_stock
 			FROM oil_import_detail AS i_det, oil_import AS i, store AS s
-			WHERE i_det.oil_import_id=i.id AND DATE(i.created_date) >= _from_date AND DATE(i.created_date) < _to_date
+			WHERE i_det.oil_import_id=i.id AND DATE(i.created_date) > _from_date AND DATE(i.created_date) < _to_date
 				AND i.store_id=s.id AND _organization_ids LIKE CONCAT('%,',s.organization_id,',%')
 			UNION ALL
 			SELECT i_det.oil_id, -COALESCE(i_det.base_quantity,0) AS in_stock
 			FROM oil_sale_detail AS i_det, oil_sale AS i, store AS s
-			WHERE i_det.oil_sale_id=i.id AND DATE(i.created_date) >= _from_date AND DATE(i.created_date) < _to_date
+			WHERE i_det.oil_sale_id=i.id AND DATE(i.created_date) > _from_date AND DATE(i.created_date) < _to_date
 				AND i_det.store_id=s.id AND _organization_ids LIKE CONCAT('%,',s.organization_id,',%')
 			UNION ALL
 			SELECT i_det.oil_id, -COALESCE(i_det.base_quantity,0) AS in_stock
 			FROM oil_sale_promotion AS i_det, oil_sale AS i, store AS s
-			WHERE i_det.sale_oil_id=i.id AND DATE(i.created_date) >= _from_date AND DATE(i.created_date) < _to_date
+			WHERE i_det.sale_oil_id=i.id AND DATE(i.created_date) > _from_date AND DATE(i.created_date) < _to_date
 				AND i_det.store_id=s.id AND _organization_ids LIKE CONCAT('%,',s.organization_id,',%')
 			UNION ALL
 			SELECT i_det.oil_id, COALESCE(i_det.base_quantity,0) AS in_stock
 			FROM oil_sale_return_detail AS i_det, oil_sale_return AS i, store AS s
-			WHERE i_det.oil_sale_return_id=i.id AND DATE(i.created_date) >= _from_date AND DATE(i.created_date) < _to_date
+			WHERE i_det.oil_sale_return_id=i.id AND DATE(i.created_date) > _from_date AND DATE(i.created_date) < _to_date
 				AND i_det.store_id=s.id AND _organization_ids LIKE CONCAT('%,',s.organization_id,',%')
 		) AS tbl_old_stock ON tbl_old_stock.oil_id=o.id
 		WHERE o.STATUS=1 AND _organization_ids LIKE CONCAT('%,',o.organization_id,',%')
@@ -9780,7 +10282,7 @@ BEGIN
 		SELECT SYSDATE() INTO _to_date;
 	END IF;
 	
-	SELECT `day` INTO _from_date FROM oil_in_stock WHERE DATEDIFF(`day`, _to_date) < 0 ORDER BY `day` DESC LIMIT 1;
+	SELECT `day` INTO _from_date FROM oil_in_stock WHERE DATEDIFF(`day`, _to_date) <= 0 LIMIT 1;
 	IF _from_date=NULL THEN
 		SELECT STR_TO_DATE(`value`,'%d/%m/%Y') INTO _from_date FROM parameter WHERE `code`="startdate";
 	END IF;
@@ -9812,27 +10314,27 @@ BEGIN
 			LEFT JOIN (
 				SELECT oil_id, in_stock
 				FROM oil_in_stock
-				WHERE DATEDIFF(`day`, _from_date) > 0 AND DATEDIFF(`day`, _to_date) <= 0 
+				WHERE DATEDIFF(`day`, _from_date) >= 0 AND DATEDIFF(`day`, _to_date) <= 0 
 					AND _organization_ids LIKE CONCAT('%,',organization_id,',%') and store_id=_store_id	
 				union all
 				SELECT i_det.oil_id, COALESCE(i_det.base_quantity,0) AS in_stock
 				FROM oil_import_detail AS i_det, oil_import AS i, store AS s
-				WHERE i_det.oil_import_id=i.id AND DATE(i.created_date) >= _from_date AND DATE(i.created_date) < _to_date
+				WHERE i_det.oil_import_id=i.id AND DATE(i.created_date) > _from_date AND DATE(i.created_date) < _to_date
 					AND i.store_id=s.id AND _organization_ids LIKE CONCAT('%,',s.organization_id,',%') AND s.id=_store_id
 				UNION ALL
 				SELECT i_det.oil_id, -COALESCE(i_det.base_quantity,0) AS in_stock
 				FROM oil_sale_detail AS i_det, oil_sale AS i, store AS s
-				WHERE i_det.oil_sale_id=i.id AND DATE(i.created_date) >= _from_date AND DATE(i.created_date) < _to_date
+				WHERE i_det.oil_sale_id=i.id AND DATE(i.created_date) > _from_date AND DATE(i.created_date) < _to_date
 					AND i_det.store_id=s.id AND _organization_ids LIKE CONCAT('%,',s.organization_id,',%') AND s.id=_store_id
 				UNION ALL
 				SELECT i_det.oil_id, -COALESCE(i_det.base_quantity,0) AS in_stock
 				FROM oil_sale_promotion AS i_det, oil_sale AS i, store AS s
-				WHERE i_det.sale_oil_id=i.id AND DATE(i.created_date) >= _from_date AND DATE(i.created_date) < _to_date
+				WHERE i_det.sale_oil_id=i.id AND DATE(i.created_date) > _from_date AND DATE(i.created_date) < _to_date
 					AND i_det.store_id=s.id AND _organization_ids LIKE CONCAT('%,',s.organization_id,',%') AND s.id=_store_id
 				UNION ALL
 				SELECT i_det.oil_id, COALESCE(i_det.base_quantity,0) AS in_stock
 				FROM oil_sale_return_detail AS i_det, oil_sale_return AS i, store AS s
-				WHERE i_det.oil_sale_return_id=i.id AND DATE(i.created_date) >= _from_date AND DATE(i.created_date) < _to_date
+				WHERE i_det.oil_sale_return_id=i.id AND DATE(i.created_date) > _from_date AND DATE(i.created_date) < _to_date
 					AND i_det.store_id=s.id AND _organization_ids LIKE CONCAT('%,',s.organization_id,',%') AND s.id=_store_id
 			) AS tbl_old_stock ON tbl_old_stock.oil_id=o.id
 			WHERE o.STATUS=1 and _organization_ids LIKE CONCAT('%,',o.organization_id,',%')
@@ -9876,7 +10378,7 @@ BEGIN
 		SELECT SYSDATE() INTO _to_date;
 	END IF;
 	
-	SELECT `day` INTO _from_date FROM oil_in_stock WHERE DATEDIFF(`day`, _to_date) < 0 ORDER BY `day` DESC LIMIT 1;
+	SELECT `day` INTO _from_date FROM oil_in_stock WHERE DATEDIFF(`day`, _to_date) <= 0 LIMIT 1;
 	IF _from_date=NULL THEN
 		SELECT STR_TO_DATE(`value`,'%d/%m/%Y') INTO _from_date FROM parameter WHERE `code`="startdate";
 	END IF;
@@ -9906,32 +10408,32 @@ BEGIN
 		LEFT JOIN (
 			SELECT oil_id, in_stock
 			FROM oil_in_stock
-			WHERE DATEDIFF(`day`, _from_date) > 0 AND DATEDIFF(`day`, _to_date) <= 0 
+			WHERE DATEDIFF(`day`, _from_date) >= 0 AND DATEDIFF(`day`, _to_date) <= 0 
 				AND _organization_ids LIKE CONCAT('%,',organization_id,',%') AND store_id=_store_id	
 			UNION ALL
 			SELECT i_det.oil_id, COALESCE(i_det.base_quantity,0) AS in_stock
 			FROM oil_import_detail AS i_det, oil_import AS i, store AS s
-			WHERE i_det.oil_import_id=i.id AND DATE(i.created_date) >= _from_date AND DATE(i.created_date) < _to_date
+			WHERE i_det.oil_import_id=i.id AND DATE(i.created_date) > _from_date AND DATE(i.created_date) < _to_date
 				AND i.store_id=s.id AND _organization_ids LIKE CONCAT('%,',s.organization_id,',%') AND s.id=_store_id
 			UNION ALL
 			SELECT i_det.oil_id, -COALESCE(i_det.base_quantity,0) AS in_stock
 			FROM oil_sale_detail AS i_det, oil_sale AS i, store AS s
-			WHERE i_det.oil_sale_id=i.id AND DATE(i.created_date) >= _from_date AND DATE(i.created_date) < _to_date
+			WHERE i_det.oil_sale_id=i.id AND DATE(i.created_date) > _from_date AND DATE(i.created_date) < _to_date
 				AND i_det.store_id=s.id AND _organization_ids LIKE CONCAT('%,',s.organization_id,',%') AND s.id=_store_id
 			UNION ALL
 			SELECT i_det.oil_id, -COALESCE(i_det.base_quantity,0) AS in_stock
 			FROM oil_sale_promotion AS i_det, oil_sale AS i, store AS s
-			WHERE i_det.sale_oil_id=i.id AND DATE(i.created_date) >= _from_date AND DATE(i.created_date) < _to_date
+			WHERE i_det.sale_oil_id=i.id AND DATE(i.created_date) > _from_date AND DATE(i.created_date) < _to_date
 				AND i_det.store_id=s.id AND _organization_ids LIKE CONCAT('%,',s.organization_id,',%') AND s.id=_store_id
 			UNION ALL
 			SELECT i_det.oil_id, COALESCE(i_det.base_quantity,0) AS in_stock
 			FROM oil_sale_return_detail AS i_det, oil_sale_return AS i, store AS s
-			WHERE i_det.oil_sale_return_id=i.id AND DATE(i.created_date) >= _from_date AND DATE(i.created_date) < _to_date
+			WHERE i_det.oil_sale_return_id=i.id AND DATE(i.created_date) > _from_date AND DATE(i.created_date) < _to_date
 				AND i_det.store_id=s.id AND _organization_ids LIKE CONCAT('%,',s.organization_id,',%') AND s.id=_store_id
 		) AS tbl_old_stock ON tbl_old_stock.oil_id=o.id
 		WHERE o.STATUS=1 AND _organization_ids LIKE CONCAT('%,',o.organization_id,',%')
 		GROUP BY o.id
-	) AS opening_tbl ON o.id=opening_tbl.oil_id
+	) AS opening_tbl ON tbl.oil_id=opening_tbl.oil_id
 	WHERE o.STATUS=1 AND _organization_ids LIKE CONCAT('%,',o.organization_id,',%')
 	GROUP BY o.id;
     END */$$
@@ -9953,7 +10455,7 @@ BEGIN
 		SELECT SYSDATE() INTO _to_date;
 	END IF;
 	
-	SELECT `day` INTO _from_date FROM vendor_in_stock WHERE DATEDIFF(`day`, _to_date) < 0 ORDER BY `day` DESC LIMIT 1;
+	SELECT `day` INTO _from_date FROM vendor_in_stock WHERE DATEDIFF(`day`, _to_date) <= 0 LIMIT 1;
 	IF _from_date IS NULL THEN
 		-- SELECT DATE_ADD(_to_date, INTERVAL -1 DAY) INTO _from_date;
 		SELECT STR_TO_DATE(`value`,'%d/%m/%Y')  INTO _from_date from parameter where `code`="startdate";
@@ -9970,57 +10472,57 @@ BEGIN
 		(
 			SELECT vendor_id, organization_id, amount as debt
 			FROM vendor_in_stock
-			WHERE DATEDIFF(`day`, _from_date) > 0 AND DATEDIFF(`day`, _to_date) <= 0  AND _organization_ids LIKE CONCAT('%,',organization_id,',%')
+			WHERE DATEDIFF(`day`, _from_date) >= 0 AND DATEDIFF(`day`, _to_date) <= 0  AND _organization_ids LIKE CONCAT('%,',organization_id,',%')
 			union all
 			SELECT i.vendor_id, eo.organization_id, COALESCE(i.debt,0) AS debt
 			FROM lpg_import AS i, employee AS eo
-			WHERE DATE(i.import_date) >= _from_date AND DATE(i.import_date) < _to_date
+			WHERE DATE(i.import_date) > _from_date AND DATE(i.import_date) < _to_date
 				AND i.created_employee_id=eo.id AND _organization_ids LIKE CONCAT('%,',eo.organization_id,',%')
 			UNION ALL
 			SELECT i.vendor_id, eo.organization_id, COALESCE(i.debt,0) AS debt
 			FROM gas_import AS i, employee AS eo
-			WHERE DATE(i.created_date) >= _from_date AND DATE(i.created_date) < _to_date
+			WHERE DATE(i.created_date) > _from_date AND DATE(i.created_date) < _to_date
 				AND i.created_employee_id=eo.id AND _organization_ids LIKE CONCAT('%,',eo.organization_id,',%')
 			UNION ALL
 			SELECT i.vendor_id, eo.organization_id, COALESCE(i.debt,0) AS debt
 			FROM oil_import AS i, employee AS eo
-			WHERE DATE(i.created_date) >= _from_date AND DATE(i.created_date) < _to_date
+			WHERE DATE(i.created_date) > _from_date AND DATE(i.created_date) < _to_date
 				AND i.created_employee_id=eo.id AND _organization_ids LIKE CONCAT('%,',eo.organization_id,',%')
 			UNION ALL
 			SELECT i.vendor_id, eo.organization_id, - COALESCE(IF(i.kind=1,i.paid,0),0) AS debt
 			FROM vendor_debt AS i, employee AS eo
-			WHERE DATE(i.created_date) >= _from_date AND DATE(i.created_date) < _to_date
+			WHERE DATE(i.created_date) > _from_date AND DATE(i.created_date) < _to_date
 				AND i.created_employee_id=eo.id AND _organization_ids LIKE CONCAT('%,',eo.organization_id,',%')
 			UNION ALL
 			SELECT i.vendor_id, eo.organization_id, COALESCE(i.debt,0) AS debt
 			FROM promotion_material_import AS i, employee AS eo
-			WHERE DATE(i.created_date) >= _from_date AND DATE(i.created_date) < _to_date
+			WHERE DATE(i.created_date) > _from_date AND DATE(i.created_date) < _to_date
 				AND i.created_employee_id=eo.id AND _organization_ids LIKE CONCAT('%,',eo.organization_id,',%')
 			UNION ALL
 			SELECT i.vendor_id, eo.organization_id, COALESCE(i.debt,0) AS debt
 			FROM accessory_import AS i, employee AS eo
-			WHERE DATE(i.created_date) >= _from_date AND DATE(i.created_date) < _to_date
+			WHERE DATE(i.created_date) > _from_date AND DATE(i.created_date) < _to_date
 				AND i.created_employee_id=eo.id AND _organization_ids LIKE CONCAT('%,',eo.organization_id,',%')
 			UNION ALL
 			SELECT i.vendor_id, eo.organization_id, COALESCE(i.amount,0) AS debt
 			FROM debt_adjustment AS i, employee AS eo
-			WHERE DATE(i.created_date) >= _from_date AND DATE(i.created_date) < _to_date
+			WHERE DATE(i.created_date) > _from_date AND DATE(i.created_date) < _to_date
 				AND i.created_employee_id=eo.id AND i.vendor_id<>0 AND i.kind=1
 				 AND _organization_ids LIKE CONCAT('%,',eo.organization_id,',%')
 			UNION ALL
 			SELECT i.vendor_id, eo.organization_id, COALESCE(i.debt,0) AS debt
 			FROM good_import AS i, employee AS eo
-			WHERE DATE(i.created_date) >= _from_date AND DATE(i.created_date) < _to_date
+			WHERE DATE(i.created_date) > _from_date AND DATE(i.created_date) < _to_date
 				AND i.created_employee_id=eo.id AND _organization_ids LIKE CONCAT('%,',eo.organization_id,',%')
 			UNION ALL
 			SELECT i.vendor_id, eo.organization_id, COALESCE(i.debt,0) AS debt
 			FROM petro_import AS i, employee AS eo
-			WHERE DATE(i.created_date) >= _from_date AND DATE(i.created_date) < _to_date
+			WHERE DATE(i.created_date) > _from_date AND DATE(i.created_date) < _to_date
 				AND i.created_employee_id=eo.id AND _organization_ids LIKE CONCAT('%,',eo.organization_id,',%')
 			UNION ALL
 			SELECT idet.vendor_id, eo.organization_id, -COALESCE(idet.quantity*idet.price_before_commission,0) AS debt
 			FROM oil_sale_detail AS idet, oil_sale AS i, employee AS eo
-			WHERE DATE(i.created_date) >= _from_date AND DATE(i.created_date) < _to_date
+			WHERE DATE(i.created_date) > _from_date AND DATE(i.created_date) < _to_date
 				AND i.created_employee_id=eo.id AND i.id=idet.oil_sale_id
 					 AND _organization_ids LIKE CONCAT('%,',eo.organization_id,',%')
 		) AS stock ON stock.organization_id=vo.organization_id AND stock.vendor_id=vo.vendor_id
@@ -10064,7 +10566,7 @@ BEGIN
 		SELECT SYSDATE() INTO _to_date;
 	END IF;
 	
-	SELECT `day` INTO _from_date FROM oil_in_stock WHERE DATEDIFF(`day`, _to_date) < 0 ORDER BY `day` DESC LIMIT 1;
+	SELECT `day` INTO _from_date FROM oil_in_stock WHERE DATEDIFF(`day`, _to_date) <= 0 LIMIT 1;
 	IF _from_date=NULL THEN
 		SELECT STR_TO_DATE(`value`,'%d/%m/%Y') INTO _from_date FROM parameter WHERE `code`="startdate";
 	END IF;
@@ -10080,26 +10582,26 @@ BEGIN
 		LEFT JOIN (
 			SELECT oil_id, in_stock
 			FROM oil_in_stock
-			WHERE DATEDIFF(`day`, _from_date) > 0 AND DATEDIFF(`day`, _to_date) <= 0 AND _organization_ids LIKE CONCAT('%,',organization_id,',%')
+			WHERE DATEDIFF(`day`, _from_date) >= 0 AND DATEDIFF(`day`, _to_date) <= 0 AND _organization_ids LIKE CONCAT('%,',organization_id,',%')
 			union all
 			SELECT i_det.oil_id, COALESCE(i_det.base_quantity,0) AS in_stock
 			FROM oil_import_detail AS i_det, oil_import AS i, store AS s
-			WHERE i_det.oil_import_id=i.id AND DATE(i.created_date) >= _from_date AND DATE(i.created_date) < _to_date
+			WHERE i_det.oil_import_id=i.id AND DATE(i.created_date) > _from_date AND DATE(i.created_date) < _to_date
 				AND i.store_id=s.id AND _organization_ids LIKE CONCAT('%,',s.organization_id,',%')
 			UNION ALL
 			SELECT i_det.oil_id, -COALESCE(i_det.base_quantity,0) AS in_stock
 			FROM oil_sale_detail AS i_det, oil_sale AS i, store AS s
-			WHERE i_det.oil_sale_id=i.id AND DATE(i.created_date) >= _from_date AND DATE(i.created_date) < _to_date
+			WHERE i_det.oil_sale_id=i.id AND DATE(i.created_date) > _from_date AND DATE(i.created_date) < _to_date
 				AND i_det.store_id=s.id AND _organization_ids LIKE CONCAT('%,',s.organization_id,',%')
 			UNION ALL
 			SELECT i_det.oil_id, -COALESCE(i_det.base_quantity,0) AS in_stock
 			FROM oil_sale_promotion AS i_det, oil_sale AS i, store AS s
-			WHERE i_det.sale_oil_id=i.id AND DATE(i.created_date) >= _from_date AND DATE(i.created_date) < _to_date
+			WHERE i_det.sale_oil_id=i.id AND DATE(i.created_date) > _from_date AND DATE(i.created_date) < _to_date
 				AND i_det.store_id=s.id AND _organization_ids LIKE CONCAT('%,',s.organization_id,',%')
 			UNION ALL
 			SELECT i_det.oil_id, COALESCE(i_det.base_quantity,0) AS in_stock
 			FROM oil_sale_return_detail AS i_det, oil_sale_return AS i, store AS s
-			WHERE i_det.oil_sale_return_id=i.id AND DATE(i.created_date) >= _from_date AND DATE(i.created_date) < _to_date
+			WHERE i_det.oil_sale_return_id=i.id AND DATE(i.created_date) > _from_date AND DATE(i.created_date) < _to_date
 				AND i_det.store_id=s.id AND _organization_ids LIKE CONCAT('%,',s.organization_id,',%')
 		) AS tbl_old_stock ON tbl_old_stock.oil_id=o.id
 		WHERE o.STATUS=1 AND _organization_ids LIKE CONCAT('%,',o.organization_id,',%')
@@ -10200,7 +10702,7 @@ BEGIN
 		SELECT SYSDATE() INTO _to_date;
 	END IF;
 	
-	SELECT `day` INTO _from_date FROM petro_in_stock WHERE DATEDIFF(`day`, _to_date) < 0 ORDER BY `day` DESC LIMIT 1;
+	SELECT `day` INTO _from_date FROM petro_in_stock WHERE DATEDIFF(`day`, _to_date) <= 0 LIMIT 1;
 	IF _from_date is NULL THEN
 		-- SELECT DATE_ADD(_to_date, INTERVAL -1 DAY) INTO _from_date;
 		SELECT STR_TO_DATE(`value`,'%d/%m/%Y')  INTO _from_date from parameter where `code`="startdate";
@@ -10226,16 +10728,16 @@ BEGIN
 			union all
 			SELECT _from_date as created_date, petro_id, coalesce(in_stock,0) as opening_stock, 0 as import_quantity, 0 as export_quantity
 			FROM petro_in_stock
-			WHERE DATEDIFF(`day`, _from_date) > 0 AND DATEDIFF(`day`, _to_date) <= 0 AND _organization_ids LIKE CONCAT('%,',organization_id,',%')
+			WHERE DATEDIFF(`day`, _from_date) >= 0 AND DATEDIFF(`day`, _to_date) <= 0 AND _organization_ids LIKE CONCAT('%,',organization_id,',%')
 			union all
 			SELECT _from_date as created_date, i_det.petro_id, COALESCE(i_det.quantity,0) AS opening_stock, 0 as import_quantity, 0 as export_quantity
 			FROM petro_import_detail AS i_det, petro_import AS i, store AS s
-			WHERE i_det.petro_import_id=i.id AND DATE(i.created_date) >= _from_date AND DATE(i.created_date) < _to_date 
+			WHERE i_det.petro_import_id=i.id AND DATE(i.created_date) > _from_date AND DATE(i.created_date) < _to_date 
 				AND i.store_id=s.id AND _organization_ids LIKE CONCAT('%,',s.organization_id,',%')
 			UNION ALL
 			SELECT _from_date as created_date, i_det.petro_id, -COALESCE(i_det.quantity,0) AS opening_stock, 0 as import_quantity, 0 as export_quantity
 			FROM petro_sale_detail AS i_det, petro_sale AS i, store as s
-			WHERE i_det.petro_sale_id=i.id AND DATE(i.created_date) >= _from_date AND DATE(i.created_date) < _to_date 
+			WHERE i_det.petro_sale_id=i.id AND DATE(i.created_date) > _from_date AND DATE(i.created_date) < _to_date 
 				AND i.store_id=s.id AND _organization_ids LIKE CONCAT('%,',s.organization_id,',%')
 		) as tbl on tbl.petro_id=p.id
 		where p.status=1
@@ -10274,7 +10776,7 @@ BEGIN
 		SELECT SYSDATE() INTO _to_date;
 	END IF;
 	
-	SELECT `day` INTO _from_date FROM petro_in_stock WHERE DATEDIFF(`day`, _to_date) < 0 ORDER BY `day` DESC LIMIT 1;
+	SELECT `day` INTO _from_date FROM petro_in_stock WHERE DATEDIFF(`day`, _to_date) <= 0 LIMIT 1;
 	IF _from_date IS NULL THEN
 		-- SELECT DATE_ADD(_to_date, INTERVAL -1 DAY) INTO _from_date;
 		SELECT STR_TO_DATE(`value`,'%d/%m/%Y')  INTO _from_date from parameter where `code`="startdate";
@@ -10302,17 +10804,17 @@ BEGIN
 			union all
 			SELECT _from_date AS created_date, petro_id, coalesce(in_stock,0) as opening_stock, 0 as import_quantity, 0 as export_quantity
 			FROM petro_in_stock
-			WHERE DATEDIFF(`day`, _from_date) > 0 AND DATEDIFF(`day`, _to_date) <= 0 
+			WHERE DATEDIFF(`day`, _from_date) >= 0 AND DATEDIFF(`day`, _to_date) <= 0 
 				AND _organization_ids LIKE CONCAT('%,',organization_id,',%') AND store_id=_store_id
 			union all
 			SELECT _from_date AS created_date, i_det.petro_id, COALESCE(i_det.quantity,0) as opening_stock, 0 as import_quantity, 0 as export_quantity
 			FROM petro_import_detail AS i_det, petro_import AS i, store AS s
-			WHERE i_det.petro_import_id=i.id AND DATE(i.created_date) >= _from_date AND DATE(i.created_date) < _to_date 
+			WHERE i_det.petro_import_id=i.id AND DATE(i.created_date) > _from_date AND DATE(i.created_date) < _to_date 
 				AND i.store_id=s.id AND _organization_ids LIKE CONCAT('%,',s.organization_id,',%') AND s.id=_store_id
 			UNION ALL
 			SELECT _from_date AS created_date, i_det.petro_id, -COALESCE(i_det.quantity,0) as opening_stock, 0 as import_quantity, 0 as export_quantity
 			FROM petro_sale_detail AS i_det, petro_sale AS i, store AS s
-			WHERE i_det.petro_sale_id=i.id AND DATE(i.created_date) >= _from_date AND DATE(i.created_date) < _to_date 
+			WHERE i_det.petro_sale_id=i.id AND DATE(i.created_date) > _from_date AND DATE(i.created_date) < _to_date 
 				AND i.store_id=s.id AND _organization_ids LIKE CONCAT('%,',s.organization_id,',%') AND s.id=_store_id
 		) AS tbl ON tbl.petro_id=p.id
 		WHERE p.STATUS=1
@@ -10423,7 +10925,7 @@ BEGIN
 		SELECT SYSDATE() INTO _to_date;
 	END IF;
 	
-	SELECT `day` INTO _from_date FROM customer_in_stock WHERE DATEDIFF(`day`, _to_date) < 0 ORDER BY `day` DESC LIMIT 1;
+	SELECT `day` INTO _from_date FROM customer_in_stock WHERE DATEDIFF(`day`, _to_date) <= 0 LIMIT 1;
 	IF _from_date IS NULL THEN
 		-- SELECT DATE_ADD(_to_date, INTERVAL -1 DAY) INTO _from_date;
 		SELECT STR_TO_DATE(`value`,'%d/%m/%Y')  INTO _from_date from parameter where `code`="startdate";
@@ -10456,7 +10958,7 @@ BEGIN
 		(
 			SELECT customer_id, shell_12, shell_45, amount
 			FROM customer_in_stock
-			WHERE DATEDIFF(`day`, _from_date) > 0 AND DATEDIFF(`day`, _to_date) <= 0
+			WHERE DATEDIFF(`day`, _from_date) >= 0 AND DATEDIFF(`day`, _to_date) <= 0
 			union all
 			SELECT i.customer_id, COALESCE(IF(shell_12.id IS NOT NULL, idet.quantity,0),0) AS quantity_12
 				, COALESCE(IF(shell_45.id IS NOT NULL, idet.quantity,0),0) AS quantity_45
@@ -10464,7 +10966,7 @@ BEGIN
 			FROM gas_wholesale AS i, gas_wholesale_detail AS idet, shell_vendor AS sv
 			LEFT JOIN (SELECT s.id FROM shell AS s, shell_kind AS sk WHERE s.kind_id=sk.id AND sk.weight=12) AS shell_12 ON sv.shell_id=shell_12.id
 			LEFT JOIN (SELECT s.id FROM shell AS s, shell_kind AS sk WHERE s.kind_id=sk.id AND sk.weight=45) AS shell_45 ON sv.shell_id=shell_45.id
-			WHERE DATE(i.created_date) >= _from_date AND DATE(i.created_date) < _to_date
+			WHERE DATE(i.created_date) > _from_date AND DATE(i.created_date) < _to_date
 				AND i.id=idet.gas_wholesale_id AND idet.shell_id=sv.id
 			UNION ALL
 			SELECT i.customer_id, -COALESCE(IF(shell_12.id IS NOT NULL, idet.quantity,0),0) AS quantity_12
@@ -10473,7 +10975,7 @@ BEGIN
 			FROM gas_wholesale AS i, gas_wholesale_return_shell AS idet
 			LEFT JOIN (SELECT s.id FROM shell AS s, shell_kind AS sk WHERE s.kind_id=sk.id AND sk.weight=12) AS shell_12 ON idet.shell_id=shell_12.id
 			LEFT JOIN (SELECT s.id FROM shell AS s, shell_kind AS sk WHERE s.kind_id=sk.id AND sk.weight=45) AS shell_45 ON idet.shell_id=shell_45.id
-			WHERE DATE(i.created_date) >= _from_date AND DATE(i.created_date) < _to_date
+			WHERE DATE(i.created_date) > _from_date AND DATE(i.created_date) < _to_date
 				AND i.id=idet.gas_wholesale_id
 			UNION ALL
 			SELECT i.customer_id, COALESCE(IF(shell_12.id IS NOT NULL, idet.quantity,0),0) AS quantity_12
@@ -10482,52 +10984,52 @@ BEGIN
 			FROM shell_return AS i, shell_return_detail AS idet
 			LEFT JOIN (SELECT s.id FROM shell AS s, shell_kind AS sk WHERE s.kind_id=sk.id AND sk.weight=12) AS shell_12 ON idet.shell_id=shell_12.id
 			LEFT JOIN (SELECT s.id FROM shell AS s, shell_kind AS sk WHERE s.kind_id=sk.id AND sk.weight=45) AS shell_45 ON idet.shell_id=shell_45.id
-			WHERE DATE(i.created_date) >= _from_date AND DATE(i.created_date) < _to_date
+			WHERE DATE(i.created_date) > _from_date AND DATE(i.created_date) < _to_date
 				AND i.id=idet.shell_return_id
 			UNION ALL
 			SELECT i.customer_id, 0 AS quantity_12, 0 AS quantity_45, COALESCE(i.debt,0) AS amount
 			FROM gas_wholesale AS i
-			WHERE DATE(i.created_date) >= _from_date AND DATE(i.created_date) < _to_date
+			WHERE DATE(i.created_date) > _from_date AND DATE(i.created_date) < _to_date
 			UNION ALL
 			SELECT i.customer_id, 0 AS quantity_12, 0 AS quantity_45, COALESCE(i.debt,0) AS amount
 			FROM gas_export_wholesale AS i
-			WHERE DATE(i.created_date) >= _from_date AND DATE(i.created_date) < _to_date
+			WHERE DATE(i.created_date) > _from_date AND DATE(i.created_date) < _to_date
 			UNION ALL
 			SELECT i.customer_id, 0 AS quantity_12, 0 AS quantity_45, COALESCE(i.debt,0) AS amount
 			FROM good_sale AS i
-			WHERE DATE(i.created_date) >= _from_date AND DATE(i.created_date) < _to_date
+			WHERE DATE(i.created_date) > _from_date AND DATE(i.created_date) < _to_date
 			UNION ALL
 			SELECT i.customer_id, 0 AS quantity_12, 0 AS quantity_45, COALESCE(i.debt,0) AS amount
 			FROM petro_sale AS i
-			WHERE DATE(i.created_date) >= _from_date AND DATE(i.created_date) < _to_date
+			WHERE DATE(i.created_date) > _from_date AND DATE(i.created_date) < _to_date
 			UNION ALL
 			SELECT i.customer_id, 0 AS quantity_12, 0 AS quantity_45, COALESCE(i.debt,0) AS amount
 			FROM shell_sale AS i
-			WHERE DATE(i.created_date) >= _from_date AND DATE(i.created_date) < _to_date
+			WHERE DATE(i.created_date) > _from_date AND DATE(i.created_date) < _to_date
 			UNION ALL
 			SELECT i.customer_id, 0 AS quantity_12, 0 AS quantity_45, COALESCE(i.debt,0) AS amount
 			FROM lpg_sale AS i
-			WHERE DATE(i.sale_date) >= _from_date AND DATE(i.sale_date) < _to_date
+			WHERE DATE(i.sale_date) > _from_date AND DATE(i.sale_date) < _to_date
 			UNION ALL
 			SELECT i.customer_id, 0 AS quantity_12, 0 AS quantity_45, -COALESCE(i.paid,0) AS amount
 			FROM wholesale_debt AS i
-			WHERE DATE(i.created_date) >= _from_date AND DATE(i.created_date) < _to_date
+			WHERE DATE(i.created_date) > _from_date AND DATE(i.created_date) < _to_date
 			UNION ALL
 			SELECT i.customer_customer_id AS customer_id, 0 AS quantity_12, 0 AS quantity_45, COALESCE(i.customer_amount,0) AS amount
 			FROM transport_service AS i
-			WHERE DATE(i.created_date) >= _from_date AND DATE(i.created_date) < _to_date AND i.customer_id<>0
+			WHERE DATE(i.created_date) > _from_date AND DATE(i.created_date) < _to_date AND i.customer_id<>0
 			UNION ALL
 			SELECT i.customer_id AS customer_id, 0 AS quantity_12, 0 AS quantity_45, COALESCE(i.amount,0) AS amount
 			FROM debt_adjustment AS i
-			WHERE DATE(i.created_date) >= _from_date AND DATE(i.created_date) < _to_date AND i.customer_id<>0
+			WHERE DATE(i.created_date) > _from_date AND DATE(i.created_date) < _to_date AND i.customer_id<>0
 			UNION ALL
 			SELECT i.customer_id, 0 AS quantity_12, 0 AS quantity_45, COALESCE(i.debt,0) AS amount
 			FROM oil_sale AS i
-			WHERE DATE(i.created_date) >= _from_date AND DATE(i.created_date) < _to_date
+			WHERE DATE(i.created_date) > _from_date AND DATE(i.created_date) < _to_date
 			UNION ALL
 			SELECT i.customer_id, 0 AS quantity_12, 0 AS quantity_45, -COALESCE(i.debt,0) AS amount
 			FROM oil_sale_return AS i
-			WHERE DATE(i.created_date) >= _from_date AND DATE(i.created_date) < _to_date
+			WHERE DATE(i.created_date) > _from_date AND DATE(i.created_date) < _to_date
 		) as tbl on tbl.customer_id=c.id
 		WHERE c.STATUS=1
 		GROUP BY c.id
@@ -10588,7 +11090,7 @@ BEGIN
 		SELECT SYSDATE() INTO _to_date;
 	END IF;
 	
-	SELECT `day` INTO _from_date FROM shell_in_stock WHERE DATEDIFF(`day`, _to_date) < 0 ORDER BY `day` DESC LIMIT 1;
+	SELECT `day` INTO _from_date FROM shell_in_stock WHERE DATEDIFF(`day`, _to_date) <= 0 LIMIT 1;
 	IF _from_date IS NULL THEN
 		-- SELECT DATE_ADD(_to_date, INTERVAL -1 DAY) INTO _from_date;
 		SELECT STR_TO_DATE(`value`,'%d/%m/%Y')  INTO _from_date from parameter where `code`="startdate";
@@ -10613,12 +11115,17 @@ BEGIN
 				(
 					SELECT shell_id, organization_id, in_stock
 					FROM shell_in_stock
-					WHERE DATEDIFF(`day`, _from_date) > 0 AND DATEDIFF(`day`, _to_date) <= 0
+					WHERE DATEDIFF(`day`, _from_date) >= 0 AND DATEDIFF(`day`, _to_date) <= 0
 					union all
 					SELECT i.shell_id, eo.organization_id, COALESCE(i.quantity,0) AS in_stock
 					FROM shell_import AS i, employee AS eo
-					WHERE DATE(i.created_date) >= _from_date AND DATE(i.created_date) < _to_date
+					WHERE DATE(i.created_date) > _from_date AND DATE(i.created_date) < _to_date
 						AND i.created_employee_id=eo.id
+--					UNION ALL
+--					SELECT sv.shell_id, sv.organization_id,  -COALESCE(f_det.quantity,0) AS in_stock
+--					FROM fraction_gas_detail AS f_det, fraction_gas AS f, shell_vendor AS sv
+--					WHERE DATE(f.created_date) > _from_date AND DATE(f.created_date) < _to_date
+--						AND f_det.fraction_id=f.id AND f_det.shell_id=sv.id
 					UNION ALL
 					SELECT i_det.shell_id, eo.organization_id, COALESCE(i_det.quantity,0) AS in_stock
 					FROM gas_wholesale_return_shell AS i_det, gas_wholesale AS i, employee AS eo
@@ -10644,6 +11151,11 @@ BEGIN
 					FROM shell_return_supplier_detail AS f_det, shell_return_supplier AS f, shell_vendor AS sv
 					WHERE DATE(f.created_date) >= _from_date AND DATE(f.created_date) < _to_date 
 						AND f_det.shell_return_supplier_id=f.id AND f_det.shell_id=sv.id
+--					UNION ALL
+--					SELECT f_det.shell_id, eo.organization_id,  COALESCE(f_det.quantity,0) AS in_stock
+--					FROM vehicle_in_return_shell_detail AS f_det, vehicle_in AS f, employee AS eo
+--					WHERE DATE(f.created_date) > _from_date AND DATE(f.created_date) < _to_date 
+--						AND f_det.vehicle_in_id=f.id AND f.created_employee_id=eo.id
 					UNION ALL
 					SELECT f_det.shell_id, eo.organization_id, COALESCE(f_det.quantity,0) AS in_stock
 					FROM gas_export_wholesale_shell_detail AS f_det, gas_export_wholesale AS f, employee AS eo
@@ -11068,7 +11580,7 @@ BEGIN
 		SELECT SYSDATE() INTO _to_date;
 	END IF;
 	
-	SELECT `day` INTO _from_date FROM vendor_in_stock WHERE DATEDIFF(`day`, _to_date) < 0 ORDER BY `day` DESC LIMIT 1;
+	SELECT `day` INTO _from_date FROM vendor_in_stock WHERE DATEDIFF(`day`, _to_date) <= 0 LIMIT 1;
 	IF _from_date IS NULL THEN
 		-- SELECT DATE_ADD(_to_date, INTERVAL -1 DAY) INTO _from_date;
 		SELECT STR_TO_DATE(`value`,'%d/%m/%Y')  INTO _from_date from parameter where `code`="startdate";
@@ -11083,57 +11595,57 @@ BEGIN
 		(
 			SELECT vendor_id, organization_id, amount as debt
 			FROM vendor_in_stock
-			WHERE DATEDIFF(`day`, _from_date) > 0 AND DATEDIFF(`day`, _to_date) <= 0  AND _organization_ids LIKE CONCAT('%,',organization_id,',%')
+			WHERE DATEDIFF(`day`, _from_date) >= 0 AND DATEDIFF(`day`, _to_date) <= 0  AND _organization_ids LIKE CONCAT('%,',organization_id,',%')
 			union all
 			SELECT i.vendor_id, eo.organization_id, COALESCE(i.debt,0) AS debt
 			FROM lpg_import AS i, employee AS eo
-			WHERE DATE(i.import_date) >= _from_date AND DATE(i.import_date) < _to_date
+			WHERE DATE(i.import_date) > _from_date AND DATE(i.import_date) < _to_date
 				AND i.created_employee_id=eo.id AND _organization_ids LIKE CONCAT('%,',eo.organization_id,',%')
 			UNION ALL
 			SELECT i.vendor_id, eo.organization_id, COALESCE(i.debt,0) AS debt
 			FROM gas_import AS i, employee AS eo
-			WHERE DATE(i.created_date) >= _from_date AND DATE(i.created_date) < _to_date
+			WHERE DATE(i.created_date) > _from_date AND DATE(i.created_date) < _to_date
 				AND i.created_employee_id=eo.id AND _organization_ids LIKE CONCAT('%,',eo.organization_id,',%')
 			UNION ALL
 			SELECT i.vendor_id, eo.organization_id, COALESCE(i.debt,0) AS debt
 			FROM oil_import AS i, employee AS eo
-			WHERE DATE(i.created_date) >= _from_date AND DATE(i.created_date) < _to_date
+			WHERE DATE(i.created_date) > _from_date AND DATE(i.created_date) < _to_date
 				AND i.created_employee_id=eo.id AND _organization_ids LIKE CONCAT('%,',eo.organization_id,',%')
 			UNION ALL
 			SELECT i.vendor_id, eo.organization_id, - COALESCE(IF(i.kind=1,i.paid,0),0) AS debt
 			FROM vendor_debt AS i, employee AS eo
-			WHERE DATE(i.created_date) >= _from_date AND DATE(i.created_date) < _to_date
+			WHERE DATE(i.created_date) > _from_date AND DATE(i.created_date) < _to_date
 				AND i.created_employee_id=eo.id AND _organization_ids LIKE CONCAT('%,',eo.organization_id,',%')
 			UNION ALL
 			SELECT i.vendor_id, eo.organization_id, COALESCE(i.debt,0) AS debt
 			FROM promotion_material_import AS i, employee AS eo
-			WHERE DATE(i.created_date) >= _from_date AND DATE(i.created_date) < _to_date
+			WHERE DATE(i.created_date) > _from_date AND DATE(i.created_date) < _to_date
 				AND i.created_employee_id=eo.id AND _organization_ids LIKE CONCAT('%,',eo.organization_id,',%')
 			UNION ALL
 			SELECT i.vendor_id, eo.organization_id, COALESCE(i.debt,0) AS debt
 			FROM accessory_import AS i, employee AS eo
-			WHERE DATE(i.created_date) >= _from_date AND DATE(i.created_date) < _to_date
+			WHERE DATE(i.created_date) > _from_date AND DATE(i.created_date) < _to_date
 				AND i.created_employee_id=eo.id AND _organization_ids LIKE CONCAT('%,',eo.organization_id,',%')
 			UNION ALL
 			SELECT i.vendor_id, eo.organization_id, COALESCE(i.amount,0) AS debt
 			FROM debt_adjustment AS i, employee AS eo
-			WHERE DATE(i.created_date) >= _from_date AND DATE(i.created_date) < _to_date
+			WHERE DATE(i.created_date) > _from_date AND DATE(i.created_date) < _to_date
 				AND i.created_employee_id=eo.id AND i.vendor_id<>0 AND i.kind=1
 				 AND _organization_ids LIKE CONCAT('%,',eo.organization_id,',%')
 			UNION ALL
 			SELECT i.vendor_id, eo.organization_id, COALESCE(i.debt,0) AS debt
 			FROM good_import AS i, employee AS eo
-			WHERE DATE(i.created_date) >= _from_date AND DATE(i.created_date) < _to_date
+			WHERE DATE(i.created_date) > _from_date AND DATE(i.created_date) < _to_date
 				AND i.created_employee_id=eo.id AND _organization_ids LIKE CONCAT('%,',eo.organization_id,',%')
 			UNION ALL
 			SELECT i.vendor_id, eo.organization_id, COALESCE(i.debt,0) AS debt
 			FROM petro_import AS i, employee AS eo
-			WHERE DATE(i.created_date) >= _from_date AND DATE(i.created_date) < _to_date
+			WHERE DATE(i.created_date) > _from_date AND DATE(i.created_date) < _to_date
 				AND i.created_employee_id=eo.id AND _organization_ids LIKE CONCAT('%,',eo.organization_id,',%')
 			UNION ALL
 			SELECT idet.vendor_id, eo.organization_id, -COALESCE(idet.quantity*idet.price_before_commission,0) AS debt
 			FROM oil_sale_detail AS idet, oil_sale AS i, employee AS eo
-			WHERE DATE(i.created_date) >= _from_date AND DATE(i.created_date) < _to_date
+			WHERE DATE(i.created_date) > _from_date AND DATE(i.created_date) < _to_date
 				AND i.created_employee_id=eo.id AND i.id=idet.oil_sale_id
 				 AND _organization_ids LIKE CONCAT('%,',eo.organization_id,',%')
 		) AS stock ON stock.organization_id=vo.organization_id AND stock.vendor_id=vo.vendor_id

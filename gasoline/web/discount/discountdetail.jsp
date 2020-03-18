@@ -15,6 +15,10 @@
             <td><html:text property="code" size="40" name="<%=Constants.DISCOUNT%>"/></td>
         </tr>
         <tr>
+            <td height="30" style="padding-right: 20px" colspan="3"><bean:message key="customerDiscount.detail.shellGasComission"/></td>
+            <td><html:text property="shellGasComission" size="40" name="<%=Constants.DISCOUNT%>"/></td>
+        </tr>
+        <tr>
             <td height="30" style="padding-right: 20px"><bean:message key="note.title"/></td>
             <td colspan="3"><html:text property="note" size="107" name="<%=Constants.DISCOUNT%>"/></td>
         </tr>

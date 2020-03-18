@@ -37,11 +37,13 @@ public class DiscountFormAction extends SpineAction {
         DiscountBean bean = null;
         int discountId = NumberUtil.parseInt(request.getParameter("discountId"), 0);
         ArrayList arrFeeDetail = null;
+        ArrayList arrFeeCustomer = null;
         if (discountId != 0) {
             CustomerDAO customerDAO = new CustomerDAO();
             try {
                 bean = customerDAO.getDiscount(discountId);
                 arrFeeDetail = customerDAO.getDiscountCommissionDetail(discountId);
+                arrFeeCustomer = customerDAO.getDiscountCommissionCustomer(discountId);
             } catch (Exception ex) {
             }
         }
@@ -55,6 +57,13 @@ public class DiscountFormAction extends SpineAction {
         }
         request.setAttribute(Constants.DISCOUNT_COMMISSION, arrFeeDetail);
 
+        
+        if (arrFeeCustomer == null) {
+            arrFeeCustomer = new ArrayList();
+        }
+        request.setAttribute(Constants.DISCOUNT_COMMISSION_CUSTOMER, arrFeeCustomer);
+
+        
         return true;
     }
 }

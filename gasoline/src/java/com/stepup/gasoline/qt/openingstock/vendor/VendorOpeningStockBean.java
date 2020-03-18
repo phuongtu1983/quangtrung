@@ -15,8 +15,8 @@ public class VendorOpeningStockBean {
     private String organizationName;
     private int vendorId;
     private String vendorName;
-    private int openingStock;
-    private int openingStockTransport;
+    private double openingStock;
+    private double openingStockTransport;
 
     public int getOrganizationId() {
         return organizationId;
@@ -50,19 +50,19 @@ public class VendorOpeningStockBean {
         this.vendorName = vendorName;
     }
 
-    public int getOpeningStock() {
+    public double getOpeningStock() {
         return openingStock;
     }
 
-    public void setOpeningStock(int openingStock) {
+    public void setOpeningStock(double openingStock) {
         this.openingStock = openingStock;
     }
 
-    public int getOpeningStockTransport() {
+    public double getOpeningStockTransport() {
         return openingStockTransport;
     }
 
-    public void setOpeningStockTransport(int openingStockTransport) {
+    public void setOpeningStockTransport(double openingStockTransport) {
         this.openingStockTransport = openingStockTransport;
     }
 

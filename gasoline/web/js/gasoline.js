@@ -440,6 +440,34 @@ function menuClick(id) {
         getSaleOilReturnStore(0);
     else if (id == 'reportoilcustomerdebt')
         showOilCustomerDebtReportPanel();
+    else if (id == 'solargrouplist')
+        loadOilGroupPanel();
+    else if (id == 'solargroupadd')
+        getOilGroup(0, 'loadOilGroupPanel');
+    else if (id == 'employeesolarcommissionlist')
+        loadEmployeeOilCommissionPanel();
+    else if (id == 'employeesolarcommissionadd')
+        getEmployeeOilCommission(0, 'loadEmployeeOilCommissionPanel');
+    else if (id == 'solarlist')
+        loadOilPanel();
+    else if (id == 'solaradd')
+        getOil(0, 'loadOilPanel');
+    else if (id == 'solarimportlist')
+        loadOilImportPanel();
+    else if (id == 'solarimportadd')
+        getOilImport(0);
+    else if (id == 'solarexportlist')
+        loadOilExportPanel();
+    else if (id == 'salesolarlist')
+        loadSaleOilPanel();
+    else if (id == 'salesolaradd')
+        getSaleOil(0);
+    else if (id == 'salesolarreturnlist')
+        loadSaleOilReturnPanel();
+    else if (id == 'salesolarreturnstoreadd')
+        getSaleOilReturnStore(0);
+    else if (id == 'reportsolarcustomerdebt')
+        showOilCustomerDebtReportPanel();
 }
 function clearContent() {
     var contentDiv = document.getElementById("contentDiv");
@@ -15476,5 +15504,1497 @@ function printOilStockStoreHReport(fromDate, toDate) {
         list = 0;
     url += "&storeId=" + list;
     callServer(url);
+    return false;
+}
+function loadVendorSolarPanel() {
+    callAjax("getVendorSolarPanel.do", null, null, function(data) {
+        clearContent();
+        setAjaxData(data, "contentDiv");
+        loadVendorSolarList();
+    });
+}
+function loadVendorSolarList() {
+    var mygrid = new dhtmlXGridObject('vendorSolarList');
+    mygrid.setImagePath("js/dhtmlx/grid/imgs/");
+    mygrid.setHeader("M\u00E3 nh\u00E0 cung c\u1EA5p,T\u00EAn nh\u00E0 cung c\u1EA5p,\u0110\u01A1n v\u1ECB,T\u00ECnh tr\u1EA1ng");
+    mygrid.attachHeader("#text_filter,#text_filter,#select_filter,#select_filter");
+    mygrid.setInitWidths("100,*,250,150");
+    mygrid.setColTypes("link,ro,ro,ro");
+    mygrid.setColSorting("str,str,str,str");
+    mygrid.setSkin("light");
+    var height = contentHeight - 210;
+    mygrid.al(true, height); //enableAutoHeight
+    mygrid.enablePaging(true, 15, 3, "recinfoArea");
+    mygrid.setPagingSkin("toolbar", "dhx_skyblue");
+    mygrid.init();
+    var list = document.forms['vendorSolarSearchForm'].statusCombobox;
+    if (list != null && list.selectedIndex > -1)
+        list = list.options[list.selectedIndex].value;
+    else
+        list = 0;
+    var url = "getVendorSolarList.do?status=" + list;
+    callAjax(url, null, null, function(data) {
+        mygrid.parse(data);
+    });
+    return false;
+}
+function getVendorSolar(id) {
+    var url = 'vendorSolarForm.do';
+    if (id != 0)
+        url += '?vendorId=' + id
+    callAjax(url, null, null, function(data) {
+        clearContent();
+        setAjaxData(data, 'contentDiv');
+        document.forms['vendorSolarForm'].commissionOnImport.focus();
+        tryNumberFormatCurrentcy(document.forms['vendorSolarForm'].commissionOnImport, "USD");
+        tryNumberFormatCurrentcy(document.forms['vendorSolarForm'].maxDebt, "VND");
+    });
+}
+function saveVendorSolar() {
+    if (scriptFunction == "saveVendorSolar")
+        return false;
+    reformatNumberMoney(document.forms['vendorSolarForm'].commissionOnImport);
+    reformatNumberMoney(document.forms['vendorSolarForm'].maxDebt);
+    scriptFunction = "saveVendorSolar";
+    callAjaxCheckError("addVendorSolar.do", null, document.forms['vendorSolarForm'], function(data) {
+        scriptFunction = "";
+        loadVendorSolarPanel();
+    });
+    return false;
+}
+function loadSolarGroupPanel() {
+    callAjax("getSolarGroupPanel.do", null, null, function(data) {
+        clearContent();
+        setAjaxData(data, "contentDiv");
+        loadSolarGroupList();
+    });
+}
+function loadSolarGroupList() {
+    var mygrid = new dhtmlXGridObject('solarGroupList');
+    mygrid.setImagePath("js/dhtmlx/grid/imgs/");
+    mygrid.setHeader("T\u00EAn nh\u00F3m NLMT,Ghi ch\u00FA");
+    mygrid.attachHeader("#text_filter,#text_filter");
+    mygrid.setInitWidths("200,*");
+    mygrid.setColTypes("link,ro");
+    mygrid.setColSorting("str,str");
+    mygrid.setSkin("light");
+    var height = contentHeight - 210;
+    mygrid.al(true, height); //enableAutoHeight
+    mygrid.enablePaging(true, 15, 3, "recinfoArea");
+    mygrid.setPagingSkin("toolbar", "dhx_skyblue");
+    mygrid.init();
+    var list = document.forms['solarGroupSearchForm'].statusCombobox;
+    if (list != null && list.selectedIndex > -1)
+        list = list.options[list.selectedIndex].value;
+    else
+        list = 0;
+    var url = "getSolarGroupList.do?status=" + list;
+    callAjax(url, null, null, function(data) {
+        mygrid.parse(data);
+    });
+    return false;
+}
+function getSolarGroup(id, handle) {
+    popupName = 'TH\u00D4NG TIN NH\u00D3M NLMT';
+    var url = 'solarGroupForm.do';
+    if (id != 0)
+        url += '?solarGroupId=' + id
+    callAjax(url, null, null, function(data) {
+        showPopupForm(data);
+        document.getElementById('callbackFunc').value = handle;
+        document.forms['solarGroupForm'].name.focus();
+    });
+}
+function saveSolarGroup() {
+    if (scriptFunction == "saveSolarGroup")
+        return false;
+    var field = document.forms['solarGroupForm'].name;
+    if (field.value == '') {
+        alert("Vui l\u00F2ng nh\u1EADp t\u00EAn nh\u00F3m NLMT");
+        field.focus();
+        field = null;
+        return false;
+    }
+    field = null;
+    scriptFunction = "saveSolarGroup";
+    callAjaxCheckError("addSolarGroup.do", null, document.forms['solarGroupForm'], function(data) {
+        scriptFunction = "";
+        var handle = document.getElementById('callbackFunc').value;
+        if (confirm('B\u1EA1n c\u00F3 mu\u1ED1n nh\u1EADp ti\u1EBFp th\u00F4ng tin kh\u00E1c ?'))
+            getSolarGroup(0, handle);
+        else if (handle != '')
+            eval(handle + "()");
+        prepareHidePopup('solarGroupFormshowHelpHideDiv');
+    });
+    return false;
+}
+function loadEmployeeSolarCommissionPanel() {
+    callAjax("getEmployeeSolarCommissionPanel.do", null, null, function(data) {
+        clearContent();
+        setAjaxData(data, "contentDiv");
+        loadEmployeeSolarCommissionList();
+    });
+}
+function loadEmployeeSolarCommissionList() {
+    var mygrid = new dhtmlXGridObject('employeeSolarCommissionList');
+    mygrid.setImagePath("js/dhtmlx/grid/imgs/");
+    mygrid.setHeader("T\u00EAn lo\u1EA1i chi\u1EBFt kh\u1EA5u,S\u1ED1 ti\u1EC1n,Ghi ch\u00FA");
+    mygrid.attachHeader("#text_filter,#text_filter,#text_filter");
+    mygrid.setInitWidths("250,150,*");
+    mygrid.setColTypes("link,ro,ro");
+    mygrid.setColSorting("str,str,str");
+    mygrid.setSkin("light");
+    var height = contentHeight - 210;
+    mygrid.al(true, height); //enableAutoHeight
+    mygrid.enablePaging(true, 15, 3, "recinfoArea");
+    mygrid.setPagingSkin("toolbar", "dhx_skyblue");
+    mygrid.init();
+    var url = "getEmployeeSolarCommissionList.do";
+    callAjax(url, null, null, function(data) {
+        mygrid.parse(data);
+    });
+    return false;
+}
+function getEmployeeSolarCommission(id, handle) {
+    popupName = 'TH\u00D4NG TIN QUI LO\u1EA0I CHI\u1EBET KH\u1EA4U B\u00C1N NLMT';
+    var url = 'employeeSolarCommissionForm.do';
+    if (id != 0)
+        url += '?employeeSolarCommissionId=' + id
+    callAjax(url, null, null, function(data) {
+        showPopupForm(data);
+        document.getElementById('callbackFunc').value = handle;
+        tryNumberFormatCurrentcy(document.forms['employeeSolarCommissionForm'].amount, "VND");
+    });
+}
+function saveEmployeeSolarCommission() {
+    if (scriptFunction == "saveEmployeeSolarCommission")
+        return false;
+    var field = document.forms['employeeSolarCommissionForm'].name;
+    if (field.value == '') {
+        alert("Vui l\u00F2ng nh\u1EADp t\u00EAn lo\u1EA1i chi\u1EBFt kh\u1EA5u");
+        field.focus();
+        field = null;
+        return false;
+    }
+    field = null;
+    reformatNumberMoney(document.forms['employeeSolarCommissionForm'].amount);
+    scriptFunction = "saveEmployeeSolarCommission";
+    callAjaxCheckError("addEmployeeSolarCommission.do", null, document.forms['employeeSolarCommissionForm'], function(data) {
+        scriptFunction = "";
+        var handle = document.getElementById('callbackFunc').value;
+        if (confirm('B\u1EA1n c\u00F3 mu\u1ED1n nh\u1EADp ti\u1EBFp th\u00F4ng tin kh\u00E1c ?'))
+            getEmployeeSolarCommission(0, handle);
+        else if (handle != '')
+            eval(handle + "()");
+        prepareHidePopup('employeeSolarCommissionFormshowHelpHideDiv');
+    });
+    return false;
+}
+function delEmployeeSolarCommission() {
+    callAjaxCheckError('delEmployeeSolarCommission.do?employeeSolarCommissionId=' + document.forms['employeeSolarCommissionForm'].id.value, null, null, function() {
+        loadEmployeeSolarCommissionPanel();
+        prepareHidePopup('employeeSolarCommissionFormshowHelpHideDiv');
+    });
+    return false;
+}
+function loadSolarPanel() {
+    callAjax("getSolarPanel.do", null, null, function(data) {
+        clearContent();
+        setAjaxData(data, "contentDiv");
+        loadSolarList();
+    });
+}
+function loadSolarList() {
+    var mygrid = new dhtmlXGridObject('solarList');
+    mygrid.setImagePath("js/dhtmlx/grid/imgs/");
+    mygrid.setHeader("M\u00E3 NLMT,T\u00EAn NLMT,\u0110\u01A1n v\u1ECB t\u00EDnh c\u01A1 b\u1EA3n,\u0110\u01A1n v\u1ECB t\u00EDnh mua b\u00E1n");
+    mygrid.attachHeader("#text_filter,#text_filter,#text_filter,#text_filter");
+    mygrid.setInitWidths("100,*,150,150");
+    mygrid.setColTypes("link,ro,ro,ro");
+    mygrid.setColSorting("str,str,str,str");
+    mygrid.setSkin("light");
+    var height = contentHeight - 210;
+    mygrid.al(true, height); //enableAutoHeight
+    mygrid.enablePaging(true, 15, 3, "recinfoArea");
+    mygrid.setPagingSkin("toolbar", "dhx_skyblue");
+    mygrid.init();
+    var list = document.forms['solarSearchForm'].statusCombobox;
+    if (list != null && list.selectedIndex > -1)
+        list = list.options[list.selectedIndex].value;
+    else
+        list = 0;
+    var url = "getSolarList.do?status=" + list;
+    callAjax(url, null, null, function(data) {
+        mygrid.parse(data);
+    });
+    return false;
+}
+function getSolar(id, handle) {
+    popupName = 'TH\u00D4NG TIN NLMT';
+    var url = 'solarForm.do';
+    if (id != 0)
+        url += '?solarId=' + id
+    callAjax(url, null, null, function(data) {
+        showPopupForm(data);
+        document.getElementById('callbackFunc').value = handle;
+        document.forms['solarForm'].code.focus();
+        tryNumberFormatCurrentcy(document.forms['solarForm'].weight, "VND");
+        tryNumberFormatCurrentcy(document.forms['solarForm'].price, "VND");
+    });
+}
+function saveSolar() {
+    if (scriptFunction == "saveSolar")
+        return false;
+    var field = document.forms['solarForm'].code;
+    if (field.value == '') {
+        alert("Vui l\u00F2ng nh\u1EADp m\u00E3 NLMT");
+        field.focus();
+        field = null;
+        return false;
+    }
+    field = document.forms['solarForm'].name;
+    if (field.value == '') {
+        alert("Vui l\u00F2ng nh\u1EADp t\u00EAn NLMT");
+        field.focus();
+        field = null;
+        return false;
+    }
+    field = null;
+    reformatNumberMoney(document.forms['solarForm'].weight);
+    reformatNumberMoney(document.forms['solarForm'].price);
+    scriptFunction = "saveSolar";
+    callAjaxCheckError("addSolar.do", null, document.forms['solarForm'], function(data) {
+        scriptFunction = "";
+        var handle = document.getElementById('callbackFunc').value;
+        if (confirm('B\u1EA1n c\u00F3 mu\u1ED1n nh\u1EADp ti\u1EBFp th\u00F4ng tin kh\u00E1c ?'))
+            getSolar(0, handle);
+        else if (handle != '')
+            eval(handle + "()");
+        prepareHidePopup('solarFormshowHelpHideDiv');
+    });
+    return false;
+}
+function loadSolarImportPanel() {
+    callAjax("getSolarImportPanel.do", null, null, function(data) {
+        clearContent();
+        setAjaxData(data, "contentDiv");
+        var myCalendar = new dhtmlXCalendarObject(["fromDate", "toDate"]);
+        myCalendar.setSkin('dhx_web');
+        var currentTime = getCurrentDate();
+        document.forms['solarImportSearchForm'].fromDate.value = currentTime;
+        document.forms['solarImportSearchForm'].toDate.value = currentTime;
+        myCalendar.setDateFormat("%d/%m/%Y");
+        loadSolarImportList(currentTime, currentTime);
+    });
+    return false;
+}
+function loadSolarImportList(fromDate, toDate) {
+    var mygrid = new dhtmlXGridObject('solarImportList');
+    mygrid.setImagePath("js/dhtmlx/grid/imgs/");
+    mygrid.setHeader("M\u00E3 phi\u1EBFu,Ng\u00E0y,Nh\u00E0 cung c\u1EA5p,T\u1ED5ng ti\u1EC1n,Thanh to\u00E1n,C\u00F2n n\u1EE3,Ghi ch\u00FA");
+    mygrid.attachHeader("#text_filter,#text_filter,#select_filter,#text_filter,#text_filter,#text_filter,#text_filter");
+    mygrid.setInitWidths("150,100,150,150,150,*");
+    mygrid.setColTypes("link,ro,ro,ro,ro,ro");
+    mygrid.setColSorting("str,str,str,str,str,str");
+    mygrid.setSkin("light");
+    var height = contentHeight - 210;
+    mygrid.al(true, height); //enableAutoHeight
+    mygrid.enablePaging(true, 15, 3, "recinfoArea");
+    mygrid.setPagingSkin("toolbar", "dhx_skyblue");
+    mygrid.init();
+    var url = "getSolarImportList.do?t=1";
+    if (fromDate != null)
+        url += "&fromDate=" + fromDate;
+    if (toDate != null)
+        url += "&toDate=" + toDate;
+    callAjax(url, null, null, function(data) {
+        mygrid.parse(data);
+    });
+    return false;
+}
+function getSolarImport(id) {
+    var url = 'solarImportForm.do';
+    if (id != 0)
+        url += '?solarImportId=' + id
+    callAjax(url, null, null, function(data) {
+        clearContent();
+        setAjaxData(data, 'contentDiv');
+        if (id == 0) {
+            var currentDate = getCurrentDate();
+            document.forms['solarImportForm'].solarImportCreatedDate.value = currentDate;
+        }
+        var myCalendar = new dhtmlXCalendarObject(["solarImportCreatedDate"]);
+        myCalendar.setSkin('dhx_web');
+        myCalendar.setDateFormat("%d/%m/%Y");
+
+        tryNumberFormatCurrentcy(document.forms['solarImportForm'].totalBeforeCommission, "VND");
+        tryNumberFormatCurrentcy(document.forms['solarImportForm'].total, "VND");
+        tryNumberFormatCurrentcy(document.forms['solarImportForm'].paid, "VND");
+        tryNumberFormatCurrentcy(document.forms['solarImportForm'].debt, "VND");
+        tryNumberFormatCurrentcy(document.forms['solarImportForm'].rate, "VND");
+        tryNumberFormatCurrentcy(document.forms['solarImportForm'].commission, "USD");
+        formatFormDetail('solarImportForm');
+
+        window.dhx_globalImgPath = "js/dhtmlx/combo/imgs/";
+        // ============================
+        var solarCodeCombobox = dhtmlXComboFromSelect("solarCodeCombobox");
+        var solarNameCombobox = dhtmlXComboFromSelect("solarNameCombobox");
+        
+        solarCodeCombobox.enableFilteringMode(true);
+        solarNameCombobox.enableFilteringMode(true);
+        
+        solarNameCombobox.attachEvent("onSelectionChange", function() {
+            setSolarSelectedForm('solarImportForm', solarNameCombobox.getComboText(), solarNameCombobox.getSelectedValue());
+            if(solarNameCombobox.getSelectedValue()==null || selectedCombo!='') return;
+            selectedCombo='solarNameCombobox';
+            solarCodeCombobox.selectOption(solarCodeCombobox.getIndexByValue(solarNameCombobox.getSelectedValue()));
+            selectedCombo='';
+        });
+        solarNameCombobox.attachEvent("onBlur", function() {
+            setSolarSelectedForm('solarImportForm', solarNameCombobox.getComboText(), solarNameCombobox.getSelectedValue());
+        });
+        solarNameCombobox.DOMelem_input.onkeypress = function(event) {
+            var key;
+            if (window.event)
+                key = window.event.keyCode;//IE
+            else
+                key = event.which;//firefox
+            if (key == 13) {
+                addSolarImportSolar();
+                solarNameCombobox.setComboValue("");
+                solarCodeCombobox.setComboValue("");
+            }
+        }
+        solarNameCombobox.DOMelem_input.onfocus = function(event) {
+            if (isManuallySeleted == 1) {
+                solarNameCombobox.openSelect();
+                isManuallySeleted = 0;
+            }
+        }
+        
+        solarCodeCombobox.attachEvent("onSelectionChange", function() {
+            setSolarSelectedForm('solarImportForm', solarCodeCombobox.getComboText(), solarCodeCombobox.getSelectedValue());
+            if(solarNameCombobox.getSelectedValue()==null || selectedCombo!='') return;
+            selectedCombo='solarNameCombobox';
+            solarNameCombobox.selectOption(solarNameCombobox.getIndexByValue(solarCodeCombobox.getSelectedValue()));
+            selectedCombo='';
+        });
+        solarCodeCombobox.attachEvent("onBlur", function() {
+            setSolarSelectedForm('solarImportForm', solarCodeCombobox.getComboText(), solarCodeCombobox.getSelectedValue());
+        });
+        solarCodeCombobox.DOMelem_input.onkeypress = function(event) {
+            var key;
+            if (window.event)
+                key = window.event.keyCode;//IE
+            else
+                key = event.which;//firefox
+            if (key == 13) {
+                addSolarImportSolar();
+                solarCodeCombobox.setComboValue("");
+                solarNameCombobox.setComboValue("");
+            }
+        }
+        solarCodeCombobox.DOMelem_input.onfocus = function(event) {
+            if (isManuallySeleted == 1) {
+                solarCodeCombobox.openSelect();
+                isManuallySeleted = 0;
+            }
+        }
+        
+        solarCodeCombobox.setComboValue("");
+        solarNameCombobox.setComboValue("");
+    });
+}
+function saveSolarImport() {
+    if (scriptFunction == "saveSolarImport")
+        return false;
+    var quantity = document.forms['solarImportForm'].quantity;
+    if (quantity == null) {
+        alert('Vui l\u00F2ng ch\u1ECDn h\u00E0ng h\u00F3a');
+        return false;
+    }
+    var paid = document.forms['solarImportForm'].paid;
+    var total = document.forms['solarImportForm'].total;
+    if (paid.value != 0 && paid.value != total.value) {
+        alert('S\u1ED1 ti\u1EC1n thanh to\u00E1n kh\u00F4ng \u0111\u00FAng');
+        paid = null;
+        total = null;
+        return false;
+    }
+    paid = null;
+    total = null;
+    var price = document.forms['solarImportForm'].price;
+    var amount = document.forms['solarImportForm'].amount;
+    if (quantity.length != null) {
+        for (var i = 0; i < quantity.length; i++) {
+            var number = Number(quantity[i].value);
+            if (number == 0) {
+                alert('Vui l\u00F2ng nh\u1EADp s\u1ED1 l\u01B0\u1EE3ng');
+                quantity[i].focus();
+                quantity = null;
+                return false;
+            }
+            reformatNumberMoney(quantity[i]);
+            reformatNumberMoney(price[i]);
+            reformatNumberMoney(amount[i]);
+        }
+    } else {
+        if (quantity.value == "0") {
+            alert('Vui l\u00F2ng nh\u1EADp s\u1ED1 l\u01B0\u1EE3ng');
+            quantity.focus();
+            quantity = null;
+            return false;
+        }
+        reformatNumberMoney(quantity);
+        reformatNumberMoney(price);
+        reformatNumberMoney(amount);
+    }
+    quantity = null;
+    price = null;
+    amount = null;
+    reformatNumberMoney(document.forms['solarImportForm'].totalBeforeCommission);
+    reformatNumberMoney(document.forms['solarImportForm'].total);
+    reformatNumberMoney(document.forms['solarImportForm'].paid);
+    reformatNumberMoney(document.forms['solarImportForm'].debt);
+    reformatNumberMoney(document.forms['solarImportForm'].rate);
+    reformatNumberMoney(document.forms['solarImportForm'].commission);
+    scriptFunction = "saveSolarImport";
+    callAjaxCheckError("addSolarImport.do", null, document.forms['solarImportForm'], function(data) {
+        scriptFunction = "";
+        loadSolarImportPanel();
+    });
+    return false;
+}
+function addSolarImportSolar() {
+    var solar = document.forms['solarImportForm'].solarSelectedHidden.value;
+//    if (solar == -1 || solar == 0)
+//        return false;
+    var solarId = document.forms['solarImportForm'].solarId;
+//    var existed = false;
+//    if (solarId != null) {
+//        if (solarId.length != null) {
+//            for (i = 0; i < solarId.length; i++) {
+//                if (solarId[i].value == solar) {
+//                    existed = true;
+//                    break;
+//                }
+//            }
+//        } else if (solarId.value == solar)
+//            existed = true;
+//    }
+//    solarId = null;
+//    if (existed == true) {
+//        alert("H\u00E0ng ho\u00E1 \u0111\u00E3 t\u1ED3n t\u1EA1i");
+//        return false;
+//    }
+    var length = 0;
+    if (solarId != null) {
+        if (solarId.length != null)
+            length = solarId.length;
+        else
+            length = 1;
+    }
+    solarId = null;
+    callAjax("getSolarImportSolar.do?solarId=" + solar + "&length=" + length, null, null, function(data) {
+        setAjaxData(data, 'solarImportSolarHideDiv');
+        var matTable = document.getElementById('solarImportSolarTbl');
+        var detTable = document.getElementById('solarImportDetailTbl');
+        if (matTable.tBodies[0] == null || detTable.tBodies[0] == null) {
+            matTable = null;
+            detTable = null;
+            return;
+        }
+        for (var i = matTable.tBodies[0].rows.length - 1; i >= 0; i--)
+            detTable.tBodies[0].appendChild(matTable.tBodies[0].rows[i]);
+        matTable = null;
+        detTable = null;
+        formatFormDetail('solarImportForm');
+    });
+    return false;
+}
+function delSolarImport() {
+    callAjaxCheckError('delSolarImport.do?solarImportId=' + document.forms['solarImportForm'].id.value, null, null, function() {
+        loadSolarImportPanel();
+    });
+    return false;
+}
+function solarImportVendorChanged(list) {
+    if (list.selectedIndex == -1)
+        return false;
+    var url = "getVendorCommission.do?vendorId=" + list.options[list.selectedIndex].value;
+    callAjaxCheckError(url, null, null, function(data) {
+        var obj = eval('(' + data + ')');
+        var commission = document.forms['solarImportForm'].commission;
+        commission.value = obj.commission;
+        tryNumberFormatCurrentcy(commission, "USD");
+        commission = null;
+        caculateListTotal('solarImportForm');
+    });
+    list = null;
+    return false;
+}
+function loadSaleSolarPanel() {
+    callAjax("getSaleSolarPanel.do", null, null, function(data) {
+        clearContent();
+        setAjaxData(data, "contentDiv");
+        var myCalendar = new dhtmlXCalendarObject(["fromDate", "toDate"]);
+        myCalendar.setSkin('dhx_web');
+        var currentTime = getCurrentDate();
+        document.forms['saleSolarSearchForm'].fromDate.value = currentTime;
+        document.forms['saleSolarSearchForm'].toDate.value = currentTime;
+        myCalendar.setDateFormat("%d/%m/%Y");
+        loadSaleSolarList(currentTime, currentTime);
+    });
+    return false;
+}
+function loadSaleSolarList(fromDate, toDate) {
+    var mygrid = new dhtmlXGridObject('saleSolarList');
+    mygrid.setImagePath("js/dhtmlx/grid/imgs/");
+    mygrid.setHeader("M\u00E3 phi\u1EBFu,Ng\u00E0y,Kh\u00E1ch h\u00E0ng,T\u1ED5ng ti\u1EC1n,Thanh to\u00E1n,C\u00F2n n\u1EE3,Phi\u1EBFu xu\u1EA5t kho,Ghi ch\u00FA");
+    mygrid.attachHeader("#text_filter,#text_filter,#text_filter,#text_filter,#text_filter,#text_filter,#text_filter,#text_filter");
+    mygrid.setInitWidths("150,100,150,150,150,150,*");
+    mygrid.setColTypes("link,ro,ro,ro,ro,ro,ro");
+    mygrid.setColSorting("str,str,str,str,str,str,str");
+    mygrid.setSkin("light");
+    var height = contentHeight - 210;
+    mygrid.al(true, height); //enableAutoHeight
+    mygrid.enablePaging(true, 15, 3, "recinfoArea");
+    mygrid.setPagingSkin("toolbar", "dhx_skyblue");
+    mygrid.init();
+    var url = "getSaleSolarList.do?t=1";
+    if (fromDate != null)
+        url += "&fromDate=" + fromDate;
+    if (toDate != null)
+        url += "&toDate=" + toDate;
+    callAjax(url, null, null, function(data) {
+        mygrid.parse(data);
+    });
+    return false;
+}
+function getSaleSolar(id) {
+    var url = 'saleSolarForm.do';
+    if (id != 0)
+        url += '?saleSolarId=' + id
+    callAjax(url, null, null, function(data) {
+        clearContent();
+        setAjaxData(data, 'contentDiv');
+        if (id == 0) {
+            var currentDate = getCurrentDate();
+            document.forms['saleSolarForm'].saleSolarCreatedDate.value = currentDate;
+        }
+
+        var myCalendar = new dhtmlXCalendarObject(["saleSolarCreatedDate"]);
+        myCalendar.setSkin('dhx_web');
+        myCalendar.setDateFormat("%d/%m/%Y");
+
+        tryNumberFormatCurrentcy(document.forms['saleSolarForm'].total, "VND");
+        tryNumberFormatCurrentcy(document.forms['saleSolarForm'].paid, "VND");
+        tryNumberFormatCurrentcy(document.forms['saleSolarForm'].debt, "VND");
+        tryNumberFormatCurrentcy(document.forms['saleSolarForm'].discount, "VND");
+        tryNumberFormatCurrentcy(document.forms['saleSolarForm'].totalPay, "VND");
+        tryNumberFormatCurrentcy(document.forms['saleSolarForm'].commission, "USD");
+        tryNumberFormatCurrentcy(document.forms['saleSolarForm'].commissionAmount, "VND");
+        tryNumberFormatCurrentcy(document.forms['saleSolarForm'].gapCustomerAmount, "VND");
+        tryNumberFormatCurrentcy(document.forms['saleSolarForm'].gapAgencyAmount, "VND");
+        formatSaleSolarDetail('saleSolarForm');
+        formatSaleSolarPromotionMaterialQuantityDetail();
+
+        window.dhx_globalImgPath = "js/dhtmlx/combo/imgs/";
+        // ============================
+        var solarCodeCombobox = dhtmlXComboFromSelect("solarCodeCombobox");
+        var solarNameCombobox = dhtmlXComboFromSelect("solarNameCombobox");
+        
+        solarCodeCombobox.enableFilteringMode(true);
+        solarNameCombobox.enableFilteringMode(true);
+        
+        solarNameCombobox.attachEvent("onSelectionChange", function() {
+            setSolarSelectedForm('saleSolarForm', solarNameCombobox.getComboText(), solarNameCombobox.getSelectedValue());
+            if(solarNameCombobox.getSelectedValue()==null || selectedCombo!='') return;
+            selectedCombo='solarNameCombobox';
+            solarCodeCombobox.selectOption(solarCodeCombobox.getIndexByValue(solarNameCombobox.getSelectedValue()));
+            selectedCombo='';
+        });
+        solarNameCombobox.attachEvent("onBlur", function() {
+            setSolarSelectedForm('saleSolarForm', solarNameCombobox.getComboText(), solarNameCombobox.getSelectedValue());
+        });
+        solarNameCombobox.DOMelem_input.onkeypress = function(event) {
+            var key;
+            if (window.event)
+                key = window.event.keyCode;//IE
+            else
+                key = event.which;//firefox
+            if (key == 13) {
+                addSaleSolarSolar();
+                solarNameCombobox.setComboValue("");
+                solarCodeCombobox.setComboValue("");
+            }
+        }
+        solarNameCombobox.DOMelem_input.onfocus = function(event) {
+            if (isManuallySeleted == 1) {
+                solarNameCombobox.openSelect();
+                isManuallySeleted = 0;
+            }
+        }
+        
+        solarCodeCombobox.attachEvent("onSelectionChange", function() {
+            setSolarSelectedForm('saleSolarForm', solarCodeCombobox.getComboText(), solarCodeCombobox.getSelectedValue());
+            if(solarCodeCombobox.getSelectedValue()==null || selectedCombo!='') return;
+            selectedCombo='solarCodeCombobox';
+            solarNameCombobox.selectOption(solarNameCombobox.getIndexByValue(solarCodeCombobox.getSelectedValue()));
+            selectedCombo='';
+        });
+        solarCodeCombobox.attachEvent("onBlur", function() {
+            setSolarSelectedForm('saleSolarForm', solarCodeCombobox.getComboText(), solarCodeCombobox.getSelectedValue());
+        });
+        solarCodeCombobox.DOMelem_input.onkeypress = function(event) {
+            var key;
+            if (window.event)
+                key = window.event.keyCode;//IE
+            else
+                key = event.which;//firefox
+            if (key == 13) {
+                addSaleSolarSolar();
+                solarCodeCombobox.setComboValue("");
+                solarNameCombobox.setComboValue("");
+            }
+        }
+        solarCodeCombobox.DOMelem_input.onfocus = function(event) {
+            if (isManuallySeleted == 1) {
+                solarCodeCombobox.openSelect();
+                isManuallySeleted = 0;
+            }
+        }
+        
+        solarNameCombobox.setComboValue("");
+        solarCodeCombobox.setComboValue("");
+        // ============================
+        var customerIdCombobox = dhtmlXComboFromSelect("customerIdCombobox");
+        customerIdCombobox.enableFilteringMode(true);
+        customerIdCombobox.attachEvent("onSelectionChange", function() {
+            setCustomerSelectedForm('saleSolarForm', customerIdCombobox.getComboText(), customerIdCombobox.getSelectedValue());
+        });
+        customerIdCombobox.attachEvent("onBlur", function() {
+            setCustomerSelectedForm('saleSolarForm', customerIdCombobox.getComboText(), customerIdCombobox.getSelectedValue());
+            customerIdCombobox.setComboText(customerIdCombobox.getSelectedText());
+            saleSolarCustomerSelectionChange();
+        });
+        customerIdCombobox.DOMelem_input.onfocus = function(event) {
+            if (isManuallySeleted == 1) {
+                customerIdCombobox.openSelect();
+                isManuallySeleted = 0;
+            }
+        }
+        if (id == 0) {
+            customerIdCombobox.setComboValue("");
+        } else {
+            var customerId = document.forms['saleSolarForm'].customerId.value;
+            if (customerId != 0) {
+                var ind = customerIdCombobox.getIndexByValue(customerId);
+                customerIdCombobox.selectOption(ind);
+            } else {
+                customerIdCombobox.unSelectOption();
+                customerIdCombobox.setComboValue("");
+            }
+        }
+        // ============================
+        var promotionMaterialIdCombobox = dhtmlXComboFromSelect("promotionMaterialIdCombobox");
+        promotionMaterialIdCombobox.enableFilteringMode(true);
+        promotionMaterialIdCombobox.attachEvent("onSelectionChange", function() {
+            setPromotionMaterialSelectedForm('saleSolarForm', promotionMaterialIdCombobox.getComboText(), promotionMaterialIdCombobox.getSelectedValue());
+        });
+        promotionMaterialIdCombobox.attachEvent("onBlur", function() {
+            setPromotionMaterialSelectedForm('saleSolarForm', promotionMaterialIdCombobox.getComboText(), promotionMaterialIdCombobox.getSelectedValue());
+        });
+        promotionMaterialIdCombobox.DOMelem_input.onkeypress = function(event) {
+            var key;
+            if (window.event)
+                key = window.event.keyCode;//IE
+            else
+                key = event.which;//firefox
+            if (key == 13) {
+                addSaleSolarPromotionMaterial();
+                promotionMaterialIdCombobox.setComboValue("");
+            }
+        }
+        promotionMaterialIdCombobox.DOMelem_input.onfocus = function(event) {
+            if (isManuallySeleted == 1) {
+                promotionMaterialIdCombobox.openSelect();
+                isManuallySeleted = 0;
+            }
+        }
+        promotionMaterialIdCombobox.setComboValue("");
+    });
+}
+function setSolarSelectedForm(form, text, value) {
+    if (value == null) {
+        if (text != "")
+            value = "-1";
+        else
+            value = "0";
+    }
+    document.forms[form].solarSelectedHidden.value = value;
+}
+function saveSaleSolar() {
+    if (scriptFunction == "saveSaleSolar")
+        return false;
+    var quantity = document.forms['saleSolarForm'].quantity;
+    if (quantity == null) {
+        alert('Vui l\u00F2ng ch\u1ECDn h\u00E0ng h\u00F3a');
+        return false;
+    }
+    var priceBeforeCommission = document.forms['saleSolarForm'].priceBeforeCommission;
+    var commissionPrice = document.forms['saleSolarForm'].commissionPrice;
+    var price = document.forms['saleSolarForm'].price;
+    var firstAmount = document.forms['saleSolarForm'].firstAmount;
+    var commissionDetail = document.forms['saleSolarForm'].commissionDetail;
+    var gapAgencyAmountDetail = document.forms['saleSolarForm'].gapAgencyAmountDetail;
+    var gapCustomerAmountDetail = document.forms['saleSolarForm'].gapCustomerAmountDetail;
+    var amount = document.forms['saleSolarForm'].amount;
+    if (quantity.length != null) {
+        for (var i = 0; i < quantity.length; i++) {
+            var number = Number(quantity[i].value);
+            if (number == 0) {
+                alert('Vui l\u00F2ng nh\u1EADp s\u1ED1 l\u01B0\u1EE3ng');
+                quantity[i].focus();
+                quantity = null;
+                return false;
+            }
+            reformatNumberMoney(quantity[i]);
+            reformatNumberMoney(priceBeforeCommission[i]);
+            reformatNumberMoney(commissionPrice[i]);
+            reformatNumberMoney(price[i]);
+            reformatNumberMoney(firstAmount[i]);
+            reformatNumberMoney(commissionDetail[i]);
+            reformatNumberMoney(gapAgencyAmountDetail[i]);
+            reformatNumberMoney(gapCustomerAmountDetail[i]);
+            reformatNumberMoney(amount[i]);
+        }
+    } else {
+        if (quantity.value == "0") {
+            alert('Vui l\u00F2ng nh\u1EADp s\u1ED1 l\u01B0\u1EE3ng');
+            quantity.focus();
+            quantity = null;
+            return false;
+        }
+        reformatNumberMoney(quantity);
+        reformatNumberMoney(priceBeforeCommission);
+        reformatNumberMoney(commissionPrice);
+        reformatNumberMoney(price);
+        reformatNumberMoney(firstAmount);
+        reformatNumberMoney(commissionDetail);
+        reformatNumberMoney(gapAgencyAmountDetail);
+        reformatNumberMoney(gapCustomerAmountDetail);
+        reformatNumberMoney(amount);
+    }
+    quantity = null;
+    priceBeforeCommission = null;
+    commissionPrice = null;
+    price = null;
+    firstAmount = null;
+    commissionDetail = null;
+    gapAgencyAmountDetail = null;
+    gapCustomerAmountDetail = null;
+    amount = null;
+
+    reformatNumberMoney(document.forms['saleSolarForm'].total);
+    reformatNumberMoney(document.forms['saleSolarForm'].paid);
+    reformatNumberMoney(document.forms['saleSolarForm'].debt);
+    reformatNumberMoney(document.forms['saleSolarForm'].discount);
+    reformatNumberMoney(document.forms['saleSolarForm'].totalPay);
+    reformatNumberMoney(document.forms['saleSolarForm'].commission);
+    reformatNumberMoney(document.forms['saleSolarForm'].commissionAmount);
+    reformatNumberMoney(document.forms['saleSolarForm'].gapCustomerAmount);
+    reformatNumberMoney(document.forms['saleSolarForm'].gapAgencyAmount);
+    reformatFormDetail('saleSolarForm');
+    reformatSaleSolarPromotionMaterialQuantityDetail();
+    document.forms['saleSolarForm'].customerId.value = document.forms['saleSolarForm'].customerSelectedHidden.value;
+    scriptFunction = "saveSaleSolar";
+    callAjaxCheckError("addSaleSolar.do", null, document.forms['saleSolarForm'], function(data) {
+        scriptFunction = "";
+        loadSaleSolarPanel();
+    });
+    return false;
+}
+function addSaleSolarSolar() {
+    var solarId = document.forms['saleSolarForm'].solarId;
+    var length = 0;
+    if (solarId != null) {
+        if (solarId.length != null)
+            length = solarId.length;
+        else
+            length = 1;
+    }
+    solarId = null;
+
+    var solar = document.forms['saleSolarForm'].solarSelectedHidden.value;
+    var customer = document.forms['saleSolarForm'].customerSelectedHidden.value;
+    callAjax("getSaleSolarSolar.do?solarId=" + solar + "&customerId=" + customer + "&length=" + length, null, null, function(data) {
+        setAjaxData(data, 'saleSolarSolarHideDiv');
+        var matTable = document.getElementById('saleSolarSolarTbl');
+        var detTable = document.getElementById('saleSolarDetailTbl');
+        if (matTable.tBodies[0] == null || detTable.tBodies[0] == null) {
+            matTable = null;
+            detTable = null;
+            return;
+        }
+        for (var i = matTable.tBodies[0].rows.length - 1; i >= 0; i--)
+            detTable.tBodies[0].appendChild(matTable.tBodies[0].rows[i]);
+        matTable = null;
+        detTable = null;
+        formatSaleSolarDetail('saleSolarForm');
+    });
+    return false;
+}
+function delSaleSolar() {
+    callAjaxCheckError('delSaleSolar.do?saleSolarId=' + document.forms['saleSolarForm'].id.value, null, null, function() {
+        loadSaleSolarPanel();
+    });
+    return false;
+}
+function caculateSaleSolarListDetail(goodId, formName) {
+    var quantity = document.getElementById("detquantity" + goodId);
+    var priceBeforeCommission = document.getElementById("detpricebeforecommission" + goodId);
+    var commissionPrice = document.getElementById("detcommissionprice" + goodId);
+    var price = document.getElementById("detprice" + goodId);
+    var firstAmount = document.getElementById("detfirstamount" + goodId);
+    var commissionDetail = document.getElementById("detcommission" + goodId);
+    var gapAgencyAmountDetail = document.getElementById("detgapagencyamount" + goodId);
+    var gapCustomerAmountDetail = document.getElementById("detgapcustomeramount" + goodId);
+    var detTotal = document.getElementById("detamount" + goodId);
+    if (quantity == null || priceBeforeCommission == null || commissionPrice == null || price == null || firstAmount == null || commissionDetail == null
+            || gapAgencyAmountDetail == null || gapCustomerAmountDetail == null || detTotal == null)
+        return false;
+    price.value = reformatNumberMoneyString(priceBeforeCommission.value) * (100 - reformatNumberMoneyString(commissionPrice.value) * 1) / 100
+            + reformatNumberMoneyString(gapAgencyAmountDetail.value) * 1 + reformatNumberMoneyString(gapCustomerAmountDetail.value) * 1;
+    firstAmount.value = reformatNumberMoneyString(quantity.value) * price.value;
+    detTotal.value = firstAmount.value * (100 - reformatNumberMoneyString(commissionDetail.value)) / 100;
+    tryNumberFormatCurrentcy(quantity, "VND");
+    tryNumberFormatCurrentcy(priceBeforeCommission, "VND");
+    tryNumberFormatCurrentcy(commissionPrice, "USD");
+    tryNumberFormatCurrentcy(price, "VND");
+    tryNumberFormatCurrentcy(firstAmount, "VND");
+    tryNumberFormatCurrentcy(commissionDetail, "USD");
+    tryNumberFormatCurrentcy(gapAgencyAmountDetail, "VND");
+    tryNumberFormatCurrentcy(gapCustomerAmountDetail, "VND");
+    tryNumberFormatCurrentcy(detTotal, "VND");
+    quantity = null;
+    price = null;
+    detTotal = null;
+    caculateListTotal(formName);
+    saleSolarCalculateAmounts(formName);
+    return false;
+}
+function formatSaleSolarDetail(formName) {
+    var quantity = document.forms[formName].quantity;
+    var priceBeforeCommission = document.forms[formName].priceBeforeCommission;
+    var commissionPrice = document.forms[formName].commissionPrice;
+    var price = document.forms[formName].price;
+    var firstAmount = document.forms[formName].firstAmount;
+    var commissionDetail = document.forms[formName].commissionDetail;
+    var gapAgencyAmountDetail = document.forms[formName].gapAgencyAmountDetail;
+    var gapCustomerAmountDetail = document.forms[formName].gapCustomerAmountDetail;
+    var amount = document.forms[formName].amount;
+    if (quantity != null) {
+        if (quantity.length != null) {
+            for (var i = 0; i < quantity.length; i++) {
+                tryNumberFormatCurrentcy(quantity[i], "VND");
+                tryNumberFormatCurrentcy(priceBeforeCommission[i], "VND");
+                tryNumberFormatCurrentcy(commissionPrice[i], "USD");
+                tryNumberFormatCurrentcy(price[i], "VND");
+                tryNumberFormatCurrentcy(firstAmount[i], "VND");
+                tryNumberFormatCurrentcy(commissionDetail[i], "USD");
+                tryNumberFormatCurrentcy(gapAgencyAmountDetail[i], "VND");
+                tryNumberFormatCurrentcy(gapCustomerAmountDetail[i], "VND");
+                tryNumberFormatCurrentcy(amount[i], "VND");
+            }
+        } else {
+            tryNumberFormatCurrentcy(quantity, "VND");
+            tryNumberFormatCurrentcy(priceBeforeCommission, "VND");
+            tryNumberFormatCurrentcy(commissionPrice, "USD");
+            tryNumberFormatCurrentcy(price, "VND");
+            tryNumberFormatCurrentcy(firstAmount, "VND");
+            tryNumberFormatCurrentcy(commissionDetail, "USD");
+            tryNumberFormatCurrentcy(gapAgencyAmountDetail, "VND");
+            tryNumberFormatCurrentcy(gapCustomerAmountDetail, "VND");
+            tryNumberFormatCurrentcy(amount, "VND");
+        }
+    }
+    quantity = null;
+    priceBeforeCommission = null;
+    commissionPrice = null;
+    price = null;
+    firstAmount = null;
+    commissionDetail = null;
+    gapAgencyAmountDetail = null;
+    gapCustomerAmountDetail = null;
+    amount = null;
+}
+function saleSolarCustomerSelectionChange() {
+    var customerId = document.forms['saleSolarForm'].customerSelectedHidden.value;
+    if (customerId == 0)
+        return false;
+    var url = "getSaleSolarCustomerCommission.do?customerId=" + customerId;
+    callAjaxCheckError(url, null, null, function(data) {
+        var obj = eval('(' + data + ')');
+        var commission = document.forms['saleSolarForm'].commission;
+        commission.value = obj.commission;
+        tryNumberFormatCurrentcy(commission, "USD");
+        commission = null;
+        saleSolarSetCommission();
+    });
+    return false;
+}
+function saleSolarSetCommission() {
+    var commissionKind = document.forms['saleSolarForm'].commissionKind;
+    if (commissionKind != null && commissionKind.selectedIndex > -1)
+        commissionKind = commissionKind.options[commissionKind.selectedIndex].value;
+    else
+        commissionKind = 0;
+    if (commissionKind != 0) {
+        var commission = document.forms['saleSolarForm'].commission.value;
+        var commissionPrice = null;
+        var commissionPriceOther = null;
+        var commissionPriceName = "";
+        if (commissionKind == 1) {//chiet khau tren hoa don
+            commissionPriceOther = document.forms['saleSolarForm'].commissionPrice;
+            commissionPrice = document.forms['saleSolarForm'].commissionDetail;
+            commissionPriceName = "detcommission";
+        } else if (commissionKind == 2) {//chiet khau truc tiep tren gia
+            commissionPriceOther = document.forms['saleSolarForm'].commissionDetail;
+            commissionPrice = document.forms['saleSolarForm'].commissionPrice;
+            commissionPriceName = "detcommissionprice";
+        }
+        if (commissionPrice != null) {
+            var id = "";
+            if (commissionPrice.length != null) {
+                for (var i = 0; i < commissionPrice.length; i++) {
+                    commissionPrice[i].value = commission;
+                    commissionPriceOther[i].value = 0;
+                    id = commissionPrice[i].id;
+                    if (id.indexOf(commissionPriceName) == 0) {
+                        id = id.substring(commissionPriceName.length);
+                        caculateSaleSolarListDetail(id, 'saleSolarForm');
+                    }
+                }
+            } else {
+                commissionPriceOther.value = 0;
+                commissionPrice.value = commission;
+                id = commissionPrice.id;
+                if (id.indexOf(commissionPriceName) == 0) {
+                    id = id.substring(commissionPriceName.length);
+                    caculateSaleSolarListDetail(id, 'saleSolarForm');
+                }
+            }
+        }
+        commissionPrice = null;
+        commissionPriceOther = null;
+        saleSolarCalculateAmounts('saleSolarForm');
+    }
+    return false;
+}
+function saleSolarCalculateAmounts(formName) {
+    var commissionTotal = 0;
+    var gapCustomerTotal = 0;
+    var gapAgencyTotal = 0;
+
+    var commissionAmount = document.forms[formName].commissionAmount;
+    var gapCustomerAmount = document.forms[formName].gapCustomerAmount;
+    var gapAgencyAmount = document.forms[formName].gapAgencyAmount;
+
+    var quantity = document.forms[formName].quantity;
+    var firstAmount = document.forms[formName].firstAmount;
+    var commissionDetail = document.forms[formName].commissionDetail;
+    var gapAgencyAmountDetail = document.forms[formName].gapAgencyAmountDetail;
+    var gapCustomerAmountDetail = document.forms[formName].gapCustomerAmountDetail;
+
+    if (quantity != null) {
+        if (quantity.length != null) {
+            for (var i = 0; i < quantity.length; i++) {
+                commissionTotal += reformatNumberMoneyString(firstAmount[i].value) * reformatNumberMoneyString(commissionDetail[i].value) / 100;
+                gapCustomerTotal += reformatNumberMoneyString(gapCustomerAmountDetail[i].value) * reformatNumberMoneyString(quantity[i].value);
+                gapAgencyTotal += reformatNumberMoneyString(gapAgencyAmountDetail[i].value) * reformatNumberMoneyString(quantity[i].value);
+            }
+        } else {
+            commissionTotal += reformatNumberMoneyString(firstAmount.value) * reformatNumberMoneyString(commissionDetail.value) / 100;
+            gapCustomerTotal += reformatNumberMoneyString(gapCustomerAmountDetail.value) * reformatNumberMoneyString(quantity.value);
+            gapAgencyTotal += reformatNumberMoneyString(gapAgencyAmountDetail.value) * reformatNumberMoneyString(quantity.value);
+        }
+    }
+
+    commissionAmount.value = commissionTotal;
+    gapCustomerAmount.value = gapCustomerTotal;
+    gapAgencyAmount.value = gapAgencyTotal;
+
+    tryNumberFormatCurrentcy(document.forms[formName].commissionAmount, "VND");
+    tryNumberFormatCurrentcy(document.forms[formName].gapCustomerAmount, "VND");
+    tryNumberFormatCurrentcy(document.forms[formName].gapAgencyAmount, "VND");
+
+    commissionAmount = null;
+    gapCustomerAmount = null;
+    gapAgencyAmount = null;
+
+    firstAmount = null;
+    commissionDetail = null;
+    gapAgencyAmountDetail = null;
+    gapCustomerAmountDetail = null;
+}
+function delSaleSolarDetail() {
+    delTableRow('saleSolarForm', 'saleSolarSolarChk', 'saleSolarDetailTbl');
+    caculateListTotal('saleSolarForm');
+    saleSolarCalculateAmounts('saleSolarForm');
+    return false;
+}
+function addSaleSolarPromotionMaterial() {
+    var promotionMaterial = document.forms['saleSolarForm'].promotionMaterialSelectedHidden.value;
+    if (promotionMaterial == -1 || promotionMaterial == 0)
+        return false;
+    var promotionMaterialId = document.forms['saleSolarForm'].promotionMaterialId;
+    var existed = false;
+    if (promotionMaterialId != null) {
+        if (promotionMaterialId.length != null) {
+            for (i = 0; i < promotionMaterialId.length; i++) {
+                if (promotionMaterialId[i].value == promotionMaterial) {
+                    existed = true;
+                    break;
+                }
+            }
+        } else if (promotionMaterialId.value == promotionMaterial)
+            existed = true;
+    }
+    promotionMaterialId = null;
+    if (existed == true) {
+        alert("H\u00E0ng ho\u00E1 \u0111\u00E3 t\u1ED3n t\u1EA1i");
+        return false;
+    }
+    callAjax("getSaleSolarPromotionMaterial.do?promotionMaterialId=" + promotionMaterial, null, null, function(data) {
+        setAjaxData(data, 'saleSolarPromotionMaterialHideDiv');
+        var matTable = document.getElementById('saleSolarPromotionMaterialTbl');
+        var detTable = document.getElementById('saleSolarPromotionMaterialDetailTbl');
+        if (matTable.tBodies[0] == null || detTable.tBodies[0] == null) {
+            matTable = null;
+            detTable = null;
+            return;
+        }
+        for (var i = matTable.tBodies[0].rows.length - 1; i >= 0; i--)
+            detTable.tBodies[0].appendChild(matTable.tBodies[0].rows[i]);
+        matTable = null;
+        detTable = null;
+        formatSaleSolarPromotionMaterialQuantityDetail();
+    });
+    return false;
+}
+function formatSaleSolarPromotionMaterialQuantityDetail() {
+    var quantity = document.forms['saleSolarForm'].promotionMaterialQuantity;
+    if (quantity != null) {
+        if (quantity.length != null) {
+            for (var i = 0; i < quantity.length; i++) {
+                tryNumberFormatCurrentcy(quantity[i], "VND");
+            }
+        } else {
+            tryNumberFormatCurrentcy(quantity, "VND");
+        }
+    }
+    quantity = null;
+}
+function reformatSaleSolarPromotionMaterialQuantityDetail() {
+    var quantity = document.forms['saleSolarForm'].promotionMaterialQuantity;
+    if (quantity != null) {
+        if (quantity.length != null) {
+            for (var i = 0; i < quantity.length; i++) {
+                reformatNumberMoney(quantity[i]);
+            }
+        } else {
+            reformatNumberMoney(quantity);
+        }
+    }
+    quantity = null;
+}
+function loadSaleSolarReturnPanel() {
+    callAjax("getSaleSolarReturnPanel.do", null, null, function(data) {
+        clearContent();
+        setAjaxData(data, "contentDiv");
+        var myCalendar = new dhtmlXCalendarObject(["fromDate", "toDate"]);
+        myCalendar.setSkin('dhx_web');
+        var currentTime = getCurrentDate();
+        document.forms['saleSolarReturnSearchForm'].fromDate.value = currentTime;
+        document.forms['saleSolarReturnSearchForm'].toDate.value = currentTime;
+        myCalendar.setDateFormat("%d/%m/%Y");
+        loadSaleSolarReturnList(currentTime, currentTime);
+    });
+    return false;
+}
+function loadSaleSolarReturnList(fromDate, toDate) {
+    var mygrid = new dhtmlXGridObject('saleSolarReturnList');
+    mygrid.setImagePath("js/dhtmlx/grid/imgs/");
+    mygrid.setHeader("M\u00E3 phi\u1EBFu,Ng\u00E0y,T\u1ED5ng ti\u1EC1n,Thanh to\u00E1n,C\u00F2n n\u1EE3,Ghi ch\u00FA");
+    mygrid.attachHeader("#text_filter,#text_filter,#text_filter,#text_filter,#text_filter,#text_filter");
+    mygrid.setInitWidths("150,100,150,150,*");
+    mygrid.setColTypes("link,ro,ro,ro,ro");
+    mygrid.setColSorting("str,str,str,str,str");
+    mygrid.setSkin("light");
+    var height = contentHeight - 210;
+    mygrid.al(true, height); //enableAutoHeight
+    mygrid.enablePaging(true, 15, 3, "recinfoArea");
+    mygrid.setPagingSkin("toolbar", "dhx_skyblue");
+    mygrid.init();
+    var url = "getSaleSolarReturnList.do?t=1";
+    if (fromDate != null)
+        url += "&fromDate=" + fromDate;
+    if (toDate != null)
+        url += "&toDate=" + toDate;
+    callAjax(url, null, null, function(data) {
+        mygrid.parse(data);
+    });
+    return false;
+}
+function getSaleSolarReturn(id, saleSolarId) {
+    var url = 'saleSolarReturnForm.do?saleSolarReturnId=' + id + "&saleSolarId=" + saleSolarId;
+    if (id == 0) {
+        url += "&saleSolarDetailIds=" + getCheckedTableRow('saleSolarForm', 'saleSolarSolarChk');
+    }
+    callAjax(url, null, null, function(data) {
+        clearContent();
+        setAjaxData(data, 'contentDiv');
+        if (id == 0) {
+            var currentDate = getCurrentDate();
+            document.forms['saleSolarReturnForm'].saleSolarReturnCreatedDate.value = currentDate;
+        }
+
+        var myCalendar = new dhtmlXCalendarObject(["saleSolarReturnCreatedDate"]);
+        myCalendar.setSkin('dhx_web');
+        myCalendar.setDateFormat("%d/%m/%Y");
+
+        tryNumberFormatCurrentcy(document.forms['saleSolarReturnForm'].total, "VND");
+        tryNumberFormatCurrentcy(document.forms['saleSolarReturnForm'].paid, "VND");
+        tryNumberFormatCurrentcy(document.forms['saleSolarReturnForm'].debt, "VND");
+        tryNumberFormatCurrentcy(document.forms['saleSolarReturnForm'].totalPay, "VND");
+        tryNumberFormatCurrentcy(document.forms['saleSolarReturnForm'].commission, "USD");
+        tryNumberFormatCurrentcy(document.forms['saleSolarReturnForm'].commissionAmount, "VND");
+        tryNumberFormatCurrentcy(document.forms['saleSolarReturnForm'].gapCustomerAmount, "VND");
+        tryNumberFormatCurrentcy(document.forms['saleSolarReturnForm'].gapAgencyAmount, "VND");
+        formatSaleSolarDetail('saleSolarReturnForm');
+    });
+    if (id == 0)
+        return false;
+}
+function saveSaleSolarReturn() {
+    if (scriptFunction == "saveSaleSolarReturn")
+        return false;
+    var quantity = document.forms['saleSolarReturnForm'].quantity;
+    if (quantity == null) {
+        alert('Vui l\u00F2ng ch\u1ECDn h\u00E0ng h\u00F3a');
+        return false;
+    }
+    var priceBeforeCommission = document.forms['saleSolarReturnForm'].priceBeforeCommission;
+    var commissionPrice = document.forms['saleSolarReturnForm'].commissionPrice;
+    var price = document.forms['saleSolarReturnForm'].price;
+    var firstAmount = document.forms['saleSolarReturnForm'].firstAmount;
+    var commissionDetail = document.forms['saleSolarReturnForm'].commissionDetail;
+    var gapAgencyAmountDetail = document.forms['saleSolarReturnForm'].gapAgencyAmountDetail;
+    var gapCustomerAmountDetail = document.forms['saleSolarReturnForm'].gapCustomerAmountDetail;
+    var amount = document.forms['saleSolarReturnForm'].amount;
+    if (quantity.length != null) {
+        for (var i = 0; i < quantity.length; i++) {
+            var number = Number(quantity[i].value);
+            if (number == 0) {
+                alert('Vui l\u00F2ng nh\u1EADp s\u1ED1 l\u01B0\u1EE3ng');
+                quantity[i].focus();
+                quantity = null;
+                return false;
+            }
+            reformatNumberMoney(quantity[i]);
+            reformatNumberMoney(priceBeforeCommission[i]);
+            reformatNumberMoney(commissionPrice[i]);
+            reformatNumberMoney(price[i]);
+            reformatNumberMoney(firstAmount[i]);
+            reformatNumberMoney(commissionDetail[i]);
+            reformatNumberMoney(gapAgencyAmountDetail[i]);
+            reformatNumberMoney(gapCustomerAmountDetail[i]);
+            reformatNumberMoney(amount[i]);
+        }
+    } else {
+        if (quantity.value == "0") {
+            alert('Vui l\u00F2ng nh\u1EADp s\u1ED1 l\u01B0\u1EE3ng');
+            quantity.focus();
+            quantity = null;
+            return false;
+        }
+        reformatNumberMoney(quantity);
+        reformatNumberMoney(priceBeforeCommission);
+        reformatNumberMoney(commissionPrice);
+        reformatNumberMoney(price);
+        reformatNumberMoney(firstAmount);
+        reformatNumberMoney(commissionDetail);
+        reformatNumberMoney(gapAgencyAmountDetail);
+        reformatNumberMoney(gapCustomerAmountDetail);
+        reformatNumberMoney(amount);
+    }
+    quantity = null;
+    priceBeforeCommission = null;
+    commissionPrice = null;
+    price = null;
+    firstAmount = null;
+    commissionDetail = null;
+    gapAgencyAmountDetail = null;
+    gapCustomerAmountDetail = null;
+    amount = null;
+
+    reformatNumberMoney(document.forms['saleSolarReturnForm'].total);
+    reformatNumberMoney(document.forms['saleSolarReturnForm'].paid);
+    reformatNumberMoney(document.forms['saleSolarReturnForm'].debt);
+    reformatNumberMoney(document.forms['saleSolarReturnForm'].totalPay);
+    reformatNumberMoney(document.forms['saleSolarReturnForm'].commission);
+    reformatNumberMoney(document.forms['saleSolarReturnForm'].commissionAmount);
+    reformatNumberMoney(document.forms['saleSolarReturnForm'].gapCustomerAmount);
+    reformatNumberMoney(document.forms['saleSolarReturnForm'].gapAgencyAmount);
+    reformatFormDetail('saleSolarReturnForm');
+    scriptFunction = "saveSaleSolarReturn";
+    callAjaxCheckError("addSaleSolarReturn.do", null, document.forms['saleSolarReturnForm'], function(data) {
+        scriptFunction = "";
+        loadSaleSolarReturnPanel();
+    });
+    return false;
+}
+function delSaleSolarReturn() {
+    callAjaxCheckError('delSaleSolarReturn.do?saleSolarReturnId=' + document.forms['saleSolarReturnForm'].id.value, null, null, function() {
+        loadSaleSolarReturnPanel();
+    });
+    return false;
+}
+function getSaleSolarReturnStore(id) {
+    popupName = 'TH\u00D4NG TIN KHO TR\u1EA2 H\u00C0NG NLMT';
+    var url = 'saleSolarReturnStoreForm.do';
+    if (id != 0)
+        url += '?saleSolarReturnStoreId=' + id
+    callAjax(url, null, null, function(data) {
+        showPopupForm(data);
+    });
+}
+function saveSaleSolarReturnStore() {
+    if (scriptFunction == "saveSaleSolarReturnStore")
+        return false;
+    scriptFunction = "saveSaleSolarReturnStore";
+    callAjaxCheckError("addSaleSolarReturnStore.do", null, document.forms['saleSolarReturnStoreForm'], function(data) {
+        scriptFunction = "";
+        prepareHidePopup('saleSolarReturnStoreFormshowHelpHideDiv');
+    });
+    return false;
+}
+function loadSolarExportPanel() {
+    callAjax("getSolarExportPanel.do", null, null, function(data) {
+        clearContent();
+        setAjaxData(data, "contentDiv");
+        var myCalendar = new dhtmlXCalendarObject(["fromDate", "toDate"]);
+        myCalendar.setSkin('dhx_web');
+        var currentTime = getCurrentDate();
+        document.forms['solarExportSearchForm'].fromDate.value = currentTime;
+        document.forms['solarExportSearchForm'].toDate.value = currentTime;
+        myCalendar.setDateFormat("%d/%m/%Y");
+        loadSolarExportList(currentTime, currentTime);
+    });
+    return false;
+}
+function loadSolarExportList(fromDate, toDate) {
+    var mygrid = new dhtmlXGridObject('solarExportList');
+    mygrid.setImagePath("js/dhtmlx/grid/imgs/");
+    mygrid.setHeader("M\u00E3 phi\u1EBFu,Ng\u00E0y,Kh\u00E1ch h\u00E0ng,T\u1ED5ng ti\u1EC1n,Ghi ch\u00FA");
+    mygrid.attachHeader("#text_filter,#text_filter,#select_filter,#text_filter,#text_filter");
+    mygrid.setInitWidths("150,100,150,*");
+    mygrid.setColTypes("link,ro,ro,ro");
+    mygrid.setColSorting("str,str,str,str");
+    mygrid.setSkin("light");
+    var height = contentHeight - 210;
+    mygrid.al(true, height); //enableAutoHeight
+    mygrid.enablePaging(true, 15, 3, "recinfoArea");
+    mygrid.setPagingSkin("toolbar", "dhx_skyblue");
+    mygrid.init();
+    var url = "getSolarExportList.do?t=1";
+    if (fromDate != null)
+        url += "&fromDate=" + fromDate;
+    if (toDate != null)
+        url += "&toDate=" + toDate;
+    callAjax(url, null, null, function(data) {
+        mygrid.parse(data);
+    });
+    return false;
+}
+function getSolarExport(id, solarSaleId) {
+    var url = 'solarExportForm.do?solarExportId=' + id + '&solarSaleId=' + solarSaleId;
+    if (id == 0) {
+        url += "&saleSolarDetailIds=" + getCheckedTableRow('saleSolarForm', 'saleSolarSolarChk');
+    }
+    callAjax(url, null, null, function(data) {
+        clearContent();
+        setAjaxData(data, 'contentDiv');
+        if (id == 0) {
+            var currentDate = getCurrentDate();
+            document.forms['solarExportForm'].solarExportCreatedDate.value = currentDate;
+        }
+        var myCalendar = new dhtmlXCalendarObject(["solarExportCreatedDate"]);
+        myCalendar.setSkin('dhx_web');
+        myCalendar.setDateFormat("%d/%m/%Y");
+
+        tryNumberFormatCurrentcy(document.forms['solarExportForm'].total, "VND");
+        formatFormDetail('solarExportForm');
+    });
+    if (id == 0)
+        return false;
+}
+function saveSolarExport() {
+    if (scriptFunction == "saveSolarExport")
+        return false;
+    var quantity = document.forms['solarExportForm'].quantity;
+    if (quantity == null) {
+        alert('Vui l\u00F2ng ch\u1ECDn h\u00E0ng h\u00F3a');
+        return false;
+    }
+    var price = document.forms['solarExportForm'].price;
+    var amount = document.forms['solarExportForm'].amount;
+    if (quantity.length != null) {
+        for (var i = 0; i < quantity.length; i++) {
+            var number = Number(quantity[i].value);
+            if (number == 0) {
+                alert('Vui l\u00F2ng nh\u1EADp s\u1ED1 l\u01B0\u1EE3ng');
+                quantity[i].focus();
+                quantity = null;
+                return false;
+            }
+            reformatNumberMoney(quantity[i]);
+            reformatNumberMoney(price[i]);
+            reformatNumberMoney(amount[i]);
+        }
+    } else {
+        if (quantity.value == "0") {
+            alert('Vui l\u00F2ng nh\u1EADp s\u1ED1 l\u01B0\u1EE3ng');
+            quantity.focus();
+            quantity = null;
+            return false;
+        }
+        reformatNumberMoney(quantity);
+        reformatNumberMoney(price);
+        reformatNumberMoney(amount);
+    }
+    quantity = null;
+    price = null;
+    amount = null;
+    reformatNumberMoney(document.forms['solarExportForm'].total);
+    scriptFunction = "saveSolarExport";
+    callAjaxCheckError("addSolarExport.do", null, document.forms['solarExportForm'], function(data) {
+        scriptFunction = "";
+        loadSolarExportPanel();
+    });
+    return false;
+}
+function delSolarExport() {
+    callAjaxCheckError('delSolarExport.do?solarExportId=' + document.forms['solarExportForm'].id.value, null, null, function() {
+        loadSolarExportPanel();
+    });
+    return false;
+}
+function delSolarExportDetail() {
+    delTableRow('solarExportForm', 'solarExportSolarChk', 'solarExportDetailTbl');
+    caculateListTotal('solarExportForm');
+    return false;
+}
+function printSolarExport(solarExportId) {
+    callServer("reportSolarExport.do?solarExportId=" + solarExportId);
+    return false;
+}
+function loadVendorSolarPanel() {
+    callAjax("getVendorSolarPanel.do", null, null, function(data) {
+        clearContent();
+        setAjaxData(data, "contentDiv");
+        loadVendorSolarList();
+    });
+}
+function loadVendorSolarList() {
+    var mygrid = new dhtmlXGridObject('vendorSolarList');
+    mygrid.setImagePath("js/dhtmlx/grid/imgs/");
+    mygrid.setHeader("M\u00E3 nh\u00E0 cung c\u1EA5p,T\u00EAn nh\u00E0 cung c\u1EA5p,\u0110\u01A1n v\u1ECB,T\u00ECnh tr\u1EA1ng");
+    mygrid.attachHeader("#text_filter,#text_filter,#select_filter,#select_filter");
+    mygrid.setInitWidths("100,*,250,150");
+    mygrid.setColTypes("link,ro,ro,ro");
+    mygrid.setColSorting("str,str,str,str");
+    mygrid.setSkin("light");
+    var height = contentHeight - 210;
+    mygrid.al(true, height); //enableAutoHeight
+    mygrid.enablePaging(true, 15, 3, "recinfoArea");
+    mygrid.setPagingSkin("toolbar", "dhx_skyblue");
+    mygrid.init();
+    var list = document.forms['vendorSolarSearchForm'].statusCombobox;
+    if (list != null && list.selectedIndex > -1)
+        list = list.options[list.selectedIndex].value;
+    else
+        list = 0;
+    var url = "getVendorSolarList.do?status=" + list;
+    callAjax(url, null, null, function(data) {
+        mygrid.parse(data);
+    });
+    return false;
+}
+function getVendorSolar(id) {
+    var url = 'vendorSolarForm.do';
+    if (id != 0)
+        url += '?vendorId=' + id
+    callAjax(url, null, null, function(data) {
+        clearContent();
+        setAjaxData(data, 'contentDiv');
+        document.forms['vendorSolarForm'].commissionOnImport.focus();
+        tryNumberFormatCurrentcy(document.forms['vendorSolarForm'].commissionOnImport, "USD");
+        tryNumberFormatCurrentcy(document.forms['vendorSolarForm'].maxDebt, "VND");
+    });
+}
+function saveVendorSolar() {
+    if (scriptFunction == "saveVendorSolar")
+        return false;
+    reformatNumberMoney(document.forms['vendorSolarForm'].commissionOnImport);
+    reformatNumberMoney(document.forms['vendorSolarForm'].maxDebt);
+    scriptFunction = "saveVendorSolar";
+    callAjaxCheckError("addVendorSolar.do", null, document.forms['vendorSolarForm'], function(data) {
+        scriptFunction = "";
+        loadVendorSolarPanel();
+    });
+    return false;
+}
+function addVendorSolarStore() {
+    var store = document.forms['vendorSolarForm'].storeIdCombobox;
+    if (store == null && store.selectedIndex == -1)
+        store = null;
+    else
+        store = store.options[store.selectedIndex].value;
+    if (store == -1 || store == 0)
+        return false;
+    var storeId = document.forms['vendorSolarForm'].storeId;
+    var existed = false;
+    if (storeId != null) {
+        if (storeId.length != null) {
+            for (i = 0; i < storeId.length; i++) {
+                if (storeId[i].value == store) {
+                    existed = true;
+                    break;
+                }
+            }
+        } else if (storeId.value == store)
+            existed = true;
+    }
+    storeId = null;
+    if (existed == true) {
+        alert("H\u00E0ng ho\u00E1 \u0111\u00E3 t\u1ED3n t\u1EA1i");
+        return false;
+    }
+    callAjax("getVendorSolarStore.do?storeId=" + store, null, null, function(data) {
+        setAjaxData(data, 'vendorSolarStoreHideDiv');
+        var matTable = document.getElementById('vendorSolarStoreTbl');
+        var detTable = document.getElementById('vendorSolarStoreDetailTbl');
+        if (matTable.tBodies[0] == null || detTable.tBodies[0] == null) {
+            matTable = null;
+            detTable = null;
+            return;
+        }
+        for (var i = matTable.tBodies[0].rows.length - 1; i >= 0; i--)
+            detTable.tBodies[0].appendChild(matTable.tBodies[0].rows[i]);
+        matTable = null;
+        detTable = null;
+    });
     return false;
 }

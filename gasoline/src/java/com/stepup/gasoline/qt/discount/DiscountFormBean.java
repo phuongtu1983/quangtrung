@@ -16,10 +16,12 @@ public class DiscountFormBean extends org.apache.struts.action.ActionForm {
     private String name;
     private String code;
     private String note;
+    private double shellGasComission;
     private String[] discountCommissionDetailId;
     private String[] discountCommissionFrom;
     private String[] discountCommissionTo;
     private String[] discountCommissionCommission;
+    private String[] discountCommissionCustomer;
 
     public DiscountFormBean() {
     }
@@ -28,6 +30,7 @@ public class DiscountFormBean extends org.apache.struts.action.ActionForm {
         this.id = bean.getId();
         this.name = bean.getName();
         this.note = bean.getNote();
+        this.shellGasComission = bean.getShellGasComission();
     }
 
     public int getId() {
@@ -92,6 +95,22 @@ public class DiscountFormBean extends org.apache.struts.action.ActionForm {
 
     public void setDiscountCommissionDetailId(String[] discountCommissionDetailId) {
         this.discountCommissionDetailId = discountCommissionDetailId;
+    }
+
+    public double getShellGasComission() {
+        return shellGasComission;
+    }
+
+    public void setShellGasComission(double shellGasComission) {
+        this.shellGasComission = shellGasComission;
+    }
+
+    public String[] getDiscountCommissionCustomer() {
+        return discountCommissionCustomer;
+    }
+
+    public void setDiscountCommissionCustomer(String[] discountCommissionCustomer) {
+        this.discountCommissionCustomer = discountCommissionCustomer;
     }
 
 }

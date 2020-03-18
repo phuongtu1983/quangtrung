@@ -14,6 +14,7 @@ public class DiscountBean {
     private String name;
     private String code;
     private String note;
+    private double shellGasComission;
 
     public void setId(int id) {
         this.id = id;
@@ -45,6 +46,14 @@ public class DiscountBean {
 
     public void setCode(String code) {
         this.code = code;
+    }
+
+    public double getShellGasComission() {
+        return shellGasComission;
+    }
+
+    public void setShellGasComission(double shellGasComission) {
+        this.shellGasComission = shellGasComission;
     }
 
 }

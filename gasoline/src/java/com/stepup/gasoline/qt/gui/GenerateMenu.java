@@ -300,6 +300,80 @@ public class GenerateMenu {
             }
 
             if (isHasPermission(PermissionUtil.OPERATION_LIST + "," + PermissionUtil.OPERATION_ADD,
+                    PermissionUtil.PER_UNIT_RATE + "," + PermissionUtil.PER_AGENCY + "," + PermissionUtil.PER_SOLAR_GROUP + "," + PermissionUtil.PER_SOLAR
+                    + "," + PermissionUtil.PER_EMPLOYEE_SOLAR_COMMISSION)) {
+                buffTemp.append("<item id=\"solar\" complex=\"true\" text=\"").append(QTUtil.getBundleString("menu.admin.solar.title")).append("\">");//start solar
+                if (isHasPermission(PermissionUtil.OPERATION_LIST + "," + PermissionUtil.OPERATION_EDIT, PermissionUtil.PER_VENDOR)) {
+                    buffTemp.append("<item id=\"vendorsolars\" complex=\"true\" text=\"").append(QTUtil.getBundleString("vendor.title")).append("\">");//start vendorsolar
+                    if (isHasPermission(PermissionUtil.OPERATION_LIST, PermissionUtil.PER_VENDOR)) {
+                        buffTemp.append("<item id=\"vendorsolarlist\" text=\"").append(QTUtil.getBundleString("vendor.list.title")).append("\"/>");//list vendorsolar
+                    }
+                    if (isHasPermission(PermissionUtil.OPERATION_EDIT, PermissionUtil.PER_VENDOR)) {
+                        buffTemp.append("<item id=\"vendorsolaradd\" text=\"").append(QTUtil.getBundleString("vendor.detail.add.title")).append("\"/>");//add vendorsolar
+                    }
+                    buffTemp.append("</item>");//end vendorsolar
+                }
+                if (isHasPermission(PermissionUtil.OPERATION_LIST + "," + PermissionUtil.OPERATION_ADD, PermissionUtil.PER_UNIT_RATE)) {
+                    buffTemp.append("<item id=\"unitrates\" complex=\"true\" text=\"").append(QTUtil.getBundleString("unitRate.title")).append("\">");//start rates
+                    if (isHasPermission(PermissionUtil.OPERATION_LIST, PermissionUtil.PER_UNIT_RATE)) {
+                        buffTemp.append("<item id=\"unitratelist\" text=\"").append(QTUtil.getBundleString("unitRate.list.title")).append("\"/>");//list rate
+                    }
+                    if (isHasPermission(PermissionUtil.OPERATION_ADD, PermissionUtil.PER_UNIT_RATE)) {
+                        buffTemp.append("<item id=\"unitrateadd\" text=\"").append(QTUtil.getBundleString("unitRate.detail.add.title")).append("\"/>");//add rate
+                    }
+                    buffTemp.append("</item>");//end rates
+                }
+                if (isHasPermission(PermissionUtil.OPERATION_LIST + "," + PermissionUtil.OPERATION_ADD, PermissionUtil.PER_AGENCY)) {
+                    buffTemp.append("<item id=\"agencys\" complex=\"true\" text=\"").append(QTUtil.getBundleString("agency.title")).append("\">");//start agency
+                    if (isHasPermission(PermissionUtil.OPERATION_LIST, PermissionUtil.PER_AGENCY)) {
+                        buffTemp.append("<item id=\"agencylist\" text=\"").append(QTUtil.getBundleString("agency.list.title")).append("\"/>");//list agency
+                    }
+                    if (isHasPermission(PermissionUtil.OPERATION_ADD, PermissionUtil.PER_AGENCY)) {
+                        buffTemp.append("<item id=\"agencyadd\" text=\"").append(QTUtil.getBundleString("agency.detail.add.title")).append("\"/>");//add agency
+                    }
+                    buffTemp.append("</item>");//end agencys
+                }
+                if (isHasPermission(PermissionUtil.OPERATION_LIST + "," + PermissionUtil.OPERATION_ADD, PermissionUtil.PER_SOLAR_GROUP)) {
+                    buffTemp.append("<item id=\"solargroups\" complex=\"true\" text=\"").append(QTUtil.getBundleString("solarGroup.title")).append("\">");//start solar group
+                    if (isHasPermission(PermissionUtil.OPERATION_LIST, PermissionUtil.PER_SOLAR_GROUP)) {
+                        buffTemp.append("<item id=\"solargrouplist\" text=\"").append(QTUtil.getBundleString("solarGroup.list.title")).append("\"/>");//list solar group
+                    }
+                    if (isHasPermission(PermissionUtil.OPERATION_ADD, PermissionUtil.PER_SOLAR_GROUP)) {
+                        buffTemp.append("<item id=\"solargroupadd\" text=\"").append(QTUtil.getBundleString("solarGroup.detail.add.title")).append("\"/>");//add solar group
+                    }
+                    buffTemp.append("</item>");//end solar groups
+                }
+                if (isHasPermission(PermissionUtil.OPERATION_LIST + "," + PermissionUtil.OPERATION_ADD, PermissionUtil.PER_SOLAR)) {
+                    buffTemp.append("<item id=\"solars\" complex=\"true\" text=\"").append(QTUtil.getBundleString("solar.title")).append("\">");//start solar
+                    if (isHasPermission(PermissionUtil.OPERATION_LIST, PermissionUtil.PER_SOLAR)) {
+                        buffTemp.append("<item id=\"solarlist\" text=\"").append(QTUtil.getBundleString("solar.list.title")).append("\"/>");//list solar
+                    }
+                    if (isHasPermission(PermissionUtil.OPERATION_ADD, PermissionUtil.PER_SOLAR)) {
+                        buffTemp.append("<item id=\"solaradd\" text=\"").append(QTUtil.getBundleString("solar.detail.add.title")).append("\"/>");//add solar
+                    }
+                    buffTemp.append("</item>");//end solars
+                }
+                if (isHasPermission(PermissionUtil.OPERATION_LIST + "," + PermissionUtil.OPERATION_ADD, PermissionUtil.PER_EMPLOYEE_SOLAR_COMMISSION)) {
+                    buffTemp.append("<item id=\"employeesolarcommissions\" complex=\"true\" text=\"").append(QTUtil.getBundleString("employeeSolarCommission.title")).append("\">");
+                    if (isHasPermission(PermissionUtil.OPERATION_LIST, PermissionUtil.PER_EMPLOYEE_SOLAR_COMMISSION)) {
+                        buffTemp.append("<item id=\"employeesolarcommissionlist\" text=\"").append(QTUtil.getBundleString("employeeSolarCommission.list.title")).append("\"/>");
+                    }
+                    if (isHasPermission(PermissionUtil.OPERATION_ADD, PermissionUtil.PER_EMPLOYEE_SOLAR_COMMISSION)) {
+                        buffTemp.append("<item id=\"employeesolarcommissionadd\" text=\"").append(QTUtil.getBundleString("employeeSolarCommission.detail.add.title")).append("\"/>");
+                    }
+                    buffTemp.append("</item>");
+                }
+                if (isHasPermission(PermissionUtil.OPERATION_ADD + "," + PermissionUtil.OPERATION_ADD, PermissionUtil.PER_SALE_SOLAR_RETURN_STORE)) {
+                    buffTemp.append("<item id=\"salesolarreturnstores\" complex=\"true\" text=\"").append(QTUtil.getBundleString("saleSolarReturnStore.title")).append("\">");//start saleSolarReturnStore
+                    if (isHasPermission(PermissionUtil.OPERATION_ADD, PermissionUtil.PER_UNIT_RATE)) {
+                        buffTemp.append("<item id=\"salesolarreturnstoreadd\" text=\"").append(QTUtil.getBundleString("saleSolarReturnStore.detail.add.title")).append("\"/>");//add saleSolarReturnStore
+                    }
+                    buffTemp.append("</item>");//end saleSolarReturnStore
+                }
+                buffTemp.append("</item>");//end solar
+            }
+            
+            if (isHasPermission(PermissionUtil.OPERATION_LIST + "," + PermissionUtil.OPERATION_ADD,
                     PermissionUtil.PER_VENDOR)) {
                 buffTemp.append("<item id=\"vendor\" complex=\"true\" text=\"").append(QTUtil.getBundleString("menu.admin.vendor.title")).append("\">");//start vendor
                 if (isHasPermission(PermissionUtil.OPERATION_LIST + "," + PermissionUtil.OPERATION_ADD, PermissionUtil.PER_VENDOR)) {
@@ -780,7 +854,8 @@ public class GenerateMenu {
                     PermissionUtil.PER_PETRO_IMPORT + "," + PermissionUtil.PER_SALE_PETRO + "," + PermissionUtil.PER_GOOD_IMPORT + "," + PermissionUtil.PER_SALE_GOOD
                     + "," + PermissionUtil.PER_SHIELD_IMPORT + "," + PermissionUtil.PER_SHIELD_DECREASE + "," + PermissionUtil.PER_ACCESSORY_IMPORT
                     + "," + PermissionUtil.PER_SALE_ACCESSORY + "," + PermissionUtil.PER_PROMOTION_MATERIAL_IMPORT + "," + PermissionUtil.PER_FIXED_ASSET_DEPRECIATION
-                    + "," + PermissionUtil.PER_OIL_IMPORT + "," + PermissionUtil.PER_OIL_EXPORT)) {
+                    + "," + PermissionUtil.PER_OIL_IMPORT + "," + PermissionUtil.PER_OIL_EXPORT + "," + PermissionUtil.PER_OIL_EXPORT + "," + PermissionUtil.PER_SALE_OIL_RETURN
+                    + "," + PermissionUtil.PER_SOLAR_IMPORT + "," + PermissionUtil.PER_SOLAR_EXPORT + "," + PermissionUtil.PER_SOLAR_EXPORT + "," + PermissionUtil.PER_SALE_SOLAR_RETURN)) {
                 if (isHasPermission(PermissionUtil.OPERATION_LIST + "," + PermissionUtil.OPERATION_ADD, PermissionUtil.PER_PETRO_IMPORT)) {
                     buffTemp.append("<item id=\"petroimports\" complex=\"true\" text=\"").append(QTUtil.getBundleString("petroImport.title")).append("\">");
                     if (isHasPermission(PermissionUtil.OPERATION_LIST, PermissionUtil.PER_PETRO_IMPORT)) {
@@ -912,6 +987,40 @@ public class GenerateMenu {
                     }
                     if (isHasPermission(PermissionUtil.OPERATION_ADD, PermissionUtil.PER_FIXED_ASSET_DEPRECIATION)) {
                         buffTemp.append("<item id=\"fixedassetdepreciationadd\" text=\"").append(QTUtil.getBundleString("fixedAssetDepreciation.detail.add.title")).append("\"/>");
+                    }
+                    buffTemp.append("</item>");
+                }
+                if (isHasPermission(PermissionUtil.OPERATION_LIST + "," + PermissionUtil.OPERATION_ADD, PermissionUtil.PER_SOLAR_IMPORT)) {
+                    buffTemp.append("<item id=\"solarimports\" complex=\"true\" text=\"").append(QTUtil.getBundleString("solarImport.title")).append("\">");
+                    if (isHasPermission(PermissionUtil.OPERATION_LIST, PermissionUtil.PER_SOLAR_IMPORT)) {
+                        buffTemp.append("<item id=\"solarimportlist\" text=\"").append(QTUtil.getBundleString("solarImport.list.title")).append("\"/>");
+                    }
+                    if (isHasPermission(PermissionUtil.OPERATION_ADD, PermissionUtil.PER_SOLAR_IMPORT)) {
+                        buffTemp.append("<item id=\"solarimportadd\" text=\"").append(QTUtil.getBundleString("solarImport.detail.add.title")).append("\"/>");
+                    }
+                    buffTemp.append("</item>");
+                }
+                if (isHasPermission(PermissionUtil.OPERATION_LIST + "," + PermissionUtil.OPERATION_ADD, PermissionUtil.PER_SALE_SOLAR)) {
+                    buffTemp.append("<item id=\"salesolars\" complex=\"true\" text=\"").append(QTUtil.getBundleString("saleSolar.title")).append("\">");
+                    if (isHasPermission(PermissionUtil.OPERATION_LIST, PermissionUtil.PER_SALE_SOLAR)) {
+                        buffTemp.append("<item id=\"salesolarlist\" text=\"").append(QTUtil.getBundleString("saleSolar.list.title")).append("\"/>");
+                    }
+                    if (isHasPermission(PermissionUtil.OPERATION_ADD, PermissionUtil.PER_SALE_SOLAR)) {
+                        buffTemp.append("<item id=\"salesolaradd\" text=\"").append(QTUtil.getBundleString("saleSolar.detail.add.title")).append("\"/>");
+                    }
+                    buffTemp.append("</item>");
+                }
+                if (isHasPermission(PermissionUtil.OPERATION_LIST + "," + PermissionUtil.OPERATION_ADD, PermissionUtil.PER_SOLAR_EXPORT)) {
+                    buffTemp.append("<item id=\"solarexports\" complex=\"true\" text=\"").append(QTUtil.getBundleString("solarExport.title")).append("\">");
+                    if (isHasPermission(PermissionUtil.OPERATION_LIST, PermissionUtil.PER_SOLAR_EXPORT)) {
+                        buffTemp.append("<item id=\"solarexportlist\" text=\"").append(QTUtil.getBundleString("solarExport.list.title")).append("\"/>");
+                    }
+                    buffTemp.append("</item>");
+                }
+                if (isHasPermission(PermissionUtil.OPERATION_LIST + "," + PermissionUtil.OPERATION_ADD, PermissionUtil.PER_SALE_SOLAR_RETURN)) {
+                    buffTemp.append("<item id=\"salesolarreturns\" complex=\"true\" text=\"").append(QTUtil.getBundleString("saleSolarReturn.title")).append("\">");
+                    if (isHasPermission(PermissionUtil.OPERATION_LIST, PermissionUtil.PER_SALE_SOLAR_RETURN)) {
+                        buffTemp.append("<item id=\"salesolarreturnlist\" text=\"").append(QTUtil.getBundleString("saleSolarReturn.list.title")).append("\"/>");
                     }
                     buffTemp.append("</item>");
                 }

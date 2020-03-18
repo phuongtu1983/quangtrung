@@ -127,8 +127,7 @@ public class PrintReportAction extends BaseAction {
                     list = printTransportSaleReport(fromDate, toDate, organizationIds);
                 } else if (reportName.equals("reportshell")) {
                     templateFileName = "thong_ke_vo";
-                    String session = QTUtil.getEmployeeId(request.getSession()) + "_" + Calendar.getInstance().getTimeInMillis();
-                    printShellReport(fromDate, toDate, organizationIds, request, response, templateFileName, session, beans, exporter);
+                    printShellReport(fromDate, toDate, organizationIds, request, response, templateFileName, beans, exporter);
                 } else if (reportName.equals("reportemployeesalary")) {
                     Date dFromDate = DateUtil.convertStringToDate(fromDate, "dd/MM/yyyy");
                     Date dToDate = DateUtil.convertStringToDate(toDate, "dd/MM/yyyy");
@@ -490,7 +489,7 @@ public class PrintReportAction extends BaseAction {
     }
 
     private void printShellReport(String fromDate, String toDate, String organizationIds, HttpServletRequest request, HttpServletResponse response,
-            String fileName, String sessionId, Map beans, ExcelExport exporter) {
+            String fileName, Map beans, ExcelExport exporter) {
 
         String tempFileName = request.getSession().getServletContext().getRealPath("/templates/" + fileName + "_temp.xls");
         fileName = request.getSession().getServletContext().getRealPath("/templates/" + fileName + ".xls");
@@ -515,7 +514,7 @@ public class PrintReportAction extends BaseAction {
             c.add(Calendar.DATE, 1);
             arrDate.add(dateFormat.format(c.getTime()));
         }
-        if (diff != 0) {
+        if (diff != 0 && arrDate.size()==0) {
             c.setTime(dToDate);
             arrDate.add(dateFormat.format(c.getTime()));
         }
@@ -530,7 +529,7 @@ public class PrintReportAction extends BaseAction {
             ArrayList shellList = null;
             try {
                 ReportDAO reportDAO = new ReportDAO();
-                shellList = reportDAO.getGasShellReport(fromDate, toDate, organizationIds, sessionId);
+                shellList = reportDAO.getGasShellReport(fromDate, toDate, organizationIds);
             } catch (Exception ex) {
             }
 
@@ -636,6 +635,7 @@ public class PrintReportAction extends BaseAction {
         String date = "";
         String changeDate = "";
         ShellReportBean bean = null;
+        String changedCreatedDate = "0,";
         for (int i = 0; i < list.size(); i++) {
             bean = (ShellReportBean) list.get(i);
             if (shellVendorId == bean.getShellVendorId()) {
@@ -643,8 +643,9 @@ public class PrintReportAction extends BaseAction {
                     date = bean.getCreatedDate();
                     sum += bean.getQuantity();
                 }
-                if (!changeDate.equals(bean.getChangeCreatedDate())) {
+                if (!changeDate.equals(bean.getChangeCreatedDate()) && !changedCreatedDate.contains("," + bean.getChangeCreatedDate() + ",")) {
                     changeDate = bean.getChangeCreatedDate();
+                    changedCreatedDate += changeDate + ",";
                     sum += bean.getChangeQuantity();
                 }
             }

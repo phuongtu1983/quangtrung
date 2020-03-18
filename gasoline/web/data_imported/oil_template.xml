@@ -10,7 +10,7 @@
 					<mapping row="6" col="0">data.organizationId</mapping>
 					<mapping row="6" col="1">data.storeId</mapping>
                     <mapping row="6" col="2">data.oilId</mapping>
-                    <mapping row="6" col="6">data.openingStock</mapping>
+                    <mapping row="6" col="7">data.openingStock</mapping>
                 </section>
                 <loopbreakcondition>
 					<rowcheck offset="0">

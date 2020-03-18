@@ -219,4 +219,12 @@ public class PermissionUtil {
     public static int PER_INVOICE = 130;
     public static int PER_REPORT_OIL_COMMISSION_CUSTOMER = 131;
     public static int PER_REPORT_OIL_CUSTOMER_DEBT = 132;
+    public static int PER_SOLAR_IMPORT = 133;
+    public static int PER_SALE_SOLAR = 134;
+    public static int PER_SOLAR_EXPORT = 135;
+    public static int PER_SALE_SOLAR_RETURN = 136;
+    public static int PER_SOLAR_GROUP = 137;
+    public static int PER_SOLAR = 138;
+    public static int PER_EMPLOYEE_SOLAR_COMMISSION = 139;
+    public static int PER_SALE_SOLAR_RETURN_STORE = 140;
 }

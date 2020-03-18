@@ -3634,7 +3634,7 @@ BEGIN
 		(
 			SELECT accessory_id, organization_id, COALESCE(in_stock,0) AS quantity
 			FROM accessory_in_stock
-			WHERE DATEDIFF(`day`, _from_date) > 0 AND DATEDIFF(`day`, _to_date) <= 0
+			WHERE DATEDIFF(`day`, _from_date) >= 0 AND DATEDIFF(`day`, _to_date) < 0
 			UNION ALL
 			SELECT i_det.accessory_id, eo.organization_id, COALESCE(i_det.quantity,0) AS quantity
 			FROM accessory_import_detail AS i_det, accessory_import AS i, employee AS eo
@@ -3693,7 +3693,7 @@ BEGIN
 		(
 			SELECT customer_id, COALESCE(shell_12,0) AS shell_12, COALESCE(shell_45,0) AS shell_45, COALESCE(amount,0) AS amount
 			FROM customer_in_stock
-			WHERE DATEDIFF(`day`, _from_date) > 0 AND DATEDIFF(`day`, _to_date) <= 0
+			WHERE DATEDIFF(`day`, _from_date) >= 0 AND DATEDIFF(`day`, _to_date) < 0
 			UNION ALL
 			SELECT i.customer_id, COALESCE(IF(shell_12.id IS NOT NULL, idet.quantity,0),0) AS quantity_12
 				, COALESCE(IF(shell_45.id IS NOT NULL, idet.quantity,0),0) AS quantity_45
@@ -3783,7 +3783,7 @@ BEGIN
 		(
 			SELECT COALESCE(shell_12,0) AS quantity_12, COALESCE(shell_45,0) AS quantity_45, COALESCE(amount,0) AS amount, COALESCE(transport_amount,0) AS transport_amount
 			FROM customer_in_stock
-			WHERE DATEDIFF(`day`, _from_date) > 0 AND DATEDIFF(`day`, _to_date) <= 0 AND customer_id=_customer_id
+			WHERE DATEDIFF(`day`, _from_date) >= 0 AND DATEDIFF(`day`, _to_date) < 0 AND customer_id=_customer_id
 			UNION ALL
 			SELECT COALESCE(IF(shell_12.id IS NOT NULL, idet.quantity,0),0) AS quantity_12
 				, COALESCE(IF(shell_45.id IS NOT NULL, idet.quantity,0),0) AS quantity_45
@@ -3897,7 +3897,7 @@ BEGIN
 		(
 			SELECT good_id, organization_id, store_id, COALESCE(in_stock,0) AS quantity
 			FROM good_in_stock
-			WHERE DATEDIFF(`day`, _from_date) > 0 AND DATEDIFF(`day`, _to_date) <= 0
+			WHERE DATEDIFF(`day`, _from_date) >= 0 AND DATEDIFF(`day`, _to_date) < 0
 			UNION ALL
 			SELECT i_det.good_id, i.store_id, s.organization_id, COALESCE(i_det.quantity,0) AS quantity
 			FROM good_import_detail AS i_det, good_import AS i, store AS s
@@ -3943,7 +3943,7 @@ BEGIN
 		(
 			SELECT organization_id, vendor_id, COALESCE(in_stock,0) AS quantity
 			FROM lpg_in_stock
-			WHERE DATEDIFF(`day`, _from_date) > 0 AND DATEDIFF(`day`, _to_date) <= 0
+			WHERE DATEDIFF(`day`, _from_date) >= 0 AND DATEDIFF(`day`, _to_date) < 0
 			UNION ALL
 			SELECT eo.organization_id, v.id AS vendor_id, COALESCE(i.actual_quantity,0) AS quantity
 			FROM lpg_import AS i, employee AS eo, vendor AS v
@@ -3979,7 +3979,7 @@ BEGIN
 		(
 			SELECT organization_id, vendor_id, COALESCE(in_stock,0) AS quantity
 			FROM lpg_in_stock
-			WHERE DATEDIFF(`day`, _from_date) > 0 AND DATEDIFF(`day`, _to_date) <= 0
+			WHERE DATEDIFF(`day`, _from_date) >= 0 AND DATEDIFF(`day`, _to_date) < 0
 				AND _organization_ids LIKE CONCAT('%,',organization_id,',%')
 				AND ((_vendor_ids='' AND 1) OR (_vendor_ids<>'' AND _vendor_ids LIKE CONCAT('%,',vendor_id,',%')))
 			UNION ALL
@@ -4053,7 +4053,7 @@ BEGIN
 		(
 			SELECT account_id, in_stock
 			FROM money_in_stock
-			WHERE DATEDIFF(`day`, _from_date) > 0 AND DATEDIFF(`day`, _to_date) <= 0
+			WHERE DATEDIFF(`day`, _from_date) >= 0 AND DATEDIFF(`day`, _to_date) < 0
 			UNION ALL
 			SELECT a.account_id, -COALESCE(a.amount,0) AS in_stock
 			FROM employee_advance AS a
@@ -4190,7 +4190,7 @@ BEGIN
 		(
 			SELECT account_id, in_stock
 			FROM money_in_stock AS s, account AS a
-			WHERE DATEDIFF(s.`day`, _from_date) > 0 AND DATEDIFF(s.`day`, _to_date) <= 0
+			WHERE DATEDIFF(s.`day`, _from_date) >= 0 AND DATEDIFF(s.`day`, _to_date) < 0
 				AND s.account_id=a.id AND a.is_cash=_is_cash
 				AND _organization_ids LIKE CONCAT('%,',s.organization_id,',%')
 			UNION ALL
@@ -4380,7 +4380,7 @@ BEGIN
 		(
 			SELECT oil_id, store_id, COALESCE(in_stock,0) AS in_stock
 			FROM oil_in_stock
-			WHERE DATEDIFF(`day`, _from_date) > 0 AND DATEDIFF(`day`, _to_date) <= 0
+			WHERE DATEDIFF(`day`, _from_date) >= 0 AND DATEDIFF(`day`, _to_date) < 0
 			UNION ALL
 			SELECT i_det.oil_id, i.store_id, COALESCE(i_det.base_quantity,0) AS in_stock
 			FROM oil_import_detail AS i_det, oil_import AS i
@@ -4437,7 +4437,7 @@ BEGIN
 		(
 			SELECT petro_id, store_id, organization_id, COALESCE(in_stock,0) AS quantity
 			FROM petro_in_stock
-			WHERE DATEDIFF(`day`, _from_date) > 0 AND DATEDIFF(`day`, _to_date) <= 0
+			WHERE DATEDIFF(`day`, _from_date) >= 0 AND DATEDIFF(`day`, _to_date) < 0
 			UNION ALL
 			SELECT i_det.petro_id, s.id AS store_id, s.organization_id, COALESCE(i_det.quantity,0) AS quantity
 			FROM petro_import_detail AS i_det, petro_import AS i, store AS s
@@ -4487,7 +4487,7 @@ BEGIN
 		(
 			SELECT promotion_material_id, organization_id, COALESCE(in_stock,0) AS quantity
 			FROM promotion_material_in_stock
-			WHERE DATEDIFF(`day`, _from_date) > 0 AND DATEDIFF(`day`, _to_date) <= 0
+			WHERE DATEDIFF(`day`, _from_date) >= 0 AND DATEDIFF(`day`, _to_date) < 0
 			UNION ALL
 			SELECT i_det.promotion_material_id, eo.organization_id, COALESCE(i_det.quantity,0) AS quantity
 			FROM promotion_material_import_detail AS i_det, promotion_material_import AS i, employee AS eo
@@ -4536,7 +4536,7 @@ BEGIN
 		(
 			SELECT organization_id, shell_id, in_stock
 			FROM shell_in_stock
-			WHERE DATEDIFF(`day`, _from_date) > 0 AND DATEDIFF(`day`, _to_date) <= 0
+			WHERE DATEDIFF(`day`, _from_date) >= 0 AND DATEDIFF(`day`, _to_date) < 0
 			UNION ALL
 			SELECT i.shell_id, eo.organization_id, COALESCE(i.quantity,0) AS in_stock
 			FROM shell_import AS i, employee AS eo
@@ -4622,7 +4622,7 @@ BEGIN
 		(
 			SELECT shell_vendor_id AS id, in_stock AS quantity
 			FROM shell_gas_in_stock
-			WHERE DATEDIFF(`day`, _from_date) > 0 AND DATEDIFF(`day`, _to_date) <= 0
+			WHERE DATEDIFF(`day`, _from_date) >= 0 AND DATEDIFF(`day`, _to_date) < 0
 			UNION ALL
 			SELECT sv.id, COALESCE(f_det.quantity,0) AS quantity
 			FROM fraction_gas_detail AS f_det, fraction_gas AS f, shell_vendor AS sv
@@ -4681,7 +4681,7 @@ BEGIN
 		(
 			SELECT sg.shell_vendor_id AS id, sg.in_stock AS quantity
 			FROM shell_gas_in_stock sg, shell_vendor AS sv
-			WHERE DATEDIFF(sg.`day`, _from_date) > 0 AND DATEDIFF(sg.`day`, _to_date) <= 0
+			WHERE DATEDIFF(sg.`day`, _from_date) >= 0 AND DATEDIFF(sg.`day`, _to_date) < 0
 				AND sg.shell_vendor_id=sv.id
 				AND _organization_ids LIKE CONCAT('%,',sv.organization_id,',%')
 				AND ((_vendor_ids='' AND 1) OR (_vendor_ids<>'' AND _vendor_ids LIKE CONCAT('%,',sv.vendor_id,',%')))
@@ -4783,7 +4783,7 @@ BEGIN
 		(
 			SELECT COALESCE(in_stock,0) AS quantity, vendor_id, organization_id
 			FROM shield_in_stock
-			WHERE DATEDIFF(`day`, _from_date) > 0 AND DATEDIFF(`day`, _to_date) <= 0
+			WHERE DATEDIFF(`day`, _from_date) >= 0 AND DATEDIFF(`day`, _to_date) < 0
 			UNION ALL
 			SELECT COALESCE(i.quantity,0) AS quantity, i.vendor_id, eo.organization_id
 			FROM shield_import AS i, employee AS eo
@@ -4811,27 +4811,27 @@ BEGIN
 		(
 			SELECT COALESCE(in_stock,0) AS quantity, vendor_id, organization_id
 			FROM shield_in_stock
-			WHERE DATEDIFF(`day`, _from_date) > 0 AND DATEDIFF(`day`, _to_date) <= 0
+			WHERE DATEDIFF(`day`, _from_date) >= 0 AND DATEDIFF(`day`, _to_date) < 0
 				AND _organization_ids LIKE CONCAT('%,',organization_id,',%')
 				AND ((_vendor_ids='' AND 1) OR (_vendor_ids<>'' AND _vendor_ids LIKE CONCAT('%,',vendor_id,',%')))
 			UNION ALL
 			SELECT COALESCE(i.quantity,0) AS quantity, i.vendor_id, eo.organization_id
 			FROM shield_import AS i, employee AS eo
-			WHERE DATE(i.created_date) >= _from_date AND DATE(i.created_date) < _to_date
+			WHERE DATE(i.created_date) > _from_date AND DATE(i.created_date) < _to_date
 				AND i.created_employee_id=eo.id
 				AND _organization_ids LIKE CONCAT('%,',eo.organization_id,',%')
 				AND ((_vendor_ids='' AND 1) OR (_vendor_ids<>'' AND _vendor_ids LIKE CONCAT('%,',i.vendor_id,',%')))
 			UNION ALL
 			SELECT -COALESCE(i.quantity,0) AS quantity, i.vendor_id, eo.organization_id
 			FROM shield_decrease AS i, employee AS eo
-			WHERE DATE(i.created_date) >= _from_date AND DATE(i.created_date) < _to_date
+			WHERE DATE(i.created_date) > _from_date AND DATE(i.created_date) < _to_date
 				AND i.created_employee_id=eo.id
 				AND _organization_ids LIKE CONCAT('%,',eo.organization_id,',%')
 				AND ((_vendor_ids='' AND 1) OR (_vendor_ids<>'' AND _vendor_ids LIKE CONCAT('%,',i.vendor_id,',%')))
 			UNION ALL
 			SELECT -COALESCE(f_det.quantity,0) AS quantity, sv.vendor_id, sv.organization_id
 			FROM fraction_gas_detail AS f_det, fraction_gas AS f, shell_vendor AS sv
-			WHERE f_det.fraction_id=f.id AND DATE(f.created_date) >= _from_date AND DATE(f.created_date) < _to_date
+			WHERE f_det.fraction_id=f.id AND DATE(f.created_date) > _from_date AND DATE(f.created_date) < _to_date
 				AND f_det.shell_id=sv.id
 				AND _organization_ids LIKE CONCAT('%,',sv.organization_id,',%')
 				AND ((_vendor_ids='' AND 1) OR (_vendor_ids<>'' AND _vendor_ids LIKE CONCAT('%,',sv.vendor_id,',%')))
@@ -4876,7 +4876,7 @@ BEGIN
 		(
 			SELECT vendor_id, organization_id, amount, shell_12, shell_45, transport_amount AS transport_debt
 			FROM vendor_in_stock
-			WHERE DATEDIFF(`day`, _from_date) > 0 AND DATEDIFF(`day`, _to_date) <= 0
+			WHERE DATEDIFF(`day`, _from_date) >= 0 AND DATEDIFF(`day`, _to_date) < 0
 			UNION ALL
 			SELECT i.vendor_id, eo.organization_id, COALESCE(i.debt,0) AS amount, 0 AS quantity_12, 0 AS quantity_45, 0 AS transport_debt
 			FROM lpg_import AS i, employee AS eo
@@ -4982,7 +4982,7 @@ BEGIN
 		(
 			SELECT vendor_id, organization_id, amount, shell_12, shell_45, transport_amount AS transport_debt
 			FROM vendor_in_stock
-			WHERE DATEDIFF(`day`, _from_date) > 0 AND DATEDIFF(`day`, _to_date) <= 0 AND vendor_id=_vendor_id
+			WHERE DATEDIFF(`day`, _from_date) >= 0 AND DATEDIFF(`day`, _to_date) < 0 AND vendor_id=_vendor_id
 				AND _organization_ids LIKE CONCAT('%,',organization_id,',%')
 			UNION ALL
 			SELECT i.vendor_id, eo.organization_id, COALESCE(i.debt,0) AS amount, 0 AS quantity_12, 0 AS quantity_45, 0 AS transport_debt
@@ -9641,7 +9641,7 @@ BEGIN
 			(
 				SELECT oil_id, in_stock
 				FROM oil_in_stock
-				WHERE DATEDIFF(`day`, _from_date) > 0 AND DATEDIFF(`day`, _to_date) <= 0 AND _organization_ids LIKE CONCAT('%,',organization_id,',%')
+				WHERE DATEDIFF(`day`, _from_date) >= 0 AND DATEDIFF(`day`, _to_date) < 0 AND _organization_ids LIKE CONCAT('%,',organization_id,',%')
 				union all
 				SELECT i_det.oil_id, COALESCE(i_det.base_quantity,0) AS in_stock
 				FROM oil_import_detail AS i_det, oil_import AS i, store AS s
@@ -9732,7 +9732,7 @@ BEGIN
 		LEFT JOIN (
 			SELECT oil_id, in_stock
 			FROM oil_in_stock
-			WHERE DATEDIFF(`day`, _from_date) > 0 AND DATEDIFF(`day`, _to_date) <= 0 
+			WHERE DATEDIFF(`day`, _from_date) >= 0 AND DATEDIFF(`day`, _to_date) < 0 
 				AND _organization_ids LIKE CONCAT('%,',organization_id,',%')
 			UNION ALL
 			SELECT i_det.oil_id, COALESCE(i_det.base_quantity,0) AS in_stock
@@ -9812,7 +9812,7 @@ BEGIN
 			LEFT JOIN (
 				SELECT oil_id, in_stock
 				FROM oil_in_stock
-				WHERE DATEDIFF(`day`, _from_date) > 0 AND DATEDIFF(`day`, _to_date) <= 0 
+				WHERE DATEDIFF(`day`, _from_date) >= 0 AND DATEDIFF(`day`, _to_date) < 0 
 					AND _organization_ids LIKE CONCAT('%,',organization_id,',%') and store_id=_store_id	
 				union all
 				SELECT i_det.oil_id, COALESCE(i_det.base_quantity,0) AS in_stock
@@ -9906,7 +9906,7 @@ BEGIN
 		LEFT JOIN (
 			SELECT oil_id, in_stock
 			FROM oil_in_stock
-			WHERE DATEDIFF(`day`, _from_date) > 0 AND DATEDIFF(`day`, _to_date) <= 0 
+			WHERE DATEDIFF(`day`, _from_date) >= 0 AND DATEDIFF(`day`, _to_date) < 0 
 				AND _organization_ids LIKE CONCAT('%,',organization_id,',%') AND store_id=_store_id	
 			UNION ALL
 			SELECT i_det.oil_id, COALESCE(i_det.base_quantity,0) AS in_stock
@@ -9970,7 +9970,7 @@ BEGIN
 		(
 			SELECT vendor_id, organization_id, amount as debt
 			FROM vendor_in_stock
-			WHERE DATEDIFF(`day`, _from_date) > 0 AND DATEDIFF(`day`, _to_date) <= 0  AND _organization_ids LIKE CONCAT('%,',organization_id,',%')
+			WHERE DATEDIFF(`day`, _from_date) >= 0 AND DATEDIFF(`day`, _to_date) < 0  AND _organization_ids LIKE CONCAT('%,',organization_id,',%')
 			union all
 			SELECT i.vendor_id, eo.organization_id, COALESCE(i.debt,0) AS debt
 			FROM lpg_import AS i, employee AS eo
@@ -10080,7 +10080,7 @@ BEGIN
 		LEFT JOIN (
 			SELECT oil_id, in_stock
 			FROM oil_in_stock
-			WHERE DATEDIFF(`day`, _from_date) > 0 AND DATEDIFF(`day`, _to_date) <= 0 AND _organization_ids LIKE CONCAT('%,',organization_id,',%')
+			WHERE DATEDIFF(`day`, _from_date) >= 0 AND DATEDIFF(`day`, _to_date) < 0 AND _organization_ids LIKE CONCAT('%,',organization_id,',%')
 			union all
 			SELECT i_det.oil_id, COALESCE(i_det.base_quantity,0) AS in_stock
 			FROM oil_import_detail AS i_det, oil_import AS i, store AS s
@@ -10226,7 +10226,7 @@ BEGIN
 			union all
 			SELECT _from_date as created_date, petro_id, coalesce(in_stock,0) as opening_stock, 0 as import_quantity, 0 as export_quantity
 			FROM petro_in_stock
-			WHERE DATEDIFF(`day`, _from_date) > 0 AND DATEDIFF(`day`, _to_date) <= 0 AND _organization_ids LIKE CONCAT('%,',organization_id,',%')
+			WHERE DATEDIFF(`day`, _from_date) >= 0 AND DATEDIFF(`day`, _to_date) < 0 AND _organization_ids LIKE CONCAT('%,',organization_id,',%')
 			union all
 			SELECT _from_date as created_date, i_det.petro_id, COALESCE(i_det.quantity,0) AS opening_stock, 0 as import_quantity, 0 as export_quantity
 			FROM petro_import_detail AS i_det, petro_import AS i, store AS s
@@ -10302,7 +10302,7 @@ BEGIN
 			union all
 			SELECT _from_date AS created_date, petro_id, coalesce(in_stock,0) as opening_stock, 0 as import_quantity, 0 as export_quantity
 			FROM petro_in_stock
-			WHERE DATEDIFF(`day`, _from_date) > 0 AND DATEDIFF(`day`, _to_date) <= 0 
+			WHERE DATEDIFF(`day`, _from_date) >= 0 AND DATEDIFF(`day`, _to_date) < 0 
 				AND _organization_ids LIKE CONCAT('%,',organization_id,',%') AND store_id=_store_id
 			union all
 			SELECT _from_date AS created_date, i_det.petro_id, COALESCE(i_det.quantity,0) as opening_stock, 0 as import_quantity, 0 as export_quantity
@@ -10456,7 +10456,7 @@ BEGIN
 		(
 			SELECT customer_id, shell_12, shell_45, amount
 			FROM customer_in_stock
-			WHERE DATEDIFF(`day`, _from_date) > 0 AND DATEDIFF(`day`, _to_date) <= 0
+			WHERE DATEDIFF(`day`, _from_date) >= 0 AND DATEDIFF(`day`, _to_date) < 0
 			union all
 			SELECT i.customer_id, COALESCE(IF(shell_12.id IS NOT NULL, idet.quantity,0),0) AS quantity_12
 				, COALESCE(IF(shell_45.id IS NOT NULL, idet.quantity,0),0) AS quantity_45
@@ -10613,7 +10613,7 @@ BEGIN
 				(
 					SELECT shell_id, organization_id, in_stock
 					FROM shell_in_stock
-					WHERE DATEDIFF(`day`, _from_date) > 0 AND DATEDIFF(`day`, _to_date) <= 0
+					WHERE DATEDIFF(`day`, _from_date) >= 0 AND DATEDIFF(`day`, _to_date) < 0
 					union all
 					SELECT i.shell_id, eo.organization_id, COALESCE(i.quantity,0) AS in_stock
 					FROM shell_import AS i, employee AS eo
@@ -11083,7 +11083,7 @@ BEGIN
 		(
 			SELECT vendor_id, organization_id, amount as debt
 			FROM vendor_in_stock
-			WHERE DATEDIFF(`day`, _from_date) > 0 AND DATEDIFF(`day`, _to_date) <= 0  AND _organization_ids LIKE CONCAT('%,',organization_id,',%')
+			WHERE DATEDIFF(`day`, _from_date) >= 0 AND DATEDIFF(`day`, _to_date) < 0  AND _organization_ids LIKE CONCAT('%,',organization_id,',%')
 			union all
 			SELECT i.vendor_id, eo.organization_id, COALESCE(i.debt,0) AS debt
 			FROM lpg_import AS i, employee AS eo

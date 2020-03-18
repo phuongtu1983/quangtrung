@@ -23,6 +23,7 @@ public class SaleReportBean {
     private double price45;
     private double amount;
     private double paid;
+    private double otherFee;
     private String paymentMethod;
     private String note;
 
@@ -136,6 +137,14 @@ public class SaleReportBean {
 
     public void setPaid(double paid) {
         this.paid = paid;
+    }
+
+    public double getOtherFee() {
+        return otherFee;
+    }
+
+    public void setOtherFee(double otherFee) {
+        this.otherFee = otherFee;
     }
 
 }

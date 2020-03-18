@@ -270,8 +270,10 @@ public class ReportDAO extends BasicDAO {
                         bean.setVehicleIn45(rs.getInt("vehicle_in_45"));
                         bean.setSale12(rs.getInt("sale_12"));
                         bean.setSale45(rs.getInt("sale_45"));
-                        bean.setClosingStock12(bean.getGas12Stock() + bean.getFraction12() - bean.getVehicleOut12() - bean.getSale12() + bean.getVehicleIn12());
-                        bean.setClosingStock45(bean.getGas45Stock() + bean.getFraction45() - bean.getVehicleOut45() - bean.getSale45() + bean.getVehicleIn45());
+//                        bean.setClosingStock12(bean.getGas12Stock() + bean.getFraction12() - bean.getVehicleOut12() - bean.getSale12() + bean.getVehicleIn12());
+                        bean.setClosingStock12(bean.getGas12Stock() + bean.getFraction12() - bean.getVehicleOut12() + bean.getVehicleIn12());
+//                        bean.setClosingStock45(bean.getGas45Stock() + bean.getFraction45() - bean.getVehicleOut45() - bean.getSale45() + bean.getVehicleIn45());
+                        bean.setClosingStock45(bean.getGas45Stock() + bean.getFraction45() - bean.getVehicleOut45() + bean.getVehicleIn45());
                         bean.setClosingStock(gasStock + rs.getInt("import_quantity") - bean.getFraction12() * 12 - bean.getFraction45() * 45);
                         bean.setShieldImport(rs.getInt("shield_import"));
                         bean.setShieldDecrease(rs.getInt("shield_decrease"));
@@ -425,8 +427,8 @@ public class ReportDAO extends BasicDAO {
                         bean.setPaid(rs.getDouble("paid"));
                         bean.setDebt12(bean.getBuy12() - bean.getReturn12() - bean.getReturn12T());
                         bean.setDebt45(bean.getBuy45() - bean.getReturn45());
-                        bean.setDebtAmount(bean.getAmount() - bean.getPaid());
                         bean.setGasReturnAmount(rs.getDouble("gas_return_amount"));
+                        bean.setDebtAmount(bean.getAmount() - bean.getPaid() - bean.getGasReturnAmount());
                         bean.setNote(rs.getString("note"));
                         list.add(bean);
                     }
@@ -489,6 +491,7 @@ public class ReportDAO extends BasicDAO {
                         bean.setPrice12(rs.getDouble("price_12"));
                         bean.setPrice45(rs.getDouble("price_45"));
                         bean.setPaid(rs.getDouble("paid"));
+                        bean.setOtherFee(rs.getDouble("other_fee"));
                         bean.setAmount(rs.getDouble("total"));
                         list.add(bean);
                     }
@@ -1627,7 +1630,7 @@ public class ReportDAO extends BasicDAO {
                         bean.setOrganizationId(rs.getInt("organization_id"));
                         bean.setAccountName(rs.getString("account_name"));
                         bean.setAccountId(rs.getInt("account_id"));
-                        bean.setOpeningStock(rs.getInt("opening_stock"));
+                        bean.setOpeningStock(rs.getDouble("opening_stock"));
                         list.add(bean);
                     }
                 }
@@ -2101,8 +2104,8 @@ public class ReportDAO extends BasicDAO {
                         bean.setOrganizationId(rs.getInt("organization_id"));
                         bean.setVendorName(rs.getString("vendor_name"));
                         bean.setVendorId(rs.getInt("vendor_id"));
-                        bean.setOpeningStock(rs.getInt("opening_stock"));
-                        bean.setOpeningStockTransport(rs.getInt("opening_transport_stock"));
+                        bean.setOpeningStock(rs.getDouble("opening_stock"));
+                        bean.setOpeningStockTransport(rs.getDouble("opening_transport_stock"));
                         list.add(bean);
                     }
                 }
@@ -2765,7 +2768,7 @@ public class ReportDAO extends BasicDAO {
         return list;
     }
 
-    public ArrayList getGasShellReport(String fromDate, String endDate, String organizationIds, String sessionId) throws Exception {
+    public ArrayList getGasShellReport(String fromDate, String endDate, String organizationIds) throws Exception {
         SPUtil spUtil = null;
         ArrayList list = new ArrayList();
         ResultSet rs = null;
