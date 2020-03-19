@@ -26,6 +26,7 @@ public class VendorBean {
     private int isGood;
     private int isTransport;
     private int isOil;
+    private int isSolar;
     private float commissionOnImport;
     private double maxDebt;
 
@@ -173,9 +174,18 @@ public class VendorBean {
         this.maxDebt = maxDebt;
     }
 
+    public int getIsSolar() {
+        return isSolar;
+    }
+
+    public void setIsSolar(int isSolar) {
+        this.isSolar = isSolar;
+    }
+
     public static final int IS_GAS = 1;
     public static final int IS_PETRO = 2;
     public static final int IS_GOOD = 3;
     public static final int IS_TRANSPORT = 4;
     public static final int IS_OIL = 5;
+    public static final int IS_SOLAR = 6;
 }

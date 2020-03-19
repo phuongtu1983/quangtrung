@@ -18,6 +18,7 @@ public class StoreBean {
     private int isPetro;
     private int isGood;
     private int isOil;
+    private int isSolar;
 
     public void setId(int id) {
         this.id = id;
@@ -81,6 +82,14 @@ public class StoreBean {
 
     public void setIsOil(int isOil) {
         this.isOil = isOil;
+    }
+
+    public int getIsSolar() {
+        return isSolar;
+    }
+
+    public void setIsSolar(int isSolar) {
+        this.isSolar = isSolar;
     }
 
 }

@@ -22,6 +22,7 @@ import com.stepup.gasoline.qt.bean.EmployeeOilCommissionBean;
 import com.stepup.gasoline.qt.bean.EmployeeOtherBonusBean;
 import com.stepup.gasoline.qt.bean.EmployeePaneltyBean;
 import com.stepup.gasoline.qt.bean.EmployeeSalaryFieldBean;
+import com.stepup.gasoline.qt.bean.EmployeeSolarCommissionBean;
 import com.stepup.gasoline.qt.bean.EmployeeTimesheetBean;
 import com.stepup.gasoline.qt.bean.SalaryBean;
 import com.stepup.gasoline.qt.borrow.BorrowFormBean;
@@ -34,6 +35,7 @@ import com.stepup.gasoline.qt.employeeoffmoney.EmployeeOffMoneyFormBean;
 import com.stepup.gasoline.qt.employeeoilcommission.EmployeeOilCommissionFormBean;
 import com.stepup.gasoline.qt.employeeotherbonus.EmployeeOtherBonusFormBean;
 import com.stepup.gasoline.qt.employeepanelty.EmployeePaneltyFormBean;
+import com.stepup.gasoline.qt.employeesolarcommission.EmployeeSolarCommissionFormBean;
 import com.stepup.gasoline.qt.employeetimesheet.EmployeeTimesheetFormBean;
 import com.stepup.gasoline.qt.salary.EmployeeSalaryFieldDetailFormBean;
 import com.stepup.gasoline.qt.salary.EmployeeSalaryTimesheetDetailFormBean;
@@ -2610,7 +2612,7 @@ public class EmployeeDAO extends BasicDAO {
         }
         return employeeOilCommissionList;
     }
-    
+
     public EmployeeOilCommissionBean getEmployeeOilCommission(int employeeOilCommissionId) throws Exception {
         ResultSet rs = null;
         String sql = "select * from employee_oil_commission where id=" + employeeOilCommissionId;
@@ -2708,6 +2710,172 @@ public class EmployeeDAO extends BasicDAO {
         int result = 0;
         try {
             String sql = "Delete From employee_oil_commission Where id=" + id;
+            result = DBUtil.executeUpdate(sql);
+        } catch (SQLException sqle) {
+            throw new Exception(sqle.getMessage());
+        } catch (Exception ex) {
+            throw new Exception(ex.getMessage());
+        }
+        return result;
+    }
+
+    public ArrayList getEmployeeSolarCommissions() throws Exception {
+        ResultSet rs = null;
+        String sql = "select * from employee_solar_commission";
+        ArrayList employeeSolarCommissionList = new ArrayList();
+
+        try {
+            rs = DBUtil.executeQuery(sql);
+            EmployeeSolarCommissionFormBean bean = null;
+            while (rs.next()) {
+                bean = new EmployeeSolarCommissionFormBean();
+                bean.setId(rs.getInt("id"));
+                bean.setName(rs.getString("name"));
+                bean.setNote(rs.getString("note"));
+                bean.setAmount(rs.getDouble("amount"));
+                employeeSolarCommissionList.add(bean);
+            }
+        } catch (SQLException sqle) {
+            throw new Exception(sqle.getMessage());
+        } catch (Exception ex) {
+            throw new Exception(ex.getMessage());
+        } finally {
+            if (rs != null) {
+                DBUtil.closeConnection(rs);
+            }
+        }
+        return employeeSolarCommissionList;
+    }
+
+    public ArrayList getEmployeeSolarCommissions(String ids) throws Exception {
+        ResultSet rs = null;
+        String sql = "select * from employee_solar_commission where 1";
+        if (!org.apache.commons.validator.GenericValidator.isBlankOrNull(ids)) {
+            sql += " and id in (" + ids + ")";
+        }
+        sql += " order by name";
+        ArrayList employeeSolarCommissionList = new ArrayList();
+
+        try {
+            rs = DBUtil.executeQuery(sql);
+            EmployeeSolarCommissionFormBean bean = null;
+            while (rs.next()) {
+                bean = new EmployeeSolarCommissionFormBean();
+                bean.setId(rs.getInt("id"));
+                bean.setName(rs.getString("name"));
+                bean.setNote(rs.getString("note"));
+                bean.setAmount(rs.getDouble("amount"));
+                employeeSolarCommissionList.add(bean);
+            }
+        } catch (SQLException sqle) {
+            throw new Exception(sqle.getMessage());
+        } catch (Exception ex) {
+            throw new Exception(ex.getMessage());
+        } finally {
+            if (rs != null) {
+                DBUtil.closeConnection(rs);
+            }
+        }
+        return employeeSolarCommissionList;
+    }
+
+    public EmployeeSolarCommissionBean getEmployeeSolarCommission(int employeeSolarCommissionId) throws Exception {
+        ResultSet rs = null;
+        String sql = "select * from employee_solar_commission where id=" + employeeSolarCommissionId;
+        try {
+            rs = DBUtil.executeQuery(sql);
+            while (rs.next()) {
+                EmployeeSolarCommissionBean bean = new EmployeeSolarCommissionBean();
+                bean.setId(rs.getInt("id"));
+                bean.setName(rs.getString("name"));
+                bean.setNote(rs.getString("note"));
+                bean.setAmount(rs.getDouble("amount"));
+                return bean;
+            }
+        } catch (SQLException sqle) {
+            throw new Exception(sqle.getMessage());
+        } catch (Exception ex) {
+            throw new Exception(ex.getMessage());
+        } finally {
+            if (rs != null) {
+                DBUtil.closeConnection(rs);
+            }
+        }
+        return null;
+    }
+
+    public EmployeeSolarCommissionBean getEmployeeSolarCommissionByName(String name) throws Exception {
+        ResultSet rs = null;
+        String sql = "select * from employee_solar_commission where name='" + name + "'";
+        try {
+            rs = DBUtil.executeQuery(sql);
+            while (rs.next()) {
+                EmployeeSolarCommissionBean bean = new EmployeeSolarCommissionBean();
+                bean.setId(rs.getInt("id"));
+                bean.setName(rs.getString("name"));
+                bean.setNote(rs.getString("note"));
+                bean.setAmount(rs.getDouble("amount"));
+                return bean;
+            }
+        } catch (SQLException sqle) {
+            throw new Exception(sqle.getMessage());
+        } catch (Exception ex) {
+            throw new Exception(ex.getMessage());
+        } finally {
+            if (rs != null) {
+                DBUtil.closeConnection(rs);
+            }
+        }
+        return null;
+    }
+
+    public void insertEmployeeSolarCommission(EmployeeSolarCommissionBean bean) throws Exception {
+        if (bean == null) {
+            return;
+        }
+        try {
+            String sql = "Insert Into employee_solar_commission(name, note, amount) Values ('" + bean.getName() + "','" + bean.getNote() + "'," + bean.getAmount() + ")";
+            DBUtil.executeUpdate(sql);
+        } catch (SQLException sqle) {
+            throw new Exception(sqle.getMessage());
+        } catch (Exception ex) {
+            throw new Exception(ex.getMessage());
+        } finally {
+            try {
+            } catch (Exception e) {
+                throw new Exception(e.getMessage());
+            }
+
+        }
+    }
+
+    public void updateEmployeeSolarCommission(EmployeeSolarCommissionBean bean) throws Exception {
+        if (bean == null) {
+            return;
+        }
+        try {
+            String sql = "Update employee_solar_commission Set "
+                    + " name='" + bean.getName() + "'"
+                    + ", note='" + bean.getNote() + "'"
+                    + ", amount=" + bean.getAmount()
+                    + " Where id=" + bean.getId();
+            DBUtil.executeUpdate(sql);
+        } catch (SQLException sqle) {
+            throw new Exception(sqle.getMessage());
+        } catch (Exception ex) {
+            throw new Exception(ex.getMessage());
+        } finally {
+            try {
+            } catch (Exception e) {
+                throw new Exception(e.getMessage());
+            }
+        }
+    }
+
+    public int deleteEmployeeSolarCommission(int id) throws Exception {
+        int result = 0;
+        try {
+            String sql = "Delete From employee_solar_commission Where id=" + id;
             result = DBUtil.executeUpdate(sql);
         } catch (SQLException sqle) {
             throw new Exception(sqle.getMessage());

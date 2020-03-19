@@ -131,6 +131,9 @@ public class AddCustomerAction extends AddDynamicFieldValueAction {
                 if (formBean.getIsOil() != oldBean.getIsOil()) {
                     isUpdate = true;
                 }
+                if (formBean.getIsSolar()!= oldBean.getIsSolar()) {
+                    isUpdate = true;
+                }
             }
         } catch (Exception ex) {
         }
@@ -155,6 +158,7 @@ public class AddCustomerAction extends AddDynamicFieldValueAction {
         bean.setIsPetro(formBean.getIsPetro() == true ? 1 : 0);
         bean.setIsGood(formBean.getIsGood() == true ? 1 : 0);
         bean.setIsOil(formBean.getIsOil() == true ? 1 : 0);
+        bean.setIsSolar(formBean.getIsSolar()== true ? 1 : 0);
         try {
             if (bNew) {
                 customerId = customerDAO.insertCustomer(bean);

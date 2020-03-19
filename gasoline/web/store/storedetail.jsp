@@ -38,7 +38,9 @@
                             </tr>
                             <tr>
                                 <td height="30" style="padding-right: 20px"><bean:message key="customer.detail.isOil"/></td>
-                            <td colspan="3"><html:checkbox property="isOil" name="<%=Constants.STORE%>"></html:checkbox></td>
+                                <td><html:checkbox property="isOil" name="<%=Constants.STORE%>"></html:checkbox></td>
+                                <td style="padding-left: 10px; padding-right: 20px"><bean:message key="customer.detail.isSolar"/></td>
+                                <td><html:checkbox property="isSolar" name="<%=Constants.STORE%>"></html:checkbox></td>
                             </tr>
                         </table>
                     </td></tr>

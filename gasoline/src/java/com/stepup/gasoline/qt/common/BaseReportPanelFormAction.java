@@ -103,8 +103,26 @@ public class BaseReportPanelFormAction extends SpineAction {
             header = QTUtil.getBundleString("report.oilCommissionCustomer.title");
         } else if (name.equals("reportoilcustomerdebt")) {
             header = QTUtil.getBundleString("report.oilCustomerDebt.title");
-        }else if (name.equals("reportoilstocksumh")) {
+        } else if (name.equals("reportoilstocksumh")) {
             header = QTUtil.getBundleString("report.oilStockSumH.title");
+        } else if (name.equals("reportsolarimport")) {
+            header = QTUtil.getBundleString("report.solarImport.title");
+        } else if (name.equals("reportsolarstocksum")) {
+            header = QTUtil.getBundleString("report.solarStockSum.title");
+        } else if (name.equals("reportsolarsale")) {
+            header = QTUtil.getBundleString("report.solarSale.title");
+        } else if (name.equals("reportsolarcommissionagency")) {
+            header = QTUtil.getBundleString("report.solarCommissionAgency.title");
+        } else if (name.equals("reportsolarvendorstock")) {
+            header = QTUtil.getBundleString("report.solarVendorStock.title");
+        } else if (name.equals("reportsolarvendordebt")) {
+            header = QTUtil.getBundleString("report.solarVendorDebt.title");
+        } else if (name.equals("reportsolarcommissioncustomer")) {
+            header = QTUtil.getBundleString("report.solarCommissionCustomer.title");
+        } else if (name.equals("reportsolarcustomerdebt")) {
+            header = QTUtil.getBundleString("report.solarCustomerDebt.title");
+        } else if (name.equals("reportsolarstocksumh")) {
+            header = QTUtil.getBundleString("report.solarStockSumH.title");
         }
         reportBean.setName(name);
         reportBean.setHeader(header);

@@ -227,4 +227,15 @@ public class PermissionUtil {
     public static int PER_SOLAR = 138;
     public static int PER_EMPLOYEE_SOLAR_COMMISSION = 139;
     public static int PER_SALE_SOLAR_RETURN_STORE = 140;
+    public static int PER_REPORT_SOLAR_IMPORT = 141;
+    public static int PER_REPORT_SOLAR_STOCK = 142;
+    public static int PER_REPORT_SOLAR_STOCK_SUM = 143;
+    public static int PER_REPORT_SOLAR_SALE = 144;
+    public static int PER_REPORT_SOLAR_COMPARE = 145;
+    public static int PER_REPORT_SOLAR_COMMISSION_AGENCY = 146;
+    public static int PER_REPORT_SOLAR_VENDOR_STOCK = 147;
+    public static int PER_REPORT_SOLAR_VENDOR_DEBT = 148;
+    public static int PER_REPORT_SOLAR_COMMISSION_CUSTOMER = 149;
+    public static int PER_REPORT_SOLAR_CUSTOMER_DEBT = 150;
+    public static int PER_INVOICE_SOLAR = 131;
 }

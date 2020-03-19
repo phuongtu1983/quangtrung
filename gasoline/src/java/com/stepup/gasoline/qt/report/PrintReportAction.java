@@ -22,6 +22,7 @@ import com.stepup.gasoline.qt.employee.EmployeeFormBean;
 import com.stepup.gasoline.qt.employeeoilcommission.EmployeeOilCommissionFormBean;
 import com.stepup.gasoline.qt.oil.OilFormBean;
 import com.stepup.gasoline.qt.petro.PetroFormBean;
+import com.stepup.gasoline.qt.solar.SolarFormBean;
 import com.stepup.gasoline.qt.util.QTUtil;
 import com.stepup.gasoline.qt.vendor.VendorFormBean;
 import java.io.File;
@@ -169,10 +170,26 @@ public class PrintReportAction extends BaseAction {
                 } else if (reportName.equals("reportoilstocksumh")) {
                     templateFileName = "so_theo_doi_nxt_tong_hop_oil_h";
                     list = printOilStockHReport(fromDate, toDate, organizationIds);
+                } else if (reportName.equals("reportsolarimport")) {
+                    templateFileName = "bang_theo_doi_nhap_NLMT";
+                    list = printSolarImportReport(fromDate, toDate, organizationIds);
+                } else if (reportName.equals("reportsolarstocksum")) {
+                    templateFileName = "so_theo_doi_nxt_tong_hop_solar";
+                    String session = QTUtil.getEmployeeId(request.getSession()) + "_" + Calendar.getInstance().getTimeInMillis();
+                    printSolarStockReport(fromDate, toDate, organizationIds, request, response, templateFileName, session, beans, exporter);
+                } else if (reportName.equals("reportsolarsale")) {
+                    templateFileName = "hang_xuat_solar";
+                    list = printSolarSaleReport(fromDate, toDate, organizationIds);
+                } else if (reportName.equals("reportsolarvendordebt")) {
+                    templateFileName = "bang_theo_doi_cong_no_ncc_solar";
+                    list = printSolarVendorDebtReport(fromDate, toDate, organizationIds);
+                } else if (reportName.equals("reportsolarstocksumh")) {
+                    templateFileName = "so_theo_doi_nxt_tong_hop_solar_h";
+                    list = printSolarStockHReport(fromDate, toDate, organizationIds);
                 }
 
                 if (!reportName.equals("reportpetrostock") && !reportName.equals("reportgascommission") && !reportName.equals("reportshell")
-                        && !reportName.equals("reportemployeeoff") && !reportName.equals("reportoilstocksum")) {
+                        && !reportName.equals("reportemployeeoff") && !reportName.equals("reportoilstocksum") && !reportName.equals("reportsolarstocksum")) {
                     String sourceFile = request.getSession().getServletContext().getRealPath("/templates/" + templateFileName + ".xls");
                     if (list == null) {
                         list = new ArrayList();
@@ -514,7 +531,7 @@ public class PrintReportAction extends BaseAction {
             c.add(Calendar.DATE, 1);
             arrDate.add(dateFormat.format(c.getTime()));
         }
-        if (diff != 0 && arrDate.size()==0) {
+        if (diff != 0 && arrDate.size() == 0) {
             c.setTime(dToDate);
             arrDate.add(dateFormat.format(c.getTime()));
         }
@@ -915,6 +932,97 @@ public class PrintReportAction extends BaseAction {
         try {
             ReportDAO reportDAO = new ReportDAO();
             list = reportDAO.getOilStockHReport(fromDate, toDate, organizationIds);
+        } catch (Exception ex) {
+        }
+        return list;
+    }
+
+    private ArrayList printSolarImportReport(String fromDate, String toDate, String organizationIds) {
+        ArrayList list = null;
+        try {
+            ReportDAO reportDAO = new ReportDAO();
+            list = reportDAO.getSolarImportReport(fromDate, toDate, organizationIds);
+        } catch (Exception ex) {
+        }
+        return list;
+    }
+
+    private void printSolarStockReport(String fromDate, String toDate, String organizationIds, HttpServletRequest request, HttpServletResponse response,
+            String fileName, String sessionId, Map beans, ExcelExport exporter) {
+        ArrayList list = null;
+        try {
+            String tempFileName = request.getSession().getServletContext().getRealPath("/templates/" + fileName + "_temp.xls");
+            fileName = request.getSession().getServletContext().getRealPath("/templates/" + fileName + ".xls");
+            GoodDAO goodDAO = new GoodDAO();
+            ReportDAO reportDAO = new ReportDAO();
+
+            FileUtil.copyFile(fileName, tempFileName);
+            File f = new File(tempFileName);
+            ArrayList arrHideCol = new ArrayList();
+            arrHideCol.add(2);
+            arrHideCol.add(3);
+            arrHideCol.add(4);
+
+            SolarStockReportOutBean outBean = new SolarStockReportOutBean();
+            list = reportDAO.getSolarStockReport(fromDate, toDate, organizationIds, 0, sessionId, outBean);
+
+            ArrayList solars = goodDAO.getSolars(outBean.getSolarIds());
+
+            beans.put("datedata", list);
+            DynamicColumnExcelReporter.createSolarStockReportColumns(tempFileName, solars, f);
+
+            SolarFormBean solar = null;
+
+            for (int i = 0; i < solars.size(); i++) {
+                solar = (SolarFormBean) solars.get(i);
+                try {
+                    list = reportDAO.getSolarStockReport(fromDate, toDate, organizationIds, solar.getId(), sessionId, outBean);
+                } catch (Exception ex) {
+                }
+                beans.put("dynamicdata" + solar.getId(), list);
+                beans.put("openingStock" + solar.getId(), outBean.getOpeningStock());
+                beans.put("closingStock" + solar.getId(), outBean.getClosingStock());
+            }
+            reportDAO.clearSolarStockReport(sessionId);
+
+            short[] hiddenCols = new short[arrHideCol.size()];
+            for (int i = 0; i < arrHideCol.size(); i++) {
+                hiddenCols[i] = Short.parseShort(arrHideCol.get(i) + "");
+            }
+            exporter.setHiddenCols(hiddenCols);
+            exporter.setBeans(beans);
+            exporter.export(request, response, tempFileName, "solar_stock_report.xls");
+            f.delete();
+        } catch (Exception ex) {
+            System.out.println(ex);
+        }
+    }
+
+    private ArrayList printSolarSaleReport(String fromDate, String toDate, String organizationIds) {
+        ArrayList list = null;
+        try {
+            ReportDAO reportDAO = new ReportDAO();
+            list = reportDAO.getSolarSaleReport(fromDate, toDate, organizationIds);
+        } catch (Exception ex) {
+        }
+        return list;
+    }
+
+    private ArrayList printSolarVendorDebtReport(String fromDate, String toDate, String organizationIds) {
+        ArrayList list = null;
+        try {
+            ReportDAO reportDAO = new ReportDAO();
+            list = reportDAO.getSolarVendorDebtReport(fromDate, toDate, organizationIds);
+        } catch (Exception ex) {
+        }
+        return list;
+    }
+
+    private ArrayList printSolarStockHReport(String fromDate, String toDate, String organizationIds) {
+        ArrayList list = null;
+        try {
+            ReportDAO reportDAO = new ReportDAO();
+            list = reportDAO.getSolarStockHReport(fromDate, toDate, organizationIds);
         } catch (Exception ex) {
         }
         return list;

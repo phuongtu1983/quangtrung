@@ -67,4 +67,9 @@
         <td><button class="i_printer icon small" onclick="return printOpeningStockExport('oil');">Export</button></td>
         <td><button class="i_buildings icon small green" onclick="return importOpeningStock('oil');">Import</button></td>
     </tr>
+    <tr class="even">
+        <td height="30" style="padding-right: 20px"><bean:message key="solar.title"/></td>
+        <td><button class="i_printer icon small" onclick="return printOpeningStockExport('solar');">Export</button></td>
+        <td><button class="i_buildings icon small green" onclick="return importOpeningStock('solar');">Import</button></td>
+    </tr>
 </table>

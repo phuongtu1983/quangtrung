@@ -40,6 +40,7 @@ public class CustomerFormBean extends DynamicFieldValueParentFormBean {
     private boolean isPetro;
     private boolean isGood;
     private boolean isOil;
+    private boolean isSolar;
 
     public CustomerFormBean() {
     }
@@ -63,6 +64,7 @@ public class CustomerFormBean extends DynamicFieldValueParentFormBean {
         this.isPetro = bean.getIsPetro() == 1 ? true : false;
         this.isGood = bean.getIsGood() == 1 ? true : false;
         this.isOil = bean.getIsOil() == 1 ? true : false;
+        this.isSolar = bean.getIsSolar()== 1 ? true : false;
     }
 
     public int getId() {
@@ -277,6 +279,14 @@ public class CustomerFormBean extends DynamicFieldValueParentFormBean {
 
     public void setNote(String note) {
         this.note = note;
+    }
+
+    public boolean getIsSolar() {
+        return isSolar;
+    }
+
+    public void setIsSolar(boolean isSolar) {
+        this.isSolar = isSolar;
     }
 
 }

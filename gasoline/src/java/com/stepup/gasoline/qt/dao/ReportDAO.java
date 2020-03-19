@@ -30,6 +30,8 @@ import com.stepup.gasoline.qt.openingstock.shellgas.ShellGasOpeningStockBean;
 import com.stepup.gasoline.qt.openingstock.shellgas.ShellGasOpeningStockUploadBean;
 import com.stepup.gasoline.qt.openingstock.shield.ShieldOpeningStockBean;
 import com.stepup.gasoline.qt.openingstock.shield.ShieldOpeningStockUploadBean;
+import com.stepup.gasoline.qt.openingstock.solar.SolarOpeningStockBean;
+import com.stepup.gasoline.qt.openingstock.solar.SolarOpeningStockUploadBean;
 import com.stepup.gasoline.qt.openingstock.vendor.VendorOpeningStockBean;
 import com.stepup.gasoline.qt.openingstock.vendor.VendorOpeningStockUploadBean;
 import com.stepup.gasoline.qt.report.CashBookReportBean;
@@ -85,9 +87,21 @@ import com.stepup.gasoline.qt.report.transportservice.TransportServiceReportOutB
 import com.stepup.gasoline.qt.report.vehiclefee.VehicleFeeReportBean;
 import com.stepup.gasoline.qt.saleoil.SaleOilReportBean;
 import com.stepup.gasoline.qt.report.OilVendorDebtReportBean;
+import com.stepup.gasoline.qt.report.SolarImportReportBean;
+import com.stepup.gasoline.qt.report.SolarSaleReportBean;
+import com.stepup.gasoline.qt.report.SolarStockHReportBean;
+import com.stepup.gasoline.qt.report.SolarStockReportBean;
+import com.stepup.gasoline.qt.report.SolarStockReportOutBean;
+import com.stepup.gasoline.qt.report.SolarVendorDebtReportBean;
 import com.stepup.gasoline.qt.report.comparecustomercommission.CompareCustomerCommissionReportBean;
 import com.stepup.gasoline.qt.report.oilcustomerdebt.OilCustomerDebtReportBean;
 import com.stepup.gasoline.qt.report.oilcustomerdebt.OilCustomerDebtReportOutBean;
+import com.stepup.gasoline.qt.report.solarcompare.SolarCompareReportBean;
+import com.stepup.gasoline.qt.report.solarcompare.SolarCompareReportOutBean;
+import com.stepup.gasoline.qt.report.solarcustomerdebt.SolarCustomerDebtReportBean;
+import com.stepup.gasoline.qt.report.solarcustomerdebt.SolarCustomerDebtReportOutBean;
+import com.stepup.gasoline.qt.report.solarvendorstock.SolarVendorStockReportBean;
+import com.stepup.gasoline.qt.salesolar.SaleSolarReportBean;
 import com.stepup.gasoline.qt.util.QTUtil;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -3831,7 +3845,7 @@ public class ReportDAO extends BasicDAO {
         }
         return list;
     }
-    
+
     public ArrayList getOilStockHReport(String fromDate, String endDate, String organizationIds) throws Exception {
         SPUtil spUtil = null;
         ArrayList list = new ArrayList();
@@ -3887,4 +3901,773 @@ public class ReportDAO extends BasicDAO {
         }
         return list;
     }
+
+    public ArrayList getSolarExportReport(int solarExportId) throws Exception {
+        SPUtil spUtil = null;
+        ArrayList list = new ArrayList();
+        ResultSet rs = null;
+        try {
+            String sql = "{call report_solar_export(?)}";
+            spUtil = new SPUtil(sql);
+            if (spUtil != null) {
+                spUtil.getCallableStatement().setInt("_solar_export_id", solarExportId);
+
+                rs = spUtil.executeQuery();
+
+                if (rs != null) {
+                    SaleSolarReportBean bean = null;
+                    while (rs.next()) {
+                        bean = new SaleSolarReportBean();
+                        bean.setSolarCode(rs.getString("solar_code"));
+                        bean.setSolarName(rs.getString("solar_name"));
+                        bean.setUnitName(rs.getString("unit_name"));
+                        bean.setQuantity(rs.getInt("quantity"));
+                        bean.setPrice(rs.getDouble("price"));
+                        bean.setAmount(rs.getDouble("amount"));
+                        list.add(bean);
+                    }
+                }
+            }
+        } catch (SQLException sqle) {
+            throw new Exception(sqle.getMessage());
+        } catch (Exception ex) {
+            throw new Exception(ex.getMessage());
+        } finally {
+            try {
+                if (spUtil != null) {
+                    spUtil.closeConnection();
+                }
+                if (rs != null) {
+                    rs.close();
+                    rs = null;
+                }
+            } catch (Exception e) {
+                throw new Exception(e.getMessage());
+            }
+        }
+        return list;
+    }
+
+    public ArrayList exportSolarOpeningStock(String date) throws Exception {
+        SPUtil spUtil = null;
+        ArrayList list = new ArrayList();
+        ResultSet rs = null;
+        try {
+            String sql = "{call export_solar_opening_stock(?)}";
+            if (GenericValidator.isBlankOrNull(date)) {
+                date = DateUtil.today("dd/MM/yyyy");
+            }
+            spUtil = new SPUtil(sql);
+            if (spUtil != null) {
+                spUtil.getCallableStatement().setString("_date", date);
+
+                rs = spUtil.executeQuery();
+
+                if (rs != null) {
+                    SolarOpeningStockBean bean = null;
+                    while (rs.next()) {
+                        bean = new SolarOpeningStockBean();
+                        bean.setOrganizationName(rs.getString("organization_name"));
+                        bean.setOrganizationId(rs.getInt("organization_id"));
+                        bean.setStoreName(rs.getString("store_name"));
+                        bean.setStoreId(rs.getInt("store_id"));
+                        bean.setSolarCode(rs.getString("solar_code"));
+                        bean.setSolarName(rs.getString("solar_name"));
+                        bean.setSolarId(rs.getInt("solar_id"));
+                        bean.setOpeningStock(rs.getInt("opening_stock"));
+                        list.add(bean);
+                    }
+                }
+            }
+        } catch (SQLException sqle) {
+            throw new Exception(sqle.getMessage());
+        } catch (Exception ex) {
+            throw new Exception(ex.getMessage());
+        } finally {
+            try {
+                if (spUtil != null) {
+                    spUtil.closeConnection();
+                }
+                if (rs != null) {
+                    rs.close();
+                    rs = null;
+                }
+            } catch (Exception e) {
+                throw new Exception(e.getMessage());
+            }
+        }
+        return list;
+    }
+
+    public void importSolarOpeningStock(String date, SolarOpeningStockUploadBean bean) throws Exception {
+        if (bean == null) {
+            return;
+        }
+        SPUtil spUtil = null;
+        try {
+            String sql = "{call importSolarOpeningStock(?,?,?,?,?)}";
+            spUtil = new SPUtil(sql);
+            if (spUtil != null) {
+                spUtil.getCallableStatement().setString("_date", date);
+                spUtil.getCallableStatement().setInt("_organization_id", bean.getOrganizationId());
+                spUtil.getCallableStatement().setInt("_store_id", bean.getStoreId());
+                spUtil.getCallableStatement().setInt("_solar_id", bean.getSolarId());
+                spUtil.getCallableStatement().setDouble("_in_stock", bean.getOpeningStock());
+                spUtil.execute();
+            }
+        } catch (SQLException sqle) {
+            throw new Exception(sqle.getMessage());
+        } catch (Exception ex) {
+            throw new Exception(ex.getMessage());
+        } finally {
+            try {
+                if (spUtil != null) {
+                    spUtil.closeConnection();
+                }
+            } catch (Exception e) {
+                throw new Exception(e.getMessage());
+            }
+        }
+    }
+
+    public ArrayList getSolarImportReport(String fromDate, String endDate, String organizationIds) throws Exception {
+        SPUtil spUtil = null;
+        ArrayList list = new ArrayList();
+        ResultSet rs = null;
+        try {
+            String sql = "{call report_solar_import(?,?,?)}";
+            if (GenericValidator.isBlankOrNull(fromDate)) {
+                fromDate = DateUtil.today("dd/MM/yyyy");
+            }
+            if (GenericValidator.isBlankOrNull(endDate)) {
+                endDate = BasicDAO.START_DATE;
+            }
+            spUtil = new SPUtil(sql);
+            if (spUtil != null) {
+                spUtil.getCallableStatement().setString("_start_date", fromDate);
+                spUtil.getCallableStatement().setString("_end_date", endDate);
+                spUtil.getCallableStatement().setString("_organization_ids", organizationIds);
+
+                rs = spUtil.executeQuery();
+
+                if (rs != null) {
+                    SolarImportReportBean bean = null;
+                    int count = 1;
+                    while (rs.next()) {
+                        bean = new SolarImportReportBean();
+                        bean.setCount(count++ + "");
+                        bean.setDate(DateUtil.formatDate(rs.getDate("created_date"), "dd/MM/yyyy"));
+                        bean.setVendorName(rs.getString("vendor_name"));
+                        bean.setSolarName(rs.getString("solarName"));
+                        bean.setStoreName(rs.getString("storeName"));
+                        bean.setQuantity(rs.getInt("quantity"));
+                        bean.setPrice(rs.getDouble("price"));
+                        bean.setAmount(rs.getDouble("amount"));
+                        bean.setPaid(rs.getDouble("paid"));
+                        bean.setNote(rs.getString("note"));
+                        list.add(bean);
+                    }
+                }
+            }
+        } catch (SQLException sqle) {
+            throw new Exception(sqle.getMessage());
+        } catch (Exception ex) {
+            throw new Exception(ex.getMessage());
+        } finally {
+            try {
+                if (spUtil != null) {
+                    spUtil.closeConnection();
+                }
+                if (rs != null) {
+                    rs.close();
+                    rs = null;
+                }
+            } catch (Exception e) {
+                throw new Exception(e.getMessage());
+            }
+        }
+        return list;
+    }
+
+    public ArrayList getSolarStockStoreReport(String fromDate, String endDate, String organizationIds, int storeId, int solarId, String session_id, SolarStockReportOutBean outBean) throws Exception {
+        SPUtil spUtil = null;
+        ArrayList list = new ArrayList();
+        ResultSet rs = null;
+        try {
+            String sql = "{call report_solar_stock_store(?,?,?,?,?,?,?,?)}";
+            if (GenericValidator.isBlankOrNull(fromDate)) {
+                fromDate = DateUtil.today("dd/MM/yyyy");
+            }
+            if (GenericValidator.isBlankOrNull(endDate)) {
+                endDate = BasicDAO.START_DATE;
+            }
+            spUtil = new SPUtil(sql);
+            if (spUtil != null) {
+                spUtil.getCallableStatement().setString("_start_date", fromDate);
+                spUtil.getCallableStatement().setString("_end_date", endDate);
+                spUtil.getCallableStatement().setString("_organization_ids", organizationIds);
+                spUtil.getCallableStatement().setInt("_store_id", storeId);
+                spUtil.getCallableStatement().setInt("_solar_id", solarId);
+                spUtil.getCallableStatement().setString("_session_id", session_id);
+                spUtil.getCallableStatement().registerOutParameter("_solar_ids", Types.VARCHAR);
+                spUtil.getCallableStatement().registerOutParameter("_opening_stock", Types.INTEGER);
+
+                rs = spUtil.executeQuery();
+
+                if (outBean != null) {
+                    outBean.setSolarIds(spUtil.getCallableStatement().getString("_solar_ids"));
+                    outBean.setOpeningStock(spUtil.getCallableStatement().getInt("_opening_stock"));
+                }
+                if (rs != null) {
+                    SolarStockReportBean bean = null;
+                    int stock = outBean.getOpeningStock();
+                    while (rs.next()) {
+                        bean = new SolarStockReportBean();
+                        bean.setDate(DateUtil.formatDate(rs.getDate("created_date"), "dd/MM/yyyy"));
+                        bean.setSolarId(rs.getInt("solar_id"));
+                        bean.setImportQuantity(rs.getInt("import_quantity"));
+                        bean.setSaleQuantity(rs.getInt("export_quantity"));
+                        stock += bean.getImportQuantity() - bean.getSaleQuantity();
+                        bean.setStock(stock);
+                        list.add(bean);
+                    }
+                    outBean.setClosingStock(stock);
+                }
+            }
+        } catch (SQLException sqle) {
+            throw new Exception(sqle.getMessage());
+        } catch (Exception ex) {
+            throw new Exception(ex.getMessage());
+        } finally {
+            try {
+                if (spUtil != null) {
+                    spUtil.closeConnection();
+                }
+                if (rs != null) {
+                    rs.close();
+                    rs = null;
+                }
+            } catch (Exception e) {
+                throw new Exception(e.getMessage());
+            }
+        }
+        return list;
+    }
+
+    public void clearSolarStockReport(String session_id) throws Exception {
+        SPUtil spUtil = null;
+        ResultSet rs = null;
+        try {
+            String sql = "{call clear_solar_stock_report(?)}";
+            spUtil = new SPUtil(sql);
+            if (spUtil != null) {
+                spUtil.getCallableStatement().setString("_session_id", session_id);
+
+                rs = spUtil.executeQuery();
+            }
+        } catch (SQLException sqle) {
+            throw new Exception(sqle.getMessage());
+        } catch (Exception ex) {
+            throw new Exception(ex.getMessage());
+        } finally {
+            try {
+                if (spUtil != null) {
+                    spUtil.closeConnection();
+                }
+                if (rs != null) {
+                    rs.close();
+                    rs = null;
+                }
+            } catch (Exception e) {
+                throw new Exception(e.getMessage());
+            }
+        }
+    }
+
+    public ArrayList getSolarStockReport(String fromDate, String endDate, String organizationIds, int solarId, String session_id, SolarStockReportOutBean outBean) throws Exception {
+        SPUtil spUtil = null;
+        ArrayList list = new ArrayList();
+        ResultSet rs = null;
+        try {
+            String sql = "{call report_solar_stock(?,?,?,?,?,?,?)}";
+            if (GenericValidator.isBlankOrNull(fromDate)) {
+                fromDate = DateUtil.today("dd/MM/yyyy");
+            }
+            if (GenericValidator.isBlankOrNull(endDate)) {
+                endDate = BasicDAO.START_DATE;
+            }
+            spUtil = new SPUtil(sql);
+            if (spUtil != null) {
+                spUtil.getCallableStatement().setString("_start_date", fromDate);
+                spUtil.getCallableStatement().setString("_end_date", endDate);
+                spUtil.getCallableStatement().setString("_organization_ids", organizationIds);
+                spUtil.getCallableStatement().setInt("_solar_id", solarId);
+                spUtil.getCallableStatement().setString("_session_id", session_id);
+                spUtil.getCallableStatement().registerOutParameter("_solar_ids", Types.VARCHAR);
+                spUtil.getCallableStatement().registerOutParameter("_opening_stock", Types.INTEGER);
+
+                rs = spUtil.executeQuery();
+
+                if (outBean != null) {
+                    outBean.setSolarIds(spUtil.getCallableStatement().getString("_solar_ids"));
+                    outBean.setOpeningStock(spUtil.getCallableStatement().getInt("_opening_stock"));
+                }
+                if (rs != null) {
+                    SolarStockReportBean bean = null;
+                    int stock = outBean.getOpeningStock();
+                    while (rs.next()) {
+                        bean = new SolarStockReportBean();
+                        bean.setDate(DateUtil.formatDate(rs.getDate("created_date"), "dd/MM/yyyy"));
+                        bean.setSolarId(rs.getInt("solar_id"));
+                        bean.setImportQuantity(rs.getInt("import_quantity"));
+                        bean.setSaleQuantity(rs.getInt("export_quantity"));
+                        stock += bean.getImportQuantity() - bean.getSaleQuantity();
+                        bean.setStock(stock);
+                        list.add(bean);
+                    }
+                    outBean.setClosingStock(stock);
+                }
+            }
+        } catch (SQLException sqle) {
+            throw new Exception(sqle.getMessage());
+        } catch (Exception ex) {
+            throw new Exception(ex.getMessage());
+        } finally {
+            try {
+                if (spUtil != null) {
+                    spUtil.closeConnection();
+                }
+                if (rs != null) {
+                    rs.close();
+                    rs = null;
+                }
+            } catch (Exception e) {
+                throw new Exception(e.getMessage());
+            }
+        }
+        return list;
+    }
+
+    public ArrayList getSolarSaleReport(String fromDate, String endDate, String organizationIds) throws Exception {
+        SPUtil spUtil = null;
+        ArrayList list = new ArrayList();
+        ResultSet rs = null;
+        try {
+            String sql = "{call report_solar_sale(?,?,?)}";
+            if (GenericValidator.isBlankOrNull(fromDate)) {
+                fromDate = DateUtil.today("dd/MM/yyyy");
+            }
+            if (GenericValidator.isBlankOrNull(endDate)) {
+                endDate = BasicDAO.START_DATE;
+            }
+            spUtil = new SPUtil(sql);
+            if (spUtil != null) {
+                spUtil.getCallableStatement().setString("_start_date", fromDate);
+                spUtil.getCallableStatement().setString("_end_date", endDate);
+                spUtil.getCallableStatement().setString("_organization_ids", organizationIds);
+
+                rs = spUtil.executeQuery();
+
+                if (rs != null) {
+                    SolarSaleReportBean bean = null;
+                    int count = 1;
+                    while (rs.next()) {
+                        bean = new SolarSaleReportBean();
+                        bean.setCount(count++ + "");
+                        bean.setDate(DateUtil.formatDate(rs.getDate("created_date"), "dd/MM/yyyy"));
+                        bean.setCustomerCode(rs.getString("customerCode"));
+                        bean.setCustomerName(rs.getString("customerName"));
+                        bean.setSolarCode(rs.getString("solarCode"));
+                        bean.setStoreName(rs.getString("storeName"));
+                        bean.setQuantity(rs.getInt("quantity"));
+                        bean.setPrice(rs.getDouble("price"));
+                        bean.setCommission(rs.getDouble("commission"));
+                        bean.setAmount(rs.getDouble("amount"));
+                        bean.setPaid(rs.getDouble("paid"));
+                        bean.setAgencyCommission(rs.getDouble("agency_commission"));
+                        bean.setActualTotal(rs.getDouble("actual_total"));
+                        bean.setPaymentMethod(rs.getString("account"));
+                        list.add(bean);
+                    }
+                }
+            }
+        } catch (SQLException sqle) {
+            throw new Exception(sqle.getMessage());
+        } catch (Exception ex) {
+            throw new Exception(ex.getMessage());
+        } finally {
+            try {
+                if (spUtil != null) {
+                    spUtil.closeConnection();
+                }
+                if (rs != null) {
+                    rs.close();
+                    rs = null;
+                }
+            } catch (Exception e) {
+                throw new Exception(e.getMessage());
+            }
+        }
+        return list;
+    }
+
+    public ArrayList getSolarCompareReport(String fromDate, String endDate, String organizationIds, int customerId, SolarCompareReportOutBean outBean) throws Exception {
+        SPUtil spUtil = null;
+        ArrayList list = new ArrayList();
+        ResultSet rs = null;
+        try {
+            String sql = "{call report_solar_compare(?,?,?,?,?,?)}";
+            if (GenericValidator.isBlankOrNull(fromDate)) {
+                fromDate = DateUtil.today("dd/MM/yyyy");
+            }
+            if (GenericValidator.isBlankOrNull(endDate)) {
+                endDate = BasicDAO.START_DATE;
+            }
+            spUtil = new SPUtil(sql);
+            if (spUtil != null) {
+                spUtil.getCallableStatement().setString("_start_date", fromDate);
+                spUtil.getCallableStatement().setString("_end_date", endDate);
+                spUtil.getCallableStatement().setString("_organization_ids", organizationIds);
+                spUtil.getCallableStatement().setInt("_customer_id", customerId);
+                spUtil.getCallableStatement().registerOutParameter("_amount_debt", Types.DOUBLE);
+                spUtil.getCallableStatement().registerOutParameter("_customer_commission", Types.FLOAT);
+
+                rs = spUtil.executeQuery();
+
+                outBean.setOpeningAmountStock(spUtil.getCallableStatement().getDouble("_amount_debt"));
+                outBean.setCustomerCommission(spUtil.getCallableStatement().getFloat("_customer_commission"));
+                if (rs != null) {
+                    SolarCompareReportBean bean = null;
+                    int count = 1;
+                    double commission = 0;
+                    while (rs.next()) {
+                        bean = new SolarCompareReportBean();
+                        bean.setDate(DateUtil.formatDate(rs.getDate("created_date"), "dd/MM"));
+                        bean.setCount(count++);
+                        bean.setSolarCode(rs.getString("solar_code"));
+                        bean.setSolarName(rs.getString("solar_name"));
+                        bean.setQuantity(rs.getInt("quantity"));
+                        bean.setPrice(rs.getDouble("price"));
+                        bean.setAmount(rs.getDouble("amount"));
+                        bean.setPaid(rs.getDouble("paid"));
+                        commission += rs.getDouble("commission");
+                        list.add(bean);
+                    }
+                    outBean.setCustomerCommissionAmount(commission);
+                }
+            }
+        } catch (SQLException sqle) {
+            throw new Exception(sqle.getMessage());
+        } catch (Exception ex) {
+            throw new Exception(ex.getMessage());
+        } finally {
+            try {
+                if (spUtil != null) {
+                    spUtil.closeConnection();
+                }
+                if (rs != null) {
+                    rs.close();
+                    rs = null;
+                }
+            } catch (Exception e) {
+                throw new Exception(e.getMessage());
+            }
+        }
+        return list;
+    }
+
+    public ArrayList getSolarVendorStockReport(String fromDate, String endDate, String organizationIds, int vendorId) throws Exception {
+        SPUtil spUtil = null;
+        ArrayList list = new ArrayList();
+        ResultSet rs = null;
+        try {
+            String sql = "{call report_solar_vendor_stock(?,?,?,?)}";
+            if (GenericValidator.isBlankOrNull(fromDate)) {
+                fromDate = DateUtil.today("dd/MM/yyyy");
+            }
+            if (GenericValidator.isBlankOrNull(endDate)) {
+                endDate = BasicDAO.START_DATE;
+            }
+            spUtil = new SPUtil(sql);
+            if (spUtil != null) {
+                spUtil.getCallableStatement().setString("_start_date", fromDate);
+                spUtil.getCallableStatement().setString("_end_date", endDate);
+                spUtil.getCallableStatement().setString("_organization_ids", organizationIds);
+                spUtil.getCallableStatement().setInt("_vendor_id", vendorId);
+
+                rs = spUtil.executeQuery();
+
+                if (rs != null) {
+                    SolarVendorStockReportBean bean = null;
+                    int count = 1;
+                    while (rs.next()) {
+                        bean = new SolarVendorStockReportBean();
+                        bean.setCount(count++);
+                        bean.setSolarCode(rs.getString("solar_code"));
+                        bean.setSolarName(rs.getString("solar_name"));
+                        bean.setOpeningStock(rs.getInt("opening_stock"));
+                        bean.setImportQuantity(rs.getInt("import_quantity"));
+                        bean.setExportQuantity(rs.getInt("export_quantity"));
+                        bean.setPrice(rs.getDouble("import_price"));
+                        bean.setAmount(rs.getDouble("import_amount"));
+                        bean.setClosingStock(bean.getOpeningStock() + bean.getImportQuantity() - bean.getExportQuantity());
+                        bean.setNote(rs.getString("note"));
+                        list.add(bean);
+                    }
+                }
+            }
+        } catch (SQLException sqle) {
+            throw new Exception(sqle.getMessage());
+        } catch (Exception ex) {
+            throw new Exception(ex.getMessage());
+        } finally {
+            try {
+                if (spUtil != null) {
+                    spUtil.closeConnection();
+                }
+                if (rs != null) {
+                    rs.close();
+                    rs = null;
+                }
+            } catch (Exception e) {
+                throw new Exception(e.getMessage());
+            }
+        }
+        return list;
+    }
+
+    public ArrayList getSolarVendorDebtReport(String fromDate, String endDate, String organizationIds) throws Exception {
+        SPUtil spUtil = null;
+        ArrayList list = new ArrayList();
+        ResultSet rs = null;
+        try {
+            String sql = "{call report_solar_vendor_debt(?,?,?)}";
+            if (GenericValidator.isBlankOrNull(fromDate)) {
+                fromDate = DateUtil.today("dd/MM/yyyy");
+            }
+            if (GenericValidator.isBlankOrNull(endDate)) {
+                endDate = BasicDAO.START_DATE;
+            }
+            spUtil = new SPUtil(sql);
+            if (spUtil != null) {
+                spUtil.getCallableStatement().setString("_start_date", fromDate);
+                spUtil.getCallableStatement().setString("_end_date", endDate);
+                spUtil.getCallableStatement().setString("_organization_ids", organizationIds);
+
+                rs = spUtil.executeQuery();
+
+                if (rs != null) {
+                    SolarVendorDebtReportBean bean = null;
+                    while (rs.next()) {
+                        bean = new SolarVendorDebtReportBean();
+                        bean.setVendorCode(rs.getString("vendor_code"));
+                        bean.setVendorName(rs.getString("vendor_name"));
+                        bean.setOpeningStock(rs.getInt("opening_stock"));
+                        bean.setAmount(rs.getInt("amount"));
+                        bean.setPaid(rs.getDouble("paid"));
+                        bean.setEndingStock(bean.getOpeningStock() + bean.getAmount() - bean.getPaid());
+                        list.add(bean);
+                    }
+                }
+            }
+        } catch (SQLException sqle) {
+            throw new Exception(sqle.getMessage());
+        } catch (Exception ex) {
+            throw new Exception(ex.getMessage());
+        } finally {
+            try {
+                if (spUtil != null) {
+                    spUtil.closeConnection();
+                }
+                if (rs != null) {
+                    rs.close();
+                    rs = null;
+                }
+            } catch (Exception e) {
+                throw new Exception(e.getMessage());
+            }
+        }
+        return list;
+    }
+
+    public ArrayList getSolarCustomerDebtReport(String fromDate, String endDate, String organizationIds, int customerId, SolarCustomerDebtReportOutBean outBean) throws Exception {
+        SPUtil spUtil = null;
+        ArrayList list = new ArrayList();
+        ResultSet rs = null;
+        try {
+            String sql = "{call report_solar_customer_debt(?,?,?,?,?)}";
+            if (GenericValidator.isBlankOrNull(fromDate)) {
+                fromDate = DateUtil.today("dd/MM/yyyy");
+            }
+            if (GenericValidator.isBlankOrNull(endDate)) {
+                endDate = BasicDAO.START_DATE;
+            }
+            spUtil = new SPUtil(sql);
+            if (spUtil != null) {
+                spUtil.getCallableStatement().setString("_start_date", fromDate);
+                spUtil.getCallableStatement().setString("_end_date", endDate);
+                spUtil.getCallableStatement().setString("_organization_ids", organizationIds);
+                spUtil.getCallableStatement().setInt("_customer_id", customerId);
+                spUtil.getCallableStatement().registerOutParameter("_opening_debt", Types.DOUBLE);
+
+                rs = spUtil.executeQuery();
+
+                double openingDebt = spUtil.getCallableStatement().getDouble("_opening_debt");
+                outBean.setOpeningDebt(openingDebt);
+                if (rs != null) {
+                    SolarCustomerDebtReportBean bean = null;
+                    int count = 1;
+                    while (rs.next()) {
+                        bean = new SolarCustomerDebtReportBean();
+                        bean.setCount(count++);
+                        bean.setSolarExportCode(rs.getString("solar_export_code"));
+                        bean.setSolarCode(rs.getString("solar_code"));
+                        bean.setSolarName(rs.getString("solar_name"));
+                        bean.setUnitName(rs.getString("unit_name"));
+                        bean.setQuantity(rs.getInt("quantity"));
+                        bean.setPrice(rs.getDouble("price"));
+                        bean.setOpeningDebt(openingDebt);
+                        bean.setAmount(rs.getDouble("amount"));
+                        bean.setPaid(rs.getDouble("paid"));
+                        bean.setDebt(bean.getAmount() - bean.getPaid());
+                        bean.setClosingDebt(openingDebt + bean.getDebt());
+                        openingDebt = bean.getClosingDebt();
+                        list.add(bean);
+                    }
+                }
+                outBean.setClosingDebt(openingDebt);
+            }
+        } catch (SQLException sqle) {
+            throw new Exception(sqle.getMessage());
+        } catch (Exception ex) {
+            throw new Exception(ex.getMessage());
+        } finally {
+            try {
+                if (spUtil != null) {
+                    spUtil.closeConnection();
+                }
+                if (rs != null) {
+                    rs.close();
+                    rs = null;
+                }
+            } catch (Exception e) {
+                throw new Exception(e.getMessage());
+            }
+        }
+        return list;
+    }
+
+    public ArrayList getSolarStockStoreHReport(String fromDate, String endDate, String organizationIds, int storeId) throws Exception {
+        SPUtil spUtil = null;
+        ArrayList list = new ArrayList();
+        ResultSet rs = null;
+        try {
+            String sql = "{call report_solar_stock_store_h(?,?,?,?)}";
+            if (GenericValidator.isBlankOrNull(fromDate)) {
+                fromDate = DateUtil.today("dd/MM/yyyy");
+            }
+            if (GenericValidator.isBlankOrNull(endDate)) {
+                endDate = BasicDAO.START_DATE;
+            }
+            spUtil = new SPUtil(sql);
+            if (spUtil != null) {
+                spUtil.getCallableStatement().setString("_start_date", fromDate);
+                spUtil.getCallableStatement().setString("_end_date", endDate);
+                spUtil.getCallableStatement().setString("_organization_ids", organizationIds);
+                spUtil.getCallableStatement().setInt("_store_id", storeId);
+
+                rs = spUtil.executeQuery();
+
+                if (rs != null) {
+                    SolarStockHReportBean bean = null;
+                    int count = 1;
+                    while (rs.next()) {
+                        bean = new SolarStockHReportBean();
+                        bean.setCount(count++);
+                        bean.setSolarCode(rs.getString("code"));
+                        bean.setSolarName(rs.getString("name"));
+                        bean.setOpeningStock(rs.getInt("opening_stock"));
+                        bean.setImportQuantity(rs.getInt("import_quantity"));
+                        bean.setExportQuantity(rs.getInt("export_quantity"));
+                        bean.setClosingStock(bean.getOpeningStock() + bean.getImportQuantity() - bean.getExportQuantity());
+                        list.add(bean);
+                    }
+                }
+            }
+        } catch (SQLException sqle) {
+            throw new Exception(sqle.getMessage());
+        } catch (Exception ex) {
+            throw new Exception(ex.getMessage());
+        } finally {
+            try {
+                if (spUtil != null) {
+                    spUtil.closeConnection();
+                }
+                if (rs != null) {
+                    rs.close();
+                    rs = null;
+                }
+            } catch (Exception e) {
+                throw new Exception(e.getMessage());
+            }
+        }
+        return list;
+    }
+
+    public ArrayList getSolarStockHReport(String fromDate, String endDate, String organizationIds) throws Exception {
+        SPUtil spUtil = null;
+        ArrayList list = new ArrayList();
+        ResultSet rs = null;
+        try {
+            String sql = "{call report_solar_stock_h(?,?,?)}";
+            if (GenericValidator.isBlankOrNull(fromDate)) {
+                fromDate = DateUtil.today("dd/MM/yyyy");
+            }
+            if (GenericValidator.isBlankOrNull(endDate)) {
+                endDate = BasicDAO.START_DATE;
+            }
+            spUtil = new SPUtil(sql);
+            if (spUtil != null) {
+                spUtil.getCallableStatement().setString("_start_date", fromDate);
+                spUtil.getCallableStatement().setString("_end_date", endDate);
+                spUtil.getCallableStatement().setString("_organization_ids", organizationIds);
+
+                rs = spUtil.executeQuery();
+
+                if (rs != null) {
+                    SolarStockHReportBean bean = null;
+                    int count = 1;
+                    while (rs.next()) {
+                        bean = new SolarStockHReportBean();
+                        bean.setCount(count++);
+                        bean.setSolarCode(rs.getString("code"));
+                        bean.setSolarName(rs.getString("name"));
+                        bean.setOpeningStock(rs.getInt("opening_stock"));
+                        bean.setImportQuantity(rs.getInt("import_quantity"));
+                        bean.setExportQuantity(rs.getInt("export_quantity"));
+                        bean.setClosingStock(bean.getOpeningStock() + bean.getImportQuantity() - bean.getExportQuantity());
+                        list.add(bean);
+                    }
+                }
+            }
+        } catch (SQLException sqle) {
+            throw new Exception(sqle.getMessage());
+        } catch (Exception ex) {
+            throw new Exception(ex.getMessage());
+        } finally {
+            try {
+                if (spUtil != null) {
+                    spUtil.closeConnection();
+                }
+                if (rs != null) {
+                    rs.close();
+                    rs = null;
+                }
+            } catch (Exception e) {
+                throw new Exception(e.getMessage());
+            }
+        }
+        return list;
+    }
+
 }

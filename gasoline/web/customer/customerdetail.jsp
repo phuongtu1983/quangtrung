@@ -77,6 +77,10 @@
                             <td><html:checkbox property="isOil" name="<%=Constants.CUSTOMER%>"></html:checkbox></td>
                             </tr>
                             <tr>
+                                <td height="30" style="padding-right: 20px"><bean:message key="customer.detail.isSolar"/></td>
+                            <td colspan="3"><html:checkbox property="isSolar" name="<%=Constants.CUSTOMER%>"></html:checkbox></td>
+                            </tr>
+                            <tr>
                                 <td height="30" style="padding-right: 20px" colspan="4">
                                     <div id="customerDocuments"><%@include  file="/customer/documents.jsp"%></div>
                             </td>

@@ -22,6 +22,7 @@ import com.stepup.gasoline.qt.openingstock.promotionmaterial.ImportPromotionMate
 import com.stepup.gasoline.qt.openingstock.shell.ImportShellOpeningStock;
 import com.stepup.gasoline.qt.openingstock.shellgas.ImportShellGasOpeningStock;
 import com.stepup.gasoline.qt.openingstock.shield.ImportShieldOpeningStock;
+import com.stepup.gasoline.qt.openingstock.solar.ImportSolarOpeningStock;
 import com.stepup.gasoline.qt.openingstock.vendor.ImportVendorOpeningStock;
 import com.stepup.gasoline.qt.util.Constants;
 import com.stepup.gasoline.qt.util.QTUtil;
@@ -101,6 +102,8 @@ public class AttachmentFileUploadAction extends SpineAction {
                             upload = new ImportVendorOpeningStock();
                         } else if (openingStockKind.equals("oil")) {
                             upload = new ImportOilOpeningStock();
+                        } else if (openingStockKind.equals("solar")) {
+                            upload = new ImportSolarOpeningStock();
                         }
                         if (upload != null) {
                             upload.runImport(request, fileName);

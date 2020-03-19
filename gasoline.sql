@@ -283,6 +283,7 @@ CREATE TABLE `customer` (
   `is_petro` int(1) DEFAULT '0',
   `is_good` int(1) DEFAULT '0',
   `is_oil` int(1) DEFAULT '0',
+  `is_solar` int(1) DEFAULT '0',
   `commission_percentage` float DEFAULT NULL,
   `commission_kind` int(1) DEFAULT '1' COMMENT '1:chiet khau tren bill, 2:chiet khau truc tiep tren gia ban',
   `note` text COLLATE utf8_unicode_ci,
@@ -685,6 +686,18 @@ CREATE TABLE `employee_salary_timesheet_detail` (
   `note` text COLLATE utf8_unicode_ci,
   PRIMARY KEY (`id`)
 ) ENGINE=MyISAM AUTO_INCREMENT=36 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+/*Table structure for table `employee_solar_commission` */
+
+DROP TABLE IF EXISTS `employee_solar_commission`;
+
+CREATE TABLE `employee_solar_commission` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `name` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `amount` double DEFAULT NULL,
+  `note` text COLLATE utf8_unicode_ci,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 /*Table structure for table `expense` */
 
@@ -1265,6 +1278,49 @@ DROP TABLE IF EXISTS `invoice_paid_detail`;
 CREATE TABLE `invoice_paid_detail` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `invoice_id` int(11) DEFAULT NULL,
+  `paid_date` date DEFAULT NULL,
+  `amount` double DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+/*Table structure for table `invoice_solar` */
+
+DROP TABLE IF EXISTS `invoice_solar`;
+
+CREATE TABLE `invoice_solar` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `created_date` date DEFAULT NULL,
+  `code` varchar(20) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `number` text COLLATE utf8_unicode_ci,
+  `created_employee_id` int(11) DEFAULT NULL,
+  `note` text COLLATE utf8_unicode_ci,
+  `amount` double DEFAULT NULL,
+  `amount_paid` double DEFAULT NULL,
+  `customer_id` int(11) DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+/*Table structure for table `invoice_solar_detail` */
+
+DROP TABLE IF EXISTS `invoice_solar_detail`;
+
+CREATE TABLE `invoice_solar_detail` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `invoice_solar_id` int(11) DEFAULT NULL,
+  `solar_sale_detail_id` int(11) DEFAULT NULL,
+  `paid_amount` double DEFAULT NULL,
+  `paid` int(1) DEFAULT '0' COMMENT '0:chua thanh toan, 1:da thanh toan',
+  `commissioned` int(1) DEFAULT '0' COMMENT '0: chua chiet khau, 1: da chiet khau',
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+/*Table structure for table `invoice_solar_paid_detail` */
+
+DROP TABLE IF EXISTS `invoice_solar_paid_detail`;
+
+CREATE TABLE `invoice_solar_paid_detail` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `invoice_solar_id` int(11) DEFAULT NULL,
   `paid_date` date DEFAULT NULL,
   `amount` double DEFAULT NULL,
   PRIMARY KEY (`id`)
@@ -2184,6 +2240,248 @@ CREATE TABLE `shield_in_stock` (
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
+/*Table structure for table `solar` */
+
+DROP TABLE IF EXISTS `solar`;
+
+CREATE TABLE `solar` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `code` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `name` varbinary(255) DEFAULT NULL,
+  `vendor_id` int(11) DEFAULT NULL,
+  `group_id` int(11) DEFAULT NULL,
+  `weight_unit_id` int(11) DEFAULT NULL,
+  `weight` float DEFAULT NULL,
+  `base_unit_id` int(11) DEFAULT NULL,
+  `sale_unit_id` int(11) DEFAULT NULL,
+  `employee_commission_id` int(11) DEFAULT NULL,
+  `status` int(1) DEFAULT NULL,
+  `organization_id` int(11) DEFAULT NULL,
+  `price` double DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+/*Table structure for table `solar_export` */
+
+DROP TABLE IF EXISTS `solar_export`;
+
+CREATE TABLE `solar_export` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `created_date` date DEFAULT NULL,
+  `code` varchar(20) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `solar_sale_id` int(11) DEFAULT NULL,
+  `customer_id` int(11) DEFAULT NULL,
+  `total` double DEFAULT NULL,
+  `note` text COLLATE utf8_unicode_ci,
+  `created_employee_id` int(11) DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+/*Table structure for table `solar_export_detail` */
+
+DROP TABLE IF EXISTS `solar_export_detail`;
+
+CREATE TABLE `solar_export_detail` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `solar_export_id` int(11) DEFAULT NULL,
+  `solar_id` int(11) DEFAULT NULL,
+  `solar_sale_detail_id` int(11) DEFAULT NULL,
+  `quantity` int(3) DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+/*Table structure for table `solar_group` */
+
+DROP TABLE IF EXISTS `solar_group`;
+
+CREATE TABLE `solar_group` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `name` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `note` text COLLATE utf8_unicode_ci,
+  `status` int(1) DEFAULT '1' COMMENT '0: da bi khoa, 1: dang su dung',
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+/*Table structure for table `solar_import` */
+
+DROP TABLE IF EXISTS `solar_import`;
+
+CREATE TABLE `solar_import` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `code` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `created_date` date DEFAULT NULL,
+  `vendor_id` int(11) DEFAULT NULL,
+  `store_id` int(11) DEFAULT NULL,
+  `commission` float DEFAULT NULL,
+  `rate` double DEFAULT NULL,
+  `total_before_commission` double DEFAULT NULL,
+  `total` double DEFAULT NULL,
+  `paid` double DEFAULT NULL,
+  `debt` double DEFAULT NULL,
+  `account_id` int(11) DEFAULT NULL,
+  `note` text COLLATE utf8_unicode_ci,
+  `created_employee_id` int(11) DEFAULT NULL,
+  UNIQUE KEY `id` (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+/*Table structure for table `solar_import_detail` */
+
+DROP TABLE IF EXISTS `solar_import_detail`;
+
+CREATE TABLE `solar_import_detail` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `solar_import_id` int(11) DEFAULT NULL,
+  `solar_id` int(11) DEFAULT NULL,
+  `unit_id` int(11) DEFAULT NULL,
+  `quantity` int(3) DEFAULT NULL,
+  `base_quantity` int(3) DEFAULT NULL,
+  `price` double DEFAULT NULL,
+  `amount` double DEFAULT NULL,
+  `note` text COLLATE utf8_unicode_ci,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+/*Table structure for table `solar_in_stock` */
+
+DROP TABLE IF EXISTS `solar_in_stock`;
+
+CREATE TABLE `solar_in_stock` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `day` date DEFAULT NULL,
+  `solar_id` int(11) DEFAULT NULL,
+  `organization_id` int(11) DEFAULT NULL,
+  `store_id` int(11) DEFAULT NULL,
+  `in_stock` int(11) DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+/*Table structure for table `solar_return_store` */
+
+DROP TABLE IF EXISTS `solar_return_store`;
+
+CREATE TABLE `solar_return_store` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `organization_id` int(11) DEFAULT NULL,
+  `store_id` int(11) DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+/*Table structure for table `solar_sale` */
+
+DROP TABLE IF EXISTS `solar_sale`;
+
+CREATE TABLE `solar_sale` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `code` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `created_date` date DEFAULT NULL,
+  `customer_id` int(11) DEFAULT NULL,
+  `commission` float DEFAULT NULL,
+  `commission_kind` int(11) DEFAULT NULL,
+  `commission_amount` double DEFAULT NULL,
+  `gap_agency_amount` double DEFAULT NULL,
+  `gap_customer_amount` double DEFAULT NULL,
+  `total_before_commission` double DEFAULT NULL,
+  `total` double DEFAULT NULL,
+  `discount` double DEFAULT NULL,
+  `total_pay` double DEFAULT NULL,
+  `paid` double DEFAULT NULL,
+  `debt` double DEFAULT NULL,
+  `account_id` int(11) DEFAULT NULL,
+  `note` text COLLATE utf8_unicode_ci,
+  `created_employee_id` int(11) DEFAULT NULL,
+  `is_calculate_agency_commission` int(1) DEFAULT '1' COMMENT '0:khong tinh, 1:tinh CK cho dai ly',
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+/*Table structure for table `solar_sale_detail` */
+
+DROP TABLE IF EXISTS `solar_sale_detail`;
+
+CREATE TABLE `solar_sale_detail` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `solar_sale_id` int(11) DEFAULT NULL,
+  `solar_id` int(11) DEFAULT NULL,
+  `unit_id` int(11) DEFAULT NULL,
+  `store_id` int(11) DEFAULT NULL,
+  `quantity` int(3) DEFAULT NULL,
+  `base_quantity` int(3) DEFAULT NULL,
+  `price_before_commission` double DEFAULT '0',
+  `commission_price` float DEFAULT '0' COMMENT 'chiet khau truc tiep tren gia',
+  `price` double DEFAULT '0',
+  `first_amount` double DEFAULT '0',
+  `commission` float DEFAULT '0' COMMENT 'chiet khau tren tung mat hang',
+  `gap_agency_amount` double DEFAULT '0' COMMENT 'tien chenh lech cua dai ly',
+  `gap_customer_amount` double DEFAULT '0' COMMENT 'tien chenh lech cua khach hang',
+  `amount` double DEFAULT '0',
+  `vendor_id` int(11) DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+/*Table structure for table `solar_sale_promotion` */
+
+DROP TABLE IF EXISTS `solar_sale_promotion`;
+
+CREATE TABLE `solar_sale_promotion` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `sale_solar_id` int(11) DEFAULT NULL,
+  `solar_id` int(11) DEFAULT NULL,
+  `unit_id` int(11) DEFAULT NULL,
+  `store_id` int(11) DEFAULT NULL,
+  `quantity` int(3) DEFAULT NULL,
+  `base_quantity` int(3) DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+/*Table structure for table `solar_sale_return` */
+
+DROP TABLE IF EXISTS `solar_sale_return`;
+
+CREATE TABLE `solar_sale_return` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `code` varchar(20) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `created_date` date DEFAULT NULL,
+  `solar_sale_id` int(11) DEFAULT NULL,
+  `customer_id` int(11) DEFAULT NULL,
+  `commission` float DEFAULT NULL,
+  `commission_kind` int(11) DEFAULT NULL,
+  `commission_amount` double DEFAULT NULL,
+  `gap_agency_amount` double DEFAULT NULL,
+  `gap_customer_amount` double DEFAULT NULL,
+  `total_before_commission` double DEFAULT NULL,
+  `total` double DEFAULT NULL,
+  `total_pay` double DEFAULT NULL,
+  `paid` double DEFAULT NULL,
+  `debt` double DEFAULT NULL,
+  `account_id` int(11) DEFAULT NULL,
+  `note` text COLLATE utf8_unicode_ci,
+  `created_employee_id` int(11) DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+/*Table structure for table `solar_sale_return_detail` */
+
+DROP TABLE IF EXISTS `solar_sale_return_detail`;
+
+CREATE TABLE `solar_sale_return_detail` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `solar_sale_return_id` int(11) DEFAULT NULL,
+  `solar_sale_detail_id` int(11) DEFAULT NULL,
+  `solar_id` int(11) DEFAULT NULL,
+  `unit_id` int(11) DEFAULT NULL,
+  `store_id` int(11) DEFAULT NULL,
+  `quantity` int(3) DEFAULT NULL,
+  `base_quantity` int(3) DEFAULT NULL,
+  `price_before_commission` double DEFAULT NULL,
+  `commission_price` float DEFAULT NULL,
+  `price` double DEFAULT NULL,
+  `first_amount` double DEFAULT NULL,
+  `commission` float DEFAULT NULL,
+  `gap_agency_amount` double DEFAULT NULL,
+  `gap_customer_amount` double DEFAULT NULL,
+  `amount` double DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
 /*Table structure for table `store` */
 
 DROP TABLE IF EXISTS `store`;
@@ -2197,8 +2495,9 @@ CREATE TABLE `store` (
   `is_petro` int(1) DEFAULT '0',
   `is_good` int(1) DEFAULT '0',
   `is_oil` int(1) DEFAULT '0',
+  `is_solar` int(1) DEFAULT '0',
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM AUTO_INCREMENT=11 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=MyISAM AUTO_INCREMENT=12 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 /*Table structure for table `temp_gas_commission` */
 
@@ -2244,6 +2543,19 @@ CREATE TABLE `temp_petro_stock` (
   `session_id` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
   `created_date` date DEFAULT NULL,
   `petro_id` int(11) DEFAULT NULL,
+  `opening_stock` int(11) DEFAULT NULL,
+  `import_quantity` int(11) DEFAULT NULL,
+  `export_quantity` int(11) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+/*Table structure for table `temp_solar_stock` */
+
+DROP TABLE IF EXISTS `temp_solar_stock`;
+
+CREATE TABLE `temp_solar_stock` (
+  `session_id` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `created_date` date DEFAULT NULL,
+  `solar_id` int(11) DEFAULT NULL,
   `opening_stock` int(11) DEFAULT NULL,
   `import_quantity` int(11) DEFAULT NULL,
   `export_quantity` int(11) DEFAULT NULL
@@ -2514,6 +2826,7 @@ CREATE TABLE `vendor` (
   `is_good` int(1) DEFAULT '0',
   `is_transport` int(1) DEFAULT '0',
   `is_oil` int(1) DEFAULT '0',
+  `is_solar` int(1) DEFAULT '0',
   `commision_on_import` float DEFAULT '0',
   `max_debt` double DEFAULT '0' COMMENT 'cong no toi da cho phep',
   PRIMARY KEY (`id`)
@@ -2586,6 +2899,17 @@ CREATE TABLE `vendor_organization` (
   `organization_id` int(11) DEFAULT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=30 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+/*Table structure for table `vendor_solar_store` */
+
+DROP TABLE IF EXISTS `vendor_solar_store`;
+
+CREATE TABLE `vendor_solar_store` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `vendor_id` int(11) DEFAULT NULL,
+  `store_id` int(11) DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 /*Table structure for table `wholesale_debt` */
 
@@ -2685,6 +3009,18 @@ DELIMITER $$
 /*!50003 CREATE DEFINER=`root`@`localhost` PROCEDURE `clear_petro_stock_report`(IN _session_id VARCHAR(255))
 BEGIN
 	DELETE FROM temp_petro_stock WHERE session_id=_session_id;
+    END */$$
+DELIMITER ;
+
+/* Procedure structure for procedure `clear_solar_stock_report` */
+
+/*!50003 DROP PROCEDURE IF EXISTS  `clear_solar_stock_report` */;
+
+DELIMITER $$
+
+/*!50003 CREATE DEFINER=`root`@`localhost` PROCEDURE `clear_solar_stock_report`(IN _session_id VARCHAR(255))
+BEGIN
+	DELETE FROM temp_solar_stock WHERE session_id=_session_id;
     END */$$
 DELIMITER ;
 
@@ -2993,6 +3329,20 @@ BEGIN
     END */$$
 DELIMITER ;
 
+/* Procedure structure for procedure `deleteInvoiceSolar` */
+
+/*!50003 DROP PROCEDURE IF EXISTS  `deleteInvoiceSolar` */;
+
+DELIMITER $$
+
+/*!50003 CREATE DEFINER=`root`@`localhost` PROCEDURE `deleteInvoiceSolar`(IN _id INT)
+BEGIN
+	DELETE FROM invoice_solar_detail WHERE invoice_solar_id=_id;
+	DELETE FROM invoice_solar_paid_detail WHERE invoice_solar_id=_id;
+	DELETE FROM invoice_solar WHERE id=_id;
+    END */$$
+DELIMITER ;
+
 /* Procedure structure for procedure `deleteLoVo` */
 
 /*!50003 DROP PROCEDURE IF EXISTS  `deleteLoVo` */;
@@ -3188,6 +3538,33 @@ BEGIN
     END */$$
 DELIMITER ;
 
+/* Procedure structure for procedure `deleteSaleSolar` */
+
+/*!50003 DROP PROCEDURE IF EXISTS  `deleteSaleSolar` */;
+
+DELIMITER $$
+
+/*!50003 CREATE DEFINER=`root`@`localhost` PROCEDURE `deleteSaleSolar`(IN _id INT)
+BEGIN
+	DELETE FROM solar_sale_detail WHERE solar_sale_id=_id;
+	DELETE FROM solar_sale_promotion WHERE sale_solar_id=_id;
+	DELETE FROM solar_sale WHERE id=_id;
+    END */$$
+DELIMITER ;
+
+/* Procedure structure for procedure `deleteSaleSolarReturn` */
+
+/*!50003 DROP PROCEDURE IF EXISTS  `deleteSaleSolarReturn` */;
+
+DELIMITER $$
+
+/*!50003 CREATE DEFINER=`root`@`localhost` PROCEDURE `deleteSaleSolarReturn`(IN _id INT)
+BEGIN
+	DELETE FROM solar_sale_return_detail WHERE solar_sale_return_id=_id;
+	DELETE FROM solar_sale_return WHERE id=_id;
+    END */$$
+DELIMITER ;
+
 /* Procedure structure for procedure `deleteShellImport` */
 
 /*!50003 DROP PROCEDURE IF EXISTS  `deleteShellImport` */;
@@ -3256,6 +3633,32 @@ DELIMITER $$
 /*!50003 CREATE DEFINER=`root`@`localhost` PROCEDURE `deleteShieldImport`(IN _id INT)
 BEGIN
 	DELETE FROM shield_import WHERE id=_id;
+    END */$$
+DELIMITER ;
+
+/* Procedure structure for procedure `deleteSolarExport` */
+
+/*!50003 DROP PROCEDURE IF EXISTS  `deleteSolarExport` */;
+
+DELIMITER $$
+
+/*!50003 CREATE DEFINER=`root`@`localhost` PROCEDURE `deleteSolarExport`(IN _id INT)
+BEGIN
+	DELETE FROM solar_export_detail WHERE solar_export_id=_id;
+	DELETE FROM solar_export WHERE id=_id;
+    END */$$
+DELIMITER ;
+
+/* Procedure structure for procedure `deleteSolarImport` */
+
+/*!50003 DROP PROCEDURE IF EXISTS  `deleteSolarImport` */;
+
+DELIMITER $$
+
+/*!50003 CREATE DEFINER=`root`@`localhost` PROCEDURE `deleteSolarImport`(IN _id INT)
+BEGIN
+	DELETE FROM solar_import_detail WHERE solar_import_id=_id;
+	DELETE FROM solar_import WHERE id=_id;
     END */$$
 DELIMITER ;
 
@@ -3433,6 +3836,18 @@ BEGIN
     END */$$
 DELIMITER ;
 
+/* Procedure structure for procedure `export_solar_opening_stock` */
+
+/*!50003 DROP PROCEDURE IF EXISTS  `export_solar_opening_stock` */;
+
+DELIMITER $$
+
+/*!50003 CREATE DEFINER=`root`@`localhost` PROCEDURE `export_solar_opening_stock`(IN _date VARCHAR(20))
+BEGIN
+	CALL get_in_stock_solar(_date, 1);
+    END */$$
+DELIMITER ;
+
 /* Procedure structure for procedure `export_vendor_opening_stock` */
 
 /*!50003 DROP PROCEDURE IF EXISTS  `export_vendor_opening_stock` */;
@@ -3601,6 +4016,23 @@ BEGIN
 	SELECT COALESCE(SUM(bdet.amount),0) INTO _borrow_rest
 	FROM borrow AS b, borrow_detail AS bdet
 	WHERE b.id=bdet.borrow_id AND b.employee_id=_employee_id AND (YEAR(bdet.pay_date)>_year or (YEAR(bdet.pay_date)=_year and MONTH(bdet.pay_date)>_month));
+    END */$$
+DELIMITER ;
+
+/* Procedure structure for procedure `getSolarExport` */
+
+/*!50003 DROP PROCEDURE IF EXISTS  `getSolarExport` */;
+
+DELIMITER $$
+
+/*!50003 CREATE DEFINER=`root`@`localhost` PROCEDURE `getSolarExport`(IN _organization_ids TEXT)
+BEGIN
+	SELECT e.*, c.NAME AS customer_name
+	FROM employee AS eo, customer AS c, solar_export AS e
+	LEFT JOIN vehicle_in_solar_export_detail AS vie ON e.id=vie.solar_export_id
+	WHERE e.created_employee_id=eo.id AND _organization_ids LIKE CONCAT('%,',eo.organization_id,',%')
+		AND e.customer_id=c.id AND vie.id IS NULL
+	ORDER BY CODE;
     END */$$
 DELIMITER ;
 
@@ -4842,6 +5274,63 @@ BEGIN
     END */$$
 DELIMITER ;
 
+/* Procedure structure for procedure `get_in_stock_solar` */
+
+/*!50003 DROP PROCEDURE IF EXISTS  `get_in_stock_solar` */;
+
+DELIMITER $$
+
+/*!50003 CREATE DEFINER=`root`@`localhost` PROCEDURE `get_in_stock_solar`(IN _date VARCHAR(20), IN _is_list INT)
+BEGIN
+	DECLARE _from_date, _to_date DATE;
+	
+	IF _date<>'' THEN
+		SELECT STR_TO_DATE(_date,'%d/%m/%Y') INTO _to_date;
+	ELSE
+		SELECT SYSDATE() INTO _to_date;
+	END IF;
+	
+	SELECT `day` INTO _from_date FROM solar_in_stock WHERE DATEDIFF(`day`, _to_date) < 0 ORDER BY `day` DESC LIMIT 1;
+	IF _from_date IS NULL THEN
+		-- SELECT DATE_ADD(_to_date, INTERVAL -1 DAY) INTO _from_date;
+		SELECT STR_TO_DATE(`value`,'%d/%m/%Y')  INTO _from_date FROM parameter WHERE `code`="startdate";
+	END IF;
+	
+	IF _is_list=1 THEN
+		SELECT o.id AS organization_id, o.NAME AS organization_name, so.id AS store_id, so.NAME AS store_name, a.id AS solar_id, a.CODE AS solar_code, a.NAME AS solar_name, SUM(COALESCE(tbl.in_stock,0)) AS opening_stock
+		FROM solar AS a 
+		LEFT JOIN store AS so ON 1 
+		LEFT JOIN organization AS o ON so.organization_id=o.id
+		LEFT JOIN
+		(
+			SELECT solar_id, store_id, COALESCE(in_stock,0) AS in_stock
+			FROM solar_in_stock
+			WHERE DATEDIFF(`day`, _from_date) > 0 AND DATEDIFF(`day`, _to_date) <= 0
+			UNION ALL
+			SELECT i_det.solar_id, i.store_id, COALESCE(i_det.base_quantity,0) AS in_stock
+			FROM solar_import_detail AS i_det, solar_import AS i
+			WHERE i_det.solar_import_id=i.id AND DATE(i.created_date) >= _from_date AND DATE(i.created_date) < _to_date
+			UNION ALL
+			SELECT i_det.solar_id, i_det.store_id, -COALESCE(i_det.base_quantity,0) AS in_stock
+			FROM solar_sale_detail AS i_det, solar_sale AS i
+			WHERE i_det.solar_sale_id=i.id AND DATE(i.created_date) >= _from_date AND DATE(i.created_date) < _to_date
+			UNION ALL
+			SELECT i_det.solar_id, i_det.store_id, -COALESCE(i_det.base_quantity,0) AS in_stock
+			FROM solar_sale_promotion AS i_det, solar_sale AS i
+			WHERE i_det.sale_solar_id=i.id AND DATE(i.created_date) >= _from_date AND DATE(i.created_date) < _to_date
+			UNION ALL
+			SELECT i_det.solar_id, i_det.store_id, COALESCE(i_det.base_quantity,0) AS in_stock
+			FROM solar_sale_return_detail AS i_det, solar_sale_return AS i
+			WHERE i_det.solar_sale_return_id=i.id AND DATE(i.created_date) >= _from_date AND DATE(i.created_date) < _to_date
+		) AS tbl ON tbl.solar_id=a.id AND tbl.store_id=so.id
+		WHERE a.STATUS=1 AND o.STATUS=1 AND so.STATUS=1 AND so.is_solar=1
+		GROUP BY o.id, so.id, a.id
+		ORDER BY o.NAME, so.NAME, a.NAME
+		;
+	END IF;
+    END */$$
+DELIMITER ;
+
 /* Procedure structure for procedure `get_in_stock_vendor` */
 
 /*!50003 DROP PROCEDURE IF EXISTS  `get_in_stock_vendor` */;
@@ -5404,6 +5893,34 @@ BEGIN
     END */$$
 DELIMITER ;
 
+/* Procedure structure for procedure `importSolarOpeningStock` */
+
+/*!50003 DROP PROCEDURE IF EXISTS  `importSolarOpeningStock` */;
+
+DELIMITER $$
+
+/*!50003 CREATE DEFINER=`root`@`localhost` PROCEDURE `importSolarOpeningStock`(IN _date VARCHAR(20), IN _organization_id INT, IN _store_id INT, IN _solar_id INT, IN _in_stock DOUBLE)
+BEGIN
+	DECLARE _id INT;
+	DECLARE _old_stock, _diff DOUBLE DEFAULT 0;
+	
+	SELECT id, in_stock INTO _id, _old_stock
+	FROM solar_in_stock
+	WHERE DATE(`day`) = STR_TO_DATE(_date,'%d/%m/%Y') AND organization_id=_organization_id AND store_id=_store_id AND solar_id=_solar_id;
+	
+	IF _id IS NULL THEN
+		INSERT INTO solar_in_stock(`day`, organization_id, store_id, solar_id, in_stock)
+		VALUES (STR_TO_DATE(_date,'%d/%m/%Y'), _organization_id, _store_id, _solar_id, _in_stock);
+	ELSE
+		SET _diff = _in_stock - _old_stock;
+		UPDATE solar_in_stock SET in_stock=_in_stock WHERE id=_id;
+	
+		UPDATE solar_in_stock SET in_stock=in_stock + _diff WHERE DATE(`day`) > STR_TO_DATE(_date,'%d/%m/%Y') 
+			AND organization_id=_organization_id AND store_id=_store_id AND solar_id=_solar_id;
+	END IF;
+    END */$$
+DELIMITER ;
+
 /* Procedure structure for procedure `importVendorOpeningStock` */
 
 /*!50003 DROP PROCEDURE IF EXISTS  `importVendorOpeningStock` */;
@@ -5552,10 +6069,10 @@ DELIMITER $$
 
 /*!50003 CREATE DEFINER=`root`@`localhost` PROCEDURE `insertCustomer`(in _name varchar(255), in _code varchar(20), in _organization_id int, in _status int, in _phone varchar(30)
 	, in _bank_account text, in _tax varchar(30), in _presenter varchar(255), in _presenter_position varchar(255), in _address text, in _is_gas int
-	, in _is_petro int, in _is_good int, in _is_oil int, in _commission_kind int, in _commission_percentage float, in _note text, out _id int)
+	, in _is_petro int, in _is_good int, in _is_oil int, IN _is_solar INT, in _commission_kind int, in _commission_percentage float, in _note text, out _id int)
 BEGIN
-	Insert Into customer (name, code, organization_id, status, phone, bank_account, tax, presenter, presenter_position, address, is_gas, is_petro, is_good, is_oil, commission_kind, commission_percentage, note)
-	values (_name, _code, _organization_id, _status, _phone, _bank_account, _tax, _presenter, _presenter_position, _address, _is_gas, _is_petro, _is_good, _is_oil, _commission_kind, _commission_percentage, _note);
+	Insert Into customer (name, code, organization_id, status, phone, bank_account, tax, presenter, presenter_position, address, is_gas, is_petro, is_good, is_oil, is_solar, commission_kind, commission_percentage, note)
+	values (_name, _code, _organization_id, _status, _phone, _bank_account, _tax, _presenter, _presenter_position, _address, _is_gas, _is_petro, _is_good, _is_oil, _is_solar, _commission_kind, _commission_percentage, _note);
     END */$$
 DELIMITER ;
 
@@ -7092,6 +7609,45 @@ BEGIN
     END */$$
 DELIMITER ;
 
+/* Procedure structure for procedure `insertInvoiceSolar` */
+
+/*!50003 DROP PROCEDURE IF EXISTS  `insertInvoiceSolar` */;
+
+DELIMITER $$
+
+/*!50003 CREATE DEFINER=`root`@`localhost` PROCEDURE `insertInvoiceSolar`(IN _code VARCHAR(20), IN _number TEXT, IN _customer_id INT, IN _created_date VARCHAR(20)
+	, IN _amount DOUBLE, IN _amount_paid DOUBLE, IN _note TEXT, IN _created_employee_id INT, OUT _id INT)
+BEGIN
+	INSERT INTO invoice_solar (CODE, number, created_date, customer_id, amount, amount_paid, note, created_employee_id)
+	VALUES (_code, _number, STR_TO_DATE(_created_date,'%d/%m/%Y'), _customer_id, _amount, _amount_paid, _note, _created_employee_id);
+	SELECT LAST_INSERT_ID() INTO _id;
+    END */$$
+DELIMITER ;
+
+/* Procedure structure for procedure `insertInvoiceSolarDetail` */
+
+/*!50003 DROP PROCEDURE IF EXISTS  `insertInvoiceSolarDetail` */;
+
+DELIMITER $$
+
+/*!50003 CREATE DEFINER=`root`@`localhost` PROCEDURE `insertInvoiceSolarDetail`(IN _invoice_solar_id INT, IN _oil_sale_detail_id INT, IN _paid INT, IN _commissioned INT, IN _paid_amount DOUBLE)
+BEGIN
+	INSERT INTO invoice_solar_detail(invoice_solar_id, oil_sale_detail_id, paid, commissioned, paid_amount) VALUES(_invoice_solar_id, _oil_sale_detail_id, _paid, _commissioned, _paid_amount);
+    END */$$
+DELIMITER ;
+
+/* Procedure structure for procedure `insertInvoiceSolarPaidDetail` */
+
+/*!50003 DROP PROCEDURE IF EXISTS  `insertInvoiceSolarPaidDetail` */;
+
+DELIMITER $$
+
+/*!50003 CREATE DEFINER=`root`@`localhost` PROCEDURE `insertInvoiceSolarPaidDetail`(IN _invoice_solar_id INT, IN _oil_sale_detail_id INT, IN _paid INT, IN _commissioned INT, IN _paid_amount DOUBLE)
+BEGIN
+	INSERT INTO invoice_solar_detail(invoice_solar_id, oil_sale_detail_id, paid, commissioned, paid_amount) VALUES(_invoice_solar_id, _oil_sale_detail_id, _paid, _commissioned, _paid_amount);
+    END */$$
+DELIMITER ;
+
 /* Procedure structure for procedure `insertLoVo` */
 
 /*!50003 DROP PROCEDURE IF EXISTS  `insertLoVo` */;
@@ -7738,6 +8294,131 @@ BEGIN
     END */$$
 DELIMITER ;
 
+/* Procedure structure for procedure `insertSaleSolar` */
+
+/*!50003 DROP PROCEDURE IF EXISTS  `insertSaleSolar` */;
+
+DELIMITER $$
+
+/*!50003 CREATE DEFINER=`root`@`localhost` PROCEDURE `insertSaleSolar`(IN _code VARCHAR(20), IN _created_date VARCHAR(20), IN _customer_id INT, IN _total DOUBLE, IN _paid DOUBLE
+	, IN _debt DOUBLE, IN _discount DOUBLE, IN _total_pay DOUBLE, IN _account_id INT, IN _commission FLOAT, IN _commission_kind INT
+	, IN _commission_amount DOUBLE, IN _gap_agency_amount DOUBLE, IN _gap_customer_amount DOUBLE, IN _total_before_commission DOUBLE
+	, IN _note TEXT, IN _created_employee_id INT, IN _is_calculate_agency_commission INT, OUT _id INT)
+BEGIN
+	INSERT INTO solar_sale (CODE, created_date, customer_id, total, paid, debt, discount, total_pay, account_id, note, created_employee_id, commission
+		, commission_kind, commission_amount, gap_agency_amount, gap_customer_amount, total_before_commission, is_calculate_agency_commission)
+	VALUES (_code, STR_TO_DATE(_created_date,'%d/%m/%Y'), _customer_id, _total, _paid, _debt, _discount, _total_pay, _account_id, _note, _created_employee_id
+		, _commission, _commission_kind, _commission_amount, _gap_agency_amount, _gap_customer_amount, _total_before_commission, _is_calculate_agency_commission);
+	SELECT LAST_INSERT_ID() INTO _id;
+    END */$$
+DELIMITER ;
+
+/* Procedure structure for procedure `insertSaleSolarDetail` */
+
+/*!50003 DROP PROCEDURE IF EXISTS  `insertSaleSolarDetail` */;
+
+DELIMITER $$
+
+/*!50003 CREATE DEFINER=`root`@`localhost` PROCEDURE `insertSaleSolarDetail`(IN _solar_sale_id INT, IN _solar_id INT, IN _unit_id INT, IN _store_id INT, IN _quantity INT
+	, IN _price DOUBLE, IN _amount DOUBLE, IN _price_before_commission DOUBLE, IN _commssion_price FLOAT, IN _first_amount DOUBLE, IN _commission FLOAT
+	, IN _gap_agency_amount DOUBLE, IN _gap_customer_amount DOUBLE, IN _created_date VARCHAR(20))
+BEGIN
+	DECLARE _organization_id, _base_unit_id, _rate_quantity, _vendor_id INT DEFAULT 0;
+	
+	SELECT vendor_id INTO _vendor_id FROM solar WHERE id=_solar_id;
+	
+	SELECT eo.organization_id INTO _organization_id FROM solar_sale AS f, employee AS eo WHERE f.id=_solar_sale_id AND f.created_employee_id=eo.id;
+	SELECT base_unit_id INTO _base_unit_id FROM solar WHERE id=_solar_id;
+	
+	IF _base_unit_id<>_unit_id THEN
+		SELECT rate INTO _rate_quantity FROM unit_rate WHERE parent_unit_id=_unit_id AND base_unit_id=_base_unit_id;
+		IF _rate_quantity=0 THEN
+			SET _rate_quantity = _quantity;
+		ELSE
+			SET _rate_quantity = _rate_quantity * _quantity;
+		END IF;
+	ELSE
+		SET _rate_quantity=_quantity;
+	END IF;
+	
+	INSERT INTO solar_sale_detail(solar_sale_id, solar_id, unit_id, store_id, quantity, base_quantity, price, amount, price_before_commission, commission_price, first_amount, commission, gap_agency_amount, gap_customer_amount, vendor_id) 
+	VALUES (_solar_sale_id, _solar_id, _unit_id, _store_id, _quantity, _rate_quantity, _price, _amount, _price_before_commission, _commssion_price, _first_amount, _commission, _gap_agency_amount, _gap_customer_amount, _vendor_id);
+    END */$$
+DELIMITER ;
+
+/* Procedure structure for procedure `insertSaleSolarPromotionMaterialDetail` */
+
+/*!50003 DROP PROCEDURE IF EXISTS  `insertSaleSolarPromotionMaterialDetail` */;
+
+DELIMITER $$
+
+/*!50003 CREATE DEFINER=`root`@`localhost` PROCEDURE `insertSaleSolarPromotionMaterialDetail`(IN _sale_solar_id INT, IN _solar_id INT, IN _unit_id INT, IN _store_id INT
+	, IN _quantity INT)
+BEGIN
+	DECLARE _base_unit_id, _rate_quantity INT DEFAULT 0;
+	IF _base_unit_id<>_unit_id THEN
+		SELECT rate INTO _rate_quantity FROM unit_rate WHERE parent_unit_id=_unit_id AND base_unit_id=_base_unit_id;
+		IF _rate_quantity=0 THEN
+			SET _rate_quantity = _quantity;
+		ELSE
+			SET _rate_quantity = _rate_quantity * _quantity;
+		END IF;
+	ELSE
+		SET _rate_quantity=_quantity;
+	END IF;
+	INSERT INTO solar_sale_promotion(sale_solar_id, solar_id, unit_id, store_id, quantity, base_quantity) 
+	VALUES (_sale_solar_id, _solar_id, _unit_id, _store_id, _quantity, _rate_quantity);
+    END */$$
+DELIMITER ;
+
+/* Procedure structure for procedure `insertSaleSolarReturn` */
+
+/*!50003 DROP PROCEDURE IF EXISTS  `insertSaleSolarReturn` */;
+
+DELIMITER $$
+
+/*!50003 CREATE DEFINER=`root`@`localhost` PROCEDURE `insertSaleSolarReturn`(IN _code VARCHAR(20), IN _created_date VARCHAR(20), IN _customer_id INT, IN _total DOUBLE, IN _paid DOUBLE
+	, IN _debt DOUBLE, IN _total_pay DOUBLE, IN _account_id INT, IN _commission FLOAT, IN _commission_kind INT
+	, IN _commission_amount DOUBLE, IN _gap_agency_amount DOUBLE, IN _gap_customer_amount DOUBLE, IN _total_before_commission DOUBLE
+	, IN _note TEXT, IN _created_employee_id INT, OUT _id INT)
+BEGIN
+	INSERT INTO solar_sale_return (CODE, created_date, customer_id, total, paid, debt, total_pay, account_id, note, created_employee_id, commission
+		, commission_kind, commission_amount, gap_agency_amount, gap_customer_amount, total_before_commission)
+	VALUES (_code, STR_TO_DATE(_created_date,'%d/%m/%Y'), _customer_id, _total, _paid, _debt, _total_pay, _account_id, _note, _created_employee_id
+		, _commission, _commission_kind, _commission_amount, _gap_agency_amount, _gap_customer_amount, _total_before_commission);
+	SELECT LAST_INSERT_ID() INTO _id;
+    END */$$
+DELIMITER ;
+
+/* Procedure structure for procedure `insertSaleSolarReturnDetail` */
+
+/*!50003 DROP PROCEDURE IF EXISTS  `insertSaleSolarReturnDetail` */;
+
+DELIMITER $$
+
+/*!50003 CREATE DEFINER=`root`@`localhost` PROCEDURE `insertSaleSolarReturnDetail`(IN _solar_sale_return_id INT, IN _solar_sale_detail_id INT, IN _solar_id INT, IN _quantity INT, IN _price DOUBLE
+	, IN _amount DOUBLE, IN _price_before_commission DOUBLE, IN _commssion_price FLOAT, IN _first_amount DOUBLE, IN _commission FLOAT
+	, IN _gap_agency_amount DOUBLE, IN _gap_customer_amount DOUBLE)
+BEGIN
+	DECLARE _base_unit_id, _rate_quantity, _unit_id, _store_id INT DEFAULT 0;
+	SELECT unit_id, store_id INTO _unit_id, _store_id FROM solar_sale_detail WHERE id=_solar_sale_detail_id;
+	SELECT base_unit_id INTO _base_unit_id FROM solar WHERE id=_solar_id;
+	
+	IF _base_unit_id<>_unit_id THEN
+		SELECT rate INTO _rate_quantity FROM unit_rate WHERE parent_unit_id=_unit_id AND base_unit_id=_base_unit_id;
+		IF _rate_quantity=0 THEN
+			SET _rate_quantity = _quantity;
+		ELSE
+			SET _rate_quantity = _rate_quantity * _quantity;
+		END IF;
+	ELSE
+		SET _rate_quantity=_quantity;
+	END IF;
+	INSERT INTO solar_sale_return_detail(solar_sale_return_id, solar_sale_detail_id, solar_id, unit_id, store_id, quantity, base_quantity, price, amount, price_before_commission, commission_price, first_amount, commission, gap_agency_amount, gap_customer_amount) 
+	VALUES (_solar_sale_return_id, _solar_sale_detail_id, _solar_id, _unit_id, _store_id, _quantity, _rate_quantity, _price, _amount, _price_before_commission, _commssion_price, _first_amount, _commission, _gap_agency_amount, _gap_customer_amount);
+    END */$$
+DELIMITER ;
+
 /* Procedure structure for procedure `insertShellImport` */
 
 /*!50003 DROP PROCEDURE IF EXISTS  `insertShellImport` */;
@@ -7842,6 +8523,79 @@ BEGIN
 	INSERT INTO shield_import (CODE, created_date, quantity, note, vendor_id, created_employee_id)
 	VALUES (_code, STR_TO_DATE(_created_date,'%d/%m/%Y'), _quantity, _note, _vendor_id, _created_employee_id);
 	SELECT LAST_INSERT_ID() INTO _id;
+    END */$$
+DELIMITER ;
+
+/* Procedure structure for procedure `insertSolarExport` */
+
+/*!50003 DROP PROCEDURE IF EXISTS  `insertSolarExport` */;
+
+DELIMITER $$
+
+/*!50003 CREATE DEFINER=`root`@`localhost` PROCEDURE `insertSolarExport`(IN _code VARCHAR(20), IN _created_date VARCHAR(20), IN _solar_sale_id INT, IN _customer_id INT
+	, IN _total DOUBLE, IN _note TEXT, IN _created_employee_id INT, OUT _id INT)
+BEGIN
+	INSERT INTO solar_export (CODE, created_date, solar_sale_id, customer_id, total, note, created_employee_id)
+	VALUES (_code, STR_TO_DATE(_created_date,'%d/%m/%Y'), _solar_sale_id, _customer_id, _total, _note, _created_employee_id);
+	SELECT LAST_INSERT_ID() INTO _id;
+    END */$$
+DELIMITER ;
+
+/* Procedure structure for procedure `insertSolarExportDetail` */
+
+/*!50003 DROP PROCEDURE IF EXISTS  `insertSolarExportDetail` */;
+
+DELIMITER $$
+
+/*!50003 CREATE DEFINER=`root`@`localhost` PROCEDURE `insertSolarExportDetail`(IN _solar_export_id INT, IN _solar_id INT, IN _solar_sale_detail_id INT, IN _quantity INT)
+BEGIN
+	INSERT INTO solar_export_detail(solar_export_id, solar_id, solar_sale_detail_id, quantity) 
+	VALUES (_solar_export_id, _solar_id, _solar_sale_detail_id, _quantity);
+    END */$$
+DELIMITER ;
+
+/* Procedure structure for procedure `insertSolarImport` */
+
+/*!50003 DROP PROCEDURE IF EXISTS  `insertSolarImport` */;
+
+DELIMITER $$
+
+/*!50003 CREATE DEFINER=`root`@`localhost` PROCEDURE `insertSolarImport`(IN _code VARCHAR(20), IN _created_date VARCHAR(20), IN _store_id INT, IN _vendor_id INT
+	, IN _commission FLOAT, IN _rate DOUBLE, IN _total_before_commission DOUBLE, IN _total DOUBLE, IN _paid DOUBLE, IN _debt DOUBLE, IN _account_id INT
+	, IN _note TEXT, IN _created_employee_id INT, OUT _id INT)
+BEGIN
+	INSERT INTO solar_import (CODE, created_date, store_id, vendor_id, commission, rate, total_before_commission, total, paid, debt, account_id, note, created_employee_id)
+	VALUES (_code, STR_TO_DATE(_created_date,'%d/%m/%Y'), _store_id, _vendor_id, _commission, _rate, _total_before_commission, _total, _paid, _debt, _account_id, _note, _created_employee_id);
+	SELECT LAST_INSERT_ID() INTO _id;
+    END */$$
+DELIMITER ;
+
+/* Procedure structure for procedure `insertSolarImportDetail` */
+
+/*!50003 DROP PROCEDURE IF EXISTS  `insertSolarImportDetail` */;
+
+DELIMITER $$
+
+/*!50003 CREATE DEFINER=`root`@`localhost` PROCEDURE `insertSolarImportDetail`(IN _solar_import_id INT, IN _solar_id INT, IN _unit_id INT, IN _quantity INT, IN _price DOUBLE
+	, IN _amount DOUBLE)
+BEGIN
+	DECLARE _base_unit_id, _rate_quantity INT DEFAULT 0;
+	
+	SELECT base_unit_id INTO _base_unit_id FROM solar WHERE id=_solar_id;
+	
+	IF _base_unit_id<>_unit_id THEN
+		SELECT rate INTO _rate_quantity FROM unit_rate WHERE parent_unit_id=_unit_id AND base_unit_id=_base_unit_id;
+		IF _rate_quantity=0 THEN
+			SET _rate_quantity = _quantity;
+		ELSE
+			SET _rate_quantity = _rate_quantity * _quantity;
+		END IF;
+	ELSE
+		SET _rate_quantity=_quantity;
+	END IF;
+	
+	INSERT INTO solar_import_detail(solar_import_id, solar_id, unit_id, quantity, base_quantity, price, amount) 
+	VALUES (_solar_import_id, _solar_id, _unit_id, _quantity, _rate_quantity, _price, _amount);
     END */$$
 DELIMITER ;
 
@@ -8056,11 +8810,11 @@ DELIMITER $$
 
 /*!50003 CREATE DEFINER=`root`@`localhost` PROCEDURE `insertVendor`(in _name varchar(255), IN _address VARCHAR(255), IN _tax VARCHAR(50), IN _phone VARCHAR(50)
 	, IN _fax VARCHAR(50), in _code varchar(20), in _organization_id int, in _status int, in _equal_organization_id int, in _commision_on_import float
-	, in _max_debt double, in _has_stock int, IN _is_gas INT, IN _is_petro INT, IN _is_good INT, IN _is_transport INT, IN _is_oil INT, out _id int)
+	, in _max_debt double, in _has_stock int, IN _is_gas INT, IN _is_petro INT, IN _is_good INT, IN _is_transport INT, IN _is_oil INT, IN _is_solar INT, out _id int)
 BEGIN
 	declare _vendor_organization_id int default 0;
-	Insert Into vendor (`name`, address, tax, phone, fax, `code`, organization_id, `status`, equal_organization_id, has_stock, is_gas, is_petro, is_good, is_transport, is_oil, commision_on_import, max_debt)
-	values (_name, _address, _tax, _phone, _fax, _code, _organization_id, _status, _equal_organization_id, _has_stock, _is_gas, _is_petro, _is_good, _is_transport, _is_oil, _commision_on_import, _max_debt);
+	Insert Into vendor (`name`, address, tax, phone, fax, `code`, organization_id, `status`, equal_organization_id, has_stock, is_gas, is_petro, is_good, is_transport, is_oil, is_solar, commision_on_import, max_debt)
+	values (_name, _address, _tax, _phone, _fax, _code, _organization_id, _status, _equal_organization_id, _has_stock, _is_gas, _is_petro, _is_good, _is_transport, _is_oil, _is_solar, _commision_on_import, _max_debt);
 	SELECT LAST_INSERT_ID() INTO _id;
 	
 	select id into _vendor_organization_id from vendor_organization where vendor_id=_id and organization_id=_organization_id;
@@ -8120,6 +8874,22 @@ BEGIN
 	
 	IF _old_id=0 THEN
 		INSERT INTO vendor_organization(vendor_id, organization_id)VALUES(_vendor_id,_organization_id);
+	END IF;
+    END */$$
+DELIMITER ;
+
+/* Procedure structure for procedure `insertVendorSolarStoreDetail` */
+
+/*!50003 DROP PROCEDURE IF EXISTS  `insertVendorSolarStoreDetail` */;
+
+DELIMITER $$
+
+/*!50003 CREATE DEFINER=`root`@`localhost` PROCEDURE `insertVendorSolarStoreDetail`(IN _vendor_id INT, IN _store_id INT)
+BEGIN
+	DECLARE _id INT DEFAULT 0;
+	SELECT id INTO _id FROM vendor_solar_store WHERE vendor_id=_vendor_id AND store_id=_store_id;
+	IF _id=0 THEN
+		INSERT INTO vendor_solar_store(vendor_id, store_id) VALUES(_vendor_id, _store_id);
 	END IF;
     END */$$
 DELIMITER ;
@@ -9609,7 +10379,7 @@ BEGIN
 	END IF;
 	
 	SELECT `day` INTO _from_date FROM oil_in_stock WHERE DATEDIFF(`day`, _to_date) < 0 ORDER BY `day` DESC LIMIT 1;
-	IF _from_date=NULL THEN
+	IF _from_date is NULL THEN
 		SELECT STR_TO_DATE(`value`,'%d/%m/%Y') INTO _from_date FROM parameter WHERE `code`="startdate";
 	END IF;
 	
@@ -9703,7 +10473,7 @@ BEGIN
 	END IF;
 	
 	SELECT `day` INTO _from_date FROM oil_in_stock WHERE DATEDIFF(`day`, _to_date) < 0 ORDER BY `day` DESC LIMIT 1;
-	IF _from_date=NULL THEN
+	IF _from_date is NULL THEN
 		SELECT STR_TO_DATE(`value`,'%d/%m/%Y') INTO _from_date FROM parameter WHERE `code`="startdate";
 	END IF;
 	
@@ -9781,7 +10551,7 @@ BEGIN
 	END IF;
 	
 	SELECT `day` INTO _from_date FROM oil_in_stock WHERE DATEDIFF(`day`, _to_date) < 0 ORDER BY `day` DESC LIMIT 1;
-	IF _from_date=NULL THEN
+	IF _from_date is NULL THEN
 		SELECT STR_TO_DATE(`value`,'%d/%m/%Y') INTO _from_date FROM parameter WHERE `code`="startdate";
 	END IF;
 	
@@ -9877,7 +10647,7 @@ BEGIN
 	END IF;
 	
 	SELECT `day` INTO _from_date FROM oil_in_stock WHERE DATEDIFF(`day`, _to_date) < 0 ORDER BY `day` DESC LIMIT 1;
-	IF _from_date=NULL THEN
+	IF _from_date is NULL THEN
 		SELECT STR_TO_DATE(`value`,'%d/%m/%Y') INTO _from_date FROM parameter WHERE `code`="startdate";
 	END IF;
 	
@@ -10065,7 +10835,7 @@ BEGIN
 	END IF;
 	
 	SELECT `day` INTO _from_date FROM oil_in_stock WHERE DATEDIFF(`day`, _to_date) < 0 ORDER BY `day` DESC LIMIT 1;
-	IF _from_date=NULL THEN
+	IF _from_date is NULL THEN
 		SELECT STR_TO_DATE(`value`,'%d/%m/%Y') INTO _from_date FROM parameter WHERE `code`="startdate";
 	END IF;
 	
@@ -10740,6 +11510,659 @@ BEGIN
 		) AS tbl GROUP BY shell_vendor_id, created_date
 	) AS change_tbl ON shell_tbl.shell_vendor_id=change_tbl.shell_vendor_id
 	ORDER BY shell_tbl.shell_vendor_id, operation_tbl.created_date
+	;
+    END */$$
+DELIMITER ;
+
+/* Procedure structure for procedure `report_solar_compare` */
+
+/*!50003 DROP PROCEDURE IF EXISTS  `report_solar_compare` */;
+
+DELIMITER $$
+
+/*!50003 CREATE DEFINER=`root`@`localhost` PROCEDURE `report_solar_compare`(IN _start_date VARCHAR(20), IN _end_date VARCHAR(20), IN _organization_ids TEXT, IN _customer_id INT
+	, OUT _amount_debt DOUBLE, OUT _customer_commission FLOAT)
+BEGIN
+	CALL get_in_stock_customer(_start_date, 3, _customer_id, _amount_debt, @a, @a, @a);
+	
+	SELECT commission_percentage INTO _customer_commission FROM customer WHERE id=_customer_id;
+	
+	SELECT os.created_date, o.CODE AS solar_code, o.NAME AS solar_name, osdet.quantity, osdet.price, osdet.amount, os.paid
+		, (osdet.first_amount * osdet.commission / 100) AS commission
+	FROM solar_sale AS os, solar_sale_detail AS osdet, employee AS eo, solar AS o
+	WHERE DATE(os.created_date) >= STR_TO_DATE(_start_date,'%d/%m/%Y') AND DATE(os.created_date) <= STR_TO_DATE(_end_date,'%d/%m/%Y')
+		AND os.customer_id=_customer_id AND os.created_employee_id=eo.id AND _organization_ids LIKE CONCAT('%,',eo.organization_id,',%')
+		AND os.id=osdet.solar_sale_id AND osdet.solar_id=o.id
+	;
+    END */$$
+DELIMITER ;
+
+/* Procedure structure for procedure `report_solar_customer_debt` */
+
+/*!50003 DROP PROCEDURE IF EXISTS  `report_solar_customer_debt` */;
+
+DELIMITER $$
+
+/*!50003 CREATE DEFINER=`root`@`localhost` PROCEDURE `report_solar_customer_debt`(IN _start_date VARCHAR(20), IN _end_date VARCHAR(20), IN _organization_ids TEXT, IN _customer_id INT, OUT _opening_debt DOUBLE)
+BEGIN
+	CALL get_in_stock_customer(_start_date, 3, _customer_id, _opening_debt, @a, @a, @a);
+	
+	SELECT COALESCE(oe.CODE,'') AS solar_export_code, o.CODE AS solar_code, o.NAME AS solar_name, u.NAME AS unit_name
+		, osdet.quantity, osdet.price, osdet.amount, COALESCE(idet.paid_amount,0) AS paid
+	FROM solar_sale AS os, solar AS o, unit AS u, employee AS eo, solar_sale_detail AS osdet
+	LEFT JOIN invoice_detail AS idet ON idet.solar_sale_detail_id=osdet.id
+	LEFT JOIN solar_export_detail AS edet ON edet.solar_sale_detail_id=osdet.id
+	LEFT JOIN solar_export AS oe ON edet.solar_export_id=oe.id
+	WHERE DATE(os.created_date) >= STR_TO_DATE(_start_date,'%d/%m/%Y') AND DATE(os.created_date) <= STR_TO_DATE(_end_date,'%d/%m/%Y')
+		AND os.created_employee_id=eo.id AND _organization_ids LIKE CONCAT('%,',eo.organization_id,',%')
+		AND os.customer_id=_customer_id AND os.id=osdet.solar_sale_id AND osdet.solar_id=o.id AND osdet.unit_id=u.id
+	;
+    END */$$
+DELIMITER ;
+
+/* Procedure structure for procedure `report_solar_export` */
+
+/*!50003 DROP PROCEDURE IF EXISTS  `report_solar_export` */;
+
+DELIMITER $$
+
+/*!50003 CREATE DEFINER=`root`@`localhost` PROCEDURE `report_solar_export`(IN _solar_export_id INT)
+BEGIN
+	SELECT o.CODE AS solar_code, o.NAME AS solar_name, u.NAME AS unit_name, det.quantity, sdet.price, det.quantity*sdet.price AS amount
+	FROM solar_export_detail AS det, solar_sale_detail AS sdet, solar AS o, unit AS u
+	WHERE det.solar_export_id=_solar_export_id AND det.solar_sale_detail_id=sdet.id AND det.solar_id=o.id AND sdet.unit_id=u.id
+	;
+    END */$$
+DELIMITER ;
+
+/* Procedure structure for procedure `report_solar_import` */
+
+/*!50003 DROP PROCEDURE IF EXISTS  `report_solar_import` */;
+
+DELIMITER $$
+
+/*!50003 CREATE DEFINER=`root`@`localhost` PROCEDURE `report_solar_import`(IN _start_date VARCHAR(20), IN _end_date VARCHAR(20), IN _organization_ids TEXT)
+BEGIN
+	SELECT i.created_date, v.NAME AS vendor_name, p.NAME AS solarName, idet.quantity, idet.price, idet.amount, i.paid, i.note, s.NAME AS storeName
+	FROM solar_import AS i, solar_import_detail AS idet, solar AS p, vendor AS v, employee AS e, store AS s
+	WHERE DATE(i.created_date) >= STR_TO_DATE(_start_date,'%d/%m/%Y') AND DATE(i.created_date) <= STR_TO_DATE(_end_date,'%d/%m/%Y')
+		AND i.vendor_id=v.id AND i.created_employee_id=e.id AND _organization_ids LIKE CONCAT('%,',e.organization_id,',%') AND v.STATUS=1
+		AND i.id=idet.solar_import_id AND idet.solar_id=p.id AND i.store_id=s.id
+	;
+    END */$$
+DELIMITER ;
+
+/* Procedure structure for procedure `report_solar_sale` */
+
+/*!50003 DROP PROCEDURE IF EXISTS  `report_solar_sale` */;
+
+DELIMITER $$
+
+/*!50003 CREATE DEFINER=`root`@`localhost` PROCEDURE `report_solar_sale`(IN _start_date VARCHAR(20), IN _end_date VARCHAR(20), IN _organization_ids TEXT)
+BEGIN
+	SELECT p.created_date, c.CODE AS customerCode, c.NAME AS customerName, pe.CODE AS solarCode, pdet.quantity, pdet.price
+		, pdet.first_amount * pdet.commission / 100 AS commission, pdet.amount, p.paid, a.number AS account, s.NAME AS storeName
+		, 0 AS agency_commission, 0 AS actual_total
+	FROM solar_sale AS p, solar_sale_detail AS pdet, customer AS c, solar AS pe, account AS a, employee AS eo, store AS s
+	WHERE DATE(p.created_date) >= STR_TO_DATE(_start_date,'%d/%m/%Y') AND DATE(p.created_date) <= STR_TO_DATE(_end_date,'%d/%m/%Y')
+		AND p.id=pdet.solar_sale_id AND p.customer_id=c.id AND pdet.solar_id=pe.id AND p.account_id=a.id
+		AND c.STATUS=1 AND pe.STATUS=1 AND p.created_employee_id=eo.id
+		AND _organization_ids LIKE CONCAT('%,',eo.organization_id,',%') AND pdet.store_id=s.id
+	;
+    END */$$
+DELIMITER ;
+
+/* Procedure structure for procedure `report_solar_stock` */
+
+/*!50003 DROP PROCEDURE IF EXISTS  `report_solar_stock` */;
+
+DELIMITER $$
+
+/*!50003 CREATE DEFINER=`root`@`localhost` PROCEDURE `report_solar_stock`(IN _start_date VARCHAR(20), IN _end_date VARCHAR(20), IN _organization_ids TEXT, IN _solar_id INT
+	, IN _session_id VARCHAR(255), OUT _solar_ids TEXT, OUT _opening_stock INT)
+BEGIN
+	DECLARE _from_date, _to_date DATE;
+	
+	IF _start_date<>'' THEN
+		SET _to_date = STR_TO_DATE(_start_date,'%d/%m/%Y');
+	ELSE
+		SELECT SYSDATE() INTO _to_date;
+	END IF;
+	
+	SELECT `day` INTO _from_date FROM solar_in_stock WHERE DATEDIFF(`day`, _to_date) < 0 ORDER BY `day` DESC LIMIT 1;
+	IF _from_date is NULL THEN
+		SELECT STR_TO_DATE(`value`,'%d/%m/%Y') INTO _from_date FROM parameter WHERE `code`="startdate";
+	END IF;
+	
+	IF _solar_id=0 THEN
+		DELETE FROM temp_solar_stock WHERE session_id=_session_id;
+	
+		INSERT INTO temp_solar_stock(session_id, created_date, solar_id, opening_stock, import_quantity, export_quantity)
+		SELECT _session_id, tbl.created_date, tbl.solar_id, COALESCE(opening_stock,0), SUM(import_quantity), SUM(export_quantity) FROM
+		(
+			SELECT i.created_date, idet.solar_id, SUM(idet.quantity) AS import_quantity, 0 AS export_quantity
+			FROM solar_import AS i, solar_import_detail AS idet, employee AS eo, solar AS p
+			WHERE DATE(i.created_date) >= STR_TO_DATE(_start_date,'%d/%m/%Y') AND DATE(i.created_date) <= STR_TO_DATE(_end_date,'%d/%m/%Y')
+				AND i.id=idet.solar_import_id AND i.created_employee_id=eo.id AND idet.solar_id=p.id AND p.STATUS=1
+				AND _organization_ids LIKE CONCAT('%,',eo.organization_id,',%')
+			GROUP BY i.created_date, idet.solar_id
+			UNION ALL
+			SELECT i.created_date, idet.solar_id, 0 AS import_quantity, SUM(idet.quantity) AS export_quantity
+			FROM solar_sale AS i, solar_sale_detail AS idet, employee AS eo, solar AS p
+			WHERE DATE(i.created_date) >= STR_TO_DATE(_start_date,'%d/%m/%Y') AND DATE(i.created_date) <= STR_TO_DATE(_end_date,'%d/%m/%Y')
+				AND i.id=idet.solar_sale_id AND i.created_employee_id=eo.id AND idet.solar_id=p.id AND p.STATUS=1
+				AND _organization_ids LIKE CONCAT('%,',eo.organization_id,',%')
+			GROUP BY i.created_date, idet.solar_id
+		) AS tbl
+		LEFT JOIN
+		(
+			SELECT _from_date AS created_date, o.id AS solar_id, SUM(COALESCE(tbl.in_stock,0)) AS opening_stock
+			FROM solar AS o
+			LEFT JOIN
+			(
+				SELECT solar_id, in_stock
+				FROM solar_in_stock
+				WHERE DATEDIFF(`day`, _from_date) > 0 AND DATEDIFF(`day`, _to_date) <= 0 AND _organization_ids LIKE CONCAT('%,',organization_id,',%')
+				UNION ALL
+				SELECT i_det.solar_id, COALESCE(i_det.base_quantity,0) AS in_stock
+				FROM solar_import_detail AS i_det, solar_import AS i, store AS s
+				WHERE i_det.solar_import_id=i.id AND DATE(i.created_date) >= _from_date AND DATE(i.created_date) < _to_date
+					AND i.store_id=s.id AND _organization_ids LIKE CONCAT('%,',s.organization_id,',%')
+				UNION ALL
+				SELECT i_det.solar_id, -COALESCE(i_det.base_quantity,0) AS in_stock
+				FROM solar_sale_detail AS i_det, solar_sale AS i, store AS s
+				WHERE i_det.solar_sale_id=i.id AND DATE(i.created_date) >= _from_date AND DATE(i.created_date) < _to_date
+					AND i_det.store_id=s.id AND _organization_ids LIKE CONCAT('%,',s.organization_id,',%')
+				UNION ALL
+				SELECT i_det.solar_id, -COALESCE(i_det.base_quantity,0) AS in_stock
+				FROM solar_sale_promotion AS i_det, solar_sale AS i, store AS s
+				WHERE i_det.sale_solar_id=i.id AND DATE(i.created_date) >= _from_date AND DATE(i.created_date) < _to_date
+					AND i_det.store_id=s.id AND _organization_ids LIKE CONCAT('%,',s.organization_id,',%')
+				UNION ALL
+				SELECT i_det.solar_id, COALESCE(i_det.base_quantity,0) AS in_stock
+				FROM solar_sale_return_detail AS i_det, solar_sale_return AS i, store AS s
+				WHERE i_det.solar_sale_return_id=i.id AND DATE(i.created_date) >= _from_date AND DATE(i.created_date) < _to_date
+					AND i_det.store_id=s.id AND _organization_ids LIKE CONCAT('%,',s.organization_id,',%')
+			) AS tbl ON tbl.solar_id=o.id
+			WHERE o.STATUS=1 AND _organization_ids LIKE CONCAT('%,',o.organization_id,',%')
+			GROUP BY o.id
+		) AS opening_tbl ON tbl.solar_id=opening_tbl.solar_id
+		GROUP BY tbl.created_date, tbl.solar_id;
+	
+		SELECT COALESCE(GROUP_CONCAT(solar_id),'') INTO _solar_ids FROM temp_solar_stock WHERE session_id=_session_id;
+	
+		SELECT created_date, 0 AS solar_id, 0 AS opening_stock, 0 AS import_quantity, 0 AS export_quantity 
+		FROM temp_solar_stock 
+		WHERE session_id=_session_id 
+		GROUP BY created_date ORDER BY created_date;
+	ELSE
+		SELECT MAX(t.opening_stock) INTO _opening_stock
+		FROM (SELECT created_date, session_id FROM temp_solar_stock WHERE session_id=_session_id GROUP BY created_date) AS tbl
+		LEFT JOIN temp_solar_stock AS t ON t.session_id=tbl.session_id AND t.created_date=tbl.created_date AND t.solar_id=_solar_id;
+		SELECT tbl.created_date, t.solar_id, t.opening_stock, t.import_quantity, t.export_quantity 
+		FROM (SELECT created_date, session_id FROM temp_solar_stock WHERE session_id=_session_id GROUP BY created_date) AS tbl
+		LEFT JOIN temp_solar_stock AS t ON t.session_id=tbl.session_id AND t.created_date=tbl.created_date AND t.solar_id=_solar_id
+		ORDER BY tbl.created_date;
+	END IF;
+    END */$$
+DELIMITER ;
+
+/* Procedure structure for procedure `report_solar_stock_h` */
+
+/*!50003 DROP PROCEDURE IF EXISTS  `report_solar_stock_h` */;
+
+DELIMITER $$
+
+/*!50003 CREATE DEFINER=`root`@`localhost` PROCEDURE `report_solar_stock_h`(IN _start_date VARCHAR(20), IN _end_date VARCHAR(20), IN _organization_ids TEXT)
+BEGIN
+	DECLARE _from_date, _to_date DATE;
+	
+	IF _start_date<>'' THEN
+		SET _to_date = STR_TO_DATE(_start_date,'%d/%m/%Y');
+	ELSE
+		SELECT SYSDATE() INTO _to_date;
+	END IF;
+	
+	SELECT `day` INTO _from_date FROM solar_in_stock WHERE DATEDIFF(`day`, _to_date) < 0 ORDER BY `day` DESC LIMIT 1;
+	IF _from_date is NULL THEN
+		SELECT STR_TO_DATE(`value`,'%d/%m/%Y') INTO _from_date FROM parameter WHERE `code`="startdate";
+	END IF;
+	
+	SELECT o.CODE, o.NAME, COALESCE(opening_stock,0) AS opening_stock, SUM(COALESCE(import_quantity,0)) AS import_quantity, SUM(COALESCE(export_quantity,0)) AS export_quantity 
+	FROM solar AS o
+	LEFT JOIN
+	(
+		SELECT idet.solar_id, SUM(idet.quantity) AS import_quantity, 0 AS export_quantity
+		FROM solar_import AS i, solar_import_detail AS idet, employee AS eo, solar AS p
+		WHERE DATE(i.created_date) >= STR_TO_DATE(_start_date,'%d/%m/%Y') AND DATE(i.created_date) <= STR_TO_DATE(_end_date,'%d/%m/%Y')
+			AND i.id=idet.solar_import_id AND i.created_employee_id=eo.id AND idet.solar_id=p.id AND p.STATUS=1
+			AND _organization_ids LIKE CONCAT('%,',eo.organization_id,',%')
+		GROUP BY i.created_date, idet.solar_id
+		UNION ALL
+		SELECT idet.solar_id, 0 AS import_quantity, SUM(idet.quantity) AS export_quantity
+		FROM solar_sale AS i, solar_sale_detail AS idet, employee AS eo, solar AS p
+		WHERE DATE(i.created_date) >= STR_TO_DATE(_start_date,'%d/%m/%Y') AND DATE(i.created_date) <= STR_TO_DATE(_end_date,'%d/%m/%Y')
+			AND i.id=idet.solar_sale_id AND i.created_employee_id=eo.id AND idet.solar_id=p.id AND p.STATUS=1
+			AND _organization_ids LIKE CONCAT('%,',eo.organization_id,',%')
+		GROUP BY i.created_date, idet.solar_id
+	) AS tbl ON o.id=tbl.solar_id
+	LEFT JOIN
+	(
+		SELECT o.id AS solar_id, SUM(COALESCE(in_stock,0)) AS opening_stock
+		FROM solar AS o
+		LEFT JOIN (
+			SELECT solar_id, in_stock
+			FROM solar_in_stock
+			WHERE DATEDIFF(`day`, _from_date) > 0 AND DATEDIFF(`day`, _to_date) <= 0 
+				AND _organization_ids LIKE CONCAT('%,',organization_id,',%')
+			UNION ALL
+			SELECT i_det.solar_id, COALESCE(i_det.base_quantity,0) AS in_stock
+			FROM solar_import_detail AS i_det, solar_import AS i, store AS s
+			WHERE i_det.solar_import_id=i.id AND DATE(i.created_date) >= _from_date AND DATE(i.created_date) < _to_date
+				AND i.store_id=s.id AND _organization_ids LIKE CONCAT('%,',s.organization_id,',%')
+			UNION ALL
+			SELECT i_det.solar_id, -COALESCE(i_det.base_quantity,0) AS in_stock
+			FROM solar_sale_detail AS i_det, solar_sale AS i, store AS s
+			WHERE i_det.solar_sale_id=i.id AND DATE(i.created_date) >= _from_date AND DATE(i.created_date) < _to_date
+				AND i_det.store_id=s.id AND _organization_ids LIKE CONCAT('%,',s.organization_id,',%')
+			UNION ALL
+			SELECT i_det.solar_id, -COALESCE(i_det.base_quantity,0) AS in_stock
+			FROM solar_sale_promotion AS i_det, solar_sale AS i, store AS s
+			WHERE i_det.sale_solar_id=i.id AND DATE(i.created_date) >= _from_date AND DATE(i.created_date) < _to_date
+				AND i_det.store_id=s.id AND _organization_ids LIKE CONCAT('%,',s.organization_id,',%')
+			UNION ALL
+			SELECT i_det.solar_id, COALESCE(i_det.base_quantity,0) AS in_stock
+			FROM solar_sale_return_detail AS i_det, solar_sale_return AS i, store AS s
+			WHERE i_det.solar_sale_return_id=i.id AND DATE(i.created_date) >= _from_date AND DATE(i.created_date) < _to_date
+				AND i_det.store_id=s.id AND _organization_ids LIKE CONCAT('%,',s.organization_id,',%')
+		) AS tbl_old_stock ON tbl_old_stock.solar_id=o.id
+		WHERE o.STATUS=1 AND _organization_ids LIKE CONCAT('%,',o.organization_id,',%')
+		GROUP BY o.id
+	) AS opening_tbl ON tbl.solar_id=opening_tbl.solar_id
+	WHERE o.STATUS=1 AND _organization_ids LIKE CONCAT('%,',o.organization_id,',%')
+	GROUP BY o.id;
+    END */$$
+DELIMITER ;
+
+/* Procedure structure for procedure `report_solar_stock_store` */
+
+/*!50003 DROP PROCEDURE IF EXISTS  `report_solar_stock_store` */;
+
+DELIMITER $$
+
+/*!50003 CREATE DEFINER=`root`@`localhost` PROCEDURE `report_solar_stock_store`(IN _start_date VARCHAR(20), IN _end_date VARCHAR(20), IN _organization_ids TEXT, IN _store_id INT
+	, IN _solar_id INT, IN _session_id VARCHAR(255), OUT _solar_ids TEXT, OUT _opening_stock INT)
+BEGIN
+	DECLARE _from_date, _to_date DATE;
+	
+	IF _start_date<>'' THEN
+		SET _to_date = STR_TO_DATE(_start_date,'%d/%m/%Y');
+	ELSE
+		SELECT SYSDATE() INTO _to_date;
+	END IF;
+	
+	SELECT `day` INTO _from_date FROM solar_in_stock WHERE DATEDIFF(`day`, _to_date) < 0 ORDER BY `day` DESC LIMIT 1;
+	IF _from_date is NULL THEN
+		SELECT STR_TO_DATE(`value`,'%d/%m/%Y') INTO _from_date FROM parameter WHERE `code`="startdate";
+	END IF;
+	IF _solar_id=0 THEN
+		DELETE FROM temp_solar_stock WHERE session_id=_session_id;
+	
+		INSERT INTO temp_solar_stock(session_id, created_date, solar_id, opening_stock, import_quantity, export_quantity)
+		SELECT _session_id, tbl.created_date, tbl.solar_id, COALESCE(opening_stock,0), SUM(COALESCE(import_quantity,0)), SUM(COALESCE(export_quantity,0)) FROM
+		(
+			SELECT i.created_date, idet.solar_id, SUM(idet.quantity) AS import_quantity, 0 AS export_quantity
+			FROM solar_import AS i, solar_import_detail AS idet, employee AS eo, solar AS p
+			WHERE DATE(i.created_date) >= STR_TO_DATE(_start_date,'%d/%m/%Y') AND DATE(i.created_date) <= STR_TO_DATE(_end_date,'%d/%m/%Y')
+				AND i.id=idet.solar_import_id AND i.created_employee_id=eo.id AND idet.solar_id=p.id AND p.STATUS=1
+				AND _organization_ids LIKE CONCAT('%,',eo.organization_id,',%') AND i.store_id=_store_id
+			GROUP BY i.created_date, idet.solar_id
+			UNION ALL
+			SELECT i.created_date, idet.solar_id, 0 AS import_quantity, SUM(idet.quantity) AS export_quantity
+			FROM solar_sale AS i, solar_sale_detail AS idet, employee AS eo, solar AS p
+			WHERE DATE(i.created_date) >= STR_TO_DATE(_start_date,'%d/%m/%Y') AND DATE(i.created_date) <= STR_TO_DATE(_end_date,'%d/%m/%Y')
+				AND i.id=idet.solar_sale_id AND i.created_employee_id=eo.id AND idet.solar_id=p.id AND p.STATUS=1
+				AND _organization_ids LIKE CONCAT('%,',eo.organization_id,',%') AND idet.store_id=_store_id
+			GROUP BY i.created_date, idet.solar_id
+		) AS tbl
+		LEFT JOIN
+		(
+			SELECT _from_date AS created_date, o.id AS solar_id, SUM(COALESCE(in_stock,0)) AS opening_stock
+			FROM solar AS o
+			LEFT JOIN (
+				SELECT solar_id, in_stock
+				FROM solar_in_stock
+				WHERE DATEDIFF(`day`, _from_date) > 0 AND DATEDIFF(`day`, _to_date) <= 0 
+					AND _organization_ids LIKE CONCAT('%,',organization_id,',%') AND store_id=_store_id	
+				UNION ALL
+				SELECT i_det.solar_id, COALESCE(i_det.base_quantity,0) AS in_stock
+				FROM solar_import_detail AS i_det, solar_import AS i, store AS s
+				WHERE i_det.solar_import_id=i.id AND DATE(i.created_date) >= _from_date AND DATE(i.created_date) < _to_date
+					AND i.store_id=s.id AND _organization_ids LIKE CONCAT('%,',s.organization_id,',%') AND s.id=_store_id
+				UNION ALL
+				SELECT i_det.solar_id, -COALESCE(i_det.base_quantity,0) AS in_stock
+				FROM solar_sale_detail AS i_det, solar_sale AS i, store AS s
+				WHERE i_det.solar_sale_id=i.id AND DATE(i.created_date) >= _from_date AND DATE(i.created_date) < _to_date
+					AND i_det.store_id=s.id AND _organization_ids LIKE CONCAT('%,',s.organization_id,',%') AND s.id=_store_id
+				UNION ALL
+				SELECT i_det.solar_id, -COALESCE(i_det.base_quantity,0) AS in_stock
+				FROM solar_sale_promotion AS i_det, solar_sale AS i, store AS s
+				WHERE i_det.sale_solar_id=i.id AND DATE(i.created_date) >= _from_date AND DATE(i.created_date) < _to_date
+					AND i_det.store_id=s.id AND _organization_ids LIKE CONCAT('%,',s.organization_id,',%') AND s.id=_store_id
+				UNION ALL
+				SELECT i_det.solar_id, COALESCE(i_det.base_quantity,0) AS in_stock
+				FROM solar_sale_return_detail AS i_det, solar_sale_return AS i, store AS s
+				WHERE i_det.solar_sale_return_id=i.id AND DATE(i.created_date) >= _from_date AND DATE(i.created_date) < _to_date
+					AND i_det.store_id=s.id AND _organization_ids LIKE CONCAT('%,',s.organization_id,',%') AND s.id=_store_id
+			) AS tbl_old_stock ON tbl_old_stock.solar_id=o.id
+			WHERE o.STATUS=1 AND _organization_ids LIKE CONCAT('%,',o.organization_id,',%')
+			GROUP BY o.id
+		) AS opening_tbl ON tbl.solar_id=opening_tbl.solar_id
+		GROUP BY tbl.created_date, tbl.solar_id;
+	
+		SELECT COALESCE(GROUP_CONCAT(solar_id),'') INTO _solar_ids FROM temp_solar_stock WHERE session_id=_session_id;
+	
+		SELECT created_date, 0 AS solar_id, 0 AS opening_stock, 0 AS import_quantity, 0 AS export_quantity 
+		FROM temp_solar_stock 
+		WHERE session_id=_session_id 
+		GROUP BY created_date ORDER BY created_date;
+	ELSE
+		SELECT MAX(t.opening_stock) INTO _opening_stock
+		FROM (SELECT created_date, session_id FROM temp_solar_stock WHERE session_id=_session_id GROUP BY created_date) AS tbl
+		LEFT JOIN temp_solar_stock AS t ON t.session_id=tbl.session_id AND t.created_date=tbl.created_date AND t.solar_id=_solar_id
+		ORDER BY tbl.created_date;
+	
+		SELECT tbl.created_date, t.solar_id, t.opening_stock, t.import_quantity, t.export_quantity 
+		FROM (SELECT created_date, session_id FROM temp_solar_stock WHERE session_id=_session_id GROUP BY created_date) AS tbl
+		LEFT JOIN temp_solar_stock AS t ON t.session_id=tbl.session_id AND t.created_date=tbl.created_date AND t.solar_id=_solar_id
+		ORDER BY tbl.created_date;
+	END IF;
+    END */$$
+DELIMITER ;
+
+/* Procedure structure for procedure `report_solar_stock_store_h` */
+
+/*!50003 DROP PROCEDURE IF EXISTS  `report_solar_stock_store_h` */;
+
+DELIMITER $$
+
+/*!50003 CREATE DEFINER=`root`@`localhost` PROCEDURE `report_solar_stock_store_h`(IN _start_date VARCHAR(20), IN _end_date VARCHAR(20), IN _organization_ids TEXT, IN _store_id INT)
+BEGIN
+	DECLARE _from_date, _to_date DATE;
+	
+	IF _start_date<>'' THEN
+		SET _to_date = STR_TO_DATE(_start_date,'%d/%m/%Y');
+	ELSE
+		SELECT SYSDATE() INTO _to_date;
+	END IF;
+	
+	SELECT `day` INTO _from_date FROM solar_in_stock WHERE DATEDIFF(`day`, _to_date) < 0 ORDER BY `day` DESC LIMIT 1;
+	IF _from_date is NULL THEN
+		SELECT STR_TO_DATE(`value`,'%d/%m/%Y') INTO _from_date FROM parameter WHERE `code`="startdate";
+	END IF;
+	
+	SELECT o.CODE, o.NAME, COALESCE(opening_stock,0) AS opening_stock, SUM(COALESCE(import_quantity,0)) AS import_quantity, SUM(COALESCE(export_quantity,0)) AS export_quantity 
+	FROM solar AS o
+	LEFT JOIN
+	(
+		SELECT idet.solar_id, SUM(idet.quantity) AS import_quantity, 0 AS export_quantity
+		FROM solar_import AS i, solar_import_detail AS idet, employee AS eo, solar AS p
+		WHERE DATE(i.created_date) >= STR_TO_DATE(_start_date,'%d/%m/%Y') AND DATE(i.created_date) <= STR_TO_DATE(_end_date,'%d/%m/%Y')
+			AND i.id=idet.solar_import_id AND i.created_employee_id=eo.id AND idet.solar_id=p.id AND p.STATUS=1
+			AND _organization_ids LIKE CONCAT('%,',eo.organization_id,',%') AND i.store_id=_store_id
+		GROUP BY i.created_date, idet.solar_id
+		UNION ALL
+		SELECT idet.solar_id, 0 AS import_quantity, SUM(idet.quantity) AS export_quantity
+		FROM solar_sale AS i, solar_sale_detail AS idet, employee AS eo, solar AS p
+		WHERE DATE(i.created_date) >= STR_TO_DATE(_start_date,'%d/%m/%Y') AND DATE(i.created_date) <= STR_TO_DATE(_end_date,'%d/%m/%Y')
+			AND i.id=idet.solar_sale_id AND i.created_employee_id=eo.id AND idet.solar_id=p.id AND p.STATUS=1
+			AND _organization_ids LIKE CONCAT('%,',eo.organization_id,',%') AND idet.store_id=_store_id
+		GROUP BY i.created_date, idet.solar_id
+	) AS tbl ON o.id=tbl.solar_id
+	LEFT JOIN
+	(
+		SELECT o.id AS solar_id, SUM(COALESCE(in_stock,0)) AS opening_stock
+		FROM solar AS o
+		LEFT JOIN (
+			SELECT solar_id, in_stock
+			FROM solar_in_stock
+			WHERE DATEDIFF(`day`, _from_date) > 0 AND DATEDIFF(`day`, _to_date) <= 0 
+				AND _organization_ids LIKE CONCAT('%,',organization_id,',%') AND store_id=_store_id	
+			UNION ALL
+			SELECT i_det.solar_id, COALESCE(i_det.base_quantity,0) AS in_stock
+			FROM solar_import_detail AS i_det, solar_import AS i, store AS s
+			WHERE i_det.solar_import_id=i.id AND DATE(i.created_date) >= _from_date AND DATE(i.created_date) < _to_date
+				AND i.store_id=s.id AND _organization_ids LIKE CONCAT('%,',s.organization_id,',%') AND s.id=_store_id
+			UNION ALL
+			SELECT i_det.solar_id, -COALESCE(i_det.base_quantity,0) AS in_stock
+			FROM solar_sale_detail AS i_det, solar_sale AS i, store AS s
+			WHERE i_det.solar_sale_id=i.id AND DATE(i.created_date) >= _from_date AND DATE(i.created_date) < _to_date
+				AND i_det.store_id=s.id AND _organization_ids LIKE CONCAT('%,',s.organization_id,',%') AND s.id=_store_id
+			UNION ALL
+			SELECT i_det.solar_id, -COALESCE(i_det.base_quantity,0) AS in_stock
+			FROM solar_sale_promotion AS i_det, solar_sale AS i, store AS s
+			WHERE i_det.sale_solar_id=i.id AND DATE(i.created_date) >= _from_date AND DATE(i.created_date) < _to_date
+				AND i_det.store_id=s.id AND _organization_ids LIKE CONCAT('%,',s.organization_id,',%') AND s.id=_store_id
+			UNION ALL
+			SELECT i_det.solar_id, COALESCE(i_det.base_quantity,0) AS in_stock
+			FROM solar_sale_return_detail AS i_det, solar_sale_return AS i, store AS s
+			WHERE i_det.solar_sale_return_id=i.id AND DATE(i.created_date) >= _from_date AND DATE(i.created_date) < _to_date
+				AND i_det.store_id=s.id AND _organization_ids LIKE CONCAT('%,',s.organization_id,',%') AND s.id=_store_id
+		) AS tbl_old_stock ON tbl_old_stock.solar_id=o.id
+		WHERE o.STATUS=1 AND _organization_ids LIKE CONCAT('%,',o.organization_id,',%')
+		GROUP BY o.id
+	) AS opening_tbl ON o.id=opening_tbl.solar_id
+	WHERE o.STATUS=1 AND _organization_ids LIKE CONCAT('%,',o.organization_id,',%')
+	GROUP BY o.id;
+    END */$$
+DELIMITER ;
+
+/* Procedure structure for procedure `report_solar_vendor_debt` */
+
+/*!50003 DROP PROCEDURE IF EXISTS  `report_solar_vendor_debt` */;
+
+DELIMITER $$
+
+/*!50003 CREATE DEFINER=`root`@`localhost` PROCEDURE `report_solar_vendor_debt`(IN _start_date VARCHAR(20), IN _end_date VARCHAR(20), IN _organization_ids TEXT)
+BEGIN
+	DECLARE _from_date, _to_date DATE;
+	
+	IF _start_date<>'' THEN
+		SELECT STR_TO_DATE(_start_date,'%d/%m/%Y') INTO _to_date;
+	ELSE
+		SELECT SYSDATE() INTO _to_date;
+	END IF;
+	
+	SELECT `day` INTO _from_date FROM vendor_in_stock WHERE DATEDIFF(`day`, _to_date) < 0 ORDER BY `day` DESC LIMIT 1;
+	IF _from_date IS NULL THEN
+		-- SELECT DATE_ADD(_to_date, INTERVAL -1 DAY) INTO _from_date;
+		SELECT STR_TO_DATE(`value`,'%d/%m/%Y')  INTO _from_date FROM parameter WHERE `code`="startdate";
+	END IF;
+	
+	SELECT v.CODE AS vendor_code, v.NAME AS vendor_name, tbl_vendor_stock.amount AS opening_stock
+		, SUM(COALESCE(tbl_solar_import.amount,0)) AS amount
+		, SUM(COALESCE(tbl_vendor_debt.amount,0) + COALESCE(tbl_solar_import.paid,0)) AS paid
+	FROM vendor AS v, organization AS o, vendor_organization AS vo
+	LEFT JOIN (
+		SELECT vo.organization_id, vo.vendor_id, SUM(COALESCE(stock.debt,0)) AS amount
+		FROM organization AS o, vendor AS v, vendor_organization AS vo
+		LEFT JOIN
+		(
+			SELECT vendor_id, organization_id, amount AS debt
+			FROM vendor_in_stock
+			WHERE DATEDIFF(`day`, _from_date) > 0 AND DATEDIFF(`day`, _to_date) <= 0  AND _organization_ids LIKE CONCAT('%,',organization_id,',%')
+			UNION ALL
+			SELECT i.vendor_id, eo.organization_id, COALESCE(i.debt,0) AS debt
+			FROM lpg_import AS i, employee AS eo
+			WHERE DATE(i.import_date) >= _from_date AND DATE(i.import_date) < _to_date
+				AND i.created_employee_id=eo.id AND _organization_ids LIKE CONCAT('%,',eo.organization_id,',%')
+			UNION ALL
+			SELECT i.vendor_id, eo.organization_id, COALESCE(i.debt,0) AS debt
+			FROM gas_import AS i, employee AS eo
+			WHERE DATE(i.created_date) >= _from_date AND DATE(i.created_date) < _to_date
+				AND i.created_employee_id=eo.id AND _organization_ids LIKE CONCAT('%,',eo.organization_id,',%')
+			UNION ALL
+			SELECT i.vendor_id, eo.organization_id, COALESCE(i.debt,0) AS debt
+			FROM solar_import AS i, employee AS eo
+			WHERE DATE(i.created_date) >= _from_date AND DATE(i.created_date) < _to_date
+				AND i.created_employee_id=eo.id AND _organization_ids LIKE CONCAT('%,',eo.organization_id,',%')
+			UNION ALL
+			SELECT i.vendor_id, eo.organization_id, - COALESCE(IF(i.kind=1,i.paid,0),0) AS debt
+			FROM vendor_debt AS i, employee AS eo
+			WHERE DATE(i.created_date) >= _from_date AND DATE(i.created_date) < _to_date
+				AND i.created_employee_id=eo.id AND _organization_ids LIKE CONCAT('%,',eo.organization_id,',%')
+			UNION ALL
+			SELECT i.vendor_id, eo.organization_id, COALESCE(i.debt,0) AS debt
+			FROM promotion_material_import AS i, employee AS eo
+			WHERE DATE(i.created_date) >= _from_date AND DATE(i.created_date) < _to_date
+				AND i.created_employee_id=eo.id AND _organization_ids LIKE CONCAT('%,',eo.organization_id,',%')
+			UNION ALL
+			SELECT i.vendor_id, eo.organization_id, COALESCE(i.debt,0) AS debt
+			FROM accessory_import AS i, employee AS eo
+			WHERE DATE(i.created_date) >= _from_date AND DATE(i.created_date) < _to_date
+				AND i.created_employee_id=eo.id AND _organization_ids LIKE CONCAT('%,',eo.organization_id,',%')
+			UNION ALL
+			SELECT i.vendor_id, eo.organization_id, COALESCE(i.amount,0) AS debt
+			FROM debt_adjustment AS i, employee AS eo
+			WHERE DATE(i.created_date) >= _from_date AND DATE(i.created_date) < _to_date
+				AND i.created_employee_id=eo.id AND i.vendor_id<>0 AND i.kind=1
+				 AND _organization_ids LIKE CONCAT('%,',eo.organization_id,',%')
+			UNION ALL
+			SELECT i.vendor_id, eo.organization_id, COALESCE(i.debt,0) AS debt
+			FROM good_import AS i, employee AS eo
+			WHERE DATE(i.created_date) >= _from_date AND DATE(i.created_date) < _to_date
+				AND i.created_employee_id=eo.id AND _organization_ids LIKE CONCAT('%,',eo.organization_id,',%')
+			UNION ALL
+			SELECT i.vendor_id, eo.organization_id, COALESCE(i.debt,0) AS debt
+			FROM petro_import AS i, employee AS eo
+			WHERE DATE(i.created_date) >= _from_date AND DATE(i.created_date) < _to_date
+				AND i.created_employee_id=eo.id AND _organization_ids LIKE CONCAT('%,',eo.organization_id,',%')
+			UNION ALL
+			SELECT idet.vendor_id, eo.organization_id, -COALESCE(idet.quantity*idet.price_before_commission,0) AS debt
+			FROM solar_sale_detail AS idet, solar_sale AS i, employee AS eo
+			WHERE DATE(i.created_date) >= _from_date AND DATE(i.created_date) < _to_date
+				AND i.created_employee_id=eo.id AND i.id=idet.solar_sale_id
+					 AND _organization_ids LIKE CONCAT('%,',eo.organization_id,',%')
+		) AS stock ON stock.organization_id=vo.organization_id AND stock.vendor_id=vo.vendor_id
+		WHERE vo.organization_id=o.id AND vo.vendor_id=v.id AND v.STATUS=1 AND o.STATUS=1 AND _organization_ids LIKE CONCAT('%,',vo.organization_id,',%')
+		GROUP BY vo.organization_id, vo.vendor_id
+		ORDER BY o.NAME, v.NAME
+	) AS tbl_vendor_stock ON vo.vendor_id=tbl_vendor_stock.vendor_id AND vo.organization_id=tbl_vendor_stock.organization_id
+	LEFT JOIN (
+		SELECT vd.vendor_id, eo.organization_id, SUM(vd.paid) AS amount
+		FROM vendor_debt AS vd, employee AS eo
+		WHERE DATE(vd.created_date) >= STR_TO_DATE(_start_date,'%d/%m/%Y') AND DATE(vd.created_date) <= STR_TO_DATE(_end_date,'%d/%m/%Y') 
+			AND vd.created_employee_id=eo.id AND _organization_ids LIKE CONCAT('%,',eo.organization_id,',%') 
+		GROUP BY vd.vendor_id, eo.organization_id
+	) AS tbl_vendor_debt ON vo.vendor_id=tbl_vendor_debt.vendor_id AND vo.organization_id=tbl_vendor_debt.organization_id
+	LEFT JOIN (
+		SELECT oi.vendor_id, eo.organization_id, SUM(oi.total) AS amount, SUM(oi.paid) AS paid
+		FROM solar_import AS oi, employee AS eo
+		WHERE DATE(oi.created_date) >= STR_TO_DATE(_start_date,'%d/%m/%Y') AND DATE(oi.created_date) <= STR_TO_DATE(_end_date,'%d/%m/%Y') 
+			AND oi.created_employee_id=eo.id AND _organization_ids LIKE CONCAT('%,',eo.organization_id,',%') 
+		GROUP BY oi.vendor_id, eo.organization_id
+	) AS tbl_solar_import ON vo.vendor_id=tbl_solar_import.vendor_id AND vo.organization_id=tbl_solar_import.organization_id
+	WHERE vo.vendor_id=v.id AND vo.organization_id=o.id AND v.STATUS=1 AND o.STATUS=1 AND v.is_solar=1
+	GROUP BY v.id	
+	;
+    END */$$
+DELIMITER ;
+
+/* Procedure structure for procedure `report_solar_vendor_stock` */
+
+/*!50003 DROP PROCEDURE IF EXISTS  `report_solar_vendor_stock` */;
+
+DELIMITER $$
+
+/*!50003 CREATE DEFINER=`root`@`localhost` PROCEDURE `report_solar_vendor_stock`(IN _start_date VARCHAR(20), IN _end_date VARCHAR(20), IN _organization_ids TEXT, IN _vendor_id INT)
+BEGIN
+	DECLARE _from_date, _to_date DATE;
+	
+	IF _start_date<>'' THEN
+		SET _to_date = STR_TO_DATE(_start_date,'%d/%m/%Y');
+	ELSE
+		SELECT SYSDATE() INTO _to_date;
+	END IF;
+	
+	SELECT `day` INTO _from_date FROM solar_in_stock WHERE DATEDIFF(`day`, _to_date) < 0 ORDER BY `day` DESC LIMIT 1;
+	IF _from_date is NULL THEN
+		SELECT STR_TO_DATE(`value`,'%d/%m/%Y') INTO _from_date FROM parameter WHERE `code`="startdate";
+	END IF;
+	
+	SELECT o.CODE AS solar_code, o.NAME AS solar_name, COALESCE(opening_stock,0) AS opening_stock
+		, SUM(import_tbl.quantity) AS import_quantity, SUM(export_tbl.quantity) AS export_quantity 
+		, import_tbl.price AS import_price, SUM(import_tbl.amount) AS import_amount, import_tbl.note
+	FROM solar AS o
+	LEFT JOIN
+	(
+		SELECT o.id AS solar_id, SUM(COALESCE(in_stock,0)) AS opening_stock
+		FROM solar AS o
+		LEFT JOIN (
+			SELECT solar_id, in_stock
+			FROM solar_in_stock
+			WHERE DATEDIFF(`day`, _from_date) > 0 AND DATEDIFF(`day`, _to_date) <= 0 AND _organization_ids LIKE CONCAT('%,',organization_id,',%')
+			UNION ALL
+			SELECT i_det.solar_id, COALESCE(i_det.base_quantity,0) AS in_stock
+			FROM solar_import_detail AS i_det, solar_import AS i, store AS s
+			WHERE i_det.solar_import_id=i.id AND DATE(i.created_date) >= _from_date AND DATE(i.created_date) < _to_date
+				AND i.store_id=s.id AND _organization_ids LIKE CONCAT('%,',s.organization_id,',%')
+			UNION ALL
+			SELECT i_det.solar_id, -COALESCE(i_det.base_quantity,0) AS in_stock
+			FROM solar_sale_detail AS i_det, solar_sale AS i, store AS s
+			WHERE i_det.solar_sale_id=i.id AND DATE(i.created_date) >= _from_date AND DATE(i.created_date) < _to_date
+				AND i_det.store_id=s.id AND _organization_ids LIKE CONCAT('%,',s.organization_id,',%')
+			UNION ALL
+			SELECT i_det.solar_id, -COALESCE(i_det.base_quantity,0) AS in_stock
+			FROM solar_sale_promotion AS i_det, solar_sale AS i, store AS s
+			WHERE i_det.sale_solar_id=i.id AND DATE(i.created_date) >= _from_date AND DATE(i.created_date) < _to_date
+				AND i_det.store_id=s.id AND _organization_ids LIKE CONCAT('%,',s.organization_id,',%')
+			UNION ALL
+			SELECT i_det.solar_id, COALESCE(i_det.base_quantity,0) AS in_stock
+			FROM solar_sale_return_detail AS i_det, solar_sale_return AS i, store AS s
+			WHERE i_det.solar_sale_return_id=i.id AND DATE(i.created_date) >= _from_date AND DATE(i.created_date) < _to_date
+				AND i_det.store_id=s.id AND _organization_ids LIKE CONCAT('%,',s.organization_id,',%')
+		) AS tbl_old_stock ON tbl_old_stock.solar_id=o.id
+		WHERE o.STATUS=1 AND _organization_ids LIKE CONCAT('%,',o.organization_id,',%')
+		GROUP BY o.id
+	) AS opening_tbl ON o.id=opening_tbl.solar_id
+	LEFT JOIN
+	(
+		SELECT solar_id, SUM(base_quantity) AS quantity, SUM(amount) AS amount, GROUP_CONCAT(CONCAT(price,'(',quantity,')')) AS note, AVG(price) AS price
+		FROM(
+			SELECT idet.solar_id, SUM(idet.base_quantity) AS base_quantity, SUM(idet.quantity) AS quantity, idet.price, SUM(idet.amount) AS amount
+			FROM solar_import AS i, solar_import_detail AS idet, employee AS eo
+			WHERE DATE(i.created_date) >= STR_TO_DATE(_start_date,'%d/%m/%Y') AND DATE(i.created_date) <= STR_TO_DATE(_end_date,'%d/%m/%Y')
+				AND i.id=idet.solar_import_id AND i.created_employee_id=eo.id
+				AND _organization_ids LIKE CONCAT('%,',eo.organization_id,',%')
+			GROUP BY idet.solar_id, idet.price
+		) AS tbl
+		GROUP BY solar_id
+	) AS import_tbl ON o.id=import_tbl.solar_id
+	LEFT JOIN
+	(
+		SELECT idet.solar_id, SUM(idet.base_quantity) AS quantity
+		FROM solar_sale AS i, solar_sale_detail AS idet, employee AS eo
+		WHERE DATE(i.created_date) >= STR_TO_DATE(_start_date,'%d/%m/%Y') AND DATE(i.created_date) <= STR_TO_DATE(_end_date,'%d/%m/%Y')
+			AND i.id=idet.solar_sale_id AND i.created_employee_id=eo.id
+			AND _organization_ids LIKE CONCAT('%,',eo.organization_id,',%')
+		GROUP BY idet.solar_id
+		UNION ALL
+		SELECT idet.solar_id, SUM(idet.base_quantity) AS quantity
+		FROM solar_sale AS i, solar_sale_promotion AS idet, employee AS eo
+		WHERE DATE(i.created_date) >= STR_TO_DATE(_start_date,'%d/%m/%Y') AND DATE(i.created_date) <= STR_TO_DATE(_end_date,'%d/%m/%Y')
+			AND i.id=idet.sale_solar_id AND i.created_employee_id=eo.id
+			AND _organization_ids LIKE CONCAT('%,',eo.organization_id,',%')
+		GROUP BY idet.solar_id
+		UNION ALL
+		SELECT i_det.solar_id, -SUM(i_det.base_quantity) AS quantity
+		FROM solar_sale_return_detail AS i_det, solar_sale_return AS i, store AS s
+		WHERE DATE(i.created_date) >= STR_TO_DATE(_start_date,'%d/%m/%Y') AND DATE(i.created_date) <= STR_TO_DATE(_end_date,'%d/%m/%Y')
+			AND i_det.solar_sale_return_id=i.id AND i_det.store_id=s.id
+			AND _organization_ids LIKE CONCAT('%,',s.organization_id,',%')
+		GROUP BY i_det.solar_id
+	) AS export_tbl ON o.id=export_tbl.solar_id
+	WHERE o.STATUS=1
+	GROUP BY o.id
 	;
     END */$$
 DELIMITER ;
@@ -11605,6 +13028,22 @@ BEGIN
     END */$$
 DELIMITER ;
 
+/* Procedure structure for procedure `searchInvoiceSolar` */
+
+/*!50003 DROP PROCEDURE IF EXISTS  `searchInvoiceSolar` */;
+
+DELIMITER $$
+
+/*!50003 CREATE DEFINER=`root`@`localhost` PROCEDURE `searchInvoiceSolar`(IN _start_date VARCHAR(20), IN _end_date VARCHAR(20), IN _organization_ids TEXT)
+BEGIN
+	SELECT a.*, COALESCE(c.NAME,'') AS customer_name
+	FROM employee AS eo, invoice_solar AS a LEFT JOIN customer AS c ON a.customer_id=c.id
+	WHERE DATE(a.created_date) >= STR_TO_DATE(_start_date,'%d/%m/%Y') AND DATE(a.created_date) <= STR_TO_DATE(_end_date,'%d/%m/%Y')
+		AND a.created_employee_id=eo.id AND _organization_ids LIKE CONCAT('%,',eo.organization_id,',%')
+	;
+    END */$$
+DELIMITER ;
+
 /* Procedure structure for procedure `searchLoVo` */
 
 /*!50003 DROP PROCEDURE IF EXISTS  `searchLoVo` */;
@@ -11905,6 +13344,62 @@ BEGIN
     END */$$
 DELIMITER ;
 
+/* Procedure structure for procedure `searchSaleSolar` */
+
+/*!50003 DROP PROCEDURE IF EXISTS  `searchSaleSolar` */;
+
+DELIMITER $$
+
+/*!50003 CREATE DEFINER=`root`@`localhost` PROCEDURE `searchSaleSolar`(IN _start_date VARCHAR(20), IN _end_date VARCHAR(20), IN _organization_ids TEXT)
+BEGIN
+	SELECT s.*, c.NAME AS customer_name, COALESCE(oe.CODE) AS solar_export_code
+	FROM employee AS eo, customer AS c, solar_sale AS s
+	LEFT JOIN solar_export AS oe ON s.id=oe.solar_sale_id
+	WHERE DATE(s.created_date) >= STR_TO_DATE(_start_date,'%d/%m/%Y') AND DATE(s.created_date) <= STR_TO_DATE(_end_date,'%d/%m/%Y')
+		AND s.created_employee_id=eo.id AND _organization_ids LIKE CONCAT('%,',eo.organization_id,',%')
+		AND s.customer_id=c.id
+	;
+    END */$$
+DELIMITER ;
+
+/* Procedure structure for procedure `searchSaleSolarDetail` */
+
+/*!50003 DROP PROCEDURE IF EXISTS  `searchSaleSolarDetail` */;
+
+DELIMITER $$
+
+/*!50003 CREATE DEFINER=`root`@`localhost` PROCEDURE `searchSaleSolarDetail`(IN _start_date VARCHAR(20), IN _end_date VARCHAR(20), IN _code TEXT, IN _solar_name TEXT, IN _customer_id INT)
+BEGIN
+	SELECT sdet.id, s.CODE AS solar_sale_code, s.created_date AS solar_sale_date, o.NAME AS solar_name, sdet.amount
+	FROM solar_sale AS s, solar AS o, solar_sale_detail AS sdet
+	LEFT JOIN invoice_solar_detail AS idet ON idet.solar_sale_detail_id=sdet.id
+	WHERE sdet.solar_sale_id=s.id AND sdet.solar_id=o.id
+		AND DATE(s.created_date) >= STR_TO_DATE(_start_date,'%d/%m/%Y') AND DATE(s.created_date) <= STR_TO_DATE(_end_date,'%d/%m/%Y')
+		AND ((_customer_id=0 AND 1) OR (_customer_id<> 0 AND s.customer_id=_customer_id))
+		AND ((_solar_name='' AND 1) OR (_solar_name<> '' AND o.`name` LIKE CONCAT('%',_solar_name,'%')))
+		AND ((_code='' AND 1) OR (_code<> '' AND s.CODE LIKE CONCAT('%',_code,'%')))
+		AND (idet.id IS NULL OR(idet.id IS NOT NULL AND idet.paid_amount<>sdet.amount))
+	ORDER BY s.created_date, sdet.id
+	;
+    END */$$
+DELIMITER ;
+
+/* Procedure structure for procedure `searchSaleSolarReturn` */
+
+/*!50003 DROP PROCEDURE IF EXISTS  `searchSaleSolarReturn` */;
+
+DELIMITER $$
+
+/*!50003 CREATE DEFINER=`root`@`localhost` PROCEDURE `searchSaleSolarReturn`(IN _start_date VARCHAR(20), IN _end_date VARCHAR(20), IN _organization_ids TEXT)
+BEGIN
+	SELECT s.*
+	FROM solar_sale_return AS s, employee AS eo
+	WHERE DATE(s.created_date) >= STR_TO_DATE(_start_date,'%d/%m/%Y') AND DATE(s.created_date) <= STR_TO_DATE(_end_date,'%d/%m/%Y')
+		AND s.created_employee_id=eo.id AND _organization_ids LIKE CONCAT('%,',eo.organization_id,',%')
+	;
+    END */$$
+DELIMITER ;
+
 /* Procedure structure for procedure `searchShellImport` */
 
 /*!50003 DROP PROCEDURE IF EXISTS  `searchShellImport` */;
@@ -11985,6 +13480,38 @@ BEGIN
 	WHERE t.vendor_id=v.id and DATE(t.created_date) >= STR_TO_DATE(_start_date,'%d/%m/%Y') AND DATE(t.created_date) <= STR_TO_DATE(_end_date,'%d/%m/%Y')
 		 AND t.created_employee_id=eo.id
 		AND _organization_ids LIKE CONCAT('%,',eo.organization_id,',%') AND v.STATUS=1
+	;
+    END */$$
+DELIMITER ;
+
+/* Procedure structure for procedure `searchSolarExport` */
+
+/*!50003 DROP PROCEDURE IF EXISTS  `searchSolarExport` */;
+
+DELIMITER $$
+
+/*!50003 CREATE DEFINER=`root`@`localhost` PROCEDURE `searchSolarExport`(IN _start_date VARCHAR(20), IN _end_date VARCHAR(20), IN _organization_ids TEXT)
+BEGIN
+	SELECT i.*, c.NAME AS customer_name
+	FROM solar_export AS i, customer AS c, employee AS eo
+	WHERE DATE(i.created_date) >= STR_TO_DATE(_start_date,'%d/%m/%Y') AND DATE(i.created_date) <= STR_TO_DATE(_end_date,'%d/%m/%Y')
+		AND i.customer_id=c.id AND i.created_employee_id=eo.id AND _organization_ids LIKE CONCAT('%,',eo.organization_id,',%')
+	;
+    END */$$
+DELIMITER ;
+
+/* Procedure structure for procedure `searchSolarImport` */
+
+/*!50003 DROP PROCEDURE IF EXISTS  `searchSolarImport` */;
+
+DELIMITER $$
+
+/*!50003 CREATE DEFINER=`root`@`localhost` PROCEDURE `searchSolarImport`(IN _start_date VARCHAR(20), IN _end_date VARCHAR(20))
+BEGIN
+	SELECT i.*, v.NAME AS vendor_name
+	FROM solar_import AS i, vendor AS v
+	WHERE DATE(i.created_date) >= STR_TO_DATE(_start_date,'%d/%m/%Y') AND DATE(i.created_date) <= STR_TO_DATE(_end_date,'%d/%m/%Y')
+		AND i.vendor_id=v.id
 	;
     END */$$
 DELIMITER ;
@@ -12184,7 +13711,7 @@ DELIMITER $$
 
 /*!50003 CREATE DEFINER=`root`@`localhost` PROCEDURE `updateCustomer`(in _id int, IN _name VARCHAR(255), IN _code VARCHAR(20), IN _organization_id INT, IN _status INT, IN _phone VARCHAR(30)
 	, IN _bank_account TEXT, IN _tax VARCHAR(30), IN _presenter VARCHAR(255), IN _presenter_position VARCHAR(255), IN _address TEXT, IN _is_gas INT
-	, IN _is_petro INT, IN _is_good INT, IN _is_oil INT, IN _commission_kind INT, IN _commission_percentage FLOAT, IN _note TEXT)
+	, IN _is_petro INT, IN _is_good INT, IN _is_oil INT, IN _is_solar INT, IN _commission_kind INT, IN _commission_percentage FLOAT, IN _note TEXT)
 BEGIN
 	Update customer Set name=_name
 		, code=_code
@@ -12200,6 +13727,7 @@ BEGIN
                 , is_petro=_is_petro
                 , is_good=_is_good
                 , is_oil=_is_oil
+		, is_solar=_is_solar
 		, commission_kind=_commission_kind
                 , commission_percentage=_commission_percentage
                 , note =_note
@@ -12919,6 +14447,48 @@ BEGIN
     END */$$
 DELIMITER ;
 
+/* Procedure structure for procedure `updateInvoiceSolar` */
+
+/*!50003 DROP PROCEDURE IF EXISTS  `updateInvoiceSolar` */;
+
+DELIMITER $$
+
+/*!50003 CREATE DEFINER=`root`@`localhost` PROCEDURE `updateInvoiceSolar`(IN _id INT, IN _number TEXT, IN _created_date VARCHAR(20)
+	, IN _amount DOUBLE, IN _amount_paid DOUBLE, IN _note TEXT)
+BEGIN
+	UPDATE invoice_solar SET number=_number
+		, created_date=STR_TO_DATE(_created_date,'%d/%m/%Y')
+		, amount=_amount
+		, amount_paid=_amount_paid
+		, note=_note
+	WHERE id=_id;
+    END */$$
+DELIMITER ;
+
+/* Procedure structure for procedure `updateInvoiceSolarDetail` */
+
+/*!50003 DROP PROCEDURE IF EXISTS  `updateInvoiceSolarDetail` */;
+
+DELIMITER $$
+
+/*!50003 CREATE DEFINER=`root`@`localhost` PROCEDURE `updateInvoiceSolarDetail`(IN _id INT, IN _paid INT, IN _commissioned INT, IN _paid_amount DOUBLE)
+BEGIN
+	UPDATE invoice_solar_detail SET paid=_paid, commissioned=_commissioned, paid_amount=_paid_amount WHERE id=_id;
+    END */$$
+DELIMITER ;
+
+/* Procedure structure for procedure `updateInvoiceSolarPaidDetail` */
+
+/*!50003 DROP PROCEDURE IF EXISTS  `updateInvoiceSolarPaidDetail` */;
+
+DELIMITER $$
+
+/*!50003 CREATE DEFINER=`root`@`localhost` PROCEDURE `updateInvoiceSolarPaidDetail`(IN _id INT, IN _amount DOUBLE)
+BEGIN
+	UPDATE invoice_solar_paid_detail SET amount=_amount WHERE id=_id;
+    END */$$
+DELIMITER ;
+
 /* Procedure structure for procedure `updateLoVo` */
 
 /*!50003 DROP PROCEDURE IF EXISTS  `updateLoVo` */;
@@ -13564,6 +15134,181 @@ BEGIN
     END */$$
 DELIMITER ;
 
+/* Procedure structure for procedure `updateSaleSolar` */
+
+/*!50003 DROP PROCEDURE IF EXISTS  `updateSaleSolar` */;
+
+DELIMITER $$
+
+/*!50003 CREATE DEFINER=`root`@`localhost` PROCEDURE `updateSaleSolar`(IN _id INT, IN _created_date VARCHAR(20), IN _customer_id INT, IN _total DOUBLE
+	, IN _paid DOUBLE, IN _debt DOUBLE, IN _discount DOUBLE, IN _total_pay DOUBLE, IN _account_id INT, IN _commission FLOAT, IN _commission_kind INT
+	, IN _commission_amount DOUBLE, IN _gap_agency_amount DOUBLE, IN _gap_customer_amount DOUBLE, IN _total_before_commission DOUBLE, IN _note TEXT
+	, IN _is_calculate_agency_commission INT)
+BEGIN
+	UPDATE solar_sale SET total=_total
+		, customer_id=_customer_id
+		, paid=_paid
+		, debt=_debt
+		, discount=_discount
+		, total_pay=_total_pay
+		, account_id=_account_id
+		, note=_note
+		, created_date=STR_TO_DATE(_created_date,'%d/%m/%Y')
+		, commission=_commission
+		, commission_kind=_commission_kind
+		, commission_amount=_commission_amount
+		, gap_agency_amount=_gap_agency_amount
+		, gap_customer_amount=_gap_customer_amount
+		, total_before_commission=_total_before_commission
+		, is_calculate_agency_commission=_is_calculate_agency_commission
+	WHERE id=_id;
+    END */$$
+DELIMITER ;
+
+/* Procedure structure for procedure `updateSaleSolarDetail` */
+
+/*!50003 DROP PROCEDURE IF EXISTS  `updateSaleSolarDetail` */;
+
+DELIMITER $$
+
+/*!50003 CREATE DEFINER=`root`@`localhost` PROCEDURE `updateSaleSolarDetail`(IN _id INT, IN _quantity INT, IN _price DOUBLE, IN _amount DOUBLE
+	, IN _price_before_commission DOUBLE, IN _commssion_price FLOAT, IN _first_amount DOUBLE, IN _commission FLOAT, IN _gap_agency_amount DOUBLE
+	, IN _gap_customer_amount DOUBLE, IN _created_date VARCHAR(20))
+BEGIN
+	DECLARE _solar_id, _unit_id, _base_unit_id, _rate_quantity INT DEFAULT 0;
+	
+	SELECT fdet.solar_id, fdet.unit_id
+	INTO _solar_id, _unit_id
+	FROM solar_sale_detail AS fdet
+	WHERE fdet.id=_id;
+	
+	SELECT base_unit_id INTO _base_unit_id FROM solar WHERE id=_solar_id;
+	IF _base_unit_id<>_unit_id THEN
+		SELECT rate INTO _rate_quantity FROM unit_rate WHERE parent_unit_id=_unit_id AND base_unit_id=_base_unit_id;
+		IF _rate_quantity=0 THEN
+			SET _rate_quantity = _quantity;
+		ELSE
+			SET _rate_quantity = _rate_quantity * _quantity;
+		END IF;
+	ELSE
+		SET _rate_quantity=_quantity;
+	END IF;
+	
+	UPDATE solar_sale_detail SET quantity=_quantity
+		, base_quantity=_rate_quantity
+		, price=_price
+		, amount=_amount 
+		, price_before_commission=_price_before_commission 
+		, commission_price=_commssion_price 
+		, first_amount=_first_amount 
+		, commission=_commission 
+		, gap_agency_amount=_gap_agency_amount 
+		, gap_customer_amount=_gap_customer_amount 
+	WHERE id=_id;
+    END */$$
+DELIMITER ;
+
+/* Procedure structure for procedure `updateSaleSolarPromotionMaterialDetail` */
+
+/*!50003 DROP PROCEDURE IF EXISTS  `updateSaleSolarPromotionMaterialDetail` */;
+
+DELIMITER $$
+
+/*!50003 CREATE DEFINER=`root`@`localhost` PROCEDURE `updateSaleSolarPromotionMaterialDetail`(IN _id INT, IN _quantity INT)
+BEGIN
+	DECLARE _solar_id, _unit_id, _base_unit_id, _rate_quantity INT DEFAULT 0;
+	
+	SELECT fdet.solar_id, fdet.unit_id
+	INTO _solar_id, _unit_id
+	FROM solar_sale_promotion AS fdet
+	WHERE fdet.id=_id;
+	
+	SELECT base_unit_id INTO _base_unit_id FROM solar WHERE id=_solar_id;
+	IF _base_unit_id<>_unit_id THEN
+		SELECT rate INTO _rate_quantity FROM unit_rate WHERE parent_unit_id=_unit_id AND base_unit_id=_base_unit_id;
+		IF _rate_quantity=0 THEN
+			SET _rate_quantity = _quantity;
+		ELSE
+			SET _rate_quantity = _rate_quantity * _quantity;
+		END IF;
+	ELSE
+		SET _rate_quantity=_quantity;
+	END IF;
+	
+	UPDATE solar_sale_promotion SET quantity=_quantity, base_quantity=_rate_quantity WHERE id=_id;
+    END */$$
+DELIMITER ;
+
+/* Procedure structure for procedure `updateSaleSolarReturn` */
+
+/*!50003 DROP PROCEDURE IF EXISTS  `updateSaleSolarReturn` */;
+
+DELIMITER $$
+
+/*!50003 CREATE DEFINER=`root`@`localhost` PROCEDURE `updateSaleSolarReturn`(IN _id INT, IN _created_date VARCHAR(20), IN _customer_id INT, IN _total DOUBLE
+	, IN _paid DOUBLE, IN _debt DOUBLE, IN _total_pay DOUBLE, IN _account_id INT, IN _commission FLOAT, IN _commission_kind INT
+	, IN _commission_amount DOUBLE, IN _gap_agency_amount DOUBLE, IN _gap_customer_amount DOUBLE, IN _total_before_commission DOUBLE, IN _note TEXT)
+BEGIN
+	UPDATE solar_sale SET total=_total
+		, customer_id=_customer_id
+		, paid=_paid
+		, debt=_debt
+		, total_pay=_total_pay
+		, account_id=_account_id
+		, note=_note
+		, created_date=STR_TO_DATE(_created_date,'%d/%m/%Y')
+		, commission=_commission
+		, commission_kind=_commission_kind
+		, commission_amount=_commission_amount
+		, gap_agency_amount=_gap_agency_amount
+		, gap_customer_amount=_gap_customer_amount
+		, total_before_commission=_total_before_commission
+	WHERE id=_id;
+    END */$$
+DELIMITER ;
+
+/* Procedure structure for procedure `updateSaleSolarReturnDetail` */
+
+/*!50003 DROP PROCEDURE IF EXISTS  `updateSaleSolarReturnDetail` */;
+
+DELIMITER $$
+
+/*!50003 CREATE DEFINER=`root`@`localhost` PROCEDURE `updateSaleSolarReturnDetail`(IN _id INT, IN _quantity INT, IN _price DOUBLE, IN _amount DOUBLE
+	, IN _price_before_commission DOUBLE, IN _commssion_price FLOAT, IN _first_amount DOUBLE, IN _commission FLOAT, IN _gap_agency_amount DOUBLE
+	, IN _gap_customer_amount DOUBLE)
+BEGIN
+	DECLARE _solar_id, _unit_id, _base_unit_id, _rate_quantity INT DEFAULT 0;
+	SELECT fdet.solar_id, fdet.unit_id
+	INTO _solar_id, _unit_id
+	FROM solar_sale_return_detail AS fdet
+	WHERE fdet.id=_id;
+	
+	SELECT base_unit_id INTO _base_unit_id FROM solar WHERE id=_solar_id;
+	IF _base_unit_id<>_unit_id THEN
+		SELECT rate INTO _rate_quantity FROM unit_rate WHERE parent_unit_id=_unit_id AND base_unit_id=_base_unit_id;
+		IF _rate_quantity=0 THEN
+			SET _rate_quantity = _quantity;
+		ELSE
+			SET _rate_quantity = _rate_quantity * _quantity;
+		END IF;
+	ELSE
+		SET _rate_quantity=_quantity;
+	END IF;
+	
+	UPDATE solar_sale_return_detail SET quantity=_quantity
+		, base_quantity=_rate_quantity
+		, price=_price
+		, amount=_amount 
+		, price_before_commission=_price_before_commission 
+		, commission_price=_commssion_price 
+		, first_amount=_first_amount 
+		, commission=_commission 
+		, gap_agency_amount=_gap_agency_amount 
+		, gap_customer_amount=_gap_customer_amount 
+	WHERE id=_id;
+    END */$$
+DELIMITER ;
+
 /* Procedure structure for procedure `updateShellImport` */
 
 /*!50003 DROP PROCEDURE IF EXISTS  `updateShellImport` */;
@@ -13696,6 +15441,85 @@ DELIMITER $$
 /*!50003 CREATE DEFINER=`root`@`localhost` PROCEDURE `updateShieldImport`(IN _id INT, IN _quantity INT, IN _note TEXT, in _vendor_id int)
 BEGIN
 	UPDATE shield_import SET quantity=_quantity, note=_note, vendor_id=_vendor_id WHERE id=_id;
+    END */$$
+DELIMITER ;
+
+/* Procedure structure for procedure `updateSolarExport` */
+
+/*!50003 DROP PROCEDURE IF EXISTS  `updateSolarExport` */;
+
+DELIMITER $$
+
+/*!50003 CREATE DEFINER=`root`@`localhost` PROCEDURE `updateSolarExport`(IN _id INT, IN _created_date VARCHAR(20), IN _total DOUBLE, IN _note TEXT)
+BEGIN
+	UPDATE solar_export SET total=_total, note=_note, created_date=STR_TO_DATE(_created_date,'%d/%m/%Y') WHERE id=_id;
+    END */$$
+DELIMITER ;
+
+/* Procedure structure for procedure `updateSolarExportDetail` */
+
+/*!50003 DROP PROCEDURE IF EXISTS  `updateSolarExportDetail` */;
+
+DELIMITER $$
+
+/*!50003 CREATE DEFINER=`root`@`localhost` PROCEDURE `updateSolarExportDetail`(IN _id INT, IN _quantity INT)
+BEGIN
+	UPDATE solar_export_detail SET quantity=_quantity WHERE id=_id;
+    END */$$
+DELIMITER ;
+
+/* Procedure structure for procedure `updateSolarImport` */
+
+/*!50003 DROP PROCEDURE IF EXISTS  `updateSolarImport` */;
+
+DELIMITER $$
+
+/*!50003 CREATE DEFINER=`root`@`localhost` PROCEDURE `updateSolarImport`(IN _id INT, IN _created_date VARCHAR(20), IN _commission FLOAT, IN _rate DOUBLE
+	, IN _total_before_commission DOUBLE, IN _total DOUBLE, IN _paid DOUBLE, IN _debt DOUBLE, IN _account_id INT, IN _note TEXT, IN _store_id INT, IN _vendor_id INT)
+BEGIN
+	UPDATE solar_import SET rate=_rate
+		, total_before_commission=_total_before_commission
+		, total=_total
+		, paid=_paid
+		, debt=_debt
+		, account_id=_account_id
+		, note=_note
+		, store_id=_store_id
+		, vendor_id=_vendor_id
+		, commission=_commission
+		, created_date=STR_TO_DATE(_created_date,'%d/%m/%Y')
+	WHERE id=_id;
+    END */$$
+DELIMITER ;
+
+/* Procedure structure for procedure `updateSolarImportDetail` */
+
+/*!50003 DROP PROCEDURE IF EXISTS  `updateSolarImportDetail` */;
+
+DELIMITER $$
+
+/*!50003 CREATE DEFINER=`root`@`localhost` PROCEDURE `updateSolarImportDetail`(IN _id INT, IN _quantity INT, IN _price DOUBLE, IN _amount DOUBLE)
+BEGIN
+	DECLARE _solar_id, _unit_id, _base_unit_id, _rate_quantity INT DEFAULT 0;
+	
+	SELECT fdet.solar_id, fdet.unit_id
+	INTO _solar_id, _unit_id
+	FROM solar_import_detail AS fdet
+	WHERE fdet.id=_id;
+	
+	SELECT base_unit_id INTO _base_unit_id FROM solar WHERE id=_solar_id;
+	IF _base_unit_id<>_unit_id THEN
+		SELECT rate INTO _rate_quantity FROM unit_rate WHERE parent_unit_id=_unit_id AND base_unit_id=_base_unit_id;
+		IF _rate_quantity=0 THEN
+			SET _rate_quantity = _quantity;
+		ELSE
+			SET _rate_quantity = _rate_quantity * _quantity;
+		END IF;
+	ELSE
+		SET _rate_quantity=_quantity;
+	END IF;
+	
+	UPDATE solar_import_detail SET quantity=_quantity, base_quantity=_rate_quantity, price=_price, amount=_amount WHERE id=_id;
     END */$$
 DELIMITER ;
 
@@ -13931,7 +15755,7 @@ DELIMITER $$
 
 /*!50003 CREATE DEFINER=`root`@`localhost` PROCEDURE `updateVendor`(IN _name VARCHAR(255), IN _address VARCHAR(255), IN _tax VARCHAR(50), IN _phone VARCHAR(50)
 	, IN _fax VARCHAR(50), IN _code VARCHAR(20), IN _organization_id INT, IN _status INT, IN _equal_organization_id INT, in _has_stock int, IN _is_gas INT
-	, IN _is_petro INT, IN _is_good INT, IN _is_transport INT, IN _is_oil INT, in _id INT)
+	, IN _is_petro INT, IN _is_good INT, IN _is_transport INT, IN _is_oil INT, IN _is_solar INT, in _id INT)
 BEGIN
 	DECLARE _vendor_organization_id, _old_organization INT DEFAULT 0;
 	
@@ -13960,6 +15784,7 @@ BEGIN
 		, is_good=_is_good
 		, is_transport=_is_transport
 		, is_oil=_is_oil
+		, is_solar=_is_solar
 	where id=_id;
 	
 	update shell set `status`=_status where vendor_id=_id;
@@ -13973,6 +15798,18 @@ DELIMITER ;
 DELIMITER $$
 
 /*!50003 CREATE DEFINER=`root`@`localhost` PROCEDURE `updateVendorOil`(IN _commision_on_import FLOAT, IN _max_debt DOUBLE, IN _id INT)
+BEGIN
+	UPDATE vendor SET commision_on_import=_commision_on_import, max_debt=_max_debt WHERE id=_id;
+    END */$$
+DELIMITER ;
+
+/* Procedure structure for procedure `updateVendorSolar` */
+
+/*!50003 DROP PROCEDURE IF EXISTS  `updateVendorSolar` */;
+
+DELIMITER $$
+
+/*!50003 CREATE DEFINER=`root`@`localhost` PROCEDURE `updateVendorSolar`(IN _commision_on_import FLOAT, IN _max_debt DOUBLE, IN _id INT)
 BEGIN
 	UPDATE vendor SET commision_on_import=_commision_on_import, max_debt=_max_debt WHERE id=_id;
     END */$$

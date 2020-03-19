@@ -108,6 +108,8 @@ public class CustomerDAO extends BasicDAO {
                 break;
             case VendorBean.IS_OIL:
                 sql += " and c.is_oil=1";
+            case VendorBean.IS_SOLAR:
+                sql += " and c.is_solar=1";
                 break;
         }
         sql += " order by c.name desc";
@@ -157,7 +159,7 @@ public class CustomerDAO extends BasicDAO {
         ResultSet rs = null;
         String sql = "select id, status, organization_id, coalesce(code,'') as code, coalesce(name,'') as name, coalesce(address,'') as address"
                 + ", coalesce(phone,'') as phone, coalesce(bank_account,'') as bank_account, coalesce(tax,'') as tax, coalesce(presenter,'') as presenter"
-                + ", coalesce(presenter_position,'') as presenter_position, is_gas, is_petro, is_good, is_oil, commission_percentage, commission_kind, note"
+                + ", coalesce(presenter_position,'') as presenter_position, is_gas, is_petro, is_good, is_oil, is_solar, commission_percentage, commission_kind, note"
                 + " from customer where id=" + customerId;
         try {
             rs = DBUtil.executeQuery(sql);
@@ -198,6 +200,7 @@ public class CustomerDAO extends BasicDAO {
                 customer.setIsPetro(rs.getInt("is_petro") == 1 ? true : false);
                 customer.setIsGood(rs.getInt("is_good") == 1 ? true : false);
                 customer.setIsOil(rs.getInt("is_oil") == 1 ? true : false);
+                customer.setIsSolar(rs.getInt("is_solar") == 1 ? true : false);
                 return customer;
             }
         } catch (SQLException sqle) {
@@ -239,6 +242,7 @@ public class CustomerDAO extends BasicDAO {
                 customer.setIsPetro(rs.getInt("is_petro") == 1 ? true : false);
                 customer.setIsGood(rs.getInt("is_good") == 1 ? true : false);
                 customer.setIsOil(rs.getInt("is_oil") == 1 ? true : false);
+                customer.setIsSolar(rs.getInt("is_solar") == 1 ? true : false);
                 return customer;
             }
         } catch (SQLException sqle) {
@@ -260,7 +264,7 @@ public class CustomerDAO extends BasicDAO {
         int result = 0;
         SPUtil spUtil = null;
         try {
-            String sql = "{call insertCustomer(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)}";
+            String sql = "{call insertCustomer(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)}";
             spUtil = new SPUtil(sql);
             if (spUtil != null) {
                 spUtil.getCallableStatement().setString("_name", bean.getName());
@@ -277,6 +281,7 @@ public class CustomerDAO extends BasicDAO {
                 spUtil.getCallableStatement().setInt("_is_petro", bean.getIsPetro());
                 spUtil.getCallableStatement().setInt("_is_good", bean.getIsGood());
                 spUtil.getCallableStatement().setInt("_is_oil", bean.getIsOil());
+                spUtil.getCallableStatement().setInt("_is_solar", bean.getIsSolar());
                 spUtil.getCallableStatement().setInt("_commission_kind", bean.getCommissionKind());
                 spUtil.getCallableStatement().setFloat("_commission_percentage", bean.getCommissionPercentage());
                 spUtil.getCallableStatement().setString("_note", bean.getNote());
@@ -306,7 +311,7 @@ public class CustomerDAO extends BasicDAO {
         }
         SPUtil spUtil = null;
         try {
-            String sql = "{call updateCustomer(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)}";
+            String sql = "{call updateCustomer(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)}";
             spUtil = new SPUtil(sql);
             if (spUtil != null) {
                 spUtil.getCallableStatement().setInt("_id", bean.getId());
@@ -324,6 +329,7 @@ public class CustomerDAO extends BasicDAO {
                 spUtil.getCallableStatement().setInt("_is_petro", bean.getIsPetro());
                 spUtil.getCallableStatement().setInt("_is_good", bean.getIsGood());
                 spUtil.getCallableStatement().setInt("_is_oil", bean.getIsOil());
+                spUtil.getCallableStatement().setInt("_is_solar", bean.getIsSolar());
                 spUtil.getCallableStatement().setInt("_commission_kind", bean.getCommissionKind());
                 spUtil.getCallableStatement().setFloat("_commission_percentage", bean.getCommissionPercentage());
                 spUtil.getCallableStatement().setString("_note", bean.getNote());
@@ -1076,7 +1082,7 @@ public class CustomerDAO extends BasicDAO {
         }
         return detailList;
     }
-    
+
     public int insertDiscountCommissionDetail(DiscountCommissionDetailBean bean) throws Exception {
         if (bean == null) {
             return 0;

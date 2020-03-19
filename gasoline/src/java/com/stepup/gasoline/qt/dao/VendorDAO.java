@@ -14,6 +14,7 @@ import com.stepup.gasoline.qt.bean.VendorBean;
 import com.stepup.gasoline.qt.bean.VendorCustomerBean;
 import com.stepup.gasoline.qt.bean.VendorOilStoreDetailBean;
 import com.stepup.gasoline.qt.bean.VendorOrganizationBean;
+import com.stepup.gasoline.qt.bean.VendorSolarStoreDetailBean;
 import com.stepup.gasoline.qt.util.QTUtil;
 import com.stepup.gasoline.qt.vendor.GasReturnVendorFormBean;
 import com.stepup.gasoline.qt.vendor.VendorFormBean;
@@ -93,8 +94,10 @@ public class VendorDAO extends BasicDAO {
             sql += " and v.is_transport=1";
         } else if (vendorKinds.indexOf("," + VendorBean.IS_OIL + ",") > -1) {
             sql += " and v.is_oil=1";
+        } else if (vendorKinds.indexOf("," + VendorBean.IS_SOLAR + ",") > -1) {
+            sql += " and v.is_solar=1";
         } else {
-            sql += " and (v.is_gas=1 or v.is_petro=1 or v.is_good=1 or v.is_transport=1 or v.is_oil=1)";
+            sql += " and (v.is_gas=1 or v.is_petro=1 or v.is_good=1 or v.is_transport=1 or v.is_oil=1 or v.is_solar=1)";
         }
 
         sql += " order by v.name desc";
@@ -153,8 +156,11 @@ public class VendorDAO extends BasicDAO {
             case VendorBean.IS_OIL:
                 sql += " and v.is_oil=1";
                 break;
+            case VendorBean.IS_SOLAR:
+                sql += " and v.is_solar=1";
+                break;
             default:
-                sql += " and v.is_gas=1 and v.is_petro=1 and v.is_good=1 and v.is_transport=1 and v.is_oil=1";
+                sql += " and v.is_gas=1 and v.is_petro=1 and v.is_good=1 and v.is_transport=1 and v.is_oil=1 and v.is_solar=1";
                 break;
         }
         sql += " order by v.name desc";
@@ -214,6 +220,7 @@ public class VendorDAO extends BasicDAO {
                 vendor.setIsGood(rs.getInt("is_good") == 1 ? true : false);
                 vendor.setIsTransport(rs.getInt("is_transport") == 1 ? true : false);
                 vendor.setIsOil(rs.getInt("is_oil") == 1 ? true : false);
+                vendor.setIsSolar(rs.getInt("is_solar") == 1 ? true : false);
                 if (vendor.getStatus() == EmployeeBean.STATUS_ACTIVE) {
                     vendor.setStatusName(QTUtil.getBundleString("employee.detail.status.active"));
                 } else if (vendor.getStatus() == EmployeeBean.STATUS_INACTIVE) {
@@ -254,6 +261,7 @@ public class VendorDAO extends BasicDAO {
                 vendor.setIsGood(rs.getInt("is_good") == 1 ? true : false);
                 vendor.setIsTransport(rs.getInt("is_transport") == 1 ? true : false);
                 vendor.setIsOil(rs.getInt("is_oil") == 1 ? true : false);
+                vendor.setIsSolar(rs.getInt("is_solar") == 1 ? true : false);
                 return vendor;
             }
         } catch (SQLException sqle) {
@@ -275,7 +283,7 @@ public class VendorDAO extends BasicDAO {
         int result = 0;
         SPUtil spUtil = null;
         try {
-            String sql = "{call insertVendor(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)}";
+            String sql = "{call insertVendor(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)}";
             spUtil = new SPUtil(sql);
             if (spUtil != null) {
                 spUtil.getCallableStatement().setString("_name", bean.getName());
@@ -295,6 +303,7 @@ public class VendorDAO extends BasicDAO {
                 spUtil.getCallableStatement().setInt("_is_good", bean.getIsGood());
                 spUtil.getCallableStatement().setInt("_is_transport", bean.getIsTransport());
                 spUtil.getCallableStatement().setInt("_is_oil", bean.getIsOil());
+                spUtil.getCallableStatement().setInt("_is_solar", bean.getIsSolar());
                 spUtil.getCallableStatement().registerOutParameter("_id", Types.INTEGER);
                 spUtil.execute();
                 result = spUtil.getCallableStatement().getInt("_id");
@@ -321,7 +330,7 @@ public class VendorDAO extends BasicDAO {
         }
         SPUtil spUtil = null;
         try {
-            String sql = "{call updateVendor(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)}";
+            String sql = "{call updateVendor(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)}";
             spUtil = new SPUtil(sql);
             if (spUtil != null) {
                 spUtil.getCallableStatement().setString("_name", bean.getName());
@@ -339,6 +348,7 @@ public class VendorDAO extends BasicDAO {
                 spUtil.getCallableStatement().setInt("_is_good", bean.getIsGood());
                 spUtil.getCallableStatement().setInt("_is_transport", bean.getIsTransport());
                 spUtil.getCallableStatement().setInt("_is_oil", bean.getIsOil());
+                spUtil.getCallableStatement().setInt("_is_solar", bean.getIsSolar());
                 spUtil.getCallableStatement().setInt("_id", bean.getId());
                 spUtil.execute();
             }
@@ -867,6 +877,108 @@ public class VendorDAO extends BasicDAO {
             }
         }
         return null;
+    }
+
+    public void updateVendorSolar(VendorBean bean) throws Exception {
+        if (bean == null) {
+            return;
+        }
+        SPUtil spUtil = null;
+        try {
+            String sql = "{call updateVendorSolar(?,?,?)}";
+            spUtil = new SPUtil(sql);
+            if (spUtil != null) {
+                spUtil.getCallableStatement().setFloat("_commision_on_import", bean.getCommissionOnImport());
+                spUtil.getCallableStatement().setDouble("_max_debt", bean.getMaxDebt());
+                spUtil.getCallableStatement().setInt("_id", bean.getId());
+                spUtil.execute();
+            }
+        } catch (SQLException sqle) {
+            throw new Exception(sqle.getMessage());
+        } catch (Exception ex) {
+            throw new Exception(ex.getMessage());
+        } finally {
+            try {
+                if (spUtil != null) {
+                    spUtil.closeConnection();
+                }
+            } catch (Exception e) {
+                throw new Exception(e.getMessage());
+            }
+        }
+    }
+
+    public ArrayList getVendorSolarStoreDetail(int vendorId) throws Exception {
+        ResultSet rs = null;
+        String sql = "select det.*, s.name as store_name"
+                + " from vendor_solar_store as det, store as s"
+                + " where det.store_id=s.id and det.vendor_id=" + vendorId
+                + " order by det.id";
+        ArrayList detailList = new ArrayList();
+        try {
+            rs = DBUtil.executeQuery(sql);
+            VendorSolarStoreDetailBean bean = null;
+            while (rs.next()) {
+                bean = new VendorSolarStoreDetailBean();
+                bean.setId(rs.getInt("id"));
+                bean.setVendorId(rs.getInt("vendor_id"));
+                bean.setStoreId(rs.getInt("store_id"));
+                bean.setStoreName(rs.getString("store_name"));
+                detailList.add(bean);
+            }
+        } catch (SQLException sqle) {
+            throw new Exception(sqle.getMessage());
+        } catch (Exception ex) {
+            throw new Exception(ex.getMessage());
+        } finally {
+            if (rs != null) {
+                DBUtil.closeConnection(rs);
+            }
+        }
+        return detailList;
+    }
+
+    public int insertVendorOiStoreDetail(VendorSolarStoreDetailBean bean) throws Exception {
+        if (bean == null) {
+            return 0;
+        }
+        int result = 0;
+        SPUtil spUtil = null;
+        try {
+            String sql = "{call insertVendorSolarStoreDetail(?,?)}";
+            spUtil = new SPUtil(sql);
+            if (spUtil != null) {
+                spUtil.getCallableStatement().setInt("_vendor_id", bean.getVendorId());
+                spUtil.getCallableStatement().setInt("_store_id", bean.getStoreId());
+                spUtil.execute();
+            }
+        } catch (SQLException sqle) {
+            throw new Exception(sqle.getMessage());
+        } catch (Exception ex) {
+            throw new Exception(ex.getMessage());
+        } finally {
+            try {
+                if (spUtil != null) {
+                    spUtil.closeConnection();
+                }
+            } catch (Exception e) {
+                throw new Exception(e.getMessage());
+            }
+        }
+        return result;
+    }
+
+    public int deleteVendorSolarStoreDetails(String ids) throws Exception {
+        int result = 0;
+        try {
+            String sql = "Delete From vendor_solar_store Where id in (" + ids + ")";
+            DBUtil.executeUpdate(sql);
+        } catch (SQLException sqle) {
+            throw new Exception(sqle.getMessage());
+        } catch (Exception ex) {
+            throw new Exception(ex.getMessage());
+        }
+        return result;
     }
 
 }

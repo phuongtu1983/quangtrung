@@ -864,9 +864,18 @@ public class PermissionFormAction extends SpineAction {
         perBean.setValue(PermissionUtil.PER_INVOICE);
         perBean.setOperations("," + PermissionUtil.OPERATION_LIST + "," + PermissionUtil.OPERATION_ADD + "," + PermissionUtil.OPERATION_EDIT + "," + PermissionUtil.OPERATION_DELETE + "," + PermissionUtil.OPERATION_PRINT + ",");
         arrFun.add(perBean);
-
+        
         perBean = new PermissionViewBean();
         perBean.setCounter("2.78");
+        perBean.setLevel(2);
+        perBean.setSharedId(2);
+        perBean.setName(QTUtil.getBundleString("invoiceSolar.title"));
+        perBean.setValue(PermissionUtil.PER_INVOICE_SOLAR);
+        perBean.setOperations("," + PermissionUtil.OPERATION_LIST + "," + PermissionUtil.OPERATION_ADD + "," + PermissionUtil.OPERATION_EDIT + "," + PermissionUtil.OPERATION_DELETE + "," + PermissionUtil.OPERATION_PRINT + ",");
+        arrFun.add(perBean);
+
+        perBean = new PermissionViewBean();
+        perBean.setCounter("2.79");
         perBean.setLevel(2);
         perBean.setSharedId(2);
         perBean.setName(QTUtil.getBundleString("debtVendor.title"));
@@ -883,7 +892,7 @@ public class PermissionFormAction extends SpineAction {
 //        perBean.setOperations("," + PermissionUtil.OPERATION_LIST + "," + PermissionUtil.OPERATION_ADD + "," + PermissionUtil.OPERATION_EDIT + "," + PermissionUtil.OPERATION_DELETE + ",");
 //        arrFun.add(perBean);
         perBean = new PermissionViewBean();
-        perBean.setCounter("2.79");
+        perBean.setCounter("2.80");
         perBean.setLevel(2);
         perBean.setSharedId(2);
         perBean.setName(QTUtil.getBundleString("debtWholesale.title"));
@@ -892,7 +901,7 @@ public class PermissionFormAction extends SpineAction {
         arrFun.add(perBean);
 
         perBean = new PermissionViewBean();
-        perBean.setCounter("2.80");
+        perBean.setCounter("2.81");
         perBean.setLevel(2);
         perBean.setSharedId(2);
         perBean.setName(QTUtil.getBundleString("income.title"));
@@ -901,7 +910,7 @@ public class PermissionFormAction extends SpineAction {
         arrFun.add(perBean);
 
         perBean = new PermissionViewBean();
-        perBean.setCounter("2.81");
+        perBean.setCounter("2.82");
         perBean.setLevel(2);
         perBean.setSharedId(2);
         perBean.setName(QTUtil.getBundleString("expense.title"));
@@ -910,7 +919,7 @@ public class PermissionFormAction extends SpineAction {
         arrFun.add(perBean);
 
         perBean = new PermissionViewBean();
-        perBean.setCounter("2.82");
+        perBean.setCounter("2.83");
         perBean.setLevel(2);
         perBean.setSharedId(2);
         perBean.setName(QTUtil.getBundleString("shieldImport.title"));
@@ -919,7 +928,7 @@ public class PermissionFormAction extends SpineAction {
         arrFun.add(perBean);
 
         perBean = new PermissionViewBean();
-        perBean.setCounter("2.83");
+        perBean.setCounter("2.84");
         perBean.setLevel(2);
         perBean.setSharedId(2);
         perBean.setName(QTUtil.getBundleString("shieldDecrease.title"));
@@ -928,7 +937,7 @@ public class PermissionFormAction extends SpineAction {
         arrFun.add(perBean);
 
         perBean = new PermissionViewBean();
-        perBean.setCounter("2.84");
+        perBean.setCounter("2.85");
         perBean.setLevel(2);
         perBean.setSharedId(2);
         perBean.setName(QTUtil.getBundleString("debtAdjustment.title"));
@@ -937,7 +946,7 @@ public class PermissionFormAction extends SpineAction {
         arrFun.add(perBean);
         
         perBean = new PermissionViewBean();
-        perBean.setCounter("2.85");
+        perBean.setCounter("2.86");
         perBean.setLevel(2);
         perBean.setSharedId(2);
         perBean.setName(QTUtil.getBundleString("solarGroup.title"));
@@ -946,7 +955,7 @@ public class PermissionFormAction extends SpineAction {
         arrFun.add(perBean);
 
         perBean = new PermissionViewBean();
-        perBean.setCounter("2.86");
+        perBean.setCounter("2.87");
         perBean.setLevel(2);
         perBean.setSharedId(2);
         perBean.setName(QTUtil.getBundleString("employeeSolarCommission.title"));
@@ -955,7 +964,7 @@ public class PermissionFormAction extends SpineAction {
         arrFun.add(perBean);
 
         perBean = new PermissionViewBean();
-        perBean.setCounter("2.87");
+        perBean.setCounter("2.88");
         perBean.setLevel(2);
         perBean.setSharedId(2);
         perBean.setName(QTUtil.getBundleString("solar.title"));
@@ -963,7 +972,7 @@ public class PermissionFormAction extends SpineAction {
         perBean.setOperations("," + PermissionUtil.OPERATION_LIST + "," + PermissionUtil.OPERATION_ADD + "," + PermissionUtil.OPERATION_EDIT + ",");
         arrFun.add(perBean);
 		perBean = new PermissionViewBean();
-        perBean.setCounter("2.88");
+        perBean.setCounter("2.89");
         perBean.setLevel(2);
         perBean.setSharedId(2);
         perBean.setName(QTUtil.getBundleString("solarImport.title"));
@@ -972,7 +981,7 @@ public class PermissionFormAction extends SpineAction {
         arrFun.add(perBean);
         
         perBean = new PermissionViewBean();
-        perBean.setCounter("2.89");
+        perBean.setCounter("2.90");
         perBean.setLevel(2);
         perBean.setSharedId(2);
         perBean.setName(QTUtil.getBundleString("solarExport.title"));
@@ -981,7 +990,7 @@ public class PermissionFormAction extends SpineAction {
         arrFun.add(perBean);
 
         perBean = new PermissionViewBean();
-        perBean.setCounter("2.90");
+        perBean.setCounter("2.91");
         perBean.setLevel(2);
         perBean.setSharedId(2);
         perBean.setName(QTUtil.getBundleString("saleSolar.title"));
@@ -990,7 +999,7 @@ public class PermissionFormAction extends SpineAction {
         arrFun.add(perBean);
 
         perBean = new PermissionViewBean();
-        perBean.setCounter("2.91");
+        perBean.setCounter("2.92");
         perBean.setLevel(2);
         perBean.setSharedId(2);
         perBean.setName(QTUtil.getBundleString("saleSolarReturn.title"));
@@ -999,7 +1008,7 @@ public class PermissionFormAction extends SpineAction {
         arrFun.add(perBean);
 
         perBean = new PermissionViewBean();
-        perBean.setCounter("2.92");
+        perBean.setCounter("2.93");
         perBean.setLevel(2);
         perBean.setSharedId(2);
         perBean.setName(QTUtil.getBundleString("saleSolarReturnStore.title"));
@@ -1377,11 +1386,101 @@ public class PermissionFormAction extends SpineAction {
         arrFun.add(perBean);
         
         perBean = new PermissionViewBean();
-        perBean.setCounter("3.40");
+        perBean.setCounter("3.41");
         perBean.setLevel(2);
         perBean.setSharedId(3);
         perBean.setName(QTUtil.getBundleString("report.oilCustomerDebt.title"));
         perBean.setValue(PermissionUtil.PER_REPORT_OIL_CUSTOMER_DEBT);
+        perBean.setOperations("," + PermissionUtil.OPERATION_PRINT + ",");
+        arrFun.add(perBean);
+        
+        perBean = new PermissionViewBean();
+        perBean.setCounter("3.42");
+        perBean.setLevel(2);
+        perBean.setSharedId(3);
+        perBean.setName(QTUtil.getBundleString("report.solarImport.title"));
+        perBean.setValue(PermissionUtil.PER_REPORT_SOLAR_IMPORT);
+        perBean.setOperations("," + PermissionUtil.OPERATION_PRINT + ",");
+        arrFun.add(perBean);
+
+        perBean = new PermissionViewBean();
+        perBean.setCounter("3.43");
+        perBean.setLevel(2);
+        perBean.setSharedId(3);
+        perBean.setName(QTUtil.getBundleString("report.solarStock.title"));
+        perBean.setValue(PermissionUtil.PER_REPORT_SOLAR_STOCK);
+        perBean.setOperations("," + PermissionUtil.OPERATION_PRINT + ",");
+        arrFun.add(perBean);
+
+        perBean = new PermissionViewBean();
+        perBean.setCounter("3.34");
+        perBean.setLevel(2);
+        perBean.setSharedId(3);
+        perBean.setName(QTUtil.getBundleString("report.solarStockSum.title"));
+        perBean.setValue(PermissionUtil.PER_REPORT_SOLAR_STOCK_SUM);
+        perBean.setOperations("," + PermissionUtil.OPERATION_PRINT + ",");
+        arrFun.add(perBean);
+
+        perBean = new PermissionViewBean();
+        perBean.setCounter("3.45");
+        perBean.setLevel(2);
+        perBean.setSharedId(3);
+        perBean.setName(QTUtil.getBundleString("report.solarSale.title"));
+        perBean.setValue(PermissionUtil.PER_REPORT_SOLAR_SALE);
+        perBean.setOperations("," + PermissionUtil.OPERATION_PRINT + ",");
+        arrFun.add(perBean);
+
+        perBean = new PermissionViewBean();
+        perBean.setCounter("3.46");
+        perBean.setLevel(2);
+        perBean.setSharedId(3);
+        perBean.setName(QTUtil.getBundleString("report.solarCompare.title"));
+        perBean.setValue(PermissionUtil.PER_REPORT_SOLAR_COMPARE);
+        perBean.setOperations("," + PermissionUtil.OPERATION_PRINT + ",");
+        arrFun.add(perBean);
+
+        perBean = new PermissionViewBean();
+        perBean.setCounter("3.47");
+        perBean.setLevel(2);
+        perBean.setSharedId(3);
+        perBean.setName(QTUtil.getBundleString("report.solarCommissionAgency.title"));
+        perBean.setValue(PermissionUtil.PER_REPORT_SOLAR_COMMISSION_AGENCY);
+        perBean.setOperations("," + PermissionUtil.OPERATION_PRINT + ",");
+        arrFun.add(perBean);
+        
+        perBean = new PermissionViewBean();
+        perBean.setCounter("3.48");
+        perBean.setLevel(2);
+        perBean.setSharedId(3);
+        perBean.setName(QTUtil.getBundleString("report.solarCommissionCustomer.title"));
+        perBean.setValue(PermissionUtil.PER_REPORT_SOLAR_COMMISSION_CUSTOMER);
+        perBean.setOperations("," + PermissionUtil.OPERATION_PRINT + ",");
+        arrFun.add(perBean);
+
+        perBean = new PermissionViewBean();
+        perBean.setCounter("3.49");
+        perBean.setLevel(2);
+        perBean.setSharedId(3);
+        perBean.setName(QTUtil.getBundleString("report.solarVendorStock.title"));
+        perBean.setValue(PermissionUtil.PER_REPORT_SOLAR_VENDOR_STOCK);
+        perBean.setOperations("," + PermissionUtil.OPERATION_PRINT + ",");
+        arrFun.add(perBean);
+        
+        perBean = new PermissionViewBean();
+        perBean.setCounter("3.50");
+        perBean.setLevel(2);
+        perBean.setSharedId(3);
+        perBean.setName(QTUtil.getBundleString("report.solarVendorDebt.title"));
+        perBean.setValue(PermissionUtil.PER_REPORT_SOLAR_VENDOR_DEBT);
+        perBean.setOperations("," + PermissionUtil.OPERATION_PRINT + ",");
+        arrFun.add(perBean);
+        
+        perBean = new PermissionViewBean();
+        perBean.setCounter("3.41");
+        perBean.setLevel(2);
+        perBean.setSharedId(3);
+        perBean.setName(QTUtil.getBundleString("report.solarCustomerDebt.title"));
+        perBean.setValue(PermissionUtil.PER_REPORT_SOLAR_CUSTOMER_DEBT);
         perBean.setOperations("," + PermissionUtil.OPERATION_PRINT + ",");
         arrFun.add(perBean);
 

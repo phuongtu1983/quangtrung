@@ -14,6 +14,7 @@ import com.stepup.gasoline.qt.employee.EmployeeFormBean;
 import com.stepup.gasoline.qt.employeeoilcommission.EmployeeOilCommissionFormBean;
 import com.stepup.gasoline.qt.oil.OilFormBean;
 import com.stepup.gasoline.qt.petro.PetroFormBean;
+import com.stepup.gasoline.qt.solar.SolarFormBean;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
@@ -181,7 +182,7 @@ public class DynamicColumnExcelReporter {
             sheet.setColumnWidth(col, sheet.getColumnWidth(5));
             col += 1;
         }
-        
+
         // oil
         EmployeeOilCommissionFormBean employeeOilCommission = null;
         for (int i = 0; i < arrEmployeeOilCommission.size(); i++) {
@@ -360,6 +361,71 @@ public class DynamicColumnExcelReporter {
         }
         sheet.addMergedRegion(new CellRangeAddress(0, 0, 0, 2 + 3 - 1 + arrOil.size() * 3));
         sheet.addMergedRegion(new CellRangeAddress(2, 2, 0, 2 + 3 - 1 + arrOil.size() * 3));
+        FileOutputStream fileOut = new FileOutputStream(f);
+        wb.write(fileOut);
+        fileOut.close();
+    }
+
+    public static void createSolarStockReportColumns(String templateFileName, ArrayList arrSolar, File f) throws Exception {
+        POIFSFileSystem fs = new POIFSFileSystem(new FileInputStream(templateFileName));
+        HSSFWorkbook wb = new HSSFWorkbook(fs);
+        HSSFSheet sheet = wb.getSheetAt(0);
+        HSSFCell newCell = null;
+        SolarFormBean solar = null;
+        short col = 5, row = 3;
+        short border = sheet.getRow(4).getCell(1).getCellStyle().getBorderLeft();
+        short color = sheet.getRow(4).getCell(1).getCellStyle().getLeftBorderColor();
+        for (int i = 0; i < arrSolar.size(); i++) {
+            solar = (SolarFormBean) arrSolar.get(i);
+            //copy header
+            newCell = copyCell(wb, sheet, row + 1, 2, col, "", "");
+            newCell.setCellValue(new HSSFRichTextString(solar.getName()));
+            ExcelExport.setBorder(wb, sheet, row + 1, col + 1, border, color);
+            ExcelExport.setBorder(wb, sheet, row + 1, col + 2, border, color);
+
+            //copy header nhap
+            newCell = copyCell(wb, sheet, row + 2, 2, col, "", "");
+            newCell.setCellValue(new HSSFRichTextString(newCell.getRichStringCellValue().getString()));
+            //copy header xuat
+            newCell = copyCell(wb, sheet, row + 2, 3, col + 1, "", "");
+            newCell.setCellValue(new HSSFRichTextString(newCell.getRichStringCellValue().getString()));
+            //copy header ton
+            newCell = copyCell(wb, sheet, row + 2, 4, col + 2, "", "");
+            newCell.setCellValue(new HSSFRichTextString(newCell.getRichStringCellValue().getString()));
+
+            //copy header2 nhap
+            copyCell(wb, sheet, row + 3, 2, col, "", "");
+            //copy header2 xuat
+            copyCell(wb, sheet, row + 3, 3, col + 1, "", "");
+            //copy header2 ton
+            newCell = copyCell(wb, sheet, row + 3, 4, col + 2, "", "");
+            newCell.setCellValue(new HSSFRichTextString("${" + newCell.getRichStringCellValue().getString() + solar.getId() + "}"));
+
+            //copy content nhap
+            copyCell(wb, sheet, row + 4, 2, col, "", solar.getId() + "");
+            //copy content xuat
+            copyCell(wb, sheet, row + 4, 3, col + 1, "", solar.getId() + "");
+            //copy content ton
+            copyCell(wb, sheet, row + 4, 4, col + 2, "", solar.getId() + "");
+
+            //copy footer nhap
+            newCell = copyCell(wb, sheet, row + 5, 2, col, "", solar.getId() + "");
+            newCell.setCellValue(new HSSFRichTextString("$[SUM(" + ExcelExport.getColumnName(col) + "8)]"));
+            //copy footer xuat
+            newCell = copyCell(wb, sheet, row + 5, 3, col + 1, "", solar.getId() + "");
+            newCell.setCellValue(new HSSFRichTextString("$[SUM(" + ExcelExport.getColumnName(col + 1) + "8)]"));
+            //copy footer ton
+            newCell = copyCell(wb, sheet, row + 5, 4, col + 2, "", solar.getId() + "");
+            newCell.setCellValue(new HSSFRichTextString("${closingStock" + solar.getId() + "}"));
+
+            sheet.setColumnWidth(col, sheet.getColumnWidth(2));
+            sheet.setColumnWidth((col + 1), sheet.getColumnWidth(3));
+            sheet.setColumnWidth((col + 2), sheet.getColumnWidth(4));
+            sheet.addMergedRegion(new CellRangeAddress(row + 1, row + 1, col, col + 2));
+            col += 3;
+        }
+        sheet.addMergedRegion(new CellRangeAddress(0, 0, 0, 2 + 3 - 1 + arrSolar.size() * 3));
+        sheet.addMergedRegion(new CellRangeAddress(2, 2, 0, 2 + 3 - 1 + arrSolar.size() * 3));
         FileOutputStream fileOut = new FileOutputStream(f);
         wb.write(fileOut);
         fileOut.close();

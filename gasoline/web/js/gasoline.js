@@ -298,11 +298,16 @@ function menuClick(id) {
         loadInvoicePanel();
     else if (id == 'invoiceadd')
         getInvoice(0);
+    else if (id == 'invoicesolarlist')
+        loadInvoiceSolarPanel();
+    else if (id == 'invoicesolaradd')
+        getInvoiceSolar(0);
     else if (id == 'reportlpgimport' || id == 'reportlpgstock' || id == 'reportlpgstocksum' || id == 'reportsum' || id == 'reportsalecustomer' || id == 'reportsale'
             || id == 'reportcashbook' || id == 'reportpetroimport' || id == 'reportpetrosale' || id == 'reportpetrostock' || id == 'reportgascommission'
             || id == 'reportgasemployeecommission' || id == 'reportvendordebt' || id == 'reporttransportfee' || id == 'reportvehiclesale' || id == 'reportlpgsale'
             || id == 'reportshell' || id == 'reportoilimport' || id == 'reportoilstocksum' || id == 'reportoilsale' || id == 'reportoilvendordebt'
-            || id == 'reportoilstocksumh')
+            || id == 'reportoilstocksumh' || id == 'reportsolarimport' || id == 'reportsolarstocksum' || id == 'reportsolarsale' || id == 'reportsolarvendordebt'
+            || id == 'reportsolarstocksumh')
         showReportPanel(id);
     else if (id == 'reportemployeesalary')
         showMonthlyReportPanel(id);
@@ -426,6 +431,10 @@ function menuClick(id) {
         showOilStockStoreReportPanel();
     else if (id == 'reportoilstockh')
         showOilStockStoreHReportPanel();
+    else if (id == 'reportsolarstock')
+        showSolarStockStoreReportPanel();
+    else if (id == 'reportsolarstockh')
+        showSolarStockStoreHReportPanel();
     else if (id == 'reportoilcommissionagency')
         showCompareAgencyCommissionReportPanel();
     else if (id == 'reportoilcommissioncustomer')
@@ -440,34 +449,50 @@ function menuClick(id) {
         getSaleOilReturnStore(0);
     else if (id == 'reportoilcustomerdebt')
         showOilCustomerDebtReportPanel();
-    else if (id == 'solargrouplist')
-        loadOilGroupPanel();
-    else if (id == 'solargroupadd')
-        getOilGroup(0, 'loadOilGroupPanel');
-    else if (id == 'employeesolarcommissionlist')
-        loadEmployeeOilCommissionPanel();
-    else if (id == 'employeesolarcommissionadd')
-        getEmployeeOilCommission(0, 'loadEmployeeOilCommissionPanel');
-    else if (id == 'solarlist')
-        loadOilPanel();
-    else if (id == 'solaradd')
-        getOil(0, 'loadOilPanel');
-    else if (id == 'solarimportlist')
-        loadOilImportPanel();
-    else if (id == 'solarimportadd')
-        getOilImport(0);
-    else if (id == 'solarexportlist')
-        loadOilExportPanel();
-    else if (id == 'salesolarlist')
-        loadSaleOilPanel();
-    else if (id == 'salesolaradd')
-        getSaleOil(0);
-    else if (id == 'salesolarreturnlist')
-        loadSaleOilReturnPanel();
-    else if (id == 'salesolarreturnstoreadd')
-        getSaleOilReturnStore(0);
+    
+    else if (id == 'reportsolarcommissionagency')
+        showSolarCompareAgencyCommissionReportPanel();
+    else if (id == 'reportsolarcommissioncustomer')
+        showSolarCompareCustomerCommissionReportPanel();
+    else if (id == 'reportsolarcompare')
+        showSolarCompareReportPanel();
+    else if (id == 'reportsolarvendorstock')
+        showSolarVendorStockReportPanel();
     else if (id == 'reportsolarcustomerdebt')
-        showOilCustomerDebtReportPanel();
+        showSolarCustomerDebtReportPanel();
+    
+    else if (id == 'vendorsolarlist')
+        loadVendorSolarPanel();
+    else if (id == 'vendorsolaradd')
+        getVendorSolar(0);
+    else if (id == 'solargrouplist')
+        loadSolarGroupPanel();
+    else if (id == 'solargroupadd')
+        getSolarGroup(0, 'loadSolarGroupPanel');
+    else if (id == 'employeesolarcommissionlist')
+        loadEmployeeSolarCommissionPanel();
+    else if (id == 'employeesolarcommissionadd')
+        getEmployeeSolarCommission(0, 'loadEmployeeSolarCommissionPanel');
+    else if (id == 'solarlist')
+        loadSolarPanel();
+    else if (id == 'solaradd')
+        getSolar(0, 'loadSolarPanel');
+    else if (id == 'solarimportlist')
+        loadSolarImportPanel();
+    else if (id == 'solarimportadd')
+        getSolarImport(0);
+    else if (id == 'solarexportlist')
+        loadSolarExportPanel();
+    else if (id == 'salesolarlist')
+        loadSaleSolarPanel();
+    else if (id == 'salesolaradd')
+        getSaleSolar(0);
+    else if (id == 'salesolarreturnlist')
+        loadSaleSolarReturnPanel();
+    else if (id == 'salesolarreturnstoreadd')
+        getSaleSolarReturnStore(0);
+    else if (id == 'reportsolarcustomerdebt')
+        showSolarCustomerDebtReportPanel();
 }
 function clearContent() {
     var contentDiv = document.getElementById("contentDiv");
@@ -14946,6 +14971,7 @@ function loadVendorOilPanel() {
         setAjaxData(data, "contentDiv");
         loadVendorOilList();
     });
+    return false;
 }
 function loadVendorOilList() {
     var mygrid = new dhtmlXGridObject('vendorOilList');
@@ -15512,6 +15538,7 @@ function loadVendorSolarPanel() {
         setAjaxData(data, "contentDiv");
         loadVendorSolarList();
     });
+    return false;
 }
 function loadVendorSolarList() {
     var mygrid = new dhtmlXGridObject('vendorSolarList');
@@ -15628,75 +15655,6 @@ function saveSolarGroup() {
     });
     return false;
 }
-function loadEmployeeSolarCommissionPanel() {
-    callAjax("getEmployeeSolarCommissionPanel.do", null, null, function(data) {
-        clearContent();
-        setAjaxData(data, "contentDiv");
-        loadEmployeeSolarCommissionList();
-    });
-}
-function loadEmployeeSolarCommissionList() {
-    var mygrid = new dhtmlXGridObject('employeeSolarCommissionList');
-    mygrid.setImagePath("js/dhtmlx/grid/imgs/");
-    mygrid.setHeader("T\u00EAn lo\u1EA1i chi\u1EBFt kh\u1EA5u,S\u1ED1 ti\u1EC1n,Ghi ch\u00FA");
-    mygrid.attachHeader("#text_filter,#text_filter,#text_filter");
-    mygrid.setInitWidths("250,150,*");
-    mygrid.setColTypes("link,ro,ro");
-    mygrid.setColSorting("str,str,str");
-    mygrid.setSkin("light");
-    var height = contentHeight - 210;
-    mygrid.al(true, height); //enableAutoHeight
-    mygrid.enablePaging(true, 15, 3, "recinfoArea");
-    mygrid.setPagingSkin("toolbar", "dhx_skyblue");
-    mygrid.init();
-    var url = "getEmployeeSolarCommissionList.do";
-    callAjax(url, null, null, function(data) {
-        mygrid.parse(data);
-    });
-    return false;
-}
-function getEmployeeSolarCommission(id, handle) {
-    popupName = 'TH\u00D4NG TIN QUI LO\u1EA0I CHI\u1EBET KH\u1EA4U B\u00C1N NLMT';
-    var url = 'employeeSolarCommissionForm.do';
-    if (id != 0)
-        url += '?employeeSolarCommissionId=' + id
-    callAjax(url, null, null, function(data) {
-        showPopupForm(data);
-        document.getElementById('callbackFunc').value = handle;
-        tryNumberFormatCurrentcy(document.forms['employeeSolarCommissionForm'].amount, "VND");
-    });
-}
-function saveEmployeeSolarCommission() {
-    if (scriptFunction == "saveEmployeeSolarCommission")
-        return false;
-    var field = document.forms['employeeSolarCommissionForm'].name;
-    if (field.value == '') {
-        alert("Vui l\u00F2ng nh\u1EADp t\u00EAn lo\u1EA1i chi\u1EBFt kh\u1EA5u");
-        field.focus();
-        field = null;
-        return false;
-    }
-    field = null;
-    reformatNumberMoney(document.forms['employeeSolarCommissionForm'].amount);
-    scriptFunction = "saveEmployeeSolarCommission";
-    callAjaxCheckError("addEmployeeSolarCommission.do", null, document.forms['employeeSolarCommissionForm'], function(data) {
-        scriptFunction = "";
-        var handle = document.getElementById('callbackFunc').value;
-        if (confirm('B\u1EA1n c\u00F3 mu\u1ED1n nh\u1EADp ti\u1EBFp th\u00F4ng tin kh\u00E1c ?'))
-            getEmployeeSolarCommission(0, handle);
-        else if (handle != '')
-            eval(handle + "()");
-        prepareHidePopup('employeeSolarCommissionFormshowHelpHideDiv');
-    });
-    return false;
-}
-function delEmployeeSolarCommission() {
-    callAjaxCheckError('delEmployeeSolarCommission.do?employeeSolarCommissionId=' + document.forms['employeeSolarCommissionForm'].id.value, null, null, function() {
-        loadEmployeeSolarCommissionPanel();
-        prepareHidePopup('employeeSolarCommissionFormshowHelpHideDiv');
-    });
-    return false;
-}
 function loadSolarPanel() {
     callAjax("getSolarPanel.do", null, null, function(data) {
         clearContent();
@@ -15771,6 +15729,94 @@ function saveSolar() {
         else if (handle != '')
             eval(handle + "()");
         prepareHidePopup('solarFormshowHelpHideDiv');
+    });
+    return false;
+}
+function loadEmployeeSolarCommissionPanel() {
+    callAjax("getEmployeeSolarCommissionPanel.do", null, null, function(data) {
+        clearContent();
+        setAjaxData(data, "contentDiv");
+        loadEmployeeSolarCommissionList();
+    });
+}
+function loadEmployeeSolarCommissionList() {
+    var mygrid = new dhtmlXGridObject('employeeSolarCommissionList');
+    mygrid.setImagePath("js/dhtmlx/grid/imgs/");
+    mygrid.setHeader("T\u00EAn lo\u1EA1i chi\u1EBFt kh\u1EA5u,S\u1ED1 ti\u1EC1n,Ghi ch\u00FA");
+    mygrid.attachHeader("#text_filter,#text_filter,#text_filter");
+    mygrid.setInitWidths("250,150,*");
+    mygrid.setColTypes("link,ro,ro");
+    mygrid.setColSorting("str,str,str");
+    mygrid.setSkin("light");
+    var height = contentHeight - 210;
+    mygrid.al(true, height); //enableAutoHeight
+    mygrid.enablePaging(true, 15, 3, "recinfoArea");
+    mygrid.setPagingSkin("toolbar", "dhx_skyblue");
+    mygrid.init();
+    var url = "getEmployeeSolarCommissionList.do";
+    callAjax(url, null, null, function(data) {
+        mygrid.parse(data);
+    });
+    return false;
+}
+function getEmployeeSolarCommission(id, handle) {
+    popupName = 'TH\u00D4NG TIN QUI LO\u1EA0I CHI\u1EBET KH\u1EA4U B\u00C1N NLMT';
+    var url = 'employeeSolarCommissionForm.do';
+    if (id != 0)
+        url += '?employeeSolarCommissionId=' + id
+    callAjax(url, null, null, function(data) {
+        showPopupForm(data);
+        document.getElementById('callbackFunc').value = handle;
+        tryNumberFormatCurrentcy(document.forms['employeeSolarCommissionForm'].amount, "VND");
+    });
+}
+function saveEmployeeSolarCommission() {
+    if (scriptFunction == "saveEmployeeSolarCommission")
+        return false;
+    var field = document.forms['employeeSolarCommissionForm'].name;
+    if (field.value == '') {
+        alert("Vui l\u00F2ng nh\u1EADp t\u00EAn lo\u1EA1i chi\u1EBFt kh\u1EA5u");
+        field.focus();
+        field = null;
+        return false;
+    }
+    field = null;
+    reformatNumberMoney(document.forms['employeeSolarCommissionForm'].amount);
+    scriptFunction = "saveEmployeeSolarCommission";
+    callAjaxCheckError("addEmployeeSolarCommission.do", null, document.forms['employeeSolarCommissionForm'], function(data) {
+        scriptFunction = "";
+        var handle = document.getElementById('callbackFunc').value;
+        if (confirm('B\u1EA1n c\u00F3 mu\u1ED1n nh\u1EADp ti\u1EBFp th\u00F4ng tin kh\u00E1c ?'))
+            getEmployeeSolarCommission(0, handle);
+        else if (handle != '')
+            eval(handle + "()");
+        prepareHidePopup('employeeSolarCommissionFormshowHelpHideDiv');
+    });
+    return false;
+}
+function delEmployeeSolarCommission() {
+    callAjaxCheckError('delEmployeeSolarCommission.do?employeeSolarCommissionId=' + document.forms['employeeSolarCommissionForm'].id.value, null, null, function() {
+        loadEmployeeSolarCommissionPanel();
+        prepareHidePopup('employeeSolarCommissionFormshowHelpHideDiv');
+    });
+    return false;
+}
+function getSaleSolarReturnStore(id) {
+    popupName = 'TH\u00D4NG TIN KHO TR\u1EA2 H\u00C0NG NLMT';
+    var url = 'saleSolarReturnStoreForm.do';
+    if (id != 0)
+        url += '?saleSolarReturnStoreId=' + id
+    callAjax(url, null, null, function(data) {
+        showPopupForm(data);
+    });
+}
+function saveSaleSolarReturnStore() {
+    if (scriptFunction == "saveSaleSolarReturnStore")
+        return false;
+    scriptFunction = "saveSaleSolarReturnStore";
+    callAjaxCheckError("addSaleSolarReturnStore.do", null, document.forms['saleSolarReturnStoreForm'], function(data) {
+        scriptFunction = "";
+        prepareHidePopup('saleSolarReturnStoreFormshowHelpHideDiv');
     });
     return false;
 }
@@ -16609,6 +16655,7 @@ function reformatSaleSolarPromotionMaterialQuantityDetail() {
     }
     quantity = null;
 }
+
 function loadSaleSolarReturnPanel() {
     callAjax("getSaleSolarReturnPanel.do", null, null, function(data) {
         clearContent();
@@ -16761,25 +16808,6 @@ function delSaleSolarReturn() {
     });
     return false;
 }
-function getSaleSolarReturnStore(id) {
-    popupName = 'TH\u00D4NG TIN KHO TR\u1EA2 H\u00C0NG NLMT';
-    var url = 'saleSolarReturnStoreForm.do';
-    if (id != 0)
-        url += '?saleSolarReturnStoreId=' + id
-    callAjax(url, null, null, function(data) {
-        showPopupForm(data);
-    });
-}
-function saveSaleSolarReturnStore() {
-    if (scriptFunction == "saveSaleSolarReturnStore")
-        return false;
-    scriptFunction = "saveSaleSolarReturnStore";
-    callAjaxCheckError("addSaleSolarReturnStore.do", null, document.forms['saleSolarReturnStoreForm'], function(data) {
-        scriptFunction = "";
-        prepareHidePopup('saleSolarReturnStoreFormshowHelpHideDiv');
-    });
-    return false;
-}
 function loadSolarExportPanel() {
     callAjax("getSolarExportPanel.do", null, null, function(data) {
         clearContent();
@@ -16900,62 +16928,6 @@ function printSolarExport(solarExportId) {
     callServer("reportSolarExport.do?solarExportId=" + solarExportId);
     return false;
 }
-function loadVendorSolarPanel() {
-    callAjax("getVendorSolarPanel.do", null, null, function(data) {
-        clearContent();
-        setAjaxData(data, "contentDiv");
-        loadVendorSolarList();
-    });
-}
-function loadVendorSolarList() {
-    var mygrid = new dhtmlXGridObject('vendorSolarList');
-    mygrid.setImagePath("js/dhtmlx/grid/imgs/");
-    mygrid.setHeader("M\u00E3 nh\u00E0 cung c\u1EA5p,T\u00EAn nh\u00E0 cung c\u1EA5p,\u0110\u01A1n v\u1ECB,T\u00ECnh tr\u1EA1ng");
-    mygrid.attachHeader("#text_filter,#text_filter,#select_filter,#select_filter");
-    mygrid.setInitWidths("100,*,250,150");
-    mygrid.setColTypes("link,ro,ro,ro");
-    mygrid.setColSorting("str,str,str,str");
-    mygrid.setSkin("light");
-    var height = contentHeight - 210;
-    mygrid.al(true, height); //enableAutoHeight
-    mygrid.enablePaging(true, 15, 3, "recinfoArea");
-    mygrid.setPagingSkin("toolbar", "dhx_skyblue");
-    mygrid.init();
-    var list = document.forms['vendorSolarSearchForm'].statusCombobox;
-    if (list != null && list.selectedIndex > -1)
-        list = list.options[list.selectedIndex].value;
-    else
-        list = 0;
-    var url = "getVendorSolarList.do?status=" + list;
-    callAjax(url, null, null, function(data) {
-        mygrid.parse(data);
-    });
-    return false;
-}
-function getVendorSolar(id) {
-    var url = 'vendorSolarForm.do';
-    if (id != 0)
-        url += '?vendorId=' + id
-    callAjax(url, null, null, function(data) {
-        clearContent();
-        setAjaxData(data, 'contentDiv');
-        document.forms['vendorSolarForm'].commissionOnImport.focus();
-        tryNumberFormatCurrentcy(document.forms['vendorSolarForm'].commissionOnImport, "USD");
-        tryNumberFormatCurrentcy(document.forms['vendorSolarForm'].maxDebt, "VND");
-    });
-}
-function saveVendorSolar() {
-    if (scriptFunction == "saveVendorSolar")
-        return false;
-    reformatNumberMoney(document.forms['vendorSolarForm'].commissionOnImport);
-    reformatNumberMoney(document.forms['vendorSolarForm'].maxDebt);
-    scriptFunction = "saveVendorSolar";
-    callAjaxCheckError("addVendorSolar.do", null, document.forms['vendorSolarForm'], function(data) {
-        scriptFunction = "";
-        loadVendorSolarPanel();
-    });
-    return false;
-}
 function addVendorSolarStore() {
     var store = document.forms['vendorSolarForm'].storeIdCombobox;
     if (store == null && store.selectedIndex == -1)
@@ -16995,6 +16967,722 @@ function addVendorSolarStore() {
             detTable.tBodies[0].appendChild(matTable.tBodies[0].rows[i]);
         matTable = null;
         detTable = null;
+    });
+    return false;
+}
+function showSolarStockStoreReportPanel() {
+    popupName = 'S\u1ED5 theo d\u00F5i NXT d\u1EA7u nh\u1EDBt theo c\u1EEDa h\u00E0ng';
+    var url = 'getSolarStockStoreReportPanel.do';
+    callAjax(url, null, null, function(data) {
+        showPopupForm(data);
+        var myCalendar = new dhtmlXCalendarObject(["fromDate", "toDate"]);
+        myCalendar.setSkin('dhx_web');
+        var currentTime = getCurrentDate();
+        document.forms['reportSolarStockStoreSearchForm'].fromDate.value = currentTime;
+        document.forms['reportSolarStockStoreSearchForm'].toDate.value = currentTime;
+        myCalendar.setDateFormat("%d/%m/%Y");
+    });
+}
+function printSolarStockStoreReport(fromDate, toDate) {
+    var list = document.getElementById("reportSolarStockStoreSearchFormTime");
+    if (list == null || list.selectedIndex == -1)
+        return false;
+    if (list.selectedIndex == 1) {
+        fromDate = "01/" + fromDate;
+        var ind = toDate.indexOf("/");
+        var month = toDate.substring(0, ind);
+        var year = toDate.substring(ind + 1);
+        toDate = month + "/01/" + year;
+        var d = new Date(toDate);
+        var lastDay = new Date(d.getFullYear(), d.getMonth() + 1, 0).getDate();
+        toDate = lastDay + "/" + month + "/" + year;
+    } else if (list.selectedIndex == 2) {
+        fromDate = "01/01/" + fromDate;
+        toDate = "31/12/" + toDate;
+    }
+    var url = "reportSolarStockStorePrint.do?temp=1";
+    if (fromDate !== null)
+        url += "&fromDate=" + fromDate;
+    if (toDate !== null)
+        url += "&toDate=" + toDate;
+    list = document.forms['reportSolarStockStoreSearchForm'].storeId;
+    if (list != null && list.selectedIndex > -1)
+        list = list.options[list.selectedIndex].value;
+    else
+        list = 0;
+    url += "&storeId=" + list;
+    callServer(url);
+    return false;
+}
+function showSolarStockStoreHReportPanel() {
+    popupName = 'S\u1ED5 theo d\u00F5i NXT d\u1EA7u nh\u1EDBt theo c\u1EEDa h\u00E0ng';
+    var url = 'getSolarStockStoreHReportPanel.do';
+    callAjax(url, null, null, function(data) {
+        showPopupForm(data);
+        var myCalendar = new dhtmlXCalendarObject(["fromDate", "toDate"]);
+        myCalendar.setSkin('dhx_web');
+        var currentTime = getCurrentDate();
+        document.forms['reportSolarStockStoreHSearchForm'].fromDate.value = currentTime;
+        document.forms['reportSolarStockStoreHSearchForm'].toDate.value = currentTime;
+        myCalendar.setDateFormat("%d/%m/%Y");
+    });
+}
+function printSolarStockStoreHReport(fromDate, toDate) {
+    var list = document.getElementById("reportSolarStockStoreHSearchFormTime");
+    if (list == null || list.selectedIndex == -1)
+        return false;
+    if (list.selectedIndex == 1) {
+        fromDate = "01/" + fromDate;
+        var ind = toDate.indexOf("/");
+        var month = toDate.substring(0, ind);
+        var year = toDate.substring(ind + 1);
+        toDate = month + "/01/" + year;
+        var d = new Date(toDate);
+        var lastDay = new Date(d.getFullYear(), d.getMonth() + 1, 0).getDate();
+        toDate = lastDay + "/" + month + "/" + year;
+    } else if (list.selectedIndex == 2) {
+        fromDate = "01/01/" + fromDate;
+        toDate = "31/12/" + toDate;
+    }
+    var url = "reportSolarStockStoreHPrint.do?temp=1";
+    if (fromDate !== null)
+        url += "&fromDate=" + fromDate;
+    if (toDate !== null)
+        url += "&toDate=" + toDate;
+    list = document.forms['reportSolarStockStoreHSearchForm'].storeId;
+    if (list != null && list.selectedIndex > -1)
+        list = list.options[list.selectedIndex].value;
+    else
+        list = 0;
+    url += "&storeId=" + list;
+    callServer(url);
+    return false;
+}
+function showSolarCompareAgencyCommissionReportPanel() {
+    popupName = 'B\u00E1o c\u00E1o theo d\u00F5i chi\u1EBFt kh\u1EA5u NLMT \u0111\u1EA1i l\u00FD';
+    var url = 'getCompareAgencyCommissionReportPanel.do';
+    callAjax(url, null, null, function(data) {
+        showPopupForm(data);
+        var myCalendar = new dhtmlXCalendarObject(["fromDate", "toDate"]);
+        myCalendar.setSkin('dhx_web');
+        var currentTime = getCurrentDate();
+        document.forms['reportCompareAgencyCommissionSearchForm'].fromDate.value = currentTime;
+        document.forms['reportCompareAgencyCommissionSearchForm'].toDate.value = currentTime;
+        myCalendar.setDateFormat("%d/%m/%Y");
+    });
+}
+function printSolarCompareAgencyCommissionReport(fromDate, toDate) {
+    var list = document.getElementById("reportCompareAgencyCommissionSearchFormTime");
+    if (list == null || list.selectedIndex == -1)
+        return false;
+    if (list.selectedIndex == 1) {
+        fromDate = "01/" + fromDate;
+        var ind = toDate.indexOf("/");
+        var month = toDate.substring(0, ind);
+        var year = toDate.substring(ind + 1);
+        toDate = month + "/01/" + year;
+        var d = new Date(toDate);
+        var lastDay = new Date(d.getFullYear(), d.getMonth() + 1, 0).getDate();
+        toDate = lastDay + "/" + month + "/" + year;
+    } else if (list.selectedIndex == 2) {
+        fromDate = "01/01/" + fromDate;
+        toDate = "31/12/" + toDate;
+    }
+    var url = "reportCompareAgencyCommissionPrint.do?temp=1";
+    if (fromDate !== null)
+        url += "&fromDate=" + fromDate;
+    if (toDate !== null)
+        url += "&toDate=" + toDate;
+    list = document.forms['reportCompareAgencyCommissionSearchForm'].agencyId;
+    if (list != null && list.selectedIndex > -1)
+        list = list.options[list.selectedIndex].value;
+    else
+        list = 0;
+    url += "&agencyId=" + list;
+    callServer(url);
+    return false;
+}
+function showSolarCompareCustomerCommissionReportPanel() {
+    popupName = 'B\u00E1o c\u00E1o theo d\u00F5i chi\u1EBFt kh\u1EA5u NLMT kh\u00E1ch h\u00E0ng';
+    var url = 'getCompareCustomerCommissionReportPanel.do';
+    callAjax(url, null, null, function(data) {
+        showPopupForm(data);
+        var myCalendar = new dhtmlXCalendarObject(["fromDate", "toDate"]);
+        myCalendar.setSkin('dhx_web');
+        var currentTime = getCurrentDate();
+        document.forms['reportCompareCustomerCommissionSearchForm'].fromDate.value = currentTime;
+        document.forms['reportCompareCustomerCommissionSearchForm'].toDate.value = currentTime;
+        myCalendar.setDateFormat("%d/%m/%Y");
+        // ============================
+        window.dhx_globalImgPath = "js/dhtmlx/combo/imgs/";
+        var customerIdCombobox = dhtmlXComboFromSelect("customerIdCombobox");
+        customerIdCombobox.enableFilteringMode(true);
+        customerIdCombobox.attachEvent("onSelectionChange", function() {
+            setCustomerSelectedForm('reportCompareCustomerCommissionSearchForm', customerIdCombobox.getComboText(), customerIdCombobox.getSelectedValue());
+        });
+        customerIdCombobox.attachEvent("onBlur", function() {
+            setCustomerSelectedForm('reportCompareCustomerCommissionSearchForm', customerIdCombobox.getComboText(), customerIdCombobox.getSelectedValue());
+            customerIdCombobox.setComboText(customerIdCombobox.getSelectedText());
+        });
+        customerIdCombobox.DOMelem_input.onfocus = function(event) {
+            if (isManuallySeleted == 1) {
+                customerIdCombobox.openSelect();
+                isManuallySeleted = 0;
+            }
+        }
+        customerIdCombobox.setComboValue("");
+    });
+}
+function printSolarCompareCustomerCommissionReport(fromDate, toDate) {
+    var list = document.getElementById("reportCompareCustomerCommissionSearchFormTime");
+    if (list == null || list.selectedIndex == -1)
+        return false;
+    if (list.selectedIndex == 1) {
+        fromDate = "01/" + fromDate;
+        var ind = toDate.indexOf("/");
+        var month = toDate.substring(0, ind);
+        var year = toDate.substring(ind + 1);
+        toDate = month + "/01/" + year;
+        var d = new Date(toDate);
+        var lastDay = new Date(d.getFullYear(), d.getMonth() + 1, 0).getDate();
+        toDate = lastDay + "/" + month + "/" + year;
+    } else if (list.selectedIndex == 2) {
+        fromDate = "01/01/" + fromDate;
+        toDate = "31/12/" + toDate;
+    }
+    list = null;
+    var url = "reportCompareCustomerCommissionPrint.do?temp=1";
+    if (fromDate !== null)
+        url += "&fromDate=" + fromDate;
+    if (toDate !== null)
+        url += "&toDate=" + toDate;
+    url += "&customerId=" + document.forms['reportCompareCustomerCommissionSearchForm'].customerSelectedHidden.value;
+    callServer(url);
+    return false;
+}
+function showSolarCompareReportPanel() {
+    popupName = '\u0110\u1ED1i chi\u1EBFu d\u1EA7u nh\u1EDBt';
+    var url = 'getSolarCompareReportPanel.do';
+    callAjax(url, null, null, function(data) {
+        showPopupForm(data);
+        var myCalendar = new dhtmlXCalendarObject(["fromDate", "toDate"]);
+        myCalendar.setSkin('dhx_web');
+        var currentTime = getCurrentDate();
+        document.forms['reportSolarCompareSearchForm'].fromDate.value = currentTime;
+        document.forms['reportSolarCompareSearchForm'].toDate.value = currentTime;
+        myCalendar.setDateFormat("%d/%m/%Y");
+        // ============================
+        window.dhx_globalImgPath = "js/dhtmlx/combo/imgs/";
+        var customerIdCombobox = dhtmlXComboFromSelect("customerIdComboboxPopup");
+        customerIdCombobox.enableFilteringMode(true);
+        customerIdCombobox.attachEvent("onSelectionChange", function() {
+            setCustomerSelectedForm('reportSolarCompareSearchForm', customerIdCombobox.getComboText(), customerIdCombobox.getSelectedValue());
+        });
+        customerIdCombobox.attachEvent("onBlur", function() {
+            setCustomerSelectedForm('reportSolarCompareSearchForm', customerIdCombobox.getComboText(), customerIdCombobox.getSelectedValue());
+            customerIdCombobox.setComboText(customerIdCombobox.getSelectedText());
+        });
+        customerIdCombobox.DOMelem_input.onfocus = function(event) {
+            if (isManuallySeleted == 1) {
+                customerIdCombobox.openSelect();
+                isManuallySeleted = 0;
+            }
+        }
+        customerIdCombobox.setComboValue("");
+    });
+}
+function printSolarComapreReport(fromDate, toDate) {
+    var list = document.getElementById("reportSolarCompareSearchFormTime");
+    if (list == null || list.selectedIndex == -1)
+        return false;
+    if (list.selectedIndex == 1) {
+        fromDate = "01/" + fromDate;
+        var ind = toDate.indexOf("/");
+        var month = toDate.substring(0, ind);
+        var year = toDate.substring(ind + 1);
+        toDate = month + "/01/" + year;
+        var d = new Date(toDate);
+        var lastDay = new Date(d.getFullYear(), d.getMonth() + 1, 0).getDate();
+        toDate = lastDay + "/" + month + "/" + year;
+    } else if (list.selectedIndex == 2) {
+        fromDate = "01/01/" + fromDate;
+        toDate = "31/12/" + toDate;
+    }
+    var url = "reportSolarComparePrint.do?temp=1";
+    if (fromDate !== null)
+        url += "&fromDate=" + fromDate;
+    if (toDate !== null)
+        url += "&toDate=" + toDate;
+    list = null;
+    url += "&customerId=" + document.forms['reportSolarCompareSearchForm'].customerSelectedHidden.value;
+    callServer(url);
+    return false;
+}
+function showSolarVendorStockReportPanel() {
+    popupName = 'B\u1EA3ng theo NLMT xu\u1EA5t t\u1ED3n t\u1ED5ng kho';
+    var url = 'getSolarVendorStockReportPanel.do';
+    callAjax(url, null, null, function(data) {
+        showPopupForm(data);
+        var myCalendar = new dhtmlXCalendarObject(["fromDate", "toDate"]);
+        myCalendar.setSkin('dhx_web');
+        var currentTime = getCurrentDate();
+        document.forms['reportSolarVendorStockSearchForm'].fromDate.value = currentTime;
+        document.forms['reportSolarVendorStockSearchForm'].toDate.value = currentTime;
+        myCalendar.setDateFormat("%d/%m/%Y");
+    });
+}
+function printSolarVendorStockReport(fromDate, toDate) {
+    var list = document.getElementById("reportSolarVendorStockSearchFormTime");
+    if (list == null || list.selectedIndex == -1)
+        return false;
+    if (list.selectedIndex == 1) {
+        fromDate = "01/" + fromDate;
+        var ind = toDate.indexOf("/");
+        var month = toDate.substring(0, ind);
+        var year = toDate.substring(ind + 1);
+        toDate = month + "/01/" + year;
+        var d = new Date(toDate);
+        var lastDay = new Date(d.getFullYear(), d.getMonth() + 1, 0).getDate();
+        toDate = lastDay + "/" + month + "/" + year;
+    } else if (list.selectedIndex == 2) {
+        fromDate = "01/01/" + fromDate;
+        toDate = "31/12/" + toDate;
+    }
+    var url = "reportSolarVendorStockPrint.do?temp=1";
+    if (fromDate !== null)
+        url += "&fromDate=" + fromDate;
+    if (toDate !== null)
+        url += "&toDate=" + toDate;
+    list = document.forms['reportSolarVendorStockSearchForm'].vendorId;
+    if (list != null && list.selectedIndex > -1)
+        list = list.options[list.selectedIndex].value;
+    else
+        list = 0;
+    url += "&vendorId=" + list;
+    callServer(url);
+    return false;
+}
+function showSolarCustomerDebtReportPanel() {
+    popupName = 'B\u1EA3ng \u0111\u1ED1i chi\u1EBFu c\u00F4ng n\u1EE3 kh\u00E1ch h\u00E0ng NLMT';
+    var url = 'getSolarCustomerDebtReportPanel.do';
+    callAjax(url, null, null, function(data) {
+        showPopupForm(data);
+        var myCalendar = new dhtmlXCalendarObject(["fromDate", "toDate"]);
+        myCalendar.setSkin('dhx_web');
+        var currentTime = getCurrentDate();
+        document.forms['reportSolarCustomerDebtSearchForm'].fromDate.value = currentTime;
+        document.forms['reportSolarCustomerDebtSearchForm'].toDate.value = currentTime;
+        myCalendar.setDateFormat("%d/%m/%Y");
+        // ============================
+        window.dhx_globalImgPath = "js/dhtmlx/combo/imgs/";
+        var customerIdCombobox = dhtmlXComboFromSelect("customerIdComboboxPopup");
+        customerIdCombobox.enableFilteringMode(true);
+        customerIdCombobox.attachEvent("onSelectionChange", function() {
+            setCustomerSelectedForm('reportSolarCustomerDebtSearchForm', customerIdCombobox.getComboText(), customerIdCombobox.getSelectedValue());
+        });
+        customerIdCombobox.attachEvent("onBlur", function() {
+            setCustomerSelectedForm('reportSolarCustomerDebtSearchForm', customerIdCombobox.getComboText(), customerIdCombobox.getSelectedValue());
+            customerIdCombobox.setComboText(customerIdCombobox.getSelectedText());
+        });
+        customerIdCombobox.DOMelem_input.onfocus = function(event) {
+            if (isManuallySeleted == 1) {
+                customerIdCombobox.openSelect();
+                isManuallySeleted = 0;
+            }
+        }
+        customerIdCombobox.setComboValue("");
+    });
+}
+function printSolarCustomerDebtReport(fromDate, toDate) {
+    var list = document.getElementById("reportSolarCustomerDebtSearchFormTime");
+    if (list == null || list.selectedIndex == -1)
+        return false;
+    if (list.selectedIndex == 1) {
+        fromDate = "01/" + fromDate;
+        var ind = toDate.indexOf("/");
+        var month = toDate.substring(0, ind);
+        var year = toDate.substring(ind + 1);
+        toDate = month + "/01/" + year;
+        var d = new Date(toDate);
+        var lastDay = new Date(d.getFullYear(), d.getMonth() + 1, 0).getDate();
+        toDate = lastDay + "/" + month + "/" + year;
+    } else if (list.selectedIndex == 2) {
+        fromDate = "01/01/" + fromDate;
+        toDate = "31/12/" + toDate;
+    }
+    var url = "reportSolarCustomerDebtPrint.do?temp=1";
+    if (fromDate !== null)
+        url += "&fromDate=" + fromDate;
+    if (toDate !== null)
+        url += "&toDate=" + toDate;
+    list = null;
+    url += "&customerId=" + document.forms['reportSolarCustomerDebtSearchForm'].customerSelectedHidden.value;
+    callServer(url);
+    return false;
+}
+function loadInvoiceSolarPanel() {
+    callAjax("getInvoiceSolarPanel.do", null, null, function(data) {
+        clearContent();
+        setAjaxData(data, "contentDiv");
+        var myCalendar = new dhtmlXCalendarObject(["fromDate", "toDate"]);
+        myCalendar.setSkin('dhx_web');
+        var currentTime = getCurrentDate();
+        document.forms['invoiceSolarSearchForm'].fromDate.value = currentTime;
+        document.forms['invoiceSolarSearchForm'].toDate.value = currentTime;
+        myCalendar.setDateFormat("%d/%m/%Y");
+        loadInvoiceSolarList(currentTime, currentTime);
+    });
+    return false;
+}
+function loadInvoiceSolarList(fromDate, toDate) {
+    var mygrid = new dhtmlXGridObject('invoiceSolarList');
+    mygrid.setImagePath("js/dhtmlx/grid/imgs/");
+    mygrid.setHeader("S\u1ED1 h\u00F3a \u0111\u01A1n,Ng\u00E0y h\u00F3a \u0111\u01A1n,Kh\u00E1ch h\u00E0ng,S\u1ED1 ti\u1EC1n,S\u1ED1 ti\u1EC1n \u0111\u00E3 thanh to\u00E1n,Ghi ch\u00FA");
+    mygrid.attachHeader("#text_filter,#text_filter,#text_filter,#text_filter,#text_filter,#text_filter");
+    mygrid.setInitWidths("150,150,200,150,150,*");
+    mygrid.setColTypes("link,ro,ro,ro,ro,ro");
+    mygrid.setColSorting("str,str,str,str,str,str");
+    mygrid.setSkin("light");
+    var height = contentHeight - 210;
+    mygrid.al(true, height); //enableAutoHeight
+    mygrid.enablePaging(true, 15, 3, "recinfoArea");
+    mygrid.setPagingSkin("toolbar", "dhx_skyblue");
+    mygrid.init();
+    var url = "getInvoiceSolarList.do?t=1";
+    if (fromDate != null)
+        url += "&fromDate=" + fromDate;
+    if (toDate != null)
+        url += "&toDate=" + toDate;
+    callAjax(url, null, null, function(data) {
+        mygrid.parse(data);
+    });
+    return false;
+}
+function getInvoiceSolar(id) {
+    var url = 'invoiceSolarForm.do';
+    if (id != 0)
+        url += '?invoiceSolarId=' + id
+    callAjax(url, null, null, function(data) {
+        clearContent();
+        setAjaxData(data, 'contentDiv');
+        var amount = document.forms['invoiceSolarForm'].oilSaleDetailAmount;
+        var paidAmount = document.forms['invoiceSolarForm'].oilSalePaidDetailAmount;
+        if (amount != null) {
+            if (amount.length != null) {
+                for (var i = 0; i < amount.length; i++) {
+                    tryNumberFormatCurrentcy(amount[i]);
+                    tryNumberFormatCurrentcy(paidAmount[i]);
+                }
+            } else {
+                tryNumberFormatCurrentcy(amount);
+                tryNumberFormatCurrentcy(paidAmount);
+            }
+        }
+        paidAmount = null;
+        amount = document.forms['invoiceSolarForm'].paidAmount;
+        if (amount != null) {
+            if (amount.length != null) {
+                for (var i = 0; i < amount.length; i++) {
+                    tryNumberFormatCurrentcy(amount[i]);
+                }
+            } else {
+                tryNumberFormatCurrentcy(amount);
+            }
+        }
+        amount = null;
+        tryNumberFormatCurrentcy(document.forms['invoiceSolarForm'].amount, "VND");
+        tryNumberFormatCurrentcy(document.forms['invoiceSolarForm'].amountPaid, "VND");
+        if (id == 0) {
+            var currentDate = getCurrentDate();
+            document.forms['invoiceSolarForm'].invoiceSolarDate.value = currentDate;
+        }
+        var myCalendar = new dhtmlXCalendarObject(["invoiceSolarDate", "invoiceSolarPaidDate"]);
+        myCalendar.setSkin('dhx_web');
+        myCalendar.setDateFormat("%d/%m/%Y");
+
+        window.dhx_globalImgPath = "js/dhtmlx/combo/imgs/";
+        // ============================
+        var customerIdCombobox = dhtmlXComboFromSelect("customerIdCombobox");
+        customerIdCombobox.enableFilteringMode(true);
+        customerIdCombobox.attachEvent("onSelectionChange", function() {
+            setCustomerSelectedForm('invoiceSolarForm', customerIdCombobox.getComboText(), customerIdCombobox.getSelectedValue());
+        });
+        customerIdCombobox.attachEvent("onBlur", function() {
+            setCustomerSelectedForm('invoiceSolarForm', customerIdCombobox.getComboText(), customerIdCombobox.getSelectedValue());
+            customerIdCombobox.setComboText(customerIdCombobox.getSelectedText());
+        });
+        customerIdCombobox.DOMelem_input.onfocus = function(event) {
+            if (isManuallySeleted == 1) {
+                customerIdCombobox.openSelect();
+                isManuallySeleted = 0;
+            }
+        }
+        if (id == 0) {
+            customerIdCombobox.setComboValue("");
+        } else {
+            var customerId = document.forms['invoiceSolarForm'].customerId.value;
+            if (customerId != 0) {
+                var ind = customerIdCombobox.getIndexByValue(customerId);
+                customerIdCombobox.selectOption(ind);
+            } else {
+                customerIdCombobox.unSelectOption();
+                customerIdCombobox.setComboValue("");
+            }
+            customerIdCombobox.readonly(true);
+        }
+    });
+}
+function saveInvoiceSolar() {
+    if (scriptFunction == "saveInvoiceSolar")
+        return false;
+    var field = document.forms['invoiceSolarForm'].createdDate;
+    if (field.value == '') {
+        alert("Vui l\u00F2ng nh\u1EADp ng\u00E0y");
+        field.focus();
+        field = null;
+        return false;
+    }
+    field = document.forms['invoiceSolarForm'].number;
+    if (field.value == '') {
+        alert("Vui l\u00F2ng nh\u1EADp s\u1ED1 h\u00F3a \u0111\u01A1n");
+        field.focus();
+        field = null;
+        return false;
+    }
+    field = null;
+
+    document.forms['invoiceSolarForm'].customerId.value = document.forms['invoiceSolarForm'].customerSelectedHidden.value;
+
+    var amount = reformatNumberMoney(document.forms['invoiceSolarForm'].amount);
+    var amountPaid = reformatNumberMoney(document.forms['invoiceSolarForm'].amountPaid);
+
+    if (amountPaid * 1 > amount * 1) {
+        alert("T\u1ED5ng ti\u1EC1n \u0111\u00E3 thanh to\u00E1n kh\u00F4ng \u0111\u01B0\u1EE3c l\u1EDBn h\u01A1n t\u1ED5ng ti\u1EC1n h\u00F3a \u0111\u01A1n");
+        tryNumberFormatCurrentcy(document.forms['invoiceSolarForm'].amount, "VND");
+        tryNumberFormatCurrentcy(document.forms['invoiceSolarForm'].amountPaid, "VND");
+        return false;
+    }
+
+    var amount = document.forms['invoiceSolarForm'].oilSaleDetailAmount;
+    var paidAmount = document.forms['invoiceSolarForm'].oilSalePaidDetailAmount;
+    if (amount != null) {
+        if (amount.length != null) {
+            for (var i = 0; i < amount.length; i++) {
+                reformatNumberMoney(amount[i]);
+                reformatNumberMoney(paidAmount[i]);
+            }
+        } else {
+            reformatNumberMoney(amount);
+            reformatNumberMoney(paidAmount);
+        }
+    }
+    paidAmount = null;
+    amount = document.forms['invoiceSolarForm'].paidAmount;
+    if (amount != null) {
+        if (amount.length != null) {
+            for (var i = 0; i < amount.length; i++) {
+                reformatNumberMoney(amount[i]);
+            }
+        } else {
+            reformatNumberMoney(amount);
+        }
+    }
+    amount = null;
+    reformatNumberMoney(document.forms['invoiceSolarForm'].amount);
+    reformatNumberMoney(document.forms['invoiceSolarForm'].amountPaid);
+    scriptFunction = "saveInvoiceSolar";
+    callAjaxCheckError("addInvoiceSolar.do", null, document.forms['invoiceSolarForm'], function(data) {
+        scriptFunction = "";
+        if (confirm('B\u1EA1n c\u00F3 mu\u1ED1n nh\u1EADp ti\u1EBFp th\u00F4ng tin kh\u00E1c ?'))
+            getInvoiceSolar(0);
+        else
+            loadInvoiceSolarPanel();
+    });
+    return false;
+}
+function delInvoiceSolar() {
+    callAjaxCheckError('delInvoiceSolar.do?invoiceSolarId=' + document.forms['invoiceSolarForm'].id.value, null, null, function() {
+        loadInvoiceSolarPanel();
+    });
+    return false;
+}
+function addInvoiceSolarPaidDetail() {
+    var invoiceSolarPaidDate = document.getElementById("invoiceSolarPaidDate");
+    if (invoiceSolarPaidDate == null || invoiceSolarPaidDate.value == "")
+        return false;
+    invoiceSolarPaidDate = invoiceSolarPaidDate.value;
+    callAjax("getInvoiceSolarPaid.do?paidDate=" + invoiceSolarPaidDate, null, null, function(data) {
+        setAjaxData(data, 'invoiceSolarPaidHideDiv');
+        var matTable = document.getElementById('invoiceSolarPaidAmountTbl');
+        var detTable = document.getElementById('invoiceSolarPaidDetailTbl');
+        if (matTable.tBodies[0] == null || detTable.tBodies[0] == null) {
+            matTable = null;
+            detTable = null;
+            return;
+        }
+        for (var i = matTable.tBodies[0].rows.length - 1; i >= 0; i--)
+            detTable.tBodies[0].appendChild(matTable.tBodies[0].rows[i]);
+        matTable = null;
+        detTable = null;
+    });
+    return false;
+}
+function invoiceSolarPaidAmountChanged(obj) {
+    var total = 0;
+    var paidAmount = document.forms["invoiceSolarForm"].paidAmount;
+    if (paidAmount != null) {
+        if (paidAmount.length != null) {
+            for (var i = 0; i < paidAmount.length; i++) {
+                total += reformatNumberMoneyString(paidAmount[i].value) * 1;
+            }
+        } else {
+            total += reformatNumberMoneyString(paidAmount.value) * 1;
+        }
+    }
+    document.forms["invoiceSolarForm"].amountPaid.value = total;
+    tryNumberFormatCurrentcy(document.forms["invoiceSolarForm"].amountPaid, "VND");
+    paidAmount = null;
+    tryNumberFormatCurrentcy(obj);
+}
+function invoiceSolarDetailPaidAmountChanged(obj) {
+    var total = 0;
+    var oilSalePaidDetailAmount = document.forms["invoiceSolarForm"].oilSalePaidDetailAmount;
+    if (oilSalePaidDetailAmount != null) {
+        if (oilSalePaidDetailAmount.length != null) {
+            for (var i = 0; i < oilSalePaidDetailAmount.length; i++) {
+                total += reformatNumberMoneyString(oilSalePaidDetailAmount[i].value) * 1;
+            }
+        } else {
+            total += reformatNumberMoneyString(oilSalePaidDetailAmount.value) * 1;
+        }
+    }
+    document.forms["invoiceSolarForm"].amount.value = total;
+    tryNumberFormatCurrentcy(document.forms["invoiceSolarForm"].amount, "VND");
+    oilSalePaidDetailAmount = null;
+    if (obj != null)
+        tryNumberFormatCurrentcy(obj);
+}
+function showSearchSolarSale() {
+    var customerId = document.forms['invoiceSolarForm'].customerSelectedHidden.value;
+    popupName = 'T\u00CCM CHI TI\u1EBET B\u00C1N H\u00C0NG';
+    callAjax('getSearchSolarSaleForm.do?customerId=' + customerId, null, null, function(data) {
+        showPopupForm(data);
+        var myCalendar = new dhtmlXCalendarObject(["searchSolarSaleFromDate", "searchSolarSaleToDate"]);
+        myCalendar.setSkin('dhx_web');
+        myCalendar.setDateFormat("%d/%m/%Y");
+    });
+    return false;
+}
+function searchSolarSale() {
+    var searchSolarSaleCode = document.getElementById("searchSolarSaleCode");
+    var searchSolarSaleFromDate = document.getElementById("searchSolarSaleFromDate");
+    var searchSolarSaleToDate = document.getElementById("searchSolarSaleToDate");
+    var searchSolarSaleSolar = document.getElementById("searchSolarSaleSolar");
+
+    if (searchSolarSaleCode != null)
+        searchSolarSaleCode = searchSolarSaleCode.value;
+    else
+        searchSolarSaleCode = "";
+
+    if (searchSolarSaleFromDate != null)
+        searchSolarSaleFromDate = searchSolarSaleFromDate.value;
+    else
+        searchSolarSaleFromDate = "";
+
+    if (searchSolarSaleToDate != null)
+        searchSolarSaleToDate = searchSolarSaleToDate.value;
+    else
+        searchSolarSaleToDate = "";
+
+    if (searchSolarSaleSolar != null)
+        searchSolarSaleSolar = searchSolarSaleSolar.value;
+    else
+        searchSolarSaleSolar = "";
+
+    callAjax("searchSolarSale.do?code=" + searchSolarSaleCode + "&fromDate=" + searchSolarSaleFromDate + "&toDate=" + searchSolarSaleToDate + "&solarName=" + searchSolarSaleSolar + "&customerId=" + document.forms['invoiceSolarForm'].customerSelectedHidden.value, null, null, function(data) {
+        setAjaxData(data, 'searchSolarSaleResultHideDiv');
+        var matTable = document.getElementById('searchSolarSaleResultTbl');
+        var detTable = document.getElementById('searchSolarSaleDetailTbl');
+        while (detTable.tBodies[0].hasChildNodes()) {
+            detTable.tBodies[0].removeChild(detTable.tBodies[0].firstChild);
+        }
+        if (matTable.tBodies[0] == null || detTable.tBodies[0] == null) {
+            matTable = null;
+            detTable = null;
+            return;
+        }
+        for (var i = matTable.tBodies[0].rows.length - 1; i >= 0; i--)
+            detTable.tBodies[0].appendChild(matTable.tBodies[0].rows[i]);
+        matTable = null;
+        detTable = null;
+    });
+    return false;
+}
+function addInvoiceSolarDetail() {
+    var invoiceSolarDetailTbl = document.getElementById("invoiceSolarDetailTbl");
+    if (invoiceSolarDetailTbl == null)
+        return false;
+    invoiceSolarDetailTbl = null;
+
+    var ids = getCheckedTableRow('searchSolarSaleForm', 'invoiceSolarSearchedDetailChk');
+
+    var solarSaleDetailId = document.forms['invoiceSolarForm'].solarSaleDetailId;
+    if (solarSaleDetailId != null) {
+        var idArray = ids.split(',');
+        ids = "0";
+        var existed = false;
+        for (var i = 0; i < idArray.length; i++) {
+            var id = idArray[i];
+            existed = false;
+            if (solarSaleDetailId.length != null) {
+                for (i = 0; i < solarSaleDetailId.length; i++) {
+                    if (solarSaleDetailId[i].value == id) {
+                        existed = true;
+                        break;
+                    }
+                }
+            } else if (solarSaleDetailId.value == id)
+                existed = true;
+            if (!existed)
+                ids += "," + id;
+        }
+        solarSaleDetailId = null;
+    }
+
+    if (ids == "0")
+        return false;
+
+    callAjax("getInvoiceSolarSolarSaleDetail.do?ids=" + ids, null, null, function(data) {
+        setAjaxData(data, 'invoiceSolarDetailHideDiv');
+        var matTable = document.getElementById('invoiceSolarSolarSaleTbl');
+        var detTable = document.getElementById('invoiceSolarDetailTbl');
+        if (matTable.tBodies[0] == null || detTable.tBodies[0] == null) {
+            matTable = null;
+            detTable = null;
+            return;
+        }
+        for (var i = matTable.tBodies[0].rows.length - 1; i >= 0; i--)
+            detTable.tBodies[0].appendChild(matTable.tBodies[0].rows[i]);
+        matTable = null;
+        detTable = null;
+
+        invoiceSolarDetailPaidAmountChanged(null);
+
+        var amount = document.forms['invoiceSolarForm'].solarSaleDetailAmount;
+        var paidAmount = document.forms['invoiceSolarForm'].solarSalePaidDetailAmount;
+        if (amount != null) {
+            if (amount.length != null) {
+                for (var i = 0; i < amount.length; i++) {
+                    tryNumberFormatCurrentcy(amount[i]);
+                    tryNumberFormatCurrentcy(paidAmount[i]);
+                }
+            } else {
+                tryNumberFormatCurrentcy(amount);
+                tryNumberFormatCurrentcy(paidAmount);
+            }
+        }
+        amount = null;
+        paidAmount = null;
     });
     return false;
 }

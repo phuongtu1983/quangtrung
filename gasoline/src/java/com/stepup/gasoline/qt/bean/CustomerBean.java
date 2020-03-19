@@ -30,6 +30,7 @@ public class CustomerBean {
     private int isPetro;
     private int isGood;
     private int isOil;
+    private int isSolar;
 
     public int getId() {
         return id;
@@ -187,6 +188,14 @@ public class CustomerBean {
 
     public void setNote(String note) {
         this.note = note;
+    }
+
+    public int getIsSolar() {
+        return isSolar;
+    }
+
+    public void setIsSolar(int isSolar) {
+        this.isSolar = isSolar;
     }
 
     public static int COMMISSION_KIND_BILL = 1;

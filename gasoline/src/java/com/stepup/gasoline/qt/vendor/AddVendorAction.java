@@ -113,6 +113,9 @@ public class AddVendorAction extends AddDynamicFieldValueAction {
                 if (formBean.getIsTransport()!= oldBean.getIsTransport()) {
                     isUpdate = true;
                 }
+                if (formBean.getIsSolar()!= oldBean.getIsSolar()) {
+                    isUpdate = true;
+                }
                 if (formBean.getIsOil()!= oldBean.getIsOil()) {
                     isUpdate = true;
                 }
@@ -138,6 +141,7 @@ public class AddVendorAction extends AddDynamicFieldValueAction {
         bean.setIsGood(formBean.getIsGood() == true ? 1 : 0);
         bean.setIsTransport(formBean.getIsTransport()== true ? 1 : 0);
         bean.setIsOil(formBean.getIsOil()== true ? 1 : 0);
+        bean.setIsSolar(formBean.getIsSolar()== true ? 1 : 0);
         try {
             if (bNew) {
                 vendorId = vendorDAO.insertVendor(bean);

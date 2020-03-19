@@ -116,6 +116,7 @@
         <form-bean name="debtVendorForm" type="com.stepup.gasoline.qt.debtvendor.DebtVendorFormBean"/>
         <form-bean name="contractForm" type="com.stepup.gasoline.qt.contract.ContractFormBean"/>
         <form-bean name="invoiceForm" type="com.stepup.gasoline.qt.invoice.InvoiceFormBean"/>
+        <form-bean name="invoiceSolarForm" type="com.stepup.gasoline.qt.invoicesolar.InvoiceSolarFormBean"/>
         <form-bean name="debtRetailForm" type="com.stepup.gasoline.qt.debtretail.DebtRetailFormBean"/>
         <form-bean name="debtWholesaleForm" type="com.stepup.gasoline.qt.debtwholesale.DebtWholesaleFormBean"/>
         <form-bean name="incomeForm" type="com.stepup.gasoline.qt.income.IncomeFormBean"/>
@@ -325,21 +326,6 @@
             <forward name="success" path="/vendor/oil/stores.jsp" />
         </action>
         <!-- end vendor oil-->
-        <!-- start vendor solar-->
-        <action path="/getVendorSolarPanel" type="com.stepup.gasoline.qt.common.BaseStatusFormAction" scope="request" validate="false">
-            <forward name="success" path="/vendor/solar/vendorpanel.jsp" />
-        </action>
-        <action path="/getVendorSolarList" type="com.stepup.gasoline.qt.vendor.solar.GetVendorListAction" scope="request" validate="false" >
-        </action>
-        <action path="/vendorSolarForm" type="com.stepup.gasoline.qt.vendor.solar.VendorFormAction" scope="request" validate="false">
-            <forward name="success" path="/vendor/solar/vendordetail.jsp" />
-        </action>
-        <action path="/addVendorSolar" name ="vendorSolarForm" scope="request" type="com.stepup.gasoline.qt.vendor.solar.AddVendorAction" input="/vendorSolarForm.do">
-        </action>
-        <action path="/getVendorSolarStore" type="com.stepup.gasoline.qt.vendor.solar.GetVendorSolarStoreAction" scope="request" validate="false">
-            <forward name="success" path="/vendor/solar/stores.jsp" />
-        </action>
-        <!-- end vendor solar-->
         <!-- start account -->
         <action path="/getAccountPanel" type="com.stepup.gasoline.qt.common.BaseStatusFormAction" scope="request" validate="false">
             <forward name="success" path="/account/accountpanel.jsp" />
@@ -1709,6 +1695,67 @@
             <forward name="success" path="/invoice/oilsaledetails.jsp" />
         </action>
         <!-- end invoice -->
+        <!-- start vendor solar-->
+        <action path="/getVendorSolarPanel" type="com.stepup.gasoline.qt.common.BaseStatusFormAction" scope="request" validate="false">
+            <forward name="success" path="/vendor/solar/vendorpanel.jsp" />
+        </action>
+        <action path="/getVendorSolarList" type="com.stepup.gasoline.qt.vendor.solar.GetVendorListAction" scope="request" validate="false" >
+        </action>
+        <action path="/vendorSolarForm" type="com.stepup.gasoline.qt.vendor.solar.VendorFormAction" scope="request" validate="false">
+            <forward name="success" path="/vendor/solar/vendordetail.jsp" />
+        </action>
+        <action path="/addVendorSolar" name ="vendorSolarForm" scope="request" type="com.stepup.gasoline.qt.vendor.solar.AddVendorAction" input="/vendorSolarForm.do">
+        </action>
+        <action path="/getVendorSolarStore" type="com.stepup.gasoline.qt.vendor.solar.GetVendorSolarStoreAction" scope="request" validate="false">
+            <forward name="success" path="/vendor/solar/stores.jsp" />
+        </action>
+        <!-- end vendor solar-->
+        <!-- start solargroup -->
+        <action path="/getSolarGroupPanel" type="com.stepup.gasoline.qt.common.BaseStatusFormAction" scope="request" validate="false">
+            <forward name="success" path="/solargroup/solargrouppanel.jsp" />
+        </action>
+        <action path="/getSolarGroupList" type="com.stepup.gasoline.qt.solargroup.GetSolarGroupListAction" scope="request" validate="false" >
+        </action>
+        <action path="/solarGroupForm" type="com.stepup.gasoline.qt.solargroup.SolarGroupFormAction" scope="request" validate="false">
+            <forward name="success" path="/solargroup/solargroupdetail.jsp" />
+        </action>
+        <action path="/addSolarGroup" name ="solarGroupForm" scope="request" type="com.stepup.gasoline.qt.solargroup.AddSolarGroupAction" input="/solarGroupForm.do">
+        </action>
+        <!-- end solargroup -->
+        <!-- start solar -->
+        <action path="/getSolarPanel" type="com.stepup.gasoline.qt.common.BaseStatusFormAction" scope="request" validate="false">
+            <forward name="success" path="/solar/solarpanel.jsp" />
+        </action>
+        <action path="/getSolarList" type="com.stepup.gasoline.qt.solar.GetSolarListAction" scope="request" validate="false" >
+        </action>
+        <action path="/solarForm" type="com.stepup.gasoline.qt.solar.SolarFormAction" scope="request" validate="false">
+            <forward name="success" path="/solar/solardetail.jsp" />
+        </action>
+        <action path="/addSolar" name ="solarForm" scope="request" type="com.stepup.gasoline.qt.solar.AddSolarAction" input="/solarForm.do">
+        </action>
+        <!-- end solar -->
+        <!-- start employeesolarcommission -->
+        <action path="/getEmployeeSolarCommissionPanel" type="com.stepup.gasoline.qt.common.BaseStatusFormAction" scope="request" validate="false">
+            <forward name="success" path="/employeesolarcommission/employeesolarcommissionpanel.jsp" />
+        </action>
+        <action path="/getEmployeeSolarCommissionList" type="com.stepup.gasoline.qt.employeesolarcommission.GetEmployeeSolarCommissionListAction" scope="request" validate="false" >
+        </action>
+        <action path="/employeeSolarCommissionForm" type="com.stepup.gasoline.qt.employeesolarcommission.EmployeeSolarCommissionFormAction" scope="request" validate="false">
+            <forward name="success" path="/employeesolarcommission/employeesolarcommissiondetail.jsp" />
+        </action>
+        <action path="/addEmployeeSolarCommission" name ="employeeSolarCommissionForm" scope="request" type="com.stepup.gasoline.qt.employeesolarcommission.AddEmployeeSolarCommissionAction" input="/employeeSolarCommissionForm.do">
+        </action>
+        <action path="/delEmployeeSolarCommission" type="com.stepup.gasoline.qt.employeesolarcommission.DeleteEmployeeSolarCommissionAction" scope="request" validate="false" >
+        </action>
+        <!-- end employeesolarcommission -->
+        <!-- start sale solar return store -->
+        <action path="/saleSolarReturnStoreForm" type="com.stepup.gasoline.qt.salesolarreturnstore.SaleSolarReturnStoreFormAction" scope="request" validate="false">
+            <forward name="success" path="/salesolarreturnstore/salesolarreturnstoredetail.jsp" />
+        </action>
+        <action path="/addSaleSolarReturnStore" name ="saleSolarReturnStoreForm" scope="request" type="com.stepup.gasoline.qt.salesolarreturnstore.AddSaleSolarReturnStoreAction" input="/saleSolarReturnStoreForm.do">
+        </action>
+        <!-- end sale solar return store -->
+        
         <!-- start solarimport -->
         <action path="/getSolarImportPanel" type="com.stepup.gasoline.qt.common.BaseFormAction" scope="request" validate="false">
             <forward name="success" path="/solarimport/solarimportpanel.jsp" />
@@ -1762,13 +1809,6 @@
         <action path="/delSaleSolarReturn" type="com.stepup.gasoline.qt.salesolarreturn.DeleteSaleSolarReturnAction" scope="request" validate="false" >
         </action>
         <!-- end sale solar return -->
-        <!-- start sale solar return store -->
-        <action path="/saleSolarReturnStoreForm" type="com.stepup.gasoline.qt.salesolarreturnstore.SaleSolarReturnStoreFormAction" scope="request" validate="false">
-            <forward name="success" path="/salesolarreturnstore/salesolarreturnstoredetail.jsp" />
-        </action>
-        <action path="/addSaleSolarReturnStore" name ="saleSolarReturnStoreForm" scope="request" type="com.stepup.gasoline.qt.salesolarreturnstore.AddSaleSolarReturnStoreAction" input="/saleSolarReturnStoreForm.do">
-        </action>
-        <!-- end sale solar return store -->
         <!-- start solarexport -->
         <action path="/getSolarExportPanel" type="com.stepup.gasoline.qt.common.BaseFormAction" scope="request" validate="false">
             <forward name="success" path="/solarexport/solarexportpanel.jsp" />
@@ -1785,45 +1825,59 @@
         <action path="/reportSolarExport" type="com.stepup.gasoline.qt.solarexport.PrintSolarExportAction" scope="request" validate="false" >
         </action>
         <!-- end solarexport -->
-        
-        <!-- start solargroup -->
-        <action path="/getSolarGroupPanel" type="com.stepup.gasoline.qt.common.BaseStatusFormAction" scope="request" validate="false">
-            <forward name="success" path="/solargroup/solargrouppanel.jsp" />
+        <action path="/getSolarStockStoreReportPanel" type="com.stepup.gasoline.qt.report.solarstockstore.SolarStockStoreReportPanelFormAction" scope="request" validate="false">
+            <forward name="success" path="/report/solarstockstore/panel.jsp" />
         </action>
-        <action path="/getSolarGroupList" type="com.stepup.gasoline.qt.solargroup.GetSolarGroupListAction" scope="request" validate="false" >
+        <action path="/reportSolarStockStorePrint" type="com.stepup.gasoline.qt.report.solarstockstore.PrintSolarStockStoreReportAction" scope="request" validate="false" >
         </action>
-        <action path="/solarGroupForm" type="com.stepup.gasoline.qt.solargroup.SolarGroupFormAction" scope="request" validate="false">
-            <forward name="success" path="/solargroup/solargroupdetail.jsp" />
+        <action path="/getSolarCompareReportPanel" type="com.stepup.gasoline.qt.report.solarcompare.SolarCompareReportPanelFormAction" scope="request" validate="false">
+            <forward name="success" path="/report/solarcompare/panel.jsp" />
         </action>
-        <action path="/addSolarGroup" name ="solarGroupForm" scope="request" type="com.stepup.gasoline.qt.solargroup.AddSolarGroupAction" input="/solarGroupForm.do">
+        <action path="/reportSolarComparePrint" type="com.stepup.gasoline.qt.report.solarcompare.PrintSolarCompareReportAction" scope="request" validate="false" >
         </action>
-        <!-- end solargroup -->
-        <!-- start employeesolarcommission -->
-        <action path="/getEmployeeSolarCommissionPanel" type="com.stepup.gasoline.qt.common.BaseStatusFormAction" scope="request" validate="false">
-            <forward name="success" path="/employeesolarcommission/employeesolarcommissionpanel.jsp" />
+        <action path="/getSolarCustomerDebtReportPanel" type="com.stepup.gasoline.qt.report.solarcustomerdebt.SolarCustomerDebtReportPanelFormAction" scope="request" validate="false">
+            <forward name="success" path="/report/solarcustomerdebt/panel.jsp" />
         </action>
-        <action path="/getEmployeeSolarCommissionList" type="com.stepup.gasoline.qt.employeesolarcommission.GetEmployeeSolarCommissionListAction" scope="request" validate="false" >
+        <action path="/reportSolarCustomerDebtPrint" type="com.stepup.gasoline.qt.report.solarcustomerdebt.PrintSolarCustomerDebtReportAction" scope="request" validate="false" >
         </action>
-        <action path="/employeeSolarCommissionForm" type="com.stepup.gasoline.qt.employeesolarcommission.EmployeeSolarCommissionFormAction" scope="request" validate="false">
-            <forward name="success" path="/employeesolarcommission/employeesolarcommissiondetail.jsp" />
+        <action path="/getSolarStockStoreHReportPanel" type="com.stepup.gasoline.qt.report.solarstockstoreh.SolarStockStoreHReportPanelFormAction" scope="request" validate="false">
+            <forward name="success" path="/report/solarstockstoreh/panel.jsp" />
         </action>
-        <action path="/addEmployeeSolarCommission" name ="employeeSolarCommissionForm" scope="request" type="com.stepup.gasoline.qt.employeesolarcommission.AddEmployeeSolarCommissionAction" input="/employeeSolarCommissionForm.do">
+        <action path="/reportSolarStockStoreHPrint" type="com.stepup.gasoline.qt.report.solarstockstoreh.PrintSolarStockStoreHReportAction" scope="request" validate="false" >
         </action>
-        <action path="/delEmployeeSolarCommission" type="com.stepup.gasoline.qt.employeesolarcommission.DeleteEmployeeSolarCommissionAction" scope="request" validate="false" >
+        <action path="/getSolarVendorStockReportPanel" type="com.stepup.gasoline.qt.report.solarvendorstock.SolarVendorStockReportPanelFormAction" scope="request" validate="false">
+            <forward name="success" path="/report/solarvendorstock/panel.jsp" />
         </action>
-        <!-- end employeesolarcommission -->
-        <!-- start solar -->
-        <action path="/getSolarPanel" type="com.stepup.gasoline.qt.common.BaseStatusFormAction" scope="request" validate="false">
-            <forward name="success" path="/solar/solarpanel.jsp" />
+        <action path="/reportSolarVendorStockPrint" type="com.stepup.gasoline.qt.report.solarvendorstock.PrintSolarVendorStockReportAction" scope="request" validate="false" >
         </action>
-        <action path="/getSolarList" type="com.stepup.gasoline.qt.solar.GetSolarListAction" scope="request" validate="false" >
+        <!-- start invoice solar -->
+        <action path="/getInvoiceSolarPanel" type="com.stepup.gasoline.qt.common.BaseStatusFormAction" scope="request" validate="false">
+            <forward name="success" path="/invoicesolar/invoicesolarpanel.jsp" />
         </action>
-        <action path="/solarForm" type="com.stepup.gasoline.qt.solar.SolarFormAction" scope="request" validate="false">
-            <forward name="success" path="/solar/solardetail.jsp" />
+        <action path="/getInvoiceSolarList" type="com.stepup.gasoline.qt.invoicesolar.GetInvoiceSolarListAction" scope="request" validate="false" >
         </action>
-        <action path="/addSolar" name ="solarForm" scope="request" type="com.stepup.gasoline.qt.solar.AddSolarAction" input="/solarForm.do">
+        <action path="/invoiceSolarForm" type="com.stepup.gasoline.qt.invoicesolar.InvoiceSolarFormAction" scope="request" validate="false">
+            <forward name="success" path="/invoicesolar/invoicesolardetail.jsp" />
         </action>
-        <!-- end solar -->
+        <action path="/addInvoiceSolar" name ="invoiceSolarForm" scope="request" type="com.stepup.gasoline.qt.invoicesolar.AddInvoiceSolarAction" input="/invoiceSolarForm.do">
+        </action>
+        <action path="/delInvoiceSolar" type="com.stepup.gasoline.qt.invoicesolar.DeleteInvoiceSolarAction" scope="request" validate="false" >
+        </action>
+        <action path="/printInvoiceSolar" type="com.stepup.gasoline.qt.invoicesolar.PrintInvoiceSolarAction" scope="request" validate="false" >
+        </action>
+        <action path="/getInvoiceSolarPaid" type="com.stepup.gasoline.qt.invoicesolar.GetInvoiceSolarPaidAction" scope="request" validate="false">
+            <forward name="success" path="/invoicesolar/paids.jsp" />
+        </action>
+        <action path="/getSearchSolarSaleForm" type="com.stepup.gasoline.qt.invoicesolar.SearchSolarSaleFormAction" scope="request" validate="false">
+            <forward name="success" path="/invoicesolar/searchsolarsale.jsp" />
+        </action>
+        <action path="/searchSolarSale" type="com.stepup.gasoline.qt.invoicesolar.SearchSolarSaleAction" scope="request" validate="false">
+            <forward name="success" path="/invoicesolar/searcheddetails.jsp" />
+        </action>
+        <action path="/getInvoiceSolarSolarSaleDetail" type="com.stepup.gasoline.qt.invoicesolar.GetInvoiceSolarSolarSaleDetailAction" scope="request" validate="false">
+            <forward name="success" path="/invoicesolar/solarsaledetails.jsp" />
+        </action>
+        <!-- end invoice solar-->
     </action-mappings>
     
     <controller processorClass="org.apache.struts.tiles.TilesRequestProcessor"/>
