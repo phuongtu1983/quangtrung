@@ -1298,7 +1298,7 @@ CREATE TABLE `invoice_solar` (
   `amount_paid` double DEFAULT NULL,
   `customer_id` int(11) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 /*Table structure for table `invoice_solar_detail` */
 
@@ -1312,7 +1312,7 @@ CREATE TABLE `invoice_solar_detail` (
   `paid` int(1) DEFAULT '0' COMMENT '0:chua thanh toan, 1:da thanh toan',
   `commissioned` int(1) DEFAULT '0' COMMENT '0: chua chiet khau, 1: da chiet khau',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 /*Table structure for table `invoice_solar_paid_detail` */
 
@@ -1324,7 +1324,7 @@ CREATE TABLE `invoice_solar_paid_detail` (
   `paid_date` date DEFAULT NULL,
   `amount` double DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 /*Table structure for table `lo_vo` */
 
@@ -4194,13 +4194,26 @@ BEGIN
 			FROM oil_sale AS i
 			WHERE DATE(i.created_date) >= _from_date AND DATE(i.created_date) < _to_date
 			UNION ALL
+			SELECT i.customer_id, 0 AS quantity_12, 0 AS quantity_45, COALESCE(i.debt,0) AS amount
+			FROM solar_sale AS i
+			WHERE DATE(i.created_date) >= _from_date AND DATE(i.created_date) < _to_date
+			UNION ALL
 			SELECT i.customer_id, 0 AS quantity_12, 0 AS quantity_45, -COALESCE(idet.paid_amount,0) AS amount
 			FROM oil_sale AS i, oil_sale_detail AS odet, invoice_detail AS idet
 			WHERE DATE(i.created_date) >= _from_date AND DATE(i.created_date) < _to_date
 			AND i.id=odet.oil_sale_id AND odet.id=idet.oil_sale_detail_id
 			UNION ALL
+			SELECT i.customer_id, 0 AS quantity_12, 0 AS quantity_45, -COALESCE(idet.paid_amount,0) AS amount
+			FROM solar_sale AS i, solar_sale_detail AS odet, invoice_solar_detail AS idet
+			WHERE DATE(i.created_date) >= _from_date AND DATE(i.created_date) < _to_date
+			AND i.id=odet.solar_sale_id AND odet.id=idet.solar_sale_detail_id
+			UNION ALL
 			SELECT i.customer_id, 0 AS quantity_12, 0 AS quantity_45, -COALESCE(i.debt,0) AS amount
 			FROM oil_sale_return AS i
+			WHERE DATE(i.created_date) >= _from_date AND DATE(i.created_date) < _to_date
+			UNION ALL
+			SELECT i.customer_id, 0 AS quantity_12, 0 AS quantity_45, -COALESCE(i.debt,0) AS amount
+			FROM solar_sale_return AS i
 			WHERE DATE(i.created_date) >= _from_date AND DATE(i.created_date) < _to_date
 		) AS tbl ON tbl.customer_id=c.id
 		WHERE c.organization_id=o.id AND c.STATUS=1 AND o.STATUS=1
@@ -4284,13 +4297,26 @@ BEGIN
 			FROM oil_sale AS i
 			WHERE DATE(i.created_date) >= _from_date AND DATE(i.created_date) < _to_date AND i.customer_id=_customer_id
 			UNION ALL
+			SELECT 0 AS quantity_12, 0 AS quantity_45, COALESCE(i.debt,0) AS amount, 0 AS transport_amount
+			FROM solar_sale AS i
+			WHERE DATE(i.created_date) >= _from_date AND DATE(i.created_date) < _to_date AND i.customer_id=_customer_id
+			UNION ALL
 			SELECT 0 AS quantity_12, 0 AS quantity_45, -COALESCE(idet.paid_amount,0) AS amount, 0 AS transport_amount
 			FROM oil_sale AS i, oil_sale_detail AS odet, invoice_detail AS idet
 			WHERE DATE(i.created_date) >= _from_date AND DATE(i.created_date) < _to_date AND i.customer_id=_customer_id
 			AND i.id=odet.oil_sale_id AND odet.id=idet.oil_sale_detail_id
 			UNION ALL
+			SELECT 0 AS quantity_12, 0 AS quantity_45, -COALESCE(idet.paid_amount,0) AS amount, 0 AS transport_amount
+			FROM solar_sale AS i, solar_sale_detail AS odet, invoice_solar_detail AS idet
+			WHERE DATE(i.created_date) >= _from_date AND DATE(i.created_date) < _to_date AND i.customer_id=_customer_id
+			AND i.id=odet.solar_sale_id AND odet.id=idet.solar_sale_detail_id
+			UNION ALL
 			SELECT 0 AS quantity_12, 0 AS quantity_45, -COALESCE(i.debt,0) AS amount, 0 AS transport_amount
 			FROM oil_sale_return AS i
+			WHERE DATE(i.created_date) >= _from_date AND DATE(i.created_date) < _to_date AND i.customer_id=_customer_id
+			UNION ALL
+			SELECT 0 AS quantity_12, 0 AS quantity_45, -COALESCE(i.debt,0) AS amount, 0 AS transport_amount
+			FROM solar_sale_return AS i
 			WHERE DATE(i.created_date) >= _from_date AND DATE(i.created_date) < _to_date AND i.customer_id=_customer_id
 		) AS tbl ON 1
 		WHERE c.STATUS=1 AND c.id=_customer_id;
@@ -7630,9 +7656,9 @@ DELIMITER ;
 
 DELIMITER $$
 
-/*!50003 CREATE DEFINER=`root`@`localhost` PROCEDURE `insertInvoiceSolarDetail`(IN _invoice_solar_id INT, IN _oil_sale_detail_id INT, IN _paid INT, IN _commissioned INT, IN _paid_amount DOUBLE)
+/*!50003 CREATE DEFINER=`root`@`localhost` PROCEDURE `insertInvoiceSolarDetail`(IN _invoice_solar_id INT, IN _solar_sale_detail_id INT, IN _paid INT, IN _commissioned INT, IN _paid_amount DOUBLE)
 BEGIN
-	INSERT INTO invoice_solar_detail(invoice_solar_id, oil_sale_detail_id, paid, commissioned, paid_amount) VALUES(_invoice_solar_id, _oil_sale_detail_id, _paid, _commissioned, _paid_amount);
+	INSERT INTO invoice_solar_detail(invoice_solar_id, solar_sale_detail_id, paid, commissioned, paid_amount) VALUES(_invoice_solar_id, _solar_sale_detail_id, _paid, _commissioned, _paid_amount);
     END */$$
 DELIMITER ;
 
@@ -7642,9 +7668,9 @@ DELIMITER ;
 
 DELIMITER $$
 
-/*!50003 CREATE DEFINER=`root`@`localhost` PROCEDURE `insertInvoiceSolarPaidDetail`(IN _invoice_solar_id INT, IN _oil_sale_detail_id INT, IN _paid INT, IN _commissioned INT, IN _paid_amount DOUBLE)
+/*!50003 CREATE DEFINER=`root`@`localhost` PROCEDURE `insertInvoiceSolarPaidDetail`(in _invoice_solar_id int, in _paid_date varchar(20), in _amount double)
 BEGIN
-	INSERT INTO invoice_solar_detail(invoice_solar_id, oil_sale_detail_id, paid, commissioned, paid_amount) VALUES(_invoice_solar_id, _oil_sale_detail_id, _paid, _commissioned, _paid_amount);
+	insert into invoice_solar_paid_detail(invoice_solar_id, paid_date, amount) values(_invoice_solar_id, STR_TO_DATE(_paid_date,'%d/%m/%Y'), _amount);
     END */$$
 DELIMITER ;
 
@@ -11550,7 +11576,7 @@ BEGIN
 	SELECT COALESCE(oe.CODE,'') AS solar_export_code, o.CODE AS solar_code, o.NAME AS solar_name, u.NAME AS unit_name
 		, osdet.quantity, osdet.price, osdet.amount, COALESCE(idet.paid_amount,0) AS paid
 	FROM solar_sale AS os, solar AS o, unit AS u, employee AS eo, solar_sale_detail AS osdet
-	LEFT JOIN invoice_detail AS idet ON idet.solar_sale_detail_id=osdet.id
+	LEFT JOIN invoice_solar_detail AS idet ON idet.solar_sale_detail_id=osdet.id
 	LEFT JOIN solar_export_detail AS edet ON edet.solar_sale_detail_id=osdet.id
 	LEFT JOIN solar_export AS oe ON edet.solar_export_id=oe.id
 	WHERE DATE(os.created_date) >= STR_TO_DATE(_start_date,'%d/%m/%Y') AND DATE(os.created_date) <= STR_TO_DATE(_end_date,'%d/%m/%Y')
