@@ -6,9 +6,11 @@ package com.stepup.gasoline.qt.discount;
 
 import com.stepup.core.util.NumberUtil;
 import com.stepup.gasoline.qt.bean.DiscountBean;
+import com.stepup.gasoline.qt.bean.EmployeeBean;
 import com.stepup.gasoline.qt.core.SpineAction;
 import com.stepup.gasoline.qt.dao.CustomerDAO;
 import com.stepup.gasoline.qt.util.Constants;
+import com.stepup.gasoline.qt.util.QTUtil;
 import java.util.ArrayList;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -63,6 +65,16 @@ public class DiscountFormAction extends SpineAction {
         }
         request.setAttribute(Constants.DISCOUNT_COMMISSION_CUSTOMER, arrFeeCustomer);
 
+        ArrayList arrCustomer = null;
+        try {
+            CustomerDAO customerDAO = new CustomerDAO();
+            arrCustomer = customerDAO.getCustomers(EmployeeBean.STATUS_ACTIVE, QTUtil.getOrganizationManageds(request.getSession()));
+        } catch (Exception ex) {
+        }
+        if (arrCustomer == null) {
+            arrCustomer = new ArrayList();
+        }
+        request.setAttribute(Constants.CUSTOMER_LIST, arrCustomer);
         
         return true;
     }

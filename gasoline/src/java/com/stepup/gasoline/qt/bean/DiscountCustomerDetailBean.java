@@ -8,7 +8,7 @@ package com.stepup.gasoline.qt.bean;
  *
  * @author phuongtu
  */
-public class DiscountCommissionCustomerBean {
+public class DiscountCustomerDetailBean {
 
     private int id;
     private int discountId;

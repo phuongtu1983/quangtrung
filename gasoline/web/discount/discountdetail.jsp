@@ -16,7 +16,7 @@
         </tr>
         <tr>
             <td height="30" style="padding-right: 20px" colspan="3"><bean:message key="customerDiscount.detail.shellGasComission"/></td>
-            <td><html:text property="shellGasComission" size="40" name="<%=Constants.DISCOUNT%>"/></td>
+            <td><html:text property="shellGasComission" size="40" name="<%=Constants.DISCOUNT%>" onblur="tryNumberFormatCurrentcy(this);" onkeypress="return readonlyFloat(event);"/></td>
         </tr>
         <tr>
             <td height="30" style="padding-right: 20px"><bean:message key="note.title"/></td>
@@ -39,6 +39,31 @@
         </tr>
         <tr>
             <td colspan="4"><div><%@include  file="/discount/commissiondetails.jsp" %></div></td>
+        </tr>
+        <tr>
+            <td colspan="4">
+                <fieldset>
+                    <legend><bean:message key="customer.list.title"/></legend>
+                    <table>
+                        <tr>
+                            <td>
+                                <button class="i_cross icon small red" onclick="return delTableRow('discountForm', 'discountCustomerChk', 'discountCustomerDetailTbl');" tabindex="-1"><bean:message key="message.del"/></button>
+                                <button class="i_plus icon small green" onclick="return addDiscountCustomer();" tabindex="-1"><bean:message key="message.add"/></button>
+                            </td>
+                            <td>
+                                <select style="width: 260px;" name="customerIdCombobox" id="customerIdCombobox">
+                                    <logic:iterate id="customer_iter" name="<%=Constants.CUSTOMER_LIST%>">
+                                        <option  value="${customer_iter.id}">${customer_iter.name}</option>
+                                    </logic:iterate>
+                                </select>
+                            </td>
+                        </tr>
+                    </table>
+                </fieldset>
+            </td>
+        </tr>
+        <tr>
+            <td colspan="4"><div><%@include  file="/discount/customerdetails.jsp" %></div></td>
         </tr>
         <tr>
             <td align="center" colspan="4">
@@ -65,6 +90,7 @@
     </table> 
     <html:hidden property="id" name="<%=Constants.DISCOUNT%>" />
     <input type="hidden" id="callbackFunc"/>
+    <input type="hidden" name="customerSelectedHidden" value="0"/>
 </form>
 <div name="discountFormshowHelpHideDiv" id="showHelpHideDiv" style="display:none">
     Ctrl+C : Đóng
@@ -74,3 +100,4 @@
 <div id="shiftSFunctionHideDiv" style="display:none">saveDiscount()</div>
 <div id="shiftEscFunctionHideDiv" style="display:none">loadDiscountPanel()</div>
 <div id="discountCommissionHideDiv" style="display:none"></div>
+<div id="discountCustomerHideDiv" style="display:none"></div>

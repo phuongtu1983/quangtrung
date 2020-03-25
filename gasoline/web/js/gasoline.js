@@ -10137,7 +10137,36 @@ function getDiscount(id) {
         clearContent();
         setAjaxData(data, 'contentDiv');
         document.forms['discountForm'].name.focus();
+        tryNumberFormatCurrentcy(document.forms['discountForm'].shellGasComission, "VND");
         formatDiscountCommissionDetail();
+        window.dhx_globalImgPath = "js/dhtmlx/combo/imgs/";
+        // ============================
+        var customerCombobox = dhtmlXComboFromSelect("customerIdCombobox");
+        customerCombobox.enableFilteringMode(true);
+        customerCombobox.attachEvent("onSelectionChange", function() {
+            setCustomerSelectedForm('discountForm', customerCombobox.getComboText(), customerCombobox.getSelectedValue());
+        });
+        customerCombobox.attachEvent("onBlur", function() {
+            setCustomerSelectedForm('discountForm', customerCombobox.getComboText(), customerCombobox.getSelectedValue());
+        });
+        customerCombobox.DOMelem_input.onkeypress = function(event) {
+            var key;
+            if (window.event)
+                key = window.event.keyCode;//IE
+            else
+                key = event.which;//firefox
+            if (key == 13) {
+                addDiscountCustomer();
+                customerCombobox.setComboValue("");
+            }
+        }
+        customerCombobox.DOMelem_input.onfocus = function(event) {
+            if (isManuallySeleted == 1) {
+                customerCombobox.openSelect();
+                isManuallySeleted = 0;
+            }
+        }
+        customerCombobox.setComboValue("");
     });
 }
 function saveDiscount() {
@@ -10151,6 +10180,7 @@ function saveDiscount() {
         return false;
     }
     field = null;
+    reformatNumberMoney(document.forms['discountForm'].shellGasComission);
     reformatDiscountCommissionDetail();
     scriptFunction = "saveDiscount";
     callAjaxCheckError("addDiscount.do", null, document.forms['discountForm'], function(data) {
@@ -10181,6 +10211,45 @@ function addDiscountCommission() {
     });
     return false;
 }
+function addDiscountCustomer() {
+    var customer = document.forms['discountForm'].customerSelectedHidden.value;
+    if (customer == -1 || customer == 0)
+        return false;
+    var customerId = document.forms['discountForm'].customerId;
+    var existed = false;
+    if (customerId != null) {
+        if (customerId.length != null) {
+            for (i = 0; i < customerId.length; i++) {
+                if (customerId[i].value == customer) {
+                    existed = true;
+                    break;
+                }
+            }
+        } else if (customerId.value == customer)
+            existed = true;
+    }
+    customerId = null;
+    if (existed == true) {
+        alert("Kh\u00E1ch h\u00E0ng \u0111\u00E3 t\u1ED3n t\u1EA1i");
+        return false;
+    }
+    callAjax("getDiscountCustomer.do?customerId=" + customer, null, null, function(data) {
+        setAjaxData(data, 'discountCustomerHideDiv');
+        var matTable = document.getElementById('discountCustomerTbl');
+        var detTable = document.getElementById('discountCustomerDetailTbl');
+        if (matTable.tBodies[0] == null || detTable.tBodies[0] == null) {
+            matTable = null;
+            detTable = null;
+            return;
+        }
+        for (var i = matTable.tBodies[0].rows.length - 1; i >= 0; i--)
+            detTable.tBodies[0].appendChild(matTable.tBodies[0].rows[i]);
+        matTable = null;
+        detTable = null;
+    });
+    return false;
+}
+
 function formatDiscountCommissionDetail() {
     var discountCommissionFrom = document.forms['discountForm'].discountCommissionFrom;
     var discountCommissionTo = document.forms['discountForm'].discountCommissionTo;

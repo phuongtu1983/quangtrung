@@ -7,6 +7,7 @@ package com.stepup.gasoline.qt.discount;
 import com.stepup.core.util.NumberUtil;
 import com.stepup.gasoline.qt.bean.DiscountBean;
 import com.stepup.gasoline.qt.bean.DiscountCommissionDetailBean;
+import com.stepup.gasoline.qt.bean.DiscountCustomerDetailBean;
 import com.stepup.gasoline.qt.core.SpineAction;
 import com.stepup.gasoline.qt.dao.CustomerDAO;
 import java.util.ArrayList;
@@ -75,13 +76,16 @@ public class AddDiscountAction extends SpineAction {
         bean.setName(formBean.getName());
         bean.setCode(formBean.getCode());
         bean.setNote(formBean.getNote());
+        bean.setShellGasComission(formBean.getShellGasComission());
         try {
             if (bNew) {
                 int id = customerDAO.insertDiscount(bean);
                 formBean.setId(id);
                 addDiscountCommission(formBean);
+                addDiscountCustomer(formBean);
             } else {
                 addDiscountCommission(formBean);
+                addDiscountCustomer(formBean);
                 customerDAO.updateDiscount(bean);
             }
         } catch (Exception ex) {
@@ -146,6 +150,47 @@ public class AddDiscountAction extends SpineAction {
             }
             ids += "0";
             customerDAO.deleteDiscountCommissionDetails(ids);
+        } catch (Exception ex) {
+        }
+    }
+    
+    private void addDiscountCustomer(DiscountFormBean formBean) {
+        try {
+            CustomerDAO customerDAO = new CustomerDAO();
+            ArrayList arrDetail = customerDAO.getDiscountCustomerDetail(formBean.getId());
+            if (formBean.getCustomerId() != null) {
+                int length = formBean.getCustomerId().length;
+                int id = 0;
+                for (int i = 0; i < length; i++) {
+                    id = NumberUtil.parseInt(formBean.getDiscountCustomerDetailId()[i], 0);
+                    if (id == 0) {
+                        DiscountCustomerDetailBean bean = new DiscountCustomerDetailBean();
+                        bean.setCustomerId(NumberUtil.parseInt(formBean.getCustomerId()[i], 0));
+                        bean.setDiscountId(formBean.getId());
+                        customerDAO.insertDiscountCustomerDetail(bean);
+                    } else {
+                        int j = 0;
+                        DiscountCustomerDetailBean oldBean = null;
+                        for (; j < arrDetail.size(); j++) {
+                            oldBean = (DiscountCustomerDetailBean) arrDetail.get(j);
+                            if (oldBean.getId() == id) {
+                                break;
+                            }
+                        }
+                        if (j < arrDetail.size()) {
+                            arrDetail.remove(j);
+                        }
+                    }
+                }
+            }
+            String ids = "0,";
+            DiscountCustomerDetailBean oldBean = null;
+            for (int i = 0; i < arrDetail.size(); i++) {
+                oldBean = (DiscountCustomerDetailBean) arrDetail.get(i);
+                ids += oldBean.getId() + ",";
+            }
+            ids += "0";
+            customerDAO.deleteDiscountCustomerDetails(ids);
         } catch (Exception ex) {
         }
     }

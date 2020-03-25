@@ -288,7 +288,7 @@ CREATE TABLE `customer` (
   `commission_kind` int(1) DEFAULT '1' COMMENT '1:chiet khau tren bill, 2:chiet khau truc tiep tren gia ban',
   `note` text COLLATE utf8_unicode_ci,
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM AUTO_INCREMENT=332 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=MyISAM AUTO_INCREMENT=333 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 /*Table structure for table `customer_discount_detail` */
 
@@ -329,7 +329,7 @@ CREATE TABLE `customer_in_stock` (
   `amount` double DEFAULT '0',
   `transport_amount` double DEFAULT '0',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=941 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=1259 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 /*Table structure for table `dayoff` */
 
@@ -358,7 +358,7 @@ CREATE TABLE `debt_adjustment` (
   `note` text COLLATE utf8_unicode_ci,
   `created_employee_id` int(11) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 /*Table structure for table `debug` */
 
@@ -376,9 +376,21 @@ CREATE TABLE `discount_oil` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `code` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
   `name` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `shell_gas_commission` double DEFAULT NULL COMMENT 'chiet khau khi doi gas bang vo cty khi dat san luong',
   `note` text COLLATE utf8_unicode_ci,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+/*Table structure for table `discount_oil_customer` */
+
+DROP TABLE IF EXISTS `discount_oil_customer`;
+
+CREATE TABLE `discount_oil_customer` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `discount_id` int(11) DEFAULT NULL,
+  `customer_id` int(11) DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 /*Table structure for table `discount_oil_detail` */
 
@@ -392,7 +404,7 @@ CREATE TABLE `discount_oil_detail` (
   `commission_to` double DEFAULT NULL,
   `commission` double DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=10 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 /*Table structure for table `document` */
 
@@ -697,7 +709,7 @@ CREATE TABLE `employee_solar_commission` (
   `amount` double DEFAULT NULL,
   `note` text COLLATE utf8_unicode_ci,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 /*Table structure for table `expense` */
 
@@ -718,7 +730,7 @@ CREATE TABLE `expense` (
   `note` text COLLATE utf8_unicode_ci,
   `created_employee_id` int(11) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM AUTO_INCREMENT=186 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=MyISAM AUTO_INCREMENT=195 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 /*Table structure for table `fixed_asset` */
 
@@ -1255,7 +1267,7 @@ CREATE TABLE `invoice` (
   `amount_paid` double DEFAULT NULL,
   `customer_id` int(11) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=12 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=14 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 /*Table structure for table `invoice_detail` */
 
@@ -1269,7 +1281,7 @@ CREATE TABLE `invoice_detail` (
   `paid` int(1) DEFAULT '0' COMMENT '0:chua thanh toan, 1:da thanh toan',
   `commissioned` int(1) DEFAULT '0' COMMENT '0: chua chiet khau, 1: da chiet khau',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=17 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=19 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 /*Table structure for table `invoice_paid_detail` */
 
@@ -1298,7 +1310,7 @@ CREATE TABLE `invoice_solar` (
   `amount_paid` double DEFAULT NULL,
   `customer_id` int(11) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 /*Table structure for table `invoice_solar_detail` */
 
@@ -1312,7 +1324,7 @@ CREATE TABLE `invoice_solar_detail` (
   `paid` int(1) DEFAULT '0' COMMENT '0:chua thanh toan, 1:da thanh toan',
   `commissioned` int(1) DEFAULT '0' COMMENT '0: chua chiet khau, 1: da chiet khau',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 /*Table structure for table `invoice_solar_paid_detail` */
 
@@ -1324,7 +1336,7 @@ CREATE TABLE `invoice_solar_paid_detail` (
   `paid_date` date DEFAULT NULL,
   `amount` double DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 /*Table structure for table `lo_vo` */
 
@@ -1378,7 +1390,7 @@ CREATE TABLE `lpg_import` (
   `link_lpg_ids` text COLLATE utf8_unicode_ci,
   `link_lpg_codes` text COLLATE utf8_unicode_ci,
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM AUTO_INCREMENT=54 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=MyISAM AUTO_INCREMENT=66 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 /*Table structure for table `lpg_in_stock` */
 
@@ -1416,7 +1428,7 @@ CREATE TABLE `lpg_sale` (
   `route_id` int(11) DEFAULT NULL,
   `created_employee_id` int(11) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=10 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 /*Table structure for table `money_in_stock` */
 
@@ -1450,7 +1462,7 @@ CREATE TABLE `oil` (
   `organization_id` int(11) DEFAULT NULL,
   `price` double DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=78 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=82 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 /*Table structure for table `oil_export` */
 
@@ -1466,7 +1478,7 @@ CREATE TABLE `oil_export` (
   `note` text COLLATE utf8_unicode_ci,
   `created_employee_id` int(11) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=49 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=55 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 /*Table structure for table `oil_export_detail` */
 
@@ -1479,7 +1491,7 @@ CREATE TABLE `oil_export_detail` (
   `oil_sale_detail_id` int(11) DEFAULT NULL,
   `quantity` int(3) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=74 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=85 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 /*Table structure for table `oil_group` */
 
@@ -1513,7 +1525,7 @@ CREATE TABLE `oil_import` (
   `note` text COLLATE utf8_unicode_ci,
   `created_employee_id` int(11) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=14 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=16 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 /*Table structure for table `oil_import_detail` */
 
@@ -1530,7 +1542,7 @@ CREATE TABLE `oil_import_detail` (
   `amount` double DEFAULT NULL,
   `note` text COLLATE utf8_unicode_ci,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=34 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=42 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 /*Table structure for table `oil_in_stock` */
 
@@ -1544,7 +1556,7 @@ CREATE TABLE `oil_in_stock` (
   `store_id` int(11) DEFAULT NULL,
   `in_stock` int(11) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=901 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=1159 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 /*Table structure for table `oil_return_store` */
 
@@ -1582,7 +1594,7 @@ CREATE TABLE `oil_sale` (
   `created_employee_id` int(11) DEFAULT NULL,
   `is_calculate_agency_commission` int(1) DEFAULT '1' COMMENT '0:khong tinh, 1:tinh CK cho dai ly',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=38 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=44 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 /*Table structure for table `oil_sale_detail` */
 
@@ -1606,7 +1618,7 @@ CREATE TABLE `oil_sale_detail` (
   `amount` double DEFAULT '0',
   `vendor_id` int(11) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=54 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=65 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 /*Table structure for table `oil_sale_promotion` */
 
@@ -2259,7 +2271,7 @@ CREATE TABLE `solar` (
   `organization_id` int(11) DEFAULT NULL,
   `price` double DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 /*Table structure for table `solar_export` */
 
@@ -2275,7 +2287,7 @@ CREATE TABLE `solar_export` (
   `note` text COLLATE utf8_unicode_ci,
   `created_employee_id` int(11) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 /*Table structure for table `solar_export_detail` */
 
@@ -2288,7 +2300,7 @@ CREATE TABLE `solar_export_detail` (
   `solar_sale_detail_id` int(11) DEFAULT NULL,
   `quantity` int(3) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 /*Table structure for table `solar_group` */
 
@@ -2300,7 +2312,7 @@ CREATE TABLE `solar_group` (
   `note` text COLLATE utf8_unicode_ci,
   `status` int(1) DEFAULT '1' COMMENT '0: da bi khoa, 1: dang su dung',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 /*Table structure for table `solar_import` */
 
@@ -2322,7 +2334,7 @@ CREATE TABLE `solar_import` (
   `note` text COLLATE utf8_unicode_ci,
   `created_employee_id` int(11) DEFAULT NULL,
   UNIQUE KEY `id` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 /*Table structure for table `solar_import_detail` */
 
@@ -2339,7 +2351,7 @@ CREATE TABLE `solar_import_detail` (
   `amount` double DEFAULT NULL,
   `note` text COLLATE utf8_unicode_ci,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 /*Table structure for table `solar_in_stock` */
 
@@ -2353,7 +2365,7 @@ CREATE TABLE `solar_in_stock` (
   `store_id` int(11) DEFAULT NULL,
   `in_stock` int(11) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 /*Table structure for table `solar_return_store` */
 
@@ -2364,7 +2376,7 @@ CREATE TABLE `solar_return_store` (
   `organization_id` int(11) DEFAULT NULL,
   `store_id` int(11) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 /*Table structure for table `solar_sale` */
 
@@ -2391,7 +2403,7 @@ CREATE TABLE `solar_sale` (
   `created_employee_id` int(11) DEFAULT NULL,
   `is_calculate_agency_commission` int(1) DEFAULT '1' COMMENT '0:khong tinh, 1:tinh CK cho dai ly',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 /*Table structure for table `solar_sale_detail` */
 
@@ -2415,7 +2427,7 @@ CREATE TABLE `solar_sale_detail` (
   `amount` double DEFAULT '0',
   `vendor_id` int(11) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 /*Table structure for table `solar_sale_promotion` */
 
@@ -2430,7 +2442,7 @@ CREATE TABLE `solar_sale_promotion` (
   `quantity` int(3) DEFAULT NULL,
   `base_quantity` int(3) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 /*Table structure for table `solar_sale_return` */
 
@@ -2456,7 +2468,7 @@ CREATE TABLE `solar_sale_return` (
   `note` text COLLATE utf8_unicode_ci,
   `created_employee_id` int(11) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 /*Table structure for table `solar_sale_return_detail` */
 
@@ -2480,7 +2492,7 @@ CREATE TABLE `solar_sale_return_detail` (
   `gap_customer_amount` double DEFAULT NULL,
   `amount` double DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 /*Table structure for table `store` */
 
@@ -2497,7 +2509,7 @@ CREATE TABLE `store` (
   `is_oil` int(1) DEFAULT '0',
   `is_solar` int(1) DEFAULT '0',
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM AUTO_INCREMENT=12 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=MyISAM AUTO_INCREMENT=11 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 /*Table structure for table `temp_gas_commission` */
 
@@ -2610,7 +2622,7 @@ CREATE TABLE `transport_service` (
   `customer_customer_id` int(11) DEFAULT NULL,
   `customer_amount` double DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=14 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=19 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 /*Table structure for table `trip_fee` */
 
@@ -2830,7 +2842,7 @@ CREATE TABLE `vendor` (
   `commision_on_import` float DEFAULT '0',
   `max_debt` double DEFAULT '0' COMMENT 'cong no toi da cho phep',
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM AUTO_INCREMENT=29 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=MyISAM AUTO_INCREMENT=30 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 /*Table structure for table `vendor_customer` */
 
@@ -2860,7 +2872,7 @@ CREATE TABLE `vendor_debt` (
   `created_employee_id` int(11) DEFAULT NULL,
   `kind` int(1) DEFAULT NULL COMMENT '1:tien hang, 2:tien van chuyen',
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM AUTO_INCREMENT=10 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=MyISAM AUTO_INCREMENT=13 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 /*Table structure for table `vendor_in_stock` */
 
@@ -2887,7 +2899,7 @@ CREATE TABLE `vendor_oil_store` (
   `vendor_id` int(11) DEFAULT NULL,
   `store_id` int(11) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 /*Table structure for table `vendor_organization` */
 
@@ -2898,7 +2910,7 @@ CREATE TABLE `vendor_organization` (
   `vendor_id` int(11) DEFAULT NULL,
   `organization_id` int(11) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=30 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=31 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 /*Table structure for table `vendor_solar_store` */
 
@@ -2973,6 +2985,20 @@ BEGIN
 		from fixed_asset as a
 		where a.is_closed=0;
 	end if;
+    END */$$
+DELIMITER ;
+
+/* Procedure structure for procedure `calculateCustomerCommission` */
+
+/*!50003 DROP PROCEDURE IF EXISTS  `calculateCustomerCommission` */;
+
+DELIMITER $$
+
+/*!50003 CREATE DEFINER=`root`@`localhost` PROCEDURE `calculateCustomerCommission`(in _customer_id int, in _weight double, out _commission double)
+BEGIN
+	SELECT SUM(COALESCE(dd.commission*_weight,0)) INTO _commission
+	FROM discount_oil AS d, discount_oil_customer AS dc,  discount_oil_detail AS dd
+	WHERE d.id=dc.discount_id AND d.id=dd.discount_id AND dc.customer_id=_customer_id AND dd.commission_from<=_weight AND dd.commission_to>_weight;
     END */$$
 DELIMITER ;
 
@@ -3096,6 +3122,7 @@ DELIMITER $$
 BEGIN
 	SET _ids = CONCAT(',',_ids,',');
 	DELETE FROM discount_oil_detail WHERE _ids LIKE CONCAT('%,',discount_id,',%');
+	DELETE FROM discount_oil_customer WHERE _ids LIKE CONCAT('%,',discount_id,',%');
 	DELETE FROM discount_oil WHERE _ids LIKE CONCAT('%,',id,',%');
     END */$$
 DELIMITER ;
@@ -4828,7 +4855,6 @@ BEGIN
 		-- SELECT DATE_ADD(_to_date, INTERVAL -1 DAY) INTO _from_date;
 		SELECT STR_TO_DATE(`value`,'%d/%m/%Y')  INTO _from_date from parameter where `code`="startdate";
 	END IF;
-	
 	IF _is_list=1 THEN
 		SELECT o.id AS organization_id, o.NAME AS organization_name, so.id AS store_id, so.NAME AS store_name, a.id AS oil_id, a.CODE AS oil_code, a.NAME AS oil_name, SUM(COALESCE(tbl.in_stock,0)) AS opening_stock
 		FROM oil AS a 
@@ -4838,7 +4864,7 @@ BEGIN
 		(
 			SELECT oil_id, store_id, COALESCE(in_stock,0) AS in_stock
 			FROM oil_in_stock
-			WHERE DATEDIFF(`day`, _from_date) > 0 AND DATEDIFF(`day`, _to_date) <= 0
+			WHERE DATEDIFF(`day`, _from_date) >= 0 AND DATEDIFF(`day`, _to_date) < 0
 			UNION ALL
 			SELECT i_det.oil_id, i.store_id, COALESCE(i_det.base_quantity,0) AS in_stock
 			FROM oil_import_detail AS i_det, oil_import AS i
@@ -6171,6 +6197,19 @@ DELIMITER $$
 BEGIN
 	INSERT INTO discount_oil_detail(discount_id, commission_from, commission_to, commission)
 	VALUES (_discount_id, _commission_from, _commission_to, _commission);
+    END */$$
+DELIMITER ;
+
+/* Procedure structure for procedure `insertDiscountCustomerDetail` */
+
+/*!50003 DROP PROCEDURE IF EXISTS  `insertDiscountCustomerDetail` */;
+
+DELIMITER $$
+
+/*!50003 CREATE DEFINER=`root`@`localhost` PROCEDURE `insertDiscountCustomerDetail`(IN _discount_id INT, IN _customer_id INT)
+BEGIN
+	INSERT INTO discount_oil_customer(discount_id, customer_id)
+	VALUES (_discount_id, _customer_id);
     END */$$
 DELIMITER ;
 

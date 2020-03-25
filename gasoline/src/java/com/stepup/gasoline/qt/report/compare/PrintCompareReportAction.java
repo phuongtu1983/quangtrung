@@ -27,11 +27,11 @@ import org.apache.struts.action.ActionMapping;
  * @author phuongtu
  */
 public class PrintCompareReportAction extends BaseAction {
-    
+
     @Override
     public boolean doAction(ActionMapping mapping, ActionForm form,
             HttpServletRequest request, HttpServletResponse response) {
-        
+
         try {
             Map beans = new HashMap();
             ExcelExport exporter = new ExcelExport();
@@ -42,6 +42,7 @@ public class PrintCompareReportAction extends BaseAction {
             ArrayList list = null;
             CompareReportOutBean outBean = new CompareReportOutBean();
             list = printCompareReport(fromDate, toDate, customerId, organizationIds, outBean);
+
             beans.put("qtrp_companyName", outBean.getCompanyName());
             beans.put("qtrp_companyAddress", outBean.getCompanyAddress());
             beans.put("qtrp_companyPhone", outBean.getCompanyPhone());
@@ -60,20 +61,28 @@ public class PrintCompareReportAction extends BaseAction {
                 list = new ArrayList();
             }
             beans.put("dulieu", list);
+            CompareReportBean bean = null;
+            double weight = 0;
+            for (int i = 0; i < list.size(); i++) {
+                bean = (CompareReportBean) list.get(i);
+                weight += bean.getWeight();
+            }
+            CustomerDAO customerDAO = new CustomerDAO();
+            beans.put("qtrp_commission", customerDAO.calculateCustomerCommission(customerId, weight));
             exporter.setBeans(beans);
             exporter.export(request, response, templateFileName, "report_compare.xls");
         } catch (Exception ex) {
             LogUtil.error("FAILED:PrintReportAction:print-" + ex.getMessage());
         }
-        
+
         return true;
     }
-    
+
     @Override
     protected boolean isReturnStream() {
         return true;
     }
-    
+
     private ArrayList printCompareReport(String fromDate, String toDate, int customerId, String organizationIds, CompareReportOutBean outBean) {
         ArrayList list = null;
         try {
