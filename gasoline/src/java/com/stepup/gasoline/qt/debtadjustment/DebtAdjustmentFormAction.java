@@ -8,6 +8,7 @@ import com.stepup.core.util.DateUtil;
 import com.stepup.core.util.NumberUtil;
 import com.stepup.gasoline.qt.bean.DebtAdjustmentBean;
 import com.stepup.gasoline.qt.bean.DebtVendorBean;
+import com.stepup.gasoline.qt.bean.EmployeeBean;
 import com.stepup.gasoline.qt.bean.VendorBean;
 import com.stepup.gasoline.qt.core.SpineAction;
 import com.stepup.gasoline.qt.dao.CustomerDAO;
@@ -81,7 +82,7 @@ public class DebtAdjustmentFormAction extends SpineAction {
             arrVendor = vendorDAO.getVendors(organizationIds, VendorBean.IS_GAS + "");
 
             CustomerDAO customerDAO = new CustomerDAO();
-            arrCustomer = customerDAO.getCustomers(organizationIds, VendorBean.IS_GAS);
+            arrCustomer = customerDAO.getCustomers(EmployeeBean.STATUS_ACTIVE, organizationIds);
         } catch (Exception ex) {
         }
         if (arrVendor == null) {

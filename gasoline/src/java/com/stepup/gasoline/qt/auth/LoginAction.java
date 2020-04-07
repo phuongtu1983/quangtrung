@@ -107,4 +107,5 @@ public class LoginAction extends Action {
             LogUtil.error(ex.getMessage());
         }
     }
+
 }

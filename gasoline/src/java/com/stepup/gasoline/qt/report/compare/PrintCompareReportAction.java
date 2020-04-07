@@ -63,12 +63,14 @@ public class PrintCompareReportAction extends BaseAction {
             beans.put("dulieu", list);
             CompareReportBean bean = null;
             double weight = 0;
+            int returnShell = 0;
             for (int i = 0; i < list.size(); i++) {
                 bean = (CompareReportBean) list.get(i);
                 weight += bean.getWeight();
+                returnShell += bean.getReturn12();
             }
             CustomerDAO customerDAO = new CustomerDAO();
-            beans.put("qtrp_commission", customerDAO.calculateCustomerCommission(customerId, weight));
+            beans.put("qtrp_commission", customerDAO.calculateCustomerCommission(customerId, weight, returnShell));
             exporter.setBeans(beans);
             exporter.export(request, response, templateFileName, "report_compare.xls");
         } catch (Exception ex) {

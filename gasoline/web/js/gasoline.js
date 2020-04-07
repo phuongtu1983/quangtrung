@@ -359,6 +359,8 @@ function menuClick(id) {
         showCompareGasReportPanel();
     else if (id == 'debtadjustmentlist')
         loadDebtAdjustmentPanel();
+    else if (id == 'debtadjustmentadd')
+        getDebtAdjustment(0,'loadDebtAdjustmentPanel');
     else if (id == 'saleinnerlist')
         loadSaleInnerPanel();
     else if (id == 'saleinneradd')
@@ -12277,7 +12279,7 @@ function loadPaneltyPanel() {
 function loadPaneltyList() {
     var mygrid = new dhtmlXGridObject('paneltyList');
     mygrid.setImagePath("js/dhtmlx/grid/imgs/");
-    mygrid.setHeader("T\u00EAn kho\u1EA3n th\u01B0\u1EDFng kh\u00E1c,Ghi ch\u00FA");
+    mygrid.setHeader("T\u00EAn kho\u1EA3n chi kh\u00E1c,Ghi ch\u00FA");
     mygrid.attachHeader("#text_filter,#text_filter");
     mygrid.setInitWidths("250,*");
     mygrid.setColTypes("link,ro");
@@ -12295,7 +12297,7 @@ function loadPaneltyList() {
     return false;
 }
 function getPanelty(id, handle) {
-    popupName = 'TH\u00D4NG TIN KHO\u1EA2N TH\u01AF\u1EDENG KH\u00C1C';
+    popupName = 'TH\u00D4NG TIN KHO\u1EA2N CHI KH\u00C1C';
     var url = 'paneltyForm.do';
     if (id != 0)
         url += '?paneltyId=' + id

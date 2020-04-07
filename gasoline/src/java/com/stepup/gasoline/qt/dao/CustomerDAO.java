@@ -108,6 +108,7 @@ public class CustomerDAO extends BasicDAO {
                 break;
             case VendorBean.IS_OIL:
                 sql += " and c.is_oil=1";
+                break;
             case VendorBean.IS_SOLAR:
                 sql += " and c.is_solar=1";
                 break;
@@ -1235,15 +1236,16 @@ public class CustomerDAO extends BasicDAO {
         return result;
     }
 
-    public double calculateCustomerCommission(int customerId, double weight) throws Exception {
+    public double calculateCustomerCommission(int customerId, double weight, int returnShell) throws Exception {
         double result = 0;
         SPUtil spUtil = null;
         try {
-            String sql = "{call calculateCustomerCommission(?,?,?)}";
+            String sql = "{call calculateCustomerCommission(?,?,?,?)}";
             spUtil = new SPUtil(sql);
             if (spUtil != null) {
                 spUtil.getCallableStatement().setInt("_customer_id", customerId);
                 spUtil.getCallableStatement().setDouble("_weight", weight);
+                spUtil.getCallableStatement().setDouble("_return_shell", returnShell);
                 spUtil.getCallableStatement().registerOutParameter("_commission", Types.DOUBLE);
                 spUtil.execute();
                 result = spUtil.getCallableStatement().getInt("_commission");

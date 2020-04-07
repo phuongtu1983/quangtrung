@@ -30,6 +30,8 @@ CREATE TABLE `accessory` (
   PRIMARY KEY (`id`)
 ) ENGINE=MyISAM AUTO_INCREMENT=7 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
+/*Data for the table `accessory` */
+
 /*Table structure for table `accessory_import` */
 
 DROP TABLE IF EXISTS `accessory_import`;
@@ -48,6 +50,8 @@ CREATE TABLE `accessory_import` (
   PRIMARY KEY (`id`)
 ) ENGINE=MyISAM AUTO_INCREMENT=3 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
+/*Data for the table `accessory_import` */
+
 /*Table structure for table `accessory_import_detail` */
 
 DROP TABLE IF EXISTS `accessory_import_detail`;
@@ -62,6 +66,8 @@ CREATE TABLE `accessory_import_detail` (
   PRIMARY KEY (`id`)
 ) ENGINE=MyISAM AUTO_INCREMENT=3 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
+/*Data for the table `accessory_import_detail` */
+
 /*Table structure for table `accessory_in_stock` */
 
 DROP TABLE IF EXISTS `accessory_in_stock`;
@@ -75,6 +81,8 @@ CREATE TABLE `accessory_in_stock` (
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
+/*Data for the table `accessory_in_stock` */
+
 /*Table structure for table `accessory_kind` */
 
 DROP TABLE IF EXISTS `accessory_kind`;
@@ -87,6 +95,10 @@ CREATE TABLE `accessory_kind` (
   `status` int(1) DEFAULT '1' COMMENT '0:bi khoa,1:dang hoat dong',
   PRIMARY KEY (`id`)
 ) ENGINE=MyISAM AUTO_INCREMENT=3 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+/*Data for the table `accessory_kind` */
+
+insert  into `accessory_kind`(`id`,`name`,`commission`,`note`,`status`) values (1,'Bếp',1000,'Bếp',1),(2,'Phụ kiện',2000,'Phụ kiện',1);
 
 /*Table structure for table `accessory_sale` */
 
@@ -107,6 +119,8 @@ CREATE TABLE `accessory_sale` (
   PRIMARY KEY (`id`)
 ) ENGINE=MyISAM AUTO_INCREMENT=2 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
+/*Data for the table `accessory_sale` */
+
 /*Table structure for table `accessory_sale_change_detail` */
 
 DROP TABLE IF EXISTS `accessory_sale_change_detail`;
@@ -121,6 +135,8 @@ CREATE TABLE `accessory_sale_change_detail` (
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
+/*Data for the table `accessory_sale_change_detail` */
+
 /*Table structure for table `accessory_sale_detail` */
 
 DROP TABLE IF EXISTS `accessory_sale_detail`;
@@ -134,6 +150,8 @@ CREATE TABLE `accessory_sale_detail` (
   `amount` double DEFAULT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+/*Data for the table `accessory_sale_detail` */
 
 /*Table structure for table `account` */
 
@@ -151,6 +169,10 @@ CREATE TABLE `account` (
   PRIMARY KEY (`id`)
 ) ENGINE=MyISAM AUTO_INCREMENT=12 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
+/*Data for the table `account` */
+
+insert  into `account`(`id`,`number`,`holder`,`bank`,`branch`,`organization_id`,`note`,`is_cash`) values (5,'Tiền mặt','Cao Huy Hoàng','Quang Trung','Quang Trung',1,'',1),(4,'6002201001366','Công ty TNHH Quang Trung','Agribank','Huyện Xuyên Mộc, Tỉnh Bà Rịa Vũng Tàu',1,'',0),(7,'Tiền mặt','Hiệp Hương','Hiệp Hương','Hiệp Hương',14,'',1),(8,'34567890','Hiệp Hương','Sacombank','Gò Vấp, TP.HCM',14,'',0),(9,'050014822604','Công ty TNHH Quang Trung','Ngân hàng TMCP Sài Gòn Thương Tín (Sacombank)','Huyện Xuyên Mộc, Tỉnh Bà Rịa Vũng Tàu',1,'',0),(10,'112002659273','Công ty TNHH Quang Trung','Ngân hàng TMCP Công Thương Việt Nam (Viettin)','Huyện Xuyên Mộc, Tỉnh Bà Rịa Vũng Tàu',1,'',0),(11,'050034401079','Cao Huy Hoàng','NH TMCP SG Thương Tín SacomBank (Thái Bảo)','Xuyên Mộc',1,'',0);
+
 /*Table structure for table `agency` */
 
 DROP TABLE IF EXISTS `agency`;
@@ -163,7 +185,11 @@ CREATE TABLE `agency` (
   `note` text COLLATE utf8_unicode_ci,
   `status` int(1) DEFAULT '1' COMMENT '0:bi khoa,1:dang hoat dong',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+/*Data for the table `agency` */
+
+insert  into `agency`(`id`,`name`,`address`,`phone`,`note`,`status`) values (1,'Anh Thái','','','',1);
 
 /*Table structure for table `agency_commission` */
 
@@ -178,6 +204,10 @@ CREATE TABLE `agency_commission` (
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
+/*Data for the table `agency_commission` */
+
+insert  into `agency_commission`(`id`,`agency_id`,`commission_from`,`commission_to`,`commission`) values (1,1,0,20,25),(2,1,20,100,27.5);
+
 /*Table structure for table `agency_customer` */
 
 DROP TABLE IF EXISTS `agency_customer`;
@@ -188,6 +218,10 @@ CREATE TABLE `agency_customer` (
   `customer_id` int(11) DEFAULT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=22 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+/*Data for the table `agency_customer` */
+
+insert  into `agency_customer`(`id`,`agency_id`,`customer_id`) values (10,1,230),(11,1,229),(12,1,234),(13,1,322),(14,1,271),(15,1,282),(16,1,285),(17,1,286),(18,1,291),(19,1,302),(20,1,318),(21,1,284);
 
 /*Table structure for table `attachment_file` */
 
@@ -205,6 +239,8 @@ CREATE TABLE `attachment_file` (
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
+/*Data for the table `attachment_file` */
+
 /*Table structure for table `auto` */
 
 DROP TABLE IF EXISTS `auto`;
@@ -215,6 +251,8 @@ CREATE TABLE `auto` (
   `auto_name` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+/*Data for the table `auto` */
 
 /*Table structure for table `borrow` */
 
@@ -232,6 +270,8 @@ CREATE TABLE `borrow` (
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
+/*Data for the table `borrow` */
+
 /*Table structure for table `borrow_detail` */
 
 DROP TABLE IF EXISTS `borrow_detail`;
@@ -243,6 +283,8 @@ CREATE TABLE `borrow_detail` (
   `amount` double DEFAULT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+/*Data for the table `borrow_detail` */
 
 /*Table structure for table `contract` */
 
@@ -262,6 +304,8 @@ CREATE TABLE `contract` (
   `created_employee_id` int(11) DEFAULT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+/*Data for the table `contract` */
 
 /*Table structure for table `customer` */
 
@@ -288,7 +332,11 @@ CREATE TABLE `customer` (
   `commission_kind` int(1) DEFAULT '1' COMMENT '1:chiet khau tren bill, 2:chiet khau truc tiep tren gia ban',
   `note` text COLLATE utf8_unicode_ci,
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM AUTO_INCREMENT=333 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=MyISAM AUTO_INCREMENT=406 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+/*Data for the table `customer` */
+
+insert  into `customer`(`id`,`code`,`name`,`organization_id`,`status`,`address`,`phone`,`bank_account`,`tax`,`presenter`,`presenter_position`,`is_gas`,`is_petro`,`is_good`,`is_oil`,`is_solar`,`commission_percentage`,`commission_kind`,`note`) values (1,'TP','Công ty TNHH Gốm Tân Phát',1,1,'Lô số 164, Đường N1, Cụm công nghiệp Gốm sứ, Ấp 4, xã Tân Hạnh, Tp. Biên Hòa, Tỉnh Đồng Nai','0915. 87.36.37','','3603454432','Nguyễn Thị Thanh Thúy','Giám đốc',1,0,0,0,0,NULL,1,NULL),(2,'LPGHH','Cửa hàng LPG Huy Hoàng',1,1,'Số 125/5 ấp Phú Tâm, xã Hòa Hiệp, huyện Xuyên Mộc, tỉnh Bà Rịa Vũng Tàu','0988789713','','123456789','Nguyễn Tiến Công','Giám đốc',1,0,0,0,0,NULL,1,NULL),(9,'STXM','Cửa hàng Gas Sơn Trang',1,1,'Quốc lộ 55','2543777888','','','','',1,0,0,0,0,NULL,1,NULL),(11,'TMPB','Cửa hàng LPG Tài Mai',1,1,'','','','','','',1,0,0,0,0,NULL,1,NULL),(12,'ahtl','Ánh Hồng',1,1,'Xã Tân Lâm, Huyện Xuyên Mộc, Tỉnh Bà Rịa Vũng Tàu','','','','','',1,0,0,0,0,NULL,1,NULL),(13,'bbpt','Ba Bế',1,1,'Xã Phước Thuận, Huyện Xuyên Mộc, Tỉnh Bà Rịa Vũng Tàu','','','','','',1,0,0,0,0,NULL,1,NULL),(14,'bbl','Bảy Bàu Lâm',1,1,'Xã Bàu Lâm, Huyện Xuyên Mộc, Tỉnh Bà Rịa Vũng Tàu','','','','','',1,0,0,0,0,NULL,1,NULL),(15,'bpb','Bắc Phước Bửu',1,1,'Thị trấn Phước Bửu, Huyện Xuyên Mộc, Tỉnh Bà Rịa Vũng Tàu','','','','','',1,0,0,0,0,NULL,1,NULL),(16,'hsbc','Hiền Soi Bình Châu',1,1,'Xã Bình Châu, Huyện Xuyên Mộc, Tỉnh Bà Rịa Vũng Tàu','','','','','',1,0,0,0,0,NULL,1,NULL),(17,'mtlg','Mười Thúy',1,1,'Thị Xã Lagi, Huyện Hàm Tân, Tỉnh Bình Thuận','','','','','',1,0,0,0,0,0,1,''),(18,'thxm','Tấn Hùng',1,1,'Xã Xuyên Mộc, Huyện Xuyên Mộc, Tỉnh Bà Rịa Vũng Tàu','','','','','',1,0,0,0,0,NULL,1,NULL),(19,'tlpt','Thanh Liêm',1,1,'Xã Phước Tân, Huyện Xuyên Mộc, Tỉnh Bà Rịa Vũng Tàu','','','','','',1,0,0,0,0,NULL,1,NULL),(20,'bcpb','Bé Cầu',1,1,'Thị trấn Phước Bửu, Huyện Xuyên Mộc, Tỉnh Bà Rịa Vũng Tàu','','','','','',1,0,0,0,0,NULL,1,NULL),(21,'chpb','Chí Hiếu',1,1,'Thị trấn Phước Bửu, Huyện Xuyên Mộc, Tỉnh Bà Rịa Vũng Tàu','','','','','',1,0,0,0,0,NULL,1,NULL),(22,'btpb','Bảy Thành',1,1,'Thị trấn Phước Bửu, Huyện Xuyên Mộc, Tỉnh Bà Rịa Vũng Tàu','','','','','',1,0,0,0,0,NULL,1,NULL),(23,'bupb','Bưởi Bà Tô',1,1,'Thị trấn Phước Bửu, Huyện Xuyên Mộc, Tỉnh Bà Rịa Vũng Tàu','','','','','',1,0,0,0,0,NULL,1,NULL),(24,'calg','Chị An',1,1,'Thị Xã Lagi, Huyện Hàm Tân, Tỉnh Bình Thuận','','','','','',1,0,0,0,0,NULL,1,NULL),(25,'capt','Carmelia Hồ Tràm',1,1,'Xã Phước Thuận, Huyện Xuyên Mộc, Tỉnh Bà Rịa Vũng Tàu','','','','','',1,0,0,0,0,NULL,1,NULL),(26,'qkxm','Quyền Kim',1,1,'Xã Xuyên Mộc, Huyện Xuyên Mộc, Tỉnh Bà Rịa Vũng Tàu','','','','','',1,0,0,0,0,NULL,1,NULL),(27,'ctsr','Chính Thức',1,1,'Xã Sông Ray, Huyện Cẩm Mỹ, Tỉnh Đồng Nai','','','','','',1,0,0,0,0,NULL,1,NULL),(28,'dhhb','Diệu Hiền',1,1,'Xã Hoà Bình, Huyện Xuyên Mộc, Tỉnh Bà Rịa Vũng Tàu','','','','','',1,0,0,0,0,NULL,1,NULL),(29,'dtbk','Duy Tuyên',1,1,'Bưng Kè, Xã Hoà Hiệp Huyện Xuyên Mộc, Tỉnh Bà Rịa Vũng Tàu','','','','','',1,0,0,0,0,NULL,1,NULL),(30,'ddnth','Được Duy Nhất',1,1,'Xã Thắng Hải, Huyện Hàm Tân, Tỉnh Bình Thuận','','','','','',1,0,0,0,0,NULL,1,NULL),(31,'dpbc','Đại Phát',1,1,'Xã Bình Châu, Huyện Xuyên Mộc, Tỉnh Bà Rịa Vũng Tàu','','','','','',1,0,0,0,0,NULL,1,NULL),(32,'gcbc','Gái Cường',1,1,'Xã Bình Châu, Huyện Xuyên Mộc, Tỉnh Bà Rịa Vũng Tàu','','','','','',1,0,0,0,0,NULL,1,NULL),(33,'hbc','Hai Bình Châu',1,1,'Xã Bình Châu, Huyện Xuyên Mộc, Tỉnh Bà Rịa Vũng Tàu','','','','','',1,0,0,0,0,NULL,1,NULL),(34,'hctl','Huyền Chương',1,1,'Xã Tân Lâm, Huyện Xuyên Mộc, Tỉnh Bà Rịa Vũng Tàu','','','','','',1,0,0,0,0,NULL,1,NULL),(35,'hdbk','Hoa Đào',1,1,'Bưng Kè, Xã Hoà Hiệp, Huyện Xuyên Mộc, Tỉnh Bà Rịa Vũng Tàu','','','','','',1,0,0,0,0,NULL,1,NULL),(36,'hhxm','Huy Hoàng Xuyên Mộc',1,2,'Xã Xuyên Mộc, Huyện Xuyên Mộc, Tỉnh Bà Rịa Vũng Tàu','','','','','',1,0,0,0,0,NULL,1,NULL),(37,'hhbk','Hà Hương Bưng Kè',1,1,'Bưng Kè, Xã Hoà Hiệp, Huyện Xuyên Mộc, Tỉnh Bà Rịa Vũng Tàu','','','','','',1,0,0,0,0,NULL,1,NULL),(38,'hlbk','Hoàng Lịch Bưng Kè',1,1,'Bưng Kè, Xã Hoà Hiệp, Huyện Xuyên Mộc, Tỉnh Bà Rịa Vũng Tàu','','','','','',1,0,0,0,0,NULL,1,NULL),(39,'hmsm','Hán Minh',1,1,'Xã Sơn Mỹ, Huyện Hàm Tân, Tỉnh Bình Thuận','','','','','',1,0,0,0,0,NULL,1,NULL),(40,'hphh','Hùng Phát',1,1,'Xã Hoà Hội, Huyện Xuyên Mộc, Tỉnh Bà Rịa Vũng Tàu','','','','','',1,0,0,0,0,NULL,1,NULL),(41,'hqpt','Hoàng Quân',1,1,'Xã Phước Thuận, Huyện Xuyên Mộc, Tỉnh Bà Rịa Vũng Tàu','','','','','',1,0,0,0,0,NULL,1,NULL),(42,'hvhb','Hoàn Vân',1,1,'Xã Hoà Bình, Huyện Xuyên Mộc, Tỉnh Bà Rịa Vũng Tàu','','','','','',1,0,0,0,0,NULL,1,NULL),(43,'kbcm','Khánh Bằng',1,1,'Xã Sông Ray, Huyện Cẩm Mỹ, Tỉnh Đồng Nai','','','','','',1,0,0,0,0,NULL,1,NULL),(44,'kclg','Kim Chi',1,1,'Thị Xã Lagi, Huyện Hàm Tân, Tỉnh Bình Thuận','','','','','',1,0,0,0,0,NULL,1,NULL),(45,'ksbc','Kim Sương',1,1,'Xã Bình Châu, Huyện Xuyên Mộc, Tỉnh Bà Rịa Vũng Tàu','','','','','',1,0,0,0,0,NULL,1,NULL),(46,'ktbr','Kim Trọng Bưng Riềng',1,1,'Xã Bưng Riềng, Huyện Xuyên Mộc, Tỉnh Bà Rịa Vũng Tàu','','','','','',1,0,0,0,0,NULL,1,NULL),(47,'kthtl','Kim Thúy Hậu',1,1,'Xã Tân Lâm, Huyện Xuyên Mộc, Tỉnh Bà Rịa Vũng Tàu','','','','','',1,0,0,0,0,0,1,''),(48,'khhh','Kim Hoa',1,1,'Xã Hoà Hội, Huyện Xuyên Mộc, Tỉnh Bà Rịa Vũng Tàu','','','','','',1,0,0,0,0,NULL,1,NULL),(49,'lpb','Loan Bà Tô',1,1,'Thị trấn Phước Bửu, Huyện Xuyên Mộc, Tỉnh Bà Rịa Vũng Tàu','','','','','',1,0,0,0,0,NULL,1,NULL),(50,'lbc','Linh Bình Châu',1,1,'Xã Bình Châu, Huyện Xuyên Mộc, Tỉnh Bà Rịa Vũng Tàu','','','','','',1,0,0,0,0,NULL,1,NULL),(51,'lhbk','Lý Hải',1,1,'Bưng Kè, Xã Hoà Hiệp, Huyện Xuyên Mộc, Tỉnh Bà Rịa Vũng Tàu','','','','','',1,0,0,0,0,NULL,1,NULL),(52,'lpt','Liên Đội 3',1,1,'Xã Phước Tân, Huyện Xuyên Mộc, Tỉnh Bà Rịa Vũng Tàu','','','','','',1,0,0,0,0,NULL,1,NULL),(53,'lspb','Lịch Sử',1,1,'Thị trấn Phước Bửu, Huyện Xuyên Mộc, Tỉnh Bà Rịa Vũng Tàu','','','','','',1,0,0,0,0,NULL,1,NULL),(54,'lthh','Lài Thi',1,1,'Xã Hoà Hội, Huyện Xuyên Mộc, Tỉnh Bà Rịa Vũng Tàu','','','','','',1,0,0,0,0,NULL,1,NULL),(55,'ltsr','Long Tứ',1,1,'Xã Sông Ray, Huyện Cẩm Mỹ, Tỉnh Đồng Nai','','','','','',1,0,0,0,0,NULL,1,NULL),(56,'mcpb','Minh Châu Phước Bửu',1,1,'Thị trấn Phước Bửu, Huyện Xuyên Mộc, Tỉnh Bà Rịa Vũng Tàu','','','','','',1,0,0,0,0,NULL,1,NULL),(57,'mdbc','Mỹ Dung',1,1,'Xã Bình Châu, Huyện Xuyên Mộc, Tỉnh Bà Rịa Vũng Tàu','','','','','',1,0,0,0,0,NULL,1,NULL),(58,'mdsr','Minh Điệp',1,1,'Xã Sông Ray, Huyện Cẩm Mỹ, Tỉnh Đồng Nai','','','','','',1,0,0,0,0,NULL,1,NULL),(59,'mdubc','Minh Đức',1,1,'Xã Bình Châu, Huyện Xuyên Mộc, Tỉnh Bà Rịa Vũng Tàu','','','','','',1,0,0,0,0,NULL,1,NULL),(60,'mnbc','Mầm Non Bình Châu',1,1,'Xã Bình Châu, Huyện Xuyên Mộc, Tỉnh Bà Rịa Vũng Tàu','','','','','',1,0,0,0,0,NULL,1,NULL),(61,'mtbl','Minh Tuấn',1,1,'Xã Bàu Lâm, Huyện Xuyên Mộc, Tỉnh Bà Rịa Vũng Tàu','','','','','',1,0,0,0,0,NULL,1,NULL),(62,'mtlg','Minh Tú',1,1,'Thị Xã Lagi, Huyện Hàm Tân, Tỉnh Bình Thuận','','','','','',1,0,0,0,0,NULL,1,NULL),(63,'ndpb','Nguyễn Du',1,1,'Thị trấn Phước Bửu, Huyện Xuyên Mộc, Tỉnh Bà Rịa Vũng Tàu','','','','','',1,0,0,0,0,NULL,1,NULL),(64,'ntbl','Nguyên Thảo',1,1,'Xã Bàu Lâm, Huyện Xuyên Mộc, Tỉnh Bà Rịa Vũng Tàu','','','','','',1,0,0,0,0,NULL,1,NULL),(65,'nttt','Ngọc Tâm',1,1,'Xã Tân Thắng, Huyện Hàm Tân, Tỉnh Bình Thuận','','','','','',1,0,0,0,0,NULL,1,NULL),(66,'pd46','Phạm Đăng',1,1,'Ngã Tư 46, Huyện Hàm Tân, Tỉnh Bình Thuận','','','','','',1,0,0,0,0,NULL,1,NULL),(67,'plbc','Phú Lộc Bình Châu',1,1,'Xã Bình Châu, Huyện Xuyên Mộc, Tỉnh Bà Rịa Vũng Tàu','','','','','',1,0,0,0,0,0,1,''),(68,'pm46','Phúc Mai',1,1,'Ngã Tư 46, Huyện Hàm Tân, Tỉnh Bình Thuận','','','','','',1,0,0,0,0,NULL,1,NULL),(69,'pt46','Phụng Tập',1,1,'Ngã Tư 46, Huyện Hàm Tân, Tỉnh Bình Thuận','','','','','',1,0,0,0,0,NULL,1,NULL),(70,'ptsr','Phương Thảo Sông Ray',1,1,'Xã Sông Ray, Huyện Cẩm Mỹ, Tỉnh Đồng Nai','','','','','',1,0,0,0,0,NULL,1,NULL),(71,'phsm','Phú Hoàng',1,1,'Xã Sơn Mỹ, Huyện Hàm Tân, Tỉnh Bình Thuận','','','','','',1,0,0,0,0,NULL,1,NULL),(72,'pthsr','Pháp Thanh',1,1,'Xã Sông Ray, Huyện Cẩm Mỹ, Tỉnh Đồng Nai','','','','','',1,0,0,0,0,NULL,1,NULL),(73,'qhh','Quang Hòa Hội',1,1,'Xã Hoà Hội, Huyện Xuyên Mộc, Tỉnh Bà Rịa Vũng Tàu','','','','','',1,0,0,0,0,0,1,''),(74,'qvpb','Quang Vinh',1,1,'Thị trấn Phước Bửu, Huyện Xuyên Mộc, Tỉnh Bà Rịa Vũng Tàu','','','','','',1,0,0,0,0,NULL,1,NULL),(75,'shbl','Sỹ Hường',1,1,'Xã Bàu Lâm, Huyện Xuyên Mộc, Tỉnh Bà Rịa Vũng Tàu','','','','','',1,0,0,0,0,NULL,1,NULL),(76,'sqbc','Sáu Quế',1,1,'Xã Bình Châu, Huyện Xuyên Mộc, Tỉnh Bà Rịa Vũng Tàu','','','','','',1,0,0,0,0,0,1,''),(77,'sbtr','Sanh Trại Gà',1,1,'Xã Bông Trang, Huyện Xuyên Mộc, Tỉnh Bà Rịa Vũng Tàu','','','','','',1,0,0,0,0,NULL,1,NULL),(78,'stxm','Sơn Trang',1,2,'Xã Xuyên Mộc, Huyện Xuyên Mộc, Tỉnh Bà Rịa Vũng Tàu','','','','','',1,0,0,0,0,NULL,1,NULL),(79,'txm','Tùng Gas',1,1,'Xã Xuyên Mộc, Huyện Xuyên Mộc, Tỉnh Bà Rịa Vũng Tàu','','','','','',1,0,0,0,0,NULL,1,NULL),(80,'thh','Tâm Hòa Hội',1,1,'Xã Hoà Hội, Huyện Xuyên Mộc, Tỉnh Bà Rịa Vũng Tàu','','','','','',1,0,0,0,0,0,1,''),(81,'tmpb','Tài Mai',1,2,'Thị trấn Phước Bửu, Huyện Xuyên Mộc, Tỉnh Bà Rịa Vũng Tàu','','','','','',1,0,0,0,0,NULL,1,NULL),(82,'tbtr','Thanh Trại Gà',1,1,'Xã Bông Trang, Huyện Xuyên Mộc, Tỉnh Bà Rịa Vũng Tàu','','','','','',1,0,0,0,0,NULL,1,NULL),(83,'tdbc','Thành Dung',1,1,'Xã Bình Châu, Huyện Xuyên Mộc, Tỉnh Bà Rịa Vũng Tàu','','','','','',1,0,0,0,0,NULL,1,NULL),(84,'tdpt','Thảo Đại',1,1,'Xã Phước Tân, Huyện Xuyên Mộc, Tỉnh Bà Rịa Vũng Tàu','','','','','',1,0,0,0,0,NULL,1,NULL),(85,'hpt','Huyền Trại Gà',1,1,'Xã Phước Thuận, Huyện Xuyên Mộc, Tỉnh Bà Rịa Vũng Tàu','','','','','',1,0,0,0,0,NULL,1,NULL),(86,'tghb','Trường Giang',1,1,'Xã Hoà Bình, Huyện Xuyên Mộc, Tỉnh Bà Rịa Vũng Tàu','','','','','',1,0,0,0,0,NULL,1,NULL),(87,'tbk','Tiên Bưng Kè',1,1,'Bưng Kè, Xã Hoà Hiệp, Huyện Xuyên Mộc, Tỉnh Bà Rịa Vũng Tàu','','','','','',1,0,0,0,0,NULL,1,NULL),(88,'t46','Truyền',1,1,'Ngã Tư 46, Huyện Hàm Tân, Tỉnh Bình Thuận','','','','','',1,0,0,0,0,NULL,1,NULL),(89,'tmbc','Thiên Mướp',1,1,'Xã Bình Châu, Huyện Xuyên Mộc, Tỉnh Bà Rịa Vũng Tàu','','','','','',1,0,0,0,0,NULL,1,NULL),(90,'ttpb','Thanh Túy',1,1,'Thị trấn Phước Bửu, Huyện Xuyên Mộc, Tỉnh Bà Rịa Vũng Tàu','','','','','',1,0,0,0,0,0,1,''),(91,'tslg','Tiến Sơn',1,1,'Thị Xã Lagi, Huyện Hàm Tân, Tỉnh Bình Thuận','','','','','',1,0,0,0,0,NULL,1,NULL),(92,'ttpt','Trung Thuận',1,1,'Xã Phước Tân, Huyện Xuyên Mộc, Tỉnh Bà Rịa Vũng Tàu','','','','','',1,0,0,0,0,NULL,1,NULL),(93,'ttbc','Trung Thu',1,1,'Xã Bình Châu, Huyện Xuyên Mộc, Tỉnh Bà Rịa Vũng Tàu','','','','','',1,0,0,0,0,NULL,1,NULL),(94,'ttlg','Trung Thành',1,1,'Thị Xã Lagi, Huyện Hàm Tân, Tỉnh Bình Thuận','','','','','',1,0,0,0,0,NULL,1,NULL),(95,'tth','Thanh Tân Thắng',1,1,'Xã Thắng Hải, Huyện Hàm Tân, Tỉnh Bình Thuận','','','','','',1,0,0,0,0,NULL,1,NULL),(96,'tttt','Thành Tâm',1,1,'Xã Tân Thắng, Huyện Hàm Tân, Tỉnh Bình Thuận','','','','','',1,0,0,0,0,NULL,1,NULL),(97,'athh','Ái Thu',1,1,'Xã Hoà Hội, Huyện Xuyên Mộc, Tỉnh Bà Rịa Vũng Tàu','','','','','',1,0,0,0,0,NULL,1,NULL),(98,'ttbc','Tuấn Thanh',1,1,'Xã Bình Châu, Huyện Xuyên Mộc, Tỉnh Bà Rịa Vũng Tàu','','','','','',1,0,0,0,0,NULL,1,NULL),(99,'tpt','Thanh Gò Cà Phước Thuận',1,1,'Xã Phước Thuận, Huyện Xuyên Mộc, Tỉnh Bà Rịa Vũng Tàu','','','','','',1,0,0,0,0,NULL,1,NULL),(100,'tktl','Thùy Khuyên',1,1,'Xã Tân Lâm, Huyện Xuyên Mộc, Tỉnh Bà Rịa Vũng Tàu','','','','','',1,0,0,0,0,0,1,''),(101,'tbk','Thơ Bưng Kè',1,1,'Bưng Kè, Xã Hoà Hiệp, Huyện Xuyên Mộc, Tỉnh Bà Rịa Vũng Tàu','','','','','',1,0,0,0,0,NULL,1,NULL),(102,'thpt','Thúy Hoàng Phước Tân',1,1,'Xã Phước Tân, Huyện Xuyên Mộc, Tỉnh Bà Rịa Vũng Tàu','','','','','',1,0,0,0,0,0,1,''),(103,'thpt','Toan Hoa',1,1,'Xã Phước Tân, Huyện Xuyên Mộc, Tỉnh Bà Rịa Vũng Tàu','','','','','',1,0,0,0,0,NULL,1,NULL),(104,'tptl','Thúy Phương',1,1,'Xã Tân Lâm, Huyện Xuyên Mộc, Tỉnh Bà Rịa Vũng Tàu','','','','','',1,0,0,0,0,0,1,''),(105,'ttl','Thị Tân Lâm',1,1,'Xã Tân Lâm, Huyện Xuyên Mộc, Tỉnh Bà Rịa Vũng Tàu','','','','','',1,0,0,0,0,NULL,1,NULL),(106,'unpb','Út Nuôi',1,1,'Thị trấn Phước Bửu, Huyện Xuyên Mộc, Tỉnh Bà Rịa Vũng Tàu','','','','','',1,0,0,0,0,NULL,1,NULL),(107,'vb46','Văn Bé',1,1,'Ngã Tư 46, Huyện Hàm Tân, Tỉnh Bình Thuận','','','','','',1,0,0,0,0,NULL,1,NULL),(108,'vqhh','Vũ Quang',1,1,'Xã Hoà Hội, Huyện Xuyên Mộc, Tỉnh Bà Rịa Vũng Tàu','','','','','',1,0,0,0,0,NULL,1,NULL),(109,'xdbc','Xuân Đông',1,1,'Xã Bình Châu, Huyện Xuyên Mộc, Tỉnh Bà Rịa Vũng Tàu','','','','','',1,0,0,0,0,NULL,1,NULL),(110,'xhh','Xuân Hòa Hội',1,1,'Xã Hoà Hội, Huyện Xuyên Mộc, Tỉnh Bà Rịa Vũng Tàu','','','','','',1,0,0,0,0,0,1,''),(111,'xttl','Xuân Tú',1,1,'Xã Tân Lâm, Huyện Xuyên Mộc, Tỉnh Bà Rịa Vũng Tàu','','','','','',1,0,0,0,0,NULL,1,NULL),(112,'mhbc','Minh Hùng',1,1,'Xã Bình Châu, Huyện Xuyên Mộc, Tỉnh Bà Rịa Vũng Tàu','','','','','',1,0,0,0,0,NULL,1,NULL),(113,'ta46','Tuấn Anh 46',1,1,'Ngã Tư 46, Huyện Hàm Tân, Tỉnh Bình Thuận','','','','','',1,0,0,0,0,NULL,1,NULL),(114,'tth','Thúy Cầu Kiều',1,1,'Xã Thắng Hải, Huyện Hàm Tân, Tỉnh Bình Thuận','','','','','',1,0,0,0,0,0,1,''),(115,'dpt','Hùng Hồ Tràm',1,1,'Xã Phước Thuận, Huyện Xuyên Mộc, Tỉnh Bà Rịa Vũng Tàu','','','','','',1,0,0,0,0,NULL,1,NULL),(116,'htbk','Hương Thơm',1,1,'Bưng Kè, Xã Hoà Hiệp, Huyện Xuyên Mộc, Tỉnh Bà Rịa Vũng Tàu','','','','','',1,0,0,0,0,NULL,1,NULL),(117,'mpb','Mai Bà Tô',1,1,'Thị trấn Phước Bửu, Huyện Xuyên Mộc, Tỉnh Bà Rịa Vũng Tàu','','','','','',1,0,0,0,0,NULL,1,NULL),(118,'ttbg','Tình Thủy',1,1,'Xã Bình Giã, Huyện Châu Đức, Tỉnh Bà Rịa Vũng Tàu','','','','','',1,0,0,0,0,0,1,''),(119,'hhhtn','Hồng Huyên',1,1,'Xã Hàm Thuận Nam, Huyện Hàm Tân, Tỉnh Bình Thuận','','','','','',1,0,0,0,0,NULL,1,NULL),(120,'ptpt','Phương Thảo Phan Thiết',1,1,'Thành phố Phan Thiết, Tỉnh Bình Thuận','','','','','',1,0,0,0,0,NULL,1,NULL),(121,'hhh','Huệ Hoà Hội',1,1,'Xã Hoà Hội, Huyện Xuyên Mộc, Tỉnh Bà Rịa Vũng Tàu','','','','','',1,0,0,0,0,NULL,1,NULL),(122,'dhh','Dũng Hòa Hội',1,1,'Xã Hoà Hội, Huyện Xuyên Mộc, Tỉnh Bà Rịa Vũng Tàu','','','','','',1,0,0,0,0,0,1,''),(123,'mhhb','Mỹ Hạnh',1,1,'Xã Hoà Bình, Huyện Xuyên Mộc, Tỉnh Bà Rịa Vũng Tàu','','','','','',1,0,0,0,0,NULL,1,NULL),(124,'htdn','Công ty TNHH Khí Hoá Lỏng Hưng Thịnh',1,1,'39/1 Khu phố 3, Phường Tam Hiệp, Tp. Biên Hoà, Tỉnh Đồng Nai','','','3600874037','','',1,0,0,1,0,43,1,''),(125,'cnpt','Chi nhánh Phan Thiết',1,1,'Thành phố Phan Thiết, Tỉnh Bình Thuận','','','','','',1,0,0,0,0,NULL,1,NULL),(126,'dhh','Đoàn Hòa Hội',1,1,'Xã Hoà Hội, Huyện Xuyên Mộc, Tỉnh Bà Rịa Vũng Tàu','','','','','',1,0,0,0,0,0,1,''),(127,'mcbc','Minh Châu Bình Châu',1,1,'Xã Bình Châu, Huyện Xuyên Mộc, Tỉnh Bà Rịa Vũng Tàu','','','','','',1,0,0,0,0,NULL,1,NULL),(128,'bdqt','Bò Đốt Quang Trung',1,1,'Xã Bông Trang, Huyện Xuyên Mộc, Tỉnh Bà Rịa Vũng Tàu','','','','','',1,0,0,0,0,NULL,1,NULL),(129,'gxbc','Giang Xuân Bình Châu',1,1,'Xã Bình Châu, Huyện Xuyên Mộc, Tỉnh Bà Rịa Vũng Tàu','','','','','',1,0,0,0,0,NULL,1,NULL),(130,'vht','Vàng Hồ Tràm',1,1,'Xã Phước Thuận, Huyện Xuyên Mộc, Tỉnh Bà Rịa Vũng Tàu','','','','','',1,0,0,0,0,NULL,1,NULL),(131,'tbk','Thắng Bàu Ma Bưng Kè',1,1,'Bưng Kè, Xã Hoà Hiệp, Huyện Xuyên Mộc, Tỉnh Bà Rịa Vũng Tàu','','','','','',1,0,0,0,0,NULL,1,NULL),(132,'qth','Quang Tân Thắng',1,1,'Xã Thắng Hải, Huyện Hàm Tân, Tỉnh Bình Thuận','','','','','',1,0,0,0,0,0,1,''),(133,'vpb','Vân Bà Tô',1,1,'Thị trấn Phước Bửu, Huyện Xuyên Mộc, Tỉnh Bà Rịa Vũng Tàu','','','','','',1,0,0,0,0,NULL,1,NULL),(134,'blqt','Bán lẻ',1,1,'Xã Bông Trang, Huyện Xuyên Mộc, Tỉnh Bà Rịa Vũng Tàu','','','','','',1,0,0,0,0,NULL,1,NULL),(135,'tbxt','Tình Bắc',1,1,'Xã Xuân Tây, Huyện Cẩm Mỹ, Tỉnh Đồng Nai','','','','','',1,0,0,0,0,NULL,1,NULL),(136,'hpbk','Hiếu Phượng',1,1,'Bưng Kè, Xã Hoà Hiệp, Huyện Xuyên Mộc, Tỉnh Bà Rịa Vũng Tàu','','','','','',1,0,0,0,0,NULL,1,NULL),(137,'hhcm','Huy Hoàng Cẩm Mỹ',1,1,'Xã Xuân Đông, Huyện Cẩm Mỹ, Tỉnh Đồng Nai','','','','','',1,0,0,0,0,NULL,1,NULL),(138,'ktbc','Kiều Trang',1,1,'Xã Bình Châu, Huyện Xuyên Mộc, Tỉnh Bà Rịa Vũng Tàu','','','','','',1,0,0,0,0,NULL,1,NULL),(139,'tbk','Trọng Cầu 5',1,1,'Bưng Kè, Xã Hoà Hiệp, Huyện Xuyên Mộc, Tỉnh Bà Rịa Vũng Tàu','','','','','',1,0,0,0,0,NULL,1,NULL),(140,'th10','Tạp Hóa 10',1,1,'Bưng Kè, Xã Hoà Hiệp, Huyện Xuyên Mộc, Tỉnh Bà Rịa Vũng Tàu','','','','','',1,0,0,0,0,0,1,''),(141,'hcbc','Huy Châu',1,1,'Xã Bình Châu, Huyện Xuyên Mộc, Tỉnh Bà Rịa Vũng Tàu','','','','','',1,0,0,0,0,NULL,1,NULL),(142,'qpbtr','Quốc Phong',1,1,'Xã Bông Trang, Huyện Xuyên Mộc, Tỉnh Bà Rịa Vũng Tàu','','','','','',1,0,0,0,0,NULL,1,NULL),(143,'hcplg','Hùng Cường Phát',1,1,'Xã Long Giao, Huyện Cẩm Mỹ, Tỉnh Đồng Nai','','','','','',1,0,0,0,0,NULL,1,NULL),(144,'tnbk','Tuyết Nhi',1,1,'Bưng Kè, Xã Hoà Hiệp, Huyện Xuyên Mộc, Tỉnh Bà Rịa Vũng Tàu','','','','','',1,0,0,0,0,NULL,1,NULL),(145,'mhxm','Minh Hiền',1,1,'Xã Xuân Mỹ, Huyện Cẩm Mỹ, Tỉnh Đồng Nai','','','','','',1,0,0,0,0,NULL,1,NULL),(146,'dpxd','Dũng Phượng',1,1,'Xã Xuân Đông, Huyện Cẩm Mỹ, Tỉnh Đồng Nai','','','','','',1,0,0,0,0,NULL,1,NULL),(147,'c46','Cường 46',1,1,'Ngã Tư 46, Huyện Hàm Tân, Tỉnh Bình Thuận','','','','','',1,0,0,0,0,NULL,1,NULL),(148,'athtn','Gas An Toàn',1,1,'Thôn Lập Đức, Xã Tân Lập, Huyện Hàm Thuận Nam, Tỉnh Bình Thuận','','','','','',1,0,0,0,0,0,1,''),(149,'dhh','Diễm Đội 2 Hòa Hội',1,1,'Xã Hoà Hội, Huyện Xuyên Mộc, Tỉnh Bà Rịa Vũng Tàu','','','','','',1,0,0,0,0,0,1,''),(150,'pnbk','Phúc Nguyên',1,1,'Bưng Kè, Xã Hoà Hiệp, Huyện Xuyên Mộc, Tỉnh Bà Rịa Vũng Tàu','','','','','',1,0,0,0,0,NULL,1,NULL),(151,'hhh','Hoa Đội 2',1,1,'Xã Hoà Hội, Huyện Xuyên Mộc, Tỉnh Bà Rịa Vũng Tàu','','','','','',1,0,0,0,0,NULL,1,NULL),(152,'spo','Công ty TNHH Supor Việt Nam',1,1,'Lô A-1-CN, KCN Mỹ Phước, phường Mỹ Phước, Thị Xã Bến Cát, Tỉnh Bình Dương','','','','','',1,0,0,0,0,NULL,1,NULL),(153,'thsr','Thanh Hà',1,1,'Xã Sông Ray, Huyện Cẩm Mỹ, Tỉnh Đồng Nai','','','','','',1,0,0,0,0,NULL,1,NULL),(154,'sbk','Sơn Bưng Kè',1,1,'Bưng Kè, Xã Hoà Hiệp, Huyện Xuyên Mộc, Tỉnh Bà Rịa Vũng Tàu','','','','','',1,0,0,0,0,NULL,1,NULL),(155,'hhb','Hòa Hòa Bình',1,1,'Xã Hoà Bình, Huyện Xuyên Mộc, Tỉnh Bà Rịa Vũng Tàu','0946721173','','','','',1,0,0,0,0,0,1,''),(156,'nhbtr','Ngọc Huyền',1,1,'Xã Bông Trang, Huyện Xuyên Mộc, Tỉnh Bà Rịa Vũng Tàu','','','','','',1,0,0,0,0,NULL,1,NULL),(157,'htbc','Huyền Trang',1,1,'Xã Bình Châu, Huyện Xuyên Mộc, Tỉnh Bà Rịa Vũng Tàu','','','','','',1,0,0,0,0,NULL,1,NULL),(158,'ttlg','Thanh Tuấn Lagi',1,1,'Thị Xã Lagi, Huyện Hàm Tân, Tỉnh Bình Thuận','','','','','',1,0,0,0,0,NULL,1,NULL),(159,'hpbr','Hương Phong Hồ Cốc',1,1,'Xã Bưng Riềng, Huyện Xuyên Mộc, Tỉnh Bà Rịa Vũng Tàu','','','','','',1,0,0,0,0,NULL,1,NULL),(160,'anbk','Ánh Nhi',1,1,'Bưng Kè, Xã Hoà Hiệp, Huyện Xuyên Mộc, Tỉnh Bà Rịa Vũng Tàu','','','','','',1,0,0,0,0,NULL,1,NULL),(161,'nhcm','Nỡ Hoài',1,1,'Xã Hoàn Quân, Huyện Cẩm Mỹ, Tỉnh Đồng Nai','','','','','',1,0,0,0,0,0,1,''),(162,'thxm','Triệu Huy',1,1,'Xã Xuân Mỹ, Huyện Cẩm Mỹ, Tỉnh Đồng Nai','','','','','',1,0,0,0,0,NULL,1,NULL),(163,'ybtr','Tạp hóa Yến',1,1,'Xã Bông Trang, Huyện Xuyên Mộc, Tỉnh Bà Rịa Vũng Tàu','','','','','',1,0,0,0,0,0,1,''),(164,'hbr','Hà Bưng Riềng',1,1,'Xã Bưng Riềng, Huyện Xuyên Mộc, Tỉnh Bà Rịa Vũng Tàu','','','','','',1,0,0,0,0,NULL,1,NULL),(165,'tha','Công ty TNHH Dầu Khí Thiên Hà',1,1,'95 Trịnh Đình Thảo, phường Phú Trung, quận Tân Phú, Tp. HCM','','','','','',1,0,0,0,0,NULL,1,NULL),(166,'ltl','Loan Tân Lâm',1,1,'Xã Tân Lâm, Huyện Xuyên Mộc, Tỉnh Bà Rịa Vũng Tàu','','','','','',1,0,0,0,0,NULL,1,NULL),(167,'nvqt','Nhân Viên Quang Trung',1,1,'Xã Bông Trang, Huyện Xuyên Mộc, Tỉnh Bà Rịa Vũng Tàu','','','','','',1,0,0,0,0,NULL,1,NULL),(168,'dpt','Dung Cây Điệp',1,1,'Xã Phước Tân, Huyện Xuyên Mộc, Tỉnh Bà Rịa Vũng Tàu','','','','','',1,0,0,0,0,NULL,1,NULL),(169,'pppt','Phương Phát',1,1,'Thành phố Phan Thiết, Tỉnh Bình Thuận','','','','','',1,0,0,0,0,NULL,1,NULL),(170,'udpt','Uyên Đan',1,1,'Thành phố Phan Thiết, Tỉnh Bình Thuận','','','','','',1,0,0,0,0,NULL,1,NULL),(171,'htcm','Hà Tuấn Cẩm Mỹ',1,1,'Xã Xuân Bảo, Huyện Cẩm Mỹ, Tỉnh Đồng Nai','','','','','',1,0,0,0,0,NULL,1,NULL),(172,'ntlg','Ngọc Tân Lagi',1,1,'Thị Xã Lagi, Huyện Hàm Tân, Tỉnh Bình Thuận','','','','','',1,0,0,0,0,NULL,1,NULL),(173,'h46','Hòe Trại Gà 46',1,1,'Ngã Tư 46, Huyện Hàm Tân, Tỉnh Bình Thuận','','','','','',1,0,0,0,0,0,1,''),(174,'vuc','Công ty TNHH Khí Hoá Lỏng Việt Úc',1,1,'Xã Sông Ray, Huyện Cẩm Mỹ, Tỉnh Đồng Nai','','','','','',1,0,0,0,0,NULL,1,NULL),(175,'alcm','Ánh Linh',1,1,'Xã Xuân Đông, Huyện Cẩm Mỹ, Tỉnh Đồng Nai','','','','','',1,0,0,0,0,NULL,1,NULL),(176,'hbchau','Hải Bình Châu Xuyên Mộc',1,1,'Xã Bình Châu, Huyện Xuyên Mộc, Tỉnh Bà Rịa Vũng Tàu','','','','','',1,0,0,0,0,NULL,1,NULL),(177,'thcm','Trí Hải',1,1,'Xã Xuân Đông, Huyện Cẩm Mỹ, Tỉnh Đồng Nai','','','','','',1,0,0,0,0,NULL,1,NULL),(178,'mphh','Minh Phương',1,1,'Xã Hoà Hội, Huyện Xuyên Mộc, Tỉnh Bà Rịa Vũng Tàu','','','','','',1,0,0,0,0,NULL,1,NULL),(179,'qclg','Quang Châu',1,1,'Thị Xã Lagi, Huyện Hàm Tân, Tỉnh Bình Thuận','','','','','',1,0,0,0,0,NULL,1,NULL),(180,'hhh','Hồng Đội 5',1,1,'Xã Hoà Hội, Huyện Xuyên Mộc, Tỉnh Bà Rịa Vũng Tàu','','','','','',1,0,0,0,0,NULL,1,NULL),(181,'thh','Tuyết Đội 2',1,1,'Xã Hoà Hội, Huyện Xuyên Mộc, Tỉnh Bà Rịa Vũng Tàu','','','','','',1,0,0,0,0,NULL,1,NULL),(182,'athtb','An Toàn Phan Thiết',1,1,'Lô 58/B1- KDC Hàm Thuận Bắc, Tỉnh Bình Thuận','','','','','',1,0,0,0,0,0,1,''),(183,'ttbl','Thảo Toàn',1,1,'Xã Bàu Lâm, Huyện Xuyên Mộc, Tỉnh Bà Rịa Vũng Tàu','','','','','',1,0,0,0,0,NULL,1,NULL),(184,'kacm','Kim Anh',1,1,'Xã Xuân Mỹ, Huyện Cẩm Mỹ, Tỉnh Đồng Nai','','','','','',1,0,0,0,0,NULL,1,NULL),(185,'bpcm','Bảy Phước',1,1,'Xã Xuân Mỹ, Huyện Cẩm Mỹ, Tỉnh Đồng Nai','','','','','',1,0,0,0,0,NULL,1,NULL),(186,'hhh','Hiền Đội 5',1,1,'Xã Hoà Hội, Huyện Xuyên Mộc, Tỉnh Bà Rịa Vũng Tàu','','','','','',1,0,0,0,0,NULL,1,NULL),(187,'bapb','Bình An',1,1,'Thị trấn Phước Bửu, Huyện Xuyên Mộc, Tỉnh Bà Rịa Vũng Tàu','','','','','',1,0,0,0,0,NULL,1,NULL),(188,'bmpb','Bình Minh Phước Bửu',1,1,'Thị trấn Phước Bửu, Huyện Xuyên Mộc, Tỉnh Bà Rịa Vũng Tàu','','','','','',1,0,0,0,0,NULL,1,NULL),(189,'xhtb','Gas Xuân Hàm Thuận Bắc',1,1,'211/2 Thị trấn Phú Long, Huyện Hàm Thuận Bắc, Tỉnh Bình Thuận','','','','','',1,0,0,0,0,0,1,''),(190,'vcm','Gas Vui',1,1,'Xã Xuân Đông, Huyện Cẩm Mỹ, Tỉnh Đồng Nai','','','','','',1,0,0,0,0,NULL,1,NULL),(191,'hbc','Ngọc Hà Bình Châu',1,1,'Xã Bình Châu, Huyện Xuyên Mộc, Tỉnh Bà Rịa Vũng Tàu','','','','','',1,0,0,0,0,NULL,1,NULL),(192,'klhtn','Kim Liên',1,1,'Huyện Hàm Thuận Nam, Tỉnh Bình Thuận','','','','','',1,0,0,0,0,NULL,1,NULL),(193,'hlcm','Hải Linh',1,1,'Xã Lâm San, Huyện Cẩm Mỹ, Tỉnh Đồng Nai','','','','','',1,0,0,0,0,NULL,1,NULL),(194,'mtbc','Minh Trọng',1,1,'Xã Bình Châu, Huyện Xuyên Mộc, Tỉnh Bà Rịa Vũng Tàu','','','','','',1,0,0,0,0,NULL,1,NULL),(195,'tlg','Tuấn Lagi',1,1,'Thị Xã Lagi, Huyện Hàm Tân, Tỉnh Bình Thuận','','','','','',1,0,0,0,0,NULL,1,NULL),(196,'hpt','Cô Hương Phước Tân',1,1,'Xã Phước Tân, Huyện Xuyên Mộc, Tỉnh Bà Rịa Vũng Tàu','','','','','',1,0,0,0,0,NULL,1,NULL),(197,'kthi','Kế Thi',1,1,'Thị Xã Lagi, Huyện Hàm Tân, Tỉnh Bình Thuận','','','','','',1,0,0,0,0,NULL,1,NULL),(198,'dbc','Đoàn Bình Châu',1,1,'Xã Bình Châu, Huyện Xuyên Mộc, Tỉnh Bà Rịa Vũng Tàu','','','','','',1,0,0,0,0,NULL,1,NULL),(199,'adung','Anh Dũng',1,1,'Bưng Kè, Xã Hoà Hiệp, Huyện Xuyên Mộc, Tỉnh Bà Rịa Vũng Tàu','','','','','',1,0,0,0,0,NULL,1,NULL),(200,'hdung','Hoa Dũng',1,1,'Bưng Kè, Xã Hoà Hiệp, Huyện Xuyên Mộc, Tỉnh Bà Rịa Vũng Tàu','','','','','',1,0,0,0,0,NULL,1,NULL),(201,'chue','Chị Huế Châu Đức',1,1,'','','','','','',1,0,0,0,0,NULL,1,NULL),(202,'ttung','Thanh Tùng Châu Đức',1,1,'Châu Đức, Bà Rịa Vũng Tàu','','','','','',1,0,0,0,0,NULL,1,NULL),(203,'bhoan','Bảo Hoan Châu Đức',1,1,'','','','','','',1,0,0,0,0,NULL,1,NULL),(204,'hnghia','Hiếu Nghĩa',1,1,'','','','','','',1,0,0,0,0,NULL,1,NULL),(205,'QT','Quang Trung',14,1,'','','','','','',1,0,0,0,0,NULL,1,NULL),(206,'gman1','Quán Gia Mẫn Xuyên Mộc',1,1,'Xã Xuyên Mộc, Huyện Xuyên Mộc, Tỉnh BRVT','','','','','',1,0,0,0,0,NULL,1,NULL),(207,'ploi','Phúc Lợi',1,1,'Ngã ba 46, Huyện Hàm Tân, Tỉnh Bình Thuận','','','','','',1,0,0,0,0,NULL,1,NULL),(208,'luc','Lực Gas Xà Bang Châu Đức',1,1,'Xã Xà Bang, Huyện Châu Đức, Tỉnh BRVT','','','','','',1,0,0,0,0,NULL,1,NULL),(209,'dloc','Đại Lộc Châu Đức',1,1,'Huyện Châu Đức, Tỉnh BRVT','','','','','',1,0,0,0,0,NULL,1,NULL),(210,'bdanh','Bảo Danh',1,1,'Chợ Tân Nghĩa, Tỉnh Bình Thuận','','','','','',1,0,0,0,0,NULL,1,NULL),(211,'mtam','Minh Tâm',1,1,'Bình Giã, Châu Đức, BRVT','','','','','',1,0,0,0,0,NULL,1,NULL),(212,'kdung','Kim Dung',1,1,'Kim Long, Châu Đức, BRVT','','','','','',1,0,0,0,0,NULL,1,NULL),(213,'hthanh','Hai Thành',1,1,'Xã Xà Bang, Huyện Châu Đức, Tỉnh BRVT','','','','','',1,0,0,0,0,NULL,1,NULL),(214,'snga','Sơn Nga',1,1,'Cù Bị, Châu Đức, BRVT','','','','','',1,0,0,0,0,NULL,1,NULL),(215,'cbich','Cô Bích',1,1,'','','','','','',1,0,0,0,0,NULL,1,NULL),(216,'quhh','Quốc Hoà Hội',1,1,'Hoà Hội, Xuyên Mộc, BRVT','','','','','',1,0,0,0,0,NULL,1,NULL),(217,'ctrinh','Cô Trinh Châu Đức',1,1,'Giáo Xứ Xuân Trường, Huyện Châu Đức, Tỉnh BRVT','0937765767','','','','',1,0,0,0,0,NULL,1,NULL),(218,'VIMEXCO','Công ty CP Thương Mại va Dịch Vụ Dầu Khí Vũng Tàu',1,1,'','','','','','',1,0,1,0,0,NULL,1,NULL),(219,'NVP','Nam Việt Phát',1,1,'','','','','','',1,0,0,0,0,NULL,1,NULL),(220,'dy','Dũng Yến',1,1,'xã Lâm San, Huyện Cẩm Mỹ , Tỉnh Đồng Nai','0984400778','','','','',1,0,0,0,0,NULL,1,NULL),(221,'vxuyen','Văn Xuyến',1,1,'lagi , bình thuận','0985266743','','','','',1,0,0,0,0,0,1,''),(222,'xthi','Xuân Thi Châu Đức',1,1,'Tổ 4 Sơn Thuận, Xã Xuân Sơn, H Châu Đức, Tỉnh BRVT','0334555408','','','','',1,0,0,0,0,NULL,1,NULL),(223,'tphat','Thành Phát Châu Đức',1,1,'ngãi giao,châu đức','0988665377','','','','',1,0,0,0,0,NULL,1,NULL),(224,'mquoc','Minh Quốc Châu Đức',1,1,'','0643917418','','','','',1,0,0,0,0,NULL,1,NULL),(225,'gtri','Gas Trí',1,1,'HTN,bình thuận','0387744380','','','','',1,0,0,0,0,NULL,1,NULL),(226,'ATh','Công Ty An Thuận',1,1,'','','','','','',1,1,1,0,0,NULL,1,NULL),(227,'H thanh','công ty gốm Hoàn Thành',1,1,'','','','','','',1,0,1,0,0,NULL,1,NULL),(228,'PN','Vật liệu xây dựng Phương Nam',1,1,'','','','','','',0,0,0,1,0,20,1,NULL),(229,'thai-dongtam','Công ty Xây lắp Đồng Tâm',1,1,'08, Nguyễn Văn Trỗi,Tân An, Lagi, BT','0987 114 745','','','','',0,0,1,1,0,20,1,NULL),(230,'thai-ctcongcong','Công ty Công trình công cộng Tx. Lagi',1,1,'585 Thống Nhất, Tân An, Lagi, BT','0396 770 690','','','','',0,0,1,1,0,20,1,NULL),(232,'CMINH','Chung Minh',1,1,'','','','','','',1,0,0,0,0,0,1,''),(233,'nb','Xuất nội bộ',1,1,'','','','','','',1,0,0,1,0,0,1,''),(234,'thai-chai','Đại Lý Chị Hai',1,1,'Võ Thị Sáu, Bình Tân, lagi, Bình Thuận (đối diện số 28 Võ thị Sáu)','0979 758 678','','','','',0,0,0,1,0,15,1,''),(235,'cxbungke','Cây Xăng Bưng Kè',1,1,'Bưng kè, XM, BRVT','0382509332','','','Bác Hạnh','',0,0,0,1,0,28,1,''),(236,'niwahotro','Niwa hỗ trợ lấy hàng',1,1,'Lô H6, Đường sỗ, KCN Hải Sơn (GD3+4), X. Đức Hòa Hạ, H. Đức Hòa, Long An','0963 344 123 Thư','','','','',0,0,0,1,0,0,1,''),(237,'hoangdung','Xe máy Hoàng Dũng',1,1,'Rửa xe bờ hồ, Bato','0933346085','','','','',0,0,0,1,0,0,1,'1 thùng tặng 3 bình'),(238,'baohieu','Gara xe Lê Bảo Hiếu',1,1,'Bato (Sau bưu điện)','0888429489','','','','',0,0,0,1,0,10,1,''),(239,'a.khuong','Gara xe Anh Khương',1,1,'Bờ hồ, Bato','0989623825','','','','',0,0,0,1,0,10,1,''),(240,'thanhdanh','Đại lý Thành Danh',1,1,'Bình Châu','0917752119','','','c Bắc','',0,0,0,1,0,10,1,''),(241,'trunghieu','Gara Trung Hiếu',1,1,'Bình Châu','0398833398','','','','',0,0,0,1,0,10,1,''),(242,'thienphat','Đại lý Thiện Phát',1,1,'Hàm Tân, Bình Châu','0979543434','','','','',0,0,0,1,0,20,1,''),(243,'nhanvien','Xuất bán Nhân viên',1,1,'Quang Trung','','','','','',0,0,0,1,0,10,1,''),(244,'chxdqt','Cửa hàng xăng dầu Quang Trung',1,1,'Bình Châu','025433871166','','','','',1,0,0,1,0,0,1,''),(245,'quangthach','Sửa xe Quang Thạch',1,1,'Ấp Bình Minh, Bình Châu(gần nhà hàng Hoa Ngọc)','0367420202','','','','',0,0,0,1,0,0,1,'xe máy 3 tặng 1'),(246,'na','Sửa xe Na',1,1,'241, đường 27/4, Phước Bửu','0976005177','','','','',0,0,0,1,0,10,1,''),(247,'oto1','Gara ô tô số 1',1,1,'QL55,Phước Bửu, XM, BRVT','0395732113','','','a. Phương','',0,0,0,1,0,10,1,''),(248,'haicau','Cứu hộ ô tô Hai Cầu',1,1,'46/4 Ấp 1, Xã Bưng Riềng, Xm, BRVT','0933696363','','','','',0,0,0,1,0,10,1,''),(249,'bacthinh','Bác Thịnh',1,1,'115/1 Ấp Láng Găng, Bình Châu (Nhà máy nước đá đối diện Biên Phòng)','0918543619','','','','',0,0,0,1,0,20,1,'hổ trợ giảm 100k/ xô'),(250,'anhchien','Anh Chiến',1,1,'Trạm điều hành xe bus - bến xe bình châu','0975344399','','','','',0,0,0,1,0,10,1,''),(251,'thaithuy','Đại Lý Thái Thúy',1,1,'Bình Hòa, Bình Châu','0385370549','','','','',0,0,0,1,0,20,1,'hổ trợ giảm 100k/ xô'),(252,'ahong','Gara máy nông nghiệp A Hồng',1,1,'Bato, XM','0987003406','','','','',0,0,0,1,0,10,1,''),(253,'adung','Tiệm rữa xe thay nhớt Dũng',1,1,'Bông Trang (Đối diện trường mầm non Bông Trang)','0908397810','','','','',0,0,0,1,0,10,1,''),(254,'hoadiep','Gara Hoa Điệp',1,1,'78 Trương Công Định,Tp. Vũng Tàu','0937614704','','','','',0,0,0,1,0,20,1,''),(255,'hoanghai','Sửa xe Hoàng Hải',1,1,'Bùng binh BV XM','0948384627','','','','',0,0,0,1,0,0,1,'xe máy 3 tặng 1'),(256,'bienphongBC','Đồn Biên Phòng Bình Châu',1,1,'Bình Châu','0974999488','','','','',0,0,0,1,0,28,1,''),(257,'lac','Gara xe Lạc',1,1,'Ấp Thèo Lèo, Bình Châu','02543707269','','','','',0,0,0,1,0,20,1,''),(258,'hoanganh','Rửa xe Hoàng Anh',1,1,'Hòa Hiệp, XM','0962064139','','','Anh Nam','',0,0,0,1,0,28,1,''),(259,'tienvu','Gara Tiến Vũ',1,1,'Ấp Nhân Trung, XM','0972833557','','','','',0,0,0,1,0,20,1,''),(260,'chinhtam','Cửa hàng Chính Tâm',1,1,'Bình Châu, XM','972018067','','','','',0,0,0,1,0,20,1,''),(261,'hieu','Anh Hiếu',1,1,'70 Phan Đình Phùng, Phước Lộc, lagi, BT','0903318812','','','','',0,0,0,1,0,25,1,''),(262,'anhnhi','Gara Anh Nhi',1,1,'Cầu 3 Hòa Hội, XM','0387005677','','','','',0,0,0,1,0,15,1,''),(263,'adong','Gara anh Đông',1,1,'Bato, XM','0906628528','','','','',0,0,0,1,0,15,1,''),(264,'anga','Tiệm sửa xe Ngà',1,1,'Bông Trang(gần Hotel Hoàng Thanh Thủy)','0933850299','','','','',0,0,0,1,0,0,1,'xe máy 3 tặng 1'),(265,'thachbl','Rử xe Thạch',1,1,'Ấp 4, Suối Lê, Tân Lâm','0367484748','','','','',0,0,0,1,0,10,1,'10 tặng 1'),(266,'dungbl','Rữa xe Anh Dũng',1,1,'Ấp 1 Bàu Lâm','0386833739','','','','',0,0,0,1,0,0,1,'xe máy 3 tặng 1'),(267,'dai','Điện cơ Đại',1,1,'08, Bến Chương Dương, Kp1, Phước Lộc,Lagi, BT','01227172544','','','','',0,0,0,1,0,25,1,''),(268,'quangvinh','Gara Quang Vinh',1,1,'Đường Trần Phú, KP. Láng sim, Phước Bửu','0886067639','','','','',0,0,0,1,0,15,1,''),(269,'thai-minhtam','VLXD Minh Tâm',1,1,'Sơn Mỹ,Hàm Tân, BT','0966870937','','','','',0,0,0,1,0,15,1,''),(270,'thai-linhquan','Đoàn xe Linh Quân',1,1,'166 QL55, Lagi, BT','0379970248','','','','',0,0,0,1,0,15,1,''),(271,'thai-atuan','Gara Anh Tuấn',1,1,'Lê Thánh Tôn, Tân Tiến,Lagi (Qua đường vào dinh thầy Thím 200m bên trái)','','','','','',0,0,0,1,0,15,1,''),(272,'hungthinh','công ty TNHH KHL Hưng Thịnh',1,2,'','','','','','',0,0,0,0,0,38,1,''),(273,'thai-phucloctho','VLXD Phúc Lộc Thọ',1,1,'100,Nguyễn Chí Thanh,Tân Bình,Lagi','097748818','','','','',0,0,0,1,0,15,1,''),(274,'thai-atien','VLXD Trí Vân',1,1,'95 Nguyễn Trãi,Bình Tân,Lagi','0918591272','','','','',0,0,0,1,0,0,1,''),(275,'thai-nhonngoc','Nhà xe Nhơn Ngọc',1,1,'Chợ Thanh Lịch,LaGi','0903131410','','','','',0,0,0,1,0,10,1,''),(276,'thai-thanhxuan','VLXD Thanh Xuân',1,1,'75,CMT8,Tân Bình,LaGi','0918790101','','','','',0,0,0,1,0,0,1,''),(277,'thai-atiet','Anh Tiết',1,1,'Đường Nguyễn Du,LaGI,BT','0908502843','','','','',0,0,0,1,0,0,1,''),(278,'thai-anhthai','Anh Thái',1,1,'51,QL55,LaGi,BT','0978104106','','','','',0,0,0,1,0,0,1,''),(279,'thai-akhiet','Nhà xe Anh Khiết',1,1,'283 Thống Nhất,Lagi,BT','0919742229','','','','',0,0,0,1,0,0,1,''),(280,'thai-tuyethuong','Cây xăng dầu Tuyết Phương',1,1,'Cảng cá Lagi  BT','0654606089','','','','',0,0,0,1,0,0,1,''),(281,'thai-ahao','Nhà xe A Hảo',1,1,'LaGi BT','0907348392','','','','',0,0,0,1,0,0,1,''),(282,'thai-huyhoang','Gara Huy Hoàng',1,1,'274 Ngô Quyền, Tân An ,LaGi','0908658864','','','','',0,0,0,1,0,0,1,''),(283,'thai-alua','Anh Lua',1,1,'96 Thống Nhất,LaGi','0902522140','','','','',0,0,0,1,0,0,1,''),(284,'thai-phuongnam','VLXD Phương Nam',1,1,'QL55,Thôn 1,Sơn Mỹ,LaGi','0938644167','','','','',0,0,0,1,0,0,1,''),(285,'thai-hungloan','DNTN Tiệm vàng Kim Hùng Loan',1,1,'155 Lê Thánh Tôn,Tân Hải,Lagi','0984285050','','','','',0,0,0,0,0,0,1,''),(286,'thai-thanhtoan','Công ty xây dựng Thanh Toàn',1,1,'NGô Quyền ,Lagi,BT','0902914066','','','','',0,0,0,1,0,0,1,''),(287,'hoanghai ptan','Hoàng Hải',1,1,'Thạnh Sơn 2B,Phước Tân','0973781751','','','','',0,0,0,1,0,0,1,''),(288,'thai-nghiabinh','VLXD Nghĩa Bình',1,1,'Nguyễn Minh Châu,Hiệp Phú,Tân Tiến,LaGi,BT','0984168628','','','','',0,0,0,1,0,0,1,''),(289,'antoan','Đại lý Gas An Toàn',1,2,'','0937523492','','','','',0,0,0,0,0,0,1,'Lo6/b1,kDC bến lội,Lại An,Hàm Thắng,Hàm Thuận Bắc,Bình Thuận'),(290,'hainam','Rửa xe Hải Nam',1,1,'Số 11,Phạm Văn Đồng,XM','0933413241','','','','',0,0,0,1,0,0,1,''),(291,'thai-caothanh','VLXD Cao Thanh',1,1,'04 Nguyễn Trãi,KP5,Bình Tân,TX.Lagi,BT','','','','','',0,0,0,1,0,0,1,''),(292,'thai-cuutruong','Cửa hàng VLXD Cửu Trường',1,1,'','0908123648','','','','',0,0,0,0,0,0,1,''),(293,'acuong','A Cường',1,1,'Hẻm Lotte ,đại lộ Hùng Vương,Tp.Phan Thiết','0961152501','','','','',0,0,0,1,0,0,1,''),(294,'songkinh','Rửa xe thay nhớt Sông Kinh',1,1,'Phước Bửu,XM,BRVT','0969541342','','','','',0,0,0,1,0,0,1,''),(295,'thai-vuatramcuonganh','Công ty TNHH Hửu Tiến',1,1,'Đường số 9,Sơn Mỹ,Hàm Tân','0901 292 828','','','','',0,0,0,1,0,0,1,''),(296,'anhsinh','Anh Sinh',1,1,'58 Lý Thái Tổ,Tân Tiến,Lagi','0976 686 445','','','','',0,0,0,1,0,0,1,''),(297,'cxduchanh','Cây xăng Đức Hạnh',1,1,'Đường D9T,xã Đức Hạnh,H.Đức Linh,T Bình Thuận','090 161 8648','','','','',0,0,0,1,0,0,1,''),(298,'tuanhien','Cửa hàng Tuấn Hiền',1,1,'Ấp 3 ,Bưng Riềng','0937 137 623','','','','',0,0,0,1,0,0,1,''),(299,'anhvu','Sửa xe Anh Vũ',1,1,'Sông Kinh','0901262 867','','','','',0,0,0,1,0,0,1,''),(300,'anhhai','Anh Hải',1,1,'Số 149 ,đường 27/4 Phước Bửu,XM','0907 445 044','','','','',0,0,0,1,0,0,1,''),(301,'anhlam','Anh Lâm',1,1,'Ấp 3,Bưng Riềng','093370227','','','','',0,0,0,1,0,0,1,''),(302,'thai-binhan','VLXD Bình An',1,1,'156 Nguyễn Chí Thanh,LaGi,BT','0987 919 884','','','','',0,0,0,1,0,0,1,''),(303,'nypt','Như Ý',1,1,'Xã Phước Tân, Xuyên Mộc, BRVT','0987512267','','','','',1,0,0,0,0,0,1,''),(304,'dvan','Duy Vân',1,1,'','','','','','',1,0,0,0,0,0,1,''),(305,'aqcd','Anh Quyền',1,1,'Xuân Sơn, Châu Đức, BRVT','0355554080','','','','',1,0,0,0,0,0,1,''),(306,'opt','Oanh Phước Tân (Gái Trung)',1,1,'Tân Lâm, Xuyên Mộc, BRVT','0976037799','','','','',1,0,0,0,0,0,1,''),(307,'ctdp','Công ty TNHH Dầu Khí Đại Phát',1,1,'Biên Hòa, Đồng Nai','','','','','',1,0,0,0,0,0,1,''),(308,'ktbt','Cơm chay Khai Tâm',1,1,'Bà tô, Xuyên Mộc, BRVT','','','','','',1,0,0,0,0,0,1,''),(309,'ctxm','Cơm Tâm Xuyên Mộc',1,1,'Xuyên Mộc, BRVT','0913027737','','','','',1,0,0,0,0,0,1,''),(310,'gllg','Gas Liêm',1,1,'Lagi, Bình Thuận','0977163071','','','','',1,0,0,0,0,0,1,''),(311,'nhkl','Nam Hùng',1,1,'Kim Long, Châu Đức','0774924698','','','','',1,0,0,0,0,0,1,''),(312,'dnhh','Dung Ngọc',1,1,'Hòa Hiệp, Xuyên Mộc','0398768121','','','','',1,0,0,0,0,0,1,''),(313,'gixm','Giang Trại gà',1,1,'Láng Dài, XM, BRVT','','','','','',1,0,0,0,0,0,1,''),(314,'hhh','Cô Hằng Hòa Hội',1,1,'Hòa Hội,Xm, BRVT','','','','','',1,0,0,0,0,0,1,''),(315,'hlxm','Nhà hàng Hoài Lan',1,1,'Xuyên Mộc, BRVT','06235650190','','','','',1,0,0,0,0,0,1,''),(316,'Thachbl','Rửa xe Thạch',1,1,'Ấp 4, Suối Lê, Tân Lâm','0166 7484748','','','','',0,0,0,1,0,0,1,''),(317,'antoan','Đại lý Gas An Toàn',1,1,'Lô 58/B1,KDC Bến Lội,Lại An,,Hàm Thắng,Hàm Thuận Bắc,Bình Thuận','0937523492','','','','',0,0,0,1,0,0,1,''),(318,'thai-aty','Gara Anh Tý',1,1,'','0987919884','','','','',0,0,0,0,0,0,1,''),(319,'phuoc','Phước',1,1,'','','','','','',1,0,0,0,0,0,1,''),(320,'qđpt','Quang Đô',1,1,'Suối Rao, Phước tân','0983083378','','','','',1,0,0,0,0,0,1,''),(321,'manh','Mai Anh',1,1,'Bình Châu, Xuyên Mộc, BRVT','0907337288','','','Song','',1,0,0,0,0,0,1,''),(322,'thai-anhphu','Nhà xe Kim Châu',1,1,'Chợ Tân thắng, xã Tân Thắng,Lagi,BT','0935348377','','','Anh Phú','',0,0,0,1,0,20,1,''),(323,'qs','Quốc Sáng',1,1,'Hàm Thuận Nam, Bình Thuận','','','','','',1,0,0,0,0,0,1,''),(324,'kimphat','Cty TNHH MTV GỐM SỨ MỸ NGHỆ KIM PHÁT',1,1,'','','','','','',1,0,0,0,0,0,1,''),(325,'anhtrung','Trạm chiết nạp LPG Anh Trung',1,1,'','','','','','',1,0,0,0,0,0,1,''),(326,'thanhtai','CTY CP KD & PP GAS THÀNH TÀI',1,1,'Long Định, Cần Đước, Long An','0723636364','','','','',1,0,0,0,0,0,1,''),(327,'vbr','Việt Bưng Riềng',1,1,'Bưng Riềng','','','','','',1,0,0,0,0,0,1,''),(328,'atcd','An Toàn Châu Đức',1,1,'Châu đức BRVT','','','','','',1,0,0,0,0,0,1,''),(329,'CHXD QUANG TRUNG','CHXD QUANG TRUNG',1,1,'','','','','','',0,0,0,0,0,0,1,''),(330,'ANH SƠN','ANH SƠN',1,1,'','','','','','',0,0,0,0,0,0,1,''),(331,'oto','Showroom oto',1,1,'QL51 Phước Bửu, XM, BRVT','','','','','',1,1,0,1,0,0,1,''),(332,'TUẤN HÀ','TUẤN HÀ',1,1,'XUÂN SƠN','','','','','',0,0,0,0,0,0,1,''),(333,'HUYANH','CÔNG TY TNHH MTV HUY ÁNH',1,1,'SỐ 343C NGÔ GIA TỰ,PHƯỜNG TẤN TÀI,TP.PHAN RANG -THÁP CHÀM,TỈNH NINH THUẬN','0963332007','','','TRƯƠNG QUANG HUY','',0,0,0,0,1,0,1,''),(334,'THIENANPHAT','CÔNG TY TNHH MỘT THÀNH VIÊN THIÊN AN PHÁT',1,1,'218B ĐỒNG NAI,PHƯỜNG PHƯỚC HẢI,TP.NHA TRANG,T.KHÁNH HÒA','0916679179-02583875778','','','MAI QUỐC NAM','',0,0,0,0,0,0,1,''),(335,'VIETSUN','CÔNG TY TNHH GIẢI PHÁP CÔNG NGHỆ THÔNG MINH VIỆT SUN',1,1,'27 PHAN ĐĂNG LƯU,THÀNH HẢI,TP.PHAN RANG, NINH THUẬN','377 666 550','','','TRẦN NHƯ ANH KIỆT','',0,0,0,0,0,0,1,''),(336,'MATTROIVIET','CÔNG TY TNHH SXTM XUẤT NHẬP KHẨU MẶT TRỜI VIỆT',1,1,'160/12 PHAN HUY ÍCH,PHƯỜNG 12,Q.GÒ VẤP,TP.HCM','0982 200 900','','','HOÀNG VĂN TUẤN','',0,0,0,0,1,0,1,''),(337,'ATHUY','TRẦN VĂN THỦY',1,1,'KP LÁNG SIM,TT PHƯỚC BỬU,H.XUYÊN MỘC,BRVT','0987 479 341','','','TRẦN VĂN THỦY','',0,0,0,0,1,0,1,''),(338,'CSD','CÔNG TY CP CSD',1,1,'KM5 QUỐC LỘ 25,XÃ HÒA AN,H.PHÚ HÒA, T. PHÚ YÊN','0988 57 66 71','','','NGUYỄN CHÍ THÀNH','',0,0,0,0,1,0,1,''),(339,'DANGKHOA','CÔNG TY TNHH TMDV ĐIỆN TỬ ĐĂNG KHOA',1,1,'117/36 NGUYỄN TRI PHƯƠNG,KP8,P.CHÁNH NGHĨA,TP.THỦ DẦU MỘT,BÌNH DƯƠNG','0972 27 78 69','','','ĐỖ THÀNH TÂM','',0,0,0,0,1,0,1,''),(340,'BUUDIEN','CHI NHÁNH MIỀN NAM-CÔNG TY CP VẬT TƯ BƯU ĐIỆN',1,1,'78 TAM ĐẢO, PHƯỜNG 14,QUẬN 10,TP.HCM','0283 8636 061','','','NGUYỄN ĐẮC THỌ','',0,0,0,0,1,0,1,''),(341,'QUYNHANH','CÔNG TY TNHH NĂNG LƯỢNG XANH QUỲNH ANH',1,1,'KHU PHỐ ĐỊNH BÌNH,THỊ TRẤN VĨNH THẠNH,HUYỆN VĨNH THẠNH,TỈNH BÌNH ĐỊNH','0783 13 14 15','','','NGUYỄN VĂN CẢNH','',0,0,0,0,1,0,1,''),(342,'ACHAU','CÔNG TY TNHH THIẾT BỊ CÔNG NGHỆ ĐIỆN Á CHÂU',1,1,'20/1 NGUYỄN ANH THỦ,TỔ 18,ẤP HƯNG LÂN,XÃ BÀ ĐIỂM,HUYỆN HÓC MÔN,TP.HCM','0938 028 808','','','NGUYỄN ĐÌNH PHI','',0,0,0,0,1,0,1,''),(343,'ANAM-WNS','CÔNG TY TNHH GIẢI PHÁP CÔNG NGHỆ WNS',1,1,'21 NGUYỄN THÁI HỌC,P LÊ LỢI,TP.VINH,NGHỆ AN','0904 225 335','','','CAO HOÀI NAM','',0,0,0,0,1,0,1,''),(344,'ATAI','PHÍ ĐỨC TÀI',1,1,'01-PHẠM NGỌC THẠCH,Q.HẢI CHÂU,TP.ĐÀ NẴNG','0913 415 440','','','PHÍ ĐỨC TÀI','',0,0,0,0,1,0,1,''),(345,'AHIEU','CỬA HÀNG TRUNG QUÂN',1,1,'ẤP HÒA LONG,XÃ LONG THUẬN,HUYỆN HỒNG NGỰ,T.ĐỒNG THÁP','0917 462 171','','','NGUYỄN TRUNG HIẾU','',0,0,0,0,1,0,1,''),(346,'DAIPHAT','CCÔNG TY TNHH KỸ THUẬT TỰ ĐỘNG ĐẠI PHÁT',1,1,'03 QUÁCH VŨ,P.HIỆP TÂN,Q.TÂN PHÚ,TP.HCM','090 8997 168','','','NGUYỄN THANH HIẾU','',0,0,0,0,1,0,1,''),(347,'CTH','CÔNG TY CỔ PHẦN CƠ ĐIỆN CTH',1,1,'941 HÙNG VƯƠNG,PHƯỜNG NHƠN PHÚ,TP.QUY NHƠN,TỈNH BÌNH ĐỊNH','0976 862 255','','','LÊ QUANG HẢI','',0,0,0,0,1,0,1,''),(348,'THANHCONG','CÔNG TY CỔ PHẦN XÂY DỰNG DVTM THÀNH CÔNG',1,1,'01 TRẦN TƯỚNG CÔNG,PHƯỜNG 10,QUẬN 5, TP.HCM','0989 766 799','','','','',0,0,0,0,1,0,1,''),(349,'THUANNAM','CÔNG TY TNHH CÔNG NGHỆ MỚI THUẬN NAM',1,1,'KM SỐ 3,ĐƯỜNG VĂN LÂM-SƠN HẢI,THÔN PHƯỚC LẬP,XÃ PHƯỚC NAM ,H.THUẬN NAM,T.NINH THUẬN','0989 133 732','','','VŨ ĐÌNH TUẤN','',0,0,0,0,1,0,1,''),(350,'PHUOCLAP','CÔNG TY TNHH CÔNG NGHỆ PHƯỚC LẬP',1,1,'KM SỐ 3,ĐƯỜNG VĂN LÂM-SƠN HẢI,THÔN PHƯỚC LẬP,XÃ PHƯỚC NAM ,H.THUẬN NAM,T.NINH THUẬN','0899 151 179','','','PHẠM TRUNG NHÂN','',0,0,0,0,1,0,1,''),(351,'QUOCTUNG','CHI NHÁNH CÔNG TY TNHH CAMERA QUỐC TÙNG',1,1,'KI ỐT SỐ 1,QL 20, LIÊN NGHĨA,ĐỨC TRỌNG ,LÂM ĐỒNG','0633 666 444','','','LÊ PHÚ TÙNG','',0,0,0,0,1,0,1,''),(352,'LIENTHANH','CÔNG TY CỔ PHẦN CƠ ĐIỆN LIÊN THÀNH VIỆT NAM',1,1,'67 ĐƯỜNG 24,P.BÌNH TRỊ ĐÔNG,Q.BÌNH TÂN,TP.HCM','028 626 977 53','','','TRẦN QUỐC TÂM','',0,0,0,0,1,0,1,''),(353,'THP','CÔNG TY CỔ PHẦN TẬP ĐOÀN NĂNG LƯỢNG MƠI',1,1,'','','','','','',0,0,0,0,0,0,1,''),(354,'THP','CÔNG TY CỔ PHẦN TẬP ĐOÀN NĂNG LƯỢNG MỚI THP',1,1,'75 LÊ ĐỘ,PHƯỜNG CHÍNH GIÁN,QUẬN THANH KHÊ,TP.ĐÀ NẴNG','0932 050 352','','','LẠI VĂN THIỆU','',0,0,0,0,1,0,1,''),(355,'AMUA','NHÀ MÁY NHIỆT ĐIỆN VĨNH TÂN 4',1,1,' LÊ THÁNH TÔNG,KP3,P.MỸ BÌNH,TP.PHAN RANG,THÁP CHÀM,T.NINH THUẬN','0963 173 317','','','NGUYỄN VĂN MUA','',0,0,0,0,1,0,1,''),(356,'THIENPHUNINHTHUAN','CÔNG TY TNHH THIÊN PHÚ NINH THUẬN',1,1,'KM SỐ 3,ĐƯỜNG VĂN LÂM-SƠN HẢI,THÔN PHƯỚC LẬP,XÃ PHƯỚC NAM ,H.THUẬN NAM,T.NINH THUẬN','0963 173 317','','','TRẦN THỊ NGỌC TRÂM','',0,0,0,0,1,0,1,''),(357,'GREENWORLD','CÔNG TY CỔ PHẦN TẬP ĐOÀN NĂNG LƯỢNG TÁI TẠO GREEN WORLD VIỆT NAM',1,1,'SH04,PARK 2,KHU ĐÔ THỊ PARK HILL TIME CITY PHƯỜNG MAI ĐỘNG,QUẬN HOÀNG MAI,TP.HÀ NỘI','0911 903 111','','','NGUYỄN DUY KIÊN','',0,0,0,0,1,0,1,''),(358,'KYNGUYENMOI','CÔNG TY TNHH SẢN XUẤT THƯƠNG MẠI DỊCH VỤ KỸ NGUYÊN MỚI',1,1,'SỐ 01,LƯU CHÍ HIẾU,PHƯỜNG RẠCH DỪA,TP.VŨNG TÀU,TỈNH BRVT','0913 221 440','','','NGUYỄN MẠNH HÀ','',0,0,0,0,1,0,1,''),(359,'SINEE','CÔNG TY TNHH SINEE VIỆT NAM',1,1,'SỐ 03 QUÁCH VŨ,P.HIỆP TÂN,Q.TÂN PHÚ,TP.HCM','0908505 168','','','HOA','',0,0,0,0,1,0,1,''),(360,'MATTROIMOI','CÔNG TY TNHH THƯƠNG MẠI NĂNG LƯỢNG MẶT TRỜI MỚI ',1,1,'ĐƯỜNG NL 7,KHU ĐÔ THỊ MỸ PHƯỚC 3,THỚI HÒA ,BẾN CÁT,BÌNH DƯƠNG','0987 641 035','','','ANH THẾ ANH','',0,0,0,0,1,0,1,''),(361,'QUANGTRUNG','CÔNG TY TNHH QUANG TRUNG',1,1,'21 BÌNH GIÃ,KP.PHƯỚC LỘC,TT.PHƯỚC BỬU,XUYÊN MỘC ,BRVT','0983 670 671','','','','',0,0,0,0,1,0,1,''),(362,'MATTROITOTNHAT','CÔNG TY CỔ PHẦN ĐIỆN NĂNG LƯỢNG MẶT TRỜI TỐT NHẤT',1,1,'6/4 TỔ 14,KHU PHỐ 4C,PHƯỜNG TRẢNG DÀI,TP.BIÊN HÒA,TỈNH ĐỒNG  NAI','0813 913 968','','','BÙI VĂN THẠNH','',0,0,0,0,1,0,1,''),(363,'DUNGHT','CÔNG TY TNHH HT SOLAR VIỆT NAM',1,1,'LÔ F3,KHU CÔNG NGHIỆP TRÀNG DUỆ,XÃ HỒNG PHONG,HUYỆN AN DƯƠNG,TỈNH HẢI PHÒNG','0904 242 556','','','VŨ VIỆT DŨNG','',0,0,0,0,1,0,1,''),(364,'MANHTIN','CÔNG TY MẠNH TÍN',1,1,'LONG AN','0908 11 75 43','','','ANH HẢI','',0,0,0,0,1,0,1,''),(365,'THANHNGOC','CÔNG TY TNHH CÔNG NGHỆ MỚI THANH NGỌC',1,1,'253 LÊ VĨNH HÒA,KHÓM 8,PHƯỜNG 8,TP.CÀ MAU,TỈNH CÀ MAU','0907 301 484','','','NGUYỄN TUẤN SANG','',0,0,0,0,1,0,1,''),(366,'CAOTHAISON','CÔNG TY TNHH XÂY DỰNG KỸ THUẬT CAO THÁI SƠN',1,1,'42/3/17 TỔ 46,KP9,PHƯỜNG TÂN PHONG,TP.BIÊN HÒA,T.ĐỒNG NAI','0908 199 885','','','ANH LUẬN','',0,0,0,0,1,0,1,''),(367,'DAICUONGTHINH','CÔNG TY TNHH THIẾT BỊ CÔNG NGHỆ ĐẠI CƯỜNG THỊNH',1,1,'SỐ 263 TRƯỜNG CHINH,KP.TÂN PHÚ,P.PHÚ MỸ,TX.PHÚ MỸ,TỈNH BRVT','091 515 5380','','','NGUYỄN NHẬT LONG','',0,0,0,0,1,0,1,''),(368,'BINHTHUAN','CÔNG TY TNHH BÌNH THUẬN SOLAR',1,1,'117 BÙI THỊ XUÂN,XUÂN AN,PHAN THIẾT','090 797 2888','','','TRẦN ĐẠI HƯNG','',0,0,0,0,1,0,1,''),(369,'THUẬN PHÚ','CÔNG TY CỔ PHẦN SOLAR THUẬN PHÚ',1,1,'36 ĐƯỜNG BÀU NĂNG 7,ĐÀ NẴNG','0964 22 8834','','','','',0,0,0,0,1,0,1,''),(370,'MINHHUU','CÔNG TY TNHH MTV MINH HỬU',1,1,'192 NGUYỄN TRUNG TRỰC,ẤP MỸ THẠNH,XÃ MỸ PHONG,TP.MỸ THO,T.TIỀN GIANG','0273 627 9189 ','','','TRẦN THỊ NHỊ','',0,0,0,0,1,0,1,''),(371,'SOLAR SG-HN','CÔNG TY TNHH T-G SOLAR SÀI GÒN-HÀ NỘI',1,1,'NHÀ A1,QUỐC LỘ 1A,KHU PHỐ 3,P.TÂN HƯNG THUẬN,Q.12,TP.HCM','','','','','',0,0,0,0,1,0,1,''),(372,'TVTKHACHSAN','CÔNG TY TNHH TVT KHÁCH SẠN',1,1,'SỐ 50 ĐƯỜNG BÀ TRIỆU,PHƯỜNG 4,TP ĐÀ LẠT,TỈNH LÂM ĐỒNG','0918 361 931','','','PHẠM THỊ PHƯƠNG TRINH','',0,0,0,0,1,0,1,''),(373,'TANPHUONGNAM','CÔNG TY TNHH TÂN PHƯƠNG NAM',1,1,'150/51C TRẦN HOÀNG SA,PHƯỜNG HƯNG LỢI,Q.NINH KIỀU,TP.CẦN THƠ','0913 877 168','','','ANH CHÁNH','',0,0,0,0,1,0,1,''),(374,'NTA','CÔNG TY TNHH N-TA SOLAR ĐỒNG NAI',1,1,'1502,QL51,KP.LONG KHÁNH 1,P.TAM PHƯỚC,TP.BIÊN HÒA,ĐỒNG NAI','0934 834 878','','','','',0,0,0,0,1,0,1,''),(375,'TINHCANH','CÔNG TY TNHH NĂNG LƯỢNG TÍNH CẢNH',1,1,'71/67 TỔ 9,KP 1A,TÂN HIỆP,BIÊN HÒA ĐỒNG NAI','0927 266 266','','','ANH CẢNH','',0,0,0,0,1,0,1,''),(376,'SKY SOLAR','CÔNG TY TNHH SKY SOLAR VŨNG TÀU',1,1,'98D KHU PHỐ LONG TÂN,THỊ TRẤN LONG ĐIỀN,HUYỆN LONG ĐIỀN,TỈNH BÀ RỊA VŨNG TÀU','0349 06 06 06','','','ANH TÚ','',0,0,0,0,1,0,1,''),(377,'PHUVINH','CÔNG TY TNHH CÔNG NGHỆ PHÚ VINH IOT',1,1,'71A,NGUYỄN TRÃI,PHƯỜNG 7,TP.MỸ THO,T.TIỀN GIANG','0907 826 998','','','ANH CHÂU','',0,0,0,0,1,0,1,''),(378,'DIENMAYANHTUAN','CỬA HÀNG ĐIỆN MÁY ANH TUẤN',1,1,'177B ẤP CHỢ ,XÃ TÂN TIẾN,H.ĐỒNG PHÚ,TỈNH BÌNH PHƯỚC','0962 121 451','','','ANH TUẤN','',0,0,0,0,1,0,1,''),(379,'NGUYENPHAT','CÔNG TY TNHH PHÁT NGUYÊN PHÁT',1,1,'THÔN VỤ BỔN,XÃ PHƯỚC NINH ,H.THUẬN NAM,T.BÌNH THUẬN','0963 755 599','','','ANH TRỌNG','',0,0,0,0,1,0,1,''),(380,'THANHVAN','CÔNG TY TNHH ĐIỆN THÀNH VÂN',1,1,'27A PHẠM VĂN DINH,P.THẮNG NHẤT,TP.VŨNG TÀU','0977 18 22 52','','','ANH THÀNH','',0,0,0,0,1,0,1,''),(381,'ATHUONG','ANH THƯƠNG BÌNH CHÂU',1,1,'','0909 174 817','','','','',0,0,0,0,1,0,1,''),(382,'MINHVIET','CÔNG TY TNHH TM DV KỸ THUẬT ĐIỆN MINH MINH VIỆT',1,1,'42 ĐƯỜNG DC 9,PHƯỜNG SƠN KỲ,Q.TÂN PHÚ,TP.HCM','082 99 569','','','HỒ NGỌC MẪN','',0,0,0,0,1,0,1,''),(383,'ANHHIEP','CÔNG TY CỔ PHẦN NĂNG LƯỢNG XANH HT',1,1,'VĂN PHÒNG 02,TẦNG 08,TÒA NHÀ PEARL PLAZA,561 ĐIỆN BIÊN PHỦ,PHƯỜNG 25,Q.BÌNH THẠNH,TP.HCM','0916 144 665','','','TRỊNH QUANG HIỆP','',0,0,0,0,1,0,1,''),(384,'DIENXANHST','CÔNG TY TNHH NGUỒN ĐIỆN XANH ST',1,1,'261 ĐƯỜNG KHUÔNG VIỆT,P.PHÚ TRUNG,Q.TÂN PHÚ,TP.HCM','','','','TRẦN THÙY BÍCH TRÂM','',0,0,0,0,1,0,1,''),(385,'ANHTRUNG','ANH TRUNG QUẢN LÝ THỊ TRƯỜNG',1,1,'53/0A LÊ HỒNG PHONG,PHƯỜNG 7,TP.VŨNG TÀU,BRVT','0906 646 803','','','ANH TRUNG','',0,0,0,0,1,0,1,''),(386,'ANHHUY','CÔNG TY TNHH TMDV TIN HỌC VIỄN THÔNG ANH HUY',1,1,'798 BÌNH GIÃ ,PHƯỜNG 10,TP.VŨNG TÀU,T. BRVT','','','','','',0,0,0,0,1,0,1,''),(387,'ANHDANG','NGUYỄN VĂN ĐĂNG',1,1,'XÓM 8,XÃ LƯỠNG VƯỢNG,TP.TUYÊN QUANG','0392 590 701','','','ANH ĐĂNG','',0,0,0,0,1,0,1,''),(388,'MTC','CÔNG TY TNHH TM&DV MTC',1,1,'TỔ DÂN PHỐ PHÚ THỌ 3,P.NINH DIÊM,NINH HÒA,KHÁNH HÒA','0914 252 852','','','ANH HÀ','',0,0,0,0,1,0,1,''),(389,'KIMLONG','CÔNG TY TNHH THIẾT BỊ KỸ THUẬT KIM LONG',1,1,'1211 ĐƯỜNG 30/4,PHƯỜNG 11,TP.VŨNG TÀU','','','','','',0,0,0,0,1,0,1,''),(390,'BINHPHUOC','CÔNG TY TNHH SOLAR BÌNH PHƯỚC',1,1,'ĐƯỜNG TRẦN QUANG DIỆU,KP.PHÚ TÂN,PHƯỜNG TÂN PHÚ,TP.ĐỒNG XOÀI,T.BÌNH PHƯỚC','0977 166661','','','NGUYỄN TỰ DO','',0,0,0,0,1,0,1,''),(391,'LECHU','CÔNG TY TNHH MỘT THÀNH VIÊN LÊ CHU',1,1,'SỐ 259/2/1 ĐƯỜNG NGUYỄN VĂN TỎ,KP.THÁI HOÀ, P.LONG BÌNH TÂN,TP.BIÊN HÒA,T.ĐỒNG NAI','0933 81 122 ','','','CHU VĂN HÙNG','',0,0,0,0,1,0,1,''),(392,'PMTECH','CÔNG TY TNHH NĂNG LƯỢNG PM TECH',1,1,'TỔ 08 KP THỊ VÃI,PHƯỜNG MỸ XUÂN,TX PHÚ MỸ,BRVT','0799 781 142','','','NGUYỄN BẢO CHÂU','',0,0,0,0,1,0,1,''),(393,'ANHKHAI','ANH KHẢI PHÚ MỸ',1,1,'PHÝ MỸ,BRVT','0933 656000','','','ANH KHẢI','',0,0,0,0,1,0,1,''),(394,'NGUYENDUYANH','CỮA HÀNG KINH DOANH LAGI SOLAR',1,1,'SỐ 10 PHAN ĐĂNG LƯU,KP4,PHƯỜNG TÂN AN,THỊ XÃ LAGI,T.BÌNH THUẬN','0909   525 339','','','NGUYỄN DUY ANH','',0,0,0,0,1,0,1,''),(395,'HAITRIEU','CÔNG TY TNHH LONG HẢI TRIỀU',1,1,'SỐ 30,KP13, PHƯỜNG HỐ NAI,TP.BIÊN HÒA,T.ĐỒNG NAI','0913 795 219','','','ANH TRIỀU','',0,0,0,0,1,0,1,''),(396,'THANHCONG','CÔNG TY CỔ PHẦN XÂY DỰNG TMDV THÀNH CÔNG',1,1,'01 TRẦN TƯỚNG CÔNG,PHƯỜNG 10,QUẬN 5, TP.HCM','0989 766 799','','','ĐẶNG TUẤN ANH','',0,0,0,0,1,0,1,''),(397,'KHAIMINH','CÔNG TY TNHH TM DV CÔNG NGHỆ KHẢI MINH',1,1,'80/39 TRẦN QUANG DIỆU,PHƯỜNG 14,Q.3,TP.HCM','0906 633 505','','','PHẠM LUÂN VŨ','',0,0,0,0,1,0,1,''),(398,'NAMTIEN','CÔNG TY TNHH CÔNG NGHỆ XANH NAM TIẾN',1,1,'SỐ 5,PHẠM HÙNG,PHƯỚC HÒA,PHƯỚC BỬU,XM ,BRVT','091 773 77 37','','','PHẠM VĂN DŨNG','',0,0,0,0,1,0,1,''),(399,'ANHHO','ANH HỒ',1,1,'TP TUY HÒA,PHÚ YÊN','083 888 3000','','','ANH HỒ','',0,0,0,0,1,0,1,''),(400,'ANH SA','CÔNG TY TNHH TM DV NGUYỄN TRẦN',1,1,'46 ĐƯỜNG B,KP 7,QL 13, P.HIỆP BÌNH CHÁNH,Q.THỦ ĐỨC,TP.HCM','0777 413 113','','','ANH SA','',0,0,0,0,1,0,1,''),(401,'DANGQUANG','CÔNG TY TNHH DỊCH VỤ TRUYỀN THÔNG ĐĂNG QUANG',1,1,'86 ĐIỆN BIÊN PHỦ,P.PHƯỚC HIỆP ,TP.BÀ RỊA,BRVT','','','','','',0,0,0,0,1,0,1,''),(402,'TENK','CÔNG TY TNHH TENK VIỆT NAM',1,1,'TDC KHỐI 4,PHƯỜNG TRUNG ĐÔ,TP.VINH,NGHỆ AN','0982 006 357','','','','',0,0,0,0,1,0,1,''),(403,'NEWSHINESOLAR','CÔNG TY TNHH TM DV & KỶ THUẬT NEWSHINE',1,1,'18 Võ Duy Ninh, P.Long Toàn,  TP.Bà Rịa,tỉnh BRVT','0947 720 092','','','Nguyễn thị Thanh Giang','',0,0,0,0,1,0,1,''),(404,'BETA','Trạm chiết BeTa',1,1,'','','','','','',1,0,0,0,0,0,1,''),(405,'LBC','Lương Bình Châu',1,1,'Bình Châu, Xuyên Mộc,BRVT','','','','','',1,0,0,0,0,0,1,'');
 
 /*Table structure for table `customer_discount_detail` */
 
@@ -304,6 +352,8 @@ CREATE TABLE `customer_discount_detail` (
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
+/*Data for the table `customer_discount_detail` */
+
 /*Table structure for table `customer_document` */
 
 DROP TABLE IF EXISTS `customer_document`;
@@ -315,6 +365,8 @@ CREATE TABLE `customer_document` (
   `expired_date` date DEFAULT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+/*Data for the table `customer_document` */
 
 /*Table structure for table `customer_in_stock` */
 
@@ -329,7 +381,11 @@ CREATE TABLE `customer_in_stock` (
   `amount` double DEFAULT '0',
   `transport_amount` double DEFAULT '0',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=1259 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=390 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+/*Data for the table `customer_in_stock` */
+
+insert  into `customer_in_stock`(`id`,`day`,`customer_id`,`shell_12`,`shell_45`,`amount`,`transport_amount`) values (1,'2020-04-01',205,0,0,0,0),(2,'2020-04-01',293,0,0,18054720,0),(3,'2020-04-01',97,5,0,1059000,0),(4,'2020-04-01',328,0,2,0,0),(5,'2020-04-01',182,29,18,0,0),(6,'2020-04-01',250,0,0,2142000,0),(7,'2020-04-01',199,3,0,2841000,0),(8,'2020-04-01',300,0,0,0,0),(9,'2020-04-01',261,0,0,0,0),(10,'2020-04-01',12,0,0,0,0),(11,'2020-04-01',301,0,0,0,0),(12,'2020-04-01',175,10,0,0,0),(13,'2020-04-01',283,0,0,0,0),(14,'2020-04-01',160,0,0,0,0),(15,'2020-04-01',305,10,0,0,0),(16,'2020-04-01',296,0,0,0,0),(17,'2020-04-01',330,0,0,0,0),(18,'2020-04-01',278,0,0,54773750,0),(19,'2020-04-01',277,0,0,0,0),(20,'2020-04-01',13,0,0,0,0),(21,'2020-04-01',15,22,6,580000,0),(22,'2020-04-01',249,0,0,0,0),(23,'2020-04-01',134,0,0,0,0),(24,'2020-04-01',210,1,0,0,0),(25,'2020-04-01',203,49,3,0,0),(26,'2020-04-01',14,0,0,0,0),(27,'2020-04-01',185,0,0,0,0),(28,'2020-04-01',22,5,0,7020000,0),(29,'2020-04-01',20,0,0,0,0),(30,'2020-04-01',187,3,0,0,0),(31,'2020-04-01',188,5,0,0,0),(32,'2020-04-01',128,0,0,0,0),(33,'2020-04-01',23,13,0,0,0),(34,'2020-04-01',25,0,0,0,0),(35,'2020-04-01',235,0,0,10905696,0),(36,'2020-04-01',280,0,0,0,0),(37,'2020-04-01',297,0,0,0,0),(38,'2020-04-01',24,0,0,0,0),(39,'2020-04-01',21,0,0,0,0),(40,'2020-04-01',201,0,4,0,0),(41,'2020-04-01',125,262,277,0,0),(42,'2020-04-01',27,5,0,0,0),(43,'2020-04-01',232,10,19,5726000,0),(44,'2020-04-01',329,0,0,0,0),(45,'2020-04-01',215,0,0,0,0),(46,'2020-04-01',314,5,0,0,0),(47,'2020-04-01',196,5,0,0,0),(48,'2020-04-01',217,10,0,0,0),(49,'2020-04-01',308,0,0,0,0),(50,'2020-04-01',309,0,2,0,0),(51,'2020-04-01',226,0,0,0,0),(52,'2020-04-01',230,0,0,31225750,0),(53,'2020-04-01',218,0,0,0,0),(54,'2020-04-01',227,0,0,0,0),(55,'2020-04-01',307,0,0,0,0),(56,'2020-04-01',165,0,0,0,0),(57,'2020-04-01',1,0,0,0,0),(58,'2020-04-01',295,0,0,0,0),(59,'2020-04-01',124,0,0,0,0),(60,'2020-04-01',174,0,0,0,0),(61,'2020-04-01',152,0,0,1163843191,0),(62,'2020-04-01',286,0,0,21590500,0),(63,'2020-04-01',229,0,0,72840500,0),(64,'2020-04-01',326,0,0,0,0),(65,'2020-04-01',324,0,0,0,0),(66,'2020-04-01',260,0,0,2811000,0),(67,'2020-04-01',9,15,4,4900000,0),(68,'2020-04-01',2,0,0,0,0),(69,'2020-04-01',11,29,17,14957000,0),(70,'2020-04-01',298,0,0,0,0),(71,'2020-04-01',292,0,0,0,0),(72,'2020-04-01',244,0,0,0,0),(73,'2020-04-01',147,10,0,3000000,0),(74,'2020-04-01',248,0,0,1105200,0),(75,'2020-04-01',149,8,0,0,0),(76,'2020-04-01',28,39,14,16824000,0),(77,'2020-04-01',285,0,0,0,0),(78,'2020-04-01',168,0,0,0,0),(79,'2020-04-01',122,0,0,0,0),(80,'2020-04-01',312,0,2,0,0),(81,'2020-04-01',146,48,0,4020000,0),(82,'2020-04-01',220,0,0,0,0),(83,'2020-04-01',29,8,8,3000000,0),(84,'2020-04-01',304,10,0,0,0),(85,'2020-04-01',209,0,0,0,0),(86,'2020-04-01',234,0,0,54990000,0),(87,'2020-04-01',317,0,0,1441425,0),(88,'2020-04-01',251,0,0,8664000,0),(89,'2020-04-01',240,0,0,993600,0),(90,'2020-04-01',242,0,1,0,0),(91,'2020-04-01',31,0,0,0,0),(92,'2020-04-01',267,0,0,0,0),(93,'2020-04-01',198,15,3,0,0),(94,'2020-04-01',126,0,0,0,0),(95,'2020-04-01',270,0,0,0,0),(96,'2020-04-01',256,0,0,0,0),(97,'2020-04-01',30,0,0,0,0),(98,'2020-04-01',32,0,0,0,0),(99,'2020-04-01',263,0,0,0,0),(100,'2020-04-01',262,0,0,26104600,0),(101,'2020-04-01',271,0,0,21590500,0),(102,'2020-04-01',318,0,0,9903500,0),(103,'2020-04-01',254,0,0,0,0),(104,'2020-04-01',282,0,0,2827500,0),(105,'2020-04-01',252,0,0,0,0),(106,'2020-04-01',247,0,0,7149600,0),(107,'2020-04-01',268,0,0,10355380,0),(108,'2020-04-01',259,0,0,2490000,0),(109,'2020-04-01',241,0,0,2574000,0),(110,'2020-04-01',239,0,0,22556700,0),(111,'2020-04-01',257,0,0,9254790,0),(112,'2020-04-01',238,0,0,3245400,0),(113,'2020-04-01',148,0,0,0,0),(114,'2020-04-01',310,54,13,5670000,0),(115,'2020-04-01',225,5,0,0,0),(116,'2020-04-01',190,0,0,0,0),(117,'2020-04-01',189,7,0,0,0),(118,'2020-04-01',313,5,16,3820000,0),(119,'2020-04-01',129,10,0,0,0),(120,'2020-04-01',164,0,0,0,0),(121,'2020-04-01',37,0,0,1464000,0),(122,'2020-04-01',171,68,1,14500000,0),(123,'2020-04-01',33,0,0,0,0),(124,'2020-04-01',176,0,0,3600000,0),(125,'2020-04-01',193,0,0,0,0),(126,'2020-04-01',213,100,2,7080000,0),(127,'2020-04-01',39,0,0,0,0),(128,'2020-04-01',186,4,0,0,0),(129,'2020-04-01',16,5,0,0,0),(130,'2020-04-01',204,20,4,200000,0),(131,'2020-04-01',136,5,0,0,0),(132,'2020-04-01',200,10,0,0,0),(133,'2020-04-01',35,34,2,0,0),(134,'2020-04-01',151,0,0,0,0),(135,'2020-04-01',155,0,0,0,0),(136,'2020-04-01',42,45,0,2149000,0),(137,'2020-04-01',287,0,0,0,0),(138,'2020-04-01',38,0,0,0,0),(139,'2020-04-01',41,40,5,0,0),(140,'2020-04-01',173,0,0,0,0),(141,'2020-04-01',180,4,0,0,0),(142,'2020-04-01',119,26,18,5000000,0),(143,'2020-04-01',121,0,0,0,0),(144,'2020-04-01',143,0,0,0,0),(145,'2020-04-01',115,10,4,0,0),(146,'2020-04-01',40,3,0,0,0),(147,'2020-04-01',159,0,0,0,0),(148,'2020-04-01',116,0,0,976000,0),(149,'2020-04-01',141,0,4,0,0),(150,'2020-04-01',137,0,0,0,0),(151,'2020-04-01',34,10,0,0,0),(152,'2020-04-01',85,0,10,0,0),(153,'2020-04-01',157,0,0,0,0),(154,'2020-04-01',197,0,0,0,0),(155,'2020-04-01',43,0,-4,0,0),(156,'2020-04-01',138,0,0,0,0),(157,'2020-04-01',184,0,0,0,0),(158,'2020-04-01',44,60,14,0,0),(159,'2020-04-01',212,20,7,0,0),(160,'2020-04-01',48,0,0,0,0),(161,'2020-04-01',192,0,0,0,0),(162,'2020-04-01',45,0,0,0,0),(163,'2020-04-01',47,20,0,8000000,0),(164,'2020-04-01',46,40,9,0,0),(165,'2020-04-01',54,8,0,0,0),(166,'2020-04-01',53,10,0,0,0),(167,'2020-04-01',52,13,1,0,0),(168,'2020-04-01',50,0,0,0,0),(169,'2020-04-01',49,10,4,0,0),(170,'2020-04-01',166,0,0,0,0),(171,'2020-04-01',55,25,0,0,0),(172,'2020-04-01',208,0,0,0,0),(173,'2020-04-01',51,0,0,2196000,0),(174,'2020-04-01',321,10,2,0,0),(175,'2020-04-01',117,1,0,0,0),(176,'2020-04-01',60,0,3,0,0),(177,'2020-04-01',127,0,0,100000,0),(178,'2020-04-01',56,0,6,0,0),(179,'2020-04-01',58,16,5,715000,0),(180,'2020-04-01',59,10,0,3367000,0),(181,'2020-04-01',145,15,0,0,0),(182,'2020-04-01',112,13,0,0,0),(183,'2020-04-01',178,15,0,0,0),(184,'2020-04-01',224,10,0,0,0),(185,'2020-04-01',211,40,6,24116000,0),(186,'2020-04-01',194,20,0,5720000,0),(187,'2020-04-01',62,0,0,0,0),(188,'2020-04-01',61,18,1,3344000,0),(189,'2020-04-01',17,8,0,1774000,0),(190,'2020-04-01',57,4,0,0,0),(191,'2020-04-01',123,0,0,1496000,0),(192,'2020-04-01',311,20,2,0,0),(193,'2020-04-01',219,0,0,0,0),(194,'2020-04-01',191,0,0,0,0),(195,'2020-04-01',156,0,0,0,0),(196,'2020-04-01',65,10,2,3823000,0),(197,'2020-04-01',172,5,0,0,0),(198,'2020-04-01',63,0,0,0,0),(199,'2020-04-01',64,0,0,0,0),(200,'2020-04-01',315,0,4,0,0),(201,'2020-04-01',281,0,0,0,0),(202,'2020-04-01',279,0,0,0,0),(203,'2020-04-01',322,0,0,10331250,0),(204,'2020-04-01',275,0,0,0,0),(205,'2020-04-01',167,0,0,0,0),(206,'2020-04-01',303,10,0,0,0),(207,'2020-04-01',236,0,0,0,0),(208,'2020-04-01',161,30,5,0,0),(209,'2020-04-01',306,7,0,0,0),(210,'2020-04-01',66,20,0,0,0),(211,'2020-04-01',72,0,0,0,0),(212,'2020-04-01',71,25,0,0,0),(213,'2020-04-01',67,44,24,3600000,0),(214,'2020-04-01',207,0,0,0,0),(215,'2020-04-01',68,0,0,0,0),(216,'2020-04-01',150,0,0,0,0),(217,'2020-04-01',69,0,0,0,0),(218,'2020-04-01',319,10,0,0,0),(219,'2020-04-01',169,10,7,6307000,0),(220,'2020-04-01',120,100,8,0,0),(221,'2020-04-01',70,10,0,0,0),(222,'2020-04-01',206,14,3,4160000,0),(223,'2020-04-01',179,17,3,0,0),(224,'2020-04-01',320,20,0,4862000,0),(225,'2020-04-01',73,3,0,0,0),(226,'2020-04-01',132,20,0,0,0),(227,'2020-04-01',74,10,0,0,0),(228,'2020-04-01',216,0,0,0,0),(229,'2020-04-01',142,38,18,2500000,0),(230,'2020-04-01',323,20,6,0,0),(231,'2020-04-01',26,0,3,9029000,0),(232,'2020-04-01',265,0,0,0,0),(233,'2020-04-01',266,0,0,1757320,0),(234,'2020-04-01',290,0,0,2947500,0),(235,'2020-04-01',258,0,0,43096750,0),(236,'2020-04-01',316,0,0,1068660,0),(237,'2020-04-01',294,0,0,7267500,0),(238,'2020-04-01',77,0,3,3640000,0),(239,'2020-04-01',76,0,0,0,0),(240,'2020-04-01',331,0,8,38872600,0),(241,'2020-04-01',154,3,1,1952000,0),(242,'2020-04-01',214,0,0,0,0),(243,'2020-04-01',299,0,0,0,0),(244,'2020-04-01',255,0,0,1021500,0),(245,'2020-04-01',246,0,0,1281600,0),(246,'2020-04-01',245,0,0,0,0),(247,'2020-04-01',75,10,6,0,0),(248,'2020-04-01',80,0,0,0,0),(249,'2020-04-01',18,19,0,0,0),(250,'2020-04-01',140,0,0,0,0),(251,'2020-04-01',163,0,0,0,0),(252,'2020-04-01',131,5,0,0,0),(253,'2020-04-01',83,10,1,0,0),(254,'2020-04-01',99,0,0,0,0),(255,'2020-04-01',153,0,0,0,0),(256,'2020-04-01',19,15,0,512000,0),(257,'2020-04-01',223,20,11,0,0),(258,'2020-04-01',96,30,2,810000,0),(259,'2020-04-01',95,40,2,0,0),(260,'2020-04-01',82,3,0,0,0),(261,'2020-04-01',158,42,89,9500000,0),(262,'2020-04-01',202,30,3,3945000,0),(263,'2020-04-01',90,44,0,9477000,0),(264,'2020-04-01',84,5,7,0,0),(265,'2020-04-01',183,10,0,0,0),(266,'2020-04-01',105,1,0,0,0),(267,'2020-04-01',89,6,0,6085000,0),(268,'2020-04-01',101,5,0,0,0),(269,'2020-04-01',114,5,0,1380000,0),(270,'2020-04-01',102,4,0,0,0),(271,'2020-04-01',100,0,0,0,0),(272,'2020-04-01',104,0,0,0,0),(273,'2020-04-01',253,0,0,5566800,0),(274,'2020-04-01',264,0,0,0,0),(275,'2020-04-01',87,0,0,0,0),(276,'2020-04-01',91,7,15,3329000,0),(277,'2020-04-01',135,0,23,0,0),(278,'2020-04-01',118,0,0,0,0),(279,'2020-04-01',103,16,0,5824000,0),(280,'2020-04-01',325,0,0,0,0),(281,'2020-04-01',177,0,0,0,0),(282,'2020-04-01',162,20,0,0,0),(283,'2020-04-01',139,20,0,1000000,0),(284,'2020-04-01',94,0,0,0,0),(285,'2020-04-01',93,16,0,8042000,0),(286,'2020-04-01',92,0,0,0,0),(287,'2020-04-01',86,0,0,660000,0),(288,'2020-04-01',88,40,16,0,0),(289,'2020-04-01',113,40,2,22000000,0),(290,'2020-04-01',332,0,0,0,0),(291,'2020-04-01',195,0,0,0,0),(292,'2020-04-01',98,16,0,1991000,0),(293,'2020-04-01',79,20,0,0,0),(294,'2020-04-01',181,10,0,0,0),(295,'2020-04-01',144,5,0,0,0),(296,'2020-04-01',106,70,0,15000000,0),(297,'2020-04-01',170,0,0,0,0),(298,'2020-04-01',133,20,0,0,0),(299,'2020-04-01',107,0,5,0,0),(300,'2020-04-01',221,0,0,0,0),(301,'2020-04-01',130,5,0,0,0),(302,'2020-04-01',228,0,0,0,0),(303,'2020-04-01',327,0,0,0,0),(304,'2020-04-01',302,0,0,1120500,0),(305,'2020-04-01',291,0,0,2040000,0),(306,'2020-04-01',269,0,0,0,0),(307,'2020-04-01',288,0,0,0,0),(308,'2020-04-01',273,0,0,0,0),(309,'2020-04-01',284,0,0,10230000,0),(310,'2020-04-01',276,0,0,15735000,0),(311,'2020-04-01',274,0,0,8272500,0),(312,'2020-04-01',108,1,0,976000,0),(313,'2020-04-01',237,0,0,1080000,0),(314,'2020-04-01',109,27,0,1366000,0),(315,'2020-04-01',110,5,0,0,0),(316,'2020-04-01',222,30,4,0,0),(317,'2020-04-01',111,20,0,2000000,0),(318,'2020-04-01',243,0,0,0,0),(319,'2020-04-01',233,0,0,0,0),(320,'2020-04-01',399,0,0,0,0),(321,'2020-04-01',393,0,0,0,0),(322,'2020-04-01',381,0,0,0,0),(323,'2020-04-01',385,0,0,0,0),(324,'2020-04-01',346,0,0,0,0),(325,'2020-04-01',351,0,0,0,0),(326,'2020-04-01',340,0,0,0,0),(327,'2020-04-01',347,0,0,0,0),(328,'2020-04-01',352,0,0,0,0),(329,'2020-04-01',362,0,0,240000,0),(330,'2020-04-01',383,0,0,0,0),(331,'2020-04-01',369,0,0,0,0),(332,'2020-04-01',353,0,0,0,0),(333,'2020-04-01',354,0,0,0,0),(334,'2020-04-01',357,0,0,0,0),(335,'2020-04-01',348,0,0,0,0),(336,'2020-04-01',396,0,0,0,0),(337,'2020-04-01',338,0,0,0,0),(338,'2020-04-01',364,0,0,0,0),(339,'2020-04-01',368,0,0,0,0),(340,'2020-04-01',365,0,0,0,0),(341,'2020-04-01',349,0,0,198065364,0),(342,'2020-04-01',377,0,0,0,0),(343,'2020-04-01',350,0,0,0,0),(344,'2020-04-01',398,0,0,0,0),(345,'2020-04-01',401,0,0,0,0),(346,'2020-04-01',380,0,0,0,0),(347,'2020-04-01',335,0,0,0,0),(348,'2020-04-01',343,0,0,0,0),(349,'2020-04-01',363,0,0,0,0),(350,'2020-04-01',395,0,0,0,0),(351,'2020-04-01',391,0,0,0,0),(352,'2020-04-01',334,0,0,0,0),(353,'2020-04-01',333,0,0,0,0),(354,'2020-04-01',370,0,0,0,0),(355,'2020-04-01',374,0,0,0,0),(356,'2020-04-01',392,0,0,0,0),(357,'2020-04-01',375,0,0,0,0),(358,'2020-04-01',341,0,0,0,0),(359,'2020-04-01',384,0,0,0,0),(360,'2020-04-01',379,0,0,0,0),(361,'2020-04-01',361,0,0,0,0),(362,'2020-04-01',358,0,0,0,0),(363,'2020-04-01',359,0,0,0,0),(364,'2020-04-01',376,0,0,0,0),(365,'2020-04-01',390,0,0,0,0),(366,'2020-04-01',336,0,0,0,0),(367,'2020-04-01',371,0,0,0,0),(368,'2020-04-01',373,0,0,0,0),(369,'2020-04-01',402,0,0,0,0),(370,'2020-04-01',356,0,0,7269500,0),(371,'2020-04-01',367,0,0,0,0),(372,'2020-04-01',342,0,0,0,0),(373,'2020-04-01',389,0,0,-39485,0),(374,'2020-04-01',360,0,0,0,0),(375,'2020-04-01',397,0,0,0,0),(376,'2020-04-01',382,0,0,0,0),(377,'2020-04-01',400,0,0,0,0),(378,'2020-04-01',388,0,0,0,0),(379,'2020-04-01',339,0,0,0,0),(380,'2020-04-01',386,0,0,0,0),(381,'2020-04-01',372,0,0,0,0),(382,'2020-04-01',366,0,0,0,0),(383,'2020-04-01',378,0,0,0,0),(384,'2020-04-01',394,0,0,0,0),(385,'2020-04-01',345,0,0,-78180,0),(386,'2020-04-01',387,0,0,0,0),(387,'2020-04-01',355,0,0,0,0),(388,'2020-04-01',344,0,0,-158060,0),(389,'2020-04-01',337,0,0,0,0);
 
 /*Table structure for table `dayoff` */
 
@@ -342,6 +398,8 @@ CREATE TABLE `dayoff` (
   `note` text COLLATE utf8_unicode_ci,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+/*Data for the table `dayoff` */
 
 /*Table structure for table `debt_adjustment` */
 
@@ -358,7 +416,9 @@ CREATE TABLE `debt_adjustment` (
   `note` text COLLATE utf8_unicode_ci,
   `created_employee_id` int(11) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+/*Data for the table `debt_adjustment` */
 
 /*Table structure for table `debug` */
 
@@ -368,6 +428,8 @@ CREATE TABLE `debug` (
   `note` text COLLATE utf8_unicode_ci
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
+/*Data for the table `debug` */
+
 /*Table structure for table `discount_oil` */
 
 DROP TABLE IF EXISTS `discount_oil`;
@@ -376,10 +438,14 @@ CREATE TABLE `discount_oil` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `code` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
   `name` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
-  `shell_gas_commission` double DEFAULT NULL COMMENT 'chiet khau khi doi gas bang vo cty khi dat san luong',
+  `shell_gas_commission` int(11) DEFAULT NULL COMMENT 'chiet khau khi doi gas bang vo cty khi dat san luong',
   `note` text COLLATE utf8_unicode_ci,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+/*Data for the table `discount_oil` */
+
+insert  into `discount_oil`(`id`,`code`,`name`,`shell_gas_commission`,`note`) values (1,'CK1','Chiết khấu 1',0,''),(2,'Ht5k','Hỗ trợ 5000',0,''),(3,'Httvb','Hỗ trợ trả vỏ bình',3000,'0');
 
 /*Table structure for table `discount_oil_customer` */
 
@@ -390,7 +456,11 @@ CREATE TABLE `discount_oil_customer` (
   `discount_id` int(11) DEFAULT NULL,
   `customer_id` int(11) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+/*Data for the table `discount_oil_customer` */
+
+insert  into `discount_oil_customer`(`id`,`discount_id`,`customer_id`) values (1,1,15),(2,2,15),(3,3,15);
 
 /*Table structure for table `discount_oil_detail` */
 
@@ -404,7 +474,11 @@ CREATE TABLE `discount_oil_detail` (
   `commission_to` double DEFAULT NULL,
   `commission` double DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=10 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=9 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+/*Data for the table `discount_oil_detail` */
+
+insert  into `discount_oil_detail`(`id`,`discount_id`,`oil_id`,`commission_from`,`commission_to`,`commission`) values (1,1,NULL,720,1800,160),(2,1,NULL,1800,3600,240),(3,1,NULL,3600,7200,320),(4,1,NULL,7200,9600,400),(5,1,NULL,9600,12000,525),(6,1,NULL,12000,1000000,650),(7,2,NULL,0,1000000,417),(8,3,NULL,0,1000000,0);
 
 /*Table structure for table `document` */
 
@@ -416,6 +490,10 @@ CREATE TABLE `document` (
   `note` text COLLATE utf8_unicode_ci,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=9 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+/*Data for the table `document` */
+
+insert  into `document`(`id`,`name`,`note`) values (8,'Giấy phép đăng ký kinh doanh','');
 
 /*Table structure for table `dynamic_field` */
 
@@ -432,6 +510,10 @@ CREATE TABLE `dynamic_field` (
   PRIMARY KEY (`id`)
 ) ENGINE=MyISAM AUTO_INCREMENT=12 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
+/*Data for the table `dynamic_field` */
+
+insert  into `dynamic_field`(`id`,`code`,`name`,`organization_id`,`table_name`,`can_edit`,`free_value_id`) values (1,'DAYOFFINYEAR','Số ngày phép trong năm',1,'employee',0,1),(2,'SATURDAY','Làm ngày thứ 7',1,'employee',0,2),(3,'SENIALLOW','Thưởng thâm niên (%)',1,'employee',0,3),(4,'DAYOFFINYEAR','Số ngày phép trong năm',14,'employee',0,4),(5,'SATURDAY','Làm ngày thứ 7',14,'employee',0,5),(6,'SENIALLOW','Thưởng thâm niên (%)',14,'employee',0,6),(7,'TDHV','Trình độ học vấn',1,'employee',1,0);
+
 /*Table structure for table `dynamic_field_free` */
 
 DROP TABLE IF EXISTS `dynamic_field_free`;
@@ -445,6 +527,10 @@ CREATE TABLE `dynamic_field_free` (
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
+/*Data for the table `dynamic_field_free` */
+
+insert  into `dynamic_field_free`(`id`,`code`,`name`,`table_name`,`parent_table_name`) values (2,'DAYOFFINYEAR','Số ngày phép trong năm','employee','organization'),(3,'SATURDAY','Làm ngày thứ 7','employee','organization'),(6,'SENIALLOW','Thưởng thâm niên (%)','employee','organization');
+
 /*Table structure for table `dynamic_field_free_value` */
 
 DROP TABLE IF EXISTS `dynamic_field_free_value`;
@@ -457,6 +543,10 @@ CREATE TABLE `dynamic_field_free_value` (
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
+/*Data for the table `dynamic_field_free_value` */
+
+insert  into `dynamic_field_free_value`(`id`,`field_id`,`parent_id`,`value`) values (1,2,1,'12'),(2,3,1,'1'),(3,6,1,'2'),(4,2,14,'13'),(5,3,14,'0.5'),(6,6,14,'1');
+
 /*Table structure for table `dynamic_field_value` */
 
 DROP TABLE IF EXISTS `dynamic_field_value`;
@@ -468,6 +558,10 @@ CREATE TABLE `dynamic_field_value` (
   `value` text COLLATE utf8_unicode_ci,
   PRIMARY KEY (`id`)
 ) ENGINE=MyISAM AUTO_INCREMENT=67 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+/*Data for the table `dynamic_field_value` */
+
+insert  into `dynamic_field_value`(`id`,`field_id`,`parent_id`,`value`) values (1,1,17,'12'),(2,2,17,'1'),(3,3,17,'2'),(4,7,17,'Cao Đẳng'),(5,4,18,'13'),(6,5,18,'0.5'),(7,6,18,'1'),(8,1,19,'12'),(9,2,19,'1'),(10,3,19,'2'),(11,7,19,''),(12,1,20,'12'),(13,2,20,'1'),(14,3,20,'2'),(15,7,20,''),(16,1,20,'12'),(17,2,20,'1'),(18,3,20,'2'),(19,7,20,''),(20,1,21,'12'),(21,2,21,'1'),(22,3,21,'2'),(23,7,21,''),(24,1,21,'12'),(25,2,21,'1'),(26,3,21,'2'),(27,7,21,''),(28,1,21,'12'),(29,2,21,'1'),(30,3,21,'2'),(31,7,21,''),(32,1,18,'12'),(33,2,18,'1'),(34,3,18,'2'),(35,7,18,''),(36,1,0,'12'),(37,2,0,'1'),(38,3,0,'2'),(39,7,0,''),(40,1,23,'12'),(41,2,23,'1'),(42,3,23,'2'),(43,7,23,''),(44,1,23,'12'),(45,2,23,'1'),(46,3,23,'2'),(47,7,23,''),(48,1,24,'12'),(49,2,24,'1'),(50,3,24,'2'),(51,7,24,''),(52,1,25,'12'),(53,2,25,'1'),(54,3,25,'2'),(55,7,25,''),(56,1,26,'12'),(57,2,26,'1'),(58,3,26,'2'),(59,7,26,''),(60,1,32,'12'),(61,2,32,'1'),(62,3,32,'2'),(63,7,32,''),(64,4,42,'13'),(65,5,42,'0.5'),(66,6,42,'1');
 
 /*Table structure for table `employee` */
 
@@ -485,7 +579,11 @@ CREATE TABLE `employee` (
   `start_date` date DEFAULT NULL,
   `salary_bhxh` double DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM AUTO_INCREMENT=53 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=MyISAM AUTO_INCREMENT=54 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+/*Data for the table `employee` */
+
+insert  into `employee`(`id`,`idcard`,`fullname`,`email`,`salary`,`organization_id`,`birthday`,`status`,`start_date`,`salary_bhxh`) values (1,NULL,'Admin','admin@gmail.com',0,-1,'2018-08-23',1,NULL,NULL),(19,'171192314','Cao Thị Minh','c@gmail.com',5300000,1,NULL,1,NULL,NULL),(18,NULL,'Lê Ngọc Phước','ntb@gmail.com',2000000,14,'1980-01-15',1,'2000-01-01',NULL),(17,'045082000026','Phan Khắc Hùng','hungpk.quangtrung@gmail.com',10500000,1,'1982-11-17',1,'2014-01-01',NULL),(20,'273075081','Cao Phi Hùng','hungtat@gmail.com',5500000,1,'1982-01-23',1,'2014-01-01',NULL),(21,'171347560','Cao Thị Sáng','',5300000,1,'1968-01-13',1,NULL,NULL),(23,'172430427','Phạm Văn Sơn','a@a.com',5800000,1,'1981-09-17',1,NULL,NULL),(24,'273399388','Đoàn Xuân Vũ','',5800000,1,'1990-03-10',1,NULL,NULL),(25,'273463776','Lê Ngọc Phước','',5800000,1,'1984-03-16',1,NULL,NULL),(26,'273571217','Nguyễn Minh Trung','',5300000,1,'1994-10-09',1,NULL,NULL),(27,'273577993','Mai Văn Thừa','',5300000,1,'1994-01-16',1,NULL,NULL),(28,'273140291','Nguyễn Hữu Quốc Hưng','',5800000,1,'1984-07-08',1,NULL,NULL),(29,'171075650','Cao Văn Kính','',6500000,1,'1963-10-26',1,NULL,NULL),(30,'273437479','Lê Hoàng Phước','',5300000,1,'1990-03-20',1,NULL,NULL),(31,'07708400063','Cao Huy Hoàng','',7500000,1,'1984-10-28',1,NULL,NULL),(32,'04008200037','Đặng Quang Thắng Bảy','',6300000,1,'1982-02-23',2,NULL,NULL),(33,'273508376','Trần Thanh Nam','',5300000,1,'1992-10-19',1,NULL,NULL),(34,'273651458','Nguyễn Thanh Hiền','',5300000,1,'1993-12-16',1,NULL,NULL),(35,'273288034','Lê Thị Khánh Linh','',5800000,1,'1988-07-04',1,NULL,NULL),(36,'273211619','Nguyễn Đức Tuấn','',5800000,1,'1988-02-15',1,NULL,NULL),(37,'02418400067','Hoàng Thị Lan Thuý','',3307000,1,'1984-09-22',1,NULL,NULL),(38,'162712864','Nguyễn Tiến Lãng','',6800000,1,'1985-11-06',1,NULL,NULL),(39,'273048894','Nguyễn Thanh Dũng','',5800000,1,'1969-03-15',1,NULL,NULL),(40,'273148634','Tạ Thị Kim Lộc','',5800000,1,'1985-01-02',1,NULL,NULL),(41,'273651568','Phạm Ngọc Phước Phi','',5300000,1,'1994-07-20',1,NULL,NULL),(42,'1122334455','Nguyễn Phương Tú','',0,14,NULL,1,NULL,NULL),(43,'171192370','Lưu Trần Hải','',5800000,1,NULL,1,NULL,NULL),(44,'273172536','Đặng Thanh Huân','',6800000,1,NULL,1,NULL,NULL),(45,'271941356','Ngô Bá Tài','',6800000,1,NULL,1,NULL,NULL),(46,'123456','Trần Minh Kha','',0,1,NULL,1,NULL,NULL),(47,'564','Anh Vũ','',0,1,NULL,1,NULL,0),(48,'789','Anh Hiền','',0,1,NULL,1,NULL,0),(49,'247897541','Nguyễn Đình Huy','',0,1,NULL,1,NULL,0),(50,'578942165','Lê Văn Châu','',0,1,NULL,1,NULL,0),(51,'1245791','Đặng Văn Quý','',0,1,NULL,1,NULL,0),(52,'2478945762','Nguyễn Ngọc Ánh','',0,1,NULL,1,NULL,0),(53,'273226960','Lê Thị Lũy','leluy_brvt@yahoo.com.vn',0,1,NULL,1,NULL,0);
 
 /*Table structure for table `employee_advance` */
 
@@ -504,6 +602,8 @@ CREATE TABLE `employee_advance` (
   PRIMARY KEY (`id`)
 ) ENGINE=MyISAM AUTO_INCREMENT=7 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
+/*Data for the table `employee_advance` */
+
 /*Table structure for table `employee_off` */
 
 DROP TABLE IF EXISTS `employee_off`;
@@ -521,6 +621,8 @@ CREATE TABLE `employee_off` (
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
+/*Data for the table `employee_off` */
+
 /*Table structure for table `employee_off_increase` */
 
 DROP TABLE IF EXISTS `employee_off_increase`;
@@ -536,6 +638,8 @@ CREATE TABLE `employee_off_increase` (
   `created_employee_id` int(11) DEFAULT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+/*Data for the table `employee_off_increase` */
 
 /*Table structure for table `employee_off_money` */
 
@@ -555,6 +659,8 @@ CREATE TABLE `employee_off_money` (
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
+/*Data for the table `employee_off_money` */
+
 /*Table structure for table `employee_oil_commission` */
 
 DROP TABLE IF EXISTS `employee_oil_commission`;
@@ -566,6 +672,10 @@ CREATE TABLE `employee_oil_commission` (
   `note` text COLLATE utf8_unicode_ci,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+/*Data for the table `employee_oil_commission` */
+
+insert  into `employee_oil_commission`(`id`,`name`,`amount`,`note`) values (1,'CK3000',3000,''),(2,'CK1500',1500,'');
 
 /*Table structure for table `employee_other_bonus` */
 
@@ -583,6 +693,8 @@ CREATE TABLE `employee_other_bonus` (
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
+/*Data for the table `employee_other_bonus` */
+
 /*Table structure for table `employee_panelty` */
 
 DROP TABLE IF EXISTS `employee_panelty`;
@@ -598,6 +710,8 @@ CREATE TABLE `employee_panelty` (
   `created_employee_id` int(11) DEFAULT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+/*Data for the table `employee_panelty` */
 
 /*Table structure for table `employee_route_fee` */
 
@@ -622,6 +736,8 @@ CREATE TABLE `employee_route_fee` (
   `note` text COLLATE utf8_unicode_ci,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+/*Data for the table `employee_route_fee` */
 
 /*Table structure for table `employee_salary` */
 
@@ -657,6 +773,8 @@ CREATE TABLE `employee_salary` (
   PRIMARY KEY (`id`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
+/*Data for the table `employee_salary` */
+
 /*Table structure for table `employee_salary_field` */
 
 DROP TABLE IF EXISTS `employee_salary_field`;
@@ -668,6 +786,8 @@ CREATE TABLE `employee_salary_field` (
   `amount` double DEFAULT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+/*Data for the table `employee_salary_field` */
 
 /*Table structure for table `employee_salary_field_detail` */
 
@@ -682,6 +802,8 @@ CREATE TABLE `employee_salary_field_detail` (
   `note` text COLLATE utf8_unicode_ci,
   PRIMARY KEY (`id`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+/*Data for the table `employee_salary_field_detail` */
 
 /*Table structure for table `employee_salary_timesheet_detail` */
 
@@ -699,6 +821,8 @@ CREATE TABLE `employee_salary_timesheet_detail` (
   PRIMARY KEY (`id`)
 ) ENGINE=MyISAM AUTO_INCREMENT=36 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
+/*Data for the table `employee_salary_timesheet_detail` */
+
 /*Table structure for table `employee_solar_commission` */
 
 DROP TABLE IF EXISTS `employee_solar_commission`;
@@ -710,6 +834,8 @@ CREATE TABLE `employee_solar_commission` (
   `note` text COLLATE utf8_unicode_ci,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+/*Data for the table `employee_solar_commission` */
 
 /*Table structure for table `expense` */
 
@@ -730,7 +856,11 @@ CREATE TABLE `expense` (
   `note` text COLLATE utf8_unicode_ci,
   `created_employee_id` int(11) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM AUTO_INCREMENT=195 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=MyISAM AUTO_INCREMENT=11 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+/*Data for the table `expense` */
+
+insert  into `expense`(`id`,`code`,`created_date`,`amount`,`content`,`account_id`,`from_date`,`to_date`,`month_count`,`is_usually`,`type`,`note`,`created_employee_id`) values (1,'20200404-EX-0001','2020-04-01',20985800,'Thanh toán shipping Vn',9,'2020-04-04','2020-04-04',0,0,1,'',35),(2,'20200404-EX-0002','2020-04-01',2000000,'Đăng ký xe 06784',5,'2020-04-04','2020-04-04',0,0,1,'',35),(3,'20200404-EX-0003','2020-04-01',11700000,'Hồ sơ ngân hàng',5,'2020-04-04','2020-04-04',0,0,1,'',35),(4,'20200404-EX-0004','2020-04-01',20000000,'Nộp tiền vào TK',5,'2020-04-04','2020-04-04',0,0,1,'',35),(5,'20200404-EX-0005','2020-04-01',480305000,'Thanh toán lương nv + thư quán',5,'2020-04-04','2020-04-04',0,0,1,'',35),(6,'20200404-EX-0006','2020-04-01',1124000,'chiết khấu nhớt',5,'2020-04-04','2020-04-04',0,0,1,'',35),(7,'20200404-EX-0007','2020-04-01',1826000,'bảo hiểm xe 13905',5,'2020-04-04','2020-04-04',0,0,1,'',35),(8,'20200404-EX-0008','2020-04-01',3589000,'bao giá',5,'2020-04-04','2020-04-04',0,0,1,'',35),(9,'20200404-EX-0009','2020-04-01',936000,'Do + CA',5,'2020-04-04','2020-04-04',0,0,1,'',35),(10,'20200404-EX-0010','2020-04-01',1688000,'DO',5,'2020-04-04','2020-04-04',0,0,1,'',35);
 
 /*Table structure for table `fixed_asset` */
 
@@ -752,6 +882,8 @@ CREATE TABLE `fixed_asset` (
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
+/*Data for the table `fixed_asset` */
+
 /*Table structure for table `fixed_asset_depreciation` */
 
 DROP TABLE IF EXISTS `fixed_asset_depreciation`;
@@ -763,6 +895,8 @@ CREATE TABLE `fixed_asset_depreciation` (
   `note` text COLLATE utf8_unicode_ci,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+/*Data for the table `fixed_asset_depreciation` */
 
 /*Table structure for table `fixed_asset_depreciation_detail` */
 
@@ -778,6 +912,8 @@ CREATE TABLE `fixed_asset_depreciation_detail` (
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
+/*Data for the table `fixed_asset_depreciation_detail` */
+
 /*Table structure for table `fixed_asset_group` */
 
 DROP TABLE IF EXISTS `fixed_asset_group`;
@@ -788,6 +924,10 @@ CREATE TABLE `fixed_asset_group` (
   `organization_id` int(11) DEFAULT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+/*Data for the table `fixed_asset_group` */
+
+insert  into `fixed_asset_group`(`id`,`name`,`organization_id`) values (1,'Tài sản cố định',1);
 
 /*Table structure for table `fraction_gas` */
 
@@ -800,7 +940,11 @@ CREATE TABLE `fraction_gas` (
   `created_employee_id` int(11) DEFAULT NULL,
   `note` text COLLATE utf8_unicode_ci,
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM AUTO_INCREMENT=49 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=MyISAM AUTO_INCREMENT=6 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+/*Data for the table `fraction_gas` */
+
+insert  into `fraction_gas`(`id`,`code`,`created_date`,`created_employee_id`,`note`) values (1,'20200404-FG-0001','2020-04-01',35,''),(2,'20200406-FG-0001','2020-04-02',35,''),(3,'20200406-FG-0002','2020-04-03',35,''),(4,'20200407-FG-0001','2020-04-04',35,''),(5,'20200407-FG-0002','2020-04-06',35,'');
 
 /*Table structure for table `fraction_gas_detail` */
 
@@ -812,7 +956,11 @@ CREATE TABLE `fraction_gas_detail` (
   `shell_id` int(11) DEFAULT NULL COMMENT 'shell_id in shell_vendor',
   `quantity` text COLLATE utf8_unicode_ci,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=95 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=9 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+/*Data for the table `fraction_gas_detail` */
+
+insert  into `fraction_gas_detail`(`id`,`fraction_id`,`shell_id`,`quantity`) values (1,1,1,'606'),(2,1,4,'9'),(3,2,1,'1071'),(4,3,1,'728'),(5,3,4,'6'),(6,4,1,'1103'),(7,5,1,'637'),(8,5,4,'15');
 
 /*Table structure for table `gas_export_wholesale` */
 
@@ -834,6 +982,8 @@ CREATE TABLE `gas_export_wholesale` (
   PRIMARY KEY (`id`)
 ) ENGINE=MyISAM AUTO_INCREMENT=7 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
+/*Data for the table `gas_export_wholesale` */
+
 /*Table structure for table `gas_export_wholesale_detail` */
 
 DROP TABLE IF EXISTS `gas_export_wholesale_detail`;
@@ -849,6 +999,8 @@ CREATE TABLE `gas_export_wholesale_detail` (
   PRIMARY KEY (`id`)
 ) ENGINE=MyISAM AUTO_INCREMENT=13 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
+/*Data for the table `gas_export_wholesale_detail` */
+
 /*Table structure for table `gas_export_wholesale_shell_detail` */
 
 DROP TABLE IF EXISTS `gas_export_wholesale_shell_detail`;
@@ -860,6 +1012,8 @@ CREATE TABLE `gas_export_wholesale_shell_detail` (
   `quantity` int(5) DEFAULT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=MyISAM AUTO_INCREMENT=6 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+/*Data for the table `gas_export_wholesale_shell_detail` */
 
 /*Table structure for table `gas_import` */
 
@@ -881,6 +1035,8 @@ CREATE TABLE `gas_import` (
   PRIMARY KEY (`id`)
 ) ENGINE=MyISAM AUTO_INCREMENT=4 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
+/*Data for the table `gas_import` */
+
 /*Table structure for table `gas_import_detail` */
 
 DROP TABLE IF EXISTS `gas_import_detail`;
@@ -894,6 +1050,8 @@ CREATE TABLE `gas_import_detail` (
   `amount` double DEFAULT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=MyISAM AUTO_INCREMENT=6 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+/*Data for the table `gas_import_detail` */
 
 /*Table structure for table `gas_price_list` */
 
@@ -909,6 +1067,8 @@ CREATE TABLE `gas_price_list` (
   `note` text COLLATE utf8_unicode_ci,
   PRIMARY KEY (`id`)
 ) ENGINE=MyISAM AUTO_INCREMENT=4 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+/*Data for the table `gas_price_list` */
 
 /*Table structure for table `gas_retail` */
 
@@ -930,6 +1090,8 @@ CREATE TABLE `gas_retail` (
   PRIMARY KEY (`id`)
 ) ENGINE=MyISAM AUTO_INCREMENT=6 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
+/*Data for the table `gas_retail` */
+
 /*Table structure for table `gas_retail_detail` */
 
 DROP TABLE IF EXISTS `gas_retail_detail`;
@@ -944,6 +1106,8 @@ CREATE TABLE `gas_retail_detail` (
   PRIMARY KEY (`id`)
 ) ENGINE=MyISAM AUTO_INCREMENT=6 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
+/*Data for the table `gas_retail_detail` */
+
 /*Table structure for table `gas_retail_promotion` */
 
 DROP TABLE IF EXISTS `gas_retail_promotion`;
@@ -956,6 +1120,8 @@ CREATE TABLE `gas_retail_promotion` (
   PRIMARY KEY (`id`)
 ) ENGINE=MyISAM AUTO_INCREMENT=2 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
+/*Data for the table `gas_retail_promotion` */
+
 /*Table structure for table `gas_retail_return_shell` */
 
 DROP TABLE IF EXISTS `gas_retail_return_shell`;
@@ -967,6 +1133,8 @@ CREATE TABLE `gas_retail_return_shell` (
   `quantity` int(3) DEFAULT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=MyISAM AUTO_INCREMENT=2 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+/*Data for the table `gas_retail_return_shell` */
 
 /*Table structure for table `gas_return` */
 
@@ -988,6 +1156,8 @@ CREATE TABLE `gas_return` (
   PRIMARY KEY (`id`)
 ) ENGINE=MyISAM AUTO_INCREMENT=2 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
+/*Data for the table `gas_return` */
+
 /*Table structure for table `gas_return_detail` */
 
 DROP TABLE IF EXISTS `gas_return_detail`;
@@ -1002,6 +1172,8 @@ CREATE TABLE `gas_return_detail` (
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
+/*Data for the table `gas_return_detail` */
+
 /*Table structure for table `gas_return_vendor` */
 
 DROP TABLE IF EXISTS `gas_return_vendor`;
@@ -1012,6 +1184,10 @@ CREATE TABLE `gas_return_vendor` (
   `organization_id` int(11) DEFAULT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+/*Data for the table `gas_return_vendor` */
+
+insert  into `gas_return_vendor`(`id`,`vendor_id`,`organization_id`) values (1,22,1);
 
 /*Table structure for table `gas_wholesale` */
 
@@ -1036,7 +1212,11 @@ CREATE TABLE `gas_wholesale` (
   `paid_old_debt_amount` double DEFAULT NULL,
   `created_employee_id` int(11) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM AUTO_INCREMENT=1800 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=MyISAM AUTO_INCREMENT=227 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+/*Data for the table `gas_wholesale` */
+
+insert  into `gas_wholesale`(`id`,`code`,`created_date`,`customer_id`,`total`,`discount`,`total_pay`,`paid`,`debt`,`account_id`,`vehicle_out_id`,`note`,`gas_return`,`gas_return_price`,`gas_return_amount`,`paid_old_debt_amount`,`created_employee_id`) values (1,'20200404-GS-0001','2020-04-01',43,5480000,0,5480000,5480000,0,5,2,'',0,13417,0,0,35),(2,'20200404-GS-0002','2020-04-01',58,1610000,0,1610000,1610000,0,5,2,'',0,13417,0,0,35),(3,'20200404-GS-0003','2020-04-01',135,4746000,0,4746000,4746000,0,5,2,'',0,13417,0,0,35),(4,'20200404-GS-0004','2020-04-01',171,803000,0,803000,803000,0,5,2,'',0,13083,0,0,35),(5,'20200404-GS-0005','2020-04-01',232,12738000,0,12738000,12738000,0,5,2,'',0,12250,0,0,35),(6,'20200404-GS-0006','2020-04-01',75,688000,0,688000,688000,0,5,2,'',0,14333,0,0,35),(7,'20200404-GS-0007','2020-04-01',65,516000,0,516000,516000,0,5,3,'',0,14333,0,0,35),(8,'20200404-GS-0008','2020-04-01',96,721000,0,721000,721000,0,5,3,'',0,14333,0,0,35),(9,'20200404-GS-0009','2020-04-01',132,1720000,0,1720000,1720000,0,5,3,'',0,14333,0,0,35),(10,'20200404-GS-0010','2020-04-01',95,1163000,0,1163000,1163000,0,5,3,'',0,14333,0,0,35),(11,'20200404-GS-0011','2020-04-01',113,4610000,0,4610000,4610000,0,5,3,'',0,13917,0,0,35),(12,'20200404-GS-0012','2020-04-01',88,825000,0,825000,825000,0,5,3,'',0,14250,0,0,35),(13,'20200404-GS-0013','2020-04-01',66,57000,0,57000,57000,0,5,3,'',0,14250,0,0,35),(14,'20200404-GS-0014','2020-04-01',147,3420000,0,3420000,3420000,0,5,3,'',0,14250,0,3000000,35),(15,'20200404-GS-0015','2020-04-01',69,3591000,0,3591000,3591000,0,5,3,'',0,14250,0,0,35),(16,'20200404-GS-0016','2020-04-01',107,57000,0,57000,57000,0,5,3,'',0,14250,0,0,35),(17,'20200404-GS-0017','2020-04-01',158,1521000,0,1521000,1521000,0,5,3,'',0,14083,0,0,35),(18,'20200404-GS-0018','2020-04-01',310,3045000,0,3045000,3045000,0,5,3,'',0,13000,0,0,35),(19,'20200404-GS-0019','2020-04-01',17,1368000,0,1368000,1368000,0,5,3,'',0,14250,0,0,35),(20,'20200404-GS-0020','2020-04-01',129,1204000,0,1204000,1204000,0,5,3,'',0,14333,0,0,35),(21,'20200404-GS-0021','2020-04-01',16,673000,0,673000,673000,0,5,4,'',0,14583,0,0,35),(22,'20200404-GS-0022','2020-04-01',109,858000,0,858000,858000,0,5,4,'',0,14583,0,0,35),(23,'20200404-GS-0023','2020-04-01',83,4375000,0,4375000,4375000,0,5,4,'',0,14583,0,0,35),(24,'20200404-GS-0024','2020-04-01',59,1050000,0,1050000,1050000,0,5,4,'',0,14583,0,0,35),(25,'20200404-GS-0025','2020-04-01',176,1575000,0,1575000,1575000,0,5,4,'',0,14583,0,0,35),(26,'20200404-GS-0026','2020-04-01',198,1400000,0,1400000,1400000,0,5,4,'',0,14583,0,0,35),(27,'20200404-GS-0027','2020-04-01',98,1824000,0,1824000,1824000,0,5,4,'',0,14583,0,0,35),(28,'20200404-GS-0028','2020-04-01',46,1372000,0,1372000,1372000,0,5,4,'',0,14333,0,0,35),(29,'20200404-GS-0029','2020-04-01',67,2460000,0,2460000,2460000,0,5,4,'',0,14583,0,0,35),(30,'20200404-GS-0030','2020-04-01',35,15480000,0,15480000,15480000,0,5,4,'',0,14000,0,0,35),(31,'20200404-GS-0031','2020-04-01',312,1980000,0,1980000,1980000,0,5,4,'',0,14000,0,0,35),(32,'20200404-GS-0032','2020-04-01',144,1750000,0,1750000,1750000,0,5,4,'',0,14583,0,0,35),(33,'20200404-GS-0033','2020-04-01',29,645000,0,645000,645000,0,5,4,'',0,14000,0,0,35),(34,'20200404-GS-0034','2020-04-01',51,1400000,0,1400000,1400000,0,5,4,'',0,14583,0,2196000,35),(35,'20200404-GS-0035','2020-04-01',97,1050000,0,1050000,1050000,0,5,4,'',0,14583,0,0,35),(36,'20200404-GS-0036','2020-04-01',164,1225000,0,1225000,0,1225000,5,4,'',0,14583,0,0,35),(37,'20200404-GS-0037','2020-04-01',134,672000,0,672000,672000,0,5,4,'',0,14000,0,0,35),(38,'20200404-GS-0038','2020-04-01',79,1394000,0,1394000,1394000,0,5,4,'',0,13917,0,0,35),(39,'20200404-GS-0039','2020-04-01',26,2857000,0,2857000,2857000,0,5,4,'',0,13917,0,0,35),(40,'20200404-GS-0040','2020-04-01',200,1750000,0,1750000,1750000,0,5,4,'',0,14583,0,0,35),(41,'20200404-GS-0041','2020-04-01',11,1670000,0,1670000,0,1670000,5,1,'',0,13917,0,0,35),(42,'20200406-GS-0001','2020-04-02',202,2165000,0,2165000,2165000,0,5,7,'',0,13500,0,0,35),(43,'20200406-GS-0002','2020-04-02',203,4150000,0,4150000,4150000,0,5,7,'',0,13500,0,0,35),(44,'20200406-GS-0003','2020-04-02',220,3380000,0,3380000,3380000,0,5,7,'',0,14083,0,0,35),(45,'20200406-GS-0004','2020-04-02',311,2432000,0,2432000,2432000,0,5,7,'',0,12667,0,0,35),(46,'20200406-GS-0005','2020-04-02',28,1853000,0,1853000,1853000,0,5,7,'',0,14333,0,0,35),(47,'20200406-GS-0006','2020-04-02',328,1052000,0,1052000,1052000,0,5,7,'',0,12667,0,0,35),(48,'20200406-GS-0007','2020-04-02',9,1249000,0,1249000,1249000,0,5,5,'',0,14167,0,0,35),(49,'20200406-GS-0008','2020-04-02',133,5440000,0,5440000,5440000,0,5,5,'',0,14167,0,0,35),(50,'20200406-GS-0009','2020-04-02',41,3473000,0,3473000,3473000,0,5,5,'',0,14583,0,0,35),(51,'20200406-GS-0010','2020-04-02',130,1376000,0,1376000,1376000,0,5,5,'',0,14333,0,0,35),(52,'20200406-GS-0011','2020-04-02',115,3150000,0,3150000,3150000,0,5,5,'',0,14583,0,0,35),(53,'20200406-GS-0012','2020-04-02',56,1060000,0,1060000,1060000,0,5,5,'',0,14583,0,0,35),(54,'20200406-GS-0013','2020-04-02',15,715000,0,715000,715000,0,5,5,'',0,14583,0,0,35),(55,'20200406-GS-0014','2020-04-02',103,609000,0,609000,609000,0,5,5,'',0,14583,0,0,35),(56,'20200406-GS-0015','2020-04-02',84,1686000,0,1686000,1686000,0,5,5,'',0,14583,0,0,35),(57,'20200406-GS-0016','2020-04-02',75,4730000,0,4730000,4730000,0,5,5,'',0,14333,0,0,35),(58,'20200406-GS-0017','2020-04-02',104,1092000,0,1092000,1092000,0,5,5,'',0,14583,0,0,35),(59,'20200406-GS-0018','2020-04-02',47,569000,0,569000,569000,0,5,5,'',0,14167,0,0,35),(60,'20200406-GS-0019','2020-04-02',183,525000,0,525000,525000,0,5,5,'',0,14583,0,0,35),(61,'20200406-GS-0020','2020-04-02',42,1590000,0,1590000,1590000,0,5,5,'',0,14583,0,0,35),(62,'20200406-GS-0021','2020-04-02',142,3964000,0,3964000,3964000,0,5,5,'',0,13917,0,0,35),(63,'20200406-GS-0022','2020-04-02',11,1982000,0,1982000,1982000,0,5,5,'',0,13917,0,4030000,35),(64,'20200406-GS-0023','2020-04-02',90,1400000,0,1400000,1400000,0,5,5,'',0,14583,0,0,35),(65,'20200406-GS-0024','2020-04-02',22,3200000,0,3200000,3200000,0,5,5,'',0,13333,0,0,35),(66,'20200406-GS-0025','2020-04-02',21,1600000,0,1600000,1600000,0,5,5,'',0,13333,0,0,35),(67,'20200406-GS-0026','2020-04-02',117,860000,0,860000,860000,0,5,5,'',0,14333,0,0,35),(68,'20200406-GS-0027','2020-04-02',106,9460000,0,9460000,9460000,0,5,5,'',0,14167,0,0,35),(69,'20200406-GS-0028','2020-04-02',23,844000,0,844000,844000,0,5,5,'',0,13333,0,0,35),(70,'20200406-GS-0029','2020-04-02',53,1060000,0,1060000,1060000,0,5,5,'',0,14583,0,0,35),(71,'20200406-GS-0030','2020-04-02',319,835000,0,835000,835000,0,5,5,'',0,13917,0,0,35),(72,'20200406-GS-0031','2020-04-02',18,1750000,0,1750000,1750000,0,5,6,'',0,14583,0,0,35),(73,'20200406-GS-0032','2020-04-02',168,2625000,0,2625000,0,2625000,5,6,'',0,14583,0,0,35),(74,'20200406-GS-0033','2020-04-02',215,875000,0,875000,0,875000,5,6,'',0,14583,0,0,35),(75,'20200406-GS-0034','2020-04-02',119,8500000,0,8500000,8500000,0,5,8,'',0,12833,0,0,35),(76,'20200406-GS-0035','2020-04-02',323,690000,0,690000,690000,0,5,8,'',0,13333,0,0,35),(77,'20200406-GS-0036','2020-04-02',120,7700000,0,7700000,7700000,0,5,8,'',0,12833,0,0,35),(78,'20200406-GS-0037','2020-04-02',182,4347000,0,4347000,0,4347000,5,8,'',0,13417,0,0,35),(79,'20200406-GS-0038','2020-04-02',310,3588000,0,3588000,3588000,0,5,8,'',0,13000,0,0,35),(80,'20200406-GS-0039','2020-04-02',225,845000,0,845000,845000,0,5,8,'',0,14083,0,0,35),(81,'20200406-GS-0040','2020-04-03',405,2030000,0,2030000,2030000,0,5,12,'',0,14583,0,0,35),(82,'20200406-GS-0041','2020-04-03',109,2100000,0,2100000,2100000,0,5,12,'',0,14583,0,0,35),(83,'20200406-GS-0042','2020-04-03',93,875000,0,875000,875000,0,5,12,'',0,14583,0,0,35),(84,'20200406-GS-0043','2020-04-03',59,299000,0,299000,299000,0,5,12,'',0,14583,0,0,35),(85,'20200406-GS-0044','2020-04-03',176,882000,0,882000,882000,0,5,12,'',0,14583,0,0,35),(86,'20200406-GS-0045','2020-04-03',134,501000,0,501000,0,501000,5,12,'',0,13917,0,0,35),(87,'20200406-GS-0046','2020-04-03',321,1347000,0,1347000,1347000,0,5,12,'',0,14583,0,0,35),(88,'20200406-GS-0047','2020-04-03',198,680000,0,680000,680000,0,5,12,'',0,14583,0,0,35),(89,'20200406-GS-0048','2020-04-03',191,1260000,0,1260000,1260000,0,5,12,'',0,14583,0,0,35),(90,'20200406-GS-0049','2020-04-03',67,207000,0,207000,207000,0,5,12,'',0,14583,0,0,35),(91,'20200406-GS-0050','2020-04-03',178,720000,0,720000,720000,0,5,12,'',0,14583,0,0,35),(92,'20200406-GS-0051','2020-04-03',35,9072000,0,9072000,9072000,0,5,12,'',0,14000,0,0,35),(93,'20200406-GS-0052','2020-04-03',312,5040000,0,5040000,5040000,0,5,12,'',0,14000,0,0,35),(94,'20200406-GS-0053','2020-04-03',29,1680000,0,1680000,1680000,0,5,12,'',0,14000,0,0,35),(95,'20200406-GS-0054','2020-04-03',131,525000,0,525000,525000,0,5,12,'',0,14583,0,0,35),(96,'20200406-GS-0055','2020-04-03',37,875000,0,875000,875000,0,5,12,'',0,14583,0,0,35),(97,'20200406-GS-0056','2020-04-03',154,2000,0,2000,2000,0,5,12,'',0,14583,0,0,35),(98,'20200406-GS-0057','2020-04-03',136,875000,0,875000,875000,0,5,12,'',0,14583,0,0,35),(99,'20200406-GS-0058','2020-04-03',101,700000,0,700000,700000,0,5,12,'',0,14583,0,0,35),(100,'20200406-GS-0059','2020-04-03',139,840000,0,840000,840000,0,5,12,'',0,14000,0,0,35),(101,'20200406-GS-0060','2020-04-03',54,636000,0,636000,636000,0,5,12,'',0,14583,0,0,35),(102,'20200406-GS-0061','2020-04-03',149,525000,0,525000,525000,0,5,12,'',0,14583,0,0,35),(103,'20200406-GS-0062','2020-04-03',151,875000,0,875000,875000,0,5,12,'',0,14583,0,0,35),(104,'20200406-GS-0063','2020-04-03',97,362000,0,362000,362000,0,5,12,'',0,14583,0,0,35),(105,'20200406-GS-0064','2020-04-03',48,700000,0,700000,700000,0,5,12,'',0,14583,0,0,35),(106,'20200406-GS-0065','2020-04-03',51,875000,0,875000,875000,0,5,12,'',0,14583,0,0,35),(107,'20200406-GS-0066','2020-04-03',26,369000,0,369000,369000,0,5,12,'',0,13917,0,0,35),(108,'20200406-GS-0067','2020-04-03',108,350000,0,350000,0,350000,5,12,'',0,14583,0,0,35),(109,'20200406-GS-0068','2020-04-03',16,525000,0,525000,525000,0,5,12,'',0,14583,0,0,35),(110,'20200406-GS-0069','2020-04-03',65,1173000,0,1173000,1173000,0,5,11,'',0,14333,0,0,35),(111,'20200406-GS-0070','2020-04-03',132,1356000,0,1356000,1356000,0,5,11,'',0,14333,0,0,35),(112,'20200406-GS-0071','2020-04-03',95,2214000,0,2214000,2214000,0,5,11,'',0,14333,0,0,35),(113,'20200406-GS-0072','2020-04-03',71,1026000,0,1026000,1026000,0,5,11,'',0,14250,0,0,35),(114,'20200406-GS-0073','2020-04-03',113,-5000000,0,-5000000,-5000000,0,5,11,'',0,13917,0,11812000,35),(115,'20200406-GS-0074','2020-04-03',88,1491000,0,1491000,1491000,0,5,11,'',0,14250,0,0,35),(116,'20200406-GS-0075','2020-04-03',66,1027000,0,1027000,1027000,0,5,11,'',0,14250,0,0,35),(117,'20200406-GS-0076','2020-04-03',69,2291000,0,2291000,2291000,0,5,11,'',0,14250,0,0,35),(118,'20200406-GS-0077','2020-04-03',107,2605000,0,2605000,2605000,0,5,11,'',0,14250,0,0,35),(119,'20200406-GS-0078','2020-04-03',158,1690000,0,1690000,1690000,0,5,11,'',0,14083,0,1500000,35),(120,'20200406-GS-0079','2020-04-03',310,5265000,0,5265000,5265000,0,5,11,'',0,13000,0,0,35),(121,'20200406-GS-0080','2020-04-03',17,2223000,0,2223000,2223000,0,5,11,'',0,14250,0,0,35),(122,'20200406-GS-0081','2020-04-03',91,448000,0,448000,448000,0,5,11,'',0,14250,0,0,35),(123,'20200406-GS-0082','2020-04-03',114,859000,0,859000,859000,0,5,11,'',0,14333,0,0,35),(124,'20200406-GS-0083','2020-04-03',96,1418000,0,1418000,1418000,0,5,11,'',0,14333,0,0,35),(125,'20200406-GS-0084','2020-04-03',129,512000,0,512000,512000,0,5,11,'',0,14333,0,0,35),(126,'20200406-GS-0085','2020-04-03',146,300000,0,300000,300000,0,5,9,'',0,14000,0,0,35),(127,'20200406-GS-0086','2020-04-03',175,3150000,0,3150000,3150000,0,5,9,'',0,13500,0,0,35),(128,'20200406-GS-0087','2020-04-03',135,9450000,0,9450000,9450000,0,5,9,'',0,13417,0,0,35),(129,'20200406-GS-0088','2020-04-03',58,1687000,0,1687000,1687000,0,5,9,'',0,13417,0,0,35),(130,'20200406-GS-0089','2020-04-03',72,1512000,0,1512000,1512000,0,5,9,'',0,14000,0,0,35),(131,'20200406-GS-0090','2020-04-03',28,1376000,0,1376000,1376000,0,5,9,'',0,14333,0,0,35),(132,'20200406-GS-0091','2020-04-03',55,584000,0,584000,584000,0,5,9,'',0,14333,0,0,35),(133,'20200406-GS-0092','2020-04-03',27,2016000,0,2016000,2016000,0,5,9,'',0,14000,0,0,35),(134,'20200406-GS-0093','2020-04-03',43,22862000,0,22862000,0,22862000,5,9,'',0,13417,0,0,35),(135,'20200406-GS-0094','2020-04-03',161,4467000,0,4467000,4467000,0,5,10,'',0,13000,0,0,35),(136,'20200406-GS-0095','2020-04-03',162,238000,0,238000,238000,0,5,10,'',0,13000,0,0,35),(137,'20200406-GS-0096','2020-04-03',145,345000,0,345000,345000,0,5,10,'',0,13417,0,0,35),(138,'20200406-GS-0097','2020-04-03',171,1334000,0,1334000,1334000,0,5,10,'',0,13083,0,3500000,35),(139,'20200407-GS-0001','2020-04-04',202,135000,0,135000,135000,0,5,16,'',0,13500,0,0,35),(140,'20200407-GS-0002','2020-04-04',204,989000,0,989000,989000,0,5,16,'',0,13500,0,0,35),(141,'20200407-GS-0003','2020-04-04',203,4151000,0,4151000,4151000,0,5,16,'',0,13500,0,0,35),(142,'20200407-GS-0004','2020-04-04',222,3240000,0,3240000,3240000,0,5,16,'',0,13500,0,0,35),(143,'20200407-GS-0005','2020-04-04',211,6218000,0,6218000,6218000,0,5,16,'',0,12583,0,0,35),(144,'20200407-GS-0006','2020-04-04',213,5436000,0,5436000,5436000,0,5,16,'',0,12583,0,0,35),(145,'20200407-GS-0007','2020-04-04',212,2173000,0,2173000,2173000,0,5,16,'',0,12583,0,0,35),(146,'20200407-GS-0008','2020-04-04',328,760000,0,760000,0,760000,5,16,'',0,12667,0,0,35),(147,'20200407-GS-0009','2020-04-04',9,1037000,0,1037000,1037000,0,5,13,'',0,14167,0,0,35),(148,'20200407-GS-0010','2020-04-04',21,1120000,0,1120000,1120000,0,5,13,'',0,13333,0,0,35),(149,'20200407-GS-0011','2020-04-04',15,1116000,0,1116000,1116000,0,5,13,'',0,14583,0,0,35),(150,'20200407-GS-0012','2020-04-04',103,896000,0,896000,896000,0,5,13,'',0,14583,0,3636000,35),(151,'20200407-GS-0013','2020-04-04',84,537000,0,537000,537000,0,5,13,'',0,14583,0,0,35),(152,'20200407-GS-0014','2020-04-04',52,700000,0,700000,0,700000,5,13,'',0,14083,0,0,35),(153,'20200407-GS-0015','2020-04-04',42,646000,0,646000,646000,0,5,13,'',0,14583,0,0,35),(154,'20200407-GS-0016','2020-04-04',28,304000,0,304000,304000,0,5,13,'',0,14167,0,3000000,35),(155,'20200407-GS-0017','2020-04-04',104,140000,0,140000,140000,0,5,13,'',0,14583,0,0,35),(156,'20200407-GS-0018','2020-04-04',47,2210000,0,2210000,2210000,0,5,13,'',0,14167,0,0,35),(157,'20200407-GS-0019','2020-04-04',123,1575000,0,1575000,1575000,0,5,13,'',0,14583,0,0,35),(158,'20200407-GS-0020','2020-04-04',168,790000,0,790000,790000,0,5,13,'',0,14583,0,2625000,35),(159,'20200407-GS-0021','2020-04-04',86,875000,0,875000,875000,0,5,13,'',0,14583,0,0,35),(160,'20200407-GS-0022','2020-04-04',23,1440000,0,1440000,1440000,0,5,13,'',0,13333,0,0,35),(161,'20200407-GS-0023','2020-04-04',106,5075000,0,5075000,5075000,0,5,13,'',0,14167,0,0,35),(162,'20200407-GS-0024','2020-04-04',53,1562000,0,1562000,1562000,0,5,13,'',0,14583,0,0,35),(163,'20200407-GS-0025','2020-04-04',18,2164000,0,2164000,2164000,0,5,13,'',0,14583,0,0,35),(164,'20200407-GS-0026','2020-04-04',142,1670000,0,1670000,1670000,0,5,13,'',0,13917,0,0,35),(165,'20200407-GS-0027','2020-04-04',63,3500000,0,3500000,3500000,0,5,14,'',0,14583,0,0,35),(166,'20200407-GS-0028','2020-04-04',11,2397000,0,2397000,2397000,0,5,14,'',0,13917,0,0,35),(167,'20200407-GS-0029','2020-04-04',119,12320000,0,12320000,12320000,0,5,15,'',0,12833,0,0,35),(168,'20200407-GS-0030','2020-04-04',323,5360000,0,5360000,5360000,0,5,15,'',0,13333,0,0,35),(169,'20200407-GS-0031','2020-04-04',169,493000,0,493000,493000,0,5,15,'',0,12833,0,6244000,35),(170,'20200407-GS-0032','2020-04-04',179,3440000,0,3440000,3440000,0,5,15,'',0,14333,0,0,35),(171,'20200407-GS-0033','2020-04-04',310,3120000,0,3120000,3120000,0,5,15,'',0,13000,0,0,35),(172,'20200407-GS-0034','2020-04-04',41,432000,0,432000,432000,0,5,13,'',0,14583,0,0,35),(173,'20200407-GS-0035','2020-04-04',233,0,0,0,0,0,5,16,'',408,0,0,0,35),(174,'20200407-GS-0036','2020-04-06',134,166000,0,166000,166000,0,5,17,'',0,13833,0,0,35),(175,'20200407-GS-0037','2020-04-06',128,0,0,0,0,0,5,17,'',30,0,0,0,35),(176,'20200407-GS-0038','2020-04-06',42,2450000,0,2450000,2450000,0,5,18,'',0,14583,0,0,35),(177,'20200407-GS-0039','2020-04-06',135,8050000,0,8050000,8050000,0,5,18,'',0,13417,0,0,35),(178,'20200407-GS-0040','2020-04-06',162,936000,0,936000,936000,0,5,18,'',0,13000,0,0,35),(179,'20200407-GS-0041','2020-04-06',161,4992000,0,4992000,4992000,0,5,18,'',0,13000,0,0,35),(180,'20200407-GS-0042','2020-04-06',43,-1042000,0,-1042000,-1042000,0,5,18,'',0,13417,0,22862000,35),(181,'20200407-GS-0043','2020-04-06',58,805000,0,805000,805000,0,5,18,'',0,13417,0,0,35),(182,'20200407-GS-0044','2020-04-06',171,8321000,0,8321000,8321000,0,5,18,'',0,13083,0,0,35),(183,'20200407-GS-0045','2020-04-06',145,644000,0,644000,644000,0,5,18,'',0,13417,0,0,35),(184,'20200407-GS-0046','2020-04-06',28,6192000,0,6192000,6192000,0,5,18,'',0,14333,0,0,35),(185,'20200407-GS-0047','2020-04-06',65,1720000,0,1720000,1720000,0,5,19,'',0,14333,0,0,35),(186,'20200407-GS-0048','2020-04-06',96,1548000,0,1548000,1548000,0,5,19,'',0,14333,0,0,35),(187,'20200407-GS-0049','2020-04-06',132,1720000,0,1720000,1720000,0,5,19,'',0,14333,0,0,35),(188,'20200407-GS-0050','2020-04-06',95,5160000,0,5160000,5160000,0,5,19,'',0,14333,0,0,35),(189,'20200407-GS-0051','2020-04-06',113,9686000,0,9686000,9686000,0,5,19,'',0,13917,0,0,35),(190,'20200407-GS-0052','2020-04-06',88,5343000,0,5343000,5343000,0,5,19,'',0,14250,0,0,35),(191,'20200407-GS-0053','2020-04-06',66,2394000,0,2394000,2394000,0,5,19,'',0,14250,0,0,35),(192,'20200407-GS-0054','2020-04-06',147,3762000,0,3762000,3762000,0,5,19,'',0,14250,0,0,35),(193,'20200407-GS-0055','2020-04-06',69,2736000,0,2736000,2736000,0,5,19,'',0,14250,0,0,35),(194,'20200407-GS-0056','2020-04-06',107,3420000,0,3420000,3420000,0,5,19,'',0,14250,0,0,35),(195,'20200407-GS-0057','2020-04-06',310,4836000,0,4836000,4836000,0,5,19,'',0,13000,0,0,35),(196,'20200407-GS-0058','2020-04-06',17,1710000,0,1710000,1710000,0,5,19,'',0,14250,0,0,35),(197,'20200407-GS-0059','2020-04-06',44,3420000,0,3420000,3420000,0,5,19,'',0,14250,0,0,35),(198,'20200407-GS-0060','2020-04-06',158,2704000,0,2606000,2606000,0,5,19,'',7,14000,98000,0,35),(199,'20200407-GS-0061','2020-04-06',16,1575000,0,1575000,1575000,0,5,20,'',0,14583,0,0,35),(200,'20200407-GS-0062','2020-04-06',109,2800000,0,2800000,2800000,0,5,20,'',0,14583,0,0,35),(201,'20200407-GS-0063','2020-04-06',93,1575000,0,1575000,1575000,0,5,20,'',0,14583,0,0,35),(202,'20200407-GS-0064','2020-04-06',83,4602000,0,4602000,4602000,0,5,20,'',0,14583,0,0,35),(203,'20200407-GS-0065','2020-04-06',59,875000,0,875000,875000,0,5,20,'',0,14583,0,0,35),(204,'20200407-GS-0066','2020-04-06',198,1750000,0,1750000,1750000,0,5,20,'',0,14583,0,0,35),(205,'20200407-GS-0067','2020-04-06',89,200000,0,200000,200000,0,5,20,'',0,14583,0,0,35),(206,'20200407-GS-0068','2020-04-06',98,2363000,0,2363000,2363000,0,5,20,'',0,14583,0,0,35),(207,'20200407-GS-0069','2020-04-06',67,2275000,0,2275000,2275000,0,5,20,'',0,14583,0,0,35),(208,'20200407-GS-0070','2020-04-06',46,580000,0,580000,580000,0,5,20,'',0,14333,0,0,35),(209,'20200407-GS-0071','2020-04-06',35,13608000,0,13608000,13608000,0,5,20,'',0,14000,0,0,35),(210,'20200407-GS-0072','2020-04-06',29,1680000,0,1680000,1680000,0,5,20,'',0,14000,0,0,35),(211,'20200407-GS-0073','2020-04-06',116,875000,0,875000,0,875000,5,20,'',0,14583,0,0,35),(212,'20200407-GS-0074','2020-04-06',37,1400000,0,1400000,1400000,0,5,20,'',0,14583,0,0,35),(213,'20200407-GS-0075','2020-04-06',154,1575000,0,1575000,1575000,0,5,20,'',0,14583,0,0,35),(214,'20200407-GS-0076','2020-04-06',139,3360000,0,3360000,3360000,0,5,20,'',0,14000,0,0,35),(215,'20200407-GS-0077','2020-04-06',54,1400000,0,1400000,1400000,0,5,20,'',0,14583,0,0,35),(216,'20200407-GS-0078','2020-04-06',149,875000,0,875000,875000,0,5,20,'',0,14583,0,0,35),(217,'20200407-GS-0079','2020-04-06',178,875000,0,875000,875000,0,5,20,'',0,14583,0,0,35),(218,'20200407-GS-0080','2020-04-06',151,1750000,0,1750000,1750000,0,5,20,'',0,14583,0,0,35),(219,'20200407-GS-0081','2020-04-06',101,1225000,0,1225000,1225000,0,5,20,'',0,14583,0,0,35),(220,'20200407-GS-0082','2020-04-06',136,1050000,0,1050000,1050000,0,5,20,'',0,14583,0,0,35),(221,'20200407-GS-0083','2020-04-06',131,525000,0,525000,525000,0,5,20,'',0,14583,0,0,35),(222,'20200407-GS-0084','2020-04-06',97,1050000,0,1050000,1050000,0,5,20,'',0,14583,0,0,35),(223,'20200407-GS-0085','2020-04-06',79,1002000,0,1002000,1002000,0,5,20,'',0,13917,0,0,35),(224,'20200407-GS-0086','2020-04-06',26,1002000,0,1002000,1002000,0,5,20,'',0,13917,0,0,35),(225,'20200407-GS-0087','2020-04-06',108,875000,0,875000,875000,0,5,20,'',0,14583,0,350000,35),(226,'20200407-GS-0088','2020-04-06',164,700000,0,700000,700000,0,5,20,'',0,14583,0,1225000,35);
 
 /*Table structure for table `gas_wholesale_detail` */
 
@@ -1050,7 +1230,11 @@ CREATE TABLE `gas_wholesale_detail` (
   `price` double DEFAULT NULL,
   `amount` double DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM AUTO_INCREMENT=1973 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=MyISAM AUTO_INCREMENT=235 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+/*Data for the table `gas_wholesale_detail` */
+
+insert  into `gas_wholesale_detail`(`id`,`gas_wholesale_id`,`shell_id`,`quantity`,`price`,`amount`) values (1,1,1,100,161000,16100000),(2,2,1,10,161000,1610000),(3,3,1,60,161000,9660000),(4,4,1,35,157000,5495000),(5,5,1,80,147000,11760000),(6,5,4,5,551000,2755000),(7,6,1,4,172000,688000),(8,7,1,3,172000,516000),(9,8,1,7,172000,1204000),(10,9,1,10,172000,1720000),(11,10,1,20,172000,3440000),(12,11,1,40,167000,6680000),(13,12,1,25,171000,4275000),(14,13,1,8,171000,1368000),(15,14,1,20,171000,3420000),(16,15,1,21,171000,3591000),(17,16,1,8,171000,1368000),(18,17,1,9,169000,1521000),(19,18,1,35,156000,5460000),(20,19,1,8,171000,1368000),(21,20,1,7,172000,1204000),(22,21,1,7,175000,1225000),(23,22,1,12,175000,2100000),(24,23,1,25,175000,4375000),(25,24,1,6,175000,1050000),(26,25,1,9,175000,1575000),(27,26,1,8,175000,1400000),(28,27,1,12,175000,2100000),(29,28,1,16,172000,2752000),(30,29,1,18,175000,3150000),(31,30,1,125,168000,21000000),(32,31,1,20,168000,3360000),(33,32,1,10,175000,1750000),(34,33,1,10,168000,1680000),(35,34,1,8,175000,1400000),(36,35,1,6,175000,1050000),(37,36,1,7,175000,1225000),(38,37,1,4,168000,672000),(39,38,1,10,167000,1670000),(40,39,1,20,167000,3340000),(41,40,1,10,175000,1750000),(42,41,1,10,167000,1670000),(43,42,1,25,162000,4050000),(44,43,1,50,162000,8100000),(45,44,1,20,169000,3380000),(46,45,1,16,152000,2432000),(47,46,1,20,172000,3440000),(48,47,1,16,152000,2432000),(49,48,1,11,170000,1870000),(50,49,1,32,170000,5440000),(51,50,1,23,175000,4025000),(52,51,1,8,172000,1376000),(53,52,1,18,175000,3150000),(54,53,1,10,175000,1750000),(55,54,1,10,175000,1750000),(56,55,1,9,175000,1575000),(57,56,1,12,175000,2100000),(58,57,1,20,172000,3440000),(59,57,4,2,645000,1290000),(60,58,1,9,175000,1575000),(61,59,1,7,170000,1190000),(62,60,1,3,175000,525000),(63,61,1,15,175000,2625000),(64,62,1,32,167000,5344000),(65,63,1,16,167000,2672000),(66,64,1,8,175000,1400000),(67,65,1,20,160000,3200000),(68,66,1,10,160000,1600000),(69,67,1,5,172000,860000),(70,68,1,80,170000,13600000),(71,69,1,7,160000,1120000),(72,70,1,10,175000,1750000),(73,71,1,5,167000,835000),(74,72,1,10,175000,1750000),(75,73,1,15,175000,2625000),(76,74,1,5,175000,875000),(77,75,1,100,154000,15400000),(78,76,1,25,160000,4000000),(79,77,1,50,154000,7700000),(80,78,1,27,161000,4347000),(81,79,1,23,156000,3588000),(82,80,1,5,169000,845000),(83,81,1,12,175000,2100000),(84,82,1,12,175000,2100000),(85,83,1,5,175000,875000),(86,84,1,5,175000,875000),(87,85,1,6,175000,1050000),(88,86,1,3,167000,501000),(89,87,1,10,175000,1750000),(90,88,1,10,175000,1750000),(91,89,1,8,175000,1400000),(92,90,1,15,175000,2625000),(93,91,1,5,175000,875000),(94,92,1,54,168000,9072000),(95,93,1,30,168000,5040000),(96,94,1,10,168000,1680000),(97,95,1,3,175000,525000),(98,96,1,5,175000,875000),(99,97,1,4,175000,700000),(100,98,1,5,175000,875000),(101,99,1,4,175000,700000),(102,100,1,5,168000,840000),(103,101,1,6,175000,1050000),(104,102,1,3,175000,525000),(105,103,1,5,175000,875000),(106,104,1,4,175000,700000),(107,105,1,4,175000,700000),(108,106,1,5,175000,875000),(109,107,1,7,167000,1169000),(110,108,1,2,175000,350000),(111,109,1,3,175000,525000),(112,110,1,10,172000,1720000),(113,111,1,10,172000,1720000),(114,112,1,25,172000,4300000),(115,113,1,6,171000,1026000),(116,114,1,52,167000,8684000),(117,115,1,34,171000,5814000),(118,116,1,14,171000,2394000),(119,117,1,16,171000,2736000),(120,118,1,20,171000,3420000),(121,119,1,10,169000,1690000),(122,120,1,30,156000,4680000),(123,120,4,1,585000,585000),(124,121,1,13,171000,2223000),(125,122,1,10,171000,1710000),(126,123,1,7,172000,1204000),(127,124,1,12,172000,2064000),(128,125,1,5,172000,860000),(129,126,1,10,168000,1680000),(130,127,1,20,162000,3240000),(131,128,1,60,161000,9660000),(132,129,1,13,161000,2093000),(133,130,1,9,168000,1512000),(134,131,1,8,172000,1376000),(135,132,1,5,172000,860000),(136,133,1,12,168000,2016000),(137,134,1,142,161000,22862000),(138,135,1,45,156000,7020000),(139,136,1,8,156000,1248000),(140,137,1,6,161000,966000),(141,138,1,63,157000,9891000),(142,139,1,10,162000,1620000),(143,140,1,30,162000,4860000),(144,141,1,41,162000,6642000),(145,142,1,20,162000,3240000),(146,143,1,120,151000,18120000),(147,143,4,1,566000,566000),(148,144,1,36,151000,5436000),(149,145,1,10,151000,1510000),(150,145,4,3,566000,1698000),(151,146,1,5,152000,760000),(152,147,1,16,170000,2720000),(153,148,1,7,160000,1120000),(154,149,1,17,175000,2975000),(155,150,1,15,175000,2625000),(156,151,1,12,175000,2100000),(157,152,1,7,169000,1183000),(158,153,1,10,175000,1750000),(159,154,1,40,170000,6800000),(160,155,1,4,175000,700000),(161,156,1,13,170000,2210000),(162,157,1,9,175000,1575000),(163,158,1,7,175000,1225000),(164,159,1,5,175000,875000),(165,160,1,9,160000,1440000),(166,161,1,100,170000,17000000),(167,162,1,12,175000,2100000),(168,163,1,17,175000,2975000),(169,164,1,10,167000,1670000),(170,165,1,20,175000,3500000),(171,166,1,21,167000,3507000),(172,167,1,80,154000,12320000),(173,168,1,26,160000,4160000),(174,168,4,2,600000,1200000),(175,169,1,12,154000,1848000),(176,169,4,1,577000,577000),(177,170,1,20,172000,3440000),(178,171,1,20,156000,3120000),(179,172,1,14,175000,2450000),(180,174,1,1,166000,166000),(181,175,4,4,0,0),(182,176,1,14,175000,2450000),(183,177,1,50,161000,8050000),(184,178,1,6,156000,936000),(185,179,1,32,156000,4992000),(186,180,1,100,161000,16100000),(187,181,1,5,161000,805000),(188,182,1,53,157000,8321000),(189,183,1,4,161000,644000),(190,184,1,36,172000,6192000),(191,185,1,10,172000,1720000),(192,186,1,9,172000,1548000),(193,187,1,10,172000,1720000),(194,188,1,30,172000,5160000),(195,189,1,58,167000,9686000),(196,190,1,20,171000,3420000),(197,190,4,3,641000,1923000),(198,191,1,14,171000,2394000),(199,192,1,22,171000,3762000),(200,193,1,16,171000,2736000),(201,194,1,20,171000,3420000),(202,195,1,31,156000,4836000),(203,196,1,10,171000,1710000),(204,197,1,20,171000,3420000),(205,198,1,16,169000,2704000),(206,199,1,9,175000,1575000),(207,200,1,16,175000,2800000),(208,201,1,9,175000,1575000),(209,202,1,30,175000,5250000),(210,203,1,5,175000,875000),(211,204,1,10,175000,1750000),(212,205,1,8,175000,1400000),(213,206,1,16,175000,2800000),(214,206,4,1,656000,656000),(215,207,1,13,175000,2275000),(216,208,1,10,172000,1720000),(217,209,1,81,168000,13608000),(218,210,1,10,168000,1680000),(219,211,1,5,175000,875000),(220,212,1,8,175000,1400000),(221,213,1,9,175000,1575000),(222,214,1,20,168000,3360000),(223,215,1,8,175000,1400000),(224,216,1,5,175000,875000),(225,217,1,5,175000,875000),(226,218,1,10,175000,1750000),(227,219,1,7,175000,1225000),(228,220,1,6,175000,1050000),(229,221,1,3,175000,525000),(230,222,1,6,175000,1050000),(231,223,1,6,167000,1002000),(232,224,1,6,167000,1002000),(233,225,1,5,175000,875000),(234,226,1,4,175000,700000);
 
 /*Table structure for table `gas_wholesale_fee` */
 
@@ -1064,6 +1248,10 @@ CREATE TABLE `gas_wholesale_fee` (
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
+/*Data for the table `gas_wholesale_fee` */
+
+insert  into `gas_wholesale_fee`(`id`,`name`,`kind`,`status`) values (1,'Hỗ trợ',-1,1),(2,'Chiết Khấu',-1,1),(3,'Bao giá',-1,1);
+
 /*Table structure for table `gas_wholesale_fee_detail` */
 
 DROP TABLE IF EXISTS `gas_wholesale_fee_detail`;
@@ -1076,7 +1264,11 @@ CREATE TABLE `gas_wholesale_fee_detail` (
   `amount` double DEFAULT NULL,
   `note` text COLLATE utf8_unicode_ci,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=207 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=100 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+/*Data for the table `gas_wholesale_fee_detail` */
+
+insert  into `gas_wholesale_fee_detail`(`id`,`gas_wholesale_id`,`fee_id`,`kind`,`amount`,`note`) values (1,1,3,-1,10620000,''),(2,3,3,-1,4914000,''),(3,4,3,-1,4692000,''),(4,5,3,-1,1777000,''),(5,8,3,-1,483000,''),(6,10,3,-1,2277000,''),(7,11,3,-1,2070000,''),(8,12,3,-1,3450000,''),(9,13,3,-1,1311000,''),(10,16,3,-1,1311000,''),(11,18,3,-1,2415000,''),(12,21,3,-1,552000,''),(13,22,3,-1,1242000,''),(14,27,3,-1,276000,''),(15,28,3,-1,1380000,''),(16,29,3,-1,690000,''),(17,30,3,-1,5520000,''),(18,31,3,-1,1380000,''),(19,33,3,-1,1035000,''),(20,38,3,-1,276000,''),(21,39,3,-1,483000,''),(22,42,1,-1,1885000,''),(23,43,1,-1,3950000,''),(24,46,3,-1,1587000,''),(25,47,3,-1,1380000,''),(26,48,3,-1,621000,''),(27,50,3,-1,552000,''),(28,53,3,-1,690000,''),(29,54,3,-1,1035000,''),(30,55,3,-1,966000,''),(31,56,3,-1,414000,''),(32,58,3,-1,483000,''),(33,59,3,-1,621000,''),(34,61,3,-1,1035000,''),(35,62,3,-1,1380000,''),(36,63,3,-1,690000,''),(37,68,3,-1,4140000,''),(38,69,3,-1,276000,''),(39,70,3,-1,690000,''),(40,75,3,-1,6900000,''),(41,76,3,-1,3310000,''),(42,81,2,-1,70000,''),(43,84,2,-1,576000,''),(44,85,2,-1,168000,''),(45,87,2,-1,403000,''),(46,88,2,-1,1070000,''),(47,89,2,-1,140000,''),(48,90,2,-1,2418000,''),(49,91,2,-1,155000,''),(50,97,2,-1,698000,''),(51,101,2,-1,414000,''),(52,104,2,-1,338000,''),(53,107,2,-1,800000,''),(54,110,2,-1,547000,''),(55,111,2,-1,364000,''),(56,112,2,-1,2086000,''),(57,114,2,-1,13684000,''),(58,115,2,-1,4323000,''),(59,116,2,-1,1367000,''),(60,117,2,-1,445000,''),(61,118,2,-1,815000,''),(62,122,2,-1,1262000,''),(63,123,2,-1,345000,''),(64,124,2,-1,646000,''),(65,125,2,-1,348000,''),(66,126,3,-1,1380000,''),(67,127,2,-1,90000,''),(68,128,3,-1,210000,''),(69,129,2,-1,406000,''),(70,132,3,-1,276000,''),(71,135,3,-1,2553000,''),(72,136,3,-1,1010000,''),(73,137,3,-1,621000,''),(74,138,2,-1,8557000,''),(75,139,2,-1,1485000,''),(76,140,2,-1,3871000,''),(77,141,2,-1,2491000,''),(78,143,2,-1,12468000,''),(79,145,2,-1,1035000,''),(80,147,2,-1,1683000,''),(81,149,2,-1,1859000,''),(82,150,2,-1,1729000,''),(83,151,2,-1,1563000,''),(84,152,2,-1,483000,''),(85,153,2,-1,1104000,''),(86,154,2,-1,6496000,''),(87,155,2,-1,560000,''),(88,158,2,-1,435000,''),(89,161,2,-1,11925000,''),(90,162,2,-1,538000,''),(91,163,2,-1,811000,''),(92,166,2,-1,1110000,''),(93,169,3,-1,1932000,''),(94,172,2,-1,2018000,''),(95,180,2,-1,17142000,''),(96,202,2,-1,648000,''),(97,205,2,-1,1200000,''),(98,206,2,-1,1093000,''),(99,208,2,-1,1140000,'');
 
 /*Table structure for table `gas_wholesale_promotion` */
 
@@ -1090,6 +1282,8 @@ CREATE TABLE `gas_wholesale_promotion` (
   PRIMARY KEY (`id`)
 ) ENGINE=MyISAM AUTO_INCREMENT=8 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
+/*Data for the table `gas_wholesale_promotion` */
+
 /*Table structure for table `gas_wholesale_return_shell` */
 
 DROP TABLE IF EXISTS `gas_wholesale_return_shell`;
@@ -1100,7 +1294,11 @@ CREATE TABLE `gas_wholesale_return_shell` (
   `shell_id` int(11) DEFAULT NULL,
   `quantity` int(3) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM AUTO_INCREMENT=2713 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=MyISAM AUTO_INCREMENT=337 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+/*Data for the table `gas_wholesale_return_shell` */
+
+insert  into `gas_wholesale_return_shell`(`id`,`gas_wholesale_id`,`shell_id`,`quantity`) values (1,1,1,100),(2,2,1,9),(3,2,3,1),(4,3,1,56),(5,3,18,4),(69,42,1,25),(7,4,18,2),(8,5,1,64),(9,5,11,6),(10,5,12,6),(11,5,15,4),(12,5,2,5),(13,6,1,4),(14,7,1,3),(15,8,1,7),(16,9,1,10),(17,10,1,19),(18,10,24,1),(19,11,1,40),(20,12,1,24),(21,12,42,1),(22,12,2,4),(23,13,1,8),(24,14,1,18),(25,14,42,2),(26,15,1,18),(27,15,42,3),(28,16,1,7),(29,16,38,1),(30,17,1,9),(31,18,1,35),(32,19,1,6),(33,19,38,2),(34,20,1,7),(35,21,1,7),(36,22,1,11),(37,22,28,1),(38,23,1,25),(39,23,2,1),(40,24,1,6),(41,25,1,9),(42,26,1,8),(43,27,1,12),(44,28,1,16),(45,29,1,16),(46,29,38,2),(47,30,1,105),(48,30,36,18),(49,30,40,2),(50,31,1,8),(51,31,38,12),(52,32,1,9),(53,32,38,1),(54,33,1,10),(55,34,1,7),(56,34,19,1),(57,35,1,6),(58,36,1,7),(59,37,1,2),(60,37,19,2),(61,38,1,3),(62,38,31,6),(63,38,37,1),(64,39,1,20),(65,40,1,9),(66,40,19,1),(67,41,1,10),(68,4,1,33),(70,43,1,97),(71,43,39,2),(72,44,1,17),(73,44,12,3),(74,45,1,15),(75,45,15,1),(76,46,1,20),(77,47,1,16),(78,48,1,11),(79,49,1,32),(80,50,1,22),(81,50,39,1),(82,51,1,6),(83,51,18,2),(84,52,1,16),(85,52,42,2),(86,53,1,10),(87,54,1,10),(88,55,1,9),(89,56,1,9),(90,56,36,3),(91,57,1,20),(92,57,2,2),(93,58,1,7),(94,58,31,2),(95,59,1,7),(96,60,1,1),(97,60,36,2),(98,61,1,33),(99,61,36,2),(100,62,1,32),(101,63,1,15),(102,63,36,1),(103,64,1,7),(104,64,36,1),(105,65,1,20),(106,66,1,10),(107,67,1,5),(108,68,1,80),(109,69,1,6),(110,69,33,1),(111,70,1,7),(112,70,39,3),(113,71,1,5),(114,72,1,9),(115,72,33,1),(116,73,1,15),(117,74,1,5),(118,75,1,100),(119,76,1,21),(120,76,19,4),(121,77,1,50),(122,78,1,23),(123,78,38,4),(124,79,1,23),(125,80,1,5),(126,81,36,12),(127,82,1,12),(128,83,1,5),(129,84,1,5),(130,85,1,6),(131,86,1,3),(132,87,1,9),(133,87,12,1),(134,88,1,10),(135,89,1,8),(136,90,1,11),(137,90,42,4),(138,91,1,5),(139,92,1,44),(140,92,12,10),(141,93,1,23),(142,93,28,7),(143,94,1,10),(144,95,1,3),(145,96,1,3),(146,96,28,2),(147,97,1,4),(148,98,1,5),(149,99,1,4),(150,100,1,5),(151,101,1,6),(152,102,1,3),(153,103,1,5),(154,104,1,4),(155,105,1,3),(156,105,20,1),(157,106,1,4),(158,106,24,1),(159,107,1,7),(160,108,1,2),(161,109,1,3),(162,110,1,10),(163,111,1,10),(164,112,1,25),(165,113,1,6),(166,114,1,51),(167,114,33,1),(168,115,1,31),(169,115,31,3),(170,116,1,13),(171,116,41,1),(172,117,1,13),(173,117,15,3),(174,118,1,20),(175,119,1,7),(176,119,31,3),(177,120,1,18),(178,120,12,12),(179,120,2,1),(180,121,1,11),(181,121,36,2),(182,122,1,8),(183,122,31,2),(184,123,1,4),(185,123,28,3),(186,124,1,12),(187,125,1,5),(188,126,1,10),(189,127,1,20),(190,128,1,60),(191,129,1,11),(192,129,36,2),(193,130,1,8),(194,130,41,1),(195,131,1,8),(196,132,1,4),(197,132,42,1),(198,133,1,12),(199,134,1,109),(200,135,1,41),(201,135,42,4),(202,136,1,8),(203,137,1,5),(204,137,38,1),(205,138,1,58),(206,138,38,5),(207,139,1,10),(208,140,1,28),(209,140,37,1),(210,140,38,1),(211,141,1,39),(212,141,38,2),(213,142,1,20),(214,143,1,69),(215,143,12,14),(216,143,28,16),(217,143,31,16),(218,143,19,5),(219,143,2,1),(220,144,1,34),(221,144,38,2),(222,145,1,10),(223,146,1,5),(224,147,1,16),(225,148,1,7),(226,149,1,16),(227,149,11,1),(228,150,1,15),(229,151,1,12),(230,152,1,7),(231,153,1,10),(232,154,1,40),(233,155,1,3),(234,155,14,1),(235,156,1,12),(236,156,15,1),(237,157,1,8),(238,157,27,1),(239,158,1,7),(240,159,1,5),(241,160,1,9),(242,161,1,100),(243,162,1,10),(244,162,19,2),(245,163,1,16),(246,163,19,1),(247,164,1,10),(248,165,1,20),(249,166,1,20),(250,166,36,1),(251,167,1,72),(252,167,18,8),(253,168,1,20),(254,168,39,6),(255,168,2,2),(256,169,1,12),(257,169,2,1),(258,170,1,7),(259,170,36,13),(260,171,1,18),(261,171,38,1),(262,171,39,1),(263,172,1,14),(264,174,1,1),(265,175,2,4),(266,176,1,14),(267,177,1,50),(268,178,1,6),(269,179,1,29),(270,179,24,1),(271,179,28,2),(272,180,1,126),(273,181,1,5),(274,182,1,47),(275,182,12,6),(276,183,1,3),(277,183,12,1),(278,184,1,36),(279,185,1,10),(280,186,1,9),(281,187,1,10),(282,188,1,27),(283,188,36,3),(284,189,1,58),(285,190,1,20),(286,191,1,13),(287,191,17,1),(288,192,1,19),(289,192,36,1),(290,192,38,2),(291,193,1,15),(292,193,18,1),(293,194,1,20),(294,195,1,31),(295,196,1,10),(296,197,1,20),(297,198,1,16),(298,199,1,9),(299,200,1,16),(300,201,1,9),(301,202,1,30),(302,203,1,5),(303,204,1,10),(304,205,1,8),(305,206,1,16),(306,206,2,1),(307,207,1,10),(308,207,31,3),(309,208,1,10),(310,209,12,4),(311,209,1,77),(312,210,1,10),(313,211,1,2),(314,211,38,3),(315,212,1,6),(316,212,15,2),(317,213,1,7),(318,213,19,1),(319,213,34,1),(320,214,1,19),(321,214,20,1),(322,215,1,8),(323,216,1,5),(324,217,1,5),(325,218,1,10),(326,219,1,7),(327,220,1,3),(328,220,42,3),(329,221,1,3),(330,222,1,6),(331,223,1,6),(332,224,1,6),(333,225,1,3),(334,225,42,2),(335,226,1,4),(336,198,2,2);
 
 /*Table structure for table `good` */
 
@@ -1116,6 +1314,8 @@ CREATE TABLE `good` (
   `status` int(1) DEFAULT '1' COMMENT '0:bi khoa,1:dang hoat dong',
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+/*Data for the table `good` */
 
 /*Table structure for table `good_import` */
 
@@ -1137,6 +1337,8 @@ CREATE TABLE `good_import` (
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
+/*Data for the table `good_import` */
+
 /*Table structure for table `good_import_detail` */
 
 DROP TABLE IF EXISTS `good_import_detail`;
@@ -1152,6 +1354,8 @@ CREATE TABLE `good_import_detail` (
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
+/*Data for the table `good_import_detail` */
+
 /*Table structure for table `good_in_stock` */
 
 DROP TABLE IF EXISTS `good_in_stock`;
@@ -1165,6 +1369,8 @@ CREATE TABLE `good_in_stock` (
   `in_stock` int(11) DEFAULT '0',
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+/*Data for the table `good_in_stock` */
 
 /*Table structure for table `good_sale` */
 
@@ -1187,6 +1393,8 @@ CREATE TABLE `good_sale` (
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
+/*Data for the table `good_sale` */
+
 /*Table structure for table `good_sale_detail` */
 
 DROP TABLE IF EXISTS `good_sale_detail`;
@@ -1200,6 +1408,8 @@ CREATE TABLE `good_sale_detail` (
   `amount` double DEFAULT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+/*Data for the table `good_sale_detail` */
 
 /*Table structure for table `income` */
 
@@ -1216,7 +1426,11 @@ CREATE TABLE `income` (
   `note` text COLLATE utf8_unicode_ci,
   `created_employee_id` int(11) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM AUTO_INCREMENT=86 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=MyISAM AUTO_INCREMENT=5 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+/*Data for the table `income` */
+
+insert  into `income`(`id`,`code`,`created_date`,`content`,`amount`,`account_id`,`type`,`note`,`created_employee_id`) values (2,'20200404-IC-0002','2020-04-01','Nộp tiền vào TK',20000000,9,1,'',35),(3,'20200404-IC-0003','2020-04-01','Thu tiền Pin',5900000,5,1,'',35),(4,'20200404-IC-0004','2020-04-01','bán 6 vỏ',1080000,5,1,'',35);
 
 /*Table structure for table `inner_sale` */
 
@@ -1238,6 +1452,8 @@ CREATE TABLE `inner_sale` (
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
+/*Data for the table `inner_sale` */
+
 /*Table structure for table `inner_sale_detail` */
 
 DROP TABLE IF EXISTS `inner_sale_detail`;
@@ -1251,6 +1467,8 @@ CREATE TABLE `inner_sale_detail` (
   `amount` double DEFAULT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+/*Data for the table `inner_sale_detail` */
 
 /*Table structure for table `invoice` */
 
@@ -1267,7 +1485,9 @@ CREATE TABLE `invoice` (
   `amount_paid` double DEFAULT NULL,
   `customer_id` int(11) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=14 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+/*Data for the table `invoice` */
 
 /*Table structure for table `invoice_detail` */
 
@@ -1281,7 +1501,9 @@ CREATE TABLE `invoice_detail` (
   `paid` int(1) DEFAULT '0' COMMENT '0:chua thanh toan, 1:da thanh toan',
   `commissioned` int(1) DEFAULT '0' COMMENT '0: chua chiet khau, 1: da chiet khau',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=19 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+/*Data for the table `invoice_detail` */
 
 /*Table structure for table `invoice_paid_detail` */
 
@@ -1294,6 +1516,8 @@ CREATE TABLE `invoice_paid_detail` (
   `amount` double DEFAULT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+/*Data for the table `invoice_paid_detail` */
 
 /*Table structure for table `invoice_solar` */
 
@@ -1312,6 +1536,8 @@ CREATE TABLE `invoice_solar` (
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
+/*Data for the table `invoice_solar` */
+
 /*Table structure for table `invoice_solar_detail` */
 
 DROP TABLE IF EXISTS `invoice_solar_detail`;
@@ -1326,6 +1552,8 @@ CREATE TABLE `invoice_solar_detail` (
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
+/*Data for the table `invoice_solar_detail` */
+
 /*Table structure for table `invoice_solar_paid_detail` */
 
 DROP TABLE IF EXISTS `invoice_solar_paid_detail`;
@@ -1337,6 +1565,8 @@ CREATE TABLE `invoice_solar_paid_detail` (
   `amount` double DEFAULT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+/*Data for the table `invoice_solar_paid_detail` */
 
 /*Table structure for table `lo_vo` */
 
@@ -1350,7 +1580,11 @@ CREATE TABLE `lo_vo` (
   `note` text COLLATE utf8_unicode_ci,
   `created_employee_id` int(11) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=24 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+/*Data for the table `lo_vo` */
+
+insert  into `lo_vo`(`id`,`code`,`created_date`,`quantity`,`note`,`created_employee_id`) values (1,'20200404-LV-0001','2020-04-01',2,'',35),(2,'20200406-LV-0001','2020-04-02',2,'',35),(3,'20200406-LV-0002','2020-04-03',2,'',35),(4,'20200407-LV-0001','2020-04-06',2,'',35);
 
 /*Table structure for table `lo_vo_employee_detail` */
 
@@ -1362,7 +1596,11 @@ CREATE TABLE `lo_vo_employee_detail` (
   `employee_id` int(11) DEFAULT NULL,
   `note` text COLLATE utf8_unicode_ci,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=158 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=28 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+/*Data for the table `lo_vo_employee_detail` */
+
+insert  into `lo_vo_employee_detail`(`id`,`lo_vo_id`,`employee_id`,`note`) values (1,1,52,''),(2,1,33,''),(3,1,41,''),(4,1,19,''),(5,1,43,''),(6,1,21,''),(7,1,30,''),(8,2,52,''),(9,2,33,''),(10,2,41,''),(11,2,46,''),(12,2,19,''),(13,2,43,''),(14,2,21,''),(15,2,30,''),(16,3,52,''),(17,3,33,''),(18,3,41,''),(19,3,19,''),(20,3,43,''),(21,3,21,''),(22,4,52,''),(23,4,33,''),(24,4,41,''),(25,4,19,''),(26,4,43,''),(27,4,21,'');
 
 /*Table structure for table `lpg_import` */
 
@@ -1390,7 +1628,11 @@ CREATE TABLE `lpg_import` (
   `link_lpg_ids` text COLLATE utf8_unicode_ci,
   `link_lpg_codes` text COLLATE utf8_unicode_ci,
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM AUTO_INCREMENT=66 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=MyISAM AUTO_INCREMENT=4 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+/*Data for the table `lpg_import` */
+
+insert  into `lpg_import`(`id`,`code`,`import_date`,`vendor_id`,`kind`,`paper_quantity`,`actual_quantity`,`price`,`vat`,`invoice_amount`,`amount`,`paid`,`debt`,`rate`,`note`,`account_id`,`route_id`,`created_employee_id`,`link_lpg_ids`,`link_lpg_codes`) values (1,'20200404-LI-0001','2020-04-02',15,1,11730,11780,369.6,0,102532399,102532399,0,102532399,23650,'TH QT',5,0,35,NULL,''),(2,'20200404-LI-0002','2020-04-03',15,1,11920,11950,369.6,0,103664521,103664521,0,103664521,23530,'TH QT',5,0,35,NULL,''),(3,'20200406-LI-0001','2020-04-04',15,1,11830,11910,369.6,0,102881819,102881819,0,102881819,23530,'TH Qt',5,0,35,NULL,'');
 
 /*Table structure for table `lpg_in_stock` */
 
@@ -1404,6 +1646,10 @@ CREATE TABLE `lpg_in_stock` (
   `in_stock` int(11) DEFAULT '0',
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=11 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+/*Data for the table `lpg_in_stock` */
+
+insert  into `lpg_in_stock`(`id`,`organization_id`,`vendor_id`,`day`,`in_stock`) values (1,14,15,'2020-04-01',0),(2,14,23,'2020-04-01',0),(3,14,22,'2020-04-01',0),(4,1,24,'2020-04-01',0),(5,1,16,'2020-04-01',0),(6,1,15,'2020-04-01',0),(7,1,21,'2020-04-01',0),(8,1,23,'2020-04-01',0),(9,1,22,'2020-04-01',18633),(10,1,28,'2020-04-01',0);
 
 /*Table structure for table `lpg_sale` */
 
@@ -1428,7 +1674,9 @@ CREATE TABLE `lpg_sale` (
   `route_id` int(11) DEFAULT NULL,
   `created_employee_id` int(11) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=10 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+/*Data for the table `lpg_sale` */
 
 /*Table structure for table `money_in_stock` */
 
@@ -1441,7 +1689,9 @@ CREATE TABLE `money_in_stock` (
   `organization_id` int(11) DEFAULT NULL COMMENT 'neu account_id=0 thi la id cua organization',
   `in_stock` double DEFAULT '0',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+/*Data for the table `money_in_stock` */
 
 /*Table structure for table `oil` */
 
@@ -1464,6 +1714,10 @@ CREATE TABLE `oil` (
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=82 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
+/*Data for the table `oil` */
+
+insert  into `oil`(`id`,`code`,`name`,`vendor_id`,`group_id`,`weight_unit_id`,`weight`,`base_unit_id`,`sale_unit_id`,`employee_commission_id`,`status`,`organization_id`,`price`) values (1,'NW01','NIWA  AUTO 15W-40 4L SJ/CH4',20,1,5,4,4,4,2,1,1,325000),(2,'NW02','NIWA  AUTO 20W-50 4L SJ/CH4',20,1,5,4,4,4,2,1,1,330000),(3,'NW14','NIWA AUTO TURBO DIESEL 20W-50 CF4/SJ - 18L',20,2,5,18,12,12,2,1,1,1430000),(4,'MK LITEL3','LITEL3',26,1,9,1,13,13,2,1,1,43400),(5,'MK VG68','Mê Kông otto VG68',26,1,5,200,14,14,1,1,1,4550000),(6,'NW49','NIWA VG68 - 209L',20,3,5,209,14,14,1,1,1,11690000),(7,'NASCA','Mỡ bò Nasca',27,1,9,1,13,13,2,1,1,0),(8,'NW03','NIWA  OIL 10W-40 4L SL/CI4',20,1,5,4,4,4,2,1,1,350000),(9,'NW04','NIWA  OIL 20W-50 4L SL/CI4',20,1,5,4,4,4,2,1,1,365000),(10,'NW05','NIWA TURBO 10W-40 4L SM/CJ4',20,1,5,4,4,4,2,1,1,385000),(11,'NW06','NIWA TURBO 20W-50 4L SM/CJ4',20,1,5,4,4,4,2,1,1,400000),(12,'NW07','NIWA  AUTO 10W-40 5L SJ/CH4',20,1,5,5,4,4,2,1,1,396000),(13,'NW08','NIWA  AUTO 20W-50 5L SJ/CH4',20,1,5,5,4,4,2,1,1,406000),(14,'NW09','NIWA  OIL 10W-40 5L SL/CI4',20,2,5,5,4,4,2,1,1,427000),(15,'NW10','NIWA  OIL 20W-50 5L SL/CI4',20,1,5,5,4,4,2,1,1,438000),(16,'NW11','NIWA TURBO 10W-40 5L SM/CJ4',20,1,5,5,4,4,2,1,1,469000),(17,'NW12','NIWA TURBO 20W-50 5L SM/CJ4',20,1,5,5,4,4,2,1,1,480000),(18,'NW13','NIWA AUTO TURBO DIESEL 15W-40 - 18L CF4/SJ',20,2,5,18,12,12,2,1,1,1410000),(19,'NW15','NIWA AUTO TURBO DIESEL 15W-40 - 25L CF4/SJ',20,2,5,25,15,15,2,1,1,1936000),(20,'NW16','NIWA AUTO TURBO DIESEL 20W-50 - 25L CF4/SJ',20,2,5,25,15,15,2,1,1,1965000),(21,'NW17','NIWA AUTO TURBO DIESEL 15W-40 - 209L CF4/SJ',20,2,5,209,14,14,1,1,1,14890000),(22,'NW18','NIWA AUTO TURBO DIESEL 20W-50 - 209L CF4/SJ',20,2,5,209,14,14,1,1,1,15100000),(23,'NW19','NIWA AUTO TURBO DIESEL 15W-40 - 18L CH4/SL',20,2,5,18,12,12,2,1,1,1450000),(24,'NW20','NIWA AUTO TURBO DIESEL 20W-50 - 18L CH4/SL',20,2,5,18,12,12,2,1,1,1470000),(25,'NW21','NIWA AUTO TURBO DIESEL 15W-40 - 25L CH4/SL',20,2,5,25,15,15,2,1,1,1990000),(26,'NW22','NIWA AUTO TURBO DIESEL 20W-50 - 25L CH4/SL',20,2,5,25,15,15,2,1,1,2015000),(27,'NW23','NIWA AUTO TURBO DIESEL 15W-40 - 209L CH4/SL',20,2,5,209,14,14,1,1,1,15320000),(28,'NW24','NIWA AUTO TURBO DIESEL 20W-50 - 209L CH4/SL',20,2,5,209,14,14,1,1,1,15550000),(29,'NW25','NIWA AUTO TURBO DIESEL 15W-40 - 18L CI4/SM',20,2,5,18,12,12,2,1,1,1565000),(30,'NW26','NIWA AUTO TURBO DIESEL 20W-50 - 18L CI4/SM',20,2,5,18,12,12,2,1,1,1585000),(31,'NW27','NIWA AUTO TURBO DIESEL 15W-40 - 25L CI4/SM',20,2,5,25,15,15,2,1,1,2145000),(32,'NW28','NIWA AUTO TURBO DIESEL 20W-50 - 25L CI4/SM',20,2,5,25,15,15,2,1,1,2175000),(33,'NW29','NIWA AUTO TURBO DIESEL 15W-40 - 209L CI4/SM',20,2,5,209,14,14,1,1,1,16600000),(34,'NW30','NIWA AUTO TURBO DIESEL 20W-50 - 209L CI4/SM',20,2,5,209,14,14,1,1,1,16810000),(35,'NW31','NIWA TURBO DIESEL 15W-40 - 18L CJ4/SN',20,2,5,18,12,12,2,1,1,1675000),(36,'NW32','NIWA TURBO DIESEL 20W-50 - 18L CJ4/SN',20,2,5,18,12,12,2,1,1,1697000),(37,'NW33','NIWA TURBO DIESEL 15W-40 - 25L CJ4/SN',20,2,5,25,15,15,2,1,1,2305000),(38,'NW34','NIWA TURBO DIESEL 20W-50 - 25L CJ4/SN',20,2,5,25,15,15,2,1,1,2330000),(39,'NW35','NIWA TURBO DIESEL 15W-40 - 209L CJ4/SN',20,2,5,209,14,14,1,1,1,17870000),(40,'NW36','NIWA TURBO DIESEL 20W-50 - 209L CJ4/SN',20,2,5,209,14,14,1,1,1,18070000),(41,'NW48','NIWA VG68 - 18L VG',20,3,5,18,12,12,2,1,1,1130000),(42,'NW54','NIWA AW68 - 18L AW',20,3,5,18,12,12,2,1,1,1360000),(43,'NW55','NIWA AW68 - 209L AW',20,3,5,209,14,14,1,1,1,14250000),(44,'NW59','NIWA GEAR 90 - 4L GL4',20,4,5,4,4,4,2,1,1,335000),(45,'NW60','NIWA GEAR 90 - 18L GL4',20,4,5,18,12,12,2,1,1,1360000),(46,'NW61','NIWA GEAR 90 - 209L GL4',20,4,5,209,14,14,1,1,1,14590000),(47,'NW71','NIWA GEAR 140 - 4L GL5',20,4,5,4,4,4,2,1,1,384000),(48,'NW72','NIWA GEAR 140 - 18L GL5',20,4,5,18,12,12,2,1,1,1580000),(49,'NW73','NIWA GEAR 140 - 209L GL5',20,4,5,209,14,14,1,1,1,17200000),(50,'NW56','NIWA GEAR 90 - 4L GL1',20,5,5,4,4,4,2,1,1,300000),(51,'NW65','NIWA GEAR 140 - 4L GL1',20,5,5,4,4,4,2,1,1,309000),(52,'NW66','NIWA GEAR 140 - 18L GL1',20,5,5,18,12,12,2,1,1,1243000),(53,'NW82','NIWA OIL DIESEL 15W-40 - 18L PT',20,6,5,18,12,12,2,1,1,1208000),(54,'NW83','NIWA OIL DIESEL 15W-40 - 200L PT',20,6,5,200,14,14,1,1,1,12320000),(55,'NW84','NIWA OIL DIESEL 20W-50 - 18L PT CF/SF',20,6,5,18,12,12,2,1,1,1246000),(56,'NW85','NIWA OIL DIESEL 20W-50 - 200L PT',20,6,5,200,14,14,1,1,1,12740000),(57,'NW90','NIWA HG68 - 18L PT HG',20,3,5,18,12,12,2,1,1,1020000),(58,'NW37','NIWA NANO  SJ 0,8L ',20,7,5,1,4,4,2,1,1,62000),(59,'NW38','NIWA NANO  SJ 1L ',20,7,5,1,4,4,2,1,1,75000),(60,'NW39','NIWA NANO SL 0,8L ',20,8,5,1,4,4,2,1,1,88000),(61,'NW40','NIWA NANO SL 1L ',20,8,5,1,4,4,2,1,1,98000),(62,'NW41','NIWA NANO scooter 0.8L ',20,8,5,1,4,4,2,1,1,90000),(63,'NW42','NIWA NANO scooter 1L ',20,8,5,1,4,4,2,1,1,99900),(64,'NWM05','NIWA NANO LIPEX 3 ',20,9,5,18,12,12,2,1,1,1815000),(65,'NWM11','NIWA NANO CALPEX (XĐ)',20,9,5,18,12,12,2,1,1,1494000),(66,'NWM17','NIWA NANO STAR ',20,9,5,18,12,12,2,1,1,1317000),(67,'NW57','NIWA GEAR 90GL1-18L',20,2,12,0,12,12,1,1,1,0),(68,'NW79','NIWA 20W-50 PT CC/SC - 18L',20,2,12,0,12,12,1,1,1,0),(69,'NW92','NIWA NANO Mỡ bôi trơn màu xanh bi trong X',20,2,12,0,12,12,1,1,1,0),(70,'MK CALTOIX','Mỡ bôi trơn MK',26,9,13,0,13,13,1,1,1,0),(71,'NW74','NIWA 15W-40 - 4L PT',20,11,5,4,4,4,1,1,1,276000),(72,'NW75','NIWA 15W-40 - 18L PT',20,11,5,18,12,12,1,1,1,1095000),(73,'NW78','NIWA  20W-50 - 4L PT',20,11,5,4,4,4,1,1,1,284000),(74,'NW91','NIWA HG68 - 200L PT',20,3,5,200,14,14,1,1,1,10230000),(75,'NW98','NIWA NANO SINOMULTI L1 ',20,12,9,18,12,12,1,1,1,1353000),(76,'NW225','Niwa dầu máy nén lạnh âm 40 độ cool oil 68_ 18L',20,14,5,18,12,12,1,1,1,1623000),(77,'MK  HD40','HD 40(200L)',26,3,14,200,14,14,1,1,1,0),(78,'CX Brake','CX Brake/Clutch Fld DOT 3(10x1L)',29,2,4,0,4,4,1,1,1,145000),(79,'CX Texamatic','CX Texamatic 1888 ATF(18L)',29,2,15,0,15,15,1,1,1,1200000),(80,'CX Delo','CX Delo ELC Cocentrate_18L WOL',20,2,12,0,12,12,1,1,1,1490000),(81,'CX Hav ','CX Hav Form[SN]15w440(4x4L)',20,2,15,0,15,15,1,1,1,280300);
+
 /*Table structure for table `oil_export` */
 
 DROP TABLE IF EXISTS `oil_export`;
@@ -1478,7 +1732,11 @@ CREATE TABLE `oil_export` (
   `note` text COLLATE utf8_unicode_ci,
   `created_employee_id` int(11) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=55 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=9 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+/*Data for the table `oil_export` */
+
+insert  into `oil_export`(`id`,`created_date`,`code`,`oil_sale_id`,`customer_id`,`total`,`note`,`created_employee_id`) values (1,'2020-04-06','20200406-OE-0001',1,276,17833000,'',53),(2,'2020-04-06','20200406-OE-0002',3,230,9405000,'',53),(3,'2020-04-06','20200406-OE-0003',2,230,4500000,'',53),(4,'2020-04-06','20200406-OE-0004',5,233,0,'',53),(5,'2020-04-06','20200406-OE-0005',6,331,32411400,'',53),(6,'2020-04-06','20200406-OE-0006',4,229,10380000,'',53),(7,'2020-04-06','20200406-OE-0007',7,278,9874500,'',53),(8,'2020-04-06','20200406-OE-0008',8,274,5780000,'',53);
 
 /*Table structure for table `oil_export_detail` */
 
@@ -1491,7 +1749,11 @@ CREATE TABLE `oil_export_detail` (
   `oil_sale_detail_id` int(11) DEFAULT NULL,
   `quantity` int(3) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=85 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=18 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+/*Data for the table `oil_export_detail` */
+
+insert  into `oil_export_detail`(`id`,`oil_export_id`,`oil_id`,`oil_sale_detail_id`,`quantity`) values (1,1,2,1,12),(2,1,3,2,10),(3,1,42,3,2),(4,2,6,5,1),(5,3,7,4,50),(6,4,3,7,1),(7,5,39,8,2),(8,5,67,9,2),(9,5,51,10,12),(10,5,65,11,1),(11,5,45,12,1),(12,5,48,13,1),(13,6,5,6,2),(14,7,18,14,5),(15,7,42,15,4),(16,7,41,16,1),(17,8,42,17,5);
 
 /*Table structure for table `oil_group` */
 
@@ -1504,6 +1766,10 @@ CREATE TABLE `oil_group` (
   `status` int(1) DEFAULT '1' COMMENT '0: da bi khoa, 1: dang su dung',
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=15 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+/*Data for the table `oil_group` */
+
+insert  into `oil_group`(`id`,`name`,`note`,`status`) values (1,'NIWA NANO ĐỘNG CƠ CAO CẤP','',1),(2,'AUTO TURBO CAO CẤP','',1),(3,'DẦU THỦY LỰC','',1),(4,'DẦU BÁNH RĂNG','',1),(5,'DẦU BÁNH RĂNG PT','',1),(6,'NIWA OIL','',1),(7,'XE MÁY CHAI NHỰA','',1),(8,'XE MÁY LON THIẾC','',1),(9,'MỠ BÔI TRƠN','',1),(10,'THAI','',1),(11,'DẦU ĐỘNG CƠ','',1),(12,'MỠ BÔI TRƠN CAO CẤP','',1),(13,'Niwa dầu máy nén lạnh âm 40 độ cool oil 68_ 18L','',1),(14,'DẦU MÁY NÉN LẠNH','',1);
 
 /*Table structure for table `oil_import` */
 
@@ -1525,7 +1791,9 @@ CREATE TABLE `oil_import` (
   `note` text COLLATE utf8_unicode_ci,
   `created_employee_id` int(11) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=16 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+/*Data for the table `oil_import` */
 
 /*Table structure for table `oil_import_detail` */
 
@@ -1542,7 +1810,9 @@ CREATE TABLE `oil_import_detail` (
   `amount` double DEFAULT NULL,
   `note` text COLLATE utf8_unicode_ci,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=42 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+/*Data for the table `oil_import_detail` */
 
 /*Table structure for table `oil_in_stock` */
 
@@ -1556,7 +1826,11 @@ CREATE TABLE `oil_in_stock` (
   `store_id` int(11) DEFAULT NULL,
   `in_stock` int(11) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=1159 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=244 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+/*Data for the table `oil_in_stock` */
+
+insert  into `oil_in_stock`(`id`,`day`,`oil_id`,`organization_id`,`store_id`,`in_stock`) values (1,'2020-04-01',78,1,9,0),(2,'2020-04-01',80,1,9,0),(3,'2020-04-01',81,1,9,0),(4,'2020-04-01',79,1,9,0),(5,'2020-04-01',77,1,9,0),(6,'2020-04-01',4,1,9,0),(7,'2020-04-01',5,1,9,0),(8,'2020-04-01',7,1,9,0),(9,'2020-04-01',70,1,9,0),(10,'2020-04-01',73,1,9,64),(11,'2020-04-01',12,1,9,0),(12,'2020-04-01',1,1,9,4),(13,'2020-04-01',2,1,9,4),(14,'2020-04-01',13,1,9,65),(15,'2020-04-01',8,1,9,4),(16,'2020-04-01',14,1,9,0),(17,'2020-04-01',9,1,9,30),(18,'2020-04-01',15,1,9,24),(19,'2020-04-01',72,1,9,20),(20,'2020-04-01',71,1,9,17),(21,'2020-04-01',68,1,9,30),(22,'2020-04-01',18,1,9,6),(23,'2020-04-01',23,1,9,0),(24,'2020-04-01',29,1,9,5),(25,'2020-04-01',21,1,9,0),(26,'2020-04-01',27,1,9,0),(27,'2020-04-01',33,1,9,0),(28,'2020-04-01',19,1,9,12),(29,'2020-04-01',25,1,9,0),(30,'2020-04-01',31,1,9,0),(31,'2020-04-01',24,1,9,0),(32,'2020-04-01',30,1,9,4),(33,'2020-04-01',22,1,9,0),(34,'2020-04-01',28,1,9,0),(35,'2020-04-01',34,1,9,0),(36,'2020-04-01',20,1,9,4),(37,'2020-04-01',26,1,9,0),(38,'2020-04-01',32,1,9,0),(39,'2020-04-01',3,1,9,0),(40,'2020-04-01',42,1,9,2),(41,'2020-04-01',43,1,9,0),(42,'2020-04-01',76,1,9,57),(43,'2020-04-01',52,1,9,0),(44,'2020-04-01',48,1,9,0),(45,'2020-04-01',49,1,9,0),(46,'2020-04-01',51,1,9,0),(47,'2020-04-01',47,1,9,12),(48,'2020-04-01',45,1,9,7),(49,'2020-04-01',46,1,9,0),(50,'2020-04-01',50,1,9,12),(51,'2020-04-01',44,1,9,0),(52,'2020-04-01',67,1,9,8),(53,'2020-04-01',57,1,9,9),(54,'2020-04-01',74,1,9,2),(55,'2020-04-01',58,1,9,532),(56,'2020-04-01',59,1,9,0),(57,'2020-04-01',65,1,9,0),(58,'2020-04-01',64,1,9,8),(59,'2020-04-01',69,1,9,0),(60,'2020-04-01',62,1,9,0),(61,'2020-04-01',63,1,9,0),(62,'2020-04-01',75,1,9,2),(63,'2020-04-01',60,1,9,4),(64,'2020-04-01',61,1,9,115),(65,'2020-04-01',66,1,9,10),(66,'2020-04-01',53,1,9,8),(67,'2020-04-01',54,1,9,0),(68,'2020-04-01',55,1,9,8),(69,'2020-04-01',56,1,9,1),(70,'2020-04-01',10,1,9,34),(71,'2020-04-01',16,1,9,5),(72,'2020-04-01',11,1,9,35),(73,'2020-04-01',17,1,9,0),(74,'2020-04-01',35,1,9,0),(75,'2020-04-01',39,1,9,0),(76,'2020-04-01',37,1,9,0),(77,'2020-04-01',36,1,9,0),(78,'2020-04-01',40,1,9,0),(79,'2020-04-01',38,1,9,0),(80,'2020-04-01',41,1,9,0),(81,'2020-04-01',6,1,9,0),(82,'2020-04-01',78,1,8,0),(83,'2020-04-01',80,1,8,0),(84,'2020-04-01',81,1,8,0),(85,'2020-04-01',79,1,8,0),(86,'2020-04-01',77,1,8,0),(87,'2020-04-01',4,1,8,0),(88,'2020-04-01',5,1,8,4),(89,'2020-04-01',7,1,8,100),(90,'2020-04-01',70,1,8,1),(91,'2020-04-01',73,1,8,0),(92,'2020-04-01',12,1,8,0),(93,'2020-04-01',1,1,8,97),(94,'2020-04-01',2,1,8,44),(95,'2020-04-01',13,1,8,0),(96,'2020-04-01',8,1,8,93),(97,'2020-04-01',14,1,8,0),(98,'2020-04-01',9,1,8,72),(99,'2020-04-01',15,1,8,0),(100,'2020-04-01',72,1,8,0),(101,'2020-04-01',71,1,8,0),(102,'2020-04-01',68,1,8,30),(103,'2020-04-01',18,1,8,64),(104,'2020-04-01',23,1,8,0),(105,'2020-04-01',29,1,8,1),(106,'2020-04-01',21,1,8,5),(107,'2020-04-01',27,1,8,0),(108,'2020-04-01',33,1,8,0),(109,'2020-04-01',19,1,8,3),(110,'2020-04-01',25,1,8,0),(111,'2020-04-01',31,1,8,0),(112,'2020-04-01',24,1,8,0),(113,'2020-04-01',30,1,8,0),(114,'2020-04-01',22,1,8,5),(115,'2020-04-01',28,1,8,0),(116,'2020-04-01',34,1,8,0),(117,'2020-04-01',20,1,8,0),(118,'2020-04-01',26,1,8,0),(119,'2020-04-01',32,1,8,0),(120,'2020-04-01',3,1,8,157),(121,'2020-04-01',42,1,8,5),(122,'2020-04-01',43,1,8,5),(123,'2020-04-01',76,1,8,0),(124,'2020-04-01',52,1,8,0),(125,'2020-04-01',48,1,8,4),(126,'2020-04-01',49,1,8,0),(127,'2020-04-01',51,1,8,0),(128,'2020-04-01',47,1,8,0),(129,'2020-04-01',45,1,8,6),(130,'2020-04-01',46,1,8,0),(131,'2020-04-01',50,1,8,24),(132,'2020-04-01',44,1,8,0),(133,'2020-04-01',67,1,8,11),(134,'2020-04-01',57,1,8,1),(135,'2020-04-01',74,1,8,0),(136,'2020-04-01',58,1,8,247),(137,'2020-04-01',59,1,8,440),(138,'2020-04-01',65,1,8,10),(139,'2020-04-01',64,1,8,0),(140,'2020-04-01',69,1,8,0),(141,'2020-04-01',62,1,8,2),(142,'2020-04-01',63,1,8,139),(143,'2020-04-01',75,1,8,0),(144,'2020-04-01',60,1,8,218),(145,'2020-04-01',61,1,8,118),(146,'2020-04-01',66,1,8,0),(147,'2020-04-01',53,1,8,60),(148,'2020-04-01',54,1,8,0),(149,'2020-04-01',55,1,8,86),(150,'2020-04-01',56,1,8,0),(151,'2020-04-01',10,1,8,53),(152,'2020-04-01',16,1,8,40),(153,'2020-04-01',11,1,8,71),(154,'2020-04-01',17,1,8,24),(155,'2020-04-01',35,1,8,0),(156,'2020-04-01',39,1,8,3),(157,'2020-04-01',37,1,8,0),(158,'2020-04-01',36,1,8,0),(159,'2020-04-01',40,1,8,0),(160,'2020-04-01',38,1,8,0),(161,'2020-04-01',41,1,8,23),(162,'2020-04-01',6,1,8,7),(163,'2020-04-01',78,1,10,0),(164,'2020-04-01',80,1,10,0),(165,'2020-04-01',81,1,10,0),(166,'2020-04-01',79,1,10,0),(167,'2020-04-01',77,1,10,0),(168,'2020-04-01',4,1,10,0),(169,'2020-04-01',5,1,10,0),(170,'2020-04-01',7,1,10,0),(171,'2020-04-01',70,1,10,0),(172,'2020-04-01',73,1,10,0),(173,'2020-04-01',12,1,10,0),(174,'2020-04-01',1,1,10,2),(175,'2020-04-01',2,1,10,97),(176,'2020-04-01',13,1,10,0),(177,'2020-04-01',8,1,10,0),(178,'2020-04-01',14,1,10,0),(179,'2020-04-01',9,1,10,0),(180,'2020-04-01',15,1,10,0),(181,'2020-04-01',72,1,10,0),(182,'2020-04-01',71,1,10,0),(183,'2020-04-01',68,1,10,0),(184,'2020-04-01',18,1,10,1),(185,'2020-04-01',23,1,10,0),(186,'2020-04-01',29,1,10,0),(187,'2020-04-01',21,1,10,0),(188,'2020-04-01',27,1,10,0),(189,'2020-04-01',33,1,10,0),(190,'2020-04-01',19,1,10,0),(191,'2020-04-01',25,1,10,0),(192,'2020-04-01',31,1,10,0),(193,'2020-04-01',24,1,10,0),(194,'2020-04-01',30,1,10,0),(195,'2020-04-01',22,1,10,0),(196,'2020-04-01',28,1,10,0),(197,'2020-04-01',34,1,10,0),(198,'2020-04-01',20,1,10,0),(199,'2020-04-01',26,1,10,0),(200,'2020-04-01',32,1,10,0),(201,'2020-04-01',3,1,10,0),(202,'2020-04-01',42,1,10,0),(203,'2020-04-01',43,1,10,0),(204,'2020-04-01',76,1,10,0),(205,'2020-04-01',52,1,10,0),(206,'2020-04-01',48,1,10,0),(207,'2020-04-01',49,1,10,0),(208,'2020-04-01',51,1,10,0),(209,'2020-04-01',47,1,10,0),(210,'2020-04-01',45,1,10,0),(211,'2020-04-01',46,1,10,0),(212,'2020-04-01',50,1,10,3),(213,'2020-04-01',44,1,10,0),(214,'2020-04-01',67,1,10,0),(215,'2020-04-01',57,1,10,0),(216,'2020-04-01',74,1,10,0),(217,'2020-04-01',58,1,10,0),(218,'2020-04-01',59,1,10,0),(219,'2020-04-01',65,1,10,0),(220,'2020-04-01',64,1,10,0),(221,'2020-04-01',69,1,10,1),(222,'2020-04-01',62,1,10,9),(223,'2020-04-01',63,1,10,0),(224,'2020-04-01',75,1,10,0),(225,'2020-04-01',60,1,10,60),(226,'2020-04-01',61,1,10,10),(227,'2020-04-01',66,1,10,0),(228,'2020-04-01',53,1,10,0),(229,'2020-04-01',54,1,10,0),(230,'2020-04-01',55,1,10,1),(231,'2020-04-01',56,1,10,0),(232,'2020-04-01',10,1,10,0),(233,'2020-04-01',16,1,10,0),(234,'2020-04-01',11,1,10,0),(235,'2020-04-01',17,1,10,0),(236,'2020-04-01',35,1,10,0),(237,'2020-04-01',39,1,10,0),(238,'2020-04-01',37,1,10,0),(239,'2020-04-01',36,1,10,0),(240,'2020-04-01',40,1,10,0),(241,'2020-04-01',38,1,10,0),(242,'2020-04-01',41,1,10,0),(243,'2020-04-01',6,1,10,0);
 
 /*Table structure for table `oil_return_store` */
 
@@ -1568,6 +1842,10 @@ CREATE TABLE `oil_return_store` (
   `store_id` int(11) DEFAULT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+/*Data for the table `oil_return_store` */
+
+insert  into `oil_return_store`(`id`,`organization_id`,`store_id`) values (1,1,10);
 
 /*Table structure for table `oil_sale` */
 
@@ -1594,7 +1872,11 @@ CREATE TABLE `oil_sale` (
   `created_employee_id` int(11) DEFAULT NULL,
   `is_calculate_agency_commission` int(1) DEFAULT '1' COMMENT '0:khong tinh, 1:tinh CK cho dai ly',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=44 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=9 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+/*Data for the table `oil_sale` */
+
+insert  into `oil_sale`(`id`,`code`,`created_date`,`customer_id`,`commission`,`commission_kind`,`commission_amount`,`gap_agency_amount`,`gap_customer_amount`,`total_before_commission`,`total`,`discount`,`total_pay`,`paid`,`debt`,`account_id`,`note`,`created_employee_id`,`is_calculate_agency_commission`) values (1,'20200406-SO-0001','2020-04-06',276,0,1,0,0,0,0,17833000,0,17833000,0,17833000,5,'',53,1),(2,'20200406-SO-0002','2020-04-06',230,20,1,0,1100000,500000,0,4500000,0,4500000,0,4500000,5,'',53,0),(3,'20200406-SO-0003','2020-04-06',230,20,1,0,876750,53000,0,9405000,0,9405000,0,9405000,5,'',53,0),(4,'20200406-SO-0004','2020-04-06',229,20,1,0,0,0,0,10380000,0,10380000,0,10380000,5,'',53,1),(5,'20200406-SO-0005','2020-04-06',233,0,1,0,0,0,0,0,0,0,0,0,5,'',53,1),(6,'20200406-SO-0006','2020-04-06',331,0,1,0,0,0,0,32411400,0,32411400,0,32411400,5,'',53,1),(7,'20200406-SO-0007','2020-04-06',278,0,1,0,0,0,0,9874500,0,9874500,0,9874500,5,'',53,1),(8,'20200406-SO-0008','2020-04-06',274,0,1,0,0,0,0,5780000,0,5780000,0,5780000,5,'',53,1);
 
 /*Table structure for table `oil_sale_detail` */
 
@@ -1618,7 +1900,11 @@ CREATE TABLE `oil_sale_detail` (
   `amount` double DEFAULT '0',
   `vendor_id` int(11) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=65 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=18 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+/*Data for the table `oil_sale_detail` */
+
+insert  into `oil_sale_detail`(`id`,`oil_sale_id`,`oil_id`,`unit_id`,`store_id`,`quantity`,`base_quantity`,`price_before_commission`,`commission_price`,`price`,`first_amount`,`commission`,`gap_agency_amount`,`gap_customer_amount`,`amount`,`vendor_id`) values (1,1,2,4,8,12,12,330000,15,280500,3366000,0,0,0,3366000,20),(2,1,3,12,8,10,10,1430000,15,1215500,12155000,0,0,0,12155000,20),(3,1,42,12,8,2,2,1360000,15,1156000,2312000,0,0,0,2312000,20),(4,2,7,13,8,50,50,58000,0,90000,4500000,0,22000,10000,4500000,27),(5,3,6,14,8,1,1,8475250,0,9405000,9405000,0,876750,53000,9405000,20),(6,4,5,14,8,2,2,5190000,0,5190000,10380000,0,0,0,10380000,26),(7,5,3,12,8,1,1,0,0,0,0,0,0,0,0,20),(8,6,39,14,8,2,2,17870000,30,12509000,25018000,0,0,0,25018000,20),(9,6,67,12,8,2,2,1210000,30,847000,1694000,0,0,0,1694000,20),(10,6,51,4,8,12,12,309000,30,216300,2595600,0,0,0,2595600,20),(11,6,65,12,8,1,1,1494000,30,1045800,1045800,0,0,0,1045800,20),(12,6,45,12,8,1,1,1360000,30,952000,952000,0,0,0,952000,20),(13,6,48,12,8,1,1,1580000,30,1106000,1106000,0,0,0,1106000,20),(14,7,18,12,8,5,5,1410000,27.5,1022250,5111250,0,0,0,5111250,20),(15,7,42,12,8,4,4,1360000,27.5,986000,3944000,0,0,0,3944000,20),(16,7,41,12,8,1,1,1130000,27.5,819250,819250,0,0,0,819250,20),(17,8,42,12,8,5,5,1360000,15,1156000,5780000,0,0,0,5780000,20);
 
 /*Table structure for table `oil_sale_promotion` */
 
@@ -1634,6 +1920,8 @@ CREATE TABLE `oil_sale_promotion` (
   `base_quantity` int(3) DEFAULT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+/*Data for the table `oil_sale_promotion` */
 
 /*Table structure for table `oil_sale_return` */
 
@@ -1661,6 +1949,8 @@ CREATE TABLE `oil_sale_return` (
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
+/*Data for the table `oil_sale_return` */
+
 /*Table structure for table `oil_sale_return_detail` */
 
 DROP TABLE IF EXISTS `oil_sale_return_detail`;
@@ -1685,6 +1975,8 @@ CREATE TABLE `oil_sale_return_detail` (
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
+/*Data for the table `oil_sale_return_detail` */
+
 /*Table structure for table `old_shell` */
 
 DROP TABLE IF EXISTS `old_shell`;
@@ -1698,7 +1990,11 @@ CREATE TABLE `old_shell` (
   `note` text COLLATE utf8_unicode_ci,
   `created_employee_id` int(11) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM AUTO_INCREMENT=4 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=MyISAM AUTO_INCREMENT=29 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+/*Data for the table `old_shell` */
+
+insert  into `old_shell`(`id`,`code`,`created_date`,`shell_id`,`quantity`,`note`,`created_employee_id`) values (1,'20200406-OS-0001','2020-04-01',1,219,'',35),(2,'20200406-OS-0002','2020-04-03',1,257,'',35),(3,'20200406-OS-0003','2020-04-04',1,213,'',35),(4,'20200406-OS-0004','2020-04-04',12,-80,'',35),(5,'20200406-OS-0005','2020-04-04',14,-5,'',35),(6,'20200406-OS-0006','2020-04-04',15,-26,'',35),(7,'20200406-OS-0007','2020-04-04',18,-18,'',35),(8,'20200406-OS-0008','2020-04-04',20,-2,'',35),(9,'20200406-OS-0009','2020-04-04',3,-3,'',35),(10,'20200406-OS-0010','2020-04-04',26,-3,'',35),(11,'20200406-OS-0011','2020-04-04',31,-42,'',35),(12,'20200406-OS-0012','2020-04-04',19,-37,'',35),(13,'20200407-OS-0001','2020-04-06',1,-10,'',35),(14,'20200407-OS-0002','2020-04-06',47,-1,'',35),(15,'20200407-OS-0003','2020-04-06',11,-19,'',35),(16,'20200407-OS-0004','2020-04-06',12,-12,'',35),(17,'20200407-OS-0005','2020-04-06',42,-45,'',35),(18,'20200407-OS-0006','2020-04-06',24,-11,'',35),(19,'20200407-OS-0007','2020-04-06',27,-7,'',35),(20,'20200407-OS-0008','2020-04-06',28,-72,'',35),(21,'20200407-OS-0009','2020-04-06',33,-4,'',35),(22,'20200407-OS-0010','2020-04-06',34,-10,'',35),(23,'20200407-OS-0011','2020-04-06',36,-68,'',35),(24,'20200407-OS-0012','2020-04-06',37,-6,'',35),(25,'20200407-OS-0013','2020-04-06',38,-29,'',35),(26,'20200407-OS-0014','2020-04-06',39,-20,'',35),(27,'20200407-OS-0015','2020-04-06',40,-6,'',35),(28,'20200407-OS-0016','2020-04-06',41,-2,'',35);
 
 /*Table structure for table `organization` */
 
@@ -1719,6 +2015,10 @@ CREATE TABLE `organization` (
   PRIMARY KEY (`id`)
 ) ENGINE=MyISAM AUTO_INCREMENT=15 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
+/*Data for the table `organization` */
+
+insert  into `organization`(`id`,`code`,`name`,`address`,`status`,`phone`,`fax`,`bank_account`,`tax`,`presenter`,`presenter_position`) values (1,'QT','Công ty TNHH Quang Trung','21 Bình Giã, khu phố Phước Lộc, thị trấn Phước Bửu, huyện Xuyên Mộc, tỉnh Bà Rịa Vũng Tàu',1,'0254.3771972','0254.3877075','050014822604, tại ngân hàng Sacombank - PGD Xuyên Mộc, huyện Xuyên Mộc, tỉnh Bà Rịa Vũng Tàu','3501475916','Cao Huy Hoàng','Giám đốc'),(14,'HT','Công ty TNHH Khí Hóa Lỏng Hưng Thịnh','39/1, KP3, P. Tam Hiệp, TP. Biên Hòa, Đồng Nai',1,'(0251)3.818.111','(0251)3.855.550','050046951171 Ngân hàng TMCP Sài Gòn Thương Tín- Sacombank Chi nhánh Đ.Nai','3600874037','Trần Quang Ngọc','Giám đốc');
+
 /*Table structure for table `organization_shell` */
 
 DROP TABLE IF EXISTS `organization_shell`;
@@ -1729,6 +2029,10 @@ CREATE TABLE `organization_shell` (
   `shell_id` int(11) DEFAULT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=10 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+/*Data for the table `organization_shell` */
+
+insert  into `organization_shell`(`id`,`organization_id`,`shell_id`) values (4,14,1),(5,14,2),(6,1,9),(7,1,10),(8,1,2),(9,1,1);
 
 /*Table structure for table `other_bonus` */
 
@@ -1742,6 +2046,8 @@ CREATE TABLE `other_bonus` (
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
+/*Data for the table `other_bonus` */
+
 /*Table structure for table `panelty` */
 
 DROP TABLE IF EXISTS `panelty`;
@@ -1753,6 +2059,10 @@ CREATE TABLE `panelty` (
   `note` text COLLATE utf8_unicode_ci,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+/*Data for the table `panelty` */
+
+insert  into `panelty`(`id`,`name`,`organization_id`,`note`) values (4,'Điện thoại',1,' '),(5,'Phạt',1,'');
 
 /*Table structure for table `parameter` */
 
@@ -1768,6 +2078,10 @@ CREATE TABLE `parameter` (
   PRIMARY KEY (`id`)
 ) ENGINE=MyISAM AUTO_INCREMENT=11 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
+/*Data for the table `parameter` */
+
+insert  into `parameter`(`id`,`code`,`name`,`value`,`note`,`is_show`) values (3,'startdate','Ngày bắt đầu sử dụng','01/01/2018',NULL,0),(2,'mailbeforeday','Số ngày nhắc mail trước sinh nhật','3',NULL,1),(4,'insurancepersonal','Bảo hiểm xã hội - Nhân viên đóng (%)','8',NULL,1),(5,'insurancecompany','Bảo hiểm xã hội - Công ty đóng (%)','17',NULL,1),(6,'seniallowday','Số ngày nhắc mail trước khi thay đổi thâm niên','2',NULL,1),(7,'lovo','Lò vỏ','220000',NULL,1),(8,'100km','Số lít dầu cho 100 km','28',NULL,1),(9,'1000kggas','Số lít dầu cho 1000 kg gas','1',NULL,1),(10,'dayoffperyear','Số ngày nghỉ phép trong năm','12',NULL,1);
+
 /*Table structure for table `permission` */
 
 DROP TABLE IF EXISTS `permission`;
@@ -1781,6 +2095,10 @@ CREATE TABLE `permission` (
   PRIMARY KEY (`id`)
 ) ENGINE=MyISAM AUTO_INCREMENT=13 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
+/*Data for the table `permission` */
+
+insert  into `permission`(`id`,`name`,`note`,`users`,`organizations`) values (8,'admin','Quyền quản trị hệ thống','1','1,14'),(12,'Admin Hưng Thịnh','','15','14'),(11,'Admin Quang Trung','','11,13,14,16','1');
+
 /*Table structure for table `permission_detail` */
 
 DROP TABLE IF EXISTS `permission_detail`;
@@ -1792,6 +2110,10 @@ CREATE TABLE `permission_detail` (
   `function` text COLLATE utf8_unicode_ci,
   PRIMARY KEY (`id`)
 ) ENGINE=MyISAM AUTO_INCREMENT=43 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+/*Data for the table `permission_detail` */
+
+insert  into `permission_detail`(`id`,`permission_id`,`operation`,`function`) values (17,8,2,'1,5,8,6,7,3,4,9,10,11,12,13,14,53,54,15,16,17,18,19,20,22,23,51,52,21,24,25,26,27,28,29,30,31,32,33,34,35,36,37,55,38,39,40,41,42,43,44,45,56,46,47,48,49,50'),(16,8,1,'1,5,8,6,7,3,4,9,10,11,12,13,14,53,54,15,16,17,18,19,20,22,23,51,52,21,24,25,26,27,28,29,30,31,32,33,34,35,36,37,55,38,39,40,41,42,43,44,45,56,46,47,48,49,50'),(18,8,3,'1,5,8,4,13,14,53,54,15,20,22,23,51,52,25,26,27,28,29,30,31,32,33,34,35,36,37,55,38,39,40,41,42,43,44,45,56,46,47,48,49,50'),(19,8,4,'1,5,8,6,7,3,4,9,10,11,12,13,14,53,54,15,16,17,18,19,20,22,23,51,52,21,24,25,26,27,28,29,30,31,32,33,34,35,36,37,55,38,39,40,41,42,43,44,45,56,46,47,48,49,50'),(20,8,6,'56'),(40,12,4,'1,5,8,6,7,3,4,9,10,11,12,13,14,53,54,15,16,17,18,19,58,70,20,22,23,51,52,21,24,75,25,26,27,59,28,29,30,31,32,33,37,76,77,34,36,55,38,39,40,42,82,43,44,45,90,56,46,48,49,50,60,61'),(37,12,1,'1,5,83,8,6,7,3,4,9,10,11,12,13,14,53,54,15,16,17,18,19,58,70,20,22,23,51,52,21,24,75,25,26,27,59,28,29,30,31,32,33,37,76,77,34,36,55,38,39,40,42,82,43,44,45,90,56,46,48,49,50,60,61'),(35,11,8,'20,109,52,101,102,26,27,59,28,30,31,32,33,37,117,128,118,126,76,77,34,36,95,38,39,40,42,43,44,45,46,48,49,50,60,61,93,133,135,134,136'),(36,11,6,'56,130,131,57,89,81,62,63,69,64,65,88,86,94,92,66,67,68,79,80,97,71,72,73,74,78,84,85,87,91,103,104,105,107,119,120,121,122,123,124,131,125,129,132,141,142,143,144,145,146,149,147,148,150'),(38,12,2,'1,5,8,6,7,3,4,9,10,11,12,13,14,53,54,15,16,17,18,19,58,70,20,22,23,51,52,21,24,75,25,26,27,59,28,29,30,31,32,33,37,76,77,34,36,55,38,39,40,42,82,43,44,45,90,56,46,48,49,50,60,61'),(39,12,3,'1,5,8,4,13,14,53,54,15,58,70,20,22,23,51,52,25,26,27,59,28,29,30,31,32,33,37,76,77,34,36,55,38,39,40,42,82,43,44,45,90,56,46,48,49,50,60,61'),(34,11,4,'1,5,8,6,7,3,4,9,10,11,12,13,98,99,100,14,53,54,15,16,17,18,19,58,70,20,109,22,23,51,52,101,102,21,24,75,110,111,112,116,113,25,108,106,26,27,59,28,29,30,31,32,33,37,117,128,118,126,127,76,77,34,96,36,55,95,38,39,40,42,82,43,44,45,90,56,130,131,46,48,49,50,60,61,93,137,139,138,133,135,134,136,140'),(33,11,3,'1,5,8,4,13,98,99,100,14,53,54,15,58,70,20,109,22,23,51,52,101,102,110,116,25,108,106,26,27,59,28,29,30,31,32,33,37,117,128,118,126,76,77,34,36,55,95,38,39,40,42,82,43,44,45,90,56,130,131,46,48,49,50,60,61,93,139,133,135,134,136'),(32,11,2,'1,5,8,6,7,3,4,9,10,11,12,13,98,99,100,14,53,54,15,16,17,18,19,58,70,20,109,22,23,51,52,101,102,21,24,75,110,111,112,116,113,25,108,106,26,27,59,28,29,30,31,32,33,37,117,128,118,126,127,76,77,34,96,36,55,95,38,39,40,42,82,43,44,45,90,56,130,131,46,48,49,50,60,61,93,137,139,138,133,135,134,136,140'),(31,11,1,'1,5,83,8,6,7,3,4,9,10,11,12,13,98,99,100,14,53,54,15,16,17,18,19,58,70,20,109,22,23,51,52,101,102,21,24,75,110,111,112,116,113,25,108,106,26,27,59,28,29,30,31,32,33,37,117,128,118,126,76,77,34,96,36,55,95,38,39,40,42,82,43,44,45,90,56,130,131,46,48,49,50,60,61,93,137,139,138,133,135,134,136'),(41,12,8,'20,52,26,27,59,28,30,31,32,33,37,76,77,34,36,38,39,40,42,43,44,45,46,48,49,50,60,61'),(42,12,6,'56,57,89,81,62,63,69,64,65,88,92,66,67,68,79,80,71,72,73,74,78,84,85,87,91');
 
 /*Table structure for table `petro` */
 
@@ -1807,6 +2129,10 @@ CREATE TABLE `petro` (
   `status` int(1) DEFAULT '1' COMMENT '0:bi khoa,1:dang hoat dong',
   PRIMARY KEY (`id`)
 ) ENGINE=MyISAM AUTO_INCREMENT=12 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+/*Data for the table `petro` */
+
+insert  into `petro`(`id`,`code`,`name`,`price`,`unit_id`,`organization_id`,`status`) values (6,'DO','DẦU DO 0,05S',20000,5,1,1),(5,'A92-E5','XĂNG A92-E5',300000,5,1,2),(4,'A95','XĂNG A95',100000,5,1,0),(7,'HD40(T18)','HD40(T18)',0,5,1,0),(8,'HD40(4L)','NHỚT HD 40 (can 4 L)',0,5,1,0),(9,'SHELL(T18)','NHỚT SHELL (thùng 18 L)',0,5,1,0),(10,'N68 (T18)','NHỚT THỦY LỰC 68 (thùng 18 L)',0,5,1,0),(11,'N140 (L)','NHỚT ĐẶC 140',0,5,1,0);
 
 /*Table structure for table `petro_import` */
 
@@ -1828,6 +2154,8 @@ CREATE TABLE `petro_import` (
   PRIMARY KEY (`id`)
 ) ENGINE=MyISAM AUTO_INCREMENT=4 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
+/*Data for the table `petro_import` */
+
 /*Table structure for table `petro_import_detail` */
 
 DROP TABLE IF EXISTS `petro_import_detail`;
@@ -1843,6 +2171,8 @@ CREATE TABLE `petro_import_detail` (
   PRIMARY KEY (`id`)
 ) ENGINE=MyISAM AUTO_INCREMENT=5 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
+/*Data for the table `petro_import_detail` */
+
 /*Table structure for table `petro_in_stock` */
 
 DROP TABLE IF EXISTS `petro_in_stock`;
@@ -1856,6 +2186,8 @@ CREATE TABLE `petro_in_stock` (
   `in_stock` int(11) DEFAULT '0',
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+/*Data for the table `petro_in_stock` */
 
 /*Table structure for table `petro_sale` */
 
@@ -1878,6 +2210,8 @@ CREATE TABLE `petro_sale` (
   PRIMARY KEY (`id`)
 ) ENGINE=MyISAM AUTO_INCREMENT=6 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
+/*Data for the table `petro_sale` */
+
 /*Table structure for table `petro_sale_detail` */
 
 DROP TABLE IF EXISTS `petro_sale_detail`;
@@ -1892,6 +2226,8 @@ CREATE TABLE `petro_sale_detail` (
   PRIMARY KEY (`id`)
 ) ENGINE=MyISAM AUTO_INCREMENT=10 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
+/*Data for the table `petro_sale_detail` */
+
 /*Table structure for table `promotion_material` */
 
 DROP TABLE IF EXISTS `promotion_material`;
@@ -1903,6 +2239,10 @@ CREATE TABLE `promotion_material` (
   `status` int(1) DEFAULT '1' COMMENT '0:bi khoa,1:dang hoat dong',
   PRIMARY KEY (`id`)
 ) ENGINE=MyISAM AUTO_INCREMENT=5 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+/*Data for the table `promotion_material` */
+
+insert  into `promotion_material`(`id`,`name`,`unit_id`,`status`) values (3,'Đĩa thủy tinh+ly',8,1),(4,'Thố tráng men',8,1);
 
 /*Table structure for table `promotion_material_import` */
 
@@ -1922,6 +2262,8 @@ CREATE TABLE `promotion_material_import` (
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
+/*Data for the table `promotion_material_import` */
+
 /*Table structure for table `promotion_material_import_detail` */
 
 DROP TABLE IF EXISTS `promotion_material_import_detail`;
@@ -1936,6 +2278,8 @@ CREATE TABLE `promotion_material_import_detail` (
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
+/*Data for the table `promotion_material_import_detail` */
+
 /*Table structure for table `promotion_material_in_stock` */
 
 DROP TABLE IF EXISTS `promotion_material_in_stock`;
@@ -1948,6 +2292,8 @@ CREATE TABLE `promotion_material_in_stock` (
   `in_stock` int(11) DEFAULT '0',
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+/*Data for the table `promotion_material_in_stock` */
 
 /*Table structure for table `promotion_material_sale` */
 
@@ -1968,6 +2314,8 @@ CREATE TABLE `promotion_material_sale` (
   PRIMARY KEY (`id`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
+/*Data for the table `promotion_material_sale` */
+
 /*Table structure for table `promotion_material_sale_detail` */
 
 DROP TABLE IF EXISTS `promotion_material_sale_detail`;
@@ -1981,6 +2329,8 @@ CREATE TABLE `promotion_material_sale_detail` (
   `amount` double DEFAULT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+/*Data for the table `promotion_material_sale_detail` */
 
 /*Table structure for table `retail_debt` */
 
@@ -1998,6 +2348,8 @@ CREATE TABLE `retail_debt` (
   PRIMARY KEY (`id`)
 ) ENGINE=MyISAM AUTO_INCREMENT=2 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
+/*Data for the table `retail_debt` */
+
 /*Table structure for table `route` */
 
 DROP TABLE IF EXISTS `route`;
@@ -2010,6 +2362,10 @@ CREATE TABLE `route` (
   PRIMARY KEY (`id`)
 ) ENGINE=MyISAM AUTO_INCREMENT=21 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
+/*Data for the table `route` */
+
+insert  into `route`(`id`,`name`,`distance`,`note`) values (2,'Thị Vải - Supor',197,''),(3,'Gò dầu - Hưng Thịnh',110,''),(4,'Gò dầu - Quang Trung',140,''),(5,'Thị Vải - Quang Trung',125,''),(6,'Gò dầu - Nhóm 1 - Nhóm 2',110,'16'),(7,'Gò dầu - Nhóm 2 - Nhóm 3',132,'16'),(8,'Gò dầu - Nhóm 3 - Nhóm 3',143,'16'),(9,'Gò dầu - Nhóm 2 - Nhóm 2',118,'16'),(10,'Thị Vải - Nhóm 1 - Nhóm 2',125,'17'),(11,'Thị Vải - Nhóm 2 - Nhóm 3',147,'17'),(12,'Thị Vải - Nhóm 3 - Nhóm 3',158,'17'),(13,'Thị Vải - Nhóm 1 - Nhóm 3 (Thị Vải - Nhóm3)',136,'17'),(14,'Thị Vải - Nhóm 2 - Nhóm 2',133,'17'),(15,'Thị Vải - Hưng Thịnh',125,'14'),(16,'Thị Vải - Gốm Minh Tiến',112,''),(17,'Gò dầu - Gốm Minh Tiến',97,'13'),(18,'Gò dầu - Beta',88,'10'),(19,'Gò dầu - Trạm Gia Bảo',200,'12'),(20,'Gò dầu - Supor',182,'15');
+
 /*Table structure for table `salary_timesheet_field` */
 
 DROP TABLE IF EXISTS `salary_timesheet_field`;
@@ -2021,6 +2377,8 @@ CREATE TABLE `salary_timesheet_field` (
   `amount` double DEFAULT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+/*Data for the table `salary_timesheet_field` */
 
 /*Table structure for table `shell` */
 
@@ -2037,6 +2395,10 @@ CREATE TABLE `shell` (
   PRIMARY KEY (`id`)
 ) ENGINE=MyISAM AUTO_INCREMENT=48 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
+/*Data for the table `shell` */
+
+insert  into `shell`(`id`,`kind_id`,`code`,`name`,`price`,`unit_id`,`status`) values (1,38,'ST12X','Star Gas 12kg sơn xám',0,4,1),(2,39,'ST45X','Start Gas 45kg sơn xám',200000,4,1),(3,38,'Pet','Petimex',150000,4,1),(8,38,'MAIKHE','MAI KHÊ GAS',0,4,1),(9,38,'ST12H','Star Gas 12kg sơn hồng',0,4,1),(10,39,'ST45H','Star Gas 45kg sơn hồng',0,4,1),(11,38,'AGAS','AGAS',0,4,1),(12,38,'NVP, VL','NVP; Vạn Lộc',0,4,1),(13,38,'VANLOC','VẠN LỘC GAS',0,4,2),(14,38,'GIADINH','GIA ĐÌNH GAS',0,4,1),(15,38,'HGAS','H GAS',0,4,1),(16,38,'HOANGAN','HOÀNG ÂN GAS',0,4,1),(17,38,'MT','MT GAS',0,4,1),(18,38,'ORIGIN','ORIGIN GAS',0,4,1),(19,38,'ONIC','ONIC GAS',0,4,1),(20,38,'PACIFIC','PACIFIC GAS',0,4,1),(21,38,'PETIMEX','PETIMEX GAS',0,4,2),(22,38,'PETROLIMEX','PETROLIMEX GAS',0,4,1),(23,38,'PETROVIETNAM','PETROVIETNAM GAS',0,4,2),(24,38,'SAIGONPETRO','SAIGON PETRO GAS',0,4,1),(25,38,'SAIGONGAS','SAIGON GAS',0,4,1),(26,38,'SHELLGAS','SHELL GAS',0,4,1),(27,38,'SOPET','SOPET GAS',0,4,1),(28,38,'THAILAN','THAILAN GAS',0,4,1),(29,38,'TOTAL','TOTAL GAS',0,4,2),(30,38,'VINA','VINA GAS',0,4,2),(31,38,'ELF;TT;VN','TOTAL,VINA, ELF',0,4,1),(32,38,'HIEPHUONG','HIỆP HƯƠNG GAS',0,4,1),(33,38,'THUDUC','THỦ ĐỨC GAS',0,4,1),(34,38,'UNIQUE','UNIQUE GAS',0,4,1),(35,38,'VGAS','V GAS',0,4,2),(36,38,'PM, VG','PM, V Gas',0,4,1),(37,38,'VIMEXCO','VIMEXCO GAS',0,4,1),(38,38,'VINASHIN','VINASHIN GAS',0,4,1),(39,38,'VT','VT GAS',0,4,1),(40,38,'VOTAP','VỎ TẠP CÁC LOẠI',0,4,1),(41,38,'VOVECHAI','VỎ VE CHAI',0,4,1),(42,38,'PETROL VN','PETROL VN',0,4,1),(43,38,'SP','SÀI GÒN PETROL',0,4,2),(44,38,'TTA','THÀNH TÀI GAS',0,4,1),(45,38,'PTNAS','Petrol Nas',0,4,1),(46,38,'ST12 XƯỞNG','STAR 12 XÁM XƯỞNG',0,4,1),(47,39,'ST45 XUONG','sTAR 45 XƯỞNG',0,4,1);
+
 /*Table structure for table `shell_gas_in_stock` */
 
 DROP TABLE IF EXISTS `shell_gas_in_stock`;
@@ -2047,7 +2409,11 @@ CREATE TABLE `shell_gas_in_stock` (
   `shell_vendor_id` int(11) DEFAULT NULL,
   `in_stock` int(11) DEFAULT '0',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=9 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+/*Data for the table `shell_gas_in_stock` */
+
+insert  into `shell_gas_in_stock`(`id`,`day`,`shell_vendor_id`,`in_stock`) values (1,'2020-04-01',5,0),(2,'2020-04-01',1,807),(3,'2020-04-01',2,0),(4,'2020-04-01',4,3);
 
 /*Table structure for table `shell_import` */
 
@@ -2066,7 +2432,9 @@ CREATE TABLE `shell_import` (
   `created_employee_id` int(11) DEFAULT NULL,
   `vendor_id` int(11) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM AUTO_INCREMENT=11 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+/*Data for the table `shell_import` */
 
 /*Table structure for table `shell_in_stock` */
 
@@ -2080,7 +2448,11 @@ CREATE TABLE `shell_in_stock` (
   `in_stock` int(11) DEFAULT '0' COMMENT 'vo binh rong',
   PRIMARY KEY (`id`),
   KEY `shell_id` (`shell_id`)
-) ENGINE=MyISAM AUTO_INCREMENT=39 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=MyISAM AUTO_INCREMENT=37 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+/*Data for the table `shell_in_stock` */
+
+insert  into `shell_in_stock`(`id`,`day`,`organization_id`,`shell_id`,`in_stock`) values (1,'2020-04-01',1,11,12),(2,'2020-04-01',1,14,4),(3,'2020-04-01',1,15,17),(4,'2020-04-01',1,32,0),(5,'2020-04-01',1,16,0),(6,'2020-04-01',1,8,0),(7,'2020-04-01',1,17,0),(8,'2020-04-01',1,12,46),(9,'2020-04-01',1,19,21),(10,'2020-04-01',1,18,2),(11,'2020-04-01',1,20,1),(12,'2020-04-01',1,3,2),(13,'2020-04-01',1,45,0),(14,'2020-04-01',1,42,28),(15,'2020-04-01',1,22,0),(16,'2020-04-01',1,36,11),(17,'2020-04-01',1,25,0),(18,'2020-04-01',1,24,9),(19,'2020-04-01',1,26,3),(20,'2020-04-01',1,27,6),(21,'2020-04-01',1,46,2011),(22,'2020-04-01',1,47,13),(23,'2020-04-01',1,9,0),(24,'2020-04-01',1,1,506),(25,'2020-04-01',1,10,0),(26,'2020-04-01',1,2,138),(27,'2020-04-01',1,28,43),(28,'2020-04-01',1,44,0),(29,'2020-04-01',1,33,1),(30,'2020-04-01',1,31,10),(31,'2020-04-01',1,34,10),(32,'2020-04-01',1,37,4),(33,'2020-04-01',1,38,7),(34,'2020-04-01',1,40,4),(35,'2020-04-01',1,41,0),(36,'2020-04-01',1,39,7);
 
 /*Table structure for table `shell_kind` */
 
@@ -2095,6 +2467,10 @@ CREATE TABLE `shell_kind` (
   `status` int(1) DEFAULT '1' COMMENT '0:bi khoa, 1:dang su dung',
   PRIMARY KEY (`id`)
 ) ENGINE=MyISAM AUTO_INCREMENT=41 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+/*Data for the table `shell_kind` */
+
+insert  into `shell_kind`(`id`,`code`,`name`,`weight`,`commission`,`status`) values (38,'12KG','Bình 12KG',12,750,1),(39,'45KG','Bình 45KG',45,1500,1);
 
 /*Table structure for table `shell_return` */
 
@@ -2111,6 +2487,8 @@ CREATE TABLE `shell_return` (
   PRIMARY KEY (`id`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
+/*Data for the table `shell_return` */
+
 /*Table structure for table `shell_return_detail` */
 
 DROP TABLE IF EXISTS `shell_return_detail`;
@@ -2122,6 +2500,8 @@ CREATE TABLE `shell_return_detail` (
   `quantity` int(5) DEFAULT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+/*Data for the table `shell_return_detail` */
 
 /*Table structure for table `shell_return_supplier` */
 
@@ -2138,6 +2518,8 @@ CREATE TABLE `shell_return_supplier` (
   PRIMARY KEY (`id`)
 ) ENGINE=MyISAM AUTO_INCREMENT=4 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
+/*Data for the table `shell_return_supplier` */
+
 /*Table structure for table `shell_return_supplier_detail` */
 
 DROP TABLE IF EXISTS `shell_return_supplier_detail`;
@@ -2149,6 +2531,8 @@ CREATE TABLE `shell_return_supplier_detail` (
   `quantity` int(5) DEFAULT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+/*Data for the table `shell_return_supplier_detail` */
 
 /*Table structure for table `shell_sale` */
 
@@ -2168,7 +2552,9 @@ CREATE TABLE `shell_sale` (
   `note` text COLLATE utf8_unicode_ci,
   `created_employee_id` int(11) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM AUTO_INCREMENT=18 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+/*Data for the table `shell_sale` */
 
 /*Table structure for table `shell_sale_detail` */
 
@@ -2182,7 +2568,9 @@ CREATE TABLE `shell_sale_detail` (
   `price` double DEFAULT NULL,
   `amount` double DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM AUTO_INCREMENT=90 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+/*Data for the table `shell_sale_detail` */
 
 /*Table structure for table `shell_statistic` */
 
@@ -2196,6 +2584,8 @@ CREATE TABLE `shell_statistic` (
   PRIMARY KEY (`id`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
+/*Data for the table `shell_statistic` */
+
 /*Table structure for table `shell_vendor` */
 
 DROP TABLE IF EXISTS `shell_vendor`;
@@ -2208,6 +2598,10 @@ CREATE TABLE `shell_vendor` (
   `quantity` int(11) DEFAULT '0',
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=44 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+/*Data for the table `shell_vendor` */
+
+insert  into `shell_vendor`(`id`,`organization_id`,`shell_id`,`vendor_id`,`quantity`) values (1,1,1,22,1218),(2,1,10,22,1),(3,1,11,22,0),(4,1,2,22,1),(5,1,9,22,1),(6,1,29,22,0),(7,1,3,22,0),(8,1,8,22,0),(9,1,12,22,0),(10,1,13,22,0),(11,1,14,22,0),(12,1,15,22,0),(13,1,16,22,0),(14,1,17,22,0),(15,1,18,22,0),(16,1,19,22,0),(17,1,20,22,0),(18,1,21,22,0),(19,1,22,22,0),(20,1,23,22,0),(21,1,24,22,0),(22,1,25,22,0),(23,1,26,22,0),(24,1,27,22,0),(25,1,28,22,0),(26,1,30,22,0),(27,1,31,22,0),(28,1,32,22,0),(29,1,33,22,0),(30,1,34,22,0),(31,1,35,22,0),(32,1,36,22,0),(33,1,37,22,0),(34,1,38,22,0),(35,1,39,22,0),(36,1,40,22,0),(37,1,41,22,0),(38,1,42,22,0),(39,1,43,22,0),(40,1,44,22,0),(41,1,46,22,0),(42,1,47,22,0),(43,1,45,22,0);
 
 /*Table structure for table `shield_decrease` */
 
@@ -2224,6 +2618,8 @@ CREATE TABLE `shield_decrease` (
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
+/*Data for the table `shield_decrease` */
+
 /*Table structure for table `shield_import` */
 
 DROP TABLE IF EXISTS `shield_import`;
@@ -2239,6 +2635,8 @@ CREATE TABLE `shield_import` (
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
+/*Data for the table `shield_import` */
+
 /*Table structure for table `shield_in_stock` */
 
 DROP TABLE IF EXISTS `shield_in_stock`;
@@ -2252,6 +2650,8 @@ CREATE TABLE `shield_in_stock` (
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
+/*Data for the table `shield_in_stock` */
+
 /*Table structure for table `solar` */
 
 DROP TABLE IF EXISTS `solar`;
@@ -2259,7 +2659,7 @@ DROP TABLE IF EXISTS `solar`;
 CREATE TABLE `solar` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `code` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
-  `name` varbinary(255) DEFAULT NULL,
+  `name` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
   `vendor_id` int(11) DEFAULT NULL,
   `group_id` int(11) DEFAULT NULL,
   `weight_unit_id` int(11) DEFAULT NULL,
@@ -2271,7 +2671,11 @@ CREATE TABLE `solar` (
   `organization_id` int(11) DEFAULT NULL,
   `price` double DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=55 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+/*Data for the table `solar` */
+
+insert  into `solar`(`id`,`code`,`name`,`vendor_id`,`group_id`,`weight_unit_id`,`weight`,`base_unit_id`,`sale_unit_id`,`employee_commission_id`,`status`,`organization_id`,`price`) values (1,'POLY 330','Tấm pin NLMT 330P5-72',0,0,16,0,16,16,0,1,1,0),(2,'MONO 370','Tấm pin năng lượng mặt trời 370w-72 Cellmono',0,0,16,0,16,16,0,1,1,0),(3,'SFS-KEPGIUA-40','Kẹp giữa 40mm(40mm mid-clamp)',35,0,7,0,7,7,0,1,1,0),(4,'SFS-KEPBIEN-40','Kẹp biên 40mm(40mm end-clamp)',35,0,7,0,7,7,0,1,1,0),(5,'SFS-Lfeet','Chân nối L',35,0,7,0,7,7,0,1,1,0),(6,'SFS-MC4+','Đầu MC4 dương',35,0,7,0,7,7,0,1,1,0),(7,'SFS-MC4-','Đầu MC4 âm',35,0,7,0,7,7,0,1,1,0),(8,'SFS-SCN2-01','Nối thanh nhôm',35,0,7,0,7,7,0,1,1,0),(9,'IVT 3KW','Bộ nghịch lưu dùng trong năng lượng mặt trời(Growatt 3000-S)',30,0,8,0,8,8,0,1,1,0),(10,'IVT 5KW-MTL','Inverter Growatt 5000MTL-S',30,0,8,0,8,8,0,1,1,0),(11,'IVT 5.5KW','Bộ nghịch lưu dùng trong năng lượng mặt trời(Growatt 5.500MTL-S)',30,0,8,0,8,8,0,1,1,0),(12,'IVT SE3KW','Inverter hòa lưới SE3KTL',30,0,8,0,8,7,0,1,1,0),(13,'VC','Chi phí vận chuyển',31,0,17,0,17,17,0,1,1,0),(14,'SFS-RHN2-01','Nối mái ngói 01',35,0,8,0,8,8,0,1,1,0),(15,'GREENWING','PIN Greenwing',31,0,16,0,16,16,0,1,1,0),(16,'IVT-HW60KW','Inverter Huawei 60KW',36,0,8,0,8,8,0,1,1,0),(17,'GM-Thanhnhom02-Light','Ray nhôm 4200mm-Rail(GM-R02-Light)',37,0,7,0,7,7,0,1,1,0),(18,'GM-kepbien-40','Kẹp đầu nhôm GM-EC-40-DYH(100 cái/thùng)',37,0,7,0,7,7,0,1,1,0),(19,'GM-kepgiua-40','Kẹp giữa nhôm GM-EC-40-DYH(100 cái/thùng)',37,0,7,0,7,7,0,1,1,0),(20,'GM-daunoinhom','Đầu nối nhôm GM-RS-01-L-DYH(60 cái/thùng)',37,0,7,0,7,7,0,1,1,0),(21,'GM-Lfeet','Chân nối nhôm GM-MRH-L5-DYH(60 cái/thùng)',37,0,7,0,7,7,0,1,1,0),(22,'IVT 10KW','Bộ nghịch lưu dùng trong năng lượng mặt trời(Growatt 10000TL3-S)-S)',30,0,8,0,8,8,0,1,1,0),(23,'IVT 15KW','Bộ nghịch lưu dùng trong năng lượng mặt trời(Growatt 15000TL3-S)-S)',30,0,8,0,8,8,0,1,1,0),(24,'IVT 20KW','Bộ nghịch lưu dùng trong năng lượng mặt trời(Growatt 20000TL3-S)',30,0,8,0,8,8,0,1,1,0),(25,'IVT 40KW','Bộ nghịch lưu dùng trong năng lượng mặt trời(Growatt 4000TL3-NSE)',30,0,8,0,8,8,0,1,1,0),(26,'IVT 50KW','Bộ nghịch lưu dùng trong năng lượng mặt trời(Growatt MAX 50KTL3-L)',37,0,8,0,8,8,0,1,1,0),(27,'IVT 60KW','Bộ nghịch lưu dùng trong năng lượng mặt trời(Growatt MAX 60KTL3-L)',37,0,8,0,8,8,0,1,1,0),(28,'IVT 3KWTL-X','Inverter Growatt 3000TL-X',30,0,8,0,8,8,0,1,1,0),(29,'IVT 5KWTL-X','Inverter Growatt 5000TL-X',30,0,8,0,8,8,0,1,1,0),(30,'IVT6KW','Inverter Growatt 6000TL3-S',30,0,8,0,8,8,0,1,1,0),(31,'IVT 25KW','Bộ nghịch lưu Growatt 25000TL3-S)',30,0,8,0,8,8,0,1,1,0),(32,'IVT 30KW','Bộ nghịch lưu dùng trong năng lượng mặt trời(Growatt 30000TL3-S)',30,0,8,0,8,8,0,1,1,0),(33,'Cục Wifi-S','Growatt wifi-S',30,0,8,0,8,8,0,1,1,0),(34,'IVT 8KW','Inverter Growatt 8000MTL-S',30,0,8,0,8,8,0,1,1,0),(35,'IVT 80KW','Bộ chuyển đổi Growatt Max 80 KTL3-LV',30,0,8,0,8,8,0,1,1,0),(36,'DC RED4x1','Cáp dây điện vỏ bọc plastic 1x4mm2 1500v màu đỏ 100m/cuộn',34,0,18,0,18,18,0,1,1,0),(37,'DC BLACK 4X1','Cáp dây điện vỏ bọc plastic 1x4mm2 1500v màu đen 100m/cuộn',34,0,18,0,18,18,0,1,1,0),(38,'DC RED4x2','Cáp dây điện vỏ bọc plastic 1x4mm2 1500v màu đỏ 200m/cuộn',34,0,18,0,18,18,0,1,1,0),(39,'DC BLACK 4X2','Cáp dây điện vỏ bọc plastic 1x4mm2 1500v màu đen 200m/cuộn',31,0,18,0,18,18,0,1,1,0),(40,'DC BLACK6x2','Cáp dây điện vỏ bọc plastic 1x6mm2 1500v màu đen 200m/cuộn',34,0,18,0,18,18,0,1,1,0),(41,'Mono 430 LGi','Solar modules LR4-72HPH-430M(Longi)',38,0,16,0,16,16,0,1,1,0),(42,'TĐ 3KW','Tủ điện 3KW-DC/AC',36,0,8,0,8,8,0,1,1,0),(43,'TĐ 5KW','Tủ điện 5KW-DC/AC',36,0,8,0,8,8,0,1,1,0),(44,'TĐ 50KW TL3','Tủ điện 50KW-DC/AC',36,0,8,0,8,8,0,1,1,0),(45,'TĐ 10KW MTL','Tủ điện 10KW-DC/AC',31,0,8,0,8,8,0,1,1,0),(46,'Mono 435 LGi','Solar modules LR4-72HPH-435M(Longi)',38,0,16,0,16,16,0,1,1,0),(47,'NB-MC4',' Đầu MC4',34,0,19,0,19,19,0,1,1,0),(48,'SPF3000TL HVM-24V','Growatt 3000 TLHVM-24V',36,0,8,0,8,8,0,1,1,0),(49,'IVT SG110CX','SUNGROW INVERTER 110',39,0,8,0,8,8,0,1,1,0),(50,'JKM400M-72H-V','Solar modules JKM400M-72-V(Jinko)',32,0,16,0,16,16,0,1,1,0),(51,'AC','AC Terminal',30,0,8,0,8,8,0,1,1,0),(52,'Vít 4.2x38','Vít 4.2x38',36,0,7,0,7,7,0,1,1,0),(53,'SFS-THANHNHOM8-4200','Thanh nhôm SFS 8-4200mm',35,0,7,0,7,7,0,1,1,0),(54,'DC RED6x2','Cáp dây điện vỏ bọc plastic 1x6mm2 1500v màu đỏ 200m/cuộn',31,0,18,0,18,18,0,1,1,0);
 
 /*Table structure for table `solar_export` */
 
@@ -2289,6 +2693,8 @@ CREATE TABLE `solar_export` (
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
+/*Data for the table `solar_export` */
+
 /*Table structure for table `solar_export_detail` */
 
 DROP TABLE IF EXISTS `solar_export_detail`;
@@ -2302,6 +2708,8 @@ CREATE TABLE `solar_export_detail` (
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
+/*Data for the table `solar_export_detail` */
+
 /*Table structure for table `solar_group` */
 
 DROP TABLE IF EXISTS `solar_group`;
@@ -2313,6 +2721,8 @@ CREATE TABLE `solar_group` (
   `status` int(1) DEFAULT '1' COMMENT '0: da bi khoa, 1: dang su dung',
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+/*Data for the table `solar_group` */
 
 /*Table structure for table `solar_import` */
 
@@ -2334,7 +2744,11 @@ CREATE TABLE `solar_import` (
   `note` text COLLATE utf8_unicode_ci,
   `created_employee_id` int(11) DEFAULT NULL,
   UNIQUE KEY `id` (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+/*Data for the table `solar_import` */
+
+insert  into `solar_import`(`id`,`code`,`created_date`,`vendor_id`,`store_id`,`commission`,`rate`,`total_before_commission`,`total`,`paid`,`debt`,`account_id`,`note`,`created_employee_id`) values (1,'20200404-OI-0001','2020-04-04',30,11,0,0,0,0,0,0,5,'',17);
 
 /*Table structure for table `solar_import_detail` */
 
@@ -2351,7 +2765,11 @@ CREATE TABLE `solar_import_detail` (
   `amount` double DEFAULT NULL,
   `note` text COLLATE utf8_unicode_ci,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+/*Data for the table `solar_import_detail` */
+
+insert  into `solar_import_detail`(`id`,`solar_import_id`,`solar_id`,`unit_id`,`quantity`,`base_quantity`,`price`,`amount`,`note`) values (1,1,9,8,15,15,0,0,NULL),(2,1,29,8,31,31,0,0,NULL),(3,1,34,8,12,12,0,0,NULL),(4,1,22,8,15,15,0,0,NULL),(5,1,23,8,6,6,0,0,NULL),(6,1,32,8,2,2,0,0,NULL),(7,1,27,8,1,1,0,0,NULL);
 
 /*Table structure for table `solar_in_stock` */
 
@@ -2365,7 +2783,11 @@ CREATE TABLE `solar_in_stock` (
   `store_id` int(11) DEFAULT NULL,
   `in_stock` int(11) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=109 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+/*Data for the table `solar_in_stock` */
+
+insert  into `solar_in_stock`(`id`,`day`,`solar_id`,`organization_id`,`store_id`,`in_stock`) values (1,'2020-04-01',47,1,11,965),(2,'2020-04-01',51,1,11,8),(3,'2020-04-01',35,1,11,0),(4,'2020-04-01',22,1,11,0),(5,'2020-04-01',23,1,11,3),(6,'2020-04-01',24,1,11,4),(7,'2020-04-01',9,1,11,0),(8,'2020-04-01',32,1,11,0),(9,'2020-04-01',25,1,11,0),(10,'2020-04-01',11,1,11,8),(11,'2020-04-01',26,1,11,2),(12,'2020-04-01',27,1,11,0),(13,'2020-04-01',31,1,11,1),(14,'2020-04-01',37,1,11,1400),(15,'2020-04-01',39,1,11,0),(16,'2020-04-01',36,1,11,1358),(17,'2020-04-01',38,1,11,0),(18,'2020-04-01',40,1,11,0),(19,'2020-04-01',5,1,11,358),(20,'2020-04-01',21,1,11,2340),(21,'2020-04-01',13,1,11,0),(22,'2020-04-01',7,1,11,253),(23,'2020-04-01',6,1,11,228),(24,'2020-04-01',20,1,11,399),(25,'2020-04-01',48,1,11,1),(26,'2020-04-01',33,1,11,2),(27,'2020-04-01',28,1,11,7),(28,'2020-04-01',10,1,11,0),(29,'2020-04-01',29,1,11,0),(30,'2020-04-01',30,1,11,0),(31,'2020-04-01',34,1,11,0),(32,'2020-04-01',12,1,11,1),(33,'2020-04-01',16,1,11,1),(34,'2020-04-01',4,1,11,548),(35,'2020-04-01',18,1,11,2514),(36,'2020-04-01',3,1,11,904),(37,'2020-04-01',19,1,11,8627),(38,'2020-04-01',14,1,11,5),(39,'2020-04-01',8,1,11,200),(40,'2020-04-01',15,1,11,4),(41,'2020-04-01',17,1,11,1734),(42,'2020-04-01',50,1,11,0),(43,'2020-04-01',41,1,11,0),(44,'2020-04-01',46,1,11,100),(45,'2020-04-01',49,1,11,0),(46,'2020-04-01',2,1,11,0),(47,'2020-04-01',1,1,11,0),(48,'2020-04-01',45,1,11,0),(49,'2020-04-01',42,1,11,1),(50,'2020-04-01',44,1,11,1),(51,'2020-04-01',43,1,11,0),(52,'2020-04-01',52,1,11,38000),(53,'2020-04-01',47,1,12,0),(54,'2020-04-01',51,1,12,0),(55,'2020-04-01',35,1,12,0),(56,'2020-04-01',22,1,12,0),(57,'2020-04-01',23,1,12,0),(58,'2020-04-01',24,1,12,0),(59,'2020-04-01',9,1,12,1),(60,'2020-04-01',32,1,12,0),(61,'2020-04-01',25,1,12,0),(62,'2020-04-01',11,1,12,0),(63,'2020-04-01',26,1,12,0),(64,'2020-04-01',27,1,12,0),(65,'2020-04-01',31,1,12,0),(66,'2020-04-01',37,1,12,0),(67,'2020-04-01',39,1,12,0),(68,'2020-04-01',36,1,12,0),(69,'2020-04-01',38,1,12,0),(70,'2020-04-01',40,1,12,0),(71,'2020-04-01',5,1,12,0),(72,'2020-04-01',21,1,12,0),(73,'2020-04-01',13,1,12,0),(74,'2020-04-01',7,1,12,0),(75,'2020-04-01',6,1,12,0),(76,'2020-04-01',20,1,12,0),(77,'2020-04-01',48,1,12,0),(78,'2020-04-01',33,1,12,0),(79,'2020-04-01',28,1,12,0),(80,'2020-04-01',10,1,12,0),(81,'2020-04-01',29,1,12,0),(82,'2020-04-01',30,1,12,0),(83,'2020-04-01',34,1,12,0),(84,'2020-04-01',12,1,12,0),(85,'2020-04-01',16,1,12,0),(86,'2020-04-01',4,1,12,0),(87,'2020-04-01',18,1,12,0),(88,'2020-04-01',3,1,12,0),(89,'2020-04-01',19,1,12,0),(90,'2020-04-01',14,1,12,0),(91,'2020-04-01',8,1,12,0),(92,'2020-04-01',15,1,12,0),(93,'2020-04-01',17,1,12,0),(94,'2020-04-01',50,1,12,0),(95,'2020-04-01',41,1,12,0),(96,'2020-04-01',46,1,12,3),(97,'2020-04-01',49,1,12,0),(98,'2020-04-01',2,1,12,0),(99,'2020-04-01',1,1,12,0),(100,'2020-04-01',45,1,12,0),(101,'2020-04-01',42,1,12,0),(102,'2020-04-01',44,1,12,0),(103,'2020-04-01',43,1,12,0),(104,'2020-04-01',52,1,12,0),(105,'2020-04-01',54,1,11,0),(106,'2020-04-01',53,1,11,327),(107,'2020-04-01',54,1,12,0),(108,'2020-04-01',53,1,12,0);
 
 /*Table structure for table `solar_return_store` */
 
@@ -2377,6 +2799,8 @@ CREATE TABLE `solar_return_store` (
   `store_id` int(11) DEFAULT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+/*Data for the table `solar_return_store` */
 
 /*Table structure for table `solar_sale` */
 
@@ -2403,7 +2827,11 @@ CREATE TABLE `solar_sale` (
   `created_employee_id` int(11) DEFAULT NULL,
   `is_calculate_agency_commission` int(1) DEFAULT '1' COMMENT '0:khong tinh, 1:tinh CK cho dai ly',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+/*Data for the table `solar_sale` */
+
+insert  into `solar_sale`(`id`,`code`,`created_date`,`customer_id`,`commission`,`commission_kind`,`commission_amount`,`gap_agency_amount`,`gap_customer_amount`,`total_before_commission`,`total`,`discount`,`total_pay`,`paid`,`debt`,`account_id`,`note`,`created_employee_id`,`is_calculate_agency_commission`) values (1,'20200404-SO-0001','2020-04-04',403,0,1,0,0,0,0,5900000,0,5900000,0,5900000,5,'',17,0),(2,'20200404-SO-0002','2020-04-04',403,0,1,0,0,0,0,5900000,0,5900000,0,5900000,5,'',17,0);
 
 /*Table structure for table `solar_sale_detail` */
 
@@ -2427,7 +2855,11 @@ CREATE TABLE `solar_sale_detail` (
   `amount` double DEFAULT '0',
   `vendor_id` int(11) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+/*Data for the table `solar_sale_detail` */
+
+insert  into `solar_sale_detail`(`id`,`solar_sale_id`,`solar_id`,`unit_id`,`store_id`,`quantity`,`base_quantity`,`price_before_commission`,`commission_price`,`price`,`first_amount`,`commission`,`gap_agency_amount`,`gap_customer_amount`,`amount`,`vendor_id`) values (1,1,46,16,11,2,2,2950000,0,2950000,5900000,0,0,0,5900000,38),(2,2,46,16,11,2,2,2950000,0,2950000,5900000,0,0,0,5900000,38);
 
 /*Table structure for table `solar_sale_promotion` */
 
@@ -2443,6 +2875,8 @@ CREATE TABLE `solar_sale_promotion` (
   `base_quantity` int(3) DEFAULT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+/*Data for the table `solar_sale_promotion` */
 
 /*Table structure for table `solar_sale_return` */
 
@@ -2470,6 +2904,8 @@ CREATE TABLE `solar_sale_return` (
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
+/*Data for the table `solar_sale_return` */
+
 /*Table structure for table `solar_sale_return_detail` */
 
 DROP TABLE IF EXISTS `solar_sale_return_detail`;
@@ -2494,6 +2930,8 @@ CREATE TABLE `solar_sale_return_detail` (
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
+/*Data for the table `solar_sale_return_detail` */
+
 /*Table structure for table `store` */
 
 DROP TABLE IF EXISTS `store`;
@@ -2509,7 +2947,11 @@ CREATE TABLE `store` (
   `is_oil` int(1) DEFAULT '0',
   `is_solar` int(1) DEFAULT '0',
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM AUTO_INCREMENT=11 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=MyISAM AUTO_INCREMENT=13 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+/*Data for the table `store` */
+
+insert  into `store`(`id`,`code`,`name`,`organization_id`,`status`,`is_petro`,`is_good`,`is_oil`,`is_solar`) values (6,'QTK2','Kho cửa hàng Thái Bảo',1,1,1,0,0,0),(4,'QTK1','Trạm chiết nạp khí hoá lỏng LPG Quang Trung',1,1,1,0,0,0),(7,'KTG','Kho trạm gas',1,1,0,1,0,0),(8,'KDQT','Kho dầu Quang Trung',1,1,0,0,1,0),(9,'KDHT','Kho dầu Hưng Thịnh',1,1,0,0,1,0),(10,'KDT','Kho dầu trả hàng',1,1,0,0,1,0),(11,'KNLMT','Kho năng lượng mặt trời Quang Trung',1,1,0,0,0,1),(12,'KNLMTT','Kho năng lượng mặt trời Quang Trung hàng trả',1,1,0,0,0,1);
 
 /*Table structure for table `temp_gas_commission` */
 
@@ -2534,6 +2976,8 @@ CREATE TABLE `temp_gas_commission` (
   `commission_employee_oil_commission` double DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
+/*Data for the table `temp_gas_commission` */
+
 /*Table structure for table `temp_oil_stock` */
 
 DROP TABLE IF EXISTS `temp_oil_stock`;
@@ -2546,6 +2990,8 @@ CREATE TABLE `temp_oil_stock` (
   `import_quantity` int(11) DEFAULT NULL,
   `export_quantity` int(11) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+/*Data for the table `temp_oil_stock` */
 
 /*Table structure for table `temp_petro_stock` */
 
@@ -2560,6 +3006,8 @@ CREATE TABLE `temp_petro_stock` (
   `export_quantity` int(11) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
+/*Data for the table `temp_petro_stock` */
+
 /*Table structure for table `temp_solar_stock` */
 
 DROP TABLE IF EXISTS `temp_solar_stock`;
@@ -2572,6 +3020,8 @@ CREATE TABLE `temp_solar_stock` (
   `import_quantity` int(11) DEFAULT NULL,
   `export_quantity` int(11) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+/*Data for the table `temp_solar_stock` */
 
 /*Table structure for table `timesheet` */
 
@@ -2589,6 +3039,8 @@ CREATE TABLE `timesheet` (
   `created_employee_id` int(11) DEFAULT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=MyISAM AUTO_INCREMENT=7 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+/*Data for the table `timesheet` */
 
 /*Table structure for table `transport_service` */
 
@@ -2622,7 +3074,11 @@ CREATE TABLE `transport_service` (
   `customer_customer_id` int(11) DEFAULT NULL,
   `customer_amount` double DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=19 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+/*Data for the table `transport_service` */
+
+insert  into `transport_service`(`id`,`code`,`created_date`,`vendor_id`,`customer_id`,`transporter_id`,`charge_for_vendor`,`charge_for_customer`,`in_quantity`,`out_quantity`,`price`,`price_diff`,`rate`,`rate_diff`,`amount`,`paid`,`debt`,`account_id`,`note`,`created_employee_id`,`money_organization_id`,`money_amount`,`vendor_vendor_id`,`vendor_amount`,`customer_customer_id`,`customer_amount`) values (1,'20200404-TS-0001','2020-04-01',15,307,22,1,0,10140,10160,14,376.53,23650,23650,3535453,0,3535453,5,'',35,1,0,15,3535453,0,0),(2,'20200404-TS-0002','2020-04-01',15,124,22,1,0,11020,11020,14,376.53,23650,0,3648722,0,3648722,5,'',35,1,0,15,3648722,0,0),(3,'20200404-TS-0003','2020-04-03',15,124,22,1,0,11990,12020,11,376.53,23650,23650,3386347,0,3386347,5,'',35,1,0,15,3386347,0,0),(4,'20200406-TS-0001','2020-04-04',15,404,22,1,0,11010,10880,10,376.53,23530,23530,1438885,0,1438885,5,'',35,1,0,15,1438885,0,0);
 
 /*Table structure for table `trip_fee` */
 
@@ -2643,6 +3099,8 @@ CREATE TABLE `trip_fee` (
   PRIMARY KEY (`id`)
 ) ENGINE=MyISAM AUTO_INCREMENT=2 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
+/*Data for the table `trip_fee` */
+
 /*Table structure for table `trip_oil` */
 
 DROP TABLE IF EXISTS `trip_oil`;
@@ -2661,6 +3119,8 @@ CREATE TABLE `trip_oil` (
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
+/*Data for the table `trip_oil` */
+
 /*Table structure for table `unit` */
 
 DROP TABLE IF EXISTS `unit`;
@@ -2670,7 +3130,11 @@ CREATE TABLE `unit` (
   `name` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
   `status` int(1) DEFAULT '1' COMMENT '0:bi khoa, 1:dang su dung',
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM AUTO_INCREMENT=16 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=MyISAM AUTO_INCREMENT=21 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+/*Data for the table `unit` */
+
+insert  into `unit`(`id`,`name`,`status`) values (6,'Thùng 6',1),(5,'Lít',1),(4,'Bình',1),(7,'Cái',1),(8,'Bộ',1),(9,'Kg',1),(10,'Thùng 12',1),(11,'Thùng 24',1),(12,'Xô',1),(13,'Bịch',1),(14,'Phuy',1),(15,'Can',1),(16,'Tấm',1),(17,'Chuyến',1),(18,'Mét',1),(19,'Cặp',1),(20,'Cây',1);
 
 /*Table structure for table `unit_rate` */
 
@@ -2684,6 +3148,10 @@ CREATE TABLE `unit_rate` (
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
+/*Data for the table `unit_rate` */
+
+insert  into `unit_rate`(`id`,`base_unit_id`,`parent_unit_id`,`rate`) values (1,4,4,1);
+
 /*Table structure for table `user` */
 
 DROP TABLE IF EXISTS `user`;
@@ -2696,7 +3164,11 @@ CREATE TABLE `user` (
   `menu` text COLLATE utf8_unicode_ci,
   `status` int(1) DEFAULT '1' COMMENT '0:bi khoa, 1:dang su dung',
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM AUTO_INCREMENT=16 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=MyISAM AUTO_INCREMENT=17 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+/*Data for the table `user` */
+
+insert  into `user`(`id`,`employee_id`,`username`,`password`,`menu`,`status`) values (1,1,'tu','gdyb21LQTcIANtvYMT7QVQ==','<?xml version=\"1.0\"?><menu><item id=\"list\" complex=\"true\" text=\"Khai báo danh mục\"><item id=\"system\" complex=\"true\" text=\"Hệ thống\"><item id=\"users\" complex=\"true\" text=\"Tài khoản hệ thống\"><item id=\"userlist\" text=\"Danh sách tài khoản hệ thống\"/><item id=\"useradd\" text=\"Thêm tài khoản hệ thống\"/></item><item id=\"parameter\" text=\"Thông số hệ thống\"/><item id=\"permissionlist\" text=\"Phân quyền\"/></item><item id=\"organization\" complex=\"true\" text=\"Đơn vị\"><item id=\"organizations\" complex=\"true\" text=\"Đơn vị\"><item id=\"organizationlist\" text=\"Danh sách đơn vị\"/><item id=\"organizationadd\" text=\"Thêm đơn vị\"/></item><item id=\"stores\" complex=\"true\" text=\"Kho\"><item id=\"storelist\" text=\"Danh sách kho\"/><item id=\"storeadd\" text=\"Thêm kho\"/></item><item id=\"employees\" complex=\"true\" text=\"Nhân viên\"><item id=\"employeelist\" text=\"Danh sách nhân viên\"/><item id=\"employeeadd\" text=\"Thêm nhân viên\"/><item id=\"employeefiellist\" text=\"Thông tin động - Nhân viên\"/></item><item id=\"accounts\" complex=\"true\" text=\"Tài khoản ngân hàng\"><item id=\"accountlist\" text=\"Danh sách tài khoản ngân hàng\"/><item id=\"accountadd\" text=\"Thêm tài khoản ngân hàng\"/></item></item><item id=\"good\" complex=\"true\" text=\"Hàng hóa\"><item id=\"units\" complex=\"true\" text=\"Đơn vị tính\"><item id=\"unitlist\" text=\"Danh sách đơn vị tính\"/><item id=\"unitadd\" text=\"Thêm đơn vị tính\"/></item><item id=\"shellkinds\" complex=\"true\" text=\"Loại vỏ bình\"><item id=\"shellkindlist\" text=\"Danh sách loại vỏ bình\"/><item id=\"shellkindadd\" text=\"Thêm loại vỏ bình\"/></item><item id=\"shells\" complex=\"true\" text=\"Vỏ bình\"><item id=\"shelllist\" text=\"Danh sách vỏ bình\"/><item id=\"shelladd\" text=\"Thêm vỏ bình\"/></item><item id=\"accessorykinds\" complex=\"true\" text=\"Loại phụ kiện\"><item id=\"accessorykindlist\" text=\"Danh sách loại phụ kiện\"/><item id=\"accessorykindadd\" text=\"Thêm loại phụ kiện\"/></item><item id=\"accessorys\" complex=\"true\" text=\"Phụ kiện\"><item id=\"accessorylist\" text=\"Danh sách phụ kiện\"/><item id=\"accessoryadd\" text=\"Thêm phụ kiện\"/></item><item id=\"promotionmaterials\" complex=\"true\" text=\"Hàng khuyến mãi\"><item id=\"promotionmateriallist\" text=\"Danh sách hàng khuyến mãi\"/><item id=\"promotionmaterialadd\" text=\"Thêm hàng khuyến mãi\"/></item><item id=\"petros\" complex=\"true\" text=\"Xăng dầu\"><item id=\"petrolist\" text=\"Danh sách hàng xăng dầu\"/><item id=\"petroadd\" text=\"Thêm hàng xăng dầu\"/></item></item><item id=\"vendor\" complex=\"true\" text=\"Nhà cung cấp\"><item id=\"vendors\" complex=\"true\" text=\"Nhà cung cấp\"><item id=\"vendorlist\" text=\"Danh sách nhà cung cấp\"/><item id=\"vendoradd\" text=\"Thêm nhà cung cấp\"/><item id=\"vendorfiellist\" text=\"Thông tin động - Nhà cung cấp\"/></item></item><item id=\"customer\" complex=\"true\" text=\"Khách hàng\"><item id=\"customers\" complex=\"true\" text=\"Khách hàng\"><item id=\"customerlist\" text=\"Danh sách khách hàng\"/><item id=\"customeradd\" text=\"Thêm khách hàng\"/><item id=\"customerfiellist\" text=\"Thông tin động - Khách hàng\"/></item></item><item id=\"vehicle\" complex=\"true\" text=\"Xe\"><item id=\"vehicles\" complex=\"true\" text=\"Xe\"><item id=\"vehiclelist\" text=\"Danh sách xe\"/><item id=\"vehicleadd\" text=\"Thêm xe\"/></item><item id=\"routes\" complex=\"true\" text=\"Tuyến đường\"><item id=\"routelist\" text=\"Danh sách tuyến đường\"/><item id=\"routeadd\" text=\"Thêm tuyến đường\"/></item></item><item id=\"fixedassetgroup\" complex=\"true\" text=\"Tài sản cố định\"><item id=\"fixedassetgroups\" complex=\"true\" text=\"Nhóm tài sản cố định\"><item id=\"fixedassetgrouplist\" text=\"Danh sách nhóm tài sản cố định\"/><item id=\"fixedassetgroupadd\" text=\"Thêm nhóm tài sản cố định\"/></item><item id=\"fixedassets\" complex=\"true\" text=\"Tài sản cố định\"><item id=\"fixedassetlist\" text=\"Danh sách tài sản cố định\"/><item id=\"fixedassetadd\" text=\"Thêm tài sản cố định\"/></item></item></item><item id=\"employeefunction\" complex=\"true\" text=\"Nghiệp vụ Nhân viên\"><item id=\"employeeadvances\" complex=\"true\" text=\"Nhân viên tạm ứng\"><item id=\"employeeadvancelist\" text=\"Danh sách tạm ứng\"/><item id=\"employeeadvanceadd\" text=\"Thêm tạm ứng\"/></item><item id=\"employeetimesheets\" complex=\"true\" text=\"Chấm công nhân viên\"><item id=\"employeetimesheetlist\" text=\"Danh sách chấm công\"/><item id=\"employeetimesheetadd\" text=\"Thêm chấm công\"/></item><item id=\"employeeoffs\" complex=\"true\" text=\"Nghỉ phép\"><item id=\"employeeofflist\" text=\"Danh sách nghỉ phép\"/><item id=\"employeeoffadd\" text=\"Thêm nghỉ phép\"/></item><item id=\"employeeoffincreases\" complex=\"true\" text=\"Bù nghỉ phép\"><item id=\"employeeoffincreaselist\" text=\"Danh sách bù nghỉ phép\"/><item id=\"employeeoffincreaseadd\" text=\"Thêm bù nghỉ phép\"/></item><item id=\"employeeoffmoneys\" complex=\"true\" text=\"Thanh toán ngày phép\"><item id=\"employeeoffmoneylist\" text=\"Danh sách thanh toán ngày phép\"/><item id=\"employeeoffmoneyadd\" text=\"Thêm thanh toán ngày phép\"/></item><item id=\"salarys\" complex=\"true\" text=\"Bảng lương\"><item id=\"salarylist\" text=\"Danh sách bảng lương\"/><item id=\"salarysalaryfiels\" complex=\"true\" text=\"Thông tin động\"><item id=\"salaryfiellist\" text=\"Phụ cấp\"/><item id=\"timesheetfiellist\" text=\"Chấm công\"/></item><item id=\"dynamicfielvalues\" complex=\"true\" text=\"Giá trị thông tin động\"><item id=\"employeesalarylist\" text=\"Danh sách phụ cấp\"/><item id=\"organizationtimesheetlist\" text=\"Danh sách chi phí chấm công\"/></item></item></item><item id=\"vehiclefunction\" complex=\"true\" text=\"Nghiệp vụ Xe\"><item id=\"tripfees\" complex=\"true\" text=\"Chi phí xe\"><item id=\"tripfeelist\" text=\"Danh sách chi phí xe\"/><item id=\"tripfeeadd\" text=\"Thêm chi phí xe\"/></item><item id=\"vehicleouts\" complex=\"true\" text=\"Xuất xe đi\"><item id=\"vehicleoutlist\" text=\"Danh sách xuất xe đi\"/><item id=\"vehicleoutadd\" text=\"Thêm xuất xe đi\"/></item><item id=\"vehicleins\" complex=\"true\" text=\"Xuất xe về\"><item id=\"vehicleinlist\" text=\"Danh sách xuất xe về\"/><item id=\"vehicleinadd\" text=\"Thêm xuất xe về\"/></item><item id=\"exportwholesales\" complex=\"true\" text=\"Xuất sỉ\"><item id=\"exportwholesalelist\" text=\"Danh sách xuất sỉ\"/><item id=\"exportwholesaleadd\" text=\"Thêm xuất sỉ\"/></item></item><item id=\"gasfunction\" complex=\"true\" text=\"Nghiệp vụ gas\"><item id=\"shellimports\" complex=\"true\" text=\"Nhập vỏ bình\"><item id=\"shellimportlist\" text=\"Danh sách nhập vỏ bình\"/><item id=\"shellimportadd\" text=\"Thêm nhập vỏ bình\"/></item><item id=\"lpgimports\" complex=\"true\" text=\"Nhập LPG\"><item id=\"lpgimportlist\" text=\"Danh sách nhập LPG\"/><item id=\"lpgimportadd\" text=\"Thêm nhập LPG\"/></item><item id=\"fractions\" complex=\"true\" text=\"Chiết gas\"><item id=\"fractionlist\" text=\"Danh sách chiết gas\"/><item id=\"fractionadd\" text=\"Thêm chiết gas\"/></item><item id=\"gasprices\" complex=\"true\" text=\"Giá bán gas\"><item id=\"gaspricelist\" text=\"Danh sách giá bán gas\"/><item id=\"gaspriceadd\" text=\"Thêm giá bán gas\"/></item><item id=\"gasimports\" complex=\"true\" text=\"Nhập gas\"><item id=\"gasimportlist\" text=\"Danh sách phiếu nhập gas\"/><item id=\"gasimportadd\" text=\"Thêm phiếu nhập gas\"/></item><item id=\"gaswholesales\" complex=\"true\" text=\"Bán sỉ gas\"><item id=\"gaswholesalelist\" text=\"Danh sách phiếu bán sỉ gas\"/><item id=\"gaswholesaleadd\" text=\"Thêm phiếu bán sỉ gas\"/></item><item id=\"gasretails\" complex=\"true\" text=\"Bán lẻ gas\"><item id=\"gasretaillist\" text=\"Danh sách phiếu bán lẻ gas\"/><item id=\"gasretailadd\" text=\"Thêm phiếu bán lẻ gas\"/></item><item id=\"saleshells\" complex=\"true\" text=\"Bán vỏ bình\"><item id=\"saleshelllist\" text=\"Danh sách phiếu bán vỏ bình\"/><item id=\"saleshelladd\" text=\"Thêm phiếu bán vỏ bình\"/></item><item id=\"oldshells\" complex=\"true\" text=\"Điều chỉnh số lượng vỏ bình\"><item id=\"oldshelllist\" text=\"Danh sách điều chỉnh số lượng vỏ bình\"/><item id=\"oldshelladd\" text=\"Thêm điều chỉnh số lượng vỏ bình\"/></item><item id=\"shellreturns\" complex=\"true\" text=\"Trả vỏ bình\"><item id=\"shellreturnlist\" text=\"Danh sách trả vỏ bình\"/><item id=\"shellreturnadd\" text=\"Thêm trả vỏ bình\"/></item><item id=\"shellreturnsuppliers\" complex=\"true\" text=\"Trả vỏ bình NCC\"><item id=\"shellreturnsupplierlist\" text=\"Danh sách trả vỏ bình NCC\"/><item id=\"shellreturnsupplieradd\" text=\"Thêm trả vỏ bình NCC\"/></item><item id=\"gasreturns\" complex=\"true\" text=\"Trả gas\"><item id=\"gasreturnlist\" text=\"Danh sách trả gas\"/><item id=\"gasreturnadd\" text=\"Thêm trả gas\"/></item></item><item id=\"goodfunction\" complex=\"true\" text=\"Nghiệp vụ hàng hóa\"><item id=\"accessoryimports\" complex=\"true\" text=\"Nhập phụ kiện\"><item id=\"accessoryimportlist\" text=\"Danh sách phiếu nhập phụ kiện\"/><item id=\"accessoryimportadd\" text=\"Thêm phiếu nhập phụ kiện\"/></item><item id=\"promotionmaterialimports\" complex=\"true\" text=\"Nhập hàng khuyến mãi\"><item id=\"promotionmaterialimportlist\" text=\"Danh sách phiếu nhập hàng khuyến mãi\"/><item id=\"promotionmaterialimportadd\" text=\"Thêm phiếu nhập hàng khuyến mãi\"/></item><item id=\"petroimports\" complex=\"true\" text=\"Nhập hàng hóa\"><item id=\"petroimportlist\" text=\"Danh sách phiếu nhập hàng hóa\"/><item id=\"petroimportadd\" text=\"Thêm phiếu nhập hàng hóa\"/></item><item id=\"saleaccessorys\" complex=\"true\" text=\"Bán phụ kiện\"><item id=\"saleaccessorylist\" text=\"Danh sách phiếu bán phụ kiện\"/><item id=\"saleaccessoryadd\" text=\"Thêm phiếu bán phụ kiện\"/></item><item id=\"salepetros\" complex=\"true\" text=\"Bán hàng hóa\"><item id=\"salepetrolist\" text=\"Danh sách phiếu bán hàng hóa\"/><item id=\"salepetroadd\" text=\"Thêm phiếu bán hàng hóa\"/></item><item id=\"fixedassetdepreciations\" complex=\"true\" text=\"Khấu hao\"><item id=\"fixedassetdepreciationlist\" text=\"Danh sách phiếu khấu hao\"/><item id=\"fixedassetdepreciationadd\" text=\"Thêm phiếu khấu hao\"/></item></item><item id=\"paymentfunction\" complex=\"true\" text=\"Nghiệp vụ thanh toán\"><item id=\"contracts\" complex=\"true\" text=\"Hợp đồng\"><item id=\"contractlist\" text=\"Danh sách hợp đồng\"/><item id=\"contractadd\" text=\"Thêm hợp đồng\"/></item><item id=\"debtvendors\" complex=\"true\" text=\"Công nợ NCC\"><item id=\"debtvendorlist\" text=\"Danh sách công nợ NCC\"/><item id=\"debtvendoradd\" text=\"Thêm công nợ NCC\"/></item><item id=\"debtretails\" complex=\"true\" text=\"Công nợ bán lẻ\"><item id=\"debtretaillist\" text=\"Danh sách công nợ bán lẻ\"/><item id=\"debtretailadd\" text=\"Thêm công nợ bán lẻ\"/></item><item id=\"debtwholesales\" complex=\"true\" text=\"Công nợ bán sỉ\"><item id=\"debtwholesalelist\" text=\"Danh sách công nợ bán sỉ\"/><item id=\"debtwholesaleadd\" text=\"Thêm công nợ bán sỉ\"/></item><item id=\"incomes\" complex=\"true\" text=\"Thu\"><item id=\"incomelist\" text=\"Danh sách thu\"/><item id=\"incomeadd\" text=\"Thêm thu\"/></item><item id=\"expenses\" complex=\"true\" text=\"Chi\"><item id=\"expenselist\" text=\"Danh sách chi\"/><item id=\"expenseadd\" text=\"Thêm chi\"/></item></item><item id=\"setting\" complex=\"true\" text=\"Cấu hình\"><item id=\"resetpassword\" text=\"Đổi mật khẩu\"/></item><item id=\"logout\" text=\"Đăng xuất\"/></menu>',1),(11,17,'hungpk','gdyb21LQTcIANtvYMT7QVQ==','<?xml version=\"1.0\"?><menu><item id=\"list\" complex=\"true\" text=\"Khai báo danh mục\"><item id=\"system\" complex=\"true\" text=\"Hệ thống\"><item id=\"users\" complex=\"true\" text=\"Tài khoản hệ thống\"><item id=\"userlist\" text=\"Danh sách tài khoản hệ thống\"/><item id=\"useradd\" text=\"Thêm tài khoản hệ thống\"/></item><item id=\"parameter\" text=\"Thông số hệ thống\"/><item id=\"permissionlist\" text=\"Phân quyền\"/><item id=\"openingstock\" text=\"Số dư đầu kỳ\"/></item><item id=\"organization\" complex=\"true\" text=\"Đơn vị\"><item id=\"organizations\" complex=\"true\" text=\"Đơn vị\"><item id=\"organizationlist\" text=\"Danh sách đơn vị\"/><item id=\"organizationadd\" text=\"Thêm đơn vị\"/></item><item id=\"stores\" complex=\"true\" text=\"Kho\"><item id=\"storelist\" text=\"Danh sách kho\"/><item id=\"storeadd\" text=\"Thêm kho\"/></item><item id=\"employees\" complex=\"true\" text=\"Nhân viên\"><item id=\"employeelist\" text=\"Danh sách nhân viên\"/><item id=\"employeeadd\" text=\"Thêm nhân viên\"/><item id=\"employeefiellist\" text=\"Thông tin động - Nhân viên\"/></item><item id=\"accounts\" complex=\"true\" text=\"Tài khoản ngân hàng\"><item id=\"accountlist\" text=\"Danh sách tài khoản ngân hàng\"/><item id=\"accountadd\" text=\"Thêm tài khoản ngân hàng\"/></item><item id=\"dayoffs\" complex=\"true\" text=\"Ngày nghỉ bù\"><item id=\"dayofflist\" text=\"Danh sách ngày nghỉ bù\"/><item id=\"dayoffadd\" text=\"Thêm ngày nghỉ bù\"/></item><item id=\"otherbonuss\" complex=\"true\" text=\"Khoản thưởng khác\"><item id=\"otherbonuslist\" text=\"Danh sách khoản thưởng khác\"/><item id=\"otherbonusadd\" text=\"Thêm khoản thưởng khác\"/></item><item id=\"paneltys\" complex=\"true\" text=\"Khoản chi khác\"><item id=\"paneltylist\" text=\"Danh sách khoản chi khác\"/><item id=\"paneltyadd\" text=\"Thêm khoản chi khác\"/></item></item><item id=\"good\" complex=\"true\" text=\"Hàng hóa\"><item id=\"units\" complex=\"true\" text=\"Đơn vị tính\"><item id=\"unitlist\" text=\"Danh sách đơn vị tính\"/><item id=\"unitadd\" text=\"Thêm đơn vị tính\"/></item><item id=\"shellkinds\" complex=\"true\" text=\"Loại vỏ bình\"><item id=\"shellkindlist\" text=\"Danh sách loại vỏ bình\"/><item id=\"shellkindadd\" text=\"Thêm loại vỏ bình\"/></item><item id=\"shells\" complex=\"true\" text=\"Vỏ bình\"><item id=\"shelllist\" text=\"Danh sách vỏ bình\"/><item id=\"shelladd\" text=\"Thêm vỏ bình\"/></item><item id=\"accessorykinds\" complex=\"true\" text=\"Loại phụ kiện\"><item id=\"accessorykindlist\" text=\"Danh sách loại phụ kiện\"/><item id=\"accessorykindadd\" text=\"Thêm loại phụ kiện\"/></item><item id=\"accessorys\" complex=\"true\" text=\"Phụ kiện\"><item id=\"accessorylist\" text=\"Danh sách phụ kiện\"/><item id=\"accessoryadd\" text=\"Thêm phụ kiện\"/></item><item id=\"promotionmaterials\" complex=\"true\" text=\"Hàng khuyến mãi\"><item id=\"promotionmateriallist\" text=\"Danh sách hàng khuyến mãi\"/><item id=\"promotionmaterialadd\" text=\"Thêm hàng khuyến mãi\"/></item><item id=\"petros\" complex=\"true\" text=\"Xăng dầu\"><item id=\"petrolist\" text=\"Danh sách hàng xăng dầu\"/><item id=\"petroadd\" text=\"Thêm hàng xăng dầu\"/></item><item id=\"goods\" complex=\"true\" text=\"Hàng hóa\"><item id=\"goodlist\" text=\"Danh sách hàng hóa\"/><item id=\"goodadd\" text=\"Thêm hàng hóa\"/></item></item><item id=\"oil\" complex=\"true\" text=\"Dầu nhớt\"><item id=\"vendoroils\" complex=\"true\" text=\"Nhà cung cấp\"><item id=\"vendoroillist\" text=\"Danh sách nhà cung cấp\"/><item id=\"vendoroiladd\" text=\"Thêm nhà cung cấp\"/></item><item id=\"unitrates\" complex=\"true\" text=\"Qui đổi đơn vị tính\"><item id=\"unitratelist\" text=\"Danh sách qui đổi đơn vị tính\"/><item id=\"unitrateadd\" text=\"Thêm qui đổi đơn vị tính\"/></item><item id=\"agencys\" complex=\"true\" text=\"Đại lý\"><item id=\"agencylist\" text=\"Danh sách đại lý\"/><item id=\"agencyadd\" text=\"Thêm đại lý\"/></item><item id=\"oilgroups\" complex=\"true\" text=\"Nhóm dầu nhớt\"><item id=\"oilgrouplist\" text=\"Danh sách nhóm dầu nhớt\"/><item id=\"oilgroupadd\" text=\"Thêm nhóm dầu nhớt\"/></item><item id=\"oils\" complex=\"true\" text=\"Dầu nhớt\"><item id=\"oillist\" text=\"Danh sách dầu nhớt\"/><item id=\"oiladd\" text=\"Thêm dầu nhớt\"/></item><item id=\"employeeoilcommissions\" complex=\"true\" text=\"Loại chiết khấu bán dầu nhớt\"><item id=\"employeeoilcommissionlist\" text=\"Danh sách loại chiết khấu bán dầu nhớt\"/><item id=\"employeeoilcommissionadd\" text=\"Thêm loại chiết khấu bán dầu nhớt\"/></item><item id=\"saleoilreturnstores\" complex=\"true\" text=\"Kho trả hàng dầu nhớt\"><item id=\"saleoilreturnstoreadd\" text=\"Thêm kho trả hàng dầu nhớt\"/></item></item><item id=\"solar\" complex=\"true\" text=\"Năng lượng mặt trời\"><item id=\"vendorsolars\" complex=\"true\" text=\"Nhà cung cấp\"><item id=\"vendorsolarlist\" text=\"Danh sách nhà cung cấp\"/><item id=\"vendorsolaradd\" text=\"Thêm nhà cung cấp\"/></item><item id=\"solargroups\" complex=\"true\" text=\"Nhóm NLMT\"><item id=\"solargrouplist\" text=\"Danh sách nhóm NLMT\"/><item id=\"solargroupadd\" text=\"Thêm nhóm NLMT\"/></item><item id=\"solars\" complex=\"true\" text=\"NLMT\"><item id=\"solarlist\" text=\"Danh sách NLMT\"/><item id=\"solaradd\" text=\"Thêm NLMT\"/></item><item id=\"employeesolarcommissions\" complex=\"true\" text=\"Loại chiết khấu bán NLMT\"><item id=\"employeesolarcommissionlist\" text=\"Danh sách loại chiết khấu bán NLMT\"/><item id=\"employeesolarcommissionadd\" text=\"Thêm loại chiết khấu bán NLMT\"/></item><item id=\"salesolarreturnstores\" complex=\"true\" text=\"Kho trả hàng NLMT\"><item id=\"salesolarreturnstoreadd\" text=\"Thêm kho trả hàng NLMT\"/></item></item><item id=\"vendor\" complex=\"true\" text=\"Nhà cung cấp\"><item id=\"vendors\" complex=\"true\" text=\"Nhà cung cấp\"><item id=\"vendorlist\" text=\"Danh sách nhà cung cấp\"/><item id=\"vendoradd\" text=\"Thêm nhà cung cấp\"/><item id=\"addgasreturnvendor\" text=\"Nhà cung cấp nhận gas trả\"/><item id=\"vendorfiellist\" text=\"Thông tin động - Nhà cung cấp\"/></item><item id=\"vendororganizations\" complex=\"true\" text=\"Nhà cung cấp liên kết\"><item id=\"vendororganizationlist\" text=\"Danh sách nhà cung cấp liên kết\"/><item id=\"vendororganizationadd\" text=\"Thêm nhà cung cấp liên kết\"/></item><item id=\"vendorcustomers\" complex=\"true\" text=\"Nhà cung cấp - Khách hàng\"><item id=\"vendorcustomerlist\" text=\"Danh sách nhà cung cấp - Khách hàng\"/><item id=\"vendorcustomeradd\" text=\"Thêm nhà cung cấp - Khách hàng\"/></item></item><item id=\"customer\" complex=\"true\" text=\"Khách hàng\"><item id=\"customers\" complex=\"true\" text=\"Khách hàng\"><item id=\"customerlist\" text=\"Danh sách khách hàng\"/><item id=\"customeradd\" text=\"Thêm khách hàng\"/><item id=\"customerfiellist\" text=\"Thông tin động - Khách hàng\"/><item id=\"customerdocumentlist\" text=\"Danh sách văn bản\"/></item><item id=\"discounts\" complex=\"true\" text=\"Giảm giá\"><item id=\"discountlist\" text=\"Danh sách giảm giá\"/><item id=\"discountadd\" text=\"Thêm giảm giá\"/></item></item><item id=\"vehicle\" complex=\"true\" text=\"Xe\"><item id=\"vehicles\" complex=\"true\" text=\"Xe\"><item id=\"vehiclelist\" text=\"Danh sách xe\"/><item id=\"vehicleadd\" text=\"Thêm xe\"/></item><item id=\"routes\" complex=\"true\" text=\"Tuyến đường\"><item id=\"routelist\" text=\"Danh sách tuyến đường\"/><item id=\"routeadd\" text=\"Thêm tuyến đường\"/></item></item><item id=\"fixedassetgroup\" complex=\"true\" text=\"Tài sản cố định\"><item id=\"fixedassetgroups\" complex=\"true\" text=\"Nhóm tài sản cố định\"><item id=\"fixedassetgrouplist\" text=\"Danh sách nhóm tài sản cố định\"/><item id=\"fixedassetgroupadd\" text=\"Thêm nhóm tài sản cố định\"/></item><item id=\"fixedassets\" complex=\"true\" text=\"Tài sản cố định\"><item id=\"fixedassetlist\" text=\"Danh sách tài sản cố định\"/><item id=\"fixedassetadd\" text=\"Thêm tài sản cố định\"/></item></item></item><item id=\"employeefunction\" complex=\"true\" text=\"Nghiệp vụ Nhân viên\"><item id=\"employeeadvances\" complex=\"true\" text=\"Nhân viên tạm ứng\"><item id=\"employeeadvancelist\" text=\"Danh sách tạm ứng\"/><item id=\"employeeadvanceadd\" text=\"Thêm tạm ứng\"/></item><item id=\"borrows\" complex=\"true\" text=\"Mượn lương\"><item id=\"borrowlist\" text=\"Danh sách phiếu mượn lương\"/><item id=\"borrowadd\" text=\"Thêm phiếu mượn lương\"/></item><item id=\"employeetimesheets\" complex=\"true\" text=\"Chấm công nhân viên\"><item id=\"employeetimesheetlist\" text=\"Danh sách chấm công\"/><item id=\"employeetimesheetadd\" text=\"Thêm chấm công\"/></item><item id=\"employeeoffs\" complex=\"true\" text=\"Nghỉ phép\"><item id=\"employeeofflist\" text=\"Danh sách nghỉ phép\"/><item id=\"employeeoffadd\" text=\"Thêm nghỉ phép\"/></item><item id=\"employeeoffincreases\" complex=\"true\" text=\"Bù nghỉ phép\"><item id=\"employeeoffincreaselist\" text=\"Danh sách bù nghỉ phép\"/><item id=\"employeeoffincreaseadd\" text=\"Thêm bù nghỉ phép\"/></item><item id=\"employeeoffmoneys\" complex=\"true\" text=\"Thanh toán ngày phép\"><item id=\"employeeoffmoneylist\" text=\"Danh sách thanh toán ngày phép\"/><item id=\"employeeoffmoneyadd\" text=\"Thêm thanh toán ngày phép\"/></item><item id=\"employeeotherbonuss\" complex=\"true\" text=\"Khoản thưởng khác\"><item id=\"employeeotherbonuslist\" text=\"Danh sách khoản thưởng khác\"/><item id=\"employeeotherbonusadd\" text=\"Thêm khoản thưởng khác\"/></item><item id=\"employeepaneltys\" complex=\"true\" text=\"Khoản chi khác\"><item id=\"employeepaneltylist\" text=\"Danh sách khoản chi khác\"/><item id=\"employeepaneltyadd\" text=\"Thêm khoản chi khác\"/></item><item id=\"salarys\" complex=\"true\" text=\"Bảng lương\"><item id=\"salarylist\" text=\"Danh sách bảng lương\"/><item id=\"salarysalaryfiels\" complex=\"true\" text=\"Thông tin động\"><item id=\"salaryfiellist\" text=\"Phụ cấp\"/><item id=\"timesheetfiellist\" text=\"Chấm công\"/></item><item id=\"dynamicfielvalues\" complex=\"true\" text=\"Giá trị thông tin động\"><item id=\"employeesalarylist\" text=\"Danh sách phụ cấp\"/><item id=\"organizationtimesheetlist\" text=\"Danh sách chi phí chấm công\"/></item></item></item><item id=\"vehiclefunction\" complex=\"true\" text=\"Nghiệp vụ Xe\"><item id=\"tripfees\" complex=\"true\" text=\"Chi phí xe\"><item id=\"tripfeelist\" text=\"Danh sách chi phí xe\"/><item id=\"tripfeeadd\" text=\"Thêm chi phí xe\"/></item><item id=\"tripoils\" complex=\"true\" text=\"Ứng dầu\"><item id=\"tripoillist\" text=\"Danh sách ứng dầu\"/><item id=\"tripoiladd\" text=\"Thêm ứng dầu\"/></item><item id=\"employeeroutefees\" complex=\"true\" text=\"Chi phí nhân viên vận chuyển\"><item id=\"employeeroutefeelist\" text=\"Danh sách chi phí nhân viên vận chuyển\"/><item id=\"employeeroutefeeadd\" text=\"Thêm chi phí nhân viên vận chuyển\"/></item><item id=\"vehicleouts\" complex=\"true\" text=\"Xuất xe đi\"><item id=\"vehicleoutlist\" text=\"Danh sách xuất xe đi\"/><item id=\"vehicleoutadd\" text=\"Thêm xuất xe đi\"/></item><item id=\"vehicleins\" complex=\"true\" text=\"Nhập xe về\"><item id=\"vehicleinlist\" text=\"Danh sách nhập xe về\"/><item id=\"vehicleinadd\" text=\"Thêm nhập xe về\"/></item><item id=\"exportwholesales\" complex=\"true\" text=\"Xuất sỉ\"><item id=\"exportwholesalelist\" text=\"Danh sách xuất sỉ\"/><item id=\"exportwholesaleadd\" text=\"Thêm xuất sỉ\"/></item><item id=\"transportservices\" complex=\"true\" text=\"Vận chuyển thuê\"><item id=\"transportservicelist\" text=\"Danh sách vận chuyển thuê\"/><item id=\"transportserviceadd\" text=\"Thêm phiếu vận chuyển thuê\"/></item></item><item id=\"gasfunction\" complex=\"true\" text=\"Nghiệp vụ gas\"><item id=\"shellimports\" complex=\"true\" text=\"Nhập vỏ bình\"><item id=\"shellimportlist\" text=\"Danh sách nhập vỏ bình\"/><item id=\"shellimportadd\" text=\"Thêm nhập vỏ bình\"/></item><item id=\"lpgimports\" complex=\"true\" text=\"Nhập LPG\"><item id=\"lpgimportlist\" text=\"Danh sách nhập LPG\"/><item id=\"lpgimportadd\" text=\"Thêm nhập LPG\"/></item><item id=\"lpgsales\" complex=\"true\" text=\"Bán LPG\"><item id=\"lpgsalelist\" text=\"Danh sách bán LPG\"/><item id=\"lpgsaleadd\" text=\"Thêm bán LPG\"/></item><item id=\"fractions\" complex=\"true\" text=\"Chiết gas\"><item id=\"fractionlist\" text=\"Danh sách chiết gas\"/><item id=\"fractionadd\" text=\"Thêm chiết gas\"/></item><item id=\"gasprices\" complex=\"true\" text=\"Giá bán gas\"><item id=\"gaspricelist\" text=\"Danh sách giá bán gas\"/><item id=\"gaspriceadd\" text=\"Thêm giá bán gas\"/></item><item id=\"gasimports\" complex=\"true\" text=\"Nhập gas\"><item id=\"gasimportlist\" text=\"Danh sách phiếu nhập gas\"/><item id=\"gasimportadd\" text=\"Thêm phiếu nhập gas\"/></item><item id=\"gaswholesales\" complex=\"true\" text=\"Bán gas\"><item id=\"gaswholesalelist\" text=\"Danh sách phiếu bán gas\"/><item id=\"gaswholesaleadd\" text=\"Thêm phiếu bán gas\"/><item id=\"gaswholesalefeelist\" text=\"Danh sách các khoản phí khác\"/></item><item id=\"saleinners\" complex=\"true\" text=\"Bán Nội bộ\"><item id=\"saleinnerlist\" text=\"Danh sách phiếu bán nội bộ\"/><item id=\"saleinneradd\" text=\"Thêm phiếu bán nội bộ\"/></item><item id=\"saleshells\" complex=\"true\" text=\"Bán vỏ bình\"><item id=\"saleshelllist\" text=\"Danh sách phiếu bán vỏ bình\"/><item id=\"saleshelladd\" text=\"Thêm phiếu bán vỏ bình\"/></item><item id=\"oldshells\" complex=\"true\" text=\"Điều chỉnh số lượng vỏ bình\"><item id=\"oldshelllist\" text=\"Danh sách điều chỉnh số lượng vỏ bình\"/><item id=\"oldshelladd\" text=\"Thêm điều chỉnh số lượng vỏ bình\"/></item><item id=\"shellreturns\" complex=\"true\" text=\"Trả vỏ bình\"><item id=\"shellreturnlist\" text=\"Danh sách trả vỏ bình\"/><item id=\"shellreturnadd\" text=\"Thêm trả vỏ bình\"/></item><item id=\"shellreturnsuppliers\" complex=\"true\" text=\"Trả vỏ bình NCC\"><item id=\"shellreturnsupplierlist\" text=\"Danh sách trả vỏ bình NCC\"/><item id=\"shellreturnsupplieradd\" text=\"Thêm trả vỏ bình NCC\"/></item><item id=\"lovos\" complex=\"true\" text=\"Làm lò vỏ\"><item id=\"lovolist\" text=\"Danh sách làm lò vỏ\"/><item id=\"lovoadd\" text=\"Thêm làm lò vỏ\"/></item></item><item id=\"goodfunction\" complex=\"true\" text=\"Nghiệp vụ hàng hóa\"><item id=\"petroimports\" complex=\"true\" text=\"Nhập xăng\"><item id=\"petroimportlist\" text=\"Danh sách phiếu nhập xăng\"/><item id=\"petroimportadd\" text=\"Thêm phiếu nhập xăng\"/></item><item id=\"salepetros\" complex=\"true\" text=\"Bán xăng\"><item id=\"salepetrolist\" text=\"Danh sách phiếu bán xăng\"/><item id=\"salepetroadd\" text=\"Thêm phiếu bán xăng\"/></item><item id=\"oilimports\" complex=\"true\" text=\"Nhập dầu nhớt\"><item id=\"oilimportlist\" text=\"Danh sách phiếu nhập dầu nhớt\"/><item id=\"oilimportadd\" text=\"Thêm phiếu nhập dầu nhớt\"/></item><item id=\"saleoils\" complex=\"true\" text=\"Bán dầu nhớt\"><item id=\"saleoillist\" text=\"Danh sách phiếu bán dầu nhớt\"/><item id=\"saleoiladd\" text=\"Thêm phiếu bán dầu nhớt\"/></item><item id=\"oilexports\" complex=\"true\" text=\"Xuất kho dầu nhớt\"><item id=\"oilexportlist\" text=\"Danh sách phiếu xuất kho dầu nhớt\"/></item><item id=\"saleoilreturns\" complex=\"true\" text=\"Trả hàng dầu nhớt\"><item id=\"saleoilreturnlist\" text=\"Danh sách phiếu trả hàng dầu nhớt\"/></item><item id=\"goodimports\" complex=\"true\" text=\"Nhập hàng hóa\"><item id=\"goodimportlist\" text=\"Danh sách phiếu nhập hàng hóa\"/><item id=\"goodimportadd\" text=\"Thêm phiếu nhập hàng hóa\"/></item><item id=\"salegoods\" complex=\"true\" text=\"Bán hàng hóa\"><item id=\"salegoodlist\" text=\"Danh sách phiếu bán hàng hóa\"/><item id=\"salegoodadd\" text=\"Thêm phiếu bán hàng hóa\"/></item><item id=\"shieldimports\" complex=\"true\" text=\"Nhập shield\"><item id=\"shieldimportlist\" text=\"Danh sách phiếu nhập shield\"/><item id=\"shieldimportadd\" text=\"Thêm phiếu nhập shield\"/></item><item id=\"shielddecreases\" complex=\"true\" text=\"Giảm shield\"><item id=\"shielddecreaselist\" text=\"Danh sách phiếu giảm shield\"/><item id=\"shielddecreaseadd\" text=\"Thêm phiếu giảm shield\"/></item><item id=\"accessoryimports\" complex=\"true\" text=\"Nhập phụ kiện\"><item id=\"accessoryimportlist\" text=\"Danh sách phiếu nhập phụ kiện\"/><item id=\"accessoryimportadd\" text=\"Thêm phiếu nhập phụ kiện\"/></item><item id=\"saleaccessorys\" complex=\"true\" text=\"Bán phụ kiện\"><item id=\"saleaccessorylist\" text=\"Danh sách phiếu bán phụ kiện\"/><item id=\"saleaccessoryadd\" text=\"Thêm phiếu bán phụ kiện\"/></item><item id=\"promotionmaterialimports\" complex=\"true\" text=\"Nhập hàng khuyến mãi\"><item id=\"promotionmaterialimportlist\" text=\"Danh sách phiếu nhập hàng khuyến mãi\"/><item id=\"promotionmaterialimportadd\" text=\"Thêm phiếu nhập hàng khuyến mãi\"/></item><item id=\"fixedassetdepreciations\" complex=\"true\" text=\"Khấu hao\"><item id=\"fixedassetdepreciationlist\" text=\"Danh sách phiếu khấu hao\"/><item id=\"fixedassetdepreciationadd\" text=\"Thêm phiếu khấu hao\"/></item><item id=\"solarimports\" complex=\"true\" text=\"Nhập NLMT\"><item id=\"solarimportlist\" text=\"Danh sách phiếu nhập NLMT\"/><item id=\"solarimportadd\" text=\"Thêm phiếu nhập NLMT\"/></item><item id=\"salesolars\" complex=\"true\" text=\"Bán NLMT\"><item id=\"salesolarlist\" text=\"Danh sách phiếu bán NLMT\"/><item id=\"salesolaradd\" text=\"Thêm phiếu bán NLMT\"/></item><item id=\"solarexports\" complex=\"true\" text=\"Xuất kho NLMT\"><item id=\"solarexportlist\" text=\"Danh sách phiếu xuất kho NLMT\"/></item><item id=\"salesolarreturns\" complex=\"true\" text=\"Trả hàng NLMT\"><item id=\"salesolarreturnlist\" text=\"Danh sách phiếu trả hàng NLMT\"/></item></item><item id=\"paymentfunction\" complex=\"true\" text=\"Nghiệp vụ thanh toán\"><item id=\"contracts\" complex=\"true\" text=\"Hợp đồng\"><item id=\"contractlist\" text=\"Danh sách hợp đồng\"/><item id=\"contractadd\" text=\"Thêm hợp đồng\"/></item><item id=\"invoices\" complex=\"true\" text=\"Hóa đơn\"><item id=\"invoicelist\" text=\"Danh sách hóa đơn\"/><item id=\"invoiceadd\" text=\"Thêm hóa đơn\"/></item><item id=\"invoicesolars\" complex=\"true\" text=\"Hóa đơn NLMT\"><item id=\"invoicesolarlist\" text=\"Danh sách hóa đơn NLMT\"/><item id=\"invoicesolaradd\" text=\"Thêm hóa đơn NLMT\"/></item><item id=\"debtvendors\" complex=\"true\" text=\"Công nợ NCC\"><item id=\"debtvendorlist\" text=\"Danh sách công nợ NCC\"/><item id=\"debtvendoradd\" text=\"Thêm công nợ NCC\"/></item><item id=\"debtwholesales\" complex=\"true\" text=\"Công nợ khách hàng\"><item id=\"debtwholesalelist\" text=\"Danh sách công nợ khách hàng\"/><item id=\"debtwholesaleadd\" text=\"Thêm công nợ khách hàng\"/></item><item id=\"incomes\" complex=\"true\" text=\"Thu\"><item id=\"incomelist\" text=\"Danh sách thu\"/><item id=\"incomeadd\" text=\"Thêm thu\"/></item><item id=\"expenses\" complex=\"true\" text=\"Chi\"><item id=\"expenselist\" text=\"Danh sách chi\"/><item id=\"expenseadd\" text=\"Thêm chi\"/></item><item id=\"debtadjustments\" complex=\"true\" text=\"Điều chỉnh công nợ\"><item id=\"debtadjustmentlist\" text=\"Danh sách điều chỉnh công nợ\"/><item id=\"debtadjustmentadd\" text=\"Thêm điều chỉnh công nợ\"/></item></item><item id=\"reportfunction\" complex=\"true\" text=\"Báo cáo\"><item id=\"reportgas\" complex=\"true\" text=\"Báo cáo gas\"><item id=\"reportlpgimport\" text=\"Bảng theo dõi nhập hàng LPG\"/><item id=\"reportlpgsale\" text=\"Bảng theo dõi bán hàng LPG\"/><item id=\"reportvendordebt\" text=\"Bảng theo dõi công nợ NCC\"/><item id=\"reportlpgstock\" text=\"Sổ theo dõi sản lượng khí hóa lỏng LPG\"/><item id=\"reportlpgstocksum\" text=\"Sổ theo dõi nhập xuất khí hóa lỏng LPG\"/><item id=\"reportlpgstocksumorganization\" text=\"Sổ theo dõi nhập xuất khí hóa lỏng LPG theo nhà cung cấp\"/><item id=\"reportsum\" text=\"Tổng hợp\"/><item id=\"reportcompare\" text=\"Đối chiếu\"/><item id=\"reportcomparelpg\" text=\"Bảng theo dõi công nợ khách hàng LPG\"/><item id=\"reportcomparelpgvendorcustomer\" text=\"Đối chiếu LPG NCC - KH\"/><item id=\"reportcomparegas\" text=\"Đối chiếu gas bình\"/><item id=\"reportcomparevendor\" text=\"Đối chiếu nhà cung cấp\"/><item id=\"reportsale\" text=\"Xuất bán hàng\"/><item id=\"reportsalecustomer\" text=\"Chi tiết bán hàng theo khách hàng\"/><item id=\"reportcashbook\" text=\"Báo cáo quỹ tiền\"/><item id=\"reportgascommission\" text=\"Chiết khấu bán hàng - Gas\"/><item id=\"reportgasemployeecommission\" text=\"Thanh toán tiền chiết khấu - Gas\"/><item id=\"reportshell\" text=\"Thống kê vỏ\"/></item><item id=\"reportpetro\" complex=\"true\" text=\"Báo cáo xăng\"><item id=\"reportpetroimport\" text=\"Bảng theo dõi nhập hàng xăng\"/><item id=\"reportpetrosale\" text=\"Xuất bán hàng xăng dầu\"/><item id=\"reportpetrostock\" text=\"Sổ theo dõi NXT xăng dầu tổng hợp\"/><item id=\"reportpetrostockstore\" text=\"Sổ theo dõi NXT xăng dầu theo cửa hàng\"/></item><item id=\"reportgood\" complex=\"true\" text=\"Báo cáo hàng hóa\"><item id=\"reportcomparegood\" text=\"Đối chiếu hàng hóa\"/></item><item id=\"reportoil\" complex=\"true\" text=\"Báo cáo dầu nhớt\"><item id=\"reportoilimport\" text=\"Báo cáo nhập dầu nhớt\"/><item id=\"reportoilstock\" text=\"Báo cáo nhập xuất tồn dầu nhớt\"/><item id=\"reportoilstockh\" text=\"Báo cáo nhập xuất tồn dầu nhớt - Ngang\"/><item id=\"reportoilstocksum\" text=\"Báo cáo nhập xuất tồn tổng hợp dầu nhớt\"/><item id=\"reportoilstocksumh\" text=\"Báo cáo nhập xuất tồn tổng hợp dầu nhớt - Ngang\"/><item id=\"reportoilsale\" text=\"Báo cáo bán hàng dầu nhớt\"/><item id=\"reportoilcompare\" text=\"Đối chiếu dầu nhớt\"/><item id=\"reportoilcommissionagency\" text=\"Báo cáo theo dõi chiết khấu dầu nhớt đại lý\"/><item id=\"reportoilcommissioncustomer\" text=\"Báo cáo theo dõi chiết khấu dầu nhớt khách hàng\"/><item id=\"reportoilvendorstock\" text=\"Bảng theo dõi nhập xuất tồn tổng kho\"/><item id=\"reportoilvendordebt\" text=\"Bảng theo dõi công nợ nhà cung cấp\"/><item id=\"reportoilcustomerdebt\" text=\"Bảng theo dõi công nợ khách hàng dầu nhớt\"/></item><item id=\"reportsolar\" complex=\"true\" text=\"Báo cáo NLMT\"><item id=\"reportsolarimport\" text=\"Báo cáo nhập NLMT\"/><item id=\"reportsolarstock\" text=\"Báo cáo nhập xuất tồn NLMT\"/><item id=\"reportsolarstockh\" text=\"Báo cáo nhập xuất tồn NLMT - Ngang\"/><item id=\"reportsolarstocksum\" text=\"Báo cáo nhập xuất tồn tổng hợp NLMT\"/><item id=\"reportsolarstocksumh\" text=\"Báo cáo nhập xuất tồn tổng hợp NLMT - Ngang\"/><item id=\"reportsolarsale\" text=\"Báo cáo bán hàng NLMT\"/><item id=\"reportsolarcompare\" text=\"Đối chiếu NLMT\"/><item id=\"reportsolarcommissionagency\" text=\"Báo cáo theo dõi chiết khấu NLMT đại lý\"/><item id=\"reportsolarcommissioncustomer\" text=\"Báo cáo theo dõi chiết khấu NLMT khách hàng\"/><item id=\"reportsolarvendorstock\" text=\"Bảng theo dõi nhập xuất tồn tổng kho\"/><item id=\"reportsolarvendordebt\" text=\"Bảng theo dõi công nợ nhà cung cấp\"/><item id=\"reportsolarcustomerdebt\" text=\"Bảng theo dõi công nợ khách hàng NLMT\"/></item><item id=\"reporttransport\" complex=\"true\" text=\"Báo cáo xe\"><item id=\"reporttransportfee\" text=\"Bảng theo dõi chi phí vận chuyển\"/><item id=\"reportvehiclefee\" text=\"Bảng theo dõi chi phí xe\"/><item id=\"reportvehiclesale\" text=\"Bảng theo dõi bán hàng theo xe\"/><item id=\"reporttransportservice\" text=\"Bảng theo dõi chi phí vận chuyển thuê\"/></item><item id=\"reportaccountant\" complex=\"true\" text=\"Báo cáo kế toán\"><item id=\"reportemployeesalary\" text=\"Bảng thanh toán lương\"/><item id=\"reportemployeeoff\" text=\"Bảng theo dõi ngày nghỉ phép\"/><item id=\"reportemployeeworking\" text=\"Bảng theo dõi thời gian công tác\"/><item id=\"reportemployeevehiclesalary\" text=\"Bảng lương nhân viên vận chuyển\"/></item></item><item id=\"setting\" complex=\"true\" text=\"Cấu hình\"><item id=\"resetpassword\" text=\"Đổi mật khẩu\"/></item><item id=\"logout\" text=\"Đăng xuất\"/></menu>',1),(12,18,'ntb','gdyb21LQTcIANtvYMT7QVQ==','<?xml version=\"1.0\"?><menu><item id=\"setting\" complex=\"true\" text=\"Cấu hình\"><item id=\"resetpassword\" text=\"Đổi mật khẩu\"/></item><item id=\"logout\" text=\"Đăng xuất\"/></menu>',1),(14,35,'linhle','gdyb21LQTcIANtvYMT7QVQ==','<?xml version=\"1.0\"?><menu><item id=\"list\" complex=\"true\" text=\"Khai báo danh mục\"><item id=\"system\" complex=\"true\" text=\"Hệ thống\"><item id=\"users\" complex=\"true\" text=\"Tài khoản hệ thống\"><item id=\"userlist\" text=\"Danh sách tài khoản hệ thống\"/><item id=\"useradd\" text=\"Thêm tài khoản hệ thống\"/></item><item id=\"parameter\" text=\"Thông số hệ thống\"/><item id=\"permissionlist\" text=\"Phân quyền\"/><item id=\"openingstock\" text=\"Số dư đầu kỳ\"/></item><item id=\"organization\" complex=\"true\" text=\"Đơn vị\"><item id=\"organizations\" complex=\"true\" text=\"Đơn vị\"><item id=\"organizationlist\" text=\"Danh sách đơn vị\"/><item id=\"organizationadd\" text=\"Thêm đơn vị\"/></item><item id=\"stores\" complex=\"true\" text=\"Kho\"><item id=\"storelist\" text=\"Danh sách kho\"/><item id=\"storeadd\" text=\"Thêm kho\"/></item><item id=\"employees\" complex=\"true\" text=\"Nhân viên\"><item id=\"employeelist\" text=\"Danh sách nhân viên\"/><item id=\"employeeadd\" text=\"Thêm nhân viên\"/><item id=\"employeefiellist\" text=\"Thông tin động - Nhân viên\"/></item><item id=\"accounts\" complex=\"true\" text=\"Tài khoản ngân hàng\"><item id=\"accountlist\" text=\"Danh sách tài khoản ngân hàng\"/><item id=\"accountadd\" text=\"Thêm tài khoản ngân hàng\"/></item><item id=\"dayoffs\" complex=\"true\" text=\"Ngày nghỉ bù\"><item id=\"dayofflist\" text=\"Danh sách ngày nghỉ bù\"/><item id=\"dayoffadd\" text=\"Thêm ngày nghỉ bù\"/></item><item id=\"otherbonuss\" complex=\"true\" text=\"Khoản thưởng khác\"><item id=\"otherbonuslist\" text=\"Danh sách khoản thưởng khác\"/><item id=\"otherbonusadd\" text=\"Thêm khoản thưởng khác\"/></item><item id=\"paneltys\" complex=\"true\" text=\"Khoản chi khác\"><item id=\"paneltylist\" text=\"Danh sách khoản chi khác\"/><item id=\"paneltyadd\" text=\"Thêm khoản chi khác\"/></item></item><item id=\"good\" complex=\"true\" text=\"Hàng hóa\"><item id=\"units\" complex=\"true\" text=\"Đơn vị tính\"><item id=\"unitlist\" text=\"Danh sách đơn vị tính\"/><item id=\"unitadd\" text=\"Thêm đơn vị tính\"/></item><item id=\"shellkinds\" complex=\"true\" text=\"Loại vỏ bình\"><item id=\"shellkindlist\" text=\"Danh sách loại vỏ bình\"/><item id=\"shellkindadd\" text=\"Thêm loại vỏ bình\"/></item><item id=\"shells\" complex=\"true\" text=\"Vỏ bình\"><item id=\"shelllist\" text=\"Danh sách vỏ bình\"/><item id=\"shelladd\" text=\"Thêm vỏ bình\"/></item><item id=\"accessorykinds\" complex=\"true\" text=\"Loại phụ kiện\"><item id=\"accessorykindlist\" text=\"Danh sách loại phụ kiện\"/><item id=\"accessorykindadd\" text=\"Thêm loại phụ kiện\"/></item><item id=\"accessorys\" complex=\"true\" text=\"Phụ kiện\"><item id=\"accessorylist\" text=\"Danh sách phụ kiện\"/><item id=\"accessoryadd\" text=\"Thêm phụ kiện\"/></item><item id=\"promotionmaterials\" complex=\"true\" text=\"Hàng khuyến mãi\"><item id=\"promotionmateriallist\" text=\"Danh sách hàng khuyến mãi\"/><item id=\"promotionmaterialadd\" text=\"Thêm hàng khuyến mãi\"/></item><item id=\"petros\" complex=\"true\" text=\"Xăng dầu\"><item id=\"petrolist\" text=\"Danh sách hàng xăng dầu\"/><item id=\"petroadd\" text=\"Thêm hàng xăng dầu\"/></item><item id=\"goods\" complex=\"true\" text=\"Hàng hóa\"><item id=\"goodlist\" text=\"Danh sách hàng hóa\"/><item id=\"goodadd\" text=\"Thêm hàng hóa\"/></item></item><item id=\"oil\" complex=\"true\" text=\"Dầu nhớt\"><item id=\"vendoroils\" complex=\"true\" text=\"Nhà cung cấp\"><item id=\"vendoroillist\" text=\"Danh sách nhà cung cấp\"/><item id=\"vendoroiladd\" text=\"Thêm nhà cung cấp\"/></item><item id=\"unitrates\" complex=\"true\" text=\"Qui đổi đơn vị tính\"><item id=\"unitratelist\" text=\"Danh sách qui đổi đơn vị tính\"/><item id=\"unitrateadd\" text=\"Thêm qui đổi đơn vị tính\"/></item><item id=\"agencys\" complex=\"true\" text=\"Đại lý\"><item id=\"agencylist\" text=\"Danh sách đại lý\"/><item id=\"agencyadd\" text=\"Thêm đại lý\"/></item><item id=\"oilgroups\" complex=\"true\" text=\"Nhóm dầu nhớt\"><item id=\"oilgrouplist\" text=\"Danh sách nhóm dầu nhớt\"/><item id=\"oilgroupadd\" text=\"Thêm nhóm dầu nhớt\"/></item><item id=\"oils\" complex=\"true\" text=\"Dầu nhớt\"><item id=\"oillist\" text=\"Danh sách dầu nhớt\"/><item id=\"oiladd\" text=\"Thêm dầu nhớt\"/></item><item id=\"employeeoilcommissions\" complex=\"true\" text=\"Loại chiết khấu bán dầu nhớt\"><item id=\"employeeoilcommissionlist\" text=\"Danh sách loại chiết khấu bán dầu nhớt\"/><item id=\"employeeoilcommissionadd\" text=\"Thêm loại chiết khấu bán dầu nhớt\"/></item><item id=\"saleoilreturnstores\" complex=\"true\" text=\"Kho trả hàng dầu nhớt\"><item id=\"saleoilreturnstoreadd\" text=\"Thêm kho trả hàng dầu nhớt\"/></item></item><item id=\"solar\" complex=\"true\" text=\"Năng lượng mặt trời\"><item id=\"vendorsolars\" complex=\"true\" text=\"Nhà cung cấp\"><item id=\"vendorsolarlist\" text=\"Danh sách nhà cung cấp\"/><item id=\"vendorsolaradd\" text=\"Thêm nhà cung cấp\"/></item><item id=\"solargroups\" complex=\"true\" text=\"Nhóm NLMT\"><item id=\"solargrouplist\" text=\"Danh sách nhóm NLMT\"/><item id=\"solargroupadd\" text=\"Thêm nhóm NLMT\"/></item><item id=\"solars\" complex=\"true\" text=\"NLMT\"><item id=\"solarlist\" text=\"Danh sách NLMT\"/><item id=\"solaradd\" text=\"Thêm NLMT\"/></item><item id=\"employeesolarcommissions\" complex=\"true\" text=\"Loại chiết khấu bán NLMT\"><item id=\"employeesolarcommissionlist\" text=\"Danh sách loại chiết khấu bán NLMT\"/><item id=\"employeesolarcommissionadd\" text=\"Thêm loại chiết khấu bán NLMT\"/></item><item id=\"salesolarreturnstores\" complex=\"true\" text=\"Kho trả hàng NLMT\"><item id=\"salesolarreturnstoreadd\" text=\"Thêm kho trả hàng NLMT\"/></item></item><item id=\"vendor\" complex=\"true\" text=\"Nhà cung cấp\"><item id=\"vendors\" complex=\"true\" text=\"Nhà cung cấp\"><item id=\"vendorlist\" text=\"Danh sách nhà cung cấp\"/><item id=\"vendoradd\" text=\"Thêm nhà cung cấp\"/><item id=\"addgasreturnvendor\" text=\"Nhà cung cấp nhận gas trả\"/><item id=\"vendorfiellist\" text=\"Thông tin động - Nhà cung cấp\"/></item><item id=\"vendororganizations\" complex=\"true\" text=\"Nhà cung cấp liên kết\"><item id=\"vendororganizationlist\" text=\"Danh sách nhà cung cấp liên kết\"/><item id=\"vendororganizationadd\" text=\"Thêm nhà cung cấp liên kết\"/></item><item id=\"vendorcustomers\" complex=\"true\" text=\"Nhà cung cấp - Khách hàng\"><item id=\"vendorcustomerlist\" text=\"Danh sách nhà cung cấp - Khách hàng\"/><item id=\"vendorcustomeradd\" text=\"Thêm nhà cung cấp - Khách hàng\"/></item></item><item id=\"customer\" complex=\"true\" text=\"Khách hàng\"><item id=\"customers\" complex=\"true\" text=\"Khách hàng\"><item id=\"customerlist\" text=\"Danh sách khách hàng\"/><item id=\"customeradd\" text=\"Thêm khách hàng\"/><item id=\"customerfiellist\" text=\"Thông tin động - Khách hàng\"/><item id=\"customerdocumentlist\" text=\"Danh sách văn bản\"/></item><item id=\"discounts\" complex=\"true\" text=\"Giảm giá\"><item id=\"discountlist\" text=\"Danh sách giảm giá\"/><item id=\"discountadd\" text=\"Thêm giảm giá\"/></item></item><item id=\"vehicle\" complex=\"true\" text=\"Xe\"><item id=\"vehicles\" complex=\"true\" text=\"Xe\"><item id=\"vehiclelist\" text=\"Danh sách xe\"/><item id=\"vehicleadd\" text=\"Thêm xe\"/></item><item id=\"routes\" complex=\"true\" text=\"Tuyến đường\"><item id=\"routelist\" text=\"Danh sách tuyến đường\"/><item id=\"routeadd\" text=\"Thêm tuyến đường\"/></item></item><item id=\"fixedassetgroup\" complex=\"true\" text=\"Tài sản cố định\"><item id=\"fixedassetgroups\" complex=\"true\" text=\"Nhóm tài sản cố định\"><item id=\"fixedassetgrouplist\" text=\"Danh sách nhóm tài sản cố định\"/><item id=\"fixedassetgroupadd\" text=\"Thêm nhóm tài sản cố định\"/></item><item id=\"fixedassets\" complex=\"true\" text=\"Tài sản cố định\"><item id=\"fixedassetlist\" text=\"Danh sách tài sản cố định\"/><item id=\"fixedassetadd\" text=\"Thêm tài sản cố định\"/></item></item></item><item id=\"employeefunction\" complex=\"true\" text=\"Nghiệp vụ Nhân viên\"><item id=\"employeeadvances\" complex=\"true\" text=\"Nhân viên tạm ứng\"><item id=\"employeeadvancelist\" text=\"Danh sách tạm ứng\"/><item id=\"employeeadvanceadd\" text=\"Thêm tạm ứng\"/></item><item id=\"borrows\" complex=\"true\" text=\"Mượn lương\"><item id=\"borrowlist\" text=\"Danh sách phiếu mượn lương\"/><item id=\"borrowadd\" text=\"Thêm phiếu mượn lương\"/></item><item id=\"employeetimesheets\" complex=\"true\" text=\"Chấm công nhân viên\"><item id=\"employeetimesheetlist\" text=\"Danh sách chấm công\"/><item id=\"employeetimesheetadd\" text=\"Thêm chấm công\"/></item><item id=\"employeeoffs\" complex=\"true\" text=\"Nghỉ phép\"><item id=\"employeeofflist\" text=\"Danh sách nghỉ phép\"/><item id=\"employeeoffadd\" text=\"Thêm nghỉ phép\"/></item><item id=\"employeeoffincreases\" complex=\"true\" text=\"Bù nghỉ phép\"><item id=\"employeeoffincreaselist\" text=\"Danh sách bù nghỉ phép\"/><item id=\"employeeoffincreaseadd\" text=\"Thêm bù nghỉ phép\"/></item><item id=\"employeeoffmoneys\" complex=\"true\" text=\"Thanh toán ngày phép\"><item id=\"employeeoffmoneylist\" text=\"Danh sách thanh toán ngày phép\"/><item id=\"employeeoffmoneyadd\" text=\"Thêm thanh toán ngày phép\"/></item><item id=\"employeeotherbonuss\" complex=\"true\" text=\"Khoản thưởng khác\"><item id=\"employeeotherbonuslist\" text=\"Danh sách khoản thưởng khác\"/><item id=\"employeeotherbonusadd\" text=\"Thêm khoản thưởng khác\"/></item><item id=\"employeepaneltys\" complex=\"true\" text=\"Khoản chi khác\"><item id=\"employeepaneltylist\" text=\"Danh sách khoản chi khác\"/><item id=\"employeepaneltyadd\" text=\"Thêm khoản chi khác\"/></item><item id=\"salarys\" complex=\"true\" text=\"Bảng lương\"><item id=\"salarylist\" text=\"Danh sách bảng lương\"/><item id=\"salarysalaryfiels\" complex=\"true\" text=\"Thông tin động\"><item id=\"salaryfiellist\" text=\"Phụ cấp\"/><item id=\"timesheetfiellist\" text=\"Chấm công\"/></item><item id=\"dynamicfielvalues\" complex=\"true\" text=\"Giá trị thông tin động\"><item id=\"employeesalarylist\" text=\"Danh sách phụ cấp\"/><item id=\"organizationtimesheetlist\" text=\"Danh sách chi phí chấm công\"/></item></item></item><item id=\"vehiclefunction\" complex=\"true\" text=\"Nghiệp vụ Xe\"><item id=\"tripfees\" complex=\"true\" text=\"Chi phí xe\"><item id=\"tripfeelist\" text=\"Danh sách chi phí xe\"/><item id=\"tripfeeadd\" text=\"Thêm chi phí xe\"/></item><item id=\"tripoils\" complex=\"true\" text=\"Ứng dầu\"><item id=\"tripoillist\" text=\"Danh sách ứng dầu\"/><item id=\"tripoiladd\" text=\"Thêm ứng dầu\"/></item><item id=\"employeeroutefees\" complex=\"true\" text=\"Chi phí nhân viên vận chuyển\"><item id=\"employeeroutefeelist\" text=\"Danh sách chi phí nhân viên vận chuyển\"/><item id=\"employeeroutefeeadd\" text=\"Thêm chi phí nhân viên vận chuyển\"/></item><item id=\"vehicleouts\" complex=\"true\" text=\"Xuất xe đi\"><item id=\"vehicleoutlist\" text=\"Danh sách xuất xe đi\"/><item id=\"vehicleoutadd\" text=\"Thêm xuất xe đi\"/></item><item id=\"vehicleins\" complex=\"true\" text=\"Nhập xe về\"><item id=\"vehicleinlist\" text=\"Danh sách nhập xe về\"/><item id=\"vehicleinadd\" text=\"Thêm nhập xe về\"/></item><item id=\"exportwholesales\" complex=\"true\" text=\"Xuất sỉ\"><item id=\"exportwholesalelist\" text=\"Danh sách xuất sỉ\"/><item id=\"exportwholesaleadd\" text=\"Thêm xuất sỉ\"/></item><item id=\"transportservices\" complex=\"true\" text=\"Vận chuyển thuê\"><item id=\"transportservicelist\" text=\"Danh sách vận chuyển thuê\"/><item id=\"transportserviceadd\" text=\"Thêm phiếu vận chuyển thuê\"/></item></item><item id=\"gasfunction\" complex=\"true\" text=\"Nghiệp vụ gas\"><item id=\"shellimports\" complex=\"true\" text=\"Nhập vỏ bình\"><item id=\"shellimportlist\" text=\"Danh sách nhập vỏ bình\"/><item id=\"shellimportadd\" text=\"Thêm nhập vỏ bình\"/></item><item id=\"lpgimports\" complex=\"true\" text=\"Nhập LPG\"><item id=\"lpgimportlist\" text=\"Danh sách nhập LPG\"/><item id=\"lpgimportadd\" text=\"Thêm nhập LPG\"/></item><item id=\"lpgsales\" complex=\"true\" text=\"Bán LPG\"><item id=\"lpgsalelist\" text=\"Danh sách bán LPG\"/><item id=\"lpgsaleadd\" text=\"Thêm bán LPG\"/></item><item id=\"fractions\" complex=\"true\" text=\"Chiết gas\"><item id=\"fractionlist\" text=\"Danh sách chiết gas\"/><item id=\"fractionadd\" text=\"Thêm chiết gas\"/></item><item id=\"gasprices\" complex=\"true\" text=\"Giá bán gas\"><item id=\"gaspricelist\" text=\"Danh sách giá bán gas\"/><item id=\"gaspriceadd\" text=\"Thêm giá bán gas\"/></item><item id=\"gasimports\" complex=\"true\" text=\"Nhập gas\"><item id=\"gasimportlist\" text=\"Danh sách phiếu nhập gas\"/><item id=\"gasimportadd\" text=\"Thêm phiếu nhập gas\"/></item><item id=\"gaswholesales\" complex=\"true\" text=\"Bán gas\"><item id=\"gaswholesalelist\" text=\"Danh sách phiếu bán gas\"/><item id=\"gaswholesaleadd\" text=\"Thêm phiếu bán gas\"/><item id=\"gaswholesalefeelist\" text=\"Danh sách các khoản phí khác\"/></item><item id=\"saleinners\" complex=\"true\" text=\"Bán Nội bộ\"><item id=\"saleinnerlist\" text=\"Danh sách phiếu bán nội bộ\"/><item id=\"saleinneradd\" text=\"Thêm phiếu bán nội bộ\"/></item><item id=\"saleshells\" complex=\"true\" text=\"Bán vỏ bình\"><item id=\"saleshelllist\" text=\"Danh sách phiếu bán vỏ bình\"/><item id=\"saleshelladd\" text=\"Thêm phiếu bán vỏ bình\"/></item><item id=\"oldshells\" complex=\"true\" text=\"Điều chỉnh số lượng vỏ bình\"><item id=\"oldshelllist\" text=\"Danh sách điều chỉnh số lượng vỏ bình\"/><item id=\"oldshelladd\" text=\"Thêm điều chỉnh số lượng vỏ bình\"/></item><item id=\"shellreturns\" complex=\"true\" text=\"Trả vỏ bình\"><item id=\"shellreturnlist\" text=\"Danh sách trả vỏ bình\"/><item id=\"shellreturnadd\" text=\"Thêm trả vỏ bình\"/></item><item id=\"shellreturnsuppliers\" complex=\"true\" text=\"Trả vỏ bình NCC\"><item id=\"shellreturnsupplierlist\" text=\"Danh sách trả vỏ bình NCC\"/><item id=\"shellreturnsupplieradd\" text=\"Thêm trả vỏ bình NCC\"/></item><item id=\"lovos\" complex=\"true\" text=\"Làm lò vỏ\"><item id=\"lovolist\" text=\"Danh sách làm lò vỏ\"/><item id=\"lovoadd\" text=\"Thêm làm lò vỏ\"/></item></item><item id=\"goodfunction\" complex=\"true\" text=\"Nghiệp vụ hàng hóa\"><item id=\"petroimports\" complex=\"true\" text=\"Nhập xăng\"><item id=\"petroimportlist\" text=\"Danh sách phiếu nhập xăng\"/><item id=\"petroimportadd\" text=\"Thêm phiếu nhập xăng\"/></item><item id=\"salepetros\" complex=\"true\" text=\"Bán xăng\"><item id=\"salepetrolist\" text=\"Danh sách phiếu bán xăng\"/><item id=\"salepetroadd\" text=\"Thêm phiếu bán xăng\"/></item><item id=\"oilimports\" complex=\"true\" text=\"Nhập dầu nhớt\"><item id=\"oilimportlist\" text=\"Danh sách phiếu nhập dầu nhớt\"/><item id=\"oilimportadd\" text=\"Thêm phiếu nhập dầu nhớt\"/></item><item id=\"saleoils\" complex=\"true\" text=\"Bán dầu nhớt\"><item id=\"saleoillist\" text=\"Danh sách phiếu bán dầu nhớt\"/><item id=\"saleoiladd\" text=\"Thêm phiếu bán dầu nhớt\"/></item><item id=\"oilexports\" complex=\"true\" text=\"Xuất kho dầu nhớt\"><item id=\"oilexportlist\" text=\"Danh sách phiếu xuất kho dầu nhớt\"/></item><item id=\"saleoilreturns\" complex=\"true\" text=\"Trả hàng dầu nhớt\"><item id=\"saleoilreturnlist\" text=\"Danh sách phiếu trả hàng dầu nhớt\"/></item><item id=\"goodimports\" complex=\"true\" text=\"Nhập hàng hóa\"><item id=\"goodimportlist\" text=\"Danh sách phiếu nhập hàng hóa\"/><item id=\"goodimportadd\" text=\"Thêm phiếu nhập hàng hóa\"/></item><item id=\"salegoods\" complex=\"true\" text=\"Bán hàng hóa\"><item id=\"salegoodlist\" text=\"Danh sách phiếu bán hàng hóa\"/><item id=\"salegoodadd\" text=\"Thêm phiếu bán hàng hóa\"/></item><item id=\"shieldimports\" complex=\"true\" text=\"Nhập shield\"><item id=\"shieldimportlist\" text=\"Danh sách phiếu nhập shield\"/><item id=\"shieldimportadd\" text=\"Thêm phiếu nhập shield\"/></item><item id=\"shielddecreases\" complex=\"true\" text=\"Giảm shield\"><item id=\"shielddecreaselist\" text=\"Danh sách phiếu giảm shield\"/><item id=\"shielddecreaseadd\" text=\"Thêm phiếu giảm shield\"/></item><item id=\"accessoryimports\" complex=\"true\" text=\"Nhập phụ kiện\"><item id=\"accessoryimportlist\" text=\"Danh sách phiếu nhập phụ kiện\"/><item id=\"accessoryimportadd\" text=\"Thêm phiếu nhập phụ kiện\"/></item><item id=\"saleaccessorys\" complex=\"true\" text=\"Bán phụ kiện\"><item id=\"saleaccessorylist\" text=\"Danh sách phiếu bán phụ kiện\"/><item id=\"saleaccessoryadd\" text=\"Thêm phiếu bán phụ kiện\"/></item><item id=\"promotionmaterialimports\" complex=\"true\" text=\"Nhập hàng khuyến mãi\"><item id=\"promotionmaterialimportlist\" text=\"Danh sách phiếu nhập hàng khuyến mãi\"/><item id=\"promotionmaterialimportadd\" text=\"Thêm phiếu nhập hàng khuyến mãi\"/></item><item id=\"fixedassetdepreciations\" complex=\"true\" text=\"Khấu hao\"><item id=\"fixedassetdepreciationlist\" text=\"Danh sách phiếu khấu hao\"/><item id=\"fixedassetdepreciationadd\" text=\"Thêm phiếu khấu hao\"/></item><item id=\"solarimports\" complex=\"true\" text=\"Nhập NLMT\"><item id=\"solarimportlist\" text=\"Danh sách phiếu nhập NLMT\"/><item id=\"solarimportadd\" text=\"Thêm phiếu nhập NLMT\"/></item><item id=\"salesolars\" complex=\"true\" text=\"Bán NLMT\"><item id=\"salesolarlist\" text=\"Danh sách phiếu bán NLMT\"/><item id=\"salesolaradd\" text=\"Thêm phiếu bán NLMT\"/></item><item id=\"solarexports\" complex=\"true\" text=\"Xuất kho NLMT\"><item id=\"solarexportlist\" text=\"Danh sách phiếu xuất kho NLMT\"/></item><item id=\"salesolarreturns\" complex=\"true\" text=\"Trả hàng NLMT\"><item id=\"salesolarreturnlist\" text=\"Danh sách phiếu trả hàng NLMT\"/></item></item><item id=\"paymentfunction\" complex=\"true\" text=\"Nghiệp vụ thanh toán\"><item id=\"contracts\" complex=\"true\" text=\"Hợp đồng\"><item id=\"contractlist\" text=\"Danh sách hợp đồng\"/><item id=\"contractadd\" text=\"Thêm hợp đồng\"/></item><item id=\"invoices\" complex=\"true\" text=\"Hóa đơn\"><item id=\"invoicelist\" text=\"Danh sách hóa đơn\"/><item id=\"invoiceadd\" text=\"Thêm hóa đơn\"/></item><item id=\"invoicesolars\" complex=\"true\" text=\"Hóa đơn NLMT\"><item id=\"invoicesolarlist\" text=\"Danh sách hóa đơn NLMT\"/><item id=\"invoicesolaradd\" text=\"Thêm hóa đơn NLMT\"/></item><item id=\"debtvendors\" complex=\"true\" text=\"Công nợ NCC\"><item id=\"debtvendorlist\" text=\"Danh sách công nợ NCC\"/><item id=\"debtvendoradd\" text=\"Thêm công nợ NCC\"/></item><item id=\"debtwholesales\" complex=\"true\" text=\"Công nợ khách hàng\"><item id=\"debtwholesalelist\" text=\"Danh sách công nợ khách hàng\"/><item id=\"debtwholesaleadd\" text=\"Thêm công nợ khách hàng\"/></item><item id=\"incomes\" complex=\"true\" text=\"Thu\"><item id=\"incomelist\" text=\"Danh sách thu\"/><item id=\"incomeadd\" text=\"Thêm thu\"/></item><item id=\"expenses\" complex=\"true\" text=\"Chi\"><item id=\"expenselist\" text=\"Danh sách chi\"/><item id=\"expenseadd\" text=\"Thêm chi\"/></item><item id=\"debtadjustments\" complex=\"true\" text=\"Điều chỉnh công nợ\"><item id=\"debtadjustmentlist\" text=\"Danh sách điều chỉnh công nợ\"/><item id=\"debtadjustmentadd\" text=\"Thêm điều chỉnh công nợ\"/></item></item><item id=\"reportfunction\" complex=\"true\" text=\"Báo cáo\"><item id=\"reportgas\" complex=\"true\" text=\"Báo cáo gas\"><item id=\"reportlpgimport\" text=\"Bảng theo dõi nhập hàng LPG\"/><item id=\"reportlpgsale\" text=\"Bảng theo dõi bán hàng LPG\"/><item id=\"reportvendordebt\" text=\"Bảng theo dõi công nợ NCC\"/><item id=\"reportlpgstock\" text=\"Sổ theo dõi sản lượng khí hóa lỏng LPG\"/><item id=\"reportlpgstocksum\" text=\"Sổ theo dõi nhập xuất khí hóa lỏng LPG\"/><item id=\"reportlpgstocksumorganization\" text=\"Sổ theo dõi nhập xuất khí hóa lỏng LPG theo nhà cung cấp\"/><item id=\"reportsum\" text=\"Tổng hợp\"/><item id=\"reportcompare\" text=\"Đối chiếu\"/><item id=\"reportcomparelpg\" text=\"Bảng theo dõi công nợ khách hàng LPG\"/><item id=\"reportcomparelpgvendorcustomer\" text=\"Đối chiếu LPG NCC - KH\"/><item id=\"reportcomparegas\" text=\"Đối chiếu gas bình\"/><item id=\"reportcomparevendor\" text=\"Đối chiếu nhà cung cấp\"/><item id=\"reportsale\" text=\"Xuất bán hàng\"/><item id=\"reportsalecustomer\" text=\"Chi tiết bán hàng theo khách hàng\"/><item id=\"reportcashbook\" text=\"Báo cáo quỹ tiền\"/><item id=\"reportgascommission\" text=\"Chiết khấu bán hàng - Gas\"/><item id=\"reportgasemployeecommission\" text=\"Thanh toán tiền chiết khấu - Gas\"/><item id=\"reportshell\" text=\"Thống kê vỏ\"/></item><item id=\"reportpetro\" complex=\"true\" text=\"Báo cáo xăng\"><item id=\"reportpetroimport\" text=\"Bảng theo dõi nhập hàng xăng\"/><item id=\"reportpetrosale\" text=\"Xuất bán hàng xăng dầu\"/><item id=\"reportpetrostock\" text=\"Sổ theo dõi NXT xăng dầu tổng hợp\"/><item id=\"reportpetrostockstore\" text=\"Sổ theo dõi NXT xăng dầu theo cửa hàng\"/></item><item id=\"reportgood\" complex=\"true\" text=\"Báo cáo hàng hóa\"><item id=\"reportcomparegood\" text=\"Đối chiếu hàng hóa\"/></item><item id=\"reportoil\" complex=\"true\" text=\"Báo cáo dầu nhớt\"><item id=\"reportoilimport\" text=\"Báo cáo nhập dầu nhớt\"/><item id=\"reportoilstock\" text=\"Báo cáo nhập xuất tồn dầu nhớt\"/><item id=\"reportoilstockh\" text=\"Báo cáo nhập xuất tồn dầu nhớt - Ngang\"/><item id=\"reportoilstocksum\" text=\"Báo cáo nhập xuất tồn tổng hợp dầu nhớt\"/><item id=\"reportoilstocksumh\" text=\"Báo cáo nhập xuất tồn tổng hợp dầu nhớt - Ngang\"/><item id=\"reportoilsale\" text=\"Báo cáo bán hàng dầu nhớt\"/><item id=\"reportoilcompare\" text=\"Đối chiếu dầu nhớt\"/><item id=\"reportoilcommissionagency\" text=\"Báo cáo theo dõi chiết khấu dầu nhớt đại lý\"/><item id=\"reportoilcommissioncustomer\" text=\"Báo cáo theo dõi chiết khấu dầu nhớt khách hàng\"/><item id=\"reportoilvendorstock\" text=\"Bảng theo dõi nhập xuất tồn tổng kho\"/><item id=\"reportoilvendordebt\" text=\"Bảng theo dõi công nợ nhà cung cấp\"/><item id=\"reportoilcustomerdebt\" text=\"Bảng theo dõi công nợ khách hàng dầu nhớt\"/></item><item id=\"reportsolar\" complex=\"true\" text=\"Báo cáo NLMT\"><item id=\"reportsolarimport\" text=\"Báo cáo nhập NLMT\"/><item id=\"reportsolarstock\" text=\"Báo cáo nhập xuất tồn NLMT\"/><item id=\"reportsolarstockh\" text=\"Báo cáo nhập xuất tồn NLMT - Ngang\"/><item id=\"reportsolarstocksum\" text=\"Báo cáo nhập xuất tồn tổng hợp NLMT\"/><item id=\"reportsolarstocksumh\" text=\"Báo cáo nhập xuất tồn tổng hợp NLMT - Ngang\"/><item id=\"reportsolarsale\" text=\"Báo cáo bán hàng NLMT\"/><item id=\"reportsolarcompare\" text=\"Đối chiếu NLMT\"/><item id=\"reportsolarcommissionagency\" text=\"Báo cáo theo dõi chiết khấu NLMT đại lý\"/><item id=\"reportsolarcommissioncustomer\" text=\"Báo cáo theo dõi chiết khấu NLMT khách hàng\"/><item id=\"reportsolarvendorstock\" text=\"Bảng theo dõi nhập xuất tồn tổng kho\"/><item id=\"reportsolarvendordebt\" text=\"Bảng theo dõi công nợ nhà cung cấp\"/><item id=\"reportsolarcustomerdebt\" text=\"Bảng theo dõi công nợ khách hàng NLMT\"/></item><item id=\"reporttransport\" complex=\"true\" text=\"Báo cáo xe\"><item id=\"reporttransportfee\" text=\"Bảng theo dõi chi phí vận chuyển\"/><item id=\"reportvehiclefee\" text=\"Bảng theo dõi chi phí xe\"/><item id=\"reportvehiclesale\" text=\"Bảng theo dõi bán hàng theo xe\"/><item id=\"reporttransportservice\" text=\"Bảng theo dõi chi phí vận chuyển thuê\"/></item><item id=\"reportaccountant\" complex=\"true\" text=\"Báo cáo kế toán\"><item id=\"reportemployeesalary\" text=\"Bảng thanh toán lương\"/><item id=\"reportemployeeoff\" text=\"Bảng theo dõi ngày nghỉ phép\"/><item id=\"reportemployeeworking\" text=\"Bảng theo dõi thời gian công tác\"/><item id=\"reportemployeevehiclesalary\" text=\"Bảng lương nhân viên vận chuyển\"/></item></item><item id=\"setting\" complex=\"true\" text=\"Cấu hình\"><item id=\"resetpassword\" text=\"Đổi mật khẩu\"/></item><item id=\"logout\" text=\"Đăng xuất\"/></menu>',1),(13,20,'hungcp','gdyb21LQTcIANtvYMT7QVQ==','<?xml version=\"1.0\"?><menu><item id=\"list\" complex=\"true\" text=\"Khai báo danh mục\"><item id=\"system\" complex=\"true\" text=\"Hệ thống\"><item id=\"users\" complex=\"true\" text=\"Tài khoản hệ thống\"><item id=\"userlist\" text=\"Danh sách tài khoản hệ thống\"/><item id=\"useradd\" text=\"Thêm tài khoản hệ thống\"/></item><item id=\"parameter\" text=\"Thông số hệ thống\"/><item id=\"permissionlist\" text=\"Phân quyền\"/><item id=\"openingstock\" text=\"Số dư đầu kỳ\"/></item><item id=\"organization\" complex=\"true\" text=\"Đơn vị\"><item id=\"organizations\" complex=\"true\" text=\"Đơn vị\"><item id=\"organizationlist\" text=\"Danh sách đơn vị\"/><item id=\"organizationadd\" text=\"Thêm đơn vị\"/></item><item id=\"stores\" complex=\"true\" text=\"Kho\"><item id=\"storelist\" text=\"Danh sách kho\"/><item id=\"storeadd\" text=\"Thêm kho\"/></item><item id=\"employees\" complex=\"true\" text=\"Nhân viên\"><item id=\"employeelist\" text=\"Danh sách nhân viên\"/><item id=\"employeeadd\" text=\"Thêm nhân viên\"/><item id=\"employeefiellist\" text=\"Thông tin động - Nhân viên\"/></item><item id=\"accounts\" complex=\"true\" text=\"Tài khoản ngân hàng\"><item id=\"accountlist\" text=\"Danh sách tài khoản ngân hàng\"/><item id=\"accountadd\" text=\"Thêm tài khoản ngân hàng\"/></item><item id=\"dayoffs\" complex=\"true\" text=\"Ngày nghỉ bù\"><item id=\"dayofflist\" text=\"Danh sách ngày nghỉ bù\"/><item id=\"dayoffadd\" text=\"Thêm ngày nghỉ bù\"/></item><item id=\"otherbonuss\" complex=\"true\" text=\"Khoản thưởng khác\"><item id=\"otherbonuslist\" text=\"Danh sách khoản thưởng khác\"/><item id=\"otherbonusadd\" text=\"Thêm khoản thưởng khác\"/></item><item id=\"paneltys\" complex=\"true\" text=\"Khoản chi khác\"><item id=\"paneltylist\" text=\"Danh sách khoản chi khác\"/><item id=\"paneltyadd\" text=\"Thêm khoản chi khác\"/></item></item><item id=\"good\" complex=\"true\" text=\"Hàng hóa\"><item id=\"units\" complex=\"true\" text=\"Đơn vị tính\"><item id=\"unitlist\" text=\"Danh sách đơn vị tính\"/><item id=\"unitadd\" text=\"Thêm đơn vị tính\"/></item><item id=\"shellkinds\" complex=\"true\" text=\"Loại vỏ bình\"><item id=\"shellkindlist\" text=\"Danh sách loại vỏ bình\"/><item id=\"shellkindadd\" text=\"Thêm loại vỏ bình\"/></item><item id=\"shells\" complex=\"true\" text=\"Vỏ bình\"><item id=\"shelllist\" text=\"Danh sách vỏ bình\"/><item id=\"shelladd\" text=\"Thêm vỏ bình\"/></item><item id=\"accessorykinds\" complex=\"true\" text=\"Loại phụ kiện\"><item id=\"accessorykindlist\" text=\"Danh sách loại phụ kiện\"/><item id=\"accessorykindadd\" text=\"Thêm loại phụ kiện\"/></item><item id=\"accessorys\" complex=\"true\" text=\"Phụ kiện\"><item id=\"accessorylist\" text=\"Danh sách phụ kiện\"/><item id=\"accessoryadd\" text=\"Thêm phụ kiện\"/></item><item id=\"promotionmaterials\" complex=\"true\" text=\"Hàng khuyến mãi\"><item id=\"promotionmateriallist\" text=\"Danh sách hàng khuyến mãi\"/><item id=\"promotionmaterialadd\" text=\"Thêm hàng khuyến mãi\"/></item><item id=\"petros\" complex=\"true\" text=\"Xăng dầu\"><item id=\"petrolist\" text=\"Danh sách hàng xăng dầu\"/><item id=\"petroadd\" text=\"Thêm hàng xăng dầu\"/></item><item id=\"goods\" complex=\"true\" text=\"Hàng hóa\"><item id=\"goodlist\" text=\"Danh sách hàng hóa\"/><item id=\"goodadd\" text=\"Thêm hàng hóa\"/></item></item><item id=\"oil\" complex=\"true\" text=\"Dầu nhớt\"><item id=\"vendoroils\" complex=\"true\" text=\"Nhà cung cấp\"><item id=\"vendoroillist\" text=\"Danh sách nhà cung cấp\"/><item id=\"vendoroiladd\" text=\"Thêm nhà cung cấp\"/></item><item id=\"unitrates\" complex=\"true\" text=\"Qui đổi đơn vị tính\"><item id=\"unitratelist\" text=\"Danh sách qui đổi đơn vị tính\"/><item id=\"unitrateadd\" text=\"Thêm qui đổi đơn vị tính\"/></item><item id=\"agencys\" complex=\"true\" text=\"Đại lý\"><item id=\"agencylist\" text=\"Danh sách đại lý\"/><item id=\"agencyadd\" text=\"Thêm đại lý\"/></item><item id=\"oilgroups\" complex=\"true\" text=\"Nhóm dầu nhớt\"><item id=\"oilgrouplist\" text=\"Danh sách nhóm dầu nhớt\"/><item id=\"oilgroupadd\" text=\"Thêm nhóm dầu nhớt\"/></item><item id=\"oils\" complex=\"true\" text=\"Dầu nhớt\"><item id=\"oillist\" text=\"Danh sách dầu nhớt\"/><item id=\"oiladd\" text=\"Thêm dầu nhớt\"/></item><item id=\"employeeoilcommissions\" complex=\"true\" text=\"Loại chiết khấu bán dầu nhớt\"><item id=\"employeeoilcommissionlist\" text=\"Danh sách loại chiết khấu bán dầu nhớt\"/><item id=\"employeeoilcommissionadd\" text=\"Thêm loại chiết khấu bán dầu nhớt\"/></item><item id=\"saleoilreturnstores\" complex=\"true\" text=\"Kho trả hàng dầu nhớt\"><item id=\"saleoilreturnstoreadd\" text=\"Thêm kho trả hàng dầu nhớt\"/></item></item><item id=\"solar\" complex=\"true\" text=\"Năng lượng mặt trời\"><item id=\"vendorsolars\" complex=\"true\" text=\"Nhà cung cấp\"><item id=\"vendorsolarlist\" text=\"Danh sách nhà cung cấp\"/><item id=\"vendorsolaradd\" text=\"Thêm nhà cung cấp\"/></item><item id=\"solargroups\" complex=\"true\" text=\"Nhóm NLMT\"><item id=\"solargrouplist\" text=\"Danh sách nhóm NLMT\"/><item id=\"solargroupadd\" text=\"Thêm nhóm NLMT\"/></item><item id=\"solars\" complex=\"true\" text=\"NLMT\"><item id=\"solarlist\" text=\"Danh sách NLMT\"/><item id=\"solaradd\" text=\"Thêm NLMT\"/></item><item id=\"employeesolarcommissions\" complex=\"true\" text=\"Loại chiết khấu bán NLMT\"><item id=\"employeesolarcommissionlist\" text=\"Danh sách loại chiết khấu bán NLMT\"/><item id=\"employeesolarcommissionadd\" text=\"Thêm loại chiết khấu bán NLMT\"/></item><item id=\"salesolarreturnstores\" complex=\"true\" text=\"Kho trả hàng NLMT\"><item id=\"salesolarreturnstoreadd\" text=\"Thêm kho trả hàng NLMT\"/></item></item><item id=\"vendor\" complex=\"true\" text=\"Nhà cung cấp\"><item id=\"vendors\" complex=\"true\" text=\"Nhà cung cấp\"><item id=\"vendorlist\" text=\"Danh sách nhà cung cấp\"/><item id=\"vendoradd\" text=\"Thêm nhà cung cấp\"/><item id=\"addgasreturnvendor\" text=\"Nhà cung cấp nhận gas trả\"/><item id=\"vendorfiellist\" text=\"Thông tin động - Nhà cung cấp\"/></item><item id=\"vendororganizations\" complex=\"true\" text=\"Nhà cung cấp liên kết\"><item id=\"vendororganizationlist\" text=\"Danh sách nhà cung cấp liên kết\"/><item id=\"vendororganizationadd\" text=\"Thêm nhà cung cấp liên kết\"/></item><item id=\"vendorcustomers\" complex=\"true\" text=\"Nhà cung cấp - Khách hàng\"><item id=\"vendorcustomerlist\" text=\"Danh sách nhà cung cấp - Khách hàng\"/><item id=\"vendorcustomeradd\" text=\"Thêm nhà cung cấp - Khách hàng\"/></item></item><item id=\"customer\" complex=\"true\" text=\"Khách hàng\"><item id=\"customers\" complex=\"true\" text=\"Khách hàng\"><item id=\"customerlist\" text=\"Danh sách khách hàng\"/><item id=\"customeradd\" text=\"Thêm khách hàng\"/><item id=\"customerfiellist\" text=\"Thông tin động - Khách hàng\"/><item id=\"customerdocumentlist\" text=\"Danh sách văn bản\"/></item><item id=\"discounts\" complex=\"true\" text=\"Giảm giá\"><item id=\"discountlist\" text=\"Danh sách giảm giá\"/><item id=\"discountadd\" text=\"Thêm giảm giá\"/></item></item><item id=\"vehicle\" complex=\"true\" text=\"Xe\"><item id=\"vehicles\" complex=\"true\" text=\"Xe\"><item id=\"vehiclelist\" text=\"Danh sách xe\"/><item id=\"vehicleadd\" text=\"Thêm xe\"/></item><item id=\"routes\" complex=\"true\" text=\"Tuyến đường\"><item id=\"routelist\" text=\"Danh sách tuyến đường\"/><item id=\"routeadd\" text=\"Thêm tuyến đường\"/></item></item><item id=\"fixedassetgroup\" complex=\"true\" text=\"Tài sản cố định\"><item id=\"fixedassetgroups\" complex=\"true\" text=\"Nhóm tài sản cố định\"><item id=\"fixedassetgrouplist\" text=\"Danh sách nhóm tài sản cố định\"/><item id=\"fixedassetgroupadd\" text=\"Thêm nhóm tài sản cố định\"/></item><item id=\"fixedassets\" complex=\"true\" text=\"Tài sản cố định\"><item id=\"fixedassetlist\" text=\"Danh sách tài sản cố định\"/><item id=\"fixedassetadd\" text=\"Thêm tài sản cố định\"/></item></item></item><item id=\"employeefunction\" complex=\"true\" text=\"Nghiệp vụ Nhân viên\"><item id=\"employeeadvances\" complex=\"true\" text=\"Nhân viên tạm ứng\"><item id=\"employeeadvancelist\" text=\"Danh sách tạm ứng\"/><item id=\"employeeadvanceadd\" text=\"Thêm tạm ứng\"/></item><item id=\"borrows\" complex=\"true\" text=\"Mượn lương\"><item id=\"borrowlist\" text=\"Danh sách phiếu mượn lương\"/><item id=\"borrowadd\" text=\"Thêm phiếu mượn lương\"/></item><item id=\"employeetimesheets\" complex=\"true\" text=\"Chấm công nhân viên\"><item id=\"employeetimesheetlist\" text=\"Danh sách chấm công\"/><item id=\"employeetimesheetadd\" text=\"Thêm chấm công\"/></item><item id=\"employeeoffs\" complex=\"true\" text=\"Nghỉ phép\"><item id=\"employeeofflist\" text=\"Danh sách nghỉ phép\"/><item id=\"employeeoffadd\" text=\"Thêm nghỉ phép\"/></item><item id=\"employeeoffincreases\" complex=\"true\" text=\"Bù nghỉ phép\"><item id=\"employeeoffincreaselist\" text=\"Danh sách bù nghỉ phép\"/><item id=\"employeeoffincreaseadd\" text=\"Thêm bù nghỉ phép\"/></item><item id=\"employeeoffmoneys\" complex=\"true\" text=\"Thanh toán ngày phép\"><item id=\"employeeoffmoneylist\" text=\"Danh sách thanh toán ngày phép\"/><item id=\"employeeoffmoneyadd\" text=\"Thêm thanh toán ngày phép\"/></item><item id=\"employeeotherbonuss\" complex=\"true\" text=\"Khoản thưởng khác\"><item id=\"employeeotherbonuslist\" text=\"Danh sách khoản thưởng khác\"/><item id=\"employeeotherbonusadd\" text=\"Thêm khoản thưởng khác\"/></item><item id=\"employeepaneltys\" complex=\"true\" text=\"Khoản chi khác\"><item id=\"employeepaneltylist\" text=\"Danh sách khoản chi khác\"/><item id=\"employeepaneltyadd\" text=\"Thêm khoản chi khác\"/></item><item id=\"salarys\" complex=\"true\" text=\"Bảng lương\"><item id=\"salarylist\" text=\"Danh sách bảng lương\"/><item id=\"salarysalaryfiels\" complex=\"true\" text=\"Thông tin động\"><item id=\"salaryfiellist\" text=\"Phụ cấp\"/><item id=\"timesheetfiellist\" text=\"Chấm công\"/></item><item id=\"dynamicfielvalues\" complex=\"true\" text=\"Giá trị thông tin động\"><item id=\"employeesalarylist\" text=\"Danh sách phụ cấp\"/><item id=\"organizationtimesheetlist\" text=\"Danh sách chi phí chấm công\"/></item></item></item><item id=\"vehiclefunction\" complex=\"true\" text=\"Nghiệp vụ Xe\"><item id=\"tripfees\" complex=\"true\" text=\"Chi phí xe\"><item id=\"tripfeelist\" text=\"Danh sách chi phí xe\"/><item id=\"tripfeeadd\" text=\"Thêm chi phí xe\"/></item><item id=\"tripoils\" complex=\"true\" text=\"Ứng dầu\"><item id=\"tripoillist\" text=\"Danh sách ứng dầu\"/><item id=\"tripoiladd\" text=\"Thêm ứng dầu\"/></item><item id=\"employeeroutefees\" complex=\"true\" text=\"Chi phí nhân viên vận chuyển\"><item id=\"employeeroutefeelist\" text=\"Danh sách chi phí nhân viên vận chuyển\"/><item id=\"employeeroutefeeadd\" text=\"Thêm chi phí nhân viên vận chuyển\"/></item><item id=\"vehicleouts\" complex=\"true\" text=\"Xuất xe đi\"><item id=\"vehicleoutlist\" text=\"Danh sách xuất xe đi\"/><item id=\"vehicleoutadd\" text=\"Thêm xuất xe đi\"/></item><item id=\"vehicleins\" complex=\"true\" text=\"Nhập xe về\"><item id=\"vehicleinlist\" text=\"Danh sách nhập xe về\"/><item id=\"vehicleinadd\" text=\"Thêm nhập xe về\"/></item><item id=\"exportwholesales\" complex=\"true\" text=\"Xuất sỉ\"><item id=\"exportwholesalelist\" text=\"Danh sách xuất sỉ\"/><item id=\"exportwholesaleadd\" text=\"Thêm xuất sỉ\"/></item><item id=\"transportservices\" complex=\"true\" text=\"Vận chuyển thuê\"><item id=\"transportservicelist\" text=\"Danh sách vận chuyển thuê\"/><item id=\"transportserviceadd\" text=\"Thêm phiếu vận chuyển thuê\"/></item></item><item id=\"gasfunction\" complex=\"true\" text=\"Nghiệp vụ gas\"><item id=\"shellimports\" complex=\"true\" text=\"Nhập vỏ bình\"><item id=\"shellimportlist\" text=\"Danh sách nhập vỏ bình\"/><item id=\"shellimportadd\" text=\"Thêm nhập vỏ bình\"/></item><item id=\"lpgimports\" complex=\"true\" text=\"Nhập LPG\"><item id=\"lpgimportlist\" text=\"Danh sách nhập LPG\"/><item id=\"lpgimportadd\" text=\"Thêm nhập LPG\"/></item><item id=\"lpgsales\" complex=\"true\" text=\"Bán LPG\"><item id=\"lpgsalelist\" text=\"Danh sách bán LPG\"/><item id=\"lpgsaleadd\" text=\"Thêm bán LPG\"/></item><item id=\"fractions\" complex=\"true\" text=\"Chiết gas\"><item id=\"fractionlist\" text=\"Danh sách chiết gas\"/><item id=\"fractionadd\" text=\"Thêm chiết gas\"/></item><item id=\"gasprices\" complex=\"true\" text=\"Giá bán gas\"><item id=\"gaspricelist\" text=\"Danh sách giá bán gas\"/><item id=\"gaspriceadd\" text=\"Thêm giá bán gas\"/></item><item id=\"gasimports\" complex=\"true\" text=\"Nhập gas\"><item id=\"gasimportlist\" text=\"Danh sách phiếu nhập gas\"/><item id=\"gasimportadd\" text=\"Thêm phiếu nhập gas\"/></item><item id=\"gaswholesales\" complex=\"true\" text=\"Bán gas\"><item id=\"gaswholesalelist\" text=\"Danh sách phiếu bán gas\"/><item id=\"gaswholesaleadd\" text=\"Thêm phiếu bán gas\"/><item id=\"gaswholesalefeelist\" text=\"Danh sách các khoản phí khác\"/></item><item id=\"saleinners\" complex=\"true\" text=\"Bán Nội bộ\"><item id=\"saleinnerlist\" text=\"Danh sách phiếu bán nội bộ\"/><item id=\"saleinneradd\" text=\"Thêm phiếu bán nội bộ\"/></item><item id=\"saleshells\" complex=\"true\" text=\"Bán vỏ bình\"><item id=\"saleshelllist\" text=\"Danh sách phiếu bán vỏ bình\"/><item id=\"saleshelladd\" text=\"Thêm phiếu bán vỏ bình\"/></item><item id=\"oldshells\" complex=\"true\" text=\"Điều chỉnh số lượng vỏ bình\"><item id=\"oldshelllist\" text=\"Danh sách điều chỉnh số lượng vỏ bình\"/><item id=\"oldshelladd\" text=\"Thêm điều chỉnh số lượng vỏ bình\"/></item><item id=\"shellreturns\" complex=\"true\" text=\"Trả vỏ bình\"><item id=\"shellreturnlist\" text=\"Danh sách trả vỏ bình\"/><item id=\"shellreturnadd\" text=\"Thêm trả vỏ bình\"/></item><item id=\"shellreturnsuppliers\" complex=\"true\" text=\"Trả vỏ bình NCC\"><item id=\"shellreturnsupplierlist\" text=\"Danh sách trả vỏ bình NCC\"/><item id=\"shellreturnsupplieradd\" text=\"Thêm trả vỏ bình NCC\"/></item><item id=\"lovos\" complex=\"true\" text=\"Làm lò vỏ\"><item id=\"lovolist\" text=\"Danh sách làm lò vỏ\"/><item id=\"lovoadd\" text=\"Thêm làm lò vỏ\"/></item></item><item id=\"goodfunction\" complex=\"true\" text=\"Nghiệp vụ hàng hóa\"><item id=\"petroimports\" complex=\"true\" text=\"Nhập xăng\"><item id=\"petroimportlist\" text=\"Danh sách phiếu nhập xăng\"/><item id=\"petroimportadd\" text=\"Thêm phiếu nhập xăng\"/></item><item id=\"salepetros\" complex=\"true\" text=\"Bán xăng\"><item id=\"salepetrolist\" text=\"Danh sách phiếu bán xăng\"/><item id=\"salepetroadd\" text=\"Thêm phiếu bán xăng\"/></item><item id=\"oilimports\" complex=\"true\" text=\"Nhập dầu nhớt\"><item id=\"oilimportlist\" text=\"Danh sách phiếu nhập dầu nhớt\"/><item id=\"oilimportadd\" text=\"Thêm phiếu nhập dầu nhớt\"/></item><item id=\"saleoils\" complex=\"true\" text=\"Bán dầu nhớt\"><item id=\"saleoillist\" text=\"Danh sách phiếu bán dầu nhớt\"/><item id=\"saleoiladd\" text=\"Thêm phiếu bán dầu nhớt\"/></item><item id=\"oilexports\" complex=\"true\" text=\"Xuất kho dầu nhớt\"><item id=\"oilexportlist\" text=\"Danh sách phiếu xuất kho dầu nhớt\"/></item><item id=\"saleoilreturns\" complex=\"true\" text=\"Trả hàng dầu nhớt\"><item id=\"saleoilreturnlist\" text=\"Danh sách phiếu trả hàng dầu nhớt\"/></item><item id=\"goodimports\" complex=\"true\" text=\"Nhập hàng hóa\"><item id=\"goodimportlist\" text=\"Danh sách phiếu nhập hàng hóa\"/><item id=\"goodimportadd\" text=\"Thêm phiếu nhập hàng hóa\"/></item><item id=\"salegoods\" complex=\"true\" text=\"Bán hàng hóa\"><item id=\"salegoodlist\" text=\"Danh sách phiếu bán hàng hóa\"/><item id=\"salegoodadd\" text=\"Thêm phiếu bán hàng hóa\"/></item><item id=\"shieldimports\" complex=\"true\" text=\"Nhập shield\"><item id=\"shieldimportlist\" text=\"Danh sách phiếu nhập shield\"/><item id=\"shieldimportadd\" text=\"Thêm phiếu nhập shield\"/></item><item id=\"shielddecreases\" complex=\"true\" text=\"Giảm shield\"><item id=\"shielddecreaselist\" text=\"Danh sách phiếu giảm shield\"/><item id=\"shielddecreaseadd\" text=\"Thêm phiếu giảm shield\"/></item><item id=\"accessoryimports\" complex=\"true\" text=\"Nhập phụ kiện\"><item id=\"accessoryimportlist\" text=\"Danh sách phiếu nhập phụ kiện\"/><item id=\"accessoryimportadd\" text=\"Thêm phiếu nhập phụ kiện\"/></item><item id=\"saleaccessorys\" complex=\"true\" text=\"Bán phụ kiện\"><item id=\"saleaccessorylist\" text=\"Danh sách phiếu bán phụ kiện\"/><item id=\"saleaccessoryadd\" text=\"Thêm phiếu bán phụ kiện\"/></item><item id=\"promotionmaterialimports\" complex=\"true\" text=\"Nhập hàng khuyến mãi\"><item id=\"promotionmaterialimportlist\" text=\"Danh sách phiếu nhập hàng khuyến mãi\"/><item id=\"promotionmaterialimportadd\" text=\"Thêm phiếu nhập hàng khuyến mãi\"/></item><item id=\"fixedassetdepreciations\" complex=\"true\" text=\"Khấu hao\"><item id=\"fixedassetdepreciationlist\" text=\"Danh sách phiếu khấu hao\"/><item id=\"fixedassetdepreciationadd\" text=\"Thêm phiếu khấu hao\"/></item><item id=\"solarimports\" complex=\"true\" text=\"Nhập NLMT\"><item id=\"solarimportlist\" text=\"Danh sách phiếu nhập NLMT\"/><item id=\"solarimportadd\" text=\"Thêm phiếu nhập NLMT\"/></item><item id=\"salesolars\" complex=\"true\" text=\"Bán NLMT\"><item id=\"salesolarlist\" text=\"Danh sách phiếu bán NLMT\"/><item id=\"salesolaradd\" text=\"Thêm phiếu bán NLMT\"/></item><item id=\"solarexports\" complex=\"true\" text=\"Xuất kho NLMT\"><item id=\"solarexportlist\" text=\"Danh sách phiếu xuất kho NLMT\"/></item><item id=\"salesolarreturns\" complex=\"true\" text=\"Trả hàng NLMT\"><item id=\"salesolarreturnlist\" text=\"Danh sách phiếu trả hàng NLMT\"/></item></item><item id=\"paymentfunction\" complex=\"true\" text=\"Nghiệp vụ thanh toán\"><item id=\"contracts\" complex=\"true\" text=\"Hợp đồng\"><item id=\"contractlist\" text=\"Danh sách hợp đồng\"/><item id=\"contractadd\" text=\"Thêm hợp đồng\"/></item><item id=\"invoices\" complex=\"true\" text=\"Hóa đơn\"><item id=\"invoicelist\" text=\"Danh sách hóa đơn\"/><item id=\"invoiceadd\" text=\"Thêm hóa đơn\"/></item><item id=\"invoicesolars\" complex=\"true\" text=\"Hóa đơn NLMT\"><item id=\"invoicesolarlist\" text=\"Danh sách hóa đơn NLMT\"/><item id=\"invoicesolaradd\" text=\"Thêm hóa đơn NLMT\"/></item><item id=\"debtvendors\" complex=\"true\" text=\"Công nợ NCC\"><item id=\"debtvendorlist\" text=\"Danh sách công nợ NCC\"/><item id=\"debtvendoradd\" text=\"Thêm công nợ NCC\"/></item><item id=\"debtwholesales\" complex=\"true\" text=\"Công nợ khách hàng\"><item id=\"debtwholesalelist\" text=\"Danh sách công nợ khách hàng\"/><item id=\"debtwholesaleadd\" text=\"Thêm công nợ khách hàng\"/></item><item id=\"incomes\" complex=\"true\" text=\"Thu\"><item id=\"incomelist\" text=\"Danh sách thu\"/><item id=\"incomeadd\" text=\"Thêm thu\"/></item><item id=\"expenses\" complex=\"true\" text=\"Chi\"><item id=\"expenselist\" text=\"Danh sách chi\"/><item id=\"expenseadd\" text=\"Thêm chi\"/></item><item id=\"debtadjustments\" complex=\"true\" text=\"Điều chỉnh công nợ\"><item id=\"debtadjustmentlist\" text=\"Danh sách điều chỉnh công nợ\"/><item id=\"debtadjustmentadd\" text=\"Thêm điều chỉnh công nợ\"/></item></item><item id=\"reportfunction\" complex=\"true\" text=\"Báo cáo\"><item id=\"reportgas\" complex=\"true\" text=\"Báo cáo gas\"><item id=\"reportlpgimport\" text=\"Bảng theo dõi nhập hàng LPG\"/><item id=\"reportlpgsale\" text=\"Bảng theo dõi bán hàng LPG\"/><item id=\"reportvendordebt\" text=\"Bảng theo dõi công nợ NCC\"/><item id=\"reportlpgstock\" text=\"Sổ theo dõi sản lượng khí hóa lỏng LPG\"/><item id=\"reportlpgstocksum\" text=\"Sổ theo dõi nhập xuất khí hóa lỏng LPG\"/><item id=\"reportlpgstocksumorganization\" text=\"Sổ theo dõi nhập xuất khí hóa lỏng LPG theo nhà cung cấp\"/><item id=\"reportsum\" text=\"Tổng hợp\"/><item id=\"reportcompare\" text=\"Đối chiếu\"/><item id=\"reportcomparelpg\" text=\"Bảng theo dõi công nợ khách hàng LPG\"/><item id=\"reportcomparelpgvendorcustomer\" text=\"Đối chiếu LPG NCC - KH\"/><item id=\"reportcomparegas\" text=\"Đối chiếu gas bình\"/><item id=\"reportcomparevendor\" text=\"Đối chiếu nhà cung cấp\"/><item id=\"reportsale\" text=\"Xuất bán hàng\"/><item id=\"reportsalecustomer\" text=\"Chi tiết bán hàng theo khách hàng\"/><item id=\"reportcashbook\" text=\"Báo cáo quỹ tiền\"/><item id=\"reportgascommission\" text=\"Chiết khấu bán hàng - Gas\"/><item id=\"reportgasemployeecommission\" text=\"Thanh toán tiền chiết khấu - Gas\"/><item id=\"reportshell\" text=\"Thống kê vỏ\"/></item><item id=\"reportpetro\" complex=\"true\" text=\"Báo cáo xăng\"><item id=\"reportpetroimport\" text=\"Bảng theo dõi nhập hàng xăng\"/><item id=\"reportpetrosale\" text=\"Xuất bán hàng xăng dầu\"/><item id=\"reportpetrostock\" text=\"Sổ theo dõi NXT xăng dầu tổng hợp\"/><item id=\"reportpetrostockstore\" text=\"Sổ theo dõi NXT xăng dầu theo cửa hàng\"/></item><item id=\"reportgood\" complex=\"true\" text=\"Báo cáo hàng hóa\"><item id=\"reportcomparegood\" text=\"Đối chiếu hàng hóa\"/></item><item id=\"reportoil\" complex=\"true\" text=\"Báo cáo dầu nhớt\"><item id=\"reportoilimport\" text=\"Báo cáo nhập dầu nhớt\"/><item id=\"reportoilstock\" text=\"Báo cáo nhập xuất tồn dầu nhớt\"/><item id=\"reportoilstockh\" text=\"Báo cáo nhập xuất tồn dầu nhớt - Ngang\"/><item id=\"reportoilstocksum\" text=\"Báo cáo nhập xuất tồn tổng hợp dầu nhớt\"/><item id=\"reportoilstocksumh\" text=\"Báo cáo nhập xuất tồn tổng hợp dầu nhớt - Ngang\"/><item id=\"reportoilsale\" text=\"Báo cáo bán hàng dầu nhớt\"/><item id=\"reportoilcompare\" text=\"Đối chiếu dầu nhớt\"/><item id=\"reportoilcommissionagency\" text=\"Báo cáo theo dõi chiết khấu dầu nhớt đại lý\"/><item id=\"reportoilcommissioncustomer\" text=\"Báo cáo theo dõi chiết khấu dầu nhớt khách hàng\"/><item id=\"reportoilvendorstock\" text=\"Bảng theo dõi nhập xuất tồn tổng kho\"/><item id=\"reportoilvendordebt\" text=\"Bảng theo dõi công nợ nhà cung cấp\"/><item id=\"reportoilcustomerdebt\" text=\"Bảng theo dõi công nợ khách hàng dầu nhớt\"/></item><item id=\"reportsolar\" complex=\"true\" text=\"Báo cáo NLMT\"><item id=\"reportsolarimport\" text=\"Báo cáo nhập NLMT\"/><item id=\"reportsolarstock\" text=\"Báo cáo nhập xuất tồn NLMT\"/><item id=\"reportsolarstockh\" text=\"Báo cáo nhập xuất tồn NLMT - Ngang\"/><item id=\"reportsolarstocksum\" text=\"Báo cáo nhập xuất tồn tổng hợp NLMT\"/><item id=\"reportsolarstocksumh\" text=\"Báo cáo nhập xuất tồn tổng hợp NLMT - Ngang\"/><item id=\"reportsolarsale\" text=\"Báo cáo bán hàng NLMT\"/><item id=\"reportsolarcompare\" text=\"Đối chiếu NLMT\"/><item id=\"reportsolarcommissionagency\" text=\"Báo cáo theo dõi chiết khấu NLMT đại lý\"/><item id=\"reportsolarcommissioncustomer\" text=\"Báo cáo theo dõi chiết khấu NLMT khách hàng\"/><item id=\"reportsolarvendorstock\" text=\"Bảng theo dõi nhập xuất tồn tổng kho\"/><item id=\"reportsolarvendordebt\" text=\"Bảng theo dõi công nợ nhà cung cấp\"/><item id=\"reportsolarcustomerdebt\" text=\"Bảng theo dõi công nợ khách hàng NLMT\"/></item><item id=\"reporttransport\" complex=\"true\" text=\"Báo cáo xe\"><item id=\"reporttransportfee\" text=\"Bảng theo dõi chi phí vận chuyển\"/><item id=\"reportvehiclefee\" text=\"Bảng theo dõi chi phí xe\"/><item id=\"reportvehiclesale\" text=\"Bảng theo dõi bán hàng theo xe\"/><item id=\"reporttransportservice\" text=\"Bảng theo dõi chi phí vận chuyển thuê\"/></item><item id=\"reportaccountant\" complex=\"true\" text=\"Báo cáo kế toán\"><item id=\"reportemployeesalary\" text=\"Bảng thanh toán lương\"/><item id=\"reportemployeeoff\" text=\"Bảng theo dõi ngày nghỉ phép\"/><item id=\"reportemployeeworking\" text=\"Bảng theo dõi thời gian công tác\"/><item id=\"reportemployeevehiclesalary\" text=\"Bảng lương nhân viên vận chuyển\"/></item></item><item id=\"setting\" complex=\"true\" text=\"Cấu hình\"><item id=\"resetpassword\" text=\"Đổi mật khẩu\"/></item><item id=\"logout\" text=\"Đăng xuất\"/></menu>',1),(15,42,'tuht','gdyb21LQTcIANtvYMT7QVQ==','<?xml version=\"1.0\"?><menu><item id=\"list\" complex=\"true\" text=\"Khai báo danh mục\"><item id=\"system\" complex=\"true\" text=\"Hệ thống\"><item id=\"users\" complex=\"true\" text=\"Tài khoản hệ thống\"><item id=\"userlist\" text=\"Danh sách tài khoản hệ thống\"/><item id=\"useradd\" text=\"Thêm tài khoản hệ thống\"/></item><item id=\"parameter\" text=\"Thông số hệ thống\"/><item id=\"permissionlist\" text=\"Phân quyền\"/><item id=\"openingstock\" text=\"Số dư đầu kỳ\"/></item><item id=\"organization\" complex=\"true\" text=\"Đơn vị\"><item id=\"organizations\" complex=\"true\" text=\"Đơn vị\"><item id=\"organizationlist\" text=\"Danh sách đơn vị\"/><item id=\"organizationadd\" text=\"Thêm đơn vị\"/></item><item id=\"stores\" complex=\"true\" text=\"Kho\"><item id=\"storelist\" text=\"Danh sách kho\"/><item id=\"storeadd\" text=\"Thêm kho\"/></item><item id=\"employees\" complex=\"true\" text=\"Nhân viên\"><item id=\"employeelist\" text=\"Danh sách nhân viên\"/><item id=\"employeeadd\" text=\"Thêm nhân viên\"/><item id=\"employeefiellist\" text=\"Thông tin động - Nhân viên\"/></item><item id=\"accounts\" complex=\"true\" text=\"Tài khoản ngân hàng\"><item id=\"accountlist\" text=\"Danh sách tài khoản ngân hàng\"/><item id=\"accountadd\" text=\"Thêm tài khoản ngân hàng\"/></item></item><item id=\"good\" complex=\"true\" text=\"Hàng hóa\"><item id=\"units\" complex=\"true\" text=\"Đơn vị tính\"><item id=\"unitlist\" text=\"Danh sách đơn vị tính\"/><item id=\"unitadd\" text=\"Thêm đơn vị tính\"/></item><item id=\"shellkinds\" complex=\"true\" text=\"Loại vỏ bình\"><item id=\"shellkindlist\" text=\"Danh sách loại vỏ bình\"/><item id=\"shellkindadd\" text=\"Thêm loại vỏ bình\"/></item><item id=\"shells\" complex=\"true\" text=\"Vỏ bình\"><item id=\"shelllist\" text=\"Danh sách vỏ bình\"/><item id=\"shelladd\" text=\"Thêm vỏ bình\"/></item><item id=\"accessorykinds\" complex=\"true\" text=\"Loại phụ kiện\"><item id=\"accessorykindlist\" text=\"Danh sách loại phụ kiện\"/><item id=\"accessorykindadd\" text=\"Thêm loại phụ kiện\"/></item><item id=\"accessorys\" complex=\"true\" text=\"Phụ kiện\"><item id=\"accessorylist\" text=\"Danh sách phụ kiện\"/><item id=\"accessoryadd\" text=\"Thêm phụ kiện\"/></item><item id=\"promotionmaterials\" complex=\"true\" text=\"Hàng khuyến mãi\"><item id=\"promotionmateriallist\" text=\"Danh sách hàng khuyến mãi\"/><item id=\"promotionmaterialadd\" text=\"Thêm hàng khuyến mãi\"/></item><item id=\"petros\" complex=\"true\" text=\"Xăng dầu\"><item id=\"petrolist\" text=\"Danh sách hàng xăng dầu\"/><item id=\"petroadd\" text=\"Thêm hàng xăng dầu\"/></item><item id=\"goods\" complex=\"true\" text=\"Hàng hóa\"><item id=\"goodlist\" text=\"Danh sách hàng hóa\"/><item id=\"goodadd\" text=\"Thêm hàng hóa\"/></item></item><item id=\"vendor\" complex=\"true\" text=\"Nhà cung cấp\"><item id=\"vendors\" complex=\"true\" text=\"Nhà cung cấp\"><item id=\"vendorlist\" text=\"Danh sách nhà cung cấp\"/><item id=\"vendoradd\" text=\"Thêm nhà cung cấp\"/><item id=\"addgasreturnvendor\" text=\"Nhà cung cấp nhận gas trả\"/><item id=\"vendorfiellist\" text=\"Thông tin động - Nhà cung cấp\"/></item><item id=\"vendororganizations\" complex=\"true\" text=\"Nhà cung cấp liên kết\"><item id=\"vendororganizationlist\" text=\"Danh sách nhà cung cấp liên kết\"/><item id=\"vendororganizationadd\" text=\"Thêm nhà cung cấp liên kết\"/></item><item id=\"vendorcustomers\" complex=\"true\" text=\"Nhà cung cấp - Khách hàng\"><item id=\"vendorcustomerlist\" text=\"Danh sách nhà cung cấp - Khách hàng\"/><item id=\"vendorcustomeradd\" text=\"Thêm nhà cung cấp - Khách hàng\"/></item></item><item id=\"customer\" complex=\"true\" text=\"Khách hàng\"><item id=\"customers\" complex=\"true\" text=\"Khách hàng\"><item id=\"customerlist\" text=\"Danh sách khách hàng\"/><item id=\"customeradd\" text=\"Thêm khách hàng\"/><item id=\"customerfiellist\" text=\"Thông tin động - Khách hàng\"/><item id=\"customerdocumentlist\" text=\"Danh sách văn bản\"/></item><item id=\"discounts\" complex=\"true\" text=\"Chiết khấu\"><item id=\"discountlist\" text=\"Danh sách chiết khấu\"/><item id=\"discountadd\" text=\"Thêm chiết khấu\"/></item></item><item id=\"vehicle\" complex=\"true\" text=\"Xe\"><item id=\"vehicles\" complex=\"true\" text=\"Xe\"><item id=\"vehiclelist\" text=\"Danh sách xe\"/><item id=\"vehicleadd\" text=\"Thêm xe\"/></item><item id=\"routes\" complex=\"true\" text=\"Tuyến đường\"><item id=\"routelist\" text=\"Danh sách tuyến đường\"/><item id=\"routeadd\" text=\"Thêm tuyến đường\"/></item></item><item id=\"fixedassetgroup\" complex=\"true\" text=\"Tài sản cố định\"><item id=\"fixedassetgroups\" complex=\"true\" text=\"Nhóm tài sản cố định\"><item id=\"fixedassetgrouplist\" text=\"Danh sách nhóm tài sản cố định\"/><item id=\"fixedassetgroupadd\" text=\"Thêm nhóm tài sản cố định\"/></item><item id=\"fixedassets\" complex=\"true\" text=\"Tài sản cố định\"><item id=\"fixedassetlist\" text=\"Danh sách tài sản cố định\"/><item id=\"fixedassetadd\" text=\"Thêm tài sản cố định\"/></item></item></item><item id=\"employeefunction\" complex=\"true\" text=\"Nghiệp vụ Nhân viên\"><item id=\"employeeadvances\" complex=\"true\" text=\"Nhân viên tạm ứng\"><item id=\"employeeadvancelist\" text=\"Danh sách tạm ứng\"/><item id=\"employeeadvanceadd\" text=\"Thêm tạm ứng\"/></item><item id=\"employeetimesheets\" complex=\"true\" text=\"Chấm công nhân viên\"><item id=\"employeetimesheetlist\" text=\"Danh sách chấm công\"/><item id=\"employeetimesheetadd\" text=\"Thêm chấm công\"/></item><item id=\"employeeoffs\" complex=\"true\" text=\"Nghỉ phép\"><item id=\"employeeofflist\" text=\"Danh sách nghỉ phép\"/><item id=\"employeeoffadd\" text=\"Thêm nghỉ phép\"/></item><item id=\"employeeoffincreases\" complex=\"true\" text=\"Bù nghỉ phép\"><item id=\"employeeoffincreaselist\" text=\"Danh sách bù nghỉ phép\"/><item id=\"employeeoffincreaseadd\" text=\"Thêm bù nghỉ phép\"/></item><item id=\"employeeoffmoneys\" complex=\"true\" text=\"Thanh toán ngày phép\"><item id=\"employeeoffmoneylist\" text=\"Danh sách thanh toán ngày phép\"/><item id=\"employeeoffmoneyadd\" text=\"Thêm thanh toán ngày phép\"/></item><item id=\"salarys\" complex=\"true\" text=\"Bảng lương\"><item id=\"salarylist\" text=\"Danh sách bảng lương\"/><item id=\"salarysalaryfiels\" complex=\"true\" text=\"Thông tin động\"><item id=\"salaryfiellist\" text=\"Phụ cấp\"/><item id=\"timesheetfiellist\" text=\"Chấm công\"/></item><item id=\"dynamicfielvalues\" complex=\"true\" text=\"Giá trị thông tin động\"><item id=\"employeesalarylist\" text=\"Danh sách phụ cấp\"/><item id=\"organizationtimesheetlist\" text=\"Danh sách chi phí chấm công\"/></item></item></item><item id=\"vehiclefunction\" complex=\"true\" text=\"Nghiệp vụ Xe\"><item id=\"tripfees\" complex=\"true\" text=\"Chi phí xe\"><item id=\"tripfeelist\" text=\"Danh sách chi phí xe\"/><item id=\"tripfeeadd\" text=\"Thêm chi phí xe\"/></item><item id=\"vehicleouts\" complex=\"true\" text=\"Xuất xe đi\"><item id=\"vehicleoutlist\" text=\"Danh sách xuất xe đi\"/><item id=\"vehicleoutadd\" text=\"Thêm xuất xe đi\"/></item><item id=\"vehicleins\" complex=\"true\" text=\"Nhập xe về\"><item id=\"vehicleinlist\" text=\"Danh sách nhập xe về\"/><item id=\"vehicleinadd\" text=\"Thêm nhập xe về\"/></item><item id=\"exportwholesales\" complex=\"true\" text=\"Xuất sỉ\"><item id=\"exportwholesalelist\" text=\"Danh sách xuất sỉ\"/><item id=\"exportwholesaleadd\" text=\"Thêm xuất sỉ\"/></item><item id=\"transportservices\" complex=\"true\" text=\"Vận chuyển thuê\"><item id=\"transportservicelist\" text=\"Danh sách vận chuyển thuê\"/><item id=\"transportserviceadd\" text=\"Thêm phiếu vận chuyển thuê\"/></item></item><item id=\"gasfunction\" complex=\"true\" text=\"Nghiệp vụ gas\"><item id=\"shellimports\" complex=\"true\" text=\"Nhập vỏ bình\"><item id=\"shellimportlist\" text=\"Danh sách nhập vỏ bình\"/><item id=\"shellimportadd\" text=\"Thêm nhập vỏ bình\"/></item><item id=\"lpgimports\" complex=\"true\" text=\"Nhập LPG\"><item id=\"lpgimportlist\" text=\"Danh sách nhập LPG\"/><item id=\"lpgimportadd\" text=\"Thêm nhập LPG\"/></item><item id=\"lpgsales\" complex=\"true\" text=\"Bán LPG\"><item id=\"lpgsalelist\" text=\"Danh sách bán LPG\"/><item id=\"lpgsaleadd\" text=\"Thêm bán LPG\"/></item><item id=\"fractions\" complex=\"true\" text=\"Chiết gas\"><item id=\"fractionlist\" text=\"Danh sách chiết gas\"/><item id=\"fractionadd\" text=\"Thêm chiết gas\"/></item><item id=\"gasprices\" complex=\"true\" text=\"Giá bán gas\"><item id=\"gaspricelist\" text=\"Danh sách giá bán gas\"/><item id=\"gaspriceadd\" text=\"Thêm giá bán gas\"/></item><item id=\"gasimports\" complex=\"true\" text=\"Nhập gas\"><item id=\"gasimportlist\" text=\"Danh sách phiếu nhập gas\"/><item id=\"gasimportadd\" text=\"Thêm phiếu nhập gas\"/></item><item id=\"gaswholesales\" complex=\"true\" text=\"Bán gas\"><item id=\"gaswholesalelist\" text=\"Danh sách phiếu bán gas\"/><item id=\"gaswholesaleadd\" text=\"Thêm phiếu bán gas\"/></item><item id=\"saleshells\" complex=\"true\" text=\"Bán vỏ bình\"><item id=\"saleshelllist\" text=\"Danh sách phiếu bán vỏ bình\"/><item id=\"saleshelladd\" text=\"Thêm phiếu bán vỏ bình\"/></item><item id=\"oldshells\" complex=\"true\" text=\"Điều chỉnh số lượng vỏ bình\"><item id=\"oldshelllist\" text=\"Danh sách điều chỉnh số lượng vỏ bình\"/><item id=\"oldshelladd\" text=\"Thêm điều chỉnh số lượng vỏ bình\"/></item><item id=\"shellreturns\" complex=\"true\" text=\"Trả vỏ bình\"><item id=\"shellreturnlist\" text=\"Danh sách trả vỏ bình\"/><item id=\"shellreturnadd\" text=\"Thêm trả vỏ bình\"/></item><item id=\"shellreturnsuppliers\" complex=\"true\" text=\"Trả vỏ bình NCC\"><item id=\"shellreturnsupplierlist\" text=\"Danh sách trả vỏ bình NCC\"/><item id=\"shellreturnsupplieradd\" text=\"Thêm trả vỏ bình NCC\"/></item><item id=\"lovos\" complex=\"true\" text=\"Làm lò vỏ\"><item id=\"lovolist\" text=\"Danh sách làm lò vỏ\"/><item id=\"lovoadd\" text=\"Thêm làm lò vỏ\"/></item></item><item id=\"goodfunction\" complex=\"true\" text=\"Nghiệp vụ hàng hóa\"><item id=\"petroimports\" complex=\"true\" text=\"Nhập xăng\"><item id=\"petroimportlist\" text=\"Danh sách phiếu nhập xăng\"/><item id=\"petroimportadd\" text=\"Thêm phiếu nhập xăng\"/></item><item id=\"salepetros\" complex=\"true\" text=\"Bán xăng\"><item id=\"salepetrolist\" text=\"Danh sách phiếu bán xăng\"/><item id=\"salepetroadd\" text=\"Thêm phiếu bán xăng\"/></item><item id=\"goodimports\" complex=\"true\" text=\"Nhập hàng hóa\"><item id=\"goodimportlist\" text=\"Danh sách phiếu nhập hàng hóa\"/><item id=\"goodimportadd\" text=\"Thêm phiếu nhập hàng hóa\"/></item><item id=\"salegoods\" complex=\"true\" text=\"Bán hàng hóa\"><item id=\"salegoodlist\" text=\"Danh sách phiếu bán hàng hóa\"/><item id=\"salegoodadd\" text=\"Thêm phiếu bán hàng hóa\"/></item><item id=\"shieldimports\" complex=\"true\" text=\"Nhập shield\"><item id=\"shieldimportlist\" text=\"Danh sách phiếu nhập shield\"/><item id=\"shieldimportadd\" text=\"Thêm phiếu nhập shield\"/></item><item id=\"shielddecreases\" complex=\"true\" text=\"Giảm shield\"><item id=\"shielddecreaselist\" text=\"Danh sách phiếu giảm shield\"/><item id=\"shielddecreaseadd\" text=\"Thêm phiếu giảm shield\"/></item><item id=\"accessoryimports\" complex=\"true\" text=\"Nhập phụ kiện\"><item id=\"accessoryimportlist\" text=\"Danh sách phiếu nhập phụ kiện\"/><item id=\"accessoryimportadd\" text=\"Thêm phiếu nhập phụ kiện\"/></item><item id=\"saleaccessorys\" complex=\"true\" text=\"Bán phụ kiện\"><item id=\"saleaccessorylist\" text=\"Danh sách phiếu bán phụ kiện\"/><item id=\"saleaccessoryadd\" text=\"Thêm phiếu bán phụ kiện\"/></item><item id=\"promotionmaterialimports\" complex=\"true\" text=\"Nhập hàng khuyến mãi\"><item id=\"promotionmaterialimportlist\" text=\"Danh sách phiếu nhập hàng khuyến mãi\"/><item id=\"promotionmaterialimportadd\" text=\"Thêm phiếu nhập hàng khuyến mãi\"/></item><item id=\"fixedassetdepreciations\" complex=\"true\" text=\"Khấu hao\"><item id=\"fixedassetdepreciationlist\" text=\"Danh sách phiếu khấu hao\"/><item id=\"fixedassetdepreciationadd\" text=\"Thêm phiếu khấu hao\"/></item></item><item id=\"paymentfunction\" complex=\"true\" text=\"Nghiệp vụ thanh toán\"><item id=\"contracts\" complex=\"true\" text=\"Hợp đồng\"><item id=\"contractlist\" text=\"Danh sách hợp đồng\"/><item id=\"contractadd\" text=\"Thêm hợp đồng\"/></item><item id=\"debtvendors\" complex=\"true\" text=\"Công nợ NCC\"><item id=\"debtvendorlist\" text=\"Danh sách công nợ NCC\"/><item id=\"debtvendoradd\" text=\"Thêm công nợ NCC\"/></item><item id=\"debtwholesales\" complex=\"true\" text=\"Công nợ khách hàng\"><item id=\"debtwholesalelist\" text=\"Danh sách công nợ khách hàng\"/><item id=\"debtwholesaleadd\" text=\"Thêm công nợ khách hàng\"/></item><item id=\"incomes\" complex=\"true\" text=\"Thu\"><item id=\"incomelist\" text=\"Danh sách thu\"/><item id=\"incomeadd\" text=\"Thêm thu\"/></item><item id=\"expenses\" complex=\"true\" text=\"Chi\"><item id=\"expenselist\" text=\"Danh sách chi\"/><item id=\"expenseadd\" text=\"Thêm chi\"/></item></item><item id=\"reportfunction\" complex=\"true\" text=\"Báo cáo\"><item id=\"reportgas\" complex=\"true\" text=\"Báo cáo gas\"><item id=\"reportlpgimport\" text=\"Bảng theo dõi nhập hàng LPG\"/><item id=\"reportlpgsale\" text=\"Bảng theo dõi bán hàng LPG\"/><item id=\"reportvendordebt\" text=\"Bảng theo dõi công nợ NCC\"/><item id=\"reportlpgstock\" text=\"Sổ theo dõi sản lượng khí hóa lỏng LPG\"/><item id=\"reportlpgstocksum\" text=\"Sổ theo dõi nhập xuất khí hóa lỏng LPG\"/><item id=\"reportlpgstocksumorganization\" text=\"Sổ theo dõi nhập xuất khí hóa lỏng LPG theo nhà cung cấp\"/><item id=\"reportsum\" text=\"Tổng hợp\"/><item id=\"reportcompare\" text=\"Đối chiếu\"/><item id=\"reportcomparelpg\" text=\"Đối chiếu LPG\"/><item id=\"reportcomparegas\" text=\"Đối chiếu gas bình\"/><item id=\"reportsale\" text=\"Xuất bán hàng\"/><item id=\"reportsalecustomer\" text=\"Chi tiết bán hàng theo khách hàng\"/><item id=\"reportcashbook\" text=\"Báo cáo quỹ tiền\"/><item id=\"reportgascommission\" text=\"Chiết khấu bán hàng - Gas\"/><item id=\"reportgasemployeecommission\" text=\"Thanh toán tiền chiết khấu - Gas\"/></item><item id=\"reportpetro\" complex=\"true\" text=\"Báo cáo xăng\"><item id=\"reportpetroimport\" text=\"Bảng theo dõi nhập hàng xăng\"/><item id=\"reportpetrosale\" text=\"Xuất bán hàng xăng dầu\"/><item id=\"reportpetrostock\" text=\"Sổ theo dõi NXT xăng dầu tổng hợp\"/><item id=\"reportpetrostockstore\" text=\"Sổ theo dõi NXT xăng dầu theo cửa hàng\"/></item><item id=\"reportgood\" complex=\"true\" text=\"Báo cáo hàng hóa\"><item id=\"reportcomparegood\" text=\"Đối chiếu hàng hóa\"/></item><item id=\"reporttransport\" complex=\"true\" text=\"Báo cáo xe\"><item id=\"reporttransportfee\" text=\"Bảng theo dõi chi phí vận chuyển\"/><item id=\"reportvehiclefee\" text=\"Bảng theo dõi chi phí xe\"/><item id=\"reportvehiclesale\" text=\"Bảng theo dõi bán hàng theo xe\"/><item id=\"reporttransportservice\" text=\"Bảng theo dõi chi phí vận chuyển thuê\"/></item></item><item id=\"setting\" complex=\"true\" text=\"Cấu hình\"><item id=\"resetpassword\" text=\"Đổi mật khẩu\"/></item><item id=\"logout\" text=\"Đăng xuất\"/></menu>',1),(16,53,'luyle','gdyb21LQTcIANtvYMT7QVQ==','<?xml version=\"1.0\"?><menu><item id=\"list\" complex=\"true\" text=\"Khai báo danh mục\"><item id=\"system\" complex=\"true\" text=\"Hệ thống\"><item id=\"users\" complex=\"true\" text=\"Tài khoản hệ thống\"><item id=\"userlist\" text=\"Danh sách tài khoản hệ thống\"/><item id=\"useradd\" text=\"Thêm tài khoản hệ thống\"/></item><item id=\"parameter\" text=\"Thông số hệ thống\"/><item id=\"permissionlist\" text=\"Phân quyền\"/><item id=\"openingstock\" text=\"Số dư đầu kỳ\"/></item><item id=\"organization\" complex=\"true\" text=\"Đơn vị\"><item id=\"organizations\" complex=\"true\" text=\"Đơn vị\"><item id=\"organizationlist\" text=\"Danh sách đơn vị\"/><item id=\"organizationadd\" text=\"Thêm đơn vị\"/></item><item id=\"stores\" complex=\"true\" text=\"Kho\"><item id=\"storelist\" text=\"Danh sách kho\"/><item id=\"storeadd\" text=\"Thêm kho\"/></item><item id=\"employees\" complex=\"true\" text=\"Nhân viên\"><item id=\"employeelist\" text=\"Danh sách nhân viên\"/><item id=\"employeeadd\" text=\"Thêm nhân viên\"/><item id=\"employeefiellist\" text=\"Thông tin động - Nhân viên\"/></item><item id=\"accounts\" complex=\"true\" text=\"Tài khoản ngân hàng\"><item id=\"accountlist\" text=\"Danh sách tài khoản ngân hàng\"/><item id=\"accountadd\" text=\"Thêm tài khoản ngân hàng\"/></item><item id=\"dayoffs\" complex=\"true\" text=\"Ngày nghỉ bù\"><item id=\"dayofflist\" text=\"Danh sách ngày nghỉ bù\"/><item id=\"dayoffadd\" text=\"Thêm ngày nghỉ bù\"/></item><item id=\"otherbonuss\" complex=\"true\" text=\"Khoản thưởng khác\"><item id=\"otherbonuslist\" text=\"Danh sách khoản thưởng khác\"/><item id=\"otherbonusadd\" text=\"Thêm khoản thưởng khác\"/></item><item id=\"paneltys\" complex=\"true\" text=\"Khoản chi khác\"><item id=\"paneltylist\" text=\"Danh sách khoản chi khác\"/><item id=\"paneltyadd\" text=\"Thêm khoản chi khác\"/></item></item><item id=\"good\" complex=\"true\" text=\"Hàng hóa\"><item id=\"units\" complex=\"true\" text=\"Đơn vị tính\"><item id=\"unitlist\" text=\"Danh sách đơn vị tính\"/><item id=\"unitadd\" text=\"Thêm đơn vị tính\"/></item><item id=\"shellkinds\" complex=\"true\" text=\"Loại vỏ bình\"><item id=\"shellkindlist\" text=\"Danh sách loại vỏ bình\"/><item id=\"shellkindadd\" text=\"Thêm loại vỏ bình\"/></item><item id=\"shells\" complex=\"true\" text=\"Vỏ bình\"><item id=\"shelllist\" text=\"Danh sách vỏ bình\"/><item id=\"shelladd\" text=\"Thêm vỏ bình\"/></item><item id=\"accessorykinds\" complex=\"true\" text=\"Loại phụ kiện\"><item id=\"accessorykindlist\" text=\"Danh sách loại phụ kiện\"/><item id=\"accessorykindadd\" text=\"Thêm loại phụ kiện\"/></item><item id=\"accessorys\" complex=\"true\" text=\"Phụ kiện\"><item id=\"accessorylist\" text=\"Danh sách phụ kiện\"/><item id=\"accessoryadd\" text=\"Thêm phụ kiện\"/></item><item id=\"promotionmaterials\" complex=\"true\" text=\"Hàng khuyến mãi\"><item id=\"promotionmateriallist\" text=\"Danh sách hàng khuyến mãi\"/><item id=\"promotionmaterialadd\" text=\"Thêm hàng khuyến mãi\"/></item><item id=\"petros\" complex=\"true\" text=\"Xăng dầu\"><item id=\"petrolist\" text=\"Danh sách hàng xăng dầu\"/><item id=\"petroadd\" text=\"Thêm hàng xăng dầu\"/></item><item id=\"goods\" complex=\"true\" text=\"Hàng hóa\"><item id=\"goodlist\" text=\"Danh sách hàng hóa\"/><item id=\"goodadd\" text=\"Thêm hàng hóa\"/></item></item><item id=\"oil\" complex=\"true\" text=\"Dầu nhớt\"><item id=\"vendoroils\" complex=\"true\" text=\"Nhà cung cấp\"><item id=\"vendoroillist\" text=\"Danh sách nhà cung cấp\"/><item id=\"vendoroiladd\" text=\"Thêm nhà cung cấp\"/></item><item id=\"unitrates\" complex=\"true\" text=\"Qui đổi đơn vị tính\"><item id=\"unitratelist\" text=\"Danh sách qui đổi đơn vị tính\"/><item id=\"unitrateadd\" text=\"Thêm qui đổi đơn vị tính\"/></item><item id=\"agencys\" complex=\"true\" text=\"Đại lý\"><item id=\"agencylist\" text=\"Danh sách đại lý\"/><item id=\"agencyadd\" text=\"Thêm đại lý\"/></item><item id=\"oilgroups\" complex=\"true\" text=\"Nhóm dầu nhớt\"><item id=\"oilgrouplist\" text=\"Danh sách nhóm dầu nhớt\"/><item id=\"oilgroupadd\" text=\"Thêm nhóm dầu nhớt\"/></item><item id=\"oils\" complex=\"true\" text=\"Dầu nhớt\"><item id=\"oillist\" text=\"Danh sách dầu nhớt\"/><item id=\"oiladd\" text=\"Thêm dầu nhớt\"/></item><item id=\"employeeoilcommissions\" complex=\"true\" text=\"Loại chiết khấu bán dầu nhớt\"><item id=\"employeeoilcommissionlist\" text=\"Danh sách loại chiết khấu bán dầu nhớt\"/><item id=\"employeeoilcommissionadd\" text=\"Thêm loại chiết khấu bán dầu nhớt\"/></item><item id=\"saleoilreturnstores\" complex=\"true\" text=\"Kho trả hàng dầu nhớt\"><item id=\"saleoilreturnstoreadd\" text=\"Thêm kho trả hàng dầu nhớt\"/></item></item><item id=\"solar\" complex=\"true\" text=\"Năng lượng mặt trời\"><item id=\"vendorsolars\" complex=\"true\" text=\"Nhà cung cấp\"><item id=\"vendorsolarlist\" text=\"Danh sách nhà cung cấp\"/><item id=\"vendorsolaradd\" text=\"Thêm nhà cung cấp\"/></item><item id=\"solargroups\" complex=\"true\" text=\"Nhóm NLMT\"><item id=\"solargrouplist\" text=\"Danh sách nhóm NLMT\"/><item id=\"solargroupadd\" text=\"Thêm nhóm NLMT\"/></item><item id=\"solars\" complex=\"true\" text=\"NLMT\"><item id=\"solarlist\" text=\"Danh sách NLMT\"/><item id=\"solaradd\" text=\"Thêm NLMT\"/></item><item id=\"employeesolarcommissions\" complex=\"true\" text=\"Loại chiết khấu bán NLMT\"><item id=\"employeesolarcommissionlist\" text=\"Danh sách loại chiết khấu bán NLMT\"/><item id=\"employeesolarcommissionadd\" text=\"Thêm loại chiết khấu bán NLMT\"/></item><item id=\"salesolarreturnstores\" complex=\"true\" text=\"Kho trả hàng NLMT\"><item id=\"salesolarreturnstoreadd\" text=\"Thêm kho trả hàng NLMT\"/></item></item><item id=\"vendor\" complex=\"true\" text=\"Nhà cung cấp\"><item id=\"vendors\" complex=\"true\" text=\"Nhà cung cấp\"><item id=\"vendorlist\" text=\"Danh sách nhà cung cấp\"/><item id=\"vendoradd\" text=\"Thêm nhà cung cấp\"/><item id=\"addgasreturnvendor\" text=\"Nhà cung cấp nhận gas trả\"/><item id=\"vendorfiellist\" text=\"Thông tin động - Nhà cung cấp\"/></item><item id=\"vendororganizations\" complex=\"true\" text=\"Nhà cung cấp liên kết\"><item id=\"vendororganizationlist\" text=\"Danh sách nhà cung cấp liên kết\"/><item id=\"vendororganizationadd\" text=\"Thêm nhà cung cấp liên kết\"/></item><item id=\"vendorcustomers\" complex=\"true\" text=\"Nhà cung cấp - Khách hàng\"><item id=\"vendorcustomerlist\" text=\"Danh sách nhà cung cấp - Khách hàng\"/><item id=\"vendorcustomeradd\" text=\"Thêm nhà cung cấp - Khách hàng\"/></item></item><item id=\"customer\" complex=\"true\" text=\"Khách hàng\"><item id=\"customers\" complex=\"true\" text=\"Khách hàng\"><item id=\"customerlist\" text=\"Danh sách khách hàng\"/><item id=\"customeradd\" text=\"Thêm khách hàng\"/><item id=\"customerfiellist\" text=\"Thông tin động - Khách hàng\"/><item id=\"customerdocumentlist\" text=\"Danh sách văn bản\"/></item><item id=\"discounts\" complex=\"true\" text=\"Giảm giá\"><item id=\"discountlist\" text=\"Danh sách giảm giá\"/><item id=\"discountadd\" text=\"Thêm giảm giá\"/></item></item><item id=\"vehicle\" complex=\"true\" text=\"Xe\"><item id=\"vehicles\" complex=\"true\" text=\"Xe\"><item id=\"vehiclelist\" text=\"Danh sách xe\"/><item id=\"vehicleadd\" text=\"Thêm xe\"/></item><item id=\"routes\" complex=\"true\" text=\"Tuyến đường\"><item id=\"routelist\" text=\"Danh sách tuyến đường\"/><item id=\"routeadd\" text=\"Thêm tuyến đường\"/></item></item><item id=\"fixedassetgroup\" complex=\"true\" text=\"Tài sản cố định\"><item id=\"fixedassetgroups\" complex=\"true\" text=\"Nhóm tài sản cố định\"><item id=\"fixedassetgrouplist\" text=\"Danh sách nhóm tài sản cố định\"/><item id=\"fixedassetgroupadd\" text=\"Thêm nhóm tài sản cố định\"/></item><item id=\"fixedassets\" complex=\"true\" text=\"Tài sản cố định\"><item id=\"fixedassetlist\" text=\"Danh sách tài sản cố định\"/><item id=\"fixedassetadd\" text=\"Thêm tài sản cố định\"/></item></item></item><item id=\"employeefunction\" complex=\"true\" text=\"Nghiệp vụ Nhân viên\"><item id=\"employeeadvances\" complex=\"true\" text=\"Nhân viên tạm ứng\"><item id=\"employeeadvancelist\" text=\"Danh sách tạm ứng\"/><item id=\"employeeadvanceadd\" text=\"Thêm tạm ứng\"/></item><item id=\"borrows\" complex=\"true\" text=\"Mượn lương\"><item id=\"borrowlist\" text=\"Danh sách phiếu mượn lương\"/><item id=\"borrowadd\" text=\"Thêm phiếu mượn lương\"/></item><item id=\"employeetimesheets\" complex=\"true\" text=\"Chấm công nhân viên\"><item id=\"employeetimesheetlist\" text=\"Danh sách chấm công\"/><item id=\"employeetimesheetadd\" text=\"Thêm chấm công\"/></item><item id=\"employeeoffs\" complex=\"true\" text=\"Nghỉ phép\"><item id=\"employeeofflist\" text=\"Danh sách nghỉ phép\"/><item id=\"employeeoffadd\" text=\"Thêm nghỉ phép\"/></item><item id=\"employeeoffincreases\" complex=\"true\" text=\"Bù nghỉ phép\"><item id=\"employeeoffincreaselist\" text=\"Danh sách bù nghỉ phép\"/><item id=\"employeeoffincreaseadd\" text=\"Thêm bù nghỉ phép\"/></item><item id=\"employeeoffmoneys\" complex=\"true\" text=\"Thanh toán ngày phép\"><item id=\"employeeoffmoneylist\" text=\"Danh sách thanh toán ngày phép\"/><item id=\"employeeoffmoneyadd\" text=\"Thêm thanh toán ngày phép\"/></item><item id=\"employeeotherbonuss\" complex=\"true\" text=\"Khoản thưởng khác\"><item id=\"employeeotherbonuslist\" text=\"Danh sách khoản thưởng khác\"/><item id=\"employeeotherbonusadd\" text=\"Thêm khoản thưởng khác\"/></item><item id=\"employeepaneltys\" complex=\"true\" text=\"Khoản chi khác\"><item id=\"employeepaneltylist\" text=\"Danh sách khoản chi khác\"/><item id=\"employeepaneltyadd\" text=\"Thêm khoản chi khác\"/></item><item id=\"salarys\" complex=\"true\" text=\"Bảng lương\"><item id=\"salarylist\" text=\"Danh sách bảng lương\"/><item id=\"salarysalaryfiels\" complex=\"true\" text=\"Thông tin động\"><item id=\"salaryfiellist\" text=\"Phụ cấp\"/><item id=\"timesheetfiellist\" text=\"Chấm công\"/></item><item id=\"dynamicfielvalues\" complex=\"true\" text=\"Giá trị thông tin động\"><item id=\"employeesalarylist\" text=\"Danh sách phụ cấp\"/><item id=\"organizationtimesheetlist\" text=\"Danh sách chi phí chấm công\"/></item></item></item><item id=\"vehiclefunction\" complex=\"true\" text=\"Nghiệp vụ Xe\"><item id=\"tripfees\" complex=\"true\" text=\"Chi phí xe\"><item id=\"tripfeelist\" text=\"Danh sách chi phí xe\"/><item id=\"tripfeeadd\" text=\"Thêm chi phí xe\"/></item><item id=\"tripoils\" complex=\"true\" text=\"Ứng dầu\"><item id=\"tripoillist\" text=\"Danh sách ứng dầu\"/><item id=\"tripoiladd\" text=\"Thêm ứng dầu\"/></item><item id=\"employeeroutefees\" complex=\"true\" text=\"Chi phí nhân viên vận chuyển\"><item id=\"employeeroutefeelist\" text=\"Danh sách chi phí nhân viên vận chuyển\"/><item id=\"employeeroutefeeadd\" text=\"Thêm chi phí nhân viên vận chuyển\"/></item><item id=\"vehicleouts\" complex=\"true\" text=\"Xuất xe đi\"><item id=\"vehicleoutlist\" text=\"Danh sách xuất xe đi\"/><item id=\"vehicleoutadd\" text=\"Thêm xuất xe đi\"/></item><item id=\"vehicleins\" complex=\"true\" text=\"Nhập xe về\"><item id=\"vehicleinlist\" text=\"Danh sách nhập xe về\"/><item id=\"vehicleinadd\" text=\"Thêm nhập xe về\"/></item><item id=\"exportwholesales\" complex=\"true\" text=\"Xuất sỉ\"><item id=\"exportwholesalelist\" text=\"Danh sách xuất sỉ\"/><item id=\"exportwholesaleadd\" text=\"Thêm xuất sỉ\"/></item><item id=\"transportservices\" complex=\"true\" text=\"Vận chuyển thuê\"><item id=\"transportservicelist\" text=\"Danh sách vận chuyển thuê\"/><item id=\"transportserviceadd\" text=\"Thêm phiếu vận chuyển thuê\"/></item></item><item id=\"gasfunction\" complex=\"true\" text=\"Nghiệp vụ gas\"><item id=\"shellimports\" complex=\"true\" text=\"Nhập vỏ bình\"><item id=\"shellimportlist\" text=\"Danh sách nhập vỏ bình\"/><item id=\"shellimportadd\" text=\"Thêm nhập vỏ bình\"/></item><item id=\"lpgimports\" complex=\"true\" text=\"Nhập LPG\"><item id=\"lpgimportlist\" text=\"Danh sách nhập LPG\"/><item id=\"lpgimportadd\" text=\"Thêm nhập LPG\"/></item><item id=\"lpgsales\" complex=\"true\" text=\"Bán LPG\"><item id=\"lpgsalelist\" text=\"Danh sách bán LPG\"/><item id=\"lpgsaleadd\" text=\"Thêm bán LPG\"/></item><item id=\"fractions\" complex=\"true\" text=\"Chiết gas\"><item id=\"fractionlist\" text=\"Danh sách chiết gas\"/><item id=\"fractionadd\" text=\"Thêm chiết gas\"/></item><item id=\"gasprices\" complex=\"true\" text=\"Giá bán gas\"><item id=\"gaspricelist\" text=\"Danh sách giá bán gas\"/><item id=\"gaspriceadd\" text=\"Thêm giá bán gas\"/></item><item id=\"gasimports\" complex=\"true\" text=\"Nhập gas\"><item id=\"gasimportlist\" text=\"Danh sách phiếu nhập gas\"/><item id=\"gasimportadd\" text=\"Thêm phiếu nhập gas\"/></item><item id=\"gaswholesales\" complex=\"true\" text=\"Bán gas\"><item id=\"gaswholesalelist\" text=\"Danh sách phiếu bán gas\"/><item id=\"gaswholesaleadd\" text=\"Thêm phiếu bán gas\"/><item id=\"gaswholesalefeelist\" text=\"Danh sách các khoản phí khác\"/></item><item id=\"saleinners\" complex=\"true\" text=\"Bán Nội bộ\"><item id=\"saleinnerlist\" text=\"Danh sách phiếu bán nội bộ\"/><item id=\"saleinneradd\" text=\"Thêm phiếu bán nội bộ\"/></item><item id=\"saleshells\" complex=\"true\" text=\"Bán vỏ bình\"><item id=\"saleshelllist\" text=\"Danh sách phiếu bán vỏ bình\"/><item id=\"saleshelladd\" text=\"Thêm phiếu bán vỏ bình\"/></item><item id=\"oldshells\" complex=\"true\" text=\"Điều chỉnh số lượng vỏ bình\"><item id=\"oldshelllist\" text=\"Danh sách điều chỉnh số lượng vỏ bình\"/><item id=\"oldshelladd\" text=\"Thêm điều chỉnh số lượng vỏ bình\"/></item><item id=\"shellreturns\" complex=\"true\" text=\"Trả vỏ bình\"><item id=\"shellreturnlist\" text=\"Danh sách trả vỏ bình\"/><item id=\"shellreturnadd\" text=\"Thêm trả vỏ bình\"/></item><item id=\"shellreturnsuppliers\" complex=\"true\" text=\"Trả vỏ bình NCC\"><item id=\"shellreturnsupplierlist\" text=\"Danh sách trả vỏ bình NCC\"/><item id=\"shellreturnsupplieradd\" text=\"Thêm trả vỏ bình NCC\"/></item><item id=\"lovos\" complex=\"true\" text=\"Làm lò vỏ\"><item id=\"lovolist\" text=\"Danh sách làm lò vỏ\"/><item id=\"lovoadd\" text=\"Thêm làm lò vỏ\"/></item></item><item id=\"goodfunction\" complex=\"true\" text=\"Nghiệp vụ hàng hóa\"><item id=\"petroimports\" complex=\"true\" text=\"Nhập xăng\"><item id=\"petroimportlist\" text=\"Danh sách phiếu nhập xăng\"/><item id=\"petroimportadd\" text=\"Thêm phiếu nhập xăng\"/></item><item id=\"salepetros\" complex=\"true\" text=\"Bán xăng\"><item id=\"salepetrolist\" text=\"Danh sách phiếu bán xăng\"/><item id=\"salepetroadd\" text=\"Thêm phiếu bán xăng\"/></item><item id=\"oilimports\" complex=\"true\" text=\"Nhập dầu nhớt\"><item id=\"oilimportlist\" text=\"Danh sách phiếu nhập dầu nhớt\"/><item id=\"oilimportadd\" text=\"Thêm phiếu nhập dầu nhớt\"/></item><item id=\"saleoils\" complex=\"true\" text=\"Bán dầu nhớt\"><item id=\"saleoillist\" text=\"Danh sách phiếu bán dầu nhớt\"/><item id=\"saleoiladd\" text=\"Thêm phiếu bán dầu nhớt\"/></item><item id=\"oilexports\" complex=\"true\" text=\"Xuất kho dầu nhớt\"><item id=\"oilexportlist\" text=\"Danh sách phiếu xuất kho dầu nhớt\"/></item><item id=\"saleoilreturns\" complex=\"true\" text=\"Trả hàng dầu nhớt\"><item id=\"saleoilreturnlist\" text=\"Danh sách phiếu trả hàng dầu nhớt\"/></item><item id=\"goodimports\" complex=\"true\" text=\"Nhập hàng hóa\"><item id=\"goodimportlist\" text=\"Danh sách phiếu nhập hàng hóa\"/><item id=\"goodimportadd\" text=\"Thêm phiếu nhập hàng hóa\"/></item><item id=\"salegoods\" complex=\"true\" text=\"Bán hàng hóa\"><item id=\"salegoodlist\" text=\"Danh sách phiếu bán hàng hóa\"/><item id=\"salegoodadd\" text=\"Thêm phiếu bán hàng hóa\"/></item><item id=\"shieldimports\" complex=\"true\" text=\"Nhập shield\"><item id=\"shieldimportlist\" text=\"Danh sách phiếu nhập shield\"/><item id=\"shieldimportadd\" text=\"Thêm phiếu nhập shield\"/></item><item id=\"shielddecreases\" complex=\"true\" text=\"Giảm shield\"><item id=\"shielddecreaselist\" text=\"Danh sách phiếu giảm shield\"/><item id=\"shielddecreaseadd\" text=\"Thêm phiếu giảm shield\"/></item><item id=\"accessoryimports\" complex=\"true\" text=\"Nhập phụ kiện\"><item id=\"accessoryimportlist\" text=\"Danh sách phiếu nhập phụ kiện\"/><item id=\"accessoryimportadd\" text=\"Thêm phiếu nhập phụ kiện\"/></item><item id=\"saleaccessorys\" complex=\"true\" text=\"Bán phụ kiện\"><item id=\"saleaccessorylist\" text=\"Danh sách phiếu bán phụ kiện\"/><item id=\"saleaccessoryadd\" text=\"Thêm phiếu bán phụ kiện\"/></item><item id=\"promotionmaterialimports\" complex=\"true\" text=\"Nhập hàng khuyến mãi\"><item id=\"promotionmaterialimportlist\" text=\"Danh sách phiếu nhập hàng khuyến mãi\"/><item id=\"promotionmaterialimportadd\" text=\"Thêm phiếu nhập hàng khuyến mãi\"/></item><item id=\"fixedassetdepreciations\" complex=\"true\" text=\"Khấu hao\"><item id=\"fixedassetdepreciationlist\" text=\"Danh sách phiếu khấu hao\"/><item id=\"fixedassetdepreciationadd\" text=\"Thêm phiếu khấu hao\"/></item><item id=\"solarimports\" complex=\"true\" text=\"Nhập NLMT\"><item id=\"solarimportlist\" text=\"Danh sách phiếu nhập NLMT\"/><item id=\"solarimportadd\" text=\"Thêm phiếu nhập NLMT\"/></item><item id=\"salesolars\" complex=\"true\" text=\"Bán NLMT\"><item id=\"salesolarlist\" text=\"Danh sách phiếu bán NLMT\"/><item id=\"salesolaradd\" text=\"Thêm phiếu bán NLMT\"/></item><item id=\"solarexports\" complex=\"true\" text=\"Xuất kho NLMT\"><item id=\"solarexportlist\" text=\"Danh sách phiếu xuất kho NLMT\"/></item><item id=\"salesolarreturns\" complex=\"true\" text=\"Trả hàng NLMT\"><item id=\"salesolarreturnlist\" text=\"Danh sách phiếu trả hàng NLMT\"/></item></item><item id=\"paymentfunction\" complex=\"true\" text=\"Nghiệp vụ thanh toán\"><item id=\"contracts\" complex=\"true\" text=\"Hợp đồng\"><item id=\"contractlist\" text=\"Danh sách hợp đồng\"/><item id=\"contractadd\" text=\"Thêm hợp đồng\"/></item><item id=\"invoices\" complex=\"true\" text=\"Hóa đơn\"><item id=\"invoicelist\" text=\"Danh sách hóa đơn\"/><item id=\"invoiceadd\" text=\"Thêm hóa đơn\"/></item><item id=\"invoicesolars\" complex=\"true\" text=\"Hóa đơn NLMT\"><item id=\"invoicesolarlist\" text=\"Danh sách hóa đơn NLMT\"/><item id=\"invoicesolaradd\" text=\"Thêm hóa đơn NLMT\"/></item><item id=\"debtvendors\" complex=\"true\" text=\"Công nợ NCC\"><item id=\"debtvendorlist\" text=\"Danh sách công nợ NCC\"/><item id=\"debtvendoradd\" text=\"Thêm công nợ NCC\"/></item><item id=\"debtwholesales\" complex=\"true\" text=\"Công nợ khách hàng\"><item id=\"debtwholesalelist\" text=\"Danh sách công nợ khách hàng\"/><item id=\"debtwholesaleadd\" text=\"Thêm công nợ khách hàng\"/></item><item id=\"incomes\" complex=\"true\" text=\"Thu\"><item id=\"incomelist\" text=\"Danh sách thu\"/><item id=\"incomeadd\" text=\"Thêm thu\"/></item><item id=\"expenses\" complex=\"true\" text=\"Chi\"><item id=\"expenselist\" text=\"Danh sách chi\"/><item id=\"expenseadd\" text=\"Thêm chi\"/></item><item id=\"debtadjustments\" complex=\"true\" text=\"Điều chỉnh công nợ\"><item id=\"debtadjustmentlist\" text=\"Danh sách điều chỉnh công nợ\"/><item id=\"debtadjustmentadd\" text=\"Thêm điều chỉnh công nợ\"/></item></item><item id=\"reportfunction\" complex=\"true\" text=\"Báo cáo\"><item id=\"reportgas\" complex=\"true\" text=\"Báo cáo gas\"><item id=\"reportlpgimport\" text=\"Bảng theo dõi nhập hàng LPG\"/><item id=\"reportlpgsale\" text=\"Bảng theo dõi bán hàng LPG\"/><item id=\"reportvendordebt\" text=\"Bảng theo dõi công nợ NCC\"/><item id=\"reportlpgstock\" text=\"Sổ theo dõi sản lượng khí hóa lỏng LPG\"/><item id=\"reportlpgstocksum\" text=\"Sổ theo dõi nhập xuất khí hóa lỏng LPG\"/><item id=\"reportlpgstocksumorganization\" text=\"Sổ theo dõi nhập xuất khí hóa lỏng LPG theo nhà cung cấp\"/><item id=\"reportsum\" text=\"Tổng hợp\"/><item id=\"reportcompare\" text=\"Đối chiếu\"/><item id=\"reportcomparelpg\" text=\"Bảng theo dõi công nợ khách hàng LPG\"/><item id=\"reportcomparelpgvendorcustomer\" text=\"Đối chiếu LPG NCC - KH\"/><item id=\"reportcomparegas\" text=\"Đối chiếu gas bình\"/><item id=\"reportcomparevendor\" text=\"Đối chiếu nhà cung cấp\"/><item id=\"reportsale\" text=\"Xuất bán hàng\"/><item id=\"reportsalecustomer\" text=\"Chi tiết bán hàng theo khách hàng\"/><item id=\"reportcashbook\" text=\"Báo cáo quỹ tiền\"/><item id=\"reportgascommission\" text=\"Chiết khấu bán hàng - Gas\"/><item id=\"reportgasemployeecommission\" text=\"Thanh toán tiền chiết khấu - Gas\"/><item id=\"reportshell\" text=\"Thống kê vỏ\"/></item><item id=\"reportpetro\" complex=\"true\" text=\"Báo cáo xăng\"><item id=\"reportpetroimport\" text=\"Bảng theo dõi nhập hàng xăng\"/><item id=\"reportpetrosale\" text=\"Xuất bán hàng xăng dầu\"/><item id=\"reportpetrostock\" text=\"Sổ theo dõi NXT xăng dầu tổng hợp\"/><item id=\"reportpetrostockstore\" text=\"Sổ theo dõi NXT xăng dầu theo cửa hàng\"/></item><item id=\"reportgood\" complex=\"true\" text=\"Báo cáo hàng hóa\"><item id=\"reportcomparegood\" text=\"Đối chiếu hàng hóa\"/></item><item id=\"reportoil\" complex=\"true\" text=\"Báo cáo dầu nhớt\"><item id=\"reportoilimport\" text=\"Báo cáo nhập dầu nhớt\"/><item id=\"reportoilstock\" text=\"Báo cáo nhập xuất tồn dầu nhớt\"/><item id=\"reportoilstockh\" text=\"Báo cáo nhập xuất tồn dầu nhớt - Ngang\"/><item id=\"reportoilstocksum\" text=\"Báo cáo nhập xuất tồn tổng hợp dầu nhớt\"/><item id=\"reportoilstocksumh\" text=\"Báo cáo nhập xuất tồn tổng hợp dầu nhớt - Ngang\"/><item id=\"reportoilsale\" text=\"Báo cáo bán hàng dầu nhớt\"/><item id=\"reportoilcompare\" text=\"Đối chiếu dầu nhớt\"/><item id=\"reportoilcommissionagency\" text=\"Báo cáo theo dõi chiết khấu dầu nhớt đại lý\"/><item id=\"reportoilcommissioncustomer\" text=\"Báo cáo theo dõi chiết khấu dầu nhớt khách hàng\"/><item id=\"reportoilvendorstock\" text=\"Bảng theo dõi nhập xuất tồn tổng kho\"/><item id=\"reportoilvendordebt\" text=\"Bảng theo dõi công nợ nhà cung cấp\"/><item id=\"reportoilcustomerdebt\" text=\"Bảng theo dõi công nợ khách hàng dầu nhớt\"/></item><item id=\"reportsolar\" complex=\"true\" text=\"Báo cáo NLMT\"><item id=\"reportsolarimport\" text=\"Báo cáo nhập NLMT\"/><item id=\"reportsolarstock\" text=\"Báo cáo nhập xuất tồn NLMT\"/><item id=\"reportsolarstockh\" text=\"Báo cáo nhập xuất tồn NLMT - Ngang\"/><item id=\"reportsolarstocksum\" text=\"Báo cáo nhập xuất tồn tổng hợp NLMT\"/><item id=\"reportsolarstocksumh\" text=\"Báo cáo nhập xuất tồn tổng hợp NLMT - Ngang\"/><item id=\"reportsolarsale\" text=\"Báo cáo bán hàng NLMT\"/><item id=\"reportsolarcompare\" text=\"Đối chiếu NLMT\"/><item id=\"reportsolarcommissionagency\" text=\"Báo cáo theo dõi chiết khấu NLMT đại lý\"/><item id=\"reportsolarcommissioncustomer\" text=\"Báo cáo theo dõi chiết khấu NLMT khách hàng\"/><item id=\"reportsolarvendorstock\" text=\"Bảng theo dõi nhập xuất tồn tổng kho\"/><item id=\"reportsolarvendordebt\" text=\"Bảng theo dõi công nợ nhà cung cấp\"/><item id=\"reportsolarcustomerdebt\" text=\"Bảng theo dõi công nợ khách hàng NLMT\"/></item><item id=\"reporttransport\" complex=\"true\" text=\"Báo cáo xe\"><item id=\"reporttransportfee\" text=\"Bảng theo dõi chi phí vận chuyển\"/><item id=\"reportvehiclefee\" text=\"Bảng theo dõi chi phí xe\"/><item id=\"reportvehiclesale\" text=\"Bảng theo dõi bán hàng theo xe\"/><item id=\"reporttransportservice\" text=\"Bảng theo dõi chi phí vận chuyển thuê\"/></item><item id=\"reportaccountant\" complex=\"true\" text=\"Báo cáo kế toán\"><item id=\"reportemployeesalary\" text=\"Bảng thanh toán lương\"/><item id=\"reportemployeeoff\" text=\"Bảng theo dõi ngày nghỉ phép\"/><item id=\"reportemployeeworking\" text=\"Bảng theo dõi thời gian công tác\"/><item id=\"reportemployeevehiclesalary\" text=\"Bảng lương nhân viên vận chuyển\"/></item></item><item id=\"setting\" complex=\"true\" text=\"Cấu hình\"><item id=\"resetpassword\" text=\"Đổi mật khẩu\"/></item><item id=\"logout\" text=\"Đăng xuất\"/></menu>',1);
 
 /*Table structure for table `vehicle` */
 
@@ -2709,6 +3181,10 @@ CREATE TABLE `vehicle` (
   `allowance` double DEFAULT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=MyISAM AUTO_INCREMENT=14 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+/*Data for the table `vehicle` */
+
+insert  into `vehicle`(`id`,`plate`,`note`,`allowance`) values (6,'72C-06534','Xe tải chở Gas 72C-06534',NULL),(5,'72C-07468','Xe bồn chở Gas 72C-07468',NULL),(7,'72C-09728','Xe tải chở Gas 72C-09728',NULL),(8,'72C-06784','Xe tải chở Gas 72C-06784',NULL),(9,'72C-13179','Xe xitec chở xăng dầu 20.000L 72C-13179',NULL),(10,'72C-06625','Xe xitec chở xăng dầu 16.000L 72C-06625',NULL),(11,'51C-98349','Xe bán tải 51C-98349',NULL),(13,'72c-13905','xe tải chở gas 72C - 13905',0);
 
 /*Table structure for table `vehicle_in` */
 
@@ -2723,7 +3199,11 @@ CREATE TABLE `vehicle_in` (
   `note` text COLLATE utf8_unicode_ci,
   `created_employee_id` int(11) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM AUTO_INCREMENT=139 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=MyISAM AUTO_INCREMENT=10 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+/*Data for the table `vehicle_in` */
+
+insert  into `vehicle_in`(`id`,`code`,`employee_id`,`created_date`,`vehicle_out_id`,`note`,`created_employee_id`) values (1,'20200404-VI-0001',NULL,'2020-04-01',3,'',35),(2,'20200404-VI-0002',NULL,'2020-04-01',4,'',35),(3,'20200406-VI-0001',NULL,'2020-04-02',5,'',35),(4,'20200406-VI-0002',NULL,'2020-04-02',6,'',35),(5,'20200406-VI-0003',NULL,'2020-04-03',10,'',35),(6,'20200406-VI-0004',NULL,'2020-04-03',11,'',35),(7,'20200407-VI-0001',NULL,'2020-04-04',14,'',35),(8,'20200407-VI-0002',NULL,'2020-04-04',15,'',35),(9,'20200407-VI-0003',NULL,'2020-04-04',16,'',35);
 
 /*Table structure for table `vehicle_in_accessory_detail` */
 
@@ -2739,6 +3219,8 @@ CREATE TABLE `vehicle_in_accessory_detail` (
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
+/*Data for the table `vehicle_in_accessory_detail` */
+
 /*Table structure for table `vehicle_in_detail` */
 
 DROP TABLE IF EXISTS `vehicle_in_detail`;
@@ -2751,7 +3233,11 @@ CREATE TABLE `vehicle_in_detail` (
   `price` double DEFAULT NULL,
   `amount` double DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM AUTO_INCREMENT=142 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=MyISAM AUTO_INCREMENT=10 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+/*Data for the table `vehicle_in_detail` */
+
+insert  into `vehicle_in_detail`(`id`,`vehicle_in_id`,`shell_id`,`quantity`,`price`,`amount`) values (1,1,1,1,0,0),(2,2,1,7,0,0),(3,3,1,1,0,0),(4,4,1,2,0,0),(5,5,1,7,0,0),(6,6,1,10,0,0),(7,7,1,7,0,0),(8,8,1,26,0,0),(9,9,1,4,0,0);
 
 /*Table structure for table `vehicle_in_oil_export_detail` */
 
@@ -2762,7 +3248,9 @@ CREATE TABLE `vehicle_in_oil_export_detail` (
   `vehicle_in_id` int(11) DEFAULT NULL,
   `oil_export_id` int(11) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+/*Data for the table `vehicle_in_oil_export_detail` */
 
 /*Table structure for table `vehicle_in_return_shell_detail` */
 
@@ -2776,6 +3264,8 @@ CREATE TABLE `vehicle_in_return_shell_detail` (
   PRIMARY KEY (`id`)
 ) ENGINE=MyISAM AUTO_INCREMENT=10 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
+/*Data for the table `vehicle_in_return_shell_detail` */
+
 /*Table structure for table `vehicle_out` */
 
 DROP TABLE IF EXISTS `vehicle_out`;
@@ -2788,7 +3278,11 @@ CREATE TABLE `vehicle_out` (
   `note` text COLLATE utf8_unicode_ci,
   `created_employee_id` int(11) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM AUTO_INCREMENT=190 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=MyISAM AUTO_INCREMENT=21 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+/*Data for the table `vehicle_out` */
+
+insert  into `vehicle_out`(`id`,`code`,`created_date`,`vehicle_id`,`note`,`created_employee_id`) values (1,'20200404-VO-0001','2020-04-01',11,'',35),(2,'20200404-VO-0002','2020-04-01',7,'',35),(3,'20200404-VO-0003','2020-04-01',13,'',35),(4,'20200404-VO-0004','2020-04-01',6,'',35),(5,'20200406-VO-0001','2020-04-02',6,'',35),(6,'20200406-VO-0002','2020-04-02',6,'',35),(7,'20200406-VO-0003','2020-04-02',13,'',35),(8,'20200406-VO-0004','2020-04-02',7,'',35),(9,'20200406-VO-0005','2020-04-03',7,'',35),(10,'20200406-VO-0006','2020-04-03',7,'',35),(11,'20200406-VO-0007','2020-04-03',13,'',35),(12,'20200406-VO-0008','2020-04-03',6,'',35),(13,'20200407-VO-0001','2020-04-04',6,'',35),(14,'20200407-VO-0002','2020-04-04',6,'',35),(15,'20200407-VO-0003','2020-04-04',7,'',35),(16,'20200407-VO-0004','2020-04-04',13,'',35),(17,'20200407-VO-0005','2020-04-06',11,'',35),(18,'20200407-VO-0006','2020-04-06',7,'',35),(19,'20200407-VO-0007','2020-04-06',13,'',35),(20,'20200407-VO-0008','2020-04-06',6,'',35);
 
 /*Table structure for table `vehicle_out_detail` */
 
@@ -2803,7 +3297,11 @@ CREATE TABLE `vehicle_out_detail` (
   `amount` double DEFAULT NULL,
   `note` text COLLATE utf8_unicode_ci,
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM AUTO_INCREMENT=308 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=MyISAM AUTO_INCREMENT=30 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+/*Data for the table `vehicle_out_detail` */
+
+insert  into `vehicle_out_detail`(`id`,`vehicle_out_id`,`shell_id`,`quantity`,`price`,`amount`,`note`) values (1,1,1,10,0,0,NULL),(2,2,1,289,0,0,NULL),(3,2,4,5,0,0,NULL),(4,3,1,222,0,0,NULL),(5,4,1,350,0,0,NULL),(7,5,1,283,0,0,NULL),(8,5,4,2,0,0,NULL),(9,6,1,130,0,0,NULL),(10,7,1,147,0,0,NULL),(11,8,1,230,0,0,NULL),(12,9,1,308,0,0,NULL),(13,10,1,100,0,0,NULL),(14,11,1,284,0,0,NULL),(15,11,4,1,0,0,NULL),(16,12,1,250,0,0,NULL),(17,13,1,331,0,0,NULL),(18,14,1,41,0,0,NULL),(19,15,1,184,0,0,NULL),(20,15,4,3,0,0,NULL),(21,16,1,276,0,0,NULL),(22,16,4,4,0,0,NULL),(23,17,1,1,0,0,NULL),(24,17,4,4,0,0,NULL),(25,18,1,300,0,0,NULL),(26,19,1,286,0,0,NULL),(27,19,4,3,0,0,NULL),(28,20,1,330,0,0,NULL),(29,20,4,1,0,0,NULL);
 
 /*Table structure for table `vehicle_out_employee_detail` */
 
@@ -2815,7 +3313,11 @@ CREATE TABLE `vehicle_out_employee_detail` (
   `employee_id` int(11) DEFAULT NULL,
   `note` text COLLATE utf8_unicode_ci,
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM AUTO_INCREMENT=477 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=MyISAM AUTO_INCREMENT=52 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+/*Data for the table `vehicle_out_employee_detail` */
+
+insert  into `vehicle_out_employee_detail`(`id`,`vehicle_out_id`,`employee_id`,`note`) values (1,1,20,''),(2,2,28,''),(3,2,34,''),(4,2,46,''),(5,3,24,''),(6,3,51,''),(7,3,27,''),(8,4,50,''),(9,4,26,''),(10,5,28,''),(11,5,27,''),(12,5,26,''),(13,6,28,''),(14,6,27,''),(15,6,26,''),(16,7,50,''),(17,7,51,''),(18,8,24,''),(19,8,34,''),(20,9,28,''),(21,9,34,''),(22,9,46,''),(23,10,28,''),(24,10,34,''),(25,10,46,''),(26,11,24,''),(27,11,51,''),(28,11,27,''),(29,12,50,''),(30,12,26,''),(31,12,30,''),(32,13,28,''),(33,13,27,''),(34,13,26,''),(35,14,28,''),(36,14,27,''),(37,14,26,''),(38,15,24,''),(39,15,34,''),(40,16,50,''),(41,16,51,''),(42,18,28,''),(43,18,34,''),(44,18,46,''),(45,19,24,''),(46,19,51,''),(47,19,27,''),(48,20,50,''),(49,20,26,''),(50,20,30,''),(51,17,20,'');
 
 /*Table structure for table `vendor` */
 
@@ -2842,7 +3344,11 @@ CREATE TABLE `vendor` (
   `commision_on_import` float DEFAULT '0',
   `max_debt` double DEFAULT '0' COMMENT 'cong no toi da cho phep',
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM AUTO_INCREMENT=30 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=MyISAM AUTO_INCREMENT=40 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+/*Data for the table `vendor` */
+
+insert  into `vendor`(`id`,`code`,`name`,`address`,`tax`,`phone`,`fax`,`organization_id`,`status`,`equal_organization_id`,`has_stock`,`is_gas`,`is_petro`,`is_good`,`is_transport`,`is_oil`,`is_solar`,`commision_on_import`,`max_debt`) values (24,'VIMEXCO','Công ty CP Thương Mại va Dịch Vụ Dầu Khí Vũng Tàu','KCN Gò dầu - Đồng Nai','','02513541977','',1,1,-1,0,1,0,0,0,0,0,0,0),(16,'KDK','Công ty kinh doanh sản phẩm khí',NULL,NULL,NULL,NULL,1,1,-1,1,1,0,0,0,0,0,0,0),(15,'THIENHA','Công ty TNHH Dầu Khí Thiên Hà','','','','',1,1,-1,1,1,0,0,1,0,0,0,0),(23,'HUNGTHINH','Công ty TNHH Khí Hoá Lỏng Hưng Thịnh','','','','',14,1,14,1,1,0,0,0,0,0,0,0),(18,'TCP','Công Ty TNHH Thanh Châu Phát',NULL,NULL,NULL,NULL,1,1,-1,0,0,1,0,0,0,0,0,0),(19,'PVO MD','Công ty cổ phần xăng dầu dầu khí Vũng Tàu',NULL,NULL,NULL,NULL,1,1,-1,0,0,1,0,0,0,0,0,0),(20,'NIWA','CÔNG TY TNHH NIWA','','','','',1,1,-1,0,0,0,0,0,1,0,43,0),(21,'HGA','Công Ty TNHH Hưng Gia Anh',NULL,NULL,NULL,NULL,1,1,-1,1,1,0,0,0,0,0,0,0),(22,'QuangTrung','Công ty TNHH Quang Trung','','','','',1,1,1,1,1,0,0,1,0,0,0,0),(25,'PN','Phú Nguyên','','','','',1,1,-1,0,0,0,0,1,0,0,0,0),(26,'MK','Mekong','','','','',1,1,-1,0,0,0,0,0,1,0,0,0),(27,'NASCA','NASCA','','','','',1,1,-1,0,0,0,0,0,1,0,0,0),(28,'HN','Hàng Ngoài','','','','',1,1,-1,0,1,0,0,0,0,0,0,0),(29,'CALTEX','CÔNG TY TNHH NGUYỄN ĐẶNG','Đồng Nai','','0969494340','',1,1,-1,0,0,0,0,0,1,0,0,0),(30,'GROWATT','GROWATT','CHINA','','','',1,1,-1,0,0,0,0,0,0,1,0,0),(31,'TINDAT','TÍN ĐẠT','VIỆT NAM','','','',1,1,-1,0,0,0,0,0,0,1,0,0),(32,'JINKO','JINKO','CHINA','','','',1,1,-1,0,0,0,0,0,0,1,0,0),(33,'DJSC','DJSC','','','','',1,1,-1,0,0,0,0,0,0,1,0,0),(34,'NINGBO','NINGBO','','','','',1,1,-1,0,0,0,0,0,0,1,0,0),(35,'SUNFORSON','SUNFORSON','','','','',1,1,-1,0,0,0,0,0,0,1,0,0),(36,'NHOM KHAC','NHÓM KHÁC','','','','',1,1,-1,0,0,0,0,0,0,1,0,0),(37,'Goomax','Goomax','','','','',1,1,-1,0,0,0,0,0,0,1,0,0),(38,'LONGI SOLAR','LONGI SOLAR','','','','',1,1,-1,0,0,0,0,0,0,1,0,0),(39,'Sungrow','Sungrow','','','','',1,1,-1,0,0,0,0,0,0,1,0,0);
 
 /*Table structure for table `vendor_customer` */
 
@@ -2855,6 +3361,10 @@ CREATE TABLE `vendor_customer` (
   `customer_id` int(11) DEFAULT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+/*Data for the table `vendor_customer` */
+
+insert  into `vendor_customer`(`id`,`organization_id`,`vendor_id`,`customer_id`) values (1,1,23,124),(2,14,22,205),(3,1,15,165),(4,1,24,218);
 
 /*Table structure for table `vendor_debt` */
 
@@ -2872,7 +3382,9 @@ CREATE TABLE `vendor_debt` (
   `created_employee_id` int(11) DEFAULT NULL,
   `kind` int(1) DEFAULT NULL COMMENT '1:tien hang, 2:tien van chuyen',
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM AUTO_INCREMENT=13 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+/*Data for the table `vendor_debt` */
 
 /*Table structure for table `vendor_in_stock` */
 
@@ -2888,7 +3400,11 @@ CREATE TABLE `vendor_in_stock` (
   `shell_45` int(11) DEFAULT '0',
   `transport_amount` double DEFAULT '0',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=33 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=18 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+/*Data for the table `vendor_in_stock` */
+
+insert  into `vendor_in_stock`(`id`,`day`,`vendor_id`,`organization_id`,`amount`,`shell_12`,`shell_45`,`transport_amount`) values (1,'2020-04-01',15,14,0,0,0,0),(2,'2020-04-01',23,14,0,0,0,0),(3,'2020-04-01',22,14,0,0,0,0),(4,'2020-04-01',19,1,0,0,0,0),(5,'2020-04-01',24,1,-19518090,0,0,0),(6,'2020-04-01',16,1,2508066746,0,0,0),(7,'2020-04-01',15,1,584951753,0,0,0),(8,'2020-04-01',21,1,0,0,0,0),(9,'2020-04-01',23,1,0,0,0,0),(10,'2020-04-01',29,1,0,0,0,0),(11,'2020-04-01',22,1,0,0,0,0),(12,'2020-04-01',18,1,0,0,0,0),(13,'2020-04-01',28,1,0,0,0,0),(14,'2020-04-01',26,1,0,0,0,0),(15,'2020-04-01',27,1,0,0,0,0),(16,'2020-04-01',20,1,0,0,0,0),(17,'2020-04-01',25,1,0,0,0,0);
 
 /*Table structure for table `vendor_oil_store` */
 
@@ -2901,6 +3417,8 @@ CREATE TABLE `vendor_oil_store` (
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
+/*Data for the table `vendor_oil_store` */
+
 /*Table structure for table `vendor_organization` */
 
 DROP TABLE IF EXISTS `vendor_organization`;
@@ -2910,7 +3428,11 @@ CREATE TABLE `vendor_organization` (
   `vendor_id` int(11) DEFAULT NULL,
   `organization_id` int(11) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=31 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=41 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+/*Data for the table `vendor_organization` */
+
+insert  into `vendor_organization`(`id`,`vendor_id`,`organization_id`) values (11,15,1),(12,16,1),(16,18,1),(17,19,1),(18,20,1),(19,21,1),(20,22,1),(21,23,14),(22,23,1),(23,22,14),(24,15,14),(25,24,1),(26,25,1),(27,26,1),(28,27,1),(29,28,1),(30,29,1),(31,30,1),(32,31,1),(33,32,1),(34,33,1),(35,34,1),(36,35,1),(37,36,1),(38,37,1),(39,38,1),(40,39,1);
 
 /*Table structure for table `vendor_solar_store` */
 
@@ -2922,6 +3444,8 @@ CREATE TABLE `vendor_solar_store` (
   `store_id` int(11) DEFAULT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+/*Data for the table `vendor_solar_store` */
 
 /*Table structure for table `wholesale_debt` */
 
@@ -2940,7 +3464,11 @@ CREATE TABLE `wholesale_debt` (
   `kind` int(1) DEFAULT NULL COMMENT '1:tien hang, 2:tien van chuyen',
   `gas_wholesale_id` int(11) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM AUTO_INCREMENT=118 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=MyISAM AUTO_INCREMENT=15 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+/*Data for the table `wholesale_debt` */
+
+insert  into `wholesale_debt`(`id`,`code`,`created_date`,`content`,`customer_id`,`paid`,`account_id`,`note`,`created_employee_id`,`kind`,`gas_wholesale_id`) values (1,'20200404-GS-0014_aut','2020-04-01',NULL,147,3000000,5,'',35,1,14),(2,'20200404-GS-0034_aut','2020-04-01',NULL,51,2196000,5,'',35,1,34),(3,'20200406-GS-0022_aut','2020-04-02',NULL,11,4030000,5,'',35,1,63),(4,'20200406-GS-0073_aut','2020-04-03',NULL,113,11812000,5,'',35,1,114),(5,'20200406-GS-0078_aut','2020-04-03',NULL,158,1500000,5,'',35,1,119),(6,'20200406-GS-0097_aut','2020-04-03',NULL,171,3500000,5,'',35,1,138),(7,'20200407-GS-0012_aut','2020-04-04',NULL,103,3636000,5,'',35,1,150),(8,'20200407-GS-0016_aut','2020-04-04',NULL,28,3000000,5,'',35,1,154),(9,'20200407-GS-0020_aut','2020-04-04',NULL,168,2625000,5,'',35,1,158),(10,'20200407-GS-0031_aut','2020-04-04',NULL,169,6244000,5,'',35,1,169),(11,'20200407-GS-0042_aut','2020-04-06',NULL,43,22862000,5,'',35,1,180),(12,'20200407-GS-0087_aut','2020-04-06',NULL,108,350000,5,'',35,1,225),(13,'20200407-GS-0088_aut','2020-04-06',NULL,164,1225000,5,'',35,1,226),(14,'20200407-DW-0001','2020-04-07',NULL,349,-198065364,5,'',53,1,0);
 
 /* Trigger structure for table `gas_import_detail` */
 
@@ -2994,9 +3522,9 @@ DELIMITER ;
 
 DELIMITER $$
 
-/*!50003 CREATE DEFINER=`root`@`localhost` PROCEDURE `calculateCustomerCommission`(in _customer_id int, in _weight double, out _commission double)
+/*!50003 CREATE DEFINER=`root`@`localhost` PROCEDURE `calculateCustomerCommission`(in _customer_id int, in _weight double, in _return_shell int, out _commission double)
 BEGIN
-	SELECT SUM(COALESCE(dd.commission*_weight,0)) INTO _commission
+	SELECT SUM(COALESCE(dd.commission*_weight,0) + COALESCE(d.shell_gas_commission*_return_shell,0)) INTO _commission
 	FROM discount_oil AS d, discount_oil_customer AS dc,  discount_oil_detail AS dd
 	WHERE d.id=dc.discount_id AND d.id=dd.discount_id AND dc.customer_id=_customer_id AND dd.commission_from<=_weight AND dd.commission_to>_weight;
     END */$$
