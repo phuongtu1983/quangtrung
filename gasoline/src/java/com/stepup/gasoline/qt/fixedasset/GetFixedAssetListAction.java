@@ -5,6 +5,7 @@
 package com.stepup.gasoline.qt.fixedasset;
 
 import com.stepup.core.util.OutputUtil;
+import com.stepup.core.util.StringUtil;
 import com.stepup.gasoline.qt.core.BaseAction;
 import com.stepup.gasoline.qt.dao.FixedAssetDAO;
 import com.stepup.gasoline.qt.util.QTUtil;
@@ -34,8 +35,8 @@ public class GetFixedAssetListAction extends BaseAction {
                 for (int i = 0; i < length; i++) {
                     FixedAssetFormBean bean = (FixedAssetFormBean) list.get(i);
                     buff.append("<row id=\"").append(bean.getId()).append("\">");
-                    buff.append("<cell>").append(bean.getName()).append("^javascript:getFixedAsset(").append(bean.getId()).append(",\"loadFixedAssetList\")^_self</cell>");
-                    buff.append("<cell>").append(bean.getGroupName()).append("</cell>");
+                    buff.append("<cell>").append(StringUtil.encodeString(bean.getName())).append("^javascript:getFixedAsset(").append(bean.getId()).append(",\"loadFixedAssetList\")^_self</cell>");
+                    buff.append("<cell>").append(StringUtil.encodeString(bean.getGroupName())).append("</cell>");
                     buff.append("<cell>").append(bean.getRate()).append("</cell>");
                     buff.append("<cell>").append(bean.getMonthCount()).append("</cell>");
                     buff.append("</row>");

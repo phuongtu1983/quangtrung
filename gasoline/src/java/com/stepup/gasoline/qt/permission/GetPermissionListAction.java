@@ -46,7 +46,7 @@ public class GetPermissionListAction extends BaseAction {
                     buff.append("<row id=\"").append(bean.getId()).append("\">");
                     buff.append("<cell>").append(StringUtil.encodeString(bean.getName())).append("^javascript:getPermission(").append(bean.getId()).append(")^_self</cell>");
                     buff.append("<cell>").append(StringUtil.encodeString(bean.getNote())).append("</cell>");
-                    buff.append("<cell>").append(bean.getUserNames()).append("</cell>");
+                    buff.append("<cell>").append(StringUtil.encodeString(bean.getUserNames())).append("</cell>");
                     buff.append("</row>");
                 }
             }

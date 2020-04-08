@@ -6,6 +6,7 @@ package com.stepup.gasoline.qt.agency;
 
 import com.stepup.core.util.NumberUtil;
 import com.stepup.core.util.OutputUtil;
+import com.stepup.core.util.StringUtil;
 import com.stepup.gasoline.qt.core.BaseAction;
 import com.stepup.gasoline.qt.dao.CustomerDAO;
 import java.util.ArrayList;
@@ -34,10 +35,10 @@ public class GetAgencyListAction extends BaseAction {
                 for (int i = 0; i < length; i++) {
                     AgencyFormBean bean = (AgencyFormBean) list.get(i);
                     buff.append("<row id=\"").append(bean.getId()).append("\">");
-                    buff.append("<cell>").append(bean.getName()).append("^javascript:getAgency(").append(bean.getId()).append(",\"loadAgencyList\")^_self</cell>");
-                    buff.append("<cell>").append(bean.getPhone()).append("</cell>");
-                    buff.append("<cell>").append(bean.getAddress()).append("</cell>");
-                    buff.append("<cell>").append(bean.getNote()).append("</cell>");
+                    buff.append("<cell>").append(StringUtil.encodeString(bean.getName())).append("^javascript:getAgency(").append(bean.getId()).append(",\"loadAgencyList\")^_self</cell>");
+                    buff.append("<cell>").append(StringUtil.encodeString(bean.getPhone())).append("</cell>");
+                    buff.append("<cell>").append(StringUtil.encodeString(bean.getAddress())).append("</cell>");
+                    buff.append("<cell>").append(StringUtil.encodeString(bean.getNote())).append("</cell>");
                     buff.append("</row>");
                 }
             }

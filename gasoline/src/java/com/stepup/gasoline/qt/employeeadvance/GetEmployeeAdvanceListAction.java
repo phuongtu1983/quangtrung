@@ -6,6 +6,7 @@ package com.stepup.gasoline.qt.employeeadvance;
 
 import com.stepup.core.util.NumberUtil;
 import com.stepup.core.util.OutputUtil;
+import com.stepup.core.util.StringUtil;
 import com.stepup.gasoline.qt.core.BaseAction;
 import com.stepup.gasoline.qt.dao.EmployeeDAO;
 import com.stepup.gasoline.qt.util.QTUtil;
@@ -37,9 +38,9 @@ public class GetEmployeeAdvanceListAction extends BaseAction {
                     buff.append("<row id=\"").append(bean.getId()).append("\">");
                     buff.append("<cell>").append(bean.getCode()).append("^javascript:getEmployeeAdvance(").append(bean.getId()).append(",\"loadEmployeeAdvancePanel\")^_self</cell>");
                     buff.append("<cell>").append(bean.getAdvanceDate()).append("</cell>");
-                    buff.append("<cell>").append(bean.getEmployeeName()).append("</cell>");
+                    buff.append("<cell>").append(StringUtil.encodeString(bean.getEmployeeName())).append("</cell>");
                     buff.append("<cell>").append(NumberUtil.formatMoneyDefault(bean.getAmount(), "VND")).append("</cell>");
-                    buff.append("<cell>").append(bean.getNote()).append("</cell>");
+                    buff.append("<cell>").append(StringUtil.encodeString(bean.getNote())).append("</cell>");
                     buff.append("</row>");
                 }
             }

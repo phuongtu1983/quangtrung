@@ -10251,7 +10251,6 @@ function addDiscountCustomer() {
     });
     return false;
 }
-
 function formatDiscountCommissionDetail() {
     var discountCommissionFrom = document.forms['discountForm'].discountCommissionFrom;
     var discountCommissionTo = document.forms['discountForm'].discountCommissionTo;
@@ -10259,14 +10258,14 @@ function formatDiscountCommissionDetail() {
     if (discountCommissionCommission != null) {
         if (discountCommissionCommission.length != null) {
             for (var i = 0; i < discountCommissionCommission.length; i++) {
-                tryNumberFormatCurrentcy(discountCommissionFrom[i], "VND");
-                tryNumberFormatCurrentcy(discountCommissionTo[i], "VND");
-                tryNumberFormatCurrentcy(discountCommissionCommission[i], "VND");
+                tryNumberFormatCurrentcy(discountCommissionFrom[i], "USD");
+                tryNumberFormatCurrentcy(discountCommissionTo[i], "USD");
+                tryNumberFormatCurrentcy(discountCommissionCommission[i], "USD");
             }
         } else {
-            tryNumberFormatCurrentcy(discountCommissionFrom, "VND");
-            tryNumberFormatCurrentcy(discountCommissionTo, "VND");
-            tryNumberFormatCurrentcy(discountCommissionCommission, "VND");
+            tryNumberFormatCurrentcy(discountCommissionFrom, "USD");
+            tryNumberFormatCurrentcy(discountCommissionTo, "USD");
+            tryNumberFormatCurrentcy(discountCommissionCommission, "USD");
         }
     }
     discountCommissionFrom = null;

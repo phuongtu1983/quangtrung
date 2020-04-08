@@ -6,6 +6,7 @@ package com.stepup.gasoline.qt.shellimport;
 
 import com.stepup.core.util.NumberUtil;
 import com.stepup.core.util.OutputUtil;
+import com.stepup.core.util.StringUtil;
 import com.stepup.gasoline.qt.core.BaseAction;
 import com.stepup.gasoline.qt.dao.GoodDAO;
 import com.stepup.gasoline.qt.util.QTUtil;
@@ -37,10 +38,10 @@ public class GetShellImportListAction extends BaseAction {
                     buff.append("<row id=\"").append(bean.getId()).append("\">");
                     buff.append("<cell>").append(bean.getCode()).append("^javascript:getShellImport(").append(bean.getId()).append(",\"loadShellImportPanel\")^_self</cell>");
                     buff.append("<cell>").append(bean.getCreatedDate()).append("</cell>");
-                    buff.append("<cell>").append(bean.getShellName()).append("</cell>");
+                    buff.append("<cell>").append(StringUtil.encodeString(bean.getShellName())).append("</cell>");
                     buff.append("<cell>").append(NumberUtil.formatMoneyDefault(bean.getQuantity(), "")).append("</cell>");
                     buff.append("<cell>").append(NumberUtil.formatMoneyDefault(bean.getPrice(), "")).append("</cell>");
-                    buff.append("<cell>").append(bean.getNote()).append("</cell>");
+                    buff.append("<cell>").append(StringUtil.encodeString(bean.getNote())).append("</cell>");
                     buff.append("</row>");
                 }
             }

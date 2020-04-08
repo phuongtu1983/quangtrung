@@ -6,6 +6,7 @@ package com.stepup.gasoline.qt.attachmentfile;
 
 import com.stepup.core.util.NumberUtil;
 import com.stepup.core.util.OutputUtil;
+import com.stepup.core.util.StringUtil;
 import com.stepup.gasoline.qt.bean.FileAttachmentBean;
 import com.stepup.gasoline.qt.core.SpineAction;
 import com.stepup.gasoline.qt.dao.FileAttachmentDAO;
@@ -41,8 +42,8 @@ public class GetAttachmentFileListAction extends SpineAction {
                             FileAttachmentBean bean = (FileAttachmentBean) list.get(i);
                             buff.append("<row id=\"").append(bean.getId()).append("\">");
                             buff.append("<cell>0</cell>");
-                            buff.append("<cell>").append(bean.getName()).append("^").append(request.getContextPath()).append(bean.getHref()).append("</cell>");
-                            buff.append("<cell>").append(bean.getEmployeeName()).append("</cell>");
+                            buff.append("<cell>").append(StringUtil.encodeString(bean.getName())).append("^").append(request.getContextPath()).append(bean.getHref()).append("</cell>");
+                            buff.append("<cell>").append(StringUtil.encodeString(bean.getEmployeeName())).append("</cell>");
                             buff.append("<cell>").append(bean.getCreatedDate()).append("</cell>");
                             buff.append("</row>");
                         }

@@ -6,6 +6,7 @@ package com.stepup.gasoline.qt.unitrate;
 
 import com.stepup.core.util.NumberUtil;
 import com.stepup.core.util.OutputUtil;
+import com.stepup.core.util.StringUtil;
 import com.stepup.gasoline.qt.core.BaseAction;
 import com.stepup.gasoline.qt.dao.UnitDAO;
 import java.util.ArrayList;
@@ -34,8 +35,8 @@ public class GetUnitRateListAction extends BaseAction {
                 for (int i = 0; i < length; i++) {
                     UnitRateFormBean bean = (UnitRateFormBean) list.get(i);
                     buff.append("<row id=\"").append(bean.getId()).append("\">");
-                    buff.append("<cell>").append(bean.getBaseUnitName()).append("^javascript:getUnitRate(").append(bean.getId()).append(",\"loadUnitRateList\")^_self</cell>");
-                    buff.append("<cell>").append(bean.getParentUnitName()).append("</cell>");
+                    buff.append("<cell>").append(StringUtil.encodeString(bean.getBaseUnitName())).append("^javascript:getUnitRate(").append(bean.getId()).append(",\"loadUnitRateList\")^_self</cell>");
+                    buff.append("<cell>").append(StringUtil.encodeString(bean.getParentUnitName())).append("</cell>");
                     buff.append("<cell>").append(NumberUtil.formatMoneyDefault(bean.getRate(), "VND")).append("</cell>");
                     buff.append("</row>");
                 }

@@ -6,6 +6,7 @@ package com.stepup.gasoline.qt.gasprice;
 
 import com.stepup.core.util.NumberUtil;
 import com.stepup.core.util.OutputUtil;
+import com.stepup.core.util.StringUtil;
 import com.stepup.gasoline.qt.core.BaseAction;
 import com.stepup.gasoline.qt.dao.GasDAO;
 import java.util.ArrayList;
@@ -35,11 +36,11 @@ public class GetGasPriceListAction extends BaseAction {
                     GasPriceFormBean bean = (GasPriceFormBean) list.get(i);
                     buff.append("<row id=\"").append(bean.getId()).append("\">");
                     buff.append("<cell>").append(bean.getCode()).append("^javascript:getGasPrice(").append(bean.getId()).append(",\"loadGasPricePanel\")^_self</cell>");
-                    buff.append("<cell>").append(bean.getCustomerName()).append("</cell>");
+                    buff.append("<cell>").append(StringUtil.encodeString(bean.getCustomerName())).append("</cell>");
                     buff.append("<cell>").append(bean.getFromDate()).append("</cell>");
                     buff.append("<cell>").append(bean.getToDate()).append("</cell>");
                     buff.append("<cell>").append(NumberUtil.formatMoneyDefault(bean.getPrice(), "VND")).append("</cell>");
-                    buff.append("<cell>").append(bean.getNote()).append("</cell>");
+                    buff.append("<cell>").append(StringUtil.encodeString(bean.getNote())).append("</cell>");
                     buff.append("</row>");
                 }
             }

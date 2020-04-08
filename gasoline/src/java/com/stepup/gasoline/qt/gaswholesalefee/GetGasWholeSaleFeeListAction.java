@@ -6,6 +6,7 @@ package com.stepup.gasoline.qt.gaswholesalefee;
 
 import com.stepup.core.util.NumberUtil;
 import com.stepup.core.util.OutputUtil;
+import com.stepup.core.util.StringUtil;
 import com.stepup.gasoline.qt.core.BaseAction;
 import com.stepup.gasoline.qt.dao.GasDAO;
 import java.util.ArrayList;
@@ -34,8 +35,8 @@ public class GetGasWholeSaleFeeListAction extends BaseAction {
                 for (int i = 0; i < length; i++) {
                     GasWholeSaleFeeFormBean bean = (GasWholeSaleFeeFormBean) list.get(i);
                     buff.append("<row id=\"").append(bean.getId()).append("\">");
-                    buff.append("<cell>").append(bean.getName()).append("^javascript:getGasWholeSaleFee(").append(bean.getId()).append(",\"loadGasWholeSaleFeeList\")^_self</cell>");
-                    buff.append("<cell>").append(bean.getKindName()).append("</cell>");
+                    buff.append("<cell>").append(StringUtil.encodeString(bean.getName())).append("^javascript:getGasWholeSaleFee(").append(bean.getId()).append(",\"loadGasWholeSaleFeeList\")^_self</cell>");
+                    buff.append("<cell>").append(StringUtil.encodeString(bean.getKindName())).append("</cell>");
                     buff.append("<cell>").append(bean.getStatusName()).append("</cell>");
                     buff.append("</row>");
                 }

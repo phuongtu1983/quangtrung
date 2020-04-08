@@ -106,9 +106,9 @@ public class AddDiscountAction extends SpineAction {
                     id = NumberUtil.parseInt(formBean.getDiscountCommissionDetailId()[i], 0);
                     if (id == 0) {
                         DiscountCommissionDetailBean bean = new DiscountCommissionDetailBean();
-                        bean.setFrom(NumberUtil.parseInt(formBean.getDiscountCommissionFrom()[i], 0));
-                        bean.setTo(NumberUtil.parseInt(formBean.getDiscountCommissionTo()[i], 0));
-                        bean.setCommission(NumberUtil.parseInt(formBean.getDiscountCommissionCommission()[i], 0));
+                        bean.setFrom(NumberUtil.parseDouble(formBean.getDiscountCommissionFrom()[i], 0));
+                        bean.setTo(NumberUtil.parseDouble(formBean.getDiscountCommissionTo()[i], 0));
+                        bean.setCommission(NumberUtil.parseDouble(formBean.getDiscountCommissionCommission()[i], 0));
                         bean.setDiscountId(formBean.getId());
                         customerDAO.insertDiscountCommissionDetail(bean);
                     } else {
@@ -123,17 +123,17 @@ public class AddDiscountAction extends SpineAction {
                         }
                         if (j < arrDetail.size()) {
                             arrDetail.remove(j);
-                            if (oldBean.getFrom() != NumberUtil.parseInt(formBean.getDiscountCommissionFrom()[i], 0)) {
+                            if (oldBean.getFrom() != NumberUtil.parseDouble(formBean.getDiscountCommissionFrom()[i], 0)) {
                                 isUpdate = true;
-                                oldBean.setFrom(NumberUtil.parseInt(formBean.getDiscountCommissionFrom()[i], 0));
+                                oldBean.setFrom(NumberUtil.parseDouble(formBean.getDiscountCommissionFrom()[i], 0));
                             }
-                            if (oldBean.getTo() != NumberUtil.parseInt(formBean.getDiscountCommissionTo()[i], 0)) {
+                            if (oldBean.getTo() != NumberUtil.parseDouble(formBean.getDiscountCommissionTo()[i], 0)) {
                                 isUpdate = true;
-                                oldBean.setTo(NumberUtil.parseInt(formBean.getDiscountCommissionTo()[i], 0));
+                                oldBean.setTo(NumberUtil.parseDouble(formBean.getDiscountCommissionTo()[i], 0));
                             }
-                            if (oldBean.getCommission() != NumberUtil.parseInt(formBean.getDiscountCommissionCommission()[i], 0)) {
+                            if (oldBean.getCommission() != NumberUtil.parseDouble(formBean.getDiscountCommissionCommission()[i], 0)) {
                                 isUpdate = true;
-                                oldBean.setCommission(NumberUtil.parseInt(formBean.getDiscountCommissionCommission()[i], 0));
+                                oldBean.setCommission(NumberUtil.parseDouble(formBean.getDiscountCommissionCommission()[i], 0));
                             }
                             if (isUpdate) {
                                 customerDAO.updateDiscountCommissionDetail(oldBean);

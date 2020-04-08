@@ -38,7 +38,7 @@ public class GetStoreListAction extends BaseAction {
                     buff.append("<row id=\"").append(bean.getId()).append("\">");
                     buff.append("<cell>").append(bean.getCode()).append("^javascript:getStore(").append(bean.getId()).append(",\"loadStoreList\")^_self</cell>");
                     buff.append("<cell>").append(StringUtil.encodeString(bean.getName())).append("</cell>");
-                    buff.append("<cell>").append(bean.getOrganizationName()).append("</cell>");
+                    buff.append("<cell>").append(StringUtil.encodeString(bean.getOrganizationName())).append("</cell>");
                     buff.append("<cell>").append(bean.getStatusName()).append("</cell>");
                     buff.append("</row>");
                 }

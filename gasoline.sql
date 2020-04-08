@@ -430,6 +430,8 @@ CREATE TABLE `debug` (
 
 /*Data for the table `debug` */
 
+insert  into `debug`(`note`) values ('01/04/2020'),('2018-01-01'),('2020-04-01'),('01/04/2020'),('2018-01-01'),('2020-04-01');
+
 /*Table structure for table `discount_oil` */
 
 DROP TABLE IF EXISTS `discount_oil`;
@@ -478,7 +480,7 @@ CREATE TABLE `discount_oil_detail` (
 
 /*Data for the table `discount_oil_detail` */
 
-insert  into `discount_oil_detail`(`id`,`discount_id`,`oil_id`,`commission_from`,`commission_to`,`commission`) values (1,1,NULL,720,1800,160),(2,1,NULL,1800,3600,240),(3,1,NULL,3600,7200,320),(4,1,NULL,7200,9600,400),(5,1,NULL,9600,12000,525),(6,1,NULL,12000,1000000,650),(7,2,NULL,0,1000000,417),(8,3,NULL,0,1000000,0);
+insert  into `discount_oil_detail`(`id`,`discount_id`,`oil_id`,`commission_from`,`commission_to`,`commission`) values (1,1,NULL,720,1800,160),(2,1,NULL,1800,3600,240),(3,1,NULL,3600,7200,320),(4,1,NULL,7200,9600,400),(5,1,NULL,9600,12000,525),(6,1,NULL,12000,1000000,650),(7,2,NULL,0,1000000,416.666),(8,3,NULL,0,1000000,0);
 
 /*Table structure for table `document` */
 
@@ -1628,11 +1630,11 @@ CREATE TABLE `lpg_import` (
   `link_lpg_ids` text COLLATE utf8_unicode_ci,
   `link_lpg_codes` text COLLATE utf8_unicode_ci,
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM AUTO_INCREMENT=4 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=MyISAM AUTO_INCREMENT=7 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 /*Data for the table `lpg_import` */
 
-insert  into `lpg_import`(`id`,`code`,`import_date`,`vendor_id`,`kind`,`paper_quantity`,`actual_quantity`,`price`,`vat`,`invoice_amount`,`amount`,`paid`,`debt`,`rate`,`note`,`account_id`,`route_id`,`created_employee_id`,`link_lpg_ids`,`link_lpg_codes`) values (1,'20200404-LI-0001','2020-04-02',15,1,11730,11780,369.6,0,102532399,102532399,0,102532399,23650,'TH QT',5,0,35,NULL,''),(2,'20200404-LI-0002','2020-04-03',15,1,11920,11950,369.6,0,103664521,103664521,0,103664521,23530,'TH QT',5,0,35,NULL,''),(3,'20200406-LI-0001','2020-04-04',15,1,11830,11910,369.6,0,102881819,102881819,0,102881819,23530,'TH Qt',5,0,35,NULL,'');
+insert  into `lpg_import`(`id`,`code`,`import_date`,`vendor_id`,`kind`,`paper_quantity`,`actual_quantity`,`price`,`vat`,`invoice_amount`,`amount`,`paid`,`debt`,`rate`,`note`,`account_id`,`route_id`,`created_employee_id`,`link_lpg_ids`,`link_lpg_codes`) values (1,'20200404-LI-0001','2020-04-02',15,1,11730,11780,369.6,0,102532399,102532399,0,102532399,23650,'TH QT',5,0,35,NULL,''),(2,'20200404-LI-0002','2020-04-03',15,1,11920,11950,369.6,0,103664521,103664521,0,103664521,23530,'TH QT',5,0,35,NULL,''),(3,'20200406-LI-0001','2020-04-04',15,1,11830,11910,369.6,0,102881819,102881819,0,102881819,23530,'TH Qt',5,0,35,NULL,''),(4,'20200408-LI-0001','2020-04-06',16,1,11020,10960,370.1775,0,96150422,96150422,0,96150422,23570,'KDK SPO 38123',5,0,35,NULL,''),(5,'20200408-LI-0002','2020-04-06',15,1,11010,10960,369.6,0,95913307,95913307,0,95913307,23570,'TH QT ',5,0,35,NULL,''),(6,'20200408-LI-0003','2020-04-07',15,1,11640,11700,369.6,0,101401534,101401534,0,101401534,23570,'TH QT',5,0,35,NULL,'');
 
 /*Table structure for table `lpg_in_stock` */
 
@@ -1674,9 +1676,11 @@ CREATE TABLE `lpg_sale` (
   `route_id` int(11) DEFAULT NULL,
   `created_employee_id` int(11) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 /*Data for the table `lpg_sale` */
+
+insert  into `lpg_sale`(`id`,`code`,`sale_date`,`kind`,`customer_id`,`quantity`,`price`,`price_transport`,`vat`,`rate`,`amount`,`paid`,`debt`,`note`,`account_id`,`route_id`,`created_employee_id`) values (1,'20200408-LS-0001','2020-04-06',1,152,10960,10286,0,10,1000,124008016,0,124008016,'',5,0,35);
 
 /*Table structure for table `money_in_stock` */
 
@@ -2827,11 +2831,11 @@ CREATE TABLE `solar_sale` (
   `created_employee_id` int(11) DEFAULT NULL,
   `is_calculate_agency_commission` int(1) DEFAULT '1' COMMENT '0:khong tinh, 1:tinh CK cho dai ly',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 /*Data for the table `solar_sale` */
 
-insert  into `solar_sale`(`id`,`code`,`created_date`,`customer_id`,`commission`,`commission_kind`,`commission_amount`,`gap_agency_amount`,`gap_customer_amount`,`total_before_commission`,`total`,`discount`,`total_pay`,`paid`,`debt`,`account_id`,`note`,`created_employee_id`,`is_calculate_agency_commission`) values (1,'20200404-SO-0001','2020-04-04',403,0,1,0,0,0,0,5900000,0,5900000,0,5900000,5,'',17,0),(2,'20200404-SO-0002','2020-04-04',403,0,1,0,0,0,0,5900000,0,5900000,0,5900000,5,'',17,0);
+insert  into `solar_sale`(`id`,`code`,`created_date`,`customer_id`,`commission`,`commission_kind`,`commission_amount`,`gap_agency_amount`,`gap_customer_amount`,`total_before_commission`,`total`,`discount`,`total_pay`,`paid`,`debt`,`account_id`,`note`,`created_employee_id`,`is_calculate_agency_commission`) values (1,'20200404-SO-0001','2020-04-04',403,0,1,0,0,0,0,5900000,0,5900000,0,5900000,5,'',17,0),(2,'20200404-SO-0002','2020-04-04',403,0,1,0,0,0,0,5900000,0,5900000,0,5900000,5,'',17,0),(5,'20200408-SO-0001','2020-04-08',355,0,1,0,0,0,0,0,0,0,0,0,5,'',53,1);
 
 /*Table structure for table `solar_sale_detail` */
 
@@ -2855,11 +2859,11 @@ CREATE TABLE `solar_sale_detail` (
   `amount` double DEFAULT '0',
   `vendor_id` int(11) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 /*Data for the table `solar_sale_detail` */
 
-insert  into `solar_sale_detail`(`id`,`solar_sale_id`,`solar_id`,`unit_id`,`store_id`,`quantity`,`base_quantity`,`price_before_commission`,`commission_price`,`price`,`first_amount`,`commission`,`gap_agency_amount`,`gap_customer_amount`,`amount`,`vendor_id`) values (1,1,46,16,11,2,2,2950000,0,2950000,5900000,0,0,0,5900000,38),(2,2,46,16,11,2,2,2950000,0,2950000,5900000,0,0,0,5900000,38);
+insert  into `solar_sale_detail`(`id`,`solar_sale_id`,`solar_id`,`unit_id`,`store_id`,`quantity`,`base_quantity`,`price_before_commission`,`commission_price`,`price`,`first_amount`,`commission`,`gap_agency_amount`,`gap_customer_amount`,`amount`,`vendor_id`) values (1,1,46,16,11,2,2,2950000,0,2950000,5900000,0,0,0,5900000,38),(2,2,46,16,11,2,2,2950000,0,2950000,5900000,0,0,0,5900000,38),(5,5,22,8,11,1,1,0,0,0,0,0,0,0,0,30);
 
 /*Table structure for table `solar_sale_promotion` */
 
@@ -3074,11 +3078,11 @@ CREATE TABLE `transport_service` (
   `customer_customer_id` int(11) DEFAULT NULL,
   `customer_amount` double DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 /*Data for the table `transport_service` */
 
-insert  into `transport_service`(`id`,`code`,`created_date`,`vendor_id`,`customer_id`,`transporter_id`,`charge_for_vendor`,`charge_for_customer`,`in_quantity`,`out_quantity`,`price`,`price_diff`,`rate`,`rate_diff`,`amount`,`paid`,`debt`,`account_id`,`note`,`created_employee_id`,`money_organization_id`,`money_amount`,`vendor_vendor_id`,`vendor_amount`,`customer_customer_id`,`customer_amount`) values (1,'20200404-TS-0001','2020-04-01',15,307,22,1,0,10140,10160,14,376.53,23650,23650,3535453,0,3535453,5,'',35,1,0,15,3535453,0,0),(2,'20200404-TS-0002','2020-04-01',15,124,22,1,0,11020,11020,14,376.53,23650,0,3648722,0,3648722,5,'',35,1,0,15,3648722,0,0),(3,'20200404-TS-0003','2020-04-03',15,124,22,1,0,11990,12020,11,376.53,23650,23650,3386347,0,3386347,5,'',35,1,0,15,3386347,0,0),(4,'20200406-TS-0001','2020-04-04',15,404,22,1,0,11010,10880,10,376.53,23530,23530,1438885,0,1438885,5,'',35,1,0,15,1438885,0,0);
+insert  into `transport_service`(`id`,`code`,`created_date`,`vendor_id`,`customer_id`,`transporter_id`,`charge_for_vendor`,`charge_for_customer`,`in_quantity`,`out_quantity`,`price`,`price_diff`,`rate`,`rate_diff`,`amount`,`paid`,`debt`,`account_id`,`note`,`created_employee_id`,`money_organization_id`,`money_amount`,`vendor_vendor_id`,`vendor_amount`,`customer_customer_id`,`customer_amount`) values (1,'20200404-TS-0001','2020-04-01',15,307,22,1,0,10140,10160,14,376.53,23650,23650,3535453,0,3535453,5,'',35,1,0,15,3535453,0,0),(2,'20200404-TS-0002','2020-04-01',15,124,22,1,0,11020,11020,14,376.53,23650,0,3648722,0,3648722,5,'',35,1,0,15,3648722,0,0),(3,'20200404-TS-0003','2020-04-03',15,124,22,1,0,11990,12020,11,376.53,23650,23650,3386347,0,3386347,5,'',35,1,0,15,3386347,0,0),(4,'20200406-TS-0001','2020-04-04',15,404,22,1,0,11010,10880,10,376.53,23530,23530,1438885,0,1438885,5,'',35,1,0,15,1438885,0,0),(5,'20200408-TS-0001','2020-04-07',15,219,22,1,0,12070,12100,13,376.53,23650,23650,3978070,0,3978070,5,'',35,1,0,15,3978070,0,0);
 
 /*Table structure for table `trip_fee` */
 
@@ -3468,7 +3472,7 @@ CREATE TABLE `wholesale_debt` (
 
 /*Data for the table `wholesale_debt` */
 
-insert  into `wholesale_debt`(`id`,`code`,`created_date`,`content`,`customer_id`,`paid`,`account_id`,`note`,`created_employee_id`,`kind`,`gas_wholesale_id`) values (1,'20200404-GS-0014_aut','2020-04-01',NULL,147,3000000,5,'',35,1,14),(2,'20200404-GS-0034_aut','2020-04-01',NULL,51,2196000,5,'',35,1,34),(3,'20200406-GS-0022_aut','2020-04-02',NULL,11,4030000,5,'',35,1,63),(4,'20200406-GS-0073_aut','2020-04-03',NULL,113,11812000,5,'',35,1,114),(5,'20200406-GS-0078_aut','2020-04-03',NULL,158,1500000,5,'',35,1,119),(6,'20200406-GS-0097_aut','2020-04-03',NULL,171,3500000,5,'',35,1,138),(7,'20200407-GS-0012_aut','2020-04-04',NULL,103,3636000,5,'',35,1,150),(8,'20200407-GS-0016_aut','2020-04-04',NULL,28,3000000,5,'',35,1,154),(9,'20200407-GS-0020_aut','2020-04-04',NULL,168,2625000,5,'',35,1,158),(10,'20200407-GS-0031_aut','2020-04-04',NULL,169,6244000,5,'',35,1,169),(11,'20200407-GS-0042_aut','2020-04-06',NULL,43,22862000,5,'',35,1,180),(12,'20200407-GS-0087_aut','2020-04-06',NULL,108,350000,5,'',35,1,225),(13,'20200407-GS-0088_aut','2020-04-06',NULL,164,1225000,5,'',35,1,226),(14,'20200407-DW-0001','2020-04-07',NULL,349,-198065364,5,'',53,1,0);
+insert  into `wholesale_debt`(`id`,`code`,`created_date`,`content`,`customer_id`,`paid`,`account_id`,`note`,`created_employee_id`,`kind`,`gas_wholesale_id`) values (1,'20200404-GS-0014_aut','2020-04-01',NULL,147,3000000,5,'',35,1,14),(2,'20200404-GS-0034_aut','2020-04-01',NULL,51,2196000,5,'',35,1,34),(3,'20200406-GS-0022_aut','2020-04-02',NULL,11,4030000,5,'',35,1,63),(4,'20200406-GS-0073_aut','2020-04-03',NULL,113,11812000,5,'',35,1,114),(5,'20200406-GS-0078_aut','2020-04-03',NULL,158,1500000,5,'',35,1,119),(6,'20200406-GS-0097_aut','2020-04-03',NULL,171,3500000,5,'',35,1,138),(7,'20200407-GS-0012_aut','2020-04-04',NULL,103,3636000,5,'',35,1,150),(8,'20200407-GS-0016_aut','2020-04-04',NULL,28,3000000,5,'',35,1,154),(9,'20200407-GS-0020_aut','2020-04-04',NULL,168,2625000,5,'',35,1,158),(10,'20200407-GS-0031_aut','2020-04-04',NULL,169,6244000,5,'',35,1,169),(11,'20200407-GS-0042_aut','2020-04-06',NULL,43,22862000,5,'',35,1,180),(12,'20200407-GS-0087_aut','2020-04-06',NULL,108,350000,5,'',35,1,225),(13,'20200407-GS-0088_aut','2020-04-06',NULL,164,1225000,5,'',35,1,226),(14,'20200407-DW-0001','2020-04-07',NULL,349,198065364,5,'',53,1,0);
 
 /* Trigger structure for table `gas_import_detail` */
 
@@ -10898,6 +10902,13 @@ BEGIN
 	WHERE DATE(os.created_date) >= STR_TO_DATE(_start_date,'%d/%m/%Y') AND DATE(os.created_date) <= STR_TO_DATE(_end_date,'%d/%m/%Y')
 		AND os.created_employee_id=eo.id AND _organization_ids LIKE CONCAT('%,',eo.organization_id,',%')
 		AND os.customer_id=_customer_id AND os.id=osdet.oil_sale_id AND osdet.oil_id=o.id AND osdet.unit_id=u.id
+	UNION ALL
+	SELECT '' AS solar_export_code, '' AS solar_code, CONCAT('Thanh toán công nợ ', d.CODE) AS solar_name, '' AS unit_name
+		, 0 AS quantity, 0 AS price, 0 AS amount, COALESCE(d.paid,0) AS paid
+	FROM wholesale_debt AS d, employee AS eo
+	WHERE DATE(d.created_date) >= STR_TO_DATE(_start_date,'%d/%m/%Y') AND DATE(d.created_date) <= STR_TO_DATE(_end_date,'%d/%m/%Y')
+		AND d.created_employee_id=eo.id AND _organization_ids LIKE CONCAT('%,',eo.organization_id,',%')
+		AND d.customer_id=_customer_id
 	;
     END */$$
 DELIMITER ;
@@ -12149,6 +12160,13 @@ BEGIN
 	WHERE DATE(os.created_date) >= STR_TO_DATE(_start_date,'%d/%m/%Y') AND DATE(os.created_date) <= STR_TO_DATE(_end_date,'%d/%m/%Y')
 		AND os.created_employee_id=eo.id AND _organization_ids LIKE CONCAT('%,',eo.organization_id,',%')
 		AND os.customer_id=_customer_id AND os.id=osdet.solar_sale_id AND osdet.solar_id=o.id AND osdet.unit_id=u.id
+	union all
+	SELECT '' AS solar_export_code, '' as solar_code, concat('Thanh toán công nợ ', d.code) AS solar_name, '' AS unit_name
+		, 0 as quantity, 0 as price, 0 as amount, COALESCE(d.paid,0) AS paid
+	FROM wholesale_debt AS d, employee AS eo
+	WHERE DATE(d.created_date) >= STR_TO_DATE(_start_date,'%d/%m/%Y') AND DATE(d.created_date) <= STR_TO_DATE(_end_date,'%d/%m/%Y')
+		AND d.created_employee_id=eo.id AND _organization_ids LIKE CONCAT('%,',eo.organization_id,',%')
+		AND d.customer_id=_customer_id
 	;
     END */$$
 DELIMITER ;

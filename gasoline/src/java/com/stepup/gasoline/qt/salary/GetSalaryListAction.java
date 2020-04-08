@@ -6,6 +6,7 @@ package com.stepup.gasoline.qt.salary;
 
 import com.stepup.core.util.NumberUtil;
 import com.stepup.core.util.OutputUtil;
+import com.stepup.core.util.StringUtil;
 import com.stepup.gasoline.qt.core.BaseAction;
 import com.stepup.gasoline.qt.dao.EmployeeDAO;
 import com.stepup.gasoline.qt.util.QTUtil;
@@ -36,7 +37,7 @@ public class GetSalaryListAction extends BaseAction {
                     SalaryFormBean bean = (SalaryFormBean) list.get(i);
                     buff.append("<row id=\"").append(bean.getId()).append("\">");
                     buff.append("<cell>").append(bean.getCode()).append("^javascript:getSalary(").append(bean.getId()).append(",\"loadSalaryList\")^_self</cell>");
-                    buff.append("<cell>").append(bean.getEmployeeName()).append("</cell>");
+                    buff.append("<cell>").append(StringUtil.encodeString(bean.getEmployeeName())).append("</cell>");
                     buff.append("<cell>").append(bean.getCreatedDate()).append("</cell>");
                     buff.append("<cell>").append(NumberUtil.formatMoneyDefault(bean.getTotal(), "VND")).append("</cell>");
                     buff.append("</row>");

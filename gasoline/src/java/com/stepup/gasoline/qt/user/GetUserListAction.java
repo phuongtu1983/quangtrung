@@ -6,6 +6,7 @@ package com.stepup.gasoline.qt.user;
 
 import com.stepup.core.util.NumberUtil;
 import com.stepup.core.util.OutputUtil;
+import com.stepup.core.util.StringUtil;
 import com.stepup.gasoline.qt.bean.UserBean;
 import com.stepup.gasoline.qt.core.BaseAction;
 import com.stepup.gasoline.qt.dao.UserDAO;
@@ -36,8 +37,8 @@ public class GetUserListAction extends BaseAction {
                 for (int i = 0; i < length; i++) {
                     UserBean bean = (UserBean) list.get(i);
                     buff.append("<row id=\"").append(bean.getId()).append("\">");
-                    buff.append("<cell>").append(bean.getFullname()).append("^javascript:getUser(").append(bean.getId()).append(",\"loadUserList\")^_self</cell>");
-                    buff.append("<cell>").append(bean.getUsername()).append("</cell>");
+                    buff.append("<cell>").append(StringUtil.encodeString(bean.getFullname())).append("^javascript:getUser(").append(bean.getId()).append(",\"loadUserList\")^_self</cell>");
+                    buff.append("<cell>").append(StringUtil.encodeString(bean.getUsername())).append("</cell>");
                     buff.append("<cell>").append(bean.getStatusName()).append("</cell>");
                     buff.append("</row>");
                 }

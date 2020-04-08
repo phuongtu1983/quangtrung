@@ -35,7 +35,7 @@ public class GetDynamicFieldListAction extends BaseAction {
                 for (int i = 0; i < length; i++) {
                     DynamicFieldFormBean bean = (DynamicFieldFormBean) list.get(i);
                     buff.append("<row id=\"").append(bean.getId()).append("\">");
-                    buff.append("<cell>").append(bean.getName()).append("^javascript:getDynamicField(").append(bean.getId()).append(",\"loadDynamicFieldList\")^_self</cell>");
+                    buff.append("<cell>").append(StringUtil.encodeString(bean.getName())).append("^javascript:getDynamicField(").append(bean.getId()).append(",\"loadDynamicFieldList\")^_self</cell>");
                     buff.append("<cell>").append(StringUtil.encodeString(bean.getCode())).append("</cell>");
                     buff.append("<cell>").append(StringUtil.encodeString(bean.getOrganizationName())).append("</cell>");
                     buff.append("</row>");

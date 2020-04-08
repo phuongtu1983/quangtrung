@@ -37,7 +37,7 @@ public class GetOrganizationTimesheetListAction extends BaseAction {
                 for (int i = 0; i < length; i++) {
                     OrganizationBean bean = (OrganizationBean) list.get(i);
                     buff.append("<row id=\"").append(bean.getId()).append("\">");
-                    buff.append("<cell>").append(bean.getName()).append("^javascript:getOrganizationTimesheet(").append(bean.getId()).append(",\"loadOrganizationTimesheetList\")^_self</cell>");
+                    buff.append("<cell>").append(StringUtil.encodeString(bean.getName())).append("^javascript:getOrganizationTimesheet(").append(bean.getId()).append(",\"loadOrganizationTimesheetList\")^_self</cell>");
                     buff.append("<cell>").append(bean.getStatusName()).append("</cell>");
                     buff.append("</row>");
                 }

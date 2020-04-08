@@ -5,6 +5,7 @@
 package com.stepup.gasoline.qt.parameter;
 
 import com.stepup.core.util.OutputUtil;
+import com.stepup.core.util.StringUtil;
 import com.stepup.gasoline.qt.bean.ParameterBean;
 import com.stepup.gasoline.qt.dao.ParameterDAO;
 import java.util.ArrayList;
@@ -46,8 +47,8 @@ public class GetParameterListAction extends Action {
                 for (int i = 0; i < length; i++) {
                     ParameterBean bean = (ParameterBean) list.get(i);
                     buff.append("<row id=\"").append(i).append("\">");
-                    buff.append("<cell>").append(bean.getName()).append("^javascript:getParameter(\"").append(bean.getCode()).append("\",\"loadParameterList\")^_self</cell>");
-                    buff.append("<cell>").append(bean.getValue()).append("</cell>");
+                    buff.append("<cell>").append(StringUtil.encodeString(bean.getName())).append("^javascript:getParameter(\"").append(bean.getCode()).append("\",\"loadParameterList\")^_self</cell>");
+                    buff.append("<cell>").append(StringUtil.encodeString(bean.getValue())).append("</cell>");
                     buff.append("</row>");
                 }
             }

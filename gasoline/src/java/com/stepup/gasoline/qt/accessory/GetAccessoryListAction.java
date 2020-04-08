@@ -6,6 +6,7 @@ package com.stepup.gasoline.qt.accessory;
 
 import com.stepup.core.util.NumberUtil;
 import com.stepup.core.util.OutputUtil;
+import com.stepup.core.util.StringUtil;
 import com.stepup.gasoline.qt.core.BaseAction;
 import com.stepup.gasoline.qt.dao.GoodDAO;
 import java.util.ArrayList;
@@ -34,7 +35,7 @@ public class GetAccessoryListAction extends BaseAction {
                 for (int i = 0; i < length; i++) {
                     AccessoryFormBean bean = (AccessoryFormBean) list.get(i);
                     buff.append("<row id=\"").append(bean.getId()).append("\">");
-                    buff.append("<cell>").append(bean.getName()).append("^javascript:getAccessory(").append(bean.getId()).append(",\"loadAccessoryList\")^_self</cell>");
+                    buff.append("<cell>").append(StringUtil.encodeString(bean.getName())).append("^javascript:getAccessory(").append(bean.getId()).append(",\"loadAccessoryList\")^_self</cell>");
                     buff.append("<cell>").append(bean.getStatusName()).append("</cell>");
                     buff.append("</row>");
                 }

@@ -6,6 +6,7 @@ package com.stepup.gasoline.qt.lpgimport;
 
 import com.stepup.core.util.NumberUtil;
 import com.stepup.core.util.OutputUtil;
+import com.stepup.core.util.StringUtil;
 import com.stepup.gasoline.qt.core.BaseAction;
 import com.stepup.gasoline.qt.dao.GasDAO;
 import com.stepup.gasoline.qt.util.QTUtil;
@@ -37,12 +38,12 @@ public class GetLpgImportListAction extends BaseAction {
                     buff.append("<row id=\"").append(bean.getId()).append("\">");
                     buff.append("<cell>").append(bean.getCode()).append("^javascript:getLpgImport(").append(bean.getId()).append(",\"loadLpgImportPanel\")^_self</cell>");
                     buff.append("<cell>").append(bean.getImportDate()).append("</cell>");
-                    buff.append("<cell>").append(bean.getVendorName()).append("</cell>");
+                    buff.append("<cell>").append(StringUtil.encodeString(bean.getVendorName())).append("</cell>");
                     buff.append("<cell>").append(NumberUtil.formatMoneyDefault(bean.getActualQuantity(), "VND")).append("</cell>");
                     buff.append("<cell>").append(NumberUtil.formatMoneyDefault(bean.getPrice(), "VND")).append("</cell>");
                     buff.append("<cell>").append(NumberUtil.formatMoneyDefault(bean.getTotal(), "VND")).append("</cell>");
                     buff.append("<cell>").append(NumberUtil.formatMoneyDefault(bean.getRate(), "VND")).append("</cell>");
-                    buff.append("<cell>").append(bean.getNote()).append("</cell>");
+                    buff.append("<cell>").append(StringUtil.encodeString(bean.getNote())).append("</cell>");
                     buff.append("</row>");
                 }
             }

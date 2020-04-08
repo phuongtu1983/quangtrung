@@ -5,6 +5,7 @@
 package com.stepup.gasoline.qt.employeeoff;
 
 import com.stepup.core.util.OutputUtil;
+import com.stepup.core.util.StringUtil;
 import com.stepup.gasoline.qt.core.BaseAction;
 import com.stepup.gasoline.qt.dao.EmployeeDAO;
 import com.stepup.gasoline.qt.util.QTUtil;
@@ -36,10 +37,10 @@ public class GetEmployeeOffListAction extends BaseAction {
                     buff.append("<row id=\"").append(bean.getId()).append("\">");
                     buff.append("<cell>").append(bean.getCode()).append("^javascript:getEmployeeOff(").append(bean.getId()).append(",\"loadEmployeeOffPanel\")^_self</cell>");
                     buff.append("<cell>").append(bean.getCreatedDate()).append("</cell>");
-                    buff.append("<cell>").append(bean.getEmployeeName()).append("</cell>");
+                    buff.append("<cell>").append(StringUtil.encodeString(bean.getEmployeeName())).append("</cell>");
                     buff.append("<cell>").append(bean.getFromDate()).append("</cell>");
                     buff.append("<cell>").append(bean.getToDate()).append("</cell>");
-                    buff.append("<cell>").append(bean.getNote()).append("</cell>");
+                    buff.append("<cell>").append(StringUtil.encodeString(bean.getNote())).append("</cell>");
                     buff.append("</row>");
                 }
             }

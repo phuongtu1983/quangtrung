@@ -37,9 +37,9 @@ public class GetAccountListAction extends BaseAction {
                     buff.append("<row id=\"").append(bean.getId()).append("\">");
                     buff.append("<cell>").append(bean.getNumber()).append("^javascript:getAccount(").append(bean.getId()).append(",\"loadAccountList\")^_self</cell>");
                     buff.append("<cell>").append(StringUtil.encodeString(bean.getHolder())).append("</cell>");
-                    buff.append("<cell>").append(bean.getBank()).append("</cell>");
-                    buff.append("<cell>").append(bean.getBranch()).append("</cell>");
-                    buff.append("<cell>").append(bean.getOrganizationName()).append("</cell>");
+                    buff.append("<cell>").append(StringUtil.encodeString(bean.getBank())).append("</cell>");
+                    buff.append("<cell>").append(StringUtil.encodeString(bean.getBranch())).append("</cell>");
+                    buff.append("<cell>").append(StringUtil.encodeString(bean.getOrganizationName())).append("</cell>");
                     buff.append("</row>");
                 }
             }

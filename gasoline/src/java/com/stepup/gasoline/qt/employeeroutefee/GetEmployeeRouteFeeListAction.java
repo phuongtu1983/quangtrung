@@ -6,6 +6,7 @@ package com.stepup.gasoline.qt.employeeroutefee;
 
 import com.stepup.core.util.NumberUtil;
 import com.stepup.core.util.OutputUtil;
+import com.stepup.core.util.StringUtil;
 import com.stepup.gasoline.qt.core.BaseAction;
 import com.stepup.gasoline.qt.dao.VehicleDAO;
 import com.stepup.gasoline.qt.util.QTUtil;
@@ -37,14 +38,14 @@ public class GetEmployeeRouteFeeListAction extends BaseAction {
                     buff.append("<row id=\"").append(bean.getId()).append("\">");
                     buff.append("<cell>").append(bean.getCode()).append("^javascript:getEmployeeRouteFee(").append(bean.getId()).append(",\"loadEmployeeRouteFeePanel\")^_self</cell>");
                     buff.append("<cell>").append(bean.getCreatedDate()).append("</cell>");
-                    buff.append("<cell>").append(bean.getRouteName()).append("</cell>");
+                    buff.append("<cell>").append(StringUtil.encodeString(bean.getRouteName())).append("</cell>");
                     buff.append("<cell>").append(NumberUtil.formatMoneyDefault(bean.getDistance(), "VND")).append("</cell>");
                     buff.append("<cell>").append(NumberUtil.formatMoneyDefault(bean.getInQuantity(), "VND")).append("</cell>");
                     buff.append("<cell>").append(NumberUtil.formatMoneyDefault(bean.getOutQuantity(), "VND")).append("</cell>");
                     buff.append("<cell>").append(NumberUtil.formatMoneyDefault(bean.getTotalQuantity(), "VND")).append("</cell>");
                     buff.append("<cell>").append(NumberUtil.formatMoneyDefault(bean.getPrice(), "VND")).append("</cell>");
                     buff.append("<cell>").append(NumberUtil.formatMoneyDefault(bean.getAmount(), "VND")).append("</cell>");
-                    buff.append("<cell>").append(bean.getNote()).append("</cell>");
+                    buff.append("<cell>").append(StringUtil.encodeString(bean.getNote())).append("</cell>");
                     buff.append("</row>");
                 }
             }

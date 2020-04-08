@@ -6,6 +6,7 @@ package com.stepup.gasoline.qt.employeetimesheet;
 
 import com.stepup.core.util.NumberUtil;
 import com.stepup.core.util.OutputUtil;
+import com.stepup.core.util.StringUtil;
 import com.stepup.gasoline.qt.core.BaseAction;
 import com.stepup.gasoline.qt.dao.EmployeeDAO;
 import com.stepup.gasoline.qt.util.QTUtil;
@@ -36,11 +37,11 @@ public class GetEmployeeTimesheetListAction extends BaseAction {
                     EmployeeTimesheetFormBean bean = (EmployeeTimesheetFormBean) list.get(i);
                     buff.append("<row id=\"").append(bean.getId()).append("\">");
                     buff.append("<cell>").append(bean.getCode()).append("^javascript:getEmployeeTimesheet(").append(bean.getId()).append(",\"loadEmployeeTimesheetPanel\")^_self</cell>");
-                    buff.append("<cell>").append(bean.getEmployeeName()).append("</cell>");
+                    buff.append("<cell>").append(StringUtil.encodeString(bean.getEmployeeName())).append("</cell>");
                     buff.append("<cell>").append(bean.getTimesheetDate()).append("</cell>");
-                    buff.append("<cell>").append(bean.getFieldName()).append("</cell>");
+                    buff.append("<cell>").append(StringUtil.encodeString(bean.getFieldName())).append("</cell>");
                     buff.append("<cell>").append(NumberUtil.formatMoneyDefault(bean.getQuantity(), "VND")).append("</cell>");
-                    buff.append("<cell>").append(bean.getNote()).append("</cell>");
+                    buff.append("<cell>").append(StringUtil.encodeString(bean.getNote())).append("</cell>");
                     buff.append("</row>");
                 }
             }

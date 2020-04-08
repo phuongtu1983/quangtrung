@@ -6,6 +6,7 @@ package com.stepup.gasoline.qt.debtvendor;
 
 import com.stepup.core.util.NumberUtil;
 import com.stepup.core.util.OutputUtil;
+import com.stepup.core.util.StringUtil;
 import com.stepup.gasoline.qt.core.BaseAction;
 import com.stepup.gasoline.qt.dao.PaymentDAO;
 import com.stepup.gasoline.qt.util.QTUtil;
@@ -37,9 +38,9 @@ public class GetDebtVendorListAction extends BaseAction {
                     buff.append("<row id=\"").append(bean.getId()).append("\">");
                     buff.append("<cell>").append(bean.getCode()).append("^javascript:getDebtVendor(").append(bean.getId()).append(",\"loadDebtVendorPanel\")^_self</cell>");
                     buff.append("<cell>").append(bean.getCreatedDate()).append("</cell>");
-                    buff.append("<cell>").append(bean.getVendorName()).append("</cell>");
+                    buff.append("<cell>").append(StringUtil.encodeString(bean.getVendorName())).append("</cell>");
                     buff.append("<cell>").append(NumberUtil.formatMoneyDefault(bean.getPaid(), "VND")).append("</cell>");
-                    buff.append("<cell>").append(bean.getNote()).append("</cell>");
+                    buff.append("<cell>").append(StringUtil.encodeString(bean.getNote())).append("</cell>");
                     buff.append("</row>");
                 }
             }

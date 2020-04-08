@@ -6,6 +6,7 @@ package com.stepup.gasoline.qt.employeesolarcommission;
 
 import com.stepup.core.util.NumberUtil;
 import com.stepup.core.util.OutputUtil;
+import com.stepup.core.util.StringUtil;
 import com.stepup.gasoline.qt.core.BaseAction;
 import com.stepup.gasoline.qt.dao.EmployeeDAO;
 import java.util.ArrayList;
@@ -34,9 +35,9 @@ public class GetEmployeeSolarCommissionListAction extends BaseAction {
                 for (int i = 0; i < length; i++) {
                     EmployeeSolarCommissionFormBean bean = (EmployeeSolarCommissionFormBean) list.get(i);
                     buff.append("<row id=\"").append(bean.getId()).append("\">");
-                    buff.append("<cell>").append(bean.getName()).append("^javascript:getEmployeeSolarCommission(").append(bean.getId()).append(",\"loadEmployeeSolarCommissionList\")^_self</cell>");
+                    buff.append("<cell>").append(StringUtil.encodeString(bean.getName())).append("^javascript:getEmployeeSolarCommission(").append(bean.getId()).append(",\"loadEmployeeSolarCommissionList\")^_self</cell>");
                     buff.append("<cell>").append(NumberUtil.formatMoneyDefault(bean.getAmount(), "VND")).append("</cell>");
-                    buff.append("<cell>").append(bean.getNote()).append("</cell>");
+                    buff.append("<cell>").append(StringUtil.encodeString(bean.getNote())).append("</cell>");
                     buff.append("</row>");
                 }
             }

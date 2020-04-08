@@ -49,8 +49,8 @@ public class GetPetroImportListAction extends Action {
                     buff.append("<row id=\"").append(bean.getId()).append("\">");
                     buff.append("<cell>").append(bean.getCode()).append("^javascript:getPetroImport(").append(bean.getId()).append(")^_self</cell>");
                     buff.append("<cell>").append(bean.getCreatedDate()).append("</cell>");
-                    buff.append("<cell>").append(bean.getVendorName()).append("</cell>");
-                    buff.append("<cell>").append(bean.getStoreName()).append("</cell>");
+                    buff.append("<cell>").append(StringUtil.encodeString(bean.getVendorName())).append("</cell>");
+                    buff.append("<cell>").append(StringUtil.encodeString(bean.getStoreName())).append("</cell>");
                     buff.append("<cell>").append(NumberUtil.formatMoneyDefault(bean.getTotal(), "VND")).append("</cell>");
                     buff.append("<cell>").append(NumberUtil.formatMoneyDefault(bean.getPaid(), "VND")).append("</cell>");
                     buff.append("<cell>").append(NumberUtil.formatMoneyDefault(bean.getDebt(), "VND")).append("</cell>");

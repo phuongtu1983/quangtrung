@@ -6,6 +6,7 @@ package com.stepup.gasoline.qt.oil;
 
 import com.stepup.core.util.NumberUtil;
 import com.stepup.core.util.OutputUtil;
+import com.stepup.core.util.StringUtil;
 import com.stepup.gasoline.qt.core.BaseAction;
 import com.stepup.gasoline.qt.dao.GoodDAO;
 import com.stepup.gasoline.qt.util.QTUtil;
@@ -36,9 +37,9 @@ public class GetOilListAction extends BaseAction {
                     OilFormBean bean = (OilFormBean) list.get(i);
                     buff.append("<row id=\"").append(bean.getId()).append("\">");
                     buff.append("<cell>").append(bean.getCode()).append("^javascript:getOil(").append(bean.getId()).append(",\"loadOilList\")^_self</cell>");
-                    buff.append("<cell>").append(bean.getName()).append("</cell>");
-                    buff.append("<cell>").append(bean.getBaseUnitName()).append("</cell>");
-                    buff.append("<cell>").append(bean.getSaleUnitName()).append("</cell>");
+                    buff.append("<cell>").append(StringUtil.encodeString(bean.getName())).append("</cell>");
+                    buff.append("<cell>").append(StringUtil.encodeString(bean.getBaseUnitName())).append("</cell>");
+                    buff.append("<cell>").append(StringUtil.encodeString(bean.getSaleUnitName())).append("</cell>");
                     buff.append("</row>");
                 }
             }

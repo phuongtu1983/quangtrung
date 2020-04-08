@@ -6,6 +6,7 @@ package com.stepup.gasoline.qt.lpgsale;
 
 import com.stepup.core.util.NumberUtil;
 import com.stepup.core.util.OutputUtil;
+import com.stepup.core.util.StringUtil;
 import com.stepup.gasoline.qt.core.BaseAction;
 import com.stepup.gasoline.qt.dao.GasDAO;
 import com.stepup.gasoline.qt.util.QTUtil;
@@ -36,11 +37,11 @@ public class GetLpgSaleListAction extends BaseAction {
                     LpgSaleFormBean bean = (LpgSaleFormBean) list.get(i);
                     buff.append("<row id=\"").append(bean.getId()).append("\">");
                     buff.append("<cell>").append(bean.getCode()).append("^javascript:getLpgSale(").append(bean.getId()).append(",\"loadLpgSalePanel\")^_self</cell>");
-                    buff.append("<cell>").append(bean.getCustomerName()).append("</cell>");
+                    buff.append("<cell>").append(StringUtil.encodeString(bean.getCustomerName())).append("</cell>");
                     buff.append("<cell>").append(NumberUtil.formatMoneyDefault(bean.getQuantity(), "VND")).append("</cell>");
                     buff.append("<cell>").append(NumberUtil.formatMoneyDefault(bean.getPrice() + bean.getPriceTransport(), "VND")).append("</cell>");
                     buff.append("<cell>").append(NumberUtil.formatMoneyDefault(bean.getTotal(), "VND")).append("</cell>");
-                    buff.append("<cell>").append(bean.getNote()).append("</cell>");
+                    buff.append("<cell>").append(StringUtil.encodeString(bean.getNote())).append("</cell>");
                     buff.append("</row>");
                 }
             }

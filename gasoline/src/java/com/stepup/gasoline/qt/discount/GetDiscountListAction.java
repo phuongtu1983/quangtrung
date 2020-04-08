@@ -5,6 +5,7 @@
 package com.stepup.gasoline.qt.discount;
 
 import com.stepup.core.util.OutputUtil;
+import com.stepup.core.util.StringUtil;
 import com.stepup.gasoline.qt.core.BaseAction;
 import com.stepup.gasoline.qt.dao.CustomerDAO;
 import java.util.ArrayList;
@@ -34,8 +35,8 @@ public class GetDiscountListAction extends BaseAction {
                     DiscountFormBean bean = (DiscountFormBean) list.get(i);
                     buff.append("<row id=\"").append(bean.getId()).append("\">");
                     buff.append("<cell>").append(bean.getCode()).append("^javascript:getDiscount(").append(bean.getId()).append(",\"loadDiscountList\")^_self</cell>");
-                    buff.append("<cell>").append(bean.getName()).append("</cell>");
-                    buff.append("<cell>").append(bean.getNote()).append("</cell>");
+                    buff.append("<cell>").append(StringUtil.encodeString(bean.getName())).append("</cell>");
+                    buff.append("<cell>").append(StringUtil.encodeString(bean.getNote())).append("</cell>");
                     buff.append("</row>");
                 }
             }

@@ -35,7 +35,7 @@ public class GetPaneltyListAction extends BaseAction {
                 for (int i = 0; i < length; i++) {
                     PaneltyFormBean bean = (PaneltyFormBean) list.get(i);
                     buff.append("<row id=\"").append(bean.getId()).append("\">");
-                    buff.append("<cell>").append(bean.getName()).append("^javascript:getPanelty(").append(bean.getId()).append(",\"loadPaneltyList\")^_self</cell>");
+                    buff.append("<cell>").append(StringUtil.encodeString(bean.getName())).append("^javascript:getPanelty(").append(bean.getId()).append(",\"loadPaneltyList\")^_self</cell>");
                     buff.append("<cell>").append(StringUtil.encodeString(bean.getNote())).append("</cell>");
                     buff.append("</row>");
                 }

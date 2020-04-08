@@ -5,6 +5,7 @@
 package com.stepup.gasoline.qt.vehicle;
 
 import com.stepup.core.util.OutputUtil;
+import com.stepup.core.util.StringUtil;
 import com.stepup.gasoline.qt.core.BaseAction;
 import com.stepup.gasoline.qt.dao.VehicleDAO;
 import java.util.ArrayList;
@@ -34,7 +35,7 @@ public class GetVehicleListAction extends BaseAction {
                     VehicleFormBean bean = (VehicleFormBean) list.get(i);
                     buff.append("<row id=\"").append(bean.getId()).append("\">");
                     buff.append("<cell>").append(bean.getPlate()).append("^javascript:getVehicle(").append(bean.getId()).append(",\"loadVehicleList\")^_self</cell>");
-                    buff.append("<cell>").append(bean.getNote()).append("</cell>");
+                    buff.append("<cell>").append(StringUtil.encodeString(bean.getNote())).append("</cell>");
                     buff.append("</row>");
                 }
             }

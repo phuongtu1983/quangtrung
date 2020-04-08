@@ -36,9 +36,9 @@ public class GetEmployeeListAction extends BaseAction {
                 for (int i = 0; i < length; i++) {
                     EmployeeFormBean bean = (EmployeeFormBean) list.get(i);
                     buff.append("<row id=\"").append(bean.getId()).append("\">");
-                    buff.append("<cell>").append(bean.getFullname()).append("^javascript:getEmployee(").append(bean.getId()).append(",\"loadEmployeeList\")^_self</cell>");
+                    buff.append("<cell>").append(StringUtil.encodeString(bean.getFullname())).append("^javascript:getEmployee(").append(bean.getId()).append(",\"loadEmployeeList\")^_self</cell>");
                     buff.append("<cell>").append(StringUtil.encodeString(bean.getEmail())).append("</cell>");
-                    buff.append("<cell>").append(bean.getOrganizationName()).append("</cell>");
+                    buff.append("<cell>").append(StringUtil.encodeString(bean.getOrganizationName())).append("</cell>");
                     buff.append("<cell>").append(bean.getStatusName()).append("</cell>");
                     buff.append("</row>");
                 }

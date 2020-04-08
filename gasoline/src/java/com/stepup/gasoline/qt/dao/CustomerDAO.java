@@ -1087,9 +1087,9 @@ public class CustomerDAO extends BasicDAO {
                 bean = new DiscountCommissionDetailBean();
                 bean.setId(rs.getInt("id"));
                 bean.setDiscountId(rs.getInt("discount_id"));
-                bean.setFrom(rs.getFloat("commission_from"));
-                bean.setTo(rs.getFloat("commission_to"));
-                bean.setCommission(rs.getFloat("commission"));
+                bean.setFrom(rs.getDouble("commission_from"));
+                bean.setTo(rs.getDouble("commission_to"));
+                bean.setCommission(rs.getDouble("commission"));
                 detailList.add(bean);
             }
         } catch (SQLException sqle) {
@@ -1248,7 +1248,7 @@ public class CustomerDAO extends BasicDAO {
                 spUtil.getCallableStatement().setDouble("_return_shell", returnShell);
                 spUtil.getCallableStatement().registerOutParameter("_commission", Types.DOUBLE);
                 spUtil.execute();
-                result = spUtil.getCallableStatement().getInt("_commission");
+                result = spUtil.getCallableStatement().getDouble("_commission");
             }
         } catch (SQLException sqle) {
             throw new Exception(sqle.getMessage());

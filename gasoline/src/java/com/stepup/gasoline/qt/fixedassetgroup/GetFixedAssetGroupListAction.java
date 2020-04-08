@@ -36,7 +36,7 @@ public class GetFixedAssetGroupListAction extends BaseAction {
                     FixedAssetGroupFormBean bean = (FixedAssetGroupFormBean) list.get(i);
                     buff.append("<row id=\"").append(bean.getId()).append("\">");
                     buff.append("<cell>").append(StringUtil.encodeString(bean.getName())).append("^javascript:getFixedAssetGroup(").append(bean.getId()).append(",\"loadFixedAssetGroupList\")^_self</cell>");
-                    buff.append("<cell>").append(bean.getOrganizationName()).append("</cell>");
+                    buff.append("<cell>").append(StringUtil.encodeString(bean.getOrganizationName())).append("</cell>");
                     buff.append("</row>");
                 }
             }

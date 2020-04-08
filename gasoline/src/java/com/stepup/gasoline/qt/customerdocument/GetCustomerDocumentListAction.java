@@ -34,8 +34,8 @@ public class GetCustomerDocumentListAction extends BaseAction {
                 for (int i = 0; i < length; i++) {
                     CustomerDocumentFormBean bean = (CustomerDocumentFormBean) list.get(i);
                     buff.append("<row id=\"").append(bean.getId()).append("\">");
-                    buff.append("<cell>").append(bean.getName()).append("^javascript:getCustomerDocument(").append(bean.getId()).append(",\"loadCustomerDocumentList\")^_self</cell>");
-                    buff.append("<cell>").append(bean.getNote()).append("</cell>");
+                    buff.append("<cell>").append(StringUtil.encodeString(bean.getName())).append("^javascript:getCustomerDocument(").append(bean.getId()).append(",\"loadCustomerDocumentList\")^_self</cell>");
+                    buff.append("<cell>").append(StringUtil.encodeString(bean.getNote())).append("</cell>");
                     buff.append("</row>");
                 }
             }

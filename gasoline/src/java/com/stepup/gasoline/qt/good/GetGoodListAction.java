@@ -6,6 +6,7 @@ package com.stepup.gasoline.qt.good;
 
 import com.stepup.core.util.NumberUtil;
 import com.stepup.core.util.OutputUtil;
+import com.stepup.core.util.StringUtil;
 import com.stepup.gasoline.qt.core.BaseAction;
 import com.stepup.gasoline.qt.dao.GoodDAO;
 import com.stepup.gasoline.qt.util.QTUtil;
@@ -36,10 +37,10 @@ public class GetGoodListAction extends BaseAction {
                     GoodFormBean bean = (GoodFormBean) list.get(i);
                     buff.append("<row id=\"").append(bean.getId()).append("\">");
                     buff.append("<cell>").append(bean.getCode()).append("^javascript:getGood(").append(bean.getId()).append(",\"loadGoodList\")^_self</cell>");
-                    buff.append("<cell>").append(bean.getName()).append("</cell>");
+                    buff.append("<cell>").append(StringUtil.encodeString(bean.getName())).append("</cell>");
                     buff.append("<cell>").append(NumberUtil.formatMoneyDefault(bean.getPrice(), "VND")).append("</cell>");
-                    buff.append("<cell>").append(bean.getUnitName()).append("</cell>");
-                    buff.append("<cell>").append(bean.getOrganizationName()).append("</cell>");
+                    buff.append("<cell>").append(StringUtil.encodeString(bean.getUnitName())).append("</cell>");
+                    buff.append("<cell>").append(StringUtil.encodeString(bean.getOrganizationName())).append("</cell>");
                     buff.append("<cell>").append(bean.getStatusName()).append("</cell>");
                     buff.append("</row>");
                 }
