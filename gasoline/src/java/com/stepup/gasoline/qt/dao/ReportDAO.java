@@ -2718,7 +2718,7 @@ public class ReportDAO extends BasicDAO {
         ArrayList list = new ArrayList();
         ResultSet rs = null;
         try {
-            String sql = "{call report_compare_lpg_vendor_customer(?,?,?,?,?)}";
+            String sql = "{call report_compare_lpg_vendor_customer(?,?,?,?,?,?)}";
             if (GenericValidator.isBlankOrNull(fromDate)) {
                 fromDate = DateUtil.today("dd/MM/yyyy");
             }
@@ -2732,11 +2732,12 @@ public class ReportDAO extends BasicDAO {
                 spUtil.getCallableStatement().setString("_organization_ids", organizationIds);
                 spUtil.getCallableStatement().setInt("_vendor_customer_id", vendorCustomerId);
                 spUtil.getCallableStatement().registerOutParameter("_opening_stock", Types.DOUBLE);
-
+                spUtil.getCallableStatement().registerOutParameter("_vendor_name", Types.VARCHAR);
                 rs = spUtil.executeQuery();
 
                 double openingStock = spUtil.getCallableStatement().getDouble("_opening_stock");
                 outBean.setOpeningStock(openingStock);
+                outBean.setVendorName(spUtil.getCallableStatement().getString("_vendor_name"));
                 if (rs != null) {
                     CompareLPGVendorCustomerReportBean bean = null;
                     int count = 1;

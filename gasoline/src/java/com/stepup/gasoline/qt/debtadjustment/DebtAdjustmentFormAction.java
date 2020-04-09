@@ -105,6 +105,10 @@ public class DebtAdjustmentFormAction extends SpineAction {
         value.setLabel(QTUtil.getBundleString("debtVendor.detail.kind.transport.title"));
         value.setValue(DebtVendorBean.KIND_TRANSPORT + "");
         arrKind.add(value);
+        value = new LabelValueBean();
+        value.setLabel(QTUtil.getBundleString("debtVendor.detail.kind.balance.title"));
+        value.setValue(DebtVendorBean.KIND_BALANCE + "");
+        arrKind.add(value);
         request.setAttribute(Constants.KIND_LIST, arrKind);
 
         return true;

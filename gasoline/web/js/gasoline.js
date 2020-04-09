@@ -16725,7 +16725,6 @@ function reformatSaleSolarPromotionMaterialQuantityDetail() {
     }
     quantity = null;
 }
-
 function loadSaleSolarReturnPanel() {
     callAjax("getSaleSolarReturnPanel.do", null, null, function(data) {
         clearContent();
@@ -17466,6 +17465,7 @@ function getInvoiceSolar(id) {
             var currentDate = getCurrentDate();
             document.forms['invoiceSolarForm'].invoiceSolarDate.value = currentDate;
         }
+        formatInvoiceSolarDetail();
         var myCalendar = new dhtmlXCalendarObject(["invoiceSolarDate", "invoiceSolarPaidDate"]);
         myCalendar.setSkin('dhx_web');
         myCalendar.setDateFormat("%d/%m/%Y");
@@ -17502,6 +17502,30 @@ function getInvoiceSolar(id) {
         }
     });
 }
+function formatInvoiceSolarDetail() {
+    var detail = document.forms['invoiceSolarForm'].solarSaleDetailAmount;
+    var detailAmount = document.forms['invoiceSolarForm'].solarSalePaidDetailAmount;
+    if (detail != null) {
+        if (detail.length != null) {
+            for (var i = 0; i < detail.length; i++) {
+                tryNumberFormatCurrentcy(detail[i], "VND");
+            }
+        } else {
+            tryNumberFormatCurrentcy(detail, "VND");
+        }
+    }
+    if (detailAmount != null) {
+        if (detailAmount.length != null) {
+            for (var i = 0; i < detailAmount.length; i++) {
+                tryNumberFormatCurrentcy(detailAmount[i], "VND");
+            }
+        } else {
+            tryNumberFormatCurrentcy(detailAmount, "VND");
+        }
+    }
+    detail = null;
+    detailAmount = null;
+}
 function saveInvoiceSolar() {
     if (scriptFunction == "saveInvoiceSolar")
         return false;
@@ -17525,7 +17549,6 @@ function saveInvoiceSolar() {
 
     var amount = reformatNumberMoney(document.forms['invoiceSolarForm'].amount);
     var amountPaid = reformatNumberMoney(document.forms['invoiceSolarForm'].amountPaid);
-
     if (amountPaid * 1 > amount * 1) {
         alert("T\u1ED5ng ti\u1EC1n \u0111\u00E3 thanh to\u00E1n kh\u00F4ng \u0111\u01B0\u1EE3c l\u1EDBn h\u01A1n t\u1ED5ng ti\u1EC1n h\u00F3a \u0111\u01A1n");
         tryNumberFormatCurrentcy(document.forms['invoiceSolarForm'].amount, "VND");
@@ -17533,8 +17556,8 @@ function saveInvoiceSolar() {
         return false;
     }
 
-    var amount = document.forms['invoiceSolarForm'].oilSaleDetailAmount;
-    var paidAmount = document.forms['invoiceSolarForm'].oilSalePaidDetailAmount;
+    var amount = document.forms['invoiceSolarForm'].solarSaleDetailAmount;
+    var paidAmount = document.forms['invoiceSolarForm'].solarSalePaidDetailAmount;
     if (amount != null) {
         if (amount.length != null) {
             for (var i = 0; i < amount.length; i++) {
@@ -17558,8 +17581,6 @@ function saveInvoiceSolar() {
         }
     }
     amount = null;
-    reformatNumberMoney(document.forms['invoiceSolarForm'].amount);
-    reformatNumberMoney(document.forms['invoiceSolarForm'].amountPaid);
     scriptFunction = "saveInvoiceSolar";
     callAjaxCheckError("addInvoiceSolar.do", null, document.forms['invoiceSolarForm'], function(data) {
         scriptFunction = "";
