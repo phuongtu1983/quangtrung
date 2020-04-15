@@ -89,7 +89,7 @@ public class PermissionFormAction extends SpineAction {
         ArrayList arrEmp = new ArrayList();
         try {
             UserDAO empDAO = new UserDAO();
-            arrEmp = empDAO.getUsers(EmployeeBean.STATUS_ACTIVE, QTUtil.getOrganizationManageds(request.getSession()));
+            arrEmp = empDAO.getUsers(EmployeeBean.STATUS_ACTIVE, "");
         } catch (Exception ex) {
         }
         if (arrEmp == null) {
@@ -100,7 +100,7 @@ public class PermissionFormAction extends SpineAction {
         ArrayList arrOrg = new ArrayList();
         try {
             OrganizationDAO orgDAO = new OrganizationDAO();
-            arrOrg = orgDAO.getOrganizations(EmployeeBean.STATUS_ACTIVE, QTUtil.getOrganizationManageds(request.getSession()));
+            arrOrg = orgDAO.getOrganizations(EmployeeBean.STATUS_ACTIVE, "");
         } catch (Exception ex) {
         }
         if (arrOrg == null) {
@@ -650,7 +650,7 @@ public class PermissionFormAction extends SpineAction {
         perBean.setValue(PermissionUtil.PER_OIL_IMPORT);
         perBean.setOperations("," + PermissionUtil.OPERATION_LIST + "," + PermissionUtil.OPERATION_ADD + "," + PermissionUtil.OPERATION_EDIT + "," + PermissionUtil.OPERATION_DELETE + "," + PermissionUtil.OPERATION_EDIT_PAST + ",");
         arrFun.add(perBean);
-        
+
         perBean = new PermissionViewBean();
         perBean.setCounter("2.56");
         perBean.setLevel(2);
@@ -855,7 +855,7 @@ public class PermissionFormAction extends SpineAction {
         perBean.setValue(PermissionUtil.PER_CONTRACT);
         perBean.setOperations("," + PermissionUtil.OPERATION_LIST + "," + PermissionUtil.OPERATION_ADD + "," + PermissionUtil.OPERATION_EDIT + "," + PermissionUtil.OPERATION_DELETE + "," + PermissionUtil.OPERATION_PRINT + ",");
         arrFun.add(perBean);
-        
+
         perBean = new PermissionViewBean();
         perBean.setCounter("2.77");
         perBean.setLevel(2);
@@ -864,7 +864,7 @@ public class PermissionFormAction extends SpineAction {
         perBean.setValue(PermissionUtil.PER_INVOICE);
         perBean.setOperations("," + PermissionUtil.OPERATION_LIST + "," + PermissionUtil.OPERATION_ADD + "," + PermissionUtil.OPERATION_EDIT + "," + PermissionUtil.OPERATION_DELETE + "," + PermissionUtil.OPERATION_PRINT + ",");
         arrFun.add(perBean);
-        
+
         perBean = new PermissionViewBean();
         perBean.setCounter("2.78");
         perBean.setLevel(2);
@@ -944,7 +944,7 @@ public class PermissionFormAction extends SpineAction {
         perBean.setValue(PermissionUtil.PER_DEBT_ADJUSTMENT);
         perBean.setOperations("," + PermissionUtil.OPERATION_LIST + "," + PermissionUtil.OPERATION_ADD + "," + PermissionUtil.OPERATION_EDIT + "," + PermissionUtil.OPERATION_DELETE + "," + PermissionUtil.OPERATION_EDIT_PAST + ",");
         arrFun.add(perBean);
-        
+
         perBean = new PermissionViewBean();
         perBean.setCounter("2.86");
         perBean.setLevel(2);
@@ -971,7 +971,7 @@ public class PermissionFormAction extends SpineAction {
         perBean.setValue(PermissionUtil.PER_SOLAR);
         perBean.setOperations("," + PermissionUtil.OPERATION_LIST + "," + PermissionUtil.OPERATION_ADD + "," + PermissionUtil.OPERATION_EDIT + ",");
         arrFun.add(perBean);
-		perBean = new PermissionViewBean();
+        perBean = new PermissionViewBean();
         perBean.setCounter("2.89");
         perBean.setLevel(2);
         perBean.setSharedId(2);
@@ -979,7 +979,7 @@ public class PermissionFormAction extends SpineAction {
         perBean.setValue(PermissionUtil.PER_SOLAR_IMPORT);
         perBean.setOperations("," + PermissionUtil.OPERATION_LIST + "," + PermissionUtil.OPERATION_ADD + "," + PermissionUtil.OPERATION_EDIT + "," + PermissionUtil.OPERATION_DELETE + "," + PermissionUtil.OPERATION_EDIT_PAST + ",");
         arrFun.add(perBean);
-        
+
         perBean = new PermissionViewBean();
         perBean.setCounter("2.90");
         perBean.setLevel(2);
@@ -1357,7 +1357,7 @@ public class PermissionFormAction extends SpineAction {
         perBean.setValue(PermissionUtil.PER_REPORT_OIL_COMMISSION_AGENCY);
         perBean.setOperations("," + PermissionUtil.OPERATION_PRINT + ",");
         arrFun.add(perBean);
-        
+
         perBean = new PermissionViewBean();
         perBean.setCounter("3.38");
         perBean.setLevel(2);
@@ -1375,7 +1375,7 @@ public class PermissionFormAction extends SpineAction {
         perBean.setValue(PermissionUtil.PER_REPORT_OIL_VENDOR_STOCK);
         perBean.setOperations("," + PermissionUtil.OPERATION_PRINT + ",");
         arrFun.add(perBean);
-        
+
         perBean = new PermissionViewBean();
         perBean.setCounter("3.40");
         perBean.setLevel(2);
@@ -1384,7 +1384,7 @@ public class PermissionFormAction extends SpineAction {
         perBean.setValue(PermissionUtil.PER_REPORT_OIL_VENDOR_DEBT);
         perBean.setOperations("," + PermissionUtil.OPERATION_PRINT + ",");
         arrFun.add(perBean);
-        
+
         perBean = new PermissionViewBean();
         perBean.setCounter("3.41");
         perBean.setLevel(2);
@@ -1393,7 +1393,7 @@ public class PermissionFormAction extends SpineAction {
         perBean.setValue(PermissionUtil.PER_REPORT_OIL_CUSTOMER_DEBT);
         perBean.setOperations("," + PermissionUtil.OPERATION_PRINT + ",");
         arrFun.add(perBean);
-        
+
         perBean = new PermissionViewBean();
         perBean.setCounter("3.42");
         perBean.setLevel(2);
@@ -1447,7 +1447,7 @@ public class PermissionFormAction extends SpineAction {
         perBean.setValue(PermissionUtil.PER_REPORT_SOLAR_COMMISSION_AGENCY);
         perBean.setOperations("," + PermissionUtil.OPERATION_PRINT + ",");
         arrFun.add(perBean);
-        
+
         perBean = new PermissionViewBean();
         perBean.setCounter("3.48");
         perBean.setLevel(2);
@@ -1465,7 +1465,7 @@ public class PermissionFormAction extends SpineAction {
         perBean.setValue(PermissionUtil.PER_REPORT_SOLAR_VENDOR_STOCK);
         perBean.setOperations("," + PermissionUtil.OPERATION_PRINT + ",");
         arrFun.add(perBean);
-        
+
         perBean = new PermissionViewBean();
         perBean.setCounter("3.50");
         perBean.setLevel(2);
@@ -1474,7 +1474,7 @@ public class PermissionFormAction extends SpineAction {
         perBean.setValue(PermissionUtil.PER_REPORT_SOLAR_VENDOR_DEBT);
         perBean.setOperations("," + PermissionUtil.OPERATION_PRINT + ",");
         arrFun.add(perBean);
-        
+
         perBean = new PermissionViewBean();
         perBean.setCounter("3.41");
         perBean.setLevel(2);

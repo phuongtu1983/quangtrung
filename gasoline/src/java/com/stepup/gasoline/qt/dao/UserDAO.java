@@ -20,7 +20,7 @@ public class UserDAO extends BasicDAO {
 
     public ArrayList getUsers(int status, String organizationIds) throws Exception {
         ResultSet rs = null;
-        String sql = "select u.*, e.fullname from user as u, employee as e where u.employee_id=e.id";
+        String sql = "select u.*, e.fullname from user as u, employee as e where u.employee_id=e.id and e.organization_id<>-1";
         if (status != 0) {
             sql += " and u.status=" + status + " and e.status=" + status;
         }

@@ -170,6 +170,12 @@
         </action>
         <action path="/delPermission" type="com.stepup.gasoline.qt.permission.DeletePermissionAction" scope="request" validate="false" >
         </action>
+        <action path="/getPermissionOrganization" type="com.stepup.gasoline.qt.permission.GetPermissionOrganizationAction" scope="request" validate="false">
+            <forward name="success" path="/permission/organizations.jsp" />
+        </action>
+        <action path="/getPermissionUser" type="com.stepup.gasoline.qt.permission.GetPermissionUserAction" scope="request" validate="false">
+            <forward name="success" path="/permission/employees.jsp" />
+        </action>
         <!-- end permission -->
         <!-- start parameter -->
         <action path="/getParameterPanel" type="com.stepup.gasoline.qt.common.BaseStatusFormAction" scope="request" validate="false">

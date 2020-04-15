@@ -28,12 +28,14 @@
                     <table>
                         <tr>
                             <td>
-                                <button class="i_cross icon small red" onclick="return delTableRow('permissionForm','permissionOrgChk','permissionOrgTbl');"><bean:message key="message.del"/></button>
+                                <button class="i_cross icon small red" onclick="return delTableRow('permissionForm', 'permissionOrgChk', 'permissionOrgDetailTbl');"><bean:message key="message.del"/></button>
                                 <button class="i_plus icon small green" onclick="return addPermissionOrg();"><bean:message key="message.add"/></button>
                             </td>
                             <td>
-                                <select style="width: 290px;" name="organizationCombobox" id="organizationCombobox">
-                                    <%@include  file="/combo/organization.jsp"%>
+                                <select style="width: 260px;" name="organizationCombobox" id="organizationCombobox">
+                                    <logic:iterate id="good_iter" name="<%=Constants.ORGANIZATION_LIST%>">
+                                        <option  value="${good_iter.id}">${good_iter.name}</option>
+                                    </logic:iterate>
                                 </select>
                             </td>
                         </tr>
@@ -42,7 +44,7 @@
             </td>
         </tr>
         <tr>
-            <td colspan="2"><div><%@include  file="/permission/organizations.jsp" %></div></td>
+            <td colspan="2"><div><%@include  file="/permission/organizationdetails.jsp" %></div></td>
         </tr>
         <tr>
             <td colspan="2">
@@ -51,7 +53,7 @@
                     <table>
                         <tr>
                             <td>
-                                <button class="i_cross icon small red" onclick="return delTableRow('permissionForm','permissionEmpChk','permissionEmpTbl');"><bean:message key="message.del"/></button>
+                                <button class="i_cross icon small red" onclick="return delTableRow('permissionForm', 'permissionEmpChk', 'permissionEmpDetailTbl');"><bean:message key="message.del"/></button>
                                 <button class="i_plus icon small green" onclick="return addPermissionEmp();"><bean:message key="message.add"/></button>
                             </td>
                             <td>
@@ -65,7 +67,7 @@
             </td>
         </tr>
         <tr>
-            <td colspan="2"><div><%@include  file="/permission/employees.jsp" %></div></td>
+            <td colspan="2"><div><%@include  file="/permission/employeedetails.jsp" %></div></td>
         </tr>
         <tr>
             <td colspan="2">
@@ -101,3 +103,5 @@
 </div>
 <div id="shiftCFunctionHideDiv" style="display:none">loadPermissionPanel()</div>
 <div id="shiftSFunctionHideDiv" style="display:none">savePermission()</div>
+<div id="permissionOrganizationHideDiv" style="display:none"></div>
+<div id="permissionUserHideDiv" style="display:none"></div>

@@ -216,9 +216,9 @@ public class CustomerDAO extends BasicDAO {
         return null;
     }
 
-    public CustomerFormBean getCustomerByName(String name) throws Exception {
+    public CustomerFormBean getCustomerByName(String name, int organizationId) throws Exception {
         ResultSet rs = null;
-        String sql = "select * from customer where name='" + name + "' and status=" + EmployeeBean.STATUS_ACTIVE;
+        String sql = "select * from customer where name='" + name + "' and organization_id=" + organizationId + " and status=" + EmployeeBean.STATUS_ACTIVE;
         try {
             rs = DBUtil.executeQuery(sql);
             while (rs.next()) {

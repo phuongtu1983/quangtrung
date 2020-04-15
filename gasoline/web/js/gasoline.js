@@ -848,102 +848,178 @@ function permissionLevel1Change(srcObject, name) {
 }
 function addPermissionEmp() {
     var user = document.forms['permissionForm'].userSelectedHidden.value;
-    if (user == -1)
+    if (user == -1 || user == 0)
         return false;
-    var permissionEmpId = document.forms['permissionForm'].permissionEmpId;
+    var userId = document.forms['permissionForm'].userId;
     var existed = false;
-    if (permissionEmpId != null) {
-        if (permissionEmpId.length != null) {
-            for (i = 0; i < permissionEmpId.length; i++) {
-                if (permissionEmpId[i].value == user) {
+    if (userId != null) {
+        if (userId.length != null) {
+            for (i = 0; i < userId.length; i++) {
+                if (userId[i].value == user) {
                     existed = true;
                     break;
                 }
             }
-        } else if (permissionEmpId.value == user)
+        } else if (userId.value == user)
             existed = true;
     }
-    permissionEmpId = null;
+    userId = null;
     if (existed == true) {
         alert("Nh\u00E2n vi\u00EAn \u0111\u00E3 t\u1ED3n t\u1EA1i");
         return false;
     }
-
-    var name = document.forms['permissionForm'].userSelectedTextHidden.value;
-    var tbl = document.getElementById('permissionEmpTbl');
-    var row = document.createElement("tr");
-    tbl.tBodies[0].appendChild(row);
-    var cell = row.insertCell(0);
-    var el = document.createElement('input');
-    el.type = 'checkbox';
-    el.name = 'permissionEmpChk';
-    el.value = user;
-    cell.appendChild(el);
-    el = document.createElement('input');
-    el.type = 'hidden';
-    el.name = 'permissionEmpId';
-    el.value = user;
-    cell.appendChild(el);
-    cell = row.insertCell(1);
-    el = document.createElement('span');
-    el.name = 'permissionEmp';
-    el.innerHTML = name;
-    cell.appendChild(el);
-    el = null
-    cell = null;
-    row = null;
-    tbl = null;
+    callAjax("getPermissionUser.do?userId=" + user, null, null, function(data) {
+        setAjaxData(data, 'permissionUserHideDiv');
+        var matTable = document.getElementById('permissionEmpTbl');
+        var detTable = document.getElementById('permissionEmpDetailTbl');
+        if (matTable.tBodies[0] == null || detTable.tBodies[0] == null) {
+            matTable = null;
+            detTable = null;
+            return;
+        }
+        for (var i = matTable.tBodies[0].rows.length - 1; i >= 0; i--)
+            detTable.tBodies[0].appendChild(matTable.tBodies[0].rows[i]);
+        matTable = null;
+        detTable = null;
+    });
     return false;
 }
 function addPermissionOrg() {
     var organization = document.forms['permissionForm'].organizationSelectedHidden.value;
-    if (organization == -1)
+    if (organization == -1 || organization == 0)
         return false;
-    var permissionOrgId = document.forms['permissionForm'].permissionOrgId;
+    var organizationId = document.forms['permissionForm'].organizationId;
     var existed = false;
-    if (permissionOrgId != null) {
-        if (permissionOrgId.length != null) {
-            for (i = 0; i < permissionOrgId.length; i++) {
-                if (permissionOrgId[i].value == organization) {
+    if (organizationId != null) {
+        if (organizationId.length != null) {
+            for (i = 0; i < organizationId.length; i++) {
+                if (organizationId[i].value == organization) {
                     existed = true;
                     break;
                 }
             }
-        } else if (permissionOrgId.value == organization)
+        } else if (organizationId.value == organization)
             existed = true;
     }
-    permissionOrgId = null;
+    organizationId = null;
     if (existed == true) {
         alert("\u0110\u01A1n v\u1ECB \u0111\u00E3 t\u1ED3n t\u1EA1i");
         return false;
     }
-
-    var name = document.forms['permissionForm'].organizationSelectedTextHidden.value;
-    var tbl = document.getElementById('permissionOrgTbl');
-    var row = document.createElement("tr");
-    tbl.tBodies[0].appendChild(row);
-    var cell = row.insertCell(0);
-    var el = document.createElement('input');
-    el.type = 'checkbox';
-    el.name = 'permissionOrgChk';
-    el.value = organization;
-    cell.appendChild(el);
-    el = document.createElement('input');
-    el.type = 'hidden';
-    el.name = 'permissionOrgId';
-    el.value = organization;
-    cell.appendChild(el);
-    cell = row.insertCell(1);
-    el = document.createElement('span');
-    el.name = 'permissionOrg';
-    el.innerHTML = name;
-    cell.appendChild(el);
-    el = null
-    cell = null;
-    row = null;
-    tbl = null;
+    callAjax("getPermissionOrganization.do?organizationId=" + organization, null, null, function(data) {
+        setAjaxData(data, 'permissionOrganizationHideDiv');
+        var matTable = document.getElementById('permissionOrgTbl');
+        var detTable = document.getElementById('permissionOrgDetailTbl');
+        if (matTable.tBodies[0] == null || detTable.tBodies[0] == null) {
+            matTable = null;
+            detTable = null;
+            return;
+        }
+        for (var i = matTable.tBodies[0].rows.length - 1; i >= 0; i--)
+            detTable.tBodies[0].appendChild(matTable.tBodies[0].rows[i]);
+        matTable = null;
+        detTable = null;
+    });
     return false;
 }
+//function addPermissionEmp() {
+//    var user = document.forms['permissionForm'].userSelectedHidden.value;
+//    if (user == -1)
+//        return false;
+//    var permissionEmpId = document.forms['permissionForm'].permissionEmpId;
+//    var existed = false;
+//    if (permissionEmpId != null) {
+//        if (permissionEmpId.length != null) {
+//            for (i = 0; i < permissionEmpId.length; i++) {
+//                if (permissionEmpId[i].value == user) {
+//                    existed = true;
+//                    break;
+//                }
+//            }
+//        } else if (permissionEmpId.value == user)
+//            existed = true;
+//    }
+//    permissionEmpId = null;
+//    if (existed == true) {
+//        alert("Nh\u00E2n vi\u00EAn \u0111\u00E3 t\u1ED3n t\u1EA1i");
+//        return false;
+//    }
+//
+//    var name = document.forms['permissionForm'].userSelectedTextHidden.value;
+//    var tbl = document.getElementById('permissionEmpTbl');
+//    var row = document.createElement("tr");
+//    tbl.tBodies[0].appendChild(row);
+//    var cell = row.insertCell(0);
+//    var el = document.createElement('input');
+//    el.type = 'checkbox';
+//    el.name = 'permissionEmpChk';
+//    el.value = user;
+//    cell.appendChild(el);
+//    el = document.createElement('input');
+//    el.type = 'hidden';
+//    el.name = 'permissionEmpId';
+//    el.value = user;
+//    cell.appendChild(el);
+//    cell = row.insertCell(1);
+//    el = document.createElement('span');
+//    el.name = 'permissionEmp';
+//    el.innerHTML = name;
+//    cell.appendChild(el);
+//    el = null
+//    cell = null;
+//    row = null;
+//    tbl = null;
+//    return false;
+//}
+//function addPermissionOrg() {
+//    var organization = document.forms['permissionForm'].organizationSelectedHidden.value;
+//    if (organization == -1)
+//        return false;
+//    var permissionOrgId = document.forms['permissionForm'].permissionOrgId;
+//    var existed = false;
+//    if (permissionOrgId != null) {
+//        if (permissionOrgId.length != null) {
+//            for (i = 0; i < permissionOrgId.length; i++) {
+//                if (permissionOrgId[i].value == organization) {
+//                    existed = true;
+//                    break;
+//                }
+//            }
+//        } else if (permissionOrgId.value == organization)
+//            existed = true;
+//    }
+//    permissionOrgId = null;
+//    if (existed == true) {
+//        alert("\u0110\u01A1n v\u1ECB \u0111\u00E3 t\u1ED3n t\u1EA1i");
+//        return false;
+//    }
+//
+//    var name = document.forms['permissionForm'].organizationSelectedTextHidden.value;
+//    var tbl = document.getElementById('permissionOrgTbl');
+//    var row = document.createElement("tr");
+//    tbl.tBodies[0].appendChild(row);
+//    var cell = row.insertCell(0);
+//    var el = document.createElement('input');
+//    el.type = 'checkbox';
+//    el.name = 'permissionOrgChk';
+//    el.value = organization;
+//    cell.appendChild(el);
+//    el = document.createElement('input');
+//    el.type = 'hidden';
+//    el.name = 'permissionOrgId';
+//    el.value = organization;
+//    cell.appendChild(el);
+//    cell = row.insertCell(1);
+//    el = document.createElement('span');
+//    el.name = 'permissionOrg';
+//    el.innerHTML = name;
+//    cell.appendChild(el);
+//    el = null
+//    cell = null;
+//    row = null;
+//    tbl = null;
+//    return false;
+//}
 function delTableRow(form, chkbox, table) {
     var detId = eval("document.forms['" + form + "']." + chkbox);
     if (detId == null)

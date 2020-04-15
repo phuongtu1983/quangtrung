@@ -34,7 +34,7 @@ public class OrganizationDAO extends BasicDAO {
 
     public ArrayList getOrganizations(int status, String ids) throws Exception {
         ResultSet rs = null;
-        String sql = "select * from organization where 1";
+        String sql = "select * from organization where id<>-1";
         if (status != 0) {
             sql += " and status=" + status;
         }

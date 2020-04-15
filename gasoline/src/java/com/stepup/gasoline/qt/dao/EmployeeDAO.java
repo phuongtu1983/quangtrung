@@ -274,6 +274,30 @@ public class EmployeeDAO extends BasicDAO {
         return employeeList;
     }
 
+    public EmployeeBean getEmployeeByUser(int userId) throws Exception {
+        ResultSet rs = null;
+        String sql = "select e.id, u.id as user_id, e.fullname from employee as e, user as u where e.id=u.employee_id and u.id=" + userId;
+        try {
+            rs = DBUtil.executeQuery(sql);
+            while (rs.next()) {
+                EmployeeBean employee = new EmployeeBean();
+                employee.setId(rs.getInt("id"));
+                employee.setUserId(rs.getInt("user_id"));
+                employee.setFullname(rs.getString("fullname"));
+                return employee;
+            }
+        } catch (SQLException sqle) {
+            throw new Exception(sqle.getMessage());
+        } catch (Exception ex) {
+            throw new Exception(ex.getMessage());
+        } finally {
+            if (rs != null) {
+                DBUtil.closeConnection(rs);
+            }
+        }
+        return null;
+    }
+
     public int insertEmployee(EmployeeBean bean) throws Exception {
         if (bean == null) {
             return 0;

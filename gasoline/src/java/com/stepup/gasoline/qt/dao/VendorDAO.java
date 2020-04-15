@@ -240,9 +240,9 @@ public class VendorDAO extends BasicDAO {
         return null;
     }
 
-    public VendorFormBean getVendorByName(String name) throws Exception {
+    public VendorFormBean getVendorByName(String name, int organizatoinId) throws Exception {
         ResultSet rs = null;
-        String sql = "select * from vendor where name='" + name + "' and status=" + EmployeeBean.STATUS_ACTIVE;
+        String sql = "select * from vendor where name='" + name + "' and organization_id=" + organizatoinId + " and status=" + EmployeeBean.STATUS_ACTIVE;
         try {
             rs = DBUtil.executeQuery(sql);
             while (rs.next()) {
