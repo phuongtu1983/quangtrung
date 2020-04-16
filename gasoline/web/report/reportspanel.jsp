@@ -26,7 +26,7 @@
             </tr>
             <tr>
                 <td colspan="3" align="center">
-                    <button class="i_printer icon small" onclick="return printReport(document.forms['reportSearchForm'].fromDate.value, document.forms['reportSearchForm'].toDate.value);">In</button>
+                    <button class="i_printer icon small" onclick="return printReport(document.forms['reportSearchForm'].fromDate.value, document.forms['reportSearchForm'].toDate.value);"><bean:message key="message.permission.permit.download"/></button>
                     <button class="i_access_denied icon small yellow" onclick="return hidePopupForm();"><bean:message key="message.close"/></button>
                 </td>
             </tr>

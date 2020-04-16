@@ -138,7 +138,11 @@
                     <logic:equal name="<%=Constants.SALE_OIL%>" property="canEdit" value="1">
                         <%if (PermissionUtil.hasPermission(request, PermissionUtil.OPERATION_EDIT, PermissionUtil.PER_SALE_OIL)) {%> 
                         <button class="i_create_write icon small green" onclick="return saveSaleOil();"><bean:message key="message.save"/></button>
+                        <%}%>
+                        <%if (PermissionUtil.hasPermission(request, PermissionUtil.OPERATION_ADD, PermissionUtil.PER_OIL_EXPORT)) {%> 
                         <button class="i_bended_arrow_left icon small green" onclick="return getSaleOilReturn(0, <bean:write name="<%=Constants.SALE_OIL%>" property="id"/>);"><bean:message key="saleOilReturn.title"/></button>
+                        <%}%>
+                        <%if (PermissionUtil.hasPermission(request, PermissionUtil.OPERATION_ADD, PermissionUtil.PER_SALE_OIL_RETURN)) {%> 
                         <button class="i_create_write icon small green" onclick="return getOilExport(0, <bean:write name="<%=Constants.SALE_OIL%>" property="id"/>);"><bean:message key="oilExport.title"/></button>
                         <%}%>
                         <%if (PermissionUtil.hasPermission(request, PermissionUtil.OPERATION_DELETE, PermissionUtil.PER_SALE_OIL)) {%> 

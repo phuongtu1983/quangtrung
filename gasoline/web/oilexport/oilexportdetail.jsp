@@ -49,7 +49,7 @@
                         <%if (PermissionUtil.hasPermission(request, PermissionUtil.OPERATION_EDIT, PermissionUtil.PER_OIL_EXPORT)) {%> 
                         <button class="i_create_write icon small green" onclick="return saveOilExport();"><bean:message key="message.save"/></button>
                         <%}%>
-                        <button class="i_printer icon small" onclick="return printOilExport(<bean:write name="<%=Constants.OIL_EXPORT%>" property="id"/>);">In</button>
+                        <button class="i_printer icon small" onclick="return printOilExport(<bean:write name="<%=Constants.OIL_EXPORT%>" property="id"/>);"><bean:message key="message.permission.permit.download"/></button>
                         <%if (PermissionUtil.hasPermission(request, PermissionUtil.OPERATION_DELETE, PermissionUtil.PER_OIL_EXPORT)) {%> 
                         <button class="i_trashcan icon small red" onclick="return delOilExport();"><bean:message key="message.del"/></button>
                         <%}%>

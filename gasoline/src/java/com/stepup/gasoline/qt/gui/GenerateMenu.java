@@ -33,7 +33,11 @@ public class GenerateMenu {
             StringBuilder buffTemp = new StringBuilder();
 
             if (isHasPermission(PermissionUtil.OPERATION_LIST + "," + PermissionUtil.OPERATION_ADD,
-                    PermissionUtil.PER_USER + "," + PermissionUtil.PER_PARAMTER + "," + PermissionUtil.PER_PERMISSION + "," + PermissionUtil.PER_OPENING_STOCK)) {
+                    PermissionUtil.PER_USER + "," + PermissionUtil.PER_PARAMTER + "," + PermissionUtil.PER_PERMISSION + "," + PermissionUtil.PER_OPENING_STOCK_ACCESSORY
+                    + "," + PermissionUtil.PER_OPENING_STOCK_CUSTOMER + "," + PermissionUtil.PER_OPENING_STOCK_GOOD + "," + PermissionUtil.PER_OPENING_STOCK_LPG
+                    + "," + PermissionUtil.PER_OPENING_STOCK_CASH + "," + PermissionUtil.PER_OPENING_STOCK_PETRO + "," + PermissionUtil.PER_OPENING_STOCK_PROMOTION_MATERIAL
+                    + "," + PermissionUtil.PER_OPENING_STOCK_GAS_SHELL + "," + PermissionUtil.PER_OPENING_STOCK_SHELL + "," + PermissionUtil.PER_OPENING_STOCK_SHIELD
+                    + "," + PermissionUtil.PER_OPENING_STOCK_VENDOR + "," + PermissionUtil.PER_OPENING_STOCK_OIL + "," + PermissionUtil.PER_OPENING_STOCK_SOLAR)) {
                 buffTemp.append("<item id=\"system\" complex=\"true\" text=\"").append(QTUtil.getBundleString("menu.admin.system.title")).append("\">");//start system
                 if (isHasPermission(PermissionUtil.OPERATION_LIST + "," + PermissionUtil.OPERATION_ADD, PermissionUtil.PER_USER)) {
                     buffTemp.append("<item id=\"users\" complex=\"true\" text=\"").append(QTUtil.getBundleString("user.title")).append("\">");//start users
@@ -51,7 +55,11 @@ public class GenerateMenu {
                 if (isHasPermission(PermissionUtil.OPERATION_LIST, PermissionUtil.PER_PERMISSION)) {
                     buffTemp.append("<item id=\"permissionlist\" text=\"").append(QTUtil.getBundleString("permission.title")).append("\"/>");//permission
                 }
-                if (isHasPermission(PermissionUtil.OPERATION_LIST, PermissionUtil.PER_OPENING_STOCK)) {
+                if (isHasPermission(PermissionUtil.OPERATION_LIST + "", PermissionUtil.PER_OPENING_STOCK_ACCESSORY
+                        + "," + PermissionUtil.PER_OPENING_STOCK_CUSTOMER + "," + PermissionUtil.PER_OPENING_STOCK_GOOD + "," + PermissionUtil.PER_OPENING_STOCK_LPG
+                        + "," + PermissionUtil.PER_OPENING_STOCK_CASH + "," + PermissionUtil.PER_OPENING_STOCK_PETRO + "," + PermissionUtil.PER_OPENING_STOCK_PROMOTION_MATERIAL
+                        + "," + PermissionUtil.PER_OPENING_STOCK_GAS_SHELL + "," + PermissionUtil.PER_OPENING_STOCK_SHELL + "," + PermissionUtil.PER_OPENING_STOCK_SHIELD
+                        + "," + PermissionUtil.PER_OPENING_STOCK_VENDOR + "," + PermissionUtil.PER_OPENING_STOCK_OIL + "," + PermissionUtil.PER_OPENING_STOCK_SOLAR)) {
                     buffTemp.append("<item id=\"openingstock\" text=\"").append(QTUtil.getBundleString("openingStock.title")).append("\"/>");//openingStock
                 }
                 buffTemp.append("</item>");//end system

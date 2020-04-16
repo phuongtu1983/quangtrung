@@ -75,7 +75,7 @@
                 <%}%>
                 <%if (bean.getLevel() == 1) {%>
                 <td><div><strong><%=bean.getCounter()%></strong></div></td>
-                <td><strong><%=bean.getName()%></strong></td>
+                <td><strong>&nbsp;&nbsp;&nbsp;&nbsp;<%=bean.getName()%></strong></td>
                 <td>
                     <%if (bean.getOperations().contains("," + PermissionUtil.OPERATION_LIST + ",")) {%>
                     <div align="center"><html:multibox property="funcList" name="<%=Constants.PERMISSION%>"><%=bean.getValue()%></html:multibox></div>
@@ -109,7 +109,7 @@
                 <%}%>
                 <%if (bean.getLevel() == 2) {%>
                 <td><div><%=bean.getCounter()%></div></td>
-                <td>&nbsp;&nbsp;&nbsp;&nbsp;<%=bean.getName()%></td>
+                <td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<%=bean.getName()%></td>
                 <td>
                     <%if (bean.getOperations().contains("," + PermissionUtil.OPERATION_LIST + ",")) {%>
                     <div align="center">

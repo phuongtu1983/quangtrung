@@ -169,7 +169,7 @@ public class PermissionUtil {
     public static int PER_REPORT_GAS_EMPLOYEE_COMMISION = 80;
     public static int PER_REPORT_VENDOR_DEBT = 81;
     public static int PER_LO_VO = 82;
-    public static int PER_OPENING_STOCK = 83;
+    public static int PER_OPENING_STOCK_ACCESSORY = 83;
     public static int PER_REPORT_TRANSPORT_FEE = 84;
     public static int PER_REPORT_VEHICLE_FEE = 85;
     public static int PER_REPORT_COMPARE_VENDOR = 86;
@@ -237,5 +237,17 @@ public class PermissionUtil {
     public static int PER_REPORT_SOLAR_VENDOR_DEBT = 148;
     public static int PER_REPORT_SOLAR_COMMISSION_CUSTOMER = 149;
     public static int PER_REPORT_SOLAR_CUSTOMER_DEBT = 150;
-    public static int PER_INVOICE_SOLAR = 131;
+    public static int PER_INVOICE_SOLAR = 151;
+    public static int PER_OPENING_STOCK_CUSTOMER = 152;
+    public static int PER_OPENING_STOCK_GOOD = 153;
+    public static int PER_OPENING_STOCK_LPG = 154;
+    public static int PER_OPENING_STOCK_CASH = 155;
+    public static int PER_OPENING_STOCK_PETRO = 156;
+    public static int PER_OPENING_STOCK_PROMOTION_MATERIAL = 157;
+    public static int PER_OPENING_STOCK_GAS_SHELL = 158;
+    public static int PER_OPENING_STOCK_SHELL = 159;
+    public static int PER_OPENING_STOCK_SHIELD = 160;
+    public static int PER_OPENING_STOCK_VENDOR = 161;
+    public static int PER_OPENING_STOCK_OIL = 162;
+    public static int PER_OPENING_STOCK_SOLAR = 163;
 }

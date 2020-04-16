@@ -36,7 +36,7 @@
             </tr>
             <tr>
                 <td colspan="3" align="center">
-                    <button class="i_printer icon small" onclick="return printLpgStockSumOrganizationReport(document.forms['reportLpgStockSumOrganizationSearchForm'].fromDate.value, document.forms['reportLpgStockSumOrganizationSearchForm'].toDate.value);">In</button>
+                    <button class="i_printer icon small" onclick="return printLpgStockSumOrganizationReport(document.forms['reportLpgStockSumOrganizationSearchForm'].fromDate.value, document.forms['reportLpgStockSumOrganizationSearchForm'].toDate.value);"><bean:message key="message.permission.permit.download"/></button>
                     <button class="i_access_denied icon small yellow" onclick="return hidePopupForm();"><bean:message key="message.close"/></button>
                 </td>
             </tr>
