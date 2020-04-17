@@ -568,7 +568,7 @@ public class PermissionFormAction extends SpineAction {
         perBean.setValue(PermissionUtil.PER_DYNAMIC_FIELD);
         perBean.setOperations("," + PermissionUtil.OPERATION_LIST + "," + PermissionUtil.OPERATION_ADD + "," + PermissionUtil.OPERATION_EDIT + "," + PermissionUtil.OPERATION_DELETE + ",");
         arrFun.add(perBean);
-        
+
         perBean = new PermissionViewBean();
         perBean.setCounter("1.11");
         perBean.setLevel(1);
@@ -577,122 +577,122 @@ public class PermissionFormAction extends SpineAction {
         perBean.setValue(0);
         perBean.setOperations("");
         arrFun.add(perBean);
-        
+
         perBean = new PermissionViewBean();
         perBean.setCounter("1.11.1");
         perBean.setLevel(2);
         perBean.setSharedId(1);
         perBean.setName(QTUtil.getBundleString("openingStock.accessory.title"));
         perBean.setValue(PermissionUtil.PER_OPENING_STOCK_ACCESSORY);
-        perBean.setOperations("," + PermissionUtil.OPERATION_LIST + ",");
+        perBean.setOperations("," + PermissionUtil.OPERATION_LIST + "," + PermissionUtil.OPERATION_ADD + ",");
         arrFun.add(perBean);
-        
+
         perBean = new PermissionViewBean();
         perBean.setCounter("1.11.2");
         perBean.setLevel(2);
         perBean.setSharedId(1);
         perBean.setName(QTUtil.getBundleString("openingStock.customer.title"));
         perBean.setValue(PermissionUtil.PER_OPENING_STOCK_CUSTOMER);
-        perBean.setOperations("," + PermissionUtil.OPERATION_LIST + ",");
+        perBean.setOperations("," + PermissionUtil.OPERATION_LIST + "," + PermissionUtil.OPERATION_ADD + ",");
         arrFun.add(perBean);
-        
+
         perBean = new PermissionViewBean();
         perBean.setCounter("1.11.3");
         perBean.setLevel(2);
         perBean.setSharedId(1);
         perBean.setName(QTUtil.getBundleString("openingStock.good.title"));
         perBean.setValue(PermissionUtil.PER_OPENING_STOCK_GOOD);
-        perBean.setOperations("," + PermissionUtil.OPERATION_LIST + ",");
+        perBean.setOperations("," + PermissionUtil.OPERATION_LIST + "," + PermissionUtil.OPERATION_ADD + ",");
         arrFun.add(perBean);
-        
+
         perBean = new PermissionViewBean();
         perBean.setCounter("1.11.4");
         perBean.setLevel(2);
         perBean.setSharedId(1);
         perBean.setName(QTUtil.getBundleString("openingStock.lpg.title"));
         perBean.setValue(PermissionUtil.PER_OPENING_STOCK_LPG);
-        perBean.setOperations("," + PermissionUtil.OPERATION_LIST + ",");
+        perBean.setOperations("," + PermissionUtil.OPERATION_LIST + "," + PermissionUtil.OPERATION_ADD + ",");
         arrFun.add(perBean);
-        
+
         perBean = new PermissionViewBean();
         perBean.setCounter("1.11.5");
         perBean.setLevel(2);
         perBean.setSharedId(1);
         perBean.setName(QTUtil.getBundleString("openingStock.cash.title"));
         perBean.setValue(PermissionUtil.PER_OPENING_STOCK_CASH);
-        perBean.setOperations("," + PermissionUtil.OPERATION_LIST + ",");
+        perBean.setOperations("," + PermissionUtil.OPERATION_LIST + "," + PermissionUtil.OPERATION_ADD + ",");
         arrFun.add(perBean);
-        
+
         perBean = new PermissionViewBean();
         perBean.setCounter("1.11.6");
         perBean.setLevel(2);
         perBean.setSharedId(1);
         perBean.setName(QTUtil.getBundleString("openingStock.petro.title"));
         perBean.setValue(PermissionUtil.PER_OPENING_STOCK_PETRO);
-        perBean.setOperations("," + PermissionUtil.OPERATION_LIST + ",");
+        perBean.setOperations("," + PermissionUtil.OPERATION_LIST + "," + PermissionUtil.OPERATION_ADD + ",");
         arrFun.add(perBean);
-        
+
         perBean = new PermissionViewBean();
         perBean.setCounter("1.11.7");
         perBean.setLevel(2);
         perBean.setSharedId(1);
         perBean.setName(QTUtil.getBundleString("openingStock.promotionMaterial.title"));
         perBean.setValue(PermissionUtil.PER_OPENING_STOCK_PROMOTION_MATERIAL);
-        perBean.setOperations("," + PermissionUtil.OPERATION_LIST + ",");
+        perBean.setOperations("," + PermissionUtil.OPERATION_LIST + "," + PermissionUtil.OPERATION_ADD + ",");
         arrFun.add(perBean);
-        
+
         perBean = new PermissionViewBean();
         perBean.setCounter("1.11.8");
         perBean.setLevel(2);
         perBean.setSharedId(1);
         perBean.setName(QTUtil.getBundleString("openingStock.gasShell.title"));
         perBean.setValue(PermissionUtil.PER_OPENING_STOCK_GAS_SHELL);
-        perBean.setOperations("," + PermissionUtil.OPERATION_LIST + ",");
+        perBean.setOperations("," + PermissionUtil.OPERATION_LIST + "," + PermissionUtil.OPERATION_ADD + ",");
         arrFun.add(perBean);
-        
+
         perBean = new PermissionViewBean();
         perBean.setCounter("1.11.9");
         perBean.setLevel(2);
         perBean.setSharedId(1);
         perBean.setName(QTUtil.getBundleString("openingStock.shell.title"));
         perBean.setValue(PermissionUtil.PER_OPENING_STOCK_SHELL);
-        perBean.setOperations("," + PermissionUtil.OPERATION_LIST + ",");
+        perBean.setOperations("," + PermissionUtil.OPERATION_LIST + "," + PermissionUtil.OPERATION_ADD + ",");
         arrFun.add(perBean);
-        
+
         perBean = new PermissionViewBean();
         perBean.setCounter("1.11.10");
         perBean.setLevel(2);
         perBean.setSharedId(1);
         perBean.setName(QTUtil.getBundleString("openingStock.shield.title"));
         perBean.setValue(PermissionUtil.PER_OPENING_STOCK_SHIELD);
-        perBean.setOperations("," + PermissionUtil.OPERATION_LIST + ",");
+        perBean.setOperations("," + PermissionUtil.OPERATION_LIST + "," + PermissionUtil.OPERATION_ADD + ",");
         arrFun.add(perBean);
-        
+
         perBean = new PermissionViewBean();
         perBean.setCounter("1.11.11");
         perBean.setLevel(2);
         perBean.setSharedId(1);
         perBean.setName(QTUtil.getBundleString("openingStock.vendor.title"));
         perBean.setValue(PermissionUtil.PER_OPENING_STOCK_VENDOR);
-        perBean.setOperations("," + PermissionUtil.OPERATION_LIST + ",");
+        perBean.setOperations("," + PermissionUtil.OPERATION_LIST + "," + PermissionUtil.OPERATION_ADD + ",");
         arrFun.add(perBean);
-        
+
         perBean = new PermissionViewBean();
         perBean.setCounter("1.11.12");
         perBean.setLevel(2);
         perBean.setSharedId(1);
         perBean.setName(QTUtil.getBundleString("openingStock.oil.title"));
         perBean.setValue(PermissionUtil.PER_OPENING_STOCK_OIL);
-        perBean.setOperations("," + PermissionUtil.OPERATION_LIST + ",");
+        perBean.setOperations("," + PermissionUtil.OPERATION_LIST + "," + PermissionUtil.OPERATION_ADD + ",");
         arrFun.add(perBean);
-        
+
         perBean = new PermissionViewBean();
         perBean.setCounter("1.11.13");
         perBean.setLevel(2);
         perBean.setSharedId(1);
         perBean.setName(QTUtil.getBundleString("openingStock.solar.title"));
         perBean.setValue(PermissionUtil.PER_OPENING_STOCK_SOLAR);
-        perBean.setOperations("," + PermissionUtil.OPERATION_LIST + ",");
+        perBean.setOperations("," + PermissionUtil.OPERATION_LIST + "," + PermissionUtil.OPERATION_ADD + ",");
         arrFun.add(perBean);
 
         perBean = new PermissionViewBean();
@@ -927,7 +927,7 @@ public class PermissionFormAction extends SpineAction {
         perBean.setValue(PermissionUtil.PER_GAS_WHOLESALE);
         perBean.setOperations("," + PermissionUtil.OPERATION_LIST + "," + PermissionUtil.OPERATION_ADD + "," + PermissionUtil.OPERATION_EDIT + "," + PermissionUtil.OPERATION_DELETE + "," + PermissionUtil.OPERATION_EDIT_PAST + ",");
         arrFun.add(perBean);
-        
+
         perBean = new PermissionViewBean();
         perBean.setCounter("4.8");
         perBean.setLevel(2);
@@ -1395,7 +1395,7 @@ public class PermissionFormAction extends SpineAction {
         perBean.setValue(PermissionUtil.PER_REPORT_CASH_BOOK);
         perBean.setOperations("," + PermissionUtil.OPERATION_PRINT + ",");
         arrFun.add(perBean);
-        
+
         perBean = new PermissionViewBean();
         perBean.setCounter("7.1.16");
         perBean.setLevel(2);
@@ -1413,7 +1413,7 @@ public class PermissionFormAction extends SpineAction {
         perBean.setValue(PermissionUtil.PER_REPORT_GAS_EMPLOYEE_COMMISION);
         perBean.setOperations("," + PermissionUtil.OPERATION_PRINT + ",");
         arrFun.add(perBean);
-        
+
         perBean = new PermissionViewBean();
         perBean.setCounter("7.1.18");
         perBean.setLevel(2);
@@ -1422,7 +1422,7 @@ public class PermissionFormAction extends SpineAction {
         perBean.setValue(PermissionUtil.PER_REPORT_SHELL);
         perBean.setOperations("," + PermissionUtil.OPERATION_PRINT + ",");
         arrFun.add(perBean);
-        
+
         perBean = new PermissionViewBean();
         perBean.setCounter("7.2");
         perBean.setLevel(1);
@@ -1431,7 +1431,7 @@ public class PermissionFormAction extends SpineAction {
         perBean.setValue(0);
         perBean.setOperations("");
         arrFun.add(perBean);
-        
+
         perBean = new PermissionViewBean();
         perBean.setCounter("7.2.1");
         perBean.setLevel(2);
@@ -1467,7 +1467,7 @@ public class PermissionFormAction extends SpineAction {
         perBean.setValue(PermissionUtil.PER_REPORT_PETRO_STOCK_STORE);
         perBean.setOperations("," + PermissionUtil.OPERATION_PRINT + ",");
         arrFun.add(perBean);
-        
+
         perBean = new PermissionViewBean();
         perBean.setCounter("7.3");
         perBean.setLevel(1);
@@ -1476,7 +1476,7 @@ public class PermissionFormAction extends SpineAction {
         perBean.setValue(0);
         perBean.setOperations("");
         arrFun.add(perBean);
-        
+
         perBean = new PermissionViewBean();
         perBean.setCounter("7.3.1");
         perBean.setLevel(2);
@@ -1485,7 +1485,7 @@ public class PermissionFormAction extends SpineAction {
         perBean.setValue(PermissionUtil.PER_REPORT_COMPARE_GOOD);
         perBean.setOperations("," + PermissionUtil.OPERATION_PRINT + ",");
         arrFun.add(perBean);
-        
+
         perBean = new PermissionViewBean();
         perBean.setCounter("7.4");
         perBean.setLevel(1);
@@ -1494,7 +1494,7 @@ public class PermissionFormAction extends SpineAction {
         perBean.setValue(0);
         perBean.setOperations("");
         arrFun.add(perBean);
-        
+
         perBean = new PermissionViewBean();
         perBean.setCounter("7.4.1");
         perBean.setLevel(2);
@@ -1512,7 +1512,7 @@ public class PermissionFormAction extends SpineAction {
         perBean.setValue(PermissionUtil.PER_REPORT_OIL_STOCK);
         perBean.setOperations("," + PermissionUtil.OPERATION_PRINT + ",");
         arrFun.add(perBean);
-        
+
         perBean = new PermissionViewBean();
         perBean.setCounter("7.4.3");
         perBean.setLevel(2);
@@ -1521,7 +1521,7 @@ public class PermissionFormAction extends SpineAction {
         perBean.setValue(PermissionUtil.PER_REPORT_OIL_STOCK_SUM);
         perBean.setOperations("," + PermissionUtil.OPERATION_PRINT + ",");
         arrFun.add(perBean);
-        
+
         perBean = new PermissionViewBean();
         perBean.setCounter("7.4.4");
         perBean.setLevel(2);
@@ -1584,7 +1584,7 @@ public class PermissionFormAction extends SpineAction {
         perBean.setValue(PermissionUtil.PER_REPORT_OIL_CUSTOMER_DEBT);
         perBean.setOperations("," + PermissionUtil.OPERATION_PRINT + ",");
         arrFun.add(perBean);
-        
+
         perBean = new PermissionViewBean();
         perBean.setCounter("7.5");
         perBean.setLevel(1);
@@ -1593,7 +1593,7 @@ public class PermissionFormAction extends SpineAction {
         perBean.setValue(0);
         perBean.setOperations("");
         arrFun.add(perBean);
-        
+
         perBean = new PermissionViewBean();
         perBean.setCounter("7.5.1");
         perBean.setLevel(2);
@@ -1683,7 +1683,7 @@ public class PermissionFormAction extends SpineAction {
         perBean.setValue(PermissionUtil.PER_REPORT_SOLAR_CUSTOMER_DEBT);
         perBean.setOperations("," + PermissionUtil.OPERATION_PRINT + ",");
         arrFun.add(perBean);
-        
+
         perBean = new PermissionViewBean();
         perBean.setCounter("7.6");
         perBean.setLevel(1);
@@ -1692,7 +1692,7 @@ public class PermissionFormAction extends SpineAction {
         perBean.setValue(0);
         perBean.setOperations("");
         arrFun.add(perBean);
-        
+
         perBean = new PermissionViewBean();
         perBean.setCounter("7.6.1");
         perBean.setLevel(2);
@@ -1728,7 +1728,7 @@ public class PermissionFormAction extends SpineAction {
         perBean.setValue(PermissionUtil.PER_REPORT_TRANSPORT_SERVICE);
         perBean.setOperations("," + PermissionUtil.OPERATION_PRINT + ",");
         arrFun.add(perBean);
-        
+
         perBean = new PermissionViewBean();
         perBean.setCounter("7.7");
         perBean.setLevel(1);
@@ -1737,7 +1737,7 @@ public class PermissionFormAction extends SpineAction {
         perBean.setValue(0);
         perBean.setOperations("");
         arrFun.add(perBean);
-        
+
         perBean = new PermissionViewBean();
         perBean.setCounter("7.7.1");
         perBean.setLevel(2);

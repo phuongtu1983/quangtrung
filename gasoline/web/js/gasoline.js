@@ -11113,7 +11113,10 @@ function loadOpeningStockPanel() {
 function printOpeningStockExport(kind) {
     var url = "exportOpeningStock.do?reportName=" + kind;
     var date = document.getElementById("openingStockDate").value;
-    if (date !== null)
+    if (date == null){
+        alert("Vui l\u00F2ng ch\u1ECDn ng\u00E0y xem s\u1ED1 d\u01B0");
+        return false;
+    }
         url += "&date=" + date;
     callServer(url);
     return false;

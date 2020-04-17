@@ -8,6 +8,7 @@
  */
 package com.stepup.gasoline.qt.util;
 
+import com.stepup.core.util.NumberUtil;
 import com.stepup.gasoline.qt.permission.ApplicationPermissionBean;
 import java.util.ArrayList;
 import javax.servlet.http.HttpServletRequest;
@@ -43,22 +44,45 @@ public class PermissionUtil {
         return false;
     }
 
+//    public static boolean hasOneOfPermission(HttpServletRequest request, int operation, String functions) {
+//        HttpSession session = request.getSession();
+//        if ((session != null) && (session.getAttribute(Constants.PERMISSION_USER_LIST) != null)) {
+//            ArrayList<ApplicationPermissionBean> arrPer = (ArrayList<ApplicationPermissionBean>) session.getAttribute(Constants.PERMISSION_USER_LIST);
+//            ApplicationPermissionBean permission = null;
+//            for (int i = 0; i < arrPer.size(); i++) {
+//                permission = (ApplicationPermissionBean) arrPer.get(i);
+//                if (permission.getOperation() == operation) {
+//                    String[] p = functions.split(",");
+//                    String func = "," + permission.getFunction() + ",";
+//                    for (int j = 0; j < p.length; j++) {
+//                        if (func.contains(',' + p[j] + ',')) {
+//                            return true;
+//                        }
+//                    }
+//                }
+//            }
+//        }
+//        return false;
+//    }
     public static boolean hasOneOfPermission(HttpServletRequest request, int operation, String functions) {
-        HttpSession session = request.getSession();
-        if ((session != null) && (session.getAttribute(Constants.PERMISSION_USER_LIST) != null)) {
-            ArrayList<ApplicationPermissionBean> arrPer = (ArrayList<ApplicationPermissionBean>) session.getAttribute(Constants.PERMISSION_USER_LIST);
-            ApplicationPermissionBean permission = null;
-            for (int i = 0; i < arrPer.size(); i++) {
-                permission = (ApplicationPermissionBean) arrPer.get(i);
-                if (permission.getOperation() == operation) {
-                    String[] p = functions.split(",");
-                    String func = "," + permission.getFunction() + ",";
-                    for (int j = 0; j < p.length; j++) {
-                        if (func.contains(',' + p[j] + ',')) {
-                            return true;
-                        }
-                    }
-                }
+        boolean result = false;
+        String[] p = functions.split(",");
+        for (int j = 0; j < p.length; j++) {
+            result = hasPermission(request, operation, NumberUtil.parseInt(p[j], 0));
+            if (result) {
+                return result;
+            }
+        }
+        return false;
+    }
+
+    public static boolean hasOneOfPermission(HttpServletRequest request, String operations, int function) {
+        boolean result = false;
+        String[] o = operations.split(",");
+        for (int j = 0; j < o.length; j++) {
+            result = hasPermission(request, NumberUtil.parseInt(o[j], 0), function);
+            if (result) {
+                return result;
             }
         }
         return false;

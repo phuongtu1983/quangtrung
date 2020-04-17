@@ -139,10 +139,10 @@
                         <%if (PermissionUtil.hasPermission(request, PermissionUtil.OPERATION_EDIT, PermissionUtil.PER_SALE_SOLAR)) {%> 
                         <button class="i_create_write icon small green" onclick="return saveSaleSolar();"><bean:message key="message.save"/></button>
                         <%}%>
-                        <%if (PermissionUtil.hasPermission(request, PermissionUtil.OPERATION_ADD, PermissionUtil.PER_SOLAR_EXPORT)) {%> 
+                        <%if (PermissionUtil.hasPermission(request, PermissionUtil.OPERATION_ADD, PermissionUtil.PER_SALE_SOLAR_RETURN)) {%> 
                         <button class="i_bended_arrow_left icon small green" onclick="return getSaleSolarReturn(0, <bean:write name="<%=Constants.SALE_SOLAR%>" property="id"/>);"><bean:message key="saleSolarReturn.title"/></button>
                         <%}%>
-                        <%if (PermissionUtil.hasPermission(request, PermissionUtil.OPERATION_ADD, PermissionUtil.PER_SALE_SOLAR_RETURN)) {%> 
+                        <%if (PermissionUtil.hasPermission(request, PermissionUtil.OPERATION_ADD, PermissionUtil.PER_SOLAR_EXPORT)) {%> 
                         <button class="i_create_write icon small green" onclick="return getSolarExport(0, <bean:write name="<%=Constants.SALE_SOLAR%>" property="id"/>);"><bean:message key="solarExport.title"/></button>
                         <%}%>
                         <%if (PermissionUtil.hasPermission(request, PermissionUtil.OPERATION_DELETE, PermissionUtil.PER_SALE_SOLAR)) {%> 
