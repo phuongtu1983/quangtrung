@@ -1275,8 +1275,8 @@ public class ReportDAO extends BasicDAO {
                         bean = new VendorDebtReportBean();
                         bean.setVendorCode(rs.getString("vendor_code"));
                         bean.setVendorName(rs.getString("vendor_name"));
-                        bean.setOpeningStock(rs.getInt("opening_stock"));
-                        bean.setAmount(rs.getInt("amount"));
+                        bean.setOpeningStock(rs.getDouble("opening_stock"));
+                        bean.setAmount(rs.getDouble("amount"));
                         bean.setPaid(rs.getDouble("paid"));
                         bean.setEndingStock(bean.getOpeningStock() + bean.getAmount() - bean.getPaid());
                         list.add(bean);

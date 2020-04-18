@@ -10190,7 +10190,7 @@ function loadDiscountPanel() {
 function loadDiscountList() {
     var mygrid = new dhtmlXGridObject('discountList');
     mygrid.setImagePath("js/dhtmlx/grid/imgs/");
-    mygrid.setHeader("M\u00E3 chi\u1EBFt kh\u1EA5u,T\u00EAn chi\u1EBFt kh\u1EA5u,Ghi ch\u00FA");
+    mygrid.setHeader("M\u00E3 Chi\u1EBFt kh\u1EA5u - Gi\u1EA3m gi\u00E1,T\u00EAn Chi\u1EBFt kh\u1EA5u - Gi\u1EA3m gi\u00E1,Ghi ch\u00FA");
     mygrid.attachHeader("#text_filter,#text_filter,#text_filter");
     mygrid.setInitWidths("150,150,*");
     mygrid.setColTypes("link,ro,ro");
@@ -10252,7 +10252,7 @@ function saveDiscount() {
         return false;
     var field = document.forms['discountForm'].name;
     if (field.value == '') {
-        alert("Vui l\u00F2ng nh\u1EADp t\u00EAn chi\u1EBFt kh\u1EA5u");
+        alert("Vui l\u00F2ng nh\u1EADp t\u00EAn Chi\u1EBFt kh\u1EA5u - Gi\u1EA3m gi\u00E1");
         field.focus();
         field = null;
         return false;
