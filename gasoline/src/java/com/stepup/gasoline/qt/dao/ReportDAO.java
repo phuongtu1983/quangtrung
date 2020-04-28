@@ -820,6 +820,7 @@ public class ReportDAO extends BasicDAO {
                 if (rs != null) {
                     PetroSaleReportBean bean = null;
                     int count = 1;
+                    int id = 0;
                     while (rs.next()) {
                         bean = new PetroSaleReportBean();
                         bean.setCount(count++ + "");
@@ -831,8 +832,11 @@ public class ReportDAO extends BasicDAO {
                         bean.setQuantity(rs.getInt("quantity"));
                         bean.setPrice(rs.getDouble("price"));
                         bean.setAmount(rs.getDouble("amount"));
-                        bean.setPaid(rs.getDouble("paid"));
                         bean.setPaymentMethod(rs.getString("account"));
+                        if (id != rs.getInt("id")) {
+                            bean.setPaid(rs.getDouble("paid"));
+                            id = rs.getInt("id");
+                        }
                         list.add(bean);
                     }
                 }
@@ -890,7 +894,7 @@ public class ReportDAO extends BasicDAO {
                             stock = rs.getInt("opening_stock");
                             outBean.setOpeningStock(stock);
                             firstTime = false;
-                            continue;
+//                            continue;
                         }
                         bean = new PetroStockReportBean();
                         bean.setDate(DateUtil.formatDate(rs.getDate("created_date"), "dd/MM/yyyy"));
@@ -960,7 +964,7 @@ public class ReportDAO extends BasicDAO {
                             stock = rs.getInt("opening_stock");
                             outBean.setOpeningStock(stock);
                             firstTime = false;
-                            continue;
+//                            continue;
                         }
                         bean = new PetroStockReportBean();
                         bean.setDate(DateUtil.formatDate(rs.getDate("created_date"), "dd/MM/yyyy"));
@@ -3358,7 +3362,7 @@ public class ReportDAO extends BasicDAO {
         ArrayList list = new ArrayList();
         ResultSet rs = null;
         try {
-            String sql = "{call report_oil_compare(?,?,?,?,?,?)}";
+            String sql = "{call report_oil_compare(?,?,?,?,?,?,?)}";
             if (GenericValidator.isBlankOrNull(fromDate)) {
                 fromDate = DateUtil.today("dd/MM/yyyy");
             }
@@ -3372,11 +3376,13 @@ public class ReportDAO extends BasicDAO {
                 spUtil.getCallableStatement().setString("_organization_ids", organizationIds);
                 spUtil.getCallableStatement().setInt("_customer_id", customerId);
                 spUtil.getCallableStatement().registerOutParameter("_amount_debt", Types.DOUBLE);
+                spUtil.getCallableStatement().registerOutParameter("_customer_paid", Types.DOUBLE);
                 spUtil.getCallableStatement().registerOutParameter("_customer_commission", Types.FLOAT);
 
                 rs = spUtil.executeQuery();
 
                 outBean.setOpeningAmountStock(spUtil.getCallableStatement().getDouble("_amount_debt"));
+                outBean.setCustomerPaid(spUtil.getCallableStatement().getDouble("_customer_paid"));
                 outBean.setCustomerCommission(spUtil.getCallableStatement().getFloat("_customer_commission"));
                 if (rs != null) {
                     OilCompareReportBean bean = null;
@@ -4317,7 +4323,7 @@ public class ReportDAO extends BasicDAO {
         ArrayList list = new ArrayList();
         ResultSet rs = null;
         try {
-            String sql = "{call report_solar_compare(?,?,?,?,?,?)}";
+            String sql = "{call report_solar_compare(?,?,?,?,?,?,?)}";
             if (GenericValidator.isBlankOrNull(fromDate)) {
                 fromDate = DateUtil.today("dd/MM/yyyy");
             }
@@ -4331,11 +4337,13 @@ public class ReportDAO extends BasicDAO {
                 spUtil.getCallableStatement().setString("_organization_ids", organizationIds);
                 spUtil.getCallableStatement().setInt("_customer_id", customerId);
                 spUtil.getCallableStatement().registerOutParameter("_amount_debt", Types.DOUBLE);
+                spUtil.getCallableStatement().registerOutParameter("_customer_paid", Types.DOUBLE);
                 spUtil.getCallableStatement().registerOutParameter("_customer_commission", Types.FLOAT);
 
                 rs = spUtil.executeQuery();
 
                 outBean.setOpeningAmountStock(spUtil.getCallableStatement().getDouble("_amount_debt"));
+                outBean.setCustomerPaid(spUtil.getCallableStatement().getDouble("_customer_paid"));
                 outBean.setCustomerCommission(spUtil.getCallableStatement().getFloat("_customer_commission"));
                 if (rs != null) {
                     SolarCompareReportBean bean = null;

@@ -21,6 +21,7 @@ public class OilCompareReportOutBean {
     private float customerCommission;
     private double customerCommissionAmount;
     private double openingAmountStock;
+    private double customerPaid;
 
     public double getOpeningAmountStock() {
         return openingAmountStock;
@@ -100,6 +101,14 @@ public class OilCompareReportOutBean {
 
     public void setCustomerCommissionAmount(double customerCommissionAmount) {
         this.customerCommissionAmount = customerCommissionAmount;
+    }
+
+    public double getCustomerPaid() {
+        return customerPaid;
+    }
+
+    public void setCustomerPaid(double customerPaid) {
+        this.customerPaid = customerPaid;
     }
 
 }

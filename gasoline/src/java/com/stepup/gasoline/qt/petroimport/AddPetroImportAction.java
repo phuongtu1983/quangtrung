@@ -100,7 +100,7 @@ public class AddPetroImportAction extends SpineAction {
                 if (id == 0) {
                     PetroImportDetailBean bean = new PetroImportDetailBean();
                     bean.setPetroId(NumberUtil.parseInt(formBean.getPetroId()[i], 0));
-                    bean.setQuantity(NumberUtil.parseInt(formBean.getQuantity()[i], 0));
+                    bean.setQuantity(NumberUtil.parseDouble(formBean.getQuantity()[i], 0));
                     bean.setPrice(NumberUtil.parseInt(formBean.getPrice()[i], 0));
                     bean.setAmount(NumberUtil.parseInt(formBean.getAmount()[i], 0));
                     bean.setPetroImportId(formBean.getId());
@@ -119,7 +119,7 @@ public class AddPetroImportAction extends SpineAction {
                         arrDetail.remove(j);
                         if (oldBean.getQuantity() != NumberUtil.parseDouble(formBean.getQuantity()[i], 0)) {
                             isUpdate = true;
-                            oldBean.setQuantity(NumberUtil.parseInt(formBean.getQuantity()[i], 0));
+                            oldBean.setQuantity(NumberUtil.parseDouble(formBean.getQuantity()[i], 0));
                         }
                         if (oldBean.getPrice() != NumberUtil.parseDouble(formBean.getPrice()[i], 0)) {
                             isUpdate = true;

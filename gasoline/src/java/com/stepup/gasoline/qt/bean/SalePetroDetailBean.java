@@ -20,7 +20,7 @@ public class SalePetroDetailBean {
     private String storeName;
     private int customerId;
     private String customerName;
-    private int quantity;
+    private double quantity;
     private double price;
     private double amount;
 
@@ -32,11 +32,11 @@ public class SalePetroDetailBean {
         this.id = id;
     }
 
-    public int getQuantity() {
+    public double getQuantity() {
         return quantity;
     }
 
-    public void setQuantity(int quantity) {
+    public void setQuantity(double quantity) {
         this.quantity = quantity;
     }
 

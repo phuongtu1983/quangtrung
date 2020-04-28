@@ -2552,7 +2552,7 @@ public class GoodDAO extends BasicDAO {
             if (spUtil != null) {
                 spUtil.getCallableStatement().setInt("_petro_sale_id", bean.getSalePetroId());
                 spUtil.getCallableStatement().setInt("_petro_id", bean.getPetroId());
-                spUtil.getCallableStatement().setInt("_quantity", bean.getQuantity());
+                spUtil.getCallableStatement().setDouble("_quantity", bean.getQuantity());
                 spUtil.getCallableStatement().setDouble("_price", bean.getPrice());
                 spUtil.getCallableStatement().setDouble("_amount", bean.getAmount());
                 spUtil.execute();
@@ -2583,7 +2583,7 @@ public class GoodDAO extends BasicDAO {
             spUtil = new SPUtil(sql);
             if (spUtil != null) {
                 spUtil.getCallableStatement().setInt("_id", bean.getId());
-                spUtil.getCallableStatement().setInt("_quantity", bean.getQuantity());
+                spUtil.getCallableStatement().setDouble("_quantity", bean.getQuantity());
                 spUtil.getCallableStatement().setDouble("_price", bean.getPrice());
                 spUtil.getCallableStatement().setDouble("_amount", bean.getAmount());
                 spUtil.execute();

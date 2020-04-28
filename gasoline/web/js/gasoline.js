@@ -551,10 +551,10 @@ function formatFormDetail(formName) {
     if (quantity != null) {
         if (quantity.length != null) {
             for (var i = 0; i < quantity.length; i++) {
-                tryNumberFormatCurrentcy(quantity[i], "VND");
+                tryNumberFormatCurrentcy(quantity[i], "USD");
             }
         } else {
-            tryNumberFormatCurrentcy(quantity, "VND");
+            tryNumberFormatCurrentcy(quantity, "USD");
         }
     }
     if (price != null) {
@@ -611,7 +611,7 @@ function caculateFormListDetail(goodId, formName) {
     if (quantity == null || price == null || detTotal == null)
         return false;
     detTotal.value = reformatNumberMoneyString(quantity.value) * reformatNumberMoneyString(price.value);
-    tryNumberFormatCurrentcy(quantity, "VND");
+    tryNumberFormatCurrentcy(quantity, "USD");
     tryNumberFormatCurrentcy(price, "VND");
     tryNumberFormatCurrentcy(detTotal, "VND");
     quantity = null;
@@ -653,7 +653,7 @@ function caculateListTotal(formName) {
                         minPriceWeight = tempPriceWeight;
                     }
                 }
-                tryNumberFormatCurrentcy(quantity[i], "VND");
+                tryNumberFormatCurrentcy(quantity[i], "USD");
                 tryNumberFormatCurrentcy(price[i], "VND");
                 tryNumberFormatCurrentcy(amount[i], "VND");
             }
@@ -671,7 +671,7 @@ function caculateListTotal(formName) {
                     minPriceWeight = tempPriceWeight;
                 }
             }
-            tryNumberFormatCurrentcy(quantity, "VND");
+            tryNumberFormatCurrentcy(quantity, "USD");
             tryNumberFormatCurrentcy(price, "VND");
             tryNumberFormatCurrentcy(amount, "VND");
         }
@@ -3053,12 +3053,12 @@ function getSalary(id, handle) {
         if (quantity != null) {
             if (quantity.length != null) {
                 for (var i = 0; i < quantity.length; i++) {
-                    tryNumberFormatCurrentcy(quantity[i], "VND");
+                    tryNumberFormatCurrentcy(quantity[i], "USD");
                     tryNumberFormatCurrentcy(price[i], "VND");
                     tryNumberFormatCurrentcy(amount[i], "VND");
                 }
             } else {
-                tryNumberFormatCurrentcy(quantity, "VND");
+                tryNumberFormatCurrentcy(quantity, "USD");
                 tryNumberFormatCurrentcy(price, "VND");
                 tryNumberFormatCurrentcy(amount, "VND");
             }
@@ -3256,7 +3256,7 @@ function getTripFee(id, handle) {
         showPopupForm(data);
         document.getElementById('callbackFunc').value = handle;
         document.forms['tripFeeForm'].fee.focus();
-        tryNumberFormatCurrentcy(document.forms['tripFeeForm'].quantity, "VND");
+        tryNumberFormatCurrentcy(document.forms['tripFeeForm'].quantity, "USD");
         tryNumberFormatCurrentcy(document.forms['tripFeeForm'].price, "VND");
         tryNumberFormatCurrentcy(document.forms['tripFeeForm'].amount, "VND");
 
@@ -3346,7 +3346,7 @@ function formCaculateAmount(formName) {
     var price = document.forms[formName].price;
     var amount = document.forms[formName].amount;
     amount.value = reformatNumberMoneyString(quantity.value) * 1 * reformatNumberMoneyString(price.value) * 1;
-    tryNumberFormatCurrentcy(quantity, "VND");
+    tryNumberFormatCurrentcy(quantity, "USD");
     tryNumberFormatCurrentcy(price, "VND");
     tryNumberFormatCurrentcy(amount, "VND");
     quantity = null;
@@ -3399,7 +3399,7 @@ function getShellImport(id, handle) {
     callAjax(url, null, null, function(data) {
         showPopupForm(data);
         document.getElementById('callbackFunc').value = handle;
-        tryNumberFormatCurrentcy(document.forms['shellImportForm'].quantity, "VND");
+        tryNumberFormatCurrentcy(document.forms['shellImportForm'].quantity, "USD");
         tryNumberFormatCurrentcy(document.forms['shellImportForm'].price, "VND");
         tryNumberFormatCurrentcy(document.forms['shellImportForm'].amount, "VND");
 
@@ -3512,8 +3512,8 @@ function getLpgImport(id, handle) {
     callAjax(url, null, null, function(data) {
         showPopupForm(data);
         document.getElementById('callbackFunc').value = handle;
-        tryNumberFormatCurrentcy(document.forms['lpgImportForm'].paperQuantity, "VND");
-        tryNumberFormatCurrentcy(document.forms['lpgImportForm'].actualQuantity, "VND");
+        tryNumberFormatCurrentcy(document.forms['lpgImportForm'].paperQuantity, "USD");
+        tryNumberFormatCurrentcy(document.forms['lpgImportForm'].actualQuantity, "USD");
         tryNumberFormatCurrentcy(document.forms['lpgImportForm'].price, "USD");
         tryNumberFormatCurrentcy(document.forms['lpgImportForm'].vat, "USD");
         tryNumberFormatCurrentcy(document.forms['lpgImportForm'].invoiceTotal, "USD");
@@ -3619,7 +3619,7 @@ function lpgImportCaculateAmount() {
     invoiceAmount.value = amount.value;
     paid.value = 0;
     debt.value = amount.value;
-    tryNumberFormatCurrentcy(quantity, "VND");
+    tryNumberFormatCurrentcy(quantity, "USD");
     tryNumberFormatCurrentcy(price, "USD");
     tryNumberFormatCurrentcy(vat, "USD");
     tryNumberFormatCurrentcy(rate, "VND");
@@ -5300,10 +5300,10 @@ function formatGasWholesalePromotionMaterialQuantityDetail() {
     if (quantity != null) {
         if (quantity.length != null) {
             for (var i = 0; i < quantity.length; i++) {
-                tryNumberFormatCurrentcy(quantity[i], "VND");
+                tryNumberFormatCurrentcy(quantity[i], "USD");
             }
         } else {
-            tryNumberFormatCurrentcy(quantity, "VND");
+            tryNumberFormatCurrentcy(quantity, "USD");
         }
     }
     quantity = null;
@@ -5683,10 +5683,10 @@ function formatGasRetailPromotionMaterialQuantityDetail() {
     if (quantity != null) {
         if (quantity.length != null) {
             for (var i = 0; i < quantity.length; i++) {
-                tryNumberFormatCurrentcy(quantity[i], "VND");
+                tryNumberFormatCurrentcy(quantity[i], "USD");
             }
         } else {
-            tryNumberFormatCurrentcy(quantity, "VND");
+            tryNumberFormatCurrentcy(quantity, "USD");
         }
     }
     quantity = null;
@@ -6035,13 +6035,13 @@ function caculateSaleAccessoryTotal() {
         if (quantity.length != null) {
             for (i = 0; i < quantity.length; i++) {
                 sum += reformatNumberMoneyString(amount[i].value) * 1;
-                tryNumberFormatCurrentcy(quantity[i], "VND");
+                tryNumberFormatCurrentcy(quantity[i], "USD");
                 tryNumberFormatCurrentcy(price[i], "VND");
                 tryNumberFormatCurrentcy(amount[i], "VND");
             }
         } else {
             sum += reformatNumberMoneyString(amount.value) * 1;
-            tryNumberFormatCurrentcy(quantity, "VND");
+            tryNumberFormatCurrentcy(quantity, "USD");
             tryNumberFormatCurrentcy(price, "VND");
             tryNumberFormatCurrentcy(amount, "VND");
         }
@@ -6054,13 +6054,13 @@ function caculateSaleAccessoryTotal() {
         if (quantity.length != null) {
             for (i = 0; i < quantity.length; i++) {
                 sum -= reformatNumberMoneyString(amount[i].value) * 1;
-                tryNumberFormatCurrentcy(quantity[i], "VND");
+                tryNumberFormatCurrentcy(quantity[i], "USD");
                 tryNumberFormatCurrentcy(price[i], "VND");
                 tryNumberFormatCurrentcy(amount[i], "VND");
             }
         } else {
             sum -= reformatNumberMoneyString(amount.value) * 1;
-            tryNumberFormatCurrentcy(quantity, "VND");
+            tryNumberFormatCurrentcy(quantity, "USD");
             tryNumberFormatCurrentcy(price, "VND");
             tryNumberFormatCurrentcy(amount, "VND");
         }
@@ -6108,12 +6108,12 @@ function formatSaleAccessoryChangeDetail() {
     if (quantity != null) {
         if (quantity.length != null) {
             for (var i = 0; i < quantity.length; i++) {
-                tryNumberFormatCurrentcy(quantity[i], "VND");
+                tryNumberFormatCurrentcy(quantity[i], "USD");
                 tryNumberFormatCurrentcy(price[i], "VND");
                 tryNumberFormatCurrentcy(amount[i], "VND");
             }
         } else {
-            tryNumberFormatCurrentcy(quantity, "VND");
+            tryNumberFormatCurrentcy(quantity, "USD");
             tryNumberFormatCurrentcy(price, "VND");
             tryNumberFormatCurrentcy(amount, "VND");
         }
@@ -7849,7 +7849,7 @@ function caculateVehicleInAccessoryListDetail(goodId) {
     if (quantity == null || price == null || detTotal == null)
         return false;
     detTotal.value = reformatNumberMoneyString(quantity.value) * reformatNumberMoneyString(price.value);
-    tryNumberFormatCurrentcy(quantity, "VND");
+    tryNumberFormatCurrentcy(quantity, "USD");
     tryNumberFormatCurrentcy(price, "VND");
     tryNumberFormatCurrentcy(detTotal, "VND");
     quantity = null;
@@ -7864,12 +7864,12 @@ function formatVehicleInAccessoryDetail() {
     if (quantity != null) {
         if (quantity.length != null) {
             for (var i = 0; i < quantity.length; i++) {
-                tryNumberFormatCurrentcy(quantity[i], "VND");
+                tryNumberFormatCurrentcy(quantity[i], "USD");
                 tryNumberFormatCurrentcy(price[i], "VND");
                 tryNumberFormatCurrentcy(amount[i], "VND");
             }
         } else {
-            tryNumberFormatCurrentcy(quantity, "VND");
+            tryNumberFormatCurrentcy(quantity, "USD");
             tryNumberFormatCurrentcy(price, "VND");
             tryNumberFormatCurrentcy(amount, "VND");
         }
@@ -8977,7 +8977,7 @@ function getEmployeeOffMoney(id, handle) {
         showPopupForm(data);
         document.getElementById('callbackFunc').value = handle;
         document.forms['employeeOffMoneyForm'].amount.focus();
-        tryNumberFormatCurrentcy(document.forms['employeeOffMoneyForm'].quantity, "VND");
+        tryNumberFormatCurrentcy(document.forms['employeeOffMoneyForm'].quantity, "USD");
         tryNumberFormatCurrentcy(document.forms['employeeOffMoneyForm'].price, "VND");
         tryNumberFormatCurrentcy(document.forms['employeeOffMoneyForm'].amount, "VND");
 
@@ -9077,7 +9077,7 @@ function employeeOffMoneyEmployeeChanged(employeeId) {
         quantity.value = obj.quantity;
         price.value = obj.price;
         amount.value = obj.quantity * obj.price;
-        tryNumberFormatCurrentcy(quantity, "VND");
+        tryNumberFormatCurrentcy(quantity, "USD");
         tryNumberFormatCurrentcy(price, "VND");
         tryNumberFormatCurrentcy(amount, "VND");
         quantity = null;
@@ -9199,7 +9199,7 @@ function getFixedAsset(id, handle) {
         showPopupForm(data);
         document.getElementById('callbackFunc').value = handle;
         document.forms['fixedAssetForm'].name.focus();
-        tryNumberFormatCurrentcy(document.forms['fixedAssetForm'].quantity, "VND");
+        tryNumberFormatCurrentcy(document.forms['fixedAssetForm'].quantity, "USD");
         tryNumberFormatCurrentcy(document.forms['fixedAssetForm'].rate, "VND");
         tryNumberFormatCurrentcy(document.forms['fixedAssetForm'].monthCount, "VND");
         tryNumberFormatCurrentcy(document.forms['fixedAssetForm'].price, "VND");
@@ -9679,7 +9679,7 @@ function getLpgSale(id, handle, lpgImportId) {
     callAjax(url, null, null, function(data) {
         showPopupForm(data);
         document.getElementById('callbackFunc').value = handle;
-        tryNumberFormatCurrentcy(document.forms['lpgSaleForm'].quantity, "VND");
+        tryNumberFormatCurrentcy(document.forms['lpgSaleForm'].quantity, "USD");
         tryNumberFormatCurrentcy(document.forms['lpgSaleForm'].price, "VND");
         tryNumberFormatCurrentcy(document.forms['lpgSaleForm'].priceTransport, "VND");
         tryNumberFormatCurrentcy(document.forms['lpgSaleForm'].vat, "VND");
@@ -9799,7 +9799,7 @@ function lpgSaleCaculateAmount() {
     amount.value = reformatNumberMoneyString(quantity.value) * (reformatNumberMoneyString(price.value) * 1 + reformatNumberMoneyString(priceTransport.value) * 1) * (100 + reformatNumberMoneyString(vat.value) * 1) / 100 * reformatNumberMoneyString(rate.value) / 1000;
     paid.value = 0;
     debt.value = amount.value;
-    tryNumberFormatCurrentcy(quantity, "VND");
+    tryNumberFormatCurrentcy(quantity, "USD");
     tryNumberFormatCurrentcy(price, "USD");
     tryNumberFormatCurrentcy(priceTransport, "USD");
     tryNumberFormatCurrentcy(vat, "USD");
@@ -11043,7 +11043,7 @@ function getLoVo(id) {
         myCalendar.setSkin('dhx_web');
         myCalendar.setDateFormat("%d/%m/%Y");
 
-        tryNumberFormatCurrentcy(document.forms['loVoForm'].quantity, "VND");
+        tryNumberFormatCurrentcy(document.forms['loVoForm'].quantity, "USD");
     });
 }
 function saveLoVo() {
@@ -11337,8 +11337,8 @@ function getTransportService(id, handle) {
     callAjax(url, null, null, function(data) {
         showPopupForm(data);
         document.getElementById('callbackFunc').value = handle;
-        tryNumberFormatCurrentcy(document.forms['transportServiceForm'].inQuantity, "VND");
-        tryNumberFormatCurrentcy(document.forms['transportServiceForm'].outQuantity, "VND");
+        tryNumberFormatCurrentcy(document.forms['transportServiceForm'].inQuantity, "USD");
+        tryNumberFormatCurrentcy(document.forms['transportServiceForm'].outQuantity, "USD");
         tryNumberFormatCurrentcy(document.forms['transportServiceForm'].price, "USD");
         tryNumberFormatCurrentcy(document.forms['transportServiceForm'].priceDiff, "USD");
         tryNumberFormatCurrentcy(document.forms['transportServiceForm'].rate, "USD");
@@ -11431,8 +11431,8 @@ function transportServiceCaculateAmount() {
     amount.value = (reformatNumberMoneyString(quantityIn.value) * reformatNumberMoneyString(price.value) * reformatNumberMoneyString(rate.value) + diff * reformatNumberMoneyString(priceDiff.value) * reformatNumberMoneyString(rateDiff.value)) / 1000;
     paid.value = 0;
     debt.value = amount.value;
-    tryNumberFormatCurrentcy(quantityIn, "VND");
-    tryNumberFormatCurrentcy(quantityOut, "VND");
+    tryNumberFormatCurrentcy(quantityIn, "USD");
+    tryNumberFormatCurrentcy(quantityOut, "USD");
     tryNumberFormatCurrentcy(price, "USD");
     tryNumberFormatCurrentcy(rate, "VND");
     tryNumberFormatCurrentcy(rateDiff, "VND");
@@ -12785,8 +12785,8 @@ function getEmployeeRouteFee(id, handle, lpgImportId) {
     callAjax(url, null, null, function(data) {
         showPopupForm(data);
         document.getElementById('callbackFunc').value = handle;
-        tryNumberFormatCurrentcy(document.forms['employeeRouteFeeForm'].inQuantity, "VND");
-        tryNumberFormatCurrentcy(document.forms['employeeRouteFeeForm'].outQuantity, "VND");
+        tryNumberFormatCurrentcy(document.forms['employeeRouteFeeForm'].inQuantity, "USD");
+        tryNumberFormatCurrentcy(document.forms['employeeRouteFeeForm'].outQuantity, "USD");
         tryNumberFormatCurrentcy(document.forms['employeeRouteFeeForm'].price, "VND");
 
         window.dhx_globalImgPath = "js/dhtmlx/combo/imgs/";
@@ -12991,7 +12991,7 @@ function getTripOil(id, handle) {
     callAjax(url, null, null, function(data) {
         showPopupForm(data);
         document.getElementById('callbackFunc').value = handle;
-        tryNumberFormatCurrentcy(document.forms['tripOilForm'].quantity, "VND");
+        tryNumberFormatCurrentcy(document.forms['tripOilForm'].quantity, "USD");
         tryNumberFormatCurrentcy(document.forms['tripOilForm'].price, "VND");
         tryNumberFormatCurrentcy(document.forms['tripOilForm'].amount, "VND");
 
@@ -14316,7 +14316,7 @@ function caculateSaleOilListDetail(goodId, formName) {
             + reformatNumberMoneyString(gapAgencyAmountDetail.value) * 1 + reformatNumberMoneyString(gapCustomerAmountDetail.value) * 1;
     firstAmount.value = reformatNumberMoneyString(quantity.value) * price.value;
     detTotal.value = firstAmount.value * (100 - reformatNumberMoneyString(commissionDetail.value)) / 100;
-    tryNumberFormatCurrentcy(quantity, "VND");
+    tryNumberFormatCurrentcy(quantity, "USD");
     tryNumberFormatCurrentcy(priceBeforeCommission, "VND");
     tryNumberFormatCurrentcy(commissionPrice, "USD");
     tryNumberFormatCurrentcy(price, "VND");
@@ -14345,7 +14345,7 @@ function formatSaleOilDetail(formName) {
     if (quantity != null) {
         if (quantity.length != null) {
             for (var i = 0; i < quantity.length; i++) {
-                tryNumberFormatCurrentcy(quantity[i], "VND");
+                tryNumberFormatCurrentcy(quantity[i], "USD");
                 tryNumberFormatCurrentcy(priceBeforeCommission[i], "VND");
                 tryNumberFormatCurrentcy(commissionPrice[i], "USD");
                 tryNumberFormatCurrentcy(price[i], "VND");
@@ -14356,7 +14356,7 @@ function formatSaleOilDetail(formName) {
                 tryNumberFormatCurrentcy(amount[i], "VND");
             }
         } else {
-            tryNumberFormatCurrentcy(quantity, "VND");
+            tryNumberFormatCurrentcy(quantity, "USD");
             tryNumberFormatCurrentcy(priceBeforeCommission, "VND");
             tryNumberFormatCurrentcy(commissionPrice, "USD");
             tryNumberFormatCurrentcy(price, "VND");
@@ -14536,10 +14536,10 @@ function formatSaleOilPromotionMaterialQuantityDetail() {
     if (quantity != null) {
         if (quantity.length != null) {
             for (var i = 0; i < quantity.length; i++) {
-                tryNumberFormatCurrentcy(quantity[i], "VND");
+                tryNumberFormatCurrentcy(quantity[i], "USD");
             }
         } else {
-            tryNumberFormatCurrentcy(quantity, "VND");
+            tryNumberFormatCurrentcy(quantity, "USD");
         }
     }
     quantity = null;
@@ -16563,7 +16563,7 @@ function caculateSaleSolarListDetail(goodId, formName) {
             + reformatNumberMoneyString(gapAgencyAmountDetail.value) * 1 + reformatNumberMoneyString(gapCustomerAmountDetail.value) * 1;
     firstAmount.value = reformatNumberMoneyString(quantity.value) * price.value;
     detTotal.value = firstAmount.value * (100 - reformatNumberMoneyString(commissionDetail.value)) / 100;
-    tryNumberFormatCurrentcy(quantity, "VND");
+    tryNumberFormatCurrentcy(quantity, "USD");
     tryNumberFormatCurrentcy(priceBeforeCommission, "VND");
     tryNumberFormatCurrentcy(commissionPrice, "USD");
     tryNumberFormatCurrentcy(price, "VND");
@@ -16592,7 +16592,7 @@ function formatSaleSolarDetail(formName) {
     if (quantity != null) {
         if (quantity.length != null) {
             for (var i = 0; i < quantity.length; i++) {
-                tryNumberFormatCurrentcy(quantity[i], "VND");
+                tryNumberFormatCurrentcy(quantity[i], "USD");
                 tryNumberFormatCurrentcy(priceBeforeCommission[i], "VND");
                 tryNumberFormatCurrentcy(commissionPrice[i], "USD");
                 tryNumberFormatCurrentcy(price[i], "VND");
@@ -16603,7 +16603,7 @@ function formatSaleSolarDetail(formName) {
                 tryNumberFormatCurrentcy(amount[i], "VND");
             }
         } else {
-            tryNumberFormatCurrentcy(quantity, "VND");
+            tryNumberFormatCurrentcy(quantity, "USD");
             tryNumberFormatCurrentcy(priceBeforeCommission, "VND");
             tryNumberFormatCurrentcy(commissionPrice, "USD");
             tryNumberFormatCurrentcy(price, "VND");
@@ -16783,10 +16783,10 @@ function formatSaleSolarPromotionMaterialQuantityDetail() {
     if (quantity != null) {
         if (quantity.length != null) {
             for (var i = 0; i < quantity.length; i++) {
-                tryNumberFormatCurrentcy(quantity[i], "VND");
+                tryNumberFormatCurrentcy(quantity[i], "USD");
             }
         } else {
-            tryNumberFormatCurrentcy(quantity, "VND");
+            tryNumberFormatCurrentcy(quantity, "USD");
         }
     }
     quantity = null;
