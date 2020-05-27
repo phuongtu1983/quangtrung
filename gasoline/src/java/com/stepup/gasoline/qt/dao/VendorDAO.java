@@ -695,10 +695,10 @@ public class VendorDAO extends BasicDAO {
     public VendorFormBean getVendorEqualOrganization(String organizationIds) throws Exception {
         ResultSet rs = null;
         String sql = "select * from vendor where equal_organization_id in(" + organizationIds + ")";
+        VendorFormBean vendor = new VendorFormBean();
         try {
             rs = DBUtil.executeQuery(sql);
             while (rs.next()) {
-                VendorFormBean vendor = new VendorFormBean();
                 vendor.setId(rs.getInt("id"));
                 vendor.setCode(rs.getString("code"));
                 vendor.setName(rs.getString("name"));
@@ -711,7 +711,6 @@ public class VendorDAO extends BasicDAO {
                 } else if (vendor.getStatus() == EmployeeBean.STATUS_INACTIVE) {
                     vendor.setStatusName(QTUtil.getBundleString("employee.detail.status.inactive"));
                 }
-                return vendor;
             }
         } catch (SQLException sqle) {
             throw new Exception(sqle.getMessage());
@@ -722,7 +721,7 @@ public class VendorDAO extends BasicDAO {
                 DBUtil.closeConnection(rs);
             }
         }
-        return null;
+        return vendor;
     }
 
     public ArrayList getVendorEqualOrganizations() throws Exception {

@@ -36,7 +36,7 @@ public class GetCustomerListAction extends BaseAction {
                 for (int i = 0; i < length; i++) {
                     CustomerFormBean bean = (CustomerFormBean) list.get(i);
                     buff.append("<row id=\"").append(bean.getId()).append("\">");
-                    buff.append("<cell>").append(bean.getCode()).append("^javascript:getCustomer(").append(bean.getId()).append(",\"loadCustomerList\")^_self</cell>");
+                    buff.append("<cell>").append(StringUtil.encodeString(bean.getCode())).append("^javascript:getCustomer(").append(bean.getId()).append(",\"loadCustomerList\")^_self</cell>");
                     buff.append("<cell>").append(StringUtil.encodeString(bean.getName())).append("</cell>");
                     buff.append("<cell>").append(StringUtil.encodeString(bean.getOrganizationName())).append("</cell>");
                     buff.append("<cell>").append(bean.getStatusName()).append("</cell>");
