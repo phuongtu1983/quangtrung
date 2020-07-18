@@ -2368,6 +2368,7 @@ public class GoodDAO extends BasicDAO {
                 bean.setCanEdit(rs.getInt("can_edit"));
                 bean.setStoreId(rs.getInt("store_id"));
                 bean.setCustomerId(rs.getInt("customer_id"));
+                bean.setOldDebt(rs.getDouble("paid_old_debt_amount"));
                 return bean;
             }
         } catch (SQLException sqle) {
@@ -2430,7 +2431,7 @@ public class GoodDAO extends BasicDAO {
             } else {
                 createdDate = bean.getCreatedDate();
             }
-            String sql = "{call insertSalePetro(?,?,?,?,?,?,?,?,?,?,?,?,?)}";
+            String sql = "{call insertSalePetro(?,?,?,?,?,?,?,?,?,?,?,?,?,?)}";
             spUtil = new SPUtil(sql);
             if (spUtil != null) {
                 spUtil.getCallableStatement().setString("_code", bean.getCode());
@@ -2445,6 +2446,7 @@ public class GoodDAO extends BasicDAO {
                 spUtil.getCallableStatement().setInt("_account_id", bean.getAccountId());
                 spUtil.getCallableStatement().setString("_note", bean.getNote());
                 spUtil.getCallableStatement().setInt("_created_employee_id", bean.getCreatedEmployeeId());
+                spUtil.getCallableStatement().setDouble("_old_paid_debt", bean.getOldDebt());
                 spUtil.getCallableStatement().registerOutParameter("_id", Types.INTEGER);
                 spUtil.execute();
                 result = spUtil.getCallableStatement().getInt("_id");
@@ -2477,7 +2479,7 @@ public class GoodDAO extends BasicDAO {
             } else {
                 createdDate = bean.getCreatedDate();
             }
-            String sql = "{call updateSalePetro(?,?,?,?,?,?,?,?,?,?,?)}";
+            String sql = "{call updateSalePetro(?,?,?,?,?,?,?,?,?,?,?,?)}";
             spUtil = new SPUtil(sql);
             if (spUtil != null) {
                 spUtil.getCallableStatement().setInt("_id", bean.getId());
@@ -2491,6 +2493,7 @@ public class GoodDAO extends BasicDAO {
                 spUtil.getCallableStatement().setDouble("_total_pay", bean.getTotalPay());
                 spUtil.getCallableStatement().setInt("_account_id", bean.getAccountId());
                 spUtil.getCallableStatement().setString("_note", bean.getNote());
+                spUtil.getCallableStatement().setDouble("_old_paid_debt", bean.getOldDebt());
                 spUtil.execute();
             }
         } catch (SQLException sqle) {

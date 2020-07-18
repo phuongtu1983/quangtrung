@@ -2,13 +2,12 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
-package com.stepup.gasoline.qt.report.comparevendor;
+package com.stepup.gasoline.qt.income;
 
 import com.stepup.core.util.LogUtil;
 import com.stepup.gasoline.qt.core.BaseAction;
 import com.stepup.gasoline.qt.core.ExcelExport;
-import com.stepup.gasoline.qt.dao.ReportDAO;
-import com.stepup.gasoline.qt.report.CashBookReportOutBean;
+import com.stepup.gasoline.qt.dao.PaymentDAO;
 import com.stepup.gasoline.qt.util.QTUtil;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -22,7 +21,7 @@ import org.apache.struts.action.ActionMapping;
  *
  * @author phuongtu
  */
-public class PrintCompareVendorReportAction extends BaseAction {
+public class PrintIncomeListAction extends BaseAction {
 
     @Override
     public boolean doAction(ActionMapping mapping, ActionForm form,
@@ -31,17 +30,11 @@ public class PrintCompareVendorReportAction extends BaseAction {
         try {
             Map beans = new HashMap();
             ExcelExport exporter = new ExcelExport();
+            PaymentDAO paymentDAO = new PaymentDAO();
             String fromDate = request.getParameter("fromDate");
             String toDate = request.getParameter("toDate");
-            String moduleId = request.getParameter("moduleId");
-            String organizationIds = QTUtil.getOrganizationManageds(request.getSession());
-            ArrayList list = null;
-            CashBookReportOutBean outBean = new CashBookReportOutBean();
-            ReportDAO reportDAO = new ReportDAO();
-            list = reportDAO.getCashBookReport(fromDate, toDate, organizationIds, outBean);
-            beans.put("qtrp_accountOpeningStock", outBean.getAccountOpeningStock());
-            beans.put("qtrp_cashOpeningStock", outBean.getCashOpeningStock());
-            String templateFileName = request.getSession().getServletContext().getRealPath("/templates/bao_cao_quy_tien.xls");
+            ArrayList list = paymentDAO.searchIncome(fromDate, toDate, QTUtil.getOrganizationManageds(request.getSession()));
+            String templateFileName = request.getSession().getServletContext().getRealPath("/templates/danh_sach_thu.xls");
             beans.put("qtrp_fromDate", fromDate);
             beans.put("qtrp_toDate", toDate);
             if (list == null) {
@@ -49,7 +42,7 @@ public class PrintCompareVendorReportAction extends BaseAction {
             }
             beans.put("dulieu", list);
             exporter.setBeans(beans);
-            exporter.export(request, response, templateFileName, "report_bao_cao_quy_tien_module.xls");
+            exporter.export(request, response, templateFileName, "report_income.xls");
         } catch (Exception ex) {
             LogUtil.error("FAILED:PrintReportAction:print-" + ex.getMessage());
         }

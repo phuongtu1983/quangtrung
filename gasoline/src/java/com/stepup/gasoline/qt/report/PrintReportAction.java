@@ -93,6 +93,15 @@ public class PrintReportAction extends BaseAction {
                 } else if (reportName.equals("reportsalecustomer")) {
                     templateFileName = "chi_tiet_ban_hang_theo_khach_hang";
                     list = printSaleCustomerReport(fromDate, toDate, organizationIds);
+                } else if (reportName.equals("reportpetrosalecustomer")) {
+                    templateFileName = "chi_tiet_ban_hang_theo_khach_hang_xang";
+                    list = printPetroSaleCustomerReport(fromDate, toDate, organizationIds);
+                } else if (reportName.equals("reportoilsalecustomer")) {
+                    templateFileName = "chi_tiet_ban_hang_theo_khach_hang_dau_nhot";
+                    list = printOilSaleCustomerReport(fromDate, toDate, organizationIds);
+                } else if (reportName.equals("reportsolarsalecustomer")) {
+                    templateFileName = "chi_tiet_ban_hang_theo_khach_hang_nlmt";
+                    list = printSolarSaleCustomerReport(fromDate, toDate, organizationIds);
                 } else if (reportName.equals("reportcashbook")) {
                     templateFileName = "bao_cao_quy_tien";
                     CashBookReportOutBean outBean = new CashBookReportOutBean();
@@ -1028,4 +1037,39 @@ public class PrintReportAction extends BaseAction {
         return list;
     }
 
+    private ArrayList printPetroSaleCustomerReport(String fromDate, String toDate, String organizationIds) {
+        ArrayList list = null;
+        try {
+            VendorDAO vendorDAO = new VendorDAO();
+            String vendorIds = vendorDAO.getVendorOfOrganizations(organizationIds);
+            ReportDAO reportDAO = new ReportDAO();
+            list = reportDAO.getPetroSaleCustomerReport(fromDate, toDate, organizationIds, vendorIds);
+        } catch (Exception ex) {
+        }
+        return list;
+    }
+
+    private ArrayList printOilSaleCustomerReport(String fromDate, String toDate, String organizationIds) {
+        ArrayList list = null;
+        try {
+            VendorDAO vendorDAO = new VendorDAO();
+            String vendorIds = vendorDAO.getVendorOfOrganizations(organizationIds);
+            ReportDAO reportDAO = new ReportDAO();
+            list = reportDAO.getOilSaleCustomerReport(fromDate, toDate, organizationIds, vendorIds);
+        } catch (Exception ex) {
+        }
+        return list;
+    }
+
+    private ArrayList printSolarSaleCustomerReport(String fromDate, String toDate, String organizationIds) {
+        ArrayList list = null;
+        try {
+            VendorDAO vendorDAO = new VendorDAO();
+            String vendorIds = vendorDAO.getVendorOfOrganizations(organizationIds);
+            ReportDAO reportDAO = new ReportDAO();
+            list = reportDAO.getSolarSaleCustomerReport(fromDate, toDate, organizationIds, vendorIds);
+        } catch (Exception ex) {
+        }
+        return list;
+    }
 }

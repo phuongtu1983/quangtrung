@@ -17,6 +17,11 @@
                     <input type="text" name="toDate" id="toDate" size="15">
                 </td>
                 <td><button class="i_magnifying_glass icon small blue" onclick="return loadExpenseList(document.forms['expenseSearchForm'].fromDate.value,document.forms['expenseSearchForm'].toDate.value);"><bean:message key="message.search"/></button></td>
+                <td>
+                    <%if (PermissionUtil.hasPermission(request, PermissionUtil.OPERATION_PRINT, PermissionUtil.PER_EXPENSE)) {%> 
+                    <button class="i_printer icon small" onclick="return printExpenseList(document.forms['expenseSearchForm'].fromDate.value, document.forms['expenseSearchForm'].toDate.value);"><bean:message key="message.permission.permit.print"/></button>
+                    <%}%>
+                </td>
             </tr>
         </table>
     </fieldset>

@@ -11,7 +11,7 @@ var savedFromDate = '';
 var savedToDate = '';
 var savedDayoff = 0;
 var savedQuantityDayoff = 0;
-var selectedCombo='';
+var selectedCombo = '';
 function createLayout() {
     dhxLayout = new dhtmlXLayoutObject(document.body, "2E", "dhx_web");
     dhxLayout.setEffect("resize", false);
@@ -307,7 +307,7 @@ function menuClick(id) {
             || id == 'reportgasemployeecommission' || id == 'reportvendordebt' || id == 'reporttransportfee' || id == 'reportvehiclesale' || id == 'reportlpgsale'
             || id == 'reportshell' || id == 'reportoilimport' || id == 'reportoilstocksum' || id == 'reportoilsale' || id == 'reportoilvendordebt'
             || id == 'reportoilstocksumh' || id == 'reportsolarimport' || id == 'reportsolarstocksum' || id == 'reportsolarsale' || id == 'reportsolarvendordebt'
-            || id == 'reportsolarstocksumh')
+            || id == 'reportsolarstocksumh' || id == 'reportpetrosalecustomer' || id == 'reportoilsalecustomer' || id == 'reportsolarsalecustomer')
         showReportPanel(id);
     else if (id == 'reportemployeesalary')
         showMonthlyReportPanel(id);
@@ -345,6 +345,8 @@ function menuClick(id) {
         showVehicleFeeReportPanel();
     else if (id == 'reportcomparevendor')
         showCompareVendorReportPanel();
+    else if (id == 'reportcashbookmodule')
+        showCashBookModuleReportPanel();
     else if (id == 'reportcomparelpg')
         showCompareLPGReportPanel();
     else if (id == 'reportcomparelpgvendorcustomer')
@@ -360,7 +362,7 @@ function menuClick(id) {
     else if (id == 'debtadjustmentlist')
         loadDebtAdjustmentPanel();
     else if (id == 'debtadjustmentadd')
-        getDebtAdjustment(0,'loadDebtAdjustmentPanel');
+        getDebtAdjustment(0, 'loadDebtAdjustmentPanel');
     else if (id == 'saleinnerlist')
         loadSaleInnerPanel();
     else if (id == 'saleinneradd')
@@ -451,7 +453,7 @@ function menuClick(id) {
         getSaleOilReturnStore(0);
     else if (id == 'reportoilcustomerdebt')
         showOilCustomerDebtReportPanel();
-    
+
     else if (id == 'reportsolarcommissionagency')
         showSolarCompareAgencyCommissionReportPanel();
     else if (id == 'reportsolarcommissioncustomer')
@@ -462,7 +464,7 @@ function menuClick(id) {
         showSolarVendorStockReportPanel();
     else if (id == 'reportsolarcustomerdebt')
         showSolarCustomerDebtReportPanel();
-    
+
     else if (id == 'vendorsolarlist')
         loadVendorSolarPanel();
     else if (id == 'vendorsolaradd')
@@ -6180,6 +6182,7 @@ function getSalePetro(id) {
         tryNumberFormatCurrentcy(document.forms['salePetroForm'].debt, "VND");
         tryNumberFormatCurrentcy(document.forms['salePetroForm'].discount, "VND");
         tryNumberFormatCurrentcy(document.forms['salePetroForm'].totalPay, "VND");
+        tryNumberFormatCurrentcy(document.forms['salePetroForm'].oldDebt, "VND");
         formatFormDetail('salePetroForm');
 
         window.dhx_globalImgPath = "js/dhtmlx/combo/imgs/";
@@ -6282,6 +6285,7 @@ function saveSalePetro() {
     reformatNumberMoney(document.forms['salePetroForm'].debt);
     reformatNumberMoney(document.forms['salePetroForm'].discount);
     reformatNumberMoney(document.forms['salePetroForm'].totalPay);
+    reformatNumberMoney(document.forms['salePetroForm'].oldDebt);
     reformatFormDetail('salePetroForm');
     document.forms['salePetroForm'].customerId.value = document.forms['salePetroForm'].customerSelectedHidden.value;
     scriptFunction = "saveSalePetro";
@@ -8649,6 +8653,16 @@ function loadIncomeList(fromDate, toDate) {
     });
     return false;
 }
+function printIncomeList(fromDate, toDate) {
+    var url = "incomeListPrint.do?temp=1";
+    if (fromDate !== null)
+        url += "&fromDate=" + fromDate;
+    if (toDate !== null)
+        url += "&toDate=" + toDate;
+    list = null;
+    callServer(url);
+    return false;
+}
 function getIncome(id, handle) {
     popupName = 'TH\u00D4NG TIN THU';
     var url = 'incomeForm.do';
@@ -8742,6 +8756,16 @@ function loadExpenseList(fromDate, toDate) {
     callAjax(url, null, null, function(data) {
         mygrid.parse(data);
     });
+    return false;
+}
+function printExpenseList(fromDate, toDate) {
+    var url = "expenseListPrint.do?temp=1";
+    if (fromDate !== null)
+        url += "&fromDate=" + fromDate;
+    if (toDate !== null)
+        url += "&toDate=" + toDate;
+    list = null;
+    callServer(url);
     return false;
 }
 function getExpense(id, handle) {
@@ -11113,11 +11137,11 @@ function loadOpeningStockPanel() {
 function printOpeningStockExport(kind) {
     var url = "exportOpeningStock.do?reportName=" + kind;
     var date = document.getElementById("openingStockDate").value;
-    if (date == null){
+    if (date == null) {
         alert("Vui l\u00F2ng ch\u1ECDn ng\u00E0y xem s\u1ED1 d\u01B0");
         return false;
     }
-        url += "&date=" + date;
+    url += "&date=" + date;
     callServer(url);
     return false;
 }
@@ -13787,16 +13811,17 @@ function getOilImport(id) {
         // ============================
         var oilCodeCombobox = dhtmlXComboFromSelect("oilCodeCombobox");
         var oilNameCombobox = dhtmlXComboFromSelect("oilNameCombobox");
-        
+
         oilCodeCombobox.enableFilteringMode(true);
         oilNameCombobox.enableFilteringMode(true);
-        
+
         oilNameCombobox.attachEvent("onSelectionChange", function() {
             setOilSelectedForm('oilImportForm', oilNameCombobox.getComboText(), oilNameCombobox.getSelectedValue());
-            if(oilNameCombobox.getSelectedValue()==null || selectedCombo!='') return;
-            selectedCombo='oilNameCombobox';
+            if (oilNameCombobox.getSelectedValue() == null || selectedCombo != '')
+                return;
+            selectedCombo = 'oilNameCombobox';
             oilCodeCombobox.selectOption(oilCodeCombobox.getIndexByValue(oilNameCombobox.getSelectedValue()));
-            selectedCombo='';
+            selectedCombo = '';
         });
         oilNameCombobox.attachEvent("onBlur", function() {
             setOilSelectedForm('oilImportForm', oilNameCombobox.getComboText(), oilNameCombobox.getSelectedValue());
@@ -13819,13 +13844,14 @@ function getOilImport(id) {
                 isManuallySeleted = 0;
             }
         }
-        
+
         oilCodeCombobox.attachEvent("onSelectionChange", function() {
             setOilSelectedForm('oilImportForm', oilCodeCombobox.getComboText(), oilCodeCombobox.getSelectedValue());
-            if(oilNameCombobox.getSelectedValue()==null || selectedCombo!='') return;
-            selectedCombo='oilNameCombobox';
+            if (oilNameCombobox.getSelectedValue() == null || selectedCombo != '')
+                return;
+            selectedCombo = 'oilNameCombobox';
             oilNameCombobox.selectOption(oilNameCombobox.getIndexByValue(oilCodeCombobox.getSelectedValue()));
-            selectedCombo='';
+            selectedCombo = '';
         });
         oilCodeCombobox.attachEvent("onBlur", function() {
             setOilSelectedForm('oilImportForm', oilCodeCombobox.getComboText(), oilCodeCombobox.getSelectedValue());
@@ -13848,7 +13874,7 @@ function getOilImport(id) {
                 isManuallySeleted = 0;
             }
         }
-        
+
         oilCodeCombobox.setComboValue("");
         oilNameCombobox.setComboValue("");
     });
@@ -14051,16 +14077,17 @@ function getSaleOil(id) {
         // ============================
         var oilCodeCombobox = dhtmlXComboFromSelect("oilCodeCombobox");
         var oilNameCombobox = dhtmlXComboFromSelect("oilNameCombobox");
-        
+
         oilCodeCombobox.enableFilteringMode(true);
         oilNameCombobox.enableFilteringMode(true);
-        
+
         oilNameCombobox.attachEvent("onSelectionChange", function() {
             setOilSelectedForm('saleOilForm', oilNameCombobox.getComboText(), oilNameCombobox.getSelectedValue());
-            if(oilNameCombobox.getSelectedValue()==null || selectedCombo!='') return;
-            selectedCombo='oilNameCombobox';
+            if (oilNameCombobox.getSelectedValue() == null || selectedCombo != '')
+                return;
+            selectedCombo = 'oilNameCombobox';
             oilCodeCombobox.selectOption(oilCodeCombobox.getIndexByValue(oilNameCombobox.getSelectedValue()));
-            selectedCombo='';
+            selectedCombo = '';
         });
         oilNameCombobox.attachEvent("onBlur", function() {
             setOilSelectedForm('saleOilForm', oilNameCombobox.getComboText(), oilNameCombobox.getSelectedValue());
@@ -14083,13 +14110,14 @@ function getSaleOil(id) {
                 isManuallySeleted = 0;
             }
         }
-        
+
         oilCodeCombobox.attachEvent("onSelectionChange", function() {
             setOilSelectedForm('saleOilForm', oilCodeCombobox.getComboText(), oilCodeCombobox.getSelectedValue());
-            if(oilCodeCombobox.getSelectedValue()==null || selectedCombo!='') return;
-            selectedCombo='oilCodeCombobox';
+            if (oilCodeCombobox.getSelectedValue() == null || selectedCombo != '')
+                return;
+            selectedCombo = 'oilCodeCombobox';
             oilNameCombobox.selectOption(oilNameCombobox.getIndexByValue(oilCodeCombobox.getSelectedValue()));
-            selectedCombo='';
+            selectedCombo = '';
         });
         oilCodeCombobox.attachEvent("onBlur", function() {
             setOilSelectedForm('saleOilForm', oilCodeCombobox.getComboText(), oilCodeCombobox.getSelectedValue());
@@ -14112,7 +14140,7 @@ function getSaleOil(id) {
                 isManuallySeleted = 0;
             }
         }
-        
+
         oilNameCombobox.setComboValue("");
         oilCodeCombobox.setComboValue("");
         // ============================
@@ -14185,11 +14213,7 @@ function setOilSelectedForm(form, text, value) {
 function saveSaleOil() {
     if (scriptFunction == "saveSaleOil")
         return false;
-    var quantity = document.forms['saleOilForm'].quantity;
-    if (quantity == null) {
-        alert('Vui l\u00F2ng ch\u1ECDn h\u00E0ng h\u00F3a');
-        return false;
-    }
+
     var priceBeforeCommission = document.forms['saleOilForm'].priceBeforeCommission;
     var commissionPrice = document.forms['saleOilForm'].commissionPrice;
     var price = document.forms['saleOilForm'].price;
@@ -14198,43 +14222,48 @@ function saveSaleOil() {
     var gapAgencyAmountDetail = document.forms['saleOilForm'].gapAgencyAmountDetail;
     var gapCustomerAmountDetail = document.forms['saleOilForm'].gapCustomerAmountDetail;
     var amount = document.forms['saleOilForm'].amount;
-    if (quantity.length != null) {
-        for (var i = 0; i < quantity.length; i++) {
-            var number = Number(quantity[i].value);
-            if (number == 0) {
+
+    var quantity = document.forms['saleOilForm'].quantity;
+    if (quantity != null) {
+        if (quantity.length != null) {
+            for (var i = 0; i < quantity.length; i++) {
+                var number = Number(quantity[i].value);
+                if (number == 0) {
+                    alert('Vui l\u00F2ng nh\u1EADp s\u1ED1 l\u01B0\u1EE3ng');
+                    quantity[i].focus();
+                    quantity = null;
+                    return false;
+                }
+                reformatNumberMoney(quantity[i]);
+                reformatNumberMoney(priceBeforeCommission[i]);
+                reformatNumberMoney(commissionPrice[i]);
+                reformatNumberMoney(price[i]);
+                reformatNumberMoney(firstAmount[i]);
+                reformatNumberMoney(commissionDetail[i]);
+                reformatNumberMoney(gapAgencyAmountDetail[i]);
+                reformatNumberMoney(gapCustomerAmountDetail[i]);
+                reformatNumberMoney(amount[i]);
+            }
+        } else {
+            if (quantity.value == "0") {
                 alert('Vui l\u00F2ng nh\u1EADp s\u1ED1 l\u01B0\u1EE3ng');
-                quantity[i].focus();
+                quantity.focus();
                 quantity = null;
                 return false;
             }
-            reformatNumberMoney(quantity[i]);
-            reformatNumberMoney(priceBeforeCommission[i]);
-            reformatNumberMoney(commissionPrice[i]);
-            reformatNumberMoney(price[i]);
-            reformatNumberMoney(firstAmount[i]);
-            reformatNumberMoney(commissionDetail[i]);
-            reformatNumberMoney(gapAgencyAmountDetail[i]);
-            reformatNumberMoney(gapCustomerAmountDetail[i]);
-            reformatNumberMoney(amount[i]);
+            reformatNumberMoney(quantity);
+            reformatNumberMoney(priceBeforeCommission);
+            reformatNumberMoney(commissionPrice);
+            reformatNumberMoney(price);
+            reformatNumberMoney(firstAmount);
+            reformatNumberMoney(commissionDetail);
+            reformatNumberMoney(gapAgencyAmountDetail);
+            reformatNumberMoney(gapCustomerAmountDetail);
+            reformatNumberMoney(amount);
         }
-    } else {
-        if (quantity.value == "0") {
-            alert('Vui l\u00F2ng nh\u1EADp s\u1ED1 l\u01B0\u1EE3ng');
-            quantity.focus();
-            quantity = null;
-            return false;
-        }
-        reformatNumberMoney(quantity);
-        reformatNumberMoney(priceBeforeCommission);
-        reformatNumberMoney(commissionPrice);
-        reformatNumberMoney(price);
-        reformatNumberMoney(firstAmount);
-        reformatNumberMoney(commissionDetail);
-        reformatNumberMoney(gapAgencyAmountDetail);
-        reformatNumberMoney(gapCustomerAmountDetail);
-        reformatNumberMoney(amount);
+        quantity = null;
     }
-    quantity = null;
+
     priceBeforeCommission = null;
     commissionPrice = null;
     price = null;
@@ -16034,16 +16063,17 @@ function getSolarImport(id) {
         // ============================
         var solarCodeCombobox = dhtmlXComboFromSelect("solarCodeCombobox");
         var solarNameCombobox = dhtmlXComboFromSelect("solarNameCombobox");
-        
+
         solarCodeCombobox.enableFilteringMode(true);
         solarNameCombobox.enableFilteringMode(true);
-        
+
         solarNameCombobox.attachEvent("onSelectionChange", function() {
             setSolarSelectedForm('solarImportForm', solarNameCombobox.getComboText(), solarNameCombobox.getSelectedValue());
-            if(solarNameCombobox.getSelectedValue()==null || selectedCombo!='') return;
-            selectedCombo='solarNameCombobox';
+            if (solarNameCombobox.getSelectedValue() == null || selectedCombo != '')
+                return;
+            selectedCombo = 'solarNameCombobox';
             solarCodeCombobox.selectOption(solarCodeCombobox.getIndexByValue(solarNameCombobox.getSelectedValue()));
-            selectedCombo='';
+            selectedCombo = '';
         });
         solarNameCombobox.attachEvent("onBlur", function() {
             setSolarSelectedForm('solarImportForm', solarNameCombobox.getComboText(), solarNameCombobox.getSelectedValue());
@@ -16066,13 +16096,14 @@ function getSolarImport(id) {
                 isManuallySeleted = 0;
             }
         }
-        
+
         solarCodeCombobox.attachEvent("onSelectionChange", function() {
             setSolarSelectedForm('solarImportForm', solarCodeCombobox.getComboText(), solarCodeCombobox.getSelectedValue());
-            if(solarNameCombobox.getSelectedValue()==null || selectedCombo!='') return;
-            selectedCombo='solarNameCombobox';
+            if (solarNameCombobox.getSelectedValue() == null || selectedCombo != '')
+                return;
+            selectedCombo = 'solarNameCombobox';
             solarNameCombobox.selectOption(solarNameCombobox.getIndexByValue(solarCodeCombobox.getSelectedValue()));
-            selectedCombo='';
+            selectedCombo = '';
         });
         solarCodeCombobox.attachEvent("onBlur", function() {
             setSolarSelectedForm('solarImportForm', solarCodeCombobox.getComboText(), solarCodeCombobox.getSelectedValue());
@@ -16095,7 +16126,7 @@ function getSolarImport(id) {
                 isManuallySeleted = 0;
             }
         }
-        
+
         solarCodeCombobox.setComboValue("");
         solarNameCombobox.setComboValue("");
     });
@@ -16298,16 +16329,17 @@ function getSaleSolar(id) {
         // ============================
         var solarCodeCombobox = dhtmlXComboFromSelect("solarCodeCombobox");
         var solarNameCombobox = dhtmlXComboFromSelect("solarNameCombobox");
-        
+
         solarCodeCombobox.enableFilteringMode(true);
         solarNameCombobox.enableFilteringMode(true);
-        
+
         solarNameCombobox.attachEvent("onSelectionChange", function() {
             setSolarSelectedForm('saleSolarForm', solarNameCombobox.getComboText(), solarNameCombobox.getSelectedValue());
-            if(solarNameCombobox.getSelectedValue()==null || selectedCombo!='') return;
-            selectedCombo='solarNameCombobox';
+            if (solarNameCombobox.getSelectedValue() == null || selectedCombo != '')
+                return;
+            selectedCombo = 'solarNameCombobox';
             solarCodeCombobox.selectOption(solarCodeCombobox.getIndexByValue(solarNameCombobox.getSelectedValue()));
-            selectedCombo='';
+            selectedCombo = '';
         });
         solarNameCombobox.attachEvent("onBlur", function() {
             setSolarSelectedForm('saleSolarForm', solarNameCombobox.getComboText(), solarNameCombobox.getSelectedValue());
@@ -16330,13 +16362,14 @@ function getSaleSolar(id) {
                 isManuallySeleted = 0;
             }
         }
-        
+
         solarCodeCombobox.attachEvent("onSelectionChange", function() {
             setSolarSelectedForm('saleSolarForm', solarCodeCombobox.getComboText(), solarCodeCombobox.getSelectedValue());
-            if(solarCodeCombobox.getSelectedValue()==null || selectedCombo!='') return;
-            selectedCombo='solarCodeCombobox';
+            if (solarCodeCombobox.getSelectedValue() == null || selectedCombo != '')
+                return;
+            selectedCombo = 'solarCodeCombobox';
             solarNameCombobox.selectOption(solarNameCombobox.getIndexByValue(solarCodeCombobox.getSelectedValue()));
-            selectedCombo='';
+            selectedCombo = '';
         });
         solarCodeCombobox.attachEvent("onBlur", function() {
             setSolarSelectedForm('saleSolarForm', solarCodeCombobox.getComboText(), solarCodeCombobox.getSelectedValue());
@@ -16359,7 +16392,7 @@ function getSaleSolar(id) {
                 isManuallySeleted = 0;
             }
         }
-        
+
         solarNameCombobox.setComboValue("");
         solarCodeCombobox.setComboValue("");
         // ============================
@@ -16432,11 +16465,7 @@ function setSolarSelectedForm(form, text, value) {
 function saveSaleSolar() {
     if (scriptFunction == "saveSaleSolar")
         return false;
-    var quantity = document.forms['saleSolarForm'].quantity;
-    if (quantity == null) {
-        alert('Vui l\u00F2ng ch\u1ECDn h\u00E0ng h\u00F3a');
-        return false;
-    }
+
     var priceBeforeCommission = document.forms['saleSolarForm'].priceBeforeCommission;
     var commissionPrice = document.forms['saleSolarForm'].commissionPrice;
     var price = document.forms['saleSolarForm'].price;
@@ -16445,43 +16474,48 @@ function saveSaleSolar() {
     var gapAgencyAmountDetail = document.forms['saleSolarForm'].gapAgencyAmountDetail;
     var gapCustomerAmountDetail = document.forms['saleSolarForm'].gapCustomerAmountDetail;
     var amount = document.forms['saleSolarForm'].amount;
-    if (quantity.length != null) {
-        for (var i = 0; i < quantity.length; i++) {
-            var number = Number(quantity[i].value);
-            if (number == 0) {
+
+    var quantity = document.forms['saleSolarForm'].quantity;
+    if (quantity == null) {
+        if (quantity.length != null) {
+            for (var i = 0; i < quantity.length; i++) {
+                var number = Number(quantity[i].value);
+                if (number == 0) {
+                    alert('Vui l\u00F2ng nh\u1EADp s\u1ED1 l\u01B0\u1EE3ng');
+                    quantity[i].focus();
+                    quantity = null;
+                    return false;
+                }
+                reformatNumberMoney(quantity[i]);
+                reformatNumberMoney(priceBeforeCommission[i]);
+                reformatNumberMoney(commissionPrice[i]);
+                reformatNumberMoney(price[i]);
+                reformatNumberMoney(firstAmount[i]);
+                reformatNumberMoney(commissionDetail[i]);
+                reformatNumberMoney(gapAgencyAmountDetail[i]);
+                reformatNumberMoney(gapCustomerAmountDetail[i]);
+                reformatNumberMoney(amount[i]);
+            }
+        } else {
+            if (quantity.value == "0") {
                 alert('Vui l\u00F2ng nh\u1EADp s\u1ED1 l\u01B0\u1EE3ng');
-                quantity[i].focus();
+                quantity.focus();
                 quantity = null;
                 return false;
             }
-            reformatNumberMoney(quantity[i]);
-            reformatNumberMoney(priceBeforeCommission[i]);
-            reformatNumberMoney(commissionPrice[i]);
-            reformatNumberMoney(price[i]);
-            reformatNumberMoney(firstAmount[i]);
-            reformatNumberMoney(commissionDetail[i]);
-            reformatNumberMoney(gapAgencyAmountDetail[i]);
-            reformatNumberMoney(gapCustomerAmountDetail[i]);
-            reformatNumberMoney(amount[i]);
+            reformatNumberMoney(quantity);
+            reformatNumberMoney(priceBeforeCommission);
+            reformatNumberMoney(commissionPrice);
+            reformatNumberMoney(price);
+            reformatNumberMoney(firstAmount);
+            reformatNumberMoney(commissionDetail);
+            reformatNumberMoney(gapAgencyAmountDetail);
+            reformatNumberMoney(gapCustomerAmountDetail);
+            reformatNumberMoney(amount);
         }
-    } else {
-        if (quantity.value == "0") {
-            alert('Vui l\u00F2ng nh\u1EADp s\u1ED1 l\u01B0\u1EE3ng');
-            quantity.focus();
-            quantity = null;
-            return false;
-        }
-        reformatNumberMoney(quantity);
-        reformatNumberMoney(priceBeforeCommission);
-        reformatNumberMoney(commissionPrice);
-        reformatNumberMoney(price);
-        reformatNumberMoney(firstAmount);
-        reformatNumberMoney(commissionDetail);
-        reformatNumberMoney(gapAgencyAmountDetail);
-        reformatNumberMoney(gapCustomerAmountDetail);
-        reformatNumberMoney(amount);
+        quantity = null;
     }
-    quantity = null;
+
     priceBeforeCommission = null;
     commissionPrice = null;
     price = null;
@@ -17854,5 +17888,49 @@ function addInvoiceSolarDetail() {
         amount = null;
         paidAmount = null;
     });
+    return false;
+}
+function showCashBookModuleReportPanel() {
+    popupName = 'B\u00E1o C\u00E1o Qu\u1EF9 Ti\u1EC1n - Module';
+    var url = 'getCashBookModuleReportPanel.do';
+    callAjax(url, null, null, function(data) {
+        showPopupForm(data);
+        var myCalendar = new dhtmlXCalendarObject(["fromDate", "toDate"]);
+        myCalendar.setSkin('dhx_web');
+        var currentTime = getCurrentDate();
+        document.forms['reportCashBookModuleSearchForm'].fromDate.value = currentTime;
+        document.forms['reportCashBookModuleSearchForm'].toDate.value = currentTime;
+        myCalendar.setDateFormat("%d/%m/%Y");
+    });
+}
+function printCashBookModuleReport(fromDate, toDate) {
+    var list = document.getElementById("reportCashBookModuleSearchFormTime");
+    if (list == null || list.selectedIndex == -1)
+        return false;
+    if (list.selectedIndex == 1) {
+        fromDate = "01/" + fromDate;
+        var ind = toDate.indexOf("/");
+        var month = toDate.substring(0, ind);
+        var year = toDate.substring(ind + 1);
+        toDate = month + "/01/" + year;
+        var d = new Date(toDate);
+        var lastDay = new Date(d.getFullYear(), d.getMonth() + 1, 0).getDate();
+        toDate = lastDay + "/" + month + "/" + year;
+    } else if (list.selectedIndex == 2) {
+        fromDate = "01/01/" + fromDate;
+        toDate = "31/12/" + toDate;
+    }
+    var url = "reportCashBookModulePrint.do?temp=1";
+    if (fromDate !== null)
+        url += "&fromDate=" + fromDate;
+    if (toDate !== null)
+        url += "&toDate=" + toDate;
+    list = document.forms['reportCashBookModuleSearchForm'].moduleId;
+    if (list != null && list.selectedIndex > -1)
+        list = list.options[list.selectedIndex].value;
+    else
+        list = 0;
+    url += "&moduleId=" + list;
+    callServer(url);
     return false;
 }

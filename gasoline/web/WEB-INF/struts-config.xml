@@ -1113,6 +1113,8 @@
         </action>
         <action path="/delIncome" type="com.stepup.gasoline.qt.income.DeleteIncomeAction" scope="request" validate="false" >
         </action>
+        <action path="/incomeListPrint" type="com.stepup.gasoline.qt.income.PrintIncomeListAction" scope="request" validate="false" >
+        </action>
         <!-- end income -->
         <!-- start expense -->
         <action path="/getExpensePanel" type="com.stepup.gasoline.qt.common.BaseStatusFormAction" scope="request" validate="false">
@@ -1126,6 +1128,8 @@
         <action path="/addExpense" name ="expenseForm" scope="request" type="com.stepup.gasoline.qt.expense.AddExpenseAction" input="/expenseForm.do">
         </action>
         <action path="/delExpense" type="com.stepup.gasoline.qt.expense.DeleteExpenseAction" scope="request" validate="false" >
+        </action>
+        <action path="/expenseListPrint" type="com.stepup.gasoline.qt.expense.PrintExpenseListAction" scope="request" validate="false" >
         </action>
         <!-- end expense -->
         <!-- start fixedassetgroup -->
@@ -1372,6 +1376,11 @@
             <forward name="success" path="/report/oilstockstoreh/panel.jsp" />
         </action>
         <action path="/reportOilStockStoreHPrint" type="com.stepup.gasoline.qt.report.oilstockstoreh.PrintOilStockStoreHReportAction" scope="request" validate="false" >
+        </action>
+        <action path="/getCashBookModuleReportPanel" type="com.stepup.gasoline.qt.report.cashbookmodule.CashBookModuleReportPanelFormAction" scope="request" validate="false">
+            <forward name="success" path="/report/cashbookmodule/panel.jsp" />
+        </action>
+        <action path="/reportCashBookModulePrint" type="com.stepup.gasoline.qt.report.cashbookmodule.PrintCashBookModuleReportAction" scope="request" validate="false" >
         </action>
         <!-- end report -->
         <!-- start good -->

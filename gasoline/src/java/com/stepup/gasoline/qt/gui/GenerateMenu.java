@@ -1126,7 +1126,8 @@ public class GenerateMenu {
                     + "," + PermissionUtil.PER_REPORT_SUM + "," + PermissionUtil.PER_REPORT_COMPARE + "," + PermissionUtil.PER_REPORT_COMPARE_LPG
                     + "," + PermissionUtil.PER_REPORT_COMPARE_LPG_VENDOR_CUSTOMER + "," + PermissionUtil.PER_REPORT_COMPARE_GAS + "," + PermissionUtil.PER_REPORT_COMPARE_VENDOR
                     + "," + PermissionUtil.PER_REPORT_SALE + "," + PermissionUtil.PER_REPORT_SALE_CUSTOMER + "," + PermissionUtil.PER_REPORT_GAS_COMMISION
-                    + "," + PermissionUtil.PER_REPORT_GAS_EMPLOYEE_COMMISION + "," + PermissionUtil.PER_REPORT_SHELL
+                    + "," + PermissionUtil.PER_REPORT_GAS_EMPLOYEE_COMMISION + "," + PermissionUtil.PER_REPORT_SHELL + "," + PermissionUtil.PER_REPORT_PETRO_SALE_CUSTOMER
+                    + "," + PermissionUtil.PER_REPORT_OIL_SALE_CUSTOMER + "," + PermissionUtil.PER_REPORT_SOLAR_SALE_CUSTOMER
             )) {
                 buffTemp.append("<item id=\"reportgas\" complex=\"true\" text=\"").append(QTUtil.getBundleString("report.gas.title")).append("\">");
                 if (isHasPermission(PermissionUtil.OPERATION_PRINT, PermissionUtil.PER_REPORT_LPG_IMPORT)) {
@@ -1198,6 +1199,9 @@ public class GenerateMenu {
                 if (isHasPermission(PermissionUtil.OPERATION_PRINT, PermissionUtil.PER_REPORT_PETRO_STOCK_STORE)) {
                     buffTemp.append("<item id=\"reportpetrostockstore\" text=\"").append(QTUtil.getBundleString("report.petroStockStore.title")).append("\"/>");
                 }
+                if (isHasPermission(PermissionUtil.OPERATION_PRINT, PermissionUtil.PER_REPORT_PETRO_SALE_CUSTOMER)) {
+                    buffTemp.append("<item id=\"reportpetrosalecustomer\" text=\"").append(QTUtil.getBundleString("report.saleCustomerPetro.title")).append("\"/>");
+                }
                 buffTemp.append("</item>");
             }
             if (isHasPermission(PermissionUtil.OPERATION_PRINT + "", PermissionUtil.PER_REPORT_COMPARE_GOOD)) {
@@ -1246,6 +1250,9 @@ public class GenerateMenu {
                 if (isHasPermission(PermissionUtil.OPERATION_PRINT, PermissionUtil.PER_REPORT_OIL_CUSTOMER_DEBT)) {
                     buffTemp.append("<item id=\"reportoilcustomerdebt\" text=\"").append(QTUtil.getBundleString("report.oilCustomerDebt.title")).append("\"/>");
                 }
+                if (isHasPermission(PermissionUtil.OPERATION_PRINT, PermissionUtil.PER_REPORT_OIL_SALE_CUSTOMER)) {
+                    buffTemp.append("<item id=\"reportoilsalecustomer\" text=\"").append(QTUtil.getBundleString("report.saleCustomerOil.title")).append("\"/>");
+                }
                 buffTemp.append("</item>");
             }
             if (isHasPermission(PermissionUtil.OPERATION_PRINT + "", PermissionUtil.PER_REPORT_SOLAR_IMPORT + "," + PermissionUtil.PER_REPORT_SOLAR_STOCK
@@ -1286,6 +1293,9 @@ public class GenerateMenu {
                 if (isHasPermission(PermissionUtil.OPERATION_PRINT, PermissionUtil.PER_REPORT_SOLAR_CUSTOMER_DEBT)) {
                     buffTemp.append("<item id=\"reportsolarcustomerdebt\" text=\"").append(QTUtil.getBundleString("report.solarCustomerDebt.title")).append("\"/>");
                 }
+                if (isHasPermission(PermissionUtil.OPERATION_PRINT, PermissionUtil.PER_REPORT_SOLAR_SALE_CUSTOMER)) {
+                    buffTemp.append("<item id=\"reportsolarsalecustomer\" text=\"").append(QTUtil.getBundleString("report.saleCustomerSolar.title")).append("\"/>");
+                }
                 buffTemp.append("</item>");
             }
             if (isHasPermission(PermissionUtil.OPERATION_PRINT + "", PermissionUtil.PER_REPORT_TRANSPORT_FEE + "," + PermissionUtil.PER_REPORT_VEHICLE_FEE
@@ -1306,7 +1316,8 @@ public class GenerateMenu {
                 buffTemp.append("</item>");
             }
             if (isHasPermission(PermissionUtil.OPERATION_PRINT + "", PermissionUtil.PER_REPORT_EMPLOYEE_SALARY + "," + PermissionUtil.PER_REPORT_EMPLOYEE_OFF
-                    + "," + PermissionUtil.PER_REPORT_EMPLOYEE_WORKING + "," + PermissionUtil.PER_REPORT_EMPLOYEE_VEHICLE_SALARY + "," + PermissionUtil.PER_REPORT_CASH_BOOK)) {
+                    + "," + PermissionUtil.PER_REPORT_EMPLOYEE_WORKING + "," + PermissionUtil.PER_REPORT_EMPLOYEE_VEHICLE_SALARY
+                    + "," + PermissionUtil.PER_REPORT_CASH_BOOK + "," + PermissionUtil.PER_REPORT_CASH_BOOK_MODULE)) {
                 buffTemp.append("<item id=\"reportaccountant\" complex=\"true\" text=\"").append(QTUtil.getBundleString("report.accountant.title")).append("\">");
                 if (isHasPermission(PermissionUtil.OPERATION_PRINT, PermissionUtil.PER_REPORT_EMPLOYEE_SALARY)) {
                     buffTemp.append("<item id=\"reportemployeesalary\" text=\"").append(QTUtil.getBundleString("report.employeesalary.title")).append("\"/>");
@@ -1322,6 +1333,9 @@ public class GenerateMenu {
                 }
                 if (isHasPermission(PermissionUtil.OPERATION_PRINT, PermissionUtil.PER_REPORT_CASH_BOOK)) {
                     buffTemp.append("<item id=\"reportcashbook\" text=\"").append(QTUtil.getBundleString("report.cashbook.title")).append("\"/>");
+                }
+                if (isHasPermission(PermissionUtil.OPERATION_PRINT, PermissionUtil.PER_REPORT_CASH_BOOK_MODULE)) {
+                    buffTemp.append("<item id=\"reportcashbookmodule\" text=\"").append(QTUtil.getBundleString("report.cashbookmodule.title")).append("\"/>");
                 }
                 buffTemp.append("</item>");
             }

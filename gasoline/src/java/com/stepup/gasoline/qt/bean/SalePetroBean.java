@@ -24,6 +24,7 @@ public class SalePetroBean {
     private int customerId;
     private int storeId;
     private int createdEmployeeId;
+    private double oldDebt;
 
     public void setId(int id) {
         this.id = id;
@@ -135,6 +136,14 @@ public class SalePetroBean {
 
     public void setCreatedEmployeeId(int createdEmployeeId) {
         this.createdEmployeeId = createdEmployeeId;
+    }
+
+    public double getOldDebt() {
+        return oldDebt;
+    }
+
+    public void setOldDebt(double oldDebt) {
+        this.oldDebt = oldDebt;
     }
 
 }

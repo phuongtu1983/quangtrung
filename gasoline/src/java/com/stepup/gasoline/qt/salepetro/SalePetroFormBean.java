@@ -25,6 +25,7 @@ public class SalePetroFormBean extends org.apache.struts.action.ActionForm {
     private int canEdit;
     private int customerId;
     private int storeId;
+    private double oldDebt;
     private String[] salePetroDetailId;
     private String[] goodId;
     private String[] quantity;
@@ -49,6 +50,7 @@ public class SalePetroFormBean extends org.apache.struts.action.ActionForm {
         this.canEdit = bean.getCanEdit();
         this.customerId = bean.getCustomerId();
         this.storeId = bean.getStoreId();
+        this.oldDebt = bean.getOldDebt();
     }
 
     public String getCreatedDate() {
@@ -193,6 +195,14 @@ public class SalePetroFormBean extends org.apache.struts.action.ActionForm {
 
     public void setStoreId(int storeId) {
         this.storeId = storeId;
+    }
+
+    public double getOldDebt() {
+        return oldDebt;
+    }
+
+    public void setOldDebt(double oldDebt) {
+        this.oldDebt = oldDebt;
     }
 
 }

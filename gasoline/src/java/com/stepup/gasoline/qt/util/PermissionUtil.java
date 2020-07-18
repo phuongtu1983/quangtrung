@@ -274,4 +274,8 @@ public class PermissionUtil {
     public static int PER_OPENING_STOCK_VENDOR = 161;
     public static int PER_OPENING_STOCK_OIL = 162;
     public static int PER_OPENING_STOCK_SOLAR = 163;
+    public static int PER_REPORT_CASH_BOOK_MODULE = 164;
+    public static int PER_REPORT_PETRO_SALE_CUSTOMER = 165;
+    public static int PER_REPORT_OIL_SALE_CUSTOMER = 166;
+    public static int PER_REPORT_SOLAR_SALE_CUSTOMER = 167;
 }

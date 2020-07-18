@@ -75,6 +75,7 @@ public class AddSalePetroAction extends SpineAction {
         bean.setCustomerId(formBean.getCustomerId());
         bean.setStoreId(formBean.getStoreId());
         bean.setCreatedEmployeeId(QTUtil.getEmployeeId(request.getSession()));
+        bean.setOldDebt(formBean.getOldDebt());
         try {
             if (bNew) {
                 int id = goodDAO.insertSalePetro(bean);

@@ -15,12 +15,16 @@
             <td><html:text property="createdDate" size="30" name="<%=Constants.SALE_PETRO%>" styleId="salePetroCreatedDate" tabindex="-1"/></td>
         </tr>
         <tr>
-            <td height="30" style="padding-right: 20px""><bean:message key="account.title"/></td>
-            <td>
+            <td height="30" style="padding-right: 20px"><bean:message key="account.title"/></td>
+            <td colspan="3">
                 <html:select property="accountId" name="<%=Constants.SALE_PETRO%>" style="width:195px" tabindex="0">
                     <html:options collection="<%=Constants.ACCOUNT_LIST%>" property="id" labelProperty="number"/>
                 </html:select>
             </td>
+        </tr>
+        <tr>
+            <td height="30" style="padding-right: 20px"><bean:message key="gasWholesale.detail.oldDebt.title"/></td>
+            <td><html:text property="oldDebt" size="30" name="<%=Constants.SALE_PETRO%>" onblur="tryNumberFormatCurrentcy(this);" onkeypress="return readonlyFloat(event);"/></td>
             <td width="170"  style="padding-right: 20px;padding-left: 10px"><bean:message key="total.title"/></td>
             <td><html:text property="total" size="30" name="<%=Constants.SALE_PETRO%>" readonly="true" tabindex="-1"/></td>
         </tr>

@@ -242,4 +242,9 @@ public class Constants {
     public static final String SOLAR_EXPORT = "solarExport";
     public static final String SOLAR_EXPORT_SOLAR = "solarExportSolar";
     public static final String SOLAR_EXPORT_LIST = "solarExportList";
+    public static final String MODULE_LIST = "moduleList";
+    public static final String MODULE_GAS = "moduleGas";
+    public static final String MODULE_OIL = "moduleOil";
+    public static final String MODULE_SOLAR = "moduleSolar";
+    public static final String MODULE_PETRO = "modulePetro";
 }

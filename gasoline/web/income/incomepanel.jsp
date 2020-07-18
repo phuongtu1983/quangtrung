@@ -16,7 +16,12 @@
                     <bean:message key="toDate.title"/>
                     <input type="text" name="toDate" id="toDate" size="15">
                 </td>
-                <td><button class="i_magnifying_glass icon small blue" onclick="return loadIncomeList(document.forms['incomeSearchForm'].fromDate.value,document.forms['incomeSearchForm'].toDate.value);"><bean:message key="message.search"/></button></td>
+                <td><button class="i_magnifying_glass icon small blue" onclick="return loadIncomeList(document.forms['incomeSearchForm'].fromDate.value, document.forms['incomeSearchForm'].toDate.value);"><bean:message key="message.search"/></button></td>
+                <td>
+                    <%if (PermissionUtil.hasPermission(request, PermissionUtil.OPERATION_PRINT, PermissionUtil.PER_INCOME)) {%> 
+                    <button class="i_printer icon small" onclick="return printIncomeList(document.forms['incomeSearchForm'].fromDate.value, document.forms['incomeSearchForm'].toDate.value);"><bean:message key="message.permission.permit.print"/></button>
+                    <%}%>
+                </td>
             </tr>
         </table>
     </fieldset>
@@ -25,7 +30,7 @@
     <tr>
         <td>
             <%if (PermissionUtil.hasPermission(request, PermissionUtil.OPERATION_ADD, PermissionUtil.PER_INCOME)) {%> 
-            <button class="i_create_write icon small green" onclick="return getIncome(0,'loadIncomePanel');"><bean:message key="message.add"/></button>
+            <button class="i_create_write icon small green" onclick="return getIncome(0, 'loadIncomePanel');"><bean:message key="message.add"/></button>
             <%}%>
         </td>
     </tr>
