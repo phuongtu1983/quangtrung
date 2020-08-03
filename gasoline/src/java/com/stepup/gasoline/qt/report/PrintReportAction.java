@@ -1040,10 +1040,8 @@ public class PrintReportAction extends BaseAction {
     private ArrayList printPetroSaleCustomerReport(String fromDate, String toDate, String organizationIds) {
         ArrayList list = null;
         try {
-            VendorDAO vendorDAO = new VendorDAO();
-            String vendorIds = vendorDAO.getVendorOfOrganizations(organizationIds);
             ReportDAO reportDAO = new ReportDAO();
-            list = reportDAO.getPetroSaleCustomerReport(fromDate, toDate, organizationIds, vendorIds);
+            list = reportDAO.getPetroSaleCustomerReport(fromDate, toDate, organizationIds);
         } catch (Exception ex) {
         }
         return list;
@@ -1052,10 +1050,8 @@ public class PrintReportAction extends BaseAction {
     private ArrayList printOilSaleCustomerReport(String fromDate, String toDate, String organizationIds) {
         ArrayList list = null;
         try {
-            VendorDAO vendorDAO = new VendorDAO();
-            String vendorIds = vendorDAO.getVendorOfOrganizations(organizationIds);
             ReportDAO reportDAO = new ReportDAO();
-            list = reportDAO.getOilSaleCustomerReport(fromDate, toDate, organizationIds, vendorIds);
+            list = reportDAO.getOilSaleCustomerReport(fromDate, toDate, organizationIds);
         } catch (Exception ex) {
         }
         return list;
@@ -1064,12 +1060,11 @@ public class PrintReportAction extends BaseAction {
     private ArrayList printSolarSaleCustomerReport(String fromDate, String toDate, String organizationIds) {
         ArrayList list = null;
         try {
-            VendorDAO vendorDAO = new VendorDAO();
-            String vendorIds = vendorDAO.getVendorOfOrganizations(organizationIds);
             ReportDAO reportDAO = new ReportDAO();
-            list = reportDAO.getSolarSaleCustomerReport(fromDate, toDate, organizationIds, vendorIds);
+            list = reportDAO.getSolarSaleCustomerReport(fromDate, toDate, organizationIds);
         } catch (Exception ex) {
         }
         return list;
     }
+
 }
