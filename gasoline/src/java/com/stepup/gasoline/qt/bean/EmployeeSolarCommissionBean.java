@@ -12,8 +12,8 @@ public class EmployeeSolarCommissionBean {
 
     private int id;
     private String name;
+    private String code;
     private String note;
-    private double amount;
 
     public void setId(int id) {
         this.id = id;
@@ -39,12 +39,12 @@ public class EmployeeSolarCommissionBean {
         this.note = note;
     }
 
-    public double getAmount() {
-        return amount;
+    public String getCode() {
+        return code;
     }
 
-    public void setAmount(double amount) {
-        this.amount = amount;
+    public void setCode(String code) {
+        this.code = code;
     }
 
 }

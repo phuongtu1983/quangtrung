@@ -9,14 +9,14 @@
 <form name="discountForm">
     <table width="100%" cellspacing="0" cellpadding="0">
         <tr>
-            <td width="100" height="30" style="padding-right: 20px"><bean:message key="customerDiscount.detail.name"/></td>
-            <td width="200"><html:text property="name" size="40" name="<%=Constants.DISCOUNT%>"/></td>
-            <td width="100" height="30" style="padding-left: 10px; padding-right: 20px"><bean:message key="customerDiscount.detail.code"/></td>
-            <td><html:text property="code" size="40" name="<%=Constants.DISCOUNT%>"/></td>
+            <td width="180" height="30" style="padding-right: 20px"><bean:message key="customerDiscount.detail.name"/></td>
+            <td width="200"><html:text property="name" size="20" name="<%=Constants.DISCOUNT%>"/></td>
+            <td width="180" height="30" style="padding-left: 10px; padding-right: 20px"><bean:message key="customerDiscount.detail.code"/></td>
+            <td><html:text property="code" size="20" name="<%=Constants.DISCOUNT%>"/></td>
         </tr>
         <tr>
-            <td height="30" style="padding-right: 20px" colspan="3"><bean:message key="customerDiscount.detail.shellGasComission"/></td>
-            <td><html:text property="shellGasComission" size="40" name="<%=Constants.DISCOUNT%>" onblur="tryNumberFormatCurrentcy(this);" onkeypress="return readonlyFloat(event);"/></td>
+            <td height="30" style="padding-right: 20px"><bean:message key="customerDiscount.detail.shellGasComission"/></td>
+            <td colspan="3"><html:text property="shellGasComission" size="20" name="<%=Constants.DISCOUNT%>" onblur="tryNumberFormatCurrentcy(this);" onkeypress="return readonlyFloat(event);"/></td>
         </tr>
         <tr>
             <td height="30" style="padding-right: 20px"><bean:message key="note.title"/></td>

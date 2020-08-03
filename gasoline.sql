@@ -836,14 +836,27 @@ DROP TABLE IF EXISTS `employee_solar_commission`;
 CREATE TABLE `employee_solar_commission` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `name` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
-  `amount` double DEFAULT NULL,
+  `code` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
   `note` text COLLATE utf8_unicode_ci,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 /*Data for the table `employee_solar_commission` */
 
-insert  into `employee_solar_commission`(`id`,`name`,`amount`,`note`) values (1,'Mặc định',0,'');
+/*Table structure for table `employee_solar_commission_detail` */
+
+DROP TABLE IF EXISTS `employee_solar_commission_detail`;
+
+CREATE TABLE `employee_solar_commission_detail` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `employee_solar_comission_id` int(11) DEFAULT NULL,
+  `commission_from` double DEFAULT NULL,
+  `commission_to` double DEFAULT NULL,
+  `commission` double DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+/*Data for the table `employee_solar_commission_detail` */
 
 /*Table structure for table `expense` */
 
@@ -3757,6 +3770,20 @@ DELIMITER $$
 /*!50003 CREATE DEFINER=`root`@`localhost` PROCEDURE `deleteEmployeeRouteFee`(in _id int)
 BEGIN
 	delete from employee_route_fee where id=_id;
+    END */$$
+DELIMITER ;
+
+/* Procedure structure for procedure `deleteEmployeeSolarCommission` */
+
+/*!50003 DROP PROCEDURE IF EXISTS  `deleteEmployeeSolarCommission` */;
+
+DELIMITER $$
+
+/*!50003 CREATE DEFINER=`root`@`localhost` PROCEDURE `deleteEmployeeSolarCommission`(IN _ids TEXT)
+BEGIN
+	SET _ids = CONCAT(',',_ids,',');
+	DELETE FROM employee_solar_commission_detail WHERE _ids LIKE CONCAT('%,',employee_solar_comission_id,',%');
+	DELETE FROM employee_solar_commission WHERE _ids LIKE CONCAT('%,',id,',%');
     END */$$
 DELIMITER ;
 
@@ -6952,6 +6979,20 @@ BEGIN
 	VALUES (_code, STR_TO_DATE(_created_date,'%d/%m/%Y'), _created_employee_id, _employee_id, _vehicle_id, _route_id, _in_quantity, _out_quantity, _param100km
 		, _param1000kg, _total_quantity, _price, _amount, _store, _note);
 	SELECT LAST_INSERT_ID() INTO _id;
+    END */$$
+DELIMITER ;
+
+/* Procedure structure for procedure `insertEmployeeSolarCommissionDetail` */
+
+/*!50003 DROP PROCEDURE IF EXISTS  `insertEmployeeSolarCommissionDetail` */;
+
+DELIMITER $$
+
+/*!50003 CREATE DEFINER=`root`@`localhost` PROCEDURE `insertEmployeeSolarCommissionDetail`(IN _employee_solar_commission_id INT, IN _commission_from DOUBLE, IN _commission_to DOUBLE
+	, IN _commission DOUBLE)
+BEGIN
+	INSERT INTO employee_solar_commission_detail(employee_solar_comission_id, commission_from, commission_to, commission)
+	VALUES (_employee_solar_commission_id, _commission_from, _commission_to, _commission);
     END */$$
 DELIMITER ;
 
@@ -15047,6 +15088,18 @@ BEGIN
 		, store=_store
 		, note=_note
 	where id=_id;
+    END */$$
+DELIMITER ;
+
+/* Procedure structure for procedure `updateEmployeeSolarCommissionDetail` */
+
+/*!50003 DROP PROCEDURE IF EXISTS  `updateEmployeeSolarCommissionDetail` */;
+
+DELIMITER $$
+
+/*!50003 CREATE DEFINER=`root`@`localhost` PROCEDURE `updateEmployeeSolarCommissionDetail`(IN _id INT, IN _commission_from DOUBLE, IN _commission_to DOUBLE, IN _commission DOUBLE)
+BEGIN
+	UPDATE employee_solar_commission_detail SET commission_from=_commission_from, commission_to=_commission_to, commission=_commission WHERE id=_id;
     END */$$
 DELIMITER ;
 

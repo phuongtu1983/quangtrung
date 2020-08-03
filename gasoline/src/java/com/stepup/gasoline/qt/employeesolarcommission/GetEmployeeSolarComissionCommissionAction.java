@@ -4,8 +4,10 @@
  */
 package com.stepup.gasoline.qt.employeesolarcommission;
 
+import com.stepup.gasoline.qt.bean.DiscountCommissionDetailBean;
 import com.stepup.gasoline.qt.core.SpineAction;
-import com.stepup.gasoline.qt.dao.EmployeeDAO;
+import com.stepup.gasoline.qt.util.Constants;
+import java.util.ArrayList;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import org.apache.struts.action.ActionForm;
@@ -15,7 +17,7 @@ import org.apache.struts.action.ActionMapping;
  *
  * @author phuongtu
  */
-public class DeleteEmployeeSolarCommissionAction extends SpineAction {
+public class GetEmployeeSolarComissionCommissionAction extends SpineAction {
 
     /**
      * This is the action called from the Struts framework.
@@ -30,11 +32,11 @@ public class DeleteEmployeeSolarCommissionAction extends SpineAction {
     @Override
     public boolean doAction(ActionMapping mapping, ActionForm form,
             HttpServletRequest request, HttpServletResponse response) {
-        try {
-            EmployeeDAO employeeDAO = new EmployeeDAO();
-            employeeDAO.deleteEmployeeSolarCommission(request.getParameter("employeeSolarCommissionId"));
-        } catch (Exception ex) {
-        }
+        ArrayList arrDetail = new ArrayList();
+        DiscountCommissionDetailBean commissionDetailBean = new DiscountCommissionDetailBean();
+        arrDetail.add(commissionDetailBean);
+        request.setAttribute(Constants.EMPLOYEE_SOLAR_COMMISSION, arrDetail);
+
         return true;
     }
 }

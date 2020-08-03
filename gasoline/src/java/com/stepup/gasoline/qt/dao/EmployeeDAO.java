@@ -23,6 +23,7 @@ import com.stepup.gasoline.qt.bean.EmployeeOtherBonusBean;
 import com.stepup.gasoline.qt.bean.EmployeePaneltyBean;
 import com.stepup.gasoline.qt.bean.EmployeeSalaryFieldBean;
 import com.stepup.gasoline.qt.bean.EmployeeSolarCommissionBean;
+import com.stepup.gasoline.qt.bean.EmployeeSolarCommissionDetailBean;
 import com.stepup.gasoline.qt.bean.EmployeeTimesheetBean;
 import com.stepup.gasoline.qt.bean.SalaryBean;
 import com.stepup.gasoline.qt.borrow.BorrowFormBean;
@@ -2756,7 +2757,6 @@ public class EmployeeDAO extends BasicDAO {
                 bean.setId(rs.getInt("id"));
                 bean.setName(rs.getString("name"));
                 bean.setNote(rs.getString("note"));
-                bean.setAmount(rs.getDouble("amount"));
                 employeeSolarCommissionList.add(bean);
             }
         } catch (SQLException sqle) {
@@ -2788,7 +2788,6 @@ public class EmployeeDAO extends BasicDAO {
                 bean.setId(rs.getInt("id"));
                 bean.setName(rs.getString("name"));
                 bean.setNote(rs.getString("note"));
-                bean.setAmount(rs.getDouble("amount"));
                 employeeSolarCommissionList.add(bean);
             }
         } catch (SQLException sqle) {
@@ -2812,8 +2811,8 @@ public class EmployeeDAO extends BasicDAO {
                 EmployeeSolarCommissionBean bean = new EmployeeSolarCommissionBean();
                 bean.setId(rs.getInt("id"));
                 bean.setName(rs.getString("name"));
+                bean.setCode(rs.getString("code"));
                 bean.setNote(rs.getString("note"));
-                bean.setAmount(rs.getDouble("amount"));
                 return bean;
             }
         } catch (SQLException sqle) {
@@ -2826,6 +2825,34 @@ public class EmployeeDAO extends BasicDAO {
             }
         }
         return null;
+    }
+
+    public ArrayList getEmployeeSolarCommissionDetail(int employeeSolarCommissionId) throws Exception {
+        ResultSet rs = null;
+        String sql = "select det.* from employee_solar_commission_detail as det where det.employee_solar_comission_id=" + employeeSolarCommissionId + " order by det.id";
+        ArrayList detailList = new ArrayList();
+        try {
+            rs = DBUtil.executeQuery(sql);
+            EmployeeSolarCommissionDetailBean bean = null;
+            while (rs.next()) {
+                bean = new EmployeeSolarCommissionDetailBean();
+                bean.setId(rs.getInt("id"));
+                bean.setEmployeeSolarComissionId(rs.getInt("employee_solar_comission_id"));
+                bean.setFrom(rs.getDouble("commission_from"));
+                bean.setTo(rs.getDouble("commission_to"));
+                bean.setCommission(rs.getDouble("commission"));
+                detailList.add(bean);
+            }
+        } catch (SQLException sqle) {
+            throw new Exception(sqle.getMessage());
+        } catch (Exception ex) {
+            throw new Exception(ex.getMessage());
+        } finally {
+            if (rs != null) {
+                DBUtil.closeConnection(rs);
+            }
+        }
+        return detailList;
     }
 
     public EmployeeSolarCommissionBean getEmployeeSolarCommissionByName(String name) throws Exception {
@@ -2838,7 +2865,6 @@ public class EmployeeDAO extends BasicDAO {
                 bean.setId(rs.getInt("id"));
                 bean.setName(rs.getString("name"));
                 bean.setNote(rs.getString("note"));
-                bean.setAmount(rs.getDouble("amount"));
                 return bean;
             }
         } catch (SQLException sqle) {
@@ -2853,13 +2879,13 @@ public class EmployeeDAO extends BasicDAO {
         return null;
     }
 
-    public void insertEmployeeSolarCommission(EmployeeSolarCommissionBean bean) throws Exception {
+    public int insertEmployeeSolarCommission(EmployeeSolarCommissionBean bean) throws Exception {
         if (bean == null) {
-            return;
+            return 0;
         }
         try {
-            String sql = "Insert Into employee_solar_commission(name, note, amount) Values ('" + bean.getName() + "','" + bean.getNote() + "'," + bean.getAmount() + ")";
-            DBUtil.executeUpdate(sql);
+            String sql = "Insert Into employee_solar_commission(name, note, code) Values ('" + bean.getName() + "','" + bean.getNote() + "','" + bean.getCode() + "')";
+            return DBUtil.executeInsert(sql);
         } catch (SQLException sqle) {
             throw new Exception(sqle.getMessage());
         } catch (Exception ex) {
@@ -2869,7 +2895,6 @@ public class EmployeeDAO extends BasicDAO {
             } catch (Exception e) {
                 throw new Exception(e.getMessage());
             }
-
         }
     }
 
@@ -2881,7 +2906,7 @@ public class EmployeeDAO extends BasicDAO {
             String sql = "Update employee_solar_commission Set "
                     + " name='" + bean.getName() + "'"
                     + ", note='" + bean.getNote() + "'"
-                    + ", amount=" + bean.getAmount()
+                    + ", code='" + bean.getCode() + "'"
                     + " Where id=" + bean.getId();
             DBUtil.executeUpdate(sql);
         } catch (SQLException sqle) {
@@ -2896,11 +2921,97 @@ public class EmployeeDAO extends BasicDAO {
         }
     }
 
-    public int deleteEmployeeSolarCommission(int id) throws Exception {
+    public void deleteEmployeeSolarCommission(String ids) throws Exception {
+        SPUtil spUtil = null;
+        try {
+            String sql = "{call deleteEmployeeSolarCommission(?)}";
+            spUtil = new SPUtil(sql);
+            if (spUtil != null) {
+                spUtil.getCallableStatement().setString("_ids", ids);
+                spUtil.execute();
+            }
+        } catch (SQLException sqle) {
+            throw new Exception(sqle.getMessage());
+        } catch (Exception ex) {
+            throw new Exception(ex.getMessage());
+        } finally {
+            try {
+                if (spUtil != null) {
+                    spUtil.closeConnection();
+                }
+            } catch (Exception e) {
+                throw new Exception(e.getMessage());
+            }
+        }
+    }
+
+    public int insertEmployeeSolarCommissionDetail(EmployeeSolarCommissionDetailBean bean) throws Exception {
+        if (bean == null) {
+            return 0;
+        }
+        int result = 0;
+        SPUtil spUtil = null;
+        try {
+            String sql = "{call insertEmployeeSolarCommissionDetail(?,?,?,?)}";
+            spUtil = new SPUtil(sql);
+            if (spUtil != null) {
+                spUtil.getCallableStatement().setInt("_employee_solar_commission_id", bean.getEmployeeSolarComissionId());
+                spUtil.getCallableStatement().setDouble("_commission_from", bean.getFrom());
+                spUtil.getCallableStatement().setDouble("_commission_to", bean.getTo());
+                spUtil.getCallableStatement().setDouble("_commission", bean.getCommission());
+                spUtil.execute();
+            }
+        } catch (SQLException sqle) {
+            throw new Exception(sqle.getMessage());
+        } catch (Exception ex) {
+            throw new Exception(ex.getMessage());
+        } finally {
+            try {
+                if (spUtil != null) {
+                    spUtil.closeConnection();
+                }
+            } catch (Exception e) {
+                throw new Exception(e.getMessage());
+            }
+        }
+        return result;
+    }
+
+    public void updateEmployeeSolarCommissionDetail(EmployeeSolarCommissionDetailBean bean) throws Exception {
+        if (bean == null) {
+            return;
+        }
+        SPUtil spUtil = null;
+        try {
+            String sql = "{call updateEmployeeSolarCommissionDetail(?,?,?,?)}";
+            spUtil = new SPUtil(sql);
+            if (spUtil != null) {
+                spUtil.getCallableStatement().setInt("_id", bean.getId());
+                spUtil.getCallableStatement().setDouble("_commission_from", bean.getFrom());
+                spUtil.getCallableStatement().setDouble("_commission_to", bean.getTo());
+                spUtil.getCallableStatement().setDouble("_commission", bean.getCommission());
+                spUtil.execute();
+            }
+        } catch (SQLException sqle) {
+            throw new Exception(sqle.getMessage());
+        } catch (Exception ex) {
+            throw new Exception(ex.getMessage());
+        } finally {
+            try {
+                if (spUtil != null) {
+                    spUtil.closeConnection();
+                }
+            } catch (Exception e) {
+                throw new Exception(e.getMessage());
+            }
+        }
+    }
+
+    public int deleteEmployeeSolarCommissionDetails(String ids) throws Exception {
         int result = 0;
         try {
-            String sql = "Delete From employee_solar_commission Where id=" + id;
-            result = DBUtil.executeUpdate(sql);
+            String sql = "Delete From employee_solar_commission_detail Where id in (" + ids + ")";
+            DBUtil.executeUpdate(sql);
         } catch (SQLException sqle) {
             throw new Exception(sqle.getMessage());
         } catch (Exception ex) {
@@ -2908,5 +3019,4 @@ public class EmployeeDAO extends BasicDAO {
         }
         return result;
     }
-
 }

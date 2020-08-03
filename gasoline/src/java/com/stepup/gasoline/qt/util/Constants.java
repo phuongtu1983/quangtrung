@@ -215,6 +215,7 @@ public class Constants {
     public static final String EMPLOYEE_OIL_COMMISSION = "employeeOilCommission";
     public static final String EMPLOYEE_OIL_COMMISSION_LIST = "employeeOilCommissionList";
     public static final String EMPLOYEE_SOLAR_COMMISSION = "employeeSolarCommission";
+    public static final String EMPLOYEE_SOLAR_COMMISSION_COMMISSION = "employeeSolarCommissionCommission";
     public static final String EMPLOYEE_SOLAR_COMMISSION_LIST = "employeeSolarCommissionList";
     public static final String OIL_IMPORT = "oilImport";
     public static final String OIL_IMPORT_OIL = "oilImportOil";

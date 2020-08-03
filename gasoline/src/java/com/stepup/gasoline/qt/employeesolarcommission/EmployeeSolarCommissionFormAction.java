@@ -9,9 +9,9 @@ import com.stepup.gasoline.qt.bean.EmployeeSolarCommissionBean;
 import com.stepup.gasoline.qt.core.SpineAction;
 import com.stepup.gasoline.qt.dao.EmployeeDAO;
 import com.stepup.gasoline.qt.util.Constants;
+import java.util.ArrayList;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import org.apache.commons.validator.GenericValidator;
 import org.apache.struts.action.ActionForm;
 import org.apache.struts.action.ActionMapping;
 
@@ -35,21 +35,25 @@ public class EmployeeSolarCommissionFormAction extends SpineAction {
     public boolean doAction(ActionMapping mapping, ActionForm form,
             HttpServletRequest request, HttpServletResponse response) {
         EmployeeSolarCommissionBean bean = null;
-        String employeeSolarCommissionid = request.getParameter("employeeSolarCommissionId");
-        if (!GenericValidator.isBlankOrNull(employeeSolarCommissionid)) {
+        int employeeSolarCommissionId = NumberUtil.parseInt(request.getParameter("employeeSolarCommissionId"), 0);
+        ArrayList arrFeeDetail = null;
+        if (employeeSolarCommissionId != 0) {
             EmployeeDAO employeeDAO = new EmployeeDAO();
             try {
-                bean = employeeDAO.getEmployeeSolarCommission(NumberUtil.parseInt(employeeSolarCommissionid, 0));
+                bean = employeeDAO.getEmployeeSolarCommission(employeeSolarCommissionId);
+                arrFeeDetail = employeeDAO.getEmployeeSolarCommissionDetail(employeeSolarCommissionId);
             } catch (Exception ex) {
             }
         }
-        EmployeeSolarCommissionFormBean formBean = null;
         if (bean == null) {
-            formBean = new EmployeeSolarCommissionFormBean();
-        } else {
-            formBean = new EmployeeSolarCommissionFormBean(bean);
+            bean = new EmployeeSolarCommissionBean();
         }
-        request.setAttribute(Constants.EMPLOYEE_SOLAR_COMMISSION, formBean);
+        request.setAttribute(Constants.EMPLOYEE_SOLAR_COMMISSION, bean);
+
+        if (arrFeeDetail == null) {
+            arrFeeDetail = new ArrayList();
+        }
+        request.setAttribute(Constants.EMPLOYEE_SOLAR_COMMISSION_COMMISSION, arrFeeDetail);
 
         return true;
     }

@@ -4,9 +4,12 @@
  */
 package com.stepup.gasoline.qt.employeesolarcommission;
 
+import com.stepup.core.util.NumberUtil;
 import com.stepup.gasoline.qt.bean.EmployeeSolarCommissionBean;
+import com.stepup.gasoline.qt.bean.EmployeeSolarCommissionDetailBean;
 import com.stepup.gasoline.qt.core.SpineAction;
 import com.stepup.gasoline.qt.dao.EmployeeDAO;
+import java.util.ArrayList;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import org.apache.struts.action.ActionForm;
@@ -66,37 +69,84 @@ public class AddEmployeeSolarCommissionAction extends SpineAction {
             saveErrors(request, errors);
             return false;
         }
-        boolean isUpdate = false;
-        try {
-            if (!bNew) {
-                if (!formBean.getName().equals(bean.getName())) {
-                    isUpdate = true;
-                }
-                if (!formBean.getNote().equals(bean.getNote())) {
-                    isUpdate = true;
-                }
-                if (formBean.getAmount()!= bean.getAmount()) {
-                    isUpdate = true;
-                }
-            }
-        } catch (Exception ex) {
-        }
+
         bean = new EmployeeSolarCommissionBean();
         bean.setId(formBean.getId());
         bean.setName(formBean.getName());
+        bean.setCode(formBean.getCode());
         bean.setNote(formBean.getNote());
-        bean.setAmount(formBean.getAmount());
         try {
             if (bNew) {
-                employeeDAO.insertEmployeeSolarCommission(bean);
+                int id = employeeDAO.insertEmployeeSolarCommission(bean);
+                formBean.setId(id);
+                addDiscountCommission(formBean);
             } else {
-                if (isUpdate) {
-                    employeeDAO.updateEmployeeSolarCommission(bean);
-                }
+                addDiscountCommission(formBean);
+                employeeDAO.updateEmployeeSolarCommission(bean);
             }
         } catch (Exception ex) {
             ex.printStackTrace();
         }
         return true;
+    }
+
+    private void addDiscountCommission(EmployeeSolarCommissionFormBean formBean) {
+        try {
+            EmployeeDAO employeeDAO = new EmployeeDAO();
+            ArrayList arrDetail = employeeDAO.getEmployeeSolarCommissionDetail(formBean.getId());
+            if (formBean.getEmployeeSolarCommissionCommissionCommission()!= null) {
+                int length = formBean.getEmployeeSolarCommissionCommissionCommission().length;
+                int id = 0;
+                boolean isUpdate = false;
+                for (int i = 0; i < length; i++) {
+                    id = NumberUtil.parseInt(formBean.getEmployeeSolarCommissionCommissionDetailId()[i], 0);
+                    if (id == 0) {
+                        EmployeeSolarCommissionDetailBean bean = new EmployeeSolarCommissionDetailBean();
+                        bean.setFrom(NumberUtil.parseDouble(formBean.getEmployeeSolarCommissionCommissionFrom()[i], 0));
+                        bean.setTo(NumberUtil.parseDouble(formBean.getEmployeeSolarCommissionCommissionTo()[i], 0));
+                        bean.setCommission(NumberUtil.parseDouble(formBean.getEmployeeSolarCommissionCommissionCommission()[i], 0));
+                        bean.setEmployeeSolarComissionId(formBean.getId());
+                        employeeDAO.insertEmployeeSolarCommissionDetail(bean);
+                    } else {
+                        isUpdate = false;
+                        int j = 0;
+                        EmployeeSolarCommissionDetailBean oldBean = null;
+                        for (; j < arrDetail.size(); j++) {
+                            oldBean = (EmployeeSolarCommissionDetailBean) arrDetail.get(j);
+                            if (oldBean.getId() == id) {
+                                break;
+                            }
+                        }
+                        if (j < arrDetail.size()) {
+                            arrDetail.remove(j);
+                            if (oldBean.getFrom() != NumberUtil.parseDouble(formBean.getEmployeeSolarCommissionCommissionFrom()[i], 0)) {
+                                isUpdate = true;
+                                oldBean.setFrom(NumberUtil.parseDouble(formBean.getEmployeeSolarCommissionCommissionFrom()[i], 0));
+                            }
+                            if (oldBean.getTo() != NumberUtil.parseDouble(formBean.getEmployeeSolarCommissionCommissionTo()[i], 0)) {
+                                isUpdate = true;
+                                oldBean.setTo(NumberUtil.parseDouble(formBean.getEmployeeSolarCommissionCommissionTo()[i], 0));
+                            }
+                            if (oldBean.getCommission() != NumberUtil.parseDouble(formBean.getEmployeeSolarCommissionCommissionCommission()[i], 0)) {
+                                isUpdate = true;
+                                oldBean.setCommission(NumberUtil.parseDouble(formBean.getEmployeeSolarCommissionCommissionCommission()[i], 0));
+                            }
+                            if (isUpdate) {
+                                employeeDAO.updateEmployeeSolarCommissionDetail(oldBean);
+                            }
+                        }
+                    }
+                }
+            }
+            String ids = "0,";
+            EmployeeSolarCommissionDetailBean oldBean = null;
+            for (int i = 0; i < arrDetail.size(); i++) {
+                oldBean = (EmployeeSolarCommissionDetailBean) arrDetail.get(i);
+                ids += oldBean.getId() + ",";
+            }
+            ids += "0";
+            employeeDAO.deleteEmployeeSolarCommissionDetails(ids);
+        } catch (Exception ex) {
+        }
     }
 }

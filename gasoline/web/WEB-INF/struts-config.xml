@@ -1765,6 +1765,9 @@
         </action>
         <action path="/delEmployeeSolarCommission" type="com.stepup.gasoline.qt.employeesolarcommission.DeleteEmployeeSolarCommissionAction" scope="request" validate="false" >
         </action>
+        <action path="/getEmployeeSolarCommissionCommission" type="com.stepup.gasoline.qt.employeesolarcommission.GetEmployeeSolarComissionCommissionAction" scope="request" validate="false">
+            <forward name="success" path="/employeesolarcommission/commissions.jsp" />
+        </action>
         <!-- end employeesolarcommission -->
         <!-- start sale solar return store -->
         <action path="/saleSolarReturnStoreForm" type="com.stepup.gasoline.qt.salesolarreturnstore.SaleSolarReturnStoreFormAction" scope="request" validate="false">

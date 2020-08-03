@@ -15916,11 +15916,12 @@ function loadEmployeeSolarCommissionPanel() {
         setAjaxData(data, "contentDiv");
         loadEmployeeSolarCommissionList();
     });
+    return false;
 }
 function loadEmployeeSolarCommissionList() {
     var mygrid = new dhtmlXGridObject('employeeSolarCommissionList');
     mygrid.setImagePath("js/dhtmlx/grid/imgs/");
-    mygrid.setHeader("T\u00EAn lo\u1EA1i chi\u1EBFt kh\u1EA5u,S\u1ED1 ti\u1EC1n,Ghi ch\u00FA");
+    mygrid.setHeader("T\u00EAn lo\u1EA1i chi\u1EBFt kh\u1EA5u,M\u00E3 lo\u1EA1i chi\u1EBFt kh\u1EA5u,Ghi ch\u00FA");
     mygrid.attachHeader("#text_filter,#text_filter,#text_filter");
     mygrid.setInitWidths("250,150,*");
     mygrid.setColTypes("link,ro,ro");
@@ -15938,14 +15939,14 @@ function loadEmployeeSolarCommissionList() {
     return false;
 }
 function getEmployeeSolarCommission(id, handle) {
-    popupName = 'TH\u00D4NG TIN QUI LO\u1EA0I CHI\u1EBET KH\u1EA4U B\u00C1N NLMT';
     var url = 'employeeSolarCommissionForm.do';
     if (id != 0)
         url += '?employeeSolarCommissionId=' + id
     callAjax(url, null, null, function(data) {
-        showPopupForm(data);
-        document.getElementById('callbackFunc').value = handle;
-        tryNumberFormatCurrentcy(document.forms['employeeSolarCommissionForm'].amount, "VND");
+        clearContent();
+        setAjaxData(data, 'contentDiv');
+        document.forms['employeeSolarCommissionForm'].name.focus();
+        formatEmployeeSolarCommissionCommissionDetail();
     });
 }
 function saveEmployeeSolarCommission() {
@@ -15959,19 +15960,79 @@ function saveEmployeeSolarCommission() {
         return false;
     }
     field = null;
-    reformatNumberMoney(document.forms['employeeSolarCommissionForm'].amount);
+    reformatEmployeeSolarCommissionCommissionDetail();
     scriptFunction = "saveEmployeeSolarCommission";
     callAjaxCheckError("addEmployeeSolarCommission.do", null, document.forms['employeeSolarCommissionForm'], function(data) {
         scriptFunction = "";
         var handle = document.getElementById('callbackFunc').value;
         if (confirm('B\u1EA1n c\u00F3 mu\u1ED1n nh\u1EADp ti\u1EBFp th\u00F4ng tin kh\u00E1c ?'))
             getEmployeeSolarCommission(0, handle);
-        else if (handle != '')
-            eval(handle + "()");
-        prepareHidePopup('employeeSolarCommissionFormshowHelpHideDiv');
+        else
+            loadEmployeeSolarCommissionPanel();
     });
     return false;
 }
+function addEmployeeSolarCommissionCommission() {
+    callAjax("getEmployeeSolarCommissionCommission.do", null, null, function(data) {
+        setAjaxData(data, 'employeeSolarCommissionCommissionHideDiv');
+        var matTable = document.getElementById('employeeSolarCommissionCommissionTbl');
+        var detTable = document.getElementById('employeeSolarCommissionCommissionDetailTbl');
+        if (matTable.tBodies[0] == null || detTable.tBodies[0] == null) {
+            matTable = null;
+            detTable = null;
+            return;
+        }
+        for (var i = matTable.tBodies[0].rows.length - 1; i >= 0; i--)
+            detTable.tBodies[0].appendChild(matTable.tBodies[0].rows[i]);
+        matTable = null;
+        detTable = null;
+        formatEmployeeSolarCommissionCommissionDetail();
+    });
+    return false;
+}
+function formatEmployeeSolarCommissionCommissionDetail() {
+    var employeeSolarCommissionCommissionFrom = document.forms['employeeSolarCommissionForm'].employeeSolarCommissionCommissionFrom;
+    var employeeSolarCommissionCommissionTo = document.forms['employeeSolarCommissionForm'].employeeSolarCommissionCommissionTo;
+    var employeeSolarCommissionCommissionCommission = document.forms['employeeSolarCommissionForm'].employeeSolarCommissionCommissionCommission;
+    if (employeeSolarCommissionCommissionCommission != null) {
+        if (employeeSolarCommissionCommissionCommission.length != null) {
+            for (var i = 0; i < employeeSolarCommissionCommissionCommission.length; i++) {
+                tryNumberFormatCurrentcy(employeeSolarCommissionCommissionFrom[i], "USD");
+                tryNumberFormatCurrentcy(employeeSolarCommissionCommissionTo[i], "USD");
+                tryNumberFormatCurrentcy(employeeSolarCommissionCommissionCommission[i], "USD");
+            }
+        } else {
+            tryNumberFormatCurrentcy(employeeSolarCommissionCommissionFrom, "USD");
+            tryNumberFormatCurrentcy(employeeSolarCommissionCommissionTo, "USD");
+            tryNumberFormatCurrentcy(employeeSolarCommissionCommissionCommission, "USD");
+        }
+    }
+    employeeSolarCommissionCommissionFrom = null;
+    employeeSolarCommissionCommissionTo = null;
+    employeeSolarCommissionCommissionCommission = null;
+}
+function reformatEmployeeSolarCommissionCommissionDetail() {
+    var employeeSolarCommissionCommissionFrom = document.forms['employeeSolarCommissionForm'].employeeSolarCommissionCommissionFrom;
+    var employeeSolarCommissionCommissionTo = document.forms['employeeSolarCommissionForm'].employeeSolarCommissionCommissionTo;
+    var employeeSolarCommissionCommissionCommission = document.forms['employeeSolarCommissionForm'].employeeSolarCommissionCommissionCommission;
+    if (employeeSolarCommissionCommissionCommission != null) {
+        if (employeeSolarCommissionCommissionCommission.length != null) {
+            for (var i = 0; i < employeeSolarCommissionCommissionCommission.length; i++) {
+                reformatNumberMoney(employeeSolarCommissionCommissionFrom[i]);
+                reformatNumberMoney(employeeSolarCommissionCommissionTo[i]);
+                reformatNumberMoney(employeeSolarCommissionCommissionCommission[i]);
+            }
+        } else {
+            reformatNumberMoney(employeeSolarCommissionCommissionFrom);
+            reformatNumberMoney(employeeSolarCommissionCommissionTo);
+            reformatNumberMoney(employeeSolarCommissionCommissionCommission);
+        }
+    }
+    employeeSolarCommissionCommissionFrom = null;
+    employeeSolarCommissionCommissionTo = null;
+    employeeSolarCommissionCommissionCommission = null;
+}
+
 function delEmployeeSolarCommission() {
     callAjaxCheckError('delEmployeeSolarCommission.do?employeeSolarCommissionId=' + document.forms['employeeSolarCommissionForm'].id.value, null, null, function() {
         loadEmployeeSolarCommissionPanel();
