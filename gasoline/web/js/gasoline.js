@@ -11,7 +11,6 @@ var savedFromDate = '';
 var savedToDate = '';
 var savedDayoff = 0;
 var savedQuantityDayoff = 0;
-var selectedCombo = '';
 function createLayout() {
     dhxLayout = new dhtmlXLayoutObject(document.body, "2E", "dhx_web");
     dhxLayout.setEffect("resize", false);

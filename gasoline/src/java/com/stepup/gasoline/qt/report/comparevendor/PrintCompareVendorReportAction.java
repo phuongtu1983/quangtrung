@@ -5,11 +5,15 @@
 package com.stepup.gasoline.qt.report.comparevendor;
 
 import com.stepup.core.util.LogUtil;
+import com.stepup.core.util.NumberUtil;
+import com.stepup.gasoline.qt.bean.OrganizationBean;
 import com.stepup.gasoline.qt.core.BaseAction;
 import com.stepup.gasoline.qt.core.ExcelExport;
+import com.stepup.gasoline.qt.dao.OrganizationDAO;
 import com.stepup.gasoline.qt.dao.ReportDAO;
-import com.stepup.gasoline.qt.report.CashBookReportOutBean;
+import com.stepup.gasoline.qt.dao.VendorDAO;
 import com.stepup.gasoline.qt.util.QTUtil;
+import com.stepup.gasoline.qt.vendor.VendorFormBean;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
@@ -33,15 +37,19 @@ public class PrintCompareVendorReportAction extends BaseAction {
             ExcelExport exporter = new ExcelExport();
             String fromDate = request.getParameter("fromDate");
             String toDate = request.getParameter("toDate");
-            String moduleId = request.getParameter("moduleId");
+            int vendorId = NumberUtil.parseInt(request.getParameter("vendorId"), 0);
             String organizationIds = QTUtil.getOrganizationManageds(request.getSession());
             ArrayList list = null;
-            CashBookReportOutBean outBean = new CashBookReportOutBean();
-            ReportDAO reportDAO = new ReportDAO();
-            list = reportDAO.getCashBookReport(fromDate, toDate, organizationIds, outBean);
-            beans.put("qtrp_accountOpeningStock", outBean.getAccountOpeningStock());
-            beans.put("qtrp_cashOpeningStock", outBean.getCashOpeningStock());
-            String templateFileName = request.getSession().getServletContext().getRealPath("/templates/bao_cao_quy_tien.xls");
+            CompareVendorReportOutBean outBean = new CompareVendorReportOutBean();
+            list = printCompareVendorReport(fromDate, toDate, vendorId, organizationIds, outBean);
+            beans.put("qtrp_companyName", outBean.getCompanyName());
+            beans.put("qtrp_companyAddress", outBean.getCompanyAddress());
+            beans.put("qtrp_companyPhone", outBean.getCompanyPhone());
+            beans.put("qtrp_companyFax", outBean.getCompanyFax());
+            beans.put("qtrp_vendorName", outBean.getVendorName());
+            beans.put("qtrp_openingStock", outBean.getOpeningStockAmount());
+            beans.put("qtrp_endingStock", outBean.getEndingStockAmount());
+            String templateFileName = request.getSession().getServletContext().getRealPath("/templates/doi_chieu_ncc.xls");
             beans.put("qtrp_fromDate", fromDate);
             beans.put("qtrp_toDate", toDate);
             if (list == null) {
@@ -49,7 +57,7 @@ public class PrintCompareVendorReportAction extends BaseAction {
             }
             beans.put("dulieu", list);
             exporter.setBeans(beans);
-            exporter.export(request, response, templateFileName, "report_bao_cao_quy_tien_module.xls");
+            exporter.export(request, response, templateFileName, "report_compare_ncc.xls");
         } catch (Exception ex) {
             LogUtil.error("FAILED:PrintReportAction:print-" + ex.getMessage());
         }
@@ -60,5 +68,28 @@ public class PrintCompareVendorReportAction extends BaseAction {
     @Override
     protected boolean isReturnStream() {
         return true;
+    }
+
+    private ArrayList printCompareVendorReport(String fromDate, String toDate, int vendorId, String organizationIds, CompareVendorReportOutBean outBean) {
+        ArrayList list = null;
+        try {
+            OrganizationDAO organizationDAO = new OrganizationDAO();
+            OrganizationBean orgBean = organizationDAO.getOrganization(organizationIds);
+            if (orgBean != null) {
+                outBean.setCompanyAddress(orgBean.getAddress());
+                outBean.setCompanyFax(orgBean.getFax());
+                outBean.setCompanyName(orgBean.getName());
+                outBean.setCompanyPhone(orgBean.getPhone());
+            }
+            VendorDAO vendorDAO = new VendorDAO();
+            VendorFormBean vendorBean = vendorDAO.getVendor(vendorId);
+            if (vendorBean != null) {
+                outBean.setVendorName(vendorBean.getName());
+            }
+            ReportDAO reportDAO = new ReportDAO();
+            list = reportDAO.getCompareVendorReport(fromDate, toDate, organizationIds, vendorId, outBean);
+        } catch (Exception ex) {
+        }
+        return list;
     }
 }

@@ -51,7 +51,7 @@ public class PrintSolarCompareReportAction extends BaseAction {
             beans.put("qtrp_customerAddress", outBean.getCustomerAddress());
             beans.put("qtrp_customerPhone", outBean.getCustomerPhone());
             beans.put("qtrp_openingAmountStock", outBean.getOpeningAmountStock());
-            beans.put("qtrp_customerCommission", outBean.getCustomerCommission());
+//            beans.put("qtrp_customerCommission", outBean.getCustomerCommission());
             beans.put("qtrp_customerCommissionAmount", outBean.getCustomerCommissionAmount());
             beans.put("qtrp_customerPaid", outBean.getCustomerPaid());
             String templateFileName = request.getSession().getServletContext().getRealPath("/templates/doi_chieu_solar.xls");
