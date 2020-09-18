@@ -6247,38 +6247,39 @@ function saveSalePetro() {
         return false;
     var quantity = document.forms['salePetroForm'].quantity;
     if (quantity == null) {
-        alert('Vui l\u00F2ng ch\u1ECDn h\u00E0ng h\u00F3a');
-        return false;
-    }
-    var price = document.forms['salePetroForm'].price;
-    var amount = document.forms['salePetroForm'].amount;
-    if (quantity.length != null) {
-        for (var i = 0; i < quantity.length; i++) {
-            var number = Number(quantity[i].value);
-            if (number == 0) {
+        //alert('Vui l\u00F2ng ch\u1ECDn h\u00E0ng h\u00F3a');
+        //return false;
+    } else {
+        var price = document.forms['salePetroForm'].price;
+        var amount = document.forms['salePetroForm'].amount;
+        if (quantity.length != null) {
+            for (var i = 0; i < quantity.length; i++) {
+                var number = Number(quantity[i].value);
+                if (number == 0) {
+                    alert('Vui l\u00F2ng nh\u1EADp s\u1ED1 l\u01B0\u1EE3ng');
+                    quantity[i].focus();
+                    quantity = null;
+                    return false;
+                }
+                reformatNumberMoney(quantity[i]);
+                reformatNumberMoney(price[i]);
+                reformatNumberMoney(amount[i]);
+            }
+        } else {
+            if (quantity.value == "0") {
                 alert('Vui l\u00F2ng nh\u1EADp s\u1ED1 l\u01B0\u1EE3ng');
-                quantity[i].focus();
+                quantity.focus();
                 quantity = null;
                 return false;
             }
-            reformatNumberMoney(quantity[i]);
-            reformatNumberMoney(price[i]);
-            reformatNumberMoney(amount[i]);
+            reformatNumberMoney(quantity);
+            reformatNumberMoney(price);
+            reformatNumberMoney(amount);
         }
-    } else {
-        if (quantity.value == "0") {
-            alert('Vui l\u00F2ng nh\u1EADp s\u1ED1 l\u01B0\u1EE3ng');
-            quantity.focus();
-            quantity = null;
-            return false;
-        }
-        reformatNumberMoney(quantity);
-        reformatNumberMoney(price);
-        reformatNumberMoney(amount);
+        quantity = null;
+        price = null;
+        amount = null;
     }
-    quantity = null;
-    price = null;
-    amount = null;
     reformatNumberMoney(document.forms['salePetroForm'].total);
     reformatNumberMoney(document.forms['salePetroForm'].paid);
     reformatNumberMoney(document.forms['salePetroForm'].debt);
@@ -16536,7 +16537,7 @@ function saveSaleSolar() {
     var amount = document.forms['saleSolarForm'].amount;
 
     var quantity = document.forms['saleSolarForm'].quantity;
-    if (quantity == null) {
+    if (quantity != null) {
         if (quantity.length != null) {
             for (var i = 0; i < quantity.length; i++) {
                 var number = Number(quantity[i].value);
@@ -17403,7 +17404,7 @@ function printSolarCompareCustomerCommissionReport(fromDate, toDate) {
     return false;
 }
 function showSolarCompareReportPanel() {
-    popupName = '\u0110\u1ED1i chi\u1EBFu d\u1EA7u nh\u1EDBt';
+    popupName = '\u0110\u1ED1i chi\u1EBFu NLMT';
     var url = 'getSolarCompareReportPanel.do';
     callAjax(url, null, null, function(data) {
         showPopupForm(data);
