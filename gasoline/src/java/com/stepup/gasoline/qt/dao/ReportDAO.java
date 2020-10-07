@@ -4409,6 +4409,8 @@ public class ReportDAO extends BasicDAO {
                     SolarCompareReportBean bean = null;
                     int count = 1;
 //                    double commission = 0;
+                    int oldId = 0;
+                    int id = 0;
                     while (rs.next()) {
                         bean = new SolarCompareReportBean();
                         bean.setDate(DateUtil.formatDate(rs.getDate("created_date"), "dd/MM"));
@@ -4418,7 +4420,11 @@ public class ReportDAO extends BasicDAO {
                         bean.setQuantity(rs.getInt("quantity"));
                         bean.setPrice(rs.getDouble("price"));
                         bean.setAmount(rs.getDouble("amount"));
-                        bean.setPaid(rs.getDouble("paid"));
+                        id = rs.getInt("id");
+                        if (oldId != id && id != 0) {
+                            oldId = rs.getInt("id");
+                            bean.setPaid(rs.getDouble("paid"));
+                        }
 //                        commission += rs.getDouble("commission");
                         list.add(bean);
                     }
